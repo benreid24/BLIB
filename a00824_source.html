@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Scripts/Script.hpp Source File</title>
+<title>BLIB: include/BLIB/Resources/Bundling/BundleMetadata.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,112 +66,87 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_9fb35b166bb00afcaa31ece623ebed60.html">Scripts</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_70ae3ed4186da77d71126d34066606f0.html">Resources</a></li><li class="navelem"><a class="el" href="dir_8c0830a2e11435882738e77910337c62.html">Bundling</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Script.hpp</div>  </div>
+<div class="title">BundleMetadata.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00824.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_SCRIPTS_SCRIPT_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_SCRIPTS_SCRIPT_HPP</span></div>
+<a href="a00824.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RESOURCES_BUNDLING_BUNDLEMETADATA_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RESOURCES_BUNDLING_BUNDLEMETADATA_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00497.html">BLIB/Parser/Node.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00806.html">BLIB/Scripts/Context.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00827.html">BLIB/Scripts/SymbolTable.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;atomic&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;mutex&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;optional&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;thread&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01628.html">bl</a></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00821.html">BLIB/Resources/Bundling/BundledFileMetadata.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00956.html">BLIB/Serialization.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01736.html">bl</a></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>resource</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span>bundle</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span>engine</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">class </span>Engine;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;}</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">namespace </span>script</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;{</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">class </span>Manager;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a03153.html">   30</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03153.html">Script</a> {</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="a03153.html#a169a772d20de6bf5825ee587a32fc8e7">getFullScriptPath</a>(std::string&amp; path);</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <a class="code" href="a03153.html#a4aac30cd37f26b14b91a4e019b5232df">Script</a>(<span class="keyword">const</span> std::string&amp; data);</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <a class="code" href="a03153.html#a4aac30cd37f26b14b91a4e019b5232df">Script</a>(<span class="keyword">const</span> std::string&amp; data, <span class="keyword">const</span> <a class="code" href="a03121.html">Context</a>&amp; ctx);</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <a class="code" href="a03153.html#a4aac30cd37f26b14b91a4e019b5232df">Script</a>(<span class="keyword">const</span> std::string&amp; script, <span class="keyword">const</span> <a class="code" href="a03161.html">SymbolTable</a>&amp; startingTable);</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a03153.html#a0ac39ed384b38fb7eb08f30be44fed34">valid</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keyword">const</span> std::string&amp; <a class="code" href="a03153.html#abc73a9e723f50f88920dae6f34b28a31">errorMessage</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03153.html#aef3618c17f3baef3331cd0128d899183">resetContext</a>(<span class="keyword">const</span> <a class="code" href="a03121.html">Context</a>&amp; context, <span class="keywordtype">bool</span> clear = <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    std::optional&lt;script::Value&gt; <a class="code" href="a03153.html#aeae73e353105783f1e01364aff7f6bcc">run</a>(<a class="code" href="a03137.html">Manager</a>* manager = <span class="keyword">nullptr</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03153.html#a984f8ef988f91d6122def4cbd5f5bdf3">runBackground</a>(<a class="code" href="a03137.html">Manager</a>* manager = <span class="keyword">nullptr</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <a class="code" href="a02525.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a> root;</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keyword">const</span> std::string source;</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    std::string error;</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <a class="code" href="a03161.html">SymbolTable</a> defaultTable;</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keyword">struct </span>ExecutionContext : <span class="keyword">public</span> std::enable_shared_from_this&lt;ExecutionContext&gt; {</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        <span class="keyword">typedef</span> std::shared_ptr&lt;ExecutionContext&gt; Ptr;</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        <span class="keyword">typedef</span> std::weak_ptr&lt;ExecutionContext&gt; WPtr;</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        <a class="code" href="a02525.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a> root;</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        <span class="keyword">const</span> std::string source;</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        std::shared_ptr&lt;std::thread&gt; thread;</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        <a class="code" href="a03161.html">script::SymbolTable</a> table;</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        std::atomic_bool running;</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        ExecutionContext(<a class="code" href="a02525.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a> root, <span class="keyword">const</span> <a class="code" href="a03161.html">SymbolTable</a>&amp; table,</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;                         <span class="keyword">const</span> std::string&amp; source)</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        : root(root)</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        , source(source)</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        , table(table)</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        , running(<span class="keyword">true</span>) {}</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    };</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    <a class="code" href="a03153.html#a4aac30cd37f26b14b91a4e019b5232df">Script</a>(<span class="keyword">const</span> std::string&amp; data, <span class="keywordtype">bool</span> addDefaults);</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <span class="keyword">static</span> std::optional&lt;script::Value&gt; execute(ExecutionContext::Ptr context);</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160; </div>
-<div class="line"><a name="l00134"></a><span class="lineno"><a class="line" href="a03153.html#adddd5c43ff870a047aa66db4edf82a7e">  134</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a03137.html">Manager</a>;</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;};</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160; </div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;} <span class="comment">// namespace script</span></div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160; </div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00497_html"><div class="ttname"><a href="a00497.html">Node.hpp</a></div></div>
-<div class="ttc" id="aa00806_html"><div class="ttname"><a href="a00806.html">Context.hpp</a></div></div>
-<div class="ttc" id="aa00827_html"><div class="ttname"><a href="a00827.html">SymbolTable.hpp</a></div></div>
-<div class="ttc" id="aa01628_html"><div class="ttname"><a href="a01628.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02525_html_a3f49fe9da8742463aa757f89f67a8827"><div class="ttname"><a href="a02525.html#a3f49fe9da8742463aa757f89f67a8827">bl::parser::Node::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; Node &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00497_source.html#l00024">Node.hpp:24</a></div></div>
-<div class="ttc" id="aa03121_html"><div class="ttname"><a href="a03121.html">bl::script::Context</a></div><div class="ttdoc">A context to run a script with. Custom context classes may be created to have different types of scri...</div><div class="ttdef"><b>Definition:</b> <a href="a00806_source.html#l00020">Context.hpp:20</a></div></div>
-<div class="ttc" id="aa03137_html"><div class="ttname"><a href="a03137.html">bl::script::Manager</a></div><div class="ttdoc">Utility class that can manage sets of concurrently running scripts.</div><div class="ttdef"><b>Definition:</b> <a href="a00815_source.html#l00018">Manager.hpp:18</a></div></div>
-<div class="ttc" id="aa03153_html"><div class="ttname"><a href="a03153.html">bl::script::Script</a></div><div class="ttdoc">Loads scripts. Can run scripts directly or in the background. Is threadsafe.</div><div class="ttdef"><b>Definition:</b> <a href="a00824_source.html#l00030">Script.hpp:30</a></div></div>
-<div class="ttc" id="aa03153_html_a0ac39ed384b38fb7eb08f30be44fed34"><div class="ttname"><a href="a03153.html#a0ac39ed384b38fb7eb08f30be44fed34">bl::script::Script::valid</a></div><div class="ttdeci">bool valid() const</div><div class="ttdoc">Returns if the Script is valid or not.</div><div class="ttdef"><b>Definition:</b> <a href="a01520_source.html#l00067">Script.cpp:67</a></div></div>
-<div class="ttc" id="aa03153_html_a169a772d20de6bf5825ee587a32fc8e7"><div class="ttname"><a href="a03153.html#a169a772d20de6bf5825ee587a32fc8e7">bl::script::Script::getFullScriptPath</a></div><div class="ttdeci">static bool getFullScriptPath(std::string &amp;path)</div><div class="ttdoc">Modifies the given script to its full file path and returns true if the script points to a file....</div><div class="ttdef"><b>Definition:</b> <a href="a01520_source.html#l00017">Script.cpp:17</a></div></div>
-<div class="ttc" id="aa03153_html_a4aac30cd37f26b14b91a4e019b5232df"><div class="ttname"><a href="a03153.html#a4aac30cd37f26b14b91a4e019b5232df">bl::script::Script::Script</a></div><div class="ttdeci">Script(const std::string &amp;data)</div><div class="ttdoc">Determines if the input is a file, then loads the script from the file or from the input directly.</div><div class="ttdef"><b>Definition:</b> <a href="a01520_source.html#l00054">Script.cpp:54</a></div></div>
-<div class="ttc" id="aa03153_html_a984f8ef988f91d6122def4cbd5f5bdf3"><div class="ttname"><a href="a03153.html#a984f8ef988f91d6122def4cbd5f5bdf3">bl::script::Script::runBackground</a></div><div class="ttdeci">void runBackground(Manager *manager=nullptr) const</div><div class="ttdoc">Runs the script in the background.</div><div class="ttdef"><b>Definition:</b> <a href="a01520_source.html#l00083">Script.cpp:83</a></div></div>
-<div class="ttc" id="aa03153_html_abc73a9e723f50f88920dae6f34b28a31"><div class="ttname"><a href="a03153.html#abc73a9e723f50f88920dae6f34b28a31">bl::script::Script::errorMessage</a></div><div class="ttdeci">const std::string &amp; errorMessage() const</div><div class="ttdoc">Returns an error message for the last parsing error that occured.</div><div class="ttdef"><b>Definition:</b> <a href="a01520_source.html#l00069">Script.cpp:69</a></div></div>
-<div class="ttc" id="aa03153_html_aeae73e353105783f1e01364aff7f6bcc"><div class="ttname"><a href="a03153.html#aeae73e353105783f1e01364aff7f6bcc">bl::script::Script::run</a></div><div class="ttdeci">std::optional&lt; script::Value &gt; run(Manager *manager=nullptr) const</div><div class="ttdoc">Runs the script in the current thread.</div><div class="ttdef"><b>Definition:</b> <a href="a01520_source.html#l00076">Script.cpp:76</a></div></div>
-<div class="ttc" id="aa03153_html_aef3618c17f3baef3331cd0128d899183"><div class="ttname"><a href="a03153.html#aef3618c17f3baef3331cd0128d899183">bl::script::Script::resetContext</a></div><div class="ttdeci">void resetContext(const Context &amp;context, bool clear=false)</div><div class="ttdoc">Recreates the script's starting symbol table from a new context. Optionally clears the existing symbo...</div><div class="ttdef"><b>Definition:</b> <a href="a01520_source.html#l00071">Script.cpp:71</a></div></div>
-<div class="ttc" id="aa03161_html"><div class="ttname"><a href="a03161.html">bl::script::SymbolTable</a></div><div class="ttdoc">Stack aware symbol table for managing functions and variables Each Script holds a single instance.</div><div class="ttdef"><b>Definition:</b> <a href="a00827_source.html#l00026">SymbolTable.hpp:26</a></div></div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a03207.html">   21</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03207.html">BundleMetadata</a> {</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="a03207.html#a32560d41260ba319e01b22a4e84518aa">   27</a></span>&#160;    <a class="code" href="a03207.html#a32560d41260ba319e01b22a4e84518aa">BundleMetadata</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03207.html#a3703c69b35ae0f1f187e73ff5e8e3159">addFileInfo</a>(<span class="keyword">const</span> std::string&amp; path, <span class="keyword">const</span> <a class="code" href="a03199.html">BundledFileMetadata</a>&amp; info);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <a class="code" href="a03199.html">BundledFileMetadata</a> <a class="code" href="a03207.html#a5ee5ad07b7fe5b2d1e6f815810e059cd">getFileInfo</a>(<span class="keyword">const</span> std::string&amp; path) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a03207.html#a98ffb4582c0b6b07d39c5e43042fd1ae">save</a>(std::ostream&amp; stream) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a03207.html#af644d928891785dc98ff4eb2a4dfecda">load</a>(std::istream&amp; stream);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="a03207.html#a5a6d0b7252ba89d65dc7ddd77b89dffe">   62</a></span>&#160;    std::unordered_map&lt;std::string, BundledFileMetadata&gt; manifest;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keyword">friend</span> <span class="keyword">struct </span><a class="code" href="a03663.html">serial::SerializableObject</a>&lt;<a class="code" href="a03207.html">BundleMetadata</a>&gt;;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;};</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;} <span class="comment">// namespace bundle</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;} <span class="comment">// namespace resource</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="keyword">namespace </span>serial</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;{</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="keyword">template</span>&lt;&gt;</div>
+<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="a03211.html">   73</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a03663.html">SerializableObject</a>&lt;resource::bundle::BundleMetadata&gt; : <span class="keyword">public</span> <a class="code" href="a03659.html">SerializableObjectBase</a> {</div>
+<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="a03211.html#acfbbeffb28ed3b3be70751d131e630fc">   74</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a03207.html">T</a>  = <a class="code" href="a03207.html">resource::bundle::BundleMetadata</a>;</div>
+<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="a03211.html#a8bf8d62829f27b8dbfd86bc21d4a2440">   75</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a03199.html">MD</a> = <a class="code" href="a03199.html">resource::bundle::BundledFileMetadata</a>;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="a03211.html#aff20d33a9d91d0cc1b71fa90c27e00fa">   77</a></span>&#160;    <a class="code" href="a03643.html">SerializableField&lt;1, T, std::unordered_map&lt;std::string, MD&gt;</a>&gt; <a class="code" href="a03211.html#aff20d33a9d91d0cc1b71fa90c27e00fa">manifest</a>;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="a03211.html#a8db639b3743aa578bec9840952b789b0">   79</a></span>&#160;    <a class="code" href="a03211.html#a8db639b3743aa578bec9840952b789b0">SerializableObject</a>()</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    : <a class="code" href="a03659.html">SerializableObjectBase</a>(<span class="stringliteral">&quot;BundleMetadata&quot;</span>)</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    , manifest(<span class="stringliteral">&quot;manifest&quot;</span>, *this, &amp;<a class="code" href="a03207.html">T</a>::manifest, <a class="code" href="a03631.html">SerializableFieldBase</a>::Required{}) {}</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;};</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;} <span class="comment">// namespace serial</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00821_html"><div class="ttname"><a href="a00821.html">BundledFileMetadata.hpp</a></div></div>
+<div class="ttc" id="aa00956_html"><div class="ttname"><a href="a00956.html">Serialization.hpp</a></div></div>
+<div class="ttc" id="aa01736_html"><div class="ttname"><a href="a01736.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03199_html"><div class="ttname"><a href="a03199.html">bl::resource::bundle::BundledFileMetadata</a></div><div class="ttdoc">Basic struct containing metadata about a file in a bundle.</div><div class="ttdef"><b>Definition:</b> <a href="a00821_source.html#l00019">BundledFileMetadata.hpp:19</a></div></div>
+<div class="ttc" id="aa03207_html"><div class="ttname"><a href="a03207.html">bl::resource::bundle::BundleMetadata</a></div><div class="ttdoc">Class containing a file manifest for an individual bundle. Essentially a wrapped map of string -&gt; Bun...</div><div class="ttdef"><b>Definition:</b> <a href="a00824_source.html#l00021">BundleMetadata.hpp:21</a></div></div>
+<div class="ttc" id="aa03207_html_a32560d41260ba319e01b22a4e84518aa"><div class="ttname"><a href="a03207.html#a32560d41260ba319e01b22a4e84518aa">bl::resource::bundle::BundleMetadata::BundleMetadata</a></div><div class="ttdeci">BundleMetadata()=default</div><div class="ttdoc">Construct an empty Bundle Metadata object.</div></div>
+<div class="ttc" id="aa03207_html_a3703c69b35ae0f1f187e73ff5e8e3159"><div class="ttname"><a href="a03207.html#a3703c69b35ae0f1f187e73ff5e8e3159">bl::resource::bundle::BundleMetadata::addFileInfo</a></div><div class="ttdeci">void addFileInfo(const std::string &amp;path, const BundledFileMetadata &amp;info)</div><div class="ttdoc">Adds information for the given file to the bundle manifest.</div><div class="ttdef"><b>Definition:</b> <a href="a01577_source.html#l00011">BundleMetadata.cpp:11</a></div></div>
+<div class="ttc" id="aa03207_html_a5ee5ad07b7fe5b2d1e6f815810e059cd"><div class="ttname"><a href="a03207.html#a5ee5ad07b7fe5b2d1e6f815810e059cd">bl::resource::bundle::BundleMetadata::getFileInfo</a></div><div class="ttdeci">BundledFileMetadata getFileInfo(const std::string &amp;path) const</div><div class="ttdoc">Get the information locating a specific file in the bundle.</div><div class="ttdef"><b>Definition:</b> <a href="a01577_source.html#l00015">BundleMetadata.cpp:15</a></div></div>
+<div class="ttc" id="aa03207_html_a98ffb4582c0b6b07d39c5e43042fd1ae"><div class="ttname"><a href="a03207.html#a98ffb4582c0b6b07d39c5e43042fd1ae">bl::resource::bundle::BundleMetadata::save</a></div><div class="ttdeci">bool save(std::ostream &amp;stream) const</div><div class="ttdoc">Saves the bundle metadata to the given stream.</div><div class="ttdef"><b>Definition:</b> <a href="a01577_source.html#l00020">BundleMetadata.cpp:20</a></div></div>
+<div class="ttc" id="aa03207_html_af644d928891785dc98ff4eb2a4dfecda"><div class="ttname"><a href="a03207.html#af644d928891785dc98ff4eb2a4dfecda">bl::resource::bundle::BundleMetadata::load</a></div><div class="ttdeci">bool load(std::istream &amp;stream)</div><div class="ttdoc">Loads the bundle metadata from the given stream.</div><div class="ttdef"><b>Definition:</b> <a href="a01577_source.html#l00026">BundleMetadata.cpp:26</a></div></div>
+<div class="ttc" id="aa03211_html_a8db639b3743aa578bec9840952b789b0"><div class="ttname"><a href="a03211.html#a8db639b3743aa578bec9840952b789b0">bl::serial::SerializableObject&lt; resource::bundle::BundleMetadata &gt;::SerializableObject</a></div><div class="ttdeci">SerializableObject()</div><div class="ttdef"><b>Definition:</b> <a href="a00824_source.html#l00079">BundleMetadata.hpp:79</a></div></div>
+<div class="ttc" id="aa03211_html_aff20d33a9d91d0cc1b71fa90c27e00fa"><div class="ttname"><a href="a03211.html#aff20d33a9d91d0cc1b71fa90c27e00fa">bl::serial::SerializableObject&lt; resource::bundle::BundleMetadata &gt;::manifest</a></div><div class="ttdeci">SerializableField&lt; 1, T, std::unordered_map&lt; std::string, MD &gt; &gt; manifest</div><div class="ttdef"><b>Definition:</b> <a href="a00824_source.html#l00077">BundleMetadata.hpp:77</a></div></div>
+<div class="ttc" id="aa03631_html"><div class="ttname"><a href="a03631.html">bl::serial::SerializableFieldBase</a></div><div class="ttdoc">Base class for SerializableField objects. Not to be used directly.</div><div class="ttdef"><b>Definition:</b> <a href="a00950_source.html#l00040">SerializableField.hpp:40</a></div></div>
+<div class="ttc" id="aa03643_html"><div class="ttname"><a href="a03643.html">bl::serial::SerializableField</a></div><div class="ttdoc">Represents a field in a class that can be serialized. Serializable objects should inherit from Serial...</div><div class="ttdef"><b>Definition:</b> <a href="a00950_source.html#l00203">SerializableField.hpp:203</a></div></div>
+<div class="ttc" id="aa03659_html"><div class="ttname"><a href="a03659.html">bl::serial::SerializableObjectBase</a></div><div class="ttdoc">Base class for all serializable objects.</div><div class="ttdef"><b>Definition:</b> <a href="a00953_source.html#l00021">SerializableObject.hpp:21</a></div></div>
+<div class="ttc" id="aa03663_html"><div class="ttname"><a href="a03663.html">bl::serial::SerializableObject</a></div><div class="ttdoc">Base class for user defined classes meant to be serialized to and from JSON. Data members of serializ...</div><div class="ttdef"><b>Definition:</b> <a href="a00953_source.html#l00144">SerializableObject.hpp:144</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jul 13 2023 20:06:09 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jul 25 2023 19:26:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

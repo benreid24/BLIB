@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Vulkan/RenderPass.cpp Source File</title>
+<title>BLIB: src/Render/Graph/Strategies/ForwardRenderStrategy.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,68 +66,43 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_2a24e9216d188d12785cf0650df1274b.html">Vulkan</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_7ebf59129457ae24134db92256c2545a.html">Graph</a></li><li class="navelem"><a class="el" href="dir_838c988e0ffb30f80d8a7dca6d2e696f.html">Strategies</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">RenderPass.cpp</div>  </div>
+<div class="title">ForwardRenderStrategy.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01430.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00722.html">BLIB/Render/Vulkan/RenderPass.hpp</a>&gt;</span></div>
+<a href="a01430.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00641.html">BLIB/Render/Graph/Strategies/ForwardRenderStrategy.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01628.html">bl</a></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>rc</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>vk</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a02945.html#ad011998d18306cfe27a9e94d15cf2460">    9</a></span>&#160;<a class="code" href="a02945.html#ad011998d18306cfe27a9e94d15cf2460">RenderPass::RenderPass</a>(<a class="code" href="a02981.html">VulkanState</a>&amp; vs, <a class="code" href="a02949.html">RenderPassParameters</a>&amp;&amp; params)</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;: vulkanState(vs) {</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    std::vector&lt;VkSubpassDescription&gt; subpasses;</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    subpasses.reserve(params.subpasses.size());</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; sp : params.subpasses) {</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        subpasses.emplace_back();</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        subpasses.back().pipelineBindPoint    = VK_PIPELINE_BIND_POINT_GRAPHICS;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        subpasses.back().colorAttachmentCount = sp.colorAttachments.size();</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        subpasses.back().pColorAttachments    = sp.colorAttachments.data();</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        <span class="keywordflow">if</span> (sp.depthAttachment.has_value()) {</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;            subpasses.back().pDepthStencilAttachment = &amp;sp.depthAttachment.value();</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        }</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    }</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    VkRenderPassCreateInfo renderPassInfo{};</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    renderPassInfo.sType           = VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    renderPassInfo.attachmentCount = params.attachments.size();</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    renderPassInfo.pAttachments    = params.attachments.data();</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    renderPassInfo.subpassCount    = subpasses.size();</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    renderPassInfo.pSubpasses      = subpasses.data();</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    renderPassInfo.dependencyCount = params.dependencies.size();</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    renderPassInfo.pDependencies   = params.dependencies.data();</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordflow">if</span> (vkCreateRenderPass(vulkanState.<a class="code" href="a02981.html#a6ad0249d08d9ffb87af35b42f11a1db5">device</a>, &amp;renderPassInfo, <span class="keyword">nullptr</span>, &amp;renderPass) !=</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        VK_SUCCESS) {</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Failed to create render pass&quot;</span>);</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    }</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;}</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="a02945.html#abd170528aea214831e7e4f49d515dd62">   38</a></span>&#160;<a class="code" href="a02945.html#abd170528aea214831e7e4f49d515dd62">RenderPass::~RenderPass</a>() { vkDestroyRenderPass(vulkanState.<a class="code" href="a02981.html#a6ad0249d08d9ffb87af35b42f11a1db5">device</a>, renderPass, <span class="keyword">nullptr</span>); }</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;} <span class="comment">// namespace vk</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00722_html"><div class="ttname"><a href="a00722.html">RenderPass.hpp</a></div></div>
-<div class="ttc" id="aa01628_html"><div class="ttname"><a href="a01628.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02945_html_abd170528aea214831e7e4f49d515dd62"><div class="ttname"><a href="a02945.html#abd170528aea214831e7e4f49d515dd62">bl::rc::vk::RenderPass::~RenderPass</a></div><div class="ttdeci">~RenderPass()</div><div class="ttdoc">Destroy the Render Pass object.</div><div class="ttdef"><b>Definition:</b> <a href="a01430_source.html#l00038">RenderPass.cpp:38</a></div></div>
-<div class="ttc" id="aa02945_html_ad011998d18306cfe27a9e94d15cf2460"><div class="ttname"><a href="a02945.html#ad011998d18306cfe27a9e94d15cf2460">bl::rc::vk::RenderPass::RenderPass</a></div><div class="ttdeci">RenderPass(VulkanState &amp;vulkanState, RenderPassParameters &amp;&amp;params)</div><div class="ttdoc">Construct a new Render Pass.</div><div class="ttdef"><b>Definition:</b> <a href="a01430_source.html#l00009">RenderPass.cpp:9</a></div></div>
-<div class="ttc" id="aa02949_html"><div class="ttname"><a href="a02949.html">bl::rc::vk::RenderPassParameters</a></div><div class="ttdoc">Parameter builder class used to construct RenderPass objects in the renderer.</div><div class="ttdef"><b>Definition:</b> <a href="a00725_source.html#l00022">RenderPassParameters.hpp:22</a></div></div>
-<div class="ttc" id="aa02981_html"><div class="ttname"><a href="a02981.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a00743_source.html#l00036">VulkanState.hpp:36</a></div></div>
-<div class="ttc" id="aa02981_html_a6ad0249d08d9ffb87af35b42f11a1db5"><div class="ttname"><a href="a02981.html#a6ad0249d08d9ffb87af35b42f11a1db5">bl::rc::vk::VulkanState::device</a></div><div class="ttdeci">VkDevice device</div><div class="ttdef"><b>Definition:</b> <a href="a00743_source.html#l00201">VulkanState.hpp:201</a></div></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00638.html">BLIB/Render/Graph/RenderGraph.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00662.html">BLIB/Render/Graph/Tasks/ForwardRenderTask.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01736.html">bl</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>rgi</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="a02879.html#a7d62f1fa763d2c7156030c83062c22ad">   12</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02879.html#a7d62f1fa763d2c7156030c83062c22ad">ForwardRenderStrategy::populate</a>(<a class="code" href="a02867.html">rg::RenderGraph</a>&amp; graph) { graph.<a class="code" href="a02867.html#ae7f758d0ac6a624fa5d0ae1976edb2bb">putTask</a>&lt;<a class="code" href="a02907.html">ForwardRenderTask</a>&gt;(); }</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;} <span class="comment">// namespace rgi</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00638_html"><div class="ttname"><a href="a00638.html">RenderGraph.hpp</a></div></div>
+<div class="ttc" id="aa00641_html"><div class="ttname"><a href="a00641.html">ForwardRenderStrategy.hpp</a></div></div>
+<div class="ttc" id="aa00662_html"><div class="ttname"><a href="a00662.html">ForwardRenderTask.hpp</a></div></div>
+<div class="ttc" id="aa01736_html"><div class="ttname"><a href="a01736.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02867_html"><div class="ttname"><a href="a02867.html">bl::rc::rg::RenderGraph</a></div><div class="ttdoc">The core render graph functionality. Drives rendering for each observer.</div><div class="ttdef"><b>Definition:</b> <a href="a00638_source.html#l00030">RenderGraph.hpp:30</a></div></div>
+<div class="ttc" id="aa02867_html_ae7f758d0ac6a624fa5d0ae1976edb2bb"><div class="ttname"><a href="a02867.html#ae7f758d0ac6a624fa5d0ae1976edb2bb">bl::rc::rg::RenderGraph::putTask</a></div><div class="ttdeci">T * putTask(TArgs &amp;&amp;... args)</div><div class="ttdoc">Adds a new task to the graph to become a part of the render process.</div><div class="ttdef"><b>Definition:</b> <a href="a00638_source.html#l00052">RenderGraph.hpp:52</a></div></div>
+<div class="ttc" id="aa02879_html_a7d62f1fa763d2c7156030c83062c22ad"><div class="ttname"><a href="a02879.html#a7d62f1fa763d2c7156030c83062c22ad">bl::rc::rgi::ForwardRenderStrategy::populate</a></div><div class="ttdeci">virtual void populate(rg::RenderGraph &amp;graph) override</div><div class="ttdoc">Adds the forward rendering task to the given graph.</div><div class="ttdef"><b>Definition:</b> <a href="a01430_source.html#l00012">ForwardRenderStrategy.cpp:12</a></div></div>
+<div class="ttc" id="aa02907_html"><div class="ttname"><a href="a02907.html">bl::rc::rgi::ForwardRenderTask</a></div><div class="ttdoc">Basic forward renderer that calls into the scene render methods.</div><div class="ttdef"><b>Definition:</b> <a href="a00662_source.html#l00019">ForwardRenderTask.hpp:19</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jul 13 2023 20:06:09 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jul 25 2023 19:26:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

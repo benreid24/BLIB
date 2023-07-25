@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Vulkan/CommonSamplers.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Resources/PipelineCache.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,84 +66,64 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_49b99cfd015d92f767de1d8dec868906.html">Vulkan</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_0f0c454ab916ef2487b68a1bc3be1485.html">Resources</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">CommonSamplers.hpp</div>  </div>
+<div class="title">PipelineCache.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00695.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_VULKAN_COMMONSAMPLERS_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_VULKAN_COMMONSAMPLERS_HPP</span></div>
+<a href="a00695.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_RESOURCES_PIPELINECACHE_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_RESOURCES_PIPELINECACHE_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00977.html">BLIB/Vulkan.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01628.html">bl</a></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00779.html">BLIB/Render/Vulkan/Pipeline.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;cstdint&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01736.html">bl</a></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>vk</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>rc</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">struct </span>VulkanState;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">class </span>Renderer;</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a02877.html">   19</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02877.html">CommonSamplers</a> {</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    constexpr VkSampler <a class="code" href="a02877.html#a887d75e4a88c40f207e245a9de6d89b6">noFilterEdgeClamped</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    constexpr VkSampler <a class="code" href="a02877.html#a7bf3aa5b9992f8e35d819aa61f056f43">minFilterEdgeClamped</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    constexpr VkSampler <a class="code" href="a02877.html#a32fb508e1ae1bddeac359eb39e0c2e96">magFilterEdgeClamped</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    constexpr VkSampler <a class="code" href="a02877.html#aa63932116372b2d81d93813f5e7edfd3">filteredEdgeClamped</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span>res</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a02963.html">   21</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02963.html">PipelineCache</a> {</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <a class="code" href="a03119.html">vk::Pipeline</a>&amp; <a class="code" href="a02963.html#ab22abbcd5f0da2c18dbd75928e5c66fc">createPipline</a>(std::uint32_t pipelineId, <a class="code" href="a03139.html">vk::PipelineParameters</a>&amp;&amp; params);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <a class="code" href="a03119.html">vk::Pipeline</a>&amp; <a class="code" href="a02963.html#a1ae6ab4cbe018341e55753994fd46c66">getPipeline</a>(std::uint32_t pipelineId);</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    constexpr VkSampler <a class="code" href="a02877.html#a0fefa66f327fd347699cca2f71509e7a">filteredRepeated</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <a class="code" href="a02981.html">VulkanState</a>&amp; vulkanState;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    VkSampler noFilterClamped;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    VkSampler minFilterClamped;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    VkSampler magFilterClamped;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    VkSampler filteredClamped;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    VkSampler filteredTiled;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <a class="code" href="a02877.html">CommonSamplers</a>(<a class="code" href="a02981.html">VulkanState</a>&amp; vs);</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordtype">void</span> init();</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordtype">void</span> cleanup();</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="a02877.html#a88be4fe9fe4217b2dc1f69e6888906f6">   58</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">struct </span><a class="code" href="a02981.html">VulkanState</a>;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;};</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="a02877.html#a887d75e4a88c40f207e245a9de6d89b6">   63</a></span>&#160;<span class="keyword">inline</span> constexpr VkSampler <a class="code" href="a02877.html#a887d75e4a88c40f207e245a9de6d89b6">CommonSamplers::noFilterEdgeClamped</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> noFilterClamped; }</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
-<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="a02877.html#a7bf3aa5b9992f8e35d819aa61f056f43">   65</a></span>&#160;<span class="keyword">inline</span> constexpr VkSampler <a class="code" href="a02877.html#a7bf3aa5b9992f8e35d819aa61f056f43">CommonSamplers::minFilterEdgeClamped</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> minFilterClamped; }</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="a02877.html#a32fb508e1ae1bddeac359eb39e0c2e96">   67</a></span>&#160;<span class="keyword">inline</span> constexpr VkSampler <a class="code" href="a02877.html#a32fb508e1ae1bddeac359eb39e0c2e96">CommonSamplers::magFilterEdgeClamped</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> magFilterClamped; }</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="a02877.html#aa63932116372b2d81d93813f5e7edfd3">   69</a></span>&#160;<span class="keyword">inline</span> constexpr VkSampler <a class="code" href="a02877.html#aa63932116372b2d81d93813f5e7edfd3">CommonSamplers::filteredEdgeClamped</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> filteredClamped; }</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="a02877.html#a0fefa66f327fd347699cca2f71509e7a">   71</a></span>&#160;<span class="keyword">inline</span> constexpr VkSampler <a class="code" href="a02877.html#a0fefa66f327fd347699cca2f71509e7a">CommonSamplers::filteredRepeated</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> filteredTiled; }</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;} <span class="comment">// namespace vk</span></div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00977_html"><div class="ttname"><a href="a00977.html">Vulkan.hpp</a></div></div>
-<div class="ttc" id="aa01628_html"><div class="ttname"><a href="a01628.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02877_html"><div class="ttname"><a href="a02877.html">bl::rc::vk::CommonSamplers</a></div><div class="ttdoc">Helper class containing some common samplers to save on boilerplate.</div><div class="ttdef"><b>Definition:</b> <a href="a00695_source.html#l00019">CommonSamplers.hpp:19</a></div></div>
-<div class="ttc" id="aa02877_html_a0fefa66f327fd347699cca2f71509e7a"><div class="ttname"><a href="a02877.html#a0fefa66f327fd347699cca2f71509e7a">bl::rc::vk::CommonSamplers::filteredRepeated</a></div><div class="ttdeci">constexpr VkSampler filteredRepeated() const</div><div class="ttdoc">Returns a sampler with filtering and repeated addressing.</div><div class="ttdef"><b>Definition:</b> <a href="a00695_source.html#l00071">CommonSamplers.hpp:71</a></div></div>
-<div class="ttc" id="aa02877_html_a32fb508e1ae1bddeac359eb39e0c2e96"><div class="ttname"><a href="a02877.html#a32fb508e1ae1bddeac359eb39e0c2e96">bl::rc::vk::CommonSamplers::magFilterEdgeClamped</a></div><div class="ttdeci">constexpr VkSampler magFilterEdgeClamped() const</div><div class="ttdoc">Returns a sampler with mag filtering and clamped to border. Max anisotropy.</div><div class="ttdef"><b>Definition:</b> <a href="a00695_source.html#l00067">CommonSamplers.hpp:67</a></div></div>
-<div class="ttc" id="aa02877_html_a7bf3aa5b9992f8e35d819aa61f056f43"><div class="ttname"><a href="a02877.html#a7bf3aa5b9992f8e35d819aa61f056f43">bl::rc::vk::CommonSamplers::minFilterEdgeClamped</a></div><div class="ttdeci">constexpr VkSampler minFilterEdgeClamped() const</div><div class="ttdoc">Returns a sampler with min filtering and clamped to border. Max anisotropy.</div><div class="ttdef"><b>Definition:</b> <a href="a00695_source.html#l00065">CommonSamplers.hpp:65</a></div></div>
-<div class="ttc" id="aa02877_html_a887d75e4a88c40f207e245a9de6d89b6"><div class="ttname"><a href="a02877.html#a887d75e4a88c40f207e245a9de6d89b6">bl::rc::vk::CommonSamplers::noFilterEdgeClamped</a></div><div class="ttdeci">constexpr VkSampler noFilterEdgeClamped() const</div><div class="ttdoc">Returns a sampler with no filtering and clamped to border. Max anisotropy.</div><div class="ttdef"><b>Definition:</b> <a href="a00695_source.html#l00063">CommonSamplers.hpp:63</a></div></div>
-<div class="ttc" id="aa02877_html_aa63932116372b2d81d93813f5e7edfd3"><div class="ttname"><a href="a02877.html#aa63932116372b2d81d93813f5e7edfd3">bl::rc::vk::CommonSamplers::filteredEdgeClamped</a></div><div class="ttdeci">constexpr VkSampler filteredEdgeClamped() const</div><div class="ttdoc">Returns a sampler with filtering and clamped to border. Max anisotropy.</div><div class="ttdef"><b>Definition:</b> <a href="a00695_source.html#l00069">CommonSamplers.hpp:69</a></div></div>
-<div class="ttc" id="aa02981_html"><div class="ttname"><a href="a02981.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a00743_source.html#l00036">VulkanState.hpp:36</a></div></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <a class="code" href="a02947.html">Renderer</a>&amp; renderer;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    std::unordered_map&lt;std::uint32_t, vk::Pipeline&gt; cache;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <a class="code" href="a02963.html">PipelineCache</a>(<a class="code" href="a02947.html">Renderer</a>&amp; renderer);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordtype">void</span> cleanup();</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordtype">void</span> createBuiltins();</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="a02963.html#a1fc8c4ea65463b448e068f1287349540">   49</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a02947.html">bl::rc::Renderer</a>;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;};</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;} <span class="comment">// namespace res</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00779_html"><div class="ttname"><a href="a00779.html">Pipeline.hpp</a></div></div>
+<div class="ttc" id="aa01736_html"><div class="ttname"><a href="a01736.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02947_html"><div class="ttname"><a href="a02947.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition:</b> <a href="a04727_source.html#l00039">Renderer.hpp:39</a></div></div>
+<div class="ttc" id="aa02963_html"><div class="ttname"><a href="a02963.html">bl::rc::res::PipelineCache</a></div><div class="ttdoc">Basic cache to own and manage pipelines. Owned by the renderer.</div><div class="ttdef"><b>Definition:</b> <a href="a00695_source.html#l00021">PipelineCache.hpp:21</a></div></div>
+<div class="ttc" id="aa02963_html_a1ae6ab4cbe018341e55753994fd46c66"><div class="ttname"><a href="a02963.html#a1ae6ab4cbe018341e55753994fd46c66">bl::rc::res::PipelineCache::getPipeline</a></div><div class="ttdeci">vk::Pipeline &amp; getPipeline(std::uint32_t pipelineId)</div><div class="ttdoc">Returns the pipeline with the given id. Throws an exception if not found. Pipelines should be created...</div><div class="ttdef"><b>Definition:</b> <a href="a01469_source.html#l00033">PipelineCache.cpp:33</a></div></div>
+<div class="ttc" id="aa02963_html_ab22abbcd5f0da2c18dbd75928e5c66fc"><div class="ttname"><a href="a02963.html#ab22abbcd5f0da2c18dbd75928e5c66fc">bl::rc::res::PipelineCache::createPipline</a></div><div class="ttdeci">vk::Pipeline &amp; createPipline(std::uint32_t pipelineId, vk::PipelineParameters &amp;&amp;params)</div><div class="ttdoc">Creates a new pipeline in the cache. Id should be unique.</div><div class="ttdef"><b>Definition:</b> <a href="a01469_source.html#l00026">PipelineCache.cpp:26</a></div></div>
+<div class="ttc" id="aa03119_html"><div class="ttname"><a href="a03119.html">bl::rc::vk::Pipeline</a></div><div class="ttdoc">Core renderer class representing a pipeline that is a part of a RenderPass. Pipelines are managed by ...</div><div class="ttdef"><b>Definition:</b> <a href="a00779_source.html#l00030">Pipeline.hpp:30</a></div></div>
+<div class="ttc" id="aa03139_html"><div class="ttname"><a href="a03139.html">bl::rc::vk::PipelineParameters</a></div><div class="ttdoc">Parameters used to create a Pipeline. This class performs some basic validation and provides sane def...</div><div class="ttdef"><b>Definition:</b> <a href="a00785_source.html#l00031">PipelineParameters.hpp:31</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jul 13 2023 20:06:08 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jul 25 2023 19:26:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

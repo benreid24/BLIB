@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::rc::buf Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,31 +66,49 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01628.html">bl</a></li><li class="navelem"><a class="el" href="a01630.html">cam</a></li><li class="navelem"><a class="el" href="a01632.html">c3d</a></li><li class="navelem"><a class="el" href="a01777.html">OrbiterController</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01736.html">bl</a></li><li class="navelem"><a class="el" href="a01745.html">rc</a></li><li class="navelem"><a class="el" href="a01774.html">buf</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#typedef-members">Typedefs</a>  </div>
   <div class="headertitle">
-<div class="title">bl::cam::c3d::OrbiterController Member List</div>  </div>
+<div class="title">bl::rc::buf Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01777.html">bl::cam::c3d::OrbiterController</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01773.html#ade44b48368fc910c1cce9444f12d935d">camera</a>()</td><td class="entry"><a class="el" href="a01773.html">bl::cam::CameraController3D</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01777.html#ada26fa1d11bb2d61eccadcfb8690e2c9">OrbiterController</a>(const glm::vec3 &amp;center, float period, const glm::vec3 &amp;normal, float minRadius, float maxRadius=-1.f)</td><td class="entry"><a class="el" href="a01777.html">bl::cam::c3d::OrbiterController</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01777.html#a7346674e5ae3879098a9bd0bd33af52d">setCenter</a>(const glm::vec3 &amp;center)</td><td class="entry"><a class="el" href="a01777.html">bl::cam::c3d::OrbiterController</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01777.html#ad28f4c4de41b43db237ef7e4c55ae036">setNormal</a>(const glm::vec3 &amp;normal)</td><td class="entry"><a class="el" href="a01777.html">bl::cam::c3d::OrbiterController</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01777.html#ab99b8b1b9842bb8ec0da9b096589300e">setPeriod</a>(float period)</td><td class="entry"><a class="el" href="a01777.html">bl::cam::c3d::OrbiterController</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01777.html#a18f95e5c5e046033623871e6017dfbac">setRadius</a>(float minRadius, float maxRadius=-1.f)</td><td class="entry"><a class="el" href="a01777.html">bl::cam::c3d::OrbiterController</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01777.html#aba3672c742b3ab922316d5976ff73b54">update</a>(float dt) override</td><td class="entry"><a class="el" href="a01777.html">bl::cam::c3d::OrbiterController</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01773.html#a26865f7d2294da39b5f3fbbbf216a22a">~CameraController3D</a>()=default</td><td class="entry"><a class="el" href="a01773.html">bl::cam::CameraController3D</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01777.html#a106bb0b4247bba62e12a0571f4fdadf1">~OrbiterController</a>()=default</td><td class="entry"><a class="el" href="a01777.html">bl::cam::c3d::OrbiterController</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-</table></div><!-- contents -->
+<p>Collection of common buffer classes.  
+<a href="a01774.html#details">More...</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02671.html">DynamicSSBO</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device-local SSBO intended for use with per-object data for dynamic objects.  <a href="a02671.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02679.html">IndexBufferT</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic index buffer class built on top of <a class="el" href="a03075.html" title="Wrapper over Vulkan buffers. Provides simpler interfaces and resize ability.">vk::Buffer</a>. Intended for static mesh data.  <a href="a02679.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02683.html">StaticSSBO</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device-local SSBO intended for use with per-object data for static objects.  <a href="a02683.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02687.html">UniformBuffer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device-local, staged, uniform buffer array. Intended for small, dynamic data such as per-frame scene data. Not intended for larger data sets such as per-object data. Writes go directly to the staging buffer, so the used portions of the UBO must be written to every frame otherwise stale data will be copied to the GPU.  <a href="a02687.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:gaefb3729dcc560378d43cc72e50f7d438"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01721.html#gaefb3729dcc560378d43cc72e50f7d438">IndexBuffer</a> = <a class="el" href="a02679.html">IndexBufferT</a>&lt; <a class="el" href="a02943.html">prim::Vertex</a> &gt;</td></tr>
+<tr class="memdesc:gaefb3729dcc560378d43cc72e50f7d438"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience alias for a standard index buffer.  <a href="a01721.html#gaefb3729dcc560378d43cc72e50f7d438">More...</a><br /></td></tr>
+<tr class="separator:gaefb3729dcc560378d43cc72e50f7d438"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Collection of common buffer classes. </p>
+</div></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jul 13 2023 20:06:10 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jul 25 2023 19:26:27 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

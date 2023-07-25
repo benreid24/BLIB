@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Resources/Bundling/FileHandlers/AnimationHandler.cpp Source File</title>
+<title>BLIB: src/Render/Resources/ScenePool.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,57 +66,64 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_7a475d59e09b1ce69b1dfbc6b0817add.html">Resources</a></li><li class="navelem"><a class="el" href="dir_650c2bb72fa499737589ce0469633186.html">Bundling</a></li><li class="navelem"><a class="el" href="dir_aa9914aaa11d841a9b5a3bf23363db45.html">FileHandlers</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_9db9147e11516848db92abd3a50398f1.html">Resources</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">AnimationHandler.cpp</div>  </div>
+<div class="title">ScenePool.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01478.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00461.html">BLIB/Media/Graphics/AnimationData.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00773.html">BLIB/Resources/Bundling/FileHandlers/AnimationHandler.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01628.html">bl</a></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;{</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>resource</div>
+<a href="a01478.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00704.html">BLIB/Render/Resources/ScenePool.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00119.html">BLIB/Events.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00593.html">BLIB/Render/Events/SceneDestroyed.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01736.html">bl</a></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>bundle</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>rc</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="a03029.html#adf22a2d2b974daba7cf8ec92a0bdcf89">   10</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a03029.html#adf22a2d2b974daba7cf8ec92a0bdcf89">AnimationHandler::processFile</a>(<span class="keyword">const</span> std::string&amp; path, std::ostream&amp; output,</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;                                   <a class="code" href="a03025.html">FileHandlerContext</a>&amp; ctx) {</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <a class="code" href="a02465.html">rc::AnimationData</a> anim;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keywordflow">if</span> (!anim.<a class="code" href="a02465.html#ac5d952a8d97d4154f94def4db722505a">loadFromFileForBundling</a>(path)) {</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        <a class="code" href="a00428.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Failed to load animation: &quot;</span> &lt;&lt; path;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    }</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordflow">if</span> (!anim.<a class="code" href="a02465.html#a604dd4b76a7791f1d3c590161a1c45ed">saveToBundle</a>(output)) {</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        <a class="code" href="a00428.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Failed to save animation: &quot;</span> &lt;&lt; path;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    }</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    ctx.<a class="code" href="a03025.html#a117fbcb7e5871373ebb7270b39b20721">addDependencyFile</a>(anim.<a class="code" href="a02465.html#a76c0cf0ce661739dea72cadb02c1431d">spritesheetFile</a>());</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;}</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>res</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="a02975.html#aca923e993cf4122f317b08d3ea35614c">   12</a></span>&#160;<a class="code" href="a02975.html#aca923e993cf4122f317b08d3ea35614c">ScenePool::ScenePool</a>(<a class="code" href="a02099.html">engine::Engine</a>&amp; e)</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;: engine(e) {</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    scenes.reserve(16);</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;}</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a02975.html#af95a257c30a09327e366c659ced32611">   17</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02975.html#af95a257c30a09327e366c659ced32611">ScenePool::cleanup</a>() {</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    std::unique_lock lock(mutex);</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    scenes.clear();</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;}</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a02975.html#a968f1138c0ac095ff8b180e7cda42555">   22</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02975.html#a968f1138c0ac095ff8b180e7cda42555">ScenePool::destroyScene</a>(<a class="code" href="a03019.html">Scene</a>* scene) {</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    std::unique_lock lock(mutex);</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;} <span class="comment">// namespace bundle</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;} <span class="comment">// namespace resource</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00428_html_a927270d671e83a1c6b5382f30bfbf895"><div class="ttname"><a href="a00428.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a></div><div class="ttdeci">#define BL_LOG_ERROR</div><div class="ttdoc">Helper macro to log at error level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00428_source.html#l00101">Logger.hpp:101</a></div></div>
-<div class="ttc" id="aa00461_html"><div class="ttname"><a href="a00461.html">AnimationData.hpp</a></div></div>
-<div class="ttc" id="aa00773_html"><div class="ttname"><a href="a00773.html">AnimationHandler.hpp</a></div></div>
-<div class="ttc" id="aa01628_html"><div class="ttname"><a href="a01628.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02465_html"><div class="ttname"><a href="a02465.html">bl::rc::AnimationData</a></div><div class="ttdoc">Data class for animations. Holds the frame information and is responsible for rendering.</div><div class="ttdef"><b>Definition:</b> <a href="a00461_source.html#l00025">AnimationData.hpp:25</a></div></div>
-<div class="ttc" id="aa02465_html_a604dd4b76a7791f1d3c590161a1c45ed"><div class="ttname"><a href="a02465.html#a604dd4b76a7791f1d3c590161a1c45ed">bl::rc::AnimationData::saveToBundle</a></div><div class="ttdeci">bool saveToBundle(std::ostream &amp;output) const</div><div class="ttdoc">Saves the animation data to the bundle.</div><div class="ttdef"><b>Definition:</b> <a href="a01247_source.html#l00036">AnimationData.cpp:36</a></div></div>
-<div class="ttc" id="aa02465_html_a76c0cf0ce661739dea72cadb02c1431d"><div class="ttname"><a href="a02465.html#a76c0cf0ce661739dea72cadb02c1431d">bl::rc::AnimationData::spritesheetFile</a></div><div class="ttdeci">const std::string &amp; spritesheetFile() const</div><div class="ttdoc">Returns the filename of the spritesheet.</div><div class="ttdef"><b>Definition:</b> <a href="a01247_source.html#l00171">AnimationData.cpp:171</a></div></div>
-<div class="ttc" id="aa02465_html_ac5d952a8d97d4154f94def4db722505a"><div class="ttname"><a href="a02465.html#ac5d952a8d97d4154f94def4db722505a">bl::rc::AnimationData::loadFromFileForBundling</a></div><div class="ttdeci">bool loadFromFileForBundling(const std::string &amp;filename)</div><div class="ttdoc">Same as loadFromFile, but rewrites the spritesheet source to be the full path to the spritesheet so t...</div><div class="ttdef"><b>Definition:</b> <a href="a01247_source.html#l00028">AnimationData.cpp:28</a></div></div>
-<div class="ttc" id="aa03025_html"><div class="ttname"><a href="a03025.html">bl::resource::bundle::FileHandlerContext</a></div><div class="ttdoc">Context data that is provided to FileHandler objects when processing files.</div><div class="ttdef"><b>Definition:</b> <a href="a00770_source.html#l00023">FileHandlerContext.hpp:23</a></div></div>
-<div class="ttc" id="aa03025_html_a117fbcb7e5871373ebb7270b39b20721"><div class="ttname"><a href="a03025.html#a117fbcb7e5871373ebb7270b39b20721">bl::resource::bundle::FileHandlerContext::addDependencyFile</a></div><div class="ttdeci">void addDependencyFile(const std::string &amp;path)</div><div class="ttdoc">Adds a file to be bundled with the current file being processed. Call this for dependency files (ie s...</div><div class="ttdef"><b>Definition:</b> <a href="a01475_source.html#l00014">FileHandlerContext.cpp:14</a></div></div>
-<div class="ttc" id="aa03029_html_adf22a2d2b974daba7cf8ec92a0bdcf89"><div class="ttname"><a href="a03029.html#adf22a2d2b974daba7cf8ec92a0bdcf89">bl::resource::bundle::AnimationHandler::processFile</a></div><div class="ttdeci">virtual bool processFile(const std::string &amp;path, std::ostream &amp;output, FileHandlerContext &amp;context) override</div><div class="ttdoc">Process the given file and add its data to the bundle.</div><div class="ttdef"><b>Definition:</b> <a href="a01478_source.html#l00010">AnimationHandler.cpp:10</a></div></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    bl::event::Dispatcher::dispatch&lt;rc::event::SceneDestroyed&gt;({scene});</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = scenes.begin(); it != scenes.end(); ++it) {</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="keywordflow">if</span> (it-&gt;get() == scene) {</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;            scenes.erase(it);</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;            <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        }</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    }</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;}</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;} <span class="comment">// namespace res</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00119_html"><div class="ttname"><a href="a00119.html">Events.hpp</a></div></div>
+<div class="ttc" id="aa00593_html"><div class="ttname"><a href="a00593.html">SceneDestroyed.hpp</a></div></div>
+<div class="ttc" id="aa00704_html"><div class="ttname"><a href="a00704.html">ScenePool.hpp</a></div></div>
+<div class="ttc" id="aa01736_html"><div class="ttname"><a href="a01736.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02099_html"><div class="ttname"><a href="a02099.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a04682_source.html#l00031">Engine.hpp:31</a></div></div>
+<div class="ttc" id="aa02975_html_a968f1138c0ac095ff8b180e7cda42555"><div class="ttname"><a href="a02975.html#a968f1138c0ac095ff8b180e7cda42555">bl::rc::res::ScenePool::destroyScene</a></div><div class="ttdeci">void destroyScene(Scene *scene)</div><div class="ttdoc">Destroys the given scene and returns it to the pool.</div><div class="ttdef"><b>Definition:</b> <a href="a01478_source.html#l00022">ScenePool.cpp:22</a></div></div>
+<div class="ttc" id="aa02975_html_aca923e993cf4122f317b08d3ea35614c"><div class="ttname"><a href="a02975.html#aca923e993cf4122f317b08d3ea35614c">bl::rc::res::ScenePool::ScenePool</a></div><div class="ttdeci">ScenePool(engine::Engine &amp;engine)</div><div class="ttdoc">Creates a new scene pool.</div><div class="ttdef"><b>Definition:</b> <a href="a01478_source.html#l00012">ScenePool.cpp:12</a></div></div>
+<div class="ttc" id="aa02975_html_af95a257c30a09327e366c659ced32611"><div class="ttname"><a href="a02975.html#af95a257c30a09327e366c659ced32611">bl::rc::res::ScenePool::cleanup</a></div><div class="ttdeci">void cleanup()</div><div class="ttdoc">Destroys all scenes.</div><div class="ttdef"><b>Definition:</b> <a href="a01478_source.html#l00017">ScenePool.cpp:17</a></div></div>
+<div class="ttc" id="aa03019_html"><div class="ttname"><a href="a03019.html">bl::rc::Scene</a></div><div class="ttdoc">Base class for all scene types and overlays. Provides common scene logic and object management....</div><div class="ttdef"><b>Definition:</b> <a href="a00722_source.html#l00051">Scene.hpp:51</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jul 13 2023 20:06:09 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jul 25 2023 19:26:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

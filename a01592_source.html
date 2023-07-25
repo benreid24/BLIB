@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Util/Timer.cpp Source File</title>
+<title>BLIB: src/Resources/Bundling/FileHandlers/PlaylistHandler.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,62 +66,64 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3e37c3eecdc42aac03248fab5c81cb58.html">Util</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_7a475d59e09b1ce69b1dfbc6b0817add.html">Resources</a></li><li class="navelem"><a class="el" href="dir_650c2bb72fa499737589ce0469633186.html">Bundling</a></li><li class="navelem"><a class="el" href="dir_aa9914aaa11d841a9b5a3bf23363db45.html">FileHandlers</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Timer.cpp</div>  </div>
+<div class="title">PlaylistHandler.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01592.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00956.html">BLIB/Util/Timer.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01628.html">bl</a></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>util</div>
+<a href="a01592.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_TEST_TARGET</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00455.html">BLIB/Media/Audio/Playlist.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00845.html">BLIB/Resources/Bundling/FileHandlers/PlaylistHandler.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01736.html">bl</a></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;Timer::Timer()</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;: <a class="code" href="a01241.html#a1656129c4a4fd8809254194f08f0ac70">paused</a>(false) {}</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="a03589.html#aecde32b54c94ec7f5c2eca40e0975584">   10</a></span>&#160;<a class="code" href="a03589.html">Timer</a>&amp; Timer::get() {</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <span class="keyword">static</span> <a class="code" href="a03589.html">Timer</a> <a class="code" href="a01241.html#ab105e62bb50794909d1a163cae4af596">timer</a>;</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="a01241.html#ab105e62bb50794909d1a163cae4af596">timer</a>;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;}</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="a03589.html#a57708d1e70962d8764fc11839425d332">   15</a></span>&#160;sf::Time Timer::timeElapsedRaw()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> clock.getElapsedTime(); }</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a03589.html#ac99ffbd80e0e1af189f47fdecdacdb26">   17</a></span>&#160;sf::Time Timer::timeElapsed()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    sf::Time ret = clock.getElapsedTime() - offset;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="a01241.html#a1656129c4a4fd8809254194f08f0ac70">paused</a>) ret -= (clock.getElapsedTime() - timePaused);</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keywordflow">return</span> ret;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;}</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>resource</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>bundle</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="a03243.html#af1d4746fd48ca4112fde79fde3b0d6f5">   11</a></span>&#160;<a class="code" href="a03243.html#af1d4746fd48ca4112fde79fde3b0d6f5">PlaylistHandler::PlaylistHandler</a>(<span class="keywordtype">bool</span> bdeps)</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;: bundleMusicFiles(bdeps) {}</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="a03243.html#afca0b240a71de04cb2cc40199e4c80d4">   14</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a03243.html#afca0b240a71de04cb2cc40199e4c80d4">PlaylistHandler::processFile</a>(<span class="keyword">const</span> std::string&amp; path, std::ostream&amp; output,</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;                                  <a class="code" href="a03231.html">FileHandlerContext</a>&amp; ctx) {</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <a class="code" href="a02563.html">audio::Playlist</a> <a class="code" href="a01307.html#a34cfaee126866c60bb82a2c96e47940d">playlist</a>;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="a01307.html#a34cfaee126866c60bb82a2c96e47940d">playlist</a>.loadFromFile(path)) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <a class="code" href="a03515.html">serial::StreamOutputBuffer</a> wrapper(output);</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <a class="code" href="a03387.html">serial::binary::OutputStream</a> os(wrapper);</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="a01307.html#a34cfaee126866c60bb82a2c96e47940d">playlist</a>.saveToMemory(os)) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a03589.html#a04d476133cd5a6559d4a7cbd5fbe2d48">   23</a></span>&#160;<span class="keywordtype">float</span> Timer::timeElapsedSeconds()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> timeElapsed().asSeconds(); }</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a03589.html#af2414c20069843d3a9a7b98efa5b3b83">   25</a></span>&#160;<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <span class="keywordtype">int</span> Timer::timeElapsedMilliseconds()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> timeElapsed().asMilliseconds(); }</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="a03589.html#a4bb92a9c02daeb62980e97e37c258a8f">   27</a></span>&#160;<span class="keywordtype">void</span> Timer::pause() {</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <a class="code" href="a01241.html#a1656129c4a4fd8809254194f08f0ac70">paused</a>     = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    timePaused = clock.getElapsedTime();</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;}</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="a03589.html#a3493011738abc4ec4481f297c053fc50">   32</a></span>&#160;<span class="keywordtype">void</span> Timer::resume() {</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <a class="code" href="a01241.html#a1656129c4a4fd8809254194f08f0ac70">paused</a> = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    offset += clock.getElapsedTime() - timePaused;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;}</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;} <span class="comment">// namespace util</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00956_html"><div class="ttname"><a href="a00956.html">Timer.hpp</a></div></div>
-<div class="ttc" id="aa01241_html_a1656129c4a4fd8809254194f08f0ac70"><div class="ttname"><a href="a01241.html#a1656129c4a4fd8809254194f08f0ac70">paused</a></div><div class="ttdeci">bool paused</div><div class="ttdef"><b>Definition:</b> <a href="a01241_source.html#l00079">AudioSystem.cpp:79</a></div></div>
-<div class="ttc" id="aa01241_html_ab105e62bb50794909d1a163cae4af596"><div class="ttname"><a href="a01241.html#ab105e62bb50794909d1a163cae4af596">timer</a></div><div class="ttdeci">sf::Clock timer</div><div class="ttdef"><b>Definition:</b> <a href="a01241_source.html#l00059">AudioSystem.cpp:59</a></div></div>
-<div class="ttc" id="aa01628_html"><div class="ttname"><a href="a01628.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03589_html"><div class="ttname"><a href="a03589.html">bl::util::Timer</a></div><div class="ttdoc">Global class for tracking time. Implemented over the top of sf::Clock to allow for pausing.</div><div class="ttdef"><b>Definition:</b> <a href="a00956_source.html#l00017">Timer.hpp:17</a></div></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="a03243.html#a16c3946d25a3118840098ffffa4687c7">bundleMusicFiles</a>) {</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">const</span> std::string&amp; song : <a class="code" href="a01307.html#a34cfaee126866c60bb82a2c96e47940d">playlist</a>.getSongList()) { ctx.<a class="code" href="a03231.html#a117fbcb7e5871373ebb7270b39b20721">addDependencyFile</a>(song); }</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    }</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;}</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;} <span class="comment">// namespace bundle</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;} <span class="comment">// namespace resource</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00455_html"><div class="ttname"><a href="a00455.html">Playlist.hpp</a></div></div>
+<div class="ttc" id="aa00845_html"><div class="ttname"><a href="a00845.html">PlaylistHandler.hpp</a></div></div>
+<div class="ttc" id="aa01307_html_a34cfaee126866c60bb82a2c96e47940d"><div class="ttname"><a href="a01307.html#a34cfaee126866c60bb82a2c96e47940d">playlist</a></div><div class="ttdeci">Playlist * playlist</div><div class="ttdef"><b>Definition:</b> <a href="a01307_source.html#l00042">AudioSystem.cpp:42</a></div></div>
+<div class="ttc" id="aa01736_html"><div class="ttname"><a href="a01736.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02563_html"><div class="ttname"><a href="a02563.html">bl::audio::Playlist</a></div><div class="ttdoc">A playable, serializable music playlist. Can be manually manipulated or loaded from files.</div><div class="ttdef"><b>Definition:</b> <a href="a00455_source.html#l00020">Playlist.hpp:20</a></div></div>
+<div class="ttc" id="aa03231_html"><div class="ttname"><a href="a03231.html">bl::resource::bundle::FileHandlerContext</a></div><div class="ttdoc">Context data that is provided to FileHandler objects when processing files.</div><div class="ttdef"><b>Definition:</b> <a href="a00836_source.html#l00023">FileHandlerContext.hpp:23</a></div></div>
+<div class="ttc" id="aa03231_html_a117fbcb7e5871373ebb7270b39b20721"><div class="ttname"><a href="a03231.html#a117fbcb7e5871373ebb7270b39b20721">bl::resource::bundle::FileHandlerContext::addDependencyFile</a></div><div class="ttdeci">void addDependencyFile(const std::string &amp;path)</div><div class="ttdoc">Adds a file to be bundled with the current file being processed. Call this for dependency files (ie s...</div><div class="ttdef"><b>Definition:</b> <a href="a01583_source.html#l00014">FileHandlerContext.cpp:14</a></div></div>
+<div class="ttc" id="aa03243_html_a16c3946d25a3118840098ffffa4687c7"><div class="ttname"><a href="a03243.html#a16c3946d25a3118840098ffffa4687c7">bl::resource::bundle::PlaylistHandler::bundleMusicFiles</a></div><div class="ttdeci">const bool bundleMusicFiles</div><div class="ttdef"><b>Definition:</b> <a href="a00845_source.html#l00033">PlaylistHandler.hpp:33</a></div></div>
+<div class="ttc" id="aa03243_html_af1d4746fd48ca4112fde79fde3b0d6f5"><div class="ttname"><a href="a03243.html#af1d4746fd48ca4112fde79fde3b0d6f5">bl::resource::bundle::PlaylistHandler::PlaylistHandler</a></div><div class="ttdeci">PlaylistHandler(bool bundleMusicFiles=false)</div><div class="ttdoc">Construct a new Playlist Handler.</div><div class="ttdef"><b>Definition:</b> <a href="a01592_source.html#l00011">PlaylistHandler.cpp:11</a></div></div>
+<div class="ttc" id="aa03243_html_afca0b240a71de04cb2cc40199e4c80d4"><div class="ttname"><a href="a03243.html#afca0b240a71de04cb2cc40199e4c80d4">bl::resource::bundle::PlaylistHandler::processFile</a></div><div class="ttdeci">virtual bool processFile(const std::string &amp;path, std::ostream &amp;output, FileHandlerContext &amp;context) override</div><div class="ttdoc">Process the given file and add its data to the bundle.</div><div class="ttdef"><b>Definition:</b> <a href="a01592_source.html#l00014">PlaylistHandler.cpp:14</a></div></div>
+<div class="ttc" id="aa03387_html"><div class="ttname"><a href="a03387.html">bl::serial::binary::OutputStream</a></div><div class="ttdoc">A writable stream for binary serialization.</div><div class="ttdef"><b>Definition:</b> <a href="a00911_source.html#l00022">OutputStream.hpp:22</a></div></div>
+<div class="ttc" id="aa03515_html"><div class="ttname"><a href="a03515.html">bl::serial::StreamOutputBuffer</a></div><div class="ttdoc">Output buffer that allows writing to C++ streams.</div><div class="ttdef"><b>Definition:</b> <a href="a00938_source.html#l00017">StreamOutputBuffer.hpp:17</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jul 13 2023 20:06:09 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jul 25 2023 19:26:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

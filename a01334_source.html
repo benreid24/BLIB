@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Observer.cpp Source File</title>
+<title>BLIB: src/Parser/CommentSkipper.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,347 +66,77 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_be6b6bc8933d1b72ef64ada15681fca0.html">Parser</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Observer.cpp</div>  </div>
+<div class="title">CommentSkipper.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01334.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00596.html">BLIB/Render/Observer.hpp</a>&gt;</span></div>
+<a href="a01334.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00488.html">BLIB/Parser/CommentSkipper.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00014.html">BLIB/Cameras/2D/Camera2D.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00026.html">BLIB/Cameras/3D/Camera3D.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a04491.html">BLIB/Render/Renderer.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;glm/gtc/matrix_transform.hpp&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01628.html">bl</a></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>rc</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;Observer::Observer(Renderer&amp; r)</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;: renderer(r)</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;, resourcesFreed(false) {</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    viewport.minDepth = 0.f;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    viewport.maxDepth = 1.f;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    clearColors[0].color        = {{0.f, 0.f, 0.f, 1.f}};</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    clearColors[1].depthStencil = {1.f, 0};</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01736.html">bl</a></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>parser</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
+<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="a02611.html#ace9972e7d2cf601a7050903ff252d590">    7</a></span>&#160;<a class="code" href="a02611.html#ace9972e7d2cf601a7050903ff252d590">CommentSkipper::CommentSkipper</a>(<span class="keyword">const</span> std::string&amp; lineCommentOpen,</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;                               <span class="keyword">const</span> std::string&amp; blockCommentOpen,</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;                               <span class="keyword">const</span> std::string&amp; blockCommentClose)</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;: lineOpen(lineCommentOpen)</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;, blockOpen(blockCommentOpen)</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;, blockClose(blockCommentClose) {}</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="a02611.html#a02cac5c7b7be1a6a5d90374a2aa295aa">   14</a></span>&#160;<a class="code" href="a02631.html#ac94262dbc4b796277c22a958aa727323">ISkipper::Ptr</a> <a class="code" href="a02663.html#a17380f013a7b0b8bca4839683da5742b">CommentSkipper::create</a>(<span class="keyword">const</span> std::string&amp; lineCommentOpen,</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;                                     <span class="keyword">const</span> std::string&amp; blockCommentOpen,</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;                                     <span class="keyword">const</span> std::string&amp; blockCommentClose) {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="a02631.html#ac94262dbc4b796277c22a958aa727323">ISkipper::Ptr</a>(</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        <span class="keyword">new</span> <a class="code" href="a02611.html#ace9972e7d2cf601a7050903ff252d590">CommentSkipper</a>(lineCommentOpen, blockCommentOpen, blockCommentClose));</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;}</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    overlayProjView = overlayCamera.getProjectionMatrix(viewport) * overlayCamera.getViewMatrix();</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;}</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a02701.html#aab97846e8d0d3237f36ddf0909bdf4a5">   24</a></span>&#160;Observer::~Observer() {</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordflow">if</span> (renderer.vulkanState().device != <span class="keyword">nullptr</span>) { cleanup(); }</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;}</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keywordtype">void</span> Observer::cleanup() {</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordflow">if</span> (!resourcesFreed) {</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        clearScenes();</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        defaultPostFX.reset();</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        sceneFramebuffers.cleanup([](<a class="code" href="a02897.html">vk::Framebuffer</a>&amp; fb) { fb.<a class="code" href="a02897.html#a78b12eff614ce0a570bd72ed3c20ed6d">cleanup</a>(); });</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        renderFrames.cleanup([](vk::StandardAttachmentBuffers&amp; frame) { frame.destroy(); });</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        resourcesFreed = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    }</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;}</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keywordtype">void</span> Observer::updateCamera(<span class="keywordtype">float</span> dt) {</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordflow">if</span> (!scenes.empty()) { scenes.back().camera-&gt;update(dt); }</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;}</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="a02701.html#ab490aa22bd53afe1d32eaf85690c291f">   42</a></span>&#160;<span class="keywordtype">void</span> Observer::pushScene(<a class="code" href="a02813.html">Scene</a>* s) {</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    scenes.emplace_back(renderer, s);</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    onSceneAdd();</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;}</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="a02701.html#ac8a0a81137a8f32f848ce6c4d41459dd">   47</a></span>&#160;<a class="code" href="a02709.html">Overlay</a>* Observer::createSceneOverlay() {</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordflow">if</span> (scenes.empty()) {</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <a class="code" href="a00428.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Tried to create Overlay with no current scene&quot;</span>;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Tried to create Overlay with no current scene&quot;</span>);</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    }</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordflow">if</span> (scenes.back().overlay) { renderer.scenePool().destroyScene(scenes.back().overlay); }</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    scenes.back().overlay      = renderer.scenePool().allocateScene&lt;<a class="code" href="a02709.html">Overlay</a>&gt;();</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    scenes.back().overlayIndex = scenes.back().overlay-&gt;registerObserver();</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordflow">return</span> scenes.back().overlay;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;}</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="a02701.html#a1d5c0433b38eac1a059c951827dd803e">   59</a></span>&#160;<a class="code" href="a02709.html">Overlay</a>* Observer::getOrCreateSceneOverlay() {</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordflow">if</span> (scenes.empty()) {</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <a class="code" href="a00428.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Tried to create Overlay with no current scene&quot;</span>;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Tried to create Overlay with no current scene&quot;</span>);</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    }</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordflow">return</span> scenes.back().overlay ? scenes.back().overlay : createSceneOverlay();</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;}</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="a02701.html#a683f178f4530548a6ec6ea93aaba29dd">   68</a></span>&#160;<a class="code" href="a02709.html">Overlay</a>* Observer::getCurrentOverlay() { <span class="keywordflow">return</span> scenes.empty() ? nullptr : scenes.back().overlay; }</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="a02701.html#a5f90874b2dcc077ce5fdf0243209cd24">   70</a></span>&#160;<span class="keywordtype">void</span> Observer::setApplyPostFXToOverlay(<span class="keywordtype">bool</span> apply) {</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordflow">if</span> (!scenes.empty()) { scenes.back().overlayPostFX = apply; }</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;}</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
-<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="a02701.html#a7431f5603968ff478d97a27aee22f1db">   74</a></span>&#160;<a class="code" href="a02813.html">Scene</a>* Observer::popSceneNoRelease() {</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <a class="code" href="a02813.html">Scene</a>* s = scenes.back().scene;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordflow">if</span> (scenes.back().overlay) { renderer.scenePool().destroyScene(scenes.back().overlay); }</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    scenes.pop_back();</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordflow">return</span> s;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;}</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="a02701.html#a84e2231d442d9913070429313faa4918">   81</a></span>&#160;<span class="keywordtype">void</span> Observer::popScene() {</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <a class="code" href="a02813.html">Scene</a>* s = scenes.back().scene;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    renderer.scenePool().destroyScene(s);</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keywordflow">if</span> (scenes.back().overlay) { renderer.scenePool().destroyScene(scenes.back().overlay); }</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    scenes.pop_back();</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;}</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
-<div class="line"><a name="l00088"></a><span class="lineno"><a class="line" href="a02701.html#a31b109f596ef0673ea81f47e0a8b29e9">   88</a></span>&#160;<span class="keywordtype">void</span> Observer::clearScenes() {</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordflow">while</span> (!scenes.empty()) {</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        <a class="code" href="a02813.html">Scene</a>* s = scenes.back().scene;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <span class="keywordflow">if</span> (scenes.back().overlay) { renderer.scenePool().destroyScene(scenes.back().overlay); }</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        scenes.pop_back();</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        renderer.scenePool().destroyScene(s);</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    }</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;}</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
-<div class="line"><a name="l00097"></a><span class="lineno"><a class="line" href="a02701.html#a3a537f320fe7c4aa98f17a2304a290b0">   97</a></span>&#160;<span class="keywordtype">void</span> Observer::clearScenesNoRelease() {</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; scene : scenes) {</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        <span class="keywordflow">if</span> (scene.overlay) { renderer.scenePool().destroyScene(scene.overlay); }</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    }</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    scenes.clear();</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;}</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="keywordtype">void</span> Observer::onSceneAdd() {</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    scenes.back().postfx-&gt;bindImages(renderFrames);</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    scenes.back().observerIndex = scenes.back().scene-&gt;registerObserver();</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="preprocessor">#if SCENE_DEFAULT_CAMERA == 2</span></div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    setCamera&lt;cam::Camera2D&gt;(</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        glm::vec2{viewport.x + viewport.width * 0.5f, viewport.y + viewport.height * 0.5f},</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        glm::vec2{viewport.width, viewport.height});</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    setCamera&lt;cam::Camera3D&gt;();</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;}</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
-<div class="line"><a name="l00116"></a><span class="lineno"><a class="line" href="a02701.html#a1b04f4c8bd8f140b41d159e65696c256">  116</a></span>&#160;<span class="keywordtype">void</span> Observer::removePostFX() { setPostFX&lt;scene::PostFX&gt;(renderer); }</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="keywordtype">void</span> Observer::handleDescriptorSync() {</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <span class="keywordflow">if</span> (hasScene()) {</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        <span class="keyword">const</span> glm::mat4 projView = scenes.back().camera-&gt;getProjectionMatrix(viewport) *</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;                                   scenes.back().camera-&gt;getViewMatrix();</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        scenes.back().scene-&gt;updateObserverCamera(scenes.back().observerIndex, projView);</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        scenes.back().scene-&gt;handleDescriptorSync();</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        <span class="keywordflow">if</span> (scenes.back().overlay) {</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;            scenes.back().overlay-&gt;updateObserverCamera(scenes.back().overlayIndex,</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;                                                        overlayProjView);</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;            scenes.back().overlay-&gt;handleDescriptorSync();</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        }</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    }</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;}</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160; </div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;<span class="keywordtype">void</span> Observer::renderScene(VkCommandBuffer commandBuffer) {</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    <span class="keyword">const</span> VkRect2D renderRegion{{0, 0}, renderFrames.current().bufferSize()};</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    sceneFramebuffers.current().beginRender(</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;        commandBuffer, renderRegion, clearColors, std::size(clearColors), <span class="keyword">true</span>);</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160; </div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    <span class="keywordflow">if</span> (hasScene()) {</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;<span class="preprocessor">#ifdef BLIB_DEBUG</span></div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;        <span class="keywordflow">if</span> (!scenes.back().camera) {</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;            <a class="code" href="a00428.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Scene pushed to Observer without calling setCamera()&quot;</span>;</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;        }</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160; </div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;        <span class="keyword">const</span> VkViewport parentViewport = ovy::Viewport::scissorToViewport(renderRegion);</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;        scene::SceneRenderContext ctx(commandBuffer,</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;                                      scenes.back().observerIndex,</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;                                      parentViewport,</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;                                      Config::RenderPassIds::OffScreenSceneRender,</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;                                      <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;        scenes.back().scene-&gt;renderScene(ctx);</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160; </div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;        <span class="keywordflow">if</span> (scenes.back().overlay &amp;&amp; scenes.back().overlayPostFX) {</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;            scene::SceneRenderContext ctx(commandBuffer,</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;                                          scenes.back().overlayIndex,</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;                                          parentViewport,</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;                                          Config::RenderPassIds::OffScreenSceneRender,</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;                                          <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;            scenes.back().overlay-&gt;renderScene(ctx);</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;        }</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    }</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160; </div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    sceneFramebuffers.current().finishRender(commandBuffer);</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;}</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160; </div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;<span class="keywordtype">void</span> Observer::compositeSceneWithEffects(VkCommandBuffer commandBuffer) {</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    scene::PostFX* fx;</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    <span class="keywordflow">if</span> (!hasScene()) {</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;        <span class="keywordflow">if</span> (!defaultPostFX) { defaultPostFX = std::make_unique&lt;scene::PostFX&gt;(renderer); }</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;        defaultPostFX-&gt;bindImages(renderFrames);</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;        fx = defaultPostFX.get();</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    }</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    <span class="keywordflow">else</span> { fx = scenes.back().postfx.get(); }</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160; </div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    vkCmdSetViewport(commandBuffer, 0, 1, &amp;viewport);</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    vkCmdSetScissor(commandBuffer, 0, 1, &amp;scissor);</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    fx-&gt;compositeScene(commandBuffer);</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;}</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160; </div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;<span class="keywordtype">void</span> Observer::renderOverlay(VkCommandBuffer commandBuffer) {</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    <span class="keywordflow">if</span> (!scenes.empty() &amp;&amp; scenes.back().overlay &amp;&amp; !scenes.back().overlayPostFX) {</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;        vkCmdSetViewport(commandBuffer, 0, 1, &amp;viewport);</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;        vkCmdSetScissor(commandBuffer, 0, 1, &amp;scissor);</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160; </div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;        scene::SceneRenderContext ctx(commandBuffer,</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;                                      scenes.back().overlayIndex,</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;                                      viewport,</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;                                      Config::RenderPassIds::SwapchainPrimaryRender,</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;                                      <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;        scenes.back().overlay-&gt;renderScene(ctx);</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    }</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;}</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160; </div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;<span class="keywordtype">void</span> Observer::assignRegion(<span class="keyword">const</span> sf::Vector2u&amp; windowSize,</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;                            <span class="keyword">const</span> sf::Rect&lt;std::uint32_t&gt;&amp; renderRegion, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> count,</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;                            <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i, <span class="keywordtype">bool</span> topBottomFirst) {</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    <span class="keyword">const</span> std::uint32_t offsetX = (windowSize.x - renderRegion.width) / 2;</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    <span class="keyword">const</span> std::uint32_t offsetY = (windowSize.y - renderRegion.height) / 2;</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    <span class="keyword">const</span> sf::Vector2u uSize(renderRegion.getSize());</div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;    <span class="keyword">const</span> sf::Vector2f fSize(uSize);</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    <span class="keyword">const</span> sf::Vector2f fHalf(fSize * 0.5f);</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    <span class="keyword">const</span> sf::Vector2u uHalf(fHalf);</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    <span class="keyword">const</span> sf::Vector2i iHalf(uHalf);</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160; </div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;    <span class="keywordflow">switch</span> (count) {</div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;    <span class="keywordflow">case</span> 1:</div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;        scissor.offset  = {0, 0};</div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;        scissor.extent  = {uSize.x, uSize.y};</div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;        viewport.x      = 0.f;</div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;        viewport.y      = 0.f;</div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;        viewport.width  = fSize.x;</div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;        viewport.height = fSize.y;</div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160; </div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;    <span class="keywordflow">case</span> 2:</div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;        <span class="keywordflow">if</span> (topBottomFirst) {</div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;            scissor.extent  = {uSize.x, uHalf.y};</div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;            viewport.width  = fSize.x;</div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;            viewport.height = fHalf.y;</div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;            viewport.x      = 0.f;</div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;            <span class="keywordflow">if</span> (i == 0) {</div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;                scissor.offset = {0, 0};</div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;                viewport.y     = 0.f;</div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;            }</div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;            <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;                scissor.offset = {0, iHalf.y};</div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;                viewport.y     = fHalf.y;</div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;            }</div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;        }</div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;        <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;            scissor.extent  = {uHalf.x, uSize.y};</div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;            viewport.width  = fHalf.x;</div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;            viewport.height = fSize.y;</div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;            viewport.y      = 0.f;</div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;            <span class="keywordflow">if</span> (i == 0) {</div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;                scissor.offset = {0, 0};</div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;                viewport.x     = 0.f;</div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;            }</div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;            <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;                scissor.offset = {iHalf.x, 0};</div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;                viewport.x     = fHalf.x;</div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;            }</div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;        }</div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160; </div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;    <span class="keywordflow">case</span> 3:</div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;    <span class="keywordflow">case</span> 4:</div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;        scissor.extent  = {uHalf.x, uHalf.y};</div>
-<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;        viewport.width  = fHalf.x;</div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;        viewport.height = fHalf.y;</div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160; </div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;        <span class="comment">// top or bottom row</span></div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;        <span class="keywordflow">if</span> (i &lt; 2) { <span class="comment">// top row</span></div>
-<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;            viewport.y       = 0.f;</div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;            scissor.offset.y = 0;</div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;        }</div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;        <span class="keywordflow">else</span> { <span class="comment">// bottom row</span></div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;            viewport.y       = fHalf.y;</div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;            scissor.offset.y = uHalf.y;</div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;        }</div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160; </div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;        <span class="comment">// left or right column</span></div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;        <span class="keywordflow">if</span> (i % 2 == 0) { <span class="comment">// left column</span></div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;            viewport.x       = 0.f;</div>
-<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;            scissor.offset.x = 0;</div>
-<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;        }</div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;        <span class="keywordflow">else</span> { <span class="comment">// right column</span></div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;            viewport.x       = fHalf.x;</div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;            scissor.offset.x = uHalf.x;</div>
-<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;        }</div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160; </div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;    <span class="keywordflow">default</span>:</div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;        <a class="code" href="a00428.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Invalid observer count: &quot;</span> &lt;&lt; count;</div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;    }</div>
-<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160; </div>
-<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;    <span class="comment">// add offsets for letterboxing</span></div>
-<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;    viewport.x += offsetX;</div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;    viewport.y += offsetY;</div>
-<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;    scissor.offset.x += offsetX;</div>
-<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;    scissor.offset.y += offsetY;</div>
-<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160; </div>
-<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;    <span class="keywordflow">if</span> (!renderFrames.valid() ||</div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;        (scissor.extent.width != renderFrames.current().bufferSize().width ||</div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;         scissor.extent.height != renderFrames.current().bufferSize().height)) {</div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;        <a class="code" href="a00740.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a>(vkDeviceWaitIdle(renderer.vulkanState().device));</div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160; </div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;        renderFrames.init(renderer.vulkanState(), [<span class="keyword">this</span>](vk::StandardAttachmentBuffers&amp; frame) {</div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;            frame.create(renderer.vulkanState(), scissor.extent);</div>
-<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;        });</div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160; </div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;        <span class="comment">// scene frame buffers</span></div>
-<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;        VkRenderPass scenePass = renderer.renderPassCache()</div>
-<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;                                     .getRenderPass(Config::RenderPassIds::OffScreenSceneRender)</div>
-<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;                                     .rawPass();</div>
-<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0;</div>
-<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;        sceneFramebuffers.init(renderer.vulkanState(), [<span class="keyword">this</span>, &amp;i, scenePass](vk::Framebuffer&amp; fb) {</div>
-<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;            fb.create(renderer.vulkanState(), scenePass, renderFrames.getRaw(i).attachmentSet());</div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;            ++i;</div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;        });</div>
-<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160; </div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;        <span class="comment">// post fx image descriptors</span></div>
-<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;        <span class="keywordflow">for</span> (SceneInstance&amp; scene : scenes) { scene.postfx-&gt;bindImages(renderFrames); }</div>
-<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;    }</div>
-<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;}</div>
-<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160; </div>
-<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;<span class="keywordtype">void</span> Observer::setDefaultNearFar(<span class="keywordtype">float</span> n, <span class="keywordtype">float</span> f) {</div>
-<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;    defaultNear = n;</div>
-<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;    defaultFar  = f;</div>
-<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;}</div>
-<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160; </div>
-<div class="line"><a name="l00312"></a><span class="lineno"><a class="line" href="a02701.html#afda9f1828ace901b35e5df72cacb705a">  312</a></span>&#160;<span class="keywordtype">void</span> Observer::setClearColor(<span class="keyword">const</span> glm::vec4&amp; color) {</div>
-<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;    clearColors[0].color = {{color.x, color.y, color.z, color.w}};</div>
-<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;}</div>
-<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160; </div>
-<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00014_html"><div class="ttname"><a href="a00014.html">Camera2D.hpp</a></div></div>
-<div class="ttc" id="aa00026_html"><div class="ttname"><a href="a00026.html">Camera3D.hpp</a></div></div>
-<div class="ttc" id="aa00428_html_a927270d671e83a1c6b5382f30bfbf895"><div class="ttname"><a href="a00428.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a></div><div class="ttdeci">#define BL_LOG_ERROR</div><div class="ttdoc">Helper macro to log at error level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00428_source.html#l00101">Logger.hpp:101</a></div></div>
-<div class="ttc" id="aa00596_html"><div class="ttname"><a href="a00596.html">Observer.hpp</a></div></div>
-<div class="ttc" id="aa00740_html_a95c2f7535355f5f3855410ab629f9310"><div class="ttname"><a href="a00740.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a></div><div class="ttdeci">#define vkCheck(expr)</div><div class="ttdef"><b>Definition:</b> <a href="a00740_source.html#l00015">VkCheck.hpp:15</a></div></div>
-<div class="ttc" id="aa01628_html"><div class="ttname"><a href="a01628.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02709_html"><div class="ttname"><a href="a02709.html">bl::rc::Overlay</a></div><div class="ttdoc">Special type of scene specialized for 2d overlays with fixed cameras. Objects are organized into a tr...</div><div class="ttdef"><b>Definition:</b> <a href="a00599_source.html#l00036">Overlay.hpp:36</a></div></div>
-<div class="ttc" id="aa02813_html"><div class="ttname"><a href="a02813.html">bl::rc::Scene</a></div><div class="ttdoc">Base class for all scene types and overlays. Provides common scene logic and object management....</div><div class="ttdef"><b>Definition:</b> <a href="a00656_source.html#l00044">Scene.hpp:44</a></div></div>
-<div class="ttc" id="aa02897_html"><div class="ttname"><a href="a02897.html">bl::rc::vk::Framebuffer</a></div><div class="ttdoc">Utility struct that wraps a Vulkan framebuffer.</div><div class="ttdef"><b>Definition:</b> <a href="a00701_source.html#l00022">Framebuffer.hpp:22</a></div></div>
-<div class="ttc" id="aa02897_html_a78b12eff614ce0a570bd72ed3c20ed6d"><div class="ttname"><a href="a02897.html#a78b12eff614ce0a570bd72ed3c20ed6d">bl::rc::vk::Framebuffer::cleanup</a></div><div class="ttdeci">void cleanup()</div><div class="ttdoc">Frees owned resources and invalidates this object.</div><div class="ttdef"><b>Definition:</b> <a href="a01418_source.html#l00088">Framebuffer.cpp:88</a></div></div>
-<div class="ttc" id="aa04491_html"><div class="ttname"><a href="a04491.html">Renderer.hpp</a></div></div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a02611.html#ad8a968db6095fab17e8b637c550671fd">   21</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02611.html#ad8a968db6095fab17e8b637c550671fd">CommentSkipper::skip</a>(<a class="code" href="a02655.html">Stream</a>&amp; input)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <a class="code" href="a02663.html#a77fb74e134d21e95a59ef5bb4686dc74">WhitespaceSkipper::skip</a>(input);</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordflow">while</span> (input.<a class="code" href="a02655.html#a51dc5b929d8aad7a3a9e645ec79bb234">peekN</a>(lineOpen.size()) == lineOpen ||</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;           input.<a class="code" href="a02655.html#a51dc5b929d8aad7a3a9e645ec79bb234">peekN</a>(blockOpen.size()) == blockOpen) {</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <span class="keywordflow">while</span> (input.<a class="code" href="a02655.html#a51dc5b929d8aad7a3a9e645ec79bb234">peekN</a>(lineOpen.size()) == lineOpen) {</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;            input.<a class="code" href="a02655.html#ad399efce6e095b78c3670a1ed32386cd">getN</a>(lineOpen.size());</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;            <span class="keywordflow">while</span> (input.<a class="code" href="a02655.html#a067692cf77ea97b498566a7da9349ab5">peek</a>() != <span class="charliteral">&#39;\n&#39;</span>) {</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;                <span class="keywordflow">if</span> (input.<a class="code" href="a02655.html#a067692cf77ea97b498566a7da9349ab5">peek</a>() == EOF) <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;                input.<a class="code" href="a02655.html#a1c866bd84c3c17f230f2e8b6c6d6d3bb">get</a>();</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;            }</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;            <a class="code" href="a02663.html#a77fb74e134d21e95a59ef5bb4686dc74">WhitespaceSkipper::skip</a>(input);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        }</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keywordflow">while</span> (input.<a class="code" href="a02655.html#a51dc5b929d8aad7a3a9e645ec79bb234">peekN</a>(blockOpen.size()) == blockOpen) {</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;            input.<a class="code" href="a02655.html#ad399efce6e095b78c3670a1ed32386cd">getN</a>(blockOpen.size());</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            <span class="keywordflow">while</span> (input.<a class="code" href="a02655.html#a51dc5b929d8aad7a3a9e645ec79bb234">peekN</a>(blockClose.size()) != blockClose) {</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;                <span class="keywordflow">if</span> (input.<a class="code" href="a02655.html#a067692cf77ea97b498566a7da9349ab5">peek</a>() == EOF) <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;                input.<a class="code" href="a02655.html#a1c866bd84c3c17f230f2e8b6c6d6d3bb">get</a>();</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;            }</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            input.<a class="code" href="a02655.html#ad399efce6e095b78c3670a1ed32386cd">getN</a>(blockClose.size());</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;            <a class="code" href="a02663.html#a77fb74e134d21e95a59ef5bb4686dc74">WhitespaceSkipper::skip</a>(input);</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        }</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    }</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;}</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;} <span class="comment">// namespace parser</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00488_html"><div class="ttname"><a href="a00488.html">CommentSkipper.hpp</a></div></div>
+<div class="ttc" id="aa01736_html"><div class="ttname"><a href="a01736.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02611_html_ace9972e7d2cf601a7050903ff252d590"><div class="ttname"><a href="a02611.html#ace9972e7d2cf601a7050903ff252d590">bl::parser::CommentSkipper::CommentSkipper</a></div><div class="ttdeci">CommentSkipper(const std::string &amp;lineCommentOpen, const std::string &amp;blockCommentOpen, const std::string &amp;blockCommentClose)</div><div class="ttdoc">Construct a new Comment Skipper object. Leave arguments blank to ignore.</div><div class="ttdef"><b>Definition:</b> <a href="a01334_source.html#l00007">CommentSkipper.cpp:7</a></div></div>
+<div class="ttc" id="aa02611_html_ad8a968db6095fab17e8b637c550671fd"><div class="ttname"><a href="a02611.html#ad8a968db6095fab17e8b637c550671fd">bl::parser::CommentSkipper::skip</a></div><div class="ttdeci">virtual void skip(Stream &amp;stream) const override</div><div class="ttdoc">Skips whitespace and comments.</div><div class="ttdef"><b>Definition:</b> <a href="a01334_source.html#l00021">CommentSkipper.cpp:21</a></div></div>
+<div class="ttc" id="aa02631_html_ac94262dbc4b796277c22a958aa727323"><div class="ttname"><a href="a02631.html#ac94262dbc4b796277c22a958aa727323">bl::parser::ISkipper::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; ISkipper &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00494_source.html#l00019">ISkipper.hpp:19</a></div></div>
+<div class="ttc" id="aa02655_html"><div class="ttname"><a href="a02655.html">bl::parser::Stream</a></div><div class="ttdoc">Wrapper class around std::ostream. Used for keeping track of current line and column numbers.</div><div class="ttdef"><b>Definition:</b> <a href="a00503_source.html#l00017">Stream.hpp:17</a></div></div>
+<div class="ttc" id="aa02655_html_a067692cf77ea97b498566a7da9349ab5"><div class="ttname"><a href="a02655.html#a067692cf77ea97b498566a7da9349ab5">bl::parser::Stream::peek</a></div><div class="ttdeci">char peek() const</div><div class="ttdoc">Returns the next character without modifying stream.</div><div class="ttdef"><b>Definition:</b> <a href="a01343_source.html#l00020">Stream.cpp:20</a></div></div>
+<div class="ttc" id="aa02655_html_a1c866bd84c3c17f230f2e8b6c6d6d3bb"><div class="ttname"><a href="a02655.html#a1c866bd84c3c17f230f2e8b6c6d6d3bb">bl::parser::Stream::get</a></div><div class="ttdeci">char get()</div><div class="ttdoc">Returns next character and modifies stream.</div><div class="ttdef"><b>Definition:</b> <a href="a01343_source.html#l00041">Stream.cpp:41</a></div></div>
+<div class="ttc" id="aa02655_html_a51dc5b929d8aad7a3a9e645ec79bb234"><div class="ttname"><a href="a02655.html#a51dc5b929d8aad7a3a9e645ec79bb234">bl::parser::Stream::peekN</a></div><div class="ttdeci">std::string peekN(unsigned int n)</div><div class="ttdoc">Reads N characters ahead and returns the stream to it's prior state.</div><div class="ttdef"><b>Definition:</b> <a href="a01343_source.html#l00022">Stream.cpp:22</a></div></div>
+<div class="ttc" id="aa02655_html_ad399efce6e095b78c3670a1ed32386cd"><div class="ttname"><a href="a02655.html#ad399efce6e095b78c3670a1ed32386cd">bl::parser::Stream::getN</a></div><div class="ttdeci">std::string getN(unsigned int n)</div><div class="ttdoc">Reads N characters and returns as string.</div><div class="ttdef"><b>Definition:</b> <a href="a01343_source.html#l00052">Stream.cpp:52</a></div></div>
+<div class="ttc" id="aa02663_html_a17380f013a7b0b8bca4839683da5742b"><div class="ttname"><a href="a02663.html#a17380f013a7b0b8bca4839683da5742b">bl::parser::WhitespaceSkipper::create</a></div><div class="ttdeci">static ISkipper::Ptr create()</div><div class="ttdef"><b>Definition:</b> <a href="a00509_source.html#l00020">WhitespaceSkipper.hpp:20</a></div></div>
+<div class="ttc" id="aa02663_html_a77fb74e134d21e95a59ef5bb4686dc74"><div class="ttname"><a href="a02663.html#a77fb74e134d21e95a59ef5bb4686dc74">bl::parser::WhitespaceSkipper::skip</a></div><div class="ttdeci">virtual void skip(Stream &amp;stream) const override</div><div class="ttdoc">Skip past unwanted characters in the stream.</div><div class="ttdef"><b>Definition:</b> <a href="a00509_source.html#l00022">WhitespaceSkipper.hpp:22</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jul 13 2023 20:06:09 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jul 25 2023 19:26:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

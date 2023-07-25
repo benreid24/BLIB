@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Scenes/PostFX.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Graph/TaskAssetTags.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,91 +66,54 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_1582fe53e8ca010e140dea1b69a5a9f3.html">Scenes</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_70f08ea54355502249f886f7ca541c6e.html">Graph</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">PostFX.hpp</div>  </div>
+<div class="title">TaskAssetTags.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00653.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_RENDERER_POSTFX_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_RENDERER_POSTFX_HPP</span></div>
+<a href="a00653.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_GRAPH_TASKASSETTAGS_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_GRAPH_TASKASSETTAGS_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00518.html">BLIB/Render/Buffers/IndexBuffer.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00704.html">BLIB/Render/Vulkan/PerFrame.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00713.html">BLIB/Render/Vulkan/Pipeline.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00734.html">BLIB/Render/Vulkan/StandardAttachmentSet.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00977.html">BLIB/Vulkan.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;array&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01628.html">bl</a></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span>rc</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">class </span>Observer;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">class </span>Renderer;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">namespace </span>scene</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;{</div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a02809.html">   28</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02809.html">PostFX</a> {</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <a class="code" href="a02809.html#a37edb1c5c3bf9f03852c1c0862ae10cf">PostFX</a>(<a class="code" href="a02737.html">Renderer</a>&amp; renderer);</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00656.html">BLIB/Render/Graph/TaskInput.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;string_view&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01736.html">bl</a></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>rg</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a02895.html">   19</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a02895.html">TaskAssetTags</a> {</div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a02895.html#a56bebfbb62f4c5636900e3bcdb4575be">   21</a></span>&#160;    std::vector&lt;std::string_view&gt; <a class="code" href="a02895.html#a56bebfbb62f4c5636900e3bcdb4575be">concreteOutputs</a>;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a02895.html#a4a07172cfc27793fd9268700496d9a24">   24</a></span>&#160;    std::string_view <a class="code" href="a02895.html#a4a07172cfc27793fd9268700496d9a24">createdOutput</a>;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="a02895.html#af629a8d79e580fce30b340ddc7a18985">   27</a></span>&#160;    std::vector&lt;TaskInput&gt; <a class="code" href="a02895.html#af629a8d79e580fce30b340ddc7a18985">requiredInputs</a>;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a02895.html#a643dfc7073ed1a88677ab7012e562b5d">   30</a></span>&#160;    std::vector&lt;TaskInput&gt; <a class="code" href="a02895.html#a643dfc7073ed1a88677ab7012e562b5d">optionalInputs</a>;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;};</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;} <span class="comment">// namespace rg</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;} <span class="comment">// namespace bl</span></div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02809.html#ab46172a60da1d911533ebaa9fb9bd35a">~PostFX</a>();</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02809.html#ac0fea8e5f7f69676ac20389f4e7bc93e">update</a>(<span class="keywordtype">float</span> dt);</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keyword">static</span> std::array&lt;VkDescriptorSetLayoutBinding, 1&gt; <a class="code" href="a02809.html#acd3b56023cc326f4ff7a18c60b277899">DescriptorLayoutBindings</a>();</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02809.html#af14826cc6c94d5ea5c1b7fcd66b7e004">usePipeline</a>(std::uint32_t pipelineId);</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02809.html#a26284366eba3c2b79dae8d27f3dcf9af">onRender</a>(VkCommandBuffer commandBuffer);</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <a class="code" href="a02737.html">Renderer</a>&amp; renderer;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    VkSampler sampler;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <a class="code" href="a02881.html#a7bb5a0efe4177857484ecb6ae66c75dd">vk::DescriptorPool::AllocationHandle</a> descriptorSetAllocHandle;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <a class="code" href="a02901.html">vk::PerFrame&lt;VkDescriptorSet&gt;</a> descriptorSets;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <a class="code" href="a02569.html">buf::IndexBuffer</a> indexBuffer;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <a class="code" href="a02913.html">vk::Pipeline</a>* pipeline;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordtype">void</span> bindImages(<a class="code" href="a02901.html">vk::PerFrame&lt;vk::StandardAttachmentBuffers&gt;</a>&amp; sceneImages);</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keywordtype">void</span> compositeScene(VkCommandBuffer commandBuffer);</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="a02809.html#ac9165bfb96e612837deff060aae07891">   83</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a02701.html">bl::rc::Observer</a>;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;};</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;} <span class="comment">// namespace scene</span></div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00518_html"><div class="ttname"><a href="a00518.html">IndexBuffer.hpp</a></div></div>
-<div class="ttc" id="aa00704_html"><div class="ttname"><a href="a00704.html">PerFrame.hpp</a></div></div>
-<div class="ttc" id="aa00713_html"><div class="ttname"><a href="a00713.html">Pipeline.hpp</a></div></div>
-<div class="ttc" id="aa00734_html"><div class="ttname"><a href="a00734.html">StandardAttachmentSet.hpp</a></div></div>
-<div class="ttc" id="aa00977_html"><div class="ttname"><a href="a00977.html">Vulkan.hpp</a></div></div>
-<div class="ttc" id="aa01628_html"><div class="ttname"><a href="a01628.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02569_html"><div class="ttname"><a href="a02569.html">bl::rc::buf::IndexBufferT</a></div><div class="ttdoc">Basic index buffer class built on top of vk::Buffer. Intended for static mesh data.</div><div class="ttdef"><b>Definition:</b> <a href="a00518_source.html#l00025">IndexBuffer.hpp:25</a></div></div>
-<div class="ttc" id="aa02701_html"><div class="ttname"><a href="a02701.html">bl::rc::Observer</a></div><div class="ttdoc">Top level class for observers in the renderer. Corresponds to Engine Actors. Each observer may have i...</div><div class="ttdef"><b>Definition:</b> <a href="a00596_source.html#l00033">Observer.hpp:33</a></div></div>
-<div class="ttc" id="aa02737_html"><div class="ttname"><a href="a02737.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition:</b> <a href="a04491_source.html#l00037">Renderer.hpp:37</a></div></div>
-<div class="ttc" id="aa02809_html"><div class="ttname"><a href="a02809.html">bl::rc::scene::PostFX</a></div><div class="ttdoc">Base class for post-processing of rendered scenes. This class simply copies the scene unaffected by d...</div><div class="ttdef"><b>Definition:</b> <a href="a00653_source.html#l00028">PostFX.hpp:28</a></div></div>
-<div class="ttc" id="aa02809_html_a26284366eba3c2b79dae8d27f3dcf9af"><div class="ttname"><a href="a02809.html#a26284366eba3c2b79dae8d27f3dcf9af">bl::rc::scene::PostFX::onRender</a></div><div class="ttdeci">virtual void onRender(VkCommandBuffer commandBuffer)</div><div class="ttdoc">Does nothing on the base class. Called prior to the draw commands being issued. Bind custom descripto...</div><div class="ttdef"><b>Definition:</b> <a href="a01382_source.html#l00131">PostFX.cpp:131</a></div></div>
-<div class="ttc" id="aa02809_html_a37edb1c5c3bf9f03852c1c0862ae10cf"><div class="ttname"><a href="a02809.html#a37edb1c5c3bf9f03852c1c0862ae10cf">bl::rc::scene::PostFX::PostFX</a></div><div class="ttdeci">PostFX(Renderer &amp;renderer)</div><div class="ttdoc">Creates the PostFX object.</div><div class="ttdef"><b>Definition:</b> <a href="a01382_source.html#l00022">PostFX.cpp:22</a></div></div>
-<div class="ttc" id="aa02809_html_ab46172a60da1d911533ebaa9fb9bd35a"><div class="ttname"><a href="a02809.html#ab46172a60da1d911533ebaa9fb9bd35a">bl::rc::scene::PostFX::~PostFX</a></div><div class="ttdeci">virtual ~PostFX()</div><div class="ttdoc">Destroys the PostFX object and releases Vulkan resources.</div><div class="ttdef"><b>Definition:</b> <a href="a01382_source.html#l00094">PostFX.cpp:94</a></div></div>
-<div class="ttc" id="aa02809_html_ac0fea8e5f7f69676ac20389f4e7bc93e"><div class="ttname"><a href="a02809.html#ac0fea8e5f7f69676ac20389f4e7bc93e">bl::rc::scene::PostFX::update</a></div><div class="ttdeci">virtual void update(float dt)</div><div class="ttdoc">Called each update frame. Does nothing but more advanced effects can use this to update their state.</div><div class="ttdef"><b>Definition:</b> <a href="a01382_source.html#l00105">PostFX.cpp:105</a></div></div>
-<div class="ttc" id="aa02809_html_acd3b56023cc326f4ff7a18c60b277899"><div class="ttname"><a href="a02809.html#acd3b56023cc326f4ff7a18c60b277899">bl::rc::scene::PostFX::DescriptorLayoutBindings</a></div><div class="ttdeci">static std::array&lt; VkDescriptorSetLayoutBinding, 1 &gt; DescriptorLayoutBindings()</div><div class="ttdoc">Returns the bindings that must be used for pipelines utilized by this class.</div><div class="ttdef"><b>Definition:</b> <a href="a01382_source.html#l00012">PostFX.cpp:12</a></div></div>
-<div class="ttc" id="aa02809_html_af14826cc6c94d5ea5c1b7fcd66b7e004"><div class="ttname"><a href="a02809.html#af14826cc6c94d5ea5c1b7fcd66b7e004">bl::rc::scene::PostFX::usePipeline</a></div><div class="ttdeci">void usePipeline(std::uint32_t pipelineId)</div><div class="ttdoc">Configures which pipeline to use for rendering. Vertex is what is passed in. set=0 binding=0 is a com...</div><div class="ttdef"><b>Definition:</b> <a href="a01382_source.html#l00101">PostFX.cpp:101</a></div></div>
-<div class="ttc" id="aa02881_html_a7bb5a0efe4177857484ecb6ae66c75dd"><div class="ttname"><a href="a02881.html#a7bb5a0efe4177857484ecb6ae66c75dd">bl::rc::vk::DescriptorPool::AllocationHandle</a></div><div class="ttdeci">std::list&lt; Allocation &gt;::iterator AllocationHandle</div><div class="ttdoc">Handle to an allocation from the pool.</div><div class="ttdef"><b>Definition:</b> <a href="a00698_source.html#l00043">DescriptorPool.hpp:43</a></div></div>
-<div class="ttc" id="aa02901_html"><div class="ttname"><a href="a02901.html">bl::rc::vk::PerFrame&lt; VkDescriptorSet &gt;</a></div></div>
-<div class="ttc" id="aa02913_html"><div class="ttname"><a href="a02913.html">bl::rc::vk::Pipeline</a></div><div class="ttdoc">Core renderer class representing a pipeline that is a part of a RenderPass. Pipelines are managed by ...</div><div class="ttdef"><b>Definition:</b> <a href="a00713_source.html#l00030">Pipeline.hpp:30</a></div></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00656_html"><div class="ttname"><a href="a00656.html">TaskInput.hpp</a></div></div>
+<div class="ttc" id="aa01736_html"><div class="ttname"><a href="a01736.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02895_html"><div class="ttname"><a href="a02895.html">bl::rc::rg::TaskAssetTags</a></div><div class="ttdoc">Basic struct containing the tags for a task for linking within a graph.</div><div class="ttdef"><b>Definition:</b> <a href="a00653_source.html#l00019">TaskAssetTags.hpp:19</a></div></div>
+<div class="ttc" id="aa02895_html_a4a07172cfc27793fd9268700496d9a24"><div class="ttname"><a href="a02895.html#a4a07172cfc27793fd9268700496d9a24">bl::rc::rg::TaskAssetTags::createdOutput</a></div><div class="ttdeci">std::string_view createdOutput</div><div class="ttdoc">The type of output that the task can create to output to.</div><div class="ttdef"><b>Definition:</b> <a href="a00653_source.html#l00024">TaskAssetTags.hpp:24</a></div></div>
+<div class="ttc" id="aa02895_html_a56bebfbb62f4c5636900e3bcdb4575be"><div class="ttname"><a href="a02895.html#a56bebfbb62f4c5636900e3bcdb4575be">bl::rc::rg::TaskAssetTags::concreteOutputs</a></div><div class="ttdeci">std::vector&lt; std::string_view &gt; concreteOutputs</div><div class="ttdoc">List of external assets the task can select to output to.</div><div class="ttdef"><b>Definition:</b> <a href="a00653_source.html#l00021">TaskAssetTags.hpp:21</a></div></div>
+<div class="ttc" id="aa02895_html_a643dfc7073ed1a88677ab7012e562b5d"><div class="ttname"><a href="a02895.html#a643dfc7073ed1a88677ab7012e562b5d">bl::rc::rg::TaskAssetTags::optionalInputs</a></div><div class="ttdeci">std::vector&lt; TaskInput &gt; optionalInputs</div><div class="ttdoc">List of optional inputs.</div><div class="ttdef"><b>Definition:</b> <a href="a00653_source.html#l00030">TaskAssetTags.hpp:30</a></div></div>
+<div class="ttc" id="aa02895_html_af629a8d79e580fce30b340ddc7a18985"><div class="ttname"><a href="a02895.html#af629a8d79e580fce30b340ddc7a18985">bl::rc::rg::TaskAssetTags::requiredInputs</a></div><div class="ttdeci">std::vector&lt; TaskInput &gt; requiredInputs</div><div class="ttdoc">List of required inputs.</div><div class="ttdef"><b>Definition:</b> <a href="a00653_source.html#l00027">TaskAssetTags.hpp:27</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jul 13 2023 20:06:08 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jul 25 2023 19:26:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

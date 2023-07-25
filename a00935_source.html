@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Util/IdAllocatorUnbounded.hpp Source File</title>
+<title>BLIB: include/BLIB/Serialization/Buffers/StreamInputBuffer.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,125 +66,67 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4b3af2b25a05b4f12e892fbe45139fe9.html">Util</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_0603dcfd3f324f38b3f10f913306f40f.html">Serialization</a></li><li class="navelem"><a class="el" href="dir_ea2b88e1631344ca45181ee841a824b6.html">Buffers</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">IdAllocatorUnbounded.hpp</div>  </div>
+<div class="title">StreamInputBuffer.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00935.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_UTIL_IDALLOCATORUNBOUNDED_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_UTIL_IDALLOCATORUNBOUNDED_HPP</span></div>
+<a href="a00935.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_SERIALIZATION_BUFFERS_STREAMINPUTBUFFER_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_SERIALIZATION_BUFFERS_STREAMINPUTBUFFER_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;algorithm&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00923.html">BLIB/Serialization/Buffers/InputBuffer.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01628.html">bl</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01736.html">bl</a></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>util</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>serial</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a03521.html">   18</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03521.html">IdAllocatorUnbounded</a> {</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a03521.html#a8b2a142e074338a13ffb614ff3565ab9">   23</a></span>&#160;    <a class="code" href="a03521.html#a8b2a142e074338a13ffb614ff3565ab9">IdAllocatorUnbounded</a>();</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a03521.html#a8bdca69c91eeb15834b1894c953c4549">   30</a></span>&#160;    <a class="code" href="a03521.html#a8bdca69c91eeb15834b1894c953c4549">IdAllocatorUnbounded</a>(std::size_t capacityHint);</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a03511.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03511.html">StreamInputBuffer</a> : <span class="keyword">public</span> <a class="code" href="a03495.html">InputBuffer</a> {</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <a class="code" href="a03511.html#a8d5fd4a5d4571cf5d2037e590e112363">StreamInputBuffer</a>(std::istream&amp; stream);</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a03511.html#a026b3ea3f1340e6befc3b5f1d6c1de38">   30</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03511.html#a026b3ea3f1340e6befc3b5f1d6c1de38">~StreamInputBuffer</a>() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="a03521.html#ae7fb1e9e6910be922de1188e21017610">   37</a></span>&#160;    T <a class="code" href="a03521.html#ae7fb1e9e6910be922de1188e21017610">allocate</a>();</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="a03521.html#a999cf670cc7639d0c167ef6b950616b2">   44</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03521.html#a999cf670cc7639d0c167ef6b950616b2">release</a>(T <span class="keywordtype">id</span>);</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="a03521.html#acaa4e830f32672424758a5487b26f4d4">   49</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03521.html#acaa4e830f32672424758a5487b26f4d4">releaseAll</a>();</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="a03521.html#ace0ff463eec7e042c0e53a6c53da58d5">   57</a></span>&#160;    constexpr <span class="keywordtype">bool</span> <a class="code" href="a03521.html#ace0ff463eec7e042c0e53a6c53da58d5">isAllocated</a>(T <span class="keywordtype">id</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="a03521.html#a9c6d5813a146b1402c8a4814422df140">   62</a></span>&#160;    constexpr T <a class="code" href="a03521.html#a9c6d5813a146b1402c8a4814422df140">poolSize</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="a03521.html#a689b826aa77e490dd3db07a18914bd3d">   67</a></span>&#160;    constexpr T <a class="code" href="a03521.html#a689b826aa77e490dd3db07a18914bd3d">endId</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="a03511.html#a83396b7344f5ac06693f644a550b18b0">read</a>(<span class="keywordtype">char</span>* data, std::size_t len) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keyword">virtual</span> std::size_t <a class="code" href="a03511.html#a9e6e8edbfd038649331e7e5e46642edd">tellg</a>() <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keyword">virtual</span> std::size_t <a class="code" href="a03511.html#a6822646bf868f540bc8dc1decc195eb1">size</a>() <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="a03511.html#aff2263615162f89b76a6ba19f2b6dd91">seekg</a>(std::size_t pos) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">char</span> <a class="code" href="a03511.html#a65e62c1b138b7a96f17ed4cfb82751ee">peek</a>() <span class="keyword">const override</span>;</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    T nextId;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    std::vector&lt;bool&gt; allocMap;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    std::vector&lt;T&gt; freeStack;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;};</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="a03511.html#afc80a36bfba405eff37387a384510b9d">good</a>() <span class="keyword">const override</span>;</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00078"></a><span class="lineno"><a class="line" href="a03521.html#a8b2a142e074338a13ffb614ff3565ab9">   78</a></span>&#160;<a class="code" href="a03521.html#a8b2a142e074338a13ffb614ff3565ab9">IdAllocatorUnbounded&lt;T&gt;::IdAllocatorUnbounded</a>()</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;: nextId(0) {}</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00082"></a><span class="lineno"><a class="line" href="a03521.html#a8bdca69c91eeb15834b1894c953c4549">   82</a></span>&#160;<a class="code" href="a03521.html#a8b2a142e074338a13ffb614ff3565ab9">IdAllocatorUnbounded&lt;T&gt;::IdAllocatorUnbounded</a>(std::size_t capacityHint)</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;: <a class="code" href="a03521.html">IdAllocatorUnbounded</a>() {</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    allocMap.resize(capacityHint, <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    freeStack.reserve(capacityHint);</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;}</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00089"></a><span class="lineno"><a class="line" href="a03521.html#ae7fb1e9e6910be922de1188e21017610">   89</a></span>&#160;T <a class="code" href="a03521.html#ae7fb1e9e6910be922de1188e21017610">IdAllocatorUnbounded&lt;T&gt;::allocate</a>() {</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    T id;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keywordflow">if</span> (freeStack.empty()) {</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <span class="keywordtype">id</span> = nextId++;</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        allocMap.resize(<span class="keyword">static_cast&lt;</span>std::size_t<span class="keyword">&gt;</span>(<span class="keywordtype">id</span>) + 1, <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    }</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        <span class="keywordtype">id</span> = freeStack.back();</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        freeStack.pop_back();</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    }</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    allocMap[id] = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keywordflow">return</span> id;</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;}</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00104"></a><span class="lineno"><a class="line" href="a03521.html#a999cf670cc7639d0c167ef6b950616b2">  104</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03521.html#a999cf670cc7639d0c167ef6b950616b2">IdAllocatorUnbounded&lt;T&gt;::release</a>(T <span class="keywordtype">id</span>) {</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    allocMap[id] = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> it =</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        std::lower_bound(freeStack.begin(), freeStack.end(), <span class="keywordtype">id</span>, std::cmp_greater&lt;T, T&gt;);</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    freeStack.emplace(it, <span class="keywordtype">id</span>);</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;}</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00112"></a><span class="lineno"><a class="line" href="a03521.html#acaa4e830f32672424758a5487b26f4d4">  112</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03521.html#acaa4e830f32672424758a5487b26f4d4">IdAllocatorUnbounded&lt;T&gt;::releaseAll</a>() {</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    nextId = 0;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    std::fill(allocMap.begin(), allocMap.end(), <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    freeStack.clear();</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;}</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00119"></a><span class="lineno"><a class="line" href="a03521.html#ace0ff463eec7e042c0e53a6c53da58d5">  119</a></span>&#160;constexpr <span class="keywordtype">bool</span> <a class="code" href="a03521.html#ace0ff463eec7e042c0e53a6c53da58d5">IdAllocatorUnbounded&lt;T&gt;::isAllocated</a>(T <span class="keywordtype">id</span>)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="keywordflow">return</span> allocMap[id];</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;}</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00124"></a><span class="lineno"><a class="line" href="a03521.html#a9c6d5813a146b1402c8a4814422df140">  124</a></span>&#160;constexpr T <a class="code" href="a03521.html#a9c6d5813a146b1402c8a4814422df140">IdAllocatorUnbounded&lt;T&gt;::poolSize</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(allocMap.size());</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;}</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00129"></a><span class="lineno"><a class="line" href="a03521.html#a689b826aa77e490dd3db07a18914bd3d">  129</a></span>&#160;constexpr T <a class="code" href="a03521.html#a689b826aa77e490dd3db07a18914bd3d">IdAllocatorUnbounded&lt;T&gt;::endId</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="keywordflow">return</span> nextId;</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;}</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160; </div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;} <span class="comment">// namespace util</span></div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160; </div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01628_html"><div class="ttname"><a href="a01628.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03521_html"><div class="ttname"><a href="a03521.html">bl::util::IdAllocatorUnbounded</a></div><div class="ttdoc">Similar to IdAllocator, but with no max id restriction.</div><div class="ttdef"><b>Definition:</b> <a href="a00935_source.html#l00018">IdAllocatorUnbounded.hpp:18</a></div></div>
-<div class="ttc" id="aa03521_html_a689b826aa77e490dd3db07a18914bd3d"><div class="ttname"><a href="a03521.html#a689b826aa77e490dd3db07a18914bd3d">bl::util::IdAllocatorUnbounded::endId</a></div><div class="ttdeci">constexpr T endId() const</div><div class="ttdoc">Returns essentially maxId+1 for iteration.</div><div class="ttdef"><b>Definition:</b> <a href="a00935_source.html#l00129">IdAllocatorUnbounded.hpp:129</a></div></div>
-<div class="ttc" id="aa03521_html_a8b2a142e074338a13ffb614ff3565ab9"><div class="ttname"><a href="a03521.html#a8b2a142e074338a13ffb614ff3565ab9">bl::util::IdAllocatorUnbounded::IdAllocatorUnbounded</a></div><div class="ttdeci">IdAllocatorUnbounded()</div><div class="ttdoc">Creates a new id allocator.</div><div class="ttdef"><b>Definition:</b> <a href="a00935_source.html#l00078">IdAllocatorUnbounded.hpp:78</a></div></div>
-<div class="ttc" id="aa03521_html_a8bdca69c91eeb15834b1894c953c4549"><div class="ttname"><a href="a03521.html#a8bdca69c91eeb15834b1894c953c4549">bl::util::IdAllocatorUnbounded::IdAllocatorUnbounded</a></div><div class="ttdeci">IdAllocatorUnbounded(std::size_t capacityHint)</div><div class="ttdoc">Creates a new id allocator and pre-allocates some memory.</div><div class="ttdef"><b>Definition:</b> <a href="a00935_source.html#l00082">IdAllocatorUnbounded.hpp:82</a></div></div>
-<div class="ttc" id="aa03521_html_a999cf670cc7639d0c167ef6b950616b2"><div class="ttname"><a href="a03521.html#a999cf670cc7639d0c167ef6b950616b2">bl::util::IdAllocatorUnbounded::release</a></div><div class="ttdeci">void release(T id)</div><div class="ttdoc">Releases the given id back into the pool. Double-release is an error.</div><div class="ttdef"><b>Definition:</b> <a href="a00935_source.html#l00104">IdAllocatorUnbounded.hpp:104</a></div></div>
-<div class="ttc" id="aa03521_html_a9c6d5813a146b1402c8a4814422df140"><div class="ttname"><a href="a03521.html#a9c6d5813a146b1402c8a4814422df140">bl::util::IdAllocatorUnbounded::poolSize</a></div><div class="ttdeci">constexpr T poolSize() const</div><div class="ttdoc">Returns the capacity of the id pool.</div><div class="ttdef"><b>Definition:</b> <a href="a00935_source.html#l00124">IdAllocatorUnbounded.hpp:124</a></div></div>
-<div class="ttc" id="aa03521_html_acaa4e830f32672424758a5487b26f4d4"><div class="ttname"><a href="a03521.html#acaa4e830f32672424758a5487b26f4d4">bl::util::IdAllocatorUnbounded::releaseAll</a></div><div class="ttdeci">void releaseAll()</div><div class="ttdoc">Releases all ids.</div><div class="ttdef"><b>Definition:</b> <a href="a00935_source.html#l00112">IdAllocatorUnbounded.hpp:112</a></div></div>
-<div class="ttc" id="aa03521_html_ace0ff463eec7e042c0e53a6c53da58d5"><div class="ttname"><a href="a03521.html#ace0ff463eec7e042c0e53a6c53da58d5">bl::util::IdAllocatorUnbounded::isAllocated</a></div><div class="ttdeci">constexpr bool isAllocated(T id) const</div><div class="ttdoc">Returns whether or not the given id is allocated.</div><div class="ttdef"><b>Definition:</b> <a href="a00935_source.html#l00119">IdAllocatorUnbounded.hpp:119</a></div></div>
-<div class="ttc" id="aa03521_html_ae7fb1e9e6910be922de1188e21017610"><div class="ttname"><a href="a03521.html#ae7fb1e9e6910be922de1188e21017610">bl::util::IdAllocatorUnbounded::allocate</a></div><div class="ttdeci">T allocate()</div><div class="ttdoc">Allocates a new id from the allocator.</div><div class="ttdef"><b>Definition:</b> <a href="a00935_source.html#l00089">IdAllocatorUnbounded.hpp:89</a></div></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    std::istream&amp; stream;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;};</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;} <span class="comment">// namespace serial</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00923_html"><div class="ttname"><a href="a00923.html">InputBuffer.hpp</a></div></div>
+<div class="ttc" id="aa01736_html"><div class="ttname"><a href="a01736.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03495_html"><div class="ttname"><a href="a03495.html">bl::serial::InputBuffer</a></div><div class="ttdoc">Buffer interface for reading data to be deserialized.</div><div class="ttdef"><b>Definition:</b> <a href="a00923_source.html#l00017">InputBuffer.hpp:17</a></div></div>
+<div class="ttc" id="aa03511_html"><div class="ttname"><a href="a03511.html">bl::serial::StreamInputBuffer</a></div><div class="ttdoc">Input buffer that operates on C++ streams.</div><div class="ttdef"><b>Definition:</b> <a href="a00935_source.html#l00017">StreamInputBuffer.hpp:17</a></div></div>
+<div class="ttc" id="aa03511_html_a026b3ea3f1340e6befc3b5f1d6c1de38"><div class="ttname"><a href="a03511.html#a026b3ea3f1340e6befc3b5f1d6c1de38">bl::serial::StreamInputBuffer::~StreamInputBuffer</a></div><div class="ttdeci">virtual ~StreamInputBuffer()=default</div><div class="ttdoc">Destroy the Stream Input Buffer object.</div></div>
+<div class="ttc" id="aa03511_html_a65e62c1b138b7a96f17ed4cfb82751ee"><div class="ttname"><a href="a03511.html#a65e62c1b138b7a96f17ed4cfb82751ee">bl::serial::StreamInputBuffer::peek</a></div><div class="ttdeci">virtual char peek() const override</div><div class="ttdoc">Returns the next byte value to be read. May return EOF.</div><div class="ttdef"><b>Definition:</b> <a href="a01661_source.html#l00030">StreamInputBuffer.cpp:30</a></div></div>
+<div class="ttc" id="aa03511_html_a6822646bf868f540bc8dc1decc195eb1"><div class="ttname"><a href="a03511.html#a6822646bf868f540bc8dc1decc195eb1">bl::serial::StreamInputBuffer::size</a></div><div class="ttdeci">virtual std::size_t size() const override</div><div class="ttdoc">Returns the size of available input.</div><div class="ttdef"><b>Definition:</b> <a href="a01661_source.html#l00017">StreamInputBuffer.cpp:17</a></div></div>
+<div class="ttc" id="aa03511_html_a83396b7344f5ac06693f644a550b18b0"><div class="ttname"><a href="a03511.html#a83396b7344f5ac06693f644a550b18b0">bl::serial::StreamInputBuffer::read</a></div><div class="ttdeci">virtual bool read(char *data, std::size_t len) override</div><div class="ttdoc">Reads data from the buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a01661_source.html#l00010">StreamInputBuffer.cpp:10</a></div></div>
+<div class="ttc" id="aa03511_html_a8d5fd4a5d4571cf5d2037e590e112363"><div class="ttname"><a href="a03511.html#a8d5fd4a5d4571cf5d2037e590e112363">bl::serial::StreamInputBuffer::StreamInputBuffer</a></div><div class="ttdeci">StreamInputBuffer(std::istream &amp;stream)</div><div class="ttdoc">Construct a new Stream Input Buffer from an input stream.</div><div class="ttdef"><b>Definition:</b> <a href="a01661_source.html#l00007">StreamInputBuffer.cpp:7</a></div></div>
+<div class="ttc" id="aa03511_html_a9e6e8edbfd038649331e7e5e46642edd"><div class="ttname"><a href="a03511.html#a9e6e8edbfd038649331e7e5e46642edd">bl::serial::StreamInputBuffer::tellg</a></div><div class="ttdeci">virtual std::size_t tellg() const override</div><div class="ttdoc">Returns the current position of the read head in the buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a01661_source.html#l00015">StreamInputBuffer.cpp:15</a></div></div>
+<div class="ttc" id="aa03511_html_afc80a36bfba405eff37387a384510b9d"><div class="ttname"><a href="a03511.html#afc80a36bfba405eff37387a384510b9d">bl::serial::StreamInputBuffer::good</a></div><div class="ttdeci">virtual bool good() const override</div><div class="ttdoc">Returns whether or not the buffer is in a valid state.</div><div class="ttdef"><b>Definition:</b> <a href="a01661_source.html#l00032">StreamInputBuffer.cpp:32</a></div></div>
+<div class="ttc" id="aa03511_html_aff2263615162f89b76a6ba19f2b6dd91"><div class="ttname"><a href="a03511.html#aff2263615162f89b76a6ba19f2b6dd91">bl::serial::StreamInputBuffer::seekg</a></div><div class="ttdeci">virtual bool seekg(std::size_t pos) override</div><div class="ttdoc">Sets the position of the read head in the buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a01661_source.html#l00025">StreamInputBuffer.cpp:25</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jul 13 2023 20:06:09 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jul 25 2023 19:26:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

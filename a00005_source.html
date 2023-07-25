@@ -77,7 +77,7 @@ $(function() {
 <a href="a00005.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_AI_PATHFINDING_PATHFINDER_HPP</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_AI_PATHFINDING_PATHFINDER_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00929.html">BLIB/Util/Hashes.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00995.html">BLIB/Util/Hashes.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;cmath&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;functional&gt;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;queue&gt;</span></div>
@@ -85,14 +85,14 @@ $(function() {
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="a01628.html">   12</a></span>&#160;<span class="keyword">namespace </span><a class="code" href="a01628.html">bl</a></div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="a01736.html">   12</a></span>&#160;<span class="keyword">namespace </span><a class="code" href="a01736.html">bl</a></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="a01629.html">   15</a></span>&#160;<span class="keyword">namespace </span>ai</div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="a01737.html">   15</a></span>&#160;<span class="keyword">namespace </span>ai</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> TNode, <span class="keyword">typename</span> CoordHash&gt;</div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a01737.html">   25</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a01737.html">PathFinder</a> {</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a01847.html">   25</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a01847.html">PathFinder</a> {</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> TMapCallback, <span class="keyword">typename</span> TDistFunc&gt;</div>
-<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="a01737.html#acf1db4fbab14c3a131d71e937d019a89">   43</a></span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="a01737.html#acf1db4fbab14c3a131d71e937d019a89">findPath</a>(<span class="keyword">const</span> TNode&amp; start, <span class="keyword">const</span> TNode&amp; destination,</div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="a01847.html#acf1db4fbab14c3a131d71e937d019a89">   43</a></span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="a01847.html#acf1db4fbab14c3a131d71e937d019a89">findPath</a>(<span class="keyword">const</span> TNode&amp; start, <span class="keyword">const</span> TNode&amp; destination,</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                         TMapCallback&amp;&amp; adjacentNodeCb, TDistFunc&amp;&amp; distCb,</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                         std::vector&lt;TNode&gt;&amp; result);</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;};</div>
@@ -100,7 +100,7 @@ $(function() {
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> TNode, <span class="keyword">typename</span> CHash&gt;</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> TMapCb, <span class="keyword">typename</span> TDistFunc&gt;</div>
-<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="a01737.html#aa7f7fda9fb55ab275e59b100a12c1602">   52</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a01737.html#acf1db4fbab14c3a131d71e937d019a89">PathFinder&lt;TNode, CHash&gt;::findPath</a>(<span class="keyword">const</span> TNode&amp; start, <span class="keyword">const</span> TNode&amp; destination,</div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="a01847.html#aa7f7fda9fb55ab275e59b100a12c1602">   52</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a01847.html#acf1db4fbab14c3a131d71e937d019a89">PathFinder&lt;TNode, CHash&gt;::findPath</a>(<span class="keyword">const</span> TNode&amp; start, <span class="keyword">const</span> TNode&amp; destination,</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                                        TMapCb&amp;&amp; nodeCb, TDistFunc&amp;&amp; distCb,</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;                                        std::vector&lt;TNode&gt;&amp; result) {</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    static_assert(</div>
@@ -173,15 +173,15 @@ $(function() {
 <div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;} <span class="comment">// namespace bl</span></div>
 <div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
 <div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00929_html"><div class="ttname"><a href="a00929.html">Hashes.hpp</a></div></div>
-<div class="ttc" id="aa01628_html"><div class="ttname"><a href="a01628.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa01737_html"><div class="ttname"><a href="a01737.html">bl::ai::PathFinder</a></div><div class="ttdoc">Class for calculating paths between arbitrary points in a PathMap.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00025">PathFinder.hpp:25</a></div></div>
-<div class="ttc" id="aa01737_html_acf1db4fbab14c3a131d71e937d019a89"><div class="ttname"><a href="a01737.html#acf1db4fbab14c3a131d71e937d019a89">bl::ai::PathFinder::findPath</a></div><div class="ttdeci">static bool findPath(const TNode &amp;start, const TNode &amp;destination, TMapCallback &amp;&amp;adjacentNodeCb, TDistFunc &amp;&amp;distCb, std::vector&lt; TNode &gt; &amp;result)</div><div class="ttdoc">Calculates the shortest path between the two points using the map callback. Map callback signature sh...</div></div>
+<div class="ttc" id="aa00995_html"><div class="ttname"><a href="a00995.html">Hashes.hpp</a></div></div>
+<div class="ttc" id="aa01736_html"><div class="ttname"><a href="a01736.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa01847_html"><div class="ttname"><a href="a01847.html">bl::ai::PathFinder</a></div><div class="ttdoc">Class for calculating paths between arbitrary points in a PathMap.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00025">PathFinder.hpp:25</a></div></div>
+<div class="ttc" id="aa01847_html_acf1db4fbab14c3a131d71e937d019a89"><div class="ttname"><a href="a01847.html#acf1db4fbab14c3a131d71e937d019a89">bl::ai::PathFinder::findPath</a></div><div class="ttdeci">static bool findPath(const TNode &amp;start, const TNode &amp;destination, TMapCallback &amp;&amp;adjacentNodeCb, TDistFunc &amp;&amp;distCb, std::vector&lt; TNode &gt; &amp;result)</div><div class="ttdoc">Calculates the shortest path between the two points using the map callback. Map callback signature sh...</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jul 13 2023 20:06:08 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jul 25 2023 19:26:24 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

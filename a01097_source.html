@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Interfaces/GUI/Data/Font.hpp Source File</title>
+<title>BLIB: src/Engine/Flags.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,42 +66,51 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_ce6405ba0afce575b27b3b998c1d24f9.html">Interfaces</a></li><li class="navelem"><a class="el" href="dir_8031c595bb16908e26701cd6b5d8df53.html">GUI</a></li><li class="navelem"><a class="el" href="dir_829a2c38a675ead6774f65d13a73da20.html">Data</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Font.hpp</div>  </div>
+<div class="title">Flags.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01097.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_GUI_DATA_FONT_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_GUI_DATA_FONT_HPP</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00791.html">BLIB/Resources/Loader.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;SFML/Graphics/Font.hpp&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01628.html">bl</a></div>
+<a href="a01097.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00167.html">BLIB/Engine/Flags.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01736.html">bl</a></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>engine</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>gui</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a03633.html">   18</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a03633.html">Font</a> {</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keyword">static</span> <a class="code" href="a03105.html">resource::Ref&lt;sf::Font&gt;</a> <a class="code" href="a03633.html#a31094b6abe40555f9cfba7a11e3ac020">get</a>();</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;};</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;} <span class="comment">// namespace gui</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00791_html"><div class="ttname"><a href="a00791.html">Loader.hpp</a></div></div>
-<div class="ttc" id="aa01628_html"><div class="ttname"><a href="a01628.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03105_html"><div class="ttname"><a href="a03105.html">bl::resource::Ref</a></div><div class="ttdoc">Represents a reference to a managed resource. Performs reference counting, but resources are never de...</div><div class="ttdef"><b>Definition:</b> <a href="a00794_source.html#l00025">Ref.hpp:25</a></div></div>
-<div class="ttc" id="aa03633_html"><div class="ttname"><a href="a03633.html">bl::gui::Font</a></div><div class="ttdoc">Data struct that provides access to the built in font. The font may be left out of the build by defin...</div><div class="ttdef"><b>Definition:</b> <a href="a01097_source.html#l00018">Font.hpp:18</a></div></div>
-<div class="ttc" id="aa03633_html_a31094b6abe40555f9cfba7a11e3ac020"><div class="ttname"><a href="a03633.html#a31094b6abe40555f9cfba7a11e3ac020">bl::gui::Font::get</a></div><div class="ttdeci">static resource::Ref&lt; sf::Font &gt; get()</div><div class="ttdoc">Returns a loaded sf::Font resource from the built in font.</div><div class="ttdef"><b>Definition:</b> <a href="a01094_source.html#l04085">Font.cpp:4085</a></div></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;constexpr std::uint32_t StateFlags =</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <a class="code" href="a02127.html#ae7955b695f60cd16d25d471f25029d8dafd37413afad2613e79b3d725c30147b9">Flags::PopState</a> | <a class="code" href="a02127.html#ae7955b695f60cd16d25d471f25029d8da9791dc5708a5a487e2626efe2e4a5a87">Flags::_priv_PushState</a> | <a class="code" href="a02127.html#ae7955b695f60cd16d25d471f25029d8da9615eccc4a0ae23cd7c339a58e8bcb2e">Flags::_priv_ReplaceState</a> | <a class="code" href="a02127.html#ae7955b695f60cd16d25d471f25029d8dadbeb889a6d0bd8a174aa2f787f83f39d">Flags::Terminate</a>;</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;} <span class="comment">// namespace</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;Flags::Flags()</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;: flags(None) {}</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a02127.html#a0ecf9b3771da20f26b5aeb5f3475eb00">   16</a></span>&#160;<span class="keywordtype">void</span> Flags::set(<a class="code" href="a02127.html#ae7955b695f60cd16d25d471f25029d8d">Flag</a> flag) { flags |= flag; }</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a02127.html#a062af9a6e0e642fcb4f5f3d1f1957b9b">   18</a></span>&#160;<span class="keywordtype">bool</span> Flags::active(<a class="code" href="a02127.html#ae7955b695f60cd16d25d471f25029d8d">Flag</a> flag)<span class="keyword"> const </span>{ <span class="keywordflow">return</span> (flags &amp; flag) != 0; }</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a02127.html#ae9b24580adb96ddf4288424b10cb5800">   20</a></span>&#160;<span class="keywordtype">bool</span> Flags::stateChangeReady()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> (flags &amp; StateFlags) != 0; }</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keywordtype">void</span> Flags::clear() { flags = None; }</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;} <span class="comment">// namespace engine</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00167_html"><div class="ttname"><a href="a00167.html">Flags.hpp</a></div></div>
+<div class="ttc" id="aa01736_html"><div class="ttname"><a href="a01736.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02127_html_ae7955b695f60cd16d25d471f25029d8d"><div class="ttname"><a href="a02127.html#ae7955b695f60cd16d25d471f25029d8d">bl::engine::Flags::Flag</a></div><div class="ttdeci">Flag</div><div class="ttdoc">The flags that may be used to control the Engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00167_source.html#l00028">Flags.hpp:28</a></div></div>
+<div class="ttc" id="aa02127_html_ae7955b695f60cd16d25d471f25029d8da9615eccc4a0ae23cd7c339a58e8bcb2e"><div class="ttname"><a href="a02127.html#ae7955b695f60cd16d25d471f25029d8da9615eccc4a0ae23cd7c339a58e8bcb2e">bl::engine::Flags::_priv_ReplaceState</a></div><div class="ttdeci">@ _priv_ReplaceState</div><div class="ttdoc">Used internally by the engine, do not use directly.</div><div class="ttdef"><b>Definition:</b> <a href="a00167_source.html#l00034">Flags.hpp:33</a></div></div>
+<div class="ttc" id="aa02127_html_ae7955b695f60cd16d25d471f25029d8da9791dc5708a5a487e2626efe2e4a5a87"><div class="ttname"><a href="a02127.html#ae7955b695f60cd16d25d471f25029d8da9791dc5708a5a487e2626efe2e4a5a87">bl::engine::Flags::_priv_PushState</a></div><div class="ttdeci">@ _priv_PushState</div><div class="ttdoc">Returns to the previous state. Terminates if no previous state.</div><div class="ttdef"><b>Definition:</b> <a href="a00167_source.html#l00032">Flags.hpp:32</a></div></div>
+<div class="ttc" id="aa02127_html_ae7955b695f60cd16d25d471f25029d8dadbeb889a6d0bd8a174aa2f787f83f39d"><div class="ttname"><a href="a02127.html#ae7955b695f60cd16d25d471f25029d8dadbeb889a6d0bd8a174aa2f787f83f39d">bl::engine::Flags::Terminate</a></div><div class="ttdeci">@ Terminate</div><div class="ttdoc">Special value indicating that no flags are set.</div><div class="ttdef"><b>Definition:</b> <a href="a00167_source.html#l00030">Flags.hpp:30</a></div></div>
+<div class="ttc" id="aa02127_html_ae7955b695f60cd16d25d471f25029d8dafd37413afad2613e79b3d725c30147b9"><div class="ttname"><a href="a02127.html#ae7955b695f60cd16d25d471f25029d8dafd37413afad2613e79b3d725c30147b9">bl::engine::Flags::PopState</a></div><div class="ttdeci">@ PopState</div><div class="ttdoc">Terminates the Engine's run() method.</div><div class="ttdef"><b>Definition:</b> <a href="a00167_source.html#l00031">Flags.hpp:31</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jul 13 2023 20:06:09 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jul 25 2023 19:26:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Scripts/Context.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Vulkan/VkCheck.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,54 +66,38 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_9fb35b166bb00afcaa31ece623ebed60.html">Scripts</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_49b99cfd015d92f767de1d8dec868906.html">Vulkan</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Context.hpp</div>  </div>
+<div class="title">VkCheck.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00806.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_SCRIPTS_CONTEXT_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_SCRIPTS_CONTEXT_HPP</span></div>
+<a href="a00806.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_VULKAN_VKCHECK_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_VULKAN_VKCHECK_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00827.html">BLIB/Scripts/SymbolTable.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00434.html">BLIB/Logging.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01628.html">bl</a></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="a01677.html">    8</a></span>&#160;<span class="keyword">namespace </span>script</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">class </span><a class="code" href="a03153.html">Script</a>;</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a03121.html">   20</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03121.html">Context</a> {</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a03121.html#ac6c0c419217aa8ac5c649b2384c94da8">   26</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03121.html#ac6c0c419217aa8ac5c649b2384c94da8">~Context</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03121.html#a60d6dc826b2e1dbd3d54ef4a58d1816a">addCustomSymbols</a>(<a class="code" href="a03161.html">SymbolTable</a>&amp; table) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordtype">void</span> initializeTable(<a class="code" href="a03161.html">SymbolTable</a>&amp; table) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="a03121.html#ae98eaa96d1b24e087f3c3e372fb09dce">   39</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a03153.html">Script</a>;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;};</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;} <span class="comment">// namespace script</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00827_html"><div class="ttname"><a href="a00827.html">SymbolTable.hpp</a></div></div>
-<div class="ttc" id="aa01628_html"><div class="ttname"><a href="a01628.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03121_html"><div class="ttname"><a href="a03121.html">bl::script::Context</a></div><div class="ttdoc">A context to run a script with. Custom context classes may be created to have different types of scri...</div><div class="ttdef"><b>Definition:</b> <a href="a00806_source.html#l00020">Context.hpp:20</a></div></div>
-<div class="ttc" id="aa03121_html_a60d6dc826b2e1dbd3d54ef4a58d1816a"><div class="ttname"><a href="a03121.html#a60d6dc826b2e1dbd3d54ef4a58d1816a">bl::script::Context::addCustomSymbols</a></div><div class="ttdeci">virtual void addCustomSymbols(SymbolTable &amp;table) const</div><div class="ttdoc">Add your custom functions and variables to the symbol table here.</div><div class="ttdef"><b>Definition:</b> <a href="a01502_source.html#l00013">Context.cpp:13</a></div></div>
-<div class="ttc" id="aa03121_html_ac6c0c419217aa8ac5c649b2384c94da8"><div class="ttname"><a href="a03121.html#ac6c0c419217aa8ac5c649b2384c94da8">bl::script::Context::~Context</a></div><div class="ttdeci">virtual ~Context()=default</div><div class="ttdoc">Destroy the Context object.</div></div>
-<div class="ttc" id="aa03153_html"><div class="ttname"><a href="a03153.html">bl::script::Script</a></div><div class="ttdoc">Loads scripts. Can run scripts directly or in the background. Is threadsafe.</div><div class="ttdef"><b>Definition:</b> <a href="a00824_source.html#l00030">Script.hpp:30</a></div></div>
-<div class="ttc" id="aa03161_html"><div class="ttname"><a href="a03161.html">bl::script::SymbolTable</a></div><div class="ttdoc">Stack aware symbol table for managing functions and variables Each Script holds a single instance.</div><div class="ttdef"><b>Definition:</b> <a href="a00827_source.html#l00026">SymbolTable.hpp:26</a></div></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#ifdef BLIB_DEBUG</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#define vkCheck(expr)                                                           \</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">    do {                                                                        \</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">        const auto result = expr;                                               \</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">        if (result != VK_SUCCESS) {                                             \</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">            BL_LOG_WARN &lt;&lt; &quot;Vulkan call returned &quot;</span> &lt;&lt; result &lt;&lt; &quot; | &quot; &lt;&lt; #expr; \</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;        }                                                                       \</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    } while (false);</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="a00806.html#a95c2f7535355f5f3855410ab629f9310">   15</a></span>&#160;<span class="preprocessor">#define vkCheck(expr) expr</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00434_html"><div class="ttname"><a href="a00434.html">Logging.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jul 13 2023 20:06:08 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jul 25 2023 19:26:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

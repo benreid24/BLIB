@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Vulkan/StandardAttachmentSet.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Transfers/Transferable.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,104 +66,93 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_49b99cfd015d92f767de1d8dec868906.html">Vulkan</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_1371b99667ed992b8332faf3b4f2dec9.html">Transfers</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">StandardAttachmentSet.hpp</div>  </div>
+<div class="title">Transferable.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00734.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_VULKAN_STANDARDATTACHMENTSET_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_VULKAN_STANDARDATTACHMENTSET_HPP</span></div>
+<a href="a00734.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_VULKAN_TRANSFERABLE_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_VULKAN_TRANSFERABLE_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00686.html">BLIB/Render/Vulkan/AttachmentSet.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;array&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00737.html">BLIB/Render/Transfers/TransferContext.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01043.html">BLIB/Vulkan.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01628.html">bl</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01736.html">bl</a></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>rc</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>vk</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">class </span>Swapchain;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">class </span>StandardAttachmentBuffers;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">struct </span>VulkanState;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;}</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a02965.html">   21</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02965.html">StandardAttachmentSet</a> : <span class="keyword">public</span> <a class="code" href="a02865.html">AttachmentSet</a> {</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <a class="code" href="a02965.html#ab94f715cbf3da71be21d2b4ab33513d1">StandardAttachmentSet</a>();</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    constexpr VkImage <a class="code" href="a02965.html#a43edecd181893262ec09a8c06f3309dc">colorImage</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    constexpr VkImageView <a class="code" href="a02965.html#a8e20d23e82aea625ad3ae7dbac997c5a">colorImageView</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    constexpr VkImage <a class="code" href="a02965.html#aa10669430ae7d8faf18ab2025d92c3c2">depthImage</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    constexpr VkImageView <a class="code" href="a02965.html#af398a8e17708a66a06e51935ea6b980d">depthImageView</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a01784.html">   17</a></span>&#160;<span class="keyword">namespace </span>tfr</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;{</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a03047.html">   25</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03047.html">Transferable</a> {</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a03047.html#a109f9d7acc098649830f276c266b47d0">   28</a></span>&#160;    <span class="keyword">enum struct</span> <a class="code" href="a03047.html#a109f9d7acc098649830f276c266b47d0">SyncRequirement</a> {</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <a class="code" href="a03047.html#a109f9d7acc098649830f276c266b47d0a43f6615bbb2c40a5306ff804094420b1">Immediate</a>,</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <a class="code" href="a03047.html#a109f9d7acc098649830f276c266b47d0a11fb2e916cb91ad9afad4da5711d81d0">DeviceIdle</a></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    };</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03047.html#a05233a758f0875563aea077dde3096f6">~Transferable</a>();</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03047.html#ab3128a7ed8a1e2d7ca44dab3f8e3981d">queueTransfer</a>(<a class="code" href="a03047.html#a109f9d7acc098649830f276c266b47d0">SyncRequirement</a> syncReq = <a class="code" href="a03047.html#a109f9d7acc098649830f276c266b47d0a43f6615bbb2c40a5306ff804094420b1">SyncRequirement::Immediate</a>);</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02965.html#a385af93f7470fb08b2947b6f3e171cd7">setAttachments</a>(VkImage <a class="code" href="a02965.html#a43edecd181893262ec09a8c06f3309dc">colorImage</a>, VkImageView <a class="code" href="a02965.html#a8e20d23e82aea625ad3ae7dbac997c5a">colorImageView</a>, VkImage <a class="code" href="a02965.html#aa10669430ae7d8faf18ab2025d92c3c2">depthImage</a>,</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                        VkImageView depthImageview);</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="a02965.html#a3f7f198c3c97a1cffea2dcca5594d4bb">   60</a></span>&#160;    std::array&lt;VkImage, 2&gt; <a class="code" href="a02965.html#a3f7f198c3c97a1cffea2dcca5594d4bb">imageHandles</a>;</div>
-<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="a02965.html#a01f0ec11a66e4f9a9e6cd26a02761a89">   61</a></span>&#160;    std::array&lt;VkImageView, 2&gt; <a class="code" href="a02965.html#a01f0ec11a66e4f9a9e6cd26a02761a89">imageViewHandles</a>;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03047.html#affdc9c965d73f5227f2d3e0c8a17064e">transferEveryFrame</a>(<a class="code" href="a03047.html#a109f9d7acc098649830f276c266b47d0">SyncRequirement</a> syncReq = <a class="code" href="a03047.html#a109f9d7acc098649830f276c266b47d0a43f6615bbb2c40a5306ff804094420b1">SyncRequirement::Immediate</a>);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03047.html#a998a9c05422f6188b474d275866a6b2b">stopTransferringEveryFrame</a>();</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="a03047.html#ae134133a20147f77b4feae59dc9b447d">   61</a></span>&#160;    <a class="code" href="a03187.html">vk::VulkanState</a>* <a class="code" href="a03047.html#ae134133a20147f77b4feae59dc9b447d">vulkanState</a>;</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="a02965.html#ab56ed94791f52f7d60e096e34c7cf16a">   63</a></span>&#160;    <span class="keyword">static</span> constexpr <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="a02965.html#ab56ed94791f52f7d60e096e34c7cf16a">ColorIndex</a> = 0;</div>
-<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="a02965.html#a3483169146e98921fcd9b2b04075876a">   64</a></span>&#160;    <span class="keyword">static</span> constexpr <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="a02965.html#a3483169146e98921fcd9b2b04075876a">DepthIndex</a> = 1;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;};</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="a02965.html#ab94f715cbf3da71be21d2b4ab33513d1">   69</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="a02965.html#ab94f715cbf3da71be21d2b4ab33513d1">StandardAttachmentSet::StandardAttachmentSet</a>()</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;: <a class="code" href="a02865.html">AttachmentSet</a>(imageHandles, imageViewHandles) {}</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="a02965.html#a43edecd181893262ec09a8c06f3309dc">   72</a></span>&#160;<span class="keyword">inline</span> constexpr VkImage <a class="code" href="a02965.html#a43edecd181893262ec09a8c06f3309dc">StandardAttachmentSet::colorImage</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="a02965.html#a3f7f198c3c97a1cffea2dcca5594d4bb">imageHandles</a>[<a class="code" href="a02965.html#ab56ed94791f52f7d60e096e34c7cf16a">ColorIndex</a>];</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;}</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="a02965.html#a8e20d23e82aea625ad3ae7dbac997c5a">   76</a></span>&#160;<span class="keyword">inline</span> constexpr VkImageView <a class="code" href="a02965.html#a8e20d23e82aea625ad3ae7dbac997c5a">StandardAttachmentSet::colorImageView</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="a02965.html#a01f0ec11a66e4f9a9e6cd26a02761a89">imageViewHandles</a>[<a class="code" href="a02965.html#ab56ed94791f52f7d60e096e34c7cf16a">ColorIndex</a>];</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;}</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="a02965.html#aa10669430ae7d8faf18ab2025d92c3c2">   80</a></span>&#160;<span class="keyword">inline</span> constexpr VkImage <a class="code" href="a02965.html#aa10669430ae7d8faf18ab2025d92c3c2">StandardAttachmentSet::depthImage</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="a02965.html#a3f7f198c3c97a1cffea2dcca5594d4bb">imageHandles</a>[<a class="code" href="a02965.html#a3483169146e98921fcd9b2b04075876a">DepthIndex</a>];</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;}</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <a class="code" href="a03047.html#a168f2c871b5f008471d22febc6fed7c1">Transferable</a>();</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <a class="code" href="a03047.html#a168f2c871b5f008471d22febc6fed7c1">Transferable</a>(<a class="code" href="a03187.html">vk::VulkanState</a>&amp; vs);</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno"><a class="line" href="a03047.html#a45c235479910a695c7e770d79f3c528d">   82</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03047.html#a45c235479910a695c7e770d79f3c528d">executeTransfer</a>(VkCommandBuffer commandBuffer, <a class="code" href="a03051.html">TransferContext</a>&amp; context) = 0;</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
-<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="a02965.html#af398a8e17708a66a06e51935ea6b980d">   84</a></span>&#160;<span class="keyword">inline</span> constexpr VkImageView <a class="code" href="a02965.html#af398a8e17708a66a06e51935ea6b980d">StandardAttachmentSet::depthImageView</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="a02965.html#a01f0ec11a66e4f9a9e6cd26a02761a89">imageViewHandles</a>[<a class="code" href="a02965.html#a3483169146e98921fcd9b2b04075876a">DepthIndex</a>];</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;}</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
-<div class="line"><a name="l00088"></a><span class="lineno"><a class="line" href="a02965.html#a385af93f7470fb08b2947b6f3e171cd7">   88</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="a02965.html#a385af93f7470fb08b2947b6f3e171cd7">StandardAttachmentSet::setAttachments</a>(VkImage ci, VkImageView civ, VkImage di,</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;                                                  VkImageView div) {</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <a class="code" href="a02965.html#a3f7f198c3c97a1cffea2dcca5594d4bb">imageHandles</a>[<a class="code" href="a02965.html#ab56ed94791f52f7d60e096e34c7cf16a">ColorIndex</a>]     = ci;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <a class="code" href="a02965.html#a3f7f198c3c97a1cffea2dcca5594d4bb">imageHandles</a>[<a class="code" href="a02965.html#a3483169146e98921fcd9b2b04075876a">DepthIndex</a>]     = di;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <a class="code" href="a02965.html#a01f0ec11a66e4f9a9e6cd26a02761a89">imageViewHandles</a>[<a class="code" href="a02965.html#ab56ed94791f52f7d60e096e34c7cf16a">ColorIndex</a>] = civ;</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <a class="code" href="a02965.html#a01f0ec11a66e4f9a9e6cd26a02761a89">imageViewHandles</a>[<a class="code" href="a02965.html#a3483169146e98921fcd9b2b04075876a">DepthIndex</a>] = div;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;}</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;} <span class="comment">// namespace vk</span></div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00686_html"><div class="ttname"><a href="a00686.html">AttachmentSet.hpp</a></div></div>
-<div class="ttc" id="aa01628_html"><div class="ttname"><a href="a01628.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02865_html"><div class="ttname"><a href="a02865.html">bl::rc::vk::AttachmentSet</a></div><div class="ttdoc">Base class representing an attachment set that can be rendered to. Derived classes can provide additi...</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00020">AttachmentSet.hpp:20</a></div></div>
-<div class="ttc" id="aa02965_html"><div class="ttname"><a href="a02965.html">bl::rc::vk::StandardAttachmentSet</a></div><div class="ttdoc">Attachment set containing the standard attachments for render frames in the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00734_source.html#l00021">StandardAttachmentSet.hpp:21</a></div></div>
-<div class="ttc" id="aa02965_html_a01f0ec11a66e4f9a9e6cd26a02761a89"><div class="ttname"><a href="a02965.html#a01f0ec11a66e4f9a9e6cd26a02761a89">bl::rc::vk::StandardAttachmentSet::imageViewHandles</a></div><div class="ttdeci">std::array&lt; VkImageView, 2 &gt; imageViewHandles</div><div class="ttdef"><b>Definition:</b> <a href="a00734_source.html#l00061">StandardAttachmentSet.hpp:61</a></div></div>
-<div class="ttc" id="aa02965_html_a3483169146e98921fcd9b2b04075876a"><div class="ttname"><a href="a02965.html#a3483169146e98921fcd9b2b04075876a">bl::rc::vk::StandardAttachmentSet::DepthIndex</a></div><div class="ttdeci">static constexpr unsigned int DepthIndex</div><div class="ttdef"><b>Definition:</b> <a href="a00734_source.html#l00064">StandardAttachmentSet.hpp:64</a></div></div>
-<div class="ttc" id="aa02965_html_a385af93f7470fb08b2947b6f3e171cd7"><div class="ttname"><a href="a02965.html#a385af93f7470fb08b2947b6f3e171cd7">bl::rc::vk::StandardAttachmentSet::setAttachments</a></div><div class="ttdeci">void setAttachments(VkImage colorImage, VkImageView colorImageView, VkImage depthImage, VkImageView depthImageview)</div><div class="ttdoc">Sets the attachments of this attachment set.</div><div class="ttdef"><b>Definition:</b> <a href="a00734_source.html#l00088">StandardAttachmentSet.hpp:88</a></div></div>
-<div class="ttc" id="aa02965_html_a3f7f198c3c97a1cffea2dcca5594d4bb"><div class="ttname"><a href="a02965.html#a3f7f198c3c97a1cffea2dcca5594d4bb">bl::rc::vk::StandardAttachmentSet::imageHandles</a></div><div class="ttdeci">std::array&lt; VkImage, 2 &gt; imageHandles</div><div class="ttdef"><b>Definition:</b> <a href="a00734_source.html#l00060">StandardAttachmentSet.hpp:60</a></div></div>
-<div class="ttc" id="aa02965_html_a43edecd181893262ec09a8c06f3309dc"><div class="ttname"><a href="a02965.html#a43edecd181893262ec09a8c06f3309dc">bl::rc::vk::StandardAttachmentSet::colorImage</a></div><div class="ttdeci">constexpr VkImage colorImage() const</div><div class="ttdoc">Returns the handle to the image for the color attachment.</div><div class="ttdef"><b>Definition:</b> <a href="a00734_source.html#l00072">StandardAttachmentSet.hpp:72</a></div></div>
-<div class="ttc" id="aa02965_html_a8e20d23e82aea625ad3ae7dbac997c5a"><div class="ttname"><a href="a02965.html#a8e20d23e82aea625ad3ae7dbac997c5a">bl::rc::vk::StandardAttachmentSet::colorImageView</a></div><div class="ttdeci">constexpr VkImageView colorImageView() const</div><div class="ttdoc">Returns the color attachment image view.</div><div class="ttdef"><b>Definition:</b> <a href="a00734_source.html#l00076">StandardAttachmentSet.hpp:76</a></div></div>
-<div class="ttc" id="aa02965_html_aa10669430ae7d8faf18ab2025d92c3c2"><div class="ttname"><a href="a02965.html#aa10669430ae7d8faf18ab2025d92c3c2">bl::rc::vk::StandardAttachmentSet::depthImage</a></div><div class="ttdeci">constexpr VkImage depthImage() const</div><div class="ttdoc">Returns the handle to the image for the depth attachment.</div><div class="ttdef"><b>Definition:</b> <a href="a00734_source.html#l00080">StandardAttachmentSet.hpp:80</a></div></div>
-<div class="ttc" id="aa02965_html_ab56ed94791f52f7d60e096e34c7cf16a"><div class="ttname"><a href="a02965.html#ab56ed94791f52f7d60e096e34c7cf16a">bl::rc::vk::StandardAttachmentSet::ColorIndex</a></div><div class="ttdeci">static constexpr unsigned int ColorIndex</div><div class="ttdef"><b>Definition:</b> <a href="a00734_source.html#l00063">StandardAttachmentSet.hpp:63</a></div></div>
-<div class="ttc" id="aa02965_html_ab94f715cbf3da71be21d2b4ab33513d1"><div class="ttname"><a href="a02965.html#ab94f715cbf3da71be21d2b4ab33513d1">bl::rc::vk::StandardAttachmentSet::StandardAttachmentSet</a></div><div class="ttdeci">StandardAttachmentSet()</div><div class="ttdoc">Creates an uninitialized attachment set.</div><div class="ttdef"><b>Definition:</b> <a href="a00734_source.html#l00069">StandardAttachmentSet.hpp:69</a></div></div>
-<div class="ttc" id="aa02965_html_af398a8e17708a66a06e51935ea6b980d"><div class="ttname"><a href="a02965.html#af398a8e17708a66a06e51935ea6b980d">bl::rc::vk::StandardAttachmentSet::depthImageView</a></div><div class="ttdeci">constexpr VkImageView depthImageView() const</div><div class="ttdoc">Returns the depth attachment image view.</div><div class="ttdef"><b>Definition:</b> <a href="a00734_source.html#l00084">StandardAttachmentSet.hpp:84</a></div></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keyword">static</span> constexpr <a class="code" href="a03047.html#a109f9d7acc098649830f276c266b47d0">SyncRequirement</a> NotPerFrame =</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <span class="keyword">static_cast&lt;</span><a class="code" href="a03047.html#a109f9d7acc098649830f276c266b47d0">SyncRequirement</a><span class="keyword">&gt;</span>(<span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(<a class="code" href="a03047.html#a109f9d7acc098649830f276c266b47d0a43f6615bbb2c40a5306ff804094420b1">SyncRequirement::Immediate</a>) +</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;                                     <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(<a class="code" href="a03047.html#a109f9d7acc098649830f276c266b47d0a11fb2e916cb91ad9afad4da5711d81d0">SyncRequirement::DeviceIdle</a>) + 1);</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <a class="code" href="a03047.html#a109f9d7acc098649830f276c266b47d0">SyncRequirement</a> perFrame;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
+<div class="line"><a name="l00091"></a><span class="lineno"><a class="line" href="a03047.html#ac07143e1010fb3b1749e621c1bc1931f">   91</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a03055.html">TransferEngine</a>;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;};</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;} <span class="comment">// namespace tfr</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00737_html"><div class="ttname"><a href="a00737.html">TransferContext.hpp</a></div></div>
+<div class="ttc" id="aa01043_html"><div class="ttname"><a href="a01043.html">Vulkan.hpp</a></div></div>
+<div class="ttc" id="aa01736_html"><div class="ttname"><a href="a01736.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03047_html"><div class="ttname"><a href="a03047.html">bl::rc::tfr::Transferable</a></div><div class="ttdoc">Base class for objects that transfer state or data to the GPU. Used in conjunction with the TransferE...</div><div class="ttdef"><b>Definition:</b> <a href="a00734_source.html#l00025">Transferable.hpp:25</a></div></div>
+<div class="ttc" id="aa03047_html_a05233a758f0875563aea077dde3096f6"><div class="ttname"><a href="a03047.html#a05233a758f0875563aea077dde3096f6">bl::rc::tfr::Transferable::~Transferable</a></div><div class="ttdeci">virtual ~Transferable()</div><div class="ttdoc">Destroy the transferable object.</div><div class="ttdef"><b>Definition:</b> <a href="a01502_source.html#l00018">Transferable.cpp:18</a></div></div>
+<div class="ttc" id="aa03047_html_a109f9d7acc098649830f276c266b47d0"><div class="ttname"><a href="a03047.html#a109f9d7acc098649830f276c266b47d0">bl::rc::tfr::Transferable::SyncRequirement</a></div><div class="ttdeci">SyncRequirement</div><div class="ttdoc">Enum containing requirements for when transfers may start.</div><div class="ttdef"><b>Definition:</b> <a href="a00734_source.html#l00028">Transferable.hpp:28</a></div></div>
+<div class="ttc" id="aa03047_html_a109f9d7acc098649830f276c266b47d0a11fb2e916cb91ad9afad4da5711d81d0"><div class="ttname"><a href="a03047.html#a109f9d7acc098649830f276c266b47d0a11fb2e916cb91ad9afad4da5711d81d0">bl::rc::tfr::Transferable::SyncRequirement::DeviceIdle</a></div><div class="ttdeci">@ DeviceIdle</div><div class="ttdoc">Transfers with this requirement cannot start until the device is idle.</div></div>
+<div class="ttc" id="aa03047_html_a109f9d7acc098649830f276c266b47d0a43f6615bbb2c40a5306ff804094420b1"><div class="ttname"><a href="a03047.html#a109f9d7acc098649830f276c266b47d0a43f6615bbb2c40a5306ff804094420b1">bl::rc::tfr::Transferable::SyncRequirement::Immediate</a></div><div class="ttdeci">@ Immediate</div><div class="ttdoc">Transfers with this requirement may be started immediately.</div></div>
+<div class="ttc" id="aa03047_html_a168f2c871b5f008471d22febc6fed7c1"><div class="ttname"><a href="a03047.html#a168f2c871b5f008471d22febc6fed7c1">bl::rc::tfr::Transferable::Transferable</a></div><div class="ttdeci">Transferable()</div><div class="ttdoc">Sets vulkanState to nullptr.</div><div class="ttdef"><b>Definition:</b> <a href="a01502_source.html#l00010">Transferable.cpp:10</a></div></div>
+<div class="ttc" id="aa03047_html_a45c235479910a695c7e770d79f3c528d"><div class="ttname"><a href="a03047.html#a45c235479910a695c7e770d79f3c528d">bl::rc::tfr::Transferable::executeTransfer</a></div><div class="ttdeci">virtual void executeTransfer(VkCommandBuffer commandBuffer, TransferContext &amp;context)=0</div><div class="ttdoc">Derived classes should perform their transfers here. Barriers should be registered with transferEngin...</div></div>
+<div class="ttc" id="aa03047_html_a998a9c05422f6188b474d275866a6b2b"><div class="ttname"><a href="a03047.html#a998a9c05422f6188b474d275866a6b2b">bl::rc::tfr::Transferable::stopTransferringEveryFrame</a></div><div class="ttdeci">void stopTransferringEveryFrame()</div><div class="ttdoc">Removes this Transferable from the queue that gets transferred every frame.</div><div class="ttdef"><b>Definition:</b> <a href="a01502_source.html#l00043">Transferable.cpp:43</a></div></div>
+<div class="ttc" id="aa03047_html_ab3128a7ed8a1e2d7ca44dab3f8e3981d"><div class="ttname"><a href="a03047.html#ab3128a7ed8a1e2d7ca44dab3f8e3981d">bl::rc::tfr::Transferable::queueTransfer</a></div><div class="ttdeci">void queueTransfer(SyncRequirement syncReq=SyncRequirement::Immediate)</div><div class="ttdoc">Queues this object with the TransferEngine to be transfered on the next frame.</div><div class="ttdef"><b>Definition:</b> <a href="a01502_source.html#l00022">Transferable.cpp:22</a></div></div>
+<div class="ttc" id="aa03047_html_ae134133a20147f77b4feae59dc9b447d"><div class="ttname"><a href="a03047.html#ae134133a20147f77b4feae59dc9b447d">bl::rc::tfr::Transferable::vulkanState</a></div><div class="ttdeci">vk::VulkanState * vulkanState</div><div class="ttdef"><b>Definition:</b> <a href="a00734_source.html#l00061">Transferable.hpp:61</a></div></div>
+<div class="ttc" id="aa03047_html_affdc9c965d73f5227f2d3e0c8a17064e"><div class="ttname"><a href="a03047.html#affdc9c965d73f5227f2d3e0c8a17064e">bl::rc::tfr::Transferable::transferEveryFrame</a></div><div class="ttdeci">void transferEveryFrame(SyncRequirement syncReq=SyncRequirement::Immediate)</div><div class="ttdoc">Configures this Transferable to transfer every frame with the given sync requirement.</div><div class="ttdef"><b>Definition:</b> <a href="a01502_source.html#l00032">Transferable.cpp:32</a></div></div>
+<div class="ttc" id="aa03051_html"><div class="ttname"><a href="a03051.html">bl::rc::tfr::TransferContext</a></div><div class="ttdef"><b>Definition:</b> <a href="a00737_source.html#l00018">TransferContext.hpp:18</a></div></div>
+<div class="ttc" id="aa03055_html"><div class="ttname"><a href="a03055.html">bl::rc::tfr::TransferEngine</a></div><div class="ttdoc">Utility class to manage the synchronized transfer of data to the GPU.</div><div class="ttdef"><b>Definition:</b> <a href="a00740_source.html#l00025">TransferEngine.hpp:25</a></div></div>
+<div class="ttc" id="aa03187_html"><div class="ttname"><a href="a03187.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a00809_source.html#l00036">VulkanState.hpp:36</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jul 13 2023 20:06:08 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jul 25 2023 19:26:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>
