@@ -1,4 +1,4 @@
-#include <BLIB/Render/Scenes/BasicScene.hpp>
+#include <BLIB/Render/Scenes/BatchedScene.hpp>
 
 #include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Logging.hpp>
@@ -10,16 +10,16 @@ namespace rc
 {
 namespace scene
 {
-BasicScene::BasicScene(engine::Engine& engine)
+BatchedScene::BatchedScene(engine::Engine& engine)
 : Scene(engine, objects.makeEntityCallback())
 , objects()
 , staticTransCache(Config::DefaultSceneObjectCapacity, false)
 , dynamicTransCache(Config::DefaultSceneObjectCapacity, false) {}
 
-BasicScene::~BasicScene() { objects.unlinkAll(descriptorSets); }
+BatchedScene::~BatchedScene() { objects.unlinkAll(descriptorSets); }
 
-scene::SceneObject* BasicScene::doAdd(ecs::Entity entity, rcom::DrawableBase& obj,
-                                      UpdateSpeed updateFreq) {
+scene::SceneObject* BatchedScene::doAdd(ecs::Entity entity, rcom::DrawableBase& obj,
+                                        UpdateSpeed updateFreq) {
     const auto alloc            = objects.allocate(updateFreq, entity);
     const std::uint32_t sceneId = alloc.newObject->sceneKey.sceneId;
     auto& transCache = updateFreq == UpdateSpeed::Static ? staticTransCache : dynamicTransCache;
@@ -77,7 +77,7 @@ scene::SceneObject* BasicScene::doAdd(ecs::Entity entity, rcom::DrawableBase& ob
     return alloc.newObject;
 }
 
-void BasicScene::doRemove(scene::SceneObject* object, std::uint32_t pipelineId) {
+void BatchedScene::doRemove(scene::SceneObject* object, std::uint32_t pipelineId) {
     const ecs::Entity entity = objects.getObjectEntity(object->sceneKey);
     auto& transCache =
         object->sceneKey.updateFreq == UpdateSpeed::Static ? staticTransCache : dynamicTransCache;
@@ -109,7 +109,7 @@ void BasicScene::doRemove(scene::SceneObject* object, std::uint32_t pipelineId) 
     }
 }
 
-void BasicScene::doBatchChange(const BatchChange& change, std::uint32_t ogPipeline) {
+void BatchedScene::doBatchChange(const BatchChange& change, std::uint32_t ogPipeline) {
     const bool isStatic = change.changed->sceneKey.updateFreq == UpdateSpeed::Static;
     auto& transCache    = isStatic ? staticTransCache : dynamicTransCache;
     const bool wasTrans = transCache[change.changed->sceneKey.sceneId];
@@ -194,7 +194,7 @@ void BasicScene::doBatchChange(const BatchChange& change, std::uint32_t ogPipeli
     }
 }
 
-void BasicScene::renderScene(scene::SceneRenderContext& ctx) {
+void BatchedScene::renderScene(scene::SceneRenderContext& ctx) {
     for (ObjectBatch* batch : std::array<ObjectBatch*, 2>{&opaqueObjects, &transparentObjects}) {
         for (LayoutBatch& lb : batch->batches) {
             const VkPipelineLayout layout = lb.layout.rawLayout();
@@ -230,7 +230,7 @@ void BasicScene::renderScene(scene::SceneRenderContext& ctx) {
     }
 }
 
-void BasicScene::handleAddressChange(UpdateSpeed speed, SceneObject* base) {
+void BatchedScene::handleAddressChange(UpdateSpeed speed, SceneObject* base) {
     for (ObjectBatch* ob : {&opaqueObjects, &transparentObjects}) {
         for (LayoutBatch& lb : ob->batches) {
             auto& pbs = speed == UpdateSpeed::Static ? lb.staticBatches : lb.dynamicBatches;

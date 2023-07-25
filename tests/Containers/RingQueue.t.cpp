@@ -3,7 +3,7 @@
 
 namespace bl
 {
-namespace container
+namespace ctr
 {
 namespace unittest
 {
@@ -75,5 +75,5 @@ TEST(RingQueue, Clear) {
 }
 
 } // namespace unittest
-} // namespace container
+} // namespace ctr
 } // namespace bl

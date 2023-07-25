@@ -4,7 +4,7 @@
 
 namespace bl
 {
-namespace container
+namespace ctr
 {
 namespace unittest
 {
@@ -140,5 +140,5 @@ TEST(Grid, Pointer) {
 }
 
 } // namespace unittest
-} // namespace container
+} // namespace ctr
 } // namespace bl

@@ -17,7 +17,6 @@ namespace com
  * @brief ECS component to add a texture to an object
  *
  * @ingroup Components
- * @ingroup Graphics
  */
 struct Texture : public rc::rcom::DescriptorComponentBase<Texture, std::uint32_t> {
     /**

@@ -6,7 +6,7 @@
 
 namespace bl
 {
-namespace container
+namespace ctr
 {
 /**
  * @brief Fairly basic implementation of a quadtree for spatially partitioning objects. Works most
@@ -695,7 +695,7 @@ bool QuadTree<TCoord, TPayload>::ResultSet::Iterator::operator!=(const Iterator&
     return !(*this == it);
 }
 
-} // namespace container
+} // namespace ctr
 } // namespace bl
 
 #endif

@@ -9,8 +9,6 @@ namespace vk
 StandardAttachmentBuffers::StandardAttachmentBuffers()
 : owner(nullptr) {}
 
-StandardAttachmentBuffers::~StandardAttachmentBuffers() { destroy(); }
-
 void StandardAttachmentBuffers::create(VulkanState& vs, const VkExtent2D& size) {
     owner = &vs;
     attachments.setRenderExtent(size);
@@ -31,6 +29,14 @@ void StandardAttachmentBuffers::destroy() {
     if (owner != nullptr) {
         colorAttachment.destroy();
         depthAttachment.destroy();
+        owner = nullptr;
+    }
+}
+
+void StandardAttachmentBuffers::deferDestroy() {
+    if (owner != nullptr) {
+        colorAttachment.deferDestroy();
+        depthAttachment.deferDestroy();
         owner = nullptr;
     }
 }

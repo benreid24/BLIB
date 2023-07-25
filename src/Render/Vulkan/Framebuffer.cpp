@@ -15,14 +15,14 @@ Framebuffer::Framebuffer()
 , framebuffer(nullptr) {}
 
 Framebuffer::~Framebuffer() {
-    if (renderPass) { cleanup(); }
+    if (renderPass) { deferCleanup(); }
 }
 
 void Framebuffer::create(VulkanState& vs, VkRenderPass rp, const AttachmentSet& frame) {
     vulkanState = &vs;
 
     // cleanup and block if recreating
-    if (renderPass) { cleanup(); }
+    if (renderPass) { deferCleanup(); }
 
     // copy create params
     renderPass       = rp;
@@ -49,8 +49,8 @@ void Framebuffer::recreateIfChanged(const AttachmentSet& t) {
 }
 
 void Framebuffer::beginRender(VkCommandBuffer commandBuffer, const VkRect2D& region,
-                              VkClearValue* clearColors, std::uint32_t clearColorCount,
-                              bool vp) const {
+                              const VkClearValue* clearColors, std::uint32_t clearColorCount,
+                              bool vp, VkRenderPass rpo) const {
 #ifdef BLIB_DEBUG
     if (target == nullptr) {
         throw std::runtime_error("Framebuffer render started without specifying target");
@@ -60,12 +60,13 @@ void Framebuffer::beginRender(VkCommandBuffer commandBuffer, const VkRect2D& reg
     // begin render pass
     VkRenderPassBeginInfo renderPassInfo{};
     renderPassInfo.sType           = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
-    renderPassInfo.renderPass      = renderPass;
+    renderPassInfo.renderPass      = rpo != nullptr ? rpo : renderPass;
     renderPassInfo.framebuffer     = framebuffer;
     renderPassInfo.renderArea      = region;
     renderPassInfo.clearValueCount = clearColorCount;
     renderPassInfo.pClearValues    = clearColors;
     vkCmdBeginRenderPass(commandBuffer, &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
+    vkCmdSetScissor(commandBuffer, 0, 1, &region);
 
     if (vp) {
         VkViewport viewport;
@@ -77,7 +78,6 @@ void Framebuffer::beginRender(VkCommandBuffer commandBuffer, const VkRect2D& reg
         viewport.maxDepth = 1.f;
 
         vkCmdSetViewport(commandBuffer, 0, 1, &viewport);
-        vkCmdSetScissor(commandBuffer, 0, 1, &region);
     }
 }
 
@@ -88,6 +88,15 @@ void Framebuffer::finishRender(VkCommandBuffer commandBuffer) const {
 void Framebuffer::cleanup() {
     vkDestroyFramebuffer(vulkanState->device, framebuffer, nullptr);
     renderPass = nullptr;
+}
+
+void Framebuffer::deferCleanup() {
+    if (renderPass) {
+        vulkanState->cleanupManager.add([device = vulkanState->device, fb = framebuffer]() {
+            vkDestroyFramebuffer(device, fb, nullptr);
+        });
+        renderPass = nullptr;
+    }
 }
 
 } // namespace vk

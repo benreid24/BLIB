@@ -1061,8 +1061,8 @@ struct Serializer<script::Value, false> {
 };
 
 template<typename U>
-struct Serializer<container::Vector2D<U>, false> {
-    static Value serialize(const container::Vector2D<U>& v) {
+struct Serializer<ctr::Vector2D<U>, false> {
+    static Value serialize(const ctr::Vector2D<U>& v) {
         Group g;
         g.addField("w", Serializer<unsigned int>::serialize(v.getWidth()));
         g.addField("h", Serializer<unsigned int>::serialize(v.getHeight()));
@@ -1077,11 +1077,11 @@ struct Serializer<container::Vector2D<U>, false> {
         return {g};
     }
 
-    static void serializeInto(const std::string& key, Group& g, const container::Vector2D<U>& val) {
-        priv::Serializer<container::Vector2D<U>>::serializeInto(g, key, val, &serialize);
+    static void serializeInto(const std::string& key, Group& g, const ctr::Vector2D<U>& val) {
+        priv::Serializer<ctr::Vector2D<U>>::serializeInto(g, key, val, &serialize);
     }
 
-    static bool deserialize(container::Vector2D<U>& result, const Value& val) {
+    static bool deserialize(ctr::Vector2D<U>& result, const Value& val) {
         const Group* rg = val.getAsGroup();
         if (rg == nullptr) return false;
         const Group& g    = *rg;
@@ -1107,20 +1107,19 @@ struct Serializer<container::Vector2D<U>, false> {
     }
 
     static bool deserializeFrom(const Value& val, const std::string& key,
-                                container::Vector2D<U>& result) {
-        return priv::Serializer<container::Vector2D<U>>::deserializeFrom(
-            val, key, result, &deserialize);
+                                ctr::Vector2D<U>& result) {
+        return priv::Serializer<ctr::Vector2D<U>>::deserializeFrom(val, key, result, &deserialize);
     }
 
-    static bool deserializeStream(std::istream& stream, container::Vector2D<U>& result) {
+    static bool deserializeStream(std::istream& stream, ctr::Vector2D<U>& result) {
         json::Loader loader(stream);
         Value val(0);
         if (!loader.loadValue(val)) return false;
         return deserialize(result, val);
     }
 
-    static bool serializeStream(std::ostream& stream, const container::Vector2D<U>& value,
-                                unsigned int, unsigned int) {
+    static bool serializeStream(std::ostream& stream, const ctr::Vector2D<U>& value, unsigned int,
+                                unsigned int) {
         const Value val = serialize(value);
         stream << val;
         return stream.good();

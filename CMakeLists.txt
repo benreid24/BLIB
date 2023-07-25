@@ -28,7 +28,6 @@ option(BUILD_EXAMPLES "On to build examples" On)
 option(BLIB_ECS_USE_WIDE_MASK "True to use 128 bit component mask, false for 64 bit component mask" Off)
 set(RUN_PATH ${PROJECT_SOURCE_DIR} CACHE PATH "Working directory of the final built executables")
 set(SHADER_PATH "Resources/Shaders" CACHE PATH "Path where compiled shaders should go")
-set(SCENE_DEFAULT_CAMERA "2d" CACHE STRING "Either '2d' or '3d'. Determines which type of camera is created for scenes by default")
 set(GLSLC_PATH "${DEFAULT_GLSLC_PATH}" CACHE STRING "Path to glslc to use to compile shaders")
 
 if (NOT CMAKE_BUILD_TYPE)

@@ -3,7 +3,7 @@
 
 namespace bl
 {
-namespace container
+namespace ctr
 {
 namespace unittest
 {
@@ -62,5 +62,5 @@ TEST(Cache, WriteEviction) {
 }
 
 } // namespace unittest
-} // namespace container
+} // namespace ctr
 } // namespace bl

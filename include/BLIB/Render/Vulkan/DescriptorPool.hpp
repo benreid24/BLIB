@@ -70,7 +70,7 @@ public:
      * @param handle Allocation handle of the sets to release
      * @params sets Pointer to the sets to free. Nullptr to use same pointer as allocation
      */
-    void release(AllocationHandle handle, VkDescriptorSet* sets = nullptr);
+    void release(AllocationHandle handle, const VkDescriptorSet* sets = nullptr);
 
 private:
     struct Subpool {
@@ -81,7 +81,8 @@ private:
         bool canAllocate(const SetBindingInfo& allocInfo, std::size_t setCount) const;
         void allocate(const SetBindingInfo& allocInfo, VkDescriptorSetLayout layout,
                       VkDescriptorSet* sets, std::size_t setCount);
-        void release(const SetBindingInfo& allocInfo, VkDescriptorSet* sets, std::size_t setCount);
+        void release(const SetBindingInfo& allocInfo, const VkDescriptorSet* sets,
+                     std::size_t setCount);
 
         VulkanState& vulkanState;
         VkDescriptorPool pool;
@@ -94,9 +95,9 @@ private:
         bool dedicated;
         VkDescriptorSetLayout layout;
         std::size_t setCount;
-        VkDescriptorSet* sets;
+        const VkDescriptorSet* sets;
 
-        Allocation(bool ded, VkDescriptorSetLayout ly, std::size_t set, VkDescriptorSet* sets)
+        Allocation(bool ded, VkDescriptorSetLayout ly, std::size_t set, const VkDescriptorSet* sets)
         : dedicated(ded)
         , layout(ly)
         , setCount(set)

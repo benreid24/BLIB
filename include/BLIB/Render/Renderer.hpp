@@ -2,6 +2,8 @@
 #define BLIB_RENDER_RENDERER_HPP
 
 #include <BLIB/Render/Descriptors/DescriptorSetFactoryCache.hpp>
+#include <BLIB/Render/Graph/AssetFactory.hpp>
+#include <BLIB/Render/Graph/Strategy.hpp>
 #include <BLIB/Render/Observer.hpp>
 #include <BLIB/Render/Resources/MaterialPool.hpp>
 #include <BLIB/Render/Resources/PipelineCache.hpp>
@@ -21,7 +23,7 @@ class Engine;
 }
 namespace sys
 {
-class CameraUpdateSystem;
+class RendererUpdateSystem;
 class RenderSystem;
 } // namespace sys
 
@@ -173,6 +175,33 @@ public:
      */
     constexpr float defaultFarPlane() const;
 
+    /**
+     * @brief Replaces the current strategy with a new one of type T. Default is
+     *        rgi::ForwardRendererStrategy
+     *
+     * @tparam T The new strategy type
+     * @tparam ...TArgs Argument types to the strategy's constructor
+     * @param ...args Arguments to the strategy's constructor
+     * @return A pointer to the new strategy
+     */
+    template<typename T, typename... TArgs>
+    T* useRenderStrategy(TArgs&&... args);
+
+    /**
+     * @brief Returns the current renderer strategy
+     */
+    rg::Strategy& getRenderStrategy();
+
+    /**
+     * @brief Returns the graph asset factory used by the renderer
+     */
+    constexpr rg::AssetFactory& getAssetFactory();
+
+    /**
+     * @brief Returns the framebuffers for the swap chain frames
+     */
+    constexpr vk::PerSwapFrame<vk::Framebuffer>& getSwapframeBuffers();
+
 private:
     engine::Engine& engine;
     engine::EngineWindow& window;
@@ -192,6 +221,8 @@ private:
     float defaultNear, defaultFar;
     VkClearValue clearColors[2];
     std::vector<vk::RenderTexture*> renderTextures;
+    std::unique_ptr<rg::Strategy> strategy;
+    rg::AssetFactory assetFactory;
 
     Renderer(engine::Engine& engine, engine::EngineWindow& window);
     ~Renderer();
@@ -203,14 +234,14 @@ private:
     void removeRenderTexture(vk::RenderTexture* rt);
 
     // render stages
-    void updateCameras(float dt);
+    void update(float dt);
     void renderFrame();
 
     void assignObserverRegions();
 
     friend class engine::Engine;
     friend class Observer;
-    friend class sys::CameraUpdateSystem;
+    friend class sys::RendererUpdateSystem;
     friend class sys::RenderSystem;
     friend class vk::RenderTexture;
 };
@@ -250,8 +281,10 @@ TScene* Renderer::pushSceneToAllObservers(TArgs&&... args) {
 
 template<typename TScene, typename... TArgs>
 TScene* Observer::pushScene(TArgs&&... args) {
+    static_assert(std::is_base_of_v<Scene, TScene>, "Scene must derive from Scene");
+
     TScene* s = renderer.scenePool().allocateScene<TScene, TArgs...>(std::forward<TArgs>(args)...);
-    scenes.emplace_back(renderer, s);
+    scenes.emplace_back(engine, renderer, this, graphAssets, s);
     onSceneAdd();
     return s;
 }
@@ -267,6 +300,21 @@ TScene* vk::RenderTexture::setScene(TArgs&&... args) {
 inline constexpr float Renderer::defaultNearPlane() const { return defaultNear; }
 
 inline constexpr float Renderer::defaultFarPlane() const { return defaultFar; }
+
+template<typename T, typename... TArgs>
+T* Renderer::useRenderStrategy(TArgs&&... args) {
+    static_assert(std::is_base_of_v<rg::Strategy, T>, "Strategy must derive from rg::Strategy");
+
+    T* s = new T(std::forward<TArgs>(args)...);
+    strategy.reset(s);
+    return s;
+}
+
+inline constexpr rg::AssetFactory& Renderer::getAssetFactory() { return assetFactory; }
+
+inline constexpr vk::PerSwapFrame<vk::Framebuffer>& Renderer::getSwapframeBuffers() {
+    return framebuffers;
+}
 
 } // namespace rc
 } // namespace bl

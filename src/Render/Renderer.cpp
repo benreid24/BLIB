@@ -1,11 +1,14 @@
 #include <BLIB/Render/Renderer.hpp>
 
 #include <BLIB/Engine/Engine.hpp>
+#include <BLIB/Render/Graph/AssetTags.hpp>
+#include <BLIB/Render/Graph/Providers/StandardTargetProvider.hpp>
+#include <BLIB/Render/Graph/Strategies/ForwardRenderStrategy.hpp>
 #include <BLIB/Systems/BuiltinDescriptorComponentSystems.hpp>
 #include <BLIB/Systems/BuiltinDrawableSystems.hpp>
-#include <BLIB/Systems/CameraUpdateSystem.hpp>
 #include <BLIB/Systems/OverlayScalerSystem.hpp>
 #include <BLIB/Systems/RenderSystem.hpp>
+#include <BLIB/Systems/RendererUpdateSystem.hpp>
 #include <BLIB/Systems/TextSyncSystem.hpp>
 #include <cmath>
 
@@ -25,7 +28,7 @@ Renderer::Renderer(engine::Engine& engine, engine::EngineWindow& window)
 , pipelines(*this)
 , scenes(engine)
 , splitscreenDirection(SplitscreenDirection::TopAndBottom)
-, commonObserver(*this)
+, commonObserver(engine, *this, assetFactory, true)
 , defaultNear(0.1f)
 , defaultFar(100.f) {
     renderTextures.reserve(16);
@@ -46,7 +49,7 @@ void Renderer::initialize() {
     using engine::FrameStage;
 
     // core renderer systems
-    engine.systems().registerSystem<sys::CameraUpdateSystem>(
+    engine.systems().registerSystem<sys::RendererUpdateSystem>(
         FrameStage::RenderObjectSync, StateMask, *this);
     engine.systems().registerSystem<sys::RenderSystem>(FrameStage::Render, StateMask, *this);
     engine.systems().registerSystem<sys::OverlayScalerSystem>(FrameStage::RenderIntermediateRefresh,
@@ -72,6 +75,10 @@ void Renderer::initialize() {
                                                        Config::PipelineIds::LitSkinned2DGeometry,
                                                        Config::PipelineIds::UnlitSkinned2DGeometry);
 
+    // asset providers
+    assetFactory.addProvider<rgi::StandardAssetProvider>(rg::AssetTags::RenderedSceneOutput);
+    assetFactory.addProvider<rgi::StandardAssetProvider>(rg::AssetTags::PostFXOutput);
+
     // create renderer instance data
     state.init();
     renderPasses.addDefaults();
@@ -80,7 +87,7 @@ void Renderer::initialize() {
 
     // swapchain framebuffers
     VkRenderPass renderPass =
-        renderPasses.getRenderPass(Config::RenderPassIds::SwapchainPrimaryRender).rawPass();
+        renderPasses.getRenderPass(Config::RenderPassIds::SwapchainDefault).rawPass();
     unsigned int i = 0;
     framebuffers.init(state.swapchain, [this, &i, renderPass](vk::Framebuffer& fb) {
         fb.create(state, renderPass, state.swapchain.swapFrameAtIndex(i));
@@ -116,10 +123,10 @@ void Renderer::processResize(const sf::Rect<std::uint32_t>& region) {
     commonObserver.assignRegion(window.getSfWindow().getSize(), renderRegion, 1, 0, true);
 }
 
-void Renderer::updateCameras(float dt) {
+void Renderer::update(float dt) {
     for (vk::RenderTexture* rt : renderTextures) { rt->updateCamera(dt); }
-    commonObserver.updateCamera(dt);
-    for (auto& o : observers) { o->updateCamera(dt); }
+    commonObserver.update(dt);
+    for (auto& o : observers) { o->update(dt); }
 }
 
 void Renderer::renderFrame() {
@@ -140,29 +147,42 @@ void Renderer::renderFrame() {
     // begin render texture rendering
     for (vk::RenderTexture* rt : renderTextures) { rt->renderScene(commandBuffer); }
 
+    const auto clearDepthBuffer = [this, commandBuffer]() {
+        VkClearAttachment attachment{};
+        attachment.aspectMask = VK_IMAGE_ASPECT_DEPTH_BIT;
+        attachment.clearValue = clearColors[1];
+
+        VkClearRect rect{};
+        rect.rect.extent.width  = renderRegion.width;
+        rect.rect.extent.height = renderRegion.height;
+        rect.rect.offset.x      = renderRegion.left;
+        rect.rect.offset.y      = renderRegion.top;
+        rect.baseArrayLayer     = 0;
+        rect.layerCount         = 1;
+
+        vkCmdClearAttachments(commandBuffer, 1, &attachment, 1, &rect);
+    };
+
     // record commands to render scenes
-    if (commonObserver.hasScene()) { commonObserver.renderScene(commandBuffer); }
-    else {
-        // record all before blocking to apply postfx
-        for (auto& o : observers) { o->renderScene(commandBuffer); }
+    for (auto& o : observers) { o->renderScene(commandBuffer); }
+    if (commonObserver.hasScene()) {
+        clearDepthBuffer();
+        commonObserver.renderScene(commandBuffer);
     }
 
-    // begin render pass to composite content into swapchain image
+    // perform render pass for final scene renders and overlays
     framebuffers.current().beginRender(commandBuffer,
                                        {{0, 0}, currentFrame->renderExtent()},
                                        clearColors,
                                        std::size(clearColors),
                                        false);
 
-    // apply rendered scenes to swap image with postfx
-    if (commonObserver.hasScene()) { commonObserver.compositeSceneWithEffects(commandBuffer); }
-    else {
-        for (auto& o : observers) { o->compositeSceneWithEffects(commandBuffer); }
+    // render scene outputs
+    for (auto& o : observers) { o->compositeSceneAndOverlay(commandBuffer); }
+    if (commonObserver.hasScene()) {
+        clearDepthBuffer();
+        commonObserver.compositeSceneAndOverlay(commandBuffer);
     }
-
-    // render overlays
-    for (auto& o : observers) { o->renderOverlay(commandBuffer); }
-    commonObserver.renderOverlay(commandBuffer);
 
     // complete frame
     framebuffers.current().finishRender(commandBuffer);
@@ -183,7 +203,7 @@ Observer& Renderer::addObserver() {
     }
 #endif
 
-    observers.emplace_back(new Observer(*this));
+    observers.emplace_back(new Observer(engine, *this, assetFactory, false));
     assignObserverRegions();
     observers.back()->setDefaultNearFar(defaultNear, defaultFar);
     return *observers.back();
@@ -245,6 +265,11 @@ void Renderer::removeRenderTexture(vk::RenderTexture* rt) {
             return;
         }
     }
+}
+
+rg::Strategy& Renderer::getRenderStrategy() {
+    if (!strategy) { useRenderStrategy<rgi::ForwardRenderStrategy>(); }
+    return *strategy;
 }
 
 } // namespace rc

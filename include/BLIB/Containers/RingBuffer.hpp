@@ -6,7 +6,7 @@
 
 namespace bl
 {
-namespace container
+namespace ctr
 {
 /**
  * @brief Simple circular buffer implementation for small objects. Underlying storage is a
@@ -251,9 +251,7 @@ template<typename T>
 void RingBuffer<T>::increaseSize() {
     tail = (tail + 1) % buffer.size();
     if (full()) { head = (head + 1) % buffer.size(); }
-    else {
-        ++sz;
-    }
+    else { ++sz; }
 }
 
 template<typename T>
@@ -270,7 +268,7 @@ void RingBuffer<T>::pop_front() {
     }
 }
 
-} // namespace container
+} // namespace ctr
 } // namespace bl
 
 #endif

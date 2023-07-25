@@ -40,9 +40,6 @@ void RenderTexture::create(Renderer& r, const glm::u32vec2& size, VkSampler samp
     scissor.offset        = {0, 0};
     viewport              = ovy::Viewport::scissorToViewport(scissor);
 
-    // ensure we have a camera
-    ensureCamera();
-
     // allocate textures and depth buffers
     if (firstInit) { texture = renderer->texturePool().createRenderTexture(size, sampler); }
     else { texture->ensureSize(size); }
@@ -53,7 +50,7 @@ void RenderTexture::create(Renderer& r, const glm::u32vec2& size, VkSampler samp
 
     // set attachment sets and bind framebuffers
     VkRenderPass renderPass =
-        r.renderPassCache().getRenderPass(Config::RenderPassIds::OffScreenSceneRender).rawPass();
+        r.renderPassCache().getRenderPass(Config::RenderPassIds::StandardAttachmentDefault).rawPass();
     attachmentSet.setRenderExtent(scissor.extent);
     attachmentSet.setAttachments(
         texture->getImage(), texture->getView(), depthBuffer.image(), depthBuffer.view());
@@ -91,15 +88,7 @@ void RenderTexture::setClearColor(const glm::vec4& color) {
 }
 
 void RenderTexture::ensureCamera() {
-    if (!camera) {
-#if SCENE_DEFAULT_CAMERA == 2
-        setCamera<cam::Camera2D>(
-            glm::vec2{viewport.x + viewport.width * 0.5f, viewport.y + viewport.height * 0.5f},
-            glm::vec2{viewport.width, viewport.height});
-#else
-        setCamera<cam::Camera3D>();
-#endif
-    }
+    if (!camera && scene) { camera = scene->createDefaultCamera(); }
 }
 
 void RenderTexture::handleDescriptorSync() {
@@ -122,7 +111,7 @@ void RenderTexture::renderScene(VkCommandBuffer commandBuffer) {
         scene::SceneRenderContext ctx(commandBuffer,
                                       observerIndex,
                                       viewport,
-                                      Config::RenderPassIds::OffScreenSceneRender,
+                                      Config::RenderPassIds::StandardAttachmentDefault,
                                       true);
         scene->renderScene(ctx);
     }

@@ -3,7 +3,7 @@
 
 namespace bl
 {
-namespace container
+namespace ctr
 {
 namespace unittest
 {
@@ -55,5 +55,5 @@ TEST(ObjectWrapper, Destroy) {
 }
 
 } // namespace unittest
-} // namespace container
+} // namespace ctr
 } // namespace bl

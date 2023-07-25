@@ -1,6 +1,5 @@
 target_sources(BLIB PRIVATE
-    BasicScene.cpp
-    PostFX.cpp
+    BatchedScene.cpp
     Scene.cpp
     SceneObject.cpp
     SceneRenderContext.cpp

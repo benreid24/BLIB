@@ -8,7 +8,7 @@
 
 #include <BLIB/Systems/BuiltinDescriptorComponentSystems.hpp>
 #include <BLIB/Systems/BuiltinDrawableSystems.hpp>
-#include <BLIB/Systems/CameraUpdateSystem.hpp>
+#include <BLIB/Systems/RendererUpdateSystem.hpp>
 #include <BLIB/Systems/DescriptorComponentSystem.hpp>
 #include <BLIB/Systems/DrawableSystem.hpp>
 #include <BLIB/Systems/OverlayScalerSystem.hpp>

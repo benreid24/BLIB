@@ -16,16 +16,14 @@ AttachmentBuffer::AttachmentBuffer()
 , imageHandle(nullptr)
 , viewHandle(nullptr) {}
 
-AttachmentBuffer::~AttachmentBuffer() {
-    if (vulkanState) { destroy(); }
-}
+AttachmentBuffer::~AttachmentBuffer() { deferDestroy(); }
 
 void AttachmentBuffer::create(VulkanState& vs, VkFormat format, VkImageUsageFlags usage,
                               const VkExtent2D& extent) {
     if (size.width == extent.width && size.height == extent.height) { return; }
     size = extent;
 
-    if (vulkanState) { destroy(); }
+    deferDestroy();
     vulkanState = &vs;
 
     VmaAllocationCreateInfo allocInfo{};
@@ -63,6 +61,17 @@ void AttachmentBuffer::destroy() {
     vkDestroyImageView(vulkanState->device, viewHandle, nullptr);
     vmaDestroyImage(vulkanState->vmaAllocator, imageHandle, alloc);
     vulkanState = nullptr;
+}
+
+void AttachmentBuffer::deferDestroy() {
+    if (vulkanState) {
+        vulkanState->cleanupManager.add(
+            [vs = vulkanState, vh = viewHandle, img = imageHandle, alloc = alloc]() {
+                vkDestroyImageView(vs->device, vh, nullptr);
+                vmaDestroyImage(vs->vmaAllocator, img, alloc);
+            });
+        vulkanState = nullptr;
+    }
 }
 
 } // namespace vk

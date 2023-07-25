@@ -33,7 +33,6 @@ namespace com
  *        not be manually scaled if an OverlayScaler is present and active
  *
  * @ingroup Components
- * @ingroup Graphics
  */
 class OverlayScaler {
 public:

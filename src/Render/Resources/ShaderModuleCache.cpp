@@ -54,8 +54,8 @@ VkShaderModule ShaderModuleCache::loadShader(const std::string& path) {
         case Config::ShaderIds::TextFragment[0]:
             return loadShader(BUILTIN_SHADER("text.frag.spv"));
 
-        case Config::ShaderIds::DefaultPostFXFragment[0]:
-            return loadShader(BUILTIN_SHADER("imageOverlay.frag.spv"));
+        case Config::ShaderIds::FadeEffectFragment[0]:
+            return loadShader(BUILTIN_SHADER("fadeEffect.frag.spv"));
         default:
             BL_LOG_ERROR << "Invalid built-in shader id: " << static_cast<int>(path[0]);
             throw std::runtime_error("Invalid built-in shader id");

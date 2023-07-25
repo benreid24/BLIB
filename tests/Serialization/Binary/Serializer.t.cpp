@@ -117,19 +117,19 @@ TEST(BinarySerializer, Vector2D) {
     MemoryOutputBuffer outbuf;
     OutputStream stream(outbuf);
 
-    container::Vector2D<std::uint8_t> arr;
+    ctr::Vector2D<std::uint8_t> arr;
     arr.setSize(2, 2);
     arr(0, 0) = 5;
     arr(0, 1) = 10;
     arr(1, 0) = 15;
     arr(1, 1) = 25;
-    ASSERT_TRUE(Serializer<container::Vector2D<std::uint8_t>>::serialize(stream, arr));
+    ASSERT_TRUE(Serializer<ctr::Vector2D<std::uint8_t>>::serialize(stream, arr));
 
     MemoryInputBuffer inbuf(outbuf.data(), outbuf.size());
     InputStream in(inbuf);
 
-    container::Vector2D<std::uint8_t> read;
-    ASSERT_TRUE(Serializer<container::Vector2D<std::uint8_t>>::deserialize(in, read));
+    ctr::Vector2D<std::uint8_t> read;
+    ASSERT_TRUE(Serializer<ctr::Vector2D<std::uint8_t>>::deserialize(in, read));
     ASSERT_EQ(read.getWidth(), 2u);
     ASSERT_EQ(read.getHeight(), 2u);
     EXPECT_EQ(arr(0, 0), read(0, 0));

@@ -1,5 +1,5 @@
-#ifndef BLIB_RENDER_DESCRIPTORS_POSTFXFACTORY_HPP
-#define BLIB_RENDER_DESCRIPTORS_POSTFXFACTORY_HPP
+#ifndef BLIB_RENDER_DESCRIPTORS_FADEEFFECTFACTORY_HPP
+#define BLIB_RENDER_DESCRIPTORS_FADEEFFECTFACTORY_HPP
 
 #include <BLIB/Render/Descriptors/DescriptorSetFactory.hpp>
 
@@ -10,16 +10,16 @@ namespace rc
 namespace ds
 {
 /**
- * @brief Descriptor set factory that provides the layout for the base PostFX class descriptor set
+ * @brief Descriptor set factory that provides the layout for the fade effect descriptor set
  *
  * @ingroup Renderer
  */
-class PostFXFactory : public DescriptorSetFactory {
+class FadeEffectFactory : public DescriptorSetFactory {
 public:
     /**
      * @brief Frees resources
      */
-    virtual ~PostFXFactory() = default;
+    virtual ~FadeEffectFactory() = default;
 
 private:
     virtual void init(engine::Engine& engine, Renderer& renderer) override;

@@ -25,7 +25,9 @@ class DemoState
 , bl::event::Listener<sf::Event> {
 public:
     DemoState()
-    : State(bl::engine::StateMask::All) {}
+    : State(bl::engine::StateMask::All)
+    , fadeout(nullptr)
+    , angle(0.f) {}
 
     virtual ~DemoState() = default;
 
@@ -46,7 +48,7 @@ public:
         p1.setClearColor({0.f, 0.f, 1.f, 1.f});
 
         // create 2d scene and camera for observer 1
-        bl::rc::Scene* scene = p1.pushScene<bl::rc::scene::BasicScene>();
+        bl::rc::Scene* scene = p1.pushScene<bl::rc::scene::BatchedScene>();
         auto* p1cam =
             p1.setCamera<bl::cam::Camera2D>(sf::FloatRect{0.f, 0.f, 1920.f, 1080.f * 0.5f});
         p1cam->setNearAndFarPlanes(-100000.f, 100000.f);
@@ -72,7 +74,7 @@ public:
 
         // create 3d scene for observer 2
         bl::rc::Observer& p2 = engine.renderer().addObserver();
-        scene                = p2.pushScene<bl::rc::scene::BasicScene>();
+        scene                = p2.pushScene<bl::rc::scene::BatchedScene>();
 
         // create camera for observer 2
         p2.setClearColor({0.f, 1.f, 0.f, 1.f});
@@ -144,12 +146,12 @@ public:
         engine.ecs().destroyAllEntities();
     }
 
-    virtual void update(bl::engine::Engine&, float dt) override {
-        spritePosition->rotate(180.f * dt);
-    }
+    virtual void update(bl::engine::Engine&, float dt) override { angle += 180.f * dt; }
 
-    virtual void render(bl::engine::Engine&, float) override {
-        // deprecated
+    // deprecated
+    virtual void render(bl::engine::Engine&, float lag) override {
+        // TODO - renderer interpolate support
+        spritePosition->setRotation(angle + 180.f * lag);
     }
 
 private:
@@ -166,6 +168,8 @@ private:
     bl::rc::vk::RenderTexture renderTexture;
     bl::gfx::Sprite renderTextureInnerSprite;
     bl::gfx::Sprite renderTextureOuterSprite;
+    bl::rc::rgi::FadeEffectTask* fadeout;
+    float angle;
 
     virtual void observe(const sf::Event& event) override {
         if (event.type == sf::Event::KeyPressed) {
@@ -190,6 +194,23 @@ private:
                 break;
             case sf::Keyboard::Left:
                 spritePosition->move({-10.f, 0.f});
+                break;
+
+            case sf::Keyboard::F:
+                fadeout = renderer->getObserver(0)
+                              .getRenderGraph()
+                              .putUniqueTask<bl::rc::rgi::FadeEffectTask>(2.f);
+                fadeout->fadeTo(2.f, 0.f);
+                break;
+            case sf::Keyboard::G:
+                fadeout = renderer->getObserver(0)
+                              .getRenderGraph()
+                              .putUniqueTask<bl::rc::rgi::FadeEffectTask>(2.f, 0.f, 1.f);
+                fadeout->fadeTo(2.f, 1.f);
+                break;
+            case sf::Keyboard::C:
+                renderer->getObserver(0).getRenderGraph().removeTask<bl::rc::rgi::FadeEffectTask>();
+                fadeout = nullptr;
                 break;
             }
         }

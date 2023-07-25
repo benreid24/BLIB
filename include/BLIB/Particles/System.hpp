@@ -96,7 +96,7 @@ public:
     void render(const RenderFunction& renderCb) const;
 
 private:
-    container::FastEraseVector<T> particles;
+    ctr::FastEraseVector<T> particles;
     unsigned int target;
     float rate;
     float toCreate;

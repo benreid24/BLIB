@@ -16,6 +16,7 @@
 
 namespace bl
 {
+/// Event dispatcher and listener infrastructure
 namespace event
 {
 namespace priv

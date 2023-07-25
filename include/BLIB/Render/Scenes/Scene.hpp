@@ -1,6 +1,7 @@
 #ifndef BLIB_RENDER_RENDERER_SCENEBASE_HPP
 #define BLIB_RENDER_RENDERER_SCENEBASE_HPP
 
+#include <BLIB/Cameras/Camera.hpp>
 #include <BLIB/ECS/Entity.hpp>
 #include <BLIB/Render/Components/DrawableBase.hpp>
 #include <BLIB/Render/Descriptors/DescriptorComponentStorageCache.hpp>
@@ -35,6 +36,12 @@ namespace res
 {
 class ScenePool;
 }
+
+namespace rg
+{
+class RenderGraph;
+}
+
 /**
  * @brief Base class for all scene types and overlays. Provides common scene logic and object
  *        management. Derived classes must provide storage for SceneObject (or derived)
@@ -49,6 +56,27 @@ public:
      * @brief Destroys the Scene
      */
     virtual ~Scene() = default;
+
+    /**
+     * @brief Derived classes should record render commands in here
+     *
+     * @param context Render context containing scene render data
+     */
+    virtual void renderScene(scene::SceneRenderContext& context) = 0;
+
+    /**
+     * @brief Adds scene specific tasks to the render graph. Default adds nothing
+     *
+     * @param graph The graph to populate
+     */
+    virtual void addGraphTasks(rg::RenderGraph& graph);
+
+    /**
+     * @brief Creates a default camera for the scene
+     *
+     * @return The default camera to use
+     */
+    virtual std::unique_ptr<cam::Camera> createDefaultCamera();
 
 protected:
     /**
@@ -73,13 +101,6 @@ protected:
      */
     Scene(engine::Engine& engine,
           const ds::DescriptorComponentStorageBase::EntityCallback& entityCb);
-
-    /**
-     * @brief Derived classes should record render commands in here
-     *
-     * @param context Render context containing scene render data
-     */
-    virtual void renderScene(scene::SceneRenderContext& context) = 0;
 
     /**
      * @brief Called when an object is added to the scene. Derived should create the SceneObject
@@ -142,6 +163,7 @@ private:
     void handleDescriptorSync();
     std::uint32_t registerObserver();
     void updateObserverCamera(std::uint32_t observerIndex, const glm::mat4& projView);
+    // TODO - virtual hook for updateCam to allow derived scenes to prepare descriptors (ie lights)
 
     template<typename T>
     friend class sys::DrawableSystem;

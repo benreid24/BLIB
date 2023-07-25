@@ -5,7 +5,7 @@ compile_shaders(
     
     SHADERS
 	empty.vert
-    imageOverlay.frag
+    fadeEffect.frag
     mesh.frag
     mesh.vert
     skinnedMesh.vert

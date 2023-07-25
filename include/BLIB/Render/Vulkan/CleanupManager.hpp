@@ -46,7 +46,8 @@ private:
     void onFrameStart();
 
     constexpr unsigned int addIndex() const {
-        return (clearIndex + Config::MaxConcurrentFrames) % buckets.size();
+        return (clearIndex + static_cast<unsigned int>(Config::MaxConcurrentFrames)) %
+               buckets.size();
     }
 
     friend struct VulkanState;

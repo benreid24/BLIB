@@ -7,13 +7,13 @@
 
 namespace bl
 {
+/// Collection of built-in ECS components
 namespace com
 {
 /**
  * @brief ECS component for a basic mesh from an index buffer
  *
  * @ingroup Components
- * @ingroup Graphics
  */
 struct Mesh : public rc::rcom::DrawableBase {
     rc::buf::IndexBuffer gpuBuffer;

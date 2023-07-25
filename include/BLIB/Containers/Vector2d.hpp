@@ -1,11 +1,12 @@
-#ifndef BLIB_CONTAINERS_2DVECTOR_HPP
-#define BLIB_CONTAINERS_2DVECTOR_HPP
+#ifndef BLIB_CONTAINERS_VECTOR2D_HPP
+#define BLIB_CONTAINERS_VECTOR2D_HPP
 
 #include <vector>
 
 namespace bl
 {
-namespace container
+/// Collection of containers to expand upon the STL
+namespace ctr
 {
 /**
  * @brief Utility class that wraps std::vector, making it indexable in two dimensions
@@ -138,7 +139,7 @@ private:
     unsigned int W, H;
 };
 
-} // namespace container
+} // namespace ctr
 } // namespace bl
 
 #endif

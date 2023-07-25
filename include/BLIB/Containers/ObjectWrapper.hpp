@@ -9,7 +9,7 @@
 
 namespace bl
 {
-namespace container
+namespace ctr
 {
 /**
  * @brief Thin wrapper over objects that functions similar to std::optional but does not have any
@@ -152,7 +152,7 @@ void ObjectWrapper<T>::destroy() {
     buffer.object.~T();
 }
 
-} // namespace container
+} // namespace ctr
 } // namespace bl
 
 #endif

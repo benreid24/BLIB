@@ -24,7 +24,6 @@ namespace com
  * @brief Sprite component repersenting a 2d image for an entity
  *
  * @ingroup Components
- * @ingroup Graphics
  */
 class Sprite : public rc::rcom::DrawableBase {
 public:

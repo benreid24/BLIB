@@ -45,6 +45,11 @@ public:
     void destroy();
 
     /**
+     * @brief Queues destruction for later
+     */
+    void deferDestroy();
+
+    /**
      * @brief The Vulkan handle to the image of the attachment buffer
      */
     constexpr VkImage image() const;

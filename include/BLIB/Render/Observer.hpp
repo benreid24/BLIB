@@ -2,9 +2,11 @@
 #define BLIB_RENDER_OBSERVER_HPP
 
 #include <BLIB/Cameras/Camera.hpp>
+#include <BLIB/Render/Graph/AssetPool.hpp>
+#include <BLIB/Render/Graph/Assets/FinalSwapframeAsset.hpp>
+#include <BLIB/Render/Graph/RenderGraph.hpp>
 #include <BLIB/Render/Overlays/Overlay.hpp>
 #include <BLIB/Render/Overlays/OverlayCamera.hpp>
-#include <BLIB/Render/Scenes/PostFX.hpp>
 #include <BLIB/Render/Scenes/Scene.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
 #include <BLIB/Render/Vulkan/StandardAttachmentBuffers.hpp>
@@ -76,13 +78,6 @@ public:
     Overlay* getCurrentOverlay();
 
     /**
-     * @brief Sets whether or not to apply the current PostFX to the Overlay. Default is false
-     *
-     * @param overlayPostFX True to apply PostFX to overlay, false to render directly
-     */
-    void setApplyPostFXToOverlay(bool overlayPostFX);
-
-    /**
      * @brief Removes the top scene from the observer's scene stack and returns it. Does not release
      *        the scene back into the scene pool
      *
@@ -129,75 +124,72 @@ public:
     TCamera* setCamera(TArgs&&... args);
 
     /**
-     * @brief Sets the post processing to be used when compositing the rendered scene. PostFX are
-     *        only applied to the current scene. New scenes start with plain PostFX. Popping a scene
-     *        will result in the prior scene using the same postFX it was using before
-     *
-     * @tparam FX Type of post processing to create
-     * @tparam ...TArgs Argument types to create the new object
-     * @param ...args Arguments to the constructor of the postfx object
-     * @return The new post processing object
-     */
-    template<typename FX, typename... TArgs>
-    FX* setPostFX(TArgs&&... args);
-
-    /**
-     * @brief Reverts the current scene's post processing to a standard copy
-     */
-    void removePostFX();
-
-    /**
      * @brief Sets the color to clear the observer's render region to prior to rendering
      *
      * @param color The color to clear with
      */
     void setClearColor(const glm::vec4& color);
 
+    /**
+     * @brief Returns a raw pointer to the clear values for the observer
+     */
+    constexpr const VkClearValue* getClearColors() const;
+
+    /**
+     * @brief Returns the render graph for the current scene. Can be used to add custom steps
+     */
+    rg::RenderGraph& getRenderGraph();
+
+    /**
+     * @brief Returns the size of the observers render region in pixels
+     */
+    constexpr glm::u32vec2 getRegionSize() const;
+
 private:
     struct SceneInstance {
         Scene* scene;
         Overlay* overlay;
+        rg::RenderGraph graph;
         std::uint32_t observerIndex;
         std::uint32_t overlayIndex;
         std::unique_ptr<cam::Camera> camera;
-        std::unique_ptr<scene::PostFX> postfx;
-        bool overlayPostFX;
 
-        SceneInstance(Renderer& r, Scene* s)
+        SceneInstance(engine::Engine& e, Renderer& r, Observer* owner, rg::AssetPool& pool,
+                      Scene* s)
         : scene(s)
         , overlay(nullptr)
+        , graph(e, r, pool, owner)
         , observerIndex(0)
-        , overlayIndex(0)
-        , postfx(std::make_unique<scene::PostFX>(r))
-        , overlayPostFX(false) {}
+        , overlayIndex(0) {}
     };
 
+    const bool isCommon;
+    engine::Engine& engine;
     Renderer& renderer;
+    rg::AssetPool graphAssets;
     bool resourcesFreed;
-    vk::PerFrame<vk::StandardAttachmentBuffers> renderFrames;
-    vk::PerFrame<vk::Framebuffer> sceneFramebuffers;
-    VkRect2D scissor;
     VkViewport viewport;
+    VkRect2D scissor;
+    rgi::FinalSwapframeAsset* swapframeAsset;
     std::vector<SceneInstance> scenes;
-    std::unique_ptr<scene::PostFX> defaultPostFX;
     float defaultNear, defaultFar;
     VkClearValue clearColors[2];
     ovy::OverlayCamera overlayCamera;
     glm::mat4 overlayProjView;
 
-    Observer(Renderer& renderer);
+    Observer(engine::Engine& engine, Renderer& renderer, rg::AssetFactory& factory, bool isCommon);
     void handleDescriptorSync();
-    void updateCamera(float dt);
+    void update(float dt);
     void assignRegion(const sf::Vector2u& windowSize, const sf::Rect<std::uint32_t>& parentRegion,
                       unsigned int observerCount, unsigned int index, bool topBottomFirst);
     void setDefaultNearFar(float nearValue, float farValue);
     void cleanup();
     void onSceneAdd();
+    void onSceneChange();
 
     // called by Renderer
     void renderScene(VkCommandBuffer commandBuffer);
-    void compositeSceneWithEffects(VkCommandBuffer commandBuffer);
-    void renderOverlay(VkCommandBuffer commandBuffer);
+    void compositeSceneAndOverlay(VkCommandBuffer commandBuffer);
 
     friend class bl::rc::Renderer;
 };
@@ -221,11 +213,12 @@ TCamera* Observer::setCamera(TArgs&&... args) {
     return nullptr;
 }
 
-template<typename FX, typename... TArgs>
-FX* Observer::setPostFX(TArgs&&... args) {
-    FX* fx = new FX(std::forward<TArgs>(args)...);
-    scenes.back().postfx.reset(fx);
-    return fx;
+inline rg::RenderGraph& Observer::getRenderGraph() { return scenes.back().graph; }
+
+inline constexpr const VkClearValue* Observer::getClearColors() const { return clearColors; }
+
+inline constexpr glm::u32vec2 Observer::getRegionSize() const {
+    return {scissor.extent.width, scissor.extent.height};
 }
 
 } // namespace rc

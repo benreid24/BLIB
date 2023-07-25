@@ -26,11 +26,6 @@ function(configure_blib_target target_name)
         GLM_FORCE_DEFAULT_ALIGNED_GENTYPES
         GLM_FORCE_DEPTH_ZERO_TO_ONE
     )
-    if(SCENE_DEFAULT_CAMERA STREQUAL "2d")
-        target_compile_definitions(${target_name} PUBLIC SCENE_DEFAULT_CAMERA=2)
-    else()
-        target_compile_definitions(${target_name} PUBLIC SCENE_DEFAULT_CAMERA=3)
-    endif()
 
     # VMA setup
     target_compile_definitions(${target_name} PUBLIC

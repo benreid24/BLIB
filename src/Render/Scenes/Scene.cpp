@@ -1,5 +1,6 @@
 #include <BLIB/Render/Scenes/Scene.hpp>
 
+#include <BLIB/Cameras/2D/Camera2D.hpp>
 #include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Logging.hpp>
 #include <BLIB/Render/Renderer.hpp>
@@ -78,6 +79,13 @@ void Scene::rebucketObject(rcom::DrawableBase& obj) {
     std::unique_lock lock(batchMutex);
     batchChanges.emplace_back(
         BatchChange{obj.sceneRef.object, obj.pipeline, obj.containsTransparency});
+}
+
+void Scene::addGraphTasks(rg::RenderGraph&) {}
+
+std::unique_ptr<cam::Camera> Scene::createDefaultCamera() {
+    // TODO - make pure virtual and create 2d + 3d scenes on top of batched scene
+    return std::make_unique<cam::Camera2D>(sf::FloatRect{0.f, 0.f, 1920.f, 1080.f});
 }
 
 } // namespace rc

@@ -13,7 +13,7 @@
 
 namespace bl
 {
-namespace container
+namespace ctr
 {
 /**
  * @brief Basic spatial partioning grid class for breaking down areas into equal sized boxes. Grid
@@ -241,9 +241,7 @@ void Grid<T>::forAllInRegion(const sf::FloatRect& region, const TCb& cb) {
                 if constexpr (std::is_same_v<std::invoke_result_t<TCb, T>, bool>) {
                     if (cb(val)) return;
                 }
-                else {
-                    cb(val);
-                }
+                else { cb(val); }
             }
         }
     }
@@ -268,15 +266,13 @@ void Grid<T>::forAllInCellAndNeighbors(const sf::Vector2f& pos, const TCb& cb) {
                 if constexpr (std::is_same_v<std::invoke_result_t<TCb, T>, bool>) {
                     if (cb(val)) return;
                 }
-                else {
-                    cb(val);
-                }
+                else { cb(val); }
             }
         }
     }
 }
 
-} // namespace container
+} // namespace ctr
 } // namespace bl
 
 #endif
