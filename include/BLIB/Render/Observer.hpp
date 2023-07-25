@@ -138,7 +138,7 @@ public:
     /**
      * @brief Returns the render graph for the current scene. Can be used to add custom steps
      */
-    constexpr rg::RenderGraph& getRenderGraph();
+    rg::RenderGraph& getRenderGraph();
 
     /**
      * @brief Returns the size of the observers render region in pixels
@@ -213,7 +213,7 @@ TCamera* Observer::setCamera(TArgs&&... args) {
     return nullptr;
 }
 
-inline constexpr rg::RenderGraph& Observer::getRenderGraph() { return scenes.back().graph; }
+inline rg::RenderGraph& Observer::getRenderGraph() { return scenes.back().graph; }
 
 inline constexpr const VkClearValue* Observer::getClearColors() const { return clearColors; }
 
