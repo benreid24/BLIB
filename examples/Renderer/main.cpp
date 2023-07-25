@@ -25,7 +25,8 @@ class DemoState
 , bl::event::Listener<sf::Event> {
 public:
     DemoState()
-    : State(bl::engine::StateMask::All) {}
+    : State(bl::engine::StateMask::All)
+    , fadeout(nullptr) {}
 
     virtual ~DemoState() = default;
 
@@ -166,6 +167,7 @@ private:
     bl::rc::vk::RenderTexture renderTexture;
     bl::gfx::Sprite renderTextureInnerSprite;
     bl::gfx::Sprite renderTextureOuterSprite;
+    bl::rc::rgi::FadeEffectTask* fadeout;
 
     virtual void observe(const sf::Event& event) override {
         if (event.type == sf::Event::KeyPressed) {
@@ -193,19 +195,20 @@ private:
                 break;
 
             case sf::Keyboard::F:
-                renderer->getObserver(0)
-                    .getRenderGraph()
-                    .putUniqueTask<bl::rc::rgi::FadeEffectTask>(2.f)
-                    ->fadeTo(2.f, 0.f);
+                fadeout = renderer->getObserver(0)
+                              .getRenderGraph()
+                              .putUniqueTask<bl::rc::rgi::FadeEffectTask>(2.f);
+                fadeout->fadeTo(2.f, 0.f);
                 break;
             case sf::Keyboard::G:
-                renderer->getObserver(0)
-                    .getRenderGraph()
-                    .putUniqueTask<bl::rc::rgi::FadeEffectTask>(2.f, 0.f, 1.f)
-                    ->fadeTo(2.f, 1.f);
+                fadeout = renderer->getObserver(0)
+                              .getRenderGraph()
+                              .putUniqueTask<bl::rc::rgi::FadeEffectTask>(2.f, 0.f, 1.f);
+                fadeout->fadeTo(2.f, 1.f);
                 break;
             case sf::Keyboard::C:
                 renderer->getObserver(0).getRenderGraph().removeTask<bl::rc::rgi::FadeEffectTask>();
+                fadeout = nullptr;
                 break;
             }
         }

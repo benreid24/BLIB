@@ -12,5 +12,6 @@ layout(push_constant) uniform constants {
 
 void main() {
 	outColor = fragColor * texture(texSampler, texCoords);
-    outColor.xyz = (outColor * PC.fadeFactor).xyz;
+    outColor.xyz = outColor.xyz * PC.fadeFactor;
+    outColor.w = outColor.w + (1 - outColor.w) * (1 - PC.fadeFactor);
 }

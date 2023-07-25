@@ -66,6 +66,11 @@ public:
      */
     constexpr bool complete() const { return factor == fadeEnd; }
 
+    /**
+     * @brief Returns the current fade factor
+     */
+    constexpr float currentFactor() const { return factor; }
+
 private:
     Renderer* renderer;
     FramebufferAsset* output;
