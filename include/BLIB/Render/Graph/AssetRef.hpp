@@ -47,7 +47,7 @@ public:
      *
      * @param move The handle to copy from and invalidate
      */
-    AssetRef(AssetRef&& move)
+    AssetRef(AssetRef&& move) noexcept
     : asset(move.asset) {
         move.asset = nullptr;
     }
@@ -77,7 +77,7 @@ public:
      * @param move The handle to copy from and invalidate
      * @return A reference to this handle
      */
-    AssetRef& operator=(AssetRef&& move) {
+    AssetRef& operator=(AssetRef&& move) noexcept {
         asset      = move.asset;
         move.asset = nullptr;
         return *this;

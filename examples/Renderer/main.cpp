@@ -26,7 +26,8 @@ class DemoState
 public:
     DemoState()
     : State(bl::engine::StateMask::All)
-    , fadeout(nullptr) {}
+    , fadeout(nullptr)
+    , angle(0.f) {}
 
     virtual ~DemoState() = default;
 
@@ -145,12 +146,12 @@ public:
         engine.ecs().destroyAllEntities();
     }
 
-    virtual void update(bl::engine::Engine&, float dt) override {
-        spritePosition->rotate(180.f * dt);
-    }
+    virtual void update(bl::engine::Engine&, float dt) override { angle += 180.f * dt; }
 
-    virtual void render(bl::engine::Engine&, float) override {
-        // deprecated
+    // deprecated
+    virtual void render(bl::engine::Engine&, float lag) override {
+        // TODO - render interpolate support
+        spritePosition->setRotation(angle + 180.f * lag);
     }
 
 private:
@@ -168,6 +169,7 @@ private:
     bl::gfx::Sprite renderTextureInnerSprite;
     bl::gfx::Sprite renderTextureOuterSprite;
     bl::rc::rgi::FadeEffectTask* fadeout;
+    float angle;
 
     virtual void observe(const sf::Event& event) override {
         if (event.type == sf::Event::KeyPressed) {

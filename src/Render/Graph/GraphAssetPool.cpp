@@ -21,7 +21,7 @@ GraphAsset* GraphAssetPool::getFinalOutput() {
 }
 
 GraphAsset* GraphAssetPool::getAssetForOutput(std::string_view tag, Task* task) {
-    Asset* asset = pool.getAsset(tag, this);
+    Asset* asset = pool.getAsset(tag, task != nullptr ? this : nullptr);
     if (asset) {
         // dont return non-external assets for inputs
         if (!task && !asset->isExternal()) { return nullptr; }
