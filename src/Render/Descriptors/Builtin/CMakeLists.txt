@@ -8,6 +8,8 @@ target_sources(BLIB PRIVATE
 	Scene2DInstance.cpp
 	Scene3DFactory.cpp
 	Scene3DInstance.cpp
+	SlideshowFactory.cpp
+	SlideshowInstance.cpp
 	TexturePoolFactory.cpp
 	TexturePoolInstance.cpp
 )
