@@ -25,6 +25,18 @@ namespace ds
  */
 class DescriptorComponentStorageBase {
 public:
+    /**
+     * @brief Represents a range of dirty elements
+     */
+    struct DirtyRange {
+        std::uint32_t start;
+        std::uint32_t end;
+
+        DirtyRange()
+        : start(1)
+        , end(0) {}
+    };
+
     /// Callback signature to fetch entities from scene ids
     using EntityCallback = std::function<ecs::Entity(scene::Key)>;
 
@@ -45,18 +57,17 @@ public:
      */
     virtual void performSync() = 0;
 
-    // TODO - expose dirty range for custom DS processing
+    /**
+     * @brief Returns the ranges of dirty dynamic elements
+     */
+    constexpr const DirtyRange& dirtyDynamicRange() const;
+
+    /**
+     * @brief Returns the ranges of static dynamic elements
+     */
+    constexpr const DirtyRange& dirtyStaticRange() const;
 
 protected:
-    struct DirtyRange {
-        std::uint32_t start;
-        std::uint32_t end;
-
-        DirtyRange()
-        : start(1)
-        , end(0) {}
-    };
-
     DirtyRange dirtyDynamic;
     DirtyRange dirtyStatic;
 };
@@ -150,6 +161,16 @@ inline void DescriptorComponentStorageBase::markObjectDirty(scene::Key key) {
     auto& range = key.updateFreq == UpdateSpeed::Dynamic ? dirtyDynamic : dirtyStatic;
     range.start = key.sceneId < range.start ? key.sceneId : range.start;
     range.end   = key.sceneId > range.end ? key.sceneId : range.end;
+}
+
+inline constexpr const DescriptorComponentStorageBase::DirtyRange&
+DescriptorComponentStorageBase::dirtyDynamicRange() const {
+    return dirtyDynamic;
+}
+
+inline constexpr const DescriptorComponentStorageBase::DirtyRange&
+DescriptorComponentStorageBase::dirtyStaticRange() const {
+    return dirtyStatic;
 }
 
 template<typename TCom, typename TPayload, typename TDynamicStorage, typename TStaticStorage>

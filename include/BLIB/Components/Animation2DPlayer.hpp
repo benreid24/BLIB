@@ -21,6 +21,16 @@ struct Animation2DPlayer {
     Animation2DPlayer();
 
     /**
+     * @brief Creates a player for the given animation
+     *
+     * @param animation The animation to play
+     * @param play True to begin playing immediately
+     * @param forceLoop True to always loop, false to defer to animation loop setting
+     */
+    Animation2DPlayer(const resource::Ref<gfx::a2d::AnimationData>& animation, bool play,
+                      bool forceLoop = false);
+
+    /**
      * @brief Sets or replaces the animation to be played
      *
      * @param animation The animation to play
@@ -71,6 +81,8 @@ struct Animation2DPlayer {
     std::size_t currentState;
     std::size_t currentFrame;
     float frameTime;
+
+    std::uint32_t* framePayload; // in descriptor set
 };
 
 } // namespace com

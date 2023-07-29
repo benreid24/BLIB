@@ -9,9 +9,20 @@ Animation2DPlayer::Animation2DPlayer()
 , currentFrame(0)
 , isPlaying(false)
 , forceLoop(false)
-, frameTime(0.f) {}
+, frameTime(0.f)
+, framePayload(nullptr) {}
+
+Animation2DPlayer::Animation2DPlayer(const resource::Ref<gfx::a2d::AnimationData>& a, bool p,
+                                     bool l)
+: Animation2DPlayer() {
+    animation = a;
+    isPlaying = p;
+    forceLoop = l;
+}
 
 void Animation2DPlayer::setAnimation(const resource::Ref<gfx::a2d::AnimationData>& a) {
+    if (framePayload) { throw std::runtime_error("setAnimation called on player that is in use"); }
+
     animation    = a;
     isPlaying    = false;
     forceLoop    = false;
@@ -37,6 +48,7 @@ void Animation2DPlayer::stop() {
     isPlaying    = false;
     frameTime    = 0.f;
     currentFrame = animation->getFrameForState(currentState);
+    if (framePayload) { *framePayload = currentFrame; }
 }
 
 void Animation2DPlayer::setState(std::size_t state, bool p) {
@@ -58,6 +70,7 @@ void Animation2DPlayer::update(float dt) {
                 if (!forceLoop && !animation->isLooping()) { stop(); }
             }
         }
+        if (framePayload) { *framePayload = currentFrame; }
     }
 }
 

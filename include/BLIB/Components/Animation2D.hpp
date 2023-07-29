@@ -1,9 +1,7 @@
-#ifndef BLIB_COMPONENTS_SLIDESHOW_HPP
-#define BLIB_COMPONENTS_SLIDESHOW_HPP
+#ifndef BLIB_COMPONENTS_ANIMATION2D_HPP
+#define BLIB_COMPONENTS_ANIMATION2D_HPP
 
-#include <BLIB/Components/Animation2DPlayer.hpp>
 #include <BLIB/ECS/Entity.hpp>
-#include <BLIB/ECS/StableHandle.hpp>
 #include <BLIB/Render/Components/DescriptorComponentBase.hpp>
 #include <cstdint>
 
@@ -12,12 +10,12 @@ namespace bl
 namespace com
 {
 /**
- * @brief Component that indicates that an entity is a Slideshow animation. Simply references the
+ * @brief Component that indicates that an entity is a 2d Animation. Simply references the
  *        Animation2DPlayer player the entity should use
  *
  * @ingroup Components
  */
-struct Slideshow : public rc::rcom::DescriptorComponentBase<Slideshow, std::uint32_t> {
+struct Animation2D : public rc::rcom::DescriptorComponentBase<Animation2D, std::uint32_t> {
     ecs::Entity playerEntity;
     std::uint32_t playerIndex; // assigned by SlideshowInstance
 
@@ -28,7 +26,6 @@ struct Slideshow : public rc::rcom::DescriptorComponentBase<Slideshow, std::uint
      */
     void setPlayer(ecs::Entity entity) {
         playerEntity = entity;
-        // TODO - how to update player index on change?
         markDirty();
     }
 
