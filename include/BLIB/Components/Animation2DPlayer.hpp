@@ -18,11 +18,57 @@ struct Animation2DPlayer {
     /**
      * @brief Creates an empty player
      */
-    Animation2DPlayer()
-    : currentFrame(0)
-    , frameTime(0.f) {}
+    Animation2DPlayer();
+
+    /**
+     * @brief Sets or replaces the animation to be played
+     *
+     * @param animation The animation to play
+     */
+    void setAnimation(const resource::Ref<gfx::a2d::AnimationData>& animation);
+
+    /**
+     * @brief Starts playing the animation, optionally restarting it
+     *
+     * @param restart True to restart, false to resume
+     */
+    void play(bool restart = false);
+
+    /**
+     * @brief Starts playing the animation from the beginning and loops it, regardless of the
+     *        underlying loop setting
+     */
+    void playLooping();
+
+    /**
+     * @brief Pauses the animation from playing
+     */
+    void pause();
+
+    /**
+     * @brief Stops and resets the animation
+     */
+    void stop();
+
+    /**
+     * @brief Sets the state to play within the underlying animation
+     *
+     * @param state The state index to play
+     * @param play True to begin playing, false to stay stopped
+     */
+    void setState(std::size_t state, bool play = true);
+
+    /**
+     * @brief Advances the animation forward by the given amount of time
+     *
+     * @param dt Elapsed time in seconds
+     */
+    void update(float dt);
 
     resource::Ref<gfx::a2d::AnimationData> animation;
+    bool isPlaying;
+    bool forceLoop;
+    std::size_t currentState;
     std::size_t currentFrame;
     float frameTime;
 };

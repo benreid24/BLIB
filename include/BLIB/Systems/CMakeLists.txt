@@ -1,4 +1,5 @@
 target_sources(BLIB PUBLIC
+	Animation2DSystem.hpp
     BuiltinDrawableSystems.hpp
 	BuiltinDescriptorComponentSystems.hpp
 	DescriptorComponentSystem.hpp

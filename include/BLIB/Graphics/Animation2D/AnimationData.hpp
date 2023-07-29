@@ -170,7 +170,8 @@ public:
     /**
      * @brief Combines the stateAnim into this one and updates the next frame lookups. May fail if
      *        the animation is not compatible with this one. Compatible animations have the same
-     *        number of shards per frame. Same spritesheet must also be used
+     *        number of shards per frame. Same spritesheet must also be used. State 0 is always this
+     *        base animation
      *
      * @param stateIndex The 0-based index of the state that the given animation is for
      * @param stateAnim The animation to combine into this one
@@ -187,6 +188,15 @@ public:
      * @return The frame index where the requested state animation begins
      */
     std::size_t getFrameForState(std::size_t stateIndex);
+
+    /**
+     * @brief Returns the state index for the given frame. Even animations with no states added have
+     *        an implicit 0 state
+     *
+     * @param frameIndex The frame to get the state of
+     * @return The state index for the given frame
+     */
+    std::size_t getStateFromFrame(std::size_t frameIndex) const;
 
 private:
     std::string spritesheetSource;
@@ -217,6 +227,10 @@ inline std::size_t AnimationData::getNextFrame(std::size_t currentFrame) const {
 inline float AnimationData::getFrameLength(std::size_t i) { return frames[i].length; }
 
 inline std::size_t AnimationData::getFrameForState(std::size_t i) { return stateOffsets[i]; }
+
+inline const sf::Vector2f& AnimationData::getFrameSize(std::size_t i) const {
+    return frames[i].size;
+}
 
 } // namespace a2d
 } // namespace gfx

@@ -4,6 +4,7 @@
 #include <BLIB/Render/Graph/AssetTags.hpp>
 #include <BLIB/Render/Graph/Providers/StandardTargetProvider.hpp>
 #include <BLIB/Render/Graph/Strategies/ForwardRenderStrategy.hpp>
+#include <BLIB/Systems/Animation2DSystem.hpp>
 #include <BLIB/Systems/BuiltinDescriptorComponentSystems.hpp>
 #include <BLIB/Systems/BuiltinDrawableSystems.hpp>
 #include <BLIB/Systems/OverlayScalerSystem.hpp>
@@ -74,6 +75,7 @@ void Renderer::initialize() {
                                                        StateMask,
                                                        Config::PipelineIds::LitSkinned2DGeometry,
                                                        Config::PipelineIds::UnlitSkinned2DGeometry);
+    engine.systems().registerSystem<sys::Animation2DSystem>(FrameStage::Animate, StateMask);
 
     // asset providers
     assetFactory.addProvider<rgi::StandardAssetProvider>(rg::AssetTags::RenderedSceneOutput);

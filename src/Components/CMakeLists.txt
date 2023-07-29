@@ -1,4 +1,5 @@
 target_sources(BLIB PRIVATE
+	Animation2DPlayer.cpp
 	Mesh.cpp
 	Orientation3D.cpp
 	OverlayScaler.cpp

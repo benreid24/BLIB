@@ -106,6 +106,9 @@ bool AnimationData::doLoad(serial::binary::InputStream& input, const std::string
     frames.clear();
     stateOffsets.clear();
 
+    stateOffsets.reserve(16);
+    stateOffsets.emplace_back(0);
+
     const std::string path = util::FileUtil::getPath(ogPath);
     const std::string& spritesheetDir =
         engine::Configuration::get<std::string>("blib.animation.spritesheet_path");
@@ -264,6 +267,16 @@ bool AnimationData::addState(std::size_t stateIndex, const AnimationData& anim, 
     std::copy(anim.frames.begin(), anim.frames.end(), std::back_inserter(frames));
     for (std::size_t i = offset; i < frames.size() - 1; ++i) { frames[i].nextFrame = i + 1; }
     frames.back().nextFrame = offset;
+
+    return true;
+}
+
+std::size_t AnimationData::getStateFromFrame(std::size_t i) const {
+    for (unsigned int j = 0; j < stateOffsets.size(); ++j) {
+        if (i < stateOffsets[j]) { return j; }
+    }
+    BL_LOG_ERROR << "Invalid frame for lookup: " << i << ", frame count = " << frames.size();
+    return 0;
 }
 
 } // namespace a2d
