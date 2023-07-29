@@ -9,6 +9,11 @@ namespace bl
 {
 namespace rc
 {
+/**
+ * @brief Collection of constants and settings for the renderer
+ *
+ * @ingroup Renderer
+ */
 struct Config {
     static constexpr unsigned int MaxConcurrentFrames = 2;
 
@@ -23,10 +28,9 @@ struct Config {
     static constexpr glm::vec3 UpDirection  = {0.f, 1.f, 0.f};
     static constexpr glm::vec3 Rotate2DAxis = {0.f, 0.f, 1.f};
 
-    struct SceneObjectStage { // does not include postfx stage as objects do not belong in there
-        enum : std::size_t { ShadowMapping = 0, OpaquePass = 1, TransparentPass = 2, Count };
-    };
-
+    /**
+     * @brief Special ids for built-in shaders
+     */
     struct ShaderIds {
         static constexpr char EmptyVertex[] = {0};
 
@@ -50,6 +54,9 @@ struct Config {
         static constexpr std::uint32_t MaxId = 31;
     };
 
+    /**
+     * @brief Built-in pipelines
+     */
     struct PipelineIds {
         static constexpr std::uint32_t None = 0;
 
@@ -67,6 +74,9 @@ struct Config {
         static constexpr std::uint32_t FadeEffect = 100;
     };
 
+    /**
+     * @brief Built-in render passes
+     */
     struct RenderPassIds {
         static constexpr std::uint32_t StandardAttachmentDefault = 0;
         static constexpr std::uint32_t SwapchainDefault          = 1;
