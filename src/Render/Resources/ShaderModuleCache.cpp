@@ -26,36 +26,33 @@ VkShaderModule ShaderModuleCache::loadShader(const std::string& path) {
             return loadShader(BUILTIN_SHADER("empty.vert.spv"));
 
         case Config::ShaderIds::MeshVertex[0]:
-            return loadShader(BUILTIN_SHADER("mesh.vert.spv"));
+            return loadShader(BUILTIN_SHADER("3D/mesh.vert.spv"));
         case Config::ShaderIds::MeshFragment[0]:
-            return loadShader(BUILTIN_SHADER("mesh.frag.spv"));
+            return loadShader(BUILTIN_SHADER("3D/mesh.frag.spv"));
         case Config::ShaderIds::SkinnedMeshVertex[0]:
-            return loadShader(BUILTIN_SHADER("skinnedMesh.vert.spv"));
+            return loadShader(BUILTIN_SHADER("3D/skinnedMesh.vert.spv"));
         case Config::ShaderIds::SkinnedMeshFragment[0]:
-            return loadShader(BUILTIN_SHADER("skinnedMesh.frag.spv"));
+            return loadShader(BUILTIN_SHADER("3D/skinnedMesh.frag.spv"));
 
-        case Config::ShaderIds::Lit2DVertex[0]:
-            return loadShader(BUILTIN_SHADER("2dlit.vert.spv"));
-        case Config::ShaderIds::Lit2DFragment[0]:
-            return loadShader(BUILTIN_SHADER("2dlit.frag.spv"));
-        case Config::ShaderIds::LitSkinned2DVertex[0]:
-            return loadShader(BUILTIN_SHADER("skinned2dlit.vert.spv"));
-        case Config::ShaderIds::LitSkinned2DFragment[0]:
-            return loadShader(BUILTIN_SHADER("skinned2dlit.frag.spv"));
+        case Config::ShaderIds::Vertex2D[0]:
+            return loadShader(BUILTIN_SHADER("2D/2dlit.vert.spv"));
+        case Config::ShaderIds::Fragment2DLit[0]:
+            return loadShader(BUILTIN_SHADER("2D/2dlit.frag.spv"));
+        case Config::ShaderIds::Fragment2DUnlit[0]:
+            return loadShader(BUILTIN_SHADER("2D/2d.frag.spv"));
 
-        case Config::ShaderIds::Unlit2DVertex[0]:
-            return loadShader(BUILTIN_SHADER("2d.vert.spv"));
-        case Config::ShaderIds::Unlit2DFragment[0]:
-            return loadShader(BUILTIN_SHADER("2d.frag.spv"));
-        case Config::ShaderIds::UnlitSkinned2DVertex[0]:
-            return loadShader(BUILTIN_SHADER("skinned2d.vert.spv"));
-        case Config::ShaderIds::UnlitSkinned2DFragment[0]:
-            return loadShader(BUILTIN_SHADER("skinned2d.frag.spv"));
+        case Config::ShaderIds::Vertex2DSkinned[0]:
+            return loadShader(BUILTIN_SHADER("2D/skinned2d.vert.spv"));
+        case Config::ShaderIds::Fragment2DSkinnedLit[0]:
+            return loadShader(BUILTIN_SHADER("2D/skinned2dlit.frag.spv"));
+        case Config::ShaderIds::Fragment2DSkinnedUnlit[0]:
+            return loadShader(BUILTIN_SHADER("2D/skinned2d.frag.spv"));
+
         case Config::ShaderIds::TextFragment[0]:
-            return loadShader(BUILTIN_SHADER("text.frag.spv"));
+            return loadShader(BUILTIN_SHADER("2D/text.frag.spv"));
 
         case Config::ShaderIds::FadeEffectFragment[0]:
-            return loadShader(BUILTIN_SHADER("fadeEffect.frag.spv"));
+            return loadShader(BUILTIN_SHADER("PostFX/fadeEffect.frag.spv"));
         default:
             BL_LOG_ERROR << "Invalid built-in shader id: " << static_cast<int>(path[0]);
             throw std::runtime_error("Invalid built-in shader id");

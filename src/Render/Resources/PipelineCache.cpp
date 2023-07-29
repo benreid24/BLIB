@@ -85,8 +85,8 @@ void PipelineCache::createBuiltins() {
     createPipline(Config::PipelineIds::LitSkinned2DGeometry,
                   vk::PipelineParameters({Config::RenderPassIds::StandardAttachmentDefault,
                                           Config::RenderPassIds::SwapchainDefault})
-                      .withShaders(Config::ShaderIds::LitSkinned2DVertex,
-                                   Config::ShaderIds::LitSkinned2DFragment)
+                      .withShaders(Config::ShaderIds::Vertex2DSkinned,
+                                   Config::ShaderIds::Fragment2DSkinnedLit)
                       .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
                       .withRasterizer(rasterizer)
                       .withDepthStencilState(&depthStencilDepthEnabled)
@@ -98,8 +98,8 @@ void PipelineCache::createBuiltins() {
     createPipline(Config::PipelineIds::UnlitSkinned2DGeometry,
                   vk::PipelineParameters({Config::RenderPassIds::StandardAttachmentDefault,
                                           Config::RenderPassIds::SwapchainDefault})
-                      .withShaders(Config::ShaderIds::UnlitSkinned2DVertex,
-                                   Config::ShaderIds::UnlitSkinned2DFragment)
+                      .withShaders(Config::ShaderIds::Vertex2DSkinned,
+                                   Config::ShaderIds::Fragment2DSkinnedUnlit)
                       .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
                       .withRasterizer(rasterizer)
                       .withDepthStencilState(&depthStencilDepthEnabled)
@@ -112,7 +112,7 @@ void PipelineCache::createBuiltins() {
         Config::PipelineIds::Text,
         vk::PipelineParameters({Config::RenderPassIds::StandardAttachmentDefault,
                                 Config::RenderPassIds::SwapchainDefault})
-            .withShaders(Config::ShaderIds::UnlitSkinned2DVertex, Config::ShaderIds::TextFragment)
+            .withShaders(Config::ShaderIds::Vertex2DSkinned, Config::ShaderIds::TextFragment)
             .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
             .withRasterizer(rasterizer)
             .withDepthStencilState(&depthStencilDepthEnabled)

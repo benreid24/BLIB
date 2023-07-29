@@ -35,16 +35,15 @@ struct Config {
         static constexpr char SkinnedMeshVertex[]   = {3};
         static constexpr char SkinnedMeshFragment[] = {4};
 
-        static constexpr char Lit2DVertex[]          = {5};
-        static constexpr char Lit2DFragment[]        = {6};
-        static constexpr char LitSkinned2DVertex[]   = {7};
-        static constexpr char LitSkinned2DFragment[] = {8};
+        static constexpr char Vertex2D[]        = {5};
+        static constexpr char Fragment2DLit[]   = {6};
+        static constexpr char Fragment2DUnlit[] = {7};
 
-        static constexpr char Unlit2DVertex[]          = {9};
-        static constexpr char Unlit2DFragment[]        = {10};
-        static constexpr char UnlitSkinned2DVertex[]   = {11};
-        static constexpr char UnlitSkinned2DFragment[] = {12};
-        static constexpr char TextFragment[]           = {13};
+        static constexpr char Vertex2DSkinned[]        = {8};
+        static constexpr char Fragment2DSkinnedUnlit[] = {9};
+        static constexpr char Fragment2DSkinnedLit[]   = {10};
+
+        static constexpr char TextFragment[] = {11};
 
         static constexpr char FadeEffectFragment[] = {31};
 
