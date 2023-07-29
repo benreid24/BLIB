@@ -1,4 +1,5 @@
 target_sources(BLIB PUBLIC
+	Animation2DPlayer.hpp
 	Mesh.hpp
 	Orientation3D.hpp
 	OverlayScaler.hpp
