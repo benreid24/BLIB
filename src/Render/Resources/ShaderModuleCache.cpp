@@ -50,6 +50,8 @@ VkShaderModule ShaderModuleCache::loadShader(const std::string& path) {
 
         case Config::ShaderIds::TextFragment[0]:
             return loadShader(BUILTIN_SHADER("2D/text.frag.spv"));
+        case Config::ShaderIds::SlideshowVert[0]:
+            return loadShader(BUILTIN_SHADER("2D/slideshow.vert.spv"));
 
         case Config::ShaderIds::FadeEffectFragment[0]:
             return loadShader(BUILTIN_SHADER("PostFX/fadeEffect.frag.spv"));

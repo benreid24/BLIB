@@ -20,6 +20,7 @@ compile_shaders(
     2D/2dlit.frag
     
     2D/text.frag
+    2D/slideshow.vert
 
     PostFX/fadeEffect.frag
 )

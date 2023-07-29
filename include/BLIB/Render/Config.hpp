@@ -47,7 +47,8 @@ struct Config {
         static constexpr char Fragment2DSkinnedUnlit[] = {9};
         static constexpr char Fragment2DSkinnedLit[]   = {10};
 
-        static constexpr char TextFragment[] = {11};
+        static constexpr char TextFragment[]  = {11};
+        static constexpr char SlideshowVert[] = {12};
 
         static constexpr char FadeEffectFragment[] = {31};
 
