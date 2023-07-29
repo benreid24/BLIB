@@ -1,4 +1,4 @@
-#include <BLIB/Media/Graphics/AnimationData.hpp>
+#include <BLIB/Graphics/Animation2D/AnimationData.hpp>
 #include <BLIB/Resources/Bundling/FileHandlers/AnimationHandler.hpp>
 
 namespace bl
@@ -9,7 +9,7 @@ namespace bundle
 {
 bool AnimationHandler::processFile(const std::string& path, std::ostream& output,
                                    FileHandlerContext& ctx) {
-    rc::AnimationData anim;
+    gfx::a2d::AnimationData anim;
     if (!anim.loadFromFileForBundling(path)) {
         BL_LOG_ERROR << "Failed to load animation: " << path;
         return false;

@@ -2,6 +2,7 @@
 #define BLIB_GUI_RENDERERS_RENDERSETTINGS_HPP
 
 #include <BLIB/Resources/Loader.hpp>
+#include <BLIB/Resources/Ref.hpp>
 #include <SFML/Graphics.hpp>
 #include <optional>
 

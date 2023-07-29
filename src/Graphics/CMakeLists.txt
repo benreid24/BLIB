@@ -3,5 +3,6 @@ target_sources(BLIB PRIVATE
 	Text.cpp
 )
 
+add_subdirectory(Animation2D)
 add_subdirectory(Components)
 add_subdirectory(Text)

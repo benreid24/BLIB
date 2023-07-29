@@ -4,5 +4,6 @@ target_sources(BLIB PUBLIC
 	Text.hpp
 )
 
+add_subdirectory(Animation2D)
 add_subdirectory(Components)
 add_subdirectory(Text)

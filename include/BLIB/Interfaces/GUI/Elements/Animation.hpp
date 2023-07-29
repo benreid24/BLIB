@@ -1,9 +1,8 @@
 #ifndef BLIB_INTERFACES_GUI_ELEMENTS_ANIMATION_HPP
 #define BLIB_INTERFACES_GUI_ELEMENTS_ANIMATION_HPP
 
+#include <BLIB/Graphics/Animation2D/AnimationData.hpp>
 #include <BLIB/Interfaces/GUI/Elements/Element.hpp>
-
-#include <BLIB/Media/Graphics/Animation.hpp>
 #include <BLIB/Resources.hpp>
 
 namespace bl
@@ -28,14 +27,14 @@ public:
      * @param anim The animation to use
      * @return Ptr The new Animation
      */
-    static Ptr create(resource::Ref<rc::AnimationData> anim);
+    static Ptr create(resource::Ref<gfx::a2d::AnimationData> anim);
 
     /**
      * @brief Sets the animation to render. Does not reset any applied size
      *
      * @param anim The animation to render
      */
-    void setAnimation(resource::Ref<rc::AnimationData> anim);
+    void setAnimation(resource::Ref<gfx::a2d::AnimationData> anim);
 
     /**
      * @brief Scales the rendered animation to the given size
@@ -57,7 +56,7 @@ protected:
      *
      * @param anim The animation to use
      */
-    Animation(resource::Ref<rc::AnimationData> anim);
+    Animation(resource::Ref<gfx::a2d::AnimationData> anim);
 
     /**
      * @brief Returns the size required to render the animation
@@ -77,8 +76,9 @@ protected:
 
 private:
     bool centered;
-    resource::Ref<rc::AnimationData> source;
-    rc::Animation animation;
+    resource::Ref<gfx::a2d::AnimationData> source;
+    // gfx::Animation animation;
+    //  TODO - use new animations
     std::optional<sf::Vector2f> size;
 };
 
