@@ -18,6 +18,7 @@
 #include <cstdint>
 #include <initializer_list>
 #include <stdexcept>
+#include <utility>
 #include <vector>
 
 namespace bl
@@ -237,6 +238,12 @@ inline constexpr std::uint32_t VulkanState::currentFrameIndex() const { return c
 template<typename T>
 PerFrame<T>::PerFrame()
 : vs(nullptr) {}
+
+template<typename T>
+template<typename... TArgs>
+PerFrame<T>::PerFrame(TArgs&&... args)
+: vs(nullptr)
+, data{T(std::forward<TArgs>(args)...), T(std::forward<TArgs>(args)...)} {}
 
 template<typename T>
 void PerFrame<T>::emptyInit(VulkanState& v) {

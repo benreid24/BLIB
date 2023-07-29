@@ -24,10 +24,19 @@ template<typename T>
 class PerFrame {
 public:
     /**
-     * @brief Construct a new Per Frame object in the empty state
-     *
+     * @brief Construct a new PerFrame object in the empty state
      */
     PerFrame();
+
+    /**
+     * @brief Construct a new PerFrame object in the empty state for objects with custom
+     *        constructors
+     *
+     * @tparam ...TArgs Argument types to contained object constructors
+     * @param ...args Arguments to init each object with
+     */
+    template<typename... TArgs>
+    PerFrame(TArgs&&... args);
 
     /**
      * @brief Initializes the PerFrame object without initializing the wrapped values

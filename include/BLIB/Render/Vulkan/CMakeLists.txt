@@ -6,6 +6,7 @@ target_sources(BLIB PUBLIC
     CleanupManager.hpp
     CommonSamplers.hpp
     DescriptorPool.hpp
+    DescriptorSet.hpp
     Framebuffer.hpp
     PerFrame.hpp
     PerSwapFrame.hpp

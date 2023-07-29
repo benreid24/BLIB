@@ -7,6 +7,7 @@
 #include <BLIB/Render/Buffers/DynamicSSBO.hpp>
 #include <BLIB/Render/Buffers/StaticSSBO.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
+#include <BLIB/Render/Vulkan/DescriptorSet.hpp>
 #include <BLIB/Render/Vulkan/PerFrameVector.hpp>
 #include <cstdint>
 #include <glm/glm.hpp>
@@ -49,13 +50,12 @@ public:
 private:
     ecs::Registry& registry;
     vk::VulkanState& vulkanState;
-    vk::DescriptorPool::AllocationHandle alloc;
     const VkDescriptorSetLayout descriptorSetLayout;
-    VkDescriptorSet allocatedSets[Config::MaxConcurrentFrames + 1];
-    vk::PerFrame<VkDescriptorSet> dynamicDescriptorSets;
-    ds::DescriptorComponentStorage<com::Transform2D, glm::mat4>* transforms;
-    ds::DescriptorComponentStorage<com::Texture, std::uint32_t, buf::StaticSSBO<std::uint32_t>,
-                                   buf::StaticSSBO<std::uint32_t>>* textures;
+    vk::DescriptorSet staticDescriptorSet;
+    vk::PerFrame<vk::DescriptorSet> dynamicDescriptorSets;
+    DescriptorComponentStorage<com::Transform2D, glm::mat4>* transforms;
+    DescriptorComponentStorage<com::Texture, std::uint32_t, buf::StaticSSBO<std::uint32_t>,
+                               buf::StaticSSBO<std::uint32_t>>* textures;
 
     virtual void bindForPipeline(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
                                  std::uint32_t setIndex, UpdateSpeed updateFreq) const override;

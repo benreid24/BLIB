@@ -17,9 +17,13 @@ Object3DInstance::Object3DInstance(engine::Engine& engine,
 : DescriptorSetInstance(Bindless, RebindForNewSpeed)
 , registry(engine.ecs())
 , vulkanState(engine.renderer().vulkanState())
-, descriptorSetLayout(descriptorSetLayout) {}
+, descriptorSetLayout(descriptorSetLayout)
+, staticDescriptorSet(engine.renderer().vulkanState())
+, dynamicDescriptorSets(engine.renderer().vulkanState()) {
+    dynamicDescriptorSets.emptyInit(vulkanState);
+}
 
-Object3DInstance::~Object3DInstance() { vulkanState.descriptorPool.release(alloc); }
+Object3DInstance::~Object3DInstance() {}
 
 void Object3DInstance::init(DescriptorComponentStorageCache& storageCache) {
     // create/fetch storage modules
@@ -31,21 +35,12 @@ void Object3DInstance::init(DescriptorComponentStorageCache& storageCache) {
                                                 std::uint32_t,
                                                 buf::StaticSSBO<std::uint32_t>,
                                                 buf::StaticSSBO<std::uint32_t>>();
-
-    // allocate descriptor sets
-    dynamicDescriptorSets.emptyInit(vulkanState);
-    alloc = vulkanState.descriptorPool.allocate(
-        descriptorSetLayout, allocatedSets, std::size(allocatedSets));
-    for (unsigned int i = 0; i < Config::MaxConcurrentFrames; ++i) {
-        dynamicDescriptorSets.getRaw(i) = allocatedSets[i + 1];
-    }
-
-    // configureWrite descriptor sets
-    updateStaticDescriptors();
-    updateDynamicDescriptors();
 }
 
 void Object3DInstance::updateStaticDescriptors() {
+    // (re)allocate a descriptor set
+    staticDescriptorSet.allocate(descriptorSetLayout);
+
     VkWriteDescriptorSet setWrites[2]{};
 
     // transform buffer configureWrite
@@ -59,7 +54,7 @@ void Object3DInstance::updateStaticDescriptors() {
     transformWrite.descriptorCount       = 1;
     transformWrite.dstBinding            = 0;
     transformWrite.dstArrayElement       = 0;
-    transformWrite.dstSet                = allocatedSets[0];
+    transformWrite.dstSet                = staticDescriptorSet.getSet();
     transformWrite.pBufferInfo           = &transformBufferStaticWrite;
     transformWrite.descriptorType        = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
 
@@ -74,7 +69,7 @@ void Object3DInstance::updateStaticDescriptors() {
     textureWrite.descriptorCount       = 1;
     textureWrite.dstBinding            = 1;
     textureWrite.dstArrayElement       = 0;
-    textureWrite.dstSet                = allocatedSets[0];
+    textureWrite.dstSet                = staticDescriptorSet.getSet();
     textureWrite.pBufferInfo           = &textureBufferStaticWrite;
     textureWrite.descriptorType        = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
 
@@ -83,43 +78,41 @@ void Object3DInstance::updateStaticDescriptors() {
 }
 
 void Object3DInstance::updateDynamicDescriptors() {
-    VkWriteDescriptorSet setWrites[2 * Config::MaxConcurrentFrames]{};
-    unsigned int i = 0;
+    // (re)allocate the descriptor set
+    dynamicDescriptorSets.current().allocate(descriptorSetLayout);
 
-    for (unsigned int j = 0; j < Config::MaxConcurrentFrames; ++j) {
-        // transform buffer configureWrite
-        VkDescriptorBufferInfo transformBufferWrite{};
-        transformBufferWrite.buffer =
-            transforms->getDynamicBuffer().gpuBufferHandles().getRaw(j).getBuffer();
-        transformBufferWrite.offset = 0;
-        transformBufferWrite.range  = transforms->getDynamicBuffer().getTotalRange();
+    VkWriteDescriptorSet setWrites[2]{};
 
-        VkWriteDescriptorSet& transformWrite = setWrites[i];
-        transformWrite.sType                 = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
-        transformWrite.descriptorCount       = 1;
-        transformWrite.dstBinding            = 0;
-        transformWrite.dstArrayElement       = 0;
-        transformWrite.dstSet                = dynamicDescriptorSets.getRaw(j);
-        transformWrite.pBufferInfo           = &transformBufferWrite;
-        transformWrite.descriptorType        = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
+    // transform buffer configureWrite
+    VkDescriptorBufferInfo transformBufferWrite{};
+    transformBufferWrite.buffer =
+        transforms->getDynamicBuffer().gpuBufferHandles().current().getBuffer();
+    transformBufferWrite.offset = 0;
+    transformBufferWrite.range  = transforms->getDynamicBuffer().getTotalRange();
 
-        // texture buffer configureWrite
-        VkDescriptorBufferInfo textureBufferWrite{};
-        textureBufferWrite.buffer = textures->getDynamicBuffer().gpuBufferHandle().getBuffer();
-        textureBufferWrite.offset = 0;
-        textureBufferWrite.range  = textures->getDynamicBuffer().getTotalRange();
+    VkWriteDescriptorSet& transformWrite = setWrites[0];
+    transformWrite.sType                 = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+    transformWrite.descriptorCount       = 1;
+    transformWrite.dstBinding            = 0;
+    transformWrite.dstArrayElement       = 0;
+    transformWrite.dstSet                = dynamicDescriptorSets.current().getSet();
+    transformWrite.pBufferInfo           = &transformBufferWrite;
+    transformWrite.descriptorType        = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
 
-        VkWriteDescriptorSet& textureWrite = setWrites[i + 1];
-        textureWrite.sType                 = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
-        textureWrite.descriptorCount       = 1;
-        textureWrite.dstBinding            = 1;
-        textureWrite.dstArrayElement       = 0;
-        textureWrite.dstSet                = dynamicDescriptorSets.getRaw(j);
-        textureWrite.pBufferInfo           = &textureBufferWrite;
-        textureWrite.descriptorType        = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
+    // texture buffer configureWrite
+    VkDescriptorBufferInfo textureBufferWrite{};
+    textureBufferWrite.buffer = textures->getDynamicBuffer().gpuBufferHandle().getBuffer();
+    textureBufferWrite.offset = 0;
+    textureBufferWrite.range  = textures->getDynamicBuffer().getTotalRange();
 
-        i += 2;
-    }
+    VkWriteDescriptorSet& textureWrite = setWrites[1];
+    textureWrite.sType                 = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+    textureWrite.descriptorCount       = 1;
+    textureWrite.dstBinding            = 1;
+    textureWrite.dstArrayElement       = 0;
+    textureWrite.dstSet                = dynamicDescriptorSets.current().getSet();
+    textureWrite.pBufferInfo           = &textureBufferWrite;
+    textureWrite.descriptorType        = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
 
     // perform write
     vkUpdateDescriptorSets(vulkanState.device, std::size(setWrites), setWrites, 0, nullptr);
@@ -127,8 +120,8 @@ void Object3DInstance::updateDynamicDescriptors() {
 
 void Object3DInstance::bindForPipeline(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
                                        std::uint32_t setIndex, UpdateSpeed speed) const {
-    const auto set =
-        speed == UpdateSpeed::Static ? allocatedSets[0] : dynamicDescriptorSets.current();
+    const auto set = speed == UpdateSpeed::Static ? staticDescriptorSet.getSet() :
+                                                    dynamicDescriptorSets.current().getSet();
     vkCmdBindDescriptorSets(ctx.getCommandBuffer(),
                             VK_PIPELINE_BIND_POINT_GRAPHICS,
                             layout,
@@ -159,7 +152,14 @@ bool Object3DInstance::allocateObject(ecs::Entity entity, scene::Key key) {
 }
 
 void Object3DInstance::handleFrameStart() {
-    // handled by component cache
+    if (transforms->dynamicDescriptorUpdateRequired() ||
+        textures->dynamicDescriptorUpdateRequired()) {
+        updateDynamicDescriptors();
+    }
+    if (transforms->staticDescriptorUpdateRequired() ||
+        textures->staticDescriptorUpdateRequired()) {
+        updateStaticDescriptors();
+    }
 }
 
 } // namespace ds

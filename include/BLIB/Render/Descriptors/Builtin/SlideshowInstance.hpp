@@ -1,6 +1,8 @@
 #ifndef BLIB_RENDER_DESCRIPTORS_BUILTIN_SLIDESHOWINSTANCE_HPP
 #define BLIB_RENDER_DESCRIPTORS_BUILTIN_SLIDESHOWINSTANCE_HPP
 
+#include <BLIB/Render/Buffers/DynamicSSBO.hpp>
+#include <BLIB/Render/Buffers/StaticSSBO.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
 
 namespace bl
@@ -30,7 +32,16 @@ public:
     virtual ~SlideshowInstance() = default;
 
 private:
-    // TODO - data
+    ecs::Registry& registry;
+    vk::VulkanState& vulkanState;
+    vk::DescriptorPool::AllocationHandle alloc;
+    const VkDescriptorSetLayout descriptorSetLayout;
+
+    // animation level data
+    // TODO
+
+    // object level data
+    // DescriptorComponentStorage<
 
     virtual void init(DescriptorComponentStorageCache& storageCache) override;
     virtual void bindForPipeline(scene::SceneRenderContext& ctx, VkPipelineLayout layout,

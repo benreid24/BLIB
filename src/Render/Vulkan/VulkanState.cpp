@@ -204,7 +204,6 @@ void VulkanState::createInstance() {
     }
     validationLayers.reserve(RequestedValidationLayers.size());
     for (const VkLayerProperties& layer : validLayers) {
-        // BL_LOG_DEBUG << "Found validation layer: " << layer.layerName;
         if (RequestedValidationLayers.find(layer.layerName) != RequestedValidationLayers.end()) {
             validationLayers.emplace_back(layer.layerName);
         }
@@ -344,7 +343,6 @@ void VulkanState::createLogicalDevice() {
     deviceFeatures.robustBufferAccess = VK_TRUE;
 #endif
 
-    // logical device creation
     VkDeviceCreateInfo createInfo{};
     createInfo.sType                   = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
     createInfo.pQueueCreateInfos       = queueCreateInfos.data();

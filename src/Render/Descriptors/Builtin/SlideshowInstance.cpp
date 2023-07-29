@@ -1,11 +1,22 @@
 #include <BLIB/Render/Descriptors/Builtin/SlideshowInstance.hpp>
 
+#include <BLIB/Engine/Engine.hpp>
+#include <BLIB/Render/Config.hpp>
+#include <BLIB/Render/Renderer.hpp>
+
 namespace bl
 {
 namespace rc
 {
 namespace ds
 {
+SlideshowInstance::SlideshowInstance(engine::Engine& engine,
+                                     VkDescriptorSetLayout descriptorSetLayout)
+: DescriptorSetInstance(Bindless, SpeedAgnostic)
+, registry(engine.ecs())
+, vulkanState(engine.renderer().vulkanState())
+, descriptorSetLayout(descriptorSetLayout) {}
+
 void SlideshowInstance::init(DescriptorComponentStorageCache& storageCache) {
     // TODO
 }
