@@ -3,6 +3,7 @@
 
 #include <BLIB/Components/Animation2D.hpp>
 #include <BLIB/Components/Animation2DPlayer.hpp>
+#include <BLIB/ECS/ComponentPool.hpp>
 #include <BLIB/Render/Buffers/DynamicSSBO.hpp>
 #include <BLIB/Render/Buffers/StaticSSBO.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
@@ -55,6 +56,7 @@ private:
     // mappings
     std::unordered_map<ecs::Entity, std::uint32_t> playerIndices;
     std::uint32_t nextPlayerIndex;
+    ecs::ComponentPool<com::Animation2D>* animComponents;
 
     // animation level data
     buf::StaticSSBO<Frame> framesSSBO;                      // all anim frames

@@ -100,6 +100,11 @@ public:
     void transferRange(std::uint32_t start, std::uint32_t numElements);
 
     /**
+     * @brief Copies the entire buffer
+     */
+    void transferAll();
+
+    /**
      * @brief Returns the size of the SSBO on the device
      */
     constexpr VkDeviceSize getTotalRange() const;
@@ -225,6 +230,12 @@ void DynamicSSBO<T>::transferRange(std::uint32_t start, std::uint32_t numElement
             std::memcpy(dst, &cpuBuffer[start], size);
         }
     }
+}
+
+template<typename T>
+void DynamicSSBO<T>::transferAll() {
+    dirtyRanges[vulkanState->currentFrameIndex()] = DirtyRange{0, size()};
+    std::memcpy(gpuBuffers.current().getMappedMemory(), cpuBuffer.data(), cpuBuffer.alignedSize());
 }
 
 template<typename T>
