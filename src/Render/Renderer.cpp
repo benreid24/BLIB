@@ -57,6 +57,7 @@ void Renderer::initialize() {
                                                               StateMask);
     engine.systems().registerSystem<sys::TextSyncSystem>(FrameStage::RenderIntermediateRefresh,
                                                          StateMask);
+    engine.systems().registerSystem<sys::Animation2DSystem>(FrameStage::Animate, StateMask);
 
     // descriptor systems
     engine.systems().registerSystem<sys::Transform2DDescriptorSystem>(
@@ -79,7 +80,10 @@ void Renderer::initialize() {
                                                      StateMask,
                                                      Config::PipelineIds::Text,
                                                      Config::PipelineIds::Text);
-    engine.systems().registerSystem<sys::Animation2DSystem>(FrameStage::Animate, StateMask);
+    engine.systems().registerSystem<sys::SlideshowSystem>(FrameStage::RenderObjectSync,
+                                                          StateMask,
+                                                          Config::PipelineIds::SlideshowLit,
+                                                          Config::PipelineIds::SlideshowUnlit);
 
     // asset providers
     assetFactory.addProvider<rgi::StandardAssetProvider>(rg::AssetTags::RenderedSceneOutput);

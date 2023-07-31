@@ -7,6 +7,7 @@
 #include <BLIB/Render/Descriptors/Builtin/Object3DFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Scene2DFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Scene3DFactory.hpp>
+#include <BLIB/Render/Descriptors/Builtin/SlideshowFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/TexturePoolFactory.hpp>
 #include <BLIB/Render/Renderer.hpp>
 
@@ -120,6 +121,34 @@ void PipelineCache::createBuiltins() {
             .addDescriptorSet<ds::Scene2DFactory>()
             .addDescriptorSet<ds::Object2DFactory>()
             .build());
+
+    createPipline(
+        Config::PipelineIds::SlideshowLit,
+        vk::PipelineParameters({Config::RenderPassIds::StandardAttachmentDefault,
+                                Config::RenderPassIds::SwapchainDefault})
+            .withShaders(Config::ShaderIds::SlideshowVert, Config::ShaderIds::Fragment2DSkinnedLit)
+            .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
+            .withRasterizer(rasterizer)
+            .withDepthStencilState(&depthStencilDepthEnabled)
+            .addDescriptorSet<ds::TexturePoolFactory>()
+            .addDescriptorSet<ds::Scene2DFactory>()
+            .addDescriptorSet<ds::Object2DFactory>()
+            .addDescriptorSet<ds::SlideshowFactory>()
+            .build());
+
+    createPipline(Config::PipelineIds::SlideshowUnlit,
+                  vk::PipelineParameters({Config::RenderPassIds::StandardAttachmentDefault,
+                                          Config::RenderPassIds::SwapchainDefault})
+                      .withShaders(Config::ShaderIds::SlideshowVert,
+                                   Config::ShaderIds::Fragment2DSkinnedUnlit)
+                      .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
+                      .withRasterizer(rasterizer)
+                      .withDepthStencilState(&depthStencilDepthEnabled)
+                      .addDescriptorSet<ds::TexturePoolFactory>()
+                      .addDescriptorSet<ds::Scene2DFactory>()
+                      .addDescriptorSet<ds::Object2DFactory>()
+                      .addDescriptorSet<ds::SlideshowFactory>()
+                      .build());
 
     createPipline(
         Config::PipelineIds::FadeEffect,
