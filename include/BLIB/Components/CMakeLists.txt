@@ -5,6 +5,7 @@ target_sources(BLIB PUBLIC
 	Orientation3D.hpp
 	OverlayScaler.hpp
 	Sprite.hpp
+	Text.hpp
 	Texture.hpp
 	Transform2D.hpp
 	Transform3D.hpp

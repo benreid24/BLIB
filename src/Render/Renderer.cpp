@@ -75,6 +75,10 @@ void Renderer::initialize() {
                                                        StateMask,
                                                        Config::PipelineIds::LitSkinned2DGeometry,
                                                        Config::PipelineIds::UnlitSkinned2DGeometry);
+    engine.systems().registerSystem<sys::TextSystem>(FrameStage::RenderObjectSync,
+                                                     StateMask,
+                                                     Config::PipelineIds::Text,
+                                                     Config::PipelineIds::Text);
     engine.systems().registerSystem<sys::Animation2DSystem>(FrameStage::Animate, StateMask);
 
     // asset providers
