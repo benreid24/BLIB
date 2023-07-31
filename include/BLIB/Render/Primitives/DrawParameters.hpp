@@ -16,9 +16,18 @@ namespace prim
  * @ingroup Renderer
  */
 struct DrawParameters {
+    /**
+     * @brief Represents the drawing command to use
+     */
+    enum struct DrawType { VertexBuffer, IndexBuffer };
+
+    DrawType type;
     VkBuffer vertexBuffer;
     VkBuffer indexBuffer;
-    std::uint32_t indexCount;
+    union {
+        std::uint32_t indexCount;
+        std::uint32_t vertexCount;
+    };
     std::uint32_t indexOffset;
     std::uint32_t vertexOffset;
     std::uint32_t firstInstance;
@@ -28,7 +37,8 @@ struct DrawParameters {
      * @brief Initializes the draw parameters to reasonable defaults
      */
     DrawParameters()
-    : vertexBuffer(nullptr)
+    : type(DrawType::IndexBuffer)
+    , vertexBuffer(nullptr)
     , indexBuffer(nullptr)
     , indexCount(0)
     , indexOffset(0)

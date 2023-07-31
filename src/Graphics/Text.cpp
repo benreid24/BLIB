@@ -26,7 +26,7 @@ void Text::create(engine::Engine& engine, const sf::VulkanFont& f, const sf::Str
     OverlayScalable::create(engine, entity());
 
     const std::uint32_t vc = std::max(content.getSize(), static_cast<std::size_t>(20)) * 6;
-    component().vertices.create(engine.renderer().vulkanState(), vc, vc);
+    component().vertices.create(engine.renderer().vulkanState(), vc);
 
     addSection(content, fontSize, color, style);
 }
@@ -82,12 +82,7 @@ void Text::commit() {
 
         // create larger buffer if required
         if (component().vertices.vertexCount() < vertexCount) {
-            component().vertices.create(
-                engine().renderer().vulkanState(), vertexCount * 2, vertexCount * 2);
-            // TODO - remove when switch to vertex buffer
-            for (unsigned int i = 0; i < component().vertices.indexCount(); ++i) {
-                component().vertices.indices()[i] = i;
-            }
+            component().vertices.create(engine().renderer().vulkanState(), vertexCount * 2);
         }
 
         // assign vertices

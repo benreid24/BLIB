@@ -49,19 +49,32 @@ void SceneRenderContext::renderObject(const SceneObject& object) {
         VkDeviceSize offsets[]   = {0};
         vkCmdBindVertexBuffers(commandBuffer, 0, 1, vertexBuffers, offsets);
     }
-    if (prevIB != object.drawParams.indexBuffer) {
-        prevIB = object.drawParams.indexBuffer;
-        vkCmdBindIndexBuffer(
-            commandBuffer, object.drawParams.indexBuffer, 0, buf::IndexBuffer::IndexType);
-    }
 
-    vkCmdDrawIndexed(commandBuffer,
-                     object.drawParams.indexCount,
-                     object.drawParams.instanceCount,
-                     object.drawParams.indexOffset,
-                     object.drawParams.vertexOffset,
-                     object.drawParams.instanceCount == 1 ? object.sceneKey.sceneId :
-                                                            object.drawParams.firstInstance);
+    switch (object.drawParams.type) {
+    case prim::DrawParameters::DrawType::VertexBuffer:
+        vkCmdDraw(commandBuffer,
+                  object.drawParams.vertexCount,
+                  object.drawParams.instanceCount,
+                  object.drawParams.vertexOffset,
+                  object.drawParams.instanceCount == 1 ? object.sceneKey.sceneId :
+                                                         object.drawParams.firstInstance);
+        break;
+
+    case prim::DrawParameters::DrawType::IndexBuffer:
+        if (prevIB != object.drawParams.indexBuffer) {
+            prevIB = object.drawParams.indexBuffer;
+            vkCmdBindIndexBuffer(
+                commandBuffer, object.drawParams.indexBuffer, 0, buf::IndexBuffer::IndexType);
+        }
+        vkCmdDrawIndexed(commandBuffer,
+                         object.drawParams.indexCount,
+                         object.drawParams.instanceCount,
+                         object.drawParams.indexOffset,
+                         object.drawParams.vertexOffset,
+                         object.drawParams.instanceCount == 1 ? object.sceneKey.sceneId :
+                                                                object.drawParams.firstInstance);
+        break;
+    }
 }
 
 } // namespace scene
