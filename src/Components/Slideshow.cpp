@@ -30,6 +30,7 @@ bool Slideshow::create(rc::vk::VulkanState& vs, const gfx::a2d::AnimationData& a
     size                               = {src.width, src.height};
 
     indexBuffer.queueTransfer(rc::tfr::Transferable::SyncRequirement::Immediate);
+    return true;
 }
 
 } // namespace com

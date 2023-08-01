@@ -20,6 +20,21 @@ struct Animation2D : public rc::rcom::DescriptorComponentBase<Animation2D, std::
     std::uint32_t playerIndex; // assigned by SlideshowInstance
 
     /**
+     * @brief Creates an empty animation component
+     */
+    Animation2D()
+    : playerEntity(ecs::InvalidEntity)
+    , playerIndex(0) {}
+
+    /**
+     * @brief Creates an animation component using the given player
+     *
+     * @param player ECS entity that has the player component to use
+     */
+    Animation2D(ecs::Entity player)
+    : playerEntity(player)
+    , playerIndex(0) {}
+    /**
      * @brief Sets the animation player to use
      *
      * @param entity The ECS entity with the Animation2DPlayer to use

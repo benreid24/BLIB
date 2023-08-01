@@ -65,7 +65,6 @@ private:
 
     // object level data
     DescriptorComponentStorage<com::Animation2D, std::uint32_t>* objToAnimIndex;
-    // TODO - process above dirty ranges to find changed players and update player indices
 
     virtual void init(DescriptorComponentStorageCache& storageCache) override;
     virtual void bindForPipeline(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
