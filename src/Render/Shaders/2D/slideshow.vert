@@ -2,7 +2,7 @@
 
 layout(location = 0) in vec3 inPosition;
 layout(location = 1) in vec4 inColor;
-layout(location = 2) in vec2 inTexCoords;
+layout(location = 2) in uint inPlayerIndex;
 
 layout(location = 0) out vec4 fragColor;
 layout(location = 1) out vec2 fragTexCoords;
@@ -24,16 +24,13 @@ struct AnimationFrame {
     float opacity;
 };
 
-layout(std140, set = 3, binding = 0) readonly buffer animIdx {
-    uint indices[];
-} objToAnim;
-layout(std140, set = 3, binding = 1) readonly buffer animOffset {
+layout(std140, set = 3, binding = 0) readonly buffer animOffset {
     uint frameOffsets[];
 } animToOffset;
-layout(std140, set = 3, binding = 2) readonly buffer animFrameIndex {
+layout(std140, set = 3, binding = 1) readonly buffer animFrameIndex {
     uint currentFrames[];
 } animToFrameIndex;
-layout(std140, set = 3, binding = 3) readonly buffer animFrame {
+layout(std140, set = 3, binding = 2) readonly buffer animFrame {
     AnimationFrame frames[];
 } animFrames;
 
@@ -42,9 +39,8 @@ void main() {
 	fragColor = inColor;
     fragTextureId = skin.index[gl_InstanceIndex];
 
-    uint anim = objToAnim.indices[gl_InstanceIndex];
-    uint coordOffset = animToOffset.frameOffsets[anim];
-    uint frameIndex = animToFrameIndex.currentFrames[anim];
+    uint coordOffset = animToOffset.frameOffsets[inPlayerIndex];
+    uint frameIndex = animToFrameIndex.currentFrames[inPlayerIndex];
     uint vertexIndex = uint(floor(mod(gl_VertexIndex, 4) + 0.5));
     uint index = coordOffset + frameIndex * 4;
     AnimationFrame frame = animFrames.frames[index];

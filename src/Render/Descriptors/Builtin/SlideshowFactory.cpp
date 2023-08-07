@@ -14,9 +14,9 @@ void SlideshowFactory::init(engine::Engine& e, Renderer& renderer) {
     engine = &e;
 
     vk::DescriptorPool::SetBindingInfo bindings;
-    bindings.bindingCount = 4;
+    bindings.bindingCount = 3;
 
-    for (std::uint32_t i = 0; i < 4; ++i) {
+    for (std::uint32_t i = 0; i < bindings.bindingCount; ++i) {
         auto& binding           = bindings.bindings[i];
         binding.binding         = i;
         binding.descriptorCount = 1;
@@ -28,7 +28,7 @@ void SlideshowFactory::init(engine::Engine& e, Renderer& renderer) {
 }
 
 std::unique_ptr<DescriptorSetInstance> SlideshowFactory::createDescriptorSet() const {
-    return std::make_unique<SlideshowInstance>(*engine, descriptorSetLayout);
+    return std::make_unique<SlideshowInstance>(*engine);
 }
 
 } // namespace ds

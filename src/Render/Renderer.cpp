@@ -57,7 +57,7 @@ void Renderer::initialize() {
                                                               StateMask);
     engine.systems().registerSystem<sys::TextSyncSystem>(FrameStage::RenderIntermediateRefresh,
                                                          StateMask);
-    engine.systems().registerSystem<sys::Animation2DSystem>(FrameStage::Animate, StateMask);
+    engine.systems().registerSystem<sys::Animation2DSystem>(FrameStage::Animate, StateMask, *this);
 
     // descriptor systems
     engine.systems().registerSystem<sys::Transform2DDescriptorSystem>(

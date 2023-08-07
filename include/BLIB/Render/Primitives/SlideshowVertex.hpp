@@ -18,7 +18,8 @@ namespace prim
  */
 struct SlideshowVertex {
     glm::vec3 pos;
-    std::uint32_t slideshowIndex; // TODO - place at resource level instead of in descriptor set
+    glm::vec4 color;
+    std::uint32_t slideshowIndex;
 
     /**
      * @brief Creates a 0-initialized vertex
@@ -33,12 +34,29 @@ struct SlideshowVertex {
     SlideshowVertex(const glm::vec3& pos);
 
     /**
+     * @brief Creates a vertex from the given position and color
+     *
+     * @param pos The position of the vertex
+     * @param color The color of the vertex
+     */
+    SlideshowVertex(const glm::vec3& pos, const glm::vec4& color);
+
+    /**
      * @brief Creates a vertex from the given position and slideshow index
      *
      * @param pos The vertex position
      * @param slideshowIndex The slideshow index
      */
     SlideshowVertex(const glm::vec3& pos, std::uint32_t slideshowIndex);
+
+    /**
+     * @brief Creates a vertex from the given position, slideshow index, and color
+     *
+     * @param pos The vertex position
+     * @param color The color of the vertex
+     * @param slideshowIndex The slideshow index
+     */
+    SlideshowVertex(const glm::vec3& pos, const glm::vec4& color, std::uint32_t slideshowIndex);
 
     /**
      * @brief Returns the vertex binding description for the renderer
@@ -52,7 +70,7 @@ struct SlideshowVertex {
      *
      * @return std::array<VkVertexInputAttributeDescription, 3> Descriptions for each attribute
      */
-    static std::array<VkVertexInputAttributeDescription, 2> attributeDescriptions();
+    static std::array<VkVertexInputAttributeDescription, 3> attributeDescriptions();
 };
 
 } // namespace prim

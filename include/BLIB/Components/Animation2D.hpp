@@ -2,7 +2,7 @@
 #define BLIB_COMPONENTS_ANIMATION2D_HPP
 
 #include <BLIB/ECS/Entity.hpp>
-#include <BLIB/Render/Components/DescriptorComponentBase.hpp>
+#include <BLIB/Render/Components/DrawableBase.hpp>
 #include <cstdint>
 
 namespace bl
@@ -15,16 +15,16 @@ namespace com
  *
  * @ingroup Components
  */
-struct Animation2D : public rc::rcom::DescriptorComponentBase<Animation2D, std::uint32_t> {
+// TODO - slideshow/animation split here?
+struct Animation2D : public rc::rcom::DrawableBase {
     ecs::Entity playerEntity;
-    std::uint32_t playerIndex; // assigned by SlideshowInstance
+    // TODO - index buffer of slideshow vertex
 
     /**
      * @brief Creates an empty animation component
      */
     Animation2D()
-    : playerEntity(ecs::InvalidEntity)
-    , playerIndex(0) {}
+    : playerEntity(ecs::InvalidEntity) {}
 
     /**
      * @brief Creates an animation component using the given player
@@ -32,8 +32,8 @@ struct Animation2D : public rc::rcom::DescriptorComponentBase<Animation2D, std::
      * @param player ECS entity that has the player component to use
      */
     Animation2D(ecs::Entity player)
-    : playerEntity(player)
-    , playerIndex(0) {}
+    : playerEntity(player) {}
+
     /**
      * @brief Sets the animation player to use
      *
@@ -41,15 +41,8 @@ struct Animation2D : public rc::rcom::DescriptorComponentBase<Animation2D, std::
      */
     void setPlayer(ecs::Entity entity) {
         playerEntity = entity;
-        markDirty();
+        // TODO
     }
-
-    /**
-     * @brief Updates the player index in the renderer descriptor buffer
-     *
-     * @param payload The index to update
-     */
-    void refreshDescriptor(std::uint32_t& payload) { payload = playerIndex; }
 };
 
 } // namespace com

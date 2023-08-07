@@ -16,9 +16,9 @@ namespace com
  */
 struct Animation2DPlayer {
     /**
-     * @brief Creates an empty player
+     * @brief Deleted
      */
-    Animation2DPlayer();
+    Animation2DPlayer() = delete;
 
     /**
      * @brief Creates a player for the given animation
@@ -29,13 +29,6 @@ struct Animation2DPlayer {
      */
     Animation2DPlayer(const resource::Ref<gfx::a2d::AnimationData>& animation, bool play,
                       bool forceLoop = false);
-
-    /**
-     * @brief Sets or replaces the animation to be played
-     *
-     * @param animation The animation to play
-     */
-    void setAnimation(const resource::Ref<gfx::a2d::AnimationData>& animation);
 
     /**
      * @brief Starts playing the animation, optionally restarting it
@@ -82,6 +75,8 @@ struct Animation2DPlayer {
     std::size_t currentFrame;
     float frameTime;
 
+    // TODO - stable vector ref
+    std::uint32_t playerIndex;   // assigned by Animation2DSystem
     std::uint32_t* framePayload; // in descriptor set
 };
 

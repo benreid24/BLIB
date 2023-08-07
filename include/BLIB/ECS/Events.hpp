@@ -47,7 +47,7 @@ struct ComponentAdded {
     const Entity entity;
 
     /// The component that was added
-    const T& component;
+    T& component;
 
     /**
      * @brief Construct a new ComponentAdded event
@@ -55,7 +55,7 @@ struct ComponentAdded {
      * @param e The entity the component belongs to
      * @param component The component that was added
      */
-    ComponentAdded(Entity e, const T& component)
+    ComponentAdded(Entity e, T& component)
     : entity(e)
     , component(component) {}
 };

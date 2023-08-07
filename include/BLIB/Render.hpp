@@ -25,6 +25,8 @@
 #include <BLIB/Render/Descriptors/Builtin/Scene2DInstance.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Scene3DFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Scene3DInstance.hpp>
+#include <BLIB/Render/Descriptors/Builtin/SlideshowFactory.hpp>
+#include <BLIB/Render/Descriptors/Builtin/SlideshowInstance.hpp>
 #include <BLIB/Render/Descriptors/Builtin/TexturePoolFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/TexturePoolInstance.hpp>
 #include <BLIB/Render/Descriptors/DescriptorComponentStorage.hpp>
