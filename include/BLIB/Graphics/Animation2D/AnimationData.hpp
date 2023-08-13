@@ -104,6 +104,11 @@ public:
     const std::string& spritesheetFile() const;
 
     /**
+     * @brief Returns the resolved spritesheet path
+     */
+    constexpr const std::string& resolvedSpritesheet() const;
+
+    /**
      * @brief Returns if the animation is set to loop on end. Can be overridden in Animation
      *
      */
@@ -199,6 +204,7 @@ public:
     std::size_t getStateFromFrame(std::size_t frameIndex) const;
 
 private:
+    std::string actualSpritesheetPath;
     std::string spritesheetSource;
     std::vector<Frame> frames;
     std::vector<std::size_t> stateOffsets;
@@ -230,6 +236,10 @@ inline std::size_t AnimationData::getFrameForState(std::size_t i) { return state
 
 inline const sf::Vector2f& AnimationData::getFrameSize(std::size_t i) const {
     return frames[i].size;
+}
+
+inline constexpr const std::string& AnimationData::resolvedSpritesheet() const {
+    return actualSpritesheetPath;
 }
 
 } // namespace a2d

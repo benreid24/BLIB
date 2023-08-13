@@ -1,5 +1,5 @@
 target_sources(BLIB PUBLIC
-	Animation2D.hpp
+	Animation2DPlayer.hpp
 	OverlayScalable.hpp
 	Textured.hpp
 	Transform2D.hpp

@@ -96,7 +96,7 @@ public:
     constexpr VkBuffer indexBufferHandle() const;
 
 private:
-    std::vector<prim::Vertex> cpuVertexBuffer;
+    std::vector<T> cpuVertexBuffer;
     std::vector<std::uint32_t> cpuIndexBuffer;
     vk::Buffer gpuVertexBuffer;
     vk::Buffer gpuIndexBuffer;

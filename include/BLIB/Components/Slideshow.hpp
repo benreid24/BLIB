@@ -1,9 +1,10 @@
 #ifndef BLIB_COMPONENTS_SLIDESHOW_HPP
 #define BLIB_COMPONENTS_SLIDESHOW_HPP
 
-#include <BLIB/Graphics/Animation2D/AnimationData.hpp>
+#include <BLIB/Components/Animation2DPlayer.hpp>
 #include <BLIB/Render/Buffers/IndexBuffer.hpp>
 #include <BLIB/Render/Components/DrawableBase.hpp>
+#include <BLIB/Render/Primitives/SlideshowVertex.hpp>
 
 namespace bl
 {
@@ -23,7 +24,7 @@ namespace com
  * @ingroup Components
  */
 struct Slideshow : public rc::rcom::DrawableBase {
-    rc::buf::IndexBuffer indexBuffer;
+    rc::buf::IndexBufferT<rc::prim::SlideshowVertex> indexBuffer;
     glm::vec2 size;
 
     /**
@@ -33,7 +34,15 @@ struct Slideshow : public rc::rcom::DrawableBase {
      * @param anim The animation to use when creating the vertices
      * @return True on success, false if animation is invalid slideshow
      */
-    bool create(rc::vk::VulkanState& vulkanState, const gfx::a2d::AnimationData& anim);
+    bool create(rc::vk::VulkanState& vulkanState, const Animation2DPlayer& anim);
+
+    /**
+     * @brief Changes the animation to a new player
+     *
+     * @param anim The new player to use
+     * @return True on success, false if animation is invalid slideshow
+     */
+    bool setPlayer(const Animation2DPlayer& anim);
 };
 
 } // namespace com

@@ -1,27 +1,28 @@
-#ifndef BLIB_GRAPHICS_COMPONENTS_HPP
-#define BLIB_GRAPHICS_COMPONENTS_HPP
+#ifndef BLIB_GRAPHICS_COMPONENTS_ANIMATION2DPLAYER_HPP
+#define BLIB_GRAPHICS_COMPONENTS_ANIMATION2DPLAYER_HPP
 
-#include <BLIB/Components/Animation2D.hpp>
 #include <BLIB/Components/Animation2DPlayer.hpp>
 #include <BLIB/ECS.hpp>
+#include <BLIB/Graphics/Animation2D/AnimationData.hpp>
+#include <BLIB/Graphics/Components/Textured.hpp>
 
 namespace bl
 {
 namespace gfx
 {
-namespace base
+namespace bcom
 {
 /**
- * @brief Base class for 2d animation drawables
+ * @brief Base class for 2d animation player components
  *
  * @ingroup Graphics
  */
-class Animation2D {
+class Animation2DPlayer : private Textured {
 public:
     /**
      * @brief Does nothing
      */
-    Animation2D() = default;
+    Animation2DPlayer() = default;
 
     /**
      * @brief Configures the animation to use the existing player in order to share play state with
@@ -76,17 +77,16 @@ protected:
 private:
     ecs::Registry* registry;
     ecs::Entity me;
-    com::Animation2D* animation;
     com::Animation2DPlayer* player;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline com::Animation2DPlayer& Animation2D::getPlayer() { return *player; }
+inline com::Animation2DPlayer& Animation2DPlayer::getPlayer() { return *player; }
 
-inline const com::Animation2DPlayer& Animation2D::getPlayer() const { return *player; }
+inline const com::Animation2DPlayer& Animation2DPlayer::getPlayer() const { return *player; }
 
-} // namespace base
+} // namespace bcom
 } // namespace gfx
 } // namespace bl
 
