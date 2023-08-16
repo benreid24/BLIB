@@ -53,7 +53,6 @@ private:
         float opacity;
     };
 
-    const VkDevice device;
     rc::Renderer& renderer;
     VkDescriptorSetLayout descriptorLayout;
     ecs::ComponentPool<com::Animation2DPlayer>* players;
@@ -66,6 +65,7 @@ private:
     rc::buf::DynamicSSBO<std::uint32_t> slideshowPlayerCurrentFrameSSBO; //     -> current frame
     rc::vk::PerFrame<rc::vk::DescriptorSet> slideshowDescriptorSets;
     std::uint8_t slideshowRefreshRequired;
+    std::uint8_t slideshowLastFrameUpdated;
     std::uint32_t lastSlideshowFrameUploaded;
     std::uint32_t lastSlideshowOffsetUploaded;
 
@@ -77,7 +77,8 @@ private:
         const ecs::event::ComponentRemoved<com::Animation2DPlayer>& event) override;
 
     void doSlideshowAdd(ecs::Entity playerEntity, com::Animation2DPlayer& player);
-    void updateSlideshowDescrptorSets();
+    void ensureSlideshowDescriptorsUpdated();
+    void updateSlideshowDescriptorSets();
 
     friend class rc::Renderer;
 };

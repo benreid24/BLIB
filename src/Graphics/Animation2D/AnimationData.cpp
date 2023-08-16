@@ -19,12 +19,23 @@ bool compareVectors(const sf::Vector2f& left, const sf::Vector2f& right) {
     if (std::abs(left.x - right.x) >= 0.9f || std::abs(left.y - right.y) >= 0.9f) { return false; }
     return true;
 }
+
+void removeDuplicateShard(const AnimationData::Frame& frame) {
+    AnimationData::Frame& f = const_cast<AnimationData::Frame&>(frame);
+    if (f.shards.size() == 2) {
+        if (f.shards.front().source == f.shards.back().source) { f.shards.pop_back(); }
+    }
+}
+
 } // namespace
 
 bool AnimationData::isValidSlideshow(const AnimationData& data) {
     if (data.frames.empty()) return true;
 
     for (const auto& frame : data.frames) {
+        // TODO - remove ugly hack when animation editor rewritten
+        removeDuplicateShard(frame);
+
         if (frame.shards.size() != 1) {
             BL_LOG_DEBUG << "Slideshow check fail: Frame has more than 1 shard";
             return false;

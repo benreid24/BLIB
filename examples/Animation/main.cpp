@@ -4,6 +4,7 @@
 #include <BLIB/Graphics.hpp>
 #include <BLIB/Render.hpp>
 #include <BLIB/Systems.hpp>
+#include <iostream>
 
 class DemoState : public bl::engine::State {
 public:
@@ -48,12 +49,12 @@ private:
 };
 
 int main() {
+    bl::logging::Config::configureOutput(std::cout, bl::logging::Config::Debug);
     const bl::engine::Settings engineSettings = bl::engine::Settings().withWindowParameters(
         bl::engine::Settings::WindowParameters()
             .withVideoMode(sf::VideoMode(1920, 1080, 32))
             .withStyle(sf::Style::Close | sf::Style::Titlebar | sf::Style::Resize)
             .withTitle("Renderer Demo")
-            .withIcon("vulkan.png")
             .withLetterBoxOnResize(true));
     bl::engine::Engine engine(engineSettings);
 

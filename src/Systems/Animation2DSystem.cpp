@@ -8,12 +8,12 @@ namespace bl
 namespace sys
 {
 Animation2DSystem::Animation2DSystem(rc::Renderer& renderer)
-: device(renderer.vulkanState().device)
-, renderer(renderer)
+: renderer(renderer)
 , players(nullptr)
 , nextSlideshowPlayerIndex(0)
 , slideshowDescriptorSets(renderer.vulkanState())
-, slideshowRefreshRequired(0)
+, slideshowRefreshRequired(rc::Config::MaxConcurrentFrames)
+, slideshowLastFrameUpdated(255)
 , lastSlideshowFrameUploaded(0)
 , lastSlideshowOffsetUploaded(0) {
     slideshowDescriptorSets.emptyInit(renderer.vulkanState());
@@ -28,6 +28,7 @@ void Animation2DSystem::cleanup() {
 
 void Animation2DSystem::bindSlideshowSet(VkCommandBuffer commandBuffer, VkPipelineLayout layout,
                                          std::uint32_t setIndex) {
+    ensureSlideshowDescriptorsUpdated();
     VkDescriptorSet set = slideshowDescriptorSets.current().getSet();
     vkCmdBindDescriptorSets(
         commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, layout, setIndex, 1, &set, 0, nullptr);
@@ -62,11 +63,15 @@ void Animation2DSystem::update(std::mutex&, float dt) {
         lastSlideshowOffsetUploaded = slideshowFrameOffsetSSBO.size();
     }
     slideshowPlayerCurrentFrameSSBO.transferAll(); // always upload all play indices
+}
 
-    // update descriptors
+void Animation2DSystem::ensureSlideshowDescriptorsUpdated() {
     if (slideshowRefreshRequired != 0) {
-        --slideshowRefreshRequired;
-        updateSlideshowDescrptorSets();
+        if (renderer.vulkanState().currentFrameIndex() != slideshowLastFrameUpdated) {
+            slideshowLastFrameUpdated = renderer.vulkanState().currentFrameIndex();
+            --slideshowRefreshRequired;
+            updateSlideshowDescriptorSets();
+        }
     }
 }
 
@@ -117,7 +122,7 @@ void Animation2DSystem::doSlideshowAdd(ecs::Entity playerEntity, com::Animation2
     slideshowRefreshRequired = rc::Config::MaxConcurrentFrames;
 }
 
-void Animation2DSystem::updateSlideshowDescrptorSets() {
+void Animation2DSystem::updateSlideshowDescriptorSets() {
     VkWriteDescriptorSet setWrites[3]{};
 
     // (re)allocate the descriptor sets
@@ -167,7 +172,8 @@ void Animation2DSystem::updateSlideshowDescrptorSets() {
     setWrites[2].descriptorType  = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
 
     // perform write
-    vkUpdateDescriptorSets(device, std::size(setWrites), setWrites, 0, nullptr);
+    vkUpdateDescriptorSets(
+        renderer.vulkanState().device, std::size(setWrites), setWrites, 0, nullptr);
 }
 
 } // namespace sys

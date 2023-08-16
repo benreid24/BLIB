@@ -9,6 +9,7 @@
 #include <BLIB/Render/Descriptors/Builtin/Scene3DFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/SlideshowFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/TexturePoolFactory.hpp>
+#include <BLIB/Render/Primitives/SlideshowVertex.hpp>
 #include <BLIB/Render/Renderer.hpp>
 
 namespace bl
@@ -129,6 +130,8 @@ void PipelineCache::createBuiltins() {
             .withShaders(Config::ShaderIds::SlideshowVert, Config::ShaderIds::Fragment2DSkinnedLit)
             .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
             .withRasterizer(rasterizer)
+            .withVertexFormat(prim::SlideshowVertex::bindingDescription(),
+                              prim::SlideshowVertex::attributeDescriptions())
             .withDepthStencilState(&depthStencilDepthEnabled)
             .addDescriptorSet<ds::TexturePoolFactory>()
             .addDescriptorSet<ds::Scene2DFactory>()
@@ -143,6 +146,8 @@ void PipelineCache::createBuiltins() {
                                    Config::ShaderIds::Fragment2DSkinnedUnlit)
                       .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
                       .withRasterizer(rasterizer)
+                      .withVertexFormat(prim::SlideshowVertex::bindingDescription(),
+                                        prim::SlideshowVertex::attributeDescriptions())
                       .withDepthStencilState(&depthStencilDepthEnabled)
                       .addDescriptorSet<ds::TexturePoolFactory>()
                       .addDescriptorSet<ds::Scene2DFactory>()
