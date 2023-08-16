@@ -36,6 +36,10 @@ void Animation2DPlayer::create(rc::Renderer& r, ecs::Registry& reg, ecs::Entity 
     registry = &reg;
     me       = entity;
     createNewPlayer(anim, play, forceLoop);
+    Textured::create(
+        reg,
+        entity,
+        renderer->texturePool().getOrLoadTexture(player.get().animation->resolvedSpritesheet()));
 }
 
 } // namespace bcom

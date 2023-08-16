@@ -26,7 +26,8 @@ bool Slideshow::create(rc::vk::VulkanState& vs, const Animation2DPlayer& anim) {
     for (rc::prim::SlideshowVertex& vertex : indexBuffer.vertices()) {
         vertex.slideshowIndex = anim.playerIndex;
     }
-    size = {src.width, src.height};
+    size       = {src.width, src.height};
+    drawParams = indexBuffer.getDrawParameters();
 
     indexBuffer.queueTransfer(rc::tfr::Transferable::SyncRequirement::Immediate);
     return true;
