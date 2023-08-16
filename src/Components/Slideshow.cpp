@@ -45,6 +45,7 @@ bool Slideshow::setPlayer(const Animation2DPlayer& anim) {
     for (rc::prim::SlideshowVertex& vertex : indexBuffer.vertices()) {
         vertex.slideshowIndex = anim.playerIndex;
     }
+    // TODO - handle size change?
 
     // TODO - pipeline barrier to block copy until vertex input done
     indexBuffer.queueTransfer(rc::tfr::Transferable::SyncRequirement::Immediate);

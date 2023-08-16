@@ -129,6 +129,22 @@ protected:
     void create(engine::Engine& engine, TArgs&&... args);
 
     /**
+     * @brief Creates the ECS entity for the drawable but does not create the component
+     *
+     * @param engine Game engine instance
+     */
+    void createEntityOnly(engine::Engine& engine);
+
+    /**
+     * @brief Creates the component for the drawable. Must only be called after entity creation
+     *
+     * @tparam ...TArgs Argument types to the components constructor
+     * @param ...args Arguments to the components constructor
+     */
+    template<typename... TArgs>
+    void createComponentOnly(TArgs&&... args);
+
+    /**
      * @brief Called after the entity is added to a scene. Allows derived to sync data if required
      *
      * @param sceneRef The scene object information
@@ -275,6 +291,12 @@ void Drawable<TCom, TSys>::destroy() {
 }
 
 template<typename TCom, typename TSys>
+void Drawable<TCom, TSys>::createEntityOnly(engine::Engine& engine) {
+    enginePtr = &engine;
+    ecsId     = engine.ecs().createEntity();
+}
+
+template<typename TCom, typename TSys>
 void Drawable<TCom, TSys>::onAdd(const rc::rcom::SceneObjectRef&) {}
 
 template<typename TCom, typename TSys>
@@ -282,12 +304,16 @@ void Drawable<TCom, TSys>::onRemove() {}
 
 template<typename TCom, typename TSys>
 template<typename... TArgs>
+void Drawable<TCom, TSys>::createComponentOnly(TArgs&&... args) {
+    handle = enginePtr->ecs().emplaceComponent<TCom>(ecsId, std::forward<TArgs>(args)...);
+}
+
+template<typename TCom, typename TSys>
+template<typename... TArgs>
 void Drawable<TCom, TSys>::create(engine::Engine& engine, TArgs&&... args) {
     if (handle != nullptr) { destroy(); }
-    enginePtr = &engine;
-
-    ecsId  = engine.ecs().createEntity();
-    handle = engine.ecs().emplaceComponent<TCom>(ecsId, std::forward<TArgs>(args)...);
+    createEntityOnly(engine);
+    createComponentOnly(std::forward<TArgs>(args)...);
 }
 
 } // namespace gfx

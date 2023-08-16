@@ -1,4 +1,5 @@
 target_sources(BLIB PRIVATE
+	Slideshow.cpp
 	Sprite.cpp
 	Text.cpp
 )

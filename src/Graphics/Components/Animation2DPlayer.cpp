@@ -1,5 +1,7 @@
 #include <BLIB/Graphics/Components/Animation2DPlayer.hpp>
 
+#include <BLIB/Render/Renderer.hpp>
+
 namespace bl
 {
 namespace gfx
@@ -15,15 +17,22 @@ void Animation2DPlayer::useExistingPlayer(ecs::Entity pent) {
     player = registry->getComponent<com::Animation2DPlayer>(pent);
 }
 
-void Animation2DPlayer::create(ecs::Registry& reg, ecs::Entity entity, ecs::Entity pent) {
+void Animation2DPlayer::create(rc::Renderer& r, ecs::Registry& reg, ecs::Entity entity,
+                               ecs::Entity pent) {
+    renderer = &r;
     registry = &reg;
     me       = entity;
     player   = registry->getComponent<com::Animation2DPlayer>(pent);
+    Textured::create(
+        reg,
+        entity,
+        renderer->texturePool().getOrLoadTexture(player->animation->resolvedSpritesheet()));
 }
 
-void Animation2DPlayer::create(ecs::Registry& reg, ecs::Entity entity,
+void Animation2DPlayer::create(rc::Renderer& r, ecs::Registry& reg, ecs::Entity entity,
                                const resource::Ref<gfx::a2d::AnimationData>& anim, bool play,
                                bool forceLoop) {
+    renderer = &r;
     registry = &reg;
     me       = entity;
     createNewPlayer(anim, play, forceLoop);
