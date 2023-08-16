@@ -112,6 +112,7 @@ void Renderer::initialize() {
 void Renderer::cleanup() {
     vkCheck(vkDeviceWaitIdle(state.device));
 
+    engine.systems().getSystem<sys::Animation2DSystem>().cleanup();
     for (vk::RenderTexture* rt : renderTextures) { rt->destroy(); }
     observers.clear();
     commonObserver.cleanup();

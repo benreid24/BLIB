@@ -69,6 +69,7 @@ private:
     std::uint32_t lastSlideshowFrameUploaded;
     std::uint32_t lastSlideshowOffsetUploaded;
 
+    void cleanup();
     virtual void init(engine::Engine& engine) override;
     virtual void update(std::mutex& stageMutex, float dt) override;
     virtual void observe(const ecs::event::ComponentAdded<com::Animation2DPlayer>& event) override;
@@ -77,6 +78,8 @@ private:
 
     void doSlideshowAdd(ecs::Entity playerEntity, com::Animation2DPlayer& player);
     void updateSlideshowDescrptorSets();
+
+    friend class rc::Renderer;
 };
 
 } // namespace sys

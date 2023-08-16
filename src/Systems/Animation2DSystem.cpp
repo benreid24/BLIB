@@ -19,6 +19,13 @@ Animation2DSystem::Animation2DSystem(rc::Renderer& renderer)
     slideshowDescriptorSets.emptyInit(renderer.vulkanState());
 }
 
+void Animation2DSystem::cleanup() {
+    slideshowDescriptorSets.cleanup([](rc::vk::DescriptorSet& ds) { ds.release(); });
+    slideshowFramesSSBO.destroy();
+    slideshowFrameOffsetSSBO.destroy();
+    slideshowPlayerCurrentFrameSSBO.destroy();
+}
+
 void Animation2DSystem::bindSlideshowSet(VkCommandBuffer commandBuffer, VkPipelineLayout layout,
                                          std::uint32_t setIndex) {
     VkDescriptorSet set = slideshowDescriptorSets.current().getSet();
@@ -33,7 +40,9 @@ void Animation2DSystem::init(engine::Engine& engine) {
 
     players = &engine.ecs().getAllComponents<com::Animation2DPlayer>();
 
-    // TODO - pre-allocate for some animations?
+    slideshowFramesSSBO.create(renderer.vulkanState(), 128);
+    slideshowFrameOffsetSSBO.create(renderer.vulkanState(), 32);
+    slideshowPlayerCurrentFrameSSBO.create(renderer.vulkanState(), 32);
 }
 
 void Animation2DSystem::update(std::mutex&, float dt) {
@@ -88,7 +97,7 @@ void Animation2DSystem::doSlideshowAdd(ecs::Entity playerEntity, com::Animation2
     slideshowFrameOffsetSSBO[index]        = offset;
     slideshowPlayerCurrentFrameSSBO[index] = player.currentFrame;
 
-    // add frames to ssbo if requierd
+    // add frames to ssbo if required
     if (uploadFrames) {
         slideshowFrameMap[player.animation.get()] = offset;
         slideshowFramesSSBO.ensureSize(slideshowFramesSSBO.size() + player.animation->frameCount());
