@@ -9,9 +9,7 @@ namespace sys
 {
 Animation2DSystem::Animation2DSystem(rc::Renderer& renderer)
 : device(renderer.vulkanState().device)
-, descriptorLayout(renderer.descriptorFactoryCache()
-                       .getFactory<rc::ds::SlideshowFactory>()
-                       ->getDescriptorLayout())
+, renderer(renderer)
 , players(nullptr)
 , nextSlideshowPlayerIndex(0)
 , slideshowDescriptorSets(renderer.vulkanState())
@@ -29,6 +27,10 @@ void Animation2DSystem::bindSlideshowSet(VkCommandBuffer commandBuffer, VkPipeli
 }
 
 void Animation2DSystem::init(engine::Engine& engine) {
+    descriptorLayout = renderer.descriptorFactoryCache()
+                           .getOrCreateFactory<rc::ds::SlideshowFactory>()
+                           ->getDescriptorLayout();
+
     players = &engine.ecs().getAllComponents<com::Animation2DPlayer>();
 
     // TODO - pre-allocate for some animations?

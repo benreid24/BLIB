@@ -41,6 +41,9 @@ public:
             : factoryType(typeid(void)) {}
             DescriptorSet(const DescriptorSet& c)
             : factoryType(c.factoryType) {}
+            DescriptorSet(DescriptorSet&& c)
+            : factoryType(c.factoryType)
+            , factory(std::move(c.factory)) {}
             DescriptorSet(std::type_index tid, std::unique_ptr<ds::DescriptorSetFactory>&& factory)
             : factoryType(tid)
             , factory(std::forward<std::unique_ptr<ds::DescriptorSetFactory>>(factory)) {}
@@ -55,6 +58,12 @@ public:
         : descriptorSets(c.descriptorSets)
         , dsCount(c.dsCount)
         , pushConstants(c.pushConstants)
+        , pcCount(c.pcCount) {}
+
+        LayoutParams(LayoutParams&& c)
+        : descriptorSets(std::move(c.descriptorSets))
+        , dsCount(c.dsCount)
+        , pushConstants(std::move(c.pushConstants))
         , pcCount(c.pcCount) {}
 
         template<typename TFactory, typename... TArgs>

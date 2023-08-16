@@ -84,6 +84,7 @@ T* DescriptorSetFactoryCache::getOrCreateFactory(TArgs&&... args) {
     auto it = cache.find(typeid(T));
     if (it == cache.end()) {
         it = cache.try_emplace(typeid(T), std::make_unique<T>(std::forward<TArgs>(args)...)).first;
+        it->second->init(engine, renderer);
     }
     return static_cast<T*>(it->second.get());
 }

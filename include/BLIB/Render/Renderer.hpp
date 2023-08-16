@@ -309,7 +309,7 @@ T* Renderer::useRenderStrategy(TArgs&&... args) {
     strategy.reset(s);
     return s;
 }
-
+ 
 inline constexpr rg::AssetFactory& Renderer::getAssetFactory() { return assetFactory; }
 
 inline constexpr vk::PerSwapFrame<vk::Framebuffer>& Renderer::getSwapframeBuffers() {

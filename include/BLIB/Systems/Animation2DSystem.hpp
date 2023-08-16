@@ -54,7 +54,8 @@ private:
     };
 
     const VkDevice device;
-    const VkDescriptorSetLayout descriptorLayout;
+    rc::Renderer& renderer;
+    VkDescriptorSetLayout descriptorLayout;
     ecs::ComponentPool<com::Animation2DPlayer>* players;
 
     // slideshow data
