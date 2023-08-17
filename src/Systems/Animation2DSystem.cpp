@@ -101,7 +101,12 @@ void Animation2DSystem::doSlideshowAdd(ecs::Entity playerEntity, com::Animation2
 
     // add frame offset and current frame to SSBO's
     slideshowFrameOffsetSSBO.ensureSize(index + 1);
-    slideshowPlayerCurrentFrameSSBO.ensureSize(index + 1);
+    if (slideshowPlayerCurrentFrameSSBO.ensureSize(index + 1)) {
+        players->forEach([this](ecs::Entity, com::Animation2DPlayer& player) {
+            player.framePayload = &slideshowPlayerCurrentFrameSSBO[player.playerIndex];
+        });
+    }
+    else { player.framePayload = &slideshowPlayerCurrentFrameSSBO[player.playerIndex]; }
     slideshowFrameOffsetSSBO[index]        = offset;
     slideshowPlayerCurrentFrameSSBO[index] = player.currentFrame;
 

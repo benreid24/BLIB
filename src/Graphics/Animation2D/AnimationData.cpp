@@ -185,7 +185,7 @@ bool AnimationData::doLoad(serial::binary::InputStream& input, const std::string
         frame.nextFrame = i + 1;
         computeFrameSize(frame);
     }
-    frames.back().nextFrame = 0;
+    if (!frames.empty()) { frames.back().nextFrame = 0; }
 
     // bool value not present in legacy files
     std::uint8_t u8;

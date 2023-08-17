@@ -46,7 +46,7 @@ void main() {
     uint coordOffset = animToOffset.frameOffsets[inPlayerIndex];
     uint frameIndex = animToFrameIndex.currentFrames[inPlayerIndex];
     uint vertexIndex = uint(floor(mod(gl_VertexIndex, 4) + 0.5));
-    uint index = coordOffset + frameIndex * 4;
+    uint index = coordOffset + frameIndex;
     AnimationFrame frame = animFrames.frames[index];
     
     vec2 texCoords[4] = {frame.texCoord0, frame.texCoord1, frame.texCoord2, frame.texCoord3};

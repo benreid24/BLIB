@@ -52,8 +52,9 @@ void Animation2DPlayer::update(float dt) {
             if (ogFrame > currentFrame) {
                 if (!forceLoop && !animation->isLooping()) { stop(); }
             }
+
+            if (framePayload) { *framePayload = currentFrame; }
         }
-        if (framePayload) { *framePayload = currentFrame; }
     }
 }
 

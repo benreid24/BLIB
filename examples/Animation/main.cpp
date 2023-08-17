@@ -31,7 +31,9 @@ private:
         slideshow.createWithUniquePlayer(
             engine,
             bl::resource::ResourceManager<bl::gfx::a2d::AnimationData>::load(
-                "resources/water.anim"));
+                "resources/water.anim"),
+            true,
+            true);
         slideshow.getTransform().setPosition({300.f, 300.f});
         slideshow.addToScene(scene, bl::rc::UpdateSpeed::Static);
     }
