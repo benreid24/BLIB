@@ -20,6 +20,7 @@ Animation2DSystem::Animation2DSystem(rc::Renderer& renderer)
 }
 
 void Animation2DSystem::cleanup() {
+    event::Dispatcher::unsubscribe(this);
     slideshowDescriptorSets.cleanup([](rc::vk::DescriptorSet& ds) { ds.release(); });
     slideshowFramesSSBO.destroy();
     slideshowFrameOffsetSSBO.destroy();
@@ -44,6 +45,8 @@ void Animation2DSystem::init(engine::Engine& engine) {
     slideshowFramesSSBO.create(renderer.vulkanState(), 128);
     slideshowFrameOffsetSSBO.create(renderer.vulkanState(), 32);
     slideshowPlayerCurrentFrameSSBO.create(renderer.vulkanState(), 32);
+
+    event::Dispatcher::subscribe(this);
 }
 
 void Animation2DSystem::update(std::mutex&, float dt) {
@@ -107,14 +110,14 @@ void Animation2DSystem::doSlideshowAdd(ecs::Entity playerEntity, com::Animation2
         slideshowFrameMap[player.animation.get()] = offset;
         slideshowFramesSSBO.ensureSize(slideshowFramesSSBO.size() + player.animation->frameCount());
         for (std::size_t i = 0; i < player.animation->frameCount(); ++i) {
-            const auto& src = player.animation->getFrame(i).shards.front();
-            auto& frame     = slideshowFramesSSBO[offset + i];
-            const sf::FloatRect tex(src.source);
-            frame.opacity      = static_cast<float>(src.alpha) / 255.f;
-            frame.texCoords[0] = {tex.left, tex.top};
-            frame.texCoords[1] = {tex.left + tex.width, tex.top};
-            frame.texCoords[2] = {tex.left + tex.width, tex.top + tex.height};
-            frame.texCoords[3] = {tex.left, tex.top + tex.height};
+            const auto& src          = player.animation->getFrame(i).shards.front();
+            auto& frame              = slideshowFramesSSBO[offset + i];
+            const sf::FloatRect& tex = src.normalizedSource;
+            frame.opacity            = static_cast<float>(src.alpha) / 255.f;
+            frame.texCoords[0]       = {tex.left, tex.top};
+            frame.texCoords[1]       = {tex.left + tex.width, tex.top};
+            frame.texCoords[2]       = {tex.left + tex.width, tex.top + tex.height};
+            frame.texCoords[3]       = {tex.left, tex.top + tex.height};
         }
     }
 

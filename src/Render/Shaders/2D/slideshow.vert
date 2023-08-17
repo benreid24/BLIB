@@ -20,7 +20,11 @@ layout(std140, set = 2, binding = 1) readonly buffer tex {
 } skin;
 
 struct AnimationFrame {
-    vec2 texCoords[4];
+    // array alignment is jank :(
+    vec2 texCoord0;
+    vec2 texCoord1;
+    vec2 texCoord2;
+    vec2 texCoord3;
     float opacity;
 };
 
@@ -45,6 +49,7 @@ void main() {
     uint index = coordOffset + frameIndex * 4;
     AnimationFrame frame = animFrames.frames[index];
     
-    fragTexCoords = frame.texCoords[vertexIndex];
+    vec2 texCoords[4] = {frame.texCoord0, frame.texCoord1, frame.texCoord2, frame.texCoord3};
+    fragTexCoords = texCoords[vertexIndex];
     fragColor.a = fragColor.a * frame.opacity;
 }

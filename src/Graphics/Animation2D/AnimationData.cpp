@@ -192,6 +192,20 @@ bool AnimationData::doLoad(serial::binary::InputStream& input, const std::string
     if (!input.read(u8)) { centerShards = false; }
     else { centerShards = u8 == 1; }
 
+    // compute normalized texture coordinates
+    const sf::Vector2u sheetSize =
+        resource::ResourceManager<sf::Image>::load(resolvedSpritesheet())->getSize();
+    const sf::Vector2f size(sheetSize);
+    for (auto& frame : frames) {
+        for (auto& shard : frame.shards) {
+            const sf::FloatRect source(shard.source);
+            shard.normalizedSource.left   = source.left / size.x;
+            shard.normalizedSource.top    = source.top / size.y;
+            shard.normalizedSource.width  = source.width / size.x;
+            shard.normalizedSource.height = source.height / size.y;
+        }
+    }
+
     return true;
 }
 

@@ -24,8 +24,8 @@ namespace sys
  */
 class Animation2DSystem
 : public engine::System
-, public event::Listener<ecs::event::ComponentAdded<com::Animation2DPlayer>>
-, public event::Listener<ecs::event::ComponentRemoved<com::Animation2DPlayer>> {
+, public event::Listener<ecs::event::ComponentAdded<com::Animation2DPlayer>,
+                         ecs::event::ComponentRemoved<com::Animation2DPlayer>> {
 public:
     /**
      * @brief Creates the animation system
@@ -49,8 +49,8 @@ public:
 
 private:
     struct SlideshowFrame {
-        glm::vec2 texCoords[4];
-        float opacity;
+        alignas(16) glm::vec2 texCoords[4];
+        alignas(16) float opacity;
     };
 
     rc::Renderer& renderer;

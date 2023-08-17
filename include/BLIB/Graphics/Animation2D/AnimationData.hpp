@@ -30,6 +30,7 @@ public:
          */
         struct Shard {
             sf::IntRect source;
+            sf::FloatRect normalizedSource;
             sf::Vector2f offset;
             sf::Vector2f scale;
             float rotation;
