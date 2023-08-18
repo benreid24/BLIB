@@ -10,31 +10,72 @@ namespace bl
 {
 namespace util
 {
+/**
+ * @brief Utility class to manage allocation of integer ranges
+ *
+ * @tparam T The type of integer to manage. Must be unsigned
+ * @ingroup Util
+ */
 template<typename T>
 class RangeAllocatorUnbounded {
     static_assert(std::is_integral_v<T>, "T must be an integer type");
     static_assert(std::is_unsigned_v<T>, "T must be unsigned");
 
 public:
+    /**
+     * @brief An allocated range
+     */
     struct Range {
         T start;
         T size;
     };
 
+    /**
+     * @brief Contains information about new allocations
+     */
     struct AllocResult {
         Range range;
         bool poolExpanded;
         T newPoolSize;
     };
 
+    /**
+     * @brief Creates a new allocator with the given initial capacity
+     *
+     * @param initialCapacity The capacity to start with
+     */
     RangeAllocatorUnbounded(T initialCapacity = 0);
 
+    /**
+     * @brief Allocates a range of the given size, expanding if necessary
+     *
+     * @param size The size of the range to allocate
+     * @return The resulting allocation and information
+     */
     AllocResult alloc(T size);
 
+    /**
+     * @brief Marks the given range as free
+     *
+     * @param range The range to return to the pool
+     */
     void release(Range range);
 
+    /**
+     * @brief Marks the entire pool as free
+     */
     void releaseAll();
 
+    /**
+     * @brief Marks the entire pool as free and resizes to the new size
+     *
+     * @param newSize The new size of the pool
+     */
+    void releaseAllAndResize(T newSize);
+
+    /**
+     * @brief Returns the current pool size
+     */
     constexpr T poolSize() const;
 
 private:
@@ -131,6 +172,12 @@ template<typename T>
 void RangeAllocatorUnbounded<T>::releaseAll() {
     freeRanges.clear();
     freeRanges.emplace_back(0, totalSize);
+}
+
+template<typename T>
+void RangeAllocatorUnbounded<T>::releaseAllAndResize(T newSize) {
+    totalSize = newSize;
+    releaseAll();
 }
 
 template<typename T>
