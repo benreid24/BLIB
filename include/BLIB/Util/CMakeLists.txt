@@ -9,6 +9,7 @@ target_sources(BLIB PUBLIC
     LastVariadic.hpp
     NonCopyable.hpp
     Random.hpp
+    RangeAllocatorUnbounded.hpp
     ReadWriteLock.hpp
     Signal.hpp
     StreamUtil.hpp
