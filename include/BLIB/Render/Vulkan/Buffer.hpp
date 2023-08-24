@@ -112,6 +112,12 @@ public:
      */
     constexpr VkDeviceSize getSize() const;
 
+    /**
+     * @brief Records a pipeline barrier to prevent writes from occurring before fragment shader
+     *        reads are completed
+     */
+    void insertPipelineBarrierBeforeChange();
+
 private:
     VulkanState* vulkanState;
     VkBuffer buffer;
