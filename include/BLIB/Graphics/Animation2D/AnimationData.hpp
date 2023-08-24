@@ -44,15 +44,6 @@ public:
     };
 
     /**
-     * @brief Returns whether or not the animation is a slideshow. A slideshow is an animation with
-     *        one shard in each frame that only changes texture coordinates
-     *
-     * @param data The AnimationData to check
-     * @return True if the animation is a slideshow, false if it is skeletal
-     */
-    static bool isValidSlideshow(const AnimationData& data);
-
-    /**
      * @brief Create empty AnimationData to be loaded later
      *
      */
@@ -204,6 +195,11 @@ public:
      */
     std::size_t getStateFromFrame(std::size_t frameIndex) const;
 
+    /**
+     * @brief Returns whether or not the animation is a slideshow
+     */
+    constexpr bool isSlideshow() const;
+
 private:
     std::string actualSpritesheetPath;
     std::string spritesheetSource;
@@ -212,9 +208,11 @@ private:
     float totalLength;
     bool loop;
     bool centerShards;
+    bool slideshow;
 
     static void computeFrameSize(Frame& frame);
     bool doLoad(serial::binary::InputStream& input, const std::string& path, bool forBundle);
+    static bool isValidSlideshow(const AnimationData& data);
 
     friend class Animation;
 };
@@ -242,6 +240,8 @@ inline const sf::Vector2f& AnimationData::getFrameSize(std::size_t i) const {
 inline constexpr const std::string& AnimationData::resolvedSpritesheet() const {
     return actualSpritesheetPath;
 }
+
+inline constexpr bool AnimationData::isSlideshow() const { return slideshow; }
 
 } // namespace a2d
 } // namespace gfx

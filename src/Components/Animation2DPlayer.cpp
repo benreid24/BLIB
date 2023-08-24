@@ -12,7 +12,7 @@ Animation2DPlayer::Animation2DPlayer(const resource::Ref<gfx::a2d::AnimationData
 , isPlaying(p)
 , forceLoop(l)
 , frameTime(0.f)
-, framePayload(nullptr) {}
+, framePayload() {}
 
 void Animation2DPlayer::play(bool restart) {
     if (restart) { stop(); }
@@ -31,7 +31,7 @@ void Animation2DPlayer::stop() {
     isPlaying    = false;
     frameTime    = 0.f;
     currentFrame = animation->getFrameForState(currentState);
-    if (framePayload) { *framePayload = currentFrame; }
+    if (framePayload.valid()) { *framePayload = currentFrame; }
 }
 
 void Animation2DPlayer::setState(std::size_t state, bool p) {
@@ -53,7 +53,7 @@ void Animation2DPlayer::update(float dt) {
                 if (!forceLoop && !animation->isLooping()) { stop(); }
             }
 
-            if (framePayload) { *framePayload = currentFrame; }
+            if (framePayload.valid()) { *framePayload = currentFrame; }
         }
     }
 }

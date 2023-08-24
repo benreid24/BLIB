@@ -10,6 +10,7 @@
 #include <BLIB/Render/Buffers/StaticSSBO.hpp>
 #include <BLIB/Render/Vulkan/DescriptorSet.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
+#include <BLIB/Util/IdAllocatorUnbounded.hpp>
 #include <glm/glm.hpp>
 
 namespace bl
@@ -59,7 +60,7 @@ private:
 
     // slideshow data
     std::unordered_map<gfx::a2d::AnimationData*, std::uint32_t> slideshowFrameMap;
-    std::uint32_t nextSlideshowPlayerIndex;                      // TODO - id allocator unbounded
+    util::IdAllocatorUnbounded<std::uint32_t> slideshowPlayerIds;
     rc::buf::StaticSSBO<SlideshowFrame> slideshowFramesSSBO;     // all anim frames
     rc::buf::StaticSSBO<std::uint32_t> slideshowFrameOffsetSSBO; // playerIndex -> frame index
     rc::buf::DynamicSSBO<std::uint32_t> slideshowPlayerCurrentFrameSSBO; //     -> current frame

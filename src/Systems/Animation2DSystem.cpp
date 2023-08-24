@@ -10,7 +10,6 @@ namespace sys
 Animation2DSystem::Animation2DSystem(rc::Renderer& renderer)
 : renderer(renderer)
 , players(nullptr)
-, nextSlideshowPlayerIndex(0)
 , slideshowDescriptorSets(renderer.vulkanState())
 , slideshowRefreshRequired(rc::Config::MaxConcurrentFrames)
 , slideshowLastFrameUpdated(255)
@@ -79,16 +78,20 @@ void Animation2DSystem::ensureSlideshowDescriptorsUpdated() {
 }
 
 void Animation2DSystem::observe(const ecs::event::ComponentAdded<com::Animation2DPlayer>& event) {
-    if (gfx::a2d::AnimationData::isValidSlideshow(*event.component.animation)) {
-        doSlideshowAdd(event.entity, event.component);
-    }
+    if (event.component.animation->isSlideshow()) { doSlideshowAdd(event.entity, event.component); }
     else {
         // TODO - handle non-slideshow animations
     }
 }
 
 void Animation2DSystem::observe(const ecs::event::ComponentRemoved<com::Animation2DPlayer>& event) {
-    // TODO - check ref counts and remove data
+    if (event.component.animation->isSlideshow()) {
+        slideshowPlayerIds.release(event.component.playerIndex);
+        // TODO - check ref counts and remove data
+    }
+    else {
+        // TODO - handle non-slideshow animations
+    }
 }
 
 void Animation2DSystem::doSlideshowAdd(ecs::Entity playerEntity, com::Animation2DPlayer& player) {
@@ -96,21 +99,21 @@ void Animation2DSystem::doSlideshowAdd(ecs::Entity playerEntity, com::Animation2
     const auto it              = slideshowFrameMap.find(player.animation.get());
     const bool uploadFrames    = it == slideshowFrameMap.end();
     const std::uint32_t offset = uploadFrames ? slideshowFramesSSBO.size() : it->second;
-    const std::uint32_t index  = nextSlideshowPlayerIndex++;
+    const std::uint32_t index  = slideshowPlayerIds.allocate();
     player.playerIndex         = index;
 
     // add frame offset and current frame to SSBO's
     slideshowFrameOffsetSSBO.ensureSize(index + 1);
     if (slideshowPlayerCurrentFrameSSBO.ensureSize(index + 1)) {
         players->forEach([this](ecs::Entity, com::Animation2DPlayer& player) {
-            player.framePayload = &slideshowPlayerCurrentFrameSSBO[player.playerIndex];
+            slideshowPlayerCurrentFrameSSBO.assignRef(player.framePayload, player.playerIndex);
         });
     }
-    else { player.framePayload = &slideshowPlayerCurrentFrameSSBO[player.playerIndex]; }
+    else { slideshowPlayerCurrentFrameSSBO.assignRef(player.framePayload, player.playerIndex); }
     slideshowFrameOffsetSSBO[index]        = offset;
     slideshowPlayerCurrentFrameSSBO[index] = player.currentFrame;
 
-    // add frames to ssbo if required
+    // add frames to SSBO if required
     if (uploadFrames) {
         slideshowFrameMap[player.animation.get()] = offset;
         slideshowFramesSSBO.ensureSize(slideshowFramesSSBO.size() + player.animation->frameCount());

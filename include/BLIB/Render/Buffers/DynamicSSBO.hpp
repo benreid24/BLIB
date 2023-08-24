@@ -5,6 +5,7 @@
 #include <BLIB/Render/Vulkan/AlignedBuffer.hpp>
 #include <BLIB/Render/Vulkan/Buffer.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
+#include <BLIB/Util/VectorRef.hpp>
 #include <array>
 #include <limits>
 
@@ -66,6 +67,14 @@ public:
      * @return A reference to the element at the given index
      */
     const T& operator[](std::uint32_t i) const;
+
+    /**
+     * @brief Assigns the stable reference to the CPU side storage of this SSBO
+     *
+     * @param ref The reference to populate
+     * @param i The object index to assign
+     */
+    void assignRef(util::VectorRef<T, vk::AlignedBuffer<T>>& ref, std::uint32_t i);
 
     /**
      * @brief If the buffer size is less than the required size, re-creates the buffer to be at
@@ -169,6 +178,10 @@ T& DynamicSSBO<T>::operator[](std::uint32_t i) {
 template<typename T>
 const T& DynamicSSBO<T>::operator[](std::uint32_t i) const {
     return cpuBuffer[i];
+}
+template<typename T>
+void DynamicSSBO<T>::assignRef(util::VectorRef<T, vk::AlignedBuffer<T>>& ref, std::uint32_t i) {
+    ref.assign(cpuBuffer, i);
 }
 
 template<typename T>

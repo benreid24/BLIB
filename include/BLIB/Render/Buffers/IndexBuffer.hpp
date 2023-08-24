@@ -95,6 +95,12 @@ public:
      */
     constexpr VkBuffer indexBufferHandle() const;
 
+    /**
+     * @brief Records a pipeline barrier to prevent writes from occurring before fragment shader
+     *        reads are completed
+     */
+    void insertBarrierBeforeWrite();
+
 private:
     std::vector<T> cpuVertexBuffer;
     std::vector<std::uint32_t> cpuIndexBuffer;
@@ -233,6 +239,11 @@ void IndexBufferT<T>::executeTransfer(VkCommandBuffer commandBuffer,
     barrier.buffer = gpuIndexBuffer.getBuffer();
     barrier.size   = gpuIndexBuffer.getSize();
     context.registerBufferBarrier(barrier);
+}
+template<typename T>
+void IndexBufferT<T>::insertBarrierBeforeWrite() {
+    gpuVertexBuffer.insertPipelineBarrierBeforeChange();
+    gpuIndexBuffer.insertPipelineBarrierBeforeChange();
 }
 
 /**

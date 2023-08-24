@@ -2,7 +2,9 @@
 #define BLIB_COMPONENTS_ANIMATION2DPLAYER_HPP
 
 #include <BLIB/Graphics/Animation2D/AnimationData.hpp>
+#include <BLIB/Render/Vulkan/AlignedBuffer.hpp>
 #include <BLIB/Resources/Ref.hpp>
+#include <BLIB/Util/VectorRef.hpp>
 
 namespace bl
 {
@@ -76,8 +78,9 @@ struct Animation2DPlayer {
     float frameTime;
 
     // TODO - stable vector ref
-    std::uint32_t playerIndex;   // assigned by Animation2DSystem
-    std::uint32_t* framePayload; // in descriptor set
+    std::uint32_t playerIndex; // assigned by Animation2DSystem
+    util::VectorRef<std::uint32_t, rc::vk::AlignedBuffer<std::uint32_t>>
+        framePayload; // in descriptor set
 };
 
 } // namespace com

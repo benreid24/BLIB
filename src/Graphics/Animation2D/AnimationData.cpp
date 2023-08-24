@@ -65,7 +65,8 @@ bool AnimationData::isValidSlideshow(const AnimationData& data) {
 AnimationData::AnimationData()
 : totalLength(0)
 , loop(false)
-, centerShards(true) {}
+, centerShards(true)
+, slideshow(false) {}
 
 bool AnimationData::loadFromFile(const std::string& filename) {
     serial::binary::InputFile file(filename);
@@ -116,6 +117,7 @@ bool AnimationData::doLoad(serial::binary::InputStream& input, const std::string
     totalLength = 0.f;
     frames.clear();
     stateOffsets.clear();
+    slideshow = false;
 
     stateOffsets.reserve(16);
     stateOffsets.emplace_back(0);
@@ -205,6 +207,8 @@ bool AnimationData::doLoad(serial::binary::InputStream& input, const std::string
             shard.normalizedSource.height = source.height / size.y;
         }
     }
+
+    slideshow = isValidSlideshow(*this);
 
     return true;
 }

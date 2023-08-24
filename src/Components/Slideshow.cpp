@@ -5,7 +5,7 @@ namespace bl
 namespace com
 {
 bool Slideshow::create(rc::vk::VulkanState& vs, const Animation2DPlayer& anim) {
-    if (!gfx::a2d::AnimationData::isValidSlideshow(*anim.animation)) {
+    if (!anim.animation->isSlideshow()) {
         BL_LOG_ERROR << "Animation is not a slideshow";
         return false;
     }
@@ -34,7 +34,7 @@ bool Slideshow::create(rc::vk::VulkanState& vs, const Animation2DPlayer& anim) {
 }
 
 bool Slideshow::setPlayer(const Animation2DPlayer& anim) {
-    if (!gfx::a2d::AnimationData::isValidSlideshow(*anim.animation)) {
+    if (!anim.animation->isSlideshow()) {
         BL_LOG_ERROR << "Animation is not a slideshow";
         return false;
     }
@@ -48,7 +48,7 @@ bool Slideshow::setPlayer(const Animation2DPlayer& anim) {
     }
     // TODO - handle size change?
 
-    // TODO - pipeline barrier to block copy until vertex input done
+    indexBuffer.insertBarrierBeforeWrite();
     indexBuffer.queueTransfer(rc::tfr::Transferable::SyncRequirement::Immediate);
 
     return true;
