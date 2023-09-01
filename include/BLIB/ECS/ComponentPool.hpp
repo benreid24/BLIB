@@ -133,21 +133,22 @@ ComponentPool<T>::~ComponentPool() {
 
 template<typename T>
 std::size_t ComponentPool<T>::addLogic(Entity ent) {
-    if (ent + 1 >= entityToIndex.size()) { entityToIndex.resize(ent + 1, InvalidIndex); }
+    const std::uint64_t entIndex = IdUtil::getEntityIndex(ent);
+    if (entIndex + 1 > entityToIndex.size()) { entityToIndex.resize(entIndex + 1, InvalidIndex); }
 
     // prevent duplicate add
-    const std::size_t existing = entityToIndex[ent];
+    const std::size_t existing = entityToIndex[entIndex];
     if (existing != InvalidIndex) { return existing; }
 
     // perform insertion
     const std::size_t i = indexAllocator.allocate();
-    if (i + 1 >= pool.size()) {
+    if (i + 1 > pool.size()) {
         pool.resize(i + 1);
         indexToEntity.resize(i + 1, InvalidEntity);
         bl::event::Dispatcher::dispatch<event::ComponentPoolResized>({ComponentIndex});
     }
-    entityToIndex[ent] = i;
-    indexToEntity[i]   = ent;
+    entityToIndex[entIndex] = i;
+    indexToEntity[i]        = ent;
 
     return i;
 }
@@ -185,8 +186,9 @@ void ComponentPool<T>::remove(Entity ent) {
     util::ReadWriteLock::WriteScopeGuard lock(poolLock);
 
     // determine if present
-    if (ent >= entityToIndex.size()) return;
-    const auto index = entityToIndex[ent];
+    const std::uint64_t entIndex = IdUtil::getEntityIndex(ent);
+    if (entIndex >= entityToIndex.size()) return;
+    const auto index = entityToIndex[entIndex];
     if (index == InvalidIndex) return;
 
     // send event
@@ -195,8 +197,8 @@ void ComponentPool<T>::remove(Entity ent) {
 
     // perform removal
     slot.destroy();
-    entityToIndex[ent]   = InvalidIndex;
-    indexToEntity[index] = InvalidEntity;
+    entityToIndex[entIndex] = InvalidIndex;
+    indexToEntity[index]    = InvalidEntity;
     indexAllocator.release(index);
 }
 
@@ -264,8 +266,11 @@ template<typename T>
 T* ComponentPool<T>::get(Entity ent) {
     util::ReadWriteLock::ReadScopeGuard lock(poolLock);
 
-    if (ent < entityToIndex.size()) {
-        if (entityToIndex[ent] != InvalidIndex) { return &pool[entityToIndex[ent]].get(); }
+    const std::uint64_t entIndex = IdUtil::getEntityIndex(ent);
+    if (entIndex < entityToIndex.size()) {
+        if (entityToIndex[entIndex] != InvalidIndex) {
+            return &pool[entityToIndex[entIndex]].get();
+        }
     }
     return nullptr;
 }

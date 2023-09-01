@@ -161,8 +161,9 @@ public:
 private:
     // entity id management
     std::mutex entityLock;
-    util::IdAllocatorUnbounded<Entity> entityAllocator;
+    util::IdAllocatorUnbounded<std::uint32_t> entityAllocator;
     std::vector<ComponentMask::SimpleMask> entityMasks;
+    std::vector<std::uint16_t> entityVersions;
 
     // components
     std::vector<ComponentPoolBase*> componentPools;
@@ -235,7 +236,7 @@ T* Registry::emplaceComponent(Entity ent, TArgs&&... args) {
 template<typename T>
 void Registry::finishComponentAdd(Entity ent, unsigned int cIndex, T* component) {
     bl::event::Dispatcher::dispatch<event::ComponentAdded<T>>({ent, *component});
-    ComponentMask::SimpleMask& mask        = entityMasks[ent];
+    ComponentMask::SimpleMask& mask        = entityMasks[IdUtil::getEntityIndex(ent)];
     const ComponentMask::SimpleMask ogMask = mask;
     ComponentMask::add(mask, cIndex);
     for (auto& view : views) {
@@ -262,7 +263,7 @@ void Registry::removeComponent(Entity ent) {
 
     auto& pool = getPool<T>();
     pool.remove(ent);
-    ComponentMask::SimpleMask& mask = entityMasks[ent];
+    ComponentMask::SimpleMask& mask = entityMasks[IdUtil::getEntityIndex(ent)];
     for (auto& view : views) {
         if (view->mask.passes(mask)) { view->removeEntity(ent); }
     }
@@ -315,8 +316,12 @@ ComponentPool<T>& Registry::getPool() {
 
 template<typename TRequire, typename TOptional, typename TExclude>
 void Registry::populateView(View<TRequire, TOptional, TExclude>& view) {
-    for (Entity ent = 0; ent < entityAllocator.endId(); ++ent) {
-        if (view.mask.passes(entityMasks[ent])) { view.tryAddEntity(ent); }
+    for (std::uint32_t i = 0; i < entityAllocator.endId(); ++i) {
+        if (entityAllocator.isAllocated(i)) {
+            if (view.mask.passes(entityMasks[i])) {
+                view.tryAddEntity(IdUtil::composeEntity(i, entityVersions[i]));
+            }
+        }
     }
 }
 

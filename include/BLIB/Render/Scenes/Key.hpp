@@ -20,6 +20,8 @@ namespace scene
  * @ingroup Renderer
  */
 struct Key {
+    static constexpr std::uint32_t InvalidSceneId = std::numeric_limits<std::uint32_t>::max();
+
     UpdateSpeed updateFreq;
     std::uint32_t sceneId;
 
@@ -28,7 +30,7 @@ struct Key {
      */
     Key()
     : updateFreq(UpdateSpeed::Dynamic)
-    , sceneId(std::numeric_limits<std::uint32_t>::max()) {}
+    , sceneId(InvalidSceneId) {}
 
     /**
      * @brief Creates the key from the given components
