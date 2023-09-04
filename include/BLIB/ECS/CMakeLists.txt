@@ -6,6 +6,7 @@ target_sources(BLIB PUBLIC
     ComponentSetImpl.hpp
     Entity.hpp
     Events.hpp
+    ParentGraph.hpp
     Registry.hpp
     StableHandle.hpp
     Tags.hpp

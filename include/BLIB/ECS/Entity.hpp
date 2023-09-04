@@ -26,7 +26,7 @@ using Entity = std::uint64_t;
  * @ingroup ECS
  *
  */
-constexpr Entity InvalidEntity = std::numeric_limits<Entity>::max();
+constexpr Entity InvalidEntity = 0;
 
 /**
  * @brief Helpers for extracting entity metadata from entity ids
