@@ -49,6 +49,21 @@ ctr::IndexMappedList<std::uint32_t, Entity>::Range ParentGraph::getChildren(Enti
     return childMap.getValues(IdUtil::getEntityIndex(parent));
 }
 
+void ParentGraph::reset() {
+    std::fill(parentMap.begin(), parentMap.end(), InvalidEntity);
+    childMap.clear();
+}
+
+void ParentGraph::removeEntity(Entity entity) {
+    const std::size_t i = IdUtil::getEntityIndex(entity);
+    if (i >= parentMap.size()) { return; }
+
+    const Entity parent = parentMap[i];
+    parentMap[i]        = InvalidEntity;
+    childMap.remove(entity);
+    if (parent != InvalidEntity) { childMap.removeValue(IdUtil::getEntityIndex(parent), entity); }
+}
+
 void ParentGraph::ensureParentCap(Entity child) {
     const std::size_t cap = IdUtil::getEntityIndex(child) + 1;
     if (cap > parentMap.size()) { parentMap.resize(cap, InvalidEntity); }

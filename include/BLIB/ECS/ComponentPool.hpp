@@ -50,6 +50,9 @@ protected:
     virtual void remove(Entity entity) = 0;
     virtual void clear()               = 0;
 
+    virtual void onParentSet(Entity child, Entity parent) = 0;
+    virtual void onParentRemove(Entity orphan)            = 0;
+
     template<typename TRequire, typename TOptional, typename TExclude>
     friend class View;
     friend class Registry;
@@ -112,6 +115,9 @@ private:
 
     virtual void remove(Entity entity) override;
     virtual void clear() override;
+
+    virtual void onParentSet(Entity child, Entity parent) override;
+    virtual void onParentRemove(Entity orphan) override;
 
     friend class Registry;
 };
@@ -220,6 +226,16 @@ void ComponentPool<T>::clear() {
     std::fill(indexToEntity.begin(), indexToEntity.end(), InvalidEntity);
     std::fill(entityToIndex.begin(), entityToIndex.end(), InvalidIndex);
     indexAllocator.releaseAll();
+}
+
+template<typename T>
+void ComponentPool<T>::onParentSet(Entity child, Entity parent) {
+    // TODO - specialize with enable_if and call into specialized component
+}
+
+template<typename T>
+void ComponentPool<T>::onParentRemove(Entity orphan) {
+    // TODO - specialize with enable_if and call into specialized component
 }
 
 template<typename T>

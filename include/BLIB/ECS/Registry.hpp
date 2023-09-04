@@ -3,6 +3,7 @@
 
 #include <BLIB/ECS/ComponentPool.hpp>
 #include <BLIB/ECS/Entity.hpp>
+#include <BLIB/ECS/ParentGraph.hpp>
 #include <BLIB/ECS/View.hpp>
 #include <BLIB/Events/Dispatcher.hpp>
 #include <BLIB/Util/IdAllocatorUnbounded.hpp>
@@ -64,6 +65,21 @@ public:
      *
      */
     void destroyAllEntities();
+
+    /**
+     * @brief Sets the parent entity of the given entity
+     *
+     * @param child The entity to set the parent of
+     * @param parent The parent of the given entity
+     */
+    void setEntityParent(Entity child, Entity parent);
+
+    /**
+     * @brief Removes the parent of the given entity, if any
+     *
+     * @param child The entity to orphan
+     */
+    void removeEntityParent(Entity child);
 
     /**
      * @brief Adds a new component of the given type to the given entity
@@ -165,6 +181,9 @@ private:
     std::vector<ComponentMask::SimpleMask> entityMasks;
     std::vector<std::uint16_t> entityVersions;
 
+    // entity relationships
+    ParentGraph parentGraph;
+
     // components
     std::vector<ComponentPoolBase*> componentPools;
     std::unordered_map<std::type_index, std::unique_ptr<ComponentPoolBase>> poolMap;
@@ -245,6 +264,14 @@ void Registry::finishComponentAdd(Entity ent, unsigned int cIndex, T* component)
             view->removeEntity(ent);
         }
     }
+
+    // notify pools of parent set
+    auto& pool = getPool<T>();
+    for (Entity child : parentGraph.getChildren(ent)) {
+        const std::uint32_t ic = IdUtil::getEntityIndex(child);
+        const ComponentMask mask{.required = entityMasks[ic]};
+        if (mask.contains(pool.ComponentIndex)) { pool.onParentSet(child, ent); }
+    }
 }
 
 template<typename T>
@@ -262,6 +289,15 @@ void Registry::removeComponent(Entity ent) {
     std::lock_guard lock(entityLock);
 
     auto& pool = getPool<T>();
+
+    // notify pools of parent remove on children
+    for (Entity child : parentGraph.getChildren(ent)) {
+        const std::uint32_t ic = IdUtil::getEntityIndex(child);
+        const ComponentMask mask{.required = entityMasks[ic]};
+        if (mask.contains(pool.ComponentIndex)) { pool.onParentRemove(child); }
+    }
+
+    // do remove
     pool.remove(ent);
     ComponentMask::SimpleMask& mask = entityMasks[IdUtil::getEntityIndex(ent)];
     for (auto& view : views) {
