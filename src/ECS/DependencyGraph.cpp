@@ -22,18 +22,13 @@ void DependencyGraph::removeDependency(Entity parent, Entity child) {
     childrenToParents.removeValue(IdUtil::getEntityIndex(child), parent);
 }
 
-void DependencyGraph::removeEntity(Entity child) {
-    const std::uint32_t index = IdUtil::getEntityIndex(child);
-    for (Entity parent : childrenToParents.getValues(child)) {
-        parentsToChildren.removeValue(IdUtil::getEntityIndex(parent), child);
-    }
-    childrenToParents.remove(index);
-    parentsToChildren.remove(index);
-}
-
 void DependencyGraph::clear() {
     parentsToChildren.clear();
     childrenToParents.clear();
+}
+
+ctr::IndexMappedList<std::uint32_t, Entity>::Range DependencyGraph::getResources(Entity child) {
+    return childrenToParents.getValues(IdUtil::getEntityIndex(child));
 }
 
 } // namespace ecs

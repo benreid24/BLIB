@@ -22,7 +22,7 @@ TEST(ECSDependencyGraph, BasicDependencies) {
     graph.removeDependency(resource, user1);
     EXPECT_TRUE(graph.hasDependencies(resource));
 
-    graph.removeEntity(user2);
+    graph.removeDependency(resource, user2);
     EXPECT_FALSE(graph.hasDependencies(resource));
 }
 

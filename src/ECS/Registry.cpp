@@ -8,7 +8,8 @@ Registry::Registry()
 : entityAllocator(DefaultCapacity)
 , entityMasks(DefaultCapacity, ComponentMask::EmptyMask)
 , entityVersions(DefaultCapacity, 0)
-, parentGraph(DefaultCapacity) {
+, parentGraph(DefaultCapacity)
+, dependencyGraph(DefaultCapacity) {
     componentPools.reserve(ComponentMask::MaxComponentTypeCount);
     views.reserve(32);
     bl::event::Dispatcher::subscribe(this);
@@ -34,15 +35,26 @@ Entity Registry::createEntity() {
 }
 
 bool Registry::entityExists(Entity ent) const {
+    std::lock_guard lock(entityLock);
+    return entityExistsLocked(ent);
+}
+
+bool Registry::entityExistsLocked(Entity ent) const {
     const std::uint64_t index = IdUtil::getEntityIndex(ent);
     return entityAllocator.isAllocated(index) &&
            entityVersions[index] == IdUtil::getEntityVersion(ent);
 }
 
-void Registry::destroyEntity(Entity start) {
+bool Registry::destroyEntity(Entity start) {
     std::lock_guard lock(entityLock);
 
-    // determine list of entities to remove due to parenting
+    // check if we can remove due to dependencies
+    if (dependencyGraph.hasDependencies(start)) {
+        markEntityForRemoval(start);
+        return false;
+    }
+
+    // determine list of entities to remove due to parenting and dependencies
     std::vector<Entity> toRemove;
     std::vector<Entity> toVisit;
     toRemove.reserve(16);
@@ -52,8 +64,20 @@ void Registry::destroyEntity(Entity start) {
     while (!toVisit.empty()) {
         const Entity ent = toVisit.back();
         toVisit.pop_back();
-
         toRemove.emplace_back(ent);
+
+        // add marked dependencies
+        for (Entity resource : dependencyGraph.getResources(ent)) {
+            dependencyGraph.removeDependency(resource, ent);
+            if (!dependencyGraph.hasDependencies(resource)) {
+                const std::uint32_t i = IdUtil::getEntityIndex(resource);
+                if (i < markedForRemoval.size() && markedForRemoval[i]) {
+                    toVisit.emplace_back(resource);
+                }
+            }
+        }
+
+        // add children
         for (Entity child : parentGraph.getChildren(ent)) { toVisit.emplace_back(child); }
     }
 
@@ -62,18 +86,29 @@ void Registry::destroyEntity(Entity start) {
         const std::uint32_t index            = IdUtil::getEntityIndex(ent);
         const ComponentMask::SimpleMask mask = entityMasks[index];
 
+        // notify external and remove from views
         bl::event::Dispatcher::dispatch<event::EntityDestroyed>({ent});
         for (auto& view : views) {
             if (view->mask.passes(mask)) { view->removeEntity(ent); }
         }
 
+        // destroy components
         for (ComponentPoolBase* pool : componentPools) {
             if (ComponentMask::has(mask, pool->ComponentIndex)) { pool->remove(ent); }
         }
 
+        // reset metadata
         entityAllocator.release(index);
         entityMasks[index] = ComponentMask::EmptyMask;
+
+        // remove parenting info
+        parentGraph.removeEntity(ent);
+
+        // remove dependency info
+        if (index < markedForRemoval.size()) { markedForRemoval[index] = false; }
     }
+
+    return true;
 }
 
 void Registry::destroyAllEntities() {
@@ -96,6 +131,8 @@ void Registry::destroyAllEntities() {
 
     // reset relationships
     parentGraph.reset();
+    dependencyGraph.clear();
+    std::fill(markedForRemoval.begin(), markedForRemoval.end(), false);
 
     // clear views
     for (auto& view : views) { view->clearAndRefresh(); }
@@ -133,6 +170,58 @@ void Registry::removeEntityParent(Entity child) {
     for (ComponentPoolBase* pool : componentPools) {
         if (mask.contains(pool->ComponentIndex)) { pool->onParentRemove(child); }
     }
+}
+
+void Registry::addDependency(Entity resource, Entity user) {
+    std::lock_guard lock(entityLock);
+
+    if (!entityExistsLocked(resource) || !entityExistsLocked(user)) {
+        BL_LOG_ERROR << "Tried to add bad dependency (entities do not exist). Resource: "
+                     << resource << ". User: " << user;
+        return;
+    }
+
+    dependencyGraph.addDependency(resource, user);
+}
+
+void Registry::removeDependency(Entity resource, Entity user) {
+    {
+        std::lock_guard lock(entityLock);
+
+        if (!entityExistsLocked(resource) || !entityExistsLocked(user)) {
+            BL_LOG_ERROR << "Tried to remove bad dependency (entities do not exist). Resource: "
+                         << resource << ". User: " << user;
+            return;
+        }
+
+        dependencyGraph.removeDependency(resource, user);
+    }
+
+    // remove if marked
+    const std::uint32_t i = IdUtil::getEntityIndex(resource);
+    if (i < markedForRemoval.size() && markedForRemoval[i]) {
+        markedForRemoval[i] = false;
+        destroyEntity(resource);
+    }
+}
+
+void Registry::removeDependencyAndDestroyIfPossible(Entity resource, Entity user) {
+    removeDependency(resource, user);
+    if (entityExists(resource)) {
+        if (!isDependedOn(resource)) { destroyEntity(resource); }
+        else { markEntityForRemoval(resource); }
+    }
+}
+
+bool Registry::isDependedOn(Entity resource) const {
+    std::lock_guard lock(entityLock);
+    return dependencyGraph.hasDependencies(resource);
+}
+
+void Registry::markEntityForRemoval(Entity ent) {
+    const std::uint32_t i = IdUtil::getEntityIndex(ent);
+    if (markedForRemoval.size() <= i) { markedForRemoval.resize(i + 1, false); }
+    markedForRemoval[i] = true;
 }
 
 void Registry::observe(const event::ComponentPoolResized& resize) {

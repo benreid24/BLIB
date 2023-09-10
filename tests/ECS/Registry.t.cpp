@@ -389,6 +389,42 @@ TEST(ECS, ParentRemove) {
     EXPECT_TRUE(testRegistry.entityExists(child));
 }
 
+TEST(ECS, Dependencies) {
+    Registry testRegistry;
+
+    Entity child  = testRegistry.createEntity();
+    Entity parent = testRegistry.createEntity();
+
+    // test marked removal
+    testRegistry.addDependency(parent, child);
+    EXPECT_TRUE(testRegistry.isDependedOn(parent));
+    EXPECT_FALSE(testRegistry.destroyEntity(parent));
+    EXPECT_TRUE(testRegistry.destroyEntity(child));
+    EXPECT_FALSE(testRegistry.entityExists(parent));
+
+    // test add and remove dep
+    child  = testRegistry.createEntity();
+    parent = testRegistry.createEntity();
+    testRegistry.addDependency(parent, child);
+    testRegistry.removeDependency(parent, child);
+    EXPECT_TRUE(testRegistry.destroyEntity(parent));
+    EXPECT_TRUE(testRegistry.destroyEntity(child));
+
+    // test remove in order
+    child  = testRegistry.createEntity();
+    parent = testRegistry.createEntity();
+    testRegistry.addDependency(parent, child);
+    EXPECT_TRUE(testRegistry.destroyEntity(child));
+    EXPECT_TRUE(testRegistry.destroyEntity(parent));
+
+    // test delete on remove
+    child  = testRegistry.createEntity();
+    parent = testRegistry.createEntity();
+    testRegistry.addDependency(parent, child);
+    testRegistry.removeDependencyAndDestroyIfPossible(parent, child);
+    EXPECT_FALSE(testRegistry.entityExists(parent));
+}
+
 } // namespace unittest
 } // namespace ecs
 } // namespace bl

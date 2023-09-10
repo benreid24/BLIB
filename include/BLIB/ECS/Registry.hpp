@@ -2,6 +2,7 @@
 #define BLIB_ECS_REGISTRY_HPP
 
 #include <BLIB/ECS/ComponentPool.hpp>
+#include <BLIB/ECS/DependencyGraph.hpp>
 #include <BLIB/ECS/Entity.hpp>
 #include <BLIB/ECS/ParentGraph.hpp>
 #include <BLIB/ECS/View.hpp>
@@ -54,11 +55,14 @@ public:
     bool entityExists(Entity entity) const;
 
     /**
-     * @brief Removes the given entity and destroys all of its components
+     * @brief Removes the given entity and destroys all of its components. Destruction will not
+     *        occur if the entity is depended on by others. In that case it will be marked for later
+     *        removal once the dependencies are removed
      *
      * @param entity The entity to remove from the ECS
+     * @return True if the entity was removed or was already destroyed, false if removal was blocked
      */
-    void destroyEntity(Entity entity);
+    bool destroyEntity(Entity entity);
 
     /**
      * @brief Destroys and removes all entities and components from the ECS
@@ -80,6 +84,42 @@ public:
      * @param child The entity to orphan
      */
     void removeEntityParent(Entity child);
+
+    /**
+     * @brief Adds a dependency on resource from user. Controls whether or not an entity may be
+     *        safely deleted
+     *
+     * @param resource The entity being depended on
+     * @param user The entity using the resource
+     */
+    void addDependency(Entity resource, Entity user);
+
+    /**
+     * @brief Removes the given dependency. Will destroy the resource if a prior call to
+     *        destroyEntity() failed for it
+     *
+     * @param resource The entity being depended on
+     * @param user The entity using the resource
+     */
+    void removeDependency(Entity resource, Entity user);
+
+    /**
+     * @brief Calls removeDependency() and then destroys the resource if nothing else depends on it.
+     *        If it still has dependencies then it will be marked for removal once all dependencies
+     *        are removed
+     *
+     * @param resource The resource being used
+     * @param user The entity using the resource
+     */
+    void removeDependencyAndDestroyIfPossible(Entity resource, Entity user);
+
+    /**
+     * @brief Returns whether or not the given entity is depended on by other entities
+     *
+     * @param resource The entity to check
+     * @return True if other entities depend on it, false otherwise
+     */
+    bool isDependedOn(Entity resource) const;
 
     /**
      * @brief Adds a new component of the given type to the given entity
@@ -176,13 +216,15 @@ public:
 
 private:
     // entity id management
-    std::mutex entityLock;
+    mutable std::mutex entityLock;
     util::IdAllocatorUnbounded<std::uint32_t> entityAllocator;
     std::vector<ComponentMask::SimpleMask> entityMasks;
     std::vector<std::uint16_t> entityVersions;
 
     // entity relationships
     ParentGraph parentGraph;
+    DependencyGraph dependencyGraph;
+    std::vector<bool> markedForRemoval;
 
     // components
     std::vector<ComponentPoolBase*> componentPools;
@@ -193,6 +235,9 @@ private:
 
     template<typename T>
     ComponentPool<T>& getPool();
+
+    bool entityExistsLocked(Entity ent) const;
+    void markEntityForRemoval(Entity ent);
 
     template<typename TRequire, typename TOptional, typename TExclude>
     void populateView(View<TRequire, TOptional, TExclude>& view);
