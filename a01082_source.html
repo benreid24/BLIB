@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Components/Transform2D.cpp Source File</title>
+<title>BLIB: src/Components/Mesh.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,132 +71,36 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Transform2D.cpp</div>  </div>
+<div class="title">Mesh.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01082.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a04670.html">BLIB/Components/Transform2D.hpp</a>&gt;</span></div>
+<a href="a01082.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00044.html">BLIB/Components/Mesh.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a04742.html">BLIB/Render/Config.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00809.html">BLIB/Render/Vulkan/VulkanState.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;glm/gtx/transform.hpp&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01736.html">bl</a></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>com</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="a01919.html#a141360b9acc8f4e62527411b98636d8b">   11</a></span>&#160;<a class="code" href="a01919.html#a141360b9acc8f4e62527411b98636d8b">Transform2D::Transform2D</a>()</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;: origin(0.f, 0.f)</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;, position(0.f, 0.f)</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;, scaleFactors(1.f, 1.f)</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;, rotation(0.f)</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;, depth(0.f) {}</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a01919.html#ab3f6e572cbac68be041ee8d99b5ef29c">   18</a></span>&#160;<a class="code" href="a01919.html#a141360b9acc8f4e62527411b98636d8b">Transform2D::Transform2D</a>(<span class="keyword">const</span> glm::vec2&amp; pos)</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;: origin(0.f, 0.f)</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;, position(pos)</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;, scaleFactors(1.f, 1.f)</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;, rotation(0.f)</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;, depth(0.f) {}</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a01919.html#ae468c9390b5875d960ab40511efe7460">   25</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01919.html#ae468c9390b5875d960ab40511efe7460">Transform2D::setOrigin</a>(<span class="keyword">const</span> glm::vec2&amp; o) {</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    origin = o;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <a class="code" href="a02691.html#a285b92a8da73d33a41a29540761d68bf">markDirty</a>();</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;}</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a01919.html#ae3f78fc5d6a6aa93a47dcc96f394e798">   30</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01919.html#ae3f78fc5d6a6aa93a47dcc96f394e798">Transform2D::setPosition</a>(<span class="keyword">const</span> glm::vec2&amp; pos) {</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    position = pos;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <a class="code" href="a02691.html#a285b92a8da73d33a41a29540761d68bf">markDirty</a>();</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;}</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="a01919.html#a0f05c98962f8acfe46a7820f2858e55b">   35</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01919.html#a0f05c98962f8acfe46a7820f2858e55b">Transform2D::move</a>(<span class="keyword">const</span> glm::vec2&amp; delta) {</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    position += delta;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <a class="code" href="a02691.html#a285b92a8da73d33a41a29540761d68bf">markDirty</a>();</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;}</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="a01919.html#a087f789c35a49955eefa3e33c1e113c3">   40</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01919.html#a087f789c35a49955eefa3e33c1e113c3">Transform2D::setDepth</a>(<span class="keywordtype">float</span> d) {</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    depth = d;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <a class="code" href="a02691.html#a285b92a8da73d33a41a29540761d68bf">markDirty</a>();</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;}</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="a01919.html#a445fc48d0ff1b5d88cb80b3ee0377151">   45</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01919.html#a445fc48d0ff1b5d88cb80b3ee0377151">Transform2D::addDepth</a>(<span class="keywordtype">float</span> delta) {</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    depth += delta;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <a class="code" href="a02691.html#a285b92a8da73d33a41a29540761d68bf">markDirty</a>();</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;}</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="a01919.html#a604e9820df58088511cbf4d824855bf5">   50</a></span>&#160;<span class="keywordtype">float</span> <a class="code" href="a01919.html#a604e9820df58088511cbf4d824855bf5">Transform2D::getDepth</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> depth; }</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="a01919.html#a3752902998306ad4fb2daecbfc1dc4e2">   52</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01919.html#a3752902998306ad4fb2daecbfc1dc4e2">Transform2D::setScale</a>(<span class="keyword">const</span> glm::vec2&amp; factors) {</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    scaleFactors = factors;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <a class="code" href="a02691.html#a285b92a8da73d33a41a29540761d68bf">markDirty</a>();</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;}</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="a01919.html#a07266bc3c3d31c0738718c357052d22e">   57</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01919.html#a3752902998306ad4fb2daecbfc1dc4e2">Transform2D::setScale</a>(<span class="keywordtype">float</span> factor) {</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    scaleFactors.x = factor;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    scaleFactors.y = factor;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <a class="code" href="a02691.html#a285b92a8da73d33a41a29540761d68bf">markDirty</a>();</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;}</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="a01919.html#a1f03908098227fb33ab1d5bcf8607929">   63</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01919.html#a1f03908098227fb33ab1d5bcf8607929">Transform2D::scale</a>(<span class="keyword">const</span> glm::vec2&amp; factors) {</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    scaleFactors.x *= factors.x;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    scaleFactors.y *= factors.y;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <a class="code" href="a02691.html#a285b92a8da73d33a41a29540761d68bf">markDirty</a>();</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;}</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="a01919.html#ade4a13c4a2dce2e570343a3935fa7584">   69</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01919.html#a1f03908098227fb33ab1d5bcf8607929">Transform2D::scale</a>(<span class="keywordtype">float</span> factor) {</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    scaleFactors.x *= factor;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    scaleFactors.y *= factor;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <a class="code" href="a02691.html#a285b92a8da73d33a41a29540761d68bf">markDirty</a>();</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;}</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="a01919.html#ad2072ac8f9f3ec43bc98db4c9bab7e65">   75</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01919.html#ad2072ac8f9f3ec43bc98db4c9bab7e65">Transform2D::setRotation</a>(<span class="keywordtype">float</span> angle) {</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    rotation = angle;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <a class="code" href="a02691.html#a285b92a8da73d33a41a29540761d68bf">markDirty</a>();</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;}</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="a01919.html#a3eb1b7be8e4f864a3d1257a1c5345879">   80</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01919.html#a3eb1b7be8e4f864a3d1257a1c5345879">Transform2D::rotate</a>(<span class="keywordtype">float</span> delta) {</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    rotation += delta;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <a class="code" href="a02691.html#a285b92a8da73d33a41a29540761d68bf">markDirty</a>();</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;}</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
-<div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="a01919.html#ab9efe7a2fe1e498408e031bddc7379f8">   85</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01919.html#ab9efe7a2fe1e498408e031bddc7379f8">Transform2D::refreshDescriptor</a>(glm::mat4&amp; dest) { dest = <a class="code" href="a01919.html#a7afc4c3ac7380aa7355ad699fbbc00f7">getMatrix</a>(); }</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
-<div class="line"><a name="l00087"></a><span class="lineno"><a class="line" href="a01919.html#a7afc4c3ac7380aa7355ad699fbbc00f7">   87</a></span>&#160;glm::mat4 <a class="code" href="a01919.html#a7afc4c3ac7380aa7355ad699fbbc00f7">Transform2D::getMatrix</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    glm::mat4 result = glm::translate(glm::vec3(position, depth));</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    result           = glm::scale(result, glm::vec3(scaleFactors, 1.f));</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    result           = glm::rotate(result, glm::radians(rotation), <a class="code" href="a02703.html#a272158d6c186bc30ed036b51eea99884">rc::Config::Rotate2DAxis</a>);</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    result           = glm::translate(result, glm::vec3(-origin, 0.f));</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keywordflow">return</span> result;</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;}</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
-<div class="line"><a name="l00095"></a><span class="lineno"><a class="line" href="a01919.html#a6338af5111299e1290bd1f0d8e6adc12">   95</a></span>&#160;glm::mat4 <a class="code" href="a01919.html#a6338af5111299e1290bd1f0d8e6adc12">Transform2D::getInverse</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> glm::inverse(<a class="code" href="a01919.html#a7afc4c3ac7380aa7355ad699fbbc00f7">getMatrix</a>()); }</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;} <span class="comment">// namespace com</span></div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00809_html"><div class="ttname"><a href="a00809.html">VulkanState.hpp</a></div></div>
-<div class="ttc" id="aa01736_html"><div class="ttname"><a href="a01736.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa01919_html_a087f789c35a49955eefa3e33c1e113c3"><div class="ttname"><a href="a01919.html#a087f789c35a49955eefa3e33c1e113c3">bl::com::Transform2D::setDepth</a></div><div class="ttdeci">void setDepth(float depth)</div><div class="ttdoc">Sets the depth of the transform on the z-axis. Affects render order only. Default is 0.</div><div class="ttdef"><b>Definition:</b> <a href="a01082_source.html#l00040">Transform2D.cpp:40</a></div></div>
-<div class="ttc" id="aa01919_html_a0f05c98962f8acfe46a7820f2858e55b"><div class="ttname"><a href="a01919.html#a0f05c98962f8acfe46a7820f2858e55b">bl::com::Transform2D::move</a></div><div class="ttdeci">void move(const glm::vec2 &amp;delta)</div><div class="ttdoc">Applies an offset to the current position.</div><div class="ttdef"><b>Definition:</b> <a href="a01082_source.html#l00035">Transform2D.cpp:35</a></div></div>
-<div class="ttc" id="aa01919_html_a141360b9acc8f4e62527411b98636d8b"><div class="ttname"><a href="a01919.html#a141360b9acc8f4e62527411b98636d8b">bl::com::Transform2D::Transform2D</a></div><div class="ttdeci">Transform2D()</div><div class="ttdoc">Creates a new transform with sane defaults.</div><div class="ttdef"><b>Definition:</b> <a href="a01082_source.html#l00011">Transform2D.cpp:11</a></div></div>
-<div class="ttc" id="aa01919_html_a1f03908098227fb33ab1d5bcf8607929"><div class="ttname"><a href="a01919.html#a1f03908098227fb33ab1d5bcf8607929">bl::com::Transform2D::scale</a></div><div class="ttdeci">void scale(const glm::vec2 &amp;factors)</div><div class="ttdoc">Scales the current scale factors by the given amount.</div><div class="ttdef"><b>Definition:</b> <a href="a01082_source.html#l00063">Transform2D.cpp:63</a></div></div>
-<div class="ttc" id="aa01919_html_a3752902998306ad4fb2daecbfc1dc4e2"><div class="ttname"><a href="a01919.html#a3752902998306ad4fb2daecbfc1dc4e2">bl::com::Transform2D::setScale</a></div><div class="ttdeci">void setScale(const glm::vec2 &amp;factors)</div><div class="ttdoc">Sets the scale factors of the transform.</div><div class="ttdef"><b>Definition:</b> <a href="a01082_source.html#l00052">Transform2D.cpp:52</a></div></div>
-<div class="ttc" id="aa01919_html_a3eb1b7be8e4f864a3d1257a1c5345879"><div class="ttname"><a href="a01919.html#a3eb1b7be8e4f864a3d1257a1c5345879">bl::com::Transform2D::rotate</a></div><div class="ttdeci">void rotate(float delta)</div><div class="ttdoc">Applies the given rotation to the current rotation.</div><div class="ttdef"><b>Definition:</b> <a href="a01082_source.html#l00080">Transform2D.cpp:80</a></div></div>
-<div class="ttc" id="aa01919_html_a445fc48d0ff1b5d88cb80b3ee0377151"><div class="ttname"><a href="a01919.html#a445fc48d0ff1b5d88cb80b3ee0377151">bl::com::Transform2D::addDepth</a></div><div class="ttdeci">void addDepth(float delta)</div><div class="ttdoc">Adds the given value to the current depth.</div><div class="ttdef"><b>Definition:</b> <a href="a01082_source.html#l00045">Transform2D.cpp:45</a></div></div>
-<div class="ttc" id="aa01919_html_a604e9820df58088511cbf4d824855bf5"><div class="ttname"><a href="a01919.html#a604e9820df58088511cbf4d824855bf5">bl::com::Transform2D::getDepth</a></div><div class="ttdeci">float getDepth() const</div><div class="ttdoc">Returns the current depth of the transform.</div><div class="ttdef"><b>Definition:</b> <a href="a01082_source.html#l00050">Transform2D.cpp:50</a></div></div>
-<div class="ttc" id="aa01919_html_a6338af5111299e1290bd1f0d8e6adc12"><div class="ttname"><a href="a01919.html#a6338af5111299e1290bd1f0d8e6adc12">bl::com::Transform2D::getInverse</a></div><div class="ttdeci">glm::mat4 getInverse() const</div><div class="ttdoc">Returns the inverse transform matrix.</div><div class="ttdef"><b>Definition:</b> <a href="a01082_source.html#l00095">Transform2D.cpp:95</a></div></div>
-<div class="ttc" id="aa01919_html_a7afc4c3ac7380aa7355ad699fbbc00f7"><div class="ttname"><a href="a01919.html#a7afc4c3ac7380aa7355ad699fbbc00f7">bl::com::Transform2D::getMatrix</a></div><div class="ttdeci">glm::mat4 getMatrix() const</div><div class="ttdoc">Returns the transform matrix.</div><div class="ttdef"><b>Definition:</b> <a href="a01082_source.html#l00087">Transform2D.cpp:87</a></div></div>
-<div class="ttc" id="aa01919_html_ab9efe7a2fe1e498408e031bddc7379f8"><div class="ttname"><a href="a01919.html#ab9efe7a2fe1e498408e031bddc7379f8">bl::com::Transform2D::refreshDescriptor</a></div><div class="ttdeci">void refreshDescriptor(glm::mat4 &amp;dest)</div><div class="ttdoc">Populates the given 4x4 matrix to apply this transform.</div><div class="ttdef"><b>Definition:</b> <a href="a01082_source.html#l00085">Transform2D.cpp:85</a></div></div>
-<div class="ttc" id="aa01919_html_ad2072ac8f9f3ec43bc98db4c9bab7e65"><div class="ttname"><a href="a01919.html#ad2072ac8f9f3ec43bc98db4c9bab7e65">bl::com::Transform2D::setRotation</a></div><div class="ttdeci">void setRotation(float angle)</div><div class="ttdoc">Sets the rotation of the transform.</div><div class="ttdef"><b>Definition:</b> <a href="a01082_source.html#l00075">Transform2D.cpp:75</a></div></div>
-<div class="ttc" id="aa01919_html_ae3f78fc5d6a6aa93a47dcc96f394e798"><div class="ttname"><a href="a01919.html#ae3f78fc5d6a6aa93a47dcc96f394e798">bl::com::Transform2D::setPosition</a></div><div class="ttdeci">void setPosition(const glm::vec2 &amp;position)</div><div class="ttdoc">Sets the position of this transform.</div><div class="ttdef"><b>Definition:</b> <a href="a01082_source.html#l00030">Transform2D.cpp:30</a></div></div>
-<div class="ttc" id="aa01919_html_ae468c9390b5875d960ab40511efe7460"><div class="ttname"><a href="a01919.html#ae468c9390b5875d960ab40511efe7460">bl::com::Transform2D::setOrigin</a></div><div class="ttdeci">void setOrigin(const glm::vec2 &amp;origin)</div><div class="ttdoc">Sets the origin to perform transforms around.</div><div class="ttdef"><b>Definition:</b> <a href="a01082_source.html#l00025">Transform2D.cpp:25</a></div></div>
-<div class="ttc" id="aa02691_html_a285b92a8da73d33a41a29540761d68bf"><div class="ttname"><a href="a02691.html#a285b92a8da73d33a41a29540761d68bf">bl::rc::rcom::DescriptorComponentBase&lt; Transform2D, glm::mat4 &gt;::markDirty</a></div><div class="ttdeci">void markDirty()</div><div class="ttdoc">Call this when the component is modified.</div><div class="ttdef"><b>Definition:</b> <a href="a00527_source.html#l00067">DescriptorComponentBase.hpp:130</a></div></div>
-<div class="ttc" id="aa02703_html_a272158d6c186bc30ed036b51eea99884"><div class="ttname"><a href="a02703.html#a272158d6c186bc30ed036b51eea99884">bl::rc::Config::Rotate2DAxis</a></div><div class="ttdeci">static constexpr glm::vec3 Rotate2DAxis</div><div class="ttdef"><b>Definition:</b> <a href="a04742_source.html#l00024">Config.hpp:24</a></div></div>
-<div class="ttc" id="aa04670_html"><div class="ttname"><a href="a04670.html">Transform2D.hpp</a></div></div>
-<div class="ttc" id="aa04742_html"><div class="ttname"><a href="a04742.html">Config.hpp</a></div></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01754.html">bl</a></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>com</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
+<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="a01914.html#af0c0061167c1dded9dc5c2b8a71aa93d">    7</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01914.html#af0c0061167c1dded9dc5c2b8a71aa93d">Mesh::create</a>(<a class="code" href="a03238.html">rc::vk::VulkanState</a>&amp; vulkanState, std::uint32_t vertexCount,</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;                  std::uint32_t indexCount) {</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    <a class="code" href="a01914.html#a11a861d64d0ccbf3609b15778808ae30">gpuBuffer</a>.<a class="code" href="a02730.html#ad0b395bc88a2cf9c8cce245b5d9763bf">create</a>(vulkanState, vertexCount, indexCount);</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <a class="code" href="a02746.html#a9c3ad2caaf2846e720343ec52eaf1073">drawParams</a> = <a class="code" href="a01914.html#a11a861d64d0ccbf3609b15778808ae30">gpuBuffer</a>.<a class="code" href="a02730.html#af615777e9f82e5c6bdad436203b4f024">getDrawParameters</a>();</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;}</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;} <span class="comment">// namespace com</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00044_html"><div class="ttname"><a href="a00044.html">Mesh.hpp</a></div></div>
+<div class="ttc" id="aa01754_html"><div class="ttname"><a href="a01754.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa01914_html_a11a861d64d0ccbf3609b15778808ae30"><div class="ttname"><a href="a01914.html#a11a861d64d0ccbf3609b15778808ae30">bl::com::Mesh::gpuBuffer</a></div><div class="ttdeci">rc::buf::IndexBuffer gpuBuffer</div><div class="ttdef"><b>Definition:</b> <a href="a00044_source.html#l00019">Mesh.hpp:19</a></div></div>
+<div class="ttc" id="aa01914_html_af0c0061167c1dded9dc5c2b8a71aa93d"><div class="ttname"><a href="a01914.html#af0c0061167c1dded9dc5c2b8a71aa93d">bl::com::Mesh::create</a></div><div class="ttdeci">void create(rc::vk::VulkanState &amp;vulkanState, std::uint32_t vertexCount, std::uint32_t indexCount)</div><div class="ttdoc">Helper method to initialize all the mesh data.</div><div class="ttdef"><b>Definition:</b> <a href="a01082_source.html#l00007">Mesh.cpp:7</a></div></div>
+<div class="ttc" id="aa02730_html_ad0b395bc88a2cf9c8cce245b5d9763bf"><div class="ttname"><a href="a02730.html#ad0b395bc88a2cf9c8cce245b5d9763bf">bl::rc::buf::IndexBufferT::create</a></div><div class="ttdeci">void create(vk::VulkanState &amp;vulkanState, std::uint32_t vertexCount, std::uint32_t indexCount)</div><div class="ttdoc">Creates the vertex and index buffers.</div><div class="ttdef"><b>Definition:</b> <a href="a00530_source.html#l00116">IndexBuffer.hpp:116</a></div></div>
+<div class="ttc" id="aa02730_html_af615777e9f82e5c6bdad436203b4f024"><div class="ttname"><a href="a02730.html#af615777e9f82e5c6bdad436203b4f024">bl::rc::buf::IndexBufferT::getDrawParameters</a></div><div class="ttdeci">prim::DrawParameters getDrawParameters() const</div><div class="ttdoc">Builds and returns the parameters required to render the index buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a00530_source.html#l00169">IndexBuffer.hpp:169</a></div></div>
+<div class="ttc" id="aa02746_html_a9c3ad2caaf2846e720343ec52eaf1073"><div class="ttname"><a href="a02746.html#a9c3ad2caaf2846e720343ec52eaf1073">bl::rc::rcom::DrawableBase::drawParams</a></div><div class="ttdeci">prim::DrawParameters drawParams</div><div class="ttdef"><b>Definition:</b> <a href="a00542_source.html#l00025">DrawableBase.hpp:25</a></div></div>
+<div class="ttc" id="aa03238_html"><div class="ttname"><a href="a03238.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a00821_source.html#l00036">VulkanState.hpp:36</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 25 2023 19:26:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Sep 10 2023 23:10:22 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Descriptors/Builtin/Scene3DFactory.cpp Source File</title>
+<title>BLIB: src/Render/Descriptors/Builtin/Object2DFactory.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,62 +71,69 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Scene3DFactory.cpp</div>  </div>
+<div class="title">Object2DFactory.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01373.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00557.html">BLIB/Render/Descriptors/Builtin/Scene3DFactory.hpp</a>&gt;</span></div>
+<a href="a01373.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00551.html">BLIB/Render/Descriptors/Builtin/Object2DFactory.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00560.html">BLIB/Render/Descriptors/Builtin/Scene3DInstance.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a04727.html">BLIB/Render/Renderer.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01736.html">bl</a></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>rc</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>ds</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="a02751.html#a8808ecbc28f4d4f0e221ee6bd3210a12">   12</a></span>&#160;<a class="code" href="a02751.html#a8808ecbc28f4d4f0e221ee6bd3210a12">Scene3DFactory::~Scene3DFactory</a>() {}</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keywordtype">void</span> Scene3DFactory::init(<a class="code" href="a02099.html">engine::Engine</a>&amp;, <a class="code" href="a02947.html">Renderer</a>&amp; renderer) {</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    vulkanState = &amp;renderer.<a class="code" href="a02947.html#ac80c82fc9945bff8ee2311207fb53f3f">vulkanState</a>();</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <a class="code" href="a03091.html">vk::DescriptorPool::SetBindingInfo</a> bindingInfo;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    bindingInfo.<a class="code" href="a03091.html#ad44b120901116ab5216ddfdc35d30d95">bindingCount</a> = 1;</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a04752.html">BLIB/Engine/Engine.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00554.html">BLIB/Render/Descriptors/Builtin/Object2DInstance.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a04797.html">BLIB/Render/Renderer.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01754.html">bl</a></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>ds</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="a02778.html#a3b4cd36ba5273d4bd770a6ce350ba1b8">   13</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02778.html#a3b4cd36ba5273d4bd770a6ce350ba1b8">Object2DFactory::init</a>(<a class="code" href="a02150.html">engine::Engine</a>&amp; e, <a class="code" href="a02998.html">Renderer</a>&amp; renderer) {</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    engine = &amp;e;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="comment">// create descriptor layout</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <a class="code" href="a03142.html">vk::DescriptorPool::SetBindingInfo</a> bindings;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    bindings.<a class="code" href="a03142.html#ad44b120901116ab5216ddfdc35d30d95">bindingCount</a> = 2;</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    bindingInfo.<a class="code" href="a03091.html#ab972da11e25938a0637ebf832a6b9bd7">bindings</a>[0].binding         = 0;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    bindingInfo.<a class="code" href="a03091.html#ab972da11e25938a0637ebf832a6b9bd7">bindings</a>[0].descriptorCount = 1;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    bindingInfo.<a class="code" href="a03091.html#ab972da11e25938a0637ebf832a6b9bd7">bindings</a>[0].descriptorType  = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    bindingInfo.<a class="code" href="a03091.html#ab972da11e25938a0637ebf832a6b9bd7">bindings</a>[0].stageFlags      = VK_SHADER_STAGE_VERTEX_BIT;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    bindings.<a class="code" href="a03142.html#ab972da11e25938a0637ebf832a6b9bd7">bindings</a>[0].binding         = 0;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    bindings.<a class="code" href="a03142.html#ab972da11e25938a0637ebf832a6b9bd7">bindings</a>[0].descriptorCount = 1;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    bindings.<a class="code" href="a03142.html#ab972da11e25938a0637ebf832a6b9bd7">bindings</a>[0].descriptorType  = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    bindings.<a class="code" href="a03142.html#ab972da11e25938a0637ebf832a6b9bd7">bindings</a>[0].stageFlags      = VK_SHADER_STAGE_VERTEX_BIT;</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <a class="code" href="a02783.html#a272948ed73908bcc35626a495366cba6">descriptorSetLayout</a> = vulkanState-&gt;<a class="code" href="a03187.html#ac6ea18991f2fd8391eb44229ae2ac8f7">descriptorPool</a>.<a class="code" href="a03087.html#a5a206bab1969632a78bca5e79532eb70">createLayout</a>(bindingInfo);</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;}</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;std::unique_ptr&lt;DescriptorSetInstance&gt; Scene3DFactory::createDescriptorSet()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordflow">return</span> std::make_unique&lt;Scene3DInstance&gt;(*vulkanState, <a class="code" href="a02783.html#a272948ed73908bcc35626a495366cba6">descriptorSetLayout</a>);</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;}</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;} <span class="comment">// namespace ds</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00557_html"><div class="ttname"><a href="a00557.html">Scene3DFactory.hpp</a></div></div>
-<div class="ttc" id="aa00560_html"><div class="ttname"><a href="a00560.html">Scene3DInstance.hpp</a></div></div>
-<div class="ttc" id="aa01736_html"><div class="ttname"><a href="a01736.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02099_html"><div class="ttname"><a href="a02099.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a04682_source.html#l00031">Engine.hpp:31</a></div></div>
-<div class="ttc" id="aa02751_html_a8808ecbc28f4d4f0e221ee6bd3210a12"><div class="ttname"><a href="a02751.html#a8808ecbc28f4d4f0e221ee6bd3210a12">bl::rc::ds::Scene3DFactory::~Scene3DFactory</a></div><div class="ttdeci">virtual ~Scene3DFactory()</div><div class="ttdoc">Destroys the factory.</div><div class="ttdef"><b>Definition:</b> <a href="a01373_source.html#l00012">Scene3DFactory.cpp:12</a></div></div>
-<div class="ttc" id="aa02783_html_a272948ed73908bcc35626a495366cba6"><div class="ttname"><a href="a02783.html#a272948ed73908bcc35626a495366cba6">bl::rc::ds::DescriptorSetFactory::descriptorSetLayout</a></div><div class="ttdeci">VkDescriptorSetLayout descriptorSetLayout</div><div class="ttdef"><b>Definition:</b> <a href="a00575_source.html#l00061">DescriptorSetFactory.hpp:61</a></div></div>
-<div class="ttc" id="aa02947_html"><div class="ttname"><a href="a02947.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition:</b> <a href="a04727_source.html#l00039">Renderer.hpp:39</a></div></div>
-<div class="ttc" id="aa02947_html_ac80c82fc9945bff8ee2311207fb53f3f"><div class="ttname"><a href="a02947.html#ac80c82fc9945bff8ee2311207fb53f3f">bl::rc::Renderer::vulkanState</a></div><div class="ttdeci">constexpr vk::VulkanState &amp; vulkanState()</div><div class="ttdoc">Returns the Vulkan state of the renderer.</div><div class="ttdef"><b>Definition:</b> <a href="a04727_source.html#l00251">Renderer.hpp:251</a></div></div>
-<div class="ttc" id="aa03087_html_a5a206bab1969632a78bca5e79532eb70"><div class="ttname"><a href="a03087.html#a5a206bab1969632a78bca5e79532eb70">bl::rc::vk::DescriptorPool::createLayout</a></div><div class="ttdeci">VkDescriptorSetLayout createLayout(const SetBindingInfo &amp;allocInfo)</div><div class="ttdoc">Creates a descriptor set layout from the set allocation info.</div><div class="ttdef"><b>Definition:</b> <a href="a01523_source.html#l00045">DescriptorPool.cpp:45</a></div></div>
-<div class="ttc" id="aa03091_html"><div class="ttname"><a href="a03091.html">bl::rc::vk::DescriptorPool::SetBindingInfo</a></div><div class="ttdoc">Struct containing the data required to create descriptor sets and layouts.</div><div class="ttdef"><b>Definition:</b> <a href="a00764_source.html#l00035">DescriptorPool.hpp:35</a></div></div>
-<div class="ttc" id="aa03091_html_ab972da11e25938a0637ebf832a6b9bd7"><div class="ttname"><a href="a03091.html#ab972da11e25938a0637ebf832a6b9bd7">bl::rc::vk::DescriptorPool::SetBindingInfo::bindings</a></div><div class="ttdeci">std::array&lt; VkDescriptorSetLayoutBinding, Config::MaxDescriptorSets &gt; bindings</div><div class="ttdef"><b>Definition:</b> <a href="a00764_source.html#l00038">DescriptorPool.hpp:38</a></div></div>
-<div class="ttc" id="aa03091_html_ad44b120901116ab5216ddfdc35d30d95"><div class="ttname"><a href="a03091.html#ad44b120901116ab5216ddfdc35d30d95">bl::rc::vk::DescriptorPool::SetBindingInfo::bindingCount</a></div><div class="ttdeci">std::uint32_t bindingCount</div><div class="ttdef"><b>Definition:</b> <a href="a00764_source.html#l00039">DescriptorPool.hpp:39</a></div></div>
-<div class="ttc" id="aa03187_html_ac6ea18991f2fd8391eb44229ae2ac8f7"><div class="ttname"><a href="a03187.html#ac6ea18991f2fd8391eb44229ae2ac8f7">bl::rc::vk::VulkanState::descriptorPool</a></div><div class="ttdeci">DescriptorPool descriptorPool</div><div class="ttdef"><b>Definition:</b> <a href="a00809_source.html#l00209">VulkanState.hpp:209</a></div></div>
-<div class="ttc" id="aa04727_html"><div class="ttname"><a href="a04727.html">Renderer.hpp</a></div></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    bindings.<a class="code" href="a03142.html#ab972da11e25938a0637ebf832a6b9bd7">bindings</a>[1].binding         = 1;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    bindings.<a class="code" href="a03142.html#ab972da11e25938a0637ebf832a6b9bd7">bindings</a>[1].descriptorCount = 1;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    bindings.<a class="code" href="a03142.html#ab972da11e25938a0637ebf832a6b9bd7">bindings</a>[1].descriptorType  = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    bindings.<a class="code" href="a03142.html#ab972da11e25938a0637ebf832a6b9bd7">bindings</a>[1].stageFlags      = VK_SHADER_STAGE_VERTEX_BIT;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <a class="code" href="a02834.html#a272948ed73908bcc35626a495366cba6">descriptorSetLayout</a> = renderer.<a class="code" href="a02998.html#ac80c82fc9945bff8ee2311207fb53f3f">vulkanState</a>().<a class="code" href="a03238.html#ac6ea18991f2fd8391eb44229ae2ac8f7">descriptorPool</a>.<a class="code" href="a03138.html#a5a206bab1969632a78bca5e79532eb70">createLayout</a>(bindings);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;}</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="a02778.html#adb61605bb6b3f0debc72574249198a7f">   33</a></span>&#160;std::unique_ptr&lt;DescriptorSetInstance&gt; <a class="code" href="a02778.html#adb61605bb6b3f0debc72574249198a7f">Object2DFactory::createDescriptorSet</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordflow">return</span> std::make_unique&lt;Object2DInstance&gt;(*engine, <a class="code" href="a02834.html#a272948ed73908bcc35626a495366cba6">descriptorSetLayout</a>);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;}</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;} <span class="comment">// namespace ds</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00551_html"><div class="ttname"><a href="a00551.html">Object2DFactory.hpp</a></div></div>
+<div class="ttc" id="aa00554_html"><div class="ttname"><a href="a00554.html">Object2DInstance.hpp</a></div></div>
+<div class="ttc" id="aa01754_html"><div class="ttname"><a href="a01754.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02150_html"><div class="ttname"><a href="a02150.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a04752_source.html#l00031">Engine.hpp:31</a></div></div>
+<div class="ttc" id="aa02778_html_a3b4cd36ba5273d4bd770a6ce350ba1b8"><div class="ttname"><a href="a02778.html#a3b4cd36ba5273d4bd770a6ce350ba1b8">bl::rc::ds::Object2DFactory::init</a></div><div class="ttdeci">virtual void init(engine::Engine &amp;engine, Renderer &amp;renderer) override</div><div class="ttdoc">Initializes the factory and creates the descriptor set layout.</div><div class="ttdef"><b>Definition:</b> <a href="a01373_source.html#l00013">Object2DFactory.cpp:13</a></div></div>
+<div class="ttc" id="aa02778_html_adb61605bb6b3f0debc72574249198a7f"><div class="ttname"><a href="a02778.html#adb61605bb6b3f0debc72574249198a7f">bl::rc::ds::Object2DFactory::createDescriptorSet</a></div><div class="ttdeci">virtual std::unique_ptr&lt; DescriptorSetInstance &gt; createDescriptorSet() const override</div><div class="ttdoc">Creates an instance of the descriptor set for this factory.</div><div class="ttdef"><b>Definition:</b> <a href="a01373_source.html#l00033">Object2DFactory.cpp:33</a></div></div>
+<div class="ttc" id="aa02834_html_a272948ed73908bcc35626a495366cba6"><div class="ttname"><a href="a02834.html#a272948ed73908bcc35626a495366cba6">bl::rc::ds::DescriptorSetFactory::descriptorSetLayout</a></div><div class="ttdeci">VkDescriptorSetLayout descriptorSetLayout</div><div class="ttdef"><b>Definition:</b> <a href="a00587_source.html#l00061">DescriptorSetFactory.hpp:61</a></div></div>
+<div class="ttc" id="aa02998_html"><div class="ttname"><a href="a02998.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition:</b> <a href="a04797_source.html#l00039">Renderer.hpp:39</a></div></div>
+<div class="ttc" id="aa02998_html_ac80c82fc9945bff8ee2311207fb53f3f"><div class="ttname"><a href="a02998.html#ac80c82fc9945bff8ee2311207fb53f3f">bl::rc::Renderer::vulkanState</a></div><div class="ttdeci">constexpr vk::VulkanState &amp; vulkanState()</div><div class="ttdoc">Returns the Vulkan state of the renderer.</div><div class="ttdef"><b>Definition:</b> <a href="a04797_source.html#l00251">Renderer.hpp:251</a></div></div>
+<div class="ttc" id="aa03138_html_a5a206bab1969632a78bca5e79532eb70"><div class="ttname"><a href="a03138.html#a5a206bab1969632a78bca5e79532eb70">bl::rc::vk::DescriptorPool::createLayout</a></div><div class="ttdeci">VkDescriptorSetLayout createLayout(const SetBindingInfo &amp;allocInfo)</div><div class="ttdoc">Creates a descriptor set layout from the set allocation info.</div><div class="ttdef"><b>Definition:</b> <a href="a01541_source.html#l00045">DescriptorPool.cpp:45</a></div></div>
+<div class="ttc" id="aa03142_html"><div class="ttname"><a href="a03142.html">bl::rc::vk::DescriptorPool::SetBindingInfo</a></div><div class="ttdoc">Struct containing the data required to create descriptor sets and layouts.</div><div class="ttdef"><b>Definition:</b> <a href="a00776_source.html#l00035">DescriptorPool.hpp:35</a></div></div>
+<div class="ttc" id="aa03142_html_ab972da11e25938a0637ebf832a6b9bd7"><div class="ttname"><a href="a03142.html#ab972da11e25938a0637ebf832a6b9bd7">bl::rc::vk::DescriptorPool::SetBindingInfo::bindings</a></div><div class="ttdeci">std::array&lt; VkDescriptorSetLayoutBinding, Config::MaxDescriptorSets &gt; bindings</div><div class="ttdef"><b>Definition:</b> <a href="a00776_source.html#l00038">DescriptorPool.hpp:38</a></div></div>
+<div class="ttc" id="aa03142_html_ad44b120901116ab5216ddfdc35d30d95"><div class="ttname"><a href="a03142.html#ad44b120901116ab5216ddfdc35d30d95">bl::rc::vk::DescriptorPool::SetBindingInfo::bindingCount</a></div><div class="ttdeci">std::uint32_t bindingCount</div><div class="ttdef"><b>Definition:</b> <a href="a00776_source.html#l00039">DescriptorPool.hpp:39</a></div></div>
+<div class="ttc" id="aa03238_html_ac6ea18991f2fd8391eb44229ae2ac8f7"><div class="ttname"><a href="a03238.html#ac6ea18991f2fd8391eb44229ae2ac8f7">bl::rc::vk::VulkanState::descriptorPool</a></div><div class="ttdeci">DescriptorPool descriptorPool</div><div class="ttdef"><b>Definition:</b> <a href="a00821_source.html#l00209">VulkanState.hpp:209</a></div></div>
+<div class="ttc" id="aa04752_html"><div class="ttname"><a href="a04752.html">Engine.hpp</a></div></div>
+<div class="ttc" id="aa04797_html"><div class="ttname"><a href="a04797.html">Renderer.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 25 2023 19:26:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Sep 10 2023 23:10:22 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

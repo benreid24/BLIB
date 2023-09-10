@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Systems/RendererUpdateSystem.hpp Source File</title>
+<title>BLIB: include/BLIB/Systems/BuiltinDrawableSystems.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,53 +71,38 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">RendererUpdateSystem.hpp</div>  </div>
+<div class="title">BuiltinDrawableSystems.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00974.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_SYSTEMS_RENDERERUPDATESYSTEM_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_SYSTEMS_RENDERERUPDATESYSTEM_HPP</span></div>
+<a href="a00974.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_SYSTEMS_BUILTINDRAWABLESYSTEMS_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_SYSTEMS_BUILTINDRAWABLESYSTEMS_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a04685.html">BLIB/Engine/System.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01736.html">bl</a></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00044.html">BLIB/Components/Mesh.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a04728.html">BLIB/Components/Sprite.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00980.html">BLIB/Systems/DrawableSystem.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01754.html">bl</a></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">class </span>Renderer;</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;}</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span>sys</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a03683.html">   21</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03683.html">RendererUpdateSystem</a> : <span class="keyword">public</span> <a class="code" href="a02151.html">engine::System</a> {</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <a class="code" href="a03683.html#a70e8ca1e6e894f0d081329fc85e046e3">RendererUpdateSystem</a>(<a class="code" href="a02947.html">rc::Renderer</a>&amp; renderer);</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="a03683.html#a264641f618e84fec08d92015d186e314">   33</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03683.html#a264641f618e84fec08d92015d186e314">~RendererUpdateSystem</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <a class="code" href="a02947.html">rc::Renderer</a>&amp; renderer;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> init(<a class="code" href="a02099.html">engine::Engine</a>&amp; engine) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> update(std::mutex&amp; stageMutex, <span class="keywordtype">float</span> dt) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;};</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;} <span class="comment">// namespace sys</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01736_html"><div class="ttname"><a href="a01736.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02099_html"><div class="ttname"><a href="a02099.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a04682_source.html#l00031">Engine.hpp:31</a></div></div>
-<div class="ttc" id="aa02151_html"><div class="ttname"><a href="a02151.html">bl::engine::System</a></div><div class="ttdoc">Base class for Engine systems which can be registered in the Systems registry.</div><div class="ttdef"><b>Definition:</b> <a href="a04685_source.html#l00018">System.hpp:18</a></div></div>
-<div class="ttc" id="aa02947_html"><div class="ttname"><a href="a02947.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition:</b> <a href="a04727_source.html#l00039">Renderer.hpp:39</a></div></div>
-<div class="ttc" id="aa03683_html"><div class="ttname"><a href="a03683.html">bl::sys::RendererUpdateSystem</a></div><div class="ttdoc">System that updates all observer cameras and task graphs while the renderer is waiting on the prior f...</div><div class="ttdef"><b>Definition:</b> <a href="a00974_source.html#l00021">RendererUpdateSystem.hpp:21</a></div></div>
-<div class="ttc" id="aa03683_html_a264641f618e84fec08d92015d186e314"><div class="ttname"><a href="a03683.html#a264641f618e84fec08d92015d186e314">bl::sys::RendererUpdateSystem::~RendererUpdateSystem</a></div><div class="ttdeci">virtual ~RendererUpdateSystem()=default</div><div class="ttdoc">Destroys the system.</div></div>
-<div class="ttc" id="aa03683_html_a70e8ca1e6e894f0d081329fc85e046e3"><div class="ttname"><a href="a03683.html#a70e8ca1e6e894f0d081329fc85e046e3">bl::sys::RendererUpdateSystem::RendererUpdateSystem</a></div><div class="ttdeci">RendererUpdateSystem(rc::Renderer &amp;renderer)</div><div class="ttdoc">Creates a new camera update system.</div><div class="ttdef"><b>Definition:</b> <a href="a01679_source.html#l00009">RendererUpdateSystem.cpp:9</a></div></div>
-<div class="ttc" id="aa04685_html"><div class="ttname"><a href="a04685.html">System.hpp</a></div></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>sys</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a01743.html#ga4477117aea35eeac21751bf038a0098b">   17</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a03042.html">MeshSystem</a> = <a class="code" href="a03042.html">DrawableSystem&lt;com::Mesh&gt;</a>;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a01743.html#ga68bd85b37280b05c447083208d4079f7">   24</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a03042.html">SpriteSystem</a> = <a class="code" href="a03042.html">DrawableSystem&lt;com::Sprite&gt;</a>;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;} <span class="comment">// namespace sys</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00044_html"><div class="ttname"><a href="a00044.html">Mesh.hpp</a></div></div>
+<div class="ttc" id="aa00980_html"><div class="ttname"><a href="a00980.html">DrawableSystem.hpp</a></div></div>
+<div class="ttc" id="aa01754_html"><div class="ttname"><a href="a01754.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03042_html"><div class="ttname"><a href="a03042.html">bl::sys::DrawableSystem</a></div><div class="ttdoc">Base class for renderer systems that manage scene objects in the ECS. Custom renderable types should ...</div><div class="ttdef"><b>Definition:</b> <a href="a00980_source.html#l00031">DrawableSystem.hpp:33</a></div></div>
+<div class="ttc" id="aa04728_html"><div class="ttname"><a href="a04728.html">Sprite.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 25 2023 19:26:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Sep 10 2023 23:10:22 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

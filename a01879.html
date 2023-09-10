@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::cam::CameraAffector3D Struct Reference</title>
+<title>BLIB: Member List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,250 +66,26 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01736.html">bl</a></li><li class="navelem"><a class="el" href="a01738.html">cam</a></li><li class="navelem"><a class="el" href="a01879.html">CameraAffector3D</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01754.html">bl</a></li><li class="navelem"><a class="el" href="a01756.html">cam</a></li><li class="navelem"><a class="el" href="a01882.html">CameraController2D</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="a01876.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::cam::CameraAffector3D Struct Reference<div class="ingroups"><a class="el" href="a01707.html">Cameras</a></div></div>  </div>
+<div class="title">bl::cam::CameraController2D Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Base class for affectors that can be applied to 3d cameras. An affecter modifies the behavior of the camera without modifying the underlying camera. This allows affectors to be removed without having to worry about undoing their changes.  
- <a href="a01879.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="a00029_source.html">CameraAffector3D.hpp</a>&gt;</code></p>
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::cam::CameraAffector3D:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
- <div class="center">
-  <img src="a01879.png" usemap="#bl::cam::CameraAffector3D_map" alt=""/>
-  <map id="bl::cam::CameraAffector3D_map" name="bl::cam::CameraAffector3D_map">
-<area href="a01871.html" title="Camera affector that shakes the view." alt="bl::cam::c3d::CameraShake" shape="rect" coords="0,56,163,80"/>
-  </map>
-</div></div>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:aff830eddfff0ae16e37ddfc50d12b248"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01879.html#aff830eddfff0ae16e37ddfc50d12b248">~CameraAffector3D</a> ()=default</td></tr>
-<tr class="memdesc:aff830eddfff0ae16e37ddfc50d12b248"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the affector.  <a href="a01879.html#aff830eddfff0ae16e37ddfc50d12b248">More...</a><br /></td></tr>
-<tr class="separator:aff830eddfff0ae16e37ddfc50d12b248"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a655b6b1305816afaac5b77d6f9b0a7f7"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01879.html#a655b6b1305816afaac5b77d6f9b0a7f7">update</a> (float dt, bool &amp;recomputeView, bool &amp;recomputeProj)</td></tr>
-<tr class="memdesc:a655b6b1305816afaac5b77d6f9b0a7f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the affector.  <a href="a01879.html#a655b6b1305816afaac5b77d6f9b0a7f7">More...</a><br /></td></tr>
-<tr class="separator:a655b6b1305816afaac5b77d6f9b0a7f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afe6279a7c1da47819ff1b92a500f0359"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01879.html#afe6279a7c1da47819ff1b92a500f0359">applyOnView</a> (glm::vec3 &amp;position, <a class="el" href="a01899.html">com::Orientation3D</a> &amp;orientation)</td></tr>
-<tr class="memdesc:afe6279a7c1da47819ff1b92a500f0359"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base method does nothing. Use this to make changes to the parameters used to construct the camera's view matrix.  <a href="a01879.html#afe6279a7c1da47819ff1b92a500f0359">More...</a><br /></td></tr>
-<tr class="separator:afe6279a7c1da47819ff1b92a500f0359"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a32abe2726d00383c98194af473ac5cd0"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01879.html#a32abe2726d00383c98194af473ac5cd0">applyOnProjection</a> (float &amp;fov, float &amp;nearValue, float &amp;farValue)</td></tr>
-<tr class="memdesc:a32abe2726d00383c98194af473ac5cd0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base method does nothing. Use this to make changes to the parameters used to construct the camera's projection matrix.  <a href="a01879.html#a32abe2726d00383c98194af473ac5cd0">More...</a><br /></td></tr>
-<tr class="separator:a32abe2726d00383c98194af473ac5cd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Base class for affectors that can be applied to 3d cameras. An affecter modifies the behavior of the camera without modifying the underlying camera. This allows affectors to be removed without having to worry about undoing their changes. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00029_source.html#l00018">18</a> of file <a class="el" href="a00029_source.html">CameraAffector3D.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="aff830eddfff0ae16e37ddfc50d12b248"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aff830eddfff0ae16e37ddfc50d12b248">&#9670;&nbsp;</a></span>~CameraAffector3D()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual bl::cam::CameraAffector3D::~CameraAffector3D </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Destroys the affector. </p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a32abe2726d00383c98194af473ac5cd0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a32abe2726d00383c98194af473ac5cd0">&#9670;&nbsp;</a></span>applyOnProjection()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::cam::CameraAffector3D::applyOnProjection </td>
-          <td>(</td>
-          <td class="paramtype">float &amp;&#160;</td>
-          <td class="paramname"><em>fov</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float &amp;&#160;</td>
-          <td class="paramname"><em>nearValue</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float &amp;&#160;</td>
-          <td class="paramname"><em>farValue</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Base method does nothing. Use this to make changes to the parameters used to construct the camera's projection matrix. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">fov</td><td>The field of view of the camera in degrees. May be modified </td></tr>
-    <tr><td class="paramname">near</td><td>Distance of the near plane. May be modified </td></tr>
-    <tr><td class="paramname">far</td><td>Distance of the far plane. May be modified </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01061_source.html#l00011">11</a> of file <a class="el" href="a01061_source.html">CameraAffector3D.cpp</a>.</p>
-
-</div>
-</div>
-<a id="afe6279a7c1da47819ff1b92a500f0359"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afe6279a7c1da47819ff1b92a500f0359">&#9670;&nbsp;</a></span>applyOnView()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::cam::CameraAffector3D::applyOnView </td>
-          <td>(</td>
-          <td class="paramtype">glm::vec3 &amp;&#160;</td>
-          <td class="paramname"><em>position</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a01899.html">com::Orientation3D</a> &amp;&#160;</td>
-          <td class="paramname"><em>orientation</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Base method does nothing. Use this to make changes to the parameters used to construct the camera's view matrix. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">position</td><td>The position of the camera. May be modified </td></tr>
-    <tr><td class="paramname">orientation</td><td>The orientation of the camera. May be modified </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Reimplemented in <a class="el" href="a01871.html#a383c2a89e278a6521d7707654c17d109">bl::cam::c3d::CameraShake</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a01061_source.html#l00009">9</a> of file <a class="el" href="a01061_source.html">CameraAffector3D.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a655b6b1305816afaac5b77d6f9b0a7f7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a655b6b1305816afaac5b77d6f9b0a7f7">&#9670;&nbsp;</a></span>update()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::cam::CameraAffector3D::update </td>
-          <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>dt</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool &amp;&#160;</td>
-          <td class="paramname"><em>recomputeView</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool &amp;&#160;</td>
-          <td class="paramname"><em>recomputeProj</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Updates the affector. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">dt</td><td>Time elapsed, in seconds </td></tr>
-    <tr><td class="paramname">recomputeView</td><td>Set to true to make the camera recompute its view matrix </td></tr>
-    <tr><td class="paramname">recomputeProj</td><td>Set to true to make the camera recompute its projection matrix </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Reimplemented in <a class="el" href="a01871.html#abf58291e26b4d73d55cd1737be007ce0">bl::cam::c3d::CameraShake</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a01061_source.html#l00007">7</a> of file <a class="el" href="a01061_source.html">CameraAffector3D.cpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this struct was generated from the following files:<ul>
-<li>include/BLIB/Cameras/3D/<a class="el" href="a00029_source.html">CameraAffector3D.hpp</a></li>
-<li>src/Cameras/3D/<a class="el" href="a01061_source.html">CameraAffector3D.cpp</a></li>
-</ul>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="a01882.html">bl::cam::CameraController2D</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="a01882.html#ab5cf0b6a2160e850a7e7f4dc6c06dd77">camera</a>()</td><td class="entry"><a class="el" href="a01882.html">bl::cam::CameraController2D</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01882.html#aa259ae7fe5601a98b9c6663d8457df9a">Camera2D</a> class</td><td class="entry"><a class="el" href="a01882.html">bl::cam::CameraController2D</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01882.html#a4e026e015a56bda5ec70fbd4bdfb80df">update</a>(float dt)=0</td><td class="entry"><a class="el" href="a01882.html">bl::cam::CameraController2D</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01882.html#a952a7a4c68d221143a5036257aed15a0">~CameraController2D</a>()=default</td><td class="entry"><a class="el" href="a01882.html">bl::cam::CameraController2D</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+</table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 25 2023 19:26:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Sep 10 2023 23:10:23 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

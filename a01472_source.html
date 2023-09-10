@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Resources/PipelineLayoutCache.cpp Source File</title>
+<title>BLIB: src/Render/Overlays/OverlayObject.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,48 +66,73 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_9db9147e11516848db92abd3a50398f1.html">Resources</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_8c8c1712aed2a59ae47f7d5ea800798b.html">Overlays</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">PipelineLayoutCache.cpp</div>  </div>
+<div class="title">OverlayObject.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01472.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00698.html">BLIB/Render/Resources/PipelineLayoutCache.hpp</a>&gt;</span></div>
+<a href="a01472.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00686.html">BLIB/Render/Overlays/OverlayObject.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01736.html">bl</a></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01754.html">bl</a></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>rc</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>res</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>ovy</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;PipelineLayoutCache::PipelineLayoutCache(Renderer&amp; renderer)</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;: renderer(renderer) {}</div>
+<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a02982.html#acfac16c3170845244d5bf29e69ac1cb0">    9</a></span>&#160;<a class="code" href="a02982.html#acfac16c3170845244d5bf29e69ac1cb0">OverlayObject::OverlayObject</a>()</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;: SceneObject()</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;, descriptorCount(0) {}</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="a02967.html#a3d82ee894d5246ffb5422326d659452a">   13</a></span>&#160;<a class="code" href="a03123.html">vk::PipelineLayout</a>* PipelineLayoutCache::getLayout(<a class="code" href="a03127.html">vk::PipelineLayout::LayoutParams</a>&amp;&amp; params) {</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="keywordflow">return</span> &amp;(cache</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;                 .try_emplace(<span class="keyword">static_cast&lt;</span><span class="keyword">const </span><a class="code" href="a03127.html">vk::PipelineLayout::LayoutParams</a>&amp;<span class="keyword">&gt;</span>(params),</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;                              renderer,</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;                              std::forward&lt;vk::PipelineLayout::LayoutParams&gt;(params))</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;                 .first-&gt;second);</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;}</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keywordtype">void</span> PipelineLayoutCache::cleanup() { cache.clear(); }</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;} <span class="comment">// namespace res</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00698_html"><div class="ttname"><a href="a00698.html">PipelineLayoutCache.hpp</a></div></div>
-<div class="ttc" id="aa01736_html"><div class="ttname"><a href="a01736.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03123_html"><div class="ttname"><a href="a03123.html">bl::rc::vk::PipelineLayout</a></div><div class="ttdoc">Represents the descriptor layout for pipelines. Allows rendering to be batched by layout to save on b...</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00030">PipelineLayout.hpp:30</a></div></div>
-<div class="ttc" id="aa03127_html"><div class="ttname"><a href="a03127.html">bl::rc::vk::PipelineLayout::LayoutParams</a></div><div class="ttdoc">Internal struct to manage layout creation and fetching.</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00035">PipelineLayout.hpp:35</a></div></div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="a02982.html#aefde1a485353808fb0cce8038710a687">   13</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02982.html#aefde1a485353808fb0cce8038710a687">OverlayObject::registerChild</a>(<a class="code" href="a03062.html">scene::Key</a> cid) {</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="a02982.html#a88e1f98fb53463eea09599c871a51c51">children</a>.size() == <a class="code" href="a02982.html#a88e1f98fb53463eea09599c871a51c51">children</a>.capacity()) {</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        <a class="code" href="a02982.html#a88e1f98fb53463eea09599c871a51c51">children</a>.reserve(std::max(<a class="code" href="a02982.html#a88e1f98fb53463eea09599c871a51c51">children</a>.capacity() * 2, <span class="keyword">static_cast&lt;</span>std::size_t<span class="keyword">&gt;</span>(8)));</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    }</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <a class="code" href="a02982.html#a88e1f98fb53463eea09599c871a51c51">children</a>.emplace_back(cid);</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;}</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a02982.html#abba6855ecf7cd43dd64e75e2ac438fdf">   20</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02982.html#abba6855ecf7cd43dd64e75e2ac438fdf">OverlayObject::removeChild</a>(<a class="code" href="a03062.html">scene::Key</a> cid) {</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = <a class="code" href="a02982.html#a88e1f98fb53463eea09599c871a51c51">children</a>.begin(); it != <a class="code" href="a02982.html#a88e1f98fb53463eea09599c871a51c51">children</a>.end(); ++it) {</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        <span class="keywordflow">if</span> (*it == cid) {</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;            <a class="code" href="a02982.html#a88e1f98fb53463eea09599c871a51c51">children</a>.erase(it);</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;            <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        }</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    }</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;}</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a02982.html#a04adb348739ae81f0926a24792c5ad1f">   29</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02982.html#a04adb348739ae81f0926a24792c5ad1f">OverlayObject::refreshViewport</a>(<span class="keyword">const</span> VkViewport&amp; global, <span class="keyword">const</span> VkViewport&amp; parent) {</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <a class="code" href="a02982.html#a42174cffee8a0aebc691a63a98860daf">cachedViewport</a> = <a class="code" href="a02982.html#a2819849b5fbea1a3d8cbb121fcb436f3">viewport</a>.valid() ? <a class="code" href="a02982.html#a2819849b5fbea1a3d8cbb121fcb436f3">viewport</a>.get().createViewport(global, parent) : parent;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <a class="code" href="a02982.html#ab81c6e0a7c467bf497f3807c3f3fcb56">cachedScissor</a>  = <a class="code" href="a02986.html#ae6f0f9360ff5222cece8a59c6fcc07db">ovy::Viewport::viewportToScissor</a>(<a class="code" href="a02982.html#a42174cffee8a0aebc691a63a98860daf">cachedViewport</a>);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;}</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="a02982.html#a7e301e4560e200aeb16aa25f1e550034">   34</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02982.html#a7e301e4560e200aeb16aa25f1e550034">OverlayObject::applyViewport</a>(VkCommandBuffer commandBuffer) {</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    vkCmdSetViewport(commandBuffer, 0, 1, &amp;<a class="code" href="a02982.html#a42174cffee8a0aebc691a63a98860daf">cachedViewport</a>);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    vkCmdSetScissor(commandBuffer, 0, 1, &amp;<a class="code" href="a02982.html#ab81c6e0a7c467bf497f3807c3f3fcb56">cachedScissor</a>);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;}</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;} <span class="comment">// namespace ovy</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00686_html"><div class="ttname"><a href="a00686.html">OverlayObject.hpp</a></div></div>
+<div class="ttc" id="aa01754_html"><div class="ttname"><a href="a01754.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02982_html_a04adb348739ae81f0926a24792c5ad1f"><div class="ttname"><a href="a02982.html#a04adb348739ae81f0926a24792c5ad1f">bl::rc::ovy::OverlayObject::refreshViewport</a></div><div class="ttdeci">void refreshViewport(const VkViewport &amp;overlay, const VkViewport &amp;parent)</div><div class="ttdoc">Recomputes the target-space viewport.</div><div class="ttdef"><b>Definition:</b> <a href="a01472_source.html#l00029">OverlayObject.cpp:29</a></div></div>
+<div class="ttc" id="aa02982_html_a2819849b5fbea1a3d8cbb121fcb436f3"><div class="ttname"><a href="a02982.html#a2819849b5fbea1a3d8cbb121fcb436f3">bl::rc::ovy::OverlayObject::viewport</a></div><div class="ttdeci">ecs::StableHandle&lt; Viewport &gt; viewport</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00062">OverlayObject.hpp:62</a></div></div>
+<div class="ttc" id="aa02982_html_a42174cffee8a0aebc691a63a98860daf"><div class="ttname"><a href="a02982.html#a42174cffee8a0aebc691a63a98860daf">bl::rc::ovy::OverlayObject::cachedViewport</a></div><div class="ttdeci">VkViewport cachedViewport</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00068">OverlayObject.hpp:68</a></div></div>
+<div class="ttc" id="aa02982_html_a7e301e4560e200aeb16aa25f1e550034"><div class="ttname"><a href="a02982.html#a7e301e4560e200aeb16aa25f1e550034">bl::rc::ovy::OverlayObject::applyViewport</a></div><div class="ttdeci">void applyViewport(VkCommandBuffer commandBuffer)</div><div class="ttdoc">Issues the commands to set the viewport and scissor.</div><div class="ttdef"><b>Definition:</b> <a href="a01472_source.html#l00034">OverlayObject.cpp:34</a></div></div>
+<div class="ttc" id="aa02982_html_a88e1f98fb53463eea09599c871a51c51"><div class="ttname"><a href="a02982.html#a88e1f98fb53463eea09599c871a51c51">bl::rc::ovy::OverlayObject::children</a></div><div class="ttdeci">std::vector&lt; scene::Key &gt; children</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00060">OverlayObject.hpp:60</a></div></div>
+<div class="ttc" id="aa02982_html_ab81c6e0a7c467bf497f3807c3f3fcb56"><div class="ttname"><a href="a02982.html#ab81c6e0a7c467bf497f3807c3f3fcb56">bl::rc::ovy::OverlayObject::cachedScissor</a></div><div class="ttdeci">VkRect2D cachedScissor</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00069">OverlayObject.hpp:69</a></div></div>
+<div class="ttc" id="aa02982_html_abba6855ecf7cd43dd64e75e2ac438fdf"><div class="ttname"><a href="a02982.html#abba6855ecf7cd43dd64e75e2ac438fdf">bl::rc::ovy::OverlayObject::removeChild</a></div><div class="ttdeci">void removeChild(scene::Key childId)</div><div class="ttdoc">Removes the given child from this object's child array.</div><div class="ttdef"><b>Definition:</b> <a href="a01472_source.html#l00020">OverlayObject.cpp:20</a></div></div>
+<div class="ttc" id="aa02982_html_acfac16c3170845244d5bf29e69ac1cb0"><div class="ttname"><a href="a02982.html#acfac16c3170845244d5bf29e69ac1cb0">bl::rc::ovy::OverlayObject::OverlayObject</a></div><div class="ttdeci">OverlayObject()</div><div class="ttdoc">Construct a new OverlayObject.</div><div class="ttdef"><b>Definition:</b> <a href="a01472_source.html#l00009">OverlayObject.cpp:9</a></div></div>
+<div class="ttc" id="aa02982_html_aefde1a485353808fb0cce8038710a687"><div class="ttname"><a href="a02982.html#aefde1a485353808fb0cce8038710a687">bl::rc::ovy::OverlayObject::registerChild</a></div><div class="ttdeci">void registerChild(scene::Key childId)</div><div class="ttdoc">Adds the child to this object's child array.</div><div class="ttdef"><b>Definition:</b> <a href="a01472_source.html#l00013">OverlayObject.cpp:13</a></div></div>
+<div class="ttc" id="aa02986_html_ae6f0f9360ff5222cece8a59c6fcc07db"><div class="ttname"><a href="a02986.html#ae6f0f9360ff5222cece8a59c6fcc07db">bl::rc::ovy::Viewport::viewportToScissor</a></div><div class="ttdeci">static VkRect2D viewportToScissor(const VkViewport &amp;viewport)</div><div class="ttdoc">Converts the given viewport into a scissor of the same region.</div><div class="ttdef"><b>Definition:</b> <a href="a01475_source.html#l00032">Viewport.cpp:32</a></div></div>
+<div class="ttc" id="aa03062_html"><div class="ttname"><a href="a03062.html">bl::rc::scene::Key</a></div><div class="ttdoc">Key for objects in scenes. Contains update speed and scene id. Scene ids are not unique across update...</div><div class="ttdef"><b>Definition:</b> <a href="a00731_source.html#l00022">Key.hpp:22</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 25 2023 19:26:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Sep 10 2023 23:10:22 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

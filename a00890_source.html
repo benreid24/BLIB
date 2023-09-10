@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Scripts/Script.hpp Source File</title>
+<title>BLIB: include/BLIB/Scripts/Function.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,107 +71,73 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Script.hpp</div>  </div>
+<div class="title">Function.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00890.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_SCRIPTS_SCRIPT_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_SCRIPTS_SCRIPT_HPP</span></div>
+<a href="a00890.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_SCRIPTS_FUNCTION_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_SCRIPTS_FUNCTION_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00497.html">BLIB/Parser/Node.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00872.html">BLIB/Scripts/Context.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00893.html">BLIB/Scripts/SymbolTable.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;atomic&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;mutex&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;optional&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;thread&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01736.html">bl</a></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span>engine</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">class </span>Engine;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;}</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00509.html">BLIB/Parser/Node.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00887.html">BLIB/Scripts/Error.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;functional&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;optional&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;variant&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01754.html">bl</a></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span>script</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">class </span>Value;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">class </span>SymbolTable;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">class </span>PrimitiveValue;</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">namespace </span>script</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;{</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">class </span>Manager;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a03359.html">   30</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03359.html">Script</a> {</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="a03359.html#a169a772d20de6bf5825ee587a32fc8e7">getFullScriptPath</a>(std::string&amp; path);</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <a class="code" href="a03359.html#a4aac30cd37f26b14b91a4e019b5232df">Script</a>(<span class="keyword">const</span> std::string&amp; data);</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <a class="code" href="a03359.html#a4aac30cd37f26b14b91a4e019b5232df">Script</a>(<span class="keyword">const</span> std::string&amp; data, <span class="keyword">const</span> <a class="code" href="a03327.html">Context</a>&amp; ctx);</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a03390.html">   25</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03390.html">Function</a> {</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="a03390.html#a3ca3f959c516d9a90dd20acddeabe172">   33</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a03390.html#a3ca3f959c516d9a90dd20acddeabe172">CustomCB</a> = std::function&lt;void(<a class="code" href="a03418.html">SymbolTable</a>&amp;, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp;, <a class="code" href="a03422.html">Value</a>&amp;)&gt;;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <a class="code" href="a03390.html#a2e1c840d6e1931a14c9f1b8ba963b1e8">Function</a>();</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="a03390.html#abb0d30e7353c50df35dd12cdc58e90ba">   45</a></span>&#160;    <a class="code" href="a03390.html#abb0d30e7353c50df35dd12cdc58e90ba">Function</a>(<span class="keyword">const</span> <a class="code" href="a03390.html">Function</a>&amp;) = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="a03390.html#add7874f403b37f3b40e8e9efe456d238">   51</a></span>&#160;    <a class="code" href="a03390.html">Function</a>&amp; <a class="code" href="a03390.html#add7874f403b37f3b40e8e9efe456d238">operator=</a>(<span class="keyword">const</span> <a class="code" href="a03390.html">Function</a>&amp;) = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <a class="code" href="a03390.html#a2e1c840d6e1931a14c9f1b8ba963b1e8">Function</a>(<span class="keyword">const</span> <a class="code" href="a02686.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&amp; fdef);</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <a class="code" href="a03359.html#a4aac30cd37f26b14b91a4e019b5232df">Script</a>(<span class="keyword">const</span> std::string&amp; script, <span class="keyword">const</span> <a class="code" href="a03367.html">SymbolTable</a>&amp; startingTable);</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a03359.html#a0ac39ed384b38fb7eb08f30be44fed34">valid</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keyword">const</span> std::string&amp; <a class="code" href="a03359.html#abc73a9e723f50f88920dae6f34b28a31">errorMessage</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03359.html#aef3618c17f3baef3331cd0128d899183">resetContext</a>(<span class="keyword">const</span> <a class="code" href="a03327.html">Context</a>&amp; context, <span class="keywordtype">bool</span> clear = <span class="keyword">false</span>);</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <a class="code" href="a03390.html#a2e1c840d6e1931a14c9f1b8ba963b1e8">Function</a>(<span class="keyword">const</span> <a class="code" href="a03390.html#a3ca3f959c516d9a90dd20acddeabe172">CustomCB</a>&amp; userFunction);</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a03390.html#aa01f0ed7f508bd64c3cd635be88d4b71">operator==</a>(<span class="keyword">const</span> <a class="code" href="a03390.html">Function</a>&amp; func) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03390.html#a07aec35a2ba40269eebb9550a631165c">operator()</a>(<a class="code" href="a03418.html">SymbolTable</a>&amp; table, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp; args, <a class="code" href="a03422.html">Value</a>&amp; result) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    std::variant&lt;CustomCB, parser::Node::Ptr&gt; data;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    std::optional&lt;std::vector&lt;std::string&gt;&gt; params;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;};</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;} <span class="comment">// namespace script</span></div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;} <span class="comment">// namespace bl</span></div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    std::optional&lt;script::Value&gt; <a class="code" href="a03359.html#aeae73e353105783f1e01364aff7f6bcc">run</a>(<a class="code" href="a03343.html">Manager</a>* manager = <span class="keyword">nullptr</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03359.html#a984f8ef988f91d6122def4cbd5f5bdf3">runBackground</a>(<a class="code" href="a03343.html">Manager</a>* manager = <span class="keyword">nullptr</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <a class="code" href="a02635.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a> root;</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keyword">const</span> std::string source;</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    std::string error;</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <a class="code" href="a03367.html">SymbolTable</a> defaultTable;</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keyword">struct </span>ExecutionContext : <span class="keyword">public</span> std::enable_shared_from_this&lt;ExecutionContext&gt; {</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        <span class="keyword">typedef</span> std::shared_ptr&lt;ExecutionContext&gt; Ptr;</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        <span class="keyword">typedef</span> std::weak_ptr&lt;ExecutionContext&gt; WPtr;</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        <a class="code" href="a02635.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a> root;</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        <span class="keyword">const</span> std::string source;</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        std::shared_ptr&lt;std::thread&gt; thread;</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        <a class="code" href="a03367.html">script::SymbolTable</a> table;</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        std::atomic_bool running;</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        ExecutionContext(<a class="code" href="a02635.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a> root, <span class="keyword">const</span> <a class="code" href="a03367.html">SymbolTable</a>&amp; table,</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;                         <span class="keyword">const</span> std::string&amp; source)</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        : root(root)</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        , source(source)</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        , table(table)</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        , running(<span class="keyword">true</span>) {}</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    };</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    <a class="code" href="a03359.html#a4aac30cd37f26b14b91a4e019b5232df">Script</a>(<span class="keyword">const</span> std::string&amp; data, <span class="keywordtype">bool</span> addDefaults);</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <span class="keyword">static</span> std::optional&lt;script::Value&gt; execute(ExecutionContext::Ptr context);</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160; </div>
-<div class="line"><a name="l00134"></a><span class="lineno"><a class="line" href="a03359.html#adddd5c43ff870a047aa66db4edf82a7e">  134</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a03343.html">Manager</a>;</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;};</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160; </div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;} <span class="comment">// namespace script</span></div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160; </div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00497_html"><div class="ttname"><a href="a00497.html">Node.hpp</a></div></div>
-<div class="ttc" id="aa00872_html"><div class="ttname"><a href="a00872.html">Context.hpp</a></div></div>
-<div class="ttc" id="aa00893_html"><div class="ttname"><a href="a00893.html">SymbolTable.hpp</a></div></div>
-<div class="ttc" id="aa01736_html"><div class="ttname"><a href="a01736.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02635_html_a3f49fe9da8742463aa757f89f67a8827"><div class="ttname"><a href="a02635.html#a3f49fe9da8742463aa757f89f67a8827">bl::parser::Node::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; Node &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00497_source.html#l00024">Node.hpp:24</a></div></div>
-<div class="ttc" id="aa03327_html"><div class="ttname"><a href="a03327.html">bl::script::Context</a></div><div class="ttdoc">A context to run a script with. Custom context classes may be created to have different types of scri...</div><div class="ttdef"><b>Definition:</b> <a href="a00872_source.html#l00020">Context.hpp:20</a></div></div>
-<div class="ttc" id="aa03343_html"><div class="ttname"><a href="a03343.html">bl::script::Manager</a></div><div class="ttdoc">Utility class that can manage sets of concurrently running scripts.</div><div class="ttdef"><b>Definition:</b> <a href="a00881_source.html#l00018">Manager.hpp:18</a></div></div>
-<div class="ttc" id="aa03359_html"><div class="ttname"><a href="a03359.html">bl::script::Script</a></div><div class="ttdoc">Loads scripts. Can run scripts directly or in the background. Is threadsafe.</div><div class="ttdef"><b>Definition:</b> <a href="a00890_source.html#l00030">Script.hpp:30</a></div></div>
-<div class="ttc" id="aa03359_html_a0ac39ed384b38fb7eb08f30be44fed34"><div class="ttname"><a href="a03359.html#a0ac39ed384b38fb7eb08f30be44fed34">bl::script::Script::valid</a></div><div class="ttdeci">bool valid() const</div><div class="ttdoc">Returns if the Script is valid or not.</div><div class="ttdef"><b>Definition:</b> <a href="a01628_source.html#l00067">Script.cpp:67</a></div></div>
-<div class="ttc" id="aa03359_html_a169a772d20de6bf5825ee587a32fc8e7"><div class="ttname"><a href="a03359.html#a169a772d20de6bf5825ee587a32fc8e7">bl::script::Script::getFullScriptPath</a></div><div class="ttdeci">static bool getFullScriptPath(std::string &amp;path)</div><div class="ttdoc">Modifies the given script to its full file path and returns true if the script points to a file....</div><div class="ttdef"><b>Definition:</b> <a href="a01628_source.html#l00017">Script.cpp:17</a></div></div>
-<div class="ttc" id="aa03359_html_a4aac30cd37f26b14b91a4e019b5232df"><div class="ttname"><a href="a03359.html#a4aac30cd37f26b14b91a4e019b5232df">bl::script::Script::Script</a></div><div class="ttdeci">Script(const std::string &amp;data)</div><div class="ttdoc">Determines if the input is a file, then loads the script from the file or from the input directly.</div><div class="ttdef"><b>Definition:</b> <a href="a01628_source.html#l00054">Script.cpp:54</a></div></div>
-<div class="ttc" id="aa03359_html_a984f8ef988f91d6122def4cbd5f5bdf3"><div class="ttname"><a href="a03359.html#a984f8ef988f91d6122def4cbd5f5bdf3">bl::script::Script::runBackground</a></div><div class="ttdeci">void runBackground(Manager *manager=nullptr) const</div><div class="ttdoc">Runs the script in the background.</div><div class="ttdef"><b>Definition:</b> <a href="a01628_source.html#l00083">Script.cpp:83</a></div></div>
-<div class="ttc" id="aa03359_html_abc73a9e723f50f88920dae6f34b28a31"><div class="ttname"><a href="a03359.html#abc73a9e723f50f88920dae6f34b28a31">bl::script::Script::errorMessage</a></div><div class="ttdeci">const std::string &amp; errorMessage() const</div><div class="ttdoc">Returns an error message for the last parsing error that occured.</div><div class="ttdef"><b>Definition:</b> <a href="a01628_source.html#l00069">Script.cpp:69</a></div></div>
-<div class="ttc" id="aa03359_html_aeae73e353105783f1e01364aff7f6bcc"><div class="ttname"><a href="a03359.html#aeae73e353105783f1e01364aff7f6bcc">bl::script::Script::run</a></div><div class="ttdeci">std::optional&lt; script::Value &gt; run(Manager *manager=nullptr) const</div><div class="ttdoc">Runs the script in the current thread.</div><div class="ttdef"><b>Definition:</b> <a href="a01628_source.html#l00076">Script.cpp:76</a></div></div>
-<div class="ttc" id="aa03359_html_aef3618c17f3baef3331cd0128d899183"><div class="ttname"><a href="a03359.html#aef3618c17f3baef3331cd0128d899183">bl::script::Script::resetContext</a></div><div class="ttdeci">void resetContext(const Context &amp;context, bool clear=false)</div><div class="ttdoc">Recreates the script's starting symbol table from a new context. Optionally clears the existing symbo...</div><div class="ttdef"><b>Definition:</b> <a href="a01628_source.html#l00071">Script.cpp:71</a></div></div>
-<div class="ttc" id="aa03367_html"><div class="ttname"><a href="a03367.html">bl::script::SymbolTable</a></div><div class="ttdoc">Stack aware symbol table for managing functions and variables Each Script holds a single instance.</div><div class="ttdef"><b>Definition:</b> <a href="a00893_source.html#l00026">SymbolTable.hpp:26</a></div></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00509_html"><div class="ttname"><a href="a00509.html">Node.hpp</a></div></div>
+<div class="ttc" id="aa00887_html"><div class="ttname"><a href="a00887.html">Error.hpp</a></div></div>
+<div class="ttc" id="aa01754_html"><div class="ttname"><a href="a01754.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02686_html_a3f49fe9da8742463aa757f89f67a8827"><div class="ttname"><a href="a02686.html#a3f49fe9da8742463aa757f89f67a8827">bl::parser::Node::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; Node &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00509_source.html#l00024">Node.hpp:24</a></div></div>
+<div class="ttc" id="aa03390_html"><div class="ttname"><a href="a03390.html">bl::script::Function</a></div><div class="ttdoc">Utility class for functions defined in scripts themselves.</div><div class="ttdef"><b>Definition:</b> <a href="a00890_source.html#l00025">Function.hpp:25</a></div></div>
+<div class="ttc" id="aa03390_html_a07aec35a2ba40269eebb9550a631165c"><div class="ttname"><a href="a03390.html#a07aec35a2ba40269eebb9550a631165c">bl::script::Function::operator()</a></div><div class="ttdeci">void operator()(SymbolTable &amp;table, const std::vector&lt; Value &gt; &amp;args, Value &amp;result) const</div><div class="ttdoc">Calls the function. Error thrown on error.</div><div class="ttdef"><b>Definition:</b> <a href="a01634_source.html#l00058">Function.cpp:58</a></div></div>
+<div class="ttc" id="aa03390_html_a2e1c840d6e1931a14c9f1b8ba963b1e8"><div class="ttname"><a href="a03390.html#a2e1c840d6e1931a14c9f1b8ba963b1e8">bl::script::Function::Function</a></div><div class="ttdeci">Function()</div><div class="ttdoc">Creates an empty, uncallable function.</div><div class="ttdef"><b>Definition:</b> <a href="a01634_source.html#l00024">Function.cpp:24</a></div></div>
+<div class="ttc" id="aa03390_html_a3ca3f959c516d9a90dd20acddeabe172"><div class="ttname"><a href="a03390.html#a3ca3f959c516d9a90dd20acddeabe172">bl::script::Function::CustomCB</a></div><div class="ttdeci">std::function&lt; void(SymbolTable &amp;, const std::vector&lt; Value &gt; &amp;, Value &amp;)&gt; CustomCB</div><div class="ttdoc">Callback type for custom functions. Can be used to provide a built in library Receives the SymbolTabl...</div><div class="ttdef"><b>Definition:</b> <a href="a00890_source.html#l00033">Function.hpp:33</a></div></div>
+<div class="ttc" id="aa03390_html_aa01f0ed7f508bd64c3cd635be88d4b71"><div class="ttname"><a href="a03390.html#aa01f0ed7f508bd64c3cd635be88d4b71">bl::script::Function::operator==</a></div><div class="ttdeci">bool operator==(const Function &amp;func) const</div><div class="ttdoc">Comapres against another function.</div><div class="ttdef"><b>Definition:</b> <a href="a01634_source.html#l00044">Function.cpp:44</a></div></div>
+<div class="ttc" id="aa03390_html_abb0d30e7353c50df35dd12cdc58e90ba"><div class="ttname"><a href="a03390.html#abb0d30e7353c50df35dd12cdc58e90ba">bl::script::Function::Function</a></div><div class="ttdeci">Function(const Function &amp;)=default</div><div class="ttdoc">Copy constructor.</div></div>
+<div class="ttc" id="aa03390_html_add7874f403b37f3b40e8e9efe456d238"><div class="ttname"><a href="a03390.html#add7874f403b37f3b40e8e9efe456d238">bl::script::Function::operator=</a></div><div class="ttdeci">Function &amp; operator=(const Function &amp;)=default</div><div class="ttdoc">Copy operator.</div></div>
+<div class="ttc" id="aa03418_html"><div class="ttname"><a href="a03418.html">bl::script::SymbolTable</a></div><div class="ttdoc">Stack aware symbol table for managing functions and variables Each Script holds a single instance.</div><div class="ttdef"><b>Definition:</b> <a href="a00905_source.html#l00026">SymbolTable.hpp:26</a></div></div>
+<div class="ttc" id="aa03422_html"><div class="ttname"><a href="a03422.html">bl::script::Value</a></div><div class="ttdoc">Main representation of a value in scripts.</div><div class="ttdef"><b>Definition:</b> <a href="a00908_source.html#l00022">Value.hpp:22</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 25 2023 19:26:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Sep 10 2023 23:10:22 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

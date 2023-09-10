@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Media/Shapes.hpp Source File</title>
+<title>BLIB: include/BLIB/Media/Shapes/Ellipse.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,32 +66,61 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_c9bb3a7354e9a8e879b9b4f2f81c7c7f.html">Media</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_c9bb3a7354e9a8e879b9b4f2f81c7c7f.html">Media</a></li><li class="navelem"><a class="el" href="dir_299e2b4b9374d21b53626a884de54d66.html">Shapes</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Shapes.hpp</div>  </div>
+<div class="title">Ellipse.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00482.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_MEDIA_SHAPES_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_MEDIA_SHAPES_HPP</span></div>
+<a href="a00482.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_SHAPES_ELLIPSE_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_SHAPES_ELLIPSE_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00470.html">BLIB/Media/Shapes/Ellipse.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00473.html">BLIB/Media/Shapes/GradientCircle.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00476.html">BLIB/Media/Shapes/GradientRectangle.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00479.html">BLIB/Media/Shapes/Triangle.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00470_html"><div class="ttname"><a href="a00470.html">Ellipse.hpp</a></div></div>
-<div class="ttc" id="aa00473_html"><div class="ttname"><a href="a00473.html">GradientCircle.hpp</a></div></div>
-<div class="ttc" id="aa00476_html"><div class="ttname"><a href="a00476.html">GradientRectangle.hpp</a></div></div>
-<div class="ttc" id="aa00479_html"><div class="ttname"><a href="a00479.html">Triangle.hpp</a></div></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;SFML/Graphics/Shape.hpp&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01754.html">bl</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a01788.html">    9</a></span>&#160;<span class="keyword">namespace </span>shapes</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a02646.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02646.html">Ellipse</a> : <span class="keyword">public</span> sf::Shape {</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <a class="code" href="a02646.html#a7210091295348f1a2949316a9248a8e8">Ellipse</a>(<span class="keywordtype">float</span> majorAxis, <span class="keywordtype">float</span> minorAxis, <span class="keywordtype">bool</span> centerOrigin = <span class="keyword">true</span>,</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;            <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> pointCount = 60);</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02646.html#a37c790adfb95aadf7dcc99e0cab21dae">setAxes</a>(<span class="keywordtype">float</span> majorAxis, <span class="keywordtype">float</span> minorAxis, <span class="keywordtype">bool</span> centerOrigin = <span class="keyword">true</span>);</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a02646.html#a12826944dd21ed36473031f83f3e8b4f">getMajorAxis</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a02646.html#a601815376ec263fe83010ab55139cac9">getMinorAxis</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keyword">virtual</span> std::size_t <a class="code" href="a02646.html#aec2a6e190dc2acb6720ad2ea79036b84">getPointCount</a>() <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    sf::Vector2f <a class="code" href="a02646.html#a4b52e7248f7aa64e573cad712f4b9693">getPoint</a>(std::size_t index) <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> nPoints;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordtype">float</span> majorRadius;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordtype">float</span> minorRadius;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;};</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;} <span class="comment">// namespace shapes</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01754_html"><div class="ttname"><a href="a01754.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02646_html"><div class="ttname"><a href="a02646.html">bl::shapes::Ellipse</a></div><div class="ttdoc">Ellipse shape defined by it's major and minor axes. The elipse is horizontal.</div><div class="ttdef"><b>Definition:</b> <a href="a00482_source.html#l00017">Ellipse.hpp:17</a></div></div>
+<div class="ttc" id="aa02646_html_a12826944dd21ed36473031f83f3e8b4f"><div class="ttname"><a href="a02646.html#a12826944dd21ed36473031f83f3e8b4f">bl::shapes::Ellipse::getMajorAxis</a></div><div class="ttdeci">float getMajorAxis() const</div><div class="ttdoc">Get the major axis.</div><div class="ttdef"><b>Definition:</b> <a href="a01340_source.html#l00021">Ellipse.cpp:21</a></div></div>
+<div class="ttc" id="aa02646_html_a37c790adfb95aadf7dcc99e0cab21dae"><div class="ttname"><a href="a02646.html#a37c790adfb95aadf7dcc99e0cab21dae">bl::shapes::Ellipse::setAxes</a></div><div class="ttdeci">void setAxes(float majorAxis, float minorAxis, bool centerOrigin=true)</div><div class="ttdoc">Update the major and minor axes.</div><div class="ttdef"><b>Definition:</b> <a href="a01340_source.html#l00014">Ellipse.cpp:14</a></div></div>
+<div class="ttc" id="aa02646_html_a4b52e7248f7aa64e573cad712f4b9693"><div class="ttname"><a href="a02646.html#a4b52e7248f7aa64e573cad712f4b9693">bl::shapes::Ellipse::getPoint</a></div><div class="ttdeci">sf::Vector2f getPoint(std::size_t index) const override</div><div class="ttdoc">Get the point at the index.</div><div class="ttdef"><b>Definition:</b> <a href="a01340_source.html#l00027">Ellipse.cpp:27</a></div></div>
+<div class="ttc" id="aa02646_html_a601815376ec263fe83010ab55139cac9"><div class="ttname"><a href="a02646.html#a601815376ec263fe83010ab55139cac9">bl::shapes::Ellipse::getMinorAxis</a></div><div class="ttdeci">float getMinorAxis() const</div><div class="ttdoc">Get the minor axis.</div><div class="ttdef"><b>Definition:</b> <a href="a01340_source.html#l00023">Ellipse.cpp:23</a></div></div>
+<div class="ttc" id="aa02646_html_a7210091295348f1a2949316a9248a8e8"><div class="ttname"><a href="a02646.html#a7210091295348f1a2949316a9248a8e8">bl::shapes::Ellipse::Ellipse</a></div><div class="ttdeci">Ellipse(float majorAxis, float minorAxis, bool centerOrigin=true, unsigned int pointCount=60)</div><div class="ttdoc">Construct a new Ellipse object.</div><div class="ttdef"><b>Definition:</b> <a href="a01340_source.html#l00009">Ellipse.cpp:9</a></div></div>
+<div class="ttc" id="aa02646_html_aec2a6e190dc2acb6720ad2ea79036b84"><div class="ttname"><a href="a02646.html#aec2a6e190dc2acb6720ad2ea79036b84">bl::shapes::Ellipse::getPointCount</a></div><div class="ttdeci">virtual std::size_t getPointCount() const override</div><div class="ttdoc">Returns the number of points.</div><div class="ttdef"><b>Definition:</b> <a href="a01340_source.html#l00025">Ellipse.cpp:25</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 25 2023 19:26:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Sep 10 2023 23:10:21 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

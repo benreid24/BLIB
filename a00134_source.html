@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/ECS/View.hpp Source File</title>
+<title>BLIB: include/BLIB/ECS/StableHandle.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,96 +71,112 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">View.hpp</div>  </div>
+<div class="title">StableHandle.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00134.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_ECS_VIEW_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_ECS_VIEW_HPP</span></div>
+<a href="a00134.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_ECS_STABLEHANDLE_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_ECS_STABLEHANDLE_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00104.html">BLIB/ECS/ComponentMask.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00110.html">BLIB/ECS/ComponentSet.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00116.html">BLIB/ECS/Entity.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a04676.html">BLIB/ECS/Events.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00128.html">BLIB/ECS/Tags.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00119.html">BLIB/Events.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a04700.html">BLIB/Events/Listener.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01007.html">BLIB/Util/NonCopyable.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;array&gt;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;limits&gt;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;queue&gt;</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;typeindex&gt;</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01736.html">bl</a></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;{</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">namespace </span>ecs</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;{</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">class </span>Registry;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">namespace </span>priv</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;{</div>
-<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="a02087.html">   32</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02087.html">ViewBase</a> : <span class="keyword">private</span> <a class="code" href="a03739.html">util::NonCopyable</a> {</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="a02087.html#aafdfd8e3839e65877f319f37996af1aa">   34</a></span>&#160;    <span class="keyword">const</span> std::type_index <a class="code" href="a02087.html#aafdfd8e3839e65877f319f37996af1aa">id</a>;</div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="a02087.html#aaec4846781fb716ae60bc560bce90dfe">   35</a></span>&#160;    <span class="keyword">const</span> <a class="code" href="a02011.html">ComponentMask</a> <a class="code" href="a02087.html#aaec4846781fb716ae60bc560bce90dfe">mask</a>;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="a02087.html#a5969969dbaaa83ed0713eed8cd35ae17">   37</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02087.html#a5969969dbaaa83ed0713eed8cd35ae17">~ViewBase</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="a02087.html#a0ce7bc0595b45ad5c8a136c8fdb0df67">   40</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a02087.html#a0ce7bc0595b45ad5c8a136c8fdb0df67">needsAddressReload</a>;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="a02087.html#aad663a90cdfb9c7d9f98aaf6ff89a488">   42</a></span>&#160;    <a class="code" href="a02087.html#aad663a90cdfb9c7d9f98aaf6ff89a488">ViewBase</a>(<a class="code" href="a02011.html">ComponentMask</a> <a class="code" href="a02087.html#aaec4846781fb716ae60bc560bce90dfe">mask</a>, std::type_index <span class="keywordtype">id</span>)</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    : <a class="code" href="a02087.html#aafdfd8e3839e65877f319f37996af1aa">id</a>(<a class="code" href="a02087.html#aafdfd8e3839e65877f319f37996af1aa">id</a>)</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    , <a class="code" href="a02087.html#aaec4846781fb716ae60bc560bce90dfe">mask</a>(<a class="code" href="a02087.html#aaec4846781fb716ae60bc560bce90dfe">mask</a>)</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    , <a class="code" href="a02087.html#a0ce7bc0595b45ad5c8a136c8fdb0df67">needsAddressReload</a>(false) {}</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="a02087.html#a1b85cace86a9ac96e0709123561754d9">   47</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02087.html#a1b85cace86a9ac96e0709123561754d9">removeEntity</a>(<a class="code" href="a01748.html#a4b70a57ed7e0341145b4320b1f460a62">Entity</a> entity) = 0;</div>
-<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="a02087.html#af34b9807e8e8ee6f2b6e6acf2fa90f27">   48</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02087.html#af34b9807e8e8ee6f2b6e6acf2fa90f27">tryAddEntity</a>(<a class="code" href="a01748.html#a4b70a57ed7e0341145b4320b1f460a62">Entity</a> entity) = 0;</div>
-<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="a02087.html#a6ce0458f819504dbf9c2b7e5b28401a8">   49</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02087.html#a6ce0458f819504dbf9c2b7e5b28401a8">clearAndRefresh</a>()           = 0;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="a02087.html#a732f6ebccb46b7e6d1a06877441c60a9">   51</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a02059.html">bl::ecs::Registry</a>;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;};</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;} <span class="comment">// namespace priv</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> TRequire, <span class="keyword">typename</span> TOptional = Optional&lt;&gt;, <span class="keyword">typename</span> TExclude = Exclude&lt;&gt;&gt;</div>
-<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="a02015.html">   64</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02015.html">View</a> : <span class="keyword">public</span> <a class="code" href="a02087.html">priv::ViewBase</a> {</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    static_assert(std::is_same_v&lt;TRequire, void&gt;,</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                  <span class="stringliteral">&quot;View must use tags. Example: View&lt;Require&lt;int, char&gt;, &quot;</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                  <span class="stringliteral">&quot;Optional&lt;std::string&gt;, Exclude&lt;unsigned&gt;&gt;&quot;</span>);</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;};</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00110.html">BLIB/ECS/ComponentPool.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00131.html">BLIB/ECS/Registry.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01754.html">bl</a></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>ecs</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">class </span>Registry;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a02110.html">   20</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02110.html">StableHandle</a> {</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a02110.html#a2f13d64da8c9383e8a411a858a91f95d">   25</a></span>&#160;    <a class="code" href="a02110.html#a2f13d64da8c9383e8a411a858a91f95d">StableHandle</a>();</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="a02110.html#adbe47311bb8c3f185e94ed0b032f8513">   33</a></span>&#160;    <a class="code" href="a02110.html#adbe47311bb8c3f185e94ed0b032f8513">StableHandle</a>(<a class="code" href="a02106.html">Registry</a>&amp; registry, <a class="code" href="a01766.html#a84d059ae70a9c854802e3af9a2f373a9">Entity</a> entity);</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="a02110.html#a1d2b320aad3ce0ce3a63d696bf22c669">   38</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a02110.html#a1d2b320aad3ce0ce3a63d696bf22c669">valid</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="a02110.html#a4c1fec2a740af48c13775dfa91c0e0d4">   43</a></span>&#160;    T&amp; <a class="code" href="a02110.html#a4c1fec2a740af48c13775dfa91c0e0d4">get</a>();</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="a02110.html#ab2f0e90265a8596f9529d1848e4b86b3">   48</a></span>&#160;    <span class="keyword">const</span> T&amp; <a class="code" href="a02110.html#ab2f0e90265a8596f9529d1848e4b86b3">get</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="a02110.html#a932b753428dcb0a5a5b3826766627fb9">   56</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02110.html#a932b753428dcb0a5a5b3826766627fb9">assign</a>(<a class="code" href="a02106.html">Registry</a>&amp; registry, <a class="code" href="a01766.html#a84d059ae70a9c854802e3af9a2f373a9">Entity</a> entity);</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="a02110.html#a82487b256f75ddf4abc4c9fddd535eb5">   61</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02110.html#a82487b256f75ddf4abc4c9fddd535eb5">release</a>();</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <a class="code" href="a02058.html">ComponentPool&lt;T&gt;</a>* pool;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <a class="code" href="a01766.html#a84d059ae70a9c854802e3af9a2f373a9">Entity</a> entity;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;};</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;} <span class="comment">// namespace ecs</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00104_html"><div class="ttname"><a href="a00104.html">ComponentMask.hpp</a></div></div>
-<div class="ttc" id="aa00110_html"><div class="ttname"><a href="a00110.html">ComponentSet.hpp</a></div></div>
-<div class="ttc" id="aa00116_html"><div class="ttname"><a href="a00116.html">Entity.hpp</a></div></div>
-<div class="ttc" id="aa00119_html"><div class="ttname"><a href="a00119.html">Events.hpp</a></div></div>
-<div class="ttc" id="aa00128_html"><div class="ttname"><a href="a00128.html">Tags.hpp</a></div></div>
-<div class="ttc" id="aa01007_html"><div class="ttname"><a href="a01007.html">NonCopyable.hpp</a></div></div>
-<div class="ttc" id="aa01736_html"><div class="ttname"><a href="a01736.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa01748_html_a4b70a57ed7e0341145b4320b1f460a62"><div class="ttname"><a href="a01748.html#a4b70a57ed7e0341145b4320b1f460a62">bl::ecs::Entity</a></div><div class="ttdeci">std::uint32_t Entity</div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition:</b> <a href="a00116_source.html#l00021">Entity.hpp:21</a></div></div>
-<div class="ttc" id="aa02011_html"><div class="ttname"><a href="a02011.html">bl::ecs::ComponentMask</a></div><div class="ttdoc">Helper struct for creating masks representing component types on an entity.</div><div class="ttdef"><b>Definition:</b> <a href="a00104_source.html#l00018">ComponentMask.hpp:18</a></div></div>
-<div class="ttc" id="aa02015_html"><div class="ttname"><a href="a02015.html">bl::ecs::View</a></div><div class="ttdoc">Base definition of the View class. Use the tagged specialization.</div><div class="ttdef"><b>Definition:</b> <a href="a00134_source.html#l00064">View.hpp:64</a></div></div>
-<div class="ttc" id="aa02059_html"><div class="ttname"><a href="a02059.html">bl::ecs::Registry</a></div><div class="ttdoc">This is the main interface of the ECS. This class manages all entities and components and views and s...</div><div class="ttdef"><b>Definition:</b> <a href="a00122_source.html#l00029">Registry.hpp:31</a></div></div>
-<div class="ttc" id="aa02087_html"><div class="ttname"><a href="a02087.html">bl::ecs::priv::ViewBase</a></div><div class="ttdoc">Helper class not to be used directly.</div><div class="ttdef"><b>Definition:</b> <a href="a00134_source.html#l00032">View.hpp:32</a></div></div>
-<div class="ttc" id="aa02087_html_a0ce7bc0595b45ad5c8a136c8fdb0df67"><div class="ttname"><a href="a02087.html#a0ce7bc0595b45ad5c8a136c8fdb0df67">bl::ecs::priv::ViewBase::needsAddressReload</a></div><div class="ttdeci">bool needsAddressReload</div><div class="ttdef"><b>Definition:</b> <a href="a00134_source.html#l00040">View.hpp:40</a></div></div>
-<div class="ttc" id="aa02087_html_a1b85cace86a9ac96e0709123561754d9"><div class="ttname"><a href="a02087.html#a1b85cace86a9ac96e0709123561754d9">bl::ecs::priv::ViewBase::removeEntity</a></div><div class="ttdeci">virtual void removeEntity(Entity entity)=0</div></div>
-<div class="ttc" id="aa02087_html_a5969969dbaaa83ed0713eed8cd35ae17"><div class="ttname"><a href="a02087.html#a5969969dbaaa83ed0713eed8cd35ae17">bl::ecs::priv::ViewBase::~ViewBase</a></div><div class="ttdeci">virtual ~ViewBase()=default</div></div>
-<div class="ttc" id="aa02087_html_a6ce0458f819504dbf9c2b7e5b28401a8"><div class="ttname"><a href="a02087.html#a6ce0458f819504dbf9c2b7e5b28401a8">bl::ecs::priv::ViewBase::clearAndRefresh</a></div><div class="ttdeci">virtual void clearAndRefresh()=0</div></div>
-<div class="ttc" id="aa02087_html_aad663a90cdfb9c7d9f98aaf6ff89a488"><div class="ttname"><a href="a02087.html#aad663a90cdfb9c7d9f98aaf6ff89a488">bl::ecs::priv::ViewBase::ViewBase</a></div><div class="ttdeci">ViewBase(ComponentMask mask, std::type_index id)</div><div class="ttdef"><b>Definition:</b> <a href="a00134_source.html#l00042">View.hpp:42</a></div></div>
-<div class="ttc" id="aa02087_html_aaec4846781fb716ae60bc560bce90dfe"><div class="ttname"><a href="a02087.html#aaec4846781fb716ae60bc560bce90dfe">bl::ecs::priv::ViewBase::mask</a></div><div class="ttdeci">const ComponentMask mask</div><div class="ttdef"><b>Definition:</b> <a href="a00134_source.html#l00035">View.hpp:35</a></div></div>
-<div class="ttc" id="aa02087_html_aafdfd8e3839e65877f319f37996af1aa"><div class="ttname"><a href="a02087.html#aafdfd8e3839e65877f319f37996af1aa">bl::ecs::priv::ViewBase::id</a></div><div class="ttdeci">const std::type_index id</div><div class="ttdef"><b>Definition:</b> <a href="a00134_source.html#l00034">View.hpp:34</a></div></div>
-<div class="ttc" id="aa02087_html_af34b9807e8e8ee6f2b6e6acf2fa90f27"><div class="ttname"><a href="a02087.html#af34b9807e8e8ee6f2b6e6acf2fa90f27">bl::ecs::priv::ViewBase::tryAddEntity</a></div><div class="ttdeci">virtual void tryAddEntity(Entity entity)=0</div></div>
-<div class="ttc" id="aa03739_html"><div class="ttname"><a href="a03739.html">bl::util::NonCopyable</a></div><div class="ttdoc">Helper class to make derived classes impossible for user to copy directly.</div><div class="ttdef"><b>Definition:</b> <a href="a01007_source.html#l00013">NonCopyable.hpp:13</a></div></div>
-<div class="ttc" id="aa04676_html"><div class="ttname"><a href="a04676.html">Events.hpp</a></div></div>
-<div class="ttc" id="aa04700_html"><div class="ttname"><a href="a04700.html">Listener.hpp</a></div></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="a02110.html#a2f13d64da8c9383e8a411a858a91f95d">   71</a></span>&#160;<a class="code" href="a02110.html#a2f13d64da8c9383e8a411a858a91f95d">StableHandle&lt;T&gt;::StableHandle</a>()</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;: pool(nullptr)</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;, entity(<a class="code" href="a01728.html#ga01655307bcb32baf2884e18213123917">InvalidEntity</a>) {}</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="a02110.html#adbe47311bb8c3f185e94ed0b032f8513">   76</a></span>&#160;<a class="code" href="a02110.html#a2f13d64da8c9383e8a411a858a91f95d">StableHandle&lt;T&gt;::StableHandle</a>(<a class="code" href="a02106.html">Registry</a>&amp; registry, <a class="code" href="a01766.html#a84d059ae70a9c854802e3af9a2f373a9">Entity</a> entity) {</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    assign(registry, entity);</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;}</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="a02110.html#a1d2b320aad3ce0ce3a63d696bf22c669">   81</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a02110.html#a1d2b320aad3ce0ce3a63d696bf22c669">StableHandle&lt;T&gt;::valid</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordflow">return</span> pool &amp;&amp; entity != <a class="code" href="a01728.html#ga01655307bcb32baf2884e18213123917">InvalidEntity</a> ? pool-&gt;get(entity) != nullptr : <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;}</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00086"></a><span class="lineno"><a class="line" href="a02110.html#a4c1fec2a740af48c13775dfa91c0e0d4">   86</a></span>&#160;T&amp; <a class="code" href="a02110.html#a4c1fec2a740af48c13775dfa91c0e0d4">StableHandle&lt;T&gt;::get</a>() {</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="preprocessor">#ifdef BLIB_DEBUG</span></div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keywordflow">if</span> (!valid()) { <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Dereferencing invalid ECS handle&quot;</span>); }</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keywordflow">return</span> *pool-&gt;get(entity);</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;}</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00094"></a><span class="lineno"><a class="line" href="a02110.html#ab2f0e90265a8596f9529d1848e4b86b3">   94</a></span>&#160;<span class="keyword">const</span> T&amp; <a class="code" href="a02110.html#a4c1fec2a740af48c13775dfa91c0e0d4">StableHandle&lt;T&gt;::get</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="preprocessor">#ifdef BLIB_DEBUG</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keywordflow">if</span> (!valid()) { <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Dereferencing invalid ECS handle&quot;</span>); }</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keywordflow">return</span> *pool-&gt;get(entity);</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;}</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00102"></a><span class="lineno"><a class="line" href="a02110.html#a932b753428dcb0a5a5b3826766627fb9">  102</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02110.html#a932b753428dcb0a5a5b3826766627fb9">StableHandle&lt;T&gt;::assign</a>(<a class="code" href="a02106.html">Registry</a>&amp; registry, <a class="code" href="a01766.html#a84d059ae70a9c854802e3af9a2f373a9">Entity</a> ent) {</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    pool   = &amp;registry.<a class="code" href="a02106.html#ad2433cd1f5616de65803be33b792657b">getAllComponents</a>&lt;T&gt;();</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    entity = ent;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;}</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00108"></a><span class="lineno"><a class="line" href="a02110.html#a82487b256f75ddf4abc4c9fddd535eb5">  108</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02110.html#a82487b256f75ddf4abc4c9fddd535eb5">StableHandle&lt;T&gt;::release</a>() {</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    pool   = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    entity = <a class="code" href="a01728.html#ga01655307bcb32baf2884e18213123917">InvalidEntity</a>;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;}</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;} <span class="comment">// namespace ecs</span></div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00110_html"><div class="ttname"><a href="a00110.html">ComponentPool.hpp</a></div></div>
+<div class="ttc" id="aa00131_html"><div class="ttname"><a href="a00131.html">Registry.hpp</a></div></div>
+<div class="ttc" id="aa01728_html_ga01655307bcb32baf2884e18213123917"><div class="ttname"><a href="a01728.html#ga01655307bcb32baf2884e18213123917">bl::ecs::InvalidEntity</a></div><div class="ttdeci">constexpr Entity InvalidEntity</div><div class="ttdoc">Special value to indicate that an Entity is not valid.</div><div class="ttdef"><b>Definition:</b> <a href="a00122_source.html#l00029">Entity.hpp:29</a></div></div>
+<div class="ttc" id="aa01754_html"><div class="ttname"><a href="a01754.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa01766_html_a84d059ae70a9c854802e3af9a2f373a9"><div class="ttname"><a href="a01766.html#a84d059ae70a9c854802e3af9a2f373a9">bl::ecs::Entity</a></div><div class="ttdeci">std::uint64_t Entity</div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition:</b> <a href="a00122_source.html#l00021">Entity.hpp:21</a></div></div>
+<div class="ttc" id="aa02058_html"><div class="ttname"><a href="a02058.html">bl::ecs::ComponentPool</a></div><div class="ttdoc">Provides storage and management for components in the ECS. Used internally in the Registry.</div><div class="ttdef"><b>Definition:</b> <a href="a00110_source.html#l00069">ComponentPool.hpp:69</a></div></div>
+<div class="ttc" id="aa02106_html"><div class="ttname"><a href="a02106.html">bl::ecs::Registry</a></div><div class="ttdoc">This is the main interface of the ECS. This class manages all entities and components and views and s...</div><div class="ttdef"><b>Definition:</b> <a href="a00131_source.html#l00031">Registry.hpp:33</a></div></div>
+<div class="ttc" id="aa02106_html_ad2433cd1f5616de65803be33b792657b"><div class="ttname"><a href="a02106.html#ad2433cd1f5616de65803be33b792657b">bl::ecs::Registry::getAllComponents</a></div><div class="ttdeci">ComponentPool&lt; T &gt; &amp; getAllComponents()</div><div class="ttdoc">Returns an iterable component pool for the given component type.</div><div class="ttdef"><b>Definition:</b> <a href="a00131_source.html#l00355">Registry.hpp:355</a></div></div>
+<div class="ttc" id="aa02110_html"><div class="ttname"><a href="a02110.html">bl::ecs::StableHandle</a></div><div class="ttdoc">Utility class to maintain a stable pointer to a component even if the pool is resizable.</div><div class="ttdef"><b>Definition:</b> <a href="a00134_source.html#l00020">StableHandle.hpp:20</a></div></div>
+<div class="ttc" id="aa02110_html_a1d2b320aad3ce0ce3a63d696bf22c669"><div class="ttname"><a href="a02110.html#a1d2b320aad3ce0ce3a63d696bf22c669">bl::ecs::StableHandle::valid</a></div><div class="ttdeci">bool valid() const</div><div class="ttdoc">Returns whether or not the handle can be used.</div><div class="ttdef"><b>Definition:</b> <a href="a00134_source.html#l00081">StableHandle.hpp:81</a></div></div>
+<div class="ttc" id="aa02110_html_a2f13d64da8c9383e8a411a858a91f95d"><div class="ttname"><a href="a02110.html#a2f13d64da8c9383e8a411a858a91f95d">bl::ecs::StableHandle::StableHandle</a></div><div class="ttdeci">StableHandle()</div><div class="ttdoc">Creates an empty handle.</div><div class="ttdef"><b>Definition:</b> <a href="a00134_source.html#l00071">StableHandle.hpp:71</a></div></div>
+<div class="ttc" id="aa02110_html_a4c1fec2a740af48c13775dfa91c0e0d4"><div class="ttname"><a href="a02110.html#a4c1fec2a740af48c13775dfa91c0e0d4">bl::ecs::StableHandle::get</a></div><div class="ttdeci">T &amp; get()</div><div class="ttdoc">Returns the component the handle points to. Must be valid.</div><div class="ttdef"><b>Definition:</b> <a href="a00134_source.html#l00086">StableHandle.hpp:86</a></div></div>
+<div class="ttc" id="aa02110_html_a82487b256f75ddf4abc4c9fddd535eb5"><div class="ttname"><a href="a02110.html#a82487b256f75ddf4abc4c9fddd535eb5">bl::ecs::StableHandle::release</a></div><div class="ttdeci">void release()</div><div class="ttdoc">Invalidates the handle. Does not remove the component.</div><div class="ttdef"><b>Definition:</b> <a href="a00134_source.html#l00108">StableHandle.hpp:108</a></div></div>
+<div class="ttc" id="aa02110_html_a932b753428dcb0a5a5b3826766627fb9"><div class="ttname"><a href="a02110.html#a932b753428dcb0a5a5b3826766627fb9">bl::ecs::StableHandle::assign</a></div><div class="ttdeci">void assign(Registry &amp;registry, Entity entity)</div><div class="ttdoc">Creates a handle to the component of type T for the given entity.</div><div class="ttdef"><b>Definition:</b> <a href="a00134_source.html#l00102">StableHandle.hpp:102</a></div></div>
+<div class="ttc" id="aa02110_html_ab2f0e90265a8596f9529d1848e4b86b3"><div class="ttname"><a href="a02110.html#ab2f0e90265a8596f9529d1848e4b86b3">bl::ecs::StableHandle::get</a></div><div class="ttdeci">const T &amp; get() const</div><div class="ttdoc">Returns the component the handle points to. Must be valid.</div><div class="ttdef"><b>Definition:</b> <a href="a00134_source.html#l00094">StableHandle.hpp:94</a></div></div>
+<div class="ttc" id="aa02110_html_adbe47311bb8c3f185e94ed0b032f8513"><div class="ttname"><a href="a02110.html#adbe47311bb8c3f185e94ed0b032f8513">bl::ecs::StableHandle::StableHandle</a></div><div class="ttdeci">StableHandle(Registry &amp;registry, Entity entity)</div><div class="ttdoc">Creates a handle to the component of type T for the given entity.</div><div class="ttdef"><b>Definition:</b> <a href="a00134_source.html#l00076">StableHandle.hpp:76</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 25 2023 19:26:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Sep 10 2023 23:10:21 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

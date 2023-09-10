@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Interfaces/Menu.hpp Source File</title>
+<title>BLIB: include/BLIB/Interfaces/Menu/Items/ImageItem.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,52 +66,73 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4a89db2e42278000e6aac6ace9db278e.html">Interfaces</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4a89db2e42278000e6aac6ace9db278e.html">Interfaces</a></li><li class="navelem"><a class="el" href="dir_e645930b0d1a2310fc6bb1d1038eb64b.html">Menu</a></li><li class="navelem"><a class="el" href="dir_fe1d2d20871395ed290489bc84d47034.html">Items</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Menu.hpp</div>  </div>
+<div class="title">ImageItem.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00398.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_INTERFACES_MENU_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_INTERFACES_MENU_HPP</span></div>
+<a href="a00398.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_MENU_ITEMS_IMAGEITEM_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_MENU_ITEMS_IMAGEITEM_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00371.html">BLIB/Interfaces/Menu/Drivers/KeyboardDriver.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00374.html">BLIB/Interfaces/Menu/Drivers/MouseDriver.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00377.html">BLIB/Interfaces/Menu/Drivers/MovementDriver.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00380.html">BLIB/Interfaces/Menu/Drivers/TriggerDriver.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a04718.html">BLIB/Interfaces/Menu/Event.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00383.html">BLIB/Interfaces/Menu/Item.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00386.html">BLIB/Interfaces/Menu/Items/ImageItem.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00389.html">BLIB/Interfaces/Menu/Items/SubmenuItem.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00392.html">BLIB/Interfaces/Menu/Items/TextItem.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00395.html">BLIB/Interfaces/Menu/Items/ToggleTextItem.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a04736.html">BLIB/Interfaces/Menu/Menu.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00401.html">BLIB/Interfaces/Menu/Selector.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00404.html">BLIB/Interfaces/Menu/Selectors/ArrowSelector.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00407.html">BLIB/Interfaces/Menu/Selectors/NoSelector.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00371_html"><div class="ttname"><a href="a00371.html">KeyboardDriver.hpp</a></div></div>
-<div class="ttc" id="aa00374_html"><div class="ttname"><a href="a00374.html">MouseDriver.hpp</a></div></div>
-<div class="ttc" id="aa00377_html"><div class="ttname"><a href="a00377.html">MovementDriver.hpp</a></div></div>
-<div class="ttc" id="aa00380_html"><div class="ttname"><a href="a00380.html">TriggerDriver.hpp</a></div></div>
-<div class="ttc" id="aa00383_html"><div class="ttname"><a href="a00383.html">Item.hpp</a></div></div>
-<div class="ttc" id="aa00386_html"><div class="ttname"><a href="a00386.html">ImageItem.hpp</a></div></div>
-<div class="ttc" id="aa00389_html"><div class="ttname"><a href="a00389.html">SubmenuItem.hpp</a></div></div>
-<div class="ttc" id="aa00392_html"><div class="ttname"><a href="a00392.html">TextItem.hpp</a></div></div>
-<div class="ttc" id="aa00395_html"><div class="ttname"><a href="a00395.html">ToggleTextItem.hpp</a></div></div>
-<div class="ttc" id="aa00401_html"><div class="ttname"><a href="a00401.html">Selector.hpp</a></div></div>
-<div class="ttc" id="aa00404_html"><div class="ttname"><a href="a00404.html">ArrowSelector.hpp</a></div></div>
-<div class="ttc" id="aa00407_html"><div class="ttname"><a href="a00407.html">NoSelector.hpp</a></div></div>
-<div class="ttc" id="aa04718_html"><div class="ttname"><a href="a04718.html">Event.hpp</a></div></div>
-<div class="ttc" id="aa04736_html"><div class="ttname"><a href="a04736.html">Menu.hpp</a></div></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00395.html">BLIB/Interfaces/Menu/Item.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00881.html">BLIB/Resources.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;SFML/Graphics/Sprite.hpp&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01754.html">bl</a></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>menu</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a02562.html">   18</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02562.html">ImageItem</a> : <span class="keyword">public</span> <a class="code" href="a02558.html">Item</a> {</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a02562.html#a372990cfe7881edc72052935d5f65eef">   20</a></span>&#160;    <span class="keyword">typedef</span> std::shared_ptr&lt;ImageItem&gt; <a class="code" href="a02562.html#a372990cfe7881edc72052935d5f65eef">Ptr</a>;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">static</span> <a class="code" href="a02558.html#ac09f75d0ea24baafc88f39b9e30e20ce">Ptr</a> <a class="code" href="a02562.html#aa2b8b146810add54867807c9f115ec35">create</a>(<span class="keyword">const</span> <a class="code" href="a03362.html">resource::Ref&lt;sf::Texture&gt;</a>&amp; texture);</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="a02562.html#a707ba69edf9a66bcc929f1e7f9cb96fc">   32</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02562.html#a707ba69edf9a66bcc929f1e7f9cb96fc">~ImageItem</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    sf::Sprite&amp; <a class="code" href="a02562.html#af04a90ecd2046795de1ae4e23ea125bf">getSprite</a>();</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02562.html#a6d224ec61dcdcd74b9581cb4aaf1cd65">setTexture</a>(<span class="keyword">const</span> <a class="code" href="a03362.html">resource::Ref&lt;sf::Texture&gt;</a>&amp; texture);</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keyword">virtual</span> sf::Vector2f <a class="code" href="a02562.html#ae57a463a145219f999e51a0dfe8ba18e">getSize</a>() <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02562.html#ab9085c109af32c30e0532de3196cab46">render</a>(sf::RenderTarget&amp; target, sf::RenderStates states,</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                        <span class="keyword">const</span> sf::Vector2f&amp; position) <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <a class="code" href="a03362.html">resource::Ref&lt;sf::Texture&gt;</a> texture;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    sf::Sprite sprite;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <a class="code" href="a02562.html">ImageItem</a>(<span class="keyword">const</span> <a class="code" href="a03362.html">resource::Ref&lt;sf::Texture&gt;</a>&amp; texture);</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;};</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;} <span class="comment">// namespace menu</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00395_html"><div class="ttname"><a href="a00395.html">Item.hpp</a></div></div>
+<div class="ttc" id="aa00881_html"><div class="ttname"><a href="a00881.html">Resources.hpp</a></div></div>
+<div class="ttc" id="aa01754_html"><div class="ttname"><a href="a01754.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02558_html"><div class="ttname"><a href="a02558.html">bl::menu::Item</a></div><div class="ttdoc">Item for a mouseless menu. Can be 'attached' to other items in a Menu, configured to be selectable,...</div><div class="ttdef"><b>Definition:</b> <a href="a00395_source.html#l00025">Item.hpp:25</a></div></div>
+<div class="ttc" id="aa02558_html_ac09f75d0ea24baafc88f39b9e30e20ce"><div class="ttname"><a href="a02558.html#ac09f75d0ea24baafc88f39b9e30e20ce">bl::menu::Item::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; Item &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00395_source.html#l00027">Item.hpp:27</a></div></div>
+<div class="ttc" id="aa02562_html"><div class="ttname"><a href="a02562.html">bl::menu::ImageItem</a></div><div class="ttdoc">RenderItem for displaying sprites in a Menu.</div><div class="ttdef"><b>Definition:</b> <a href="a00398_source.html#l00018">ImageItem.hpp:18</a></div></div>
+<div class="ttc" id="aa02562_html_a372990cfe7881edc72052935d5f65eef"><div class="ttname"><a href="a02562.html#a372990cfe7881edc72052935d5f65eef">bl::menu::ImageItem::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; ImageItem &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00398_source.html#l00020">ImageItem.hpp:20</a></div></div>
+<div class="ttc" id="aa02562_html_a6d224ec61dcdcd74b9581cb4aaf1cd65"><div class="ttname"><a href="a02562.html#a6d224ec61dcdcd74b9581cb4aaf1cd65">bl::menu::ImageItem::setTexture</a></div><div class="ttdeci">void setTexture(const resource::Ref&lt; sf::Texture &gt; &amp;texture)</div><div class="ttdoc">Changes the texture of this image. Does not trigger a menu refresh.</div><div class="ttdef"><b>Definition:</b> <a href="a01289_source.html#l00017">ImageItem.cpp:17</a></div></div>
+<div class="ttc" id="aa02562_html_a707ba69edf9a66bcc929f1e7f9cb96fc"><div class="ttname"><a href="a02562.html#a707ba69edf9a66bcc929f1e7f9cb96fc">bl::menu::ImageItem::~ImageItem</a></div><div class="ttdeci">virtual ~ImageItem()=default</div><div class="ttdoc">Destroy the Image Item object.</div></div>
+<div class="ttc" id="aa02562_html_aa2b8b146810add54867807c9f115ec35"><div class="ttname"><a href="a02562.html#aa2b8b146810add54867807c9f115ec35">bl::menu::ImageItem::create</a></div><div class="ttdeci">static Ptr create(const resource::Ref&lt; sf::Texture &gt; &amp;texture)</div><div class="ttdoc">Create the render item from a sprite.</div><div class="ttdef"><b>Definition:</b> <a href="a01289_source.html#l00007">ImageItem.cpp:7</a></div></div>
+<div class="ttc" id="aa02562_html_ab9085c109af32c30e0532de3196cab46"><div class="ttname"><a href="a02562.html#ab9085c109af32c30e0532de3196cab46">bl::menu::ImageItem::render</a></div><div class="ttdeci">virtual void render(sf::RenderTarget &amp;target, sf::RenderStates states, const sf::Vector2f &amp;position) const override</div><div class="ttdef"><b>Definition:</b> <a href="a01289_source.html#l00026">ImageItem.cpp:26</a></div></div>
+<div class="ttc" id="aa02562_html_ae57a463a145219f999e51a0dfe8ba18e"><div class="ttname"><a href="a02562.html#ae57a463a145219f999e51a0dfe8ba18e">bl::menu::ImageItem::getSize</a></div><div class="ttdeci">virtual sf::Vector2f getSize() const override</div><div class="ttdef"><b>Definition:</b> <a href="a01289_source.html#l00022">ImageItem.cpp:22</a></div></div>
+<div class="ttc" id="aa02562_html_af04a90ecd2046795de1ae4e23ea125bf"><div class="ttname"><a href="a02562.html#af04a90ecd2046795de1ae4e23ea125bf">bl::menu::ImageItem::getSprite</a></div><div class="ttdeci">sf::Sprite &amp; getSprite()</div><div class="ttdoc">Returns a modifiable reference to the contained sprite.</div><div class="ttdef"><b>Definition:</b> <a href="a01289_source.html#l00015">ImageItem.cpp:15</a></div></div>
+<div class="ttc" id="aa03362_html"><div class="ttname"><a href="a03362.html">bl::resource::Ref&lt; sf::Texture &gt;</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 25 2023 19:26:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Sep 10 2023 23:10:21 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Systems</title>
+<title>BLIB: Cameras</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -67,153 +67,58 @@ $(function() {
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#typedef-members">Typedefs</a>  </div>
+<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">Systems</div>  </div>
+<div class="title">Cameras</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Built-in engine systems.  
+<p>Cameras that may be used with the renderer.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03671.html">bl::sys::DescriptorComponentSystem&lt; TCom, TPayload &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Templated system for managing ECS components that sync into renderer descriptor sets. Components should derive from DescriptorComponentBase.  <a href="a03671.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01870.html">bl::cam::c2d::CameraShake</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01910.html" title="Base class for all cameras.">Camera</a> affector that shakes the view.  <a href="a01870.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02991.html">bl::sys::DrawableSystem&lt; T &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for renderer systems that manage scene objects in the ECS. Custom renderable types should have a system that inherits from this class that manages their membership within scenes. These systems should run in the <a class="el" href="a02131.html#af6ea181be91b7069f9f52557a1445e1aa3f81ee2718a9735d701d01e03039048d" title="Synchronizes objects from the ECS into the scene-local object buffers.">engine::FrameStage::RenderObjectSync</a> step.  <a href="a02991.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01874.html">bl::cam::Camera2D</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01910.html" title="Base class for all cameras.">Camera</a> for 2d scenes.  <a href="a01874.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03679.html">bl::sys::OverlayScalerSystem</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">System that processes entities that are scaled for overlays. Keeps scales up-to-date as overlay size changes.  <a href="a03679.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01878.html">bl::cam::CameraAffector2D</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for affectors that can be applied to 2d cameras. An affecter modifies the behavior of the camera without modifying the underlying camera. This allows affectors to be removed without having to worry about undoing their changes.  <a href="a01878.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03683.html">bl::sys::RendererUpdateSystem</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">System that updates all observer cameras and task graphs while the renderer is waiting on the prior frame to complete.  <a href="a03683.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01882.html">bl::cam::CameraController2D</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for 2d camera controllers.  <a href="a01882.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03687.html">bl::sys::RenderSystem</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">System that triggers the renderer each frame.  <a href="a03687.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01886.html">bl::cam::c2d::ConstrainedFollower</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">2d camera controller that centers a camera on an entity while keeping the visible region constrained to a given region. If the camera view is too large it centers on the region  <a href="a01886.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03691.html">bl::sys::TextSyncSystem</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simple system which ensures that Text geometry stays updated.  <a href="a03691.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01890.html">bl::cam::c3d::CameraShake</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01910.html" title="Base class for all cameras.">Camera</a> affector that shakes the view.  <a href="a01890.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:gac818e5c6ace18f20d9f03da1ad8ebe41"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01725.html#gac818e5c6ace18f20d9f03da1ad8ebe41">bl::sys::Transform2DDescriptorSystem</a> = <a class="el" href="a03671.html">DescriptorComponentSystem</a>&lt; <a class="el" href="a01919.html">com::Transform2D</a>, glm::mat4 &gt;</td></tr>
-<tr class="memdesc:gac818e5c6ace18f20d9f03da1ad8ebe41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Descriptor component system for 2d transforms.  <a href="a01725.html#gac818e5c6ace18f20d9f03da1ad8ebe41">More...</a><br /></td></tr>
-<tr class="separator:gac818e5c6ace18f20d9f03da1ad8ebe41"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8de8e24f3a0b8643626494bcd58a745c"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01725.html#ga8de8e24f3a0b8643626494bcd58a745c">bl::sys::Transform3DDescriptorSystem</a> = <a class="el" href="a03671.html">DescriptorComponentSystem</a>&lt; <a class="el" href="a01923.html">com::Transform3D</a>, glm::mat4 &gt;</td></tr>
-<tr class="memdesc:ga8de8e24f3a0b8643626494bcd58a745c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Descriptor component system for 3d transforms.  <a href="a01725.html#ga8de8e24f3a0b8643626494bcd58a745c">More...</a><br /></td></tr>
-<tr class="separator:ga8de8e24f3a0b8643626494bcd58a745c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga11d6ea46ca8a7d452ae7049bf7948c21"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01725.html#ga11d6ea46ca8a7d452ae7049bf7948c21">bl::sys::TextureDescriptorSystem</a> = <a class="el" href="a03671.html">DescriptorComponentSystem</a>&lt; <a class="el" href="a01915.html">com::Texture</a>, std::uint32_t &gt;</td></tr>
-<tr class="memdesc:ga11d6ea46ca8a7d452ae7049bf7948c21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Descriptor component system for textures.  <a href="a01725.html#ga11d6ea46ca8a7d452ae7049bf7948c21">More...</a><br /></td></tr>
-<tr class="separator:ga11d6ea46ca8a7d452ae7049bf7948c21"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga4477117aea35eeac21751bf038a0098b"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01725.html#ga4477117aea35eeac21751bf038a0098b">bl::sys::MeshSystem</a> = <a class="el" href="a02991.html">DrawableSystem</a>&lt; <a class="el" href="a01895.html">com::Mesh</a> &gt;</td></tr>
-<tr class="memdesc:ga4477117aea35eeac21751bf038a0098b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Engine system for managing entity meshes.  <a href="a01725.html#ga4477117aea35eeac21751bf038a0098b">More...</a><br /></td></tr>
-<tr class="separator:ga4477117aea35eeac21751bf038a0098b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga68bd85b37280b05c447083208d4079f7"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01725.html#ga68bd85b37280b05c447083208d4079f7">bl::sys::SpriteSystem</a> = <a class="el" href="a02991.html">DrawableSystem</a>&lt; <a class="el" href="a01911.html">com::Sprite</a> &gt;</td></tr>
-<tr class="memdesc:ga68bd85b37280b05c447083208d4079f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Engine system for managing entity sprites.  <a href="a01725.html#ga68bd85b37280b05c447083208d4079f7">More...</a><br /></td></tr>
-<tr class="separator:ga68bd85b37280b05c447083208d4079f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01894.html">bl::cam::Camera3D</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01910.html" title="Base class for all cameras.">Camera</a> for 3d scenes.  <a href="a01894.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01898.html">bl::cam::CameraAffector3D</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for affectors that can be applied to 3d cameras. An affecter modifies the behavior of the camera without modifying the underlying camera. This allows affectors to be removed without having to worry about undoing their changes.  <a href="a01898.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01902.html">bl::cam::CameraController3D</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for 3d camera controllers.  <a href="a01902.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01906.html">bl::cam::c3d::OrbiterController</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic controller for 3d cameras that orbits a center point.  <a href="a01906.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01910.html">bl::cam::Camera</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for all cameras.  <a href="a01910.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<p>Built-in engine systems. </p>
-<h2 class="groupheader">Typedef Documentation</h2>
-<a id="ga4477117aea35eeac21751bf038a0098b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga4477117aea35eeac21751bf038a0098b">&#9670;&nbsp;</a></span>MeshSystem</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a01725.html#ga4477117aea35eeac21751bf038a0098b">bl::sys::MeshSystem</a> = typedef <a class="el" href="a02991.html">DrawableSystem</a>&lt;<a class="el" href="a01895.html">com::Mesh</a>&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Engine system for managing entity meshes. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00962_source.html#l00017">17</a> of file <a class="el" href="a00962_source.html">BuiltinDrawableSystems.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ga68bd85b37280b05c447083208d4079f7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga68bd85b37280b05c447083208d4079f7">&#9670;&nbsp;</a></span>SpriteSystem</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a01725.html#ga68bd85b37280b05c447083208d4079f7">bl::sys::SpriteSystem</a> = typedef <a class="el" href="a02991.html">DrawableSystem</a>&lt;<a class="el" href="a01911.html">com::Sprite</a>&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Engine system for managing entity sprites. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00962_source.html#l00024">24</a> of file <a class="el" href="a00962_source.html">BuiltinDrawableSystems.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ga11d6ea46ca8a7d452ae7049bf7948c21"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga11d6ea46ca8a7d452ae7049bf7948c21">&#9670;&nbsp;</a></span>TextureDescriptorSystem</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a01725.html#ga11d6ea46ca8a7d452ae7049bf7948c21">bl::sys::TextureDescriptorSystem</a> = typedef <a class="el" href="a03671.html">DescriptorComponentSystem</a>&lt;<a class="el" href="a01915.html">com::Texture</a>, std::uint32_t&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Descriptor component system for textures. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00959_source.html#l00030">30</a> of file <a class="el" href="a00959_source.html">BuiltinDescriptorComponentSystems.hpp</a>.</p>
-
-</div>
-</div>
-<a id="gac818e5c6ace18f20d9f03da1ad8ebe41"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gac818e5c6ace18f20d9f03da1ad8ebe41">&#9670;&nbsp;</a></span>Transform2DDescriptorSystem</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a01725.html#gac818e5c6ace18f20d9f03da1ad8ebe41">bl::sys::Transform2DDescriptorSystem</a> = typedef <a class="el" href="a03671.html">DescriptorComponentSystem</a>&lt;<a class="el" href="a01919.html">com::Transform2D</a>, glm::mat4&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Descriptor component system for 2d transforms. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00959_source.html#l00018">18</a> of file <a class="el" href="a00959_source.html">BuiltinDescriptorComponentSystems.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ga8de8e24f3a0b8643626494bcd58a745c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga8de8e24f3a0b8643626494bcd58a745c">&#9670;&nbsp;</a></span>Transform3DDescriptorSystem</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a01725.html#ga8de8e24f3a0b8643626494bcd58a745c">bl::sys::Transform3DDescriptorSystem</a> = typedef <a class="el" href="a03671.html">DescriptorComponentSystem</a>&lt;<a class="el" href="a01923.html">com::Transform3D</a>, glm::mat4&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Descriptor component system for 3d transforms. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00959_source.html#l00024">24</a> of file <a class="el" href="a00959_source.html">BuiltinDescriptorComponentSystems.hpp</a>.</p>
-
-</div>
-</div>
+<p>Cameras that may be used with the renderer. </p>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 25 2023 19:26:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Sep 10 2023 23:10:23 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

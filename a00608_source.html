@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Graph/AssetRef.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Graph/Asset.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,102 +71,103 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">AssetRef.hpp</div>  </div>
+<div class="title">Asset.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00608.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_GRAPH_ASSETREF_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_GRAPH_ASSETREF_HPP</span></div>
+<a href="a00608.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_GRAPH_ASSET_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_GRAPH_ASSET_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00596.html">BLIB/Render/Graph/Asset.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01736.html">bl</a></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00638.html">BLIB/Render/Graph/ExecutionContext.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;string_view&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01754.html">bl</a></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>rg</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>engine</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a02827.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02827.html">AssetRef</a> {</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a02827.html#a5a81c661cbf6ea266a7fa88547a7acaa">   22</a></span>&#160;    <a class="code" href="a02827.html#a5a81c661cbf6ea266a7fa88547a7acaa">AssetRef</a>()</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    : asset(nullptr) {}</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a02827.html#a118ed65194e08a2947b3fe139cec8cff">   30</a></span>&#160;    <a class="code" href="a02827.html#a118ed65194e08a2947b3fe139cec8cff">AssetRef</a>(<a class="code" href="a02811.html">Asset</a>* asset)</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    : asset(asset) {</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        ++asset-&gt;refCount;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    }</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="a02827.html#aed4703553ade357ce0514c67c6061fea">   40</a></span>&#160;    <a class="code" href="a02827.html#aed4703553ade357ce0514c67c6061fea">AssetRef</a>(<span class="keyword">const</span> <a class="code" href="a02827.html">AssetRef</a>&amp; copy)</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    : asset(copy.asset) {</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="a02827.html#a018eba88559d0db5c313a1aaf3a94e57">valid</a>()) ++asset-&gt;refCount;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    }</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="a02827.html#a2747cde93ed5512f614f888359e7dede">   50</a></span>&#160;    <a class="code" href="a02827.html#a2747cde93ed5512f614f888359e7dede">AssetRef</a>(<a class="code" href="a02827.html">AssetRef</a>&amp;&amp; move) noexcept</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    : asset(move.asset) {</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        move.asset = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    }</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="a02827.html#a068183cd30a4f7d52ba6d164bc54057c">   58</a></span>&#160;    <a class="code" href="a02827.html#a068183cd30a4f7d52ba6d164bc54057c">~AssetRef</a>() {</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="a02827.html#a018eba88559d0db5c313a1aaf3a94e57">valid</a>()) --asset-&gt;refCount;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    }</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="a02827.html#a57ee2190d410ab5aec2ec5c4cbcff890">   68</a></span>&#160;    <a class="code" href="a02827.html">AssetRef</a>&amp; <a class="code" href="a02827.html#a57ee2190d410ab5aec2ec5c4cbcff890">operator=</a>(<span class="keyword">const</span> <a class="code" href="a02827.html">AssetRef</a>&amp; copy) {</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        asset = copy.asset;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="a02827.html#a018eba88559d0db5c313a1aaf3a94e57">valid</a>()) ++asset-&gt;refCount;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    }</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">class </span>Engine;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;}</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">class </span>Renderer;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">class </span>Observer;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a01799.html">   20</a></span>&#160;<span class="keyword">namespace </span>rg</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;{</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">class </span><a class="code" href="a02878.html">AssetRef</a>;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">class </span><a class="code" href="a02870.html">AssetPool</a>;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">class </span><a class="code" href="a02910.html">GraphAssetPool</a>;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">class </span><a class="code" href="a02918.html">RenderGraph</a>;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="a02862.html">   32</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02862.html">Asset</a> {</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="a02862.html#a364f0ec0f68e25d421423d023294bfbf">   37</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02862.html#a364f0ec0f68e25d421423d023294bfbf">~Asset</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="a02862.html#a5c8499ec4bafae0119028310732e4f0b">   46</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02862.html#a5c8499ec4bafae0119028310732e4f0b">doCreate</a>(<a class="code" href="a02150.html">engine::Engine</a>&amp; engine, <a class="code" href="a02998.html">Renderer</a>&amp; renderer, <a class="code" href="a02962.html">Observer</a>* observer) = 0;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="a02862.html#ab78fbbf18304eeb57015200c5e7b60b1">   54</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02862.html#ab78fbbf18304eeb57015200c5e7b60b1">doPrepareForInput</a>(<span class="keyword">const</span> <a class="code" href="a02902.html">ExecutionContext</a>&amp; context) = 0;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="a02862.html#ac4f55b304bd6b766189a129fdef93fec">   62</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02862.html#ac4f55b304bd6b766189a129fdef93fec">doPrepareForOutput</a>(<span class="keyword">const</span> <a class="code" href="a02902.html">ExecutionContext</a>&amp; context) = 0;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="a02862.html#a3df08d0a98f5610cd407847d32b817c9">   67</a></span>&#160;    constexpr std::string_view <a class="code" href="a02862.html#a3df08d0a98f5610cd407847d32b817c9">getTag</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> tag; }</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="a02862.html#ae8616549439d5f18e19a25f3a898a306">   72</a></span>&#160;    constexpr <span class="keywordtype">bool</span> <a class="code" href="a02862.html#ae8616549439d5f18e19a25f3a898a306">isExternal</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> external; }</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="a02827.html#a2d7218499c1d4ad8f9f925e49c2a4924">   80</a></span>&#160;    <a class="code" href="a02827.html">AssetRef</a>&amp; <a class="code" href="a02827.html#a2d7218499c1d4ad8f9f925e49c2a4924">operator=</a>(<a class="code" href="a02827.html">AssetRef</a>&amp;&amp; move) noexcept {</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        asset      = move.asset;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        move.asset = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    }</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
-<div class="line"><a name="l00089"></a><span class="lineno"><a class="line" href="a02827.html#a0010d2bf1a97f082ed213c406d48b35a">   89</a></span>&#160;    constexpr <a class="code" href="a02811.html">Asset</a>&amp; <a class="code" href="a02827.html#a0010d2bf1a97f082ed213c406d48b35a">operator*</a>() { <span class="keywordflow">return</span> *asset; }</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00094"></a><span class="lineno"><a class="line" href="a02827.html#a56d4383016da0209585891b8a184eabd">   94</a></span>&#160;    constexpr <span class="keyword">const</span> <a class="code" href="a02811.html">Asset</a>&amp; <a class="code" href="a02827.html#a56d4383016da0209585891b8a184eabd">operator*</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> *asset; }</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <a class="code" href="a02862.html#ab984db5a4ee19a0df80425a62a9917bb">Asset</a>(std::string_view tag);</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keyword">enum struct</span> InputMode { Unset, Input, Output };</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    std::string_view tag;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keywordtype">bool</span> created;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> refCount;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    std::vector&lt;GraphAssetPool*&gt; owners;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    InputMode mode;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keywordtype">bool</span> external;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keywordtype">void</span> create(<a class="code" href="a02150.html">engine::Engine</a>&amp; engine, <a class="code" href="a02998.html">Renderer</a>&amp; renderer, <a class="code" href="a02962.html">Observer</a>* observer);</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keywordtype">void</span> prepareForInput(<span class="keyword">const</span> ExecutionContext&amp; ctx);</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keywordtype">void</span> prepareForOutput(<span class="keyword">const</span> ExecutionContext&amp; ctx);</div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
-<div class="line"><a name="l00099"></a><span class="lineno"><a class="line" href="a02827.html#a39431b0e67ae91da95e4792b9784674e">   99</a></span>&#160;    constexpr <a class="code" href="a02811.html">Asset</a>* <a class="code" href="a02827.html#a39431b0e67ae91da95e4792b9784674e">operator-&gt;</a>() { <span class="keywordflow">return</span> asset; }</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
-<div class="line"><a name="l00104"></a><span class="lineno"><a class="line" href="a02827.html#a780d84d87a5abfcb7c992129ef278e9b">  104</a></span>&#160;    constexpr <span class="keyword">const</span> <a class="code" href="a02811.html">Asset</a>* <a class="code" href="a02827.html#a780d84d87a5abfcb7c992129ef278e9b">operator-&gt;</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> asset; }</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
-<div class="line"><a name="l00109"></a><span class="lineno"><a class="line" href="a02827.html#a018eba88559d0db5c313a1aaf3a94e57">  109</a></span>&#160;    constexpr <span class="keywordtype">bool</span> <a class="code" href="a02827.html#a018eba88559d0db5c313a1aaf3a94e57">valid</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> asset != <span class="keyword">nullptr</span>; }</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
-<div class="line"><a name="l00114"></a><span class="lineno"><a class="line" href="a02827.html#a6ba809ef24b6d325b1592edebe692361">  114</a></span>&#160;    constexpr <a class="code" href="a02811.html">Asset</a>&amp; <a class="code" href="a02827.html#a6ba809ef24b6d325b1592edebe692361">get</a>() { <span class="keywordflow">return</span> *asset; }</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
-<div class="line"><a name="l00119"></a><span class="lineno"><a class="line" href="a02827.html#ab1a92fc298530980a664dc57461129d8">  119</a></span>&#160;    constexpr <span class="keyword">const</span> <a class="code" href="a02811.html">Asset</a>&amp; <a class="code" href="a02827.html#ab1a92fc298530980a664dc57461129d8">get</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> *asset; }</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    <a class="code" href="a02811.html">Asset</a>* asset;</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;};</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160; </div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;} <span class="comment">// namespace rg</span></div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160; </div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00596_html"><div class="ttname"><a href="a00596.html">Asset.hpp</a></div></div>
-<div class="ttc" id="aa01736_html"><div class="ttname"><a href="a01736.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02811_html"><div class="ttname"><a href="a02811.html">bl::rc::rg::Asset</a></div><div class="ttdoc">Base class for assets in render graphs.</div><div class="ttdef"><b>Definition:</b> <a href="a00596_source.html#l00032">Asset.hpp:32</a></div></div>
-<div class="ttc" id="aa02827_html"><div class="ttname"><a href="a02827.html">bl::rc::rg::AssetRef</a></div><div class="ttdoc">Handle to an asset in an AssetPool.</div><div class="ttdef"><b>Definition:</b> <a href="a00608_source.html#l00017">AssetRef.hpp:17</a></div></div>
-<div class="ttc" id="aa02827_html_a0010d2bf1a97f082ed213c406d48b35a"><div class="ttname"><a href="a02827.html#a0010d2bf1a97f082ed213c406d48b35a">bl::rc::rg::AssetRef::operator*</a></div><div class="ttdeci">constexpr Asset &amp; operator*()</div><div class="ttdoc">Dereferences the handle.</div><div class="ttdef"><b>Definition:</b> <a href="a00608_source.html#l00089">AssetRef.hpp:89</a></div></div>
-<div class="ttc" id="aa02827_html_a018eba88559d0db5c313a1aaf3a94e57"><div class="ttname"><a href="a02827.html#a018eba88559d0db5c313a1aaf3a94e57">bl::rc::rg::AssetRef::valid</a></div><div class="ttdeci">constexpr bool valid() const</div><div class="ttdoc">Returns whether or not the handle is valid. Only valid handles should be dereferenced.</div><div class="ttdef"><b>Definition:</b> <a href="a00608_source.html#l00109">AssetRef.hpp:109</a></div></div>
-<div class="ttc" id="aa02827_html_a068183cd30a4f7d52ba6d164bc54057c"><div class="ttname"><a href="a02827.html#a068183cd30a4f7d52ba6d164bc54057c">bl::rc::rg::AssetRef::~AssetRef</a></div><div class="ttdeci">~AssetRef()</div><div class="ttdoc">Decrements the ref count on the underlying asset if any.</div><div class="ttdef"><b>Definition:</b> <a href="a00608_source.html#l00058">AssetRef.hpp:58</a></div></div>
-<div class="ttc" id="aa02827_html_a118ed65194e08a2947b3fe139cec8cff"><div class="ttname"><a href="a02827.html#a118ed65194e08a2947b3fe139cec8cff">bl::rc::rg::AssetRef::AssetRef</a></div><div class="ttdeci">AssetRef(Asset *asset)</div><div class="ttdoc">Creates a handle to the given asset.</div><div class="ttdef"><b>Definition:</b> <a href="a00608_source.html#l00030">AssetRef.hpp:30</a></div></div>
-<div class="ttc" id="aa02827_html_a2747cde93ed5512f614f888359e7dede"><div class="ttname"><a href="a02827.html#a2747cde93ed5512f614f888359e7dede">bl::rc::rg::AssetRef::AssetRef</a></div><div class="ttdeci">AssetRef(AssetRef &amp;&amp;move) noexcept</div><div class="ttdoc">Assumes ownership from the given handle.</div><div class="ttdef"><b>Definition:</b> <a href="a00608_source.html#l00050">AssetRef.hpp:50</a></div></div>
-<div class="ttc" id="aa02827_html_a2d7218499c1d4ad8f9f925e49c2a4924"><div class="ttname"><a href="a02827.html#a2d7218499c1d4ad8f9f925e49c2a4924">bl::rc::rg::AssetRef::operator=</a></div><div class="ttdeci">AssetRef &amp; operator=(AssetRef &amp;&amp;move) noexcept</div><div class="ttdoc">Assumes ownership from the given handle.</div><div class="ttdef"><b>Definition:</b> <a href="a00608_source.html#l00080">AssetRef.hpp:80</a></div></div>
-<div class="ttc" id="aa02827_html_a39431b0e67ae91da95e4792b9784674e"><div class="ttname"><a href="a02827.html#a39431b0e67ae91da95e4792b9784674e">bl::rc::rg::AssetRef::operator-&gt;</a></div><div class="ttdeci">constexpr Asset * operator-&gt;()</div><div class="ttdoc">Dereferences the handle.</div><div class="ttdef"><b>Definition:</b> <a href="a00608_source.html#l00099">AssetRef.hpp:99</a></div></div>
-<div class="ttc" id="aa02827_html_a56d4383016da0209585891b8a184eabd"><div class="ttname"><a href="a02827.html#a56d4383016da0209585891b8a184eabd">bl::rc::rg::AssetRef::operator*</a></div><div class="ttdeci">constexpr const Asset &amp; operator*() const</div><div class="ttdoc">Dereferences the handle.</div><div class="ttdef"><b>Definition:</b> <a href="a00608_source.html#l00094">AssetRef.hpp:94</a></div></div>
-<div class="ttc" id="aa02827_html_a57ee2190d410ab5aec2ec5c4cbcff890"><div class="ttname"><a href="a02827.html#a57ee2190d410ab5aec2ec5c4cbcff890">bl::rc::rg::AssetRef::operator=</a></div><div class="ttdeci">AssetRef &amp; operator=(const AssetRef &amp;copy)</div><div class="ttdoc">Assigns this handle to the given copy.</div><div class="ttdef"><b>Definition:</b> <a href="a00608_source.html#l00068">AssetRef.hpp:68</a></div></div>
-<div class="ttc" id="aa02827_html_a5a81c661cbf6ea266a7fa88547a7acaa"><div class="ttname"><a href="a02827.html#a5a81c661cbf6ea266a7fa88547a7acaa">bl::rc::rg::AssetRef::AssetRef</a></div><div class="ttdeci">AssetRef()</div><div class="ttdoc">Creates an empty handle.</div><div class="ttdef"><b>Definition:</b> <a href="a00608_source.html#l00022">AssetRef.hpp:22</a></div></div>
-<div class="ttc" id="aa02827_html_a6ba809ef24b6d325b1592edebe692361"><div class="ttname"><a href="a02827.html#a6ba809ef24b6d325b1592edebe692361">bl::rc::rg::AssetRef::get</a></div><div class="ttdeci">constexpr Asset &amp; get()</div><div class="ttdoc">Dereferences the handle.</div><div class="ttdef"><b>Definition:</b> <a href="a00608_source.html#l00114">AssetRef.hpp:114</a></div></div>
-<div class="ttc" id="aa02827_html_a780d84d87a5abfcb7c992129ef278e9b"><div class="ttname"><a href="a02827.html#a780d84d87a5abfcb7c992129ef278e9b">bl::rc::rg::AssetRef::operator-&gt;</a></div><div class="ttdeci">constexpr const Asset * operator-&gt;() const</div><div class="ttdoc">Dereferences the handle.</div><div class="ttdef"><b>Definition:</b> <a href="a00608_source.html#l00104">AssetRef.hpp:104</a></div></div>
-<div class="ttc" id="aa02827_html_ab1a92fc298530980a664dc57461129d8"><div class="ttname"><a href="a02827.html#ab1a92fc298530980a664dc57461129d8">bl::rc::rg::AssetRef::get</a></div><div class="ttdeci">constexpr const Asset &amp; get() const</div><div class="ttdoc">Dereferences the handle.</div><div class="ttdef"><b>Definition:</b> <a href="a00608_source.html#l00119">AssetRef.hpp:119</a></div></div>
-<div class="ttc" id="aa02827_html_aed4703553ade357ce0514c67c6061fea"><div class="ttname"><a href="a02827.html#aed4703553ade357ce0514c67c6061fea">bl::rc::rg::AssetRef::AssetRef</a></div><div class="ttdeci">AssetRef(const AssetRef &amp;copy)</div><div class="ttdoc">Assigns this handle to the given copy.</div><div class="ttdef"><b>Definition:</b> <a href="a00608_source.html#l00040">AssetRef.hpp:40</a></div></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keywordtype">bool</span> isOwnedBy(GraphAssetPool* pool);</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keywordtype">void</span> addOwner(GraphAssetPool* pool);</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keywordtype">void</span> removeOwner(GraphAssetPool* pool);</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
+<div class="line"><a name="l00100"></a><span class="lineno"><a class="line" href="a02862.html#aacadff13b18b866c449d6543b8b5d0d4">  100</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a02878.html">AssetRef</a>;</div>
+<div class="line"><a name="l00101"></a><span class="lineno"><a class="line" href="a02862.html#a8a2809ed6d9c5add58711e4387945e5c">  101</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a02870.html">AssetPool</a>;</div>
+<div class="line"><a name="l00102"></a><span class="lineno"><a class="line" href="a02862.html#a776ad5f3945240fe50246c49982f9cee">  102</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a02918.html">RenderGraph</a>;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;};</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;} <span class="comment">// namespace rg</span></div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00638_html"><div class="ttname"><a href="a00638.html">ExecutionContext.hpp</a></div></div>
+<div class="ttc" id="aa01754_html"><div class="ttname"><a href="a01754.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02150_html"><div class="ttname"><a href="a02150.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a04752_source.html#l00031">Engine.hpp:31</a></div></div>
+<div class="ttc" id="aa02862_html"><div class="ttname"><a href="a02862.html">bl::rc::rg::Asset</a></div><div class="ttdoc">Base class for assets in render graphs.</div><div class="ttdef"><b>Definition:</b> <a href="a00608_source.html#l00032">Asset.hpp:32</a></div></div>
+<div class="ttc" id="aa02862_html_a364f0ec0f68e25d421423d023294bfbf"><div class="ttname"><a href="a02862.html#a364f0ec0f68e25d421423d023294bfbf">bl::rc::rg::Asset::~Asset</a></div><div class="ttdeci">virtual ~Asset()=default</div><div class="ttdoc">Destroys the asset.</div></div>
+<div class="ttc" id="aa02862_html_a3df08d0a98f5610cd407847d32b817c9"><div class="ttname"><a href="a02862.html#a3df08d0a98f5610cd407847d32b817c9">bl::rc::rg::Asset::getTag</a></div><div class="ttdeci">constexpr std::string_view getTag() const</div><div class="ttdoc">Returns the tag of this asset.</div><div class="ttdef"><b>Definition:</b> <a href="a00608_source.html#l00067">Asset.hpp:67</a></div></div>
+<div class="ttc" id="aa02862_html_a5c8499ec4bafae0119028310732e4f0b"><div class="ttname"><a href="a02862.html#a5c8499ec4bafae0119028310732e4f0b">bl::rc::rg::Asset::doCreate</a></div><div class="ttdeci">virtual void doCreate(engine::Engine &amp;engine, Renderer &amp;renderer, Observer *observer)=0</div><div class="ttdoc">Called once after the asset is added to a pool for the first time.</div></div>
+<div class="ttc" id="aa02862_html_ab78fbbf18304eeb57015200c5e7b60b1"><div class="ttname"><a href="a02862.html#ab78fbbf18304eeb57015200c5e7b60b1">bl::rc::rg::Asset::doPrepareForInput</a></div><div class="ttdeci">virtual void doPrepareForInput(const ExecutionContext &amp;context)=0</div><div class="ttdoc">Prepares the asset for being an input. Child classes should insert pipeline barriers here if required...</div></div>
+<div class="ttc" id="aa02862_html_ab984db5a4ee19a0df80425a62a9917bb"><div class="ttname"><a href="a02862.html#ab984db5a4ee19a0df80425a62a9917bb">bl::rc::rg::Asset::Asset</a></div><div class="ttdeci">Asset(std::string_view tag)</div><div class="ttdoc">Initializes the asset.</div><div class="ttdef"><b>Definition:</b> <a href="a01418_source.html#l00009">Asset.cpp:9</a></div></div>
+<div class="ttc" id="aa02862_html_ac4f55b304bd6b766189a129fdef93fec"><div class="ttname"><a href="a02862.html#ac4f55b304bd6b766189a129fdef93fec">bl::rc::rg::Asset::doPrepareForOutput</a></div><div class="ttdeci">virtual void doPrepareForOutput(const ExecutionContext &amp;context)=0</div><div class="ttdoc">Prepares the asset for being an output. Child classes should insert pipeline barriers here if require...</div></div>
+<div class="ttc" id="aa02862_html_ae8616549439d5f18e19a25f3a898a306"><div class="ttname"><a href="a02862.html#ae8616549439d5f18e19a25f3a898a306">bl::rc::rg::Asset::isExternal</a></div><div class="ttdeci">constexpr bool isExternal() const</div><div class="ttdoc">Returns true if the asset was manually created, false if created by the factory.</div><div class="ttdef"><b>Definition:</b> <a href="a00608_source.html#l00072">Asset.hpp:72</a></div></div>
+<div class="ttc" id="aa02870_html"><div class="ttname"><a href="a02870.html">bl::rc::rg::AssetPool</a></div><div class="ttdoc">Observer level asset pool that owns assets directly.</div><div class="ttdef"><b>Definition:</b> <a href="a00614_source.html#l00032">AssetPool.hpp:32</a></div></div>
+<div class="ttc" id="aa02878_html"><div class="ttname"><a href="a02878.html">bl::rc::rg::AssetRef</a></div><div class="ttdoc">Handle to an asset in an AssetPool.</div><div class="ttdef"><b>Definition:</b> <a href="a00620_source.html#l00017">AssetRef.hpp:17</a></div></div>
+<div class="ttc" id="aa02902_html"><div class="ttname"><a href="a02902.html">bl::rc::rg::ExecutionContext</a></div><div class="ttdoc">Context containing graph execution data that is passed down to tasks.</div><div class="ttdef"><b>Definition:</b> <a href="a00638_source.html#l00025">ExecutionContext.hpp:25</a></div></div>
+<div class="ttc" id="aa02910_html"><div class="ttname"><a href="a02910.html">bl::rc::rg::GraphAssetPool</a></div><div class="ttdoc">Asset pool for individual RenderGraph instances that exist per scene per observer.</div><div class="ttdef"><b>Definition:</b> <a href="a00644_source.html#l00023">GraphAssetPool.hpp:23</a></div></div>
+<div class="ttc" id="aa02918_html"><div class="ttname"><a href="a02918.html">bl::rc::rg::RenderGraph</a></div><div class="ttdoc">The core render graph functionality. Drives rendering for each observer.</div><div class="ttdef"><b>Definition:</b> <a href="a00650_source.html#l00030">RenderGraph.hpp:30</a></div></div>
+<div class="ttc" id="aa02962_html"><div class="ttname"><a href="a02962.html">bl::rc::Observer</a></div><div class="ttdoc">Top level class for observers in the renderer. Corresponds to Engine Actors. Each observer may have i...</div><div class="ttdef"><b>Definition:</b> <a href="a00677_source.html#l00035">Observer.hpp:35</a></div></div>
+<div class="ttc" id="aa02998_html"><div class="ttname"><a href="a02998.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition:</b> <a href="a04797_source.html#l00039">Renderer.hpp:39</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 25 2023 19:26:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Sep 10 2023 23:10:22 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Interfaces/GUI/Dialogs/tinyfiledialogs.hpp File Reference</title>
+<title>BLIB: include/BLIB/Input/MovementControl.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,79 +66,47 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4a89db2e42278000e6aac6ace9db278e.html">Interfaces</a></li><li class="navelem"><a class="el" href="dir_488290d74f9e6b3540591d02cc875229.html">GUI</a></li><li class="navelem"><a class="el" href="dir_848dbbb3319d27e30f2e568b661343e7.html">Dialogs</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_c720f75c1eb5aaccd40e24fd6b592b41.html">Input</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#func-members">Functions</a> &#124;
-<a href="#var-members">Variables</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">tinyfiledialogs.hpp File Reference</div>  </div>
+<div class="title">MovementControl.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-
+<div class="textblock"><code>#include &lt;<a class="el" href="a00263_source.html">BLIB/Input/DispatchType.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00269_source.html">BLIB/Input/Joystick.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00278_source.html">BLIB/Input/Trigger.hpp</a>&gt;</code><br />
+<code>#include &lt;SFML/Window/Event.hpp&gt;</code><br />
+<code>#include &lt;SFML/Window/Keyboard.hpp&gt;</code><br />
+<code>#include &lt;stack&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+</div>
 <p><a href="a00275_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02366.html">bl::input::MovementControl</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a02330.html" title="Represents a control in the input system. A Control is a Trigger and a DispatchPolicy which fully def...">Control</a> data for a movement control (ie WASD or a joystick)  <a href="a02366.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a01736"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01736.html">bl</a></td></tr>
-<tr class="memdesc:a01736"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="memitem:a01754"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01754.html">bl</a></td></tr>
+<tr class="memdesc:a01754"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01762"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01762.html">bl::dialog</a></td></tr>
-<tr class="memdesc:a01762"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of functions from the tinyfiledialogs library. <br /></td></tr>
+<tr class="memitem:a01778"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01778.html">bl::input</a></td></tr>
+<tr class="memdesc:a01778"><td class="mdescLeft">&#160;</td><td class="mdescRight">Input system for building event based control systems. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:a7f94f24206bf1e6379273706f6d426c6"><td class="memItemLeft" align="right" valign="top">char const  *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01762.html#a7f94f24206bf1e6379273706f6d426c6">bl::dialog::tinyfd_getGlobalChar</a> (char const *aCharVariableName)</td></tr>
-<tr class="separator:a7f94f24206bf1e6379273706f6d426c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00ed57abf73f4f4789aefda12d1baf0f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01762.html#a00ed57abf73f4f4789aefda12d1baf0f">bl::dialog::tinyfd_getGlobalInt</a> (char const *aIntVariableName)</td></tr>
-<tr class="separator:a00ed57abf73f4f4789aefda12d1baf0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afb9b2ac71481a73c1d0cc59c7b5213ce"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01762.html#afb9b2ac71481a73c1d0cc59c7b5213ce">bl::dialog::tinyfd_setGlobalInt</a> (char const *aIntVariableName, int aValue)</td></tr>
-<tr class="separator:afb9b2ac71481a73c1d0cc59c7b5213ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4f203bbb00352fffd720969ad2cc8787"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01762.html#a4f203bbb00352fffd720969ad2cc8787">bl::dialog::tinyfd_beep</a> (void)</td></tr>
-<tr class="separator:a4f203bbb00352fffd720969ad2cc8787"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a78b4cf2db0f2048fe25af91cdf146f36"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01762.html#a78b4cf2db0f2048fe25af91cdf146f36">bl::dialog::tinyfd_notifyPopup</a> (char const *aTitle, char const *aMessage, char const *aIconType)</td></tr>
-<tr class="separator:a78b4cf2db0f2048fe25af91cdf146f36"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa3536f4642b4e5dc81216110555894ea"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01762.html#aa3536f4642b4e5dc81216110555894ea">bl::dialog::tinyfd_messageBox</a> (char const *aTitle, char const *aMessage, char const *aDialogType, char const *aIconType, int aDefaultButton)</td></tr>
-<tr class="separator:aa3536f4642b4e5dc81216110555894ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2afd2445701a4d6005d822a4f62a6737"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01762.html#a2afd2445701a4d6005d822a4f62a6737">bl::dialog::tinyfd_inputBox</a> (char const *aTitle, char const *aMessage, char const *aDefaultInput)</td></tr>
-<tr class="separator:a2afd2445701a4d6005d822a4f62a6737"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af34161d6d97eda45d0be280fec52a85b"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01762.html#af34161d6d97eda45d0be280fec52a85b">bl::dialog::tinyfd_saveFileDialog</a> (char const *aTitle, char const *aDefaultPathAndFile, int aNumOfFilterPatterns, char const *const *aFilterPatterns, char const *aSingleFilterDescription)</td></tr>
-<tr class="separator:af34161d6d97eda45d0be280fec52a85b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3e5ae4cc620bee78e68d7410db87abdf"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01762.html#a3e5ae4cc620bee78e68d7410db87abdf">bl::dialog::tinyfd_openFileDialog</a> (char const *aTitle, char const *aDefaultPathAndFile, int aNumOfFilterPatterns, char const *const *aFilterPatterns, char const *aSingleFilterDescription, int aAllowMultipleSelects)</td></tr>
-<tr class="separator:a3e5ae4cc620bee78e68d7410db87abdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a45c0ebc93d7115eafc4bd70ae19a9884"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01762.html#a45c0ebc93d7115eafc4bd70ae19a9884">bl::dialog::tinyfd_selectFolderDialog</a> (char const *aTitle, char const *aDefaultPath)</td></tr>
-<tr class="separator:a45c0ebc93d7115eafc4bd70ae19a9884"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8e4ff87a5f6e525e87bca71af979ea92"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01762.html#a8e4ff87a5f6e525e87bca71af979ea92">bl::dialog::tinyfd_colorChooser</a> (char const *aTitle, char const *aDefaultHexRGB, unsigned char const aDefaultRGB[3], unsigned char aoResultRGB[3])</td></tr>
-<tr class="separator:a8e4ff87a5f6e525e87bca71af979ea92"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
-Variables</h2></td></tr>
-<tr class="memitem:aa90af71434f12133b420a4986d8be418"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01762.html#aa90af71434f12133b420a4986d8be418">bl::dialog::tinyfd_version</a> [8] = &quot;3.8.8&quot;</td></tr>
-<tr class="separator:aa90af71434f12133b420a4986d8be418"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5796a725b4ffe28b362d1327db71fb03"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01762.html#a5796a725b4ffe28b362d1327db71fb03">bl::dialog::tinyfd_needs</a> []</td></tr>
-<tr class="separator:a5796a725b4ffe28b362d1327db71fb03"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3c52e0e98b50e117ae837752c5826c33"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01762.html#a3c52e0e98b50e117ae837752c5826c33">bl::dialog::tinyfd_verbose</a> = 0</td></tr>
-<tr class="separator:a3c52e0e98b50e117ae837752c5826c33"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab679ee1556c3d4f7f099f083f31113c4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01762.html#ab679ee1556c3d4f7f099f083f31113c4">bl::dialog::tinyfd_silent</a> = 1</td></tr>
-<tr class="separator:ab679ee1556c3d4f7f099f083f31113c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a16a68fa154b12e7b532e97db642f904b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01762.html#a16a68fa154b12e7b532e97db642f904b">bl::dialog::tinyfd_allowCursesDialogs</a> = 0</td></tr>
-<tr class="separator:a16a68fa154b12e7b532e97db642f904b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9923360971d286c260685d8147a8b077"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01762.html#a9923360971d286c260685d8147a8b077">bl::dialog::tinyfd_forceConsole</a> = 0</td></tr>
-<tr class="separator:a9923360971d286c260685d8147a8b077"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a90beabad06e8fcde1936876c71f84620"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01762.html#a90beabad06e8fcde1936876c71f84620">bl::dialog::tinyfd_assumeGraphicDisplay</a> = 0</td></tr>
-<tr class="separator:a90beabad06e8fcde1936876c71f84620"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a90ce40a9dccff59e6fd6760d377dbbe0"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01762.html#a90ce40a9dccff59e6fd6760d377dbbe0">bl::dialog::tinyfd_response</a> [1024]</td></tr>
-<tr class="separator:a90ce40a9dccff59e6fd6760d377dbbe0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 25 2023 19:26:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Sep 10 2023 23:10:23 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Graph/Strategy.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Graph/GraphAssetPool.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,42 +71,70 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Strategy.hpp</div>  </div>
+<div class="title">GraphAssetPool.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00644.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_GRAPH_STRATEGY_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_GRAPH_STRATEGY_HPP</span></div>
+<a href="a00644.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_GRAPH_GRAPHASSETPOOL_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_GRAPH_GRAPHASSETPOOL_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01736.html">bl</a></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;{</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>rc</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>rg</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">class </span>RenderGraph;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00608.html">BLIB/Render/Graph/Asset.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00614.html">BLIB/Render/Graph/AssetPool.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00620.html">BLIB/Render/Graph/AssetRef.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00641.html">BLIB/Render/Graph/GraphAsset.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;list&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;string_view&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a02883.html">   18</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02883.html">Strategy</a> {</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a02883.html#a52d8932e923fc4ceac54ded8232d3e0a">   23</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02883.html#a52d8932e923fc4ceac54ded8232d3e0a">~Strategy</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a02883.html#ae55bc09629c3a1a0b3e4026cd3044b36">   30</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02883.html#ae55bc09629c3a1a0b3e4026cd3044b36">populate</a>(<a class="code" href="a02867.html">RenderGraph</a>&amp; graph) = 0;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;};</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;} <span class="comment">// namespace rg</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01736_html"><div class="ttname"><a href="a01736.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02867_html"><div class="ttname"><a href="a02867.html">bl::rc::rg::RenderGraph</a></div><div class="ttdoc">The core render graph functionality. Drives rendering for each observer.</div><div class="ttdef"><b>Definition:</b> <a href="a00638_source.html#l00030">RenderGraph.hpp:30</a></div></div>
-<div class="ttc" id="aa02883_html"><div class="ttname"><a href="a02883.html">bl::rc::rg::Strategy</a></div><div class="ttdoc">Base class for renderer strategies. Render strategies populate render graphs with tasks when they are...</div><div class="ttdef"><b>Definition:</b> <a href="a00644_source.html#l00018">Strategy.hpp:18</a></div></div>
-<div class="ttc" id="aa02883_html_a52d8932e923fc4ceac54ded8232d3e0a"><div class="ttname"><a href="a02883.html#a52d8932e923fc4ceac54ded8232d3e0a">bl::rc::rg::Strategy::~Strategy</a></div><div class="ttdeci">virtual ~Strategy()=default</div><div class="ttdoc">Destroys the strategy.</div></div>
-<div class="ttc" id="aa02883_html_ae55bc09629c3a1a0b3e4026cd3044b36"><div class="ttname"><a href="a02883.html#ae55bc09629c3a1a0b3e4026cd3044b36">bl::rc::rg::Strategy::populate</a></div><div class="ttdeci">virtual void populate(RenderGraph &amp;graph)=0</div><div class="ttdoc">Populates the given graph with tasks.</div></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01754.html">bl</a></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span>rg</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a02910.html">   23</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02910.html">GraphAssetPool</a> {</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <a class="code" href="a02910.html#a7dfa3e88a01eea016080f8418eae755f">GraphAssetPool</a>(<a class="code" href="a02870.html">AssetPool</a>&amp; pool);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <a class="code" href="a02906.html">GraphAsset</a>* <a class="code" href="a02910.html#a383622423fffd29675531b2d9fdf4185">getAssetForOutput</a>(std::string_view tag, <a class="code" href="a02938.html">Task</a>* task);</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <a class="code" href="a02906.html">GraphAsset</a>* <a class="code" href="a02910.html#a33777297c7565c90e15ebc071ebdb58c">getAssetForInput</a>(std::string_view tag);</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <a class="code" href="a02906.html">GraphAsset</a>* <a class="code" href="a02910.html#a5c876bfc4cf7146b28efb5cdff375879">createAsset</a>(std::string_view tag, <a class="code" href="a02938.html">Task</a>* creator);</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <a class="code" href="a02906.html">GraphAsset</a>* <a class="code" href="a02910.html#a63a3e675fdb6fa2095e17e1d05d3f57a">getFinalOutput</a>();</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02910.html#a099f1d0022b8e681b04e91c422c991dd">reset</a>();</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <a class="code" href="a02870.html">AssetPool</a>&amp; pool;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    std::unordered_map&lt;std::string_view, std::list&lt;GraphAsset&gt;&gt; assets;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;};</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;} <span class="comment">// namespace rg</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00608_html"><div class="ttname"><a href="a00608.html">Asset.hpp</a></div></div>
+<div class="ttc" id="aa00614_html"><div class="ttname"><a href="a00614.html">AssetPool.hpp</a></div></div>
+<div class="ttc" id="aa00620_html"><div class="ttname"><a href="a00620.html">AssetRef.hpp</a></div></div>
+<div class="ttc" id="aa00641_html"><div class="ttname"><a href="a00641.html">GraphAsset.hpp</a></div></div>
+<div class="ttc" id="aa01754_html"><div class="ttname"><a href="a01754.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02870_html"><div class="ttname"><a href="a02870.html">bl::rc::rg::AssetPool</a></div><div class="ttdoc">Observer level asset pool that owns assets directly.</div><div class="ttdef"><b>Definition:</b> <a href="a00614_source.html#l00032">AssetPool.hpp:32</a></div></div>
+<div class="ttc" id="aa02906_html"><div class="ttname"><a href="a02906.html">bl::rc::rg::GraphAsset</a></div><div class="ttdoc">Wrapper around AssetRef for assets owned by a RenderGraph instance.</div><div class="ttdef"><b>Definition:</b> <a href="a00641_source.html#l00019">GraphAsset.hpp:19</a></div></div>
+<div class="ttc" id="aa02910_html"><div class="ttname"><a href="a02910.html">bl::rc::rg::GraphAssetPool</a></div><div class="ttdoc">Asset pool for individual RenderGraph instances that exist per scene per observer.</div><div class="ttdef"><b>Definition:</b> <a href="a00644_source.html#l00023">GraphAssetPool.hpp:23</a></div></div>
+<div class="ttc" id="aa02910_html_a099f1d0022b8e681b04e91c422c991dd"><div class="ttname"><a href="a02910.html#a099f1d0022b8e681b04e91c422c991dd">bl::rc::rg::GraphAssetPool::reset</a></div><div class="ttdeci">void reset()</div><div class="ttdoc">Releases all held assets to allow rebuilding of the graph.</div><div class="ttdef"><b>Definition:</b> <a href="a01439_source.html#l00053">GraphAssetPool.cpp:53</a></div></div>
+<div class="ttc" id="aa02910_html_a33777297c7565c90e15ebc071ebdb58c"><div class="ttname"><a href="a02910.html#a33777297c7565c90e15ebc071ebdb58c">bl::rc::rg::GraphAssetPool::getAssetForInput</a></div><div class="ttdeci">GraphAsset * getAssetForInput(std::string_view tag)</div><div class="ttdoc">Fetch an existing asset from the pool to be used as an input. Only use for external assets....</div><div class="ttdef"><b>Definition:</b> <a href="a01439_source.html#l00037">GraphAssetPool.cpp:37</a></div></div>
+<div class="ttc" id="aa02910_html_a383622423fffd29675531b2d9fdf4185"><div class="ttname"><a href="a02910.html#a383622423fffd29675531b2d9fdf4185">bl::rc::rg::GraphAssetPool::getAssetForOutput</a></div><div class="ttdeci">GraphAsset * getAssetForOutput(std::string_view tag, Task *task)</div><div class="ttdoc">Fetch an existing asset from the pool to be used as an output.</div><div class="ttdef"><b>Definition:</b> <a href="a01439_source.html#l00023">GraphAssetPool.cpp:23</a></div></div>
+<div class="ttc" id="aa02910_html_a5c876bfc4cf7146b28efb5cdff375879"><div class="ttname"><a href="a02910.html#a5c876bfc4cf7146b28efb5cdff375879">bl::rc::rg::GraphAssetPool::createAsset</a></div><div class="ttdeci">GraphAsset * createAsset(std::string_view tag, Task *creator)</div><div class="ttdoc">Creates a new asset with the given tag and creator.</div><div class="ttdef"><b>Definition:</b> <a href="a01439_source.html#l00046">GraphAssetPool.cpp:46</a></div></div>
+<div class="ttc" id="aa02910_html_a63a3e675fdb6fa2095e17e1d05d3f57a"><div class="ttname"><a href="a02910.html#a63a3e675fdb6fa2095e17e1d05d3f57a">bl::rc::rg::GraphAssetPool::getFinalOutput</a></div><div class="ttdeci">GraphAsset * getFinalOutput()</div><div class="ttdoc">Fetches the swap frame asset from the pool.</div><div class="ttdef"><b>Definition:</b> <a href="a01439_source.html#l00015">GraphAssetPool.cpp:15</a></div></div>
+<div class="ttc" id="aa02910_html_a7dfa3e88a01eea016080f8418eae755f"><div class="ttname"><a href="a02910.html#a7dfa3e88a01eea016080f8418eae755f">bl::rc::rg::GraphAssetPool::GraphAssetPool</a></div><div class="ttdeci">GraphAssetPool(AssetPool &amp;pool)</div><div class="ttdoc">Creates the pool.</div><div class="ttdef"><b>Definition:</b> <a href="a01439_source.html#l00012">GraphAssetPool.cpp:12</a></div></div>
+<div class="ttc" id="aa02938_html"><div class="ttname"><a href="a02938.html">bl::rc::rg::Task</a></div><div class="ttdoc">Base class for tasks within a RenderGraph.</div><div class="ttdef"><b>Definition:</b> <a href="a00659_source.html#l00025">Task.hpp:25</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 25 2023 19:26:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Sep 10 2023 23:10:22 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

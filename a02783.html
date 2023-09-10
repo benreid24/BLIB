@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::rc::ds::DescriptorSetFactory Class Reference</title>
+<title>BLIB: Member List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,232 +66,28 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01736.html">bl</a></li><li class="navelem"><a class="el" href="a01745.html">rc</a></li><li class="navelem"><a class="el" href="a01778.html">ds</a></li><li class="navelem"><a class="el" href="a02783.html">DescriptorSetFactory</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01754.html">bl</a></li><li class="navelem"><a class="el" href="a01763.html">rc</a></li><li class="navelem"><a class="el" href="a01797.html">ds</a></li><li class="navelem"><a class="el" href="a02786.html">Object3DFactory</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pro-attribs">Protected Attributes</a> &#124;
-<a href="a02780.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::rc::ds::DescriptorSetFactory Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span><div class="ingroups"><a class="el" href="a01721.html">Renderer</a></div></div>  </div>
+<div class="title">bl::rc::ds::Object3DFactory Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Base class for descriptor set instances. Descriptor set factories are given to PipelineParameters and represent a descriptor set layout. When a scene needs a given descriptor set it will use the factory for the relevant pipeline to create the descriptor set instance. Factories exist in the pipeline cache, set instances exist per-scene. Pipelines that utilize the same factory type will use the same factory object.  
- <a href="a02783.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="a00575_source.html">DescriptorSetFactory.hpp</a>&gt;</code></p>
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::rc::ds::DescriptorSetFactory:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
- <div class="center">
-  <img src="a02783.png" usemap="#bl::rc::ds::DescriptorSetFactory_map" alt=""/>
-  <map id="bl::rc::ds::DescriptorSetFactory_map" name="bl::rc::ds::DescriptorSetFactory_map">
-<area href="a02723.html" title="Descriptor set factory that provides the layout for the fade effect descriptor set." alt="bl::rc::ds::FadeEffectFactory" shape="rect" coords="0,56,186,80"/>
-<area href="a02727.html" title="Descriptor set factory used by 2d objects rendered using default built-in pipelines." alt="bl::rc::ds::Object2DFactory" shape="rect" coords="196,56,382,80"/>
-<area href="a02735.html" title="Descriptor set factory used by meshes rendered using default built-in pipelines." alt="bl::rc::ds::Object3DFactory" shape="rect" coords="392,56,578,80"/>
-<area href="a02743.html" title="Placeholder factory for scene descriptor sets. Factory itself only provides the descriptor set layout..." alt="bl::rc::ds::Scene2DFactory" shape="rect" coords="588,56,774,80"/>
-<area href="a02751.html" title="Placeholder factory for scene descriptor sets. Factory itself only provides the descriptor set layout..." alt="bl::rc::ds::Scene3DFactory" shape="rect" coords="784,56,970,80"/>
-<area href="a02759.html" title="Descriptor set factory to use when a pipeline needs the bindless texture atlas." alt="bl::rc::ds::TexturePoolFactory" shape="rect" coords="980,56,1166,80"/>
-  </map>
-</div></div>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:ab3e6b6f0047749f0ba8663d7f3bc8a9a"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02783.html#ab3e6b6f0047749f0ba8663d7f3bc8a9a">~DescriptorSetFactory</a> ()=default</td></tr>
-<tr class="memdesc:ab3e6b6f0047749f0ba8663d7f3bc8a9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the descriptor set factory.  <a href="a02783.html#ab3e6b6f0047749f0ba8663d7f3bc8a9a">More...</a><br /></td></tr>
-<tr class="separator:ab3e6b6f0047749f0ba8663d7f3bc8a9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a695e2dd0cdc087f6c983bdf49a0a4fc1"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02783.html#a695e2dd0cdc087f6c983bdf49a0a4fc1">init</a> (<a class="el" href="a02099.html">engine::Engine</a> &amp;engine, <a class="el" href="a02947.html">Renderer</a> &amp;renderer)=0</td></tr>
-<tr class="memdesc:a695e2dd0cdc087f6c983bdf49a0a4fc1"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method will be called exactly once by the renderer the first time this descriptor set is created. Derived classes should put resource allocations in here instead of their constructors to avoid duplicating effort.  <a href="a02783.html#a695e2dd0cdc087f6c983bdf49a0a4fc1">More...</a><br /></td></tr>
-<tr class="separator:a695e2dd0cdc087f6c983bdf49a0a4fc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae7ffc734a548699e33a9c6e85e95b760"><td class="memItemLeft" align="right" valign="top">constexpr VkDescriptorSetLayout&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02783.html#ae7ffc734a548699e33a9c6e85e95b760">getDescriptorLayout</a> () const</td></tr>
-<tr class="memdesc:ae7ffc734a548699e33a9c6e85e95b760"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the layout of the descriptor set that this factory creates.  <a href="a02783.html#ae7ffc734a548699e33a9c6e85e95b760">More...</a><br /></td></tr>
-<tr class="separator:ae7ffc734a548699e33a9c6e85e95b760"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0fb5a07bdd45792fe73f69be02c5ae9b"><td class="memItemLeft" align="right" valign="top">virtual std::unique_ptr&lt; <a class="el" href="a02791.html">DescriptorSetInstance</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02783.html#a0fb5a07bdd45792fe73f69be02c5ae9b">createDescriptorSet</a> () const =0</td></tr>
-<tr class="memdesc:a0fb5a07bdd45792fe73f69be02c5ae9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when a descriptor set instance of this type is needed for a scene.  <a href="a02783.html#a0fb5a07bdd45792fe73f69be02c5ae9b">More...</a><br /></td></tr>
-<tr class="separator:a0fb5a07bdd45792fe73f69be02c5ae9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
-Protected Attributes</h2></td></tr>
-<tr class="memitem:a272948ed73908bcc35626a495366cba6"><td class="memItemLeft" align="right" valign="top">VkDescriptorSetLayout&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02783.html#a272948ed73908bcc35626a495366cba6">descriptorSetLayout</a></td></tr>
-<tr class="separator:a272948ed73908bcc35626a495366cba6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Base class for descriptor set instances. Descriptor set factories are given to PipelineParameters and represent a descriptor set layout. When a scene needs a given descriptor set it will use the factory for the relevant pipeline to create the descriptor set instance. Factories exist in the pipeline cache, set instances exist per-scene. Pipelines that utilize the same factory type will use the same factory object. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00575_source.html#l00031">31</a> of file <a class="el" href="a00575_source.html">DescriptorSetFactory.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ab3e6b6f0047749f0ba8663d7f3bc8a9a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab3e6b6f0047749f0ba8663d7f3bc8a9a">&#9670;&nbsp;</a></span>~DescriptorSetFactory()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual bl::rc::ds::DescriptorSetFactory::~DescriptorSetFactory </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Destroys the descriptor set factory. </p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a0fb5a07bdd45792fe73f69be02c5ae9b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0fb5a07bdd45792fe73f69be02c5ae9b">&#9670;&nbsp;</a></span>createDescriptorSet()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual std::unique_ptr&lt;<a class="el" href="a02791.html">DescriptorSetInstance</a>&gt; bl::rc::ds::DescriptorSetFactory::createDescriptorSet </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Called when a descriptor set instance of this type is needed for a scene. </p>
-<dl class="section return"><dt>Returns</dt><dd>A new instance of the descriptor set for this factory </dd></dl>
-
-<p>Implemented in <a class="el" href="a02735.html#a818849cac5a22a280dfb2da49d84e98f">bl::rc::ds::Object3DFactory</a>, and <a class="el" href="a02727.html#adb61605bb6b3f0debc72574249198a7f">bl::rc::ds::Object2DFactory</a>.</p>
-
-</div>
-</div>
-<a id="ae7ffc734a548699e33a9c6e85e95b760"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae7ffc734a548699e33a9c6e85e95b760">&#9670;&nbsp;</a></span>getDescriptorLayout()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr VkDescriptorSetLayout bl::rc::ds::DescriptorSetFactory::getDescriptorLayout </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the layout of the descriptor set that this factory creates. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00575_source.html#l00066">66</a> of file <a class="el" href="a00575_source.html">DescriptorSetFactory.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a695e2dd0cdc087f6c983bdf49a0a4fc1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a695e2dd0cdc087f6c983bdf49a0a4fc1">&#9670;&nbsp;</a></span>init()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void bl::rc::ds::DescriptorSetFactory::init </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a02099.html">engine::Engine</a> &amp;&#160;</td>
-          <td class="paramname"><em>engine</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a02947.html">Renderer</a> &amp;&#160;</td>
-          <td class="paramname"><em>renderer</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>This method will be called exactly once by the renderer the first time this descriptor set is created. Derived classes should put resource allocations in here instead of their constructors to avoid duplicating effort. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">engine</td><td>The game engine instance </td></tr>
-    <tr><td class="paramname">renderer</td><td>The renderer instance </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Implemented in <a class="el" href="a02735.html#a085e515210457efd3a6286bd8011e018">bl::rc::ds::Object3DFactory</a>, and <a class="el" href="a02727.html#a3b4cd36ba5273d4bd770a6ce350ba1b8">bl::rc::ds::Object2DFactory</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="a272948ed73908bcc35626a495366cba6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a272948ed73908bcc35626a495366cba6">&#9670;&nbsp;</a></span>descriptorSetLayout</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">VkDescriptorSetLayout bl::rc::ds::DescriptorSetFactory::descriptorSetLayout</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00575_source.html#l00061">61</a> of file <a class="el" href="a00575_source.html">DescriptorSetFactory.hpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>include/BLIB/Render/Descriptors/<a class="el" href="a00575_source.html">DescriptorSetFactory.hpp</a></li>
-</ul>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="a02786.html">bl::rc::ds::Object3DFactory</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="a02786.html#a818849cac5a22a280dfb2da49d84e98f">createDescriptorSet</a>() const override</td><td class="entry"><a class="el" href="a02786.html">bl::rc::ds::Object3DFactory</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a02834.html#a272948ed73908bcc35626a495366cba6">descriptorSetLayout</a></td><td class="entry"><a class="el" href="a02834.html">bl::rc::ds::DescriptorSetFactory</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02834.html#ae7ffc734a548699e33a9c6e85e95b760">getDescriptorLayout</a>() const</td><td class="entry"><a class="el" href="a02834.html">bl::rc::ds::DescriptorSetFactory</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a02786.html#a085e515210457efd3a6286bd8011e018">init</a>(engine::Engine &amp;engine, Renderer &amp;renderer) override</td><td class="entry"><a class="el" href="a02786.html">bl::rc::ds::Object3DFactory</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02834.html#ab3e6b6f0047749f0ba8663d7f3bc8a9a">~DescriptorSetFactory</a>()=default</td><td class="entry"><a class="el" href="a02834.html">bl::rc::ds::DescriptorSetFactory</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a02786.html#adfcb96ea36482e8c1dd8a05c324ce43c">~Object3DFactory</a>()=default</td><td class="entry"><a class="el" href="a02786.html">bl::rc::ds::Object3DFactory</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+</table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 25 2023 19:26:27 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Sep 10 2023 23:10:24 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

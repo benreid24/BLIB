@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Resources/Bundling/FileHandlerContext.cpp Source File</title>
+<title>BLIB: src/Render/Vulkan/Utils/SwapChainSupportDetails.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,41 +66,60 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_7a475d59e09b1ce69b1dfbc6b0817add.html">Resources</a></li><li class="navelem"><a class="el" href="dir_650c2bb72fa499737589ce0469633186.html">Bundling</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_2a24e9216d188d12785cf0650df1274b.html">Vulkan</a></li><li class="navelem"><a class="el" href="dir_5a895c0b57455ce42bcec1a8fbc390f8.html">Utils</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">FileHandlerContext.cpp</div>  </div>
+<div class="title">SwapChainSupportDetails.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01583.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00836.html">BLIB/Resources/Bundling/FileHandlerContext.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01736.html">bl</a></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>resource</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>bundle</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;FileHandlerContext::FileHandlerContext(std::unordered_set&lt;std::string&gt;&amp; excludes,</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;                                       std::stack&lt;std::string, std::vector&lt;std::string&gt;&gt;&amp; fileStack)</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;: excludes(excludes)</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;, fileList(fileStack) {}</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="a03231.html#a117fbcb7e5871373ebb7270b39b20721">   14</a></span>&#160;<span class="keywordtype">void</span> FileHandlerContext::addDependencyFile(<span class="keyword">const</span> std::string&amp; path) { fileList.emplace(path); }</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a03231.html#acf80fad2b5d9f50e479ef3182d34c447">   16</a></span>&#160;<span class="keywordtype">void</span> FileHandlerContext::addExcludeFile(<span class="keyword">const</span> std::string&amp; path) { excludes.emplace(path); }</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;} <span class="comment">// namespace bundle</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;} <span class="comment">// namespace resource</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00836_html"><div class="ttname"><a href="a00836.html">FileHandlerContext.hpp</a></div></div>
-<div class="ttc" id="aa01736_html"><div class="ttname"><a href="a01736.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<a href="a01583.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_VULKAN_UTILS_SWAPCHAINSUPPORTDETAILS_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_VULKAN_UTILS_SWAPCHAINSUPPORTDETAILS_HPP</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00446.html">BLIB/Logging.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01055.html">BLIB/Vulkan.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01754.html">bl</a></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="a03926.html">   12</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a03926.html">SwapChainSupportDetails</a> {</div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="a03926.html#a8ba0581e712e3a075ce750dedca8bf86">   13</a></span>&#160;    VkSurfaceCapabilitiesKHR <a class="code" href="a03926.html#a8ba0581e712e3a075ce750dedca8bf86">capabilities</a>;</div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="a03926.html#af19415c0ae2875bf29ba85dac4dec14e">   14</a></span>&#160;    std::vector&lt;VkSurfaceFormatKHR&gt; <a class="code" href="a03926.html#af19415c0ae2875bf29ba85dac4dec14e">formats</a>;</div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="a03926.html#a040eaf623e9b24c2cee14f0091ed4527">   15</a></span>&#160;    std::vector&lt;VkPresentModeKHR&gt; <a class="code" href="a03926.html#a040eaf623e9b24c2cee14f0091ed4527">presentModes</a>;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a03926.html#a069747b37a642917592e4a8efd66517f">   17</a></span>&#160;    <a class="code" href="a03926.html#a069747b37a642917592e4a8efd66517f">SwapChainSupportDetails</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <a class="code" href="a03926.html#a069747b37a642917592e4a8efd66517f">SwapChainSupportDetails</a>(VkPhysicalDevice device, VkSurfaceKHR surface);</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03926.html#a538d5c8e88477f1afb804a9d557d4234">populate</a>(VkPhysicalDevice device, VkSurfaceKHR surface);</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keyword">const</span> VkSurfaceFormatKHR&amp; <a class="code" href="a03926.html#a074771ce4af99a010a861cddb901432e">swapSurfaceFormat</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    VkPresentModeKHR <a class="code" href="a03926.html#a2c9d9cd7870d31087ed25d3300044237">presentationMode</a>(<span class="keywordtype">bool</span> disableVsync) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    VkExtent2D <a class="code" href="a03926.html#a317e166f325c41fd43b5da49b187e1a0">swapExtent</a>(<span class="keyword">const</span> sf::Vector2u&amp; windowSize) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;};</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00446_html"><div class="ttname"><a href="a00446.html">Logging.hpp</a></div></div>
+<div class="ttc" id="aa01055_html"><div class="ttname"><a href="a01055.html">Vulkan.hpp</a></div></div>
+<div class="ttc" id="aa01754_html"><div class="ttname"><a href="a01754.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03926_html"><div class="ttname"><a href="a03926.html">bl::rc::SwapChainSupportDetails</a></div><div class="ttdef"><b>Definition:</b> <a href="a01583_source.html#l00012">SwapChainSupportDetails.hpp:12</a></div></div>
+<div class="ttc" id="aa03926_html_a040eaf623e9b24c2cee14f0091ed4527"><div class="ttname"><a href="a03926.html#a040eaf623e9b24c2cee14f0091ed4527">bl::rc::SwapChainSupportDetails::presentModes</a></div><div class="ttdeci">std::vector&lt; VkPresentModeKHR &gt; presentModes</div><div class="ttdef"><b>Definition:</b> <a href="a01583_source.html#l00015">SwapChainSupportDetails.hpp:15</a></div></div>
+<div class="ttc" id="aa03926_html_a069747b37a642917592e4a8efd66517f"><div class="ttname"><a href="a03926.html#a069747b37a642917592e4a8efd66517f">bl::rc::SwapChainSupportDetails::SwapChainSupportDetails</a></div><div class="ttdeci">SwapChainSupportDetails()=default</div></div>
+<div class="ttc" id="aa03926_html_a074771ce4af99a010a861cddb901432e"><div class="ttname"><a href="a03926.html#a074771ce4af99a010a861cddb901432e">bl::rc::SwapChainSupportDetails::swapSurfaceFormat</a></div><div class="ttdeci">const VkSurfaceFormatKHR &amp; swapSurfaceFormat() const</div><div class="ttdef"><b>Definition:</b> <a href="a01580_source.html#l00030">SwapChainSupportDetails.cpp:30</a></div></div>
+<div class="ttc" id="aa03926_html_a2c9d9cd7870d31087ed25d3300044237"><div class="ttname"><a href="a03926.html#a2c9d9cd7870d31087ed25d3300044237">bl::rc::SwapChainSupportDetails::presentationMode</a></div><div class="ttdeci">VkPresentModeKHR presentationMode(bool disableVsync) const</div><div class="ttdef"><b>Definition:</b> <a href="a01580_source.html#l00041">SwapChainSupportDetails.cpp:41</a></div></div>
+<div class="ttc" id="aa03926_html_a317e166f325c41fd43b5da49b187e1a0"><div class="ttname"><a href="a03926.html#a317e166f325c41fd43b5da49b187e1a0">bl::rc::SwapChainSupportDetails::swapExtent</a></div><div class="ttdeci">VkExtent2D swapExtent(const sf::Vector2u &amp;windowSize) const</div><div class="ttdef"><b>Definition:</b> <a href="a01580_source.html#l00052">SwapChainSupportDetails.cpp:52</a></div></div>
+<div class="ttc" id="aa03926_html_a538d5c8e88477f1afb804a9d557d4234"><div class="ttname"><a href="a03926.html#a538d5c8e88477f1afb804a9d557d4234">bl::rc::SwapChainSupportDetails::populate</a></div><div class="ttdeci">void populate(VkPhysicalDevice device, VkSurfaceKHR surface)</div><div class="ttdef"><b>Definition:</b> <a href="a01580_source.html#l00011">SwapChainSupportDetails.cpp:11</a></div></div>
+<div class="ttc" id="aa03926_html_a8ba0581e712e3a075ce750dedca8bf86"><div class="ttname"><a href="a03926.html#a8ba0581e712e3a075ce750dedca8bf86">bl::rc::SwapChainSupportDetails::capabilities</a></div><div class="ttdeci">VkSurfaceCapabilitiesKHR capabilities</div><div class="ttdef"><b>Definition:</b> <a href="a01583_source.html#l00013">SwapChainSupportDetails.hpp:13</a></div></div>
+<div class="ttc" id="aa03926_html_af19415c0ae2875bf29ba85dac4dec14e"><div class="ttname"><a href="a03926.html#af19415c0ae2875bf29ba85dac4dec14e">bl::rc::SwapChainSupportDetails::formats</a></div><div class="ttdeci">std::vector&lt; VkSurfaceFormatKHR &gt; formats</div><div class="ttdef"><b>Definition:</b> <a href="a01583_source.html#l00014">SwapChainSupportDetails.hpp:14</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 25 2023 19:26:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Sep 10 2023 23:10:22 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>
