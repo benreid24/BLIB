@@ -259,7 +259,7 @@ bool IndexMappedList<TKey, TValue>::hasValue(TKey key, const TValue& value) cons
 }
 
 template<typename TKey, typename TValue>
-IndexMappedList<TKey, TValue>::Range IndexMappedList<TKey, TValue>::getValues(TKey key) {
+typename IndexMappedList<TKey, TValue>::Range IndexMappedList<TKey, TValue>::getValues(TKey key) {
     return {hasValues(key) ? Iterator(&storage, keyToStartIndex[key]) : Iterator()};
 }
 
