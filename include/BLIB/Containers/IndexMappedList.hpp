@@ -24,8 +24,9 @@ template<typename TKey, typename TValue>
 class IndexMappedList {
     static_assert(std::is_unsigned_v<TKey>, "Key must be a 0-based index");
 
-public:
     struct Item;
+
+public:
     struct Iterator;
     struct Range;
 
@@ -227,6 +228,8 @@ private:
             next = NoNext;
         }
     };
+
+    friend struct Iterator;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
