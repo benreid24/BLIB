@@ -4,6 +4,7 @@
 #include <BLIB/Containers/ObjectWrapper.hpp>
 #include <BLIB/ECS/Entity.hpp>
 #include <BLIB/ECS/Events.hpp>
+#include <BLIB/ECS/Traits/ParentAware.hpp>
 #include <BLIB/Events.hpp>
 #include <BLIB/Logging.hpp>
 #include <BLIB/Util/IdAllocatorUnbounded.hpp>
@@ -116,8 +117,30 @@ private:
     virtual void remove(Entity entity) override;
     virtual void clear() override;
 
-    virtual void onParentSet(Entity child, Entity parent) override;
-    virtual void onParentRemove(Entity orphan) override;
+    virtual void onParentSet(Entity child, Entity parent) override {
+        if constexpr (std::is_base_of_v<trait::ParentAware<T>, T>) { setParent(child, parent); }
+    }
+
+    void setParent(Entity child, Entity parent) {
+        T* childCom  = get(child);
+        T* parentCom = get(parent);
+
+        if (child && parent) { childCom->parent = parentCom; }
+        else {
+            if (!child) { BL_LOG_ERROR << "Invalid child entity: " << child; }
+            else { BL_LOG_ERROR << "Invalid parent entity: " << parent; }
+        }
+    }
+
+    virtual void onParentRemove(Entity orphan) override {
+        if constexpr (std::is_base_of_v<trait::ParentAware<T>, T>) removeParent(orphan);
+    }
+
+    void removeParent(Entity orphan) {
+        T* com = get(orphan);
+        if (com) { com->parent = nullptr; }
+        else { BL_LOG_WARN << "Invalid orphan entity: " << orphan; }
+    }
 
     friend class Registry;
 };
@@ -226,16 +249,6 @@ void ComponentPool<T>::clear() {
     std::fill(indexToEntity.begin(), indexToEntity.end(), InvalidEntity);
     std::fill(entityToIndex.begin(), entityToIndex.end(), InvalidIndex);
     indexAllocator.releaseAll();
-}
-
-template<typename T>
-void ComponentPool<T>::onParentSet(Entity child, Entity parent) {
-    // TODO - specialize with enable_if and call into specialized component
-}
-
-template<typename T>
-void ComponentPool<T>::onParentRemove(Entity orphan) {
-    // TODO - specialize with enable_if and call into specialized component
 }
 
 template<typename T>

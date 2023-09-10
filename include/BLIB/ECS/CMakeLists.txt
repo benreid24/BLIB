@@ -14,3 +14,5 @@ target_sources(BLIB PUBLIC
     View.hpp
     ViewImpl.hpp
 )
+
+add_subdirectory(Traits)
