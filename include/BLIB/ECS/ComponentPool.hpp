@@ -4,6 +4,7 @@
 #include <BLIB/Containers/ObjectWrapper.hpp>
 #include <BLIB/ECS/Entity.hpp>
 #include <BLIB/ECS/Events.hpp>
+#include <BLIB/ECS/Traits/ParentAware.hpp>
 #include <BLIB/Events.hpp>
 #include <BLIB/Logging.hpp>
 #include <BLIB/Util/IdAllocatorUnbounded.hpp>
@@ -49,6 +50,9 @@ protected:
 
     virtual void remove(Entity entity) = 0;
     virtual void clear()               = 0;
+
+    virtual void onParentSet(Entity child, Entity parent) = 0;
+    virtual void onParentRemove(Entity orphan)            = 0;
 
     template<typename TRequire, typename TOptional, typename TExclude>
     friend class View;
@@ -113,6 +117,31 @@ private:
     virtual void remove(Entity entity) override;
     virtual void clear() override;
 
+    virtual void onParentSet(Entity child, Entity parent) override {
+        if constexpr (std::is_base_of_v<trait::ParentAware<T>, T>) { setParent(child, parent); }
+    }
+
+    void setParent(Entity child, Entity parent) {
+        T* childCom  = get(child);
+        T* parentCom = get(parent);
+
+        if (child && parent) { childCom->parent = parentCom; }
+        else {
+            if (!child) { BL_LOG_ERROR << "Invalid child entity: " << child; }
+            else { BL_LOG_ERROR << "Invalid parent entity: " << parent; }
+        }
+    }
+
+    virtual void onParentRemove(Entity orphan) override {
+        if constexpr (std::is_base_of_v<trait::ParentAware<T>, T>) removeParent(orphan);
+    }
+
+    void removeParent(Entity orphan) {
+        T* com = get(orphan);
+        if (com) { com->parent = nullptr; }
+        else { BL_LOG_WARN << "Invalid orphan entity: " << orphan; }
+    }
+
     friend class Registry;
 };
 
@@ -133,21 +162,22 @@ ComponentPool<T>::~ComponentPool() {
 
 template<typename T>
 std::size_t ComponentPool<T>::addLogic(Entity ent) {
-    if (ent + 1 >= entityToIndex.size()) { entityToIndex.resize(ent + 1, InvalidIndex); }
+    const std::uint64_t entIndex = IdUtil::getEntityIndex(ent);
+    if (entIndex + 1 > entityToIndex.size()) { entityToIndex.resize(entIndex + 1, InvalidIndex); }
 
     // prevent duplicate add
-    const std::size_t existing = entityToIndex[ent];
+    const std::size_t existing = entityToIndex[entIndex];
     if (existing != InvalidIndex) { return existing; }
 
     // perform insertion
     const std::size_t i = indexAllocator.allocate();
-    if (i + 1 >= pool.size()) {
+    if (i + 1 > pool.size()) {
         pool.resize(i + 1);
         indexToEntity.resize(i + 1, InvalidEntity);
         bl::event::Dispatcher::dispatch<event::ComponentPoolResized>({ComponentIndex});
     }
-    entityToIndex[ent] = i;
-    indexToEntity[i]   = ent;
+    entityToIndex[entIndex] = i;
+    indexToEntity[i]        = ent;
 
     return i;
 }
@@ -185,8 +215,9 @@ void ComponentPool<T>::remove(Entity ent) {
     util::ReadWriteLock::WriteScopeGuard lock(poolLock);
 
     // determine if present
-    if (ent >= entityToIndex.size()) return;
-    const auto index = entityToIndex[ent];
+    const std::uint64_t entIndex = IdUtil::getEntityIndex(ent);
+    if (entIndex >= entityToIndex.size()) return;
+    const auto index = entityToIndex[entIndex];
     if (index == InvalidIndex) return;
 
     // send event
@@ -195,8 +226,8 @@ void ComponentPool<T>::remove(Entity ent) {
 
     // perform removal
     slot.destroy();
-    entityToIndex[ent]   = InvalidIndex;
-    indexToEntity[index] = InvalidEntity;
+    entityToIndex[entIndex] = InvalidIndex;
+    indexToEntity[index]    = InvalidEntity;
     indexAllocator.release(index);
 }
 
@@ -264,8 +295,11 @@ template<typename T>
 T* ComponentPool<T>::get(Entity ent) {
     util::ReadWriteLock::ReadScopeGuard lock(poolLock);
 
-    if (ent < entityToIndex.size()) {
-        if (entityToIndex[ent] != InvalidIndex) { return &pool[entityToIndex[ent]].get(); }
+    const std::uint64_t entIndex = IdUtil::getEntityIndex(ent);
+    if (entIndex < entityToIndex.size()) {
+        if (entityToIndex[entIndex] != InvalidIndex) {
+            return &pool[entityToIndex[entIndex]].get();
+        }
     }
     return nullptr;
 }

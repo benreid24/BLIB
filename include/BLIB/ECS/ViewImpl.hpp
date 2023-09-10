@@ -110,27 +110,32 @@ private:
         }
 
         for (Entity ent : toAdd) {
-            if (ent + 1 >= entityToIndex.size()) { entityToIndex.resize(ent + 1, InvalidIndex); }
+            const std::uint64_t entIndex = IdUtil::getEntityIndex(ent);
+            if (entIndex + 1 > entityToIndex.size()) {
+                entityToIndex.resize(entIndex + 1, InvalidIndex);
+            }
 
-            if (entityToIndex[ent] != InvalidIndex) { continue; }
-            if (!mask.passes(registry.entityMasks[ent])) { continue; }
+            if (entityToIndex[entIndex] != InvalidIndex) { continue; }
+            if (!mask.passes(registry.entityMasks[entIndex])) { continue; }
 
             const std::size_t ni = results.size();
             results.emplace_back(registry, ent);
             if (!results.back().isValid()) { results.pop_back(); }
-            else { entityToIndex[ent] = ni; }
+            else { entityToIndex[entIndex] = ni; }
         }
         toAdd.clear();
 
         for (Entity ent : toRemove) {
-            if (ent + 1 >= entityToIndex.size()) { continue; }
+            const std::uint64_t entIndex = IdUtil::getEntityIndex(ent);
+            if (entIndex + 1 > entityToIndex.size()) { continue; }
 
-            std::size_t& index = entityToIndex[ent];
+            std::size_t& index = entityToIndex[entIndex];
             if (index == InvalidIndex) { continue; }
             if (index != results.size() - 1) {
-                std::size_t& backIndex = entityToIndex[results.back().entity()];
-                results[index]         = results.back();
-                backIndex              = index;
+                std::size_t& backIndex =
+                    entityToIndex[IdUtil::getEntityIndex(results.back().entity())];
+                results[index] = results.back();
+                backIndex      = index;
             }
             results.pop_back();
             index = InvalidIndex;

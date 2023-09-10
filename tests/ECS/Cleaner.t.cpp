@@ -7,7 +7,7 @@ namespace ecs
 {
 namespace unittest
 {
-TEST(EntityCleaner, Disarmed) {
+TEST(ECSEntityCleaner, Disarmed) {
     Registry testRegistry;
 
     Entity e = InvalidEntity;
@@ -20,7 +20,7 @@ TEST(EntityCleaner, Disarmed) {
     EXPECT_TRUE(testRegistry.entityExists(e));
 }
 
-TEST(EntityCleaner, Armed) {
+TEST(ECSEntityCleaner, Armed) {
     Registry testRegistry;
 
     Entity e = InvalidEntity;

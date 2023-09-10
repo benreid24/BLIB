@@ -22,6 +22,14 @@ struct DestroyTestComponent {
 
     bool& destroyed;
 };
+
+struct ParentTestComponent : public trait::ParentAware<ParentTestComponent> {
+    int payload;
+
+    ParentTestComponent(int p)
+    : payload(p) {}
+};
+
 } // namespace
 
 TEST(ECS, EntityCreateAndDestroy) {
@@ -313,6 +321,108 @@ TEST(ECS, ClearRegistry) {
         EXPECT_FALSE(testRegistry.entityExists(ent));
         EXPECT_EQ(testRegistry.getComponent<int>(ent), nullptr);
     }
+}
+
+TEST(ECS, ParentBeforeCreate) {
+    Registry testRegistry;
+
+    Entity child  = testRegistry.createEntity();
+    Entity parent = testRegistry.createEntity();
+    testRegistry.setEntityParent(child, parent);
+
+    auto* childCom  = testRegistry.addComponent<ParentTestComponent>(child, 10);
+    auto* parentCom = testRegistry.addComponent<ParentTestComponent>(parent, 100);
+
+    EXPECT_TRUE(childCom->hasParent());
+    EXPECT_FALSE(parentCom->hasParent());
+    EXPECT_EQ(childCom->payload, 10);
+    EXPECT_EQ(parentCom->payload, 100);
+    EXPECT_EQ(childCom->getParent().payload, 100);
+
+    testRegistry.destroyEntity(parent);
+    EXPECT_FALSE(testRegistry.entityExists(parent));
+    EXPECT_FALSE(testRegistry.entityExists(child));
+}
+
+TEST(ECS, ParentAfterCreate) {
+    Registry testRegistry;
+
+    Entity child  = testRegistry.createEntity();
+    Entity parent = testRegistry.createEntity();
+
+    auto* childCom  = testRegistry.addComponent<ParentTestComponent>(child, 10);
+    auto* parentCom = testRegistry.addComponent<ParentTestComponent>(parent, 100);
+    testRegistry.setEntityParent(child, parent);
+
+    EXPECT_TRUE(childCom->hasParent());
+    EXPECT_FALSE(parentCom->hasParent());
+    EXPECT_EQ(childCom->payload, 10);
+    EXPECT_EQ(parentCom->payload, 100);
+    EXPECT_EQ(childCom->getParent().payload, 100);
+
+    testRegistry.destroyEntity(parent);
+    EXPECT_FALSE(testRegistry.entityExists(parent));
+    EXPECT_FALSE(testRegistry.entityExists(child));
+}
+
+TEST(ECS, ParentRemove) {
+    Registry testRegistry;
+
+    Entity child  = testRegistry.createEntity();
+    Entity parent = testRegistry.createEntity();
+
+    auto* childCom  = testRegistry.addComponent<ParentTestComponent>(child, 10);
+    auto* parentCom = testRegistry.addComponent<ParentTestComponent>(parent, 100);
+    testRegistry.setEntityParent(child, parent);
+
+    EXPECT_TRUE(childCom->hasParent());
+    EXPECT_FALSE(parentCom->hasParent());
+    EXPECT_EQ(childCom->payload, 10);
+    EXPECT_EQ(parentCom->payload, 100);
+    EXPECT_EQ(childCom->getParent().payload, 100);
+
+    testRegistry.removeEntityParent(child);
+    EXPECT_FALSE(childCom->hasParent());
+
+    testRegistry.destroyEntity(parent);
+    EXPECT_FALSE(testRegistry.entityExists(parent));
+    EXPECT_TRUE(testRegistry.entityExists(child));
+}
+
+TEST(ECS, Dependencies) {
+    Registry testRegistry;
+
+    Entity child  = testRegistry.createEntity();
+    Entity parent = testRegistry.createEntity();
+
+    // test marked removal
+    testRegistry.addDependency(parent, child);
+    EXPECT_TRUE(testRegistry.isDependedOn(parent));
+    EXPECT_FALSE(testRegistry.destroyEntity(parent));
+    EXPECT_TRUE(testRegistry.destroyEntity(child));
+    EXPECT_FALSE(testRegistry.entityExists(parent));
+
+    // test add and remove dep
+    child  = testRegistry.createEntity();
+    parent = testRegistry.createEntity();
+    testRegistry.addDependency(parent, child);
+    testRegistry.removeDependency(parent, child);
+    EXPECT_TRUE(testRegistry.destroyEntity(parent));
+    EXPECT_TRUE(testRegistry.destroyEntity(child));
+
+    // test remove in order
+    child  = testRegistry.createEntity();
+    parent = testRegistry.createEntity();
+    testRegistry.addDependency(parent, child);
+    EXPECT_TRUE(testRegistry.destroyEntity(child));
+    EXPECT_TRUE(testRegistry.destroyEntity(parent));
+
+    // test delete on remove
+    child  = testRegistry.createEntity();
+    parent = testRegistry.createEntity();
+    testRegistry.addDependency(parent, child);
+    testRegistry.removeDependencyAndDestroyIfPossible(parent, child);
+    EXPECT_FALSE(testRegistry.entityExists(parent));
 }
 
 } // namespace unittest

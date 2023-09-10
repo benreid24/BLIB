@@ -218,7 +218,7 @@ void DescriptorComponentStorage<TCom, TPayload, TDynamicStorage, TStaticStorage>
         const ecs::Entity entity = getEntityFromSceneKey(key);
         if (entity != ecs::InvalidEntity) {
             TCom* component = registry.getComponent<TCom>(entity);
-            if (component) { component->link(this, {speed, ecs::InvalidEntity}, payload); }
+            if (component) { component->link(this, {speed, scene::Key::InvalidSceneId}, payload); }
         }
     }
 }

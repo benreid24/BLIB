@@ -2,7 +2,9 @@
 #define BLIB_ECS_REGISTRY_HPP
 
 #include <BLIB/ECS/ComponentPool.hpp>
+#include <BLIB/ECS/DependencyGraph.hpp>
 #include <BLIB/ECS/Entity.hpp>
+#include <BLIB/ECS/ParentGraph.hpp>
 #include <BLIB/ECS/View.hpp>
 #include <BLIB/Events/Dispatcher.hpp>
 #include <BLIB/Util/IdAllocatorUnbounded.hpp>
@@ -53,17 +55,71 @@ public:
     bool entityExists(Entity entity) const;
 
     /**
-     * @brief Removes the given entity and destroys all of its components
+     * @brief Removes the given entity and destroys all of its components. Destruction will not
+     *        occur if the entity is depended on by others. In that case it will be marked for later
+     *        removal once the dependencies are removed
      *
      * @param entity The entity to remove from the ECS
+     * @return True if the entity was removed or was already destroyed, false if removal was blocked
      */
-    void destroyEntity(Entity entity);
+    bool destroyEntity(Entity entity);
 
     /**
      * @brief Destroys and removes all entities and components from the ECS
      *
      */
     void destroyAllEntities();
+
+    /**
+     * @brief Sets the parent entity of the given entity
+     *
+     * @param child The entity to set the parent of
+     * @param parent The parent of the given entity
+     */
+    void setEntityParent(Entity child, Entity parent);
+
+    /**
+     * @brief Removes the parent of the given entity, if any
+     *
+     * @param child The entity to orphan
+     */
+    void removeEntityParent(Entity child);
+
+    /**
+     * @brief Adds a dependency on resource from user. Controls whether or not an entity may be
+     *        safely deleted
+     *
+     * @param resource The entity being depended on
+     * @param user The entity using the resource
+     */
+    void addDependency(Entity resource, Entity user);
+
+    /**
+     * @brief Removes the given dependency. Will destroy the resource if a prior call to
+     *        destroyEntity() failed for it
+     *
+     * @param resource The entity being depended on
+     * @param user The entity using the resource
+     */
+    void removeDependency(Entity resource, Entity user);
+
+    /**
+     * @brief Calls removeDependency() and then destroys the resource if nothing else depends on it.
+     *        If it still has dependencies then it will be marked for removal once all dependencies
+     *        are removed
+     *
+     * @param resource The resource being used
+     * @param user The entity using the resource
+     */
+    void removeDependencyAndDestroyIfPossible(Entity resource, Entity user);
+
+    /**
+     * @brief Returns whether or not the given entity is depended on by other entities
+     *
+     * @param resource The entity to check
+     * @return True if other entities depend on it, false otherwise
+     */
+    bool isDependedOn(Entity resource) const;
 
     /**
      * @brief Adds a new component of the given type to the given entity
@@ -160,9 +216,15 @@ public:
 
 private:
     // entity id management
-    std::mutex entityLock;
-    util::IdAllocatorUnbounded<Entity> entityAllocator;
+    mutable std::mutex entityLock;
+    util::IdAllocatorUnbounded<std::uint32_t> entityAllocator;
     std::vector<ComponentMask::SimpleMask> entityMasks;
+    std::vector<std::uint16_t> entityVersions;
+
+    // entity relationships
+    ParentGraph parentGraph;
+    DependencyGraph dependencyGraph;
+    std::vector<bool> markedForRemoval;
 
     // components
     std::vector<ComponentPoolBase*> componentPools;
@@ -173,6 +235,9 @@ private:
 
     template<typename T>
     ComponentPool<T>& getPool();
+
+    bool entityExistsLocked(Entity ent) const;
+    void markEntityForRemoval(Entity ent);
 
     template<typename TRequire, typename TOptional, typename TExclude>
     void populateView(View<TRequire, TOptional, TExclude>& view);
@@ -235,7 +300,7 @@ T* Registry::emplaceComponent(Entity ent, TArgs&&... args) {
 template<typename T>
 void Registry::finishComponentAdd(Entity ent, unsigned int cIndex, T* component) {
     bl::event::Dispatcher::dispatch<event::ComponentAdded<T>>({ent, *component});
-    ComponentMask::SimpleMask& mask        = entityMasks[ent];
+    ComponentMask::SimpleMask& mask        = entityMasks[IdUtil::getEntityIndex(ent)];
     const ComponentMask::SimpleMask ogMask = mask;
     ComponentMask::add(mask, cIndex);
     for (auto& view : views) {
@@ -243,6 +308,14 @@ void Registry::finishComponentAdd(Entity ent, unsigned int cIndex, T* component)
         else if (view->mask.passes(ogMask) && ComponentMask::has(view->mask.excluded, cIndex)) {
             view->removeEntity(ent);
         }
+    }
+
+    // notify pools of parent set
+    auto& pool = getPool<T>();
+    for (Entity child : parentGraph.getChildren(ent)) {
+        const std::uint32_t ic = IdUtil::getEntityIndex(child);
+        const ComponentMask mask{.required = entityMasks[ic]};
+        if (mask.contains(pool.ComponentIndex)) { pool.onParentSet(child, ent); }
     }
 }
 
@@ -261,8 +334,17 @@ void Registry::removeComponent(Entity ent) {
     std::lock_guard lock(entityLock);
 
     auto& pool = getPool<T>();
+
+    // notify pools of parent remove on children
+    for (Entity child : parentGraph.getChildren(ent)) {
+        const std::uint32_t ic = IdUtil::getEntityIndex(child);
+        const ComponentMask mask{.required = entityMasks[ic]};
+        if (mask.contains(pool.ComponentIndex)) { pool.onParentRemove(child); }
+    }
+
+    // do remove
     pool.remove(ent);
-    ComponentMask::SimpleMask& mask = entityMasks[ent];
+    ComponentMask::SimpleMask& mask = entityMasks[IdUtil::getEntityIndex(ent)];
     for (auto& view : views) {
         if (view->mask.passes(mask)) { view->removeEntity(ent); }
     }
@@ -315,8 +397,12 @@ ComponentPool<T>& Registry::getPool() {
 
 template<typename TRequire, typename TOptional, typename TExclude>
 void Registry::populateView(View<TRequire, TOptional, TExclude>& view) {
-    for (Entity ent = 0; ent < entityAllocator.endId(); ++ent) {
-        if (view.mask.passes(entityMasks[ent])) { view.tryAddEntity(ent); }
+    for (std::uint32_t i = 0; i < entityAllocator.endId(); ++i) {
+        if (entityAllocator.isAllocated(i)) {
+            if (view.mask.passes(entityMasks[i])) {
+                view.tryAddEntity(IdUtil::composeEntity(i, entityVersions[i]));
+            }
+        }
     }
 }
 
