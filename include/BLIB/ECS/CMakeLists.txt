@@ -4,6 +4,7 @@ target_sources(BLIB PUBLIC
     ComponentPool.hpp
     ComponentSet.hpp
     ComponentSetImpl.hpp
+    DependencyGraph.hpp
     Entity.hpp
     Events.hpp
     ParentGraph.hpp
