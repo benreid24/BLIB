@@ -8,7 +8,9 @@ namespace ovy
 {
 OverlayObject::OverlayObject()
 : SceneObject()
-, descriptorCount(0) {}
+, descriptorCount(0)
+, scaler(nullptr)
+, viewport(nullptr) {}
 
 void OverlayObject::registerChild(scene::Key cid) {
     if (children.size() == children.capacity()) {
@@ -27,7 +29,7 @@ void OverlayObject::removeChild(scene::Key cid) {
 }
 
 void OverlayObject::refreshViewport(const VkViewport& global, const VkViewport& parent) {
-    cachedViewport = viewport.valid() ? viewport.get().createViewport(global, parent) : parent;
+    cachedViewport = viewport ? viewport->createViewport(global, parent) : parent;
     cachedScissor  = ovy::Viewport::viewportToScissor(cachedViewport);
 }
 

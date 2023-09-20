@@ -90,8 +90,8 @@ scene::SceneObject* Overlay::doAdd(ecs::Entity entity, rcom::DrawableBase& objec
             obj.perObjStart = std::min(obj.perObjStart, static_cast<std::uint8_t>(i));
         }
     }
-    obj.scaler.assign(engine.ecs(), entity);
-    obj.viewport.assign(engine.ecs(), entity);
+    obj.scaler   = engine.ecs().getComponent<com::OverlayScaler>(entity);
+    obj.viewport = engine.ecs().getComponent<ovy::Viewport>(entity);
     entityToSceneId.try_emplace(entity, obj.sceneKey);
 
     return &obj;
@@ -105,8 +105,8 @@ void Overlay::doRemove(scene::SceneObject* object, std::uint32_t) {
         obj->descriptors[i]->releaseObject(entity, obj->sceneKey);
     }
 
-    obj->scaler.release();
-    obj->viewport.release();
+    obj->scaler   = nullptr;
+    obj->viewport = nullptr;
 
     for (scene::Key child : obj->children) { removeObject(&objects.getObject(child)); }
     obj->children.clear();
@@ -183,9 +183,7 @@ void Overlay::refreshScales() {
         renderStack.pop_back();
         ovy::OverlayObject& obj = objects.getObject(oid);
 
-        if (obj.scaler.valid()) {
-            if (obj.scaler.get().isDirty()) { refreshObjectAndChildren(oid); }
-        }
+        if (obj.scaler && obj.scaler->isDirty()) { refreshObjectAndChildren(oid); }
         else {
             std::copy(obj.children.begin(),
                       obj.children.end(),

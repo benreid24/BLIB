@@ -148,7 +148,7 @@ protected:
 private:
     engine::Engine* enginePtr;
     ecs::Entity ecsId;
-    ecs::StableHandle<TCom> handle;
+    TCom* handle;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -156,7 +156,8 @@ private:
 template<typename TCom, typename TSys>
 Drawable<TCom, TSys>::Drawable()
 : enginePtr(nullptr)
-, ecsId(ecs::InvalidEntity) {}
+, ecsId(ecs::InvalidEntity)
+, handle(nullptr) {}
 
 template<typename TCom, typename TSys>
 Drawable<TCom, TSys>::~Drawable() {
@@ -169,7 +170,7 @@ Drawable<TCom, TSys>::~Drawable() {
 template<typename TCom, typename TSys>
 void Drawable<TCom, TSys>::addToScene(rc::Scene* scene, rc::UpdateSpeed updateFreq) {
 #ifdef BLIB_DEBUG
-    if (!enginePtr || ecsId == ecs::InvalidEntity || !handle.valid()) {
+    if (!enginePtr || ecsId == ecs::InvalidEntity || !handle) {
         throw std::runtime_error("Drawable must be created before adding to scene");
     }
 #endif
@@ -183,7 +184,7 @@ void Drawable<TCom, TSys>::addToSceneWithCustomPipeline(rc::Scene* scene,
                                                         rc::UpdateSpeed updateFreq,
                                                         std::uint32_t pipeline) {
 #ifdef BLIB_DEBUG
-    if (!enginePtr || ecsId == ecs::InvalidEntity || !handle.valid()) {
+    if (!enginePtr || ecsId == ecs::InvalidEntity || !handle) {
         throw std::runtime_error("Drawable must be created before adding to scene");
     }
 #endif
@@ -196,7 +197,7 @@ template<typename TCom, typename TSys>
 void Drawable<TCom, TSys>::addToOverlay(rc::Overlay* overlay, rc::UpdateSpeed descriptorUpdateFreq,
                                         ecs::Entity parent) {
 #ifdef BLIB_DEBUG
-    if (!enginePtr || ecsId == ecs::InvalidEntity || !handle.valid()) {
+    if (!enginePtr || ecsId == ecs::InvalidEntity || !handle) {
         throw std::runtime_error("Drawable must be created before adding to scene");
     }
 #endif
@@ -211,7 +212,7 @@ void Drawable<TCom, TSys>::addToOverlayWithCustomPipeline(rc::Overlay* overlay,
                                                           std::uint32_t pipeline,
                                                           ecs::Entity parent) {
 #ifdef BLIB_DEBUG
-    if (!enginePtr || ecsId == ecs::InvalidEntity || !handle.valid()) {
+    if (!enginePtr || ecsId == ecs::InvalidEntity || !handle) {
         throw std::runtime_error("Drawable must be created before adding to scene");
     }
 #endif
@@ -223,7 +224,7 @@ void Drawable<TCom, TSys>::addToOverlayWithCustomPipeline(rc::Overlay* overlay,
 template<typename TCom, typename TSys>
 void Drawable<TCom, TSys>::setHidden(bool hide) {
 #ifdef BLIB_DEBUG
-    if (!handle.valid()) { throw std::runtime_error("Cannot hide un-created entity"); }
+    if (!handle) { throw std::runtime_error("Cannot hide un-created entity"); }
 #endif
 
     component().setHidden(hide);
@@ -248,12 +249,12 @@ constexpr ecs::Entity Drawable<TCom, TSys>::entity() const {
 
 template<typename TCom, typename TSys>
 TCom& Drawable<TCom, TSys>::component() {
-    return handle.get();
+    return *handle;
 }
 
 template<typename TCom, typename TSys>
 const TCom& Drawable<TCom, TSys>::component() const {
-    return handle.get();
+    return *handle;
 }
 
 template<typename TCom, typename TSys>
@@ -280,7 +281,7 @@ void Drawable<TCom, TSys>::destroy() {
 
     enginePtr->ecs().destroyEntity(ecsId);
     ecsId = ecs::InvalidEntity;
-    handle.release();
+    handle = nullptr;
 }
 
 template<typename TCom, typename TSys>
@@ -292,12 +293,11 @@ void Drawable<TCom, TSys>::onRemove() {}
 template<typename TCom, typename TSys>
 template<typename... TArgs>
 void Drawable<TCom, TSys>::create(engine::Engine& engine, TArgs&&... args) {
-    if (handle.valid()) { destroy(); }
+    if (handle != nullptr) { destroy(); }
     enginePtr = &engine;
 
     ecsId = engine.ecs().createEntity();
-    engine.ecs().emplaceComponent<TCom>(ecsId, std::forward<TArgs>(args)...);
-    handle.assign(engine.ecs(), ecsId);
+    handle = engine.ecs().emplaceComponent<TCom>(ecsId, std::forward<TArgs>(args)...);
 }
 
 } // namespace gfx

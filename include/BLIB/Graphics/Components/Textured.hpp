@@ -47,19 +47,18 @@ protected:
     void create(ecs::Registry& registry, ecs::Entity entity, TArgs&&... args);
 
 private:
-    ecs::StableHandle<com::Texture> handle;
+    com::Texture* handle;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline void Textured::setTexture(const rc::res::TextureRef& t) { handle.get().setTexture(t); }
+inline void Textured::setTexture(const rc::res::TextureRef& t) { handle->setTexture(t); }
 
-inline const rc::res::TextureRef& Textured::getTexture() const { return handle.get().getTexture(); }
+inline const rc::res::TextureRef& Textured::getTexture() const { return handle->getTexture(); }
 
 template<typename... TArgs>
 void Textured::create(ecs::Registry& registry, ecs::Entity entity, TArgs&&... args) {
-    registry.emplaceComponent<com::Texture>(entity, std::forward<TArgs>(args)...);
-    handle.assign(registry, entity);
+    handle = registry.emplaceComponent<com::Texture>(entity, std::forward<TArgs>(args)...);
 }
 
 } // namespace bcom

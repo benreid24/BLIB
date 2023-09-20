@@ -58,8 +58,8 @@ struct OverlayObject : public scene::SceneObject {
     void applyViewport(VkCommandBuffer commandBuffer);
 
     std::vector<scene::Key> children;
-    ecs::StableHandle<com::OverlayScaler> scaler;
-    ecs::StableHandle<Viewport> viewport;
+    com::OverlayScaler* scaler; // TODO - maybe use sep component and view to capture?
+    Viewport* viewport; // same. refresh is an issue rn on add and rm component
     vk::Pipeline* pipeline;
     std::array<ds::DescriptorSetInstance*, Config::MaxDescriptorSets> descriptors;
     std::uint8_t descriptorCount;
