@@ -16,7 +16,7 @@ namespace trait
 /**
  * @brief Component trait for components that are parent-able. Parent is set in the Registry as an
  *        entity-level relationship. Components should inherit this trait and pass their own type
- *        as the type parameter T
+ *        as the type parameter T. This trait provides a pointer to the parent component
  *
  * @tparam T The component type
  * @ingroup ECS

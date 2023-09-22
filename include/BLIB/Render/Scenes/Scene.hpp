@@ -137,14 +137,7 @@ protected:
      * @param object The object to remove
      */
     void removeObject(scene::SceneObject* object);
-
-    /**
-     * @brief Returns the ECS id for the object with the given scene id
-     *
-     * @param sceneId The scene id of the object to lookup
-     * @return The ECS id of the entity
-     */
-    constexpr ecs::Entity getEntityFromId(std::uint32_t sceneId) const;
+    // TODO - remove entity tree in here or where called
 
 private:
     std::uint32_t nextObserverIndex;

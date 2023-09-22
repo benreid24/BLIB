@@ -8,27 +8,12 @@ namespace ovy
 {
 OverlayObject::OverlayObject()
 : SceneObject()
-, descriptorCount(0)
-, scaler(nullptr)
-, viewport(nullptr) {}
+, overlay(nullptr)
+, descriptorCount(0) {}
 
-void OverlayObject::registerChild(scene::Key cid) {
-    if (children.size() == children.capacity()) {
-        children.reserve(std::max(children.capacity() * 2, static_cast<std::size_t>(8)));
-    }
-    children.emplace_back(cid);
-}
-
-void OverlayObject::removeChild(scene::Key cid) {
-    for (auto it = children.begin(); it != children.end(); ++it) {
-        if (*it == cid) {
-            children.erase(it);
-            return;
-        }
-    }
-}
-
-void OverlayObject::refreshViewport(const VkViewport& global, const VkViewport& parent) {
+void OverlayObject::refreshViewport(Viewport* viewport, const VkViewport& global,
+                                    const VkViewport& parent) {
+    // TODO - pass down viewport from dynamic fetch
     cachedViewport = viewport ? viewport->createViewport(global, parent) : parent;
     cachedScissor  = ovy::Viewport::viewportToScissor(cachedViewport);
 }

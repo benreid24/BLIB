@@ -3,6 +3,7 @@
 
 #include <BLIB/ECS/Entity.hpp>
 #include <BLIB/ECS/Events.hpp>
+#include <BLIB/ECS/Traits/ChildAware.hpp>
 #include <BLIB/ECS/Traits/ParentAware.hpp>
 #include <BLIB/Events.hpp>
 #include <BLIB/Logging.hpp>
@@ -50,8 +51,8 @@ protected:
     virtual void remove(Entity entity) = 0;
     virtual void clear()               = 0;
 
-    virtual void onParentSet(Entity child, Entity parent) = 0;
-    virtual void onParentRemove(Entity orphan)            = 0;
+    virtual void onParentSet(Entity child, Entity parent)     = 0;
+    virtual void onParentRemove(Entity parent, Entity orphan) = 0;
 
     template<typename TRequire, typename TOptional, typename TExclude>
     friend class View;
@@ -130,6 +131,7 @@ private:
 
     virtual void onParentSet(Entity child, Entity parent) override {
         if constexpr (std::is_base_of_v<trait::ParentAware<T>, T>) { setParent(child, parent); }
+        if constexpr (std::is_base_of_v<trait::ChildAware<T>, T>) { addChild(child, parent); }
     }
 
     void setParent(Entity child, Entity parent) {
@@ -143,14 +145,40 @@ private:
         }
     }
 
-    virtual void onParentRemove(Entity orphan) override {
-        if constexpr (std::is_base_of_v<trait::ParentAware<T>, T>) removeParent(orphan);
+    void addChild(Entity child, Entity parent) {
+        T* childCom  = get(child);
+        T* parentCom = get(parent);
+
+        if (child && parent) { parentCom->children.emplace_back(childCom); }
+        else {
+            if (!child) { BL_LOG_ERROR << "Invalid child entity: " << child; }
+            else { BL_LOG_ERROR << "Invalid parent entity: " << parent; }
+        }
+    }
+
+    virtual void onParentRemove(Entity parent, Entity orphan) override {
+        if constexpr (std::is_base_of_v<trait::ParentAware<T>, T>) { removeParent(orphan); }
+        if constexpr (std::is_base_of_v<trait::ChildAware<T>, T>) { removeChild(parent, orphan); }
     }
 
     void removeParent(Entity orphan) {
         T* com = get(orphan);
         if (com) { com->parent = nullptr; }
         else { BL_LOG_WARN << "Invalid orphan entity: " << orphan; }
+    }
+
+    void removeChild(Entity parent, Entity orphan) {
+        T* com  = get(orphan);
+        T* pcom = get(parent);
+        if (com && pcom) {
+            auto& c = pcom->children;
+            auto it = std::find(c.begin(), c.end(), com);
+            if (it != c.end()) { c.erase(it); }
+        }
+        else {
+            if (!com) { BL_LOG_WARN << "Invalid orphan entity: " << orphan; }
+            else { BL_LOG_ERROR << "Invalid parent entity: " << parent; }
+        }
     }
 
     friend class Registry;

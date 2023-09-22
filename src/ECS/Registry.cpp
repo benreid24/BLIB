@@ -168,7 +168,7 @@ void Registry::removeEntityParent(Entity child) {
     const ComponentMask mask{.required = entityMasks[ic]};
     parentGraph.unParent(child);
     for (ComponentPoolBase* pool : componentPools) {
-        if (mask.contains(pool->ComponentIndex)) { pool->onParentRemove(child); }
+        if (mask.contains(pool->ComponentIndex)) { pool->onParentRemove(parent, child); }
     }
 }
 

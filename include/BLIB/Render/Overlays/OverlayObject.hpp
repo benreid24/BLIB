@@ -3,6 +3,7 @@
 
 #include <BLIB/Components/OverlayScaler.hpp>
 #include <BLIB/ECS.hpp>
+#include <BLIB/ECS/Traits/ParentAware.hpp>
 #include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
 #include <BLIB/Render/Overlays/Viewport.hpp>
@@ -19,36 +20,28 @@ namespace bl
 {
 namespace rc
 {
+class Overlay;
+
 /// Classes for Observer overlays
 namespace ovy
 {
-struct OverlayObject : public scene::SceneObject {
+struct OverlayObject
+: public scene::SceneObject
+, public ecs::trait::ParentAware<OverlayObject>
+, public ecs::trait::ChildAware<OverlayObject> {
     /**
      * @brief Construct a new OverlayObject
      */
     OverlayObject();
 
     /**
-     * @brief Adds the child to this object's child array
-     *
-     * @param childId The id of the child to add
-     */
-    void registerChild(scene::Key childId);
-
-    /**
-     * @brief Removes the given child from this object's child array
-     *
-     * @param childId The child id to remove
-     */
-    void removeChild(scene::Key childId);
-
-    /**
      * @brief Recomputes the target-space viewport
      *
+     * @param viewport Pointer to this object's viewport component, if any
      * @param overlay The top-level viewport of the entire overlay
      * @param parent The parent viewport of this object
      */
-    void refreshViewport(const VkViewport& overlay, const VkViewport& parent);
+    void refreshViewport(Viewport* viewport, const VkViewport& overlay, const VkViewport& parent);
 
     /**
      * @brief Issues the commands to set the viewport and scissor
@@ -57,9 +50,8 @@ struct OverlayObject : public scene::SceneObject {
      */
     void applyViewport(VkCommandBuffer commandBuffer);
 
-    std::vector<scene::Key> children;
-    com::OverlayScaler* scaler; // TODO - maybe use sep component and view to capture?
-    Viewport* viewport; // same. refresh is an issue rn on add and rm component
+    ecs::Entity entity;
+    Overlay* overlay;
     vk::Pipeline* pipeline;
     std::array<ds::DescriptorSetInstance*, Config::MaxDescriptorSets> descriptors;
     std::uint8_t descriptorCount;

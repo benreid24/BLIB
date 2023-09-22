@@ -339,7 +339,11 @@ void Registry::removeComponent(Entity ent) {
     for (Entity child : parentGraph.getChildren(ent)) {
         const std::uint32_t ic = IdUtil::getEntityIndex(child);
         const ComponentMask mask{.required = entityMasks[ic]};
-        if (mask.contains(pool.ComponentIndex)) { pool.onParentRemove(child); }
+        if (mask.contains(pool.ComponentIndex)) {
+            const Entity parent = parentGraph.getParent(child);
+            if (parent == InvalidEntity) { continue; }
+            pool.onParentRemove(parent, child);
+        }
     }
 
     // do remove

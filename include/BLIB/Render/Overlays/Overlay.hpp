@@ -8,7 +8,7 @@
 #include <BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp>
 #include <BLIB/Render/Overlays/OverlayObject.hpp>
 #include <BLIB/Render/Scenes/Scene.hpp>
-#include <BLIB/Render/Scenes/SceneObjectStorage.hpp>
+#include <BLIB/Render/Scenes/SceneObjectECSAdaptor.hpp>
 #include <BLIB/Systems/OverlayScalerSystem.hpp>
 #include <BLIB/Util/IdAllocator.hpp>
 #include <limits>
@@ -97,30 +97,19 @@ protected:
     void setParent(scene::Key child, ecs::Entity parent = ecs::InvalidEntity);
 
 private:
-    struct TreeIndex {
-        std::vector<scene::Key> parentMap;
-
-        TreeIndex() {
-            parentMap.resize(Config::DefaultSceneObjectCapacity, {UpdateSpeed::Static, NoParent});
-        }
-    };
-
     engine::Engine& engine;
+    scene::SceneObjectECSAdaptor<ovy::OverlayObject> objects;
     sys::OverlayScalerSystem& scaler;
-    scene::SceneObjectStorage<ovy::OverlayObject> objects;
-    TreeIndex staticIndex;
-    TreeIndex dynamicIndex;
-    std::vector<scene::Key> roots;
-    std::unordered_map<ecs::Entity, scene::Key> entityToSceneId;
+    std::vector<ovy::OverlayObject*> roots; // TODO - use event to keep up to date
     std::vector<std::pair<scene::Key, ecs::Entity>> toParent;
 
-    std::vector<scene::Key> renderStack;
+    std::vector<ovy::OverlayObject*> renderStack;
     VkViewport cachedParentViewport;
     glm::u32vec2 cachedTargetSize;
 
     void refreshScales();
     void applyParent(scene::Key child, ecs::Entity parent);
-    void refreshObjectAndChildren(scene::Key id);
+    void refreshObjectAndChildren(ovy::OverlayObject& obj);
     void refreshAll();
 
     template<typename T>

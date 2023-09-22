@@ -6,6 +6,7 @@
 #include <BLIB/ECS.hpp>
 #include <BLIB/Engine/System.hpp>
 #include <BLIB/Render/Components/SceneObjectRef.hpp>
+#include <BLIB/Render/Overlays/OverlayObject.hpp>
 #include <BLIB/Render/Overlays/Viewport.hpp>
 #include <vector>
 
@@ -40,9 +41,14 @@ public:
     virtual ~OverlayScalerSystem() = default;
 
 private:
+    using Required = ecs::Require<rc::ovy::OverlayObject, com::Transform2D>;
+    using Optional = ecs::Optional<rc::ovy::Viewport, com::OverlayScaler>;
+    using Result = ecs::ComponentSet<Required, Optional>;
+
     ecs::Registry* registry;
     std::vector<rc::Overlay*> overlays;
     ecs::Entity ignoredEntity;
+    ecs::View<Required, Optional, ecs::Exclude<>>* view;
 
     virtual void init(engine::Engine& engine) override;
     virtual void update(std::mutex& stageMutex, float dt) override;

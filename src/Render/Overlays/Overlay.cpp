@@ -11,8 +11,8 @@ namespace rc
 Overlay::Overlay(engine::Engine& e)
 : Scene(e, objects.makeEntityCallback())
 , engine(e)
+, objects(e.ecs())
 , scaler(engine.systems().getSystem<sys::OverlayScalerSystem>())
-, objects()
 , cachedParentViewport{} {
     roots.reserve(Config::DefaultSceneObjectCapacity / 4);
     renderStack.reserve(Config::DefaultSceneObjectCapacity / 2);
@@ -41,11 +41,12 @@ void Overlay::renderScene(scene::SceneRenderContext& ctx) {
     }
 
     VkPipeline currentPipeline = nullptr;
+    unsigned int c             = 0;
     while (!renderStack.empty()) {
-        const scene::Key key = renderStack.back();
+        // TODO - if we get weird rendering we may need a queue here
+        ovy::OverlayObject& obj = *renderStack.back();
         renderStack.pop_back();
 
-        ovy::OverlayObject& obj = objects.getObject(key);
         if (obj.hidden) { continue; }
 
         obj.applyViewport(ctx.getCommandBuffer());
@@ -55,31 +56,30 @@ void Overlay::renderScene(scene::SceneRenderContext& ctx) {
             currentPipeline = np;
             ctx.bindPipeline(*obj.pipeline);
             ctx.bindDescriptors(obj.pipeline->pipelineLayout().rawLayout(),
-                                key.updateFreq,
+                                obj.sceneKey.updateFreq,
                                 obj.descriptors.data(),
                                 obj.descriptorCount);
         }
         for (std::uint8_t i = obj.perObjStart; i < obj.descriptorCount; ++i) {
             obj.descriptors[i]->bindForObject(
-                ctx, obj.pipeline->pipelineLayout().rawLayout(), i, key);
+                ctx, obj.pipeline->pipelineLayout().rawLayout(), i, obj.sceneKey);
         }
         ctx.renderObject(obj);
 
-        std::copy(obj.children.begin(),
-                  obj.children.end(),
+        std::copy(obj.getChildren().begin(),
+                  obj.getChildren().end(),
                   std::inserter(renderStack, renderStack.end()));
+        ++c;
     }
+
+    BL_LOG_INFO << "Rendered " << c << " objects";
 }
 
 scene::SceneObject* Overlay::doAdd(ecs::Entity entity, rcom::DrawableBase& object,
                                    UpdateSpeed updateFreq) {
-    auto alloc = objects.allocate(updateFreq, entity);
-    if (alloc.addressesChanged) {
-        auto& index = updateFreq == UpdateSpeed::Static ? staticIndex : dynamicIndex;
-        index.parentMap.resize(alloc.newCapacity, {UpdateSpeed::Static, NoParent});
-    }
-
-    ovy::OverlayObject& obj = *alloc.newObject;
+    ovy::OverlayObject& obj = *objects.allocate(updateFreq, entity);
+    obj.entity              = entity;
+    obj.overlay             = this;
     obj.pipeline            = &renderer.pipelineCache().getPipeline(object.pipeline);
     obj.descriptorCount =
         obj.pipeline->pipelineLayout().initDescriptorSets(descriptorSets, obj.descriptors.data());
@@ -90,9 +90,6 @@ scene::SceneObject* Overlay::doAdd(ecs::Entity entity, rcom::DrawableBase& objec
             obj.perObjStart = std::min(obj.perObjStart, static_cast<std::uint8_t>(i));
         }
     }
-    obj.scaler   = engine.ecs().getComponent<com::OverlayScaler>(entity);
-    obj.viewport = engine.ecs().getComponent<ovy::Viewport>(entity);
-    entityToSceneId.try_emplace(entity, obj.sceneKey);
 
     return &obj;
 }
@@ -104,25 +101,17 @@ void Overlay::doRemove(scene::SceneObject* object, std::uint32_t) {
     for (unsigned int i = 0; i < obj->descriptorCount; ++i) {
         obj->descriptors[i]->releaseObject(entity, obj->sceneKey);
     }
+    objects.release(obj->sceneKey);
 
-    obj->scaler   = nullptr;
-    obj->viewport = nullptr;
+    // TODO - move this to scene base and use ecs
+    for (ovy::OverlayObject* child : obj->getChildren()) { removeObject(child); }
 
-    for (scene::Key child : obj->children) { removeObject(&objects.getObject(child)); }
-    obj->children.clear();
-
-    TreeIndex& index = obj->sceneKey.updateFreq == UpdateSpeed::Static ? staticIndex : dynamicIndex;
-    const scene::Key parent = index.parentMap[obj->sceneKey.sceneId];
-    if (parent.sceneId == NoParent) {
-        for (auto it = roots.begin(); it != roots.end(); ++it) {
-            if (*it == obj->sceneKey) {
-                roots.erase(it);
-                break;
-            }
-        }
+    if (!obj->hasParent()) {
+        const auto it = std::find(roots.begin(), roots.end(), obj);
+        if (it != roots.end()) { roots.erase(it); }
     }
-    else { objects.getObject(parent).removeChild(obj->sceneKey); }
-    entityToSceneId.erase(entity);
+
+    engine.ecs().removeComponent<ovy::OverlayObject>(entity);
 }
 
 void Overlay::doBatchChange(const BatchChange& change, std::uint32_t ogPipeline) {
@@ -145,48 +134,42 @@ void Overlay::setParent(scene::Key child, ecs::Entity parent) {
 }
 
 void Overlay::applyParent(scene::Key child, ecs::Entity parent) {
-    const auto it = entityToSceneId.find(parent);
-    if (parent != ecs::InvalidEntity && it == entityToSceneId.end()) {
-        BL_LOG_WARN << "Invalid parent " << parent << " for entity "
-                    << objects.getObjectEntity(child) << " (scene id: " << child.sceneId << ")";
-    }
-    const scene::Key pid =
-        it != entityToSceneId.end() ? it->second : scene::Key{UpdateSpeed::Static, NoParent};
-    TreeIndex& index = child.updateFreq == UpdateSpeed::Static ? staticIndex : dynamicIndex;
+    const ecs::Entity cent  = objects.getObjectEntity(child);
+    ovy::OverlayObject& obj = objects.getObject(child);
 
-    index.parentMap[child.sceneId] = pid;
-    if (pid.sceneId != NoParent) { objects.getObject(pid).registerChild(child); }
-    else { roots.emplace_back(child); }
-    refreshObjectAndChildren(child);
+    if (parent == ecs::InvalidEntity) {
+        engine.ecs().removeEntityParent(cent);
+        roots.emplace_back(&obj);
+    }
+    else { engine.ecs().setEntityParent(cent, parent); }
+
+    refreshObjectAndChildren(obj);
 }
 
 void Overlay::refreshAll() {
-    for (auto o : roots) { refreshObjectAndChildren(o); }
+    for (auto o : roots) { refreshObjectAndChildren(*o); }
 }
 
-void Overlay::refreshObjectAndChildren(scene::Key id) {
-    TreeIndex& index        = id.updateFreq == UpdateSpeed::Static ? staticIndex : dynamicIndex;
-    const scene::Key pid    = index.parentMap[id.sceneId];
-    ovy::OverlayObject& obj = objects.getObject(id);
-    const VkViewport& vp =
-        pid.sceneId != NoParent ? objects.getObject(pid).cachedViewport : cachedParentViewport;
-    scaler.refreshEntity(objects.getObjectEntity(id), vp);
-    obj.refreshViewport(cachedParentViewport, vp);
-    for (auto child : obj.children) { refreshObjectAndChildren(child); }
+void Overlay::refreshObjectAndChildren(ovy::OverlayObject& obj) {
+    const VkViewport& vp = obj.hasParent() ? obj.getParent().cachedViewport : cachedParentViewport;
+    scaler.refreshEntity(objects.getObjectEntity(obj.sceneKey), vp);
+    obj.refreshViewport(
+        engine.ecs().getComponent<ovy::Viewport>(obj.entity), cachedParentViewport, vp);
+    for (auto child : obj.getChildren()) { refreshObjectAndChildren(*child); }
 }
 
 void Overlay::refreshScales() {
     std::copy(roots.begin(), roots.end(), std::inserter(renderStack, renderStack.begin()));
 
     while (!renderStack.empty()) {
-        const scene::Key oid = renderStack.back();
+        ovy::OverlayObject& obj = *renderStack.back();
         renderStack.pop_back();
-        ovy::OverlayObject& obj = objects.getObject(oid);
 
-        if (obj.scaler && obj.scaler->isDirty()) { refreshObjectAndChildren(oid); }
+        com::OverlayScaler* com = engine.ecs().getComponent<com::OverlayScaler>(obj.entity);
+        if (com && com->isDirty()) { refreshObjectAndChildren(obj); }
         else {
-            std::copy(obj.children.begin(),
-                      obj.children.end(),
+            std::copy(obj.getChildren().begin(),
+                      obj.getChildren().end(),
                       std::inserter(renderStack, renderStack.end()));
         }
     }
