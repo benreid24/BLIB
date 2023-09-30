@@ -99,7 +99,6 @@ void Overlay::doRemove(scene::SceneObject* object, std::uint32_t) {
     }
     objects.release(obj->sceneKey);
 
-    // TODO - move this to scene base and use ecs
     for (ovy::OverlayObject* child : obj->getChildren()) { removeObject(child); }
 
     if (!obj->hasParent()) {

@@ -1,5 +1,6 @@
 #include <BLIB/Render/Scenes/BatchedScene.hpp>
 
+#include <BLIB/Components/BatchSceneLink.hpp>
 #include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Logging.hpp>
 #include <BLIB/Render/Renderer.hpp>
@@ -12,6 +13,7 @@ namespace scene
 {
 BatchedScene::BatchedScene(engine::Engine& engine)
 : Scene(engine, objects.makeEntityCallback())
+, engine(engine)
 , objects()
 , staticTransCache(Config::DefaultSceneObjectCapacity, false)
 , dynamicTransCache(Config::DefaultSceneObjectCapacity, false) {}
@@ -74,15 +76,25 @@ scene::SceneObject* BatchedScene::doAdd(ecs::Entity entity, rcom::DrawableBase& 
     // add to pipeline batch
     pipelineBatch->objects.emplace_back(alloc.newObject);
 
+    // add scene link
+    engine.ecs().emplaceComponent<com::BatchSceneLink>(entity, alloc.newObject->sceneKey);
+
     return alloc.newObject;
 }
 
 void BatchedScene::doRemove(scene::SceneObject* object, std::uint32_t pipelineId) {
+    // lookup object
     const ecs::Entity entity = objects.getObjectEntity(object->sceneKey);
     auto& transCache =
         object->sceneKey.updateFreq == UpdateSpeed::Static ? staticTransCache : dynamicTransCache;
     auto& batch = transCache[object->sceneKey.sceneId] ? transparentObjects : opaqueObjects;
+    com::BatchSceneLink* link = engine.ecs().getComponent<com::BatchSceneLink>(entity);
 
+#ifdef BLIB_DEBUG
+    if (!link) { throw std::runtime_error("Internal error: Scene link missing"); }
+#endif
+
+    // remove from batch
     vk::Pipeline& pipeline = renderer.pipelineCache().getPipeline(pipelineId);
     for (LayoutBatch& p : batch.batches) {
         if (p.layout.rawLayout() == pipeline.pipelineLayout().rawLayout()) {
@@ -104,9 +116,17 @@ void BatchedScene::doRemove(scene::SceneObject* object, std::uint32_t pipelineId
             for (std::uint8_t i = 0; i < p.descriptorCount; ++i) {
                 p.descriptors[i]->releaseObject(entity, object->sceneKey);
             }
-            return;
+            break;
         }
     }
+
+    // remove children
+    for (com::BatchSceneLink* child : link->getChildren()) {
+        removeObject(&objects.getObject(child->key));
+    }
+
+    // cleanup scene link
+    engine.ecs().removeComponent<com::BatchSceneLink>(entity);
 }
 
 void BatchedScene::doBatchChange(const BatchChange& change, std::uint32_t ogPipeline) {

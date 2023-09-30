@@ -137,7 +137,6 @@ protected:
      * @param object The object to remove
      */
     void removeObject(scene::SceneObject* object);
-    // TODO - remove entity tree in here or where called
 
 private:
     std::uint32_t nextObserverIndex;
