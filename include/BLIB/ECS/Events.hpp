@@ -102,6 +102,93 @@ struct ComponentPoolResized {
     : poolIndex(pool) {}
 };
 
+/**
+ * @brief Fired when an entity has a parent set
+ *
+ * @ingroup ECS
+ */
+struct EntityParentSet {
+    /// The entity's new parent
+    Entity parent;
+
+    /// The entity that had the parent set
+    Entity child;
+
+    /**
+     * @brief Creates a new parent event
+     *
+     * @param parent The parent entity id
+     * @param child The child entity that had the parent set
+     */
+    EntityParentSet(Entity parent, Entity child)
+    : parent(parent)
+    , child(child) {}
+};
+
+/**
+ * @brief Fired when an entity's parent is removed
+ *
+ * @ingroup ECS
+ */
+struct EntityParentRemoved {
+    /// The entity whose parent was removed
+    Entity orphan;
+
+    /**
+     * @brief Creates a new parent event
+     *
+     * @param orphan The entity whose parent was removed
+     */
+    EntityParentRemoved(Entity orphan)
+    : orphan(orphan) {}
+};
+
+/**
+ * @brief Fired when an entity is marked as a dependency of another
+ *
+ * @ingroup ECS
+ */
+struct EntityDependencyAdded {
+    /// The entity being depended on
+    Entity resource;
+
+    /// The entity depending on resource
+    Entity user;
+
+    /**
+     * @brief Creates a new resource event
+     *
+     * @param resource The entity being depended on
+     * @param user The entity depending on resource
+     */
+    EntityDependencyAdded(Entity resource, Entity user)
+    : resource(resource)
+    , user(user) {}
+};
+
+/**
+ * @brief Fired when an entity no longer depends on another
+ *
+ * @ingroup ECS
+ */
+struct EntityDependencyRemoved {
+    /// The entity no longer being depended on
+    Entity resource;
+
+    /// The entity no longer depending on resource
+    Entity user;
+
+    /**
+     * @brief Creates a new resource event
+     *
+     * @param resource The entity no longer being depended on
+     * @param user The entity no longer depending on resource
+     */
+    EntityDependencyRemoved(Entity resource, Entity user)
+    : resource(resource)
+    , user(user) {}
+};
+
 } // namespace event
 } // namespace ecs
 } // namespace bl

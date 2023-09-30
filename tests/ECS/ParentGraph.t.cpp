@@ -8,8 +8,8 @@ namespace ecs
 namespace unittest
 {
 TEST(ECSParentGraph, BasicParenting) {
-    const Entity child  = IdUtil::composeEntity(0, 1);
-    const Entity parent = IdUtil::composeEntity(1, 1);
+    const Entity child  = Entity(0, 1);
+    const Entity parent = Entity(1, 1);
 
     ParentGraph graph(0);
 

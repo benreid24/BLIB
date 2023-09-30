@@ -10,25 +10,60 @@ namespace bl
 {
 namespace sys
 {
+namespace
+{
+bool parentsAllClean(com::OverlayScaler* scaler) {
+    while (scaler->hasParent()) {
+        scaler = &scaler->getParent();
+        if (scaler->isDirty()) { return false; }
+    }
+    return true;
+}
+
+} // namespace
+
 void OverlayScalerSystem::init(engine::Engine& engine) {
     ignoredEntity = ecs::InvalidEntity;
     registry      = &engine.ecs();
     overlays.reserve(4);
+    view       = engine.ecs().getOrCreateView<Required, Optional>();
+    scalerPool = &engine.ecs().getAllComponents<com::OverlayScaler>();
     bl::event::Dispatcher::subscribe(this);
 }
 
 void OverlayScalerSystem::update(std::mutex&, float) {
-    for (rc::Overlay* o : overlays) { o->refreshScales(); }
+    view->forEach([this](Result& row) {
+        com::OverlayScaler* scaler = row.get<com::OverlayScaler>();
+        if (scaler && scaler->isDirty()) {
+            // skip if parent dirty, will be refreshed when parent is
+            if (!parentsAllClean(scaler)) { return; }
+
+            const rc::ovy::OverlayObject& obj = *row.get<rc::ovy::OverlayObject>();
+            const VkViewport& pvp =
+                obj.hasParent() ? obj.getParent().cachedViewport : *obj.overlayViewport;
+            refreshObjectAndChildren(row, pvp);
+        }
+    });
 }
 
-void OverlayScalerSystem::refreshEntity(ecs::Entity entity, const VkViewport& viewport) {
-    auto cset =
-        registry->getComponentSet<ecs::Require<com::OverlayScaler, com::Transform2D>>(entity);
-    if (!cset.isValid()) {
-        BL_LOG_ERROR << "Missing components for entity: " << entity;
-        return;
+void OverlayScalerSystem::refreshObjectAndChildren(Result& row, const VkViewport& viewport) {
+    refreshEntity(row, viewport);
+    row.get<rc::ovy::OverlayObject>()->refreshViewport(
+        registry->getComponent<rc::ovy::Viewport>(row.entity()), viewport);
+    const auto& nvp = row.get<rc::ovy::OverlayObject>()->cachedViewport;
+    for (rc::ovy::OverlayObject* child : row.get<rc::ovy::OverlayObject>()->getChildren()) {
+        refreshObjectAndChildren(*child, nvp);
     }
+}
 
+void OverlayScalerSystem::refreshObjectAndChildren(rc::ovy::OverlayObject& obj,
+                                                   const VkViewport& viewport) {
+    Result childRow = registry->getComponentSet<Required, Optional>(obj.entity);
+    if (childRow.isValid()) { refreshObjectAndChildren(childRow, viewport); }
+    else { BL_LOG_ERROR << "Invalid child entity: " << obj.entity; }
+}
+
+void OverlayScalerSystem::refreshEntity(Result& cset, const VkViewport& viewport) {
     com::OverlayScaler& scaler  = *cset.get<com::OverlayScaler>();
     com::Transform2D& transform = *cset.get<com::Transform2D>();
     scaler.dirty                = false;
@@ -69,8 +104,9 @@ void OverlayScalerSystem::refreshEntity(ecs::Entity entity, const VkViewport& vi
         return;
     }
 
+    bool scaleChanged = false;
     if (scaler.useViewport) {
-        ignoredEntity           = entity;
+        ignoredEntity           = cset.entity();
         const glm::vec2 pos     = scaler.ogPos.value_or(transform.getPosition());
         const glm::vec2& origin = transform.getOrigin();
         const glm::vec2 offset(origin.x * xScale, origin.y * yScale);
@@ -83,43 +119,38 @@ void OverlayScalerSystem::refreshEntity(ecs::Entity entity, const VkViewport& vi
         }
 
         registry->emplaceComponent<rc::ovy::Viewport>(
-            entity,
+            cset.entity(),
             rc::ovy::Viewport::relative({corner.x,
                                          corner.y,
                                          scaler.cachedObjectSize.x * xScale,
                                          scaler.cachedObjectSize.y * yScale}));
 
         const glm::vec2 newScale{1.f / scaler.cachedObjectSize.x, 1.f / scaler.cachedObjectSize.y};
+        scaleChanged = transform.getScale().x != xScale || transform.getScale().y != yScale;
         transform.setPosition({origin.x * newScale.x, origin.y * newScale.y});
         transform.setScale(newScale);
         ignoredEntity = ecs::InvalidEntity;
     }
-    else { transform.setScale({xScale, yScale}); }
+    else {
+        scaleChanged = transform.getScale().x != xScale || transform.getScale().y != yScale;
+        transform.setScale({xScale, yScale});
+    }
 
-    bl::event::Dispatcher::dispatch<rc::event::OverlayEntityScaled>({entity});
+    if (scaleChanged) {
+        bl::event::Dispatcher::dispatch<rc::event::OverlayEntityScaled>({cset.entity()});
+    }
 }
 
 void OverlayScalerSystem::observe(const ecs::event::ComponentAdded<rc::ovy::Viewport>& event) {
     if (event.entity == ignoredEntity) return;
-    com::OverlayScaler* c = registry->getComponent<com::OverlayScaler>(event.entity);
+    com::OverlayScaler* c = scalerPool->get(event.entity);
     if (c) { c->dirty = true; }
 }
 
 void OverlayScalerSystem::observe(const ecs::event::ComponentRemoved<rc::ovy::Viewport>& event) {
     if (event.entity == ignoredEntity) return;
-    com::OverlayScaler* c = registry->getComponent<com::OverlayScaler>(event.entity);
+    com::OverlayScaler* c = scalerPool->get(event.entity);
     if (c) { c->dirty = true; }
-}
-
-void OverlayScalerSystem::registerOverlay(rc::Overlay* ov) { overlays.emplace_back(ov); }
-
-void OverlayScalerSystem::removeOverlay(rc::Overlay* ov) {
-    for (auto it = overlays.begin(); it != overlays.end(); ++it) {
-        if (*it == ov) {
-            overlays.erase(it);
-            return;
-        }
-    }
 }
 
 } // namespace sys

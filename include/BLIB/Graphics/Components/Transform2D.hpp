@@ -46,19 +46,18 @@ protected:
     void create(ecs::Registry& registry, ecs::Entity entity, TArgs&&... args);
 
 private:
-    ecs::StableHandle<com::Transform2D> handle;
+    com::Transform2D* handle;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline com::Transform2D& Transform2D::getTransform() { return handle.get(); }
+inline com::Transform2D& Transform2D::getTransform() { return *handle; }
 
-inline const com::Transform2D& Transform2D::getTransform() const { return handle.get(); }
+inline const com::Transform2D& Transform2D::getTransform() const { return *handle; }
 
 template<typename... TArgs>
 inline void Transform2D::create(ecs::Registry& registry, ecs::Entity entity, TArgs&&... args) {
-    registry.emplaceComponent<com::Transform2D>(entity, std::forward<TArgs>(args)...);
-    handle.assign(registry, entity);
+    handle = registry.emplaceComponent<com::Transform2D>(entity, std::forward<TArgs>(args)...);
 }
 
 } // namespace bcom

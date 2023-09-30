@@ -9,17 +9,17 @@ ecs::DependencyGraph::DependencyGraph(std::size_t capacityHint)
 , childrenToParents(capacityHint) {}
 
 void DependencyGraph::addDependency(Entity parent, Entity child) {
-    parentsToChildren.add(IdUtil::getEntityIndex(parent), child);
-    childrenToParents.add(IdUtil::getEntityIndex(child), parent);
+    parentsToChildren.add(parent.getIndex(), child);
+    childrenToParents.add(child.getIndex(), parent);
 }
 
 bool DependencyGraph::hasDependencies(Entity parent) const {
-    return parentsToChildren.hasValues(IdUtil::getEntityIndex(parent));
+    return parentsToChildren.hasValues(parent.getIndex());
 }
 
 void DependencyGraph::removeDependency(Entity parent, Entity child) {
-    parentsToChildren.removeValue(IdUtil::getEntityIndex(parent), child);
-    childrenToParents.removeValue(IdUtil::getEntityIndex(child), parent);
+    parentsToChildren.removeValue(parent.getIndex(), child);
+    childrenToParents.removeValue(child.getIndex(), parent);
 }
 
 void DependencyGraph::clear() {
@@ -28,7 +28,7 @@ void DependencyGraph::clear() {
 }
 
 ctr::IndexMappedList<std::uint32_t, Entity>::Range DependencyGraph::getResources(Entity child) {
-    return childrenToParents.getValues(IdUtil::getEntityIndex(child));
+    return childrenToParents.getValues(child.getIndex());
 }
 
 } // namespace ecs

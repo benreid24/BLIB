@@ -120,6 +120,7 @@ private:
         std::vector<LayoutBatch> batches;
     };
 
+    engine::Engine& engine;
     SceneObjectStorage<SceneObject> objects;
     ObjectBatch opaqueObjects;
     ObjectBatch transparentObjects;

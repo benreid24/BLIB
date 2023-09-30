@@ -68,32 +68,6 @@ public:
                                       rc::UpdateSpeed descriptorUpdateFreq, std::uint32_t pipeline);
 
     /**
-     * @brief Adds the component for the given entity to the overlay using the default pipelines
-     *
-     * @param entity The entity to add to the scene
-     * @param scene The scene to add the entity to
-     * @param descriptorUpdateFreq Expected update frequency of descriptors for this entity
-     * @param parent The entity to be the parent of the new overlay object
-     */
-    void addToOverlay(ecs::Entity, rc::Overlay* overlay, rc::UpdateSpeed descriptorUpdateFreq,
-                      ecs::Entity parent = ecs::InvalidEntity);
-
-    /**
-     * @brief Adds the component for the given entity to the overlay using custom pipelines for that
-     *        specific object
-     *
-     * @param entity The entity to add to the scene
-     * @param scene The scene to add the entity to
-     * @param descriptorUpdateFreq Expected update frequency of descriptors for this entity
-     * @param pipeline The pipeline to use for each scene stage when rendering this object
-     * @param parent The entity to be the parent of the new overlay object
-     */
-    void addToOverlayWithCustomPipeline(ecs::Entity, rc::Overlay* overlay,
-                                        rc::UpdateSpeed descriptorUpdateFreq,
-                                        std::uint32_t pipeline,
-                                        ecs::Entity parent = ecs::InvalidEntity);
-
-    /**
      * @brief Removes the entity from the scene that it is currently in
      *
      * @param entity The entity to remove from the scene
@@ -122,15 +96,12 @@ private:
         rc::Scene* scene;
         rc::UpdateSpeed updateFreq;
         std::uint32_t pipeline;
-        ecs::Entity parent;
 
-        AddCommand(ecs::Entity ent, rc::Scene* s, rc::UpdateSpeed us, std::uint32_t pipeline,
-                   ecs::Entity parent = ecs::InvalidEntity)
+        AddCommand(ecs::Entity ent, rc::Scene* s, rc::UpdateSpeed us, std::uint32_t pipeline)
         : entity(ent)
         , scene(s)
         , updateFreq(us)
-        , pipeline(pipeline)
-        , parent(parent) {}
+        , pipeline(pipeline) {}
     };
 
     std::mutex mutex;
@@ -195,45 +166,6 @@ void DrawableSystem<T>::addToSceneWithCustomPipeline(ecs::Entity entity, rc::Sce
 }
 
 template<typename T>
-void DrawableSystem<T>::addToOverlay(ecs::Entity ent, rc::Overlay* scene,
-                                     rc::UpdateSpeed descriptorUpdateFreq, ecs::Entity parent) {
-    T* c = registry->getComponent<T>(ent);
-    if (!c) {
-#ifdef BLIB_DEBUG
-        BL_LOG_WARN << "Entity " << ent << " is missing component: " << typeid(T).name();
-#endif
-        return;
-    }
-
-    addToOverlayWithCustomPipeline(
-        ent,
-        scene,
-        descriptorUpdateFreq,
-        c->pipeline != rc::rcom::DrawableBase::PipelineNotSet ? c->pipeline : overlayPipeline,
-        parent);
-}
-
-template<typename T>
-void DrawableSystem<T>::addToOverlayWithCustomPipeline(ecs::Entity entity, rc::Overlay* scene,
-                                                       rc::UpdateSpeed descriptorUpdateFreq,
-                                                       std::uint32_t pipelines,
-                                                       ecs::Entity parent) {
-    std::unique_lock lock(mutex);
-    T* c = registry->getComponent<T>(entity);
-    if (!c) {
-#ifdef BLIB_DEBUG
-        BL_LOG_WARN << "Entity " << entity << " is missing component: " << typeid(T).name();
-#endif
-        return;
-    }
-    if (c->sceneRef.scene) {
-        if (c->sceneRef.scene == scene) { return; }
-        erased.emplace_back(c->sceneRef);
-    }
-    toAdd.emplace_back(entity, scene, descriptorUpdateFreq, pipelines, parent);
-}
-
-template<typename T>
 void DrawableSystem<T>::removeFromScene(ecs::Entity entity) {
     std::unique_lock lock(mutex);
 
@@ -293,11 +225,7 @@ void DrawableSystem<T>::update(std::mutex& frameMutex, float dt) {
             }
             c->pipeline = add.pipeline;
             add.scene->createAndAddObject(add.entity, *c, add.updateFreq);
-            if (c->sceneRef.object) {
-                rc::Overlay* ov = dynamic_cast<rc::Overlay*>(add.scene);
-                if (ov) { ov->setParent(c->sceneRef.object->sceneKey, add.parent); }
-            }
-            else {
+            if (!c->sceneRef.object) {
                 BL_LOG_WARN << "Failed to add entity " << add.entity << " to scene " << add.scene;
             }
         }

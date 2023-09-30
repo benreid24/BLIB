@@ -1,6 +1,7 @@
 #ifndef BLIB_COMPONENTS_OVERLAYSCALER_HPP
 #define BLIB_COMPONENTS_OVERLAYSCALER_HPP
 
+#include <BLIB/ECS/Traits/ParentAware.hpp>
 #include <SFML/Graphics/Rect.hpp>
 #include <glm/glm.hpp>
 #include <optional>
@@ -34,7 +35,7 @@ namespace com
  *
  * @ingroup Components
  */
-class OverlayScaler {
+class OverlayScaler : public ecs::trait::ParentAware<OverlayScaler> {
 public:
     /**
      * @brief Initializes the component to have no scaling effect

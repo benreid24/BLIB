@@ -138,14 +138,6 @@ protected:
      */
     void removeObject(scene::SceneObject* object);
 
-    /**
-     * @brief Returns the ECS id for the object with the given scene id
-     *
-     * @param sceneId The scene id of the object to lookup
-     * @return The ECS id of the entity
-     */
-    constexpr ecs::Entity getEntityFromId(std::uint32_t sceneId) const;
-
 private:
     std::uint32_t nextObserverIndex;
     std::mutex batchMutex;

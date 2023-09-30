@@ -43,7 +43,7 @@ public:
      * @param child The child entity to get the parent of
      * @return The parent entity id, or InvalidEntity
      */
-    Entity getParent(Entity child);
+    Entity getParent(Entity child) const;
 
     /**
      * @brief Returns a range of children for the given entity

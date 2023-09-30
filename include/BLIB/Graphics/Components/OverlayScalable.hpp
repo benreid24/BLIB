@@ -104,14 +104,14 @@ private:
     sys::OverlayScalerSystem* scalerSystem;
     ecs::Registry* registry;
     ecs::Entity ecsId;
-    ecs::StableHandle<com::OverlayScaler> handle;
+    com::OverlayScaler* handle;
 
     friend class sys::OverlayScalerSystem;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline com::OverlayScaler& OverlayScalable::getOverlayScaler() { return handle.get(); }
+inline com::OverlayScaler& OverlayScalable::getOverlayScaler() { return *handle; }
 
 template<typename... TArgs>
 void OverlayScalable::create(engine::Engine& engine, ecs::Entity entity, TArgs&&... args) {
@@ -120,20 +120,19 @@ void OverlayScalable::create(engine::Engine& engine, ecs::Entity entity, TArgs&&
     ecsId        = entity;
 
     Transform2D::create(*registry, entity, std::forward<TArgs>(args)...);
-    registry->emplaceComponent<com::OverlayScaler>(entity);
-    handle.assign(*registry, entity);
+    handle = registry->emplaceComponent<com::OverlayScaler>(entity);
 }
 
 inline void OverlayScalable::setLocalSize(const glm::vec2& size) {
-    handle.get().setEntitySize(size);
+    handle->setEntitySize(size);
 }
 
 inline const glm::vec2& OverlayScalable::getLocalSize() const {
-    return handle.get().getEntitySize();
+    return handle->getEntitySize();
 }
 
 inline const sf::FloatRect& OverlayScalable::getTargetRegion() const {
-    return handle.get().cachedTargetRegion;
+    return handle->cachedTargetRegion;
 }
 
 } // namespace bcom

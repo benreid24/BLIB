@@ -8,7 +8,7 @@
 #include <BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp>
 #include <BLIB/Render/Overlays/OverlayObject.hpp>
 #include <BLIB/Render/Scenes/Scene.hpp>
-#include <BLIB/Render/Scenes/SceneObjectStorage.hpp>
+#include <BLIB/Render/Scenes/SceneObjectECSAdaptor.hpp>
 #include <BLIB/Systems/OverlayScalerSystem.hpp>
 #include <BLIB/Util/IdAllocator.hpp>
 #include <limits>
@@ -33,7 +33,9 @@ class Observer;
  *
  * @ingroup Renderer
  */
-class Overlay : public Scene {
+class Overlay
+: public Scene
+, public bl::event::Listener<ecs::event::EntityParentSet, ecs::event::EntityParentRemoved> {
 public:
     static constexpr std::uint32_t NoParent = std::numeric_limits<std::uint32_t>::max();
 
@@ -87,41 +89,22 @@ protected:
      */
     virtual void doBatchChange(const BatchChange& change, std::uint32_t ogPipeline) override;
 
-    /**
-     * @brief Sets the parent object of the given child. Must be called after object add for an
-     *        object to be rendered. Only call once per object
-     *
-     * @param child The object to set the parent of
-     * @param parent The parent object, or NoParent to make root
-     */
-    void setParent(scene::Key child, ecs::Entity parent = ecs::InvalidEntity);
-
 private:
-    struct TreeIndex {
-        std::vector<scene::Key> parentMap;
-
-        TreeIndex() {
-            parentMap.resize(Config::DefaultSceneObjectCapacity, {UpdateSpeed::Static, NoParent});
-        }
-    };
-
     engine::Engine& engine;
+    ecs::ComponentPool<ovy::OverlayObject>* ecsPool;
+    scene::SceneObjectECSAdaptor<ovy::OverlayObject> objects;
     sys::OverlayScalerSystem& scaler;
-    scene::SceneObjectStorage<ovy::OverlayObject> objects;
-    TreeIndex staticIndex;
-    TreeIndex dynamicIndex;
-    std::vector<scene::Key> roots;
-    std::unordered_map<ecs::Entity, scene::Key> entityToSceneId;
-    std::vector<std::pair<scene::Key, ecs::Entity>> toParent;
+    std::vector<ovy::OverlayObject*> roots;
+    bool needRefreshAll;
 
-    std::vector<scene::Key> renderStack;
+    std::vector<ovy::OverlayObject*> renderStack;
     VkViewport cachedParentViewport;
     glm::u32vec2 cachedTargetSize;
 
-    void refreshScales();
-    void applyParent(scene::Key child, ecs::Entity parent);
-    void refreshObjectAndChildren(scene::Key id);
     void refreshAll();
+
+    virtual void observe(const ecs::event::EntityParentSet& event) override;
+    virtual void observe(const ecs::event::EntityParentRemoved& event) override;
 
     template<typename T>
     friend class sys::DrawableSystem;

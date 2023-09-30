@@ -84,6 +84,7 @@ function(configure_blib_target target_name)
         ${BLIB_PATH}/lib/glm
         ${BLIB_PATH}/lib/Vulkan-Headers/include
         ${BLIB_PATH}/lib/volk
+        ${BLIB_PATH}/lib/plf_colony
     )
     if(APPLE)
         target_include_directories(${target_name} SYSTEM PUBLIC ${BLIB_PATH}/lib/glfw/include)

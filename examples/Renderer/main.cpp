@@ -105,7 +105,7 @@ public:
         messageBox.getTransform().setOrigin(messageBox.getTexture()->size() * 0.5f);
         messageBox.getOverlayScaler().scaleToHeightPercent(0.3f);
         messageBox.setViewportToSelf();
-        messageBox.addToOverlay(overlay, bl::rc::UpdateSpeed::Static);
+        messageBox.addToScene(overlay, bl::rc::UpdateSpeed::Static);
 
         // add text to overlay
         text.create(engine, font, "Text can now be", 64);
@@ -114,7 +114,8 @@ public:
         text.getTransform().setPosition({0.03f, 0.05f});
         text.getOverlayScaler().scaleToHeightRatio(64.f, 0.19f);
         text.wordWrap(0.9f);
-        text.addToOverlay(overlay, bl::rc::UpdateSpeed::Static, messageBox.entity());
+        text.setParent(messageBox);
+        text.addToScene(overlay, bl::rc::UpdateSpeed::Static);
 
         // setup render texture
         renderTexture.create(engine.renderer(), {128, 128});
@@ -126,12 +127,12 @@ public:
         renderTextureInnerSprite.create(engine, texture);
         renderTextureInnerSprite.getOverlayScaler().scaleToWidthPercent(1.f);
         renderTextureInnerSprite.getTransform().setPosition({0.f, 0.f});
-        renderTextureInnerSprite.addToOverlay(rto, bl::rc::UpdateSpeed::Static);
+        renderTextureInnerSprite.addToScene(rto, bl::rc::UpdateSpeed::Static);
 
         renderTextureOuterSprite.create(engine, renderTexture.getTexture());
         renderTextureOuterSprite.getTransform().setPosition({0.05f, 0.1f});
         renderTextureOuterSprite.getOverlayScaler().scaleToHeightPercent(0.15f);
-        renderTextureOuterSprite.addToOverlay(overlay, bl::rc::UpdateSpeed::Static);
+        renderTextureOuterSprite.addToScene(overlay, bl::rc::UpdateSpeed::Static);
 
         // subscribe to window events
         bl::event::Dispatcher::subscribe(this);

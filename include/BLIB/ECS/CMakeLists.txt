@@ -9,7 +9,6 @@ target_sources(BLIB PUBLIC
     Events.hpp
     ParentGraph.hpp
     Registry.hpp
-    StableHandle.hpp
     Tags.hpp
     TagsImpl.hpp
     View.hpp

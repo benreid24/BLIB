@@ -9,7 +9,8 @@ OverlayScaler::OverlayScaler()
 , cachedObjectSize(50.f, 50.f)
 , scaleType(None)
 , sizePercent(0.1f, 0.1f)
-, dirty(false) {}
+, useViewport(false)
+, dirty(true) {}
 
 void OverlayScaler::scaleToWidthPercent(float p) {
     scaleType    = WidthPercent;
