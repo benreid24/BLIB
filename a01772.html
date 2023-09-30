@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::engine::priv Namespace Reference</title>
+<title>BLIB: bl::ecs Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,24 +66,122 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01754.html">bl</a></li><li class="navelem"><a class="el" href="a01764.html">engine</a></li><li class="navelem"><a class="el" href="a01772.html">priv</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01760.html">bl</a></li><li class="navelem"><a class="el" href="a01772.html">ecs</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
-<div class="title">bl::engine::priv Namespace Reference</div>  </div>
+<div class="title">bl::ecs Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Internal implementation details.  
+<p>Contains the <a class="el" href="a02093.html" title="Entity is simply an id. Components are added via a Registry and they own all the relevant properties....">Entity</a> Component System.  
 <a href="a01772.html#details">More...</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:a01775"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01775.html">event</a></td></tr>
+<tr class="memdesc:a01775"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of events pertaining to entities. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01773"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01773.html">priv</a></td></tr>
+<tr class="memdesc:a01773"><td class="mdescLeft">&#160;</td><td class="mdescRight">Internal implementation. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01776"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01776.html">trait</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02053.html">Cleaner</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper class to automatically remove entities using RAII based cleanup. Useful for functions that build entities by adding many components where component creation may fail at arbitrary points.  <a href="a02053.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02057.html">ComponentMask</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper struct for creating masks representing component types on an entity.  <a href="a02057.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02061.html">View</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base definition of the <a class="el" href="a02061.html" title="Base definition of the View class. Use the tagged specialization.">View</a> class. Use the tagged specialization.  <a href="a02061.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02065.html">ComponentPoolBase</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for component pools. Not intended to be used directly.  <a href="a02065.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02069.html">ComponentPool</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides storage and management for components in the ECS. Used internally in the <a class="el" href="a02141.html" title="This is the main interface of the ECS. This class manages all entities and components and views and s...">Registry</a>.  <a href="a02069.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02081.html">ComponentSet</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains a set of components for a single entity. May not always be valid. Does not update if components are added or removed from the entity. Sets from views are always valid.  <a href="a02081.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02085.html">ComponentSet&lt; Require&lt; TReqComs... &gt;, Optional&lt; TOptComs... &gt; &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The actual <a class="el" href="a02081.html" title="Contains a set of components for a single entity. May not always be valid. Does not update if compone...">ComponentSet</a> specialization that should be used.  <a href="a02085.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02089.html">DependencyGraph</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper to store and manage dependencies between components.  <a href="a02089.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02093.html">Entity</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a02093.html" title="Entity is simply an id. Components are added via a Registry and they own all the relevant properties....">Entity</a> is simply an id. Components are added via a <a class="el" href="a02141.html" title="This is the main interface of the ECS. This class manages all entities and components and views and s...">Registry</a> and they own all the relevant properties. Systems can query lists of Entities with certain components and perform logic and updates.  <a href="a02093.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02137.html">ParentGraph</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility class to store and manage child &lt;-&gt; parent entity relationships in the ECS.  <a href="a02137.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02141.html">Registry</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is the main interface of the ECS. This class manages all entities and components and views and serves as the primary interface to be used.  <a href="a02141.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02145.html">Require</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02149.html">Optional</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02153.html">Exclude</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02157.html">Tags</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02161.html">Tags&lt; Require&lt; TReqComs... &gt;, Optional&lt; TOptComs... &gt;, Exclude&lt; TExcComs... &gt; &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02177.html">View&lt; Require&lt; TReqComs... &gt;, Optional&lt; TOptComs... &gt;, Exclude&lt; TExcComs... &gt; &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A view into the ECS providing fast iteration over entities with the given set of components. <a class="el" href="a02061.html" title="Base definition of the View class. Use the tagged specialization.">View</a> results stay up to date as the component and entity data change.  <a href="a02177.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a01655307bcb32baf2884e18213123917"><td class="memItemLeft" align="right" valign="top">static constexpr <a class="el" href="a02093.html">Entity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01772.html#a01655307bcb32baf2884e18213123917">InvalidEntity</a> = <a class="el" href="a02093.html">Entity</a>()</td></tr>
+<tr class="memdesc:a01655307bcb32baf2884e18213123917"><td class="mdescLeft">&#160;</td><td class="mdescRight">Special value to indicate that an <a class="el" href="a02093.html" title="Entity is simply an id. Components are added via a Registry and they own all the relevant properties....">Entity</a> is not valid.  <a href="a01772.html#a01655307bcb32baf2884e18213123917">More...</a><br /></td></tr>
+<tr class="separator:a01655307bcb32baf2884e18213123917"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Internal implementation details. </p>
-</div></div><!-- contents -->
+<div class="textblock"><p>Contains the <a class="el" href="a02093.html" title="Entity is simply an id. Components are added via a Registry and they own all the relevant properties....">Entity</a> Component System. </p>
+</div><h2 class="groupheader">Variable Documentation</h2>
+<a id="a01655307bcb32baf2884e18213123917"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a01655307bcb32baf2884e18213123917">&#9670;&nbsp;</a></span>InvalidEntity</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr <a class="el" href="a02093.html">Entity</a> bl::ecs::InvalidEntity = <a class="el" href="a02093.html">Entity</a>()</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Special value to indicate that an <a class="el" href="a02093.html" title="Entity is simply an id. Components are added via a Registry and they own all the relevant properties....">Entity</a> is not valid. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00125_source.html#l00149">149</a> of file <a class="el" href="a00125_source.html">Entity.hpp</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Sep 10 2023 23:10:23 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Sep 30 2023 22:56:47 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Systems/DrawableSystem.hpp File Reference</title>
+<title>BLIB: include/BLIB/Systems/BuiltinDrawableSystems.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,48 +71,41 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a>  </div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#typedef-members">Typedefs</a>  </div>
   <div class="headertitle">
-<div class="title">DrawableSystem.hpp File Reference</div>  </div>
+<div class="title">BuiltinDrawableSystems.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00152_source.html">BLIB/ECS.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a04752_source.html">BLIB/Engine/Engine.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a04755_source.html">BLIB/Engine/System.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00125_source.html">BLIB/Events.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00446_source.html">BLIB/Logging.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00542_source.html">BLIB/Render/Components/DrawableBase.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00545_source.html">BLIB/Render/Components/SceneObjectRef.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00605_source.html">BLIB/Render/Events/SceneDestroyed.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00680_source.html">BLIB/Render/Overlays/Overlay.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00734_source.html">BLIB/Render/Scenes/Scene.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00737_source.html">BLIB/Render/Scenes/SceneObject.hpp</a>&gt;</code><br />
-<code>#include &lt;mutex&gt;</code><br />
-<code>#include &lt;vector&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00047_source.html">BLIB/Components/Mesh.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a04787_source.html">BLIB/Components/Sprite.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00986_source.html">BLIB/Systems/DrawableSystem.hpp</a>&gt;</code><br />
 </div>
 <p><a href="a00980_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03042.html">bl::sys::DrawableSystem&lt; T &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for renderer systems that manage scene objects in the ECS. Custom renderable types should have a system that inherits from this class that manages their membership within scenes. These systems should run in the <a class="el" href="a02182.html#af6ea181be91b7069f9f52557a1445e1aa3f81ee2718a9735d701d01e03039048d" title="Synchronizes objects from the ECS into the scene-local object buffers.">engine::FrameStage::RenderObjectSync</a> step.  <a href="a03042.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a01754"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01754.html">bl</a></td></tr>
-<tr class="memdesc:a01754"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="memitem:a01760"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01760.html">bl</a></td></tr>
+<tr class="memdesc:a01760"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01760"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01760.html">bl::sys</a></td></tr>
-<tr class="memdesc:a01760"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of built-in engine systems. <br /></td></tr>
+<tr class="memitem:a01766"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01766.html">bl::sys</a></td></tr>
+<tr class="memdesc:a01766"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of built-in engine systems. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:ga4477117aea35eeac21751bf038a0098b"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01749.html#ga4477117aea35eeac21751bf038a0098b">bl::sys::MeshSystem</a> = DrawableSystem&lt; com::Mesh &gt;</td></tr>
+<tr class="memdesc:ga4477117aea35eeac21751bf038a0098b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Engine system for managing entity meshes.  <a href="a01749.html#ga4477117aea35eeac21751bf038a0098b">More...</a><br /></td></tr>
+<tr class="separator:ga4477117aea35eeac21751bf038a0098b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga68bd85b37280b05c447083208d4079f7"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01749.html#ga68bd85b37280b05c447083208d4079f7">bl::sys::SpriteSystem</a> = DrawableSystem&lt; com::Sprite &gt;</td></tr>
+<tr class="memdesc:ga68bd85b37280b05c447083208d4079f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Engine system for managing entity sprites.  <a href="a01749.html#ga68bd85b37280b05c447083208d4079f7">More...</a><br /></td></tr>
+<tr class="separator:ga68bd85b37280b05c447083208d4079f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Sep 10 2023 23:10:23 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Sep 30 2023 22:56:46 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

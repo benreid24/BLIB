@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Serialization/Buffers/StreamInputBuffer.hpp Source File</title>
+<title>BLIB: include/BLIB/Serialization/Buffers/MemoryOutputBuffer.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,62 +71,59 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">StreamInputBuffer.hpp</div>  </div>
+<div class="title">MemoryOutputBuffer.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00947.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_SERIALIZATION_BUFFERS_STREAMINPUTBUFFER_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_SERIALIZATION_BUFFERS_STREAMINPUTBUFFER_HPP</span></div>
+<a href="a00947.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_SERIALIZATION_BUFFERS_MEMORYOUTPUTBUFFER_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_SERIALIZATION_BUFFERS_MEMORYOUTPUTBUFFER_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00935.html">BLIB/Serialization/Buffers/InputBuffer.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00950.html">BLIB/Serialization/Buffers/OutputBuffer.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01754.html">bl</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01760.html">bl</a></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>serial</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a03562.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03562.html">StreamInputBuffer</a> : <span class="keyword">public</span> <a class="code" href="a03546.html">InputBuffer</a> {</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a03593.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03593.html">MemoryOutputBuffer</a> : <span class="keyword">public</span> <a class="code" href="a03597.html">OutputBuffer</a> {</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <a class="code" href="a03562.html#a8d5fd4a5d4571cf5d2037e590e112363">StreamInputBuffer</a>(std::istream&amp; stream);</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a03562.html#a026b3ea3f1340e6befc3b5f1d6c1de38">   30</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03562.html#a026b3ea3f1340e6befc3b5f1d6c1de38">~StreamInputBuffer</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="a03562.html#a83396b7344f5ac06693f644a550b18b0">read</a>(<span class="keywordtype">char</span>* data, std::size_t len) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keyword">virtual</span> std::size_t <a class="code" href="a03562.html#a9e6e8edbfd038649331e7e5e46642edd">tellg</a>() <span class="keyword">const override</span>;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keyword">virtual</span> std::size_t <a class="code" href="a03562.html#a6822646bf868f540bc8dc1decc195eb1">size</a>() <span class="keyword">const override</span>;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="a03562.html#aff2263615162f89b76a6ba19f2b6dd91">seekg</a>(std::size_t pos) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">char</span> <a class="code" href="a03562.html#a65e62c1b138b7a96f17ed4cfb82751ee">peek</a>() <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a03593.html#a2f62b218b50089dbc6174a2697d266e6">   23</a></span>&#160;    <a class="code" href="a03593.html#a2f62b218b50089dbc6174a2697d266e6">MemoryOutputBuffer</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a03593.html#aeac8e552b734b515ee6d4103ebd012f1">   29</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03593.html#aeac8e552b734b515ee6d4103ebd012f1">~MemoryOutputBuffer</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03593.html#a29aafd9858e2a2a245f348a457f8a4ad">reserve</a>(std::size_t capacity);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="a03593.html#aa14425bbf68b5d3a49ea56ca30c2f15b">write</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code" href="a03593.html#a652db0ba56ef55f634172448d71f6909">data</a>, std::size_t len) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="a03593.html#ab78ef537e0bd074e9c965e4535632fb0">good</a>() <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code" href="a03593.html#a652db0ba56ef55f634172448d71f6909">data</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    std::size_t <a class="code" href="a03593.html#a97c1d806d711f9bf2837d0f193e390f1">size</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    std::vector&lt;char&gt; buffer;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;};</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="a03562.html#afc80a36bfba405eff37387a384510b9d">good</a>() <span class="keyword">const override</span>;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    std::istream&amp; stream;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;};</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;} <span class="comment">// namespace serial</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00935_html"><div class="ttname"><a href="a00935.html">InputBuffer.hpp</a></div></div>
-<div class="ttc" id="aa01754_html"><div class="ttname"><a href="a01754.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03546_html"><div class="ttname"><a href="a03546.html">bl::serial::InputBuffer</a></div><div class="ttdoc">Buffer interface for reading data to be deserialized.</div><div class="ttdef"><b>Definition:</b> <a href="a00935_source.html#l00017">InputBuffer.hpp:17</a></div></div>
-<div class="ttc" id="aa03562_html"><div class="ttname"><a href="a03562.html">bl::serial::StreamInputBuffer</a></div><div class="ttdoc">Input buffer that operates on C++ streams.</div><div class="ttdef"><b>Definition:</b> <a href="a00947_source.html#l00017">StreamInputBuffer.hpp:17</a></div></div>
-<div class="ttc" id="aa03562_html_a026b3ea3f1340e6befc3b5f1d6c1de38"><div class="ttname"><a href="a03562.html#a026b3ea3f1340e6befc3b5f1d6c1de38">bl::serial::StreamInputBuffer::~StreamInputBuffer</a></div><div class="ttdeci">virtual ~StreamInputBuffer()=default</div><div class="ttdoc">Destroy the Stream Input Buffer object.</div></div>
-<div class="ttc" id="aa03562_html_a65e62c1b138b7a96f17ed4cfb82751ee"><div class="ttname"><a href="a03562.html#a65e62c1b138b7a96f17ed4cfb82751ee">bl::serial::StreamInputBuffer::peek</a></div><div class="ttdeci">virtual char peek() const override</div><div class="ttdoc">Returns the next byte value to be read. May return EOF.</div><div class="ttdef"><b>Definition:</b> <a href="a01679_source.html#l00030">StreamInputBuffer.cpp:30</a></div></div>
-<div class="ttc" id="aa03562_html_a6822646bf868f540bc8dc1decc195eb1"><div class="ttname"><a href="a03562.html#a6822646bf868f540bc8dc1decc195eb1">bl::serial::StreamInputBuffer::size</a></div><div class="ttdeci">virtual std::size_t size() const override</div><div class="ttdoc">Returns the size of available input.</div><div class="ttdef"><b>Definition:</b> <a href="a01679_source.html#l00017">StreamInputBuffer.cpp:17</a></div></div>
-<div class="ttc" id="aa03562_html_a83396b7344f5ac06693f644a550b18b0"><div class="ttname"><a href="a03562.html#a83396b7344f5ac06693f644a550b18b0">bl::serial::StreamInputBuffer::read</a></div><div class="ttdeci">virtual bool read(char *data, std::size_t len) override</div><div class="ttdoc">Reads data from the buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a01679_source.html#l00010">StreamInputBuffer.cpp:10</a></div></div>
-<div class="ttc" id="aa03562_html_a8d5fd4a5d4571cf5d2037e590e112363"><div class="ttname"><a href="a03562.html#a8d5fd4a5d4571cf5d2037e590e112363">bl::serial::StreamInputBuffer::StreamInputBuffer</a></div><div class="ttdeci">StreamInputBuffer(std::istream &amp;stream)</div><div class="ttdoc">Construct a new Stream Input Buffer from an input stream.</div><div class="ttdef"><b>Definition:</b> <a href="a01679_source.html#l00007">StreamInputBuffer.cpp:7</a></div></div>
-<div class="ttc" id="aa03562_html_a9e6e8edbfd038649331e7e5e46642edd"><div class="ttname"><a href="a03562.html#a9e6e8edbfd038649331e7e5e46642edd">bl::serial::StreamInputBuffer::tellg</a></div><div class="ttdeci">virtual std::size_t tellg() const override</div><div class="ttdoc">Returns the current position of the read head in the buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a01679_source.html#l00015">StreamInputBuffer.cpp:15</a></div></div>
-<div class="ttc" id="aa03562_html_afc80a36bfba405eff37387a384510b9d"><div class="ttname"><a href="a03562.html#afc80a36bfba405eff37387a384510b9d">bl::serial::StreamInputBuffer::good</a></div><div class="ttdeci">virtual bool good() const override</div><div class="ttdoc">Returns whether or not the buffer is in a valid state.</div><div class="ttdef"><b>Definition:</b> <a href="a01679_source.html#l00032">StreamInputBuffer.cpp:32</a></div></div>
-<div class="ttc" id="aa03562_html_aff2263615162f89b76a6ba19f2b6dd91"><div class="ttname"><a href="a03562.html#aff2263615162f89b76a6ba19f2b6dd91">bl::serial::StreamInputBuffer::seekg</a></div><div class="ttdeci">virtual bool seekg(std::size_t pos) override</div><div class="ttdoc">Sets the position of the read head in the buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a01679_source.html#l00025">StreamInputBuffer.cpp:25</a></div></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;} <span class="comment">// namespace serial</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00950_html"><div class="ttname"><a href="a00950.html">OutputBuffer.hpp</a></div></div>
+<div class="ttc" id="aa01760_html"><div class="ttname"><a href="a01760.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03593_html"><div class="ttname"><a href="a03593.html">bl::serial::MemoryOutputBuffer</a></div><div class="ttdoc">Buffer that allows serializing data to an in-memory buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a00947_source.html#l00017">MemoryOutputBuffer.hpp:17</a></div></div>
+<div class="ttc" id="aa03593_html_a29aafd9858e2a2a245f348a457f8a4ad"><div class="ttname"><a href="a03593.html#a29aafd9858e2a2a245f348a457f8a4ad">bl::serial::MemoryOutputBuffer::reserve</a></div><div class="ttdeci">void reserve(std::size_t capacity)</div><div class="ttdoc">Reserves capacity for the serialized output.</div><div class="ttdef"><b>Definition:</b> <a href="a01682_source.html#l00009">MemoryOutputBuffer.cpp:9</a></div></div>
+<div class="ttc" id="aa03593_html_a2f62b218b50089dbc6174a2697d266e6"><div class="ttname"><a href="a03593.html#a2f62b218b50089dbc6174a2697d266e6">bl::serial::MemoryOutputBuffer::MemoryOutputBuffer</a></div><div class="ttdeci">MemoryOutputBuffer()=default</div><div class="ttdoc">Construct a new Memory Output Buffer.</div></div>
+<div class="ttc" id="aa03593_html_a652db0ba56ef55f634172448d71f6909"><div class="ttname"><a href="a03593.html#a652db0ba56ef55f634172448d71f6909">bl::serial::MemoryOutputBuffer::data</a></div><div class="ttdeci">const char * data() const</div><div class="ttdoc">Returns a pointer to the contained data.</div><div class="ttdef"><b>Definition:</b> <a href="a01682_source.html#l00020">MemoryOutputBuffer.cpp:20</a></div></div>
+<div class="ttc" id="aa03593_html_a97c1d806d711f9bf2837d0f193e390f1"><div class="ttname"><a href="a03593.html#a97c1d806d711f9bf2837d0f193e390f1">bl::serial::MemoryOutputBuffer::size</a></div><div class="ttdeci">std::size_t size() const</div><div class="ttdoc">Returns the size of the buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a01682_source.html#l00022">MemoryOutputBuffer.cpp:22</a></div></div>
+<div class="ttc" id="aa03593_html_aa14425bbf68b5d3a49ea56ca30c2f15b"><div class="ttname"><a href="a03593.html#aa14425bbf68b5d3a49ea56ca30c2f15b">bl::serial::MemoryOutputBuffer::write</a></div><div class="ttdeci">virtual bool write(const char *data, std::size_t len) override</div><div class="ttdoc">Write some data to the buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a01682_source.html#l00011">MemoryOutputBuffer.cpp:11</a></div></div>
+<div class="ttc" id="aa03593_html_ab78ef537e0bd074e9c965e4535632fb0"><div class="ttname"><a href="a03593.html#ab78ef537e0bd074e9c965e4535632fb0">bl::serial::MemoryOutputBuffer::good</a></div><div class="ttdeci">virtual bool good() const override</div><div class="ttdoc">Returns whether or not the buffer is in a good state.</div><div class="ttdef"><b>Definition:</b> <a href="a01682_source.html#l00018">MemoryOutputBuffer.cpp:18</a></div></div>
+<div class="ttc" id="aa03593_html_aeac8e552b734b515ee6d4103ebd012f1"><div class="ttname"><a href="a03593.html#aeac8e552b734b515ee6d4103ebd012f1">bl::serial::MemoryOutputBuffer::~MemoryOutputBuffer</a></div><div class="ttdeci">virtual ~MemoryOutputBuffer()=default</div><div class="ttdoc">Destroy the Memory Output Buffer object.</div></div>
+<div class="ttc" id="aa03597_html"><div class="ttname"><a href="a03597.html">bl::serial::OutputBuffer</a></div><div class="ttdoc">Interface for outputting serialized data.</div><div class="ttdef"><b>Definition:</b> <a href="a00950_source.html#l00016">OutputBuffer.hpp:16</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Sep 10 2023 23:10:22 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Sep 30 2023 22:56:46 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

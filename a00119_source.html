@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/ECS/DependencyGraph.hpp Source File</title>
+<title>BLIB: include/BLIB/ECS/ComponentSetImpl.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,60 +71,107 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">DependencyGraph.hpp</div>  </div>
+<div class="title">ComponentSetImpl.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00119.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_ECS_DEPENDENCYGRAPH_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_ECS_DEPENDENCYGRAPH_HPP</span></div>
+<a href="a00119.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_ECS_COMPONENTSETIMPL_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_ECS_COMPONENTSETIMPL_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00080.html">BLIB/Containers/IndexMappedList.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00122.html">BLIB/ECS/Entity.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01754.html">bl</a></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>ecs</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a02074.html">   16</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02074.html">DependencyGraph</a> {</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <a class="code" href="a02074.html#a42ca2d87dfe5867e1e48b7cd927e8998">DependencyGraph</a>(std::size_t capacityHint);</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02074.html#a5be0aef92ec886c39769384811f02ccc">addDependency</a>(<a class="code" href="a01766.html#a84d059ae70a9c854802e3af9a2f373a9">Entity</a> parent, <a class="code" href="a01766.html#a84d059ae70a9c854802e3af9a2f373a9">Entity</a> child);</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a02074.html#a306e898c7fab38052be04f243e154f8c">hasDependencies</a>(<a class="code" href="a01766.html#a84d059ae70a9c854802e3af9a2f373a9">Entity</a> parent) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02074.html#a578885f410b0ca7aa8551962258bb59f">removeDependency</a>(<a class="code" href="a01766.html#a84d059ae70a9c854802e3af9a2f373a9">Entity</a> parent, <a class="code" href="a01766.html#a84d059ae70a9c854802e3af9a2f373a9">Entity</a> child);</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02074.html#a46bb4369e09fcc49d21b3f8c07946f4c">clear</a>();</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <a class="code" href="a01970.html">ctr::IndexMappedList&lt;std::uint32_t, Entity&gt;::Range</a> <a class="code" href="a02074.html#a334277ed7244554257b87ee0530b6d3a">getResources</a>(<a class="code" href="a01766.html#a84d059ae70a9c854802e3af9a2f373a9">Entity</a> child);</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <a class="code" href="a01962.html">ctr::IndexMappedList&lt;std::uint32_t, Entity&gt;</a> parentsToChildren;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <a class="code" href="a01962.html">ctr::IndexMappedList&lt;std::uint32_t, Entity&gt;</a> childrenToParents;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;};</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;} <span class="comment">// namespace ecs</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00080_html"><div class="ttname"><a href="a00080.html">IndexMappedList.hpp</a></div></div>
-<div class="ttc" id="aa00122_html"><div class="ttname"><a href="a00122.html">Entity.hpp</a></div></div>
-<div class="ttc" id="aa01754_html"><div class="ttname"><a href="a01754.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa01766_html_a84d059ae70a9c854802e3af9a2f373a9"><div class="ttname"><a href="a01766.html#a84d059ae70a9c854802e3af9a2f373a9">bl::ecs::Entity</a></div><div class="ttdeci">std::uint64_t Entity</div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition:</b> <a href="a00122_source.html#l00021">Entity.hpp:21</a></div></div>
-<div class="ttc" id="aa01962_html"><div class="ttname"><a href="a01962.html">bl::ctr::IndexMappedList&lt; std::uint32_t, Entity &gt;</a></div></div>
-<div class="ttc" id="aa01970_html"><div class="ttname"><a href="a01970.html">bl::ctr::IndexMappedList::Range</a></div><div class="ttdoc">Helper struct to allow range-based for loops.</div><div class="ttdef"><b>Definition:</b> <a href="a00080_source.html#l00187">IndexMappedList.hpp:187</a></div></div>
-<div class="ttc" id="aa02074_html"><div class="ttname"><a href="a02074.html">bl::ecs::DependencyGraph</a></div><div class="ttdoc">Helper to store and manage dependencies between components.</div><div class="ttdef"><b>Definition:</b> <a href="a00119_source.html#l00016">DependencyGraph.hpp:16</a></div></div>
-<div class="ttc" id="aa02074_html_a306e898c7fab38052be04f243e154f8c"><div class="ttname"><a href="a02074.html#a306e898c7fab38052be04f243e154f8c">bl::ecs::DependencyGraph::hasDependencies</a></div><div class="ttdeci">bool hasDependencies(Entity parent) const</div><div class="ttdoc">Returns whether or not the given entity has others depending on it.</div><div class="ttdef"><b>Definition:</b> <a href="a01100_source.html#l00016">DependencyGraph.cpp:16</a></div></div>
-<div class="ttc" id="aa02074_html_a334277ed7244554257b87ee0530b6d3a"><div class="ttname"><a href="a02074.html#a334277ed7244554257b87ee0530b6d3a">bl::ecs::DependencyGraph::getResources</a></div><div class="ttdeci">ctr::IndexMappedList&lt; std::uint32_t, Entity &gt;::Range getResources(Entity child)</div><div class="ttdoc">Returns an iterable of dependencies for the given entity.</div><div class="ttdef"><b>Definition:</b> <a href="a01100_source.html#l00030">DependencyGraph.cpp:30</a></div></div>
-<div class="ttc" id="aa02074_html_a42ca2d87dfe5867e1e48b7cd927e8998"><div class="ttname"><a href="a02074.html#a42ca2d87dfe5867e1e48b7cd927e8998">bl::ecs::DependencyGraph::DependencyGraph</a></div><div class="ttdeci">DependencyGraph(std::size_t capacityHint)</div><div class="ttdoc">Creates the graph with the given capacity hint.</div><div class="ttdef"><b>Definition:</b> <a href="a01100_source.html#l00007">DependencyGraph.cpp:7</a></div></div>
-<div class="ttc" id="aa02074_html_a46bb4369e09fcc49d21b3f8c07946f4c"><div class="ttname"><a href="a02074.html#a46bb4369e09fcc49d21b3f8c07946f4c">bl::ecs::DependencyGraph::clear</a></div><div class="ttdeci">void clear()</div><div class="ttdoc">Clears out all relationship data.</div><div class="ttdef"><b>Definition:</b> <a href="a01100_source.html#l00025">DependencyGraph.cpp:25</a></div></div>
-<div class="ttc" id="aa02074_html_a578885f410b0ca7aa8551962258bb59f"><div class="ttname"><a href="a02074.html#a578885f410b0ca7aa8551962258bb59f">bl::ecs::DependencyGraph::removeDependency</a></div><div class="ttdeci">void removeDependency(Entity parent, Entity child)</div><div class="ttdoc">Removes the given dependency.</div><div class="ttdef"><b>Definition:</b> <a href="a01100_source.html#l00020">DependencyGraph.cpp:20</a></div></div>
-<div class="ttc" id="aa02074_html_a5be0aef92ec886c39769384811f02ccc"><div class="ttname"><a href="a02074.html#a5be0aef92ec886c39769384811f02ccc">bl::ecs::DependencyGraph::addDependency</a></div><div class="ttdeci">void addDependency(Entity parent, Entity child)</div><div class="ttdoc">Adds a dependency between two entities.</div><div class="ttdef"><b>Definition:</b> <a href="a01100_source.html#l00011">DependencyGraph.cpp:11</a></div></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#ifndef BLIB_ECS_REGISTRY_HPP</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#error &quot;Internal file included out of order&quot;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01760.html">bl</a></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>ecs</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>priv</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="a02077.html#aa7a132531191378299e6c54bdfbaa07c">   15</a></span>&#160;<a class="code" href="a02077.html#aa7a132531191378299e6c54bdfbaa07c">ComponentSetMember&lt;T&gt;::ComponentSetMember</a>()</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;: component(nullptr) {}</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a02077.html#add5fa405b967feb2fb54a4756b8f2d09">   19</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a02077.html#add5fa405b967feb2fb54a4756b8f2d09">ComponentSetMember&lt;T&gt;::populate</a>(<a class="code" href="a02141.html">Registry</a>&amp; registry, <a class="code" href="a02093.html">Entity</a> owner) {</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    component = registry.<a class="code" href="a02141.html#a4ee48b76a742d33209c32962b8977c46">getComponent</a>&lt;T&gt;(owner);</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keywordflow">return</span> component != <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;}</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;} <span class="comment">// namespace priv</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a02077.html#aa7a132531191378299e6c54bdfbaa07c">   25</a></span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TReqComs, <span class="keyword">typename</span>... TOptComs&gt;</div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="a02085.html">   34</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02081.html">ComponentSet</a>&lt;<a class="code" href="a02145.html">Require</a>&lt;TReqComs...&gt;, <a class="code" href="a02149.html">Optional</a>&lt;TOptComs...&gt;&gt;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;: <span class="keyword">private</span> <a class="code" href="a02077.html">priv::ComponentSetMember</a>&lt;TReqComs&gt;...</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;, <span class="keyword">private</span> <a class="code" href="a02077.html">priv::ComponentSetMember</a>&lt;TOptComs&gt;... {</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="a02085.html#ae570dc03e0ce3372820a4ef0d66a1c77">   44</a></span>&#160;    <a class="code" href="a02085.html#ae570dc03e0ce3372820a4ef0d66a1c77">ComponentSet</a>(<a class="code" href="a02141.html">Registry</a>&amp; registry, <a class="code" href="a02093.html">Entity</a> owner)</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    : owner(owner)</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    , valid(true) {</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        refresh(registry);</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    }</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="a02085.html#a1be96368d15a087a42d397d42dd0686d">   56</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a02085.html#a1be96368d15a087a42d397d42dd0686d">refresh</a>(<a class="code" href="a02141.html">Registry</a>&amp; registry) {</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        valid = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">bool</span> results[] = {<a class="code" href="a02077.html#add5fa405b967feb2fb54a4756b8f2d09">priv::ComponentSetMember&lt;TReqComs&gt;::populate</a>(registry, owner)...};</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">auto</span> r : results) {</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            <span class="keywordflow">if</span> (!r) {</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                valid = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            }</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        }</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        <span class="keywordflow">if</span> constexpr (<span class="keyword">sizeof</span>...(TOptComs) &gt; 0) {</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;            <span class="keyword">const</span> <span class="keywordtype">bool</span> trash[] = {<a class="code" href="a02077.html#add5fa405b967feb2fb54a4756b8f2d09">priv::ComponentSetMember&lt;TOptComs&gt;::populate</a>(registry, owner)...};</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;            (void)trash;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        }</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <span class="keywordflow">return</span> valid;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    }</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="a02085.html#a114cdff6220c70c5f177a1084d569c5f">   79</a></span>&#160;    constexpr <a class="code" href="a02093.html">Entity</a> <a class="code" href="a02085.html#a114cdff6220c70c5f177a1084d569c5f">entity</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> owner; }</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00088"></a><span class="lineno"><a class="line" href="a02085.html#ae44470314841bebc6824bee491db32cf">   88</a></span>&#160;    constexpr T* <a class="code" href="a02085.html#ae44470314841bebc6824bee491db32cf">get</a>() {</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="a02077.html">priv::ComponentSetMember&lt;T&gt;::component</a>;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    }</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00099"></a><span class="lineno"><a class="line" href="a02085.html#ae26670724a4505462fe46f7a64fa2a3c">   99</a></span>&#160;    constexpr <span class="keyword">const</span> T* <a class="code" href="a02085.html#ae26670724a4505462fe46f7a64fa2a3c">get</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="a02077.html">priv::ComponentSetMember&lt;T&gt;::component</a>;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    }</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
+<div class="line"><a name="l00108"></a><span class="lineno"><a class="line" href="a02085.html#a47052b169abe8e280cd9139c9f29621f">  108</a></span>&#160;    constexpr <span class="keywordtype">bool</span> <a class="code" href="a02085.html#a47052b169abe8e280cd9139c9f29621f">isValid</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> valid; }</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <a class="code" href="a02093.html">Entity</a> owner;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keywordtype">bool</span> valid;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;};</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;} <span class="comment">// namespace ecs</span></div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01760_html"><div class="ttname"><a href="a01760.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02077_html"><div class="ttname"><a href="a02077.html">bl::ecs::priv::ComponentSetMember</a></div><div class="ttdoc">Helper class to compose component sets.</div><div class="ttdef"><b>Definition:</b> <a href="a00116_source.html#l00023">ComponentSet.hpp:23</a></div></div>
+<div class="ttc" id="aa02077_html_aa7a132531191378299e6c54bdfbaa07c"><div class="ttname"><a href="a02077.html#aa7a132531191378299e6c54bdfbaa07c">bl::ecs::priv::ComponentSetMember::ComponentSetMember</a></div><div class="ttdeci">ComponentSetMember()</div><div class="ttdef"><b>Definition:</b> <a href="a00119_source.html#l00015">ComponentSetImpl.hpp:15</a></div></div>
+<div class="ttc" id="aa02077_html_add5fa405b967feb2fb54a4756b8f2d09"><div class="ttname"><a href="a02077.html#add5fa405b967feb2fb54a4756b8f2d09">bl::ecs::priv::ComponentSetMember::populate</a></div><div class="ttdeci">bool populate(Registry &amp;registry, Entity owner)</div><div class="ttdef"><b>Definition:</b> <a href="a00119_source.html#l00019">ComponentSetImpl.hpp:19</a></div></div>
+<div class="ttc" id="aa02081_html"><div class="ttname"><a href="a02081.html">bl::ecs::ComponentSet</a></div><div class="ttdoc">Contains a set of components for a single entity. May not always be valid. Does not update if compone...</div><div class="ttdef"><b>Definition:</b> <a href="a00116_source.html#l00039">ComponentSet.hpp:39</a></div></div>
+<div class="ttc" id="aa02085_html_a114cdff6220c70c5f177a1084d569c5f"><div class="ttname"><a href="a02085.html#a114cdff6220c70c5f177a1084d569c5f">bl::ecs::ComponentSet&lt; Require&lt; TReqComs... &gt;, Optional&lt; TOptComs... &gt; &gt;::entity</a></div><div class="ttdeci">constexpr Entity entity() const</div><div class="ttdoc">Returns the entity that the components belong to.</div><div class="ttdef"><b>Definition:</b> <a href="a00119_source.html#l00079">ComponentSetImpl.hpp:79</a></div></div>
+<div class="ttc" id="aa02085_html_a1be96368d15a087a42d397d42dd0686d"><div class="ttname"><a href="a02085.html#a1be96368d15a087a42d397d42dd0686d">bl::ecs::ComponentSet&lt; Require&lt; TReqComs... &gt;, Optional&lt; TOptComs... &gt; &gt;::refresh</a></div><div class="ttdeci">bool refresh(Registry &amp;registry)</div><div class="ttdoc">Refreshes the components in the set. Call when pools resize.</div><div class="ttdef"><b>Definition:</b> <a href="a00119_source.html#l00056">ComponentSetImpl.hpp:56</a></div></div>
+<div class="ttc" id="aa02085_html_a47052b169abe8e280cd9139c9f29621f"><div class="ttname"><a href="a02085.html#a47052b169abe8e280cd9139c9f29621f">bl::ecs::ComponentSet&lt; Require&lt; TReqComs... &gt;, Optional&lt; TOptComs... &gt; &gt;::isValid</a></div><div class="ttdeci">constexpr bool isValid() const</div><div class="ttdoc">Returns whether or not all components are present and non-null.</div><div class="ttdef"><b>Definition:</b> <a href="a00119_source.html#l00108">ComponentSetImpl.hpp:108</a></div></div>
+<div class="ttc" id="aa02085_html_ae26670724a4505462fe46f7a64fa2a3c"><div class="ttname"><a href="a02085.html#ae26670724a4505462fe46f7a64fa2a3c">bl::ecs::ComponentSet&lt; Require&lt; TReqComs... &gt;, Optional&lt; TOptComs... &gt; &gt;::get</a></div><div class="ttdeci">constexpr const T * get() const</div><div class="ttdoc">Access the single component in the set.</div><div class="ttdef"><b>Definition:</b> <a href="a00119_source.html#l00099">ComponentSetImpl.hpp:99</a></div></div>
+<div class="ttc" id="aa02085_html_ae44470314841bebc6824bee491db32cf"><div class="ttname"><a href="a02085.html#ae44470314841bebc6824bee491db32cf">bl::ecs::ComponentSet&lt; Require&lt; TReqComs... &gt;, Optional&lt; TOptComs... &gt; &gt;::get</a></div><div class="ttdeci">constexpr T * get()</div><div class="ttdoc">Access the single component in the set.</div><div class="ttdef"><b>Definition:</b> <a href="a00119_source.html#l00088">ComponentSetImpl.hpp:88</a></div></div>
+<div class="ttc" id="aa02085_html_ae570dc03e0ce3372820a4ef0d66a1c77"><div class="ttname"><a href="a02085.html#ae570dc03e0ce3372820a4ef0d66a1c77">bl::ecs::ComponentSet&lt; Require&lt; TReqComs... &gt;, Optional&lt; TOptComs... &gt; &gt;::ComponentSet</a></div><div class="ttdeci">ComponentSet(Registry &amp;registry, Entity owner)</div><div class="ttdoc">Creates the set and fetches each component type.</div><div class="ttdef"><b>Definition:</b> <a href="a00119_source.html#l00044">ComponentSetImpl.hpp:44</a></div></div>
+<div class="ttc" id="aa02093_html"><div class="ttname"><a href="a02093.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition:</b> <a href="a00125_source.html#l00023">Entity.hpp:23</a></div></div>
+<div class="ttc" id="aa02141_html"><div class="ttname"><a href="a02141.html">bl::ecs::Registry</a></div><div class="ttdoc">This is the main interface of the ECS. This class manages all entities and components and views and s...</div><div class="ttdef"><b>Definition:</b> <a href="a00134_source.html#l00031">Registry.hpp:33</a></div></div>
+<div class="ttc" id="aa02141_html_a4ee48b76a742d33209c32962b8977c46"><div class="ttname"><a href="a02141.html#a4ee48b76a742d33209c32962b8977c46">bl::ecs::Registry::getComponent</a></div><div class="ttdeci">T * getComponent(Entity entity)</div><div class="ttdoc">Retrieves the given component belonging to the given entity.</div><div class="ttdef"><b>Definition:</b> <a href="a00134_source.html#l00331">Registry.hpp:331</a></div></div>
+<div class="ttc" id="aa02145_html"><div class="ttname"><a href="a02145.html">bl::ecs::Require</a></div><div class="ttdef"><b>Definition:</b> <a href="a00137_source.html#l00015">Tags.hpp:15</a></div></div>
+<div class="ttc" id="aa02149_html"><div class="ttname"><a href="a02149.html">bl::ecs::Optional</a></div><div class="ttdef"><b>Definition:</b> <a href="a00137_source.html#l00018">Tags.hpp:18</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Sep 10 2023 23:10:21 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Sep 30 2023 22:56:45 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

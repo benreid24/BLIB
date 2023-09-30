@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Graph/Providers/StandardTargetProvider.hpp File Reference</title>
+<title>BLIB: include/BLIB/Render/Graph/GraphAssetPool.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,7 +66,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_70f08ea54355502249f886f7ca541c6e.html">Graph</a></li><li class="navelem"><a class="el" href="dir_1402419d508b83dcb4c17c92cd24f570.html">Providers</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_70f08ea54355502249f886f7ca541c6e.html">Graph</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -74,36 +74,42 @@ $(function() {
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">StandardTargetProvider.hpp File Reference</div>  </div>
+<div class="title">GraphAssetPool.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00617_source.html">BLIB/Render/Graph/AssetProvider.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00611_source.html">BLIB/Render/Graph/Asset.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00617_source.html">BLIB/Render/Graph/AssetPool.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00623_source.html">BLIB/Render/Graph/AssetRef.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00644_source.html">BLIB/Render/Graph/GraphAsset.hpp</a>&gt;</code><br />
+<code>#include &lt;list&gt;</code><br />
+<code>#include &lt;string_view&gt;</code><br />
+<code>#include &lt;unordered_map&gt;</code><br />
 </div>
 <p><a href="a00647_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02914.html">bl::rc::rgi::StandardAssetProvider</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provider for <a class="el" href="a02894.html" title="Asset for a standard render target consisting of a single color and depth attachment.">StandardTargetAsset</a> assets.  <a href="a02914.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02945.html">bl::rc::rg::GraphAssetPool</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a02897.html" title="Base class for assets in render graphs.">Asset</a> pool for individual <a class="el" href="a02953.html" title="The core render graph functionality. Drives rendering for each observer.">RenderGraph</a> instances that exist per scene per observer.  <a href="a02945.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a01754"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01754.html">bl</a></td></tr>
-<tr class="memdesc:a01754"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="memitem:a01760"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01760.html">bl</a></td></tr>
+<tr class="memdesc:a01760"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01763"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01763.html">bl::rc</a></td></tr>
-<tr class="memdesc:a01763"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a02998.html" title="Top level rendering system of the game engine.">Renderer</a> core implementation classes and functionality. <br /></td></tr>
+<tr class="memitem:a01769"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01769.html">bl::rc</a></td></tr>
+<tr class="memdesc:a01769"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a03029.html" title="Top level rendering system of the game engine.">Renderer</a> core implementation classes and functionality. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01800"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01800.html">bl::rc::rgi</a></td></tr>
-<tr class="memdesc:a01800"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains render graph asset, task, and strategy implementations. <br /></td></tr>
+<tr class="memitem:a01805"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01805.html">bl::rc::rg</a></td></tr>
+<tr class="memdesc:a01805"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes that comprise the render graph. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Sep 10 2023 23:10:23 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Sep 30 2023 22:56:46 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

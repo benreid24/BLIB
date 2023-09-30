@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::rc::buf Namespace Reference</title>
+<title>BLIB: bl::audio Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,49 +66,36 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01754.html">bl</a></li><li class="navelem"><a class="el" href="a01763.html">rc</a></li><li class="navelem"><a class="el" href="a01793.html">buf</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01760.html">bl</a></li><li class="navelem"><a class="el" href="a01793.html">audio</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#typedef-members">Typedefs</a>  </div>
+<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">bl::rc::buf Namespace Reference</div>  </div>
+<div class="title">bl::audio Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Collection of common buffer classes.  
+<p>Audio utilities, tools, and functionality.  
 <a href="a01793.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02722.html">DynamicSSBO</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device-local SSBO intended for use with per-object data for dynamic objects.  <a href="a02722.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02645.html">AudioSystem</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Centralized audio system for playing sounds and music.  <a href="a02645.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02730.html">IndexBufferT</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic index buffer class built on top of <a class="el" href="a03126.html" title="Wrapper over Vulkan buffers. Provides simpler interfaces and resize ability.">vk::Buffer</a>. Intended for static mesh data.  <a href="a02730.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02649.html">Playlist</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A playable, serializable music playlist. Can be manually manipulated or loaded from files.  <a href="a02649.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02734.html">StaticSSBO</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device-local SSBO intended for use with per-object data for static objects.  <a href="a02734.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02738.html">UniformBuffer</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device-local, staged, uniform buffer array. Intended for small, dynamic data such as per-frame scene data. Not intended for larger data sets such as per-object data. Writes go directly to the staging buffer, so the used portions of the UBO must be written to every frame otherwise stale data will be copied to the GPU.  <a href="a02738.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:gaefb3729dcc560378d43cc72e50f7d438"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01739.html#gaefb3729dcc560378d43cc72e50f7d438">IndexBuffer</a> = <a class="el" href="a02730.html">IndexBufferT</a>&lt; <a class="el" href="a02994.html">prim::Vertex</a> &gt;</td></tr>
-<tr class="memdesc:gaefb3729dcc560378d43cc72e50f7d438"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience alias for a standard index buffer.  <a href="a01739.html#gaefb3729dcc560378d43cc72e50f7d438">More...</a><br /></td></tr>
-<tr class="separator:gaefb3729dcc560378d43cc72e50f7d438"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Collection of common buffer classes. </p>
+<div class="textblock"><p>Audio utilities, tools, and functionality. </p>
 </div></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Sep 10 2023 23:10:24 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Sep 30 2023 22:56:47 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

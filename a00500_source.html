@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Parser/CommentSkipper.hpp Source File</title>
+<title>BLIB: include/BLIB/Media.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,60 +66,30 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_68e8475672e907ae2e4c385fdd89fef9.html">Parser</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">CommentSkipper.hpp</div>  </div>
+<div class="title">Media.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00500.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_PARSER_COMMENTSKIPPER_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_PARSER_COMMENTSKIPPER_HPP</span></div>
+<a href="a00500.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_MEDIA_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_MEDIA_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00521.html">BLIB/Parser/WhitespaceSkipper.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01754.html">bl</a></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="a01789.html">    8</a></span>&#160;<span class="keyword">namespace </span>parser</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="a02662.html">   15</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02662.html">CommentSkipper</a> : <span class="keyword">public</span> <a class="code" href="a02714.html">WhitespaceSkipper</a> {</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <a class="code" href="a02662.html#ace9972e7d2cf601a7050903ff252d590">CommentSkipper</a>(<span class="keyword">const</span> std::string&amp; lineCommentOpen, <span class="keyword">const</span> std::string&amp; blockCommentOpen,</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;                   <span class="keyword">const</span> std::string&amp; blockCommentClose);</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="a02662.html#a01572efe60524d50820add2caa2f8a8c">   31</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02662.html#a01572efe60524d50820add2caa2f8a8c">~CommentSkipper</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keyword">static</span> <a class="code" href="a02682.html#ac94262dbc4b796277c22a958aa727323">ISkipper::Ptr</a> <a class="code" href="a02714.html#a17380f013a7b0b8bca4839683da5742b">create</a>(<span class="keyword">const</span> std::string&amp; lineCommentOpen,</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;                                <span class="keyword">const</span> std::string&amp; blockCommentOpen,</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;                                <span class="keyword">const</span> std::string&amp; blockCommentClose);</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02662.html#ad8a968db6095fab17e8b637c550671fd">skip</a>(<a class="code" href="a02706.html">Stream</a>&amp; stream) <span class="keyword">const override</span>;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">const</span> std::string lineOpen;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keyword">const</span> std::string blockOpen;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keyword">const</span> std::string blockClose;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;};</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;} <span class="comment">// namespace parser</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00521_html"><div class="ttname"><a href="a00521.html">WhitespaceSkipper.hpp</a></div></div>
-<div class="ttc" id="aa01754_html"><div class="ttname"><a href="a01754.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02662_html"><div class="ttname"><a href="a02662.html">bl::parser::CommentSkipper</a></div><div class="ttdoc">Basic comment and whitespace skipper for more common use cases.</div><div class="ttdef"><b>Definition:</b> <a href="a00500_source.html#l00015">CommentSkipper.hpp:15</a></div></div>
-<div class="ttc" id="aa02662_html_a01572efe60524d50820add2caa2f8a8c"><div class="ttname"><a href="a02662.html#a01572efe60524d50820add2caa2f8a8c">bl::parser::CommentSkipper::~CommentSkipper</a></div><div class="ttdeci">virtual ~CommentSkipper()=default</div><div class="ttdoc">Destroy the Comment Skipper object.</div></div>
-<div class="ttc" id="aa02662_html_ace9972e7d2cf601a7050903ff252d590"><div class="ttname"><a href="a02662.html#ace9972e7d2cf601a7050903ff252d590">bl::parser::CommentSkipper::CommentSkipper</a></div><div class="ttdeci">CommentSkipper(const std::string &amp;lineCommentOpen, const std::string &amp;blockCommentOpen, const std::string &amp;blockCommentClose)</div><div class="ttdoc">Construct a new Comment Skipper object. Leave arguments blank to ignore.</div><div class="ttdef"><b>Definition:</b> <a href="a01352_source.html#l00007">CommentSkipper.cpp:7</a></div></div>
-<div class="ttc" id="aa02662_html_ad8a968db6095fab17e8b637c550671fd"><div class="ttname"><a href="a02662.html#ad8a968db6095fab17e8b637c550671fd">bl::parser::CommentSkipper::skip</a></div><div class="ttdeci">virtual void skip(Stream &amp;stream) const override</div><div class="ttdoc">Skips whitespace and comments.</div><div class="ttdef"><b>Definition:</b> <a href="a01352_source.html#l00021">CommentSkipper.cpp:21</a></div></div>
-<div class="ttc" id="aa02682_html_ac94262dbc4b796277c22a958aa727323"><div class="ttname"><a href="a02682.html#ac94262dbc4b796277c22a958aa727323">bl::parser::ISkipper::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; ISkipper &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00506_source.html#l00019">ISkipper.hpp:19</a></div></div>
-<div class="ttc" id="aa02706_html"><div class="ttname"><a href="a02706.html">bl::parser::Stream</a></div><div class="ttdoc">Wrapper class around std::ostream. Used for keeping track of current line and column numbers.</div><div class="ttdef"><b>Definition:</b> <a href="a00515_source.html#l00017">Stream.hpp:17</a></div></div>
-<div class="ttc" id="aa02714_html"><div class="ttname"><a href="a02714.html">bl::parser::WhitespaceSkipper</a></div><div class="ttdoc">Default skipper that skips over all whitespace beginning with the next token Note that this will not ...</div><div class="ttdef"><b>Definition:</b> <a href="a00521_source.html#l00016">WhitespaceSkipper.hpp:16</a></div></div>
-<div class="ttc" id="aa02714_html_a17380f013a7b0b8bca4839683da5742b"><div class="ttname"><a href="a02714.html#a17380f013a7b0b8bca4839683da5742b">bl::parser::WhitespaceSkipper::create</a></div><div class="ttdeci">static ISkipper::Ptr create()</div><div class="ttdef"><b>Definition:</b> <a href="a00521_source.html#l00020">WhitespaceSkipper.hpp:20</a></div></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00473.html">BLIB/Media/Audio.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a04835.html">BLIB/Media/Graphics.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00497.html">BLIB/Media/Shapes.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00473_html"><div class="ttname"><a href="a00473.html">Audio.hpp</a></div></div>
+<div class="ttc" id="aa00497_html"><div class="ttname"><a href="a00497.html">Shapes.hpp</a></div></div>
+<div class="ttc" id="aa04835_html"><div class="ttname"><a href="a04835.html">Graphics.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Sep 10 2023 23:10:21 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Sep 30 2023 22:56:45 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

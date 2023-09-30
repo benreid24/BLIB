@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Components/Mesh.hpp Source File</title>
+<title>BLIB: include/BLIB/Components/BatchSceneLink.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,45 +71,43 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Mesh.hpp</div>  </div>
+<div class="title">BatchSceneLink.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00044.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_COMPONENTS_MESH_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_COMPONENTS_MESH_HPP</span></div>
+<a href="a00044.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_COMPONENTS_BATCHSCENELINK_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_COMPONENTS_BATCHSCENELINK_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00530.html">BLIB/Render/Buffers/IndexBuffer.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00542.html">BLIB/Render/Components/DrawableBase.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01754.html">bl</a></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="a01759.html">   11</a></span>&#160;<span class="keyword">namespace </span>com</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a01914.html">   18</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a01914.html">Mesh</a> : <span class="keyword">public</span> <a class="code" href="a02746.html">rc::rcom::DrawableBase</a> {</div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a01914.html#a11a861d64d0ccbf3609b15778808ae30">   19</a></span>&#160;    <a class="code" href="a02730.html">rc::buf::IndexBuffer</a> <a class="code" href="a01914.html#a11a861d64d0ccbf3609b15778808ae30">gpuBuffer</a>;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a01914.html#af0c0061167c1dded9dc5c2b8a71aa93d">create</a>(<a class="code" href="a03238.html">rc::vk::VulkanState</a>&amp; vulkanState, std::uint32_t vertexCount,</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;                std::uint32_t indexCount);</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;};</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;} <span class="comment">// namespace com</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00530_html"><div class="ttname"><a href="a00530.html">IndexBuffer.hpp</a></div></div>
-<div class="ttc" id="aa00542_html"><div class="ttname"><a href="a00542.html">DrawableBase.hpp</a></div></div>
-<div class="ttc" id="aa01754_html"><div class="ttname"><a href="a01754.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa01914_html"><div class="ttname"><a href="a01914.html">bl::com::Mesh</a></div><div class="ttdoc">ECS component for a basic mesh from an index buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a00044_source.html#l00018">Mesh.hpp:18</a></div></div>
-<div class="ttc" id="aa01914_html_a11a861d64d0ccbf3609b15778808ae30"><div class="ttname"><a href="a01914.html#a11a861d64d0ccbf3609b15778808ae30">bl::com::Mesh::gpuBuffer</a></div><div class="ttdeci">rc::buf::IndexBuffer gpuBuffer</div><div class="ttdef"><b>Definition:</b> <a href="a00044_source.html#l00019">Mesh.hpp:19</a></div></div>
-<div class="ttc" id="aa01914_html_af0c0061167c1dded9dc5c2b8a71aa93d"><div class="ttname"><a href="a01914.html#af0c0061167c1dded9dc5c2b8a71aa93d">bl::com::Mesh::create</a></div><div class="ttdeci">void create(rc::vk::VulkanState &amp;vulkanState, std::uint32_t vertexCount, std::uint32_t indexCount)</div><div class="ttdoc">Helper method to initialize all the mesh data.</div><div class="ttdef"><b>Definition:</b> <a href="a01082_source.html#l00007">Mesh.cpp:7</a></div></div>
-<div class="ttc" id="aa02730_html"><div class="ttname"><a href="a02730.html">bl::rc::buf::IndexBufferT</a></div><div class="ttdoc">Basic index buffer class built on top of vk::Buffer. Intended for static mesh data.</div><div class="ttdef"><b>Definition:</b> <a href="a00530_source.html#l00025">IndexBuffer.hpp:25</a></div></div>
-<div class="ttc" id="aa02746_html"><div class="ttname"><a href="a02746.html">bl::rc::rcom::DrawableBase</a></div><div class="ttdoc">Base class for drawable scene components for the ECS. Provides common members.</div><div class="ttdef"><b>Definition:</b> <a href="a00542_source.html#l00020">DrawableBase.hpp:20</a></div></div>
-<div class="ttc" id="aa03238_html"><div class="ttname"><a href="a03238.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a00821_source.html#l00036">VulkanState.hpp:36</a></div></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00143.html">BLIB/ECS/Traits/ChildAware.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00734.html">BLIB/Render/Scenes/Key.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01760.html">bl</a></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a01765.html">    9</a></span>&#160;<span class="keyword">namespace </span>com</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a01921.html">   16</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a01921.html">BatchSceneLink</a> : <span class="keyword">public</span> <a class="code" href="a02165.html">ecs::trait::ChildAware</a>&lt;BatchSceneLink&gt; {</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a01921.html#ac69729bc92a26b0e1d33b0e8d9b8b26c">   17</a></span>&#160;    <a class="code" href="a03093.html">rc::scene::Key</a> <a class="code" href="a01921.html#ac69729bc92a26b0e1d33b0e8d9b8b26c">key</a>;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a01921.html#a6654b4748557c4c04bc6454d19eb1414">   24</a></span>&#160;    <a class="code" href="a01921.html#a6654b4748557c4c04bc6454d19eb1414">BatchSceneLink</a>(<a class="code" href="a03093.html">rc::scene::Key</a> <a class="code" href="a01921.html#ac69729bc92a26b0e1d33b0e8d9b8b26c">key</a>)</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    : <a class="code" href="a01921.html#ac69729bc92a26b0e1d33b0e8d9b8b26c">key</a>(<a class="code" href="a01921.html#ac69729bc92a26b0e1d33b0e8d9b8b26c">key</a>) {}</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;};</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;} <span class="comment">// namespace com</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00143_html"><div class="ttname"><a href="a00143.html">ChildAware.hpp</a></div></div>
+<div class="ttc" id="aa00734_html"><div class="ttname"><a href="a00734.html">Key.hpp</a></div></div>
+<div class="ttc" id="aa01760_html"><div class="ttname"><a href="a01760.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa01921_html"><div class="ttname"><a href="a01921.html">bl::com::BatchSceneLink</a></div><div class="ttdoc">Component to help facilitate quick lookups internally in batched scenes.</div><div class="ttdef"><b>Definition:</b> <a href="a00044_source.html#l00016">BatchSceneLink.hpp:16</a></div></div>
+<div class="ttc" id="aa01921_html_a6654b4748557c4c04bc6454d19eb1414"><div class="ttname"><a href="a01921.html#a6654b4748557c4c04bc6454d19eb1414">bl::com::BatchSceneLink::BatchSceneLink</a></div><div class="ttdeci">BatchSceneLink(rc::scene::Key key)</div><div class="ttdoc">Creates a new link component.</div><div class="ttdef"><b>Definition:</b> <a href="a00044_source.html#l00024">BatchSceneLink.hpp:24</a></div></div>
+<div class="ttc" id="aa01921_html_ac69729bc92a26b0e1d33b0e8d9b8b26c"><div class="ttname"><a href="a01921.html#ac69729bc92a26b0e1d33b0e8d9b8b26c">bl::com::BatchSceneLink::key</a></div><div class="ttdeci">rc::scene::Key key</div><div class="ttdef"><b>Definition:</b> <a href="a00044_source.html#l00017">BatchSceneLink.hpp:17</a></div></div>
+<div class="ttc" id="aa02165_html"><div class="ttname"><a href="a02165.html">bl::ecs::trait::ChildAware</a></div><div class="ttdoc">Component trait for components that are parent-able. Parent is set in the Registry as an entity-level...</div><div class="ttdef"><b>Definition:</b> <a href="a00143_source.html#l00026">ChildAware.hpp:26</a></div></div>
+<div class="ttc" id="aa03093_html"><div class="ttname"><a href="a03093.html">bl::rc::scene::Key</a></div><div class="ttdoc">Key for objects in scenes. Contains update speed and scene id. Scene ids are not unique across update...</div><div class="ttdef"><b>Definition:</b> <a href="a00734_source.html#l00022">Key.hpp:22</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Sep 10 2023 23:10:21 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Sep 30 2023 22:56:45 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Serialization/Buffers/MemoryOutputBuffer.cpp Source File</title>
+<title>BLIB: src/Serialization/Binary/OutputFile.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,51 +66,45 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_e7c9606de6dc9534b0042ecacee5f21f.html">Serialization</a></li><li class="navelem"><a class="el" href="dir_47ff02213d38b4fcd8e0172b7fa926fb.html">Buffers</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_e7c9606de6dc9534b0042ecacee5f21f.html">Serialization</a></li><li class="navelem"><a class="el" href="dir_0dbe044ffc6a709740d6a25d09c3d747.html">Binary</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">MemoryOutputBuffer.cpp</div>  </div>
+<div class="title">OutputFile.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01676.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00941.html">BLIB/Serialization/Buffers/MemoryOutputBuffer.hpp</a>&gt;</span></div>
+<a href="a01676.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00926.html">BLIB/Serialization/Binary/OutputFile.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;cstring&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01754.html">bl</a></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01760.html">bl</a></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>serial</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>serial</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>binary</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a03554.html#a29aafd9858e2a2a245f348a457f8a4ad">    9</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03554.html#a29aafd9858e2a2a245f348a457f8a4ad">MemoryOutputBuffer::reserve</a>(std::size_t s) { buffer.reserve(s); }</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="a03554.html#aa14425bbf68b5d3a49ea56ca30c2f15b">   11</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a03554.html#aa14425bbf68b5d3a49ea56ca30c2f15b">MemoryOutputBuffer::write</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* buf, std::size_t len) {</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keyword">const</span> std::size_t pos = buffer.size();</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    buffer.resize(buffer.size() + len);</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    std::memcpy(&amp;buffer[pos], buf, len);</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;}</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a03554.html#ab78ef537e0bd074e9c965e4535632fb0">   18</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a03554.html#ab78ef537e0bd074e9c965e4535632fb0">MemoryOutputBuffer::good</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <span class="keyword">true</span>; }</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a03554.html#a652db0ba56ef55f634172448d71f6909">   20</a></span>&#160;<span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code" href="a03554.html#a652db0ba56ef55f634172448d71f6909">MemoryOutputBuffer::data</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> buffer.data(); }</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a03554.html#a97c1d806d711f9bf2837d0f193e390f1">   22</a></span>&#160;std::size_t <a class="code" href="a03554.html#a97c1d806d711f9bf2837d0f193e390f1">MemoryOutputBuffer::size</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> buffer.size(); }</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;} <span class="comment">// namespace serial</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00941_html"><div class="ttname"><a href="a00941.html">MemoryOutputBuffer.hpp</a></div></div>
-<div class="ttc" id="aa01754_html"><div class="ttname"><a href="a01754.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03554_html_a29aafd9858e2a2a245f348a457f8a4ad"><div class="ttname"><a href="a03554.html#a29aafd9858e2a2a245f348a457f8a4ad">bl::serial::MemoryOutputBuffer::reserve</a></div><div class="ttdeci">void reserve(std::size_t capacity)</div><div class="ttdoc">Reserves capacity for the serialized output.</div><div class="ttdef"><b>Definition:</b> <a href="a01676_source.html#l00009">MemoryOutputBuffer.cpp:9</a></div></div>
-<div class="ttc" id="aa03554_html_a652db0ba56ef55f634172448d71f6909"><div class="ttname"><a href="a03554.html#a652db0ba56ef55f634172448d71f6909">bl::serial::MemoryOutputBuffer::data</a></div><div class="ttdeci">const char * data() const</div><div class="ttdoc">Returns a pointer to the contained data.</div><div class="ttdef"><b>Definition:</b> <a href="a01676_source.html#l00020">MemoryOutputBuffer.cpp:20</a></div></div>
-<div class="ttc" id="aa03554_html_a97c1d806d711f9bf2837d0f193e390f1"><div class="ttname"><a href="a03554.html#a97c1d806d711f9bf2837d0f193e390f1">bl::serial::MemoryOutputBuffer::size</a></div><div class="ttdeci">std::size_t size() const</div><div class="ttdoc">Returns the size of the buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a01676_source.html#l00022">MemoryOutputBuffer.cpp:22</a></div></div>
-<div class="ttc" id="aa03554_html_aa14425bbf68b5d3a49ea56ca30c2f15b"><div class="ttname"><a href="a03554.html#aa14425bbf68b5d3a49ea56ca30c2f15b">bl::serial::MemoryOutputBuffer::write</a></div><div class="ttdeci">virtual bool write(const char *data, std::size_t len) override</div><div class="ttdoc">Write some data to the buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a01676_source.html#l00011">MemoryOutputBuffer.cpp:11</a></div></div>
-<div class="ttc" id="aa03554_html_ab78ef537e0bd074e9c965e4535632fb0"><div class="ttname"><a href="a03554.html#ab78ef537e0bd074e9c965e4535632fb0">bl::serial::MemoryOutputBuffer::good</a></div><div class="ttdeci">virtual bool good() const override</div><div class="ttdoc">Returns whether or not the buffer is in a good state.</div><div class="ttdef"><b>Definition:</b> <a href="a01676_source.html#l00018">MemoryOutputBuffer.cpp:18</a></div></div>
+<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a03473.html#a532927eeaa88aa29512a6be438ef85f9">    9</a></span>&#160;<a class="code" href="a03473.html#a532927eeaa88aa29512a6be438ef85f9">OutputFile::OutputFile</a>(<span class="keyword">const</span> std::string&amp; path)</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;: <a class="code" href="a03477.html">OutputStream</a>(<a class="code" href="a01331.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>)</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;, file(path)</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;, output(path.c_str(), <a class="code" href="a01774.html">std</a>::ios::out | <a class="code" href="a01774.html">std</a>::ios::binary)</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;, <a class="code" href="a01331.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>(output) {}</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="a03473.html#a90ed8fff6d1c1ce1e3f5ad0ccb66d23b">   15</a></span>&#160;<span class="keyword">const</span> std::string&amp; <a class="code" href="a03473.html#a90ed8fff6d1c1ce1e3f5ad0ccb66d23b">OutputFile::filename</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> file; }</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;} <span class="comment">// namespace binary</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;} <span class="comment">// namespace serial</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00926_html"><div class="ttname"><a href="a00926.html">OutputFile.hpp</a></div></div>
+<div class="ttc" id="aa01331_html_ad2ae6b0ac080ea0ac45f7a06ccc480ba"><div class="ttname"><a href="a01331.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a></div><div class="ttdeci">SoundHandle buffer</div><div class="ttdef"><b>Definition:</b> <a href="a01331_source.html#l00025">AudioSystem.cpp:25</a></div></div>
+<div class="ttc" id="aa01760_html"><div class="ttname"><a href="a01760.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa01774_html"><div class="ttname"><a href="a01774.html">std</a></div><div class="ttdef"><b>Definition:</b> <a href="a00125_source.html#l00154">Entity.hpp:155</a></div></div>
+<div class="ttc" id="aa03473_html_a532927eeaa88aa29512a6be438ef85f9"><div class="ttname"><a href="a03473.html#a532927eeaa88aa29512a6be438ef85f9">bl::serial::binary::OutputFile::OutputFile</a></div><div class="ttdeci">OutputFile(const std::string &amp;path)</div><div class="ttdoc">Construct a new Output File.</div><div class="ttdef"><b>Definition:</b> <a href="a01676_source.html#l00009">OutputFile.cpp:9</a></div></div>
+<div class="ttc" id="aa03473_html_a90ed8fff6d1c1ce1e3f5ad0ccb66d23b"><div class="ttname"><a href="a03473.html#a90ed8fff6d1c1ce1e3f5ad0ccb66d23b">bl::serial::binary::OutputFile::filename</a></div><div class="ttdeci">const std::string &amp; filename() const</div><div class="ttdoc">The filename used to open the file.</div><div class="ttdef"><b>Definition:</b> <a href="a01676_source.html#l00015">OutputFile.cpp:15</a></div></div>
+<div class="ttc" id="aa03477_html"><div class="ttname"><a href="a03477.html">bl::serial::binary::OutputStream</a></div><div class="ttdoc">A writable stream for binary serialization.</div><div class="ttdef"><b>Definition:</b> <a href="a00929_source.html#l00022">OutputStream.hpp:22</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Sep 10 2023 23:10:23 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Sep 30 2023 22:56:46 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

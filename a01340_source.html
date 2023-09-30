@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Media/Shapes/Ellipse.cpp Source File</title>
+<title>BLIB: src/Media/Graphics/Flashing.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,69 +66,71 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_863df3df8e14086a38c0e28f6c571e1d.html">Media</a></li><li class="navelem"><a class="el" href="dir_e2fdd0641b0c81052b9811831e847d5d.html">Shapes</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_863df3df8e14086a38c0e28f6c571e1d.html">Media</a></li><li class="navelem"><a class="el" href="dir_527c56587e879000887176a293306d15.html">Graphics</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Ellipse.cpp</div>  </div>
+<div class="title">Flashing.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01340.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00482.html">BLIB/Media/Shapes/Ellipse.hpp</a>&gt;</span></div>
+<a href="a01340.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00479.html">BLIB/Media/Graphics/Flashing.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;cmath&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01754.html">bl</a></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01760.html">bl</a></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>rc</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>shapes</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a02646.html#a7210091295348f1a2949316a9248a8e8">    9</a></span>&#160;<a class="code" href="a02646.html#a7210091295348f1a2949316a9248a8e8">Ellipse::Ellipse</a>(<span class="keywordtype">float</span> major, <span class="keywordtype">float</span> minor, <span class="keywordtype">bool</span> co, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> pc)</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;: nPoints(pc) {</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <a class="code" href="a02646.html#a37c790adfb95aadf7dcc99e0cab21dae">setAxes</a>(major, minor, co);</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;}</div>
+<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="a02673.html#a4be5244d69a6bf3ef55897a588177ed6">    7</a></span>&#160;<a class="code" href="a02673.html#a4be5244d69a6bf3ef55897a588177ed6">Flashing::Flashing</a>(sf::Drawable&amp; component, <span class="keywordtype">float</span> on, <span class="keywordtype">float</span> off)</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;: component(component)</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;, onPeriod(on)</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;, offPeriod(off)</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;, time(0.f)</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;, visible(true) {}</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="a02646.html#a37c790adfb95aadf7dcc99e0cab21dae">   14</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02646.html#a37c790adfb95aadf7dcc99e0cab21dae">Ellipse::setAxes</a>(<span class="keywordtype">float</span> major, <span class="keywordtype">float</span> minor, <span class="keywordtype">bool</span> co) {</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    majorRadius = major / 2.f;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    minorRadius = minor / 2.f;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordflow">if</span> (co) setOrigin(majorRadius, minorRadius);</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    update();</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;}</div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="a02673.html#ab0deb2faa3b35a1b84b47e038ca912cb">   14</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02673.html#ab0deb2faa3b35a1b84b47e038ca912cb">Flashing::setPeriod</a>(<span class="keywordtype">float</span> on, <span class="keywordtype">float</span> off) {</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    onPeriod  = on;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    offPeriod = off;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;}</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a02673.html#aedba6fd04f2088abe10240c2e6333d11">   19</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02673.html#aedba6fd04f2088abe10240c2e6333d11">Flashing::reset</a>() { time = 0.f; }</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a02646.html#a12826944dd21ed36473031f83f3e8b4f">   21</a></span>&#160;<span class="keywordtype">float</span> <a class="code" href="a02646.html#a12826944dd21ed36473031f83f3e8b4f">Ellipse::getMajorAxis</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> majorRadius * 2.f; }</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a02646.html#a601815376ec263fe83010ab55139cac9">   23</a></span>&#160;<span class="keywordtype">float</span> <a class="code" href="a02646.html#a601815376ec263fe83010ab55139cac9">Ellipse::getMinorAxis</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> minorRadius * 2.f; }</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a02646.html#aec2a6e190dc2acb6720ad2ea79036b84">   25</a></span>&#160;std::size_t <a class="code" href="a02646.html#aec2a6e190dc2acb6720ad2ea79036b84">Ellipse::getPointCount</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> nPoints; }</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="a02646.html#a4b52e7248f7aa64e573cad712f4b9693">   27</a></span>&#160;sf::Vector2f <a class="code" href="a02646.html#a4b52e7248f7aa64e573cad712f4b9693">Ellipse::getPoint</a>(std::size_t index)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">float</span> pi = 3.141592654f;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> ratio = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(index) / <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(nPoints);</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> angle = 2.f * pi * ratio;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> x = majorRadius * <a class="code" href="a01735.html#gae8e482156412ed87dc2d91572ee817ab">std::cos</a>(angle);</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> y = minorRadius * <a class="code" href="a01735.html#ga0379b8bbdfc3c74fecd12c93fdf0ca5b">std::sin</a>(angle);</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordflow">return</span> {x + majorRadius, y + minorRadius};</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;}</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;} <span class="comment">// namespace shapes</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00482_html"><div class="ttname"><a href="a00482.html">Ellipse.hpp</a></div></div>
-<div class="ttc" id="aa01735_html_ga0379b8bbdfc3c74fecd12c93fdf0ca5b"><div class="ttname"><a href="a01735.html#ga0379b8bbdfc3c74fecd12c93fdf0ca5b">bl::math::sin</a></div><div class="ttdeci">float sin(float degrees)</div><div class="ttdoc">Computes the sine of the given angle using cached values. Values are cached in quarter degree increme...</div><div class="ttdef"><b>Definition:</b> <a href="a01322_source.html#l00037">Trig.cpp:37</a></div></div>
-<div class="ttc" id="aa01735_html_gae8e482156412ed87dc2d91572ee817ab"><div class="ttname"><a href="a01735.html#gae8e482156412ed87dc2d91572ee817ab">bl::math::cos</a></div><div class="ttdeci">float cos(float degrees)</div><div class="ttdoc">Computes the cosine of the given angle using cached values. Values are cached in quarter degree incre...</div><div class="ttdef"><b>Definition:</b> <a href="a01322_source.html#l00031">Trig.cpp:31</a></div></div>
-<div class="ttc" id="aa01754_html"><div class="ttname"><a href="a01754.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02646_html_a12826944dd21ed36473031f83f3e8b4f"><div class="ttname"><a href="a02646.html#a12826944dd21ed36473031f83f3e8b4f">bl::shapes::Ellipse::getMajorAxis</a></div><div class="ttdeci">float getMajorAxis() const</div><div class="ttdoc">Get the major axis.</div><div class="ttdef"><b>Definition:</b> <a href="a01340_source.html#l00021">Ellipse.cpp:21</a></div></div>
-<div class="ttc" id="aa02646_html_a37c790adfb95aadf7dcc99e0cab21dae"><div class="ttname"><a href="a02646.html#a37c790adfb95aadf7dcc99e0cab21dae">bl::shapes::Ellipse::setAxes</a></div><div class="ttdeci">void setAxes(float majorAxis, float minorAxis, bool centerOrigin=true)</div><div class="ttdoc">Update the major and minor axes.</div><div class="ttdef"><b>Definition:</b> <a href="a01340_source.html#l00014">Ellipse.cpp:14</a></div></div>
-<div class="ttc" id="aa02646_html_a4b52e7248f7aa64e573cad712f4b9693"><div class="ttname"><a href="a02646.html#a4b52e7248f7aa64e573cad712f4b9693">bl::shapes::Ellipse::getPoint</a></div><div class="ttdeci">sf::Vector2f getPoint(std::size_t index) const override</div><div class="ttdoc">Get the point at the index.</div><div class="ttdef"><b>Definition:</b> <a href="a01340_source.html#l00027">Ellipse.cpp:27</a></div></div>
-<div class="ttc" id="aa02646_html_a601815376ec263fe83010ab55139cac9"><div class="ttname"><a href="a02646.html#a601815376ec263fe83010ab55139cac9">bl::shapes::Ellipse::getMinorAxis</a></div><div class="ttdeci">float getMinorAxis() const</div><div class="ttdoc">Get the minor axis.</div><div class="ttdef"><b>Definition:</b> <a href="a01340_source.html#l00023">Ellipse.cpp:23</a></div></div>
-<div class="ttc" id="aa02646_html_a7210091295348f1a2949316a9248a8e8"><div class="ttname"><a href="a02646.html#a7210091295348f1a2949316a9248a8e8">bl::shapes::Ellipse::Ellipse</a></div><div class="ttdeci">Ellipse(float majorAxis, float minorAxis, bool centerOrigin=true, unsigned int pointCount=60)</div><div class="ttdoc">Construct a new Ellipse object.</div><div class="ttdef"><b>Definition:</b> <a href="a01340_source.html#l00009">Ellipse.cpp:9</a></div></div>
-<div class="ttc" id="aa02646_html_aec2a6e190dc2acb6720ad2ea79036b84"><div class="ttname"><a href="a02646.html#aec2a6e190dc2acb6720ad2ea79036b84">bl::shapes::Ellipse::getPointCount</a></div><div class="ttdeci">virtual std::size_t getPointCount() const override</div><div class="ttdoc">Returns the number of points.</div><div class="ttdef"><b>Definition:</b> <a href="a01340_source.html#l00025">Ellipse.cpp:25</a></div></div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a02673.html#ab452de47340ca1789dde198eb340fe2f">   21</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02673.html#ab452de47340ca1789dde198eb340fe2f">Flashing::update</a>(<span class="keywordtype">float</span> dt) {</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    time += dt;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordflow">if</span> (visible) {</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        <span class="keywordflow">if</span> (time &gt;= onPeriod) {</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;            time -= onPeriod;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;            visible = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        }</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    }</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="keywordflow">if</span> (time &gt;= offPeriod) {</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;            time -= offPeriod;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;            visible = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        }</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    }</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;}</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="a02673.html#a38ab53bf200295322820ec46af94fabc">   37</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02673.html#a38ab53bf200295322820ec46af94fabc">Flashing::render</a>(sf::RenderTarget&amp; target, sf::RenderStates states, <span class="keywordtype">float</span> lag)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> t = time + lag;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordflow">if</span> ((visible &amp;&amp; t &lt; onPeriod) || (!visible &amp;&amp; t &gt;= offPeriod)) {</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        target.draw(component, states);</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    }</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;}</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00479_html"><div class="ttname"><a href="a00479.html">Flashing.hpp</a></div></div>
+<div class="ttc" id="aa01760_html"><div class="ttname"><a href="a01760.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02673_html_a38ab53bf200295322820ec46af94fabc"><div class="ttname"><a href="a02673.html#a38ab53bf200295322820ec46af94fabc">bl::rc::Flashing::render</a></div><div class="ttdeci">void render(sf::RenderTarget &amp;target, sf::RenderStates states, float lag) const</div><div class="ttdoc">Renders the flashing element if it is visible.</div><div class="ttdef"><b>Definition:</b> <a href="a01340_source.html#l00037">Flashing.cpp:37</a></div></div>
+<div class="ttc" id="aa02673_html_a4be5244d69a6bf3ef55897a588177ed6"><div class="ttname"><a href="a02673.html#a4be5244d69a6bf3ef55897a588177ed6">bl::rc::Flashing::Flashing</a></div><div class="ttdeci">Flashing(sf::Drawable &amp;component, float onPeriod, float offPeriod)</div><div class="ttdoc">Construct a new Flashing component.</div><div class="ttdef"><b>Definition:</b> <a href="a01340_source.html#l00007">Flashing.cpp:7</a></div></div>
+<div class="ttc" id="aa02673_html_ab0deb2faa3b35a1b84b47e038ca912cb"><div class="ttname"><a href="a02673.html#ab0deb2faa3b35a1b84b47e038ca912cb">bl::rc::Flashing::setPeriod</a></div><div class="ttdeci">void setPeriod(float onPeriod, float offPeriod)</div><div class="ttdoc">Set the Period object.</div><div class="ttdef"><b>Definition:</b> <a href="a01340_source.html#l00014">Flashing.cpp:14</a></div></div>
+<div class="ttc" id="aa02673_html_ab452de47340ca1789dde198eb340fe2f"><div class="ttname"><a href="a02673.html#ab452de47340ca1789dde198eb340fe2f">bl::rc::Flashing::update</a></div><div class="ttdeci">void update(float dt)</div><div class="ttdoc">Updates the state of the flasher.</div><div class="ttdef"><b>Definition:</b> <a href="a01340_source.html#l00021">Flashing.cpp:21</a></div></div>
+<div class="ttc" id="aa02673_html_aedba6fd04f2088abe10240c2e6333d11"><div class="ttname"><a href="a02673.html#aedba6fd04f2088abe10240c2e6333d11">bl::rc::Flashing::reset</a></div><div class="ttdeci">void reset()</div><div class="ttdoc">Resets the flash state to time zero.</div><div class="ttdef"><b>Definition:</b> <a href="a01340_source.html#l00019">Flashing.cpp:19</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Sep 10 2023 23:10:22 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Sep 30 2023 22:56:46 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

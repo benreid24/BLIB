@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Observer.cpp File Reference</title>
+<title>BLIB: src/Render/Graph/Tasks/FadeEffectTask.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,39 +66,42 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_7ebf59129457ae24134db92256c2545a.html">Graph</a></li><li class="navelem"><a class="el" href="dir_5670c5b60a2fe85f6b36b8e9fa9a6739.html">Tasks</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">Observer.cpp File Reference</div>  </div>
+<div class="title">FadeEffectTask.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00677_source.html">BLIB/Render/Observer.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00014_source.html">BLIB/Cameras/2D/Camera2D.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00026_source.html">BLIB/Cameras/3D/Camera3D.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00629_source.html">BLIB/Render/Graph/Assets/SceneAsset.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a04797_source.html">BLIB/Render/Renderer.hpp</a>&gt;</code><br />
-<code>#include &lt;glm/gtc/matrix_transform.hpp&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00674_source.html">BLIB/Render/Graph/Tasks/FadeEffectTask.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a04871_source.html">BLIB/Render/Config.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00551_source.html">BLIB/Render/Descriptors/Builtin/FadeEffectFactory.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00638_source.html">BLIB/Render/Graph/AssetTags.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00635_source.html">BLIB/Render/Graph/Assets/StandardTargetAsset.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a04856_source.html">BLIB/Render/Renderer.hpp</a>&gt;</code><br />
 </div>
 <p><a href="a01463_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a01754"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01754.html">bl</a></td></tr>
-<tr class="memdesc:a01754"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="memitem:a01760"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01760.html">bl</a></td></tr>
+<tr class="memdesc:a01760"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01763"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01763.html">bl::rc</a></td></tr>
-<tr class="memdesc:a01763"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a02998.html" title="Top level rendering system of the game engine.">Renderer</a> core implementation classes and functionality. <br /></td></tr>
+<tr class="memitem:a01769"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01769.html">bl::rc</a></td></tr>
+<tr class="memdesc:a01769"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a03029.html" title="Top level rendering system of the game engine.">Renderer</a> core implementation classes and functionality. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01806"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01806.html">bl::rc::rgi</a></td></tr>
+<tr class="memdesc:a01806"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains render graph asset, task, and strategy implementations. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Sep 10 2023 23:10:23 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Sep 30 2023 22:56:46 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

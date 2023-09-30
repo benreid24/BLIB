@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Graphics/Text/VulkanFont.hpp File Reference</title>
+<title>BLIB: include/BLIB/Graphics/Text/BasicText.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,47 +74,44 @@ $(function() {
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">VulkanFont.hpp File Reference</div>  </div>
+<div class="title">BasicText.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00725_source.html">BLIB/Render/Resources/TextureRef.hpp</a>&gt;</code><br />
-<code>#include &lt;SFML/Graphics/Export.hpp&gt;</code><br />
-<code>#include &lt;SFML/Graphics/Glyph.hpp&gt;</code><br />
-<code>#include &lt;SFML/Graphics/Image.hpp&gt;</code><br />
-<code>#include &lt;SFML/Graphics/Rect.hpp&gt;</code><br />
-<code>#include &lt;map&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00047_source.html">BLIB/Components/Mesh.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00236_source.html">BLIB/Graphics/Drawable.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00242_source.html">BLIB/Graphics/Text/VulkanFont.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00698_source.html">BLIB/Render/Primitives/Vertex.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00887_source.html">BLIB/Resources.hpp</a>&gt;</code><br />
+<code>#include &lt;SFML/Graphics/Font.hpp&gt;</code><br />
+<code>#include &lt;SFML/Graphics/Text.hpp&gt;</code><br />
+<code>#include &lt;SFML/System/String.hpp&gt;</code><br />
+<code>#include &lt;glm/glm.hpp&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
-<code>#include &lt;vector&gt;</code><br />
 </div>
 <p><a href="a00239_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02294.html">sf::VulkanFont</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adaptation of sf::Font for use with Vulkan.  <a href="a02294.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02298.html">sf::VulkanFont::Info</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02325.html">bl::gfx::txt::BasicText</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a02317.html" title="Base class for Drawable objects. A Drawable object should inherit this class for the drawable compone...">Drawable</a> for a single section of text. Similar to sf::Text. Do not use directly, use <a class="el" href="a02341.html" title="Drawable component for format-able text. Similar to sf::Text except that multiple formatted sections ...">Text</a> class to create and manage <a class="el" href="a02325.html" title="Drawable for a single section of text. Similar to sf::Text. Do not use directly, use Text class to cr...">BasicText</a> segments.  <a href="a02325.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a01754"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01754.html">bl</a></td></tr>
-<tr class="memdesc:a01754"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="memitem:a01760"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01760.html">bl</a></td></tr>
+<tr class="memdesc:a01760"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01763"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01763.html">bl::rc</a></td></tr>
-<tr class="memdesc:a01763"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a02998.html" title="Top level rendering system of the game engine.">Renderer</a> core implementation classes and functionality. <br /></td></tr>
+<tr class="memitem:a01767"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01767.html">bl::gfx</a></td></tr>
+<tr class="memdesc:a01767"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of SFML-like classes for drawing. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01776"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01776.html">bl::rc::res</a></td></tr>
-<tr class="memdesc:a01776"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes for renderer resource management. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01777"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01777.html">sf</a></td></tr>
+<tr class="memitem:a01782"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01782.html">bl::gfx::txt</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Sep 10 2023 23:10:23 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Sep 30 2023 22:56:46 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

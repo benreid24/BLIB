@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Graph/AssetFactory.cpp Source File</title>
+<title>BLIB: src/Render/Descriptors/SceneDescriptorSetInstance.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,42 +66,47 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_7ebf59129457ae24134db92256c2545a.html">Graph</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_c46d59b26ba1c7a895704386ecf9511b.html">Descriptors</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">AssetFactory.cpp</div>  </div>
+<div class="title">SceneDescriptorSetInstance.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01421.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00611.html">BLIB/Render/Graph/AssetFactory.hpp</a>&gt;</span></div>
+<a href="a01421.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00602.html">BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;stdexcept&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a04871.html">BLIB/Render/Config.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01754.html">bl</a></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01760.html">bl</a></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>rc</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>rg</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>ds</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="a02866.html#a77e7c1dd5519a1be712b2305d5960a4a">   11</a></span>&#160;<a class="code" href="a02862.html">Asset</a>* <a class="code" href="a02866.html#a77e7c1dd5519a1be712b2305d5960a4a">AssetFactory::createAsset</a>(std::string_view tag) {</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> it = providers.find(tag);</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keywordflow">if</span> (it == providers.end()) { <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Missing provider for asset tag&quot;</span>); }</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="keywordflow">return</span> it-&gt;second-&gt;create();</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;}</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;} <span class="comment">// namespace rg</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00611_html"><div class="ttname"><a href="a00611.html">AssetFactory.hpp</a></div></div>
-<div class="ttc" id="aa01754_html"><div class="ttname"><a href="a01754.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02862_html"><div class="ttname"><a href="a02862.html">bl::rc::rg::Asset</a></div><div class="ttdoc">Base class for assets in render graphs.</div><div class="ttdef"><b>Definition:</b> <a href="a00608_source.html#l00032">Asset.hpp:32</a></div></div>
-<div class="ttc" id="aa02866_html_a77e7c1dd5519a1be712b2305d5960a4a"><div class="ttname"><a href="a02866.html#a77e7c1dd5519a1be712b2305d5960a4a">bl::rc::rg::AssetFactory::createAsset</a></div><div class="ttdeci">Asset * createAsset(std::string_view tag)</div><div class="ttdoc">Creates a new asset from the given tag.</div><div class="ttdef"><b>Definition:</b> <a href="a01421_source.html#l00011">AssetFactory.cpp:11</a></div></div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="a02885.html#a4e4d85081fc95e511efd38849f047eb5">   11</a></span>&#160;<a class="code" href="a02885.html#a4e4d85081fc95e511efd38849f047eb5">SceneDescriptorSetInstance::SceneDescriptorSetInstance</a>()</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;: <a class="code" href="a02877.html">DescriptorSetInstance</a>(Bindless, SpeedAgnostic) {}</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="a02885.html#ad0135cab959d2ab6c8c454054e1c23d4">   14</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02885.html#ad0135cab959d2ab6c8c454054e1c23d4">SceneDescriptorSetInstance::updateObserverCamera</a>(std::uint32_t observerIndex,</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;                                                      <span class="keyword">const</span> glm::mat4&amp; cam) {</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <a class="code" href="a02885.html#a0a145382ab1e64d8c85dd63939bb0aca">cameraBuffer</a>[observerIndex] = cam;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;}</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;} <span class="comment">// namespace ds</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00602_html"><div class="ttname"><a href="a00602.html">SceneDescriptorSetInstance.hpp</a></div></div>
+<div class="ttc" id="aa01760_html"><div class="ttname"><a href="a01760.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02877_html"><div class="ttname"><a href="a02877.html">bl::rc::ds::DescriptorSetInstance</a></div><div class="ttdoc">Base class for descriptor sets that exist for each scene. Derived classes are created by DescriptorSe...</div><div class="ttdef"><b>Definition:</b> <a href="a00596_source.html#l00030">DescriptorSetInstance.hpp:30</a></div></div>
+<div class="ttc" id="aa02885_html_a0a145382ab1e64d8c85dd63939bb0aca"><div class="ttname"><a href="a02885.html#a0a145382ab1e64d8c85dd63939bb0aca">bl::rc::ds::SceneDescriptorSetInstance::cameraBuffer</a></div><div class="ttdeci">buf::UniformBuffer&lt; glm::mat4 &gt; cameraBuffer</div><div class="ttdef"><b>Definition:</b> <a href="a00602_source.html#l00043">SceneDescriptorSetInstance.hpp:43</a></div></div>
+<div class="ttc" id="aa02885_html_a4e4d85081fc95e511efd38849f047eb5"><div class="ttname"><a href="a02885.html#a4e4d85081fc95e511efd38849f047eb5">bl::rc::ds::SceneDescriptorSetInstance::SceneDescriptorSetInstance</a></div><div class="ttdeci">SceneDescriptorSetInstance()</div><div class="ttdoc">Creates the descriptor set instance.</div><div class="ttdef"><b>Definition:</b> <a href="a01421_source.html#l00011">SceneDescriptorSetInstance.cpp:11</a></div></div>
+<div class="ttc" id="aa02885_html_ad0135cab959d2ab6c8c454054e1c23d4"><div class="ttname"><a href="a02885.html#ad0135cab959d2ab6c8c454054e1c23d4">bl::rc::ds::SceneDescriptorSetInstance::updateObserverCamera</a></div><div class="ttdeci">void updateObserverCamera(std::uint32_t observerIndex, const glm::mat4 &amp;projView)</div><div class="ttdoc">Updates the camera value for the given observer.</div><div class="ttdef"><b>Definition:</b> <a href="a01421_source.html#l00014">SceneDescriptorSetInstance.cpp:14</a></div></div>
+<div class="ttc" id="aa04871_html"><div class="ttname"><a href="a04871.html">Config.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Sep 10 2023 23:10:22 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Sep 30 2023 22:56:46 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

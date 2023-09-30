@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Resources/TextureRef.cpp File Reference</title>
+<title>BLIB: src/Render/Resources/ShaderModuleCache.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,34 +71,105 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a>  </div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#define-members">Macros</a>  </div>
   <div class="headertitle">
-<div class="title">TextureRef.cpp File Reference</div>  </div>
+<div class="title">ShaderModuleCache.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00725_source.html">BLIB/Render/Resources/TextureRef.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00722_source.html">BLIB/Render/Resources/TexturePool.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a04737_source.html">BLIB/Render/Vulkan/Texture.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00722_source.html">BLIB/Render/Resources/ShaderModuleCache.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a04871_source.html">BLIB/Render/Config.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00887_source.html">BLIB/Resources.hpp</a>&gt;</code><br />
 </div>
 <p><a href="a01505_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a01754"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01754.html">bl</a></td></tr>
-<tr class="memdesc:a01754"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="memitem:a01760"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01760.html">bl</a></td></tr>
+<tr class="memdesc:a01760"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01763"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01763.html">bl::rc</a></td></tr>
-<tr class="memdesc:a01763"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a02998.html" title="Top level rendering system of the game engine.">Renderer</a> core implementation classes and functionality. <br /></td></tr>
+<tr class="memitem:a01769"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01769.html">bl::rc</a></td></tr>
+<tr class="memdesc:a01769"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a03029.html" title="Top level rendering system of the game engine.">Renderer</a> core implementation classes and functionality. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01776"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01776.html">bl::rc::res</a></td></tr>
-<tr class="memdesc:a01776"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes for renderer resource management. <br /></td></tr>
+<tr class="memitem:a01783"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01783.html">bl::rc::res</a></td></tr>
+<tr class="memdesc:a01783"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes for renderer resource management. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a2ae9b72bb13abaabfcf2ee0ba7d3fa1d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01505.html#a2ae9b72bb13abaabfcf2ee0ba7d3fa1d">STRINGIFY_HELPER</a>(X)&#160;&#160;&#160;#X</td></tr>
+<tr class="separator:a2ae9b72bb13abaabfcf2ee0ba7d3fa1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6df1d22fb5f09eccc23b9f399670cfd7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01505.html#a6df1d22fb5f09eccc23b9f399670cfd7">STRINGIFY</a>(x)&#160;&#160;&#160;<a class="el" href="a01505.html#a2ae9b72bb13abaabfcf2ee0ba7d3fa1d">STRINGIFY_HELPER</a>(x)</td></tr>
+<tr class="separator:a6df1d22fb5f09eccc23b9f399670cfd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a31fed9a126657d15744fb02db496648e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01505.html#a31fed9a126657d15744fb02db496648e">BUILTIN_SHADER</a>(path)&#160;&#160;&#160;<a class="el" href="a01505.html#a6df1d22fb5f09eccc23b9f399670cfd7">STRINGIFY</a>(SHADER_PATH) &quot;/&quot; path</td></tr>
+<tr class="separator:a31fed9a126657d15744fb02db496648e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a31fed9a126657d15744fb02db496648e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a31fed9a126657d15744fb02db496648e">&#9670;&nbsp;</a></span>BUILTIN_SHADER</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define BUILTIN_SHADER</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">path</td><td>)</td>
+          <td>&#160;&#160;&#160;<a class="el" href="a01505.html#a6df1d22fb5f09eccc23b9f399670cfd7">STRINGIFY</a>(SHADER_PATH) &quot;/&quot; path</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01505_source.html#l00008">8</a> of file <a class="el" href="a01505_source.html">ShaderModuleCache.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a6df1d22fb5f09eccc23b9f399670cfd7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6df1d22fb5f09eccc23b9f399670cfd7">&#9670;&nbsp;</a></span>STRINGIFY</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define STRINGIFY</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x</td><td>)</td>
+          <td>&#160;&#160;&#160;<a class="el" href="a01505.html#a2ae9b72bb13abaabfcf2ee0ba7d3fa1d">STRINGIFY_HELPER</a>(x)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01505_source.html#l00007">7</a> of file <a class="el" href="a01505_source.html">ShaderModuleCache.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a2ae9b72bb13abaabfcf2ee0ba7d3fa1d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ae9b72bb13abaabfcf2ee0ba7d3fa1d">&#9670;&nbsp;</a></span>STRINGIFY_HELPER</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define STRINGIFY_HELPER</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">X</td><td>)</td>
+          <td>&#160;&#160;&#160;#X</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01505_source.html#l00006">6</a> of file <a class="el" href="a01505_source.html">ShaderModuleCache.cpp</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Sep 10 2023 23:10:23 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Sep 30 2023 22:56:46 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

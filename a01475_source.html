@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Overlays/Viewport.cpp Source File</title>
+<title>BLIB: src/Render/Overlays/OverlayCamera.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,71 +71,47 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Viewport.cpp</div>  </div>
+<div class="title">OverlayCamera.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01475.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00689.html">BLIB/Render/Overlays/Viewport.hpp</a>&gt;</span></div>
+<a href="a01475.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00686.html">BLIB/Render/Overlays/OverlayCamera.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;cmath&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01754.html">bl</a></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>rc</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>ovy</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;Viewport::Viewport(<span class="keywordtype">bool</span> abs, <span class="keyword">const</span> sf::FloatRect&amp; v)</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;: isAbsolute(abs)</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;, region(v) {}</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="a02986.html#a7ebac59be605af4ea6890e005ee92304">   15</a></span>&#160;<a class="code" href="a02986.html">Viewport</a> Viewport::absolute(<span class="keyword">const</span> sf::FloatRect&amp; v) { <span class="keywordflow">return</span> <a class="code" href="a02986.html">Viewport</a>{<span class="keyword">true</span>, v}; }</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a02986.html#abce9c9f5a97b5b970ab25d7abf26484c">   17</a></span>&#160;<a class="code" href="a02986.html">Viewport</a> Viewport::relative(<span class="keyword">const</span> sf::FloatRect&amp; v) { <span class="keywordflow">return</span> <a class="code" href="a02986.html">Viewport</a>{<span class="keyword">false</span>, v}; }</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a02986.html#acbd15d27ee072c258beadebe55c05eb7">   19</a></span>&#160;VkViewport Viewport::createViewport(<span class="keyword">const</span> VkViewport&amp; global, <span class="keyword">const</span> VkViewport&amp; parent)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keyword">const</span> VkViewport&amp; vp = isAbsolute ? global : parent;</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;glm/gtc/matrix_transform.hpp&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;glm/gtx/transform.hpp&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01760.html">bl</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>ovy</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="a03009.html#a75cdba5020a5e58077452bd99aff98e2">   12</a></span>&#160;<a class="code" href="a03009.html#a75cdba5020a5e58077452bd99aff98e2">OverlayCamera::OverlayCamera</a>()</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;: Camera() {</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <a class="code" href="a01917.html#a194c42e28c9bc4558095265ca862e761">markViewDirty</a>();</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <a class="code" href="a01917.html#a8db0b22739ed85a8dc29ec7082d04640">markProjDirty</a>();</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;}</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keywordtype">void</span> OverlayCamera::update(<span class="keywordtype">float</span>) {}</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keywordtype">void</span> OverlayCamera::refreshViewMatrix(glm::mat4&amp; view) { view = glm::mat4(1.f); }</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    VkViewport result{};</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    result.minDepth = vp.minDepth;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    result.maxDepth = vp.maxDepth;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    result.x        = vp.x + vp.width * region.left;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    result.y        = vp.y + vp.height * region.top;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    result.width    = vp.width * region.width;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    result.height   = vp.height * region.height;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordflow">return</span> result;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;}</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="a02986.html#ae6f0f9360ff5222cece8a59c6fcc07db">   32</a></span>&#160;VkRect2D Viewport::viewportToScissor(<span class="keyword">const</span> VkViewport&amp; viewport) {</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    VkRect2D result{};</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    result.offset.x      = std::floor(viewport.x);</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    result.offset.y      = std::floor(viewport.y);</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    result.extent.width  = std::ceil(viewport.width);</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    result.extent.height = std::ceil(viewport.height);</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordflow">return</span> result;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;}</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="a02986.html#ac3d0ce1a2ee4a48ab7571660aa4c17cd">   41</a></span>&#160;VkViewport Viewport::scissorToViewport(<span class="keyword">const</span> VkRect2D&amp; scissor) {</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    VkViewport result{};</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    result.minDepth = 0.f;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    result.maxDepth = 1.f;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    result.x        = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(scissor.offset.x);</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    result.y        = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(scissor.offset.y);</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    result.width    = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(scissor.extent.width);</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    result.height   = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(scissor.extent.height);</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordflow">return</span> result;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;}</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;} <span class="comment">// namespace ovy</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00689_html"><div class="ttname"><a href="a00689.html">Viewport.hpp</a></div></div>
-<div class="ttc" id="aa01754_html"><div class="ttname"><a href="a01754.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02986_html"><div class="ttname"><a href="a02986.html">bl::rc::ovy::Viewport</a></div><div class="ttdoc">Represents a relative or absolute viewport for overlays. Is defined with respect to the global or par...</div><div class="ttdef"><b>Definition:</b> <a href="a00689_source.html#l00019">Viewport.hpp:19</a></div></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keywordtype">void</span> OverlayCamera::refreshProjMatrix(glm::mat4&amp; proj, <span class="keyword">const</span> VkViewport&amp;) {</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    proj = glm::ortho(0.f, 1.f, 0.f, 1.f);</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;}</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;} <span class="comment">// namespace ovy</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00686_html"><div class="ttname"><a href="a00686.html">OverlayCamera.hpp</a></div></div>
+<div class="ttc" id="aa01760_html"><div class="ttname"><a href="a01760.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa01917_html_a194c42e28c9bc4558095265ca862e761"><div class="ttname"><a href="a01917.html#a194c42e28c9bc4558095265ca862e761">bl::cam::Camera::markViewDirty</a></div><div class="ttdeci">void markViewDirty()</div><div class="ttdoc">Mark the view matrix as needing to be refreshed on next use.</div><div class="ttdef"><b>Definition:</b> <a href="a01085_source.html#l00053">Camera.cpp:53</a></div></div>
+<div class="ttc" id="aa01917_html_a8db0b22739ed85a8dc29ec7082d04640"><div class="ttname"><a href="a01917.html#a8db0b22739ed85a8dc29ec7082d04640">bl::cam::Camera::markProjDirty</a></div><div class="ttdeci">void markProjDirty()</div><div class="ttdoc">Marks the projection matrix as needing to be refreshed on next use.</div><div class="ttdef"><b>Definition:</b> <a href="a01085_source.html#l00055">Camera.cpp:55</a></div></div>
+<div class="ttc" id="aa03009_html_a75cdba5020a5e58077452bd99aff98e2"><div class="ttname"><a href="a03009.html#a75cdba5020a5e58077452bd99aff98e2">bl::rc::ovy::OverlayCamera::OverlayCamera</a></div><div class="ttdeci">OverlayCamera()</div><div class="ttdoc">Creates the overlay camera.</div><div class="ttdef"><b>Definition:</b> <a href="a01475_source.html#l00012">OverlayCamera.cpp:12</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Sep 10 2023 23:10:22 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Sep 30 2023 22:56:46 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

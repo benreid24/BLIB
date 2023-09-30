@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::resource::bundle Namespace Reference</title>
+<title>BLIB: bl::rc::rg Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,93 +66,75 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01754.html">bl</a></li><li class="navelem"><a class="el" href="a01804.html">resource</a></li><li class="navelem"><a class="el" href="a01805.html">bundle</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01760.html">bl</a></li><li class="navelem"><a class="el" href="a01769.html">rc</a></li><li class="navelem"><a class="el" href="a01805.html">rg</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#typedef-members">Typedefs</a>  </div>
+<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">bl::resource::bundle Namespace Reference</div>  </div>
+<div class="title">bl::rc::rg Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="a03366.html" title="Internal struct used by ResourceManager. Use Ref externally.">Resource</a> bundling utility for combining external files into bundles.  
+<p>Collection of classes that comprise the render graph.  
 <a href="a01805.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03246.html">Bundle</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a03246.html" title="Bundle to be used at runtime by BundleRuntime. Do not use directly.">Bundle</a> to be used at runtime by <a class="el" href="a03266.html" title="Runtime for bundles used by FileSystem. Do not use directly.">BundleRuntime</a>. Do not use directly.  <a href="a03246.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02897.html">Asset</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for assets in render graphs.  <a href="a02897.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03250.html">BundledFileMetadata</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic struct containing metadata about a file in a bundle.  <a href="a03250.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02901.html">AssetFactory</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Factory for render graph assets. Manages the set of providers keyed on tag.  <a href="a02901.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03258.html">BundleMetadata</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Class containing a file manifest for an individual bundle. Essentially a wrapped map of string -&gt; <a class="el" href="a03250.html" title="Basic struct containing metadata about a file in a bundle.">BundledFileMetadata</a>.  <a href="a03258.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02905.html">AssetPool</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a02997.html" title="Top level class for observers in the renderer. Corresponds to Engine Actors. Each observer may have i...">Observer</a> level asset pool that owns assets directly.  <a href="a02905.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03266.html">BundleRuntime</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runtime for bundles used by <a class="el" href="a03306.html" title="File system wrapper which reads data from the underlying filesystem or from the configured bundle set...">FileSystem</a>. Do not use directly.  <a href="a03266.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02909.html">AssetProvider</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for an asset provider. AssetProviders are used by <a class="el" href="a02901.html" title="Factory for render graph assets. Manages the set of providers keyed on tag.">AssetFactory</a>.  <a href="a02909.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03270.html">BundleSource</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a03274.html" title="Bundler configuration class. This determines the behavior of the bundler.">Config</a> struct defining a top level starting point for a bundle.  <a href="a03270.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02913.html">AssetRef</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle to an asset in an <a class="el" href="a02905.html" title="Observer level asset pool that owns assets directly.">AssetPool</a>.  <a href="a02913.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03274.html">Config</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a03242.html" title="Top level resource bundler class. Use this to create bundles for release builds.">Bundler</a> configuration class. This determines the behavior of the bundler.  <a href="a03274.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02933.html">AssetTags</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of built-in asset tags.  <a href="a02933.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03278.html">FileHandler</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for file handlers. File handlers process raw files and pack them into bundles. The purpose of handlers is to register dependency files, exclude sidecar files, and perform conversions (ie json -&gt; binary) before packing data into the bundle.  <a href="a03278.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02937.html">ExecutionContext</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Context containing graph execution data that is passed down to tasks.  <a href="a02937.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03282.html">FileHandlerContext</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Context data that is provided to <a class="el" href="a03278.html" title="Base class for file handlers. File handlers process raw files and pack them into bundles....">FileHandler</a> objects when processing files.  <a href="a03282.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02941.html">GraphAsset</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper around <a class="el" href="a02913.html" title="Handle to an asset in an AssetPool.">AssetRef</a> for assets owned by a <a class="el" href="a02953.html" title="The core render graph functionality. Drives rendering for each observer.">RenderGraph</a> instance.  <a href="a02941.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03286.html">AnimationHandler</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">File handler for animations. Copies the data from disk as-is and adds the spritesheet file to the bundle as well.  <a href="a03286.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02945.html">GraphAssetPool</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a02897.html" title="Base class for assets in render graphs.">Asset</a> pool for individual <a class="el" href="a02953.html" title="The core render graph functionality. Drives rendering for each observer.">RenderGraph</a> instances that exist per scene per observer.  <a href="a02945.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03290.html">DefaultHandler</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default file handler used for all files that do not have a matching handler. Simply copies the file as-is into the bundle.  <a href="a03290.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02953.html">RenderGraph</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The core render graph functionality. Drives rendering for each observer.  <a href="a02953.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03294.html">PlaylistHandler</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">File handlers for processing playlists. Loads them as json from disk and saves as binary in the bundle. Song files are also added to the bundle.  <a href="a03294.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02969.html">Strategy</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for renderer strategies. Render strategies populate render graphs with tasks when they are first created.  <a href="a02969.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03298.html">Manifest</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Top level manifest that maps original file paths to the bundle path they are in. <a class="el" href="a03246.html" title="Bundle to be used at runtime by BundleRuntime. Do not use directly.">Bundle</a> paths in the manifest are relative to the manifest file itself.  <a href="a03298.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02973.html">Task</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for tasks within a <a class="el" href="a02953.html" title="The core render graph functionality. Drives rendering for each observer.">RenderGraph</a>.  <a href="a02973.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03930.html">Stats</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02977.html">TaskAssets</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic struct containing the assets for a task. Corresponds to <a class="el" href="a02981.html" title="Basic struct containing the tags for a task for linking within a graph.">TaskAssetTags</a>. Indices are consistent with tag indices to make finding assets simpler.  <a href="a02977.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03934.html">BundleCreator</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02981.html">TaskAssetTags</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic struct containing the tags for a task for linking within a graph.  <a href="a02981.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:a8a2a9b32bbe1a4a8091826b7556796c1"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01805.html#a8a2a9b32bbe1a4a8091826b7556796c1">Serializer</a> = <a class="el" href="a03442.html">serial::binary::Serializer</a>&lt; <a class="el" href="a03258.html">BundleMetadata</a> &gt;</td></tr>
-<tr class="separator:a8a2a9b32bbe1a4a8091826b7556796c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02985.html">TaskInput</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper for a single input for a task. Allows multiple tags to be options for a single input slot.  <a href="a02985.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="a03366.html" title="Internal struct used by ResourceManager. Use Ref externally.">Resource</a> bundling utility for combining external files into bundles. </p>
-</div><h2 class="groupheader">Typedef Documentation</h2>
-<a id="a8a2a9b32bbe1a4a8091826b7556796c1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8a2a9b32bbe1a4a8091826b7556796c1">&#9670;&nbsp;</a></span>Serializer</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef <a class="el" href="a03442.html">serial::binary::Serializer</a>&lt; <a class="el" href="a03298.html">Manifest</a> &gt; <a class="el" href="a01805.html#a8a2a9b32bbe1a4a8091826b7556796c1">bl::resource::bundle::Serializer</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01595_source.html#l00009">9</a> of file <a class="el" href="a01595_source.html">BundleMetadata.cpp</a>.</p>
-
-</div>
-</div>
-</div><!-- contents -->
+<div class="textblock"><p>Collection of classes that comprise the render graph. </p>
+</div></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Sep 10 2023 23:10:24 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Sep 30 2023 22:56:48 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

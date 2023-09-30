@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Engine/Flags.hpp Source File</title>
+<title>BLIB: include/BLIB/Engine/Events/WindowResize.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,75 +66,48 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_21925c401d8b9381bdf61383d8a14cd0.html">Engine</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_21925c401d8b9381bdf61383d8a14cd0.html">Engine</a></li><li class="navelem"><a class="el" href="dir_b1e11ac7deb2d68a3ec768925497826d.html">Events</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Flags.hpp</div>  </div>
+<div class="title">WindowResize.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00179.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_ENGINE_FLAGS_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_ENGINE_FLAGS_HPP</span></div>
+<a href="a00179.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_ENGINE_EVENTS_WINDOWRESIZE_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_ENGINE_EVENTS_WINDOWRESIZE_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;cstdint&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a04823.html">BLIB/Engine/Window.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01754.html">bl</a></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01760.html">bl</a></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>engine</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="a01771.html">   10</a></span>&#160;<span class="keyword">namespace </span>unittest</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>event</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">struct </span>FlagTestEngine;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;}</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">class </span><a class="code" href="a02150.html">Engine</a>;</div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a02178.html">   22</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02178.html">Flags</a> {</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a02178.html#ae7955b695f60cd16d25d471f25029d8d">   28</a></span>&#160;    <span class="keyword">enum</span> <a class="code" href="a02178.html#ae7955b695f60cd16d25d471f25029d8d">Flag</a> : std::uint32_t {</div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a02178.html#ae7955b695f60cd16d25d471f25029d8da87abe6968dbffe3ae2969049a88cc357">   29</a></span>&#160;        <a class="code" href="a02178.html#ae7955b695f60cd16d25d471f25029d8da87abe6968dbffe3ae2969049a88cc357">None</a>      = 0,        </div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a02178.html#ae7955b695f60cd16d25d471f25029d8dadbeb889a6d0bd8a174aa2f787f83f39d">   30</a></span>&#160;        <a class="code" href="a02178.html#ae7955b695f60cd16d25d471f25029d8dadbeb889a6d0bd8a174aa2f787f83f39d">Terminate</a> = 0x1,      </div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="a02178.html#ae7955b695f60cd16d25d471f25029d8dafd37413afad2613e79b3d725c30147b9">   31</a></span>&#160;        <a class="code" href="a02178.html#ae7955b695f60cd16d25d471f25029d8dafd37413afad2613e79b3d725c30147b9">PopState</a>  = 0x1 &lt;&lt; 1, </div>
-<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="a02178.html#ae7955b695f60cd16d25d471f25029d8da9791dc5708a5a487e2626efe2e4a5a87">   32</a></span>&#160;        <a class="code" href="a02178.html#ae7955b695f60cd16d25d471f25029d8da9791dc5708a5a487e2626efe2e4a5a87">_priv_PushState</a>    = 0x1 &lt;&lt; 2, </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <a class="code" href="a02178.html#ae7955b695f60cd16d25d471f25029d8da9615eccc4a0ae23cd7c339a58e8bcb2e">_priv_ReplaceState</a> = 0x1 &lt;&lt; 3  </div>
-<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="a02178.html#ae7955b695f60cd16d25d471f25029d8da9615eccc4a0ae23cd7c339a58e8bcb2e">   34</a></span>&#160;    };</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02178.html#a0ecf9b3771da20f26b5aeb5f3475eb00">set</a>(<a class="code" href="a02178.html#ae7955b695f60cd16d25d471f25029d8d">Flag</a> flag);</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a02178.html#a062af9a6e0e642fcb4f5f3d1f1957b9b">active</a>(<a class="code" href="a02178.html#ae7955b695f60cd16d25d471f25029d8d">Flag</a> flag) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a02178.html#ae9b24580adb96ddf4288424b10cb5800">stateChangeReady</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    uint64_t flags;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <a class="code" href="a02178.html">Flags</a>();</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordtype">void</span> clear();</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="a02178.html#a3e1914489e4bed4f9f23cdeab34a43dc">   61</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a02150.html">Engine</a>;</div>
-<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="a02178.html#a8688058c6d36efe4f22466da473599ad">   62</a></span>&#160;    <span class="keyword">friend</span> struct ::bl::engine::unittest::FlagTestEngine;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;};</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;} <span class="comment">// namespace engine</span></div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01754_html"><div class="ttname"><a href="a01754.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02150_html"><div class="ttname"><a href="a02150.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a04752_source.html#l00031">Engine.hpp:31</a></div></div>
-<div class="ttc" id="aa02178_html"><div class="ttname"><a href="a02178.html">bl::engine::Flags</a></div><div class="ttdoc">Collection of flags that can be set to modify or control the behavior of the Engine....</div><div class="ttdef"><b>Definition:</b> <a href="a00179_source.html#l00022">Flags.hpp:22</a></div></div>
-<div class="ttc" id="aa02178_html_a062af9a6e0e642fcb4f5f3d1f1957b9b"><div class="ttname"><a href="a02178.html#a062af9a6e0e642fcb4f5f3d1f1957b9b">bl::engine::Flags::active</a></div><div class="ttdeci">bool active(Flag flag) const</div><div class="ttdoc">Returns the state of the given flag.</div><div class="ttdef"><b>Definition:</b> <a href="a01115_source.html#l00018">Flags.cpp:18</a></div></div>
-<div class="ttc" id="aa02178_html_a0ecf9b3771da20f26b5aeb5f3475eb00"><div class="ttname"><a href="a02178.html#a0ecf9b3771da20f26b5aeb5f3475eb00">bl::engine::Flags::set</a></div><div class="ttdeci">void set(Flag flag)</div><div class="ttdoc">Sets the given flag to true.</div><div class="ttdef"><b>Definition:</b> <a href="a01115_source.html#l00016">Flags.cpp:16</a></div></div>
-<div class="ttc" id="aa02178_html_ae7955b695f60cd16d25d471f25029d8d"><div class="ttname"><a href="a02178.html#ae7955b695f60cd16d25d471f25029d8d">bl::engine::Flags::Flag</a></div><div class="ttdeci">Flag</div><div class="ttdoc">The flags that may be used to control the Engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00179_source.html#l00028">Flags.hpp:28</a></div></div>
-<div class="ttc" id="aa02178_html_ae7955b695f60cd16d25d471f25029d8da87abe6968dbffe3ae2969049a88cc357"><div class="ttname"><a href="a02178.html#ae7955b695f60cd16d25d471f25029d8da87abe6968dbffe3ae2969049a88cc357">bl::engine::Flags::None</a></div><div class="ttdeci">@ None</div><div class="ttdef"><b>Definition:</b> <a href="a00179_source.html#l00029">Flags.hpp:29</a></div></div>
-<div class="ttc" id="aa02178_html_ae7955b695f60cd16d25d471f25029d8da9615eccc4a0ae23cd7c339a58e8bcb2e"><div class="ttname"><a href="a02178.html#ae7955b695f60cd16d25d471f25029d8da9615eccc4a0ae23cd7c339a58e8bcb2e">bl::engine::Flags::_priv_ReplaceState</a></div><div class="ttdeci">@ _priv_ReplaceState</div><div class="ttdoc">Used internally by the engine, do not use directly.</div><div class="ttdef"><b>Definition:</b> <a href="a00179_source.html#l00034">Flags.hpp:33</a></div></div>
-<div class="ttc" id="aa02178_html_ae7955b695f60cd16d25d471f25029d8da9791dc5708a5a487e2626efe2e4a5a87"><div class="ttname"><a href="a02178.html#ae7955b695f60cd16d25d471f25029d8da9791dc5708a5a487e2626efe2e4a5a87">bl::engine::Flags::_priv_PushState</a></div><div class="ttdeci">@ _priv_PushState</div><div class="ttdoc">Returns to the previous state. Terminates if no previous state.</div><div class="ttdef"><b>Definition:</b> <a href="a00179_source.html#l00032">Flags.hpp:32</a></div></div>
-<div class="ttc" id="aa02178_html_ae7955b695f60cd16d25d471f25029d8dadbeb889a6d0bd8a174aa2f787f83f39d"><div class="ttname"><a href="a02178.html#ae7955b695f60cd16d25d471f25029d8dadbeb889a6d0bd8a174aa2f787f83f39d">bl::engine::Flags::Terminate</a></div><div class="ttdeci">@ Terminate</div><div class="ttdoc">Special value indicating that no flags are set.</div><div class="ttdef"><b>Definition:</b> <a href="a00179_source.html#l00030">Flags.hpp:30</a></div></div>
-<div class="ttc" id="aa02178_html_ae7955b695f60cd16d25d471f25029d8dafd37413afad2613e79b3d725c30147b9"><div class="ttname"><a href="a02178.html#ae7955b695f60cd16d25d471f25029d8dafd37413afad2613e79b3d725c30147b9">bl::engine::Flags::PopState</a></div><div class="ttdeci">@ PopState</div><div class="ttdoc">Terminates the Engine's run() method.</div><div class="ttdef"><b>Definition:</b> <a href="a00179_source.html#l00031">Flags.hpp:31</a></div></div>
-<div class="ttc" id="aa02178_html_ae9b24580adb96ddf4288424b10cb5800"><div class="ttname"><a href="a02178.html#ae9b24580adb96ddf4288424b10cb5800">bl::engine::Flags::stateChangeReady</a></div><div class="ttdeci">bool stateChangeReady() const</div><div class="ttdoc">Returns whether or not any state change related flag is set. Includes Terminate.</div><div class="ttdef"><b>Definition:</b> <a href="a01115_source.html#l00020">Flags.cpp:20</a></div></div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a02209.html">   18</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a02209.html">WindowResized</a> {</div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a02209.html#acc4c8f3f835744c84a249ca62ebb2f6e">   19</a></span>&#160;    <a class="code" href="a02253.html">EngineWindow</a>&amp; <a class="code" href="a02209.html#acc4c8f3f835744c84a249ca62ebb2f6e">window</a>;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a02209.html#a3241f58d3ecbc14327bbfd3cff17f0d3">   26</a></span>&#160;    <a class="code" href="a02209.html#a3241f58d3ecbc14327bbfd3cff17f0d3">WindowResized</a>(<a class="code" href="a02253.html">EngineWindow</a>&amp; w)</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    : <a class="code" href="a02209.html#acc4c8f3f835744c84a249ca62ebb2f6e">window</a>(w) {}</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;};</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;} <span class="comment">// namespace event</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;} <span class="comment">// namespace engine</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01760_html"><div class="ttname"><a href="a01760.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02209_html"><div class="ttname"><a href="a02209.html">bl::engine::event::WindowResized</a></div><div class="ttdoc">Fired when the engine window is resized from a user event.</div><div class="ttdef"><b>Definition:</b> <a href="a00179_source.html#l00018">WindowResize.hpp:18</a></div></div>
+<div class="ttc" id="aa02209_html_a3241f58d3ecbc14327bbfd3cff17f0d3"><div class="ttname"><a href="a02209.html#a3241f58d3ecbc14327bbfd3cff17f0d3">bl::engine::event::WindowResized::WindowResized</a></div><div class="ttdeci">WindowResized(EngineWindow &amp;w)</div><div class="ttdoc">Construct a new Window Resized object.</div><div class="ttdef"><b>Definition:</b> <a href="a00179_source.html#l00026">WindowResize.hpp:26</a></div></div>
+<div class="ttc" id="aa02209_html_acc4c8f3f835744c84a249ca62ebb2f6e"><div class="ttname"><a href="a02209.html#acc4c8f3f835744c84a249ca62ebb2f6e">bl::engine::event::WindowResized::window</a></div><div class="ttdeci">EngineWindow &amp; window</div><div class="ttdef"><b>Definition:</b> <a href="a00179_source.html#l00019">WindowResize.hpp:19</a></div></div>
+<div class="ttc" id="aa02253_html"><div class="ttname"><a href="a02253.html">bl::engine::Window&lt; sf::WindowBase &gt;</a></div></div>
+<div class="ttc" id="aa04823_html"><div class="ttname"><a href="a04823.html">Window.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Sep 10 2023 23:10:21 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Sep 30 2023 22:56:45 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

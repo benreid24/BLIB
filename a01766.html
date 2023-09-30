@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::ecs Namespace Reference</title>
+<title>BLIB: bl::sys Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,124 +66,67 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01754.html">bl</a></li><li class="navelem"><a class="el" href="a01766.html">ecs</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01760.html">bl</a></li><li class="navelem"><a class="el" href="a01766.html">sys</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a> &#124;
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#typedef-members">Typedefs</a> &#124;
-<a href="#var-members">Variables</a>  </div>
+<a href="#typedef-members">Typedefs</a>  </div>
   <div class="headertitle">
-<div class="title">bl::ecs Namespace Reference</div>  </div>
+<div class="title">bl::sys Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Contains the Entity Component System.  
+<p>Collection of built-in engine systems.  
 <a href="a01766.html#details">More...</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:a01768"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01768.html">event</a></td></tr>
-<tr class="memdesc:a01768"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of events pertaining to entities. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01767"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01767.html">priv</a></td></tr>
-<tr class="memdesc:a01767"><td class="mdescLeft">&#160;</td><td class="mdescRight">Internal implementation. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01769"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01769.html">trait</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02042.html">Cleaner</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper class to automatically remove entities using RAII based cleanup. Useful for functions that build entities by adding many components where component creation may fail at arbitrary points.  <a href="a02042.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03073.html">DrawableSystem</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for renderer systems that manage scene objects in the ECS. Custom renderable types should have a system that inherits from this class that manages their membership within scenes. These systems should run in the <a class="el" href="a02217.html#af6ea181be91b7069f9f52557a1445e1aa3f81ee2718a9735d701d01e03039048d" title="Synchronizes objects from the ECS into the scene-local object buffers.">engine::FrameStage::RenderObjectSync</a> step.  <a href="a03073.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02046.html">ComponentMask</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper struct for creating masks representing component types on an entity.  <a href="a02046.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03761.html">DescriptorComponentSystem</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Templated system for managing ECS components that sync into renderer descriptor sets. Components should derive from DescriptorComponentBase.  <a href="a03761.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02050.html">View</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base definition of the <a class="el" href="a02050.html" title="Base definition of the View class. Use the tagged specialization.">View</a> class. Use the tagged specialization.  <a href="a02050.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03769.html">OverlayScalerSystem</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">System that processes entities that are scaled for overlays. Keeps scales up-to-date as overlay size changes.  <a href="a03769.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02054.html">ComponentPoolBase</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for component pools. Not intended to be used directly.  <a href="a02054.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03773.html">RendererUpdateSystem</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">System that updates all observer cameras and task graphs while the renderer is waiting on the prior frame to complete.  <a href="a03773.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02058.html">ComponentPool</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides storage and management for components in the ECS. Used internally in the <a class="el" href="a02106.html" title="This is the main interface of the ECS. This class manages all entities and components and views and s...">Registry</a>.  <a href="a02058.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03777.html">RenderSystem</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">System that triggers the renderer each frame.  <a href="a03777.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02066.html">ComponentSet</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains a set of components for a single entity. May not always be valid. Does not update if components are added or removed from the entity. Sets from views are always valid.  <a href="a02066.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02070.html">ComponentSet&lt; Require&lt; TReqComs... &gt;, Optional&lt; TOptComs... &gt; &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The actual <a class="el" href="a02066.html" title="Contains a set of components for a single entity. May not always be valid. Does not update if compone...">ComponentSet</a> specialization that should be used.  <a href="a02070.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02074.html">DependencyGraph</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper to store and manage dependencies between components.  <a href="a02074.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02078.html">IdUtil</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helpers for extracting entity metadata from entity ids.  <a href="a02078.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02102.html">ParentGraph</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility class to store and manage child &lt;-&gt; parent entity relationships in the ECS.  <a href="a02102.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02106.html">Registry</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is the main interface of the ECS. This class manages all entities and components and views and serves as the primary interface to be used.  <a href="a02106.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02110.html">StableHandle</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility class to maintain a stable pointer to a component even if the pool is resizable.  <a href="a02110.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02114.html">Require</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02118.html">Optional</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02122.html">Exclude</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02126.html">Tags</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02130.html">Tags&lt; Require&lt; TReqComs... &gt;, Optional&lt; TOptComs... &gt;, Exclude&lt; TExcComs... &gt; &gt;</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02142.html">View&lt; Require&lt; TReqComs... &gt;, Optional&lt; TOptComs... &gt;, Exclude&lt; TExcComs... &gt; &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A view into the ECS providing fast iteration over entities with the given set of components. <a class="el" href="a02050.html" title="Base definition of the View class. Use the tagged specialization.">View</a> results stay up to date as the component and entity data change.  <a href="a02142.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03781.html">TextSyncSystem</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simple system which ensures that Text geometry stays updated.  <a href="a03781.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:a84d059ae70a9c854802e3af9a2f373a9"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01766.html#a84d059ae70a9c854802e3af9a2f373a9">Entity</a> = std::uint64_t</td></tr>
-<tr class="memdesc:a84d059ae70a9c854802e3af9a2f373a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Entity is simply an id. Components are added via a <a class="el" href="a02106.html" title="This is the main interface of the ECS. This class manages all entities and components and views and s...">Registry</a> and they own all the relevant properties. Systems can query lists of Entities with certain components and perform logic and updates.  <a href="a01766.html#a84d059ae70a9c854802e3af9a2f373a9">More...</a><br /></td></tr>
-<tr class="separator:a84d059ae70a9c854802e3af9a2f373a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
-Variables</h2></td></tr>
-<tr class="memitem:ga01655307bcb32baf2884e18213123917"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="a01766.html#a84d059ae70a9c854802e3af9a2f373a9">Entity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01728.html#ga01655307bcb32baf2884e18213123917">InvalidEntity</a> = 0</td></tr>
-<tr class="memdesc:ga01655307bcb32baf2884e18213123917"><td class="mdescLeft">&#160;</td><td class="mdescRight">Special value to indicate that an Entity is not valid.  <a href="a01728.html#ga01655307bcb32baf2884e18213123917">More...</a><br /></td></tr>
-<tr class="separator:ga01655307bcb32baf2884e18213123917"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac818e5c6ace18f20d9f03da1ad8ebe41"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01749.html#gac818e5c6ace18f20d9f03da1ad8ebe41">Transform2DDescriptorSystem</a> = <a class="el" href="a03761.html">DescriptorComponentSystem</a>&lt; <a class="el" href="a01949.html">com::Transform2D</a>, glm::mat4 &gt;</td></tr>
+<tr class="memdesc:gac818e5c6ace18f20d9f03da1ad8ebe41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Descriptor component system for 2d transforms.  <a href="a01749.html#gac818e5c6ace18f20d9f03da1ad8ebe41">More...</a><br /></td></tr>
+<tr class="separator:gac818e5c6ace18f20d9f03da1ad8ebe41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8de8e24f3a0b8643626494bcd58a745c"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01749.html#ga8de8e24f3a0b8643626494bcd58a745c">Transform3DDescriptorSystem</a> = <a class="el" href="a03761.html">DescriptorComponentSystem</a>&lt; <a class="el" href="a01953.html">com::Transform3D</a>, glm::mat4 &gt;</td></tr>
+<tr class="memdesc:ga8de8e24f3a0b8643626494bcd58a745c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Descriptor component system for 3d transforms.  <a href="a01749.html#ga8de8e24f3a0b8643626494bcd58a745c">More...</a><br /></td></tr>
+<tr class="separator:ga8de8e24f3a0b8643626494bcd58a745c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga11d6ea46ca8a7d452ae7049bf7948c21"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01749.html#ga11d6ea46ca8a7d452ae7049bf7948c21">TextureDescriptorSystem</a> = <a class="el" href="a03761.html">DescriptorComponentSystem</a>&lt; <a class="el" href="a01945.html">com::Texture</a>, std::uint32_t &gt;</td></tr>
+<tr class="memdesc:ga11d6ea46ca8a7d452ae7049bf7948c21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Descriptor component system for textures.  <a href="a01749.html#ga11d6ea46ca8a7d452ae7049bf7948c21">More...</a><br /></td></tr>
+<tr class="separator:ga11d6ea46ca8a7d452ae7049bf7948c21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4477117aea35eeac21751bf038a0098b"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01749.html#ga4477117aea35eeac21751bf038a0098b">MeshSystem</a> = <a class="el" href="a03073.html">DrawableSystem</a>&lt; <a class="el" href="a01925.html">com::Mesh</a> &gt;</td></tr>
+<tr class="memdesc:ga4477117aea35eeac21751bf038a0098b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Engine system for managing entity meshes.  <a href="a01749.html#ga4477117aea35eeac21751bf038a0098b">More...</a><br /></td></tr>
+<tr class="separator:ga4477117aea35eeac21751bf038a0098b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga68bd85b37280b05c447083208d4079f7"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01749.html#ga68bd85b37280b05c447083208d4079f7">SpriteSystem</a> = <a class="el" href="a03073.html">DrawableSystem</a>&lt; <a class="el" href="a01941.html">com::Sprite</a> &gt;</td></tr>
+<tr class="memdesc:ga68bd85b37280b05c447083208d4079f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Engine system for managing entity sprites.  <a href="a01749.html#ga68bd85b37280b05c447083208d4079f7">More...</a><br /></td></tr>
+<tr class="separator:ga68bd85b37280b05c447083208d4079f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Contains the Entity Component System. </p>
-</div><h2 class="groupheader">Typedef Documentation</h2>
-<a id="a84d059ae70a9c854802e3af9a2f373a9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a84d059ae70a9c854802e3af9a2f373a9">&#9670;&nbsp;</a></span>Entity</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a01766.html#a84d059ae70a9c854802e3af9a2f373a9">bl::ecs::Entity</a> = typedef std::uint64_t</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Entity is simply an id. Components are added via a <a class="el" href="a02106.html" title="This is the main interface of the ECS. This class manages all entities and components and views and s...">Registry</a> and they own all the relevant properties. Systems can query lists of Entities with certain components and perform logic and updates. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00122_source.html#l00021">21</a> of file <a class="el" href="a00122_source.html">Entity.hpp</a>.</p>
-
-</div>
-</div>
-</div><!-- contents -->
+<div class="textblock"><p>Collection of built-in engine systems. </p>
+</div></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Sep 10 2023 23:10:23 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Sep 30 2023 22:56:48 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

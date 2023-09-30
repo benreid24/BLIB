@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Engine.hpp File Reference</title>
+<title>BLIB: include/BLIB/Engine/Configuration.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,32 +66,46 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_21925c401d8b9381bdf61383d8a14cd0.html">Engine</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">Engine.hpp File Reference</div>  </div>
+<div class="title">Configuration.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00155_source.html">BLIB/Engine/Configuration.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a04752_source.html">BLIB/Engine/Engine.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a04749_source.html">BLIB/Engine/Events.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00179_source.html">BLIB/Engine/Flags.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00182_source.html">BLIB/Engine/FrameStage.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00185_source.html">BLIB/Engine/Settings.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00188_source.html">BLIB/Engine/State.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a04755_source.html">BLIB/Engine/System.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a04761_source.html">BLIB/Engine/Systems.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a04764_source.html">BLIB/Engine/Window.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00203_source.html">BLIB/Engine/Worker.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00449_source.html">BLIB/Logging.hpp</a>&gt;</code><br />
+<code>#include &lt;any&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;typeindex&gt;</code><br />
+<code>#include &lt;unordered_map&gt;</code><br />
+<code>#include &lt;unordered_set&gt;</code><br />
 </div>
 <p><a href="a00158_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02181.html">bl::engine::Configuration</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Global typeless configuration store for engine settings. Applications may add their own configuration settings to the store as well. Some examples of configuration are the path prefixes for songs in Playlists and spritesheets in Animations. Reading the configuration is threadsafe, however all calls to <a class="el" href="a02181.html#ae1351f2a965cfbadda243cf5c25a9196" title="Sets the value for the given type and key in the config store. Keys may be duplicated across types....">set()</a> should be performed before any concurrent access is attempted.  <a href="a02181.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:a01760"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01760.html">bl</a></td></tr>
+<tr class="memdesc:a01760"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01770"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01770.html">bl::engine</a></td></tr>
+<tr class="memdesc:a01770"><td class="mdescLeft">&#160;</td><td class="mdescRight">The core game engine and related classes. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Sep 10 2023 23:10:23 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Sep 30 2023 22:56:46 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

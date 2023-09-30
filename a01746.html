@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Controllers</title>
+<title>BLIB: Resources</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -67,28 +67,65 @@ $(function() {
 
 <div class="header">
   <div class="summary">
+<a href="#groups">Modules</a> &#124;
 <a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">Controllers<div class="ingroups"><a class="el" href="a01732.html">Input</a></div></div>  </div>
+<div class="title">Resources</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Collection of constexpr configs for some common controllers (joysticks)  
+<p>A collection of classes useful for managing resources, including their loading and lifetimes.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="groups"></a>
+Modules</h2></td></tr>
+<tr class="memitem:a01758"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01758.html">Bundling</a></td></tr>
+<tr class="memdesc:a01758"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resource bundling utility for combining external files into bundles. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02338.html">bl::input::controllers::Xbox360</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Some constansts for buttons and axes for an Xbox 360 controller. Tested on Windows. For the sticks left and up are negative. For the D-Pad left is negative but up is positive. For the triggers LT is positive and RT is negative.  <a href="a02338.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03281.html">bl::resource::Bundler</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Top level resource bundler class. Use this to create bundles for release builds.  <a href="a03281.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03345.html">bl::resource::FileSystem</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">File system wrapper which reads data from the underlying filesystem or from the configured bundle set. Used internally by resource managers.  <a href="a03345.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03349.html">bl::resource::GarbageCollector</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instantiates the garbage collector and starts resource cleanup in the background.  <a href="a03349.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03353.html">bl::resource::LoaderBase&lt; TResourceType &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Templatized resource loader. Must be implemented for any resource type that is intended to be managed.  <a href="a03353.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03357.html">bl::resource::NullLoader&lt; TResourceType &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper loader to use if no more of a given resource type should be loaded. Does not perform any loading and logs warnings when resource loading is attempted.  <a href="a03357.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03361.html">bl::resource::DefaultLoader&lt; T &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default loaders provided for types: sf::Texture, sf::Image, sf::Font, sf::SoundBuffer, <a class="el" href="a02649.html" title="A playable, serializable music playlist. Can be manually manipulated or loaded from files.">bl::audio::Playlist</a>, <a class="el" href="a02661.html" title="Data class for animations. Holds the frame information and is responsible for rendering.">bl::rc::AnimationData</a>, <a class="el" href="a02329.html" title="Adaptation of sf::Font for use with Vulkan.">sf::VulkanFont</a>.  <a href="a03361.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03401.html">bl::resource::Ref&lt; TResourceType &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a reference to a managed resource. Performs reference counting, but resources are never deallocated by this, only by <a class="el" href="a03397.html" title="Single template based resource management class. Meant for storing data exactly once,...">ResourceManager</a>.  <a href="a03401.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03405.html">bl::resource::Resource&lt; TResourceType &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Internal struct used by <a class="el" href="a03397.html" title="Single template based resource management class. Meant for storing data exactly once,...">ResourceManager</a>. Use <a class="el" href="a03401.html" title="Represents a reference to a managed resource. Performs reference counting, but resources are never de...">Ref</a> externally.  <a href="a03405.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03409.html">bl::resource::Resource&lt; sf::Font &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialized <a class="el" href="a03405.html" title="Internal struct used by ResourceManager. Use Ref externally.">Resource</a> for sf::Font. Stores the data buffer required by the font to work.  <a href="a03409.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03413.html">bl::resource::ResourceManagerBase</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for resource managers, do not use.  <a href="a03413.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03397.html">bl::resource::ResourceManager&lt; TResourceType &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Single template based resource management class. Meant for storing data exactly once, such as images.  <a href="a03397.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<p>Collection of constexpr configs for some common controllers (joysticks) </p>
+<p>A collection of classes useful for managing resources, including their loading and lifetimes. </p>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Sep 10 2023 23:10:23 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Sep 30 2023 22:56:47 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/UpdateSpeed.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Transfers/TransferContext.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,41 +66,79 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_1371b99667ed992b8332faf3b4f2dec9.html">Transfers</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">UpdateSpeed.hpp</div>  </div>
+<div class="title">TransferContext.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00755.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_UPDATESPEED_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_UPDATESPEED_HPP</span></div>
+<a href="a00755.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_TRANSFERS_TRANSFERCONTEXT_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_TRANSFERS_TRANSFERCONTEXT_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;cstdint&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01754.html">bl</a></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>rc</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="a01739.html#ga305dcc5dda3e28bd193ab31444664848">   15</a></span>&#160;<span class="keyword">enum struct</span> <a class="code" href="a01739.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a> : std::uint8_t {</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <a class="code" href="a01739.html#gga305dcc5dda3e28bd193ab31444664848a84a8921b25f505d0d2077aeb5db4bc16">Static</a>,</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <a class="code" href="a01739.html#gga305dcc5dda3e28bd193ab31444664848a971fd8cc345d8bd9f92e9f7d88fdf20c">Dynamic</a></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;};</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01739_html_ga305dcc5dda3e28bd193ab31444664848"><div class="ttname"><a href="a01739.html#ga305dcc5dda3e28bd193ab31444664848">bl::rc::UpdateSpeed</a></div><div class="ttdeci">UpdateSpeed</div><div class="ttdoc">Enum representing how frequently an object is expected to be updated.</div><div class="ttdef"><b>Definition:</b> <a href="a00755_source.html#l00015">UpdateSpeed.hpp:15</a></div></div>
-<div class="ttc" id="aa01739_html_gga305dcc5dda3e28bd193ab31444664848a84a8921b25f505d0d2077aeb5db4bc16"><div class="ttname"><a href="a01739.html#gga305dcc5dda3e28bd193ab31444664848a84a8921b25f505d0d2077aeb5db4bc16">bl::rc::UpdateSpeed::Static</a></div><div class="ttdeci">@ Static</div><div class="ttdoc">Objects or data are not expected to update often after creation.</div></div>
-<div class="ttc" id="aa01739_html_gga305dcc5dda3e28bd193ab31444664848a971fd8cc345d8bd9f92e9f7d88fdf20c"><div class="ttname"><a href="a01739.html#gga305dcc5dda3e28bd193ab31444664848a971fd8cc345d8bd9f92e9f7d88fdf20c">bl::rc::UpdateSpeed::Dynamic</a></div><div class="ttdeci">@ Dynamic</div><div class="ttdoc">Objects or data are expected to update once per frame or similar.</div></div>
-<div class="ttc" id="aa01754_html"><div class="ttname"><a href="a01754.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01061.html">BLIB/Vulkan.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01760.html">bl</a></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>vk</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">struct </span>VulkanState;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;}</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span>tfr</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a03141.html">   18</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03141.html">TransferContext</a> {</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03141.html#a0095891b196aaca7b289210a8a774bee">createTemporaryStagingBuffer</a>(VkDeviceSize size, VkBuffer&amp; bufferResult,</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;                                      <span class="keywordtype">void</span>** mappedMemory);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03141.html#a0516ada22d07c935ad2a1dbff375a55f">registerMemoryBarrier</a>(<span class="keyword">const</span> VkMemoryBarrier&amp; barrier);</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03141.html#ad3498b85b2352fb77251503598d24bf0">registerBufferBarrier</a>(<span class="keyword">const</span> VkBufferMemoryBarrier&amp; barrier);</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03141.html#ab4518b0ecbee6232e04ea2aab04f05aa">registerImageBarrier</a>(<span class="keyword">const</span> VkImageMemoryBarrier&amp; barrier);</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    VkDevice <a class="code" href="a03141.html#a37f3aa2f09d5a38a8c6761f09ac26d8c">device</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <a class="code" href="a03141.html#a80c571067bacb2926a724329a6f1e5a6">TransferContext</a>(<a class="code" href="a03277.html">vk::VulkanState</a>&amp; vulkanState, std::vector&lt;VkBuffer&gt;&amp; stagingBuffers,</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                    std::vector&lt;VmaAllocation&gt;&amp; stagingAllocs,</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                    std::vector&lt;VkMemoryBarrier&gt;&amp; memoryBarriers,</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                    std::vector&lt;VkBufferMemoryBarrier&gt;&amp; bufferBarriers,</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                    std::vector&lt;VkImageMemoryBarrier&gt;&amp; imageBarriers);</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <a class="code" href="a03277.html">vk::VulkanState</a>&amp; vulkanState;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    std::vector&lt;VkBuffer&gt;&amp; stagingBuffers;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    std::vector&lt;VmaAllocation&gt;&amp; stagingAllocs;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    std::vector&lt;VkMemoryBarrier&gt;&amp; memoryBarriers;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    std::vector&lt;VkBufferMemoryBarrier&gt;&amp; bufferBarriers;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    std::vector&lt;VkImageMemoryBarrier&gt;&amp; imageBarriers;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;};</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;} <span class="comment">// namespace tfr</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01061_html"><div class="ttname"><a href="a01061.html">Vulkan.hpp</a></div></div>
+<div class="ttc" id="aa01760_html"><div class="ttname"><a href="a01760.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03141_html"><div class="ttname"><a href="a03141.html">bl::rc::tfr::TransferContext</a></div><div class="ttdef"><b>Definition:</b> <a href="a00755_source.html#l00018">TransferContext.hpp:18</a></div></div>
+<div class="ttc" id="aa03141_html_a0095891b196aaca7b289210a8a774bee"><div class="ttname"><a href="a03141.html#a0095891b196aaca7b289210a8a774bee">bl::rc::tfr::TransferContext::createTemporaryStagingBuffer</a></div><div class="ttdeci">void createTemporaryStagingBuffer(VkDeviceSize size, VkBuffer &amp;bufferResult, void **mappedMemory)</div><div class="ttdoc">Creates a staging buffer of the given size. Should only be called from Transferable::executeTransferA...</div><div class="ttdef"><b>Definition:</b> <a href="a01529_source.html#l00023">TransferContext.cpp:23</a></div></div>
+<div class="ttc" id="aa03141_html_a0516ada22d07c935ad2a1dbff375a55f"><div class="ttname"><a href="a03141.html#a0516ada22d07c935ad2a1dbff375a55f">bl::rc::tfr::TransferContext::registerMemoryBarrier</a></div><div class="ttdeci">void registerMemoryBarrier(const VkMemoryBarrier &amp;barrier)</div><div class="ttdoc">Registers the given barrier to be recorded after all transfers are started.</div><div class="ttdef"><b>Definition:</b> <a href="a01529_source.html#l00040">TransferContext.cpp:40</a></div></div>
+<div class="ttc" id="aa03141_html_a37f3aa2f09d5a38a8c6761f09ac26d8c"><div class="ttname"><a href="a03141.html#a37f3aa2f09d5a38a8c6761f09ac26d8c">bl::rc::tfr::TransferContext::device</a></div><div class="ttdeci">VkDevice device() const</div><div class="ttdoc">Returns the logical device to be used.</div><div class="ttdef"><b>Definition:</b> <a href="a01529_source.html#l00052">TransferContext.cpp:52</a></div></div>
+<div class="ttc" id="aa03141_html_a80c571067bacb2926a724329a6f1e5a6"><div class="ttname"><a href="a03141.html#a80c571067bacb2926a724329a6f1e5a6">bl::rc::tfr::TransferContext::TransferContext</a></div><div class="ttdeci">TransferContext(vk::VulkanState &amp;vulkanState, std::vector&lt; VkBuffer &gt; &amp;stagingBuffers, std::vector&lt; VmaAllocation &gt; &amp;stagingAllocs, std::vector&lt; VkMemoryBarrier &gt; &amp;memoryBarriers, std::vector&lt; VkBufferMemoryBarrier &gt; &amp;bufferBarriers, std::vector&lt; VkImageMemoryBarrier &gt; &amp;imageBarriers)</div><div class="ttdoc">Internal constructor, do not use.</div><div class="ttdef"><b>Definition:</b> <a href="a01529_source.html#l00011">TransferContext.cpp:11</a></div></div>
+<div class="ttc" id="aa03141_html_ab4518b0ecbee6232e04ea2aab04f05aa"><div class="ttname"><a href="a03141.html#ab4518b0ecbee6232e04ea2aab04f05aa">bl::rc::tfr::TransferContext::registerImageBarrier</a></div><div class="ttdeci">void registerImageBarrier(const VkImageMemoryBarrier &amp;barrier)</div><div class="ttdoc">Registers the given barrier to be recorded after all transfers are started.</div><div class="ttdef"><b>Definition:</b> <a href="a01529_source.html#l00048">TransferContext.cpp:48</a></div></div>
+<div class="ttc" id="aa03141_html_ad3498b85b2352fb77251503598d24bf0"><div class="ttname"><a href="a03141.html#ad3498b85b2352fb77251503598d24bf0">bl::rc::tfr::TransferContext::registerBufferBarrier</a></div><div class="ttdeci">void registerBufferBarrier(const VkBufferMemoryBarrier &amp;barrier)</div><div class="ttdoc">Registers the given barrier to be recorded after all transfers are started.</div><div class="ttdef"><b>Definition:</b> <a href="a01529_source.html#l00044">TransferContext.cpp:44</a></div></div>
+<div class="ttc" id="aa03277_html"><div class="ttname"><a href="a03277.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a00827_source.html#l00036">VulkanState.hpp:36</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Sep 10 2023 23:10:22 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Sep 30 2023 22:56:45 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>
