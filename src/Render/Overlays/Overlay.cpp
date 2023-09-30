@@ -13,17 +13,14 @@ Overlay::Overlay(engine::Engine& e)
 , engine(e)
 , objects(e.ecs())
 , scaler(engine.systems().getSystem<sys::OverlayScalerSystem>())
-, cachedParentViewport{} {
+, cachedParentViewport{}
+, cachedTargetSize{} {
     roots.reserve(Config::DefaultSceneObjectCapacity / 4);
     renderStack.reserve(Config::DefaultSceneObjectCapacity / 2);
     toParent.reserve(32);
-    scaler.registerOverlay(this);
 }
 
-Overlay::~Overlay() {
-    scaler.removeOverlay(this);
-    objects.unlinkAll(descriptorSets);
-}
+Overlay::~Overlay() { objects.unlinkAll(descriptorSets); }
 
 void Overlay::renderScene(scene::SceneRenderContext& ctx) {
     // ensure parent-child relationships are applied
@@ -41,7 +38,6 @@ void Overlay::renderScene(scene::SceneRenderContext& ctx) {
     }
 
     VkPipeline currentPipeline = nullptr;
-    unsigned int c             = 0;
     while (!renderStack.empty()) {
         // TODO - if we get weird rendering we may need a queue here
         ovy::OverlayObject& obj = *renderStack.back();
@@ -69,10 +65,7 @@ void Overlay::renderScene(scene::SceneRenderContext& ctx) {
         std::copy(obj.getChildren().begin(),
                   obj.getChildren().end(),
                   std::inserter(renderStack, renderStack.end()));
-        ++c;
     }
-
-    BL_LOG_INFO << "Rendered " << c << " objects";
 }
 
 scene::SceneObject* Overlay::doAdd(ecs::Entity entity, rcom::DrawableBase& object,
@@ -83,7 +76,8 @@ scene::SceneObject* Overlay::doAdd(ecs::Entity entity, rcom::DrawableBase& objec
     obj.pipeline            = &renderer.pipelineCache().getPipeline(object.pipeline);
     obj.descriptorCount =
         obj.pipeline->pipelineLayout().initDescriptorSets(descriptorSets, obj.descriptors.data());
-    obj.perObjStart = obj.descriptorCount;
+    obj.perObjStart     = obj.descriptorCount;
+    obj.overlayViewport = &cachedParentViewport;
     for (unsigned int i = 0; i < obj.descriptorCount; ++i) {
         obj.descriptors[i]->allocateObject(entity, obj.sceneKey);
         if (!obj.descriptors[i]->isBindless()) {
@@ -143,36 +137,11 @@ void Overlay::applyParent(scene::Key child, ecs::Entity parent) {
     }
     else { engine.ecs().setEntityParent(cent, parent); }
 
-    refreshObjectAndChildren(obj);
+    // TODO - set object dirty? scaler is optional
 }
 
 void Overlay::refreshAll() {
-    for (auto o : roots) { refreshObjectAndChildren(*o); }
-}
-
-void Overlay::refreshObjectAndChildren(ovy::OverlayObject& obj) {
-    const VkViewport& vp = obj.hasParent() ? obj.getParent().cachedViewport : cachedParentViewport;
-    scaler.refreshEntity(objects.getObjectEntity(obj.sceneKey), vp);
-    obj.refreshViewport(
-        engine.ecs().getComponent<ovy::Viewport>(obj.entity), cachedParentViewport, vp);
-    for (auto child : obj.getChildren()) { refreshObjectAndChildren(*child); }
-}
-
-void Overlay::refreshScales() {
-    std::copy(roots.begin(), roots.end(), std::inserter(renderStack, renderStack.begin()));
-
-    while (!renderStack.empty()) {
-        ovy::OverlayObject& obj = *renderStack.back();
-        renderStack.pop_back();
-
-        com::OverlayScaler* com = engine.ecs().getComponent<com::OverlayScaler>(obj.entity);
-        if (com && com->isDirty()) { refreshObjectAndChildren(obj); }
-        else {
-            std::copy(obj.getChildren().begin(),
-                      obj.getChildren().end(),
-                      std::inserter(renderStack, renderStack.end()));
-        }
-    }
+    for (auto o : roots) { scaler.refreshObjectAndChildren(*o, cachedParentViewport); }
 }
 
 } // namespace rc

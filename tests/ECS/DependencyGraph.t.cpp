@@ -8,9 +8,9 @@ namespace ecs
 namespace unittest
 {
 TEST(ECSDependencyGraph, BasicDependencies) {
-    const Entity resource = IdUtil::composeEntity(0, 1);
-    const Entity user1    = IdUtil::composeEntity(1, 1);
-    const Entity user2    = IdUtil::composeEntity(1, 1);
+    const Entity resource = Entity(0, 1);
+    const Entity user1    = Entity(1, 1);
+    const Entity user2    = Entity(1, 1);
 
     DependencyGraph graph(10);
     EXPECT_FALSE(graph.hasDependencies(resource));

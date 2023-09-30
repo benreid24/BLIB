@@ -52,10 +52,20 @@ public:
         ensureUpdated();
 
         viewLock.lockRead();
-        lockPoolsRead();
         for (auto& set : results) { cb(set); }
-        unlockPoolsRead();
         viewLock.unlockRead();
+    }
+
+    /**
+     * @brief Fetches the view result for the given entity
+     *
+     * @param entity The entity to fetch the component set for
+     * @return A pointer to the component set, or nullptr if the entity is not contained
+     */
+    typename ViewTags::TComponentSet* get(Entity entity) {
+        const auto ei = entity.getIndex();
+        const auto i  = ei < entityToIndex.size() ? entityToIndex[ei] : InvalidIndex;
+        return i != InvalidIndex ? &results[i] : nullptr;
     }
 
 private:
@@ -110,7 +120,7 @@ private:
         }
 
         for (Entity ent : toAdd) {
-            const std::uint64_t entIndex = IdUtil::getEntityIndex(ent);
+            const std::uint64_t entIndex = ent.getIndex();
             if (entIndex + 1 > entityToIndex.size()) {
                 entityToIndex.resize(entIndex + 1, InvalidIndex);
             }
@@ -126,16 +136,15 @@ private:
         toAdd.clear();
 
         for (Entity ent : toRemove) {
-            const std::uint64_t entIndex = IdUtil::getEntityIndex(ent);
+            const std::uint64_t entIndex = ent.getIndex();
             if (entIndex + 1 > entityToIndex.size()) { continue; }
 
             std::size_t& index = entityToIndex[entIndex];
             if (index == InvalidIndex) { continue; }
             if (index != results.size() - 1) {
-                std::size_t& backIndex =
-                    entityToIndex[IdUtil::getEntityIndex(results.back().entity())];
-                results[index] = results.back();
-                backIndex      = index;
+                std::size_t& backIndex = entityToIndex[results.back().entity().getIndex()];
+                results[index]         = results.back();
+                backIndex              = index;
             }
             results.pop_back();
             index = InvalidIndex;

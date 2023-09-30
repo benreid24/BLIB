@@ -300,7 +300,7 @@ T* Registry::emplaceComponent(Entity ent, TArgs&&... args) {
 template<typename T>
 void Registry::finishComponentAdd(Entity ent, unsigned int cIndex, T* component) {
     bl::event::Dispatcher::dispatch<event::ComponentAdded<T>>({ent, *component});
-    ComponentMask::SimpleMask& mask        = entityMasks[IdUtil::getEntityIndex(ent)];
+    ComponentMask::SimpleMask& mask        = entityMasks[ent.getIndex()];
     const ComponentMask::SimpleMask ogMask = mask;
     ComponentMask::add(mask, cIndex);
     for (auto& view : views) {
@@ -313,7 +313,7 @@ void Registry::finishComponentAdd(Entity ent, unsigned int cIndex, T* component)
     // notify pools of parent set
     auto& pool = getPool<T>();
     for (Entity child : parentGraph.getChildren(ent)) {
-        const std::uint32_t ic = IdUtil::getEntityIndex(child);
+        const std::uint32_t ic = child.getIndex();
         const ComponentMask mask{.required = entityMasks[ic]};
         if (mask.contains(pool.ComponentIndex)) { pool.onParentSet(child, ent); }
     }
@@ -337,7 +337,7 @@ void Registry::removeComponent(Entity ent) {
 
     // notify pools of parent remove on children
     for (Entity child : parentGraph.getChildren(ent)) {
-        const std::uint32_t ic = IdUtil::getEntityIndex(child);
+        const std::uint32_t ic = child.getIndex();
         const ComponentMask mask{.required = entityMasks[ic]};
         if (mask.contains(pool.ComponentIndex)) {
             const Entity parent = parentGraph.getParent(child);
@@ -348,7 +348,7 @@ void Registry::removeComponent(Entity ent) {
 
     // do remove
     pool.remove(ent);
-    ComponentMask::SimpleMask& mask = entityMasks[IdUtil::getEntityIndex(ent)];
+    ComponentMask::SimpleMask& mask = entityMasks[ent.getIndex()];
     for (auto& view : views) {
         if (view->mask.passes(mask)) { view->removeEntity(ent); }
     }
@@ -404,7 +404,7 @@ void Registry::populateView(View<TRequire, TOptional, TExclude>& view) {
     for (std::uint32_t i = 0; i < entityAllocator.endId(); ++i) {
         if (entityAllocator.isAllocated(i)) {
             if (view.mask.passes(entityMasks[i])) {
-                view.tryAddEntity(IdUtil::composeEntity(i, entityVersions[i]));
+                view.tryAddEntity(Entity(i, entityVersions[i]));
             }
         }
     }

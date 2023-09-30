@@ -43,20 +43,22 @@ public:
 private:
     using Required = ecs::Require<rc::ovy::OverlayObject, com::Transform2D>;
     using Optional = ecs::Optional<rc::ovy::Viewport, com::OverlayScaler>;
-    using Result = ecs::ComponentSet<Required, Optional>;
+    using Result   = ecs::ComponentSet<Required, Optional>;
 
     ecs::Registry* registry;
     std::vector<rc::Overlay*> overlays;
     ecs::Entity ignoredEntity;
-    ecs::View<Required, Optional, ecs::Exclude<>>* view;
+    ecs::View<Required, Optional>* view;
+    ecs::ComponentPool<com::OverlayScaler>* scalerPool;
 
     virtual void init(engine::Engine& engine) override;
     virtual void update(std::mutex& stageMutex, float dt) override;
 
     // called by Overlay
-    void registerOverlay(rc::Overlay* overlay);
-    void removeOverlay(rc::Overlay* overlay);
-    void refreshEntity(ecs::Entity entity, const VkViewport& viewport);
+    void refreshObjectAndChildren(rc::ovy::OverlayObject& obj, const VkViewport& viewport);
+
+    void refreshObjectAndChildren(Result& row, const VkViewport& viewport);
+    void refreshEntity(Result& row, const VkViewport& viewport);
 
     virtual void observe(const ecs::event::ComponentAdded<rc::ovy::Viewport>& event) override;
     virtual void observe(const ecs::event::ComponentRemoved<rc::ovy::Viewport>& event) override;

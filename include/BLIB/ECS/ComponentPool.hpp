@@ -200,7 +200,7 @@ ComponentPool<T>::~ComponentPool() {
 
 template<typename T>
 void ComponentPool<T>::postAdd(Entity ent, TStorage::iterator it) {
-    const std::uint64_t entIndex = IdUtil::getEntityIndex(ent);
+    const std::uint64_t entIndex = ent.getIndex();
     if (entIndex + 1 > entityToComponent.size()) {
         entityToComponent.resize(entIndex + 1, nullptr);
         entityToIter.resize(entIndex + 1, storage.end());
@@ -211,7 +211,7 @@ void ComponentPool<T>::postAdd(Entity ent, TStorage::iterator it) {
 
 template<typename T>
 void ComponentPool<T>::preAdd(Entity ent) {
-    const std::uint64_t entIndex = IdUtil::getEntityIndex(ent);
+    const std::uint64_t entIndex = ent.getIndex();
     if (entIndex < entityToComponent.size()) {
         T* com = entityToComponent[entIndex];
         if (com) { storage.erase(entityToIter[entIndex]); }
@@ -254,7 +254,7 @@ void ComponentPool<T>::remove(Entity ent) {
     util::ReadWriteLock::WriteScopeGuard lock(poolLock);
 
     // determine if present
-    const std::uint64_t entIndex = IdUtil::getEntityIndex(ent);
+    const std::uint64_t entIndex = ent.getIndex();
     if (entIndex >= entityToComponent.size()) return;
     T* com = entityToComponent[entIndex];
     if (com == nullptr) return;
@@ -307,7 +307,7 @@ template<typename T>
 T* ComponentPool<T>::get(Entity ent) {
     util::ReadWriteLock::ReadScopeGuard lock(poolLock);
 
-    const std::uint64_t entIndex = IdUtil::getEntityIndex(ent);
+    const std::uint64_t entIndex = ent.getIndex();
     if (entIndex < entityToComponent.size()) { return entityToComponent[entIndex]; }
     return nullptr;
 }

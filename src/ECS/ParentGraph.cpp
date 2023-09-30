@@ -13,13 +13,13 @@ ecs::ParentGraph::ParentGraph(std::size_t capacityHint)
 void ParentGraph::setParent(Entity child, Entity parent) {
     ensureParentCap(child);
 
-    const std::size_t i   = IdUtil::getEntityIndex(child);
+    const std::size_t i   = child.getIndex();
     const Entity ogParent = parentMap[i];
     if (ogParent == parent) { return; }
     else if (ogParent != InvalidEntity) { unParent(child); }
 
     parentMap[i] = parent;
-    childMap.add(IdUtil::getEntityIndex(parent), child);
+    childMap.add(parent.getIndex(), child);
 
 #ifdef BLIB_DEBUG
     if (checkForCycles(child)) {
@@ -31,22 +31,22 @@ void ParentGraph::setParent(Entity child, Entity parent) {
 }
 
 void ParentGraph::unParent(Entity child) {
-    const std::size_t i = IdUtil::getEntityIndex(child);
+    const std::size_t i = child.getIndex();
     if (parentMap.size() <= i) { return; }
     if (parentMap[i] == InvalidEntity) { return; }
 
-    const std::uint32_t j = IdUtil::getEntityIndex(parentMap[i]);
+    const std::uint32_t j = parentMap[i].getIndex();
     parentMap[i]          = InvalidEntity;
     childMap.removeValue(j, child);
 }
 
 Entity ParentGraph::getParent(Entity child) {
-    const std::size_t i = IdUtil::getEntityIndex(child);
+    const std::size_t i = child.getIndex();
     return i < parentMap.size() ? parentMap[i] : InvalidEntity;
 }
 
 ctr::IndexMappedList<std::uint32_t, Entity>::Range ParentGraph::getChildren(Entity parent) {
-    return childMap.getValues(IdUtil::getEntityIndex(parent));
+    return childMap.getValues(parent.getIndex());
 }
 
 void ParentGraph::reset() {
@@ -55,17 +55,17 @@ void ParentGraph::reset() {
 }
 
 void ParentGraph::removeEntity(Entity entity) {
-    const std::size_t i = IdUtil::getEntityIndex(entity);
+    const std::size_t i = entity.getIndex();
     if (i >= parentMap.size()) { return; }
 
     const Entity parent = parentMap[i];
     parentMap[i]        = InvalidEntity;
     childMap.remove(entity);
-    if (parent != InvalidEntity) { childMap.removeValue(IdUtil::getEntityIndex(parent), entity); }
+    if (parent != InvalidEntity) { childMap.removeValue(parent.getIndex(), entity); }
 }
 
 void ParentGraph::ensureParentCap(Entity child) {
-    const std::size_t cap = IdUtil::getEntityIndex(child) + 1;
+    const std::size_t cap = child.getIndex() + 1;
     if (cap > parentMap.size()) { parentMap.resize(cap, InvalidEntity); }
 }
 
@@ -78,7 +78,7 @@ bool ParentGraph::checkForCycles(Entity start) {
     while (!toVisit.empty()) {
         const Entity ent = toVisit.back();
         toVisit.pop_back();
-        const std::uint32_t i = IdUtil::getEntityIndex(ent);
+        const std::uint32_t i = ent.getIndex();
 
         if (i >= visited.size()) { visited.resize(i + 1, false); }
         if (visited[i]) { return true; }

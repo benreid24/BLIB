@@ -29,7 +29,7 @@ Entity Registry::createEntity() {
         version            = ++entityVersions[index];
     }
 
-    const Entity ent = IdUtil::composeEntity(index, version);
+    const Entity ent(index, version);
     bl::event::Dispatcher::dispatch<event::EntityCreated>({ent});
     return ent;
 }
@@ -40,9 +40,8 @@ bool Registry::entityExists(Entity ent) const {
 }
 
 bool Registry::entityExistsLocked(Entity ent) const {
-    const std::uint64_t index = IdUtil::getEntityIndex(ent);
-    return entityAllocator.isAllocated(index) &&
-           entityVersions[index] == IdUtil::getEntityVersion(ent);
+    const std::uint64_t index = ent.getIndex();
+    return entityAllocator.isAllocated(index) && entityVersions[index] == ent.getVersion();
 }
 
 bool Registry::destroyEntity(Entity start) {
@@ -70,7 +69,7 @@ bool Registry::destroyEntity(Entity start) {
         for (Entity resource : dependencyGraph.getResources(ent)) {
             dependencyGraph.removeDependency(resource, ent);
             if (!dependencyGraph.hasDependencies(resource)) {
-                const std::uint32_t i = IdUtil::getEntityIndex(resource);
+                const std::uint32_t i = resource.getIndex();
                 if (i < markedForRemoval.size() && markedForRemoval[i]) {
                     toVisit.emplace_back(resource);
                 }
@@ -83,7 +82,7 @@ bool Registry::destroyEntity(Entity start) {
 
     // remove all discovered entities
     for (const Entity ent : toRemove) {
-        const std::uint32_t index            = IdUtil::getEntityIndex(ent);
+        const std::uint32_t index            = ent.getIndex();
         const ComponentMask::SimpleMask mask = entityMasks[index];
 
         // notify external and remove from views
@@ -118,7 +117,7 @@ void Registry::destroyAllEntities() {
     for (std::uint32_t index = 0; index < entityAllocator.poolSize(); ++index) {
         if (entityAllocator.isAllocated(index)) {
             bl::event::Dispatcher::dispatch<event::EntityDestroyed>(
-                {IdUtil::composeEntity(index, entityVersions[index])});
+                {Entity(index, entityVersions[index])});
         }
     }
 
@@ -140,8 +139,8 @@ void Registry::destroyAllEntities() {
 
 void Registry::setEntityParent(Entity child, Entity parent) {
     std::lock_guard lock(entityLock);
-    const std::uint32_t ic = IdUtil::getEntityIndex(child);
-    const std::uint32_t ip = IdUtil::getEntityIndex(child);
+    const std::uint32_t ic = child.getIndex();
+    const std::uint32_t ip = parent.getIndex();
     if (!entityAllocator.isAllocated(ic) || !entityAllocator.isAllocated(ip)) {
         BL_LOG_WARN << "Tried to parent bad entities: " << child << " <- " << parent;
         return;
@@ -158,8 +157,8 @@ void Registry::removeEntityParent(Entity child) {
     std::lock_guard lock(entityLock);
     const Entity parent = parentGraph.getParent(child);
     if (parent == InvalidEntity) { return; }
-    const std::uint32_t ic = IdUtil::getEntityIndex(child);
-    const std::uint32_t ip = IdUtil::getEntityIndex(child);
+    const std::uint32_t ic = child.getIndex();
+    const std::uint32_t ip = parent.getIndex();
     if (!entityAllocator.isAllocated(ic) || !entityAllocator.isAllocated(ip)) {
         BL_LOG_WARN << "Tried to un-parent bad entities: " << child << " <- " << parent;
         return;
@@ -198,7 +197,7 @@ void Registry::removeDependency(Entity resource, Entity user) {
     }
 
     // remove if marked
-    const std::uint32_t i = IdUtil::getEntityIndex(resource);
+    const std::uint32_t i = resource.getIndex();
     if (i < markedForRemoval.size() && markedForRemoval[i]) {
         markedForRemoval[i] = false;
         destroyEntity(resource);
@@ -219,7 +218,7 @@ bool Registry::isDependedOn(Entity resource) const {
 }
 
 void Registry::markEntityForRemoval(Entity ent) {
-    const std::uint32_t i = IdUtil::getEntityIndex(ent);
+    const std::uint32_t i = ent.getIndex();
     if (markedForRemoval.size() <= i) { markedForRemoval.resize(i + 1, false); }
     markedForRemoval[i] = true;
 }

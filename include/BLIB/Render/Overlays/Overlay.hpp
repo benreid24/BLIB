@@ -107,9 +107,7 @@ private:
     VkViewport cachedParentViewport;
     glm::u32vec2 cachedTargetSize;
 
-    void refreshScales();
     void applyParent(scene::Key child, ecs::Entity parent);
-    void refreshObjectAndChildren(ovy::OverlayObject& obj);
     void refreshAll();
 
     template<typename T>

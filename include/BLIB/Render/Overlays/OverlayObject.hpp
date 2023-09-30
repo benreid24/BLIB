@@ -38,10 +38,9 @@ struct OverlayObject
      * @brief Recomputes the target-space viewport
      *
      * @param viewport Pointer to this object's viewport component, if any
-     * @param overlay The top-level viewport of the entire overlay
      * @param parent The parent viewport of this object
      */
-    void refreshViewport(Viewport* viewport, const VkViewport& overlay, const VkViewport& parent);
+    void refreshViewport(Viewport* viewport, const VkViewport& parent);
 
     /**
      * @brief Issues the commands to set the viewport and scissor
@@ -57,6 +56,7 @@ struct OverlayObject
     std::uint8_t descriptorCount;
     std::uint8_t perObjStart;
 
+    VkViewport* overlayViewport;
     VkViewport cachedViewport;
     VkRect2D cachedScissor;
 };

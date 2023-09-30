@@ -82,7 +82,6 @@ void Text::commit() {
         }
 
         // create larger buffer if required
-        // TODO - sync destruction?
         if (component().gpuBuffer.vertices().size() < vertexCount) {
             component().create(engine().renderer().vulkanState(), vertexCount * 2, vertexCount * 2);
             for (unsigned int i = 0; i < component().gpuBuffer.indices().size(); ++i) {
