@@ -120,7 +120,7 @@ private:
     virtual ~ComponentPool();
 
     void preAdd(Entity entity);
-    void postAdd(Entity entity, TStorage::iterator it);
+    void postAdd(Entity entity, typename TStorage::iterator it);
     T* add(Entity entity, const T& component);
     T* add(Entity entity, T&& component);
     template<typename... TArgs>
@@ -199,7 +199,7 @@ ComponentPool<T>::~ComponentPool() {
 }
 
 template<typename T>
-void ComponentPool<T>::postAdd(Entity ent, TStorage::iterator it) {
+void ComponentPool<T>::postAdd(Entity ent, typename TStorage::iterator it) {
     const std::uint64_t entIndex = ent.getIndex();
     if (entIndex + 1 > entityToComponent.size()) {
         entityToComponent.resize(entIndex + 1, nullptr);

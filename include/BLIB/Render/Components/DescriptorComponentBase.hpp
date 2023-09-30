@@ -100,7 +100,7 @@ void DescriptorComponentBase<TCom, TPayload>::link(ds::DescriptorComponentStorag
 #endif
     descriptorSet = set;
     payload       = p;
-    if (k.sceneId != ecs::InvalidEntity.id) {
+    if (k.sceneId != scene::Key::InvalidSceneId) {
         dirty    = true;
         sceneKey = k;
     }
