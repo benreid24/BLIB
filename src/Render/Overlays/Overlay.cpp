@@ -15,6 +15,7 @@ Overlay::Overlay(engine::Engine& e)
 , scaler(engine.systems().getSystem<sys::OverlayScalerSystem>())
 , cachedParentViewport{}
 , cachedTargetSize{} {
+    ecsPool = &engine.ecs().getAllComponents<ovy::OverlayObject>();
     roots.reserve(Config::DefaultSceneObjectCapacity / 4);
     renderStack.reserve(Config::DefaultSceneObjectCapacity / 2);
     toParent.reserve(32);
@@ -136,8 +137,6 @@ void Overlay::applyParent(scene::Key child, ecs::Entity parent) {
         roots.emplace_back(&obj);
     }
     else { engine.ecs().setEntityParent(cent, parent); }
-
-    // TODO - set object dirty? scaler is optional
 }
 
 void Overlay::refreshAll() {

@@ -151,6 +151,8 @@ void Registry::setEntityParent(Entity child, Entity parent) {
     for (ComponentPoolBase* pool : componentPools) {
         if (mask.contains(pool->ComponentIndex)) { pool->onParentSet(child, parent); }
     }
+
+    bl::event::Dispatcher::dispatch<event::EntityParentSet>({parent, child});
 }
 
 void Registry::removeEntityParent(Entity child) {
@@ -169,6 +171,8 @@ void Registry::removeEntityParent(Entity child) {
     for (ComponentPoolBase* pool : componentPools) {
         if (mask.contains(pool->ComponentIndex)) { pool->onParentRemove(parent, child); }
     }
+
+    bl::event::Dispatcher::dispatch<event::EntityParentRemoved>({child});
 }
 
 void Registry::addDependency(Entity resource, Entity user) {
@@ -181,6 +185,8 @@ void Registry::addDependency(Entity resource, Entity user) {
     }
 
     dependencyGraph.addDependency(resource, user);
+
+    bl::event::Dispatcher::dispatch<event::EntityDependencyAdded>({resource, user});
 }
 
 void Registry::removeDependency(Entity resource, Entity user) {
@@ -195,6 +201,8 @@ void Registry::removeDependency(Entity resource, Entity user) {
 
         dependencyGraph.removeDependency(resource, user);
     }
+
+    bl::event::Dispatcher::dispatch<event::EntityDependencyRemoved>({resource, user});
 
     // remove if marked
     const std::uint32_t i = resource.getIndex();

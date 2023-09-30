@@ -98,6 +98,7 @@ protected:
 
 private:
     engine::Engine& engine;
+    ecs::ComponentPool<ovy::OverlayObject>* ecsPool;
     scene::SceneObjectECSAdaptor<ovy::OverlayObject> objects;
     sys::OverlayScalerSystem& scaler;
     std::vector<ovy::OverlayObject*> roots; // TODO - use event to keep up to date
