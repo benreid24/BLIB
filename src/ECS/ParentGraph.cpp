@@ -40,7 +40,7 @@ void ParentGraph::unParent(Entity child) {
     childMap.removeValue(j, child);
 }
 
-Entity ParentGraph::getParent(Entity child) {
+Entity ParentGraph::getParent(Entity child) const {
     const std::size_t i = child.getIndex();
     return i < parentMap.size() ? parentMap[i] : InvalidEntity;
 }

@@ -14,27 +14,26 @@ Overlay::Overlay(engine::Engine& e)
 , objects(e.ecs())
 , scaler(engine.systems().getSystem<sys::OverlayScalerSystem>())
 , cachedParentViewport{}
-, cachedTargetSize{} {
+, cachedTargetSize{}
+, needRefreshAll(false) {
     ecsPool = &engine.ecs().getAllComponents<ovy::OverlayObject>();
     roots.reserve(Config::DefaultSceneObjectCapacity / 4);
     renderStack.reserve(Config::DefaultSceneObjectCapacity / 2);
-    toParent.reserve(32);
+    bl::event::Dispatcher::subscribe(this);
 }
 
 Overlay::~Overlay() { objects.unlinkAll(descriptorSets); }
 
 void Overlay::renderScene(scene::SceneRenderContext& ctx) {
-    // ensure parent-child relationships are applied
-    for (const auto& pp : toParent) { applyParent(pp.first, pp.second); }
-    toParent.clear();
-
     std::copy(roots.begin(), roots.end(), std::inserter(renderStack, renderStack.begin()));
 
-    if (static_cast<std::uint32_t>(ctx.parentViewport().width) != cachedTargetSize.x ||
+    if (needRefreshAll ||
+        static_cast<std::uint32_t>(ctx.parentViewport().width) != cachedTargetSize.x ||
         static_cast<std::uint32_t>(ctx.parentViewport().height) != cachedTargetSize.y) {
         cachedParentViewport = ctx.parentViewport();
         cachedTargetSize.x   = static_cast<std::uint32_t>(ctx.parentViewport().width);
         cachedTargetSize.y   = static_cast<std::uint32_t>(ctx.parentViewport().height);
+        needRefreshAll       = false;
         refreshAll();
     }
 
@@ -86,6 +85,8 @@ scene::SceneObject* Overlay::doAdd(ecs::Entity entity, rcom::DrawableBase& objec
         }
     }
 
+    if (!engine.ecs().hasParent(entity)) { roots.emplace_back(&obj); }
+
     return &obj;
 }
 
@@ -124,23 +125,30 @@ void Overlay::doBatchChange(const BatchChange& change, std::uint32_t ogPipeline)
     }
 }
 
-void Overlay::setParent(scene::Key child, ecs::Entity parent) {
-    toParent.emplace_back(child, parent);
-}
-
-void Overlay::applyParent(scene::Key child, ecs::Entity parent) {
-    const ecs::Entity cent  = objects.getObjectEntity(child);
-    ovy::OverlayObject& obj = objects.getObject(child);
-
-    if (parent == ecs::InvalidEntity) {
-        engine.ecs().removeEntityParent(cent);
-        roots.emplace_back(&obj);
-    }
-    else { engine.ecs().setEntityParent(cent, parent); }
-}
-
 void Overlay::refreshAll() {
     for (auto o : roots) { scaler.refreshObjectAndChildren(*o, cachedParentViewport); }
+}
+
+void Overlay::observe(const ecs::event::EntityParentSet& event) {
+    ovy::OverlayObject* obj = ecsPool->get(event.child);
+    if (!obj || obj->overlay != this) { return; }
+
+    for (auto it = roots.begin(); it != roots.end(); ++it) {
+        if (*it == obj) {
+            roots.erase(it);
+            needRefreshAll = true;
+            break;
+        }
+    }
+}
+
+void Overlay::observe(const ecs::event::EntityParentRemoved& event) {
+    ovy::OverlayObject* obj = ecsPool->get(event.orphan);
+    if (!obj || obj->overlay != this) { return; }
+
+    if (std::find(roots.begin(), roots.end(), obj) != roots.end()) { return; }
+    roots.emplace_back(obj);
+    needRefreshAll = true;
 }
 
 } // namespace rc

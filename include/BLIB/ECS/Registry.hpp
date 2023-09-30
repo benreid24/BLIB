@@ -86,6 +86,14 @@ public:
     void removeEntityParent(Entity child);
 
     /**
+     * @brief Returns whether or not the given entity has a parent
+     *
+     * @param child The entity to test for a parent
+     * @return True if child has a parent, false otherwise
+     */
+    bool hasParent(Entity child) const;
+
+    /**
      * @brief Adds a dependency on resource from user. Controls whether or not an entity may be
      *        safely deleted
      *
@@ -414,6 +422,10 @@ template<typename TRequire, typename TOptional, typename TExclude>
 void Registry::populateViewWithLock(View<TRequire, TOptional, TExclude>& view) {
     std::lock_guard lock(entityLock);
     populateView(view);
+}
+
+inline bool Registry::hasParent(Entity child) const {
+    return parentGraph.getParent(child) != InvalidEntity;
 }
 
 } // namespace ecs

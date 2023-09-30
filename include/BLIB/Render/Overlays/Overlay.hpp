@@ -33,7 +33,9 @@ class Observer;
  *
  * @ingroup Renderer
  */
-class Overlay : public Scene {
+class Overlay
+: public Scene
+, public bl::event::Listener<ecs::event::EntityParentSet, ecs::event::EntityParentRemoved> {
 public:
     static constexpr std::uint32_t NoParent = std::numeric_limits<std::uint32_t>::max();
 
@@ -87,29 +89,22 @@ protected:
      */
     virtual void doBatchChange(const BatchChange& change, std::uint32_t ogPipeline) override;
 
-    /**
-     * @brief Sets the parent object of the given child. Must be called after object add for an
-     *        object to be rendered. Only call once per object
-     *
-     * @param child The object to set the parent of
-     * @param parent The parent object, or NoParent to make root
-     */
-    void setParent(scene::Key child, ecs::Entity parent = ecs::InvalidEntity);
-
 private:
     engine::Engine& engine;
     ecs::ComponentPool<ovy::OverlayObject>* ecsPool;
     scene::SceneObjectECSAdaptor<ovy::OverlayObject> objects;
     sys::OverlayScalerSystem& scaler;
-    std::vector<ovy::OverlayObject*> roots; // TODO - use event to keep up to date
-    std::vector<std::pair<scene::Key, ecs::Entity>> toParent;
+    std::vector<ovy::OverlayObject*> roots;
+    bool needRefreshAll;
 
     std::vector<ovy::OverlayObject*> renderStack;
     VkViewport cachedParentViewport;
     glm::u32vec2 cachedTargetSize;
 
-    void applyParent(scene::Key child, ecs::Entity parent);
     void refreshAll();
+
+    virtual void observe(const ecs::event::EntityParentSet& event) override;
+    virtual void observe(const ecs::event::EntityParentRemoved& event) override;
 
     template<typename T>
     friend class sys::DrawableSystem;

@@ -16,6 +16,9 @@ class Engine;
 /// Collection of SFML-like classes for drawing
 namespace gfx
 {
+template<typename TCom, typename TSys>
+class Drawable;
+
 /**
  * @brief Base class for Drawable objects. A Drawable object should inherit this class for the
  *        drawable component that it wraps
@@ -54,28 +57,6 @@ public:
                                       std::uint32_t pipeline);
 
     /**
-     * @brief Adds this entity to the given overlay
-     *
-     * @param overlay The overlay to add to
-     * @param descriptorUpdateFreq Whether the entity is expected to be dynamic or static
-     * @param parent The parent entity or InvalidEntity to make a root
-     */
-    void addToOverlay(rc::Overlay* overlay, rc::UpdateSpeed descriptorUpdateFreq,
-                      ecs::Entity parent = ecs::InvalidEntity);
-
-    /**
-     * @brief Adds this entity to the given overlay with custom pipelines
-     *
-     * @param overlay The scene to add to
-     * @param descriptorUpdateFreq Whether the entity is expected to be dynamic or static
-     * @param pipeline The pipeline to render with
-     * @param parent The parent entity or InvalidEntity to make a root
-     */
-    void addToOverlayWithCustomPipeline(rc::Overlay* overlay, rc::UpdateSpeed descriptorUpdateFreq,
-                                        std::uint32_t pipeline,
-                                        ecs::Entity parent = ecs::InvalidEntity);
-
-    /**
      * @brief Set whether the entity is hidden or not. May only be called on entities in a scene
      *
      * @param hide True to block rendering, false to render normally
@@ -106,6 +87,20 @@ public:
      * @brief Returns the drawable component. Only call after create()
      */
     const TCom& component() const;
+
+    /**
+     * @brief Helper method to parent this drawable to another
+     *
+     * @tparam U The type of drawable of the parent
+     * @param parent The parent of this drawable
+     */
+    template<typename U>
+    void setParent(const Drawable<U>& parent);
+
+    /**
+     * @brief Helper method to remove the parent of this drawable, if any
+     */
+    void removeParent();
 
 protected:
     /**
@@ -149,6 +144,9 @@ private:
     engine::Engine* enginePtr;
     ecs::Entity ecsId;
     TCom* handle;
+
+    template<typename U, typename US>
+    friend class Drawable;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -194,34 +192,6 @@ void Drawable<TCom, TSys>::addToSceneWithCustomPipeline(rc::Scene* scene,
 }
 
 template<typename TCom, typename TSys>
-void Drawable<TCom, TSys>::addToOverlay(rc::Overlay* overlay, rc::UpdateSpeed descriptorUpdateFreq,
-                                        ecs::Entity parent) {
-#ifdef BLIB_DEBUG
-    if (!enginePtr || ecsId == ecs::InvalidEntity || !handle) {
-        throw std::runtime_error("Drawable must be created before adding to scene");
-    }
-#endif
-
-    system().addToOverlay(ecsId, overlay, descriptorUpdateFreq, parent);
-    onAdd(component().sceneRef);
-}
-
-template<typename TCom, typename TSys>
-void Drawable<TCom, TSys>::addToOverlayWithCustomPipeline(rc::Overlay* overlay,
-                                                          rc::UpdateSpeed descriptorUpdateFreq,
-                                                          std::uint32_t pipeline,
-                                                          ecs::Entity parent) {
-#ifdef BLIB_DEBUG
-    if (!enginePtr || ecsId == ecs::InvalidEntity || !handle) {
-        throw std::runtime_error("Drawable must be created before adding to scene");
-    }
-#endif
-
-    system().addToOverlayWithCustomPipeline(ecsId, overlay, descriptorUpdateFreq, pipeline, parent);
-    onAdd(component().sceneRef);
-}
-
-template<typename TCom, typename TSys>
 void Drawable<TCom, TSys>::setHidden(bool hide) {
 #ifdef BLIB_DEBUG
     if (!handle) { throw std::runtime_error("Cannot hide un-created entity"); }
@@ -258,6 +228,26 @@ const TCom& Drawable<TCom, TSys>::component() const {
 }
 
 template<typename TCom, typename TSys>
+template<typename U>
+void Drawable<TCom, TSys>::setParent(const Drawable<U>& parent) {
+#ifdef BLIB_DEBUG
+    if (!enginePtr) { throw std::runtime_error("Drawable must be created before parenting"); }
+    if (!parent.enginePtr) { throw std::runtime_error("Parent must be created before parenting"); }
+#endif
+
+    enginePtr->ecs().setEntityParent(entity(), parent.entity());
+}
+
+template<typename TCom, typename TSys>
+void Drawable<TCom, TSys>::removeParent() {
+#ifdef BLIB_DEBUG
+    if (!enginePtr) { throw std::runtime_error("Drawable must be created before un-parenting"); }
+#endif
+
+    enginePtr->ecs().removeEntityParent(entity());
+}
+
+template<typename TCom, typename TSys>
 constexpr engine::Engine& Drawable<TCom, TSys>::engine() {
     return *enginePtr;
 }
@@ -280,7 +270,7 @@ void Drawable<TCom, TSys>::destroy() {
 #endif
 
     enginePtr->ecs().destroyEntity(ecsId);
-    ecsId = ecs::InvalidEntity;
+    ecsId  = ecs::InvalidEntity;
     handle = nullptr;
 }
 
@@ -296,7 +286,7 @@ void Drawable<TCom, TSys>::create(engine::Engine& engine, TArgs&&... args) {
     if (handle != nullptr) { destroy(); }
     enginePtr = &engine;
 
-    ecsId = engine.ecs().createEntity();
+    ecsId  = engine.ecs().createEntity();
     handle = engine.ecs().emplaceComponent<TCom>(ecsId, std::forward<TArgs>(args)...);
 }
 
