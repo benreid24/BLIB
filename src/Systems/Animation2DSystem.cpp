@@ -7,14 +7,18 @@ namespace bl
 {
 namespace sys
 {
+namespace
+{
+constexpr std::uint32_t InitialSlideshowFrameCapacity = 128;
+}
+
 Animation2DSystem::Animation2DSystem(rc::Renderer& renderer)
 : renderer(renderer)
 , players(nullptr)
+, slideshowFrameRangeAllocator(InitialSlideshowFrameCapacity)
 , slideshowDescriptorSets(renderer.vulkanState())
 , slideshowRefreshRequired(rc::Config::MaxConcurrentFrames)
-, slideshowLastFrameUpdated(255)
-, lastSlideshowFrameUploaded(0)
-, lastSlideshowOffsetUploaded(0) {
+, slideshowLastFrameUpdated(255) {
     slideshowDescriptorSets.emptyInit(renderer.vulkanState());
 }
 
@@ -41,7 +45,7 @@ void Animation2DSystem::init(engine::Engine& engine) {
 
     players = &engine.ecs().getAllComponents<com::Animation2DPlayer>();
 
-    slideshowFramesSSBO.create(renderer.vulkanState(), 128);
+    slideshowFramesSSBO.create(renderer.vulkanState(), InitialSlideshowFrameCapacity);
     slideshowFrameOffsetSSBO.create(renderer.vulkanState(), 32);
     slideshowPlayerCurrentFrameSSBO.create(renderer.vulkanState(), 32);
 
@@ -53,16 +57,15 @@ void Animation2DSystem::update(std::mutex&, float dt) {
     players->forEach([dt](ecs::Entity, com::Animation2DPlayer& player) { player.update(dt); });
 
     // perform slideshow uploads
-    if (slideshowFramesSSBO.size() > lastSlideshowFrameUploaded) {
-        slideshowFramesSSBO.transferRange(lastSlideshowFrameUploaded,
-                                          slideshowFramesSSBO.size() - lastSlideshowFrameUploaded);
-        lastSlideshowFrameUploaded = slideshowFramesSSBO.size();
+    if (slideshowFrameUploadRange.needsUpload()) {
+        slideshowFramesSSBO.transferRange(slideshowFrameUploadRange.start,
+                                          slideshowFrameUploadRange.size);
+        slideshowFrameUploadRange.reset();
     }
-    if (slideshowFrameOffsetSSBO.size() > lastSlideshowOffsetUploaded) {
-        slideshowFrameOffsetSSBO.transferRange(lastSlideshowOffsetUploaded,
-                                               slideshowFrameOffsetSSBO.size() -
-                                                   lastSlideshowOffsetUploaded);
-        lastSlideshowOffsetUploaded = slideshowFrameOffsetSSBO.size();
+    if (slideshowOffsetUploadRange.needsUpload()) {
+        slideshowFrameOffsetSSBO.transferRange(slideshowOffsetUploadRange.start,
+                                               slideshowOffsetUploadRange.size);
+        slideshowOffsetUploadRange.reset();
     }
     slideshowPlayerCurrentFrameSSBO.transferAll(); // always upload all play indices
 }
@@ -86,8 +89,7 @@ void Animation2DSystem::observe(const ecs::event::ComponentAdded<com::Animation2
 
 void Animation2DSystem::observe(const ecs::event::ComponentRemoved<com::Animation2DPlayer>& event) {
     if (event.component.animation->isSlideshow()) {
-        slideshowPlayerIds.release(event.component.playerIndex);
-        // TODO - remove data
+        doSlideshowFree(event.entity, event.component);
     }
     else {
         // TODO - handle non-slideshow animations
@@ -96,11 +98,14 @@ void Animation2DSystem::observe(const ecs::event::ComponentRemoved<com::Animatio
 
 void Animation2DSystem::doSlideshowAdd(ecs::Entity playerEntity, com::Animation2DPlayer& player) {
     // determine frame offset and player index
-    const auto it              = slideshowFrameMap.find(player.animation.get());
-    const bool uploadFrames    = it == slideshowFrameMap.end();
-    const std::uint32_t offset = uploadFrames ? slideshowFramesSSBO.size() : it->second;
-    const std::uint32_t index  = slideshowPlayerIds.allocate();
-    player.playerIndex         = index;
+    const auto it           = slideshowFrameMap.find(player.animation.get());
+    const bool uploadFrames = it == slideshowFrameMap.end();
+    const std::uint32_t offset =
+        uploadFrames ?
+            slideshowFrameRangeAllocator.alloc(player.animation->frameCount()).range.start :
+            it->second;
+    const std::uint32_t index = slideshowPlayerIds.allocate();
+    player.playerIndex        = index;
 
     // add frame offset and current frame to SSBO's
     slideshowFrameOffsetSSBO.ensureSize(index + 1);
@@ -112,11 +117,12 @@ void Animation2DSystem::doSlideshowAdd(ecs::Entity playerEntity, com::Animation2
     else { slideshowPlayerCurrentFrameSSBO.assignRef(player.framePayload, player.playerIndex); }
     slideshowFrameOffsetSSBO[index]        = offset;
     slideshowPlayerCurrentFrameSSBO[index] = player.currentFrame;
+    slideshowOffsetUploadRange.addRange(index, 1);
 
     // add frames to SSBO if required
     if (uploadFrames) {
         slideshowFrameMap[player.animation.get()] = offset;
-        slideshowFramesSSBO.ensureSize(slideshowFramesSSBO.size() + player.animation->frameCount());
+        slideshowFramesSSBO.ensureSize(offset + player.animation->frameCount());
         for (std::size_t i = 0; i < player.animation->frameCount(); ++i) {
             const auto& src          = player.animation->getFrame(i).shards.front();
             auto& frame              = slideshowFramesSSBO[offset + i];
@@ -127,10 +133,35 @@ void Animation2DSystem::doSlideshowAdd(ecs::Entity playerEntity, com::Animation2
             frame.texCoords[2]       = {tex.left + tex.width, tex.top + tex.height};
             frame.texCoords[3]       = {tex.left, tex.top + tex.height};
         }
+        slideshowFrameUploadRange.addRange(offset, player.animation->frameCount());
     }
+    slideshowDataRefCounts[player.animation.get()] += 1;
 
     // mark that descriptors need to be reset
     slideshowRefreshRequired = rc::Config::MaxConcurrentFrames;
+}
+
+void Animation2DSystem::doSlideshowFree(ecs::Entity playerEntity,
+                                        const com::Animation2DPlayer& player) {
+    slideshowPlayerIds.release(player.playerIndex);
+
+    const auto refCountIt = slideshowDataRefCounts.find(player.animation.get());
+    if (refCountIt == slideshowDataRefCounts.end()) {
+        throw std::runtime_error("Player component removed without having been added");
+    }
+    refCountIt->second -= 1;
+
+    if (refCountIt->second == 0) {
+        slideshowDataRefCounts.erase(refCountIt);
+        const auto offsetIt = slideshowFrameMap.find(player.animation.get());
+        if (offsetIt == slideshowFrameMap.end()) {
+            throw std::runtime_error("Failed to find cached frame offset for animation");
+        }
+
+        slideshowFrameRangeAllocator.release(
+            {offsetIt->second, static_cast<std::uint32_t>(player.animation->frameCount())});
+        slideshowFrameMap.erase(offsetIt);
+    }
 }
 
 void Animation2DSystem::updateSlideshowDescriptorSets() {

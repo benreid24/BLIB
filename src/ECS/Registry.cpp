@@ -226,7 +226,7 @@ bool Registry::isDependedOn(Entity resource) const {
 }
 
 void Registry::markEntityForRemoval(Entity ent) {
-    const std::uint32_t i = ent.getIndex();
+    const std::uint64_t i = ent.getIndex();
     if (markedForRemoval.size() <= i) { markedForRemoval.resize(i + 1, false); }
     markedForRemoval[i] = true;
 }

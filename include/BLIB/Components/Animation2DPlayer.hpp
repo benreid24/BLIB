@@ -77,7 +77,6 @@ struct Animation2DPlayer {
     std::size_t currentFrame;
     float frameTime;
 
-    // TODO - stable vector ref
     std::uint32_t playerIndex; // assigned by Animation2DSystem
     util::VectorRef<std::uint32_t, rc::vk::AlignedBuffer<std::uint32_t>>
         framePayload; // in descriptor set

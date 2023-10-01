@@ -11,6 +11,7 @@
 #include <BLIB/Render/Vulkan/DescriptorSet.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
 #include <BLIB/Util/IdAllocatorUnbounded.hpp>
+#include <BLIB/Util/RangeAllocatorUnbounded.hpp>
 #include <glm/glm.hpp>
 
 namespace bl
@@ -54,21 +55,48 @@ private:
         alignas(16) float opacity;
     };
 
+    struct UpdateRange {
+        static constexpr std::uint32_t InvalidStart = std::numeric_limits<std::uint32_t>::max();
+
+        std::uint32_t start;
+        std::uint32_t size;
+
+        UpdateRange()
+        : start(InvalidStart)
+        , size(0) {}
+
+        void reset() {
+            start = InvalidStart;
+            size  = 0;
+        }
+
+        bool needsUpload() const { return size != 0; }
+
+        void addRange(std::uint32_t i, std::uint32_t len) {
+            const std::uint32_t prevEnd = start == InvalidStart ? 0 : start + len;
+            start                       = std::min(start, i);
+            size                        = std::max(prevEnd, i + len);
+            size -= start;
+        }
+    };
+
     rc::Renderer& renderer;
     VkDescriptorSetLayout descriptorLayout;
     ecs::ComponentPool<com::Animation2DPlayer>* players;
 
     // slideshow data
-    std::unordered_map<gfx::a2d::AnimationData*, std::uint32_t> slideshowFrameMap;
+    std::unordered_map<const gfx::a2d::AnimationData*, std::uint32_t> slideshowFrameMap;
+    std::unordered_map<const gfx::a2d::AnimationData*, std::uint32_t> slideshowDataRefCounts;
     util::IdAllocatorUnbounded<std::uint32_t> slideshowPlayerIds;
+    util::RangeAllocatorUnbounded<std::uint32_t> slideshowFrameRangeAllocator;
     rc::buf::StaticSSBO<SlideshowFrame> slideshowFramesSSBO;     // all anim frames
     rc::buf::StaticSSBO<std::uint32_t> slideshowFrameOffsetSSBO; // playerIndex -> frame index
     rc::buf::DynamicSSBO<std::uint32_t> slideshowPlayerCurrentFrameSSBO; //     -> current frame
     rc::vk::PerFrame<rc::vk::DescriptorSet> slideshowDescriptorSets;
     std::uint8_t slideshowRefreshRequired;
-    std::uint8_t slideshowLastFrameUpdated;
-    std::uint32_t lastSlideshowFrameUploaded;
-    std::uint32_t lastSlideshowOffsetUploaded;
+    std::uint8_t slideshowLastFrameUpdated; // renderer frame index to prevent multiple updates
+    UpdateRange slideshowFrameUploadRange;
+    UpdateRange slideshowOffsetUploadRange;
 
     void cleanup();
     virtual void init(engine::Engine& engine) override;
@@ -78,6 +106,7 @@ private:
         const ecs::event::ComponentRemoved<com::Animation2DPlayer>& event) override;
 
     void doSlideshowAdd(ecs::Entity playerEntity, com::Animation2DPlayer& player);
+    void doSlideshowFree(ecs::Entity playerEntity, const com::Animation2DPlayer& player);
     void ensureSlideshowDescriptorsUpdated();
     void updateSlideshowDescriptorSets();
 
