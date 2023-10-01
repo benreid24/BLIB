@@ -101,7 +101,7 @@ void Text::commit() {
         // update draw parameters
         component().drawParams            = component().vertices.getDrawParameters();
         component().drawParams.indexCount = vi;
-        if (component().sceneRef.object) { component().syncDrawParamsToScene(); }
+        if (component().sceneRef.object) { component().updateDrawParams(); }
     }
 
     // always upload new font atlas if required

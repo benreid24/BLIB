@@ -117,6 +117,14 @@ public:
         text.setParent(messageBox);
         text.addToScene(overlay, bl::rc::UpdateSpeed::Static);
 
+        // sanity check children
+        sprite2.create(engine, texture);
+        sprite2.getTransform().setPosition({0.9f, 0.9f});
+        sprite2.getOverlayScaler().scaleToHeightPercent(0.1f);
+        sprite2.getTransform().setOrigin(texture->size() * 0.5f);
+        sprite2.setParent(messageBox);
+        sprite2.addToScene(overlay, bl::rc::UpdateSpeed::Static);
+
         // setup render texture
         renderTexture.create(engine.renderer(), {128, 128});
         bl::rc::Overlay* rto = engine.renderer().scenePool().allocateScene<bl::rc::Overlay>();
@@ -158,6 +166,7 @@ public:
 private:
     bl::rc::Renderer* renderer;
     bl::gfx::Sprite sprite;
+    bl::gfx::Sprite sprite2;
     bl::gfx::Sprite messageBox;
     bl::ecs::Entity spriteEntity;
     bl::com::Transform2D* spritePosition;
