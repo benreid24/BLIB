@@ -23,7 +23,9 @@ struct DestroyTestComponent {
     bool& destroyed;
 };
 
-struct ParentTestComponent : public trait::ParentAware<ParentTestComponent> {
+struct ParentTestComponent
+: public trait::ParentAware<ParentTestComponent>
+, public trait::ChildAware<ParentTestComponent> {
     int payload;
 
     ParentTestComponent(int p)
@@ -330,11 +332,12 @@ TEST(ECS, ParentBeforeCreate) {
     Entity parent = testRegistry.createEntity();
     testRegistry.setEntityParent(child, parent);
 
-    auto* childCom  = testRegistry.addComponent<ParentTestComponent>(child, 10);
     auto* parentCom = testRegistry.addComponent<ParentTestComponent>(parent, 100);
+    auto* childCom  = testRegistry.addComponent<ParentTestComponent>(child, 10);
 
     EXPECT_TRUE(childCom->hasParent());
     EXPECT_FALSE(parentCom->hasParent());
+    EXPECT_EQ(parentCom->getChildren().size(), 1);
     EXPECT_EQ(childCom->payload, 10);
     EXPECT_EQ(parentCom->payload, 100);
     EXPECT_EQ(childCom->getParent().payload, 100);
@@ -356,6 +359,7 @@ TEST(ECS, ParentAfterCreate) {
 
     EXPECT_TRUE(childCom->hasParent());
     EXPECT_FALSE(parentCom->hasParent());
+    EXPECT_EQ(parentCom->getChildren().size(), 1);
     EXPECT_EQ(childCom->payload, 10);
     EXPECT_EQ(parentCom->payload, 100);
     EXPECT_EQ(childCom->getParent().payload, 100);
