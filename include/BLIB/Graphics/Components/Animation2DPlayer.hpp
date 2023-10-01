@@ -13,7 +13,9 @@ namespace gfx
 namespace bcom
 {
 /**
- * @brief Base class for 2d animation player components
+ * @brief Base class for 2d animation player components. Players are created on dedicated entities
+ *        and dependencies are managed via the ECS dependency feature, ensuring that in-use players
+ *        are not removed too soon. Custom classes should ensure they follow the same model
  *
  * @ingroup Graphics
  */
@@ -22,7 +24,7 @@ public:
     /**
      * @brief Does nothing
      */
-    Animation2DPlayer() = default;
+    Animation2DPlayer();
 
     /**
      * @brief Configures the animation to use the existing player in order to share play state with
@@ -81,7 +83,11 @@ private:
     rc::Renderer* renderer;
     ecs::Registry* registry;
     ecs::Entity me;
+    ecs::Entity playerEntity;
     com::Animation2DPlayer* player;
+
+    void addPlayerDep();
+    void cleanupPlayerDep();
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////

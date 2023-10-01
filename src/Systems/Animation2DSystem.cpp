@@ -87,7 +87,7 @@ void Animation2DSystem::observe(const ecs::event::ComponentAdded<com::Animation2
 void Animation2DSystem::observe(const ecs::event::ComponentRemoved<com::Animation2DPlayer>& event) {
     if (event.component.animation->isSlideshow()) {
         slideshowPlayerIds.release(event.component.playerIndex);
-        // TODO - check ref counts and remove data
+        // TODO - remove data
     }
     else {
         // TODO - handle non-slideshow animations
