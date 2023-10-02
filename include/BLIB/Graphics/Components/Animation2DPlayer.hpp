@@ -19,7 +19,7 @@ namespace bcom
  *
  * @ingroup Graphics
  */
-class Animation2DPlayer : private Textured {
+class Animation2DPlayer : public Textured {
 public:
     /**
      * @brief Does nothing
@@ -53,6 +53,11 @@ public:
      * @brief Returns the animation player for this animation
      */
     const com::Animation2DPlayer& getPlayer() const;
+
+    /**
+     * @brief Returns the ECS entity id of the player
+     */
+    ecs::Entity getPlayerEntity() const;
 
 protected:
     /**
@@ -95,6 +100,8 @@ private:
 inline com::Animation2DPlayer& Animation2DPlayer::getPlayer() { return *player; }
 
 inline const com::Animation2DPlayer& Animation2DPlayer::getPlayer() const { return *player; }
+
+inline ecs::Entity Animation2DPlayer::getPlayerEntity() const { return playerEntity; }
 
 } // namespace bcom
 } // namespace gfx

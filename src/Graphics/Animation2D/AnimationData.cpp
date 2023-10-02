@@ -142,11 +142,13 @@ bool AnimationData::doLoad(serial::binary::InputStream& input, const std::string
     }
     if (!input.read(loop)) return false;
 
-    std::uint16_t nFrames = 0;
+    std::uint32_t shardIndex = 0;
+    std::uint16_t nFrames    = 0;
     if (!input.read(nFrames)) return false;
     frames.reserve(nFrames);
     for (unsigned int i = 0; i < nFrames; ++i) {
-        Frame& frame = frames.emplace_back();
+        Frame& frame     = frames.emplace_back();
+        frame.shardIndex = shardIndex;
 
         std::uint32_t length;
         if (!input.read(length)) return false;
@@ -155,6 +157,7 @@ bool AnimationData::doLoad(serial::binary::InputStream& input, const std::string
         std::uint16_t nShards = 0;
         if (!input.read(nShards)) return false;
         frame.shards.reserve(nShards);
+        shardIndex += nShards;
 
         for (unsigned int j = 0; j < nShards; ++j) {
             frame.shards.emplace_back();

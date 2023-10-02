@@ -114,11 +114,6 @@ private:
         std::unique_lock lock(queueLock);
         lockWrite();
 
-        if (needsAddressReload) {
-            needsAddressReload = false;
-            for (auto& set : results) { set.refresh(registry); }
-        }
-
         for (Entity ent : toAdd) {
             const std::uint64_t entIndex = ent.getIndex();
             if (entIndex + 1 > entityToIndex.size()) {

@@ -86,23 +86,6 @@ struct ComponentRemoved {
 };
 
 /**
- * @brief Fired when a component pool is resized
- *
- * @ingroup ECS
- */
-struct ComponentPoolResized {
-    /// The pool that resized
-    std::uint16_t poolIndex;
-
-    /**
-     * @brief Creates a new ComponentPoolResized event
-     * @param pool The pool that resized
-     */
-    ComponentPoolResized(std::uint16_t pool)
-    : poolIndex(pool) {}
-};
-
-/**
  * @brief Fired when an entity has a parent set
  *
  * @ingroup ECS

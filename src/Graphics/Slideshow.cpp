@@ -35,14 +35,16 @@ void Slideshow::createWithUniquePlayer(engine::Engine& engine,
     Animation2DPlayer::create(
         engine.renderer(), engine.ecs(), entity(), animation, play, forceLoop);
     component().create(engine.renderer().vulkanState(), Animation2DPlayer::getPlayer());
+    component().containsTransparency = Textured::getTexture()->containsTransparency();
 }
 
 void Slideshow::createWithSharedPlayer(engine::Engine& engine, const Slideshow& player) {
     Drawable::create(engine);
     OverlayScalable::create(engine, entity());
     OverlayScalable::setLocalSize(player.getLocalSize());
-    Animation2DPlayer::create(engine.renderer(), engine.ecs(), entity(), player.entity());
+    Animation2DPlayer::create(engine.renderer(), engine.ecs(), entity(), player.getPlayerEntity());
     component().create(engine.renderer().vulkanState(), Animation2DPlayer::getPlayer());
+    component().containsTransparency = Textured::getTexture()->containsTransparency();
 }
 
 } // namespace gfx

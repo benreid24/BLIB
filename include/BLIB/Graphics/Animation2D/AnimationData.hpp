@@ -41,6 +41,9 @@ public:
         std::vector<Shard> shards;
         sf::Vector2f size;
         float length;
+
+        // computed
+        std::uint32_t shardIndex;
     };
 
     /**
@@ -200,6 +203,11 @@ public:
      */
     constexpr bool isSlideshow() const;
 
+    /**
+     * @brief Returns whether or not shards should be centered
+     */
+    bool shardsAreCentered() const;
+
 private:
     std::string actualSpritesheetPath;
     std::string spritesheetSource;
@@ -242,6 +250,8 @@ inline constexpr const std::string& AnimationData::resolvedSpritesheet() const {
 }
 
 inline constexpr bool AnimationData::isSlideshow() const { return slideshow; }
+
+inline bool AnimationData::shardsAreCentered() const { return centerShards; }
 
 } // namespace a2d
 } // namespace gfx

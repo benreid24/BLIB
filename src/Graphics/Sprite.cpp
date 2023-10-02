@@ -17,6 +17,7 @@ void Sprite::create(engine::Engine& engine, rc::res::TextureRef texture,
     Textured::create(engine.ecs(), entity(), texture);
     OverlayScalable::create(engine, entity());
     OverlayScalable::setLocalSize(component().getSize()); // TODO - need to sync maybe
+    component().containsTransparency = Textured::getTexture()->containsTransparency();
 }
 
 } // namespace gfx

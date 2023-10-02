@@ -84,6 +84,11 @@ void Renderer::initialize() {
                                                           StateMask,
                                                           Config::PipelineIds::SlideshowLit,
                                                           Config::PipelineIds::SlideshowUnlit);
+    engine.systems().registerSystem<sys::Animation2DDrawableSystem>(
+        FrameStage::RenderObjectSync,
+        StateMask,
+        Config::PipelineIds::LitSkinned2DGeometry,
+        Config::PipelineIds::UnlitSkinned2DGeometry);
 
     // asset providers
     assetFactory.addProvider<rgi::StandardAssetProvider>(rg::AssetTags::RenderedSceneOutput);

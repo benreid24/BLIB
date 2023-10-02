@@ -1,5 +1,7 @@
 target_sources(BLIB PUBLIC
+	Animation2D.hpp
 	Drawable.hpp
+	Slideshow.hpp
 	Sprite.hpp
 	Text.hpp
 )

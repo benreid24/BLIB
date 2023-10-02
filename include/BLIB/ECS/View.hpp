@@ -37,12 +37,9 @@ public:
     virtual ~ViewBase() = default;
 
 protected:
-    bool needsAddressReload;
-
     ViewBase(ComponentMask mask, std::type_index id)
     : id(id)
-    , mask(mask)
-    , needsAddressReload(false) {}
+    , mask(mask) {}
 
     virtual void removeEntity(Entity entity) = 0;
     virtual void tryAddEntity(Entity entity) = 0;

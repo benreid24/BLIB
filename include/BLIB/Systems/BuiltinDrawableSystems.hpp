@@ -1,6 +1,7 @@
 #ifndef BLIB_SYSTEMS_BUILTINDRAWABLESYSTEMS_HPP
 #define BLIB_SYSTEMS_BUILTINDRAWABLESYSTEMS_HPP
 
+#include <BLIB/Components/Animation2D.hpp>
 #include <BLIB/Components/Mesh.hpp>
 #include <BLIB/Components/Slideshow.hpp>
 #include <BLIB/Components/Sprite.hpp>
@@ -38,6 +39,13 @@ using TextSystem = DrawableSystem<com::Text>;
  * @ingroup Renderer
  */
 using SlideshowSystem = DrawableSystem<com::Slideshow>;
+
+/**
+ * @brief Engine system for managing non-slideshow animations
+ *
+ * @ingroup Renderer
+ */
+using Animation2DDrawableSystem = DrawableSystem<com::Animation2D>;
 
 } // namespace sys
 } // namespace bl

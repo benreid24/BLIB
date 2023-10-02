@@ -28,9 +28,7 @@ namespace ecs
  *
  * @ingroup ECS
  */
-class Registry
-: private util::NonCopyable
-, public bl::event::Listener<event::ComponentPoolResized> {
+class Registry : private util::NonCopyable {
 public:
     static constexpr std::size_t DefaultCapacity = 512;
 
@@ -254,8 +252,6 @@ private:
 
     template<typename T>
     void finishComponentAdd(Entity ent, unsigned int cindex, T* component);
-
-    virtual void observe(const event::ComponentPoolResized& resize) override;
 
     template<typename TRequire, typename TOptional, typename TExclude>
     friend class View;
