@@ -271,12 +271,16 @@ void Animation2DSystem::tryFreeVertexData(const com::Animation2DPlayer& player) 
 Animation2DSystem::VertexAnimation::VertexAnimation(rc::vk::VulkanState& vs,
                                                     const gfx::a2d::AnimationData& anim)
 : useCount(0) {
+    unsigned int actualShardCount = 0;
+    for (unsigned int i = 0; i < anim.frameCount(); ++i) {
+        actualShardCount += anim.getFrame(i).shards.size();
+    }
     if (anim.frameCount() > 0) {
         frameToIndices.resize(anim.frameCount(), {});
 
         // allocate buffer
         const auto& lf                 = anim.getFrame(anim.frameCount() - 1);
-        const std::uint32_t shardCount = lf.shardIndex + lf.shards.size();
+        const std::uint32_t shardCount = actualShardCount; // lf.shardIndex + lf.shards.size();
         indexBuffer.create(vs, shardCount * 4, shardCount * 6);
 
         // populate buffer
@@ -318,7 +322,7 @@ Animation2DSystem::VertexAnimation::VertexAnimation(rc::vk::VulkanState& vs,
 
                 // set draw vertices
                 // color
-                for (unsigned int k = 0; i < 4; ++k) {
+                for (unsigned int k = 0; k < 4; ++k) {
                     indexBuffer.vertices()[vbase + k].color =
                         glm::vec4{1.f, 1.f, 1.f, static_cast<float>(shard.alpha) / 255.f};
                 }

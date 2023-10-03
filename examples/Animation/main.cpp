@@ -17,6 +17,7 @@ public:
 private:
     bl::rc::Scene* scene;
     bl::gfx::Slideshow slideshow;
+    bl::gfx::Animation2D animation;
 
     virtual const char* name() const override { return "DemoState"; }
 
@@ -36,6 +37,16 @@ private:
             true);
         slideshow.getTransform().setPosition({300.f, 300.f});
         slideshow.addToScene(scene, bl::rc::UpdateSpeed::Static);
+
+        // add standard animation to scene
+        animation.createWithUniquePlayer(
+            engine,
+            bl::resource::ResourceManager<bl::gfx::a2d::AnimationData>::load(
+                "resources/animation.anim"),
+            true,
+            true);
+        animation.getTransform().setPosition({700.f, 500.f});
+        animation.addToScene(scene, bl::rc::UpdateSpeed::Static);
     }
 
     virtual void deactivate(bl::engine::Engine& engine) override {
@@ -43,7 +54,7 @@ private:
     }
 
     virtual void update(bl::engine::Engine&, float) override {
-        // anything? all handled in systems
+        // all handled in systems
     }
 
     virtual void render(bl::engine::Engine&, float) override {
