@@ -29,6 +29,7 @@ void Animation2DSystem::cleanup() {
     slideshowFramesSSBO.destroy();
     slideshowFrameOffsetSSBO.destroy();
     slideshowPlayerCurrentFrameSSBO.destroy();
+    vertexAnimationData.clear();
 }
 
 void Animation2DSystem::bindSlideshowSet(VkCommandBuffer commandBuffer, VkPipelineLayout layout,
@@ -293,18 +294,15 @@ Animation2DSystem::VertexAnimation::VertexAnimation(rc::vk::VulkanState& vs,
             frameToIndices[i].vertexStart = vi;
             frameToIndices[i].indexStart  = ii;
             frameToIndices[i].indexCount  = frame.shards.size() * 6;
-            vi += frame.shards.size() * 4;
-            ii += frameToIndices[i].indexCount;
 
             for (unsigned int j = 0; j < frame.shards.size(); ++j) {
                 const auto& shard = frame.shards[j];
 
                 // compute shard transform
+                const glm::vec2 size(static_cast<float>(shard.source.width),
+                                     static_cast<float>(shard.source.height));
                 com::Transform2D transform;
-                transform.setOrigin(anim.shardsAreCentered() ?
-                                        glm::vec2{static_cast<float>(shard.source.width) * 0.5f,
-                                                  static_cast<float>(shard.source.height) * 0.5f} :
-                                        glm::vec2{0.f, 0.f});
+                transform.setOrigin(anim.shardsAreCentered() ? size * 0.5f : glm::vec2{0.f, 0.f});
                 transform.setRotation(shard.rotation);
                 transform.setPosition({shard.offset.x, shard.offset.y});
                 transform.setScale({shard.scale.x, shard.scale.y});
@@ -336,6 +334,12 @@ Animation2DSystem::VertexAnimation::VertexAnimation(rc::vk::VulkanState& vs,
                 indexBuffer.vertices()[vbase + 2].pos = tmat * src;
                 src.x                                 = 0.f;
                 indexBuffer.vertices()[vbase + 3].pos = tmat * src;
+                if (anim.shardsAreCentered()) {
+                    for (unsigned int k = 0; k < 4; ++k) {
+                        indexBuffer.vertices()[vbase + k].pos -=
+                            glm::vec3{size * glm::vec2{shard.scale.x, shard.scale.y} * 0.5f, 0.f};
+                    }
+                }
 
                 // texture coord
                 indexBuffer.vertices()[vbase + 0].texCoord = {shard.normalizedSource.left,
@@ -350,6 +354,9 @@ Animation2DSystem::VertexAnimation::VertexAnimation(rc::vk::VulkanState& vs,
                                                               shard.normalizedSource.top +
                                                                   shard.normalizedSource.height};
             }
+
+            vi += frame.shards.size() * 4;
+            ii += frameToIndices[i].indexCount;
         }
         indexBuffer.queueTransfer();
     }

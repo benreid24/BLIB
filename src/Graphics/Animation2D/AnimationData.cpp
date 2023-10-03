@@ -23,7 +23,10 @@ bool compareVectors(const sf::Vector2f& left, const sf::Vector2f& right) {
 void removeDuplicateShard(const AnimationData::Frame& frame) {
     AnimationData::Frame& f = const_cast<AnimationData::Frame&>(frame);
     if (f.shards.size() == 2) {
-        if (f.shards.front().source == f.shards.back().source) { f.shards.pop_back(); }
+        if (f.shards.front().source == f.shards.back().source &&
+            f.shards.front().offset == f.shards.back().offset) {
+            f.shards.pop_back();
+        }
     }
 }
 

@@ -27,6 +27,7 @@ private:
         scene     = o.pushScene<bl::rc::scene::BatchedScene>();
         auto* cam = o.setCamera<bl::cam::Camera2D>(sf::FloatRect{0.f, 0.f, 1920.f, 1080.f});
         cam->setNearAndFarPlanes(-100000.f, 100000.f);
+        o.setClearColor({1.f, 1.f, 1.f, 1.f});
 
         // add slideshow animation to scene
         slideshow.createWithUniquePlayer(
