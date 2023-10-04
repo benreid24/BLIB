@@ -4,6 +4,7 @@ target_sources(BLIB PUBLIC
 	Mesh.hpp
 	Orientation3D.hpp
 	OverlayScaler.hpp
+	Shape2D.hpp
 	Slideshow.hpp
 	Sprite.hpp
 	Text.hpp

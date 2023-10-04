@@ -3,6 +3,7 @@
 
 #include <BLIB/Components/Animation2D.hpp>
 #include <BLIB/Components/Mesh.hpp>
+#include <BLIB/Components/Shape2D.hpp>
 #include <BLIB/Components/Slideshow.hpp>
 #include <BLIB/Components/Sprite.hpp>
 #include <BLIB/Components/Text.hpp>
@@ -29,23 +30,30 @@ using SpriteSystem = DrawableSystem<com::Sprite>;
 /**
  * @brief Engine system for managing text entities
  *
- * @ingroup Renderer
+ * @ingroup Systems
  */
 using TextSystem = DrawableSystem<com::Text>;
 
 /**
  * @brief Engine system for managing slideshow animations
  *
- * @ingroup Renderer
+ * @ingroup Systems
  */
 using SlideshowSystem = DrawableSystem<com::Slideshow>;
 
 /**
  * @brief Engine system for managing non-slideshow animations
  *
- * @ingroup Renderer
+ * @ingroup Systems
  */
 using Animation2DDrawableSystem = DrawableSystem<com::Animation2D>;
+
+/**
+ * @brief Engine system for managing 2d shapes
+ *
+ * @ingroup Systems
+ */
+using Shape2DSystem = DrawableSystem<com::Shape2D>;
 
 } // namespace sys
 } // namespace bl
