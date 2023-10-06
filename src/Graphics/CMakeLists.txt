@@ -1,5 +1,6 @@
 target_sources(BLIB PRIVATE
 	Animation2D.cpp
+	Shape2D.cpp
 	Slideshow.cpp
 	Sprite.cpp
 	Text.cpp

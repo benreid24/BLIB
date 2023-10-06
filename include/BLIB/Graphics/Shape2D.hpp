@@ -10,25 +10,99 @@ namespace bl
 {
 namespace gfx
 {
+/**
+ * @brief Base class for 2d shapes. Provides index buffer creation and management
+ *
+ * @ingroup Graphics
+ */
 class Shape2D
-: public Drawable<com::Shape2D> // TODO - add Textured and set pipeline on change
+: public Drawable<com::Shape2D>
 , public bcom::OverlayScalable {
 public:
-    void update(); // TODO - figure out how to avoid calling this manually?
-    // TODO - one time run system for tasks to register? runs at certain (arbitrary) frame stage
+    /**
+     * @brief Sets the color to fill the shape with
+     *
+     * @param color The color to fill the shape with
+     */
+    void setFillColor(const glm::vec4& color);
+
+    /**
+     * @brief Returns the color the shape is filled with
+     */
+    const glm::vec4& getFillColor() const;
+
+    /**
+     * @brief Sets the color the outline will be filled with
+     *
+     * @param color The color to outline the shape with
+     */
+    void setOutlineColor(const glm::vec4& color);
+
+    /**
+     * @brief Returns the color of the outline
+     */
+    const glm::vec4& getOutlineColor() const;
+
+    /**
+     * @brief Sets the thickness of the outline. Negative outline will render inside the bounds of
+     *        the shape. Setting to 0 disables the outline
+     *
+     * @param thickness The thickness of the outline. In the same units as the shape size
+     */
+    void setOutlineThickness(float thickness);
+
+    /**
+     * @brief Returns the thickness of the outline
+     */
+    float getOutlineThickness() const;
+
+    /**
+     * @brief Returns the bounds of the shape. Bounds only computed if the shape is created first
+     */
+    const sf::FloatRect& getLocalBounds();
 
 protected:
+    /**
+     * @brief Initializes the shapes fields to sane defaults
+     */
     Shape2D();
 
+    /**
+     * @brief Derived classes should return the number of points their shape requires
+     *
+     * @return The number of points for the shape (ie 4 for rectangle, etc)
+     */
     virtual unsigned int getVertexCount() const = 0;
 
+    /**
+     * @brief Derived classes should set the position (and may override the color) in this method.
+     *        This will be called for indices [0, getVertexCount())
+     *
+     * @param index The index of the current point in the shape
+     * @param vertex The vertex to populate
+     */
     virtual void populateVertex(unsigned int index, rc::prim::Vertex& vertex) = 0;
+
+    /**
+     * @brief Call whenever the vertices need to be refreshed
+     */
+    void markDirty();
+
+    /**
+     * @brief Creates the ECS entity and required components
+     *
+     * @param engine The game engine instance
+     */
+    void create(engine::Engine& engine);
 
 private:
     glm::vec4 fillColor;
     glm::vec4 outlineColor;
     float outlineThickness;
+    sf::FloatRect localBounds;
     bool dirty;
+
+    void update();
 };
 
 } // namespace gfx
