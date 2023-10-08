@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Util/Hashes.hpp Source File</title>
+<title>BLIB: include/BLIB/Systems/OverlayScalerSystem.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,70 +66,104 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4b3af2b25a05b4f12e892fbe45139fe9.html">Util</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_daaf59349fe9c08c8ba4d716035ae7ff.html">Systems</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Hashes.hpp</div>  </div>
+<div class="title">OverlayScalerSystem.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01013.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_UTIL_HASHES_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_UTIL_HASHES_HPP</span></div>
+<a href="a01013.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_SYSTEMS_OVERLAYSCALER_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_SYSTEMS_OVERLAYSCALER_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01010.html">BLIB/Util/HashCombine.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;SFML/System/Vector2.hpp&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;SFML/System/Vector3.hpp&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;functional&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01760.html">bl</a></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>util</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T1, <span class="keyword">typename</span> T2, <span class="keyword">typename</span> T1Hash = std::hash&lt;T1&gt;, <span class="keyword">typename</span> T2Hash = std::hash&lt;T2&gt;&gt;</div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a03801.html">   24</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a03801.html">PairHash</a> {</div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="a03801.html#ac78b7fecff9c68299acb571e3edc722a">   31</a></span>&#160;    std::size_t <a class="code" href="a03801.html#ac78b7fecff9c68299acb571e3edc722a">operator()</a>(<span class="keyword">const</span> std::pair&lt;T1, T2&gt;&amp; pair)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        std::size_t h1 = T1Hash()(pair.first);</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        std::size_t h2 = T2Hash()(pair.second);</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="a01818.html#a867dbeaa40c3e27ca66b3217256cd351">hashCombine</a>(h1, h2);</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    }</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;};</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00068.html">BLIB/Components/OverlayScaler.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05016.html">BLIB/Components/Transform2D.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00182.html">BLIB/ECS.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05031.html">BLIB/Engine/System.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00557.html">BLIB/Render/Components/SceneObjectRef.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00704.html">BLIB/Render/Overlays/OverlayObject.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00707.html">BLIB/Render/Overlays/Viewport.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01803.html">bl</a></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">class </span>Overlay;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;}</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">namespace </span>sys</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;{</div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a03876.html">   28</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03876.html">OverlayScalerSystem</a></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;: <span class="keyword">public</span> <a class="code" href="a02316.html">engine::System</a></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;, <span class="keyword">public</span> <a class="code" href="a02352.html">bl::event::Listener</a>&lt;ecs::event::ComponentAdded&lt;rc::ovy::Viewport&gt;,</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;                             ecs::event::ComponentRemoved&lt;rc::ovy::Viewport&gt;&gt; {</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="a03876.html#a75639242703a1261289a6009aa8ecd4d">   36</a></span>&#160;    <a class="code" href="a03876.html#a75639242703a1261289a6009aa8ecd4d">OverlayScalerSystem</a>() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="a03805.html">   45</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a03805.html">Vector2Hash</a> {</div>
-<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="a03805.html#adb1f1f3f67bf271cb41f13f1c632490c">   52</a></span>&#160;    std::size_t <a class="code" href="a03805.html#adb1f1f3f67bf271cb41f13f1c632490c">operator()</a>(<span class="keyword">const</span> sf::Vector2&lt;T&gt;&amp; value)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        std::hash&lt;T&gt; hasher;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="a01818.html#a867dbeaa40c3e27ca66b3217256cd351">bl::util::hashCombine</a>(hasher(value.x), hasher(value.y));</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    }</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;};</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="a03809.html">   65</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a03809.html">Vector3Hash</a> {</div>
-<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="a03809.html#a685b1dd7655533e88c6c2b54baf8b40c">   72</a></span>&#160;    std::size_t <a class="code" href="a03809.html#a685b1dd7655533e88c6c2b54baf8b40c">operator()</a>(<span class="keyword">const</span> sf::Vector3&lt;T&gt;&amp; value)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        std::hash&lt;T&gt; hasher;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="a01818.html#a867dbeaa40c3e27ca66b3217256cd351">bl::util::hashCombine</a>(<a class="code" href="a01818.html#a867dbeaa40c3e27ca66b3217256cd351">bl::util::hashCombine</a>(hasher(value.x), hasher(value.y)),</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                                     hasher(value.z));</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    }</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;};</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;} <span class="comment">// namespace util</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01010_html"><div class="ttname"><a href="a01010.html">HashCombine.hpp</a></div></div>
-<div class="ttc" id="aa01760_html"><div class="ttname"><a href="a01760.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa01818_html_a867dbeaa40c3e27ca66b3217256cd351"><div class="ttname"><a href="a01818.html#a867dbeaa40c3e27ca66b3217256cd351">bl::util::hashCombine</a></div><div class="ttdeci">std::size_t hashCombine(std::size_t right, std::size_t left)</div><div class="ttdef"><b>Definition:</b> <a href="a01010_source.html#l00011">HashCombine.hpp:11</a></div></div>
-<div class="ttc" id="aa03801_html"><div class="ttname"><a href="a03801.html">bl::util::PairHash</a></div><div class="ttdoc">Utility struct to allow hashing of std::pair objects.</div><div class="ttdef"><b>Definition:</b> <a href="a01013_source.html#l00024">Hashes.hpp:24</a></div></div>
-<div class="ttc" id="aa03801_html_ac78b7fecff9c68299acb571e3edc722a"><div class="ttname"><a href="a03801.html#ac78b7fecff9c68299acb571e3edc722a">bl::util::PairHash::operator()</a></div><div class="ttdeci">std::size_t operator()(const std::pair&lt; T1, T2 &gt; &amp;pair) const</div><div class="ttdoc">Hashes the given pair using the hash function for each member of the pair.</div><div class="ttdef"><b>Definition:</b> <a href="a01013_source.html#l00031">Hashes.hpp:31</a></div></div>
-<div class="ttc" id="aa03805_html"><div class="ttname"><a href="a03805.html">bl::util::Vector2Hash</a></div><div class="ttdoc">Specialized hash for sf::Vector2.</div><div class="ttdef"><b>Definition:</b> <a href="a01013_source.html#l00045">Hashes.hpp:45</a></div></div>
-<div class="ttc" id="aa03805_html_adb1f1f3f67bf271cb41f13f1c632490c"><div class="ttname"><a href="a03805.html#adb1f1f3f67bf271cb41f13f1c632490c">bl::util::Vector2Hash::operator()</a></div><div class="ttdeci">std::size_t operator()(const sf::Vector2&lt; T &gt; &amp;value) const</div><div class="ttdoc">Hash the given vector.</div><div class="ttdef"><b>Definition:</b> <a href="a01013_source.html#l00052">Hashes.hpp:52</a></div></div>
-<div class="ttc" id="aa03809_html"><div class="ttname"><a href="a03809.html">bl::util::Vector3Hash</a></div><div class="ttdoc">Specialized hash for sf::Vector3.</div><div class="ttdef"><b>Definition:</b> <a href="a01013_source.html#l00065">Hashes.hpp:65</a></div></div>
-<div class="ttc" id="aa03809_html_a685b1dd7655533e88c6c2b54baf8b40c"><div class="ttname"><a href="a03809.html#a685b1dd7655533e88c6c2b54baf8b40c">bl::util::Vector3Hash::operator()</a></div><div class="ttdeci">std::size_t operator()(const sf::Vector3&lt; T &gt; &amp;value) const</div><div class="ttdoc">Hash the given vector.</div><div class="ttdef"><b>Definition:</b> <a href="a01013_source.html#l00072">Hashes.hpp:72</a></div></div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="a03876.html#a0ad29736ce5c3a7f845d77df11881700">   41</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03876.html#a0ad29736ce5c3a7f845d77df11881700">~OverlayScalerSystem</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">using</span> <a class="code" href="a02224.html">Required</a> = <a class="code" href="a02224.html">ecs::Require&lt;rc::ovy::OverlayObject, com::Transform2D&gt;</a>;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keyword">using</span> <a class="code" href="a02228.html">Optional</a> = <a class="code" href="a02228.html">ecs::Optional&lt;rc::ovy::Viewport, com::OverlayScaler&gt;</a>;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keyword">using</span> <a class="code" href="a02164.html">Result</a>   = <a class="code" href="a02164.html">ecs::ComponentSet&lt;Required, Optional&gt;</a>;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <a class="code" href="a02220.html">ecs::Registry</a>* registry;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    std::vector&lt;rc::Overlay*&gt; overlays;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <a class="code" href="a02176.html">ecs::Entity</a> ignoredEntity;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <a class="code" href="a02144.html">ecs::View&lt;Required, Optional&gt;</a>* view;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <a class="code" href="a02152.html">ecs::ComponentPool&lt;com::OverlayScaler&gt;</a>* scalerPool;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> init(<a class="code" href="a02264.html">engine::Engine</a>&amp; engine) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> update(std::mutex&amp; stageMutex, <span class="keywordtype">float</span> dt) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="comment">// called by Overlay</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordtype">void</span> refreshObjectAndChildren(<a class="code" href="a03088.html">rc::ovy::OverlayObject</a>&amp; obj, <span class="keyword">const</span> VkViewport&amp; viewport);</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordtype">void</span> refreshObjectAndChildren(<a class="code" href="a02164.html">Result</a>&amp; row, <span class="keyword">const</span> VkViewport&amp; viewport);</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordtype">void</span> refreshEntity(<a class="code" href="a02164.html">Result</a>&amp; row, <span class="keyword">const</span> VkViewport&amp; viewport);</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> observe(<span class="keyword">const</span> <a class="code" href="a02192.html">ecs::event::ComponentAdded&lt;rc::ovy::Viewport&gt;</a>&amp; event) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> observe(<span class="keyword">const</span> <a class="code" href="a02196.html">ecs::event::ComponentRemoved&lt;rc::ovy::Viewport&gt;</a>&amp; event) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="a03876.html#a39c5d4176e64d9904d9d4b68edcb0b73">   66</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a03080.html">bl::rc::Overlay</a>;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;};</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;} <span class="comment">// namespace sys</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00068_html"><div class="ttname"><a href="a00068.html">OverlayScaler.hpp</a></div></div>
+<div class="ttc" id="aa00182_html"><div class="ttname"><a href="a00182.html">ECS.hpp</a></div></div>
+<div class="ttc" id="aa00557_html"><div class="ttname"><a href="a00557.html">SceneObjectRef.hpp</a></div></div>
+<div class="ttc" id="aa00704_html"><div class="ttname"><a href="a00704.html">OverlayObject.hpp</a></div></div>
+<div class="ttc" id="aa00707_html"><div class="ttname"><a href="a00707.html">Viewport.hpp</a></div></div>
+<div class="ttc" id="aa01803_html"><div class="ttname"><a href="a01803.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02144_html"><div class="ttname"><a href="a02144.html">bl::ecs::View</a></div><div class="ttdoc">Base definition of the View class. Use the tagged specialization.</div><div class="ttdef"><b>Definition:</b> <a href="a00176_source.html#l00061">View.hpp:61</a></div></div>
+<div class="ttc" id="aa02152_html"><div class="ttname"><a href="a02152.html">bl::ecs::ComponentPool</a></div><div class="ttdoc">Provides storage and management for components in the ECS. Used internally in the Registry.</div><div class="ttdef"><b>Definition:</b> <a href="a00140_source.html#l00069">ComponentPool.hpp:69</a></div></div>
+<div class="ttc" id="aa02164_html"><div class="ttname"><a href="a02164.html">bl::ecs::ComponentSet</a></div><div class="ttdoc">Contains a set of components for a single entity. May not always be valid. Does not update if compone...</div><div class="ttdef"><b>Definition:</b> <a href="a00143_source.html#l00039">ComponentSet.hpp:39</a></div></div>
+<div class="ttc" id="aa02176_html"><div class="ttname"><a href="a02176.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition:</b> <a href="a00152_source.html#l00023">Entity.hpp:23</a></div></div>
+<div class="ttc" id="aa02192_html"><div class="ttname"><a href="a02192.html">bl::ecs::event::ComponentAdded</a></div><div class="ttdoc">Fired when a component is added to an entity.</div><div class="ttdef"><b>Definition:</b> <a href="a05022_source.html#l00045">Events.hpp:45</a></div></div>
+<div class="ttc" id="aa02196_html"><div class="ttname"><a href="a02196.html">bl::ecs::event::ComponentRemoved</a></div><div class="ttdoc">Fired right before a component is removed from an entity.</div><div class="ttdef"><b>Definition:</b> <a href="a05022_source.html#l00070">Events.hpp:70</a></div></div>
+<div class="ttc" id="aa02220_html"><div class="ttname"><a href="a02220.html">bl::ecs::Registry</a></div><div class="ttdoc">This is the main interface of the ECS. This class manages all entities and components and views and s...</div><div class="ttdef"><b>Definition:</b> <a href="a00161_source.html#l00031">Registry.hpp:31</a></div></div>
+<div class="ttc" id="aa02224_html"><div class="ttname"><a href="a02224.html">bl::ecs::Require</a></div><div class="ttdef"><b>Definition:</b> <a href="a00164_source.html#l00015">Tags.hpp:15</a></div></div>
+<div class="ttc" id="aa02228_html"><div class="ttname"><a href="a02228.html">bl::ecs::Optional</a></div><div class="ttdef"><b>Definition:</b> <a href="a00164_source.html#l00018">Tags.hpp:18</a></div></div>
+<div class="ttc" id="aa02264_html"><div class="ttname"><a href="a02264.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a05028_source.html#l00031">Engine.hpp:31</a></div></div>
+<div class="ttc" id="aa02316_html"><div class="ttname"><a href="a02316.html">bl::engine::System</a></div><div class="ttdoc">Base class for Engine systems which can be registered in the Systems registry.</div><div class="ttdef"><b>Definition:</b> <a href="a05031_source.html#l00018">System.hpp:18</a></div></div>
+<div class="ttc" id="aa02352_html"><div class="ttname"><a href="a02352.html">bl::event::Listener</a></div><div class="ttdoc">Listener of multiple event types. Listeners should inherit this class with the types of events they w...</div><div class="ttdef"><b>Definition:</b> <a href="a05046_source.html#l00049">Listener.hpp:49</a></div></div>
+<div class="ttc" id="aa03080_html"><div class="ttname"><a href="a03080.html">bl::rc::Overlay</a></div><div class="ttdoc">Special type of scene specialized for 2d overlays with fixed cameras. Objects are organized into a tr...</div><div class="ttdef"><b>Definition:</b> <a href="a00698_source.html#l00036">Overlay.hpp:38</a></div></div>
+<div class="ttc" id="aa03088_html"><div class="ttname"><a href="a03088.html">bl::rc::ovy::OverlayObject</a></div><div class="ttdef"><b>Definition:</b> <a href="a00704_source.html#l00028">OverlayObject.hpp:31</a></div></div>
+<div class="ttc" id="aa03876_html"><div class="ttname"><a href="a03876.html">bl::sys::OverlayScalerSystem</a></div><div class="ttdoc">System that processes entities that are scaled for overlays. Keeps scales up-to-date as overlay size ...</div><div class="ttdef"><b>Definition:</b> <a href="a01013_source.html#l00028">OverlayScalerSystem.hpp:31</a></div></div>
+<div class="ttc" id="aa03876_html_a0ad29736ce5c3a7f845d77df11881700"><div class="ttname"><a href="a03876.html#a0ad29736ce5c3a7f845d77df11881700">bl::sys::OverlayScalerSystem::~OverlayScalerSystem</a></div><div class="ttdeci">virtual ~OverlayScalerSystem()=default</div><div class="ttdoc">Destroys the system.</div></div>
+<div class="ttc" id="aa03876_html_a75639242703a1261289a6009aa8ecd4d"><div class="ttname"><a href="a03876.html#a75639242703a1261289a6009aa8ecd4d">bl::sys::OverlayScalerSystem::OverlayScalerSystem</a></div><div class="ttdeci">OverlayScalerSystem()=default</div><div class="ttdoc">Creates the system.</div></div>
+<div class="ttc" id="aa05016_html"><div class="ttname"><a href="a05016.html">Transform2D.hpp</a></div></div>
+<div class="ttc" id="aa05031_html"><div class="ttname"><a href="a05031.html">System.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 30 2023 22:56:46 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Oct 8 2023 18:56:18 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

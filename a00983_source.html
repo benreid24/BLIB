@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Systems/DescriptorComponentSystem.hpp Source File</title>
+<title>BLIB: include/BLIB/Serialization/JSON.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,78 +66,25 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_daaf59349fe9c08c8ba4d716035ae7ff.html">Systems</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_0603dcfd3f324f38b3f10f913306f40f.html">Serialization</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">DescriptorComponentSystem.hpp</div>  </div>
+<div class="title">JSON.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00983.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_SYSTEMS_GENERICDESCRIPTORCOMPONENTSYSTEM_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_SYSTEMS_GENERICDESCRIPTORCOMPONENTSYSTEM_HPP</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00113.html">BLIB/ECS/ComponentPool.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a04814.html">BLIB/Engine/System.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00542.html">BLIB/Render/Components/DescriptorComponentBase.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01760.html">bl</a></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>sys</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCom, <span class="keyword">typename</span> TPayload&gt;</div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a03761.html">   21</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03761.html">DescriptorComponentSystem</a> : <span class="keyword">public</span> <a class="code" href="a02237.html">engine::System</a> {</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    static_assert(std::is_base_of_v&lt;<a class="code" href="a02777.html">rc::rcom::DescriptorComponentBase&lt;TCom, TPayload&gt;</a>, TCom&gt;,</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;                  <span class="stringliteral">&quot;Component must derive from DescriptorComponentBase&quot;</span>);</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a03761.html#a07b0ff9c152abf391818cd3db442ca16">   29</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03761.html#a07b0ff9c152abf391818cd3db442ca16">~DescriptorComponentSystem</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03761.html#ad33b2b448307fb76cd777681e5f1caa9">update</a>(std::mutex&amp;, <span class="keywordtype">float</span>) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03761.html#a88174e900b7f3aaa151a8aaa80ab6145">init</a>(<a class="code" href="a02185.html">engine::Engine</a>&amp; engine) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <a class="code" href="a02069.html">ecs::ComponentPool&lt;TCom&gt;</a>* pool;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;};</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> TP&gt;</div>
-<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="a03761.html#ad33b2b448307fb76cd777681e5f1caa9">   53</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03761.html#ad33b2b448307fb76cd777681e5f1caa9">DescriptorComponentSystem&lt;T, TP&gt;::update</a>(std::mutex&amp;, <span class="keywordtype">float</span>) {</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    pool-&gt;forEach([](<a class="code" href="a02093.html">ecs::Entity</a>, T&amp; component) {</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="keywordflow">if</span> (component.isDirty()) { component.refresh(); }</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    });</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;}</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> TP&gt;</div>
-<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="a03761.html#a88174e900b7f3aaa151a8aaa80ab6145">   60</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03761.html#a88174e900b7f3aaa151a8aaa80ab6145">DescriptorComponentSystem&lt;T, TP&gt;::init</a>(<a class="code" href="a02185.html">engine::Engine</a>&amp; engine) {</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    pool = &amp;engine.<a class="code" href="a02185.html#a25e3869bfc4a1fefd83bcd5773c7a5ef">ecs</a>().<a class="code" href="a02141.html#ad2433cd1f5616de65803be33b792657b">getAllComponents</a>&lt;T&gt;();</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;}</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;} <span class="comment">// namespace sys</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00113_html"><div class="ttname"><a href="a00113.html">ComponentPool.hpp</a></div></div>
-<div class="ttc" id="aa00542_html"><div class="ttname"><a href="a00542.html">DescriptorComponentBase.hpp</a></div></div>
-<div class="ttc" id="aa01760_html"><div class="ttname"><a href="a01760.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02069_html"><div class="ttname"><a href="a02069.html">bl::ecs::ComponentPool&lt; TCom &gt;</a></div></div>
-<div class="ttc" id="aa02093_html"><div class="ttname"><a href="a02093.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition:</b> <a href="a00125_source.html#l00023">Entity.hpp:23</a></div></div>
-<div class="ttc" id="aa02141_html_ad2433cd1f5616de65803be33b792657b"><div class="ttname"><a href="a02141.html#ad2433cd1f5616de65803be33b792657b">bl::ecs::Registry::getAllComponents</a></div><div class="ttdeci">ComponentPool&lt; T &gt; &amp; getAllComponents()</div><div class="ttdoc">Returns an iterable component pool for the given component type.</div><div class="ttdef"><b>Definition:</b> <a href="a00134_source.html#l00367">Registry.hpp:367</a></div></div>
-<div class="ttc" id="aa02185_html"><div class="ttname"><a href="a02185.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a04811_source.html#l00031">Engine.hpp:31</a></div></div>
-<div class="ttc" id="aa02185_html_a25e3869bfc4a1fefd83bcd5773c7a5ef"><div class="ttname"><a href="a02185.html#a25e3869bfc4a1fefd83bcd5773c7a5ef">bl::engine::Engine::ecs</a></div><div class="ttdeci">ecs::Registry &amp; ecs()</div><div class="ttdoc">Returns a reference to the engine wide entity registry.</div><div class="ttdef"><b>Definition:</b> <a href="a04811_source.html#l00167">Engine.hpp:167</a></div></div>
-<div class="ttc" id="aa02237_html"><div class="ttname"><a href="a02237.html">bl::engine::System</a></div><div class="ttdoc">Base class for Engine systems which can be registered in the Systems registry.</div><div class="ttdef"><b>Definition:</b> <a href="a04814_source.html#l00018">System.hpp:18</a></div></div>
-<div class="ttc" id="aa02777_html"><div class="ttname"><a href="a02777.html">bl::rc::rcom::DescriptorComponentBase</a></div><div class="ttdoc">Base class for ECS components that map into descriptor sets.</div><div class="ttdef"><b>Definition:</b> <a href="a00542_source.html#l00031">DescriptorComponentBase.hpp:31</a></div></div>
-<div class="ttc" id="aa03761_html"><div class="ttname"><a href="a03761.html">bl::sys::DescriptorComponentSystem</a></div><div class="ttdoc">Templated system for managing ECS components that sync into renderer descriptor sets....</div><div class="ttdef"><b>Definition:</b> <a href="a00983_source.html#l00021">DescriptorComponentSystem.hpp:21</a></div></div>
-<div class="ttc" id="aa03761_html_a07b0ff9c152abf391818cd3db442ca16"><div class="ttname"><a href="a03761.html#a07b0ff9c152abf391818cd3db442ca16">bl::sys::DescriptorComponentSystem::~DescriptorComponentSystem</a></div><div class="ttdeci">virtual ~DescriptorComponentSystem()=default</div><div class="ttdoc">Destroys the system.</div></div>
-<div class="ttc" id="aa03761_html_a88174e900b7f3aaa151a8aaa80ab6145"><div class="ttname"><a href="a03761.html#a88174e900b7f3aaa151a8aaa80ab6145">bl::sys::DescriptorComponentSystem::init</a></div><div class="ttdeci">virtual void init(engine::Engine &amp;engine) override</div><div class="ttdoc">Initializes the system.</div><div class="ttdef"><b>Definition:</b> <a href="a00983_source.html#l00060">DescriptorComponentSystem.hpp:60</a></div></div>
-<div class="ttc" id="aa03761_html_ad33b2b448307fb76cd777681e5f1caa9"><div class="ttname"><a href="a03761.html#ad33b2b448307fb76cd777681e5f1caa9">bl::sys::DescriptorComponentSystem::update</a></div><div class="ttdeci">virtual void update(std::mutex &amp;, float) override</div><div class="ttdoc">Refreshes dirty components and synchronizes them to scene buffers.</div><div class="ttdef"><b>Definition:</b> <a href="a00983_source.html#l00053">DescriptorComponentSystem.hpp:53</a></div></div>
-<div class="ttc" id="aa04814_html"><div class="ttname"><a href="a04814.html">System.hpp</a></div></div>
+<a href="a00983.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05115.html">BLIB/Serialization/JSON/JSON.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00986.html">BLIB/Serialization/JSON/JSONLoader.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05112.html">BLIB/Serialization/JSON/Serializer.hpp</a>&gt;</span></div>
+<div class="ttc" id="aa00986_html"><div class="ttname"><a href="a00986.html">JSONLoader.hpp</a></div></div>
+<div class="ttc" id="aa05112_html"><div class="ttname"><a href="a05112.html">Serializer.hpp</a></div></div>
+<div class="ttc" id="aa05115_html"><div class="ttname"><a href="a05115.html">JSON.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 30 2023 22:56:46 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Oct 8 2023 18:56:18 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

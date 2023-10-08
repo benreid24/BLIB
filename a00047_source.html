@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Components/Mesh.hpp Source File</title>
+<title>BLIB: include/BLIB/Cameras/Camera.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,50 +66,96 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_03a2a625e67597eb4ae66cccf6894c5e.html">Components</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_c04a943c4d3cd1d05b5d3c5b1d0dd453.html">Cameras</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Mesh.hpp</div>  </div>
+<div class="title">Camera.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00047.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_COMPONENTS_MESH_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_COMPONENTS_MESH_HPP</span></div>
+<a href="a00047.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_CAMERAS_CAMERA_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_CAMERAS_CAMERA_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00533.html">BLIB/Render/Buffers/IndexBuffer.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00545.html">BLIB/Render/Components/DrawableBase.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01760.html">bl</a></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>com</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a01925.html">   18</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a01925.html">Mesh</a> : <span class="keyword">public</span> <a class="code" href="a02781.html">rc::rcom::DrawableBase</a> {</div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a01925.html#a11a861d64d0ccbf3609b15778808ae30">   19</a></span>&#160;    <a class="code" href="a02765.html">rc::buf::IndexBuffer</a> <a class="code" href="a01925.html#a11a861d64d0ccbf3609b15778808ae30">gpuBuffer</a>;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a01925.html#af0c0061167c1dded9dc5c2b8a71aa93d">create</a>(<a class="code" href="a03277.html">rc::vk::VulkanState</a>&amp; vulkanState, std::uint32_t vertexCount,</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;                std::uint32_t indexCount);</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;};</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;} <span class="comment">// namespace com</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00533_html"><div class="ttname"><a href="a00533.html">IndexBuffer.hpp</a></div></div>
-<div class="ttc" id="aa00545_html"><div class="ttname"><a href="a00545.html">DrawableBase.hpp</a></div></div>
-<div class="ttc" id="aa01760_html"><div class="ttname"><a href="a01760.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa01925_html"><div class="ttname"><a href="a01925.html">bl::com::Mesh</a></div><div class="ttdoc">ECS component for a basic mesh from an index buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a00047_source.html#l00018">Mesh.hpp:18</a></div></div>
-<div class="ttc" id="aa01925_html_a11a861d64d0ccbf3609b15778808ae30"><div class="ttname"><a href="a01925.html#a11a861d64d0ccbf3609b15778808ae30">bl::com::Mesh::gpuBuffer</a></div><div class="ttdeci">rc::buf::IndexBuffer gpuBuffer</div><div class="ttdef"><b>Definition:</b> <a href="a00047_source.html#l00019">Mesh.hpp:19</a></div></div>
-<div class="ttc" id="aa01925_html_af0c0061167c1dded9dc5c2b8a71aa93d"><div class="ttname"><a href="a01925.html#af0c0061167c1dded9dc5c2b8a71aa93d">bl::com::Mesh::create</a></div><div class="ttdeci">void create(rc::vk::VulkanState &amp;vulkanState, std::uint32_t vertexCount, std::uint32_t indexCount)</div><div class="ttdoc">Helper method to initialize all the mesh data.</div><div class="ttdef"><b>Definition:</b> <a href="a01088_source.html#l00007">Mesh.cpp:7</a></div></div>
-<div class="ttc" id="aa02765_html"><div class="ttname"><a href="a02765.html">bl::rc::buf::IndexBufferT</a></div><div class="ttdoc">Basic index buffer class built on top of vk::Buffer. Intended for static mesh data.</div><div class="ttdef"><b>Definition:</b> <a href="a00533_source.html#l00025">IndexBuffer.hpp:25</a></div></div>
-<div class="ttc" id="aa02781_html"><div class="ttname"><a href="a02781.html">bl::rc::rcom::DrawableBase</a></div><div class="ttdoc">Base class for drawable scene components for the ECS. Provides common members.</div><div class="ttdef"><b>Definition:</b> <a href="a00545_source.html#l00020">DrawableBase.hpp:20</a></div></div>
-<div class="ttc" id="aa03277_html"><div class="ttname"><a href="a03277.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a00827_source.html#l00036">VulkanState.hpp:36</a></div></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01091.html">BLIB/Vulkan.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;glm/glm.hpp&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01803.html">bl</a></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>cam</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a01976.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="a01976.html">Camera</a> {</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a01976.html#a434913b782c5325363c947a70959f3c9">   22</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a01976.html#a434913b782c5325363c947a70959f3c9">~Camera</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a01976.html#afcc126b9a6540652fe62605674fcd190">   29</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a01976.html#afcc126b9a6540652fe62605674fcd190">update</a>(<span class="keywordtype">float</span> dt) = 0;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keyword">const</span> glm::mat4&amp; <a class="code" href="a01976.html#aa7d175dedf0a83d5acb4abdd7931109f">getViewMatrix</a>();</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">const</span> glm::mat4&amp; <a class="code" href="a01976.html#acf354685b1d274c379fe085076fa4051">getProjectionMatrix</a>(<span class="keyword">const</span> VkViewport&amp; viewport);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a01976.html#a395d70678534a5f5b6495bbb5c832598">setNearPlane</a>(<span class="keywordtype">float</span> nearValue);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a01976.html#a5a5b4868ae35b77f52c2f878b18bcc59">setFarPlane</a>(<span class="keywordtype">float</span> farValue);</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a01976.html#a60e436aa6a89793a9e3fd8c3b0378fbf">setNearAndFarPlanes</a>(<span class="keywordtype">float</span> nearValue, <span class="keywordtype">float</span> farValue);</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <a class="code" href="a01976.html#a371f8cb60ba6a690287f556a91163fa8">Camera</a>();</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a01976.html#a194c42e28c9bc4558095265ca862e761">markViewDirty</a>();</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a01976.html#a8db0b22739ed85a8dc29ec7082d04640">markProjDirty</a>();</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00087"></a><span class="lineno"><a class="line" href="a01976.html#ad997afe84942385e1fc059ad44d59782">   87</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a01976.html#ad997afe84942385e1fc059ad44d59782">refreshViewMatrix</a>(glm::mat4&amp; view) = 0;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
+<div class="line"><a name="l00095"></a><span class="lineno"><a class="line" href="a01976.html#ad84589ac3d7c29b7ef31ba89729c4860">   95</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a01976.html#ad84589ac3d7c29b7ef31ba89729c4860">refreshProjMatrix</a>(glm::mat4&amp; proj, <span class="keyword">const</span> VkViewport&amp; viewport) = 0;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    constexpr <span class="keywordtype">float</span> <a class="code" href="a01976.html#a9c66151fa1d297f82526d18b38836c2f">nearPlane</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    constexpr <span class="keywordtype">float</span> <a class="code" href="a01976.html#a8e2441211f24e3d0c682ea3ecfe1b168">farPlane</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    glm::mat4 view;</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keywordtype">bool</span> viewDirty;</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    glm::mat4 proj;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keywordtype">bool</span> projDirty;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keywordtype">float</span> vpWidth, vpHeight;</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keywordtype">float</span> nearValue, farValue;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;};</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
+<div class="line"><a name="l00119"></a><span class="lineno"><a class="line" href="a01976.html#a9c66151fa1d297f82526d18b38836c2f">  119</a></span>&#160;<span class="keyword">inline</span> constexpr <span class="keywordtype">float</span> <a class="code" href="a01976.html#a9c66151fa1d297f82526d18b38836c2f">Camera::nearPlane</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> nearValue; }</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
+<div class="line"><a name="l00121"></a><span class="lineno"><a class="line" href="a01976.html#a8e2441211f24e3d0c682ea3ecfe1b168">  121</a></span>&#160;<span class="keyword">inline</span> constexpr <span class="keywordtype">float</span> <a class="code" href="a01976.html#a8e2441211f24e3d0c682ea3ecfe1b168">Camera::farPlane</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> farValue; }</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;} <span class="comment">// namespace cam</span></div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01091_html"><div class="ttname"><a href="a01091.html">Vulkan.hpp</a></div></div>
+<div class="ttc" id="aa01803_html"><div class="ttname"><a href="a01803.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa01976_html"><div class="ttname"><a href="a01976.html">bl::cam::Camera</a></div><div class="ttdoc">Base class for all cameras.</div><div class="ttdef"><b>Definition:</b> <a href="a00047_source.html#l00017">Camera.hpp:17</a></div></div>
+<div class="ttc" id="aa01976_html_a194c42e28c9bc4558095265ca862e761"><div class="ttname"><a href="a01976.html#a194c42e28c9bc4558095265ca862e761">bl::cam::Camera::markViewDirty</a></div><div class="ttdeci">void markViewDirty()</div><div class="ttdoc">Mark the view matrix as needing to be refreshed on next use.</div><div class="ttdef"><b>Definition:</b> <a href="a01121_source.html#l00053">Camera.cpp:53</a></div></div>
+<div class="ttc" id="aa01976_html_a371f8cb60ba6a690287f556a91163fa8"><div class="ttname"><a href="a01976.html#a371f8cb60ba6a690287f556a91163fa8">bl::cam::Camera::Camera</a></div><div class="ttdeci">Camera()</div><div class="ttdoc">Construct a new Camera.</div><div class="ttdef"><b>Definition:</b> <a href="a01121_source.html#l00009">Camera.cpp:9</a></div></div>
+<div class="ttc" id="aa01976_html_a395d70678534a5f5b6495bbb5c832598"><div class="ttname"><a href="a01976.html#a395d70678534a5f5b6495bbb5c832598">bl::cam::Camera::setNearPlane</a></div><div class="ttdeci">void setNearPlane(float nearValue)</div><div class="ttdoc">Sets the near plane distance.</div><div class="ttdef"><b>Definition:</b> <a href="a01121_source.html#l00019">Camera.cpp:19</a></div></div>
+<div class="ttc" id="aa01976_html_a434913b782c5325363c947a70959f3c9"><div class="ttname"><a href="a01976.html#a434913b782c5325363c947a70959f3c9">bl::cam::Camera::~Camera</a></div><div class="ttdeci">virtual ~Camera()=default</div><div class="ttdoc">Destroy the Camera object.</div></div>
+<div class="ttc" id="aa01976_html_a5a5b4868ae35b77f52c2f878b18bcc59"><div class="ttname"><a href="a01976.html#a5a5b4868ae35b77f52c2f878b18bcc59">bl::cam::Camera::setFarPlane</a></div><div class="ttdeci">void setFarPlane(float farValue)</div><div class="ttdoc">Sets the far plane distance.</div><div class="ttdef"><b>Definition:</b> <a href="a01121_source.html#l00024">Camera.cpp:24</a></div></div>
+<div class="ttc" id="aa01976_html_a60e436aa6a89793a9e3fd8c3b0378fbf"><div class="ttname"><a href="a01976.html#a60e436aa6a89793a9e3fd8c3b0378fbf">bl::cam::Camera::setNearAndFarPlanes</a></div><div class="ttdeci">void setNearAndFarPlanes(float nearValue, float farValue)</div><div class="ttdoc">Sets the distance to the near and far planes.</div><div class="ttdef"><b>Definition:</b> <a href="a01121_source.html#l00029">Camera.cpp:29</a></div></div>
+<div class="ttc" id="aa01976_html_a8db0b22739ed85a8dc29ec7082d04640"><div class="ttname"><a href="a01976.html#a8db0b22739ed85a8dc29ec7082d04640">bl::cam::Camera::markProjDirty</a></div><div class="ttdeci">void markProjDirty()</div><div class="ttdoc">Marks the projection matrix as needing to be refreshed on next use.</div><div class="ttdef"><b>Definition:</b> <a href="a01121_source.html#l00055">Camera.cpp:55</a></div></div>
+<div class="ttc" id="aa01976_html_a8e2441211f24e3d0c682ea3ecfe1b168"><div class="ttname"><a href="a01976.html#a8e2441211f24e3d0c682ea3ecfe1b168">bl::cam::Camera::farPlane</a></div><div class="ttdeci">constexpr float farPlane() const</div><div class="ttdoc">Returns the distance to the far plane.</div><div class="ttdef"><b>Definition:</b> <a href="a00047_source.html#l00121">Camera.hpp:121</a></div></div>
+<div class="ttc" id="aa01976_html_a9c66151fa1d297f82526d18b38836c2f"><div class="ttname"><a href="a01976.html#a9c66151fa1d297f82526d18b38836c2f">bl::cam::Camera::nearPlane</a></div><div class="ttdeci">constexpr float nearPlane() const</div><div class="ttdoc">Returns the distance to the near plane.</div><div class="ttdef"><b>Definition:</b> <a href="a00047_source.html#l00119">Camera.hpp:119</a></div></div>
+<div class="ttc" id="aa01976_html_aa7d175dedf0a83d5acb4abdd7931109f"><div class="ttname"><a href="a01976.html#aa7d175dedf0a83d5acb4abdd7931109f">bl::cam::Camera::getViewMatrix</a></div><div class="ttdeci">const glm::mat4 &amp; getViewMatrix()</div><div class="ttdoc">Returns the view matrix of this camera.</div><div class="ttdef"><b>Definition:</b> <a href="a01121_source.html#l00035">Camera.cpp:35</a></div></div>
+<div class="ttc" id="aa01976_html_acf354685b1d274c379fe085076fa4051"><div class="ttname"><a href="a01976.html#acf354685b1d274c379fe085076fa4051">bl::cam::Camera::getProjectionMatrix</a></div><div class="ttdeci">const glm::mat4 &amp; getProjectionMatrix(const VkViewport &amp;viewport)</div><div class="ttdoc">Returns the projection matrix of this camera for the given viewport.</div><div class="ttdef"><b>Definition:</b> <a href="a01121_source.html#l00043">Camera.cpp:43</a></div></div>
+<div class="ttc" id="aa01976_html_ad84589ac3d7c29b7ef31ba89729c4860"><div class="ttname"><a href="a01976.html#ad84589ac3d7c29b7ef31ba89729c4860">bl::cam::Camera::refreshProjMatrix</a></div><div class="ttdeci">virtual void refreshProjMatrix(glm::mat4 &amp;proj, const VkViewport &amp;viewport)=0</div><div class="ttdoc">Called when the projection matrix needs to be refreshed.</div></div>
+<div class="ttc" id="aa01976_html_ad997afe84942385e1fc059ad44d59782"><div class="ttname"><a href="a01976.html#ad997afe84942385e1fc059ad44d59782">bl::cam::Camera::refreshViewMatrix</a></div><div class="ttdeci">virtual void refreshViewMatrix(glm::mat4 &amp;view)=0</div><div class="ttdoc">Called when the view matrix needs to be refreshed.</div></div>
+<div class="ttc" id="aa01976_html_afcc126b9a6540652fe62605674fcd190"><div class="ttname"><a href="a01976.html#afcc126b9a6540652fe62605674fcd190">bl::cam::Camera::update</a></div><div class="ttdeci">virtual void update(float dt)=0</div><div class="ttdoc">Updates the camera.</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 30 2023 22:56:45 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Oct 8 2023 18:56:18 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

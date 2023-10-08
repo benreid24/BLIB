@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Interfaces/GUI/Elements/Box.cpp Source File</title>
+<title>BLIB: src/Graphics/Triangle.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,100 +66,97 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_ce6405ba0afce575b27b3b998c1d24f9.html">Interfaces</a></li><li class="navelem"><a class="el" href="dir_8031c595bb16908e26701cd6b5d8df53.html">GUI</a></li><li class="navelem"><a class="el" href="dir_2f8d53e1ba10fbf191c8865f2f20ae97.html">Elements</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3419e189e460663ec2c964233bf8dcd6.html">Graphics</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Box.cpp</div>  </div>
+<div class="title">Triangle.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01199.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00296.html">BLIB/Interfaces/GUI/Elements/Box.hpp</a>&gt;</span></div>
+<a href="a01199.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00287.html">BLIB/Graphics/Triangle.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01760.html">bl</a></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01803.html">bl</a></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>gui</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>gfx</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;constexpr <span class="keywordtype">float</span> DefaultOutline = 1.f;</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;}</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="a02429.html#a784211be6923ca5955a362aa36583d3c">   12</a></span>&#160;<a class="code" href="a02429.html#ad3818332d4ae07ebaf60e0458c6b7a57">Box::Ptr</a> <a class="code" href="a02429.html#a784211be6923ca5955a362aa36583d3c">Box::create</a>(<a class="code" href="a02533.html#ae16cb4c26ab7e5dd1d8cbdc5598bf073">Packer::Ptr</a> packer) {</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keyword">auto</span> p = <a class="code" href="a02429.html#ad3818332d4ae07ebaf60e0458c6b7a57">Ptr</a>(<span class="keyword">new</span> <a class="code" href="a02429.html#a41cad65eed555a0876638716c4d56961">Box</a>(packer));</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="keywordflow">return</span> p;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;}</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a02429.html#a41cad65eed555a0876638716c4d56961">   17</a></span>&#160;<a class="code" href="a02429.html#a41cad65eed555a0876638716c4d56961">Box::Box</a>(<a class="code" href="a02533.html#ae16cb4c26ab7e5dd1d8cbdc5598bf073">Packer::Ptr</a> packer)</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;: <a class="code" href="a02453.html">Container</a>()</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;, packer(packer)</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;, computeView(true) {}</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a02429.html#a3e59024eae1cbdc3ea68ecc6543aa69e">   22</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02429.html#a3e59024eae1cbdc3ea68ecc6543aa69e">Box::setConstrainView</a>(<span class="keywordtype">bool</span> c) { computeView = c; }</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a02429.html#a9a0273a03ce0476086cec496e0c9f029">   24</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02429.html#a9a0273a03ce0476086cec496e0c9f029">Box::setPacker</a>(<a class="code" href="a02533.html#ae16cb4c26ab7e5dd1d8cbdc5598bf073">Packer::Ptr</a> p) {</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    packer = p;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <a class="code" href="a02457.html#a25f12a23ffb09b4a0fb6eb92f005d810">makeDirty</a>();</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;}</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a02429.html#ae85eaf76ae1d782b8d63dc4ab46edddb">   29</a></span>&#160;sf::Vector2f <a class="code" href="a02429.html#ae85eaf76ae1d782b8d63dc4ab46edddb">Box::minimumRequisition</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> outline = <a class="code" href="a02457.html#aea5114a9914b0b8534951d0e488b1419">renderSettings</a>().<a class="code" href="a02553.html#a2f17a345da820fb310b8afb40896043f">outlineThickness</a>.value_or(DefaultOutline);</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordflow">return</span> packer-&gt;getRequisition(<a class="code" href="a02453.html#adbc88c26ae99dce3addf0d4fd5d128a5">getChildren</a>()) + 2.f * sf::Vector2f(outline, outline);</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;}</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="a02429.html#af26fd00097aac9c3f47d2a065d9b136b">   34</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02429.html#af26fd00097aac9c3f47d2a065d9b136b">Box::onAcquisition</a>() {</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> outline = <a class="code" href="a02457.html#aea5114a9914b0b8534951d0e488b1419">renderSettings</a>().<a class="code" href="a02553.html#a2f17a345da820fb310b8afb40896043f">outlineThickness</a>.value_or(DefaultOutline);</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    sf::FloatRect area(<a class="code" href="a02457.html#af0695b05e105ed699a612ed3a3c0c84f">getAcquisition</a>().left + outline,</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;                       <a class="code" href="a02457.html#af0695b05e105ed699a612ed3a3c0c84f">getAcquisition</a>().top + outline,</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;                       <a class="code" href="a02457.html#af0695b05e105ed699a612ed3a3c0c84f">getAcquisition</a>().width - outline * 2.f,</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;                       <a class="code" href="a02457.html#af0695b05e105ed699a612ed3a3c0c84f">getAcquisition</a>().height - outline * 2.f);</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    packer-&gt;pack(area, <a class="code" href="a02453.html#adbc88c26ae99dce3addf0d4fd5d128a5">getChildren</a>());</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;}</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="a02429.html#a3e71fdb946e0e5dff26e4290a4b06e7c">   43</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02429.html#a3e71fdb946e0e5dff26e4290a4b06e7c">Box::pack</a>(<a class="code" href="a02457.html#a21b57f73febb9e1c62e8abcef64b1654">Element::Ptr</a> e) { <a class="code" href="a02453.html#a23ad5e0f3e336fcda9fe8ce76c77b2c1">add</a>(e); }</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="a02429.html#adfe09491e4fadedc94ec5bc758a39607">   45</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02429.html#a3e71fdb946e0e5dff26e4290a4b06e7c">Box::pack</a>(<a class="code" href="a02457.html#a21b57f73febb9e1c62e8abcef64b1654">Element::Ptr</a> e, <span class="keywordtype">bool</span> fx, <span class="keywordtype">bool</span> fy) {</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    e-&gt;setExpandsWidth(fx);</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    e-&gt;setExpandsHeight(fy);</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <a class="code" href="a02453.html#a23ad5e0f3e336fcda9fe8ce76c77b2c1">add</a>(e);</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;}</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="a02429.html#a89341d88b4f4c1f4cb4cb94de4ffc0db">   51</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02429.html#a89341d88b4f4c1f4cb4cb94de4ffc0db">Box::doRender</a>(sf::RenderTarget&amp; target, sf::RenderStates states,</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                   <span class="keyword">const</span> <a class="code" href="a02545.html">Renderer</a>&amp; renderer)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    renderer.<a class="code" href="a02545.html#ad337b6a9e341c43e640671015356257c">renderBox</a>(target, states, *<span class="keyword">this</span>);</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <a class="code" href="a02453.html#a1aa90c83914d0934cfc7862163cec495">renderChildren</a>(target, states, renderer, computeView);</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;}</div>
+<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="a02468.html#aa215470453c62bd420e5062cec5eb6b9">    7</a></span>&#160;<a class="code" href="a02468.html#aa215470453c62bd420e5062cec5eb6b9">Triangle::Triangle</a>()</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;: <a class="code" href="a02428.html">Shape2D</a>()</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;, points{}</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;, colors{}</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;, hasColorOverride(false) {}</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="a02468.html#a245aef412d10f0e2314d1ac05e3ca03e">   13</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02468.html#a245aef412d10f0e2314d1ac05e3ca03e">Triangle::create</a>(<a class="code" href="a02264.html">engine::Engine</a>&amp; engine, <span class="keyword">const</span> glm::vec2&amp; p0, <span class="keyword">const</span> glm::vec2&amp; p1,</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;                      <span class="keyword">const</span> glm::vec2&amp; p2) {</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    points[0] = p0;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    points[1] = p1;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    points[2] = p2;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <a class="code" href="a02428.html#ae78fa689805524d596c7f1a04d2ee88a">Shape2D::create</a>(<a class="code" href="a02420.html#adef5d2a123c05b5b6f6be50c2ffe1454">engine</a>);</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;}</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a02468.html#a968de743b7a3c67d4fff7a9163ce89c7">   21</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02468.html#a245aef412d10f0e2314d1ac05e3ca03e">Triangle::create</a>(<a class="code" href="a02264.html">engine::Engine</a>&amp; engine, <span class="keyword">const</span> std::array&lt;glm::vec2, 3&gt;&amp; p) {</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    points[0] = p[0];</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    points[1] = p[1];</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    points[2] = p[2];</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <a class="code" href="a02428.html#ae78fa689805524d596c7f1a04d2ee88a">Shape2D::create</a>(<a class="code" href="a02420.html#adef5d2a123c05b5b6f6be50c2ffe1454">engine</a>);</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;}</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a02468.html#a0a38fff4a8cbaa60b62d511b59b0be9e">   28</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02468.html#a0a38fff4a8cbaa60b62d511b59b0be9e">Triangle::setPoints</a>(<span class="keyword">const</span> glm::vec2&amp; p0, <span class="keyword">const</span> glm::vec2&amp; p1, <span class="keyword">const</span> glm::vec2&amp; p2) {</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    points[0] = p0;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    points[1] = p1;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    points[2] = p2;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <a class="code" href="a02428.html#a9b714e84569ab1a72067d97108f92911">markDirty</a>();</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;}</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="a02468.html#abf73a7c2cf382283c627a0eab6810cb6">   35</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02468.html#a0a38fff4a8cbaa60b62d511b59b0be9e">Triangle::setPoints</a>(<span class="keyword">const</span> std::array&lt;glm::vec2, 3&gt;&amp; p) {</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    points[0] = p[0];</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    points[1] = p[1];</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    points[2] = p[2];</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <a class="code" href="a02428.html#a9b714e84569ab1a72067d97108f92911">markDirty</a>();</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;}</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="a02468.html#aa3b18cb1d9a247f295a2f08b71822df9">   42</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02468.html#aa3b18cb1d9a247f295a2f08b71822df9">Triangle::setColorGradient</a>(<span class="keyword">const</span> glm::vec4&amp; c0, <span class="keyword">const</span> glm::vec4&amp; c1, <span class="keyword">const</span> glm::vec4&amp; c2) {</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    colors[0]        = c0;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    colors[1]        = c1;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    colors[2]        = c2;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    hasColorOverride = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <a class="code" href="a02428.html#a9b714e84569ab1a72067d97108f92911">markDirty</a>();</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;}</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="a02468.html#ad90ba1023593a7bb487aa8f61d1bdfae">   50</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02468.html#ad90ba1023593a7bb487aa8f61d1bdfae">Triangle::removeColorGradient</a>() {</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    hasColorOverride = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <a class="code" href="a02428.html#a9b714e84569ab1a72067d97108f92911">markDirty</a>();</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;}</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> Triangle::getVertexCount()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> 3; }</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;} <span class="comment">// namespace gui</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00296_html"><div class="ttname"><a href="a00296.html">Box.hpp</a></div></div>
-<div class="ttc" id="aa01760_html"><div class="ttname"><a href="a01760.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02429_html_a3e59024eae1cbdc3ea68ecc6543aa69e"><div class="ttname"><a href="a02429.html#a3e59024eae1cbdc3ea68ecc6543aa69e">bl::gui::Box::setConstrainView</a></div><div class="ttdeci">void setConstrainView(bool constrain)</div><div class="ttdoc">Set whether or not to constrain the render view. Default is true.</div><div class="ttdef"><b>Definition:</b> <a href="a01199_source.html#l00022">Box.cpp:22</a></div></div>
-<div class="ttc" id="aa02429_html_a3e71fdb946e0e5dff26e4290a4b06e7c"><div class="ttname"><a href="a02429.html#a3e71fdb946e0e5dff26e4290a4b06e7c">bl::gui::Box::pack</a></div><div class="ttdeci">void pack(Element::Ptr child)</div><div class="ttdoc">Adds the Element as a new child. Causes a refresh of acquisitions.</div><div class="ttdef"><b>Definition:</b> <a href="a01199_source.html#l00043">Box.cpp:43</a></div></div>
-<div class="ttc" id="aa02429_html_a41cad65eed555a0876638716c4d56961"><div class="ttname"><a href="a02429.html#a41cad65eed555a0876638716c4d56961">bl::gui::Box::Box</a></div><div class="ttdeci">Box(Packer::Ptr packer)</div><div class="ttdoc">Construct a new Container with the given id, group, and Packer.</div><div class="ttdef"><b>Definition:</b> <a href="a01199_source.html#l00017">Box.cpp:17</a></div></div>
-<div class="ttc" id="aa02429_html_a784211be6923ca5955a362aa36583d3c"><div class="ttname"><a href="a02429.html#a784211be6923ca5955a362aa36583d3c">bl::gui::Box::create</a></div><div class="ttdeci">static Ptr create(Packer::Ptr packer)</div><div class="ttdoc">Construct a new Box with the given id, group, and Packer.</div><div class="ttdef"><b>Definition:</b> <a href="a01199_source.html#l00012">Box.cpp:12</a></div></div>
-<div class="ttc" id="aa02429_html_a89341d88b4f4c1f4cb4cb94de4ffc0db"><div class="ttname"><a href="a02429.html#a89341d88b4f4c1f4cb4cb94de4ffc0db">bl::gui::Box::doRender</a></div><div class="ttdeci">virtual void doRender(sf::RenderTarget &amp;target, sf::RenderStates states, const Renderer &amp;renderer) const override</div><div class="ttdoc">Renders the container and all of its children in bottom up Z order.</div><div class="ttdef"><b>Definition:</b> <a href="a01199_source.html#l00051">Box.cpp:51</a></div></div>
-<div class="ttc" id="aa02429_html_a9a0273a03ce0476086cec496e0c9f029"><div class="ttname"><a href="a02429.html#a9a0273a03ce0476086cec496e0c9f029">bl::gui::Box::setPacker</a></div><div class="ttdeci">void setPacker(Packer::Ptr packer)</div><div class="ttdoc">Update the Packer used. Marks the Element as dirty.</div><div class="ttdef"><b>Definition:</b> <a href="a01199_source.html#l00024">Box.cpp:24</a></div></div>
-<div class="ttc" id="aa02429_html_ad3818332d4ae07ebaf60e0458c6b7a57"><div class="ttname"><a href="a02429.html#ad3818332d4ae07ebaf60e0458c6b7a57">bl::gui::Box::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; Box &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00296_source.html#l00023">Box.hpp:23</a></div></div>
-<div class="ttc" id="aa02429_html_ae85eaf76ae1d782b8d63dc4ab46edddb"><div class="ttname"><a href="a02429.html#ae85eaf76ae1d782b8d63dc4ab46edddb">bl::gui::Box::minimumRequisition</a></div><div class="ttdeci">virtual sf::Vector2f minimumRequisition() const override</div><div class="ttdoc">Returns the minimum requisition for the Container. This depends on the child elements and the Packer.</div><div class="ttdef"><b>Definition:</b> <a href="a01199_source.html#l00029">Box.cpp:29</a></div></div>
-<div class="ttc" id="aa02429_html_af26fd00097aac9c3f47d2a065d9b136b"><div class="ttname"><a href="a02429.html#af26fd00097aac9c3f47d2a065d9b136b">bl::gui::Box::onAcquisition</a></div><div class="ttdeci">virtual void onAcquisition() override</div><div class="ttdoc">Packs packable children into the assigned acquisition.</div><div class="ttdef"><b>Definition:</b> <a href="a01199_source.html#l00034">Box.cpp:34</a></div></div>
-<div class="ttc" id="aa02453_html"><div class="ttname"><a href="a02453.html">bl::gui::Container</a></div><div class="ttdoc">Base class for Elements that have child elements. Provides coordinate transformation for rendering an...</div><div class="ttdef"><b>Definition:</b> <a href="a00314_source.html#l00019">Container.hpp:19</a></div></div>
-<div class="ttc" id="aa02453_html_a1aa90c83914d0934cfc7862163cec495"><div class="ttname"><a href="a02453.html#a1aa90c83914d0934cfc7862163cec495">bl::gui::Container::renderChildren</a></div><div class="ttdeci">void renderChildren(sf::RenderTarget &amp;target, sf::RenderStates states, const Renderer &amp;renderer, bool changeView=true) const</div><div class="ttdoc">Renders all child elements.</div><div class="ttdef"><b>Definition:</b> <a href="a01214_source.html#l00131">Container.cpp:131</a></div></div>
-<div class="ttc" id="aa02453_html_a23ad5e0f3e336fcda9fe8ce76c77b2c1"><div class="ttname"><a href="a02453.html#a23ad5e0f3e336fcda9fe8ce76c77b2c1">bl::gui::Container::add</a></div><div class="ttdeci">void add(const Element::Ptr &amp;child)</div><div class="ttdoc">Adds the Element as a new child. Marks dirty. Note that this cannot be called from within the constru...</div><div class="ttdef"><b>Definition:</b> <a href="a01214_source.html#l00068">Container.cpp:68</a></div></div>
-<div class="ttc" id="aa02453_html_adbc88c26ae99dce3addf0d4fd5d128a5"><div class="ttname"><a href="a02453.html#adbc88c26ae99dce3addf0d4fd5d128a5">bl::gui::Container::getChildren</a></div><div class="ttdeci">const std::vector&lt; Element::Ptr &gt; &amp; getChildren() const</div><div class="ttdoc">Returns a non mutable list of the child elements. Each element is mutable.</div><div class="ttdef"><b>Definition:</b> <a href="a01214_source.html#l00075">Container.cpp:75</a></div></div>
-<div class="ttc" id="aa02457_html_a21b57f73febb9e1c62e8abcef64b1654"><div class="ttname"><a href="a02457.html#a21b57f73febb9e1c62e8abcef64b1654">bl::gui::Element::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; Element &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00317_source.html#l00034">Element.hpp:34</a></div></div>
-<div class="ttc" id="aa02457_html_a25f12a23ffb09b4a0fb6eb92f005d810"><div class="ttname"><a href="a02457.html#a25f12a23ffb09b4a0fb6eb92f005d810">bl::gui::Element::makeDirty</a></div><div class="ttdeci">void makeDirty()</div><div class="ttdoc">Marks this Element as requiring a recalculation of acquisition.</div><div class="ttdef"><b>Definition:</b> <a href="a01217_source.html#l00222">Element.cpp:222</a></div></div>
-<div class="ttc" id="aa02457_html_aea5114a9914b0b8534951d0e488b1419"><div class="ttname"><a href="a02457.html#aea5114a9914b0b8534951d0e488b1419">bl::gui::Element::renderSettings</a></div><div class="ttdeci">const RenderSettings &amp; renderSettings() const</div><div class="ttdoc">Returns the render settings for this object.</div><div class="ttdef"><b>Definition:</b> <a href="a01217_source.html#l00331">Element.cpp:331</a></div></div>
-<div class="ttc" id="aa02457_html_af0695b05e105ed699a612ed3a3c0c84f"><div class="ttname"><a href="a02457.html#af0695b05e105ed699a612ed3a3c0c84f">bl::gui::Element::getAcquisition</a></div><div class="ttdeci">const sf::FloatRect &amp; getAcquisition() const</div><div class="ttdoc">Returns the acquisition of the Element. This is the size allocated to it, and mays be larger or equal...</div><div class="ttdef"><b>Definition:</b> <a href="a01217_source.html#l00308">Element.cpp:308</a></div></div>
-<div class="ttc" id="aa02533_html_ae16cb4c26ab7e5dd1d8cbdc5598bf073"><div class="ttname"><a href="a02533.html#ae16cb4c26ab7e5dd1d8cbdc5598bf073">bl::gui::Packer::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; Packer &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00365_source.html#l00022">Packer.hpp:22</a></div></div>
-<div class="ttc" id="aa02545_html"><div class="ttname"><a href="a02545.html">bl::gui::Renderer</a></div><div class="ttdoc">Interface for renderers for GUIs. Derived classes may elect to inherit from DefaultRenderer and only ...</div><div class="ttdef"><b>Definition:</b> <a href="a04853_source.html#l00037">Renderer.hpp:37</a></div></div>
-<div class="ttc" id="aa02545_html_ad337b6a9e341c43e640671015356257c"><div class="ttname"><a href="a02545.html#ad337b6a9e341c43e640671015356257c">bl::gui::Renderer::renderBox</a></div><div class="ttdeci">virtual void renderBox(sf::RenderTarget &amp;target, sf::RenderStates states, const Element &amp;container) const =0</div><div class="ttdoc">Renders a Box element.</div></div>
-<div class="ttc" id="aa02553_html_a2f17a345da820fb310b8afb40896043f"><div class="ttname"><a href="a02553.html#a2f17a345da820fb310b8afb40896043f">bl::gui::RenderSettings::outlineThickness</a></div><div class="ttdeci">std::optional&lt; float &gt; outlineThickness</div><div class="ttdef"><b>Definition:</b> <a href="a00380_source.html#l00038">RenderSettings.hpp:38</a></div></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="keywordtype">void</span> Triangle::populateVertex(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i, <a class="code" href="a03108.html">rc::prim::Vertex</a>&amp; vertex) {</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    vertex.<a class="code" href="a03108.html#aedd9c74835faffffa3fad63d0220783b">pos</a> = {points[i], 0.f};</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordflow">if</span> (hasColorOverride) { vertex.<a class="code" href="a03108.html#a16b8a1f1ea8391b3341ad465eb4e1100">color</a> = colors[i]; }</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;}</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;} <span class="comment">// namespace gfx</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00287_html"><div class="ttname"><a href="a00287.html">Triangle.hpp</a></div></div>
+<div class="ttc" id="aa01803_html"><div class="ttname"><a href="a01803.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02264_html"><div class="ttname"><a href="a02264.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a05028_source.html#l00031">Engine.hpp:31</a></div></div>
+<div class="ttc" id="aa02420_html_adef5d2a123c05b5b6f6be50c2ffe1454"><div class="ttname"><a href="a02420.html#adef5d2a123c05b5b6f6be50c2ffe1454">bl::gfx::Drawable&lt; com::Shape2D &gt;::engine</a></div><div class="ttdeci">constexpr engine::Engine &amp; engine()</div><div class="ttdoc">Returns the game engine instance. Only call after create()</div><div class="ttdef"><b>Definition:</b> <a href="a00269_source.html#l00128">Drawable.hpp:302</a></div></div>
+<div class="ttc" id="aa02428_html"><div class="ttname"><a href="a02428.html">bl::gfx::Shape2D</a></div><div class="ttdoc">Base class for 2d shapes. Provides index buffer creation and management.</div><div class="ttdef"><b>Definition:</b> <a href="a04989_source.html#l00018">Shape2D.hpp:20</a></div></div>
+<div class="ttc" id="aa02428_html_a9b714e84569ab1a72067d97108f92911"><div class="ttname"><a href="a02428.html#a9b714e84569ab1a72067d97108f92911">bl::gfx::Shape2D::markDirty</a></div><div class="ttdeci">void markDirty()</div><div class="ttdoc">Call whenever the vertices need to be refreshed.</div><div class="ttdef"><b>Definition:</b> <a href="a05064_source.html#l00053">Shape2D.cpp:53</a></div></div>
+<div class="ttc" id="aa02428_html_ae78fa689805524d596c7f1a04d2ee88a"><div class="ttname"><a href="a02428.html#ae78fa689805524d596c7f1a04d2ee88a">bl::gfx::Shape2D::create</a></div><div class="ttdeci">void create(engine::Engine &amp;engine)</div><div class="ttdoc">Creates the ECS entity and required components.</div><div class="ttdef"><b>Definition:</b> <a href="a05064_source.html#l00062">Shape2D.cpp:62</a></div></div>
+<div class="ttc" id="aa02468_html_a0a38fff4a8cbaa60b62d511b59b0be9e"><div class="ttname"><a href="a02468.html#a0a38fff4a8cbaa60b62d511b59b0be9e">bl::gfx::Triangle::setPoints</a></div><div class="ttdeci">void setPoints(const glm::vec2 &amp;p0, const glm::vec2 &amp;p1, const glm::vec2 &amp;p2)</div><div class="ttdoc">Sets the points to make the triangle with.</div><div class="ttdef"><b>Definition:</b> <a href="a01199_source.html#l00028">Triangle.cpp:28</a></div></div>
+<div class="ttc" id="aa02468_html_a245aef412d10f0e2314d1ac05e3ca03e"><div class="ttname"><a href="a02468.html#a245aef412d10f0e2314d1ac05e3ca03e">bl::gfx::Triangle::create</a></div><div class="ttdeci">void create(engine::Engine &amp;engine, const glm::vec2 &amp;p0, const glm::vec2 &amp;p1, const glm::vec2 &amp;p2)</div><div class="ttdoc">Creates the triangle shape from 3 points (should not be co-linear)</div><div class="ttdef"><b>Definition:</b> <a href="a01199_source.html#l00013">Triangle.cpp:13</a></div></div>
+<div class="ttc" id="aa02468_html_aa215470453c62bd420e5062cec5eb6b9"><div class="ttname"><a href="a02468.html#aa215470453c62bd420e5062cec5eb6b9">bl::gfx::Triangle::Triangle</a></div><div class="ttdeci">Triangle()</div><div class="ttdoc">Does nothing.</div><div class="ttdef"><b>Definition:</b> <a href="a01199_source.html#l00007">Triangle.cpp:7</a></div></div>
+<div class="ttc" id="aa02468_html_aa3b18cb1d9a247f295a2f08b71822df9"><div class="ttname"><a href="a02468.html#aa3b18cb1d9a247f295a2f08b71822df9">bl::gfx::Triangle::setColorGradient</a></div><div class="ttdeci">void setColorGradient(const glm::vec4 &amp;c0, const glm::vec4 &amp;c1, const glm::vec4 &amp;c2)</div><div class="ttdoc">Overrides the fill color to create a gradient with each point having it's own color.</div><div class="ttdef"><b>Definition:</b> <a href="a01199_source.html#l00042">Triangle.cpp:42</a></div></div>
+<div class="ttc" id="aa02468_html_ad90ba1023593a7bb487aa8f61d1bdfae"><div class="ttname"><a href="a02468.html#ad90ba1023593a7bb487aa8f61d1bdfae">bl::gfx::Triangle::removeColorGradient</a></div><div class="ttdeci">void removeColorGradient()</div><div class="ttdoc">Removes the color gradient and falls back to the fill color.</div><div class="ttdef"><b>Definition:</b> <a href="a01199_source.html#l00050">Triangle.cpp:50</a></div></div>
+<div class="ttc" id="aa03108_html"><div class="ttname"><a href="a03108.html">bl::rc::prim::Vertex</a></div><div class="ttdoc">Base Vertex primitive for the renderer.</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00022">Vertex.hpp:22</a></div></div>
+<div class="ttc" id="aa03108_html_a16b8a1f1ea8391b3341ad465eb4e1100"><div class="ttname"><a href="a03108.html#a16b8a1f1ea8391b3341ad465eb4e1100">bl::rc::prim::Vertex::color</a></div><div class="ttdeci">glm::vec4 color</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00024">Vertex.hpp:24</a></div></div>
+<div class="ttc" id="aa03108_html_aedd9c74835faffffa3fad63d0220783b"><div class="ttname"><a href="a03108.html#aedd9c74835faffffa3fad63d0220783b">bl::rc::prim::Vertex::pos</a></div><div class="ttdeci">glm::vec3 pos</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00023">Vertex.hpp:23</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 30 2023 22:56:46 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Oct 8 2023 18:56:19 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

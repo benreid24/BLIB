@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Descriptors/Builtin/Object2DInstance.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Components/SceneObjectRef.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,106 +66,62 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_154b49fde9d17c5da5d7cb000b858c0e.html">Descriptors</a></li><li class="navelem"><a class="el" href="dir_792f3e8afd589e1154463a1acff3bd49.html">Builtin</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_1fe4435017a66f2c0b1af7ce232fd611.html">Components</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Object2DInstance.hpp</div>  </div>
+<div class="title">SceneObjectRef.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00557.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_DESCRIPTORS_BUILTIN_OBJECT2DINSTANCE_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_DESCRIPTORS_BUILTIN_OBJECT2DINSTANCE_HPP</span></div>
+<a href="a00557.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_COMPONENTS_SCENEOBJECTREF_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_COMPONENTS_SCENEOBJECTREF_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a04793.html">BLIB/Components/Texture.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a04799.html">BLIB/Components/Transform2D.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00134.html">BLIB/ECS/Registry.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00530.html">BLIB/Render/Buffers/DynamicSSBO.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00536.html">BLIB/Render/Buffers/StaticSSBO.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00596.html">BLIB/Render/Descriptors/DescriptorSetInstance.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00791.html">BLIB/Render/Vulkan/PerFrameVector.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;cstdint&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;glm/glm.hpp&gt;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01760.html">bl</a></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">namespace </span>engine</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;{</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">class </span>Engine;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;}</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">namespace </span>rc</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;{</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">class </span>Renderer;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">namespace </span>ds</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;{</div>
-<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="a02817.html">   34</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02817.html">Object2DInstance</a> : <span class="keyword">public</span> <a class="code" href="a02877.html">DescriptorSetInstance</a> {</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <a class="code" href="a02817.html#a02b0154c15ab836537e7387abb3f1900">Object2DInstance</a>(<a class="code" href="a02185.html">engine::Engine</a>&amp; engine, VkDescriptorSetLayout descriptorSetLayout);</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02817.html#a6c962d9c0f19c7ed583e5c5d539f2170">~Object2DInstance</a>();</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <a class="code" href="a02141.html">ecs::Registry</a>&amp; registry;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <a class="code" href="a03277.html">vk::VulkanState</a>&amp; vulkanState;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <a class="code" href="a03177.html#a7bb5a0efe4177857484ecb6ae66c75dd">vk::DescriptorPool::AllocationHandle</a> alloc;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keyword">const</span> VkDescriptorSetLayout descriptorSetLayout;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    VkDescriptorSet allocatedSets[<a class="code" href="a02789.html#acf7cd0741bc9e043674ec76ff77461a1">Config::MaxConcurrentFrames</a> + 1];</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <a class="code" href="a03197.html">vk::PerFrame&lt;VkDescriptorSet&gt;</a> dynamicDescriptorSets;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <a class="code" href="a02861.html">ds::DescriptorComponentStorage&lt;com::Transform2D, glm::mat4&gt;</a>* transforms;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <a class="code" href="a02861.html">ds::DescriptorComponentStorage&lt;com::Texture, std::uint32_t, buf::StaticSSBO&lt;std::uint32_t&gt;</a>,</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                                   <a class="code" href="a02769.html">buf::StaticSSBO&lt;std::uint32_t&gt;</a>&gt;* textures;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> bindForPipeline(<a class="code" href="a03133.html">scene::SceneRenderContext</a>&amp; ctx, VkPipelineLayout layout,</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;                                 std::uint32_t setIndex, <a class="code" href="a01745.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a> updateFreq) <span class="keyword">const override</span>;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> bindForObject(<a class="code" href="a03133.html">scene::SceneRenderContext</a>&amp; ctx, VkPipelineLayout layout,</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                               std::uint32_t setIndex, <a class="code" href="a03093.html">scene::Key</a> objectKey) <span class="keyword">const override</span>;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> releaseObject(<a class="code" href="a02093.html">ecs::Entity</a> entity, <a class="code" href="a03093.html">scene::Key</a> objectKey) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> init(<a class="code" href="a02865.html">DescriptorComponentStorageCache</a>&amp; storageCache) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> allocateObject(<a class="code" href="a02093.html">ecs::Entity</a> entity, <a class="code" href="a03093.html">scene::Key</a> key) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> handleFrameStart() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordtype">void</span> updateStaticDescriptors();</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordtype">void</span> updateDynamicDescriptors();</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;};</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;} <span class="comment">// namespace ds</span></div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00134_html"><div class="ttname"><a href="a00134.html">Registry.hpp</a></div></div>
-<div class="ttc" id="aa00530_html"><div class="ttname"><a href="a00530.html">DynamicSSBO.hpp</a></div></div>
-<div class="ttc" id="aa00536_html"><div class="ttname"><a href="a00536.html">StaticSSBO.hpp</a></div></div>
-<div class="ttc" id="aa00596_html"><div class="ttname"><a href="a00596.html">DescriptorSetInstance.hpp</a></div></div>
-<div class="ttc" id="aa00791_html"><div class="ttname"><a href="a00791.html">PerFrameVector.hpp</a></div></div>
-<div class="ttc" id="aa01745_html_ga305dcc5dda3e28bd193ab31444664848"><div class="ttname"><a href="a01745.html#ga305dcc5dda3e28bd193ab31444664848">bl::rc::UpdateSpeed</a></div><div class="ttdeci">UpdateSpeed</div><div class="ttdoc">Enum representing how frequently an object is expected to be updated.</div><div class="ttdef"><b>Definition:</b> <a href="a00761_source.html#l00015">UpdateSpeed.hpp:15</a></div></div>
-<div class="ttc" id="aa01760_html"><div class="ttname"><a href="a01760.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02093_html"><div class="ttname"><a href="a02093.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition:</b> <a href="a00125_source.html#l00023">Entity.hpp:23</a></div></div>
-<div class="ttc" id="aa02141_html"><div class="ttname"><a href="a02141.html">bl::ecs::Registry</a></div><div class="ttdoc">This is the main interface of the ECS. This class manages all entities and components and views and s...</div><div class="ttdef"><b>Definition:</b> <a href="a00134_source.html#l00031">Registry.hpp:33</a></div></div>
-<div class="ttc" id="aa02185_html"><div class="ttname"><a href="a02185.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a04811_source.html#l00031">Engine.hpp:31</a></div></div>
-<div class="ttc" id="aa02769_html"><div class="ttname"><a href="a02769.html">bl::rc::buf::StaticSSBO</a></div><div class="ttdoc">Device-local SSBO intended for use with per-object data for static objects.</div><div class="ttdef"><b>Definition:</b> <a href="a00536_source.html#l00022">StaticSSBO.hpp:22</a></div></div>
-<div class="ttc" id="aa02789_html_acf7cd0741bc9e043674ec76ff77461a1"><div class="ttname"><a href="a02789.html#acf7cd0741bc9e043674ec76ff77461a1">bl::rc::Config::MaxConcurrentFrames</a></div><div class="ttdeci">static constexpr unsigned int MaxConcurrentFrames</div><div class="ttdef"><b>Definition:</b> <a href="a04871_source.html#l00013">Config.hpp:13</a></div></div>
-<div class="ttc" id="aa02817_html"><div class="ttname"><a href="a02817.html">bl::rc::ds::Object2DInstance</a></div><div class="ttdoc">Descriptor set instance used by all 2d objects in the engine default pipelines. Contains the object t...</div><div class="ttdef"><b>Definition:</b> <a href="a00557_source.html#l00034">Object2DInstance.hpp:34</a></div></div>
-<div class="ttc" id="aa02817_html_a02b0154c15ab836537e7387abb3f1900"><div class="ttname"><a href="a02817.html#a02b0154c15ab836537e7387abb3f1900">bl::rc::ds::Object2DInstance::Object2DInstance</a></div><div class="ttdeci">Object2DInstance(engine::Engine &amp;engine, VkDescriptorSetLayout descriptorSetLayout)</div><div class="ttdoc">Create a new set instance.</div><div class="ttdef"><b>Definition:</b> <a href="a01382_source.html#l00015">Object2DInstance.cpp:15</a></div></div>
-<div class="ttc" id="aa02817_html_a6c962d9c0f19c7ed583e5c5d539f2170"><div class="ttname"><a href="a02817.html#a6c962d9c0f19c7ed583e5c5d539f2170">bl::rc::ds::Object2DInstance::~Object2DInstance</a></div><div class="ttdeci">virtual ~Object2DInstance()</div><div class="ttdoc">Frees resources.</div><div class="ttdef"><b>Definition:</b> <a href="a01382_source.html#l00022">Object2DInstance.cpp:22</a></div></div>
-<div class="ttc" id="aa02861_html"><div class="ttname"><a href="a02861.html">bl::rc::ds::DescriptorComponentStorage</a></div><div class="ttdoc">Generic class to provide per-object storage for descriptor set components.</div><div class="ttdef"><b>Definition:</b> <a href="a00584_source.html#l00072">DescriptorComponentStorage.hpp:72</a></div></div>
-<div class="ttc" id="aa02865_html"><div class="ttname"><a href="a02865.html">bl::rc::ds::DescriptorComponentStorageCache</a></div><div class="ttdoc">Cache for component storage modules for descriptor sets. Storage modules are instantiated once and sh...</div><div class="ttdef"><b>Definition:</b> <a href="a00587_source.html#l00021">DescriptorComponentStorageCache.hpp:21</a></div></div>
-<div class="ttc" id="aa02877_html"><div class="ttname"><a href="a02877.html">bl::rc::ds::DescriptorSetInstance</a></div><div class="ttdoc">Base class for descriptor sets that exist for each scene. Derived classes are created by DescriptorSe...</div><div class="ttdef"><b>Definition:</b> <a href="a00596_source.html#l00030">DescriptorSetInstance.hpp:30</a></div></div>
-<div class="ttc" id="aa03093_html"><div class="ttname"><a href="a03093.html">bl::rc::scene::Key</a></div><div class="ttdoc">Key for objects in scenes. Contains update speed and scene id. Scene ids are not unique across update...</div><div class="ttdef"><b>Definition:</b> <a href="a00734_source.html#l00022">Key.hpp:22</a></div></div>
-<div class="ttc" id="aa03133_html"><div class="ttname"><a href="a03133.html">bl::rc::scene::SceneRenderContext</a></div><div class="ttdoc">Container class that holds the required parameters to render a scene and provides methods for descrip...</div><div class="ttdef"><b>Definition:</b> <a href="a00749_source.html#l00025">SceneRenderContext.hpp:25</a></div></div>
-<div class="ttc" id="aa03177_html_a7bb5a0efe4177857484ecb6ae66c75dd"><div class="ttname"><a href="a03177.html#a7bb5a0efe4177857484ecb6ae66c75dd">bl::rc::vk::DescriptorPool::AllocationHandle</a></div><div class="ttdeci">std::list&lt; Allocation &gt;::iterator AllocationHandle</div><div class="ttdoc">Handle to an allocation from the pool.</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00043">DescriptorPool.hpp:43</a></div></div>
-<div class="ttc" id="aa03197_html"><div class="ttname"><a href="a03197.html">bl::rc::vk::PerFrame&lt; VkDescriptorSet &gt;</a></div></div>
-<div class="ttc" id="aa03277_html"><div class="ttname"><a href="a03277.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a00827_source.html#l00036">VulkanState.hpp:36</a></div></div>
-<div class="ttc" id="aa04793_html"><div class="ttname"><a href="a04793.html">Texture.hpp</a></div></div>
-<div class="ttc" id="aa04799_html"><div class="ttname"><a href="a04799.html">Transform2D.hpp</a></div></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00710.html">BLIB/Render/Primitives/DrawParameters.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00758.html">BLIB/Render/Scenes/SceneObject.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;cstdint&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01803.html">bl</a></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">class </span>Scene;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="a01845.html">   14</a></span>&#160;<span class="keyword">namespace </span>scene</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">struct </span><a class="code" href="a03192.html">SceneObject</a>;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;}</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">namespace </span>rcom</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;{</div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="a02856.html">   27</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a02856.html">SceneObjectRef</a> {</div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a02856.html#a166737f0613cee8337cf16694c0d4803">   28</a></span>&#160;    <a class="code" href="a03184.html">Scene</a>* <a class="code" href="a02856.html#a166737f0613cee8337cf16694c0d4803">scene</a>;</div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a02856.html#a273ff1de9ff2bba46ea348e0b0237e25">   29</a></span>&#160;    <a class="code" href="a03192.html">scene::SceneObject</a>* <a class="code" href="a02856.html#a273ff1de9ff2bba46ea348e0b0237e25">object</a>;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="a02856.html#a9cbe7a10751994823ae8830b20700aed">   34</a></span>&#160;    <a class="code" href="a02856.html#a9cbe7a10751994823ae8830b20700aed">SceneObjectRef</a>()</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    : <a class="code" href="a02856.html#a166737f0613cee8337cf16694c0d4803">scene</a>(nullptr)</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    , <a class="code" href="a02856.html#a273ff1de9ff2bba46ea348e0b0237e25">object</a>(nullptr) {}</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;};</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;} <span class="comment">// namespace rcom</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00710_html"><div class="ttname"><a href="a00710.html">DrawParameters.hpp</a></div></div>
+<div class="ttc" id="aa00758_html"><div class="ttname"><a href="a00758.html">SceneObject.hpp</a></div></div>
+<div class="ttc" id="aa01803_html"><div class="ttname"><a href="a01803.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02856_html"><div class="ttname"><a href="a02856.html">bl::rc::rcom::SceneObjectRef</a></div><div class="ttdoc">Basic struct representing a link between the ECS and a Scene's object buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a00557_source.html#l00027">SceneObjectRef.hpp:27</a></div></div>
+<div class="ttc" id="aa02856_html_a166737f0613cee8337cf16694c0d4803"><div class="ttname"><a href="a02856.html#a166737f0613cee8337cf16694c0d4803">bl::rc::rcom::SceneObjectRef::scene</a></div><div class="ttdeci">Scene * scene</div><div class="ttdef"><b>Definition:</b> <a href="a00557_source.html#l00028">SceneObjectRef.hpp:28</a></div></div>
+<div class="ttc" id="aa02856_html_a273ff1de9ff2bba46ea348e0b0237e25"><div class="ttname"><a href="a02856.html#a273ff1de9ff2bba46ea348e0b0237e25">bl::rc::rcom::SceneObjectRef::object</a></div><div class="ttdeci">scene::SceneObject * object</div><div class="ttdef"><b>Definition:</b> <a href="a00557_source.html#l00029">SceneObjectRef.hpp:29</a></div></div>
+<div class="ttc" id="aa02856_html_a9cbe7a10751994823ae8830b20700aed"><div class="ttname"><a href="a02856.html#a9cbe7a10751994823ae8830b20700aed">bl::rc::rcom::SceneObjectRef::SceneObjectRef</a></div><div class="ttdeci">SceneObjectRef()</div><div class="ttdoc">Creates an empty ref.</div><div class="ttdef"><b>Definition:</b> <a href="a00557_source.html#l00034">SceneObjectRef.hpp:34</a></div></div>
+<div class="ttc" id="aa03184_html"><div class="ttname"><a href="a03184.html">bl::rc::Scene</a></div><div class="ttdoc">Base class for all scene types and overlays. Provides common scene logic and object management....</div><div class="ttdef"><b>Definition:</b> <a href="a00755_source.html#l00051">Scene.hpp:51</a></div></div>
+<div class="ttc" id="aa03192_html"><div class="ttname"><a href="a03192.html">bl::rc::scene::SceneObject</a></div><div class="ttdoc">Base renderable object. Everything that is rendered will reference an instance of this....</div><div class="ttdef"><b>Definition:</b> <a href="a00758_source.html#l00021">SceneObject.hpp:21</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 30 2023 22:56:45 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Oct 8 2023 18:56:18 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

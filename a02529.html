@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::gui::LinePacker Class Reference</title>
+<title>BLIB: Member List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,477 +66,56 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01760.html">bl</a></li><li class="navelem"><a class="el" href="a01787.html">gui</a></li><li class="navelem"><a class="el" href="a02529.html">LinePacker</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01803.html">bl</a></li><li class="navelem"><a class="el" href="a01832.html">input</a></li><li class="navelem"><a class="el" href="a02532.html">Trigger</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#pro-static-methods">Static Protected Member Functions</a> &#124;
-<a href="a02526.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::gui::LinePacker Class Reference<div class="ingroups"><a class="el" href="a01739.html">Interface</a> &raquo; <a class="el" href="a01753.html">GUI</a></div></div>  </div>
+<div class="title">bl::input::Trigger Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="a02533.html" title="Base class for Element packers. A Packer assigns acquisitions to Elements in a Container....">Packer</a> that positions Elements all in a single row or column.  
- <a href="a02529.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="a00362_source.html">LinePacker.hpp</a>&gt;</code></p>
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::gui::LinePacker:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
- <div class="center">
-  <img src="a02529.png" usemap="#bl::gui::LinePacker_map" alt=""/>
-  <map id="bl::gui::LinePacker_map" name="bl::gui::LinePacker_map">
-<area href="a02533.html" title="Base class for Element packers. A Packer assigns acquisitions to Elements in a Container...." alt="bl::gui::Packer" shape="rect" coords="0,56,127,80"/>
-<area href="a03829.html" title="Helper class to make derived classes impossible for user to copy directly." alt="bl::util::NonCopyable" shape="rect" coords="0,0,127,24"/>
-  </map>
-</div></div>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:a7be24b6df8ddd6710ecab4193c7ab781"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02529.html#a7be24b6df8ddd6710ecab4193c7ab781">SpaceMode</a> { <a class="el" href="a02529.html#a7be24b6df8ddd6710ecab4193c7ab781ab1dba893ab881063cd2477f3c24d2bed">Compact</a>
-, <a class="el" href="a02529.html#a7be24b6df8ddd6710ecab4193c7ab781ae65b1ee6cd4b679275fbc6efdf13750d">Uniform</a>
- }</td></tr>
-<tr class="memdesc:a7be24b6df8ddd6710ecab4193c7ab781"><td class="mdescLeft">&#160;</td><td class="mdescRight">How to assign acquisitions to packed elements.  <a href="a02529.html#a7be24b6df8ddd6710ecab4193c7ab781">More...</a><br /></td></tr>
-<tr class="separator:a7be24b6df8ddd6710ecab4193c7ab781"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a17617096f908d715eaa906cd4f104755"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02529.html#a17617096f908d715eaa906cd4f104755">Direction</a> { <a class="el" href="a02529.html#a17617096f908d715eaa906cd4f104755af2d1e1fece1ed1df899f3c58af05e7d2">Vertical</a>
-, <a class="el" href="a02529.html#a17617096f908d715eaa906cd4f104755a4b07d1e3f437eda1fcc2aaa0a9e32818">Horizontal</a>
- }</td></tr>
-<tr class="memdesc:a17617096f908d715eaa906cd4f104755"><td class="mdescLeft">&#160;</td><td class="mdescRight">Which direction to pack elements.  <a href="a02529.html#a17617096f908d715eaa906cd4f104755">More...</a><br /></td></tr>
-<tr class="separator:a17617096f908d715eaa906cd4f104755"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa93923af9a1d910c135d79afc9dd80e1"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02529.html#aa93923af9a1d910c135d79afc9dd80e1">PackStart</a> { <a class="el" href="a02529.html#aa93923af9a1d910c135d79afc9dd80e1a4cce1984dc2e3fc606b9e6359334fabe">LeftAlign</a>
-, <a class="el" href="a02529.html#aa93923af9a1d910c135d79afc9dd80e1acceb2aa4ded4b7d117e3c17102932479">TopAlign</a> = LeftAlign
-, <a class="el" href="a02529.html#aa93923af9a1d910c135d79afc9dd80e1ad0ed4b9ff17a16811edb8f7b03fcb65c">RightAlign</a>
-, <a class="el" href="a02529.html#aa93923af9a1d910c135d79afc9dd80e1a606d0175ef3006364c99eea2105db1cc">BottomAlign</a> = RightAlign
- }</td></tr>
-<tr class="memdesc:aa93923af9a1d910c135d79afc9dd80e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Controls if the packing starts on the top/left, or if it is aligned with the right/bottom. Left-to-right/top-to-bottom element order is preserved.  <a href="a02529.html#aa93923af9a1d910c135d79afc9dd80e1">More...</a><br /></td></tr>
-<tr class="separator:aa93923af9a1d910c135d79afc9dd80e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae16cb4c26ab7e5dd1d8cbdc5598bf073"><td class="memItemLeft" align="right" valign="top">typedef std::shared_ptr&lt; <a class="el" href="a02533.html">Packer</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02533.html#ae16cb4c26ab7e5dd1d8cbdc5598bf073">Ptr</a></td></tr>
-<tr class="separator:ae16cb4c26ab7e5dd1d8cbdc5598bf073"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a0c87fbcb4d7470854b6ad66c95cae1f2"><td class="memItemLeft" align="right" valign="top">virtual sf::Vector2f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02529.html#a0c87fbcb4d7470854b6ad66c95cae1f2">getRequisition</a> (const std::vector&lt; <a class="el" href="a02457.html#a21b57f73febb9e1c62e8abcef64b1654">Element::Ptr</a> &gt; &amp;elements) override</td></tr>
-<tr class="memdesc:a0c87fbcb4d7470854b6ad66c95cae1f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reports the minimum requisition of the element list given.  <a href="a02529.html#a0c87fbcb4d7470854b6ad66c95cae1f2">More...</a><br /></td></tr>
-<tr class="separator:a0c87fbcb4d7470854b6ad66c95cae1f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a589d23379399cde0aaf66d3913d28373"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02529.html#a589d23379399cde0aaf66d3913d28373">pack</a> (const sf::FloatRect &amp;acquisition, const std::vector&lt; <a class="el" href="a02457.html#a21b57f73febb9e1c62e8abcef64b1654">Element::Ptr</a> &gt; &amp;elements) override</td></tr>
-<tr class="memdesc:a589d23379399cde0aaf66d3913d28373"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pack the elements into the assigned acquisition.  <a href="a02529.html#a589d23379399cde0aaf66d3913d28373">More...</a><br /></td></tr>
-<tr class="separator:a589d23379399cde0aaf66d3913d28373"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab96b15bf6f58f65ad3a5b33780fbf22b"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02529.html#ab96b15bf6f58f65ad3a5b33780fbf22b">~LinePacker</a> ()=default</td></tr>
-<tr class="memdesc:ab96b15bf6f58f65ad3a5b33780fbf22b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the Line <a class="el" href="a02533.html" title="Base class for Element packers. A Packer assigns acquisitions to Elements in a Container....">Packer</a>.  <a href="a02529.html#ab96b15bf6f58f65ad3a5b33780fbf22b">More...</a><br /></td></tr>
-<tr class="separator:ab96b15bf6f58f65ad3a5b33780fbf22b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a03b40c4426ce0379c3984fe76a4bcb69"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a02533.html#ae16cb4c26ab7e5dd1d8cbdc5598bf073">Packer::Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02529.html#a03b40c4426ce0379c3984fe76a4bcb69">create</a> (<a class="el" href="a02529.html#a17617096f908d715eaa906cd4f104755">Direction</a> dir=<a class="el" href="a02529.html#a17617096f908d715eaa906cd4f104755a4b07d1e3f437eda1fcc2aaa0a9e32818">Horizontal</a>, float spacing=2, <a class="el" href="a02529.html#a7be24b6df8ddd6710ecab4193c7ab781">SpaceMode</a> mode=<a class="el" href="a02529.html#a7be24b6df8ddd6710ecab4193c7ab781ab1dba893ab881063cd2477f3c24d2bed">Compact</a>, <a class="el" href="a02529.html#aa93923af9a1d910c135d79afc9dd80e1">PackStart</a> start=<a class="el" href="a02529.html#aa93923af9a1d910c135d79afc9dd80e1a4cce1984dc2e3fc606b9e6359334fabe">LeftAlign</a>)</td></tr>
-<tr class="memdesc:a03b40c4426ce0379c3984fe76a4bcb69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates a new <a class="el" href="a02529.html" title="Packer that positions Elements all in a single row or column.">LinePacker</a>. Defaults to Compact packing.  <a href="a02529.html#a03b40c4426ce0379c3984fe76a4bcb69">More...</a><br /></td></tr>
-<tr class="separator:a03b40c4426ce0379c3984fe76a4bcb69"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4b254eb49aea88a8a35d4407dfe7cce5"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02533.html#a4b254eb49aea88a8a35d4407dfe7cce5">manuallyPackElement</a> (const <a class="el" href="a02457.html#a21b57f73febb9e1c62e8abcef64b1654">Element::Ptr</a> &amp;element, const sf::FloatRect &amp;area, bool force=false)</td></tr>
-<tr class="memdesc:a4b254eb49aea88a8a35d4407dfe7cce5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manually pack the element. Note that the acquisition is relative to the parent element and likely does not correspond to screen coordinates.  <a href="a02533.html#a4b254eb49aea88a8a35d4407dfe7cce5">More...</a><br /></td></tr>
-<tr class="separator:a4b254eb49aea88a8a35d4407dfe7cce5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-static-methods"></a>
-Static Protected Member Functions</h2></td></tr>
-<tr class="memitem:a2b942eb90604a301008c4b26d6209793"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02533.html#a2b942eb90604a301008c4b26d6209793">packElementIntoSpace</a> (const <a class="el" href="a02457.html#a21b57f73febb9e1c62e8abcef64b1654">Element::Ptr</a> &amp;element, const sf::FloatRect &amp;space)</td></tr>
-<tr class="memdesc:a2b942eb90604a301008c4b26d6209793"><td class="mdescLeft">&#160;</td><td class="mdescRight">Packs an element into the given space. Obeys <a class="el" href="a02457.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a> expand properties.  <a href="a02533.html#a2b942eb90604a301008c4b26d6209793">More...</a><br /></td></tr>
-<tr class="separator:a2b942eb90604a301008c4b26d6209793"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="a02533.html" title="Base class for Element packers. A Packer assigns acquisitions to Elements in a Container....">Packer</a> that positions Elements all in a single row or column. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00362_source.html#l00015">15</a> of file <a class="el" href="a00362_source.html">LinePacker.hpp</a>.</p>
-</div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="ae16cb4c26ab7e5dd1d8cbdc5598bf073"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae16cb4c26ab7e5dd1d8cbdc5598bf073">&#9670;&nbsp;</a></span>Ptr</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef std::shared_ptr&lt;<a class="el" href="a02533.html">Packer</a>&gt; <a class="el" href="a02533.html#ae16cb4c26ab7e5dd1d8cbdc5598bf073">bl::gui::Packer::Ptr</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00365_source.html#l00022">22</a> of file <a class="el" href="a00365_source.html">Packer.hpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Enumeration Documentation</h2>
-<a id="a17617096f908d715eaa906cd4f104755"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a17617096f908d715eaa906cd4f104755">&#9670;&nbsp;</a></span>Direction</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="a02529.html#a17617096f908d715eaa906cd4f104755">bl::gui::LinePacker::Direction</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Which direction to pack elements. </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a17617096f908d715eaa906cd4f104755af2d1e1fece1ed1df899f3c58af05e7d2"></a>Vertical&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a17617096f908d715eaa906cd4f104755a4b07d1e3f437eda1fcc2aaa0a9e32818"></a>Horizontal&#160;</td><td class="fielddoc"></td></tr>
-</table>
-
-<p class="definition">Definition at line <a class="el" href="a00362_source.html#l00030">30</a> of file <a class="el" href="a00362_source.html">LinePacker.hpp</a>.</p>
-
-</div>
-</div>
-<a id="aa93923af9a1d910c135d79afc9dd80e1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa93923af9a1d910c135d79afc9dd80e1">&#9670;&nbsp;</a></span>PackStart</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="a02529.html#aa93923af9a1d910c135d79afc9dd80e1">bl::gui::LinePacker::PackStart</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Controls if the packing starts on the top/left, or if it is aligned with the right/bottom. Left-to-right/top-to-bottom element order is preserved. </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="aa93923af9a1d910c135d79afc9dd80e1a4cce1984dc2e3fc606b9e6359334fabe"></a>LeftAlign&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="aa93923af9a1d910c135d79afc9dd80e1acceb2aa4ded4b7d117e3c17102932479"></a>TopAlign&#160;</td><td class="fielddoc"><p>Start packing at the left. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="aa93923af9a1d910c135d79afc9dd80e1ad0ed4b9ff17a16811edb8f7b03fcb65c"></a>RightAlign&#160;</td><td class="fielddoc"><p>Start packing at the top. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="aa93923af9a1d910c135d79afc9dd80e1a606d0175ef3006364c99eea2105db1cc"></a>BottomAlign&#160;</td><td class="fielddoc"><p>Start packing at the right. </p>
-</td></tr>
-</table>
-
-<p class="definition">Definition at line <a class="el" href="a00362_source.html#l00037">37</a> of file <a class="el" href="a00362_source.html">LinePacker.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a7be24b6df8ddd6710ecab4193c7ab781"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7be24b6df8ddd6710ecab4193c7ab781">&#9670;&nbsp;</a></span>SpaceMode</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="a02529.html#a7be24b6df8ddd6710ecab4193c7ab781">bl::gui::LinePacker::SpaceMode</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>How to assign acquisitions to packed elements. </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a7be24b6df8ddd6710ecab4193c7ab781ab1dba893ab881063cd2477f3c24d2bed"></a>Compact&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a7be24b6df8ddd6710ecab4193c7ab781ae65b1ee6cd4b679275fbc6efdf13750d"></a>Uniform&#160;</td><td class="fielddoc"><p>Each element gets it's requisition and no more. </p>
-</td></tr>
-</table>
-
-<p class="definition">Definition at line <a class="el" href="a00362_source.html#l00021">21</a> of file <a class="el" href="a00362_source.html">LinePacker.hpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ab96b15bf6f58f65ad3a5b33780fbf22b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab96b15bf6f58f65ad3a5b33780fbf22b">&#9670;&nbsp;</a></span>~LinePacker()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual bl::gui::LinePacker::~LinePacker </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Destroy the Line <a class="el" href="a02533.html" title="Base class for Element packers. A Packer assigns acquisitions to Elements in a Container....">Packer</a>. </p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a03b40c4426ce0379c3984fe76a4bcb69"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a03b40c4426ce0379c3984fe76a4bcb69">&#9670;&nbsp;</a></span>create()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a02533.html#ae16cb4c26ab7e5dd1d8cbdc5598bf073">Packer::Ptr</a> bl::gui::LinePacker::create </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a02529.html#a17617096f908d715eaa906cd4f104755">Direction</a>&#160;</td>
-          <td class="paramname"><em>dir</em> = <code><a class="el" href="a02529.html#a17617096f908d715eaa906cd4f104755a4b07d1e3f437eda1fcc2aaa0a9e32818">Horizontal</a></code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>spacing</em> = <code>2</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a02529.html#a7be24b6df8ddd6710ecab4193c7ab781">SpaceMode</a>&#160;</td>
-          <td class="paramname"><em>mode</em> = <code><a class="el" href="a02529.html#a7be24b6df8ddd6710ecab4193c7ab781ab1dba893ab881063cd2477f3c24d2bed">Compact</a></code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a02529.html#aa93923af9a1d910c135d79afc9dd80e1">PackStart</a>&#160;</td>
-          <td class="paramname"><em>start</em> = <code><a class="el" href="a02529.html#aa93923af9a1d910c135d79afc9dd80e1a4cce1984dc2e3fc606b9e6359334fabe">LeftAlign</a></code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Allocates a new <a class="el" href="a02529.html" title="Packer that positions Elements all in a single row or column.">LinePacker</a>. Defaults to Compact packing. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">dir</td><td>The pack direction </td></tr>
-    <tr><td class="paramname">spacing</td><td>The amount of pixels to put between each element </td></tr>
-    <tr><td class="paramname">mode</td><td>The mode to pack with </td></tr>
-    <tr><td class="paramname">start</td><td>Which side to pack from </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01265_source.html#l00017">17</a> of file <a class="el" href="a01265_source.html">LinePacker.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a0c87fbcb4d7470854b6ad66c95cae1f2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0c87fbcb4d7470854b6ad66c95cae1f2">&#9670;&nbsp;</a></span>getRequisition()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">sf::Vector2f bl::gui::LinePacker::getRequisition </td>
-          <td>(</td>
-          <td class="paramtype">const std::vector&lt; <a class="el" href="a02457.html#a21b57f73febb9e1c62e8abcef64b1654">Element::Ptr</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>elements</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Reports the minimum requisition of the element list given. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">elements</td><td>The list of Elements to consider </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>sf::Vector2i The minimum requisition for the list given the packing strategy </dd></dl>
-
-<p>Implements <a class="el" href="a02533.html#ab4fb247af12fe31d556bc30af296f6bc">bl::gui::Packer</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a01265_source.html#l00021">21</a> of file <a class="el" href="a01265_source.html">LinePacker.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a4b254eb49aea88a8a35d4407dfe7cce5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4b254eb49aea88a8a35d4407dfe7cce5">&#9670;&nbsp;</a></span>manuallyPackElement()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::gui::Packer::manuallyPackElement </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a02457.html#a21b57f73febb9e1c62e8abcef64b1654">Element::Ptr</a> &amp;&#160;</td>
-          <td class="paramname"><em>element</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const sf::FloatRect &amp;&#160;</td>
-          <td class="paramname"><em>area</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>force</em> = <code>false</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Manually pack the element. Note that the acquisition is relative to the parent element and likely does not correspond to screen coordinates. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">element</td><td>The element to pack </td></tr>
-    <tr><td class="paramname">area</td><td>The atra to pack it into </td></tr>
-    <tr><td class="paramname">force</td><td>True to set the acquisition exactly, false to use the element's settings </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01268_source.html#l00015">15</a> of file <a class="el" href="a01268_source.html">Packer.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a589d23379399cde0aaf66d3913d28373"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a589d23379399cde0aaf66d3913d28373">&#9670;&nbsp;</a></span>pack()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::gui::LinePacker::pack </td>
-          <td>(</td>
-          <td class="paramtype">const sf::FloatRect &amp;&#160;</td>
-          <td class="paramname"><em>acquisition</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::vector&lt; <a class="el" href="a02457.html#a21b57f73febb9e1c62e8abcef64b1654">Element::Ptr</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>elements</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Pack the elements into the assigned acquisition. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">acquisition</td><td>Region to pack into. Always at least as big as <a class="el" href="a02529.html#a0c87fbcb4d7470854b6ad66c95cae1f2" title="Reports the minimum requisition of the element list given.">getRequisition()</a> </td></tr>
-    <tr><td class="paramname">elements</td><td>The elements to pack </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Implements <a class="el" href="a02533.html#a96485d9ff34d93ed37ba8d04ec4950e9">bl::gui::Packer</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a01265_source.html#l00042">42</a> of file <a class="el" href="a01265_source.html">LinePacker.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a2b942eb90604a301008c4b26d6209793"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2b942eb90604a301008c4b26d6209793">&#9670;&nbsp;</a></span>packElementIntoSpace()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::gui::Packer::packElementIntoSpace </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a02457.html#a21b57f73febb9e1c62e8abcef64b1654">Element::Ptr</a> &amp;&#160;</td>
-          <td class="paramname"><em>element</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const sf::FloatRect &amp;&#160;</td>
-          <td class="paramname"><em>space</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Packs an element into the given space. Obeys <a class="el" href="a02457.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a> expand properties. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">element</td><td>The element to pack </td></tr>
-    <tr><td class="paramname">space</td><td>The space to use as computed by the packer </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01268_source.html#l00007">7</a> of file <a class="el" href="a01268_source.html">Packer.cpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Interfaces/GUI/Packers/<a class="el" href="a00362_source.html">LinePacker.hpp</a></li>
-<li>src/Interfaces/GUI/Packers/<a class="el" href="a01265_source.html">LinePacker.cpp</a></li>
-</ul>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="a02532.html">bl::input::Trigger</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="a02532.html#a4bb09ee8014be10661a73c30f2727ffc">active</a>() const</td><td class="entry"><a class="el" href="a02532.html">bl::input::Trigger</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a02532.html#a97997fa16eef97bfc3560346045a8f65">configureFromEvent</a>(const sf::Event &amp;event)</td><td class="entry"><a class="el" href="a02532.html">bl::input::Trigger</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02532.html#aa19fe4c25677f5642a399d9c5a4afe32a4b25714bfeda02160f575c09ae587cee">Invalid</a> enum value</td><td class="entry"><a class="el" href="a02532.html">bl::input::Trigger</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a02532.html#a73c6db4246b36b6e6c8011efbf2da8f2">isToggle</a>() const</td><td class="entry"><a class="el" href="a02532.html">bl::input::Trigger</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02532.html#a4ff6a20fe832b21b59354d8d8dce72c3">joystickAxis</a></td><td class="entry"><a class="el" href="a02532.html">bl::input::Trigger</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a02532.html#ab6f02b58de3666ea0257a61084e5f730">joystickAxisTrigger</a>() const</td><td class="entry"><a class="el" href="a02532.html">bl::input::Trigger</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02532.html#aa19fe4c25677f5642a399d9c5a4afe32aff2c31d91733780188701ea874a25788">JoystickButton</a> enum value</td><td class="entry"><a class="el" href="a02532.html">bl::input::Trigger</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a02532.html#a4d956d264ec508c107a4ec85117a6299">joystickButton</a></td><td class="entry"><a class="el" href="a02532.html">bl::input::Trigger</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02532.html#ae2fcf7510831e11b6b765ae080b63363">joystickButtonTrigger</a>() const</td><td class="entry"><a class="el" href="a02532.html">bl::input::Trigger</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a02532.html#aa19fe4c25677f5642a399d9c5a4afe32af494a6a1cab0cfc2ceb67000f8f490e8">JoystickNegative</a> enum value</td><td class="entry"><a class="el" href="a02532.html">bl::input::Trigger</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02532.html#aa19fe4c25677f5642a399d9c5a4afe32adc0f62059f545c3e04852e39bcba94eb">JoystickPositive</a> enum value</td><td class="entry"><a class="el" href="a02532.html">bl::input::Trigger</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a02532.html#aa19fe4c25677f5642a399d9c5a4afe32abe7583043cd981f97c309ee43c333db6">Key</a> enum value</td><td class="entry"><a class="el" href="a02532.html">bl::input::Trigger</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02532.html#a0c6e2da2c7584b0ef26d4736f03e85da">key</a></td><td class="entry"><a class="el" href="a02532.html">bl::input::Trigger</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a02532.html#a27d3e1d274246cd665183064aaa4227a">keyTrigger</a>() const</td><td class="entry"><a class="el" href="a02532.html">bl::input::Trigger</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02532.html#aa56be323593f2d71b98706853c842037">loadFromConfig</a>(const std::string &amp;prefix)</td><td class="entry"><a class="el" href="a02532.html">bl::input::Trigger</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a02532.html#a54395dc7227da6471d720f2b1b3803a8">mouseButton</a></td><td class="entry"><a class="el" href="a02532.html">bl::input::Trigger</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02532.html#aa19fe4c25677f5642a399d9c5a4afe32adfbe68c0cf6346d24e045335408d3102">MouseButton</a> enum value</td><td class="entry"><a class="el" href="a02532.html">bl::input::Trigger</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a02532.html#a139c55cb7302107d1415d0b1ca08f6ea">mouseButtonTrigger</a>() const</td><td class="entry"><a class="el" href="a02532.html">bl::input::Trigger</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02532.html#a2181002f6928ad7fadea55a348530d78">mouseWheel</a></td><td class="entry"><a class="el" href="a02532.html">bl::input::Trigger</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a02532.html#aa19fe4c25677f5642a399d9c5a4afe32abd8b35a66c7a8d07752c2942cedffb9a">MouseWheelDown</a> enum value</td><td class="entry"><a class="el" href="a02532.html">bl::input::Trigger</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02532.html#a4eac18be303e39d7165206966e31e2d2">mouseWheelTrigger</a>() const</td><td class="entry"><a class="el" href="a02532.html">bl::input::Trigger</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a02532.html#aa19fe4c25677f5642a399d9c5a4afe32a05bc7b3a63b77ea45d1fac4fab4096a2">MouseWheelUp</a> enum value</td><td class="entry"><a class="el" href="a02532.html">bl::input::Trigger</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02532.html#a4059d615bea2243355cdd71424e3469f">process</a>(const sf::Event &amp;event)</td><td class="entry"><a class="el" href="a02532.html">bl::input::Trigger</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a02532.html#a59f4d85df00b62359c17fcfbf77ea7fb">saveToConfig</a>(const std::string &amp;prefix) const</td><td class="entry"><a class="el" href="a02532.html">bl::input::Trigger</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02532.html#a43c5f4c33564998c79192a2b0d3b31d0">setIsToggle</a>(bool toggle)</td><td class="entry"><a class="el" href="a02532.html">bl::input::Trigger</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a02532.html#af94dd6054351e5447905d88c738f2872">toString</a>() const</td><td class="entry"><a class="el" href="a02532.html">bl::input::Trigger</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02532.html#aca79f59aa7f4b473a43db9080f6478b1">Trigger</a>(bool joystickMode)</td><td class="entry"><a class="el" href="a02532.html">bl::input::Trigger</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a02532.html#ab0e473f85311f2b279dd6fbe7ddd44b3">triggerOnJoystickAxis</a>(sf::Joystick::Axis axis, bool positive)</td><td class="entry"><a class="el" href="a02532.html">bl::input::Trigger</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02532.html#a54a14010edd1e17c90c7040f05b28221">triggerOnJoystickButton</a>(unsigned int joystickButton)</td><td class="entry"><a class="el" href="a02532.html">bl::input::Trigger</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a02532.html#a95a6ad855a613e7b2e46564b1d0ceeae">triggerOnKey</a>(sf::Keyboard::Key key)</td><td class="entry"><a class="el" href="a02532.html">bl::input::Trigger</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02532.html#ad5fee2b4bfde19189181e332144c887c">triggerOnMouseButton</a>(sf::Mouse::Button button)</td><td class="entry"><a class="el" href="a02532.html">bl::input::Trigger</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a02532.html#a3ec4d40b31dc49d7213a3158e7cb6ff8">triggerOnMouseWheel</a>(sf::Mouse::Wheel wheel, bool upOrRight)</td><td class="entry"><a class="el" href="a02532.html">bl::input::Trigger</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02532.html#a2063b779707259270b8b0d4718c8c06d">triggerType</a>() const</td><td class="entry"><a class="el" href="a02532.html">bl::input::Trigger</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a02532.html#aa19fe4c25677f5642a399d9c5a4afe32">Type</a> enum name</td><td class="entry"><a class="el" href="a02532.html">bl::input::Trigger</a></td><td class="entry"></td></tr>
+</table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 30 2023 22:56:47 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Oct 8 2023 18:56:20 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

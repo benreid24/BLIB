@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Media/Shapes/GradientRectangle.hpp Source File</title>
+<title>BLIB: include/BLIB/Logging.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,78 +66,30 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_c9bb3a7354e9a8e879b9b4f2f81c7c7f.html">Media</a></li><li class="navelem"><a class="el" href="dir_299e2b4b9374d21b53626a884de54d66.html">Shapes</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">GradientRectangle.hpp</div>  </div>
+<div class="title">Logging.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00491.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_SHAPES_GRADIENTRECTANGLE_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_SHAPES_GRADIENTRECTANGLE_HPP</span></div>
+<a href="a00491.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_LOGGING_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_LOGGING_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00482.html">BLIB/Media/Graphics/VertexBuffer.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;SFML/Graphics/Drawable.hpp&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;SFML/Graphics/Transformable.hpp&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01760.html">bl</a></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>shapes</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a02689.html">   19</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02689.html">GradientRectangle</a></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;: <span class="keyword">public</span> sf::Transformable</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;, <span class="keyword">public</span> sf::Drawable {</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a02689.html#abc4f1c6f18eb7fd1164b823315701f39a155d2f0698ad031a7d4a27696b76019e">   24</a></span>&#160;    <span class="keyword">enum</span> <a class="code" href="a02689.html#abc4f1c6f18eb7fd1164b823315701f39">Direction</a> { <a class="code" href="a02689.html#abc4f1c6f18eb7fd1164b823315701f39a4317ece47b065a74734fed08e7358fc3">TopToBottom</a>, <a class="code" href="a02689.html#abc4f1c6f18eb7fd1164b823315701f39a155d2f0698ad031a7d4a27696b76019e">BottomToTop</a>, <a class="code" href="a02689.html#abc4f1c6f18eb7fd1164b823315701f39ab787e48b120c2c8b7f35615d67bf38ee">LeftToRight</a>, <a class="code" href="a02689.html#abc4f1c6f18eb7fd1164b823315701f39a65b75d3515c1d0d23835d5673c315ede">RightToLeft</a> };</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <a class="code" href="a02689.html#a93879a8f643c5c5ac7966662f57bfa82">GradientRectangle</a>(<span class="keyword">const</span> sf::Vector2f&amp; size, <a class="code" href="a02689.html#abc4f1c6f18eb7fd1164b823315701f39">Direction</a> gradientDir, sf::Color fromColor,</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;                      sf::Color toColor);</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <a class="code" href="a02689.html#a93879a8f643c5c5ac7966662f57bfa82">GradientRectangle</a>(<span class="keyword">const</span> sf::Vector2f&amp; size, sf::Color topLeft, sf::Color topRight,</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;                      sf::Color bottomLeft, sf::Color bottomRight);</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02689.html#a6afa3c7c2dd018a6b5eb0af955733d19">setSize</a>(<span class="keyword">const</span> sf::Vector2f&amp; size);</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keyword">const</span> sf::Vector2f&amp; <a class="code" href="a02689.html#af400385e75db37cd9ad26f5647b80118">getSize</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02689.html#addaf73a59827e9a27fc24ac4f887832b">setGradient</a>(<a class="code" href="a02689.html#abc4f1c6f18eb7fd1164b823315701f39">Direction</a> gradientDir, sf::Color fromColor, sf::Color toColor);</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02689.html#addaf73a59827e9a27fc24ac4f887832b">setGradient</a>(sf::Color topLeft, sf::Color topRight, sf::Color bottomLeft,</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                     sf::Color bottomRight);</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02689.html#aa5f858544a59399e276bdcf24ace3a4b">draw</a>(sf::RenderTarget&amp; target, sf::RenderStates states) <span class="keyword">const override</span>;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <a class="code" href="a02677.html">rc::VertexBuffer</a> points;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <a class="code" href="a02689.html#a93879a8f643c5c5ac7966662f57bfa82">GradientRectangle</a>(<span class="keyword">const</span> sf::Vector2f&amp; size);</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;};</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;} <span class="comment">// namespace shapes</span></div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00482_html"><div class="ttname"><a href="a00482.html">VertexBuffer.hpp</a></div></div>
-<div class="ttc" id="aa01760_html"><div class="ttname"><a href="a01760.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02677_html"><div class="ttname"><a href="a02677.html">bl::rc::VertexBuffer</a></div><div class="ttdoc">Helper class around SFML's vertex buffer system. This class leverages vertex buffers,...</div><div class="ttdef"><b>Definition:</b> <a href="a00482_source.html#l00021">VertexBuffer.hpp:21</a></div></div>
-<div class="ttc" id="aa02689_html"><div class="ttname"><a href="a02689.html">bl::shapes::GradientRectangle</a></div><div class="ttdoc">Drawable rectangle that can have different colors in each corner. Includes some helpers to make gradi...</div><div class="ttdef"><b>Definition:</b> <a href="a00491_source.html#l00019">GradientRectangle.hpp:21</a></div></div>
-<div class="ttc" id="aa02689_html_a6afa3c7c2dd018a6b5eb0af955733d19"><div class="ttname"><a href="a02689.html#a6afa3c7c2dd018a6b5eb0af955733d19">bl::shapes::GradientRectangle::setSize</a></div><div class="ttdeci">void setSize(const sf::Vector2f &amp;size)</div><div class="ttdoc">Set the size of the rectangle.</div><div class="ttdef"><b>Definition:</b> <a href="a01352_source.html#l00036">GradientRectangle.cpp:36</a></div></div>
-<div class="ttc" id="aa02689_html_a93879a8f643c5c5ac7966662f57bfa82"><div class="ttname"><a href="a02689.html#a93879a8f643c5c5ac7966662f57bfa82">bl::shapes::GradientRectangle::GradientRectangle</a></div><div class="ttdeci">GradientRectangle(const sf::Vector2f &amp;size, Direction gradientDir, sf::Color fromColor, sf::Color toColor)</div><div class="ttdoc">Construct a new Gradient Rectangle with the given gradient.</div><div class="ttdef"><b>Definition:</b> <a href="a01352_source.html#l00023">GradientRectangle.cpp:23</a></div></div>
-<div class="ttc" id="aa02689_html_aa5f858544a59399e276bdcf24ace3a4b"><div class="ttname"><a href="a02689.html#aa5f858544a59399e276bdcf24ace3a4b">bl::shapes::GradientRectangle::draw</a></div><div class="ttdeci">virtual void draw(sf::RenderTarget &amp;target, sf::RenderStates states) const override</div><div class="ttdoc">Renders the rectangle to the given target.</div><div class="ttdef"><b>Definition:</b> <a href="a01352_source.html#l00088">GradientRectangle.cpp:88</a></div></div>
-<div class="ttc" id="aa02689_html_abc4f1c6f18eb7fd1164b823315701f39"><div class="ttname"><a href="a02689.html#abc4f1c6f18eb7fd1164b823315701f39">bl::shapes::GradientRectangle::Direction</a></div><div class="ttdeci">Direction</div><div class="ttdoc">Represents the direction to fade colors in.</div><div class="ttdef"><b>Definition:</b> <a href="a00491_source.html#l00024">GradientRectangle.hpp:24</a></div></div>
-<div class="ttc" id="aa02689_html_abc4f1c6f18eb7fd1164b823315701f39a155d2f0698ad031a7d4a27696b76019e"><div class="ttname"><a href="a02689.html#abc4f1c6f18eb7fd1164b823315701f39a155d2f0698ad031a7d4a27696b76019e">bl::shapes::GradientRectangle::BottomToTop</a></div><div class="ttdeci">@ BottomToTop</div><div class="ttdef"><b>Definition:</b> <a href="a00491_source.html#l00024">GradientRectangle.hpp:24</a></div></div>
-<div class="ttc" id="aa02689_html_abc4f1c6f18eb7fd1164b823315701f39a4317ece47b065a74734fed08e7358fc3"><div class="ttname"><a href="a02689.html#abc4f1c6f18eb7fd1164b823315701f39a4317ece47b065a74734fed08e7358fc3">bl::shapes::GradientRectangle::TopToBottom</a></div><div class="ttdeci">@ TopToBottom</div><div class="ttdef"><b>Definition:</b> <a href="a00491_source.html#l00024">GradientRectangle.hpp:24</a></div></div>
-<div class="ttc" id="aa02689_html_abc4f1c6f18eb7fd1164b823315701f39a65b75d3515c1d0d23835d5673c315ede"><div class="ttname"><a href="a02689.html#abc4f1c6f18eb7fd1164b823315701f39a65b75d3515c1d0d23835d5673c315ede">bl::shapes::GradientRectangle::RightToLeft</a></div><div class="ttdeci">@ RightToLeft</div><div class="ttdef"><b>Definition:</b> <a href="a00491_source.html#l00024">GradientRectangle.hpp:24</a></div></div>
-<div class="ttc" id="aa02689_html_abc4f1c6f18eb7fd1164b823315701f39ab787e48b120c2c8b7f35615d67bf38ee"><div class="ttname"><a href="a02689.html#abc4f1c6f18eb7fd1164b823315701f39ab787e48b120c2c8b7f35615d67bf38ee">bl::shapes::GradientRectangle::LeftToRight</a></div><div class="ttdeci">@ LeftToRight</div><div class="ttdef"><b>Definition:</b> <a href="a00491_source.html#l00024">GradientRectangle.hpp:24</a></div></div>
-<div class="ttc" id="aa02689_html_addaf73a59827e9a27fc24ac4f887832b"><div class="ttname"><a href="a02689.html#addaf73a59827e9a27fc24ac4f887832b">bl::shapes::GradientRectangle::setGradient</a></div><div class="ttdeci">void setGradient(Direction gradientDir, sf::Color fromColor, sf::Color toColor)</div><div class="ttdoc">Set the gradient from the direction and colors.</div><div class="ttdef"><b>Definition:</b> <a href="a01352_source.html#l00045">GradientRectangle.cpp:45</a></div></div>
-<div class="ttc" id="aa02689_html_af400385e75db37cd9ad26f5647b80118"><div class="ttname"><a href="a02689.html#af400385e75db37cd9ad26f5647b80118">bl::shapes::GradientRectangle::getSize</a></div><div class="ttdeci">const sf::Vector2f &amp; getSize() const</div><div class="ttdoc">Returns the size of the rectangle.</div><div class="ttdef"><b>Definition:</b> <a href="a01352_source.html#l00043">GradientRectangle.cpp:43</a></div></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05091.html">BLIB/Logging/Config.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00485.html">BLIB/Logging/Logger.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00488.html">BLIB/Logging/Outputters.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00485_html"><div class="ttname"><a href="a00485.html">Logger.hpp</a></div></div>
+<div class="ttc" id="aa00488_html"><div class="ttname"><a href="a00488.html">Outputters.hpp</a></div></div>
+<div class="ttc" id="aa05091_html"><div class="ttname"><a href="a05091.html">Config.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 30 2023 22:56:45 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Oct 8 2023 18:56:18 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

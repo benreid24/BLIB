@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Engine.hpp File Reference</title>
+<title>BLIB: include/BLIB/ECS/Registry.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,32 +66,57 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ce575a5afd2ea0954c4dff0006796805.html">ECS</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">Engine.hpp File Reference</div>  </div>
+<div class="title">Registry.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00158_source.html">BLIB/Engine/Configuration.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a04811_source.html">BLIB/Engine/Engine.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a04808_source.html">BLIB/Engine/Events.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00182_source.html">BLIB/Engine/Flags.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00185_source.html">BLIB/Engine/FrameStage.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00188_source.html">BLIB/Engine/Settings.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00191_source.html">BLIB/Engine/State.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a04814_source.html">BLIB/Engine/System.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a04820_source.html">BLIB/Engine/Systems.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a04823_source.html">BLIB/Engine/Window.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00206_source.html">BLIB/Engine/Worker.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00140_source.html">BLIB/ECS/ComponentPool.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00149_source.html">BLIB/ECS/DependencyGraph.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00152_source.html">BLIB/ECS/Entity.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00158_source.html">BLIB/ECS/ParentGraph.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00176_source.html">BLIB/ECS/View.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00236_source.html">BLIB/Events/Dispatcher.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01046_source.html">BLIB/Util/IdAllocatorUnbounded.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01052_source.html">BLIB/Util/NonCopyable.hpp</a>&gt;</code><br />
+<code>#include &lt;cstdlib&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
+<code>#include &lt;utility&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00146_source.html">BLIB/ECS/ComponentSetImpl.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00167_source.html">BLIB/ECS/TagsImpl.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00179_source.html">BLIB/ECS/ViewImpl.hpp</a>&gt;</code><br />
 </div>
 <p><a href="a00161_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02220.html">bl::ecs::Registry</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is the main interface of the ECS. This class manages all entities and components and views and serves as the primary interface to be used.  <a href="a02220.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:a01803"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01803.html">bl</a></td></tr>
+<tr class="memdesc:a01803"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01810"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01810.html">bl::engine</a></td></tr>
+<tr class="memdesc:a01810"><td class="mdescLeft">&#160;</td><td class="mdescRight">The core game engine and related classes. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01818"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01818.html">bl::ecs</a></td></tr>
+<tr class="memdesc:a01818"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains the <a class="el" href="a02176.html" title="Entity is simply an id. Components are added via a Registry and they own all the relevant properties....">Entity</a> Component System. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 30 2023 22:56:46 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Oct 8 2023 18:56:19 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Resources/FileSystem.cpp Source File</title>
+<title>BLIB: src/Render/Vulkan/Utils/SwapChainSupportDetails.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,76 +66,101 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_7a475d59e09b1ce69b1dfbc6b0817add.html">Resources</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_2a24e9216d188d12785cf0650df1274b.html">Vulkan</a></li><li class="navelem"><a class="el" href="dir_5a895c0b57455ce42bcec1a8fbc390f8.html">Utils</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">FileSystem.cpp</div>  </div>
+<div class="title">SwapChainSupportDetails.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01625.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00869.html">BLIB/Resources/FileSystem.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00872.html">BLIB/Resources/GarbageCollector.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01007.html">BLIB/Util/FileUtil.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;fstream&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01760.html">bl</a></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>resource</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;std::optional&lt;bundle::BundleRuntime&gt; bundles;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;std::unordered_map&lt;std::string, std::vector&lt;char&gt;&gt; persistentBuffers;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;} <span class="comment">// namespace</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a03345.html#a8089494d8a85bdbb34aebac6d6221e51">   16</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a03345.html#a8089494d8a85bdbb34aebac6d6221e51">FileSystem::useBundle</a>(<span class="keyword">const</span> std::string&amp; bundlePath) {</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    bundles.emplace(bundlePath);</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keywordflow">if</span> (!bundles.value().initialize()) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    GarbageCollector::get().registerBundleRuntime(&amp;bundles.value());</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;}</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a03345.html#a4333f7b4fcde422a5a9edccb8af201fb">   23</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a03345.html#a4333f7b4fcde422a5a9edccb8af201fb">FileSystem::getData</a>(<span class="keyword">const</span> std::string&amp; path, <span class="keywordtype">char</span>** <a class="code" href="a01331.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, std::size_t&amp; len) {</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordflow">if</span> (bundles.has_value()) { <span class="keywordflow">return</span> bundles.value().getResource(path, <a class="code" href="a01331.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, len); }</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        <span class="keywordflow">if</span> (!<a class="code" href="a03793.html#a8566666f9a79d760668664bf7b8c71df">util::FileUtil::exists</a>(path)) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        <span class="comment">// keep buffer in memory</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="keyword">auto</span> it = persistentBuffers.find(path);</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="keywordflow">if</span> (it == persistentBuffers.end()) { it = persistentBuffers.try_emplace(path).first; }</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keywordflow">if</span> (!<a class="code" href="a03793.html#a6f61854f9069441acfc2299d338c751c">util::FileUtil::readFile</a>(path, it-&gt;second)) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        *<a class="code" href="a01331.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a> = it-&gt;second.data();</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        len     = it-&gt;second.size();</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    }</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;}</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="a03345.html#af3dbef4e0cb06dc2ba43376ea408c79b">   38</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03345.html#af3dbef4e0cb06dc2ba43376ea408c79b">FileSystem::purgePersistentData</a>(<span class="keyword">const</span> std::string&amp; path) { persistentBuffers.erase(path); }</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="a03345.html#a0d9f7b7a55974210bdbaf2bad3fb9367">   40</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a03345.html#a0d9f7b7a55974210bdbaf2bad3fb9367">FileSystem::resourceExists</a>(<span class="keyword">const</span> std::string&amp; path) {</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordflow">return</span> bundles.has_value() ? bundles.value().resourceExists(path) :</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;                                 <a class="code" href="a03793.html#a8566666f9a79d760668664bf7b8c71df">util::FileUtil::exists</a>(path);</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;}</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;} <span class="comment">// namespace resource</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00869_html"><div class="ttname"><a href="a00869.html">FileSystem.hpp</a></div></div>
-<div class="ttc" id="aa00872_html"><div class="ttname"><a href="a00872.html">GarbageCollector.hpp</a></div></div>
-<div class="ttc" id="aa01007_html"><div class="ttname"><a href="a01007.html">FileUtil.hpp</a></div></div>
-<div class="ttc" id="aa01331_html_ad2ae6b0ac080ea0ac45f7a06ccc480ba"><div class="ttname"><a href="a01331.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a></div><div class="ttdeci">SoundHandle buffer</div><div class="ttdef"><b>Definition:</b> <a href="a01331_source.html#l00025">AudioSystem.cpp:25</a></div></div>
-<div class="ttc" id="aa01760_html"><div class="ttname"><a href="a01760.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03345_html_a0d9f7b7a55974210bdbaf2bad3fb9367"><div class="ttname"><a href="a03345.html#a0d9f7b7a55974210bdbaf2bad3fb9367">bl::resource::FileSystem::resourceExists</a></div><div class="ttdeci">static bool resourceExists(const std::string &amp;path)</div><div class="ttdoc">Returns whether or not the given path points to a valid resource. Essentially a bundle-aware version ...</div><div class="ttdef"><b>Definition:</b> <a href="a01625_source.html#l00040">FileSystem.cpp:40</a></div></div>
-<div class="ttc" id="aa03345_html_a4333f7b4fcde422a5a9edccb8af201fb"><div class="ttname"><a href="a03345.html#a4333f7b4fcde422a5a9edccb8af201fb">bl::resource::FileSystem::getData</a></div><div class="ttdeci">static bool getData(const std::string &amp;path, char **buffer, std::size_t &amp;len)</div><div class="ttdoc">Loads the data for the given path. Either loads from the underlying file system or from the active bu...</div><div class="ttdef"><b>Definition:</b> <a href="a01625_source.html#l00023">FileSystem.cpp:23</a></div></div>
-<div class="ttc" id="aa03345_html_a8089494d8a85bdbb34aebac6d6221e51"><div class="ttname"><a href="a03345.html#a8089494d8a85bdbb34aebac6d6221e51">bl::resource::FileSystem::useBundle</a></div><div class="ttdeci">static bool useBundle(const std::string &amp;bundlePath)</div><div class="ttdoc">Configure the bundle set to use.</div><div class="ttdef"><b>Definition:</b> <a href="a01625_source.html#l00016">FileSystem.cpp:16</a></div></div>
-<div class="ttc" id="aa03345_html_af3dbef4e0cb06dc2ba43376ea408c79b"><div class="ttname"><a href="a03345.html#af3dbef4e0cb06dc2ba43376ea408c79b">bl::resource::FileSystem::purgePersistentData</a></div><div class="ttdeci">static void purgePersistentData(const std::string &amp;path)</div><div class="ttdoc">Purges the persistent data buffer for the given resource. Noop if the resource did not have a persist...</div><div class="ttdef"><b>Definition:</b> <a href="a01625_source.html#l00038">FileSystem.cpp:38</a></div></div>
-<div class="ttc" id="aa03793_html_a6f61854f9069441acfc2299d338c751c"><div class="ttname"><a href="a03793.html#a6f61854f9069441acfc2299d338c751c">bl::util::FileUtil::readFile</a></div><div class="ttdeci">static bool readFile(const std::string &amp;filename, std::string &amp;output)</div><div class="ttdoc">Reads the entire file into the destination string.</div><div class="ttdef"><b>Definition:</b> <a href="a01715_source.html#l00234">FileUtil.cpp:234</a></div></div>
-<div class="ttc" id="aa03793_html_a8566666f9a79d760668664bf7b8c71df"><div class="ttname"><a href="a03793.html#a8566666f9a79d760668664bf7b8c71df">bl::util::FileUtil::exists</a></div><div class="ttdeci">static bool exists(const std::string &amp;file)</div><div class="ttdoc">Test whether the given file exists.</div><div class="ttdef"><b>Definition:</b> <a href="a01715_source.html#l00042">FileUtil.cpp:42</a></div></div>
+<a href="a01625.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01628.html">Render/Vulkan/Utils/SwapChainSupportDetails.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01803.html">bl</a></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
+<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="a04088.html#a7f7b67f7e4a57d691e584b414f21d99a">    7</a></span>&#160;<a class="code" href="a04088.html#a069747b37a642917592e4a8efd66517f">SwapChainSupportDetails::SwapChainSupportDetails</a>(VkPhysicalDevice device, VkSurfaceKHR surface) {</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    <a class="code" href="a04088.html#a538d5c8e88477f1afb804a9d557d4234">populate</a>(device, surface);</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;}</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="a04088.html#a538d5c8e88477f1afb804a9d557d4234">   11</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04088.html#a538d5c8e88477f1afb804a9d557d4234">SwapChainSupportDetails::populate</a>(VkPhysicalDevice device, VkSurfaceKHR surface) {</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    vkGetPhysicalDeviceSurfaceCapabilitiesKHR(device, surface, &amp;<a class="code" href="a04088.html#a8ba0581e712e3a075ce750dedca8bf86">capabilities</a>);</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    std::uint32_t formatCount;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    vkGetPhysicalDeviceSurfaceFormatsKHR(device, surface, &amp;formatCount, <span class="keyword">nullptr</span>);</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keywordflow">if</span> (formatCount != 0) {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        <a class="code" href="a04088.html#af19415c0ae2875bf29ba85dac4dec14e">formats</a>.resize(formatCount);</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        vkGetPhysicalDeviceSurfaceFormatsKHR(device, surface, &amp;formatCount, <a class="code" href="a04088.html#af19415c0ae2875bf29ba85dac4dec14e">formats</a>.data());</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    }</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    std::uint32_t presentModeCount;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    vkGetPhysicalDeviceSurfacePresentModesKHR(device, surface, &amp;presentModeCount, <span class="keyword">nullptr</span>);</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordflow">if</span> (presentModeCount != 0) {</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        <a class="code" href="a04088.html#a040eaf623e9b24c2cee14f0091ed4527">presentModes</a>.resize(presentModeCount);</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        vkGetPhysicalDeviceSurfacePresentModesKHR(</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;            device, surface, &amp;presentModeCount, <a class="code" href="a04088.html#a040eaf623e9b24c2cee14f0091ed4527">presentModes</a>.data());</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    }</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;}</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a04088.html#a074771ce4af99a010a861cddb901432e">   30</a></span>&#160;<span class="keyword">const</span> VkSurfaceFormatKHR&amp; <a class="code" href="a04088.html#a074771ce4af99a010a861cddb901432e">SwapChainSupportDetails::swapSurfaceFormat</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">const</span> VkSurfaceFormatKHR&amp; format : <a class="code" href="a04088.html#af19415c0ae2875bf29ba85dac4dec14e">formats</a>) {</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="keywordflow">if</span> (format.colorSpace == VK_COLOR_SPACE_SRGB_NONLINEAR_KHR &amp;&amp;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;            format.format == VK_FORMAT_R8G8B8A8_SRGB) {</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;            <span class="keywordflow">return</span> format;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        }</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    }</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <a class="code" href="a00485.html#a6b4a6c9a77636c98a3c0821ae6a4c119">BL_LOG_DEBUG</a> &lt;&lt; <span class="stringliteral">&quot;Did not find VK_FORMAT_R8G8B8A8_SRGB, using &quot;</span> &lt;&lt; <a class="code" href="a04088.html#af19415c0ae2875bf29ba85dac4dec14e">formats</a>.front().format;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="a04088.html#af19415c0ae2875bf29ba85dac4dec14e">formats</a>.front();</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;}</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="a04088.html#a2c9d9cd7870d31087ed25d3300044237">   41</a></span>&#160;VkPresentModeKHR <a class="code" href="a04088.html#a2c9d9cd7870d31087ed25d3300044237">SwapChainSupportDetails::presentationMode</a>(<span class="keywordtype">bool</span> noVsync)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> requestedMode =</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        noVsync ? VK_PRESENT_MODE_IMMEDIATE_KHR : VK_PRESENT_MODE_MAILBOX_KHR;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">const</span> VkPresentModeKHR&amp; mode : <a class="code" href="a04088.html#a040eaf623e9b24c2cee14f0091ed4527">presentModes</a>) {</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keywordflow">if</span> (mode == requestedMode) { <span class="keywordflow">return</span> mode; }</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    }</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <a class="code" href="a00485.html#a6b4a6c9a77636c98a3c0821ae6a4c119">BL_LOG_DEBUG</a> &lt;&lt; <span class="stringliteral">&quot;VK_PRESENT_MODE_MAILBOX_KHR not supported, falling back to &quot;</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;                    <span class="stringliteral">&quot;VK_PRESENT_MODE_FIFO_KHR&quot;</span>;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordflow">return</span> VK_PRESENT_MODE_FIFO_KHR; <span class="comment">// always available</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;}</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="a04088.html#a317e166f325c41fd43b5da49b187e1a0">   52</a></span>&#160;VkExtent2D <a class="code" href="a04088.html#a317e166f325c41fd43b5da49b187e1a0">SwapChainSupportDetails::swapExtent</a>(<span class="keyword">const</span> sf::Vector2u&amp; windowSize)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="a04088.html#a8ba0581e712e3a075ce750dedca8bf86">capabilities</a>.currentExtent.width != std::numeric_limits&lt;uint32_t&gt;::max()) {</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="a04088.html#a8ba0581e712e3a075ce750dedca8bf86">capabilities</a>.currentExtent;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    }</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        VkExtent2D actualExtent = {windowSize.x, windowSize.y};</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        actualExtent.width  = std::clamp(actualExtent.width,</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;                                        <a class="code" href="a04088.html#a8ba0581e712e3a075ce750dedca8bf86">capabilities</a>.minImageExtent.width,</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;                                        <a class="code" href="a04088.html#a8ba0581e712e3a075ce750dedca8bf86">capabilities</a>.maxImageExtent.width);</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        actualExtent.height = std::clamp(actualExtent.height,</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                                         <a class="code" href="a04088.html#a8ba0581e712e3a075ce750dedca8bf86">capabilities</a>.minImageExtent.height,</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                                         <a class="code" href="a04088.html#a8ba0581e712e3a075ce750dedca8bf86">capabilities</a>.maxImageExtent.height);</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        <span class="keywordflow">return</span> actualExtent;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    }</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;}</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00485_html_a6b4a6c9a77636c98a3c0821ae6a4c119"><div class="ttname"><a href="a00485.html#a6b4a6c9a77636c98a3c0821ae6a4c119">BL_LOG_DEBUG</a></div><div class="ttdeci">#define BL_LOG_DEBUG</div><div class="ttdoc">Helper macro to log at debug level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00485_source.html#l00110">Logger.hpp:110</a></div></div>
+<div class="ttc" id="aa01628_html"><div class="ttname"><a href="a01628.html">SwapChainSupportDetails.hpp</a></div></div>
+<div class="ttc" id="aa01803_html"><div class="ttname"><a href="a01803.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04088_html_a040eaf623e9b24c2cee14f0091ed4527"><div class="ttname"><a href="a04088.html#a040eaf623e9b24c2cee14f0091ed4527">bl::rc::SwapChainSupportDetails::presentModes</a></div><div class="ttdeci">std::vector&lt; VkPresentModeKHR &gt; presentModes</div><div class="ttdef"><b>Definition:</b> <a href="a01628_source.html#l00015">SwapChainSupportDetails.hpp:15</a></div></div>
+<div class="ttc" id="aa04088_html_a069747b37a642917592e4a8efd66517f"><div class="ttname"><a href="a04088.html#a069747b37a642917592e4a8efd66517f">bl::rc::SwapChainSupportDetails::SwapChainSupportDetails</a></div><div class="ttdeci">SwapChainSupportDetails()=default</div></div>
+<div class="ttc" id="aa04088_html_a074771ce4af99a010a861cddb901432e"><div class="ttname"><a href="a04088.html#a074771ce4af99a010a861cddb901432e">bl::rc::SwapChainSupportDetails::swapSurfaceFormat</a></div><div class="ttdeci">const VkSurfaceFormatKHR &amp; swapSurfaceFormat() const</div><div class="ttdef"><b>Definition:</b> <a href="a01625_source.html#l00030">SwapChainSupportDetails.cpp:30</a></div></div>
+<div class="ttc" id="aa04088_html_a2c9d9cd7870d31087ed25d3300044237"><div class="ttname"><a href="a04088.html#a2c9d9cd7870d31087ed25d3300044237">bl::rc::SwapChainSupportDetails::presentationMode</a></div><div class="ttdeci">VkPresentModeKHR presentationMode(bool disableVsync) const</div><div class="ttdef"><b>Definition:</b> <a href="a01625_source.html#l00041">SwapChainSupportDetails.cpp:41</a></div></div>
+<div class="ttc" id="aa04088_html_a317e166f325c41fd43b5da49b187e1a0"><div class="ttname"><a href="a04088.html#a317e166f325c41fd43b5da49b187e1a0">bl::rc::SwapChainSupportDetails::swapExtent</a></div><div class="ttdeci">VkExtent2D swapExtent(const sf::Vector2u &amp;windowSize) const</div><div class="ttdef"><b>Definition:</b> <a href="a01625_source.html#l00052">SwapChainSupportDetails.cpp:52</a></div></div>
+<div class="ttc" id="aa04088_html_a538d5c8e88477f1afb804a9d557d4234"><div class="ttname"><a href="a04088.html#a538d5c8e88477f1afb804a9d557d4234">bl::rc::SwapChainSupportDetails::populate</a></div><div class="ttdeci">void populate(VkPhysicalDevice device, VkSurfaceKHR surface)</div><div class="ttdef"><b>Definition:</b> <a href="a01625_source.html#l00011">SwapChainSupportDetails.cpp:11</a></div></div>
+<div class="ttc" id="aa04088_html_a8ba0581e712e3a075ce750dedca8bf86"><div class="ttname"><a href="a04088.html#a8ba0581e712e3a075ce750dedca8bf86">bl::rc::SwapChainSupportDetails::capabilities</a></div><div class="ttdeci">VkSurfaceCapabilitiesKHR capabilities</div><div class="ttdef"><b>Definition:</b> <a href="a01628_source.html#l00013">SwapChainSupportDetails.hpp:13</a></div></div>
+<div class="ttc" id="aa04088_html_af19415c0ae2875bf29ba85dac4dec14e"><div class="ttname"><a href="a04088.html#af19415c0ae2875bf29ba85dac4dec14e">bl::rc::SwapChainSupportDetails::formats</a></div><div class="ttdeci">std::vector&lt; VkSurfaceFormatKHR &gt; formats</div><div class="ttdef"><b>Definition:</b> <a href="a01628_source.html#l00014">SwapChainSupportDetails.hpp:14</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 30 2023 22:56:46 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Oct 8 2023 18:56:19 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

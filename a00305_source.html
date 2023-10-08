@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Interfaces/GUI/Elements/CheckButton.hpp Source File</title>
+<title>BLIB: include/BLIB/Input/DirectionalControl.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,59 +66,69 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4a89db2e42278000e6aac6ace9db278e.html">Interfaces</a></li><li class="navelem"><a class="el" href="dir_488290d74f9e6b3540591d02cc875229.html">GUI</a></li><li class="navelem"><a class="el" href="dir_0e73644d95625b92b38fc98502188409.html">Elements</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_c720f75c1eb5aaccd40e24fd6b592b41.html">Input</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">CheckButton.hpp</div>  </div>
+<div class="title">DirectionalControl.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00305.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_GUI_ELEMENTS_CHECKBUTTON_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_GUI_ELEMENTS_CHECKBUTTON_HPP</span></div>
+<a href="a00305.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_INPUT_DIRECTIONALCONTROL_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_INPUT_DIRECTIONALCONTROL_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00350.html">BLIB/Interfaces/GUI/Elements/ToggleButton.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00314.html">BLIB/Input/Joystick.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01760.html">bl</a></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01803.html">bl</a></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>gui</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>input</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a02441.html">   16</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02441.html">CheckButton</a> : <span class="keyword">public</span> <a class="code" href="a02509.html">ToggleButton</a> {</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a02441.html#acb6996d5b34ba347bd611207c7a2a16e">   18</a></span>&#160;    <span class="keyword">typedef</span> std::shared_ptr&lt;CheckButton&gt; <a class="code" href="a02441.html#acb6996d5b34ba347bd611207c7a2a16e">Ptr</a>;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">static</span> <a class="code" href="a02441.html#acb6996d5b34ba347bd611207c7a2a16e">Ptr</a> <a class="code" href="a02441.html#a906aa43385325d8f4aa49e60543dd06d">create</a>(<span class="keyword">const</span> std::string&amp; <a class="code" href="a01274.html#a6d372f7ea1f537bfbc73492e24ef8623">text</a>);</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">class </span>InputSystem;</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a02496.html">   18</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a02496.html">DirectionalControl</a> {</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a02496.html#ad11d8007c9ffce98cf9c6f5d2a9d13e8">   20</a></span>&#160;    <span class="keyword">enum struct</span> <a class="code" href="a02496.html#ad11d8007c9ffce98cf9c6f5d2a9d13e8">Type</a> { <a class="code" href="a02496.html#ad11d8007c9ffce98cf9c6f5d2a9d13e8af2a47c6809d88e175dade0ef7b16aa13">Mouse</a>, <a class="code" href="a02508.html">Joystick</a> };</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a02496.html#aabce71fe4698bbac485b6f6fe08220db">   22</a></span>&#160;    <a class="code" href="a02496.html#ad11d8007c9ffce98cf9c6f5d2a9d13e8">Type</a> <a class="code" href="a02496.html#aabce71fe4698bbac485b6f6fe08220db">type</a>;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keyword">union </span>{</div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a02496.html#a4fa867882847b1d4d33d9f51f281304f">   24</a></span>&#160;        <a class="code" href="a02508.html">Joystick</a> <a class="code" href="a02496.html#a4fa867882847b1d4d33d9f51f281304f">joystick</a>;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    };</div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a02496.html#a5b31cecc6dc70f1d5cdf64212583f5f8">   26</a></span>&#160;    sf::Vector2f <a class="code" href="a02496.html#a5b31cecc6dc70f1d5cdf64212583f5f8">normalizedDirection</a>;</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keyword">static</span> <a class="code" href="a02441.html#acb6996d5b34ba347bd611207c7a2a16e">Ptr</a> <a class="code" href="a02441.html#a906aa43385325d8f4aa49e60543dd06d">create</a>(<span class="keyword">const</span> <a class="code" href="a02457.html#a21b57f73febb9e1c62e8abcef64b1654">Element::Ptr</a>&amp; child);</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <a class="code" href="a02496.html#ad630bc56babe07939fe19a2298d760f5">DirectionalControl</a>(<span class="keywordtype">bool</span> joystickMode);</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <a class="code" href="a02441.html#a58458d681287f65b777f0910d8065eae">CheckButton</a>(<span class="keyword">const</span> <a class="code" href="a02457.html#a21b57f73febb9e1c62e8abcef64b1654">Element::Ptr</a>&amp; child);</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02441.html#ac0e8efd979a38b44c9f0c0c064abea60">renderToggles</a>(<a class="code" href="a02437.html">Canvas</a>&amp; activeBut, <a class="code" href="a02437.html">Canvas</a>&amp; inactiveBut,</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                               <span class="keyword">const</span> <a class="code" href="a02545.html">Renderer</a>&amp; renderer) <span class="keyword">const override</span>;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;};</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;} <span class="comment">// namespace gui</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00350_html"><div class="ttname"><a href="a00350.html">ToggleButton.hpp</a></div></div>
-<div class="ttc" id="aa01274_html_a6d372f7ea1f537bfbc73492e24ef8623"><div class="ttname"><a href="a01274.html#a6d372f7ea1f537bfbc73492e24ef8623">text</a></div><div class="ttdeci">sf::Text text</div><div class="ttdef"><b>Definition:</b> <a href="a01274_source.html#l00015">DefaultRenderer.cpp:15</a></div></div>
-<div class="ttc" id="aa01760_html"><div class="ttname"><a href="a01760.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02437_html"><div class="ttname"><a href="a02437.html">bl::gui::Canvas</a></div><div class="ttdoc">Specialized Element that allows user code to render to its area.</div><div class="ttdef"><b>Definition:</b> <a href="a00302_source.html#l00017">Canvas.hpp:17</a></div></div>
-<div class="ttc" id="aa02441_html"><div class="ttname"><a href="a02441.html">bl::gui::CheckButton</a></div><div class="ttdoc">Checkbox button.</div><div class="ttdef"><b>Definition:</b> <a href="a00305_source.html#l00016">CheckButton.hpp:16</a></div></div>
-<div class="ttc" id="aa02441_html_a58458d681287f65b777f0910d8065eae"><div class="ttname"><a href="a02441.html#a58458d681287f65b777f0910d8065eae">bl::gui::CheckButton::CheckButton</a></div><div class="ttdeci">CheckButton(const Element::Ptr &amp;child)</div><div class="ttdoc">Create a new CheckButton with any child to its right.</div><div class="ttdef"><b>Definition:</b> <a href="a01208_source.html#l00017">CheckButton.cpp:17</a></div></div>
-<div class="ttc" id="aa02441_html_a906aa43385325d8f4aa49e60543dd06d"><div class="ttname"><a href="a02441.html#a906aa43385325d8f4aa49e60543dd06d">bl::gui::CheckButton::create</a></div><div class="ttdeci">static Ptr create(const std::string &amp;text)</div><div class="ttdoc">Create a new CheckButton with a Label as it's child.</div><div class="ttdef"><b>Definition:</b> <a href="a01208_source.html#l00009">CheckButton.cpp:9</a></div></div>
-<div class="ttc" id="aa02441_html_ac0e8efd979a38b44c9f0c0c064abea60"><div class="ttname"><a href="a02441.html#ac0e8efd979a38b44c9f0c0c064abea60">bl::gui::CheckButton::renderToggles</a></div><div class="ttdeci">virtual void renderToggles(Canvas &amp;activeBut, Canvas &amp;inactiveBut, const Renderer &amp;renderer) const override</div><div class="ttdoc">Renders the unchecked and checked box.</div><div class="ttdef"><b>Definition:</b> <a href="a01208_source.html#l00020">CheckButton.cpp:20</a></div></div>
-<div class="ttc" id="aa02441_html_acb6996d5b34ba347bd611207c7a2a16e"><div class="ttname"><a href="a02441.html#acb6996d5b34ba347bd611207c7a2a16e">bl::gui::CheckButton::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; CheckButton &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00305_source.html#l00018">CheckButton.hpp:18</a></div></div>
-<div class="ttc" id="aa02457_html_a21b57f73febb9e1c62e8abcef64b1654"><div class="ttname"><a href="a02457.html#a21b57f73febb9e1c62e8abcef64b1654">bl::gui::Element::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; Element &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00317_source.html#l00034">Element.hpp:34</a></div></div>
-<div class="ttc" id="aa02509_html"><div class="ttname"><a href="a02509.html">bl::gui::ToggleButton</a></div><div class="ttdoc">Base class for toggleable buttons. RadioButton and CheckBox are derived from this....</div><div class="ttdef"><b>Definition:</b> <a href="a00350_source.html#l00018">ToggleButton.hpp:18</a></div></div>
-<div class="ttc" id="aa02545_html"><div class="ttname"><a href="a02545.html">bl::gui::Renderer</a></div><div class="ttdoc">Interface for renderers for GUIs. Derived classes may elect to inherit from DefaultRenderer and only ...</div><div class="ttdef"><b>Definition:</b> <a href="a04853_source.html#l00037">Renderer.hpp:37</a></div></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a02496.html#ab995388a3049a9ac9368ee171bc66436">process</a>(<span class="keyword">const</span> <a class="code" href="a02504.html">InputSystem</a>&amp; system, <span class="keyword">const</span> sf::Event&amp; event);</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02496.html#a1d6214a932ff7956a829cd357a8753e6">saveToConfig</a>(<span class="keyword">const</span> std::string&amp; prefix) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02496.html#a356aefe82c54204083ec3bdec3692ba5">loadFromConfig</a>(<span class="keyword">const</span> std::string&amp; prefix);</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    std::string <a class="code" href="a02496.html#aeb5c32964cb8cb5736da9d74d23a2687">toString</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;};</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;} <span class="comment">// namespace input</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00314_html"><div class="ttname"><a href="a00314.html">Joystick.hpp</a></div></div>
+<div class="ttc" id="aa01803_html"><div class="ttname"><a href="a01803.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02496_html"><div class="ttname"><a href="a02496.html">bl::input::DirectionalControl</a></div><div class="ttdoc">Control data for a directional input.</div><div class="ttdef"><b>Definition:</b> <a href="a00305_source.html#l00018">DirectionalControl.hpp:18</a></div></div>
+<div class="ttc" id="aa02496_html_a1d6214a932ff7956a829cd357a8753e6"><div class="ttname"><a href="a02496.html#a1d6214a932ff7956a829cd357a8753e6">bl::input::DirectionalControl::saveToConfig</a></div><div class="ttdeci">void saveToConfig(const std::string &amp;prefix) const</div><div class="ttdoc">Saves this control config to the engine configuration store.</div><div class="ttdef"><b>Definition:</b> <a href="a01214_source.html#l00036">DirectionalControl.cpp:36</a></div></div>
+<div class="ttc" id="aa02496_html_a356aefe82c54204083ec3bdec3692ba5"><div class="ttname"><a href="a02496.html#a356aefe82c54204083ec3bdec3692ba5">bl::input::DirectionalControl::loadFromConfig</a></div><div class="ttdeci">void loadFromConfig(const std::string &amp;prefix)</div><div class="ttdoc">Loads this control config from the engine configuration store.</div><div class="ttdef"><b>Definition:</b> <a href="a01214_source.html#l00042">DirectionalControl.cpp:42</a></div></div>
+<div class="ttc" id="aa02496_html_a4fa867882847b1d4d33d9f51f281304f"><div class="ttname"><a href="a02496.html#a4fa867882847b1d4d33d9f51f281304f">bl::input::DirectionalControl::joystick</a></div><div class="ttdeci">Joystick joystick</div><div class="ttdef"><b>Definition:</b> <a href="a00305_source.html#l00024">DirectionalControl.hpp:24</a></div></div>
+<div class="ttc" id="aa02496_html_a5b31cecc6dc70f1d5cdf64212583f5f8"><div class="ttname"><a href="a02496.html#a5b31cecc6dc70f1d5cdf64212583f5f8">bl::input::DirectionalControl::normalizedDirection</a></div><div class="ttdeci">sf::Vector2f normalizedDirection</div><div class="ttdef"><b>Definition:</b> <a href="a00305_source.html#l00026">DirectionalControl.hpp:26</a></div></div>
+<div class="ttc" id="aa02496_html_aabce71fe4698bbac485b6f6fe08220db"><div class="ttname"><a href="a02496.html#aabce71fe4698bbac485b6f6fe08220db">bl::input::DirectionalControl::type</a></div><div class="ttdeci">Type type</div><div class="ttdef"><b>Definition:</b> <a href="a00305_source.html#l00022">DirectionalControl.hpp:22</a></div></div>
+<div class="ttc" id="aa02496_html_ab995388a3049a9ac9368ee171bc66436"><div class="ttname"><a href="a02496.html#ab995388a3049a9ac9368ee171bc66436">bl::input::DirectionalControl::process</a></div><div class="ttdeci">bool process(const InputSystem &amp;system, const sf::Event &amp;event)</div><div class="ttdoc">Processes the given event to potentially update the direction being inputted.</div><div class="ttdef"><b>Definition:</b> <a href="a01214_source.html#l00024">DirectionalControl.cpp:24</a></div></div>
+<div class="ttc" id="aa02496_html_ad11d8007c9ffce98cf9c6f5d2a9d13e8"><div class="ttname"><a href="a02496.html#ad11d8007c9ffce98cf9c6f5d2a9d13e8">bl::input::DirectionalControl::Type</a></div><div class="ttdeci">Type</div><div class="ttdoc">The type of input that drives the control.</div><div class="ttdef"><b>Definition:</b> <a href="a00305_source.html#l00020">DirectionalControl.hpp:20</a></div></div>
+<div class="ttc" id="aa02496_html_ad11d8007c9ffce98cf9c6f5d2a9d13e8af2a47c6809d88e175dade0ef7b16aa13"><div class="ttname"><a href="a02496.html#ad11d8007c9ffce98cf9c6f5d2a9d13e8af2a47c6809d88e175dade0ef7b16aa13">bl::input::DirectionalControl::Type::Mouse</a></div><div class="ttdeci">@ Mouse</div></div>
+<div class="ttc" id="aa02496_html_ad630bc56babe07939fe19a2298d760f5"><div class="ttname"><a href="a02496.html#ad630bc56babe07939fe19a2298d760f5">bl::input::DirectionalControl::DirectionalControl</a></div><div class="ttdeci">DirectionalControl(bool joystickMode)</div><div class="ttdoc">Creates the directional control in either mouse or joystick mode.</div><div class="ttdef"><b>Definition:</b> <a href="a01214_source.html#l00021">DirectionalControl.cpp:21</a></div></div>
+<div class="ttc" id="aa02496_html_aeb5c32964cb8cb5736da9d74d23a2687"><div class="ttname"><a href="a02496.html#aeb5c32964cb8cb5736da9d74d23a2687">bl::input::DirectionalControl::toString</a></div><div class="ttdeci">std::string toString() const</div><div class="ttdoc">Returns a user-readable string signifying what this control is.</div><div class="ttdef"><b>Definition:</b> <a href="a01214_source.html#l00050">DirectionalControl.cpp:50</a></div></div>
+<div class="ttc" id="aa02504_html"><div class="ttname"><a href="a02504.html">bl::input::InputSystem</a></div><div class="ttdoc">System for managing complex input workflows and maintaining a stack of subscribers to input based eve...</div><div class="ttdef"><b>Definition:</b> <a href="a00311_source.html#l00023">InputSystem.hpp:23</a></div></div>
+<div class="ttc" id="aa02508_html"><div class="ttname"><a href="a02508.html">bl::input::Joystick</a></div><div class="ttdoc">Helper struct representing a full joystick for inputs.</div><div class="ttdef"><b>Definition:</b> <a href="a00314_source.html#l00018">Joystick.hpp:18</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 30 2023 22:56:45 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Oct 8 2023 18:56:18 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::ctr::IndexMappedList&lt; TKey, TValue &gt; Class Template Reference</title>
+<title>BLIB: Member List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,383 +66,36 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01760.html">bl</a></li><li class="navelem"><a class="el" href="a01771.html">ctr</a></li><li class="navelem"><a class="el" href="a01973.html">IndexMappedList</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01803.html">bl</a></li><li class="navelem"><a class="el" href="a01807.html">cam</a></li><li class="navelem"><a class="el" href="a01976.html">Camera</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#friends">Friends</a> &#124;
-<a href="a01970.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::ctr::IndexMappedList&lt; TKey, TValue &gt; Class Template Reference<div class="ingroups"><a class="el" href="a01733.html">Containers</a></div></div>  </div>
+<div class="title">bl::cam::Camera Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Specialized storage that is like a multimap, but internally is comprised of only a few vectors. This keeps the storage relatively cache friendly and helps to minimize fragmentation over time. Chief usage is one-to-many relationship mapping in the ECS.  
- <a href="a01973.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="a00083_source.html">IndexMappedList.hpp</a>&gt;</code></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01977.html">Iterator</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01977.html" title="Iterator over values for a specific key.">Iterator</a> over values for a specific key.  <a href="a01977.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01981.html">Range</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper struct to allow range-based for loops.  <a href="a01981.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a25cd3b1484ad1602a56860e34480ead9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01973.html#a25cd3b1484ad1602a56860e34480ead9">IndexMappedList</a> (std::size_t capacityHint=64)</td></tr>
-<tr class="memdesc:a25cd3b1484ad1602a56860e34480ead9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new index mapped list with the given capacity hint.  <a href="a01973.html#a25cd3b1484ad1602a56860e34480ead9">More...</a><br /></td></tr>
-<tr class="separator:a25cd3b1484ad1602a56860e34480ead9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab6aa3c5ba92db2d7c9adedcb6bff27be"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01973.html#ab6aa3c5ba92db2d7c9adedcb6bff27be">hasValues</a> (TKey key) const</td></tr>
-<tr class="memdesc:ab6aa3c5ba92db2d7c9adedcb6bff27be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the given key has any values.  <a href="a01973.html#ab6aa3c5ba92db2d7c9adedcb6bff27be">More...</a><br /></td></tr>
-<tr class="separator:ab6aa3c5ba92db2d7c9adedcb6bff27be"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab2821644f3a2665447f814eb01c64925"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01973.html#ab2821644f3a2665447f814eb01c64925">hasValue</a> (TKey key, const TValue &amp;value) const</td></tr>
-<tr class="memdesc:ab2821644f3a2665447f814eb01c64925"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns if the given key contains the given value.  <a href="a01973.html#ab2821644f3a2665447f814eb01c64925">More...</a><br /></td></tr>
-<tr class="separator:ab2821644f3a2665447f814eb01c64925"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aad5e029b3edda32c3c3a7421650f2d30"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01981.html">Range</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01973.html#aad5e029b3edda32c3c3a7421650f2d30">getValues</a> (TKey key)</td></tr>
-<tr class="memdesc:aad5e029b3edda32c3c3a7421650f2d30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the range of values for a given key. May be empty.  <a href="a01973.html#aad5e029b3edda32c3c3a7421650f2d30">More...</a><br /></td></tr>
-<tr class="separator:aad5e029b3edda32c3c3a7421650f2d30"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9dd847672b517004d2892ed2e5828557"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01973.html#a9dd847672b517004d2892ed2e5828557">removeValue</a> (TKey key, const TValue &amp;value)</td></tr>
-<tr class="memdesc:a9dd847672b517004d2892ed2e5828557"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the specific value for the given key. Safe if the value is not contained.  <a href="a01973.html#a9dd847672b517004d2892ed2e5828557">More...</a><br /></td></tr>
-<tr class="separator:a9dd847672b517004d2892ed2e5828557"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a67a116a24635607c6f2e8642fa89b644"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01973.html#a67a116a24635607c6f2e8642fa89b644">remove</a> (TKey key)</td></tr>
-<tr class="memdesc:a67a116a24635607c6f2e8642fa89b644"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes all values for the given key.  <a href="a01973.html#a67a116a24635607c6f2e8642fa89b644">More...</a><br /></td></tr>
-<tr class="separator:a67a116a24635607c6f2e8642fa89b644"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aae441f9ea0afe9458a13b58c3877e19c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01973.html#aae441f9ea0afe9458a13b58c3877e19c">add</a> (TKey key, TValue value)</td></tr>
-<tr class="memdesc:aae441f9ea0afe9458a13b58c3877e19c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds the value to the given key.  <a href="a01973.html#aae441f9ea0afe9458a13b58c3877e19c">More...</a><br /></td></tr>
-<tr class="separator:aae441f9ea0afe9458a13b58c3877e19c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aad5ebb9c718c413c10bc0765a6b14df5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01973.html#aad5ebb9c718c413c10bc0765a6b14df5">clear</a> ()</td></tr>
-<tr class="memdesc:aad5ebb9c718c413c10bc0765a6b14df5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears all values and keys.  <a href="a01973.html#aad5ebb9c718c413c10bc0765a6b14df5">More...</a><br /></td></tr>
-<tr class="separator:aad5ebb9c718c413c10bc0765a6b14df5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
-Friends</h2></td></tr>
-<tr class="memitem:a8378215c88c684d360158d869e3f0c49"><td class="memItemLeft" align="right" valign="top">struct&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01973.html#a8378215c88c684d360158d869e3f0c49">Iterator</a></td></tr>
-<tr class="separator:a8378215c88c684d360158d869e3f0c49"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename TKey, typename TValue&gt;<br />
-class bl::ctr::IndexMappedList&lt; TKey, TValue &gt;</h3>
-
-<p>Specialized storage that is like a multimap, but internally is comprised of only a few vectors. This keeps the storage relatively cache friendly and helps to minimize fragmentation over time. Chief usage is one-to-many relationship mapping in the ECS. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">TKey</td><td>The key type. Must be an unsigned integer </td></tr>
-    <tr><td class="paramname">TValue</td><td>The value type </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00083_source.html#l00024">24</a> of file <a class="el" href="a00083_source.html">IndexMappedList.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a25cd3b1484ad1602a56860e34480ead9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a25cd3b1484ad1602a56860e34480ead9">&#9670;&nbsp;</a></span>IndexMappedList()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename TKey , typename TValue &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a01973.html">bl::ctr::IndexMappedList</a>&lt; TKey, TValue &gt;::<a class="el" href="a01973.html">IndexMappedList</a> </td>
-          <td>(</td>
-          <td class="paramtype">std::size_t&#160;</td>
-          <td class="paramname"><em>capacityHint</em> = <code>64</code></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Creates a new index mapped list with the given capacity hint. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">capacityHint</td><td>The amount of capacity to reserve </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00083_source.html#l00238">238</a> of file <a class="el" href="a00083_source.html">IndexMappedList.hpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="aae441f9ea0afe9458a13b58c3877e19c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aae441f9ea0afe9458a13b58c3877e19c">&#9670;&nbsp;</a></span>add()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename TKey , typename TValue &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="a01973.html">bl::ctr::IndexMappedList</a>&lt; TKey, TValue &gt;::add </td>
-          <td>(</td>
-          <td class="paramtype">TKey&#160;</td>
-          <td class="paramname"><em>key</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">TValue&#160;</td>
-          <td class="paramname"><em>value</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Adds the value to the given key. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">key</td><td>The key to add the value for </td></tr>
-    <tr><td class="paramname">value</td><td>The value to add </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00083_source.html#l00306">306</a> of file <a class="el" href="a00083_source.html">IndexMappedList.hpp</a>.</p>
-
-</div>
-</div>
-<a id="aad5ebb9c718c413c10bc0765a6b14df5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aad5ebb9c718c413c10bc0765a6b14df5">&#9670;&nbsp;</a></span>clear()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename TKey , typename TValue &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="a01973.html">bl::ctr::IndexMappedList</a>&lt; TKey, TValue &gt;::clear</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Clears all values and keys. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00083_source.html#l00318">318</a> of file <a class="el" href="a00083_source.html">IndexMappedList.hpp</a>.</p>
-
-</div>
-</div>
-<a id="aad5e029b3edda32c3c3a7421650f2d30"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aad5e029b3edda32c3c3a7421650f2d30">&#9670;&nbsp;</a></span>getValues()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename TKey , typename TValue &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a01973.html">IndexMappedList</a>&lt; TKey, TValue &gt;::<a class="el" href="a01981.html">Range</a> <a class="el" href="a01973.html">bl::ctr::IndexMappedList</a>&lt; TKey, TValue &gt;::getValues </td>
-          <td>(</td>
-          <td class="paramtype">TKey&#160;</td>
-          <td class="paramname"><em>key</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the range of values for a given key. May be empty. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">key</td><td>The key to get the values for </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Iterable range of values for the given key </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00083_source.html#l00262">262</a> of file <a class="el" href="a00083_source.html">IndexMappedList.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ab2821644f3a2665447f814eb01c64925"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab2821644f3a2665447f814eb01c64925">&#9670;&nbsp;</a></span>hasValue()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename TKey , typename TValue &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">bool <a class="el" href="a01973.html">bl::ctr::IndexMappedList</a>&lt; TKey, TValue &gt;::hasValue </td>
-          <td>(</td>
-          <td class="paramtype">TKey&#160;</td>
-          <td class="paramname"><em>key</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const TValue &amp;&#160;</td>
-          <td class="paramname"><em>value</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns if the given key contains the given value. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">key</td><td>The key to check the values of </td></tr>
-    <tr><td class="paramname">value</td><td>The specific value to search for </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the key has the value, false otherwise </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00083_source.html#l00250">250</a> of file <a class="el" href="a00083_source.html">IndexMappedList.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ab6aa3c5ba92db2d7c9adedcb6bff27be"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab6aa3c5ba92db2d7c9adedcb6bff27be">&#9670;&nbsp;</a></span>hasValues()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename TKey , typename TValue &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">bool <a class="el" href="a01973.html">bl::ctr::IndexMappedList</a>&lt; TKey, TValue &gt;::hasValues </td>
-          <td>(</td>
-          <td class="paramtype">TKey&#160;</td>
-          <td class="paramname"><em>key</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns whether or not the given key has any values. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">key</td><td>The key to test </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the key has values, false otherwise </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00083_source.html#l00245">245</a> of file <a class="el" href="a00083_source.html">IndexMappedList.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a67a116a24635607c6f2e8642fa89b644"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a67a116a24635607c6f2e8642fa89b644">&#9670;&nbsp;</a></span>remove()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename TKey , typename TValue &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="a01973.html">bl::ctr::IndexMappedList</a>&lt; TKey, TValue &gt;::remove </td>
-          <td>(</td>
-          <td class="paramtype">TKey&#160;</td>
-          <td class="paramname"><em>key</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Removes all values for the given key. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">key</td><td>The key to clear from the map </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00083_source.html#l00291">291</a> of file <a class="el" href="a00083_source.html">IndexMappedList.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a9dd847672b517004d2892ed2e5828557"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9dd847672b517004d2892ed2e5828557">&#9670;&nbsp;</a></span>removeValue()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename TKey , typename TValue &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="a01973.html">bl::ctr::IndexMappedList</a>&lt; TKey, TValue &gt;::removeValue </td>
-          <td>(</td>
-          <td class="paramtype">TKey&#160;</td>
-          <td class="paramname"><em>key</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const TValue &amp;&#160;</td>
-          <td class="paramname"><em>value</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Removes the specific value for the given key. Safe if the value is not contained. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">key</td><td>The key to remove the value for </td></tr>
-    <tr><td class="paramname">value</td><td>The value to remove </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00083_source.html#l00267">267</a> of file <a class="el" href="a00083_source.html">IndexMappedList.hpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Friends And Related Function Documentation</h2>
-<a id="a8378215c88c684d360158d869e3f0c49"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8378215c88c684d360158d869e3f0c49">&#9670;&nbsp;</a></span>Iterator</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename TKey , typename TValue &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">friend struct <a class="el" href="a01977.html">Iterator</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00083_source.html#l00232">232</a> of file <a class="el" href="a00083_source.html">IndexMappedList.hpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>include/BLIB/Containers/<a class="el" href="a00083_source.html">IndexMappedList.hpp</a></li>
-</ul>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="a01976.html">bl::cam::Camera</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="a01976.html#a371f8cb60ba6a690287f556a91163fa8">Camera</a>()</td><td class="entry"><a class="el" href="a01976.html">bl::cam::Camera</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01976.html#a8e2441211f24e3d0c682ea3ecfe1b168">farPlane</a>() const</td><td class="entry"><a class="el" href="a01976.html">bl::cam::Camera</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01976.html#acf354685b1d274c379fe085076fa4051">getProjectionMatrix</a>(const VkViewport &amp;viewport)</td><td class="entry"><a class="el" href="a01976.html">bl::cam::Camera</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01976.html#aa7d175dedf0a83d5acb4abdd7931109f">getViewMatrix</a>()</td><td class="entry"><a class="el" href="a01976.html">bl::cam::Camera</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01976.html#a8db0b22739ed85a8dc29ec7082d04640">markProjDirty</a>()</td><td class="entry"><a class="el" href="a01976.html">bl::cam::Camera</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01976.html#a194c42e28c9bc4558095265ca862e761">markViewDirty</a>()</td><td class="entry"><a class="el" href="a01976.html">bl::cam::Camera</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01976.html#a9c66151fa1d297f82526d18b38836c2f">nearPlane</a>() const</td><td class="entry"><a class="el" href="a01976.html">bl::cam::Camera</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01976.html#ad84589ac3d7c29b7ef31ba89729c4860">refreshProjMatrix</a>(glm::mat4 &amp;proj, const VkViewport &amp;viewport)=0</td><td class="entry"><a class="el" href="a01976.html">bl::cam::Camera</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01976.html#ad997afe84942385e1fc059ad44d59782">refreshViewMatrix</a>(glm::mat4 &amp;view)=0</td><td class="entry"><a class="el" href="a01976.html">bl::cam::Camera</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01976.html#a5a5b4868ae35b77f52c2f878b18bcc59">setFarPlane</a>(float farValue)</td><td class="entry"><a class="el" href="a01976.html">bl::cam::Camera</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01976.html#a60e436aa6a89793a9e3fd8c3b0378fbf">setNearAndFarPlanes</a>(float nearValue, float farValue)</td><td class="entry"><a class="el" href="a01976.html">bl::cam::Camera</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01976.html#a395d70678534a5f5b6495bbb5c832598">setNearPlane</a>(float nearValue)</td><td class="entry"><a class="el" href="a01976.html">bl::cam::Camera</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01976.html#afcc126b9a6540652fe62605674fcd190">update</a>(float dt)=0</td><td class="entry"><a class="el" href="a01976.html">bl::cam::Camera</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01976.html#a434913b782c5325363c947a70959f3c9">~Camera</a>()=default</td><td class="entry"><a class="el" href="a01976.html">bl::cam::Camera</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+</table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 30 2023 22:56:47 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Oct 8 2023 18:56:19 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

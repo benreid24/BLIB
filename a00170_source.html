@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Engine/Events/Shutdown.hpp Source File</title>
+<title>BLIB: include/BLIB/ECS/Traits/ChildAware.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,50 +66,67 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_21925c401d8b9381bdf61383d8a14cd0.html">Engine</a></li><li class="navelem"><a class="el" href="dir_b1e11ac7deb2d68a3ec768925497826d.html">Events</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ce575a5afd2ea0954c4dff0006796805.html">ECS</a></li><li class="navelem"><a class="el" href="dir_659bc538448a0e8899465bc52d6638f0.html">Traits</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Shutdown.hpp</div>  </div>
+<div class="title">ChildAware.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00170.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_ENGINE_EVENTS_SHUTDOWN_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_ENGINE_EVENTS_SHUTDOWN_HPP</span></div>
+<a href="a00170.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_ECS_CHILDAWARE_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_ECS_CHILDAWARE_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01760.html">bl</a></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;{</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>engine</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>event</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a02197.html">   16</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a02197.html">Shutdown</a> {</div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a02197.html#a610f7ea530340c0339eae47bea563204">   18</a></span>&#160;    <span class="keyword">enum</span> <a class="code" href="a02197.html#a610f7ea530340c0339eae47bea563204">ShutdownType</a> {</div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a02197.html#a610f7ea530340c0339eae47bea563204a194337d8c56fb9e4a4d0d3424b4ae786">   20</a></span>&#160;        <a class="code" href="a02197.html#a610f7ea530340c0339eae47bea563204a194337d8c56fb9e4a4d0d3424b4ae786">Terminated</a>,</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a02197.html#a610f7ea530340c0339eae47bea563204a8d3b9ffb95b55ffebe0ff64fc83337ea">   23</a></span>&#160;        <a class="code" href="a02197.html#a610f7ea530340c0339eae47bea563204a8d3b9ffb95b55ffebe0ff64fc83337ea">FinalStatePopped</a>,</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        <a class="code" href="a02197.html#a610f7ea530340c0339eae47bea563204a124f6c688386414dba77b638454e3082">WindowClosed</a></div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="a02197.html#a43c9a23185a5d8face1114935eb1a523">   27</a></span>&#160;    } <a class="code" href="a02197.html#a43c9a23185a5d8face1114935eb1a523">cause</a>;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;};</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;} <span class="comment">// namespace event</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;} <span class="comment">// namespace engine</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01760_html"><div class="ttname"><a href="a01760.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02197_html"><div class="ttname"><a href="a02197.html">bl::engine::event::Shutdown</a></div><div class="ttdoc">Fired when the Engine shuts down.</div><div class="ttdef"><b>Definition:</b> <a href="a00170_source.html#l00016">Shutdown.hpp:16</a></div></div>
-<div class="ttc" id="aa02197_html_a43c9a23185a5d8face1114935eb1a523"><div class="ttname"><a href="a02197.html#a43c9a23185a5d8face1114935eb1a523">bl::engine::event::Shutdown::cause</a></div><div class="ttdeci">enum bl::engine::event::Shutdown::ShutdownType cause</div></div>
-<div class="ttc" id="aa02197_html_a610f7ea530340c0339eae47bea563204"><div class="ttname"><a href="a02197.html#a610f7ea530340c0339eae47bea563204">bl::engine::event::Shutdown::ShutdownType</a></div><div class="ttdeci">ShutdownType</div><div class="ttdoc">What triggered the engine to shutdown.</div><div class="ttdef"><b>Definition:</b> <a href="a00170_source.html#l00018">Shutdown.hpp:18</a></div></div>
-<div class="ttc" id="aa02197_html_a610f7ea530340c0339eae47bea563204a124f6c688386414dba77b638454e3082"><div class="ttname"><a href="a02197.html#a610f7ea530340c0339eae47bea563204a124f6c688386414dba77b638454e3082">bl::engine::event::Shutdown::WindowClosed</a></div><div class="ttdeci">@ WindowClosed</div><div class="ttdoc">The main window was closed.</div><div class="ttdef"><b>Definition:</b> <a href="a00170_source.html#l00027">Shutdown.hpp:26</a></div></div>
-<div class="ttc" id="aa02197_html_a610f7ea530340c0339eae47bea563204a194337d8c56fb9e4a4d0d3424b4ae786"><div class="ttname"><a href="a02197.html#a610f7ea530340c0339eae47bea563204a194337d8c56fb9e4a4d0d3424b4ae786">bl::engine::event::Shutdown::Terminated</a></div><div class="ttdeci">@ Terminated</div><div class="ttdoc">The terminate engine flag was set.</div><div class="ttdef"><b>Definition:</b> <a href="a00170_source.html#l00020">Shutdown.hpp:20</a></div></div>
-<div class="ttc" id="aa02197_html_a610f7ea530340c0339eae47bea563204a8d3b9ffb95b55ffebe0ff64fc83337ea"><div class="ttname"><a href="a02197.html#a610f7ea530340c0339eae47bea563204a8d3b9ffb95b55ffebe0ff64fc83337ea">bl::engine::event::Shutdown::FinalStatePopped</a></div><div class="ttdeci">@ FinalStatePopped</div><div class="ttdoc">The final engine state was popped off.</div><div class="ttdef"><b>Definition:</b> <a href="a00170_source.html#l00023">Shutdown.hpp:23</a></div></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;type_traits&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01803.html">bl</a></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>ecs</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">class </span>ComponentPool;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="a01822.html">   14</a></span>&#160;<span class="keyword">namespace </span>trait</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a02244.html">   26</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02244.html">ChildAware</a> {</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="a02244.html#a64bc5ccb5f21bafbf88c882e16b4db4b">   31</a></span>&#160;    <a class="code" href="a02244.html#a64bc5ccb5f21bafbf88c882e16b4db4b">ChildAware</a>();</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="a02244.html#a871c1ae4f32355e2a60a2fb5ab7b10e5">   36</a></span>&#160;    <span class="keyword">const</span> std::vector&lt;T*&gt;&amp; <a class="code" href="a02244.html#a871c1ae4f32355e2a60a2fb5ab7b10e5">getChildren</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="a02244.html#a4a848e627ba633a29d0fc844e62a9cbe">   39</a></span>&#160;    std::vector&lt;T*&gt; children;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a02152.html">ComponentPool</a>&lt;T&gt;;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;};</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="a02244.html#a64bc5ccb5f21bafbf88c882e16b4db4b">   47</a></span>&#160;<a class="code" href="a02244.html#a64bc5ccb5f21bafbf88c882e16b4db4b">ChildAware&lt;T&gt;::ChildAware</a>() {}</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="a02244.html#a871c1ae4f32355e2a60a2fb5ab7b10e5">   50</a></span>&#160;<span class="keyword">inline</span> <span class="keyword">const</span> std::vector&lt;T*&gt;&amp; <a class="code" href="a02244.html#a871c1ae4f32355e2a60a2fb5ab7b10e5">ChildAware&lt;T&gt;::getChildren</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordflow">return</span> children;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;}</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;} <span class="comment">// namespace trait</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;} <span class="comment">// namespace ecs</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01803_html"><div class="ttname"><a href="a01803.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02152_html"><div class="ttname"><a href="a02152.html">bl::ecs::ComponentPool</a></div><div class="ttdoc">Provides storage and management for components in the ECS. Used internally in the Registry.</div><div class="ttdef"><b>Definition:</b> <a href="a00140_source.html#l00069">ComponentPool.hpp:69</a></div></div>
+<div class="ttc" id="aa02244_html"><div class="ttname"><a href="a02244.html">bl::ecs::trait::ChildAware</a></div><div class="ttdoc">Component trait for components that are parent-able. Parent is set in the Registry as an entity-level...</div><div class="ttdef"><b>Definition:</b> <a href="a00170_source.html#l00026">ChildAware.hpp:26</a></div></div>
+<div class="ttc" id="aa02244_html_a64bc5ccb5f21bafbf88c882e16b4db4b"><div class="ttname"><a href="a02244.html#a64bc5ccb5f21bafbf88c882e16b4db4b">bl::ecs::trait::ChildAware::ChildAware</a></div><div class="ttdeci">ChildAware()</div><div class="ttdoc">Sets the parent to nullptr.</div><div class="ttdef"><b>Definition:</b> <a href="a00170_source.html#l00047">ChildAware.hpp:47</a></div></div>
+<div class="ttc" id="aa02244_html_a871c1ae4f32355e2a60a2fb5ab7b10e5"><div class="ttname"><a href="a02244.html#a871c1ae4f32355e2a60a2fb5ab7b10e5">bl::ecs::trait::ChildAware::getChildren</a></div><div class="ttdeci">const std::vector&lt; T * &gt; &amp; getChildren() const</div><div class="ttdoc">Returns the list of child components.</div><div class="ttdef"><b>Definition:</b> <a href="a00170_source.html#l00050">ChildAware.hpp:50</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 30 2023 22:56:45 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Oct 8 2023 18:56:18 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

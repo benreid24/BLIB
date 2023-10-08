@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Input/Listener.cpp Source File</title>
+<title>BLIB: src/Engine/Systems.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,56 +66,73 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_25af87635f61d97ebff867d1c53b4626.html">Input</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Listener.cpp</div>  </div>
+<div class="title">Systems.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01175.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a04832.html">BLIB/Input/Listener.hpp</a>&gt;</span></div>
+<a href="a01175.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05037.html">BLIB/Engine/Systems.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00251.html">BLIB/Input/Actor.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05028.html">BLIB/Engine/Engine.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01760.html">bl</a></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01803.html">bl</a></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>input</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>engine</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a02393.html#a079b505ecaed9f6afd8278bbb7f38a44">    9</a></span>&#160;<a class="code" href="a02393.html#a079b505ecaed9f6afd8278bbb7f38a44">Listener::Listener</a>()</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;: owner(nullptr) {}</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="a02393.html#ae3540d1af77f94edd329e089eec2da82">   12</a></span>&#160;<a class="code" href="a02393.html#a079b505ecaed9f6afd8278bbb7f38a44">Listener::Listener</a>(<span class="keyword">const</span> <a class="code" href="a02393.html">Listener</a>&amp; l)</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;: owner(l.owner) {</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <a class="code" href="a02393.html">Listener</a>&amp; c = <span class="keyword">const_cast&lt;</span><a class="code" href="a02393.html">Listener</a>&amp;<span class="keyword">&gt;</span>(l);</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keywordflow">if</span> (owner) { owner-&gt;<a class="code" href="a02353.html#a863a02458bc5d034b2fdb33076ea58b3">replaceListener</a>(c, *<span class="keyword">this</span>); }</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;}</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a02393.html#a29b323fc5a97661724c3a97790d72758">   18</a></span>&#160;<a class="code" href="a02393.html#a079b505ecaed9f6afd8278bbb7f38a44">Listener::Listener</a>(<a class="code" href="a02393.html">Listener</a>&amp;&amp; l)</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;: owner(l.owner) {</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keywordflow">if</span> (owner) { owner-&gt;<a class="code" href="a02353.html#a863a02458bc5d034b2fdb33076ea58b3">replaceListener</a>(l, *<span class="keyword">this</span>); }</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    l.owner = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;}</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a02393.html#a483ff531396a8a888ece355a945985cd">   24</a></span>&#160;<a class="code" href="a02393.html#a483ff531396a8a888ece355a945985cd">Listener::~Listener</a>() {</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordflow">if</span> (owner) { owner-&gt;<a class="code" href="a02353.html#a56283b2fa7496cb11af9ce65ea40a5d6">removeListener</a>(*<span class="keyword">this</span>); }</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;}</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;} <span class="comment">// namespace input</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00251_html"><div class="ttname"><a href="a00251.html">Actor.hpp</a></div></div>
-<div class="ttc" id="aa01760_html"><div class="ttname"><a href="a01760.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02353_html_a56283b2fa7496cb11af9ce65ea40a5d6"><div class="ttname"><a href="a02353.html#a56283b2fa7496cb11af9ce65ea40a5d6">bl::input::Actor::removeListener</a></div><div class="ttdeci">void removeListener(input::Listener &amp;listener)</div><div class="ttdoc">Removes the given listener. Does not have to be the active listener.</div><div class="ttdef"><b>Definition:</b> <a href="a01148_source.html#l00161">Actor.cpp:161</a></div></div>
-<div class="ttc" id="aa02353_html_a863a02458bc5d034b2fdb33076ea58b3"><div class="ttname"><a href="a02353.html#a863a02458bc5d034b2fdb33076ea58b3">bl::input::Actor::replaceListener</a></div><div class="ttdeci">void replaceListener(input::Listener &amp;oldListener, input::Listener &amp;newListener)</div><div class="ttdoc">Replaces the old listener with the new, keeping it at the same position in the queue.</div><div class="ttdef"><b>Definition:</b> <a href="a01148_source.html#l00171">Actor.cpp:171</a></div></div>
-<div class="ttc" id="aa02393_html"><div class="ttname"><a href="a02393.html">bl::input::Listener</a></div><div class="ttdoc">Base class for input listeners that can subscribe to an Actor. The base class keeps the input system ...</div><div class="ttdef"><b>Definition:</b> <a href="a04832_source.html#l00019">Listener.hpp:19</a></div></div>
-<div class="ttc" id="aa02393_html_a079b505ecaed9f6afd8278bbb7f38a44"><div class="ttname"><a href="a02393.html#a079b505ecaed9f6afd8278bbb7f38a44">bl::input::Listener::Listener</a></div><div class="ttdeci">Listener()</div><div class="ttdoc">Construct a new Listener object.</div><div class="ttdef"><b>Definition:</b> <a href="a01175_source.html#l00009">Listener.cpp:9</a></div></div>
-<div class="ttc" id="aa02393_html_a483ff531396a8a888ece355a945985cd"><div class="ttname"><a href="a02393.html#a483ff531396a8a888ece355a945985cd">bl::input::Listener::~Listener</a></div><div class="ttdeci">virtual ~Listener()</div><div class="ttdoc">Unsubscribes the listener if subscribed.</div><div class="ttdef"><b>Definition:</b> <a href="a01175_source.html#l00024">Listener.cpp:24</a></div></div>
-<div class="ttc" id="aa04832_html"><div class="ttname"><a href="a04832.html">Listener.hpp</a></div></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;Systems::StageSet::StageSet() { systems.reserve(8); };</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;Systems::Systems(Engine&amp; e)</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;: engine(e) {}</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keywordtype">void</span> Systems::init() {</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; set : systems) {</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; system : set.systems) { system.system-&gt;init(engine); }</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    }</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;}</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keywordtype">void</span> Systems::update(FrameStage::V startStage, FrameStage::V endStage, StateMask::V stateMask,</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;                     <span class="keywordtype">float</span> dt) {</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> beg = systems.begin() + startStage;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> end = systems.begin() + endStage;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = beg; it != end; ++it) {</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        it-&gt;drainTasks();</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="comment">// TODO - parallelize system updates within the same bucket</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; system : it-&gt;systems) {</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;            <span class="keywordflow">if</span> ((system.mask &amp; stateMask) != 0) { system.system-&gt;update(it-&gt;mutex, dt); }</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        }</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    }</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;}</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="a02320.html#abd2fcfc3f53dab243e9c88694e7bcf02">   34</a></span>&#160;<span class="keywordtype">void</span> Systems::addFrameTask(<a class="code" href="a02296.html#af6ea181be91b7069f9f52557a1445e1a">FrameStage::V</a> stage, <a class="code" href="a02320.html#a0f4d079b76e506c0a630dfe30c0cbc2f">Task</a>&amp;&amp; task) {</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    std::unique_lock lock(systems[stage].taskMutex);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    systems[stage].tasks.emplace_back(std::forward&lt;Task&gt;(task));</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;}</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keywordtype">void</span> Systems::StageSet::drainTasks() {</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    std::unique_lock lock(taskMutex);</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; task : tasks) {</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <span class="comment">// TODO - parallelize</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        task();</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    }</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    tasks.clear();</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;}</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;} <span class="comment">// namespace engine</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa01803_html"><div class="ttname"><a href="a01803.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02296_html_af6ea181be91b7069f9f52557a1445e1a"><div class="ttname"><a href="a02296.html#af6ea181be91b7069f9f52557a1445e1a">bl::engine::FrameStage::V</a></div><div class="ttdeci">V</div><div class="ttdoc">Value-type for engine stage ids.</div><div class="ttdef"><b>Definition:</b> <a href="a00212_source.html#l00018">FrameStage.hpp:18</a></div></div>
+<div class="ttc" id="aa02320_html_a0f4d079b76e506c0a630dfe30c0cbc2f"><div class="ttname"><a href="a02320.html#a0f4d079b76e506c0a630dfe30c0cbc2f">bl::engine::Systems::Task</a></div><div class="ttdeci">std::function&lt; void()&gt; Task</div><div class="ttdoc">Signature of one-off tasks that can be registered to run.</div><div class="ttdef"><b>Definition:</b> <a href="a05037_source.html#l00032">Systems.hpp:32</a></div></div>
+<div class="ttc" id="aa05028_html"><div class="ttname"><a href="a05028.html">Engine.hpp</a></div></div>
+<div class="ttc" id="aa05037_html"><div class="ttname"><a href="a05037.html">Systems.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 30 2023 22:56:46 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Oct 8 2023 18:56:19 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

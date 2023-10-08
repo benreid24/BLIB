@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Resources/PipelineCache.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Primitives/DrawParameters.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,64 +66,78 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_0f0c454ab916ef2487b68a1bc3be1485.html">Resources</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_b201fd9fa14a04c5ac17d47204a891a8.html">Primitives</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">PipelineCache.hpp</div>  </div>
+<div class="title">DrawParameters.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00710.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_RESOURCES_PIPELINECACHE_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_RESOURCES_PIPELINECACHE_HPP</span></div>
+<a href="a00710.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_RENDERER_DRAWPARAMETERS_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_RENDERER_DRAWPARAMETERS_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00797.html">BLIB/Render/Vulkan/Pipeline.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01091.html">BLIB/Vulkan.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;cstdint&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01760.html">bl</a></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>rc</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">class </span>Renderer;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span>res</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a03045.html">   21</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03045.html">PipelineCache</a> {</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <a class="code" href="a03209.html">vk::Pipeline</a>&amp; <a class="code" href="a03045.html#ab22abbcd5f0da2c18dbd75928e5c66fc">createPipline</a>(std::uint32_t pipelineId, <a class="code" href="a03229.html">vk::PipelineParameters</a>&amp;&amp; params);</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <a class="code" href="a03209.html">vk::Pipeline</a>&amp; <a class="code" href="a03045.html#a1ae6ab4cbe018341e55753994fd46c66">getPipeline</a>(std::uint32_t pipelineId);</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <a class="code" href="a03029.html">Renderer</a>&amp; renderer;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    std::unordered_map&lt;std::uint32_t, vk::Pipeline&gt; cache;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <a class="code" href="a03045.html">PipelineCache</a>(<a class="code" href="a03029.html">Renderer</a>&amp; renderer);</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordtype">void</span> cleanup();</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordtype">void</span> createBuiltins();</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="a03045.html#a1fc8c4ea65463b448e068f1287349540">   49</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a03029.html">bl::rc::Renderer</a>;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;};</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;} <span class="comment">// namespace res</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00797_html"><div class="ttname"><a href="a00797.html">Pipeline.hpp</a></div></div>
-<div class="ttc" id="aa01760_html"><div class="ttname"><a href="a01760.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03029_html"><div class="ttname"><a href="a03029.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition:</b> <a href="a04856_source.html#l00039">Renderer.hpp:39</a></div></div>
-<div class="ttc" id="aa03045_html"><div class="ttname"><a href="a03045.html">bl::rc::res::PipelineCache</a></div><div class="ttdoc">Basic cache to own and manage pipelines. Owned by the renderer.</div><div class="ttdef"><b>Definition:</b> <a href="a00710_source.html#l00021">PipelineCache.hpp:21</a></div></div>
-<div class="ttc" id="aa03045_html_a1ae6ab4cbe018341e55753994fd46c66"><div class="ttname"><a href="a03045.html#a1ae6ab4cbe018341e55753994fd46c66">bl::rc::res::PipelineCache::getPipeline</a></div><div class="ttdeci">vk::Pipeline &amp; getPipeline(std::uint32_t pipelineId)</div><div class="ttdoc">Returns the pipeline with the given id. Throws an exception if not found. Pipelines should be created...</div><div class="ttdef"><b>Definition:</b> <a href="a01493_source.html#l00033">PipelineCache.cpp:33</a></div></div>
-<div class="ttc" id="aa03045_html_ab22abbcd5f0da2c18dbd75928e5c66fc"><div class="ttname"><a href="a03045.html#ab22abbcd5f0da2c18dbd75928e5c66fc">bl::rc::res::PipelineCache::createPipline</a></div><div class="ttdeci">vk::Pipeline &amp; createPipline(std::uint32_t pipelineId, vk::PipelineParameters &amp;&amp;params)</div><div class="ttdoc">Creates a new pipeline in the cache. Id should be unique.</div><div class="ttdef"><b>Definition:</b> <a href="a01493_source.html#l00026">PipelineCache.cpp:26</a></div></div>
-<div class="ttc" id="aa03209_html"><div class="ttname"><a href="a03209.html">bl::rc::vk::Pipeline</a></div><div class="ttdoc">Core renderer class representing a pipeline that is a part of a RenderPass. Pipelines are managed by ...</div><div class="ttdef"><b>Definition:</b> <a href="a00797_source.html#l00030">Pipeline.hpp:30</a></div></div>
-<div class="ttc" id="aa03229_html"><div class="ttname"><a href="a03229.html">bl::rc::vk::PipelineParameters</a></div><div class="ttdoc">Parameters used to create a Pipeline. This class performs some basic validation and provides sane def...</div><div class="ttdef"><b>Definition:</b> <a href="a00803_source.html#l00031">PipelineParameters.hpp:31</a></div></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01803.html">bl</a></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="a01851.html">   11</a></span>&#160;<span class="keyword">namespace </span>prim</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a03096.html">   18</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a03096.html">DrawParameters</a> {</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a03096.html#abe53ce802d2125e3553fd3c7fca439f8">   22</a></span>&#160;    <span class="keyword">enum struct</span> <a class="code" href="a03096.html#abe53ce802d2125e3553fd3c7fca439f8">DrawType</a> { <a class="code" href="a03096.html#abe53ce802d2125e3553fd3c7fca439f8a10461f19cdb5aadba2fc9986be6400bd">VertexBuffer</a>, <a class="code" href="a03096.html#abe53ce802d2125e3553fd3c7fca439f8a7c3895116254ff0417e58b6286de27c0">IndexBuffer</a> };</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a03096.html#a326822946f31074ef8df1bed6550039d">   24</a></span>&#160;    <a class="code" href="a03096.html#abe53ce802d2125e3553fd3c7fca439f8">DrawType</a> <a class="code" href="a03096.html#a326822946f31074ef8df1bed6550039d">type</a>;</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a03096.html#a962d4d5348b4b6e0f9c11413340d3b5b">   25</a></span>&#160;    VkBuffer <a class="code" href="a03096.html#a962d4d5348b4b6e0f9c11413340d3b5b">vertexBuffer</a>;</div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a03096.html#ac6218e06fd3bbcd7f2739c53b7581a73">   26</a></span>&#160;    VkBuffer <a class="code" href="a03096.html#ac6218e06fd3bbcd7f2739c53b7581a73">indexBuffer</a>;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keyword">union </span>{</div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a03096.html#a6c514a24c6c747266eaae2e87582f999">   28</a></span>&#160;        std::uint32_t <a class="code" href="a03096.html#a6c514a24c6c747266eaae2e87582f999">indexCount</a>;</div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a03096.html#a4c54893eacb71e55018b88b1822eca52">   29</a></span>&#160;        std::uint32_t <a class="code" href="a03096.html#a4c54893eacb71e55018b88b1822eca52">vertexCount</a>;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    };</div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="a03096.html#a40a1bb84d0856d3d69d3a46efbf260eb">   31</a></span>&#160;    std::uint32_t <a class="code" href="a03096.html#a40a1bb84d0856d3d69d3a46efbf260eb">indexOffset</a>;</div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="a03096.html#ad7efd03d865ca379d80d00c1d13a912b">   32</a></span>&#160;    std::uint32_t <a class="code" href="a03096.html#ad7efd03d865ca379d80d00c1d13a912b">vertexOffset</a>;</div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="a03096.html#a3946c2a7339aacf2dfb602bd7a471c9b">   33</a></span>&#160;    std::uint32_t <a class="code" href="a03096.html#a3946c2a7339aacf2dfb602bd7a471c9b">firstInstance</a>;</div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="a03096.html#af69724acb861a73b0a05592001285584">   34</a></span>&#160;    std::uint32_t <a class="code" href="a03096.html#af69724acb861a73b0a05592001285584">instanceCount</a>;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="a03096.html#a8b5921705d41639a8650608af19324d8">   39</a></span>&#160;    <a class="code" href="a03096.html#a8b5921705d41639a8650608af19324d8">DrawParameters</a>()</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    : <a class="code" href="a03096.html#a326822946f31074ef8df1bed6550039d">type</a>(<a class="code" href="a03096.html#abe53ce802d2125e3553fd3c7fca439f8">DrawType</a>::IndexBuffer)</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    , <a class="code" href="a03096.html#a962d4d5348b4b6e0f9c11413340d3b5b">vertexBuffer</a>(nullptr)</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    , <a class="code" href="a03096.html#ac6218e06fd3bbcd7f2739c53b7581a73">indexBuffer</a>(nullptr)</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    , <a class="code" href="a03096.html#a6c514a24c6c747266eaae2e87582f999">indexCount</a>(0)</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    , <a class="code" href="a03096.html#a40a1bb84d0856d3d69d3a46efbf260eb">indexOffset</a>(0)</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    , <a class="code" href="a03096.html#ad7efd03d865ca379d80d00c1d13a912b">vertexOffset</a>(0)</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    , <a class="code" href="a03096.html#a3946c2a7339aacf2dfb602bd7a471c9b">firstInstance</a>(0)</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    , <a class="code" href="a03096.html#af69724acb861a73b0a05592001285584">instanceCount</a>(1) {}</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;};</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;} <span class="comment">// namespace prim</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01091_html"><div class="ttname"><a href="a01091.html">Vulkan.hpp</a></div></div>
+<div class="ttc" id="aa01803_html"><div class="ttname"><a href="a01803.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03096_html"><div class="ttname"><a href="a03096.html">bl::rc::prim::DrawParameters</a></div><div class="ttdoc">Collection of the required parameters to issue draw commands per object.</div><div class="ttdef"><b>Definition:</b> <a href="a00710_source.html#l00018">DrawParameters.hpp:18</a></div></div>
+<div class="ttc" id="aa03096_html_a326822946f31074ef8df1bed6550039d"><div class="ttname"><a href="a03096.html#a326822946f31074ef8df1bed6550039d">bl::rc::prim::DrawParameters::type</a></div><div class="ttdeci">DrawType type</div><div class="ttdef"><b>Definition:</b> <a href="a00710_source.html#l00024">DrawParameters.hpp:24</a></div></div>
+<div class="ttc" id="aa03096_html_a3946c2a7339aacf2dfb602bd7a471c9b"><div class="ttname"><a href="a03096.html#a3946c2a7339aacf2dfb602bd7a471c9b">bl::rc::prim::DrawParameters::firstInstance</a></div><div class="ttdeci">std::uint32_t firstInstance</div><div class="ttdef"><b>Definition:</b> <a href="a00710_source.html#l00033">DrawParameters.hpp:33</a></div></div>
+<div class="ttc" id="aa03096_html_a40a1bb84d0856d3d69d3a46efbf260eb"><div class="ttname"><a href="a03096.html#a40a1bb84d0856d3d69d3a46efbf260eb">bl::rc::prim::DrawParameters::indexOffset</a></div><div class="ttdeci">std::uint32_t indexOffset</div><div class="ttdef"><b>Definition:</b> <a href="a00710_source.html#l00031">DrawParameters.hpp:31</a></div></div>
+<div class="ttc" id="aa03096_html_a4c54893eacb71e55018b88b1822eca52"><div class="ttname"><a href="a03096.html#a4c54893eacb71e55018b88b1822eca52">bl::rc::prim::DrawParameters::vertexCount</a></div><div class="ttdeci">std::uint32_t vertexCount</div><div class="ttdef"><b>Definition:</b> <a href="a00710_source.html#l00029">DrawParameters.hpp:29</a></div></div>
+<div class="ttc" id="aa03096_html_a6c514a24c6c747266eaae2e87582f999"><div class="ttname"><a href="a03096.html#a6c514a24c6c747266eaae2e87582f999">bl::rc::prim::DrawParameters::indexCount</a></div><div class="ttdeci">std::uint32_t indexCount</div><div class="ttdef"><b>Definition:</b> <a href="a00710_source.html#l00028">DrawParameters.hpp:28</a></div></div>
+<div class="ttc" id="aa03096_html_a8b5921705d41639a8650608af19324d8"><div class="ttname"><a href="a03096.html#a8b5921705d41639a8650608af19324d8">bl::rc::prim::DrawParameters::DrawParameters</a></div><div class="ttdeci">DrawParameters()</div><div class="ttdoc">Initializes the draw parameters to reasonable defaults.</div><div class="ttdef"><b>Definition:</b> <a href="a00710_source.html#l00039">DrawParameters.hpp:39</a></div></div>
+<div class="ttc" id="aa03096_html_a962d4d5348b4b6e0f9c11413340d3b5b"><div class="ttname"><a href="a03096.html#a962d4d5348b4b6e0f9c11413340d3b5b">bl::rc::prim::DrawParameters::vertexBuffer</a></div><div class="ttdeci">VkBuffer vertexBuffer</div><div class="ttdef"><b>Definition:</b> <a href="a00710_source.html#l00025">DrawParameters.hpp:25</a></div></div>
+<div class="ttc" id="aa03096_html_abe53ce802d2125e3553fd3c7fca439f8"><div class="ttname"><a href="a03096.html#abe53ce802d2125e3553fd3c7fca439f8">bl::rc::prim::DrawParameters::DrawType</a></div><div class="ttdeci">DrawType</div><div class="ttdoc">Represents the drawing command to use.</div><div class="ttdef"><b>Definition:</b> <a href="a00710_source.html#l00022">DrawParameters.hpp:22</a></div></div>
+<div class="ttc" id="aa03096_html_abe53ce802d2125e3553fd3c7fca439f8a10461f19cdb5aadba2fc9986be6400bd"><div class="ttname"><a href="a03096.html#abe53ce802d2125e3553fd3c7fca439f8a10461f19cdb5aadba2fc9986be6400bd">bl::rc::prim::DrawParameters::DrawType::VertexBuffer</a></div><div class="ttdeci">@ VertexBuffer</div></div>
+<div class="ttc" id="aa03096_html_abe53ce802d2125e3553fd3c7fca439f8a7c3895116254ff0417e58b6286de27c0"><div class="ttname"><a href="a03096.html#abe53ce802d2125e3553fd3c7fca439f8a7c3895116254ff0417e58b6286de27c0">bl::rc::prim::DrawParameters::DrawType::IndexBuffer</a></div><div class="ttdeci">@ IndexBuffer</div></div>
+<div class="ttc" id="aa03096_html_ac6218e06fd3bbcd7f2739c53b7581a73"><div class="ttname"><a href="a03096.html#ac6218e06fd3bbcd7f2739c53b7581a73">bl::rc::prim::DrawParameters::indexBuffer</a></div><div class="ttdeci">VkBuffer indexBuffer</div><div class="ttdef"><b>Definition:</b> <a href="a00710_source.html#l00026">DrawParameters.hpp:26</a></div></div>
+<div class="ttc" id="aa03096_html_ad7efd03d865ca379d80d00c1d13a912b"><div class="ttname"><a href="a03096.html#ad7efd03d865ca379d80d00c1d13a912b">bl::rc::prim::DrawParameters::vertexOffset</a></div><div class="ttdeci">std::uint32_t vertexOffset</div><div class="ttdef"><b>Definition:</b> <a href="a00710_source.html#l00032">DrawParameters.hpp:32</a></div></div>
+<div class="ttc" id="aa03096_html_af69724acb861a73b0a05592001285584"><div class="ttname"><a href="a03096.html#af69724acb861a73b0a05592001285584">bl::rc::prim::DrawParameters::instanceCount</a></div><div class="ttdeci">std::uint32_t instanceCount</div><div class="ttdef"><b>Definition:</b> <a href="a00710_source.html#l00034">DrawParameters.hpp:34</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 30 2023 22:56:45 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Oct 8 2023 18:56:18 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Serialization/Buffers/MemoryOutputBuffer.cpp Source File</title>
+<title>BLIB: src/Scripts/Manager.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,51 +66,89 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_e7c9606de6dc9534b0042ecacee5f21f.html">Serialization</a></li><li class="navelem"><a class="el" href="dir_47ff02213d38b4fcd8e0172b7fa926fb.html">Buffers</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3ac9928fc2e7e2cbc53db7c1a11acda2.html">Scripts</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">MemoryOutputBuffer.cpp</div>  </div>
+<div class="title">Manager.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01682.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00947.html">BLIB/Serialization/Buffers/MemoryOutputBuffer.hpp</a>&gt;</span></div>
+<a href="a01682.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00920.html">BLIB/Scripts/Manager.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;cstring&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01760.html">bl</a></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>serial</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a03593.html#a29aafd9858e2a2a245f348a457f8a4ad">    9</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03593.html#a29aafd9858e2a2a245f348a457f8a4ad">MemoryOutputBuffer::reserve</a>(std::size_t s) { buffer.reserve(s); }</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="a03593.html#aa14425bbf68b5d3a49ea56ca30c2f15b">   11</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a03593.html#aa14425bbf68b5d3a49ea56ca30c2f15b">MemoryOutputBuffer::write</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* buf, std::size_t len) {</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keyword">const</span> std::size_t pos = buffer.size();</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    buffer.resize(buffer.size() + len);</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    std::memcpy(&amp;buffer[pos], buf, len);</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;}</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a03593.html#ab78ef537e0bd074e9c965e4535632fb0">   18</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a03593.html#ab78ef537e0bd074e9c965e4535632fb0">MemoryOutputBuffer::good</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <span class="keyword">true</span>; }</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a03593.html#a652db0ba56ef55f634172448d71f6909">   20</a></span>&#160;<span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code" href="a03593.html#a652db0ba56ef55f634172448d71f6909">MemoryOutputBuffer::data</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> buffer.data(); }</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00491.html">BLIB/Logging.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;chrono&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01803.html">bl</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>script</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="a03520.html#a852d6375512d9961149f3132353c6252">   10</a></span>&#160;<a class="code" href="a03520.html#a852d6375512d9961149f3132353c6252">Manager::~Manager</a>() {</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <a class="code" href="a00485.html#a459f7ea96e34815206480bf681ee2a2f">BL_LOG_INFO</a> &lt;&lt; <span class="stringliteral">&quot;ScriptManager (&quot;</span> &lt;&lt; <span class="keyword">this</span> &lt;&lt; <span class="stringliteral">&quot;) terminating with timeout = 2s&quot;</span>;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <a class="code" href="a03520.html#a77731bb5ef00afb950102d45f9de967d">terminateAll</a>(2.f);</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <a class="code" href="a00485.html#a459f7ea96e34815206480bf681ee2a2f">BL_LOG_INFO</a> &lt;&lt; <span class="stringliteral">&quot;ScriptManager (&quot;</span> &lt;&lt; <span class="keyword">this</span> &lt;&lt; <span class="stringliteral">&quot;) terminated&quot;</span>;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;}</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keywordtype">void</span> Manager::watch(Script::ExecutionContext::WPtr record) {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    std::lock_guard guard(mutex);</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    clean();</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    scripts.push_back(record);</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;}</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a03593.html#a97c1d806d711f9bf2837d0f193e390f1">   22</a></span>&#160;std::size_t <a class="code" href="a03593.html#a97c1d806d711f9bf2837d0f193e390f1">MemoryOutputBuffer::size</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> buffer.size(); }</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;} <span class="comment">// namespace serial</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00947_html"><div class="ttname"><a href="a00947.html">MemoryOutputBuffer.hpp</a></div></div>
-<div class="ttc" id="aa01760_html"><div class="ttname"><a href="a01760.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03593_html_a29aafd9858e2a2a245f348a457f8a4ad"><div class="ttname"><a href="a03593.html#a29aafd9858e2a2a245f348a457f8a4ad">bl::serial::MemoryOutputBuffer::reserve</a></div><div class="ttdeci">void reserve(std::size_t capacity)</div><div class="ttdoc">Reserves capacity for the serialized output.</div><div class="ttdef"><b>Definition:</b> <a href="a01682_source.html#l00009">MemoryOutputBuffer.cpp:9</a></div></div>
-<div class="ttc" id="aa03593_html_a652db0ba56ef55f634172448d71f6909"><div class="ttname"><a href="a03593.html#a652db0ba56ef55f634172448d71f6909">bl::serial::MemoryOutputBuffer::data</a></div><div class="ttdeci">const char * data() const</div><div class="ttdoc">Returns a pointer to the contained data.</div><div class="ttdef"><b>Definition:</b> <a href="a01682_source.html#l00020">MemoryOutputBuffer.cpp:20</a></div></div>
-<div class="ttc" id="aa03593_html_a97c1d806d711f9bf2837d0f193e390f1"><div class="ttname"><a href="a03593.html#a97c1d806d711f9bf2837d0f193e390f1">bl::serial::MemoryOutputBuffer::size</a></div><div class="ttdeci">std::size_t size() const</div><div class="ttdoc">Returns the size of the buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a01682_source.html#l00022">MemoryOutputBuffer.cpp:22</a></div></div>
-<div class="ttc" id="aa03593_html_aa14425bbf68b5d3a49ea56ca30c2f15b"><div class="ttname"><a href="a03593.html#aa14425bbf68b5d3a49ea56ca30c2f15b">bl::serial::MemoryOutputBuffer::write</a></div><div class="ttdeci">virtual bool write(const char *data, std::size_t len) override</div><div class="ttdoc">Write some data to the buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a01682_source.html#l00011">MemoryOutputBuffer.cpp:11</a></div></div>
-<div class="ttc" id="aa03593_html_ab78ef537e0bd074e9c965e4535632fb0"><div class="ttname"><a href="a03593.html#ab78ef537e0bd074e9c965e4535632fb0">bl::serial::MemoryOutputBuffer::good</a></div><div class="ttdeci">virtual bool good() const override</div><div class="ttdoc">Returns whether or not the buffer is in a good state.</div><div class="ttdef"><b>Definition:</b> <a href="a01682_source.html#l00018">MemoryOutputBuffer.cpp:18</a></div></div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a03520.html#a77731bb5ef00afb950102d45f9de967d">   22</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a03520.html#a77731bb5ef00afb950102d45f9de967d">Manager::terminateAll</a>(<span class="keywordtype">float</span> timeout) {</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    std::lock_guard guard(mutex);</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> i = scripts.begin(); i != scripts.end(); ++i) {</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <span class="keywordflow">if</span> (i-&gt;expired())</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;            i = scripts.erase(i);</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;            <span class="keyword">auto</span> ptr = i-&gt;lock();</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;            <span class="keywordflow">if</span> (ptr)</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;                ptr-&gt;table.kill();</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;            <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;                i = scripts.erase(i);</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        }</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keywordflow">if</span> (i == scripts.end()) <span class="keywordflow">break</span>; <span class="comment">// break before ++i</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    }</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">int</span> ms = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(timeout * 1000.0f);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> t = 0; t &lt; ms; t += 30) {</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        clean();</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="keywordflow">if</span> (scripts.empty()) <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        std::this_thread::sleep_for(std::chrono::milliseconds(30));</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    }</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordflow">if</span> (!scripts.empty()) {</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <a class="code" href="a00485.html#af954e63cd52a20dcd7087a8c569f373f">BL_LOG_WARN</a> &lt;&lt; scripts.size() &lt;&lt; <span class="stringliteral">&quot;scripts still running after &quot;</span> &lt;&lt; timeout &lt;&lt; <span class="stringliteral">&quot;s  timeout&quot;</span>;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    }</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;}</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="keywordtype">void</span> Manager::clean() {</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> i = scripts.begin(); i != scripts.end(); ++i) {</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keywordflow">if</span> (i-&gt;expired())</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            i = scripts.erase(i);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            <span class="keyword">auto</span> ptr = i-&gt;lock();</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;            <span class="keywordflow">if</span> (!ptr || !ptr-&gt;running) i = scripts.erase(i);</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        }</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="keywordflow">if</span> (i == scripts.end()) <span class="keywordflow">break</span>; <span class="comment">// break before ++i</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    }</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;}</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;} <span class="comment">// namespace script</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00485_html_a459f7ea96e34815206480bf681ee2a2f"><div class="ttname"><a href="a00485.html#a459f7ea96e34815206480bf681ee2a2f">BL_LOG_INFO</a></div><div class="ttdeci">#define BL_LOG_INFO</div><div class="ttdoc">Helper macro to log at info level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00485_source.html#l00107">Logger.hpp:107</a></div></div>
+<div class="ttc" id="aa00485_html_af954e63cd52a20dcd7087a8c569f373f"><div class="ttname"><a href="a00485.html#af954e63cd52a20dcd7087a8c569f373f">BL_LOG_WARN</a></div><div class="ttdeci">#define BL_LOG_WARN</div><div class="ttdoc">Helper macro to log at warn level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00485_source.html#l00104">Logger.hpp:104</a></div></div>
+<div class="ttc" id="aa00491_html"><div class="ttname"><a href="a00491.html">Logging.hpp</a></div></div>
+<div class="ttc" id="aa00920_html"><div class="ttname"><a href="a00920.html">Manager.hpp</a></div></div>
+<div class="ttc" id="aa01803_html"><div class="ttname"><a href="a01803.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03520_html_a77731bb5ef00afb950102d45f9de967d"><div class="ttname"><a href="a03520.html#a77731bb5ef00afb950102d45f9de967d">bl::script::Manager::terminateAll</a></div><div class="ttdeci">bool terminateAll(float timeout=5.0f)</div><div class="ttdoc">Terminates all running scripts.</div><div class="ttdef"><b>Definition:</b> <a href="a01682_source.html#l00022">Manager.cpp:22</a></div></div>
+<div class="ttc" id="aa03520_html_a852d6375512d9961149f3132353c6252"><div class="ttname"><a href="a03520.html#a852d6375512d9961149f3132353c6252">bl::script::Manager::~Manager</a></div><div class="ttdeci">~Manager()</div><div class="ttdoc">Terminates all running scripts.</div><div class="ttdef"><b>Definition:</b> <a href="a01682_source.html#l00010">Manager.cpp:10</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 30 2023 22:56:46 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Oct 8 2023 18:56:19 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

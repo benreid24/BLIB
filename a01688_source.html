@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Serialization/Buffers/StreamOutputBuffer.cpp Source File</title>
+<title>BLIB: src/Scripts/ReferenceValue.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,42 +66,76 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_e7c9606de6dc9534b0042ecacee5f21f.html">Serialization</a></li><li class="navelem"><a class="el" href="dir_47ff02213d38b4fcd8e0172b7fa926fb.html">Buffers</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3ac9928fc2e7e2cbc53db7c1a11acda2.html">Scripts</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">StreamOutputBuffer.cpp</div>  </div>
+<div class="title">ReferenceValue.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01688.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00956.html">BLIB/Serialization/Buffers/StreamOutputBuffer.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01760.html">bl</a></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>serial</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="a03605.html#acefd99a20e8d086c67a0e9d95ab4f67b">    7</a></span>&#160;<a class="code" href="a03605.html#acefd99a20e8d086c67a0e9d95ab4f67b">StreamOutputBuffer::StreamOutputBuffer</a>(std::ostream&amp; os)</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;: stream(os) {}</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="a03605.html#ae11ddac8af8eb2ab7f3130f393d99e5c">   10</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a03605.html#ae11ddac8af8eb2ab7f3130f393d99e5c">StreamOutputBuffer::write</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* buf, std::size_t len) {</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    stream.write(buf, len);</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keywordflow">return</span> stream.good();</div>
+<a href="a01688.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00926.html">BLIB/Scripts/ReferenceValue.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00935.html">BLIB/Scripts/Value.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01803.html">bl</a></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;{</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>script</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;Value* get(<span class="keyword">const</span> std::variant&lt;std::shared_ptr&lt;Value&gt;, Value*&gt;&amp; val) {</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <span class="keywordflow">return</span> val.index() == 0 ? std::get_if&lt;std::shared_ptr&lt;Value&gt;&gt;(&amp;val)-&gt;get() :</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;                              *<a class="code" href="a01820.html">std</a>::get_if&lt;Value*&gt;(&amp;val);</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;}</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="a03605.html#aaff97d946d1f1b37ae4a46255678904a">   15</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a03605.html#aaff97d946d1f1b37ae4a46255678904a">StreamOutputBuffer::good</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> stream.good(); }</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;} <span class="comment">// namespace serial</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00956_html"><div class="ttname"><a href="a00956.html">StreamOutputBuffer.hpp</a></div></div>
-<div class="ttc" id="aa01760_html"><div class="ttname"><a href="a01760.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03605_html_aaff97d946d1f1b37ae4a46255678904a"><div class="ttname"><a href="a03605.html#aaff97d946d1f1b37ae4a46255678904a">bl::serial::StreamOutputBuffer::good</a></div><div class="ttdeci">virtual bool good() const override</div><div class="ttdoc">Returns whether or not the buffer is in a good state.</div><div class="ttdef"><b>Definition:</b> <a href="a01688_source.html#l00015">StreamOutputBuffer.cpp:15</a></div></div>
-<div class="ttc" id="aa03605_html_acefd99a20e8d086c67a0e9d95ab4f67b"><div class="ttname"><a href="a03605.html#acefd99a20e8d086c67a0e9d95ab4f67b">bl::serial::StreamOutputBuffer::StreamOutputBuffer</a></div><div class="ttdeci">StreamOutputBuffer(std::ostream &amp;stream)</div><div class="ttdoc">Construct a new Stream Output Buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a01688_source.html#l00007">StreamOutputBuffer.cpp:7</a></div></div>
-<div class="ttc" id="aa03605_html_ae11ddac8af8eb2ab7f3130f393d99e5c"><div class="ttname"><a href="a03605.html#ae11ddac8af8eb2ab7f3130f393d99e5c">bl::serial::StreamOutputBuffer::write</a></div><div class="ttdeci">virtual bool write(const char *data, std::size_t len) override</div><div class="ttdoc">Write some data to the buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a01688_source.html#l00010">StreamOutputBuffer.cpp:10</a></div></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;} <span class="comment">// namespace</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a03532.html#a74990d22cd7c939ef84c77c5c7c804cf">   16</a></span>&#160;<a class="code" href="a03532.html#a8d7f6ceda6658e98684f1605bade87c1">ReferenceValue::ReferenceValue</a>(std::shared_ptr&lt;Value&gt;&amp;&amp; ptr)</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;: value(ptr) {}</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a03532.html#a5ddfd286965db4383361113b2b43113c">   19</a></span>&#160;<a class="code" href="a03532.html#a8d7f6ceda6658e98684f1605bade87c1">ReferenceValue::ReferenceValue</a>(<a class="code" href="a03548.html">Value</a>&amp;&amp; mv) { value.emplace&lt;std::shared_ptr&lt;Value&gt;&gt;(<span class="keyword">new</span> <a class="code" href="a03548.html">Value</a>(mv)); }</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a03532.html#a68be6f9e1fd922e62ecffbab9db28a81">   21</a></span>&#160;<a class="code" href="a03532.html#a8d7f6ceda6658e98684f1605bade87c1">ReferenceValue::ReferenceValue</a>(<span class="keyword">const</span> <a class="code" href="a03548.html">Value</a>&amp; cv) {</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    value.emplace&lt;std::shared_ptr&lt;Value&gt;&gt;(<span class="keyword">new</span> <a class="code" href="a03548.html">Value</a>(cv));</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;}</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a03532.html#ada9935f66d19c91769b662dd3bcfc72f">   25</a></span>&#160;<a class="code" href="a03532.html#a8d7f6ceda6658e98684f1605bade87c1">ReferenceValue::ReferenceValue</a>(<a class="code" href="a03548.html">Value</a>* val) { value.emplace&lt;<a class="code" href="a03548.html">Value</a>*&gt;(val); }</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="a03532.html#a57d32cd7c5bd824b1d0a9cc45ecbe672">   27</a></span>&#160;<span class="keyword">const</span> <a class="code" href="a03548.html">Value</a>&amp; <a class="code" href="a03532.html#a57d32cd7c5bd824b1d0a9cc45ecbe672">ReferenceValue::deref</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> *<span class="keyword">const_cast&lt;</span><a class="code" href="a03532.html">ReferenceValue</a>*<span class="keyword">&gt;</span>(<span class="keyword">this</span>)-&gt;ptr(); }</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a03532.html#ae46c9fb3e95b502f6ed78e2615f5bdbb">   29</a></span>&#160;<a class="code" href="a03548.html">Value</a>&amp; <a class="code" href="a03532.html#a57d32cd7c5bd824b1d0a9cc45ecbe672">ReferenceValue::deref</a>() { <span class="keywordflow">return</span> *ptr(); }</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="a03532.html#aeee3ebad7744898f2280a77fe8349de8">   31</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03532.html#aeee3ebad7744898f2280a77fe8349de8">ReferenceValue::makeSafe</a>() {</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordflow">if</span> (value.index() == 1) {</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <a class="code" href="a03548.html">Value</a>* v = std::get&lt;Value*&gt;(value);</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        value.emplace&lt;std::shared_ptr&lt;Value&gt;&gt;(<span class="keyword">new</span> <a class="code" href="a03548.html">Value</a>(*v));</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    }</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;}</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<a class="code" href="a03548.html">Value</a>* ReferenceValue::ptr() {</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <a class="code" href="a03548.html">Value</a>* v = get(value);</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordflow">while</span> (v-&gt;_value.<a class="code" href="a03524.html#a7bc30156ed009da88ac38b8b8a858d99">getType</a>() == <a class="code" href="a03524.html#ae46c56f7af29255ac8f117a0f97d593ba527b9b1f5fd953ea5f9814b54540f38c">PrimitiveValue::TRef</a>) { v = get(v-&gt;_value.<a class="code" href="a03524.html#a5585632b7c19f15a256a703379f958f6">getAsRef</a>().value); }</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordflow">return</span> v;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;}</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;} <span class="comment">// namespace script</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00926_html"><div class="ttname"><a href="a00926.html">ReferenceValue.hpp</a></div></div>
+<div class="ttc" id="aa00935_html"><div class="ttname"><a href="a00935.html">Value.hpp</a></div></div>
+<div class="ttc" id="aa01803_html"><div class="ttname"><a href="a01803.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa01820_html"><div class="ttname"><a href="a01820.html">std</a></div><div class="ttdef"><b>Definition:</b> <a href="a00152_source.html#l00154">Entity.hpp:155</a></div></div>
+<div class="ttc" id="aa03524_html_a5585632b7c19f15a256a703379f958f6"><div class="ttname"><a href="a03524.html#a5585632b7c19f15a256a703379f958f6">bl::script::PrimitiveValue::getAsRef</a></div><div class="ttdeci">const ReferenceValue &amp; getAsRef() const</div><div class="ttdoc">Get the value as ReferenceValue value.</div><div class="ttdef"><b>Definition:</b> <a href="a01685_source.html#l00188">PrimitiveValue.cpp:188</a></div></div>
+<div class="ttc" id="aa03524_html_a7bc30156ed009da88ac38b8b8a858d99"><div class="ttname"><a href="a03524.html#a7bc30156ed009da88ac38b8b8a858d99">bl::script::PrimitiveValue::getType</a></div><div class="ttdeci">Type getType() const</div><div class="ttdoc">Returns the current type of this PrimitiveValue.</div><div class="ttdef"><b>Definition:</b> <a href="a01685_source.html#l00113">PrimitiveValue.cpp:113</a></div></div>
+<div class="ttc" id="aa03524_html_ae46c56f7af29255ac8f117a0f97d593ba527b9b1f5fd953ea5f9814b54540f38c"><div class="ttname"><a href="a03524.html#ae46c56f7af29255ac8f117a0f97d593ba527b9b1f5fd953ea5f9814b54540f38c">bl::script::PrimitiveValue::TRef</a></div><div class="ttdeci">@ TRef</div><div class="ttdef"><b>Definition:</b> <a href="a00923_source.html#l00034">PrimitiveValue.hpp:34</a></div></div>
+<div class="ttc" id="aa03532_html"><div class="ttname"><a href="a03532.html">bl::script::ReferenceValue</a></div><div class="ttdoc">Reference type for values. Wrapper around std::shared_ptr.</div><div class="ttdef"><b>Definition:</b> <a href="a00926_source.html#l00019">ReferenceValue.hpp:19</a></div></div>
+<div class="ttc" id="aa03532_html_a57d32cd7c5bd824b1d0a9cc45ecbe672"><div class="ttname"><a href="a03532.html#a57d32cd7c5bd824b1d0a9cc45ecbe672">bl::script::ReferenceValue::deref</a></div><div class="ttdeci">const Value &amp; deref() const</div><div class="ttdoc">Access the value being referred to.</div><div class="ttdef"><b>Definition:</b> <a href="a01688_source.html#l00027">ReferenceValue.cpp:27</a></div></div>
+<div class="ttc" id="aa03532_html_a8d7f6ceda6658e98684f1605bade87c1"><div class="ttname"><a href="a03532.html#a8d7f6ceda6658e98684f1605bade87c1">bl::script::ReferenceValue::ReferenceValue</a></div><div class="ttdeci">ReferenceValue()=delete</div></div>
+<div class="ttc" id="aa03532_html_aeee3ebad7744898f2280a77fe8349de8"><div class="ttname"><a href="a03532.html#aeee3ebad7744898f2280a77fe8349de8">bl::script::ReferenceValue::makeSafe</a></div><div class="ttdeci">void makeSafe()</div><div class="ttdoc">Copies the referenced value to managed heap storage.</div><div class="ttdef"><b>Definition:</b> <a href="a01688_source.html#l00031">ReferenceValue.cpp:31</a></div></div>
+<div class="ttc" id="aa03548_html"><div class="ttname"><a href="a03548.html">bl::script::Value</a></div><div class="ttdoc">Main representation of a value in scripts.</div><div class="ttdef"><b>Definition:</b> <a href="a00935_source.html#l00022">Value.hpp:22</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 30 2023 22:56:46 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Oct 8 2023 18:56:19 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

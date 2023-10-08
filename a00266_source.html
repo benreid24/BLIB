@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Input/DispatchType.hpp Source File</title>
+<title>BLIB: include/BLIB/Graphics/Components/Textured.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,55 +66,77 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_c720f75c1eb5aaccd40e24fd6b592b41.html">Input</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_8af985930208ac2752e8061e22535a56.html">Graphics</a></li><li class="navelem"><a class="el" href="dir_58ecc6b00f968b16d73d81661642db7f.html">Components</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">DispatchType.hpp</div>  </div>
+<div class="title">Textured.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00266.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_INPUT_DISPATCHTYPE_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_INPUT_DISPATCHTYPE_HPP</span></div>
+<a href="a00266.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_GRAPHICS_COMPONENTS_TEXTURED_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_GRAPHICS_COMPONENTS_TEXTURED_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01760.html">bl</a></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;{</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>input</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a01738.html#ga9b480cda76caba52b2ab392fea396ce3">   16</a></span>&#160;<span class="keyword">enum struct</span> <a class="code" href="a01738.html#ga9b480cda76caba52b2ab392fea396ce3">DispatchType</a> {</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <a class="code" href="a01738.html#gga9b480cda76caba52b2ab392fea396ce3a4d96fa471faee72faaa4f964a6ba1a59">_INVALID</a>,</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <a class="code" href="a01738.html#gga9b480cda76caba52b2ab392fea396ce3a8fedffe1c43e73f34a3a78a88cef6a2f">TriggerActivated</a>,</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <a class="code" href="a01738.html#gga9b480cda76caba52b2ab392fea396ce3af1e3a99580f4887a08a5ed8f06514ca1">DirectionChanged</a>,</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <a class="code" href="a01738.html#gga9b480cda76caba52b2ab392fea396ce3a5714712617d87312d28599dbe656c610">MovementUp</a>,</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <a class="code" href="a01738.html#gga9b480cda76caba52b2ab392fea396ce3ac0d5d6c93aa5c0e51810fea4bab6e9dd">MovementRight</a>,</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05010.html">BLIB/Components/Texture.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00182.html">BLIB/ECS.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01803.html">bl</a></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>gfx</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>bcom</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a02412.html">   18</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02412.html">Textured</a> {</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a02412.html#ad282d57c51ee8abc4f699fa587f6a693">   23</a></span>&#160;    <a class="code" href="a02412.html#ad282d57c51ee8abc4f699fa587f6a693">Textured</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02412.html#a79d8b21916f163236dd37ecb6f1b8ac8">setTexture</a>(<span class="keyword">const</span> <a class="code" href="a03152.html">rc::res::TextureRef</a>&amp; texture);</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <a class="code" href="a01738.html#gga9b480cda76caba52b2ab392fea396ce3a54b19e0f3ef6c7d6518a228bac33bd19">MovementDown</a>,</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <a class="code" href="a01738.html#gga9b480cda76caba52b2ab392fea396ce3a2167767cdca679d310f54992383aa9dc">MovementLeft</a></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;};</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;} <span class="comment">// namespace input</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01738_html_ga9b480cda76caba52b2ab392fea396ce3"><div class="ttname"><a href="a01738.html#ga9b480cda76caba52b2ab392fea396ce3">bl::input::DispatchType</a></div><div class="ttdeci">DispatchType</div><div class="ttdoc">Indicates if a control notification is the first activation of that control or if it is a repeated si...</div><div class="ttdef"><b>Definition:</b> <a href="a00266_source.html#l00016">DispatchType.hpp:16</a></div></div>
-<div class="ttc" id="aa01738_html_gga9b480cda76caba52b2ab392fea396ce3a2167767cdca679d310f54992383aa9dc"><div class="ttname"><a href="a01738.html#gga9b480cda76caba52b2ab392fea396ce3a2167767cdca679d310f54992383aa9dc">bl::input::DispatchType::MovementLeft</a></div><div class="ttdeci">@ MovementLeft</div><div class="ttdoc">Movement control was activated in the left direction.</div></div>
-<div class="ttc" id="aa01738_html_gga9b480cda76caba52b2ab392fea396ce3a4d96fa471faee72faaa4f964a6ba1a59"><div class="ttname"><a href="a01738.html#gga9b480cda76caba52b2ab392fea396ce3a4d96fa471faee72faaa4f964a6ba1a59">bl::input::DispatchType::_INVALID</a></div><div class="ttdeci">@ _INVALID</div><div class="ttdoc">Used internally only.</div></div>
-<div class="ttc" id="aa01738_html_gga9b480cda76caba52b2ab392fea396ce3a54b19e0f3ef6c7d6518a228bac33bd19"><div class="ttname"><a href="a01738.html#gga9b480cda76caba52b2ab392fea396ce3a54b19e0f3ef6c7d6518a228bac33bd19">bl::input::DispatchType::MovementDown</a></div><div class="ttdeci">@ MovementDown</div><div class="ttdoc">Movement control was activated in the down/backward direction.</div></div>
-<div class="ttc" id="aa01738_html_gga9b480cda76caba52b2ab392fea396ce3a5714712617d87312d28599dbe656c610"><div class="ttname"><a href="a01738.html#gga9b480cda76caba52b2ab392fea396ce3a5714712617d87312d28599dbe656c610">bl::input::DispatchType::MovementUp</a></div><div class="ttdeci">@ MovementUp</div><div class="ttdoc">Movement control was activated in the up/forward direction.</div></div>
-<div class="ttc" id="aa01738_html_gga9b480cda76caba52b2ab392fea396ce3a8fedffe1c43e73f34a3a78a88cef6a2f"><div class="ttname"><a href="a01738.html#gga9b480cda76caba52b2ab392fea396ce3a8fedffe1c43e73f34a3a78a88cef6a2f">bl::input::DispatchType::TriggerActivated</a></div><div class="ttdeci">@ TriggerActivated</div><div class="ttdoc">The a trigger control was activated by an event.</div></div>
-<div class="ttc" id="aa01738_html_gga9b480cda76caba52b2ab392fea396ce3ac0d5d6c93aa5c0e51810fea4bab6e9dd"><div class="ttname"><a href="a01738.html#gga9b480cda76caba52b2ab392fea396ce3ac0d5d6c93aa5c0e51810fea4bab6e9dd">bl::input::DispatchType::MovementRight</a></div><div class="ttdeci">@ MovementRight</div><div class="ttdoc">Movement control was activated in the right direction.</div></div>
-<div class="ttc" id="aa01738_html_gga9b480cda76caba52b2ab392fea396ce3af1e3a99580f4887a08a5ed8f06514ca1"><div class="ttname"><a href="a01738.html#gga9b480cda76caba52b2ab392fea396ce3af1e3a99580f4887a08a5ed8f06514ca1">bl::input::DispatchType::DirectionChanged</a></div><div class="ttdeci">@ DirectionChanged</div><div class="ttdoc">The directional control changed values.</div></div>
-<div class="ttc" id="aa01760_html"><div class="ttname"><a href="a01760.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keyword">const</span> <a class="code" href="a03152.html">rc::res::TextureRef</a>&amp; <a class="code" href="a02412.html#af7fe2449a04882eb53417e73ea284134">getTexture</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TArgs&gt;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02412.html#a317f6474c485e51d7696aaabf1b152fa">create</a>(<a class="code" href="a02220.html">ecs::Registry</a>&amp; registry, <a class="code" href="a02176.html">ecs::Entity</a> entity, TArgs&amp;&amp;... args);</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <a class="code" href="a02024.html">com::Texture</a>* handle;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;};</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="a02412.html#a79d8b21916f163236dd37ecb6f1b8ac8">   55</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="a02412.html#a79d8b21916f163236dd37ecb6f1b8ac8">Textured::setTexture</a>(<span class="keyword">const</span> <a class="code" href="a03152.html">rc::res::TextureRef</a>&amp; t) { handle-&gt;<a class="code" href="a02024.html#a6b953950809fe04610af52ff169560a7">setTexture</a>(t); }</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="a02412.html#af7fe2449a04882eb53417e73ea284134">   57</a></span>&#160;<span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="a03152.html">rc::res::TextureRef</a>&amp; <a class="code" href="a02412.html#af7fe2449a04882eb53417e73ea284134">Textured::getTexture</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> handle-&gt;<a class="code" href="a02024.html#a0bea06cb23fed9b87988c845f32908d3">getTexture</a>(); }</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TArgs&gt;</div>
+<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="a02412.html#a317f6474c485e51d7696aaabf1b152fa">   60</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02412.html#a317f6474c485e51d7696aaabf1b152fa">Textured::create</a>(<a class="code" href="a02220.html">ecs::Registry</a>&amp; registry, <a class="code" href="a02176.html">ecs::Entity</a> entity, TArgs&amp;&amp;... args) {</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    handle = registry.<a class="code" href="a02220.html#a3b0edf4bc798fa2f67b442c4d130f8f8">emplaceComponent</a>&lt;<a class="code" href="a02024.html">com::Texture</a>&gt;(entity, std::forward&lt;TArgs&gt;(args)...);</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;}</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;} <span class="comment">// namespace bcom</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;} <span class="comment">// namespace gfx</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00182_html"><div class="ttname"><a href="a00182.html">ECS.hpp</a></div></div>
+<div class="ttc" id="aa01803_html"><div class="ttname"><a href="a01803.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02024_html"><div class="ttname"><a href="a02024.html">bl::com::Texture</a></div><div class="ttdoc">ECS component to add a texture to an object.</div><div class="ttdef"><b>Definition:</b> <a href="a05010_source.html#l00021">Texture.hpp:21</a></div></div>
+<div class="ttc" id="aa02024_html_a0bea06cb23fed9b87988c845f32908d3"><div class="ttname"><a href="a02024.html#a0bea06cb23fed9b87988c845f32908d3">bl::com::Texture::getTexture</a></div><div class="ttdeci">const rc::res::TextureRef &amp; getTexture() const</div><div class="ttdoc">Returns the associated texture for this component.</div><div class="ttdef"><b>Definition:</b> <a href="a05010_source.html#l00048">Texture.hpp:48</a></div></div>
+<div class="ttc" id="aa02024_html_a6b953950809fe04610af52ff169560a7"><div class="ttname"><a href="a02024.html#a6b953950809fe04610af52ff169560a7">bl::com::Texture::setTexture</a></div><div class="ttdeci">void setTexture(const rc::res::TextureRef &amp;t)</div><div class="ttdoc">Sets the texture that this component points to.</div><div class="ttdef"><b>Definition:</b> <a href="a05010_source.html#l00040">Texture.hpp:40</a></div></div>
+<div class="ttc" id="aa02176_html"><div class="ttname"><a href="a02176.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition:</b> <a href="a00152_source.html#l00023">Entity.hpp:23</a></div></div>
+<div class="ttc" id="aa02220_html"><div class="ttname"><a href="a02220.html">bl::ecs::Registry</a></div><div class="ttdoc">This is the main interface of the ECS. This class manages all entities and components and views and s...</div><div class="ttdef"><b>Definition:</b> <a href="a00161_source.html#l00031">Registry.hpp:31</a></div></div>
+<div class="ttc" id="aa02220_html_a3b0edf4bc798fa2f67b442c4d130f8f8"><div class="ttname"><a href="a02220.html#a3b0edf4bc798fa2f67b442c4d130f8f8">bl::ecs::Registry::emplaceComponent</a></div><div class="ttdeci">T * emplaceComponent(Entity entity, TArgs &amp;&amp;... args)</div><div class="ttdoc">Constructs the given component in-place for the given entity.</div><div class="ttdef"><b>Definition:</b> <a href="a00161_source.html#l00295">Registry.hpp:295</a></div></div>
+<div class="ttc" id="aa02412_html"><div class="ttname"><a href="a02412.html">bl::gfx::bcom::Textured</a></div><div class="ttdoc">Base component class for textured Drawables.</div><div class="ttdef"><b>Definition:</b> <a href="a00266_source.html#l00018">Textured.hpp:18</a></div></div>
+<div class="ttc" id="aa02412_html_a317f6474c485e51d7696aaabf1b152fa"><div class="ttname"><a href="a02412.html#a317f6474c485e51d7696aaabf1b152fa">bl::gfx::bcom::Textured::create</a></div><div class="ttdeci">void create(ecs::Registry &amp;registry, ecs::Entity entity, TArgs &amp;&amp;... args)</div><div class="ttdoc">Creates the texture component in the ECS.</div><div class="ttdef"><b>Definition:</b> <a href="a00266_source.html#l00060">Textured.hpp:60</a></div></div>
+<div class="ttc" id="aa02412_html_a79d8b21916f163236dd37ecb6f1b8ac8"><div class="ttname"><a href="a02412.html#a79d8b21916f163236dd37ecb6f1b8ac8">bl::gfx::bcom::Textured::setTexture</a></div><div class="ttdeci">void setTexture(const rc::res::TextureRef &amp;texture)</div><div class="ttdoc">Changes the texture for this drawable.</div><div class="ttdef"><b>Definition:</b> <a href="a00266_source.html#l00055">Textured.hpp:55</a></div></div>
+<div class="ttc" id="aa02412_html_ad282d57c51ee8abc4f699fa587f6a693"><div class="ttname"><a href="a02412.html#ad282d57c51ee8abc4f699fa587f6a693">bl::gfx::bcom::Textured::Textured</a></div><div class="ttdeci">Textured()=default</div><div class="ttdoc">Does nothing.</div></div>
+<div class="ttc" id="aa02412_html_af7fe2449a04882eb53417e73ea284134"><div class="ttname"><a href="a02412.html#af7fe2449a04882eb53417e73ea284134">bl::gfx::bcom::Textured::getTexture</a></div><div class="ttdeci">const rc::res::TextureRef &amp; getTexture() const</div><div class="ttdoc">Returns the texture. Must only be called after create()</div><div class="ttdef"><b>Definition:</b> <a href="a00266_source.html#l00057">Textured.hpp:57</a></div></div>
+<div class="ttc" id="aa03152_html"><div class="ttname"><a href="a03152.html">bl::rc::res::TextureRef</a></div><div class="ttdoc">Lightweight reference to a texture inside of a TexturePool. Once all references to a texture are dest...</div><div class="ttdef"><b>Definition:</b> <a href="a00746_source.html#l00025">TextureRef.hpp:25</a></div></div>
+<div class="ttc" id="aa05010_html"><div class="ttname"><a href="a05010.html">Texture.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 30 2023 22:56:45 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Oct 8 2023 18:56:18 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

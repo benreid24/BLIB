@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Scripts/Function.cpp Source File</title>
+<title>BLIB: src/Resources/Bundling/BundleMetadata.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,173 +66,69 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3ac9928fc2e7e2cbc53db7c1a11acda2.html">Scripts</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_7a475d59e09b1ce69b1dfbc6b0817add.html">Resources</a></li><li class="navelem"><a class="el" href="dir_650c2bb72fa499737589ce0469633186.html">Bundling</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Function.cpp</div>  </div>
+<div class="title">BundleMetadata.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01640.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00896.html">BLIB/Scripts/Function.hpp</a>&gt;</span></div>
+<a href="a01640.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00863.html">BLIB/Resources/Bundling/BundleMetadata.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00893.html">BLIB/Scripts/Error.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00911.html">BLIB/Scripts/SymbolTable.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00914.html">BLIB/Scripts/Value.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a04883.html">Scripts/Parser.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01658.html">Scripts/ScriptImpl.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01760.html">bl</a></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>script</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;std::vector&lt;std::string&gt; parseParams(<span class="keyword">const</span> <a class="code" href="a02721.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&amp; fhead);</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#ifdef BLIB_DEBUG</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;constexpr <span class="keywordtype">bool</span> ExtraChecks = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;constexpr <span class="keywordtype">bool</span> ExtraChecks = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;} <span class="comment">// namespace</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a03429.html#a2e1c840d6e1931a14c9f1b8ba963b1e8">   24</a></span>&#160;<a class="code" href="a03429.html#a2e1c840d6e1931a14c9f1b8ba963b1e8">Function::Function</a>()</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;: data(<a class="code" href="a03429.html#a3ca3f959c516d9a90dd20acddeabe172">CustomCB</a>(nullptr)) {}</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="a03429.html#a1dc9a03a4439f9f1712dbc27f27e3b5e">   27</a></span>&#160;<a class="code" href="a03429.html#a2e1c840d6e1931a14c9f1b8ba963b1e8">Function::Function</a>(<span class="keyword">const</span> <a class="code" href="a02721.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&amp; tree)</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;: data(tree) {</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keyword">using</span> <a class="code" href="a03977.html#aab7cdda02e78cc66c150f58063c8b9e4">G</a>                       = <a class="code" href="a03977.html#aab7cdda02e78cc66c150f58063c8b9e4">Parser::Grammar</a>;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">const</span> <a class="code" href="a02721.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&amp; root = *std::get_if&lt;parser::Node::Ptr&gt;(&amp;data);</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordflow">if</span> constexpr (ExtraChecks) {</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="keywordflow">if</span> (root-&gt;type != G::FDef) { <span class="keywordflow">throw</span> <a class="code" href="a03421.html">Error</a>(<span class="stringliteral">&quot;Internal error: Expected FDef&quot;</span>); }</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keywordflow">if</span> (root-&gt;children.size() != 2) { <span class="keywordflow">throw</span> <a class="code" href="a03421.html">Error</a>(<span class="stringliteral">&quot;Internal error: Invalid FDef children&quot;</span>); }</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keywordflow">if</span> (root-&gt;children[0]-&gt;type != G::FHead) {</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            <span class="keywordflow">throw</span> <a class="code" href="a03421.html">Error</a>(<span class="stringliteral">&quot;Internal error: Invalid FHead in FDef&quot;</span>, root);</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        }</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    }</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    params = parseParams(root-&gt;children[0]);</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;}</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="a03429.html#a0a2c4c548fcff9cdb635ca1a6007f341">   41</a></span>&#160;<a class="code" href="a03429.html#a2e1c840d6e1931a14c9f1b8ba963b1e8">Function::Function</a>(<span class="keyword">const</span> <a class="code" href="a03429.html#a3ca3f959c516d9a90dd20acddeabe172">CustomCB</a>&amp; cb)</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;: data(cb) {}</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="a03429.html#aa01f0ed7f508bd64c3cd635be88d4b71">   44</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a03429.html#aa01f0ed7f508bd64c3cd635be88d4b71">Function::operator==</a>(<span class="keyword">const</span> <a class="code" href="a03429.html">Function</a>&amp; f)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordflow">if</span> (data.index() != f.data.index()) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordflow">if</span> (data.index() == 0) {</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="keyword">const</span> <a class="code" href="a03429.html#a3ca3f959c516d9a90dd20acddeabe172">CustomCB</a>* c1 = std::get_if&lt;CustomCB&gt;(&amp;data);</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <span class="keyword">const</span> <a class="code" href="a03429.html#a3ca3f959c516d9a90dd20acddeabe172">CustomCB</a>* c2 = std::get_if&lt;CustomCB&gt;(&amp;f.data);</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keywordflow">return</span> c1 == c2;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    }</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keyword">const</span> <a class="code" href="a02721.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&amp; r1 = *std::get_if&lt;parser::Node::Ptr&gt;(&amp;data);</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="keyword">const</span> <a class="code" href="a02721.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&amp; r2 = *std::get_if&lt;parser::Node::Ptr&gt;(&amp;f.data);</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="keywordflow">return</span> r1.get() == r2.get();</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    }</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;}</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="a03429.html#a07aec35a2ba40269eebb9550a631165c">   58</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03429.html#a07aec35a2ba40269eebb9550a631165c">Function::operator()</a>(<a class="code" href="a03457.html">SymbolTable</a>&amp; table, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp; args, <a class="code" href="a03461.html">Value</a>&amp; result)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keyword">const</span> <a class="code" href="a03429.html#a3ca3f959c516d9a90dd20acddeabe172">CustomCB</a>* cbp = std::get_if&lt;CustomCB&gt;(&amp;data);</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordflow">if</span> (cbp) {</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <span class="keyword">const</span> <a class="code" href="a03429.html#a3ca3f959c516d9a90dd20acddeabe172">CustomCB</a>&amp; cb = *cbp;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        cb(table, args, result);</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        result.<a class="code" href="a03461.html#a821da2a8c1875fe641f52ec0b2094e0c">makeSafe</a>();</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    }</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        <span class="keyword">using</span> <a class="code" href="a03977.html#aab7cdda02e78cc66c150f58063c8b9e4">G</a>                       = <a class="code" href="a03977.html#aab7cdda02e78cc66c150f58063c8b9e4">Parser::Grammar</a>;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <span class="keyword">const</span> <a class="code" href="a02721.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&amp; root = *std::get_if&lt;parser::Node::Ptr&gt;(&amp;data);</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <span class="keywordflow">if</span> constexpr (ExtraChecks) {</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            <span class="keywordflow">if</span> (root-&gt;type != G::FDef) <span class="keywordflow">throw</span> <a class="code" href="a03421.html">Error</a>(<span class="stringliteral">&quot;Internal error: Expected FDef&quot;</span>, root);</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            <span class="keywordflow">if</span> (root-&gt;children.size() != 2)</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;                <span class="keywordflow">throw</span> <a class="code" href="a03421.html">Error</a>(<span class="stringliteral">&quot;Internal error: Invalid FDef children&quot;</span>, root);</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;            <span class="keywordflow">if</span> (!params.has_value()) <span class="keywordflow">throw</span> <a class="code" href="a03421.html">Error</a>(<span class="stringliteral">&quot;Internal error: Null param list&quot;</span>, root);</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        }</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        <span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; plist = params.value();</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        <span class="keywordflow">if</span> (plist.size() != args.size()) {</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;            <span class="keywordflow">throw</span> <a class="code" href="a03421.html">Error</a>(<span class="stringliteral">&quot;Function expects &quot;</span> + std::to_string(plist.size()) + <span class="stringliteral">&quot; arguments, &quot;</span> +</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;                            std::to_string(args.size()) + <span class="stringliteral">&quot; passed&quot;</span>,</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                        root);</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        }</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        table.<a class="code" href="a03457.html#a3dbf1b32542bdd1f9d4ccb37cd8aa301">pushFrame</a>();</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; args.size(); ++i) { table.<a class="code" href="a03457.html#ae08d79fb72d918aa0842c13a3707253c">set</a>(plist[i], args[i], <span class="keyword">true</span>); }</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        result = <a class="code" href="a03985.html#a6b8c371d6bd8211fc97a31e753a2254d">ScriptImpl::runStatementList</a>(root-&gt;children[1], table).value_or(<a class="code" href="a03461.html">Value</a>());</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        result.<a class="code" href="a03461.html#a821da2a8c1875fe641f52ec0b2094e0c">makeSafe</a>();</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        table.<a class="code" href="a03457.html#a520e274abd3b02f57c56a94335050a5e">popFrame</a>();</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    }</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;}</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="keyword">namespace</span></div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;{</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;std::vector&lt;std::string&gt; recurseParams(<span class="keyword">const</span> <a class="code" href="a02721.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&amp; plist) {</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keyword">using</span> <a class="code" href="a03977.html#aab7cdda02e78cc66c150f58063c8b9e4">G</a> = <a class="code" href="a03977.html#aab7cdda02e78cc66c150f58063c8b9e4">Parser::Grammar</a>;</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keywordflow">if</span> constexpr (ExtraChecks) {</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        <span class="keywordflow">if</span> (plist-&gt;type != G::ParamList) <span class="keywordflow">throw</span> <a class="code" href="a03421.html">Error</a>(<span class="stringliteral">&quot;Internal error: Expected ParamList&quot;</span>, plist);</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        <span class="keywordflow">if</span> (plist-&gt;children.size() != 3)</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;            <span class="keywordflow">throw</span> <a class="code" href="a03421.html">Error</a>(<span class="stringliteral">&quot;Internal error: Invalid ParamList children&quot;</span>, plist);</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    }</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keywordflow">if</span> (plist-&gt;children[0]-&gt;type == G::ParamList) {</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        <span class="keywordflow">if</span> constexpr (ExtraChecks) {</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;            <span class="keywordflow">if</span> (plist-&gt;children[2]-&gt;type != G::Id)</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;                <span class="keywordflow">throw</span> Error(<span class="stringliteral">&quot;Internal error: Expected Id in ParamList&quot;</span>, plist-&gt;children[2]);</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        }</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        std::vector&lt;std::string&gt; params = recurseParams(plist-&gt;children[0]);</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        params.push_back(plist-&gt;children[2]-&gt;data);</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        <span class="keywordflow">return</span> params;</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    }</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (plist-&gt;children[0]-&gt;type == G::Id &amp;&amp; plist-&gt;children[2]-&gt;type == G::Id)</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        <span class="keywordflow">return</span> {plist-&gt;children[0]-&gt;data, plist-&gt;children[2]-&gt;data};</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="keywordflow">throw</span> Error(<span class="stringliteral">&quot;Internal error: Invalid ParamList children types&quot;</span>, plist);</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;}</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;std::vector&lt;std::string&gt; parseParams(<span class="keyword">const</span> <a class="code" href="a02721.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&amp; fhead) {</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keyword">using</span> <a class="code" href="a01812.html#af98b10434d6862ecf69f33b6b5b25f27">G</a> = <a class="code" href="a03977.html#aab7cdda02e78cc66c150f58063c8b9e4">Parser::Grammar</a>;</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <span class="keywordflow">if</span> (fhead-&gt;children.size() == 3) <span class="keywordflow">return</span> {};</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <span class="keywordflow">if</span> constexpr (ExtraChecks) {</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        <span class="keywordflow">if</span> (fhead-&gt;children.size() != 4)</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;            <span class="keywordflow">throw</span> Error(<span class="stringliteral">&quot;Internal error: Invalid FHead children&quot;</span>, fhead);</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    }</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keywordflow">if</span> (fhead-&gt;children[2]-&gt;type == G::Id)</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        <span class="keywordflow">return</span> {fhead-&gt;children[2]-&gt;data};</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fhead-&gt;children[2]-&gt;type == G::ParamList) {</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        <span class="keywordflow">return</span> recurseParams(fhead-&gt;children[2]);</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    }</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <span class="keywordflow">throw</span> Error(<span class="stringliteral">&quot;Internal error: Invalid FFead paramlist&quot;</span>, fhead-&gt;children[2]);</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;}</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;} <span class="comment">// namespace</span></div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160; </div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;} <span class="comment">// namespace script</span></div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00893_html"><div class="ttname"><a href="a00893.html">Error.hpp</a></div></div>
-<div class="ttc" id="aa00896_html"><div class="ttname"><a href="a00896.html">Function.hpp</a></div></div>
-<div class="ttc" id="aa00911_html"><div class="ttname"><a href="a00911.html">SymbolTable.hpp</a></div></div>
-<div class="ttc" id="aa00914_html"><div class="ttname"><a href="a00914.html">Value.hpp</a></div></div>
-<div class="ttc" id="aa01658_html"><div class="ttname"><a href="a01658.html">ScriptImpl.hpp</a></div></div>
-<div class="ttc" id="aa01760_html"><div class="ttname"><a href="a01760.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa01812_html_af98b10434d6862ecf69f33b6b5b25f27"><div class="ttname"><a href="a01812.html#af98b10434d6862ecf69f33b6b5b25f27">bl::script::G</a></div><div class="ttdeci">Parser::Grammar G</div><div class="ttdef"><b>Definition:</b> <a href="a01655_source.html#l00012">ScriptImpl.cpp:12</a></div></div>
-<div class="ttc" id="aa02721_html_a3f49fe9da8742463aa757f89f67a8827"><div class="ttname"><a href="a02721.html#a3f49fe9da8742463aa757f89f67a8827">bl::parser::Node::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; Node &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00512_source.html#l00024">Node.hpp:24</a></div></div>
-<div class="ttc" id="aa03421_html"><div class="ttname"><a href="a03421.html">bl::script::Error</a></div><div class="ttdoc">Script utility class to represent an error. Can be used to build a call stack for script errors.</div><div class="ttdef"><b>Definition:</b> <a href="a00893_source.html#l00017">Error.hpp:17</a></div></div>
-<div class="ttc" id="aa03429_html"><div class="ttname"><a href="a03429.html">bl::script::Function</a></div><div class="ttdoc">Utility class for functions defined in scripts themselves.</div><div class="ttdef"><b>Definition:</b> <a href="a00896_source.html#l00025">Function.hpp:25</a></div></div>
-<div class="ttc" id="aa03429_html_a07aec35a2ba40269eebb9550a631165c"><div class="ttname"><a href="a03429.html#a07aec35a2ba40269eebb9550a631165c">bl::script::Function::operator()</a></div><div class="ttdeci">void operator()(SymbolTable &amp;table, const std::vector&lt; Value &gt; &amp;args, Value &amp;result) const</div><div class="ttdoc">Calls the function. Error thrown on error.</div><div class="ttdef"><b>Definition:</b> <a href="a01640_source.html#l00058">Function.cpp:58</a></div></div>
-<div class="ttc" id="aa03429_html_a2e1c840d6e1931a14c9f1b8ba963b1e8"><div class="ttname"><a href="a03429.html#a2e1c840d6e1931a14c9f1b8ba963b1e8">bl::script::Function::Function</a></div><div class="ttdeci">Function()</div><div class="ttdoc">Creates an empty, uncallable function.</div><div class="ttdef"><b>Definition:</b> <a href="a01640_source.html#l00024">Function.cpp:24</a></div></div>
-<div class="ttc" id="aa03429_html_a3ca3f959c516d9a90dd20acddeabe172"><div class="ttname"><a href="a03429.html#a3ca3f959c516d9a90dd20acddeabe172">bl::script::Function::CustomCB</a></div><div class="ttdeci">std::function&lt; void(SymbolTable &amp;, const std::vector&lt; Value &gt; &amp;, Value &amp;)&gt; CustomCB</div><div class="ttdoc">Callback type for custom functions. Can be used to provide a built in library Receives the SymbolTabl...</div><div class="ttdef"><b>Definition:</b> <a href="a00896_source.html#l00033">Function.hpp:33</a></div></div>
-<div class="ttc" id="aa03429_html_aa01f0ed7f508bd64c3cd635be88d4b71"><div class="ttname"><a href="a03429.html#aa01f0ed7f508bd64c3cd635be88d4b71">bl::script::Function::operator==</a></div><div class="ttdeci">bool operator==(const Function &amp;func) const</div><div class="ttdoc">Comapres against another function.</div><div class="ttdef"><b>Definition:</b> <a href="a01640_source.html#l00044">Function.cpp:44</a></div></div>
-<div class="ttc" id="aa03457_html"><div class="ttname"><a href="a03457.html">bl::script::SymbolTable</a></div><div class="ttdoc">Stack aware symbol table for managing functions and variables Each Script holds a single instance.</div><div class="ttdef"><b>Definition:</b> <a href="a00911_source.html#l00026">SymbolTable.hpp:26</a></div></div>
-<div class="ttc" id="aa03457_html_a3dbf1b32542bdd1f9d4ccb37cd8aa301"><div class="ttname"><a href="a03457.html#a3dbf1b32542bdd1f9d4ccb37cd8aa301">bl::script::SymbolTable::pushFrame</a></div><div class="ttdeci">void pushFrame()</div><div class="ttdoc">Pushes a new stack frame on.</div><div class="ttdef"><b>Definition:</b> <a href="a01667_source.html#l00031">SymbolTable.cpp:31</a></div></div>
-<div class="ttc" id="aa03457_html_a520e274abd3b02f57c56a94335050a5e"><div class="ttname"><a href="a03457.html#a520e274abd3b02f57c56a94335050a5e">bl::script::SymbolTable::popFrame</a></div><div class="ttdeci">void popFrame()</div><div class="ttdoc">Pops off the top stack frame. Will never pop the global frame.</div><div class="ttdef"><b>Definition:</b> <a href="a01667_source.html#l00033">SymbolTable.cpp:33</a></div></div>
-<div class="ttc" id="aa03457_html_ae08d79fb72d918aa0842c13a3707253c"><div class="ttname"><a href="a03457.html#ae08d79fb72d918aa0842c13a3707253c">bl::script::SymbolTable::set</a></div><div class="ttdeci">void set(const std::string &amp;name, const Value &amp;value, bool forceTop=false)</div><div class="ttdoc">Sets a Value in the table in the current frame.</div><div class="ttdef"><b>Definition:</b> <a href="a01667_source.html#l00074">SymbolTable.cpp:74</a></div></div>
-<div class="ttc" id="aa03461_html"><div class="ttname"><a href="a03461.html">bl::script::Value</a></div><div class="ttdoc">Main representation of a value in scripts.</div><div class="ttdef"><b>Definition:</b> <a href="a00914_source.html#l00022">Value.hpp:22</a></div></div>
-<div class="ttc" id="aa03461_html_a821da2a8c1875fe641f52ec0b2094e0c"><div class="ttname"><a href="a03461.html#a821da2a8c1875fe641f52ec0b2094e0c">bl::script::Value::makeSafe</a></div><div class="ttdeci">void makeSafe()</div><div class="ttdoc">Makes any contained references safe to pass back up the stack.</div><div class="ttdef"><b>Definition:</b> <a href="a01670_source.html#l00098">Value.cpp:98</a></div></div>
-<div class="ttc" id="aa03977_html_aab7cdda02e78cc66c150f58063c8b9e4"><div class="ttname"><a href="a03977.html#aab7cdda02e78cc66c150f58063c8b9e4">bl::script::Parser::Grammar</a></div><div class="ttdeci">Grammar</div><div class="ttdef"><b>Definition:</b> <a href="a04883_source.html#l00039">Parser.hpp:39</a></div></div>
-<div class="ttc" id="aa03985_html_a6b8c371d6bd8211fc97a31e753a2254d"><div class="ttname"><a href="a03985.html#a6b8c371d6bd8211fc97a31e753a2254d">bl::script::ScriptImpl::runStatementList</a></div><div class="ttdeci">static std::optional&lt; Value &gt; runStatementList(const parser::Node::Ptr &amp;statement, SymbolTable &amp;table)</div><div class="ttdoc">Executes a list of statements. Can take Statement, StmtList, or StmtBlock.</div><div class="ttdef"><b>Definition:</b> <a href="a01655_source.html#l00177">ScriptImpl.cpp:177</a></div></div>
-<div class="ttc" id="aa04883_html"><div class="ttname"><a href="a04883.html">Parser.hpp</a></div></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01803.html">bl</a></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>resource</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>bundle</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a01854.html#a8a2a9b32bbe1a4a8091826b7556796c1">    9</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a03568.html">Serializer</a> = <a class="code" href="a03568.html">serial::binary::Serializer&lt;BundleMetadata&gt;</a>;</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="a03384.html#a3703c69b35ae0f1f187e73ff5e8e3159">   11</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03384.html#a3703c69b35ae0f1f187e73ff5e8e3159">BundleMetadata::addFileInfo</a>(<span class="keyword">const</span> std::string&amp; path, <span class="keyword">const</span> <a class="code" href="a03376.html">BundledFileMetadata</a>&amp; info) {</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    manifest[path] = info;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;}</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="a03384.html#a5ee5ad07b7fe5b2d1e6f815810e059cd">   15</a></span>&#160;<a class="code" href="a03376.html">BundledFileMetadata</a> <a class="code" href="a03384.html#a5ee5ad07b7fe5b2d1e6f815810e059cd">BundleMetadata::getFileInfo</a>(<span class="keyword">const</span> std::string&amp; path)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> it = manifest.find(path);</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordflow">return</span> it != manifest.end() ? it-&gt;second : <a class="code" href="a03376.html">BundledFileMetadata</a>{-1, -1};</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;}</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a03384.html#a98ffb4582c0b6b07d39c5e43042fd1ae">   20</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a03384.html#a98ffb4582c0b6b07d39c5e43042fd1ae">BundleMetadata::save</a>(std::ostream&amp; stream)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <a class="code" href="a03692.html">serial::StreamOutputBuffer</a> wrapper(stream);</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <a class="code" href="a03564.html">serial::binary::OutputStream</a> bs(wrapper);</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="a03568.html#a5f0be3d348bae8bf6823f4d2a3a98b9b">Serializer::serialize</a>(bs, *<span class="keyword">this</span>);</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;}</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a03384.html#af644d928891785dc98ff4eb2a4dfecda">   26</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a03384.html#af644d928891785dc98ff4eb2a4dfecda">BundleMetadata::load</a>(std::istream&amp; stream) {</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    manifest.clear();</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <a class="code" href="a03688.html">serial::StreamInputBuffer</a> wrapper(stream);</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <a class="code" href="a03556.html">serial::binary::InputStream</a> bs(wrapper);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="a03568.html#ae6050208537dd1364dd2779ffe36d057">Serializer::deserialize</a>(bs, *<span class="keyword">this</span>);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;}</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;} <span class="comment">// namespace bundle</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;} <span class="comment">// namespace resource</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00863_html"><div class="ttname"><a href="a00863.html">BundleMetadata.hpp</a></div></div>
+<div class="ttc" id="aa01803_html"><div class="ttname"><a href="a01803.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03376_html"><div class="ttname"><a href="a03376.html">bl::resource::bundle::BundledFileMetadata</a></div><div class="ttdoc">Basic struct containing metadata about a file in a bundle.</div><div class="ttdef"><b>Definition:</b> <a href="a00860_source.html#l00019">BundledFileMetadata.hpp:19</a></div></div>
+<div class="ttc" id="aa03384_html_a3703c69b35ae0f1f187e73ff5e8e3159"><div class="ttname"><a href="a03384.html#a3703c69b35ae0f1f187e73ff5e8e3159">bl::resource::bundle::BundleMetadata::addFileInfo</a></div><div class="ttdeci">void addFileInfo(const std::string &amp;path, const BundledFileMetadata &amp;info)</div><div class="ttdoc">Adds information for the given file to the bundle manifest.</div><div class="ttdef"><b>Definition:</b> <a href="a01640_source.html#l00011">BundleMetadata.cpp:11</a></div></div>
+<div class="ttc" id="aa03384_html_a5ee5ad07b7fe5b2d1e6f815810e059cd"><div class="ttname"><a href="a03384.html#a5ee5ad07b7fe5b2d1e6f815810e059cd">bl::resource::bundle::BundleMetadata::getFileInfo</a></div><div class="ttdeci">BundledFileMetadata getFileInfo(const std::string &amp;path) const</div><div class="ttdoc">Get the information locating a specific file in the bundle.</div><div class="ttdef"><b>Definition:</b> <a href="a01640_source.html#l00015">BundleMetadata.cpp:15</a></div></div>
+<div class="ttc" id="aa03384_html_a98ffb4582c0b6b07d39c5e43042fd1ae"><div class="ttname"><a href="a03384.html#a98ffb4582c0b6b07d39c5e43042fd1ae">bl::resource::bundle::BundleMetadata::save</a></div><div class="ttdeci">bool save(std::ostream &amp;stream) const</div><div class="ttdoc">Saves the bundle metadata to the given stream.</div><div class="ttdef"><b>Definition:</b> <a href="a01640_source.html#l00020">BundleMetadata.cpp:20</a></div></div>
+<div class="ttc" id="aa03384_html_af644d928891785dc98ff4eb2a4dfecda"><div class="ttname"><a href="a03384.html#af644d928891785dc98ff4eb2a4dfecda">bl::resource::bundle::BundleMetadata::load</a></div><div class="ttdeci">bool load(std::istream &amp;stream)</div><div class="ttdoc">Loads the bundle metadata from the given stream.</div><div class="ttdef"><b>Definition:</b> <a href="a01640_source.html#l00026">BundleMetadata.cpp:26</a></div></div>
+<div class="ttc" id="aa03556_html"><div class="ttname"><a href="a03556.html">bl::serial::binary::InputStream</a></div><div class="ttdoc">A readable stream for binary deserialization.</div><div class="ttdef"><b>Definition:</b> <a href="a00944_source.html#l00028">InputStream.hpp:28</a></div></div>
+<div class="ttc" id="aa03564_html"><div class="ttname"><a href="a03564.html">bl::serial::binary::OutputStream</a></div><div class="ttdoc">A writable stream for binary serialization.</div><div class="ttdef"><b>Definition:</b> <a href="a00950_source.html#l00022">OutputStream.hpp:22</a></div></div>
+<div class="ttc" id="aa03568_html"><div class="ttname"><a href="a03568.html">bl::serial::binary::Serializer</a></div><div class="ttdoc">Helper struct for serializing types into binary streams. Integral types, strings, vector,...</div><div class="ttdef"><b>Definition:</b> <a href="a05109_source.html#l00034">Serializer.hpp:34</a></div></div>
+<div class="ttc" id="aa03568_html_a5f0be3d348bae8bf6823f4d2a3a98b9b"><div class="ttname"><a href="a03568.html#a5f0be3d348bae8bf6823f4d2a3a98b9b">bl::serial::binary::Serializer::serialize</a></div><div class="ttdeci">static bool serialize(OutputStream &amp;output, const T &amp;value)</div><div class="ttdoc">Serialize the given value to the given file.</div></div>
+<div class="ttc" id="aa03568_html_ae6050208537dd1364dd2779ffe36d057"><div class="ttname"><a href="a03568.html#ae6050208537dd1364dd2779ffe36d057">bl::serial::binary::Serializer::deserialize</a></div><div class="ttdeci">static bool deserialize(InputStream &amp;input, T &amp;result)</div><div class="ttdoc">Reads the value from input into result.</div></div>
+<div class="ttc" id="aa03688_html"><div class="ttname"><a href="a03688.html">bl::serial::StreamInputBuffer</a></div><div class="ttdoc">Input buffer that operates on C++ streams.</div><div class="ttdef"><b>Definition:</b> <a href="a00974_source.html#l00017">StreamInputBuffer.hpp:17</a></div></div>
+<div class="ttc" id="aa03692_html"><div class="ttname"><a href="a03692.html">bl::serial::StreamOutputBuffer</a></div><div class="ttdoc">Output buffer that allows writing to C++ streams.</div><div class="ttdef"><b>Definition:</b> <a href="a00977_source.html#l00017">StreamOutputBuffer.hpp:17</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 30 2023 22:56:46 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Oct 8 2023 18:56:19 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

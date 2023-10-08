@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Interfaces/GUI/Packers/Packer.hpp Source File</title>
+<title>BLIB: include/BLIB/Interfaces/GUI/Elements/Label.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,64 +66,78 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4a89db2e42278000e6aac6ace9db278e.html">Interfaces</a></li><li class="navelem"><a class="el" href="dir_488290d74f9e6b3540591d02cc875229.html">GUI</a></li><li class="navelem"><a class="el" href="dir_b7a99aa094231fae7c1164cb96a1b40b.html">Packers</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4a89db2e42278000e6aac6ace9db278e.html">Interfaces</a></li><li class="navelem"><a class="el" href="dir_488290d74f9e6b3540591d02cc875229.html">GUI</a></li><li class="navelem"><a class="el" href="dir_0e73644d95625b92b38fc98502188409.html">Elements</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Packer.hpp</div>  </div>
+<div class="title">Label.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00365.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_GUI_PACKERS_PACKER_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_GUI_PACKERS_PACKER_HPP</span></div>
+<a href="a00365.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_GUI_ELEMENTS_LABEL_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_GUI_ELEMENTS_LABEL_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00317.html">BLIB/Interfaces/GUI/Elements/Element.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01025.html">BLIB/Util/NonCopyable.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01760.html">bl</a></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>gui</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a02533.html">   20</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02533.html">Packer</a> : <span class="keyword">public</span> <a class="code" href="a03829.html">bl::util::NonCopyable</a> {</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a02533.html#ae16cb4c26ab7e5dd1d8cbdc5598bf073">   22</a></span>&#160;    <span class="keyword">typedef</span> std::shared_ptr&lt;Packer&gt; <a class="code" href="a02533.html#ae16cb4c26ab7e5dd1d8cbdc5598bf073">Ptr</a>;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a02533.html#a87c464eb5ce463ac799ed74231a77295">   24</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02533.html#a87c464eb5ce463ac799ed74231a77295">~Packer</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="a02533.html#ab4fb247af12fe31d556bc30af296f6bc">   32</a></span>&#160;    <span class="keyword">virtual</span> sf::Vector2f <a class="code" href="a02533.html#ab4fb247af12fe31d556bc30af296f6bc">getRequisition</a>(<span class="keyword">const</span> std::vector&lt;Element::Ptr&gt;&amp; elements) = 0;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="a02533.html#a96485d9ff34d93ed37ba8d04ec4950e9">   40</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02533.html#a96485d9ff34d93ed37ba8d04ec4950e9">pack</a>(<span class="keyword">const</span> sf::FloatRect&amp; acquisition,</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;                      <span class="keyword">const</span> std::vector&lt;Element::Ptr&gt;&amp; elements) = 0;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="a02533.html#a4b254eb49aea88a8a35d4407dfe7cce5">manuallyPackElement</a>(<span class="keyword">const</span> <a class="code" href="a02457.html#a21b57f73febb9e1c62e8abcef64b1654">Element::Ptr</a>&amp; element, <span class="keyword">const</span> sf::FloatRect&amp; area,</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                                    <span class="keywordtype">bool</span> force = <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="a02533.html#a2b942eb90604a301008c4b26d6209793">packElementIntoSpace</a>(<span class="keyword">const</span> <a class="code" href="a02457.html#a21b57f73febb9e1c62e8abcef64b1654">Element::Ptr</a>&amp; element, <span class="keyword">const</span> sf::FloatRect&amp; space);</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;};</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;} <span class="comment">// namespace gui</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00317_html"><div class="ttname"><a href="a00317.html">Element.hpp</a></div></div>
-<div class="ttc" id="aa01025_html"><div class="ttname"><a href="a01025.html">NonCopyable.hpp</a></div></div>
-<div class="ttc" id="aa01760_html"><div class="ttname"><a href="a01760.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02457_html_a21b57f73febb9e1c62e8abcef64b1654"><div class="ttname"><a href="a02457.html#a21b57f73febb9e1c62e8abcef64b1654">bl::gui::Element::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; Element &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00317_source.html#l00034">Element.hpp:34</a></div></div>
-<div class="ttc" id="aa02533_html"><div class="ttname"><a href="a02533.html">bl::gui::Packer</a></div><div class="ttdoc">Base class for Element packers. A Packer assigns acquisitions to Elements in a Container....</div><div class="ttdef"><b>Definition:</b> <a href="a00365_source.html#l00020">Packer.hpp:20</a></div></div>
-<div class="ttc" id="aa02533_html_a2b942eb90604a301008c4b26d6209793"><div class="ttname"><a href="a02533.html#a2b942eb90604a301008c4b26d6209793">bl::gui::Packer::packElementIntoSpace</a></div><div class="ttdeci">static void packElementIntoSpace(const Element::Ptr &amp;element, const sf::FloatRect &amp;space)</div><div class="ttdoc">Packs an element into the given space. Obeys Element expand properties.</div><div class="ttdef"><b>Definition:</b> <a href="a01268_source.html#l00007">Packer.cpp:7</a></div></div>
-<div class="ttc" id="aa02533_html_a4b254eb49aea88a8a35d4407dfe7cce5"><div class="ttname"><a href="a02533.html#a4b254eb49aea88a8a35d4407dfe7cce5">bl::gui::Packer::manuallyPackElement</a></div><div class="ttdeci">static void manuallyPackElement(const Element::Ptr &amp;element, const sf::FloatRect &amp;area, bool force=false)</div><div class="ttdoc">Manually pack the element. Note that the acquisition is relative to the parent element and likely doe...</div><div class="ttdef"><b>Definition:</b> <a href="a01268_source.html#l00015">Packer.cpp:15</a></div></div>
-<div class="ttc" id="aa02533_html_a87c464eb5ce463ac799ed74231a77295"><div class="ttname"><a href="a02533.html#a87c464eb5ce463ac799ed74231a77295">bl::gui::Packer::~Packer</a></div><div class="ttdeci">virtual ~Packer()=default</div></div>
-<div class="ttc" id="aa02533_html_a96485d9ff34d93ed37ba8d04ec4950e9"><div class="ttname"><a href="a02533.html#a96485d9ff34d93ed37ba8d04ec4950e9">bl::gui::Packer::pack</a></div><div class="ttdeci">virtual void pack(const sf::FloatRect &amp;acquisition, const std::vector&lt; Element::Ptr &gt; &amp;elements)=0</div><div class="ttdoc">Pack the elements into the assigned acquisition.</div></div>
-<div class="ttc" id="aa02533_html_ab4fb247af12fe31d556bc30af296f6bc"><div class="ttname"><a href="a02533.html#ab4fb247af12fe31d556bc30af296f6bc">bl::gui::Packer::getRequisition</a></div><div class="ttdeci">virtual sf::Vector2f getRequisition(const std::vector&lt; Element::Ptr &gt; &amp;elements)=0</div><div class="ttdoc">Reports the minimum requisition of the element list given.</div></div>
-<div class="ttc" id="aa02533_html_ae16cb4c26ab7e5dd1d8cbdc5598bf073"><div class="ttname"><a href="a02533.html#ae16cb4c26ab7e5dd1d8cbdc5598bf073">bl::gui::Packer::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; Packer &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00365_source.html#l00022">Packer.hpp:22</a></div></div>
-<div class="ttc" id="aa03829_html"><div class="ttname"><a href="a03829.html">bl::util::NonCopyable</a></div><div class="ttdoc">Helper class to make derived classes impossible for user to copy directly.</div><div class="ttdef"><b>Definition:</b> <a href="a01025_source.html#l00013">NonCopyable.hpp:13</a></div></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00359.html">BLIB/Interfaces/GUI/Elements/Element.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00896.html">BLIB/Resources/Loader.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01803.html">bl</a></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>gui</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a02584.html">   19</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02584.html">Label</a> : <span class="keyword">public</span> <a class="code" href="a02576.html">Element</a> {</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a02584.html#a9dc26c61d30bcf0a87d2f91b1ae03ebf">   21</a></span>&#160;    <span class="keyword">typedef</span> std::shared_ptr&lt;Label&gt; <a class="code" href="a02584.html#a9dc26c61d30bcf0a87d2f91b1ae03ebf">Ptr</a>;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a02584.html#aac8d22fb89675521ca023565766b7573">   23</a></span>&#160;    <span class="keyword">static</span> constexpr <span class="keywordtype">int</span> <a class="code" href="a02584.html#aac8d22fb89675521ca023565766b7573">DefaultFontSize</a> = 20;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">static</span> <a class="code" href="a02576.html#a21b57f73febb9e1c62e8abcef64b1654">Ptr</a> <a class="code" href="a02584.html#a8a3c2d68e95cb5ed4f706b4105e27ad0">create</a>(<span class="keyword">const</span> std::string&amp; text);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="a02584.html#a692dbbb0379dbec09e244bf840aa4ac8">   36</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02584.html#a692dbbb0379dbec09e244bf840aa4ac8">~Label</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02584.html#a66d688962685b095e7bc16302ff011e4">setText</a>(<span class="keyword">const</span> std::string&amp; text);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keyword">const</span> std::string&amp; <a class="code" href="a02584.html#a6c809fe7d702876e1efe08fb59e26d72">getText</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <a class="code" href="a02584.html#a122b0461c7aa479ef60441603ff4bc00">Label</a>(<span class="keyword">const</span> std::string&amp; text);</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keyword">virtual</span> sf::Vector2f <a class="code" href="a02584.html#ab6557f29b0ecb6e05aa8656d638ada93">minimumRequisition</a>() <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02584.html#ab0bb700c0233417bc448c23f76b87b29">doRender</a>(sf::RenderTarget&amp; target, sf::RenderStates states,</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                          <span class="keyword">const</span> <a class="code" href="a02664.html">Renderer</a>&amp; renderer) <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    std::string text;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    sf::Text renderText;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordtype">void</span> settingsChanged();</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;};</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;} <span class="comment">// namespace gui</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00359_html"><div class="ttname"><a href="a00359.html">Element.hpp</a></div></div>
+<div class="ttc" id="aa00896_html"><div class="ttname"><a href="a00896.html">Loader.hpp</a></div></div>
+<div class="ttc" id="aa01803_html"><div class="ttname"><a href="a01803.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02576_html"><div class="ttname"><a href="a02576.html">bl::gui::Element</a></div><div class="ttdoc">Base class for all GUI elements. Provides the common interface used for positioning,...</div><div class="ttdef"><b>Definition:</b> <a href="a00359_source.html#l00030">Element.hpp:32</a></div></div>
+<div class="ttc" id="aa02576_html_a21b57f73febb9e1c62e8abcef64b1654"><div class="ttname"><a href="a02576.html#a21b57f73febb9e1c62e8abcef64b1654">bl::gui::Element::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; Element &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00359_source.html#l00034">Element.hpp:34</a></div></div>
+<div class="ttc" id="aa02584_html"><div class="ttname"><a href="a02584.html">bl::gui::Label</a></div><div class="ttdoc">Display only text element. Used to display text in a GUI. Note that any render settings changed here ...</div><div class="ttdef"><b>Definition:</b> <a href="a00365_source.html#l00019">Label.hpp:19</a></div></div>
+<div class="ttc" id="aa02584_html_a122b0461c7aa479ef60441603ff4bc00"><div class="ttname"><a href="a02584.html#a122b0461c7aa479ef60441603ff4bc00">bl::gui::Label::Label</a></div><div class="ttdeci">Label(const std::string &amp;text)</div><div class="ttdoc">Construct a new Label.</div><div class="ttdef"><b>Definition:</b> <a href="a01277_source.html#l00011">Label.cpp:11</a></div></div>
+<div class="ttc" id="aa02584_html_a66d688962685b095e7bc16302ff011e4"><div class="ttname"><a href="a02584.html#a66d688962685b095e7bc16302ff011e4">bl::gui::Label::setText</a></div><div class="ttdeci">void setText(const std::string &amp;text)</div><div class="ttdoc">Set the text displayed in the label.</div><div class="ttdef"><b>Definition:</b> <a href="a01277_source.html#l00019">Label.cpp:19</a></div></div>
+<div class="ttc" id="aa02584_html_a692dbbb0379dbec09e244bf840aa4ac8"><div class="ttname"><a href="a02584.html#a692dbbb0379dbec09e244bf840aa4ac8">bl::gui::Label::~Label</a></div><div class="ttdeci">virtual ~Label()=default</div><div class="ttdoc">Destroy the Label object.</div></div>
+<div class="ttc" id="aa02584_html_a6c809fe7d702876e1efe08fb59e26d72"><div class="ttname"><a href="a02584.html#a6c809fe7d702876e1efe08fb59e26d72">bl::gui::Label::getText</a></div><div class="ttdeci">const std::string &amp; getText() const</div><div class="ttdoc">Returns the currently displayed text.</div><div class="ttdef"><b>Definition:</b> <a href="a01277_source.html#l00024">Label.cpp:24</a></div></div>
+<div class="ttc" id="aa02584_html_a8a3c2d68e95cb5ed4f706b4105e27ad0"><div class="ttname"><a href="a02584.html#a8a3c2d68e95cb5ed4f706b4105e27ad0">bl::gui::Label::create</a></div><div class="ttdeci">static Ptr create(const std::string &amp;text)</div><div class="ttdoc">Construct a new Label.</div><div class="ttdef"><b>Definition:</b> <a href="a01277_source.html#l00009">Label.cpp:9</a></div></div>
+<div class="ttc" id="aa02584_html_a9dc26c61d30bcf0a87d2f91b1ae03ebf"><div class="ttname"><a href="a02584.html#a9dc26c61d30bcf0a87d2f91b1ae03ebf">bl::gui::Label::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; Label &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00365_source.html#l00021">Label.hpp:21</a></div></div>
+<div class="ttc" id="aa02584_html_aac8d22fb89675521ca023565766b7573"><div class="ttname"><a href="a02584.html#aac8d22fb89675521ca023565766b7573">bl::gui::Label::DefaultFontSize</a></div><div class="ttdeci">static constexpr int DefaultFontSize</div><div class="ttdef"><b>Definition:</b> <a href="a00365_source.html#l00023">Label.hpp:23</a></div></div>
+<div class="ttc" id="aa02584_html_ab0bb700c0233417bc448c23f76b87b29"><div class="ttname"><a href="a02584.html#ab0bb700c0233417bc448c23f76b87b29">bl::gui::Label::doRender</a></div><div class="ttdeci">virtual void doRender(sf::RenderTarget &amp;target, sf::RenderStates states, const Renderer &amp;renderer) const override</div><div class="ttdoc">Render the Label to the given target.</div><div class="ttdef"><b>Definition:</b> <a href="a01277_source.html#l00026">Label.cpp:26</a></div></div>
+<div class="ttc" id="aa02584_html_ab6557f29b0ecb6e05aa8656d638ada93"><div class="ttname"><a href="a02584.html#ab6557f29b0ecb6e05aa8656d638ada93">bl::gui::Label::minimumRequisition</a></div><div class="ttdeci">virtual sf::Vector2f minimumRequisition() const override</div><div class="ttdoc">Returns the minimum space required to render the label.</div><div class="ttdef"><b>Definition:</b> <a href="a01277_source.html#l00031">Label.cpp:31</a></div></div>
+<div class="ttc" id="aa02664_html"><div class="ttname"><a href="a02664.html">bl::gui::Renderer</a></div><div class="ttdoc">Interface for renderers for GUIs. Derived classes may elect to inherit from DefaultRenderer and only ...</div><div class="ttdef"><b>Definition:</b> <a href="a05076_source.html#l00037">Renderer.hpp:37</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 30 2023 22:56:45 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Oct 8 2023 18:56:18 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

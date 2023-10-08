@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Events/ListenerGuard.hpp Source File</title>
+<title>BLIB: include/BLIB/Engine/State.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,78 +66,89 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_b1ab5f494aad7f0e2da16d9fefe047e9.html">Events</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_21925c401d8b9381bdf61383d8a14cd0.html">Engine</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">ListenerGuard.hpp</div>  </div>
+<div class="title">State.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00218.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_EVENTS_LISTENERGUARD_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_EVENTS_LISTENERGUARD_HPP</span></div>
+<a href="a00218.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_ENGINE_STATE_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_ENGINE_STATE_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00209.html">BLIB/Events/Dispatcher.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01760.html">bl</a></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>event</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00221.html">BLIB/Engine/StateMask.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01052.html">BLIB/Util/NonCopyable.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01803.html">bl</a></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TEvents&gt;</div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a02277.html">   18</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02277.html">ListenerGuard</a> {</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <a class="code" href="a02277.html#a96a8d50a80ae728156a8b5c32e3675e5">ListenerGuard</a>(<a class="code" href="a02273.html">Listener&lt;TEvents...&gt;</a>* owner);</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <a class="code" href="a02277.html#a328851620e6bb20d1ddbebc9994a7dd3">~ListenerGuard</a>();</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02277.html#aaf8c7456d69baddfc086251a1fa77ae6">subscribe</a>(<span class="keywordtype">bool</span> defer = <span class="keyword">false</span>);</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>engine</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">class </span>Engine;</div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a02308.html">   21</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02308.html">State</a> : <span class="keyword">private</span> <a class="code" href="a03940.html">util::NonCopyable</a> {</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a02308.html#af13f7b9dd4d6e317dbc378896ddcf6d5">   23</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a02308.html#af13f7b9dd4d6e317dbc378896ddcf6d5">Ptr</a> = std::shared_ptr&lt;State&gt;;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <a class="code" href="a02308.html#ac2697c64f3d7b651bf487aa7a67e12a3">State</a>(<a class="code" href="a02312.html#aae4beb82249d6acee3fae792b71efdd5">StateMask::V</a> mask);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="a02308.html#a75cd69b2c7d5e71c1dbe449856f2767e">   35</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02308.html#a75cd69b2c7d5e71c1dbe449856f2767e">~State</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    constexpr <a class="code" href="a02312.html#aae4beb82249d6acee3fae792b71efdd5">StateMask::V</a> <a class="code" href="a02308.html#a013b148f0e0e3b4bd0db063b6dd56905">systemsMask</a>() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02277.html#a010f7f24a4188f4283499854147a520f">unsubscribe</a>();</div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="a02308.html#a7f4260441baa5af414b782f8466ef0e1">   46</a></span>&#160;    <span class="keyword">virtual</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code" href="a02308.html#a7f4260441baa5af414b782f8466ef0e1">name</a>() <span class="keyword">const</span> = 0;</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <a class="code" href="a02273.html">Listener</a>&lt;TEvents...&gt;* <span class="keyword">const</span> listener;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;};</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="a02308.html#a8a644022b9ce4f2db598ef8820f86b0b">   52</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02308.html#a8a644022b9ce4f2db598ef8820f86b0b">activate</a>(<a class="code" href="a02264.html">Engine</a>&amp; engine) = 0;</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TEvents&gt;</div>
-<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="a02277.html#a96a8d50a80ae728156a8b5c32e3675e5">   55</a></span>&#160;<a class="code" href="a02277.html#a96a8d50a80ae728156a8b5c32e3675e5">ListenerGuard&lt;TEvents...&gt;::ListenerGuard</a>(<a class="code" href="a02273.html">Listener&lt;TEvents...&gt;</a>* owner)</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;: listener(owner) {}</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TEvents&gt;</div>
-<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="a02277.html#a328851620e6bb20d1ddbebc9994a7dd3">   59</a></span>&#160;<a class="code" href="a02277.html#a328851620e6bb20d1ddbebc9994a7dd3">ListenerGuard&lt;TEvents...&gt;::~ListenerGuard</a>() {</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    unsubscribe();</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;}</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TEvents&gt;</div>
-<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="a02277.html#aaf8c7456d69baddfc086251a1fa77ae6">   64</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02277.html#aaf8c7456d69baddfc086251a1fa77ae6">ListenerGuard&lt;TEvents...&gt;::subscribe</a>(<span class="keywordtype">bool</span> defer) {</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    unsubscribe();</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <a class="code" href="a02261.html#a36b6226eb7a776e0fc9c798689725bdc">Dispatcher::subscribe</a>(listener, defer);</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;}</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TEvents&gt;</div>
-<div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="a02277.html#a010f7f24a4188f4283499854147a520f">   70</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02277.html#a010f7f24a4188f4283499854147a520f">ListenerGuard&lt;TEvents...&gt;::unsubscribe</a>() {</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <a class="code" href="a02261.html#a7d6b29860c56388036edd8a38f26a4c7">Dispatcher::unsubscribe</a>(listener);</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;}</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;} <span class="comment">// namespace event</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="a02308.html#af61c4df16bf7dd436d40595804c14ca2">   58</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02308.html#af61c4df16bf7dd436d40595804c14ca2">deactivate</a>(<a class="code" href="a02264.html">Engine</a>&amp; engine) = 0;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="a02308.html#ae24e56d077045e068ced0094609fd9de">   66</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02308.html#ae24e56d077045e068ced0094609fd9de">update</a>(<a class="code" href="a02264.html">Engine</a>&amp; engine, <span class="keywordtype">float</span> dt) = 0;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="a02308.html#a450b38e31a88eef076ba1c3d68a46752">   75</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02308.html#a450b38e31a88eef076ba1c3d68a46752">render</a>(<a class="code" href="a02264.html">Engine</a>&amp; engine, <span class="keywordtype">float</span> residualLag) = 0;</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00209_html"><div class="ttname"><a href="a00209.html">Dispatcher.hpp</a></div></div>
-<div class="ttc" id="aa01760_html"><div class="ttname"><a href="a01760.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02261_html_a36b6226eb7a776e0fc9c798689725bdc"><div class="ttname"><a href="a02261.html#a36b6226eb7a776e0fc9c798689725bdc">bl::event::Dispatcher::subscribe</a></div><div class="ttdeci">static void subscribe(Listener&lt; TEvents... &gt; *listener, bool defer=false)</div><div class="ttdoc">Subscribe the given listener to the event stream for the event types given.</div><div class="ttdef"><b>Definition:</b> <a href="a00209_source.html#l00093">Dispatcher.hpp:93</a></div></div>
-<div class="ttc" id="aa02261_html_a7d6b29860c56388036edd8a38f26a4c7"><div class="ttname"><a href="a02261.html#a7d6b29860c56388036edd8a38f26a4c7">bl::event::Dispatcher::unsubscribe</a></div><div class="ttdeci">static void unsubscribe(Listener&lt; TEvents... &gt; *listener, bool defer=false)</div><div class="ttdoc">Removes the given listener and prevents it from receiving any more events.</div><div class="ttdef"><b>Definition:</b> <a href="a00209_source.html#l00104">Dispatcher.hpp:104</a></div></div>
-<div class="ttc" id="aa02273_html"><div class="ttname"><a href="a02273.html">bl::event::Listener&lt; TEvents... &gt;</a></div></div>
-<div class="ttc" id="aa02277_html"><div class="ttname"><a href="a02277.html">bl::event::ListenerGuard</a></div><div class="ttdoc">Version of scope guard but for classes. Classes that subscribe to event buses through a member Listen...</div><div class="ttdef"><b>Definition:</b> <a href="a00218_source.html#l00018">ListenerGuard.hpp:18</a></div></div>
-<div class="ttc" id="aa02277_html_a010f7f24a4188f4283499854147a520f"><div class="ttname"><a href="a02277.html#a010f7f24a4188f4283499854147a520f">bl::event::ListenerGuard::unsubscribe</a></div><div class="ttdeci">void unsubscribe()</div><div class="ttdoc">Unsubscribes the owner from the given event bus.</div><div class="ttdef"><b>Definition:</b> <a href="a00218_source.html#l00070">ListenerGuard.hpp:70</a></div></div>
-<div class="ttc" id="aa02277_html_a328851620e6bb20d1ddbebc9994a7dd3"><div class="ttname"><a href="a02277.html#a328851620e6bb20d1ddbebc9994a7dd3">bl::event::ListenerGuard::~ListenerGuard</a></div><div class="ttdeci">~ListenerGuard()</div><div class="ttdoc">Unsubscribes if subscribed.</div><div class="ttdef"><b>Definition:</b> <a href="a00218_source.html#l00059">ListenerGuard.hpp:59</a></div></div>
-<div class="ttc" id="aa02277_html_a96a8d50a80ae728156a8b5c32e3675e5"><div class="ttname"><a href="a02277.html#a96a8d50a80ae728156a8b5c32e3675e5">bl::event::ListenerGuard::ListenerGuard</a></div><div class="ttdeci">ListenerGuard(Listener&lt; TEvents... &gt; *owner)</div><div class="ttdoc">Creates an empty guard.</div><div class="ttdef"><b>Definition:</b> <a href="a00218_source.html#l00055">ListenerGuard.hpp:55</a></div></div>
-<div class="ttc" id="aa02277_html_aaf8c7456d69baddfc086251a1fa77ae6"><div class="ttname"><a href="a02277.html#aaf8c7456d69baddfc086251a1fa77ae6">bl::event::ListenerGuard::subscribe</a></div><div class="ttdeci">void subscribe(bool defer=false)</div><div class="ttdoc">Subscribes the owner to the given bus.</div><div class="ttdef"><b>Definition:</b> <a href="a00218_source.html#l00064">ListenerGuard.hpp:64</a></div></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keyword">const</span> <a class="code" href="a02312.html#aae4beb82249d6acee3fae792b71efdd5">StateMask::V</a> mask;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;};</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="a02308.html#ac2697c64f3d7b651bf487aa7a67e12a3">   83</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="a02308.html#ac2697c64f3d7b651bf487aa7a67e12a3">State::State</a>(<a class="code" href="a02312.html#aae4beb82249d6acee3fae792b71efdd5">StateMask::V</a> m)</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;: mask(m) {</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="preprocessor">#ifdef BLIB_DEBUG</span></div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keywordflow">if</span> (m == 0) {</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        <a class="code" href="a00485.html#aab250887595d9e02b1f0b670fe342683">BL_LOG_CRITICAL</a> &lt;&lt; <span class="stringliteral">&quot;StateMask of 0 is not supported&quot;</span>;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;StateMask of 0 is not supported&quot;</span>);</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    }</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;}</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
+<div class="line"><a name="l00093"></a><span class="lineno"><a class="line" href="a02308.html#a013b148f0e0e3b4bd0db063b6dd56905">   93</a></span>&#160;<span class="keyword">inline</span> constexpr <a class="code" href="a02312.html#aae4beb82249d6acee3fae792b71efdd5">StateMask::V</a> <a class="code" href="a02308.html#a013b148f0e0e3b4bd0db063b6dd56905">State::systemsMask</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> mask; }</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;} <span class="comment">// namespace engine</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00221_html"><div class="ttname"><a href="a00221.html">StateMask.hpp</a></div></div>
+<div class="ttc" id="aa00485_html_aab250887595d9e02b1f0b670fe342683"><div class="ttname"><a href="a00485.html#aab250887595d9e02b1f0b670fe342683">BL_LOG_CRITICAL</a></div><div class="ttdeci">#define BL_LOG_CRITICAL</div><div class="ttdoc">Helper macro to log at critical level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00485_source.html#l00098">Logger.hpp:98</a></div></div>
+<div class="ttc" id="aa01052_html"><div class="ttname"><a href="a01052.html">NonCopyable.hpp</a></div></div>
+<div class="ttc" id="aa01803_html"><div class="ttname"><a href="a01803.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02264_html"><div class="ttname"><a href="a02264.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a05028_source.html#l00031">Engine.hpp:31</a></div></div>
+<div class="ttc" id="aa02308_html"><div class="ttname"><a href="a02308.html">bl::engine::State</a></div><div class="ttdoc">Base interface for all engine states. The Engine class manages the main game loop,...</div><div class="ttdef"><b>Definition:</b> <a href="a00218_source.html#l00021">State.hpp:21</a></div></div>
+<div class="ttc" id="aa02308_html_a013b148f0e0e3b4bd0db063b6dd56905"><div class="ttname"><a href="a02308.html#a013b148f0e0e3b4bd0db063b6dd56905">bl::engine::State::systemsMask</a></div><div class="ttdeci">constexpr StateMask::V systemsMask() const</div><div class="ttdoc">Returns the mask to use when selecting which systems to run.</div><div class="ttdef"><b>Definition:</b> <a href="a00218_source.html#l00093">State.hpp:93</a></div></div>
+<div class="ttc" id="aa02308_html_a450b38e31a88eef076ba1c3d68a46752"><div class="ttname"><a href="a02308.html#a450b38e31a88eef076ba1c3d68a46752">bl::engine::State::render</a></div><div class="ttdeci">virtual void render(Engine &amp;engine, float residualLag)=0</div><div class="ttdoc">Render the application to the window owned by the Engine. Deprecated. Use Renderer.</div></div>
+<div class="ttc" id="aa02308_html_a75cd69b2c7d5e71c1dbe449856f2767e"><div class="ttname"><a href="a02308.html#a75cd69b2c7d5e71c1dbe449856f2767e">bl::engine::State::~State</a></div><div class="ttdeci">virtual ~State()=default</div><div class="ttdoc">Destroys the state.</div></div>
+<div class="ttc" id="aa02308_html_a7f4260441baa5af414b782f8466ef0e1"><div class="ttname"><a href="a02308.html#a7f4260441baa5af414b782f8466ef0e1">bl::engine::State::name</a></div><div class="ttdeci">virtual const char * name() const =0</div><div class="ttdoc">A human readable name of the state for logging.</div></div>
+<div class="ttc" id="aa02308_html_a8a644022b9ce4f2db598ef8820f86b0b"><div class="ttname"><a href="a02308.html#a8a644022b9ce4f2db598ef8820f86b0b">bl::engine::State::activate</a></div><div class="ttdeci">virtual void activate(Engine &amp;engine)=0</div><div class="ttdoc">This is called each time the state becomes the active engine state.</div></div>
+<div class="ttc" id="aa02308_html_ac2697c64f3d7b651bf487aa7a67e12a3"><div class="ttname"><a href="a02308.html#ac2697c64f3d7b651bf487aa7a67e12a3">bl::engine::State::State</a></div><div class="ttdeci">State(StateMask::V mask)</div><div class="ttdoc">Creates a new engine state.</div><div class="ttdef"><b>Definition:</b> <a href="a00218_source.html#l00083">State.hpp:83</a></div></div>
+<div class="ttc" id="aa02308_html_ae24e56d077045e068ced0094609fd9de"><div class="ttname"><a href="a02308.html#ae24e56d077045e068ced0094609fd9de">bl::engine::State::update</a></div><div class="ttdeci">virtual void update(Engine &amp;engine, float dt)=0</div><div class="ttdoc">Perform logic updates. This is called before any systems are invoked once per tick.</div></div>
+<div class="ttc" id="aa02308_html_af13f7b9dd4d6e317dbc378896ddcf6d5"><div class="ttname"><a href="a02308.html#af13f7b9dd4d6e317dbc378896ddcf6d5">bl::engine::State::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; State &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00218_source.html#l00023">State.hpp:23</a></div></div>
+<div class="ttc" id="aa02308_html_af61c4df16bf7dd436d40595804c14ca2"><div class="ttname"><a href="a02308.html#af61c4df16bf7dd436d40595804c14ca2">bl::engine::State::deactivate</a></div><div class="ttdeci">virtual void deactivate(Engine &amp;engine)=0</div><div class="ttdoc">This is called each time this state is deactivated.</div></div>
+<div class="ttc" id="aa02312_html_aae4beb82249d6acee3fae792b71efdd5"><div class="ttname"><a href="a02312.html#aae4beb82249d6acee3fae792b71efdd5">bl::engine::StateMask::V</a></div><div class="ttdeci">V</div><div class="ttdoc">The type of the mask.</div><div class="ttdef"><b>Definition:</b> <a href="a00221_source.html#l00019">StateMask.hpp:19</a></div></div>
+<div class="ttc" id="aa03940_html"><div class="ttname"><a href="a03940.html">bl::util::NonCopyable</a></div><div class="ttdoc">Helper class to make derived classes impossible for user to copy directly.</div><div class="ttdef"><b>Definition:</b> <a href="a01052_source.html#l00013">NonCopyable.hpp:13</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 30 2023 22:56:45 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Oct 8 2023 18:56:18 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

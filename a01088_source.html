@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Components/Mesh.cpp Source File</title>
+<title>BLIB: include/BLIB/Util.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,41 +66,54 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_c610c8504d46288da7634b3c0b18263f.html">Components</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Mesh.cpp</div>  </div>
+<div class="title">Util.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01088.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00047.html">BLIB/Components/Mesh.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01760.html">bl</a></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>com</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="a01925.html#af0c0061167c1dded9dc5c2b8a71aa93d">    7</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01925.html#af0c0061167c1dded9dc5c2b8a71aa93d">Mesh::create</a>(<a class="code" href="a03277.html">rc::vk::VulkanState</a>&amp; vulkanState, std::uint32_t vertexCount,</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;                  std::uint32_t indexCount) {</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    <a class="code" href="a01925.html#a11a861d64d0ccbf3609b15778808ae30">gpuBuffer</a>.<a class="code" href="a02765.html#ad0b395bc88a2cf9c8cce245b5d9763bf">create</a>(vulkanState, vertexCount, indexCount);</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <a class="code" href="a02781.html#a9c3ad2caaf2846e720343ec52eaf1073">drawParams</a> = <a class="code" href="a01925.html#a11a861d64d0ccbf3609b15778808ae30">gpuBuffer</a>.<a class="code" href="a02765.html#af615777e9f82e5c6bdad436203b4f024">getDrawParameters</a>();</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;}</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;} <span class="comment">// namespace com</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00047_html"><div class="ttname"><a href="a00047.html">Mesh.hpp</a></div></div>
-<div class="ttc" id="aa01760_html"><div class="ttname"><a href="a01760.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa01925_html_a11a861d64d0ccbf3609b15778808ae30"><div class="ttname"><a href="a01925.html#a11a861d64d0ccbf3609b15778808ae30">bl::com::Mesh::gpuBuffer</a></div><div class="ttdeci">rc::buf::IndexBuffer gpuBuffer</div><div class="ttdef"><b>Definition:</b> <a href="a00047_source.html#l00019">Mesh.hpp:19</a></div></div>
-<div class="ttc" id="aa01925_html_af0c0061167c1dded9dc5c2b8a71aa93d"><div class="ttname"><a href="a01925.html#af0c0061167c1dded9dc5c2b8a71aa93d">bl::com::Mesh::create</a></div><div class="ttdeci">void create(rc::vk::VulkanState &amp;vulkanState, std::uint32_t vertexCount, std::uint32_t indexCount)</div><div class="ttdoc">Helper method to initialize all the mesh data.</div><div class="ttdef"><b>Definition:</b> <a href="a01088_source.html#l00007">Mesh.cpp:7</a></div></div>
-<div class="ttc" id="aa02765_html_ad0b395bc88a2cf9c8cce245b5d9763bf"><div class="ttname"><a href="a02765.html#ad0b395bc88a2cf9c8cce245b5d9763bf">bl::rc::buf::IndexBufferT::create</a></div><div class="ttdeci">void create(vk::VulkanState &amp;vulkanState, std::uint32_t vertexCount, std::uint32_t indexCount)</div><div class="ttdoc">Creates the vertex and index buffers.</div><div class="ttdef"><b>Definition:</b> <a href="a00533_source.html#l00116">IndexBuffer.hpp:116</a></div></div>
-<div class="ttc" id="aa02765_html_af615777e9f82e5c6bdad436203b4f024"><div class="ttname"><a href="a02765.html#af615777e9f82e5c6bdad436203b4f024">bl::rc::buf::IndexBufferT::getDrawParameters</a></div><div class="ttdeci">prim::DrawParameters getDrawParameters() const</div><div class="ttdoc">Builds and returns the parameters required to render the index buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a00533_source.html#l00169">IndexBuffer.hpp:169</a></div></div>
-<div class="ttc" id="aa02781_html_a9c3ad2caaf2846e720343ec52eaf1073"><div class="ttname"><a href="a02781.html#a9c3ad2caaf2846e720343ec52eaf1073">bl::rc::rcom::DrawableBase::drawParams</a></div><div class="ttdeci">prim::DrawParameters drawParams</div><div class="ttdef"><b>Definition:</b> <a href="a00545_source.html#l00025">DrawableBase.hpp:25</a></div></div>
-<div class="ttc" id="aa03277_html"><div class="ttname"><a href="a03277.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a00827_source.html#l00036">VulkanState.hpp:36</a></div></div>
+<a href="a01088.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_UTIL_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_UTIL_HPP</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01031.html">BLIB/Util/BufferIstreamBuf.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01034.html">BLIB/Util/FileUtil.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01037.html">BLIB/Util/HashCombine.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01040.html">BLIB/Util/Hashes.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01043.html">BLIB/Util/IdAllocator.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01049.html">BLIB/Util/LastVariadic.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01052.html">BLIB/Util/NonCopyable.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01055.html">BLIB/Util/Random.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01061.html">BLIB/Util/ReadWriteLock.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05085.html">BLIB/Util/Signal.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01064.html">BLIB/Util/StreamUtil.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01070.html">BLIB/Util/Timer.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01073.html">BLIB/Util/TupleLoop.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01076.html">BLIB/Util/UnderlyingType.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01085.html">BLIB/Util/Waiter.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01031_html"><div class="ttname"><a href="a01031.html">BufferIstreamBuf.hpp</a></div></div>
+<div class="ttc" id="aa01034_html"><div class="ttname"><a href="a01034.html">FileUtil.hpp</a></div></div>
+<div class="ttc" id="aa01037_html"><div class="ttname"><a href="a01037.html">HashCombine.hpp</a></div></div>
+<div class="ttc" id="aa01040_html"><div class="ttname"><a href="a01040.html">Hashes.hpp</a></div></div>
+<div class="ttc" id="aa01043_html"><div class="ttname"><a href="a01043.html">IdAllocator.hpp</a></div></div>
+<div class="ttc" id="aa01049_html"><div class="ttname"><a href="a01049.html">LastVariadic.hpp</a></div></div>
+<div class="ttc" id="aa01052_html"><div class="ttname"><a href="a01052.html">NonCopyable.hpp</a></div></div>
+<div class="ttc" id="aa01055_html"><div class="ttname"><a href="a01055.html">Random.hpp</a></div></div>
+<div class="ttc" id="aa01061_html"><div class="ttname"><a href="a01061.html">ReadWriteLock.hpp</a></div></div>
+<div class="ttc" id="aa01064_html"><div class="ttname"><a href="a01064.html">StreamUtil.hpp</a></div></div>
+<div class="ttc" id="aa01070_html"><div class="ttname"><a href="a01070.html">Timer.hpp</a></div></div>
+<div class="ttc" id="aa01073_html"><div class="ttname"><a href="a01073.html">TupleLoop.hpp</a></div></div>
+<div class="ttc" id="aa01076_html"><div class="ttname"><a href="a01076.html">UnderlyingType.hpp</a></div></div>
+<div class="ttc" id="aa01085_html"><div class="ttname"><a href="a01085.html">Waiter.hpp</a></div></div>
+<div class="ttc" id="aa05085_html"><div class="ttname"><a href="a05085.html">Signal.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 30 2023 22:56:46 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Oct 8 2023 18:56:18 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

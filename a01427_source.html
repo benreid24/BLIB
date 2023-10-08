@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Graph/AssetFactory.cpp Source File</title>
+<title>BLIB: src/Render/Descriptors/Builtin/Scene3DInstance.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,42 +66,139 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_7ebf59129457ae24134db92256c2545a.html">Graph</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_c46d59b26ba1c7a895704386ecf9511b.html">Descriptors</a></li><li class="navelem"><a class="el" href="dir_1c9d8e1815e637956400971975ea0cfc.html">Builtin</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">AssetFactory.cpp</div>  </div>
+<div class="title">Scene3DInstance.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01427.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00614.html">BLIB/Render/Graph/AssetFactory.hpp</a>&gt;</span></div>
+<a href="a01427.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00584.html">BLIB/Render/Descriptors/Builtin/Scene3DInstance.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;stdexcept&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01760.html">bl</a></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05094.html">BLIB/Render/Config.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00767.html">BLIB/Render/Scenes/SceneRenderContext.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;array&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01803.html">bl</a></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>rg</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>rc</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="a02901.html#a77e7c1dd5519a1be712b2305d5960a4a">   11</a></span>&#160;<a class="code" href="a02897.html">Asset</a>* <a class="code" href="a02901.html#a77e7c1dd5519a1be712b2305d5960a4a">AssetFactory::createAsset</a>(std::string_view tag) {</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> it = providers.find(tag);</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keywordflow">if</span> (it == providers.end()) { <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Missing provider for asset tag&quot;</span>); }</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="keywordflow">return</span> it-&gt;second-&gt;create();</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;}</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>ds</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="a02908.html#ad9195c5767fa81dc60dcc4b298201e43">   13</a></span>&#160;<a class="code" href="a02908.html#ad9195c5767fa81dc60dcc4b298201e43">Scene3DInstance::Scene3DInstance</a>(<a class="code" href="a03364.html">vk::VulkanState</a>&amp; vulkanState, VkDescriptorSetLayout layout)</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;: vulkanState(vulkanState)</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;, setLayout(layout) {}</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;} <span class="comment">// namespace rg</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00614_html"><div class="ttname"><a href="a00614.html">AssetFactory.hpp</a></div></div>
-<div class="ttc" id="aa01760_html"><div class="ttname"><a href="a01760.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02897_html"><div class="ttname"><a href="a02897.html">bl::rc::rg::Asset</a></div><div class="ttdoc">Base class for assets in render graphs.</div><div class="ttdef"><b>Definition:</b> <a href="a00611_source.html#l00032">Asset.hpp:32</a></div></div>
-<div class="ttc" id="aa02901_html_a77e7c1dd5519a1be712b2305d5960a4a"><div class="ttname"><a href="a02901.html#a77e7c1dd5519a1be712b2305d5960a4a">bl::rc::rg::AssetFactory::createAsset</a></div><div class="ttdeci">Asset * createAsset(std::string_view tag)</div><div class="ttdoc">Creates a new asset from the given tag.</div><div class="ttdef"><b>Definition:</b> <a href="a01427_source.html#l00011">AssetFactory.cpp:11</a></div></div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a02908.html#a7e91a432b49b14d0ebba8082f5bc48c9">   17</a></span>&#160;<a class="code" href="a02908.html#a7e91a432b49b14d0ebba8082f5bc48c9">Scene3DInstance::~Scene3DInstance</a>() {</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <a class="code" href="a02960.html#a0a145382ab1e64d8c85dd63939bb0aca">cameraBuffer</a>.<a class="code" href="a03220.html#a998a9c05422f6188b474d275866a6b2b">stopTransferringEveryFrame</a>();</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    vulkanState.<a class="code" href="a03364.html#ac6ea18991f2fd8391eb44229ae2ac8f7">descriptorPool</a>.<a class="code" href="a03260.html#ac2810fc740edbfef995ff375e1b5a14e">release</a>(allocHandle);</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <a class="code" href="a02960.html#a0a145382ab1e64d8c85dd63939bb0aca">cameraBuffer</a>.<a class="code" href="a02840.html#a9b1ef30aa397a8ab33e277bd15e5d436">destroy</a>();</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;}</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keywordtype">void</span> Scene3DInstance::bindForPipeline(<a class="code" href="a03216.html">scene::SceneRenderContext</a>&amp; ctx, VkPipelineLayout layout,</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;                                      std::uint32_t setIndex, <a class="code" href="a01790.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a>)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    vkCmdBindDescriptorSets(ctx.<a class="code" href="a03216.html#ac39a1df376b596bd2d91c60124dc05db">getCommandBuffer</a>(),</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;                            VK_PIPELINE_BIND_POINT_GRAPHICS,</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;                            layout,</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;                            setIndex,</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;                            1,</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;                            &amp;descriptorSets.<a class="code" href="a03288.html#a64716578fccd7829f157ca462a45bda8">current</a>(ctx.<a class="code" href="a03216.html#abce5f477ae8df828081267f7a1d866b6">currentObserverIndex</a>()),</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;                            0,</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;                            <span class="keyword">nullptr</span>);</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;}</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keywordtype">void</span> Scene3DInstance::bindForObject(<a class="code" href="a03216.html">scene::SceneRenderContext</a>&amp;, VkPipelineLayout, std::uint32_t,</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;                                    <a class="code" href="a03176.html">scene::Key</a>)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="comment">// n/a</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;}</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="keywordtype">void</span> Scene3DInstance::releaseObject(<a class="code" href="a02176.html">ecs::Entity</a>, scene::Key) {</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="comment">// n/a</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;}</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="keywordtype">void</span> Scene3DInstance::init(DescriptorComponentStorageCache&amp;) {</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="comment">// allocate memory</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <a class="code" href="a02960.html#a0a145382ab1e64d8c85dd63939bb0aca">cameraBuffer</a>.<a class="code" href="a02840.html#a32e0fa0667e66c4c9d6fb9f79bd87384">create</a>(vulkanState, <a class="code" href="a02860.html#a950ca90be3d60934e97504807bd7f8af">Config::MaxSceneObservers</a>);</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <a class="code" href="a02960.html#a0a145382ab1e64d8c85dd63939bb0aca">cameraBuffer</a>.<a class="code" href="a03220.html#affdc9c965d73f5227f2d3e0c8a17064e">transferEveryFrame</a>(<a class="code" href="a03220.html#a109f9d7acc098649830f276c266b47d0a43f6615bbb2c40a5306ff804094420b1">tfr::Transferable::SyncRequirement::Immediate</a>);</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="comment">// allocate descriptors</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    descriptorSets.<a class="code" href="a03288.html#a25a3740608d37edde75e028b1267da27">emptyInit</a>(vulkanState, <a class="code" href="a02860.html#a950ca90be3d60934e97504807bd7f8af">Config::MaxSceneObservers</a>);</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    allocHandle = vulkanState.<a class="code" href="a03364.html#ac6ea18991f2fd8391eb44229ae2ac8f7">descriptorPool</a>.<a class="code" href="a03260.html#aa1e76e7083828e104e5014691e688a28">allocate</a>(</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        setLayout, descriptorSets.<a class="code" href="a03288.html#a2c9e6eab0a28a82873550d914f3685a3">data</a>(), descriptorSets.<a class="code" href="a03288.html#ab1b55763cd34112e2f8d288061fbb467">totalSize</a>());</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="comment">// create and configureWrite descriptors</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordflow">for</span> (std::uint32_t i = 0; i &lt; descriptorSets.<a class="code" href="a03288.html#a09fef90b3cb81cd453d89c6056ed7319">size</a>(); ++i) {</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="comment">// write descriptors</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keywordflow">for</span> (std::uint32_t j = 0; j &lt; <a class="code" href="a02860.html#acf7cd0741bc9e043674ec76ff77461a1">Config::MaxConcurrentFrames</a>; ++j) {</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            VkDescriptorBufferInfo bufferWrite{};</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            bufferWrite.buffer = <a class="code" href="a02960.html#a0a145382ab1e64d8c85dd63939bb0aca">cameraBuffer</a>.<a class="code" href="a02840.html#a580642b7ea5897f7963887538d701f33">gpuBufferHandles</a>().getRaw(j).getBuffer();</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            bufferWrite.offset = <span class="keyword">static_cast&lt;</span>VkDeviceSize<span class="keyword">&gt;</span>(i) * <a class="code" href="a02960.html#a0a145382ab1e64d8c85dd63939bb0aca">cameraBuffer</a>.<a class="code" href="a02840.html#a900373eb8320890b2cf61964d365f26a">alignedUniformSize</a>();</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            bufferWrite.range  = <a class="code" href="a02960.html#a0a145382ab1e64d8c85dd63939bb0aca">cameraBuffer</a>.<a class="code" href="a02840.html#a900373eb8320890b2cf61964d365f26a">alignedUniformSize</a>();</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            VkWriteDescriptorSet setWrite{};</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            setWrite.sType           = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            setWrite.descriptorCount = 1;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;            setWrite.dstBinding      = 0;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;            setWrite.dstArrayElement = 0;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;            setWrite.dstSet          = descriptorSets.<a class="code" href="a03288.html#a420a3c91e76a8f8951a3704be89bdb86">getRaw</a>(i, j);</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            setWrite.pBufferInfo     = &amp;bufferWrite;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            setWrite.descriptorType  = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;            vkUpdateDescriptorSets(vulkanState.<a class="code" href="a03364.html#a6ad0249d08d9ffb87af35b42f11a1db5">device</a>, 1, &amp;setWrite, 0, <span class="keyword">nullptr</span>);</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        }</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    }</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;}</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="keywordtype">bool</span> Scene3DInstance::allocateObject(ecs::Entity, scene::Key) {</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="comment">// n/a</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;}</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="keywordtype">void</span> Scene3DInstance::handleFrameStart() {</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="comment">// noop</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;}</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;} <span class="comment">// namespace ds</span></div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00584_html"><div class="ttname"><a href="a00584.html">Scene3DInstance.hpp</a></div></div>
+<div class="ttc" id="aa00767_html"><div class="ttname"><a href="a00767.html">SceneRenderContext.hpp</a></div></div>
+<div class="ttc" id="aa01790_html_ga305dcc5dda3e28bd193ab31444664848"><div class="ttname"><a href="a01790.html#ga305dcc5dda3e28bd193ab31444664848">bl::rc::UpdateSpeed</a></div><div class="ttdeci">UpdateSpeed</div><div class="ttdoc">Enum representing how frequently an object is expected to be updated.</div><div class="ttdef"><b>Definition:</b> <a href="a00779_source.html#l00015">UpdateSpeed.hpp:15</a></div></div>
+<div class="ttc" id="aa01803_html"><div class="ttname"><a href="a01803.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02176_html"><div class="ttname"><a href="a02176.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition:</b> <a href="a00152_source.html#l00023">Entity.hpp:23</a></div></div>
+<div class="ttc" id="aa02840_html_a32e0fa0667e66c4c9d6fb9f79bd87384"><div class="ttname"><a href="a02840.html#a32e0fa0667e66c4c9d6fb9f79bd87384">bl::rc::buf::UniformBuffer::create</a></div><div class="ttdeci">void create(vk::VulkanState &amp;vulkanState, std::uint32_t size)</div><div class="ttdoc">Creates a new UniformBuffer.</div><div class="ttdef"><b>Definition:</b> <a href="a00545_source.html#l00110">UniformBuffer.hpp:110</a></div></div>
+<div class="ttc" id="aa02840_html_a580642b7ea5897f7963887538d701f33"><div class="ttname"><a href="a02840.html#a580642b7ea5897f7963887538d701f33">bl::rc::buf::UniformBuffer::gpuBufferHandles</a></div><div class="ttdeci">constexpr vk::PerFrame&lt; vk::Buffer &gt; &amp; gpuBufferHandles()</div><div class="ttdoc">Returns the Buffer objects of the GPU buffers.</div><div class="ttdef"><b>Definition:</b> <a href="a00545_source.html#l00162">UniformBuffer.hpp:162</a></div></div>
+<div class="ttc" id="aa02840_html_a900373eb8320890b2cf61964d365f26a"><div class="ttname"><a href="a02840.html#a900373eb8320890b2cf61964d365f26a">bl::rc::buf::UniformBuffer::alignedUniformSize</a></div><div class="ttdeci">constexpr std::uint32_t alignedUniformSize() const</div><div class="ttdoc">Returns the aligned size of contained uniforms.</div><div class="ttdef"><b>Definition:</b> <a href="a00545_source.html#l00167">UniformBuffer.hpp:167</a></div></div>
+<div class="ttc" id="aa02840_html_a9b1ef30aa397a8ab33e277bd15e5d436"><div class="ttname"><a href="a02840.html#a9b1ef30aa397a8ab33e277bd15e5d436">bl::rc::buf::UniformBuffer::destroy</a></div><div class="ttdeci">void destroy()</div><div class="ttdoc">Frees the GPU buffers.</div><div class="ttdef"><b>Definition:</b> <a href="a00545_source.html#l00156">UniformBuffer.hpp:156</a></div></div>
+<div class="ttc" id="aa02860_html_a950ca90be3d60934e97504807bd7f8af"><div class="ttname"><a href="a02860.html#a950ca90be3d60934e97504807bd7f8af">bl::rc::Config::MaxSceneObservers</a></div><div class="ttdeci">static constexpr unsigned int MaxSceneObservers</div><div class="ttdef"><b>Definition:</b> <a href="a05094_source.html#l00020">Config.hpp:20</a></div></div>
+<div class="ttc" id="aa02860_html_acf7cd0741bc9e043674ec76ff77461a1"><div class="ttname"><a href="a02860.html#acf7cd0741bc9e043674ec76ff77461a1">bl::rc::Config::MaxConcurrentFrames</a></div><div class="ttdeci">static constexpr unsigned int MaxConcurrentFrames</div><div class="ttdef"><b>Definition:</b> <a href="a05094_source.html#l00018">Config.hpp:18</a></div></div>
+<div class="ttc" id="aa02908_html_a7e91a432b49b14d0ebba8082f5bc48c9"><div class="ttname"><a href="a02908.html#a7e91a432b49b14d0ebba8082f5bc48c9">bl::rc::ds::Scene3DInstance::~Scene3DInstance</a></div><div class="ttdeci">virtual ~Scene3DInstance()</div><div class="ttdoc">Destroys the descriptor set.</div><div class="ttdef"><b>Definition:</b> <a href="a01427_source.html#l00017">Scene3DInstance.cpp:17</a></div></div>
+<div class="ttc" id="aa02908_html_ad9195c5767fa81dc60dcc4b298201e43"><div class="ttname"><a href="a02908.html#ad9195c5767fa81dc60dcc4b298201e43">bl::rc::ds::Scene3DInstance::Scene3DInstance</a></div><div class="ttdeci">Scene3DInstance(vk::VulkanState &amp;vulkanState, VkDescriptorSetLayout layout)</div><div class="ttdoc">Creates a new instance of the descriptor set.</div><div class="ttdef"><b>Definition:</b> <a href="a01427_source.html#l00013">Scene3DInstance.cpp:13</a></div></div>
+<div class="ttc" id="aa02960_html_a0a145382ab1e64d8c85dd63939bb0aca"><div class="ttname"><a href="a02960.html#a0a145382ab1e64d8c85dd63939bb0aca">bl::rc::ds::SceneDescriptorSetInstance::cameraBuffer</a></div><div class="ttdeci">buf::UniformBuffer&lt; glm::mat4 &gt; cameraBuffer</div><div class="ttdef"><b>Definition:</b> <a href="a00617_source.html#l00043">SceneDescriptorSetInstance.hpp:43</a></div></div>
+<div class="ttc" id="aa03176_html"><div class="ttname"><a href="a03176.html">bl::rc::scene::Key</a></div><div class="ttdoc">Key for objects in scenes. Contains update speed and scene id. Scene ids are not unique across update...</div><div class="ttdef"><b>Definition:</b> <a href="a00752_source.html#l00022">Key.hpp:22</a></div></div>
+<div class="ttc" id="aa03216_html"><div class="ttname"><a href="a03216.html">bl::rc::scene::SceneRenderContext</a></div><div class="ttdoc">Container class that holds the required parameters to render a scene and provides methods for descrip...</div><div class="ttdef"><b>Definition:</b> <a href="a00767_source.html#l00025">SceneRenderContext.hpp:25</a></div></div>
+<div class="ttc" id="aa03216_html_abce5f477ae8df828081267f7a1d866b6"><div class="ttname"><a href="a03216.html#abce5f477ae8df828081267f7a1d866b6">bl::rc::scene::SceneRenderContext::currentObserverIndex</a></div><div class="ttdeci">constexpr std::uint32_t currentObserverIndex() const</div><div class="ttdoc">Returns the scene index of the current observer.</div><div class="ttdef"><b>Definition:</b> <a href="a00767_source.html#l00117">SceneRenderContext.hpp:117</a></div></div>
+<div class="ttc" id="aa03216_html_ac39a1df376b596bd2d91c60124dc05db"><div class="ttname"><a href="a03216.html#ac39a1df376b596bd2d91c60124dc05db">bl::rc::scene::SceneRenderContext::getCommandBuffer</a></div><div class="ttdeci">constexpr VkCommandBuffer getCommandBuffer() const</div><div class="ttdoc">Returns the command buffer to use for rendering.</div><div class="ttdef"><b>Definition:</b> <a href="a00767_source.html#l00105">SceneRenderContext.hpp:105</a></div></div>
+<div class="ttc" id="aa03220_html_a109f9d7acc098649830f276c266b47d0a43f6615bbb2c40a5306ff804094420b1"><div class="ttname"><a href="a03220.html#a109f9d7acc098649830f276c266b47d0a43f6615bbb2c40a5306ff804094420b1">bl::rc::tfr::Transferable::SyncRequirement::Immediate</a></div><div class="ttdeci">@ Immediate</div><div class="ttdoc">Transfers with this requirement may be started immediately.</div></div>
+<div class="ttc" id="aa03220_html_a998a9c05422f6188b474d275866a6b2b"><div class="ttname"><a href="a03220.html#a998a9c05422f6188b474d275866a6b2b">bl::rc::tfr::Transferable::stopTransferringEveryFrame</a></div><div class="ttdeci">void stopTransferringEveryFrame()</div><div class="ttdoc">Removes this Transferable from the queue that gets transferred every frame.</div><div class="ttdef"><b>Definition:</b> <a href="a01562_source.html#l00043">Transferable.cpp:43</a></div></div>
+<div class="ttc" id="aa03220_html_affdc9c965d73f5227f2d3e0c8a17064e"><div class="ttname"><a href="a03220.html#affdc9c965d73f5227f2d3e0c8a17064e">bl::rc::tfr::Transferable::transferEveryFrame</a></div><div class="ttdeci">void transferEveryFrame(SyncRequirement syncReq=SyncRequirement::Immediate)</div><div class="ttdoc">Configures this Transferable to transfer every frame with the given sync requirement.</div><div class="ttdef"><b>Definition:</b> <a href="a01562_source.html#l00032">Transferable.cpp:32</a></div></div>
+<div class="ttc" id="aa03260_html_aa1e76e7083828e104e5014691e688a28"><div class="ttname"><a href="a03260.html#aa1e76e7083828e104e5014691e688a28">bl::rc::vk::DescriptorPool::allocate</a></div><div class="ttdeci">AllocationHandle allocate(VkDescriptorSetLayout layout, VkDescriptorSet *sets, std::size_t setCount, bool dedicatedPool=false)</div><div class="ttdoc">Allocates sets from the pool and returns a handle that can be used to release the allocated sets once...</div><div class="ttdef"><b>Definition:</b> <a href="a01583_source.html#l00061">DescriptorPool.cpp:61</a></div></div>
+<div class="ttc" id="aa03260_html_ac2810fc740edbfef995ff375e1b5a14e"><div class="ttname"><a href="a03260.html#ac2810fc740edbfef995ff375e1b5a14e">bl::rc::vk::DescriptorPool::release</a></div><div class="ttdeci">void release(AllocationHandle handle, const VkDescriptorSet *sets=nullptr)</div><div class="ttdoc">Releases descriptor sets allocated from this pool.</div><div class="ttdef"><b>Definition:</b> <a href="a01583_source.html#l00104">DescriptorPool.cpp:104</a></div></div>
+<div class="ttc" id="aa03288_html_a09fef90b3cb81cd453d89c6056ed7319"><div class="ttname"><a href="a03288.html#a09fef90b3cb81cd453d89c6056ed7319">bl::rc::vk::PerFrameVector::size</a></div><div class="ttdeci">constexpr std::uint32_t size() const</div><div class="ttdoc">Returns the number of elements in the vector.</div><div class="ttdef"><b>Definition:</b> <a href="a00848_source.html#l00367">VulkanState.hpp:367</a></div></div>
+<div class="ttc" id="aa03288_html_a25a3740608d37edde75e028b1267da27"><div class="ttname"><a href="a03288.html#a25a3740608d37edde75e028b1267da27">bl::rc::vk::PerFrameVector::emptyInit</a></div><div class="ttdeci">void emptyInit(VulkanState &amp;vulkanState, std::uint32_t capacity)</div><div class="ttdoc">Initializes the PerFrameVector object without initializing the wrapped values.</div><div class="ttdef"><b>Definition:</b> <a href="a00848_source.html#l00323">VulkanState.hpp:323</a></div></div>
+<div class="ttc" id="aa03288_html_a2c9e6eab0a28a82873550d914f3685a3"><div class="ttname"><a href="a03288.html#a2c9e6eab0a28a82873550d914f3685a3">bl::rc::vk::PerFrameVector::data</a></div><div class="ttdeci">constexpr T * data()</div><div class="ttdoc">Returns a pointer to the first element in the vector.</div><div class="ttdef"><b>Definition:</b> <a href="a00848_source.html#l00377">VulkanState.hpp:377</a></div></div>
+<div class="ttc" id="aa03288_html_a420a3c91e76a8f8951a3704be89bdb86"><div class="ttname"><a href="a03288.html#a420a3c91e76a8f8951a3704be89bdb86">bl::rc::vk::PerFrameVector::getRaw</a></div><div class="ttdeci">T &amp; getRaw(std::uint32_t i, std::uint32_t frame)</div><div class="ttdoc">Manually access the item at the given index for the given frame.</div><div class="ttdef"><b>Definition:</b> <a href="a00848_source.html#l00357">VulkanState.hpp:357</a></div></div>
+<div class="ttc" id="aa03288_html_a64716578fccd7829f157ca462a45bda8"><div class="ttname"><a href="a03288.html#a64716578fccd7829f157ca462a45bda8">bl::rc::vk::PerFrameVector::current</a></div><div class="ttdeci">T &amp; current(std::uint32_t i)</div><div class="ttdoc">Returns the active item at the given index.</div><div class="ttdef"><b>Definition:</b> <a href="a00848_source.html#l00347">VulkanState.hpp:347</a></div></div>
+<div class="ttc" id="aa03288_html_ab1b55763cd34112e2f8d288061fbb467"><div class="ttname"><a href="a03288.html#ab1b55763cd34112e2f8d288061fbb467">bl::rc::vk::PerFrameVector::totalSize</a></div><div class="ttdeci">constexpr std::uint32_t totalSize() const</div><div class="ttdoc">Returns the total number of elements when accounting for PerFrame logic.</div><div class="ttdef"><b>Definition:</b> <a href="a00848_source.html#l00372">VulkanState.hpp:372</a></div></div>
+<div class="ttc" id="aa03364_html"><div class="ttname"><a href="a03364.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a00848_source.html#l00037">VulkanState.hpp:37</a></div></div>
+<div class="ttc" id="aa03364_html_a6ad0249d08d9ffb87af35b42f11a1db5"><div class="ttname"><a href="a03364.html#a6ad0249d08d9ffb87af35b42f11a1db5">bl::rc::vk::VulkanState::device</a></div><div class="ttdeci">VkDevice device</div><div class="ttdef"><b>Definition:</b> <a href="a00848_source.html#l00202">VulkanState.hpp:202</a></div></div>
+<div class="ttc" id="aa03364_html_ac6ea18991f2fd8391eb44229ae2ac8f7"><div class="ttname"><a href="a03364.html#ac6ea18991f2fd8391eb44229ae2ac8f7">bl::rc::vk::VulkanState::descriptorPool</a></div><div class="ttdeci">DescriptorPool descriptorPool</div><div class="ttdef"><b>Definition:</b> <a href="a00848_source.html#l00210">VulkanState.hpp:210</a></div></div>
+<div class="ttc" id="aa05094_html"><div class="ttname"><a href="a05094.html">Config.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 30 2023 22:56:46 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Oct 8 2023 18:56:19 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

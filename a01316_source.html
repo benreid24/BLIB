@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Interfaces/Utilities/ViewUtil.cpp Source File</title>
+<title>BLIB: src/Interfaces/GUI/Packers/GridPacker.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,197 +66,139 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_ce6405ba0afce575b27b3b998c1d24f9.html">Interfaces</a></li><li class="navelem"><a class="el" href="dir_eed0eefb63b0ec37b1a5e1e52f21cab7.html">Utilities</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_ce6405ba0afce575b27b3b998c1d24f9.html">Interfaces</a></li><li class="navelem"><a class="el" href="dir_8031c595bb16908e26701cd6b5d8df53.html">GUI</a></li><li class="navelem"><a class="el" href="dir_4ddb0397ff01941c8f7466ec0255d6f8.html">Packers</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">ViewUtil.cpp</div>  </div>
+<div class="title">GridPacker.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01316.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00428.html">BLIB/Interfaces/Utilities/ViewUtil.hpp</a>&gt;</span></div>
+<a href="a01316.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00401.html">BLIB/Interfaces/GUI/Packers/GridPacker.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01760.html">bl</a></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01803.html">bl</a></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>interface</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>gui</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;sf::View constructView(<span class="keyword">const</span> sf::Vector2f&amp; size, <span class="keywordtype">float</span> x, <span class="keywordtype">float</span> y, <span class="keywordtype">float</span> w, <span class="keywordtype">float</span> h) {</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    sf::View view(size * 0.5f, size);</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    view.setViewport({x, y, w, h});</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keywordflow">return</span> view;</div>
+<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="a02644.html#a503b1a3c6143538393e2420278e4d22d">    7</a></span>&#160;<a class="code" href="a02644.html#a5213d33ba71adc25f1f870120b2b2c45">GridPacker::Ptr</a> <a class="code" href="a02644.html#a503b1a3c6143538393e2420278e4d22d">GridPacker::createDynamicGrid</a>(<a class="code" href="a02644.html#a8866a71cf9b5665134713f242cadd94a">Direction</a> dir, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> size, <span class="keywordtype">float</span> padding) {</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="a02644.html#a5213d33ba71adc25f1f870120b2b2c45">Ptr</a>(<span class="keyword">new</span> <a class="code" href="a02644.html">GridPacker</a>(Dynamic, dir, padding, size));</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;}</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="a02644.html#a95ba394a9c7fdc7944db41f62c20aac1">   11</a></span>&#160;<a class="code" href="a02644.html#a5213d33ba71adc25f1f870120b2b2c45">GridPacker::Ptr</a> <a class="code" href="a02644.html#a95ba394a9c7fdc7944db41f62c20aac1">GridPacker::createFixedGrid</a>(<a class="code" href="a02644.html#a8866a71cf9b5665134713f242cadd94a">Direction</a> dir, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> wrap, <span class="keywordtype">float</span> padding) {</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="a02644.html#a5213d33ba71adc25f1f870120b2b2c45">Ptr</a>(<span class="keyword">new</span> <a class="code" href="a02644.html">GridPacker</a>(FixedAmount, dir, padding, wrap));</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;}</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;} <span class="comment">// namespace</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a02633.html#a7dcaf25b51426f1384d04c0df15b646d">   16</a></span>&#160;sf::View <a class="code" href="a02633.html#a7dcaf25b51426f1384d04c0df15b646d">ViewUtil::computeSubView</a>(<span class="keyword">const</span> sf::FloatRect&amp; region, <span class="keyword">const</span> sf::View&amp; defaultView) {</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keyword">const</span> sf::Vector2f corner = defaultView.getCenter() - defaultView.getSize() * 0.5f;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> x =</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        (region.left - corner.x) / defaultView.getSize().x * defaultView.getViewport().width +</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        defaultView.getViewport().left;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> y =</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        (region.top - corner.y) / defaultView.getSize().y * defaultView.getViewport().height +</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        defaultView.getViewport().top;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> w = region.width / defaultView.getSize().x * defaultView.getViewport().width;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> h = region.height / defaultView.getSize().y * defaultView.getViewport().height;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    sf::View result = constructView({region.width, region.height}, x, y, w, h);</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    result.move(region.left, region.top);</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordflow">if</span> (x &lt; 0.f) {</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> shift = defaultView.getSize().x * (-x);</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        result.setSize(result.getSize().x - shift, result.getSize().y);</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        result.move(shift * 0.5f, 0.f);</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        sf::FloatRect t = result.getViewport();</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        t.left          = 0.f;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        t.width += x;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        result.setViewport(t);</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    }</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordflow">if</span> (y &lt; 0.f) {</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> shift = defaultView.getSize().y * (-y);</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        result.setSize(result.getSize().x, result.getSize().y - shift);</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        result.move(0.f, shift * 0.5f);</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        sf::FloatRect t = result.getViewport();</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        t.top           = 0.f;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        t.height += y;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        result.setViewport(t);</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    }</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;GridPacker::GridPacker(WrapRule r, Direction d, <span class="keywordtype">float</span> pad, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> s)</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;: rule(r)</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;, dir(d)</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;, padding(pad)</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;, size(s) {}</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a02644.html#a36a922cad484aa072de4bc06fb7940ab">   21</a></span>&#160;sf::Vector2f <a class="code" href="a02644.html#a36a922cad484aa072de4bc06fb7940ab">GridPacker::getRequisition</a>(<span class="keyword">const</span> std::vector&lt;Element::Ptr&gt;&amp; elements) {</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    sf::Vector2f req(0, 0);</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keyword">auto</span> measure = [&amp;req](<a class="code" href="a02576.html#a21b57f73febb9e1c62e8abcef64b1654">Element::Ptr</a>, <span class="keyword">const</span> sf::FloatRect&amp; area) {</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        <span class="keywordflow">if</span> (req.x &lt; area.left + area.width) req.x = area.left + area.width;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <span class="keywordflow">if</span> (req.y &lt; area.top + area.height) req.y = area.top + area.height;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    };</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    doPack({}, elements, measure);</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordflow">return</span> req;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;}</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="a02644.html#a5c5f6901d35cb15627386cdeaa0351e2">   31</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02644.html#a5c5f6901d35cb15627386cdeaa0351e2">GridPacker::pack</a>(<span class="keyword">const</span> sf::FloatRect&amp; area, <span class="keyword">const</span> std::vector&lt;Element::Ptr&gt;&amp; elements) {</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    doPack(area, elements, &amp;<a class="code" href="a02652.html#a2b942eb90604a301008c4b26d6209793">Packer::packElementIntoSpace</a>);</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;}</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keywordtype">void</span> GridPacker::doPack(<span class="keyword">const</span> sf::FloatRect&amp; area, <span class="keyword">const</span> std::vector&lt;Element::Ptr&gt;&amp; elements,</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;                        <span class="keyword">const</span> std::function&lt;<span class="keywordtype">void</span>(<a class="code" href="a02576.html#a21b57f73febb9e1c62e8abcef64b1654">Element::Ptr</a>, <span class="keyword">const</span> sf::FloatRect&amp;)&gt;&amp; packCb) {</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    sf::Vector2f pos(area.left, area.top);</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> pcount = 0;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    sf::Vector2f mreq;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; elements.size(); ++i) {</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <span class="keywordflow">if</span> (!elements[i]-&gt;packable()) <span class="keywordflow">continue</span>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <span class="comment">// Pack</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keyword">const</span> sf::Vector2f req = elements[i]-&gt;getRequisition();</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        packCb(elements[i], {pos, req});</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        ++pcount;</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordflow">return</span> result;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;}</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="a02633.html#a68beb97b689f08633d8c7314f82d3359">   52</a></span>&#160;sf::View <a class="code" href="a02633.html#a68beb97b689f08633d8c7314f82d3359">ViewUtil::computeView</a>(<span class="keyword">const</span> sf::Vector2f&amp; size, <span class="keyword">const</span> sf::View&amp; oldView,</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                               <span class="keyword">const</span> sf::FloatRect&amp; coverArea) {</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> x = oldView.getViewport().left + oldView.getViewport().width * coverArea.left;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> y = oldView.getViewport().top + oldView.getViewport().height * coverArea.top;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> w = oldView.getViewport().width * coverArea.width;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> h = oldView.getViewport().height * coverArea.height;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordflow">return</span> constructView(size, x, y, w, h);</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;}</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="a02633.html#a40a1e98cba5978a7ada799c31de70063">   62</a></span>&#160;sf::View <a class="code" href="a02633.html#a40a1e98cba5978a7ada799c31de70063">ViewUtil::computeViewPreserveAR</a>(<span class="keyword">const</span> sf::Vector2f&amp; size, <span class="keyword">const</span> sf::View&amp; oldView,</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                                         <span class="keyword">const</span> sf::Vector2f&amp; position, <span class="keywordtype">float</span> width) {</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> x      = oldView.getViewport().left + oldView.getViewport().width * position.x;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> y      = oldView.getViewport().top + oldView.getViewport().height * position.y;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> w      = oldView.getViewport().width * width;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> height = size.y / size.x * w;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> h      = oldView.getViewport().height * height;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordflow">return</span> constructView(size, x, y, w, h);</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;}</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="a02633.html#a78b7c79a01431682d50dd7e96de43c20">   73</a></span>&#160;sf::View <a class="code" href="a02633.html#a78b7c79a01431682d50dd7e96de43c20">ViewUtil::computeViewAnchored</a>(<span class="keyword">const</span> sf::Vector2f&amp; size, <span class="keyword">const</span> sf::View&amp; oldView,</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                                       <span class="keyword">const</span> sf::Vector2f&amp; viewportSize, <a class="code" href="a02633.html#ac73c55c229947f60eb708d58133a5164">Anchor</a> side) {</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> w = oldView.getViewport().width * viewportSize.x;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> h = oldView.getViewport().height * viewportSize.y;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keywordtype">float</span> x       = oldView.getViewport().left + oldView.getViewport().width / 2.f - w / 2.f;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordtype">float</span> y       = oldView.getViewport().top + oldView.getViewport().height / 2.f - h / 2.f;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordflow">switch</span> (side) {</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="a02633.html#ac73c55c229947f60eb708d58133a5164a60261018f1d3a12f51574eaa1654a3b1">Top</a>:</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        y = oldView.getViewport().top;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="a02633.html#ac73c55c229947f60eb708d58133a5164ac332568a13d206221c4cec079466c045">Right</a>:</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        x = oldView.getViewport().left + oldView.getViewport().width - w;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="a02633.html#ac73c55c229947f60eb708d58133a5164ade69d727bb65fc148b442c6eaf55471a">Bottom</a>:</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        y = oldView.getViewport().top + oldView.getViewport().height - h;</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keywordflow">default</span>: <span class="comment">// Don&#39;t worry about bad values</span></div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        x = oldView.getViewport().left;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    }</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="keywordflow">return</span> constructView(size, x, y, w, h);</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;}</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
-<div class="line"><a name="l00098"></a><span class="lineno"><a class="line" href="a02633.html#af8a541a66b96fb727f23111b9e40c941">   98</a></span>&#160;sf::View <a class="code" href="a02633.html#af8a541a66b96fb727f23111b9e40c941">ViewUtil::computeViewAnchoredPreserveAR</a>(<span class="keyword">const</span> sf::Vector2f&amp; size, <span class="keyword">const</span> sf::View&amp; oldView,</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;                                                 <span class="keywordtype">float</span> width, <a class="code" href="a02633.html#ac73c55c229947f60eb708d58133a5164">Anchor</a> side) {</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> w = oldView.getViewport().width * width;</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> h = oldView.getViewport().height * size.y / size.x * width;</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="keywordtype">float</span> x       = oldView.getViewport().left + oldView.getViewport().width / 2.f - w / 2.f;</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="keywordtype">float</span> y       = oldView.getViewport().top + oldView.getViewport().height / 2.f - h / 2.f;</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="keywordflow">switch</span> (side) {</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="a02633.html#ac73c55c229947f60eb708d58133a5164a60261018f1d3a12f51574eaa1654a3b1">Top</a>:</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        y = oldView.getViewport().top;</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="a02633.html#ac73c55c229947f60eb708d58133a5164ac332568a13d206221c4cec079466c045">Right</a>:</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        x = oldView.getViewport().left + oldView.getViewport().width - w;</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="a02633.html#ac73c55c229947f60eb708d58133a5164ade69d727bb65fc148b442c6eaf55471a">Bottom</a>:</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        y = oldView.getViewport().top + oldView.getViewport().height - h;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <span class="keywordflow">default</span>: <span class="comment">// Don&#39;t worry about bad values</span></div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        x = oldView.getViewport().left;</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    }</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="keywordflow">return</span> constructView(size, x, y, w, h);</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;}</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
-<div class="line"><a name="l00123"></a><span class="lineno"><a class="line" href="a02633.html#a4a67d87262a5eeb5b2e570b3294dbe45">  123</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02633.html#a4a67d87262a5eeb5b2e570b3294dbe45">ViewUtil::constrainView</a>(sf::View&amp; view, <span class="keyword">const</span> sf::View&amp; oldView) {</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    <span class="keyword">const</span> sf::FloatRect&amp; newPort = view.getViewport();</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <span class="keyword">const</span> sf::FloatRect&amp; oldPort = oldView.getViewport();</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <span class="keyword">const</span> sf::Vector2f m(view.getSize().x / newPort.width, view.getSize().y / newPort.height);</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> oldBottom = oldPort.top + oldPort.height;</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> oldRight  = oldPort.left + oldPort.width;</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160; </div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="keywordflow">if</span> (newPort.left &lt; oldPort.left) {</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> d = oldPort.left - newPort.left;</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> s = d * m.x;</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;        view.setSize(view.getSize() - sf::Vector2f(s, 0.f));</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;        view.move(s * 0.5f, 0.f);</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;        view.setViewport({oldPort.left, newPort.top, newPort.width - d, newPort.height});</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    }</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; </div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> newRight = newPort.left + newPort.width;</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    <span class="keywordflow">if</span> (newRight &gt; oldRight) {</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> d = newRight - oldRight;</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> s = d * m.x;</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;        view.setSize(view.getSize() - sf::Vector2f(s, 0.f));</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;        view.move(-s * 0.5f, 0.f);</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;        view.setViewport({newPort.left, newPort.top, newPort.width - d, newPort.height});</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    }</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160; </div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    <span class="keywordflow">if</span> (newPort.top &lt; oldPort.top) {</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> d = oldPort.top - newPort.top;</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> s = d * m.y;</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;        view.setSize(view.getSize() - sf::Vector2f(0.f, s));</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        view.move(0.f, s * 0.5f);</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;        view.setViewport({newPort.left, oldPort.top, newPort.width, newPort.height - d});</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    }</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160; </div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> newBottom = newPort.top + newPort.height;</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    <span class="keywordflow">if</span> (newBottom &gt; oldBottom) {</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> d = newBottom - oldBottom;</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> s = d * m.y;</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;        view.setSize(view.getSize() - sf::Vector2f(0.f, s));</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;        view.move(0.f, -s * 0.5f);</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;        view.setViewport({newPort.left, newPort.top, newPort.width, newPort.height - d});</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    }</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;}</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160; </div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;} <span class="comment">// namespace interface</span></div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00428_html"><div class="ttname"><a href="a00428.html">ViewUtil.hpp</a></div></div>
-<div class="ttc" id="aa01760_html"><div class="ttname"><a href="a01760.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02633_html_a40a1e98cba5978a7ada799c31de70063"><div class="ttname"><a href="a02633.html#a40a1e98cba5978a7ada799c31de70063">bl::interface::ViewUtil::computeViewPreserveAR</a></div><div class="ttdeci">static sf::View computeViewPreserveAR(const sf::Vector2f &amp;size, const sf::View &amp;oldView, const sf::Vector2f &amp;viewportPosition, float widthRatio)</div><div class="ttdoc">Helper function to compute a view of the given size that will cover the given area of the original vi...</div><div class="ttdef"><b>Definition:</b> <a href="a01316_source.html#l00062">ViewUtil.cpp:62</a></div></div>
-<div class="ttc" id="aa02633_html_a4a67d87262a5eeb5b2e570b3294dbe45"><div class="ttname"><a href="a02633.html#a4a67d87262a5eeb5b2e570b3294dbe45">bl::interface::ViewUtil::constrainView</a></div><div class="ttdeci">static void constrainView(sf::View &amp;view, const sf::View &amp;oldView)</div><div class="ttdoc">Constrains the viewport of the given view to the area that overlaps with the viewport of the original...</div><div class="ttdef"><b>Definition:</b> <a href="a01316_source.html#l00123">ViewUtil.cpp:123</a></div></div>
-<div class="ttc" id="aa02633_html_a68beb97b689f08633d8c7314f82d3359"><div class="ttname"><a href="a02633.html#a68beb97b689f08633d8c7314f82d3359">bl::interface::ViewUtil::computeView</a></div><div class="ttdeci">static sf::View computeView(const sf::Vector2f &amp;size, const sf::View &amp;oldView, const sf::FloatRect &amp;coverArea)</div><div class="ttdoc">Helper function to compute a view of the given size that will cover the given area of the original vi...</div><div class="ttdef"><b>Definition:</b> <a href="a01316_source.html#l00052">ViewUtil.cpp:52</a></div></div>
-<div class="ttc" id="aa02633_html_a78b7c79a01431682d50dd7e96de43c20"><div class="ttname"><a href="a02633.html#a78b7c79a01431682d50dd7e96de43c20">bl::interface::ViewUtil::computeViewAnchored</a></div><div class="ttdeci">static sf::View computeViewAnchored(const sf::Vector2f &amp;size, const sf::View &amp;oldView, const sf::Vector2f &amp;viewportSize, Anchor side)</div><div class="ttdoc">Computes a view that is anchored to the given side of the existing viewport. The non anchored dimensi...</div><div class="ttdef"><b>Definition:</b> <a href="a01316_source.html#l00073">ViewUtil.cpp:73</a></div></div>
-<div class="ttc" id="aa02633_html_a7dcaf25b51426f1384d04c0df15b646d"><div class="ttname"><a href="a02633.html#a7dcaf25b51426f1384d04c0df15b646d">bl::interface::ViewUtil::computeSubView</a></div><div class="ttdeci">static sf::View computeSubView(const sf::FloatRect &amp;region, const sf::View &amp;defaultView)</div><div class="ttdoc">Helper function to compute a view of the given size that will cover the given area of the original vi...</div><div class="ttdef"><b>Definition:</b> <a href="a01316_source.html#l00016">ViewUtil.cpp:16</a></div></div>
-<div class="ttc" id="aa02633_html_ac73c55c229947f60eb708d58133a5164"><div class="ttname"><a href="a02633.html#ac73c55c229947f60eb708d58133a5164">bl::interface::ViewUtil::Anchor</a></div><div class="ttdeci">Anchor</div><div class="ttdoc">Represents which side to anchor a view to for anchored views.</div><div class="ttdef"><b>Definition:</b> <a href="a00428_source.html#l00022">ViewUtil.hpp:22</a></div></div>
-<div class="ttc" id="aa02633_html_ac73c55c229947f60eb708d58133a5164a60261018f1d3a12f51574eaa1654a3b1"><div class="ttname"><a href="a02633.html#ac73c55c229947f60eb708d58133a5164a60261018f1d3a12f51574eaa1654a3b1">bl::interface::ViewUtil::Top</a></div><div class="ttdeci">@ Top</div><div class="ttdef"><b>Definition:</b> <a href="a00428_source.html#l00022">ViewUtil.hpp:22</a></div></div>
-<div class="ttc" id="aa02633_html_ac73c55c229947f60eb708d58133a5164ac332568a13d206221c4cec079466c045"><div class="ttname"><a href="a02633.html#ac73c55c229947f60eb708d58133a5164ac332568a13d206221c4cec079466c045">bl::interface::ViewUtil::Right</a></div><div class="ttdeci">@ Right</div><div class="ttdef"><b>Definition:</b> <a href="a00428_source.html#l00022">ViewUtil.hpp:22</a></div></div>
-<div class="ttc" id="aa02633_html_ac73c55c229947f60eb708d58133a5164ade69d727bb65fc148b442c6eaf55471a"><div class="ttname"><a href="a02633.html#ac73c55c229947f60eb708d58133a5164ade69d727bb65fc148b442c6eaf55471a">bl::interface::ViewUtil::Bottom</a></div><div class="ttdeci">@ Bottom</div><div class="ttdef"><b>Definition:</b> <a href="a00428_source.html#l00022">ViewUtil.hpp:22</a></div></div>
-<div class="ttc" id="aa02633_html_af8a541a66b96fb727f23111b9e40c941"><div class="ttname"><a href="a02633.html#af8a541a66b96fb727f23111b9e40c941">bl::interface::ViewUtil::computeViewAnchoredPreserveAR</a></div><div class="ttdeci">static sf::View computeViewAnchoredPreserveAR(const sf::Vector2f &amp;size, const sf::View &amp;oldView, float viewportWidth, Anchor side)</div><div class="ttdoc">Computes a view that is anchored to the given side of the existing viewport. The non anchored dimensi...</div><div class="ttdef"><b>Definition:</b> <a href="a01316_source.html#l00098">ViewUtil.cpp:98</a></div></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="comment">// Track size for when we make next row/column</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        mreq.x = std::max(mreq.x, req.x);</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        mreq.y = std::max(mreq.y, req.y);</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="comment">// Do wrap based on rule and dir</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="keywordflow">if</span> (i &lt; elements.size() - 1) {</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            <span class="keywordflow">if</span> (dir == <a class="code" href="a02644.html#a8866a71cf9b5665134713f242cadd94aa0b545ff15987e444af36d13bf53428e7">Rows</a>) {</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                <span class="keywordflow">if</span> (rule == FixedAmount) {</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                    <span class="keywordflow">if</span> (pcount == size) { <span class="comment">// wrap</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                        pos.x = area.left;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;                        pos.y += mreq.y + padding;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;                        mreq   = {0, 0};</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;                        pcount = 0;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                    }</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                    <span class="keywordflow">else</span> { <span class="comment">// coninue in row/column</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                        pos.x += req.x + padding;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                    }</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                }</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;                    <span class="keyword">const</span> sf::Vector2f nreq = elements[i + 1]-&gt;getRequisition();</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;                    <span class="keywordflow">if</span> (pos.x + padding + nreq.x &gt; size) { <span class="comment">// wrap</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;                        pos.x = area.left;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;                        pos.y += mreq.y + padding;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                        mreq = {0, 0};</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                    }</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                    <span class="keywordflow">else</span> { <span class="comment">// continue in row/column</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                        pos.x += req.x + padding;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;                    }</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                }</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;            }</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;            <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                <span class="keywordflow">if</span> (rule == FixedAmount) {</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                    <span class="keywordflow">if</span> (pcount == size) { <span class="comment">// wrap</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;                        pos.y = area.top;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;                        pos.x += mreq.x + padding;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                        mreq   = {0, 0};</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;                        pcount = 0;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;                    }</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;                    <span class="keywordflow">else</span> { <span class="comment">// coninue in row/column</span></div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                        pos.y += req.y + padding;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;                    }</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;                }</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;                <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;                    <span class="keyword">const</span> sf::Vector2f nreq = elements[i + 1]-&gt;getRequisition();</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;                    <span class="keywordflow">if</span> (pos.y + padding + nreq.y &gt; size) { <span class="comment">// wrap</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;                        pos.y = area.top;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;                        pos.x += mreq.x + padding;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;                        mreq = {0, 0};</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;                    }</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;                    <span class="keywordflow">else</span> { <span class="comment">// continue in row/column</span></div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;                        pos.y += req.y + padding;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;                    }</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;                }</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;            }</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        }</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    }</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;}</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;} <span class="comment">// namespace gui</span></div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00401_html"><div class="ttname"><a href="a00401.html">GridPacker.hpp</a></div></div>
+<div class="ttc" id="aa01803_html"><div class="ttname"><a href="a01803.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02576_html_a21b57f73febb9e1c62e8abcef64b1654"><div class="ttname"><a href="a02576.html#a21b57f73febb9e1c62e8abcef64b1654">bl::gui::Element::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; Element &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00359_source.html#l00034">Element.hpp:34</a></div></div>
+<div class="ttc" id="aa02644_html"><div class="ttname"><a href="a02644.html">bl::gui::GridPacker</a></div><div class="ttdoc">Packer that can pack elements into grids.</div><div class="ttdef"><b>Definition:</b> <a href="a00401_source.html#l00016">GridPacker.hpp:16</a></div></div>
+<div class="ttc" id="aa02644_html_a36a922cad484aa072de4bc06fb7940ab"><div class="ttname"><a href="a02644.html#a36a922cad484aa072de4bc06fb7940ab">bl::gui::GridPacker::getRequisition</a></div><div class="ttdeci">virtual sf::Vector2f getRequisition(const std::vector&lt; Element::Ptr &gt; &amp;elements) override</div><div class="ttdoc">Returns the space required to pack the given list of elements.</div><div class="ttdef"><b>Definition:</b> <a href="a01316_source.html#l00021">GridPacker.cpp:21</a></div></div>
+<div class="ttc" id="aa02644_html_a503b1a3c6143538393e2420278e4d22d"><div class="ttname"><a href="a02644.html#a503b1a3c6143538393e2420278e4d22d">bl::gui::GridPacker::createDynamicGrid</a></div><div class="ttdeci">static Ptr createDynamicGrid(Direction dir, unsigned int size, float padding=2)</div><div class="ttdoc">Creates a new GridPacker that has a dynamic number of elements on each row or column.</div><div class="ttdef"><b>Definition:</b> <a href="a01316_source.html#l00007">GridPacker.cpp:7</a></div></div>
+<div class="ttc" id="aa02644_html_a5213d33ba71adc25f1f870120b2b2c45"><div class="ttname"><a href="a02644.html#a5213d33ba71adc25f1f870120b2b2c45">bl::gui::GridPacker::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; GridPacker &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00401_source.html#l00018">GridPacker.hpp:18</a></div></div>
+<div class="ttc" id="aa02644_html_a5c5f6901d35cb15627386cdeaa0351e2"><div class="ttname"><a href="a02644.html#a5c5f6901d35cb15627386cdeaa0351e2">bl::gui::GridPacker::pack</a></div><div class="ttdeci">virtual void pack(const sf::FloatRect &amp;acquisition, const std::vector&lt; Element::Ptr &gt; &amp;elements) override</div><div class="ttdoc">Packs the given list of elements into the given region.</div><div class="ttdef"><b>Definition:</b> <a href="a01316_source.html#l00031">GridPacker.cpp:31</a></div></div>
+<div class="ttc" id="aa02644_html_a8866a71cf9b5665134713f242cadd94a"><div class="ttname"><a href="a02644.html#a8866a71cf9b5665134713f242cadd94a">bl::gui::GridPacker::Direction</a></div><div class="ttdeci">Direction</div><div class="ttdoc">Indicates whether to pack in rows or columns.</div><div class="ttdef"><b>Definition:</b> <a href="a00401_source.html#l00024">GridPacker.hpp:24</a></div></div>
+<div class="ttc" id="aa02644_html_a8866a71cf9b5665134713f242cadd94aa0b545ff15987e444af36d13bf53428e7"><div class="ttname"><a href="a02644.html#a8866a71cf9b5665134713f242cadd94aa0b545ff15987e444af36d13bf53428e7">bl::gui::GridPacker::Rows</a></div><div class="ttdeci">@ Rows</div><div class="ttdoc">Elements are packed horizontally in rows and wrapped into multiple rows.</div><div class="ttdef"><b>Definition:</b> <a href="a00401_source.html#l00026">GridPacker.hpp:26</a></div></div>
+<div class="ttc" id="aa02644_html_a95ba394a9c7fdc7944db41f62c20aac1"><div class="ttname"><a href="a02644.html#a95ba394a9c7fdc7944db41f62c20aac1">bl::gui::GridPacker::createFixedGrid</a></div><div class="ttdeci">static Ptr createFixedGrid(Direction dir, unsigned int wrapCount, float padding=2)</div><div class="ttdoc">Creates a new GridPacker that has a fixed number of elements on each row or column.</div><div class="ttdef"><b>Definition:</b> <a href="a01316_source.html#l00011">GridPacker.cpp:11</a></div></div>
+<div class="ttc" id="aa02652_html_a2b942eb90604a301008c4b26d6209793"><div class="ttname"><a href="a02652.html#a2b942eb90604a301008c4b26d6209793">bl::gui::Packer::packElementIntoSpace</a></div><div class="ttdeci">static void packElementIntoSpace(const Element::Ptr &amp;element, const sf::FloatRect &amp;space)</div><div class="ttdoc">Packs an element into the given space. Obeys Element expand properties.</div><div class="ttdef"><b>Definition:</b> <a href="a01322_source.html#l00007">Packer.cpp:7</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 30 2023 22:56:46 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Oct 8 2023 18:56:19 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

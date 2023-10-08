@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Media/Shapes/Triangle.cpp Source File</title>
+<title>BLIB: src/Interfaces/Menu/Items/TextItem.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,51 +66,62 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_863df3df8e14086a38c0e28f6c571e1d.html">Media</a></li><li class="navelem"><a class="el" href="dir_e2fdd0641b0c81052b9811831e847d5d.html">Shapes</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_ce6405ba0afce575b27b3b998c1d24f9.html">Interfaces</a></li><li class="navelem"><a class="el" href="dir_a5850f6e383b3d533b6a0a91dee002d1.html">Menu</a></li><li class="navelem"><a class="el" href="dir_4072a603fe61100f5d72cc9fbbf0882f.html">Items</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Triangle.cpp</div>  </div>
+<div class="title">TextItem.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01355.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00494.html">BLIB/Media/Shapes/Triangle.hpp</a>&gt;</span></div>
+<a href="a01355.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00449.html">BLIB/Interfaces/Menu/Items/TextItem.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01760.html">bl</a></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01803.html">bl</a></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>shapes</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>menu</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="a02693.html#afb0d8e04098b750546e2061cdee564af">    7</a></span>&#160;<a class="code" href="a02693.html#afb0d8e04098b750546e2061cdee564af">Triangle::Triangle</a>(<span class="keyword">const</span> sf::Vector2f&amp; p1, <span class="keyword">const</span> sf::Vector2f&amp; p2, <span class="keyword">const</span> sf::Vector2f&amp; p3,</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;                   <span class="keywordtype">bool</span> co) {</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    <a class="code" href="a02693.html#ad17baa6e09919f1ed4fd3cfe822186e3">setPoints</a>(p1, p2, p3, co);</div>
+<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="a02724.html#ae37a5b423f404a0b32a852923bd9b0ac">    7</a></span>&#160;<a class="code" href="a02724.html#adb1a9396fd04e471bb949fcf0b5b9f91">TextItem::Ptr</a> <a class="code" href="a02724.html#ae37a5b423f404a0b32a852923bd9b0ac">TextItem::create</a>(<span class="keyword">const</span> std::string&amp; <a class="code" href="a01328.html#a6d372f7ea1f537bfbc73492e24ef8623">text</a>, <span class="keyword">const</span> sf::Font&amp; font,</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;                               <span class="keyword">const</span> sf::Color&amp; color, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> fontSize) {</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="a02724.html#adb1a9396fd04e471bb949fcf0b5b9f91">Ptr</a>(<span class="keyword">new</span> <a class="code" href="a02724.html#aa6fcb2d5caea706025e2369547b352ed">TextItem</a>(<a class="code" href="a01328.html#a6d372f7ea1f537bfbc73492e24ef8623">text</a>, font, color, fontSize));</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;}</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="a02693.html#ad17baa6e09919f1ed4fd3cfe822186e3">   12</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02693.html#ad17baa6e09919f1ed4fd3cfe822186e3">Triangle::setPoints</a>(<span class="keyword">const</span> sf::Vector2f&amp; p1, <span class="keyword">const</span> sf::Vector2f&amp; p2, <span class="keyword">const</span> sf::Vector2f&amp; p3,</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;                         <span class="keywordtype">bool</span> co) {</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    points[0] = p1;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    points[1] = p2;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    points[2] = p3;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordflow">if</span> (co) setOrigin((p1.x + p2.x + p3.x) / 3, (p1.y + p2.y + p3.y) / 3);</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    update();</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;}</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a02693.html#a5f331ef45f05da2b41e09c344288ed21">   21</a></span>&#160;std::size_t <a class="code" href="a02693.html#a5f331ef45f05da2b41e09c344288ed21">Triangle::getPointCount</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> 3; }</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a02693.html#a0df6da4d0868f8dfde4ac9d1bbad2789">   23</a></span>&#160;sf::Vector2f <a class="code" href="a02693.html#a0df6da4d0868f8dfde4ac9d1bbad2789">Triangle::getPoint</a>(<span class="keywordtype">size_t</span> index)<span class="keyword"> const </span>{ <span class="keywordflow">return</span> points[index]; }</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;} <span class="comment">// namespace shapes</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00494_html"><div class="ttname"><a href="a00494.html">Triangle.hpp</a></div></div>
-<div class="ttc" id="aa01760_html"><div class="ttname"><a href="a01760.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02693_html_a0df6da4d0868f8dfde4ac9d1bbad2789"><div class="ttname"><a href="a02693.html#a0df6da4d0868f8dfde4ac9d1bbad2789">bl::shapes::Triangle::getPoint</a></div><div class="ttdeci">virtual sf::Vector2f getPoint(std::size_t index) const override</div><div class="ttdoc">Returns the point at the given index. No bounds check is performed.</div><div class="ttdef"><b>Definition:</b> <a href="a01355_source.html#l00023">Triangle.cpp:23</a></div></div>
-<div class="ttc" id="aa02693_html_a5f331ef45f05da2b41e09c344288ed21"><div class="ttname"><a href="a02693.html#a5f331ef45f05da2b41e09c344288ed21">bl::shapes::Triangle::getPointCount</a></div><div class="ttdeci">virtual std::size_t getPointCount() const override</div><div class="ttdoc">Returns 3.</div><div class="ttdef"><b>Definition:</b> <a href="a01355_source.html#l00021">Triangle.cpp:21</a></div></div>
-<div class="ttc" id="aa02693_html_ad17baa6e09919f1ed4fd3cfe822186e3"><div class="ttname"><a href="a02693.html#ad17baa6e09919f1ed4fd3cfe822186e3">bl::shapes::Triangle::setPoints</a></div><div class="ttdeci">void setPoints(const sf::Vector2f &amp;p1, const sf::Vector2f &amp;p2, const sf::Vector2f &amp;p3, bool centerOrigin=true)</div><div class="ttdoc">Update the points the triangle is made of.</div><div class="ttdef"><b>Definition:</b> <a href="a01355_source.html#l00012">Triangle.cpp:12</a></div></div>
-<div class="ttc" id="aa02693_html_afb0d8e04098b750546e2061cdee564af"><div class="ttname"><a href="a02693.html#afb0d8e04098b750546e2061cdee564af">bl::shapes::Triangle::Triangle</a></div><div class="ttdeci">Triangle(const sf::Vector2f &amp;p1, const sf::Vector2f &amp;p2, const sf::Vector2f &amp;p3, bool centerOrigin=true)</div><div class="ttdoc">Construct a new Triangle object from 3 points.</div><div class="ttdef"><b>Definition:</b> <a href="a01355_source.html#l00007">Triangle.cpp:7</a></div></div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="a02724.html#aa6fcb2d5caea706025e2369547b352ed">   12</a></span>&#160;<a class="code" href="a02724.html#aa6fcb2d5caea706025e2369547b352ed">TextItem::TextItem</a>(<span class="keyword">const</span> std::string&amp; t, <span class="keyword">const</span> sf::Font&amp; font, <span class="keyword">const</span> sf::Color&amp; color,</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;                   <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> fontSize) {</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    text.setString(t);</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    text.setFont(font);</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    text.setFillColor(color);</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    text.setCharacterSize(fontSize);</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;}</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a02724.html#a5e419cc97bf14de8d4ad3442d8d0341c">   20</a></span>&#160;sf::Text&amp; <a class="code" href="a02724.html#a5e419cc97bf14de8d4ad3442d8d0341c">TextItem::getTextObject</a>() { <span class="keywordflow">return</span> text; }</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a02724.html#ab872cf5772c09489c6573c790be016ff">   22</a></span>&#160;sf::Vector2f <a class="code" href="a02724.html#ab872cf5772c09489c6573c790be016ff">TextItem::getSize</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keyword">const</span> sf::FloatRect gb = text.getGlobalBounds();</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordflow">return</span> {gb.left + gb.width, gb.top + gb.height};</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;}</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="a02724.html#a3a5dbdaf76c111e9e0f93fc7b172623a">   27</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02724.html#a3a5dbdaf76c111e9e0f93fc7b172623a">TextItem::render</a>(sf::RenderTarget&amp; target, sf::RenderStates states,</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;                      <span class="keyword">const</span> sf::Vector2f&amp; pos)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    states.transform.translate(pos);</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    target.draw(text, states);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;}</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;} <span class="comment">// namespace menu</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00449_html"><div class="ttname"><a href="a00449.html">TextItem.hpp</a></div></div>
+<div class="ttc" id="aa01328_html_a6d372f7ea1f537bfbc73492e24ef8623"><div class="ttname"><a href="a01328.html#a6d372f7ea1f537bfbc73492e24ef8623">text</a></div><div class="ttdeci">sf::Text text</div><div class="ttdef"><b>Definition:</b> <a href="a01328_source.html#l00015">DefaultRenderer.cpp:15</a></div></div>
+<div class="ttc" id="aa01803_html"><div class="ttname"><a href="a01803.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02724_html_a3a5dbdaf76c111e9e0f93fc7b172623a"><div class="ttname"><a href="a02724.html#a3a5dbdaf76c111e9e0f93fc7b172623a">bl::menu::TextItem::render</a></div><div class="ttdeci">virtual void render(sf::RenderTarget &amp;target, sf::RenderStates states, const sf::Vector2f &amp;position) const override</div><div class="ttdef"><b>Definition:</b> <a href="a01355_source.html#l00027">TextItem.cpp:27</a></div></div>
+<div class="ttc" id="aa02724_html_a5e419cc97bf14de8d4ad3442d8d0341c"><div class="ttname"><a href="a02724.html#a5e419cc97bf14de8d4ad3442d8d0341c">bl::menu::TextItem::getTextObject</a></div><div class="ttdeci">sf::Text &amp; getTextObject()</div><div class="ttdoc">Returns a modifiable reference to the Text object.</div><div class="ttdef"><b>Definition:</b> <a href="a01355_source.html#l00020">TextItem.cpp:20</a></div></div>
+<div class="ttc" id="aa02724_html_aa6fcb2d5caea706025e2369547b352ed"><div class="ttname"><a href="a02724.html#aa6fcb2d5caea706025e2369547b352ed">bl::menu::TextItem::TextItem</a></div><div class="ttdeci">TextItem(const std::string &amp;text, const sf::Font &amp;font, const sf::Color &amp;color, unsigned int fontSize)</div><div class="ttdoc">Create a new TextItem from the sf::Text object.</div><div class="ttdef"><b>Definition:</b> <a href="a01355_source.html#l00012">TextItem.cpp:12</a></div></div>
+<div class="ttc" id="aa02724_html_ab872cf5772c09489c6573c790be016ff"><div class="ttname"><a href="a02724.html#ab872cf5772c09489c6573c790be016ff">bl::menu::TextItem::getSize</a></div><div class="ttdeci">virtual sf::Vector2f getSize() const override</div><div class="ttdef"><b>Definition:</b> <a href="a01355_source.html#l00022">TextItem.cpp:22</a></div></div>
+<div class="ttc" id="aa02724_html_adb1a9396fd04e471bb949fcf0b5b9f91"><div class="ttname"><a href="a02724.html#adb1a9396fd04e471bb949fcf0b5b9f91">bl::menu::TextItem::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; TextItem &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00449_source.html#l00019">TextItem.hpp:19</a></div></div>
+<div class="ttc" id="aa02724_html_ae37a5b423f404a0b32a852923bd9b0ac"><div class="ttname"><a href="a02724.html#ae37a5b423f404a0b32a852923bd9b0ac">bl::menu::TextItem::create</a></div><div class="ttdeci">static Ptr create(const std::string &amp;text, const sf::Font &amp;font, const sf::Color &amp;color=sf::Color::Black, unsigned int fontSize=30)</div><div class="ttdoc">Create a new TextItem from the sf::Text object.</div><div class="ttdef"><b>Definition:</b> <a href="a01355_source.html#l00007">TextItem.cpp:7</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 30 2023 22:56:46 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Oct 8 2023 18:56:19 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

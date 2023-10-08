@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Resources/ResourceManager.hpp Source File</title>
+<title>BLIB: include/BLIB/Resources/Bundling/FileHandlers/PlaylistHandler.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,231 +66,57 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_70ae3ed4186da77d71126d34066606f0.html">Resources</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_70ae3ed4186da77d71126d34066606f0.html">Resources</a></li><li class="navelem"><a class="el" href="dir_8c0830a2e11435882738e77910337c62.html">Bundling</a></li><li class="navelem"><a class="el" href="dir_0797aa3e6e1ab8a601e0d40d10a7f5cb.html">FileHandlers</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">ResourceManager.hpp</div>  </div>
+<div class="title">PlaylistHandler.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00884.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RESOURCES_RESOURCEMANAGER_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RESOURCES_RESOURCEMANAGER_HPP</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00449.html">BLIB/Logging.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00869.html">BLIB/Resources/FileSystem.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00875.html">BLIB/Resources/Loader.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00878.html">BLIB/Resources/Ref.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01004.html">BLIB/Util/BufferIstreamBuf.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01025.html">BLIB/Util/NonCopyable.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;atomic&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;chrono&gt;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;condition_variable&gt;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;mutex&gt;</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;thread&gt;</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01760.html">bl</a></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;{</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">namespace </span>resource</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;{</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">class </span>GarbageCollector;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="a03413.html">   31</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03413.html">ResourceManagerBase</a> {</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <a class="code" href="a03413.html#aefb504334dee80cd3692d5cd7492c48e">ResourceManagerBase</a>();</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03413.html#a772009bb487d321e8bd0d6fef65cd701">unregister</a>();</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03413.html#a3a86e73410fa6cf7c507341a09b1429b">getGCPeriod</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> period);</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> doClean() = 0;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> gcPeriod;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> freeAll() = 0;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="a03413.html#aed63c75a6d93c19ed9b14ec512386a34">   43</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a03349.html">GarbageCollector</a>;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;};</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> TResourceType&gt;</div>
-<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="a03397.html">   53</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03397.html">ResourceManager</a></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;: <span class="keyword">private</span> <a class="code" href="a03829.html">util::NonCopyable</a></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;, <span class="keyword">public</span> <a class="code" href="a03413.html">ResourceManagerBase</a> {</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <a class="code" href="a03397.html#a243efcdfc8b79955196173f2bd3d8313">~ResourceManager</a>();</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> TLoader, <span class="keyword">typename</span>... TArgs&gt;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="a03397.html#af02621cfacc5df330a9d0caff0f80d2b">installLoader</a>(TArgs&amp;&amp;... loaderArgs);</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="a03397.html#a67c75d43b319455c763f57c99e2b9e30">setGarbageCollectionPeriod</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> period);</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keyword">static</span> <a class="code" href="a03401.html">Ref&lt;TResourceType&gt;</a> <a class="code" href="a03397.html#a35c615388beefafe126b6ca8481c976d">load</a>(<span class="keyword">const</span> std::string&amp; uri);</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="a03397.html#a7fd748c4ae1dd7d7734050340b5c9432">initializeExisting</a>(<span class="keyword">const</span> std::string&amp; uri, TResourceType&amp; resource);</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="a03397.html#adcaa9695896b853eec24a69393c85fc6">freeAndDestroyAll</a>();</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    std::unique_ptr&lt;LoaderBase&lt;TResourceType&gt;&gt; loader;</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    std::unordered_map&lt;std::string, Resource&lt;TResourceType&gt;&gt; resources;</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    std::mutex mapLock;</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keyword">static</span> <a class="code" href="a03397.html">ResourceManager</a>&amp; get();</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <a class="code" href="a03397.html">ResourceManager</a>();</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> doClean() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="keywordtype">bool</span> doInit(<span class="keyword">const</span> std::string&amp; uri, <span class="keywordtype">char</span>* buf, std::size_t len, TResourceType&amp; result);</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> freeAll() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;};</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<a class="code" href="a03397.html">ResourceManager&lt;T&gt;::ResourceManager</a>()</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;: <a class="code" href="a03413.html">ResourceManagerBase</a>()</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;, loader(<a class="code" href="a01774.html">std</a>::make_unique&lt;<a class="code" href="a03361.html">DefaultLoader</a>&lt;T&gt;&gt;()) {</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <a class="code" href="a00443.html#a459f7ea96e34815206480bf681ee2a2f">BL_LOG_INFO</a> &lt;&lt; <span class="stringliteral">&quot;Resource manager (&quot;</span> &lt;&lt; <span class="keyword">typeid</span>(T).name() &lt;&lt; <span class="stringliteral">&quot;) online&quot;</span>;</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;}</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160; </div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00131"></a><span class="lineno"><a class="line" href="a03397.html#a243efcdfc8b79955196173f2bd3d8313">  131</a></span>&#160;<a class="code" href="a03397.html#a243efcdfc8b79955196173f2bd3d8313">ResourceManager&lt;T&gt;::~ResourceManager</a>() {</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    unregister();</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    <a class="code" href="a00443.html#a459f7ea96e34815206480bf681ee2a2f">BL_LOG_INFO</a> &lt;&lt; <span class="stringliteral">&quot;Resource manager (&quot;</span> &lt;&lt; <span class="keyword">typeid</span>(T).name() &lt;&lt; <span class="stringliteral">&quot;) shutdown&quot;</span>;</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;}</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160; </div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00137"></a><span class="lineno"><a class="line" href="a03397.html#a67c75d43b319455c763f57c99e2b9e30">  137</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03397.html#a67c75d43b319455c763f57c99e2b9e30">ResourceManager&lt;T&gt;::setGarbageCollectionPeriod</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> gc) {</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    get().getGCPeriod(gc);</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;}</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160; </div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00142"></a><span class="lineno"><a class="line" href="a03397.html#a35c615388beefafe126b6ca8481c976d">  142</a></span>&#160;<a class="code" href="a03401.html">Ref&lt;T&gt;</a> <a class="code" href="a03397.html#a35c615388beefafe126b6ca8481c976d">ResourceManager&lt;T&gt;::load</a>(<span class="keyword">const</span> std::string&amp; uri) {</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    <a class="code" href="a03397.html">ResourceManager</a>&amp; m = get();</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    std::unique_lock lock(m.mapLock);</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    <span class="keyword">auto</span> it = m.resources.find(uri);</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    <span class="keywordflow">if</span> (it == m.resources.end()) {</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;        it = m.resources.try_emplace(uri).first;</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160; </div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;        <span class="keywordtype">char</span>* <a class="code" href="a01331.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>    = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;        std::size_t len = 0;</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        <span class="keywordflow">if</span> (!<a class="code" href="a03345.html#a4333f7b4fcde422a5a9edccb8af201fb">FileSystem::getData</a>(uri, &amp;<a class="code" href="a01331.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, len)) {</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;            <a class="code" href="a00443.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Failed to find resource: &quot;</span> &lt;&lt; uri;</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;            <span class="keywordflow">return</span> {&amp;it-&gt;second};</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;        }</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160; </div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;        <span class="comment">// copy buffer for font</span></div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;        <span class="keywordflow">if</span> constexpr (std::is_same_v&lt;T, sf::Font&gt;) {</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;            std::vector&lt;char&gt;&amp; rbuf = it-&gt;second.buffer;</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;            rbuf.resize(len);</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;            std::memcpy(rbuf.data(), <a class="code" href="a01331.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, len);</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;            <a class="code" href="a01331.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a> = rbuf.data();</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;        }</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160; </div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;        <span class="keywordflow">if</span> (!m.doInit(uri, <a class="code" href="a01331.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, len, it-&gt;second.data)) {</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;            <a class="code" href="a00443.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Failed to load resource: &quot;</span> &lt;&lt; uri;</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;        }</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    }</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160; </div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    <span class="keywordflow">return</span> {&amp;it-&gt;second};</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;}</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160; </div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00173"></a><span class="lineno"><a class="line" href="a03397.html#a7fd748c4ae1dd7d7734050340b5c9432">  173</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a03397.html#a7fd748c4ae1dd7d7734050340b5c9432">ResourceManager&lt;T&gt;::initializeExisting</a>(<span class="keyword">const</span> std::string&amp; uri, T&amp; result) {</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    <a class="code" href="a03397.html">ResourceManager</a>&amp; m = get();</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160; </div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    <span class="keywordtype">char</span>* <a class="code" href="a01331.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>    = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    std::size_t len = 0;</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="a03345.html#a4333f7b4fcde422a5a9edccb8af201fb">FileSystem::getData</a>(uri, &amp;<a class="code" href="a01331.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, len)) {</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;        <a class="code" href="a00443.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Failed to find resource: &quot;</span> &lt;&lt; uri;</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;    }</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    <span class="keywordflow">return</span> m.doInit(uri, <a class="code" href="a01331.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, len, result);</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;}</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160; </div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a03397.html">ResourceManager&lt;T&gt;::doInit</a>(<span class="keyword">const</span> std::string&amp; uri, <span class="keywordtype">char</span>* <a class="code" href="a01331.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, std::size_t len, T&amp; result) {</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    <a class="code" href="a03789.html">util::BufferIstreamBuf</a> buf(<a class="code" href="a01331.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, len);</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;    std::istream stream(&amp;buf);</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">bool</span> success = loader-&gt;load(uri, <a class="code" href="a01331.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, len, stream, result);</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    <a class="code" href="a03345.html#af3dbef4e0cb06dc2ba43376ea408c79b">FileSystem::purgePersistentData</a>(uri);</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160; </div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;    <span class="keywordflow">return</span> success;</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;}</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160; </div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> TLoader, <span class="keyword">typename</span>... TArgs&gt;</div>
-<div class="line"><a name="l00197"></a><span class="lineno"><a class="line" href="a03397.html#af02621cfacc5df330a9d0caff0f80d2b">  197</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03397.html#af02621cfacc5df330a9d0caff0f80d2b">ResourceManager&lt;T&gt;::installLoader</a>(TArgs&amp;&amp;... args) {</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    get().loader = std::make_unique&lt;TLoader&gt;(std::forward&lt;TArgs&gt;(args)...);</div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;}</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160; </div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03397.html">ResourceManager&lt;T&gt;::doClean</a>() {</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    std::unique_lock lock(mapLock);</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> i = resources.begin(); i != resources.end();) {</div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;        <span class="keyword">auto</span> j = i++;</div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;        <span class="keywordflow">if</span> (j-&gt;second.readyForPurge()) {</div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;            <a class="code" href="a00443.html#a6b4a6c9a77636c98a3c0821ae6a4c119">BL_LOG_DEBUG</a> &lt;&lt; <span class="stringliteral">&quot;Purged expired resource: &quot;</span> &lt;&lt; j-&gt;first;</div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;            resources.erase(j);</div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;        }</div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    }</div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;}</div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160; </div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;<span class="keywordtype">void</span> ResourceManager&lt;T&gt;::freeAll() {</div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;    std::unique_lock lock(mapLock);</div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;    resources.clear();</div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;}</div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160; </div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;ResourceManager&lt;T&gt;&amp; ResourceManager&lt;T&gt;::get() {</div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;    <span class="keyword">static</span> ResourceManager <a class="code" href="a01331.html#a9c6d12ad0d044ddbc4992dec34d8e153">me</a>;</div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="a01331.html#a9c6d12ad0d044ddbc4992dec34d8e153">me</a>;</div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;}</div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160; </div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00226"></a><span class="lineno"><a class="line" href="a03397.html#adcaa9695896b853eec24a69393c85fc6">  226</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03397.html#adcaa9695896b853eec24a69393c85fc6">ResourceManager&lt;T&gt;::freeAndDestroyAll</a>() {</div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;    get().freeAll();</div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;}</div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160; </div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;} <span class="comment">// namespace resource</span></div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160; </div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00443_html_a459f7ea96e34815206480bf681ee2a2f"><div class="ttname"><a href="a00443.html#a459f7ea96e34815206480bf681ee2a2f">BL_LOG_INFO</a></div><div class="ttdeci">#define BL_LOG_INFO</div><div class="ttdoc">Helper macro to log at info level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00443_source.html#l00107">Logger.hpp:107</a></div></div>
-<div class="ttc" id="aa00443_html_a6b4a6c9a77636c98a3c0821ae6a4c119"><div class="ttname"><a href="a00443.html#a6b4a6c9a77636c98a3c0821ae6a4c119">BL_LOG_DEBUG</a></div><div class="ttdeci">#define BL_LOG_DEBUG</div><div class="ttdoc">Helper macro to log at debug level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00443_source.html#l00110">Logger.hpp:110</a></div></div>
-<div class="ttc" id="aa00443_html_a927270d671e83a1c6b5382f30bfbf895"><div class="ttname"><a href="a00443.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a></div><div class="ttdeci">#define BL_LOG_ERROR</div><div class="ttdoc">Helper macro to log at error level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00443_source.html#l00101">Logger.hpp:101</a></div></div>
-<div class="ttc" id="aa00449_html"><div class="ttname"><a href="a00449.html">Logging.hpp</a></div></div>
-<div class="ttc" id="aa00869_html"><div class="ttname"><a href="a00869.html">FileSystem.hpp</a></div></div>
-<div class="ttc" id="aa00875_html"><div class="ttname"><a href="a00875.html">Loader.hpp</a></div></div>
-<div class="ttc" id="aa00878_html"><div class="ttname"><a href="a00878.html">Ref.hpp</a></div></div>
-<div class="ttc" id="aa01004_html"><div class="ttname"><a href="a01004.html">BufferIstreamBuf.hpp</a></div></div>
-<div class="ttc" id="aa01025_html"><div class="ttname"><a href="a01025.html">NonCopyable.hpp</a></div></div>
-<div class="ttc" id="aa01331_html_a9c6d12ad0d044ddbc4992dec34d8e153"><div class="ttname"><a href="a01331.html#a9c6d12ad0d044ddbc4992dec34d8e153">me</a></div><div class="ttdeci">std::list&lt; SoundFader &gt;::iterator me</div><div class="ttdef"><b>Definition:</b> <a href="a01331_source.html#l00035">AudioSystem.cpp:35</a></div></div>
-<div class="ttc" id="aa01331_html_ad2ae6b0ac080ea0ac45f7a06ccc480ba"><div class="ttname"><a href="a01331.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a></div><div class="ttdeci">SoundHandle buffer</div><div class="ttdef"><b>Definition:</b> <a href="a01331_source.html#l00025">AudioSystem.cpp:25</a></div></div>
-<div class="ttc" id="aa01760_html"><div class="ttname"><a href="a01760.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa01774_html"><div class="ttname"><a href="a01774.html">std</a></div><div class="ttdef"><b>Definition:</b> <a href="a00125_source.html#l00154">Entity.hpp:155</a></div></div>
-<div class="ttc" id="aa03345_html_a4333f7b4fcde422a5a9edccb8af201fb"><div class="ttname"><a href="a03345.html#a4333f7b4fcde422a5a9edccb8af201fb">bl::resource::FileSystem::getData</a></div><div class="ttdeci">static bool getData(const std::string &amp;path, char **buffer, std::size_t &amp;len)</div><div class="ttdoc">Loads the data for the given path. Either loads from the underlying file system or from the active bu...</div><div class="ttdef"><b>Definition:</b> <a href="a01625_source.html#l00023">FileSystem.cpp:23</a></div></div>
-<div class="ttc" id="aa03345_html_af3dbef4e0cb06dc2ba43376ea408c79b"><div class="ttname"><a href="a03345.html#af3dbef4e0cb06dc2ba43376ea408c79b">bl::resource::FileSystem::purgePersistentData</a></div><div class="ttdeci">static void purgePersistentData(const std::string &amp;path)</div><div class="ttdoc">Purges the persistent data buffer for the given resource. Noop if the resource did not have a persist...</div><div class="ttdef"><b>Definition:</b> <a href="a01625_source.html#l00038">FileSystem.cpp:38</a></div></div>
-<div class="ttc" id="aa03349_html"><div class="ttname"><a href="a03349.html">bl::resource::GarbageCollector</a></div><div class="ttdoc">Instantiates the garbage collector and starts resource cleanup in the background.</div><div class="ttdef"><b>Definition:</b> <a href="a00872_source.html#l00024">GarbageCollector.hpp:24</a></div></div>
-<div class="ttc" id="aa03361_html"><div class="ttname"><a href="a03361.html">bl::resource::DefaultLoader</a></div><div class="ttdoc">Default loaders provided for types: sf::Texture, sf::Image, sf::Font, sf::SoundBuffer,...</div><div class="ttdef"><b>Definition:</b> <a href="a00875_source.html#l00082">Loader.hpp:82</a></div></div>
-<div class="ttc" id="aa03397_html"><div class="ttname"><a href="a03397.html">bl::resource::ResourceManager</a></div><div class="ttdoc">Single template based resource management class. Meant for storing data exactly once,...</div><div class="ttdef"><b>Definition:</b> <a href="a00884_source.html#l00053">ResourceManager.hpp:55</a></div></div>
-<div class="ttc" id="aa03397_html_a243efcdfc8b79955196173f2bd3d8313"><div class="ttname"><a href="a03397.html#a243efcdfc8b79955196173f2bd3d8313">bl::resource::ResourceManager::~ResourceManager</a></div><div class="ttdeci">~ResourceManager()</div><div class="ttdoc">Exits the garbage collection thread. Resources still held are not freed.</div><div class="ttdef"><b>Definition:</b> <a href="a00884_source.html#l00131">ResourceManager.hpp:131</a></div></div>
-<div class="ttc" id="aa03397_html_a35c615388beefafe126b6ca8481c976d"><div class="ttname"><a href="a03397.html#a35c615388beefafe126b6ca8481c976d">bl::resource::ResourceManager::load</a></div><div class="ttdeci">static Ref&lt; TResourceType &gt; load(const std::string &amp;uri)</div><div class="ttdoc">Returns a pointer to the resource for modification (such as forcing it to stay in cache)....</div><div class="ttdef"><b>Definition:</b> <a href="a00884_source.html#l00142">ResourceManager.hpp:142</a></div></div>
-<div class="ttc" id="aa03397_html_a67c75d43b319455c763f57c99e2b9e30"><div class="ttname"><a href="a03397.html#a67c75d43b319455c763f57c99e2b9e30">bl::resource::ResourceManager::setGarbageCollectionPeriod</a></div><div class="ttdeci">static void setGarbageCollectionPeriod(unsigned int period)</div><div class="ttdoc">Set the time, in seconds, between resource cleanup runs.</div><div class="ttdef"><b>Definition:</b> <a href="a00884_source.html#l00137">ResourceManager.hpp:137</a></div></div>
-<div class="ttc" id="aa03397_html_a7fd748c4ae1dd7d7734050340b5c9432"><div class="ttname"><a href="a03397.html#a7fd748c4ae1dd7d7734050340b5c9432">bl::resource::ResourceManager::initializeExisting</a></div><div class="ttdeci">static bool initializeExisting(const std::string &amp;uri, TResourceType &amp;resource)</div><div class="ttdoc">Uses the underlying FileSystem and loader to initialize the existing resource. The resource will not ...</div><div class="ttdef"><b>Definition:</b> <a href="a00884_source.html#l00173">ResourceManager.hpp:173</a></div></div>
-<div class="ttc" id="aa03397_html_adcaa9695896b853eec24a69393c85fc6"><div class="ttname"><a href="a03397.html#adcaa9695896b853eec24a69393c85fc6">bl::resource::ResourceManager::freeAndDestroyAll</a></div><div class="ttdeci">static void freeAndDestroyAll()</div><div class="ttdoc">Explicitly frees and destroys all resources, regardless of ownership state. Be very careful with this...</div><div class="ttdef"><b>Definition:</b> <a href="a00884_source.html#l00226">ResourceManager.hpp:226</a></div></div>
-<div class="ttc" id="aa03397_html_af02621cfacc5df330a9d0caff0f80d2b"><div class="ttname"><a href="a03397.html#af02621cfacc5df330a9d0caff0f80d2b">bl::resource::ResourceManager::installLoader</a></div><div class="ttdeci">static void installLoader(TArgs &amp;&amp;... loaderArgs)</div><div class="ttdoc">Configures the resource manager with the given loader. Call this before loading any resources.</div><div class="ttdef"><b>Definition:</b> <a href="a00884_source.html#l00197">ResourceManager.hpp:197</a></div></div>
-<div class="ttc" id="aa03401_html"><div class="ttname"><a href="a03401.html">bl::resource::Ref</a></div><div class="ttdoc">Represents a reference to a managed resource. Performs reference counting, but resources are never de...</div><div class="ttdef"><b>Definition:</b> <a href="a00878_source.html#l00025">Ref.hpp:25</a></div></div>
-<div class="ttc" id="aa03413_html"><div class="ttname"><a href="a03413.html">bl::resource::ResourceManagerBase</a></div><div class="ttdoc">Base class for resource managers, do not use.</div><div class="ttdef"><b>Definition:</b> <a href="a00884_source.html#l00031">ResourceManager.hpp:31</a></div></div>
-<div class="ttc" id="aa03413_html_a3a86e73410fa6cf7c507341a09b1429b"><div class="ttname"><a href="a03413.html#a3a86e73410fa6cf7c507341a09b1429b">bl::resource::ResourceManagerBase::getGCPeriod</a></div><div class="ttdeci">void getGCPeriod(unsigned int period)</div><div class="ttdef"><b>Definition:</b> <a href="a01631_source.html#l00016">ResourceManager.cpp:16</a></div></div>
-<div class="ttc" id="aa03413_html_a772009bb487d321e8bd0d6fef65cd701"><div class="ttname"><a href="a03413.html#a772009bb487d321e8bd0d6fef65cd701">bl::resource::ResourceManagerBase::unregister</a></div><div class="ttdeci">void unregister()</div><div class="ttdef"><b>Definition:</b> <a href="a01631_source.html#l00014">ResourceManager.cpp:14</a></div></div>
-<div class="ttc" id="aa03413_html_aefb504334dee80cd3692d5cd7492c48e"><div class="ttname"><a href="a03413.html#aefb504334dee80cd3692d5cd7492c48e">bl::resource::ResourceManagerBase::ResourceManagerBase</a></div><div class="ttdeci">ResourceManagerBase()</div><div class="ttdef"><b>Definition:</b> <a href="a01631_source.html#l00009">ResourceManager.cpp:9</a></div></div>
-<div class="ttc" id="aa03789_html"><div class="ttname"><a href="a03789.html">bl::util::BufferIstreamBuf</a></div><div class="ttdoc">Helper class that represents a streambuf around a vector&lt;char&gt;. Use to create istream objects from ve...</div><div class="ttdef"><b>Definition:</b> <a href="a01004_source.html#l00018">BufferIstreamBuf.hpp:18</a></div></div>
-<div class="ttc" id="aa03829_html"><div class="ttname"><a href="a03829.html">bl::util::NonCopyable</a></div><div class="ttdoc">Helper class to make derived classes impossible for user to copy directly.</div><div class="ttdef"><b>Definition:</b> <a href="a01025_source.html#l00013">NonCopyable.hpp:13</a></div></div>
+<a href="a00884.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_TEST_TARGET</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#ifndef BLIB_RESOURCES_BUNDLING_FILEHANDLERS_PLAYLISTHANDLER_HPP</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#define BLIB_RESOURCES_BUNDLING_FILEHANDLERS_PLAYLISTHANDLER_HPP</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00872.html">BLIB/Resources/Bundling/FileHandler.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01803.html">bl</a></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>resource</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>bundle</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a03420.html">   20</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a03420.html">PlaylistHandler</a> : <span class="keyword">public</span> <a class="code" href="a03404.html">FileHandler</a> {</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <a class="code" href="a03420.html#af1d4746fd48ca4112fde79fde3b0d6f5">PlaylistHandler</a>(<span class="keywordtype">bool</span> <a class="code" href="a03420.html#a16c3946d25a3118840098ffffa4687c7">bundleMusicFiles</a> = <span class="keyword">false</span>);</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a03420.html#aa85a5388ed1632b592b81d57c9628bba">   28</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03420.html#aa85a5388ed1632b592b81d57c9628bba">~PlaylistHandler</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="a03420.html#afca0b240a71de04cb2cc40199e4c80d4">processFile</a>(<span class="keyword">const</span> std::string&amp; path, std::ostream&amp; output,</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;                             <a class="code" href="a03408.html">FileHandlerContext</a>&amp; context) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="a03420.html#a16c3946d25a3118840098ffffa4687c7">   33</a></span>&#160;    <span class="keyword">const</span> <span class="keywordtype">bool</span> <a class="code" href="a03420.html#a16c3946d25a3118840098ffffa4687c7">bundleMusicFiles</a>;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;};</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;} <span class="comment">// namespace bundle</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;} <span class="comment">// namespace resource</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00872_html"><div class="ttname"><a href="a00872.html">FileHandler.hpp</a></div></div>
+<div class="ttc" id="aa01803_html"><div class="ttname"><a href="a01803.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03404_html"><div class="ttname"><a href="a03404.html">bl::resource::bundle::FileHandler</a></div><div class="ttdoc">Base class for file handlers. File handlers process raw files and pack them into bundles....</div><div class="ttdef"><b>Definition:</b> <a href="a00872_source.html#l00021">FileHandler.hpp:21</a></div></div>
+<div class="ttc" id="aa03408_html"><div class="ttname"><a href="a03408.html">bl::resource::bundle::FileHandlerContext</a></div><div class="ttdoc">Context data that is provided to FileHandler objects when processing files.</div><div class="ttdef"><b>Definition:</b> <a href="a00875_source.html#l00023">FileHandlerContext.hpp:23</a></div></div>
+<div class="ttc" id="aa03420_html"><div class="ttname"><a href="a03420.html">bl::resource::bundle::PlaylistHandler</a></div><div class="ttdoc">File handlers for processing playlists. Loads them as json from disk and saves as binary in the bundl...</div><div class="ttdef"><b>Definition:</b> <a href="a00884_source.html#l00020">PlaylistHandler.hpp:20</a></div></div>
+<div class="ttc" id="aa03420_html_a16c3946d25a3118840098ffffa4687c7"><div class="ttname"><a href="a03420.html#a16c3946d25a3118840098ffffa4687c7">bl::resource::bundle::PlaylistHandler::bundleMusicFiles</a></div><div class="ttdeci">const bool bundleMusicFiles</div><div class="ttdef"><b>Definition:</b> <a href="a00884_source.html#l00033">PlaylistHandler.hpp:33</a></div></div>
+<div class="ttc" id="aa03420_html_aa85a5388ed1632b592b81d57c9628bba"><div class="ttname"><a href="a03420.html#aa85a5388ed1632b592b81d57c9628bba">bl::resource::bundle::PlaylistHandler::~PlaylistHandler</a></div><div class="ttdeci">virtual ~PlaylistHandler()=default</div></div>
+<div class="ttc" id="aa03420_html_af1d4746fd48ca4112fde79fde3b0d6f5"><div class="ttname"><a href="a03420.html#af1d4746fd48ca4112fde79fde3b0d6f5">bl::resource::bundle::PlaylistHandler::PlaylistHandler</a></div><div class="ttdeci">PlaylistHandler(bool bundleMusicFiles=false)</div><div class="ttdoc">Construct a new Playlist Handler.</div><div class="ttdef"><b>Definition:</b> <a href="a01655_source.html#l00011">PlaylistHandler.cpp:11</a></div></div>
+<div class="ttc" id="aa03420_html_afca0b240a71de04cb2cc40199e4c80d4"><div class="ttname"><a href="a03420.html#afca0b240a71de04cb2cc40199e4c80d4">bl::resource::bundle::PlaylistHandler::processFile</a></div><div class="ttdeci">virtual bool processFile(const std::string &amp;path, std::ostream &amp;output, FileHandlerContext &amp;context) override</div><div class="ttdoc">Process the given file and add its data to the bundle.</div><div class="ttdef"><b>Definition:</b> <a href="a01655_source.html#l00014">PlaylistHandler.cpp:14</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 30 2023 22:56:46 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Oct 8 2023 18:56:18 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

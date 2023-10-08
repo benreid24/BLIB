@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Graphics/Drawable.hpp Source File</title>
+<title>BLIB: include/BLIB/Events/Dispatcher.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,268 +66,109 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_8af985930208ac2752e8061e22535a56.html">Graphics</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_b1ab5f494aad7f0e2da16d9fefe047e9.html">Events</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Drawable.hpp</div>  </div>
+<div class="title">Dispatcher.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00236.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_GRAPHICS_DRAWABLE_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_GRAPHICS_DRAWABLE_HPP</span></div>
+<a href="a00236.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_EVENTS_DISPATCHER_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_EVENTS_DISPATCHER_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00155.html">BLIB/ECS.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00545.html">BLIB/Render/Components/DrawableBase.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00986.html">BLIB/Systems/DrawableSystem.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;type_traits&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01760.html">bl</a></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>engine</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">class </span>Engine;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;}</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">namespace </span>gfx</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05046.html">BLIB/Events/Listener.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00251.html">BLIB/Events/SingleDispatcher.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00254.html">BLIB/Events/SubscribeHelpers.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01052.html">BLIB/Util/NonCopyable.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01061.html">BLIB/Util/ReadWriteLock.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;mutex&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;shared_mutex&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;typeindex&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;unordered_set&gt;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01803.html">bl</a></div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;{</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCom, <span class="keyword">typename</span> TSys&gt;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">class </span>Drawable;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCom, <span class="keyword">typename</span> TSys = sys::DrawableSystem&lt;TCom&gt;&gt;</div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="a02317.html">   31</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02317.html">Drawable</a> {</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    static_assert(std::is_base_of_v&lt;rc::rcom::DrawableBase, TCom&gt;,</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;                  <span class="stringliteral">&quot;TCom must derive from DrawableBase&quot;</span>);</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="a02317.html#a7201738654fd8cd32a665e5050006704">   39</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02317.html#a7201738654fd8cd32a665e5050006704">~Drawable</a>();</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="a02317.html#a3f76b95f164baa89ce14a88b3b8621a4">   47</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02317.html#a3f76b95f164baa89ce14a88b3b8621a4">addToScene</a>(<a class="code" href="a03101.html">rc::Scene</a>* scene, <a class="code" href="a01745.html#ga305dcc5dda3e28bd193ab31444664848">rc::UpdateSpeed</a> updateFreq);</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="a02317.html#a39ccca57aa44932311c99c5bcefb31a5">   56</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02317.html#a39ccca57aa44932311c99c5bcefb31a5">addToSceneWithCustomPipeline</a>(<a class="code" href="a03101.html">rc::Scene</a>* scene, <a class="code" href="a01745.html#ga305dcc5dda3e28bd193ab31444664848">rc::UpdateSpeed</a> updateFreq,</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                                      std::uint32_t pipeline);</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="a02317.html#ae05b798768a5298455a27686a9e86292">   64</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02317.html#ae05b798768a5298455a27686a9e86292">setHidden</a>(<span class="keywordtype">bool</span> hide);</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="a02317.html#aeeac031adfcdc28b425ceb50fde95bd5">   69</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02317.html#aeeac031adfcdc28b425ceb50fde95bd5">removeFromScene</a>();</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="a02317.html#afb6e023344eafbba7d8ae49d7d8fed3b">   74</a></span>&#160;    constexpr <a class="code" href="a02093.html">ecs::Entity</a> <a class="code" href="a02317.html#afb6e023344eafbba7d8ae49d7d8fed3b">entity</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a01826.html">   20</a></span>&#160;<span class="keyword">namespace </span>event</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;{</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a01827.html">   22</a></span>&#160;<span class="keyword">namespace </span>priv</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;{</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">struct </span><a class="code" href="a04056.html">ReserveOnStartupHelper</a>;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;}</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="a02340.html">   37</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02340.html">Dispatcher</a> : <span class="keyword">private</span> <a class="code" href="a03940.html">util::NonCopyable</a> {</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TEvents&gt;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="a02340.html#a36b6226eb7a776e0fc9c798689725bdc">subscribe</a>(<a class="code" href="a02352.html">Listener&lt;TEvents...&gt;</a>* listener, <span class="keywordtype">bool</span> defer = <span class="keyword">false</span>);</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TEvents&gt;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="a02340.html#a7d6b29860c56388036edd8a38f26a4c7">unsubscribe</a>(<a class="code" href="a02352.html">Listener&lt;TEvents...&gt;</a>* listener, <span class="keywordtype">bool</span> defer = <span class="keyword">false</span>);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="a02340.html#a7e8186fd38d7cf4f57fffaaaf7f8cb80">dispatch</a>(<span class="keyword">const</span> T&amp; event);</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="a02340.html#ac7b00210042e2dd107ebbbf3ce7a2c8f">syncListeners</a>();</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="a02317.html#a00d74d4c35b35f7f758b7bf6ebdcbc10">   79</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02317.html#a00d74d4c35b35f7f758b7bf6ebdcbc10">destroy</a>();</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="a02317.html#ad80022f5deb90f89ab57048a3cfa187b">   84</a></span>&#160;    TCom&amp; <a class="code" href="a02317.html#ad80022f5deb90f89ab57048a3cfa187b">component</a>();</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
-<div class="line"><a name="l00089"></a><span class="lineno"><a class="line" href="a02317.html#a2888db89f05d9c93c9c525962f281a6a">   89</a></span>&#160;    <span class="keyword">const</span> TCom&amp; <a class="code" href="a02317.html#a2888db89f05d9c93c9c525962f281a6a">component</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</div>
-<div class="line"><a name="l00098"></a><span class="lineno"><a class="line" href="a02317.html#aa4bff1075089f05e4228c3745c341a0a">   98</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02317.html#aa4bff1075089f05e4228c3745c341a0a">setParent</a>(<span class="keyword">const</span> <a class="code" href="a02317.html">Drawable&lt;U&gt;</a>&amp; parent);</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
-<div class="line"><a name="l00103"></a><span class="lineno"><a class="line" href="a02317.html#a820d8bbe6c73510a65e8d963644e5ed6">  103</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02317.html#a820d8bbe6c73510a65e8d963644e5ed6">removeParent</a>();</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00109"></a><span class="lineno"><a class="line" href="a02317.html#a0aaef31ce3577e26229089e3bc36eb6d">  109</a></span>&#160;    <a class="code" href="a02317.html#a0aaef31ce3577e26229089e3bc36eb6d">Drawable</a>();</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
-<div class="line"><a name="l00114"></a><span class="lineno"><a class="line" href="a02317.html#adef5d2a123c05b5b6f6be50c2ffe1454">  114</a></span>&#160;    constexpr <a class="code" href="a02185.html">engine::Engine</a>&amp; <a class="code" href="a02317.html#adef5d2a123c05b5b6f6be50c2ffe1454">engine</a>();</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
-<div class="line"><a name="l00119"></a><span class="lineno"><a class="line" href="a02317.html#a3a618017b9138ff589e4f8cf878134b2">  119</a></span>&#160;    TSys&amp; <a class="code" href="a02317.html#a3a618017b9138ff589e4f8cf878134b2">system</a>();</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TArgs&gt;</div>
-<div class="line"><a name="l00129"></a><span class="lineno"><a class="line" href="a02317.html#a35b338cdd6e950db4efa0ae3fae13ad2">  129</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02317.html#a35b338cdd6e950db4efa0ae3fae13ad2">create</a>(<a class="code" href="a02185.html">engine::Engine</a>&amp; <a class="code" href="a02317.html#adef5d2a123c05b5b6f6be50c2ffe1454">engine</a>, TArgs&amp;&amp;... args);</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
-<div class="line"><a name="l00136"></a><span class="lineno"><a class="line" href="a02317.html#a96a86f5a846e4697705a5a518cc1144f">  136</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02317.html#a96a86f5a846e4697705a5a518cc1144f">onAdd</a>(<span class="keyword">const</span> <a class="code" href="a02785.html">rc::rcom::SceneObjectRef</a>&amp; sceneRef);</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; </div>
-<div class="line"><a name="l00141"></a><span class="lineno"><a class="line" href="a02317.html#a71880c2435bfc65a52310617bfce79d1">  141</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02317.html#a71880c2435bfc65a52310617bfce79d1">onRemove</a>();</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160; </div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    <a class="code" href="a02185.html">engine::Engine</a>* enginePtr;</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    <a class="code" href="a02093.html">ecs::Entity</a> ecsId;</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    TCom* handle;</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160; </div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> U, <span class="keyword">typename</span> US&gt;</div>
-<div class="line"><a name="l00149"></a><span class="lineno"><a class="line" href="a02317.html#a2b416ab9a7d5fad6808947c779e74e02">  149</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a02317.html">Drawable</a>;</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;};</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160; </div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160; </div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCom, <span class="keyword">typename</span> TSys&gt;</div>
-<div class="line"><a name="l00155"></a><span class="lineno"><a class="line" href="a02317.html#a0aaef31ce3577e26229089e3bc36eb6d">  155</a></span>&#160;<a class="code" href="a02317.html#a2b416ab9a7d5fad6808947c779e74e02">Drawable&lt;TCom, TSys&gt;::Drawable</a>()</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;: enginePtr(nullptr)</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;, ecsId(ecs::<a class="code" href="a01772.html#a01655307bcb32baf2884e18213123917">InvalidEntity</a>)</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;, handle(nullptr) {}</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160; </div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCom, <span class="keyword">typename</span> TSys&gt;</div>
-<div class="line"><a name="l00161"></a><span class="lineno"><a class="line" href="a02317.html#a7201738654fd8cd32a665e5050006704">  161</a></span>&#160;<a class="code" href="a02317.html#a7201738654fd8cd32a665e5050006704">Drawable&lt;TCom, TSys&gt;::~Drawable</a>() {</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    <span class="keywordflow">if</span> (enginePtr &amp;&amp; ecsId != <a class="code" href="a01772.html#a01655307bcb32baf2884e18213123917">ecs::InvalidEntity</a>) {</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;        onRemove();</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;        enginePtr-&gt;ecs().destroyEntity(ecsId);</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    }</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;}</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160; </div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCom, <span class="keyword">typename</span> TSys&gt;</div>
-<div class="line"><a name="l00169"></a><span class="lineno"><a class="line" href="a02317.html#a3f76b95f164baa89ce14a88b3b8621a4">  169</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02317.html#a3f76b95f164baa89ce14a88b3b8621a4">Drawable&lt;TCom, TSys&gt;::addToScene</a>(<a class="code" href="a03101.html">rc::Scene</a>* scene, <a class="code" href="a01745.html#ga305dcc5dda3e28bd193ab31444664848">rc::UpdateSpeed</a> updateFreq) {</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;<span class="preprocessor">#ifdef BLIB_DEBUG</span></div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    <span class="keywordflow">if</span> (!enginePtr || ecsId == <a class="code" href="a01772.html#a01655307bcb32baf2884e18213123917">ecs::InvalidEntity</a> || !handle) {</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Drawable must be created before adding to scene&quot;</span>);</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    }</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160; </div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    system().addToScene(ecsId, scene, updateFreq);</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    onAdd(component().sceneRef);</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;}</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160; </div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCom, <span class="keyword">typename</span> TSys&gt;</div>
-<div class="line"><a name="l00181"></a><span class="lineno"><a class="line" href="a02317.html#a39ccca57aa44932311c99c5bcefb31a5">  181</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02317.html#a39ccca57aa44932311c99c5bcefb31a5">Drawable&lt;TCom, TSys&gt;::addToSceneWithCustomPipeline</a>(<a class="code" href="a03101.html">rc::Scene</a>* scene,</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;                                                        <a class="code" href="a01745.html#ga305dcc5dda3e28bd193ab31444664848">rc::UpdateSpeed</a> updateFreq,</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;                                                        std::uint32_t pipeline) {</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;<span class="preprocessor">#ifdef BLIB_DEBUG</span></div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    <span class="keywordflow">if</span> (!enginePtr || ecsId == <a class="code" href="a01772.html#a01655307bcb32baf2884e18213123917">ecs::InvalidEntity</a> || !handle) {</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Drawable must be created before adding to scene&quot;</span>);</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    }</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160; </div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    system().addToSceneWithCustomPipeline(ecsId, scene, updateFreq, pipeline);</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    onAdd(component().sceneRef);</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;}</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160; </div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCom, <span class="keyword">typename</span> TSys&gt;</div>
-<div class="line"><a name="l00195"></a><span class="lineno"><a class="line" href="a02317.html#ae05b798768a5298455a27686a9e86292">  195</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02317.html#ae05b798768a5298455a27686a9e86292">Drawable&lt;TCom, TSys&gt;::setHidden</a>(<span class="keywordtype">bool</span> hide) {</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;<span class="preprocessor">#ifdef BLIB_DEBUG</span></div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    <span class="keywordflow">if</span> (!handle) { <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Cannot hide un-created entity&quot;</span>); }</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160; </div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    component().setHidden(hide);</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;}</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160; </div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCom, <span class="keyword">typename</span> TSys&gt;</div>
-<div class="line"><a name="l00204"></a><span class="lineno"><a class="line" href="a02317.html#aeeac031adfcdc28b425ceb50fde95bd5">  204</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02317.html#aeeac031adfcdc28b425ceb50fde95bd5">Drawable&lt;TCom, TSys&gt;::removeFromScene</a>() {</div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;<span class="preprocessor">#ifdef BLIB_DEBUG</span></div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;    <span class="keywordflow">if</span> (!enginePtr) {</div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Drawable must be created before removing from scene&quot;</span>);</div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;    }</div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160; </div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;    system().removeFromScene(ecsId);</div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    onRemove();</div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;}</div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160; </div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCom, <span class="keyword">typename</span> TSys&gt;</div>
-<div class="line"><a name="l00216"></a><span class="lineno"><a class="line" href="a02317.html#afb6e023344eafbba7d8ae49d7d8fed3b">  216</a></span>&#160;constexpr <a class="code" href="a02093.html">ecs::Entity</a> <a class="code" href="a02317.html#afb6e023344eafbba7d8ae49d7d8fed3b">Drawable&lt;TCom, TSys&gt;::entity</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;    <span class="keywordflow">return</span> ecsId;</div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;}</div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160; </div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCom, <span class="keyword">typename</span> TSys&gt;</div>
-<div class="line"><a name="l00221"></a><span class="lineno"><a class="line" href="a02317.html#ad80022f5deb90f89ab57048a3cfa187b">  221</a></span>&#160;TCom&amp; <a class="code" href="a02317.html#ad80022f5deb90f89ab57048a3cfa187b">Drawable&lt;TCom, TSys&gt;::component</a>() {</div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;    <span class="keywordflow">return</span> *handle;</div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;}</div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160; </div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCom, <span class="keyword">typename</span> TSys&gt;</div>
-<div class="line"><a name="l00226"></a><span class="lineno"><a class="line" href="a02317.html#a2888db89f05d9c93c9c525962f281a6a">  226</a></span>&#160;<span class="keyword">const</span> TCom&amp; <a class="code" href="a02317.html#ad80022f5deb90f89ab57048a3cfa187b">Drawable&lt;TCom, TSys&gt;::component</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;    <span class="keywordflow">return</span> *handle;</div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;}</div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160; </div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCom, <span class="keyword">typename</span> TSys&gt;</div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</div>
-<div class="line"><a name="l00232"></a><span class="lineno"><a class="line" href="a02317.html#aa4bff1075089f05e4228c3745c341a0a">  232</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02317.html#aa4bff1075089f05e4228c3745c341a0a">Drawable&lt;TCom, TSys&gt;::setParent</a>(<span class="keyword">const</span> <a class="code" href="a02317.html">Drawable&lt;U&gt;</a>&amp; parent) {</div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;<span class="preprocessor">#ifdef BLIB_DEBUG</span></div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    <span class="keywordflow">if</span> (!enginePtr) { <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Drawable must be created before parenting&quot;</span>); }</div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;    <span class="keywordflow">if</span> (!parent.enginePtr) { <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Parent must be created before parenting&quot;</span>); }</div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160; </div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;    enginePtr-&gt;ecs().setEntityParent(entity(), parent.<a class="code" href="a02317.html#afb6e023344eafbba7d8ae49d7d8fed3b">entity</a>());</div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;}</div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160; </div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCom, <span class="keyword">typename</span> TSys&gt;</div>
-<div class="line"><a name="l00242"></a><span class="lineno"><a class="line" href="a02317.html#a820d8bbe6c73510a65e8d963644e5ed6">  242</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02317.html#a820d8bbe6c73510a65e8d963644e5ed6">Drawable&lt;TCom, TSys&gt;::removeParent</a>() {</div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;<span class="preprocessor">#ifdef BLIB_DEBUG</span></div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;    <span class="keywordflow">if</span> (!enginePtr) { <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Drawable must be created before un-parenting&quot;</span>); }</div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160; </div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;    enginePtr-&gt;ecs().removeEntityParent(entity());</div>
-<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;}</div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160; </div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCom, <span class="keyword">typename</span> TSys&gt;</div>
-<div class="line"><a name="l00251"></a><span class="lineno"><a class="line" href="a02317.html#adef5d2a123c05b5b6f6be50c2ffe1454">  251</a></span>&#160;constexpr <a class="code" href="a02185.html">engine::Engine</a>&amp; <a class="code" href="a02317.html#adef5d2a123c05b5b6f6be50c2ffe1454">Drawable&lt;TCom, TSys&gt;::engine</a>() {</div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;    <span class="keywordflow">return</span> *enginePtr;</div>
-<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;}</div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160; </div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCom, <span class="keyword">typename</span> TSys&gt;</div>
-<div class="line"><a name="l00256"></a><span class="lineno"><a class="line" href="a02317.html#a3a618017b9138ff589e4f8cf878134b2">  256</a></span>&#160;TSys&amp; <a class="code" href="a02317.html#a3a618017b9138ff589e4f8cf878134b2">Drawable&lt;TCom, TSys&gt;::system</a>() {</div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;<span class="preprocessor">#ifdef BLIB_DEBUG</span></div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;    <span class="keywordflow">if</span> (!enginePtr) {</div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Drawable must be created before accessing system&quot;</span>);</div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;    }</div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160; </div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;    <span class="keywordflow">return</span> enginePtr-&gt;systems().getSystem&lt;TSys&gt;();</div>
-<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;}</div>
-<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160; </div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCom, <span class="keyword">typename</span> TSys&gt;</div>
-<div class="line"><a name="l00267"></a><span class="lineno"><a class="line" href="a02317.html#a00d74d4c35b35f7f758b7bf6ebdcbc10">  267</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02317.html#a00d74d4c35b35f7f758b7bf6ebdcbc10">Drawable&lt;TCom, TSys&gt;::destroy</a>() {</div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;<span class="preprocessor">#ifdef BLIB_DEBUG</span></div>
-<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;    <span class="keywordflow">if</span> (!enginePtr) { <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Drawable must be created before being destroyed&quot;</span>); }</div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160; </div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;    enginePtr-&gt;ecs().destroyEntity(ecsId);</div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;    ecsId  = <a class="code" href="a01772.html#a01655307bcb32baf2884e18213123917">ecs::InvalidEntity</a>;</div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;    handle = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;}</div>
-<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160; </div>
-<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCom, <span class="keyword">typename</span> TSys&gt;</div>
-<div class="line"><a name="l00278"></a><span class="lineno"><a class="line" href="a02317.html#a96a86f5a846e4697705a5a518cc1144f">  278</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02317.html#a96a86f5a846e4697705a5a518cc1144f">Drawable&lt;TCom, TSys&gt;::onAdd</a>(<span class="keyword">const</span> <a class="code" href="a02785.html">rc::rcom::SceneObjectRef</a>&amp;) {}</div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160; </div>
-<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCom, <span class="keyword">typename</span> TSys&gt;</div>
-<div class="line"><a name="l00281"></a><span class="lineno"><a class="line" href="a02317.html#a71880c2435bfc65a52310617bfce79d1">  281</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02317.html#a71880c2435bfc65a52310617bfce79d1">Drawable&lt;TCom, TSys&gt;::onRemove</a>() {}</div>
-<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160; </div>
-<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCom, <span class="keyword">typename</span> TSys&gt;</div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TArgs&gt;</div>
-<div class="line"><a name="l00285"></a><span class="lineno"><a class="line" href="a02317.html#a35b338cdd6e950db4efa0ae3fae13ad2">  285</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02317.html#a35b338cdd6e950db4efa0ae3fae13ad2">Drawable&lt;TCom, TSys&gt;::create</a>(<a class="code" href="a02185.html">engine::Engine</a>&amp; engine, TArgs&amp;&amp;... args) {</div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;    <span class="keywordflow">if</span> (handle != <span class="keyword">nullptr</span>) { destroy(); }</div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;    enginePtr = &amp;engine;</div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160; </div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;    ecsId  = engine.<a class="code" href="a02185.html#a25e3869bfc4a1fefd83bcd5773c7a5ef">ecs</a>().<a class="code" href="a02141.html#a5d7df62abc2d6674c31f0982321122cb">createEntity</a>();</div>
-<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;    handle = engine.<a class="code" href="a02185.html#a25e3869bfc4a1fefd83bcd5773c7a5ef">ecs</a>().<a class="code" href="a02141.html#a3b0edf4bc798fa2f67b442c4d130f8f8">emplaceComponent</a>&lt;TCom&gt;(ecsId, std::forward&lt;TArgs&gt;(args)...);</div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;}</div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160; </div>
-<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;} <span class="comment">// namespace gfx</span></div>
-<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160; </div>
-<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00155_html"><div class="ttname"><a href="a00155.html">ECS.hpp</a></div></div>
-<div class="ttc" id="aa00545_html"><div class="ttname"><a href="a00545.html">DrawableBase.hpp</a></div></div>
-<div class="ttc" id="aa00986_html"><div class="ttname"><a href="a00986.html">DrawableSystem.hpp</a></div></div>
-<div class="ttc" id="aa01745_html_ga305dcc5dda3e28bd193ab31444664848"><div class="ttname"><a href="a01745.html#ga305dcc5dda3e28bd193ab31444664848">bl::rc::UpdateSpeed</a></div><div class="ttdeci">UpdateSpeed</div><div class="ttdoc">Enum representing how frequently an object is expected to be updated.</div><div class="ttdef"><b>Definition:</b> <a href="a00761_source.html#l00015">UpdateSpeed.hpp:15</a></div></div>
-<div class="ttc" id="aa01760_html"><div class="ttname"><a href="a01760.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa01772_html_a01655307bcb32baf2884e18213123917"><div class="ttname"><a href="a01772.html#a01655307bcb32baf2884e18213123917">bl::ecs::InvalidEntity</a></div><div class="ttdeci">static constexpr Entity InvalidEntity</div><div class="ttdoc">Special value to indicate that an Entity is not valid.</div><div class="ttdef"><b>Definition:</b> <a href="a00125_source.html#l00149">Entity.hpp:149</a></div></div>
-<div class="ttc" id="aa02093_html"><div class="ttname"><a href="a02093.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition:</b> <a href="a00125_source.html#l00023">Entity.hpp:23</a></div></div>
-<div class="ttc" id="aa02141_html_a3b0edf4bc798fa2f67b442c4d130f8f8"><div class="ttname"><a href="a02141.html#a3b0edf4bc798fa2f67b442c4d130f8f8">bl::ecs::Registry::emplaceComponent</a></div><div class="ttdeci">T * emplaceComponent(Entity entity, TArgs &amp;&amp;... args)</div><div class="ttdoc">Constructs the given component in-place for the given entity.</div><div class="ttdef"><b>Definition:</b> <a href="a00134_source.html#l00299">Registry.hpp:299</a></div></div>
-<div class="ttc" id="aa02141_html_a5d7df62abc2d6674c31f0982321122cb"><div class="ttname"><a href="a02141.html#a5d7df62abc2d6674c31f0982321122cb">bl::ecs::Registry::createEntity</a></div><div class="ttdeci">Entity createEntity()</div><div class="ttdoc">Creates a new entity and returns its id.</div><div class="ttdef"><b>Definition:</b> <a href="a01112_source.html#l00018">Registry.cpp:18</a></div></div>
-<div class="ttc" id="aa02185_html"><div class="ttname"><a href="a02185.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a04811_source.html#l00031">Engine.hpp:31</a></div></div>
-<div class="ttc" id="aa02185_html_a25e3869bfc4a1fefd83bcd5773c7a5ef"><div class="ttname"><a href="a02185.html#a25e3869bfc4a1fefd83bcd5773c7a5ef">bl::engine::Engine::ecs</a></div><div class="ttdeci">ecs::Registry &amp; ecs()</div><div class="ttdoc">Returns a reference to the engine wide entity registry.</div><div class="ttdef"><b>Definition:</b> <a href="a04811_source.html#l00167">Engine.hpp:167</a></div></div>
-<div class="ttc" id="aa02317_html"><div class="ttname"><a href="a02317.html">bl::gfx::Drawable</a></div><div class="ttdoc">Base class for Drawable objects. A Drawable object should inherit this class for the drawable compone...</div><div class="ttdef"><b>Definition:</b> <a href="a00236_source.html#l00031">Drawable.hpp:31</a></div></div>
-<div class="ttc" id="aa02317_html_a00d74d4c35b35f7f758b7bf6ebdcbc10"><div class="ttname"><a href="a02317.html#a00d74d4c35b35f7f758b7bf6ebdcbc10">bl::gfx::Drawable::destroy</a></div><div class="ttdeci">void destroy()</div><div class="ttdoc">Destroys the ECS entity and component.</div><div class="ttdef"><b>Definition:</b> <a href="a00236_source.html#l00267">Drawable.hpp:267</a></div></div>
-<div class="ttc" id="aa02317_html_a0aaef31ce3577e26229089e3bc36eb6d"><div class="ttname"><a href="a02317.html#a0aaef31ce3577e26229089e3bc36eb6d">bl::gfx::Drawable::Drawable</a></div><div class="ttdeci">Drawable()</div><div class="ttdoc">Initializes the drawable.</div><div class="ttdef"><b>Definition:</b> <a href="a00236_source.html#l00155">Drawable.hpp:155</a></div></div>
-<div class="ttc" id="aa02317_html_a2888db89f05d9c93c9c525962f281a6a"><div class="ttname"><a href="a02317.html#a2888db89f05d9c93c9c525962f281a6a">bl::gfx::Drawable::component</a></div><div class="ttdeci">const TCom &amp; component() const</div><div class="ttdoc">Returns the drawable component. Only call after create()</div><div class="ttdef"><b>Definition:</b> <a href="a00236_source.html#l00226">Drawable.hpp:226</a></div></div>
-<div class="ttc" id="aa02317_html_a2b416ab9a7d5fad6808947c779e74e02"><div class="ttname"><a href="a02317.html#a2b416ab9a7d5fad6808947c779e74e02">bl::gfx::Drawable::Drawable</a></div><div class="ttdeci">friend class Drawable</div><div class="ttdef"><b>Definition:</b> <a href="a00236_source.html#l00149">Drawable.hpp:149</a></div></div>
-<div class="ttc" id="aa02317_html_a35b338cdd6e950db4efa0ae3fae13ad2"><div class="ttname"><a href="a02317.html#a35b338cdd6e950db4efa0ae3fae13ad2">bl::gfx::Drawable::create</a></div><div class="ttdeci">void create(engine::Engine &amp;engine, TArgs &amp;&amp;... args)</div><div class="ttdoc">Creates the ECS entity and drawable component. Will destroy the prior instance if any.</div><div class="ttdef"><b>Definition:</b> <a href="a00236_source.html#l00285">Drawable.hpp:285</a></div></div>
-<div class="ttc" id="aa02317_html_a39ccca57aa44932311c99c5bcefb31a5"><div class="ttname"><a href="a02317.html#a39ccca57aa44932311c99c5bcefb31a5">bl::gfx::Drawable::addToSceneWithCustomPipeline</a></div><div class="ttdeci">void addToSceneWithCustomPipeline(rc::Scene *scene, rc::UpdateSpeed updateFreq, std::uint32_t pipeline)</div><div class="ttdoc">Adds this entity to the given scene with custom pipelines.</div><div class="ttdef"><b>Definition:</b> <a href="a00236_source.html#l00181">Drawable.hpp:181</a></div></div>
-<div class="ttc" id="aa02317_html_a3a618017b9138ff589e4f8cf878134b2"><div class="ttname"><a href="a02317.html#a3a618017b9138ff589e4f8cf878134b2">bl::gfx::Drawable::system</a></div><div class="ttdeci">TSys &amp; system()</div><div class="ttdoc">Returns the drawable system. Only call after create()</div><div class="ttdef"><b>Definition:</b> <a href="a00236_source.html#l00256">Drawable.hpp:256</a></div></div>
-<div class="ttc" id="aa02317_html_a3f76b95f164baa89ce14a88b3b8621a4"><div class="ttname"><a href="a02317.html#a3f76b95f164baa89ce14a88b3b8621a4">bl::gfx::Drawable::addToScene</a></div><div class="ttdeci">void addToScene(rc::Scene *scene, rc::UpdateSpeed updateFreq)</div><div class="ttdoc">Adds this entity to the given scene.</div><div class="ttdef"><b>Definition:</b> <a href="a00236_source.html#l00169">Drawable.hpp:169</a></div></div>
-<div class="ttc" id="aa02317_html_a71880c2435bfc65a52310617bfce79d1"><div class="ttname"><a href="a02317.html#a71880c2435bfc65a52310617bfce79d1">bl::gfx::Drawable::onRemove</a></div><div class="ttdeci">virtual void onRemove()</div><div class="ttdoc">Called after the entity is removed from a scene.</div><div class="ttdef"><b>Definition:</b> <a href="a00236_source.html#l00281">Drawable.hpp:281</a></div></div>
-<div class="ttc" id="aa02317_html_a7201738654fd8cd32a665e5050006704"><div class="ttname"><a href="a02317.html#a7201738654fd8cd32a665e5050006704">bl::gfx::Drawable::~Drawable</a></div><div class="ttdeci">virtual ~Drawable()</div><div class="ttdoc">Destroys the entity.</div><div class="ttdef"><b>Definition:</b> <a href="a00236_source.html#l00161">Drawable.hpp:161</a></div></div>
-<div class="ttc" id="aa02317_html_a820d8bbe6c73510a65e8d963644e5ed6"><div class="ttname"><a href="a02317.html#a820d8bbe6c73510a65e8d963644e5ed6">bl::gfx::Drawable::removeParent</a></div><div class="ttdeci">void removeParent()</div><div class="ttdoc">Helper method to remove the parent of this drawable, if any.</div><div class="ttdef"><b>Definition:</b> <a href="a00236_source.html#l00242">Drawable.hpp:242</a></div></div>
-<div class="ttc" id="aa02317_html_a96a86f5a846e4697705a5a518cc1144f"><div class="ttname"><a href="a02317.html#a96a86f5a846e4697705a5a518cc1144f">bl::gfx::Drawable::onAdd</a></div><div class="ttdeci">virtual void onAdd(const rc::rcom::SceneObjectRef &amp;sceneRef)</div><div class="ttdoc">Called after the entity is added to a scene. Allows derived to sync data if required.</div><div class="ttdef"><b>Definition:</b> <a href="a00236_source.html#l00278">Drawable.hpp:278</a></div></div>
-<div class="ttc" id="aa02317_html_aa4bff1075089f05e4228c3745c341a0a"><div class="ttname"><a href="a02317.html#aa4bff1075089f05e4228c3745c341a0a">bl::gfx::Drawable::setParent</a></div><div class="ttdeci">void setParent(const Drawable&lt; U &gt; &amp;parent)</div><div class="ttdoc">Helper method to parent this drawable to another.</div><div class="ttdef"><b>Definition:</b> <a href="a00236_source.html#l00232">Drawable.hpp:232</a></div></div>
-<div class="ttc" id="aa02317_html_ad80022f5deb90f89ab57048a3cfa187b"><div class="ttname"><a href="a02317.html#ad80022f5deb90f89ab57048a3cfa187b">bl::gfx::Drawable::component</a></div><div class="ttdeci">TCom &amp; component()</div><div class="ttdoc">Returns the drawable component. Only call after create()</div><div class="ttdef"><b>Definition:</b> <a href="a00236_source.html#l00221">Drawable.hpp:221</a></div></div>
-<div class="ttc" id="aa02317_html_adef5d2a123c05b5b6f6be50c2ffe1454"><div class="ttname"><a href="a02317.html#adef5d2a123c05b5b6f6be50c2ffe1454">bl::gfx::Drawable::engine</a></div><div class="ttdeci">constexpr engine::Engine &amp; engine()</div><div class="ttdoc">Returns the game engine instance. Only call after create()</div><div class="ttdef"><b>Definition:</b> <a href="a00236_source.html#l00251">Drawable.hpp:251</a></div></div>
-<div class="ttc" id="aa02317_html_ae05b798768a5298455a27686a9e86292"><div class="ttname"><a href="a02317.html#ae05b798768a5298455a27686a9e86292">bl::gfx::Drawable::setHidden</a></div><div class="ttdeci">void setHidden(bool hide)</div><div class="ttdoc">Set whether the entity is hidden or not. May only be called on entities in a scene.</div><div class="ttdef"><b>Definition:</b> <a href="a00236_source.html#l00195">Drawable.hpp:195</a></div></div>
-<div class="ttc" id="aa02317_html_aeeac031adfcdc28b425ceb50fde95bd5"><div class="ttname"><a href="a02317.html#aeeac031adfcdc28b425ceb50fde95bd5">bl::gfx::Drawable::removeFromScene</a></div><div class="ttdeci">void removeFromScene()</div><div class="ttdoc">Removes the entity from the scene or overlay that it is in.</div><div class="ttdef"><b>Definition:</b> <a href="a00236_source.html#l00204">Drawable.hpp:204</a></div></div>
-<div class="ttc" id="aa02317_html_afb6e023344eafbba7d8ae49d7d8fed3b"><div class="ttname"><a href="a02317.html#afb6e023344eafbba7d8ae49d7d8fed3b">bl::gfx::Drawable::entity</a></div><div class="ttdeci">constexpr ecs::Entity entity() const</div><div class="ttdoc">Returns the ECS entity of this drawable.</div><div class="ttdef"><b>Definition:</b> <a href="a00236_source.html#l00216">Drawable.hpp:216</a></div></div>
-<div class="ttc" id="aa02785_html"><div class="ttname"><a href="a02785.html">bl::rc::rcom::SceneObjectRef</a></div><div class="ttdoc">Basic struct representing a link between the ECS and a Scene's object buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a00548_source.html#l00027">SceneObjectRef.hpp:27</a></div></div>
-<div class="ttc" id="aa03101_html"><div class="ttname"><a href="a03101.html">bl::rc::Scene</a></div><div class="ttdoc">Base class for all scene types and overlays. Provides common scene logic and object management....</div><div class="ttdef"><b>Definition:</b> <a href="a00737_source.html#l00051">Scene.hpp:51</a></div></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="a02340.html#a34fde267ef1ef9b3bc71d7233556fd5a">clearAllListeners</a>();</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keyword">static</span> std::mutex dispatcherLock;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keyword">static</span> std::vector&lt;priv::SingleDispatcherBase*&gt; dispatchers;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
+<div class="line"><a name="l00087"></a><span class="lineno"><a class="line" href="a02340.html#ab2b6a71a292609980a8839f1e83d14c2">   87</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">struct </span><a class="code" href="a04056.html">priv::ReserveOnStartupHelper</a>;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;};</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TEvents&gt;</div>
+<div class="line"><a name="l00093"></a><span class="lineno"><a class="line" href="a02340.html#a36b6226eb7a776e0fc9c798689725bdc">   93</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02340.html#a36b6226eb7a776e0fc9c798689725bdc">Dispatcher::subscribe</a>(<a class="code" href="a02352.html">Listener&lt;TEvents...&gt;</a>* listener, <span class="keywordtype">bool</span> defer) {</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <a class="code" href="a02372.html">priv::SubscriberHelper</a>&lt;TEvents...&gt; subscriber(dispatchers, dispatcherLock, listener, defer);</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    listener-&gt;subscribed = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;}</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00099"></a><span class="lineno"><a class="line" href="a02340.html#a7e8186fd38d7cf4f57fffaaaf7f8cb80">   99</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02340.html#a7e8186fd38d7cf4f57fffaaaf7f8cb80">Dispatcher::dispatch</a>(<span class="keyword">const</span> T&amp; event) {</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <a class="code" href="a02364.html">priv::SingleDispatcher&lt;T&gt;::get</a>(dispatchers, dispatcherLock).dispatch(event);</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;}</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TEvents&gt;</div>
+<div class="line"><a name="l00104"></a><span class="lineno"><a class="line" href="a02340.html#a7d6b29860c56388036edd8a38f26a4c7">  104</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02340.html#a7d6b29860c56388036edd8a38f26a4c7">Dispatcher::unsubscribe</a>(<a class="code" href="a02352.html">Listener&lt;TEvents...&gt;</a>* listener, <span class="keywordtype">bool</span> defer) {</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <a class="code" href="a02380.html">priv::UnSubscriberHelper</a>&lt;TEvents...&gt; subscriber(dispatchers, dispatcherLock, listener, defer);</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    listener-&gt;subscribed = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;}</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;} <span class="comment">// namespace event</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00248.html">BLIB/Events/ListenerImpl.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00248_html"><div class="ttname"><a href="a00248.html">ListenerImpl.hpp</a></div></div>
+<div class="ttc" id="aa00251_html"><div class="ttname"><a href="a00251.html">SingleDispatcher.hpp</a></div></div>
+<div class="ttc" id="aa00254_html"><div class="ttname"><a href="a00254.html">SubscribeHelpers.hpp</a></div></div>
+<div class="ttc" id="aa01052_html"><div class="ttname"><a href="a01052.html">NonCopyable.hpp</a></div></div>
+<div class="ttc" id="aa01061_html"><div class="ttname"><a href="a01061.html">ReadWriteLock.hpp</a></div></div>
+<div class="ttc" id="aa01803_html"><div class="ttname"><a href="a01803.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02340_html"><div class="ttname"><a href="a02340.html">bl::event::Dispatcher</a></div><div class="ttdoc">Event dispatcher capable of handling events of many different types. The dispatcher is threadsafe....</div><div class="ttdef"><b>Definition:</b> <a href="a00236_source.html#l00037">Dispatcher.hpp:37</a></div></div>
+<div class="ttc" id="aa02340_html_a34fde267ef1ef9b3bc71d7233556fd5a"><div class="ttname"><a href="a02340.html#a34fde267ef1ef9b3bc71d7233556fd5a">bl::event::Dispatcher::clearAllListeners</a></div><div class="ttdeci">static void clearAllListeners()</div><div class="ttdoc">Removes all listeners from the subscription queues. Meant mostly for unit test cleanup but may have o...</div><div class="ttdef"><b>Definition:</b> <a href="a01181_source.html#l00023">Dispatcher.cpp:23</a></div></div>
+<div class="ttc" id="aa02340_html_a36b6226eb7a776e0fc9c798689725bdc"><div class="ttname"><a href="a02340.html#a36b6226eb7a776e0fc9c798689725bdc">bl::event::Dispatcher::subscribe</a></div><div class="ttdeci">static void subscribe(Listener&lt; TEvents... &gt; *listener, bool defer=false)</div><div class="ttdoc">Subscribe the given listener to the event stream for the event types given.</div><div class="ttdef"><b>Definition:</b> <a href="a00236_source.html#l00093">Dispatcher.hpp:93</a></div></div>
+<div class="ttc" id="aa02340_html_a7d6b29860c56388036edd8a38f26a4c7"><div class="ttname"><a href="a02340.html#a7d6b29860c56388036edd8a38f26a4c7">bl::event::Dispatcher::unsubscribe</a></div><div class="ttdeci">static void unsubscribe(Listener&lt; TEvents... &gt; *listener, bool defer=false)</div><div class="ttdoc">Removes the given listener and prevents it from receiving any more events.</div><div class="ttdef"><b>Definition:</b> <a href="a00236_source.html#l00104">Dispatcher.hpp:104</a></div></div>
+<div class="ttc" id="aa02340_html_a7e8186fd38d7cf4f57fffaaaf7f8cb80"><div class="ttname"><a href="a02340.html#a7e8186fd38d7cf4f57fffaaaf7f8cb80">bl::event::Dispatcher::dispatch</a></div><div class="ttdeci">static void dispatch(const T &amp;event)</div><div class="ttdoc">Dispatches the given event to each listener that is subscribed to that type of event.</div><div class="ttdef"><b>Definition:</b> <a href="a00236_source.html#l00099">Dispatcher.hpp:99</a></div></div>
+<div class="ttc" id="aa02340_html_ac7b00210042e2dd107ebbbf3ce7a2c8f"><div class="ttname"><a href="a02340.html#ac7b00210042e2dd107ebbbf3ce7a2c8f">bl::event::Dispatcher::syncListeners</a></div><div class="ttdeci">static void syncListeners()</div><div class="ttdoc">Synchronizes the listener buses. Called once per update cycle by the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a01181_source.html#l00017">Dispatcher.cpp:17</a></div></div>
+<div class="ttc" id="aa02352_html"><div class="ttname"><a href="a02352.html">bl::event::Listener&lt; TEvents... &gt;</a></div></div>
+<div class="ttc" id="aa02364_html"><div class="ttname"><a href="a02364.html">bl::event::priv::SingleDispatcher</a></div><div class="ttdef"><b>Definition:</b> <a href="a00251_source.html#l00026">SingleDispatcher.hpp:26</a></div></div>
+<div class="ttc" id="aa02372_html"><div class="ttname"><a href="a02372.html">bl::event::priv::SubscriberHelper</a></div><div class="ttdef"><b>Definition:</b> <a href="a00254_source.html#l00020">SubscribeHelpers.hpp:20</a></div></div>
+<div class="ttc" id="aa02380_html"><div class="ttname"><a href="a02380.html">bl::event::priv::UnSubscriberHelper</a></div><div class="ttdef"><b>Definition:</b> <a href="a00254_source.html#l00035">SubscribeHelpers.hpp:35</a></div></div>
+<div class="ttc" id="aa03940_html"><div class="ttname"><a href="a03940.html">bl::util::NonCopyable</a></div><div class="ttdoc">Helper class to make derived classes impossible for user to copy directly.</div><div class="ttdef"><b>Definition:</b> <a href="a01052_source.html#l00013">NonCopyable.hpp:13</a></div></div>
+<div class="ttc" id="aa04056_html"><div class="ttname"><a href="a04056.html">bl::event::priv::ReserveOnStartupHelper</a></div><div class="ttdef"><b>Definition:</b> <a href="a01181_source.html#l00009">Dispatcher.cpp:9</a></div></div>
+<div class="ttc" id="aa05046_html"><div class="ttname"><a href="a05046.html">Listener.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 30 2023 22:56:45 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Oct 8 2023 18:56:18 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

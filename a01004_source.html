@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Util/BufferIstreamBuf.hpp Source File</title>
+<title>BLIB: include/BLIB/Systems/BuiltinDrawableSystems.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,41 +66,59 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4b3af2b25a05b4f12e892fbe45139fe9.html">Util</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_daaf59349fe9c08c8ba4d716035ae7ff.html">Systems</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">BufferIstreamBuf.hpp</div>  </div>
+<div class="title">BuiltinDrawableSystems.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01004.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_UTIL_BUFFERISTREAM_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_UTIL_BUFFERISTREAM_HPP</span></div>
+<a href="a01004.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_SYSTEMS_BUILTINDRAWABLESYSTEMS_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_SYSTEMS_BUILTINDRAWABLESYSTEMS_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;istream&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01760.html">bl</a></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>util</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a03789.html">   18</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a03789.html">BufferIstreamBuf</a> : <span class="keyword">public</span> std::basic_streambuf&lt;char, std::char_traits&lt;char&gt;&gt; {</div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a03789.html#ac38ac41956235ba569274f8fb3e63358">   25</a></span>&#160;    <a class="code" href="a03789.html#ac38ac41956235ba569274f8fb3e63358">BufferIstreamBuf</a>(<span class="keywordtype">char</span>* <a class="code" href="a01331.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, std::size_t length) { setg(<a class="code" href="a01331.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, <a class="code" href="a01331.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, <a class="code" href="a01331.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a> + length); }</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;};</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;} <span class="comment">// namespace util</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01331_html_ad2ae6b0ac080ea0ac45f7a06ccc480ba"><div class="ttname"><a href="a01331.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a></div><div class="ttdeci">SoundHandle buffer</div><div class="ttdef"><b>Definition:</b> <a href="a01331_source.html#l00025">AudioSystem.cpp:25</a></div></div>
-<div class="ttc" id="aa01760_html"><div class="ttname"><a href="a01760.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03789_html"><div class="ttname"><a href="a03789.html">bl::util::BufferIstreamBuf</a></div><div class="ttdoc">Helper class that represents a streambuf around a vector&lt;char&gt;. Use to create istream objects from ve...</div><div class="ttdef"><b>Definition:</b> <a href="a01004_source.html#l00018">BufferIstreamBuf.hpp:18</a></div></div>
-<div class="ttc" id="aa03789_html_ac38ac41956235ba569274f8fb3e63358"><div class="ttname"><a href="a03789.html#ac38ac41956235ba569274f8fb3e63358">bl::util::BufferIstreamBuf::BufferIstreamBuf</a></div><div class="ttdeci">BufferIstreamBuf(char *buffer, std::size_t length)</div><div class="ttdoc">Construct a new Buffer Istream Buf from the given buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a01004_source.html#l00025">BufferIstreamBuf.hpp:25</a></div></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a04974.html">BLIB/Components/Animation2D.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00062.html">BLIB/Components/Mesh.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a04986.html">BLIB/Components/Shape2D.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a04992.html">BLIB/Components/Slideshow.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a04998.html">BLIB/Components/Sprite.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05004.html">BLIB/Components/Text.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01010.html">BLIB/Systems/DrawableSystem.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01803.html">bl</a></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span>sys</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a01794.html#ga4477117aea35eeac21751bf038a0098b">   21</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a03156.html">MeshSystem</a> = <a class="code" href="a03156.html">DrawableSystem&lt;com::Mesh&gt;</a>;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a01794.html#ga68bd85b37280b05c447083208d4079f7">   28</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a03156.html">SpriteSystem</a> = <a class="code" href="a03156.html">DrawableSystem&lt;com::Sprite&gt;</a>;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="a01794.html#ga09945f85269b1a8ed93da9da3150378f">   35</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a03156.html">TextSystem</a> = <a class="code" href="a03156.html">DrawableSystem&lt;com::Text&gt;</a>;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="a01794.html#gafc72d25e40dc5e41d1b7876e99072b2f">   42</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a03156.html">SlideshowSystem</a> = <a class="code" href="a03156.html">DrawableSystem&lt;com::Slideshow&gt;</a>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="a01794.html#gae9d9f38e1109df2f51f1c4327fdb2bf0">   49</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a03156.html">Animation2DDrawableSystem</a> = <a class="code" href="a03156.html">DrawableSystem&lt;com::Animation2D&gt;</a>;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="a01794.html#ga15d83a9ebb5cec163379398bf32e248b">   56</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a03156.html">Shape2DSystem</a> = <a class="code" href="a03156.html">DrawableSystem&lt;com::Shape2D&gt;</a>;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;} <span class="comment">// namespace sys</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00062_html"><div class="ttname"><a href="a00062.html">Mesh.hpp</a></div></div>
+<div class="ttc" id="aa01010_html"><div class="ttname"><a href="a01010.html">DrawableSystem.hpp</a></div></div>
+<div class="ttc" id="aa01803_html"><div class="ttname"><a href="a01803.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03156_html"><div class="ttname"><a href="a03156.html">bl::sys::DrawableSystem</a></div><div class="ttdoc">Base class for renderer systems that manage scene objects in the ECS. Custom renderable types should ...</div><div class="ttdef"><b>Definition:</b> <a href="a01010_source.html#l00031">DrawableSystem.hpp:33</a></div></div>
+<div class="ttc" id="aa04974_html"><div class="ttname"><a href="a04974.html">Animation2D.hpp</a></div></div>
+<div class="ttc" id="aa04986_html"><div class="ttname"><a href="a04986.html">Shape2D.hpp</a></div></div>
+<div class="ttc" id="aa04992_html"><div class="ttname"><a href="a04992.html">Slideshow.hpp</a></div></div>
+<div class="ttc" id="aa04998_html"><div class="ttname"><a href="a04998.html">Sprite.hpp</a></div></div>
+<div class="ttc" id="aa05004_html"><div class="ttname"><a href="a05004.html">Text.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 30 2023 22:56:46 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Oct 8 2023 18:56:18 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

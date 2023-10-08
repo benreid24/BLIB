@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Graph/AssetProvider.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Events/OverlayEntityScaled.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,47 +66,48 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_70f08ea54355502249f886f7ca541c6e.html">Graph</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_21e584440d30ea68f12ec1da1ab071c9.html">Events</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">AssetProvider.hpp</div>  </div>
+<div class="title">OverlayEntityScaled.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00620.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_GRAPH_ASSETPROVIDER_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_GRAPH_ASSETPROVIDER_HPP</span></div>
+<a href="a00620.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_EVENTS_OVERLAYENTITYSCALED_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_EVENTS_OVERLAYENTITYSCALED_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01760.html">bl</a></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;{</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00152.html">BLIB/ECS/Entity.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01803.html">bl</a></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>rg</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>rc</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">class </span>Asset;</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a02909.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02909.html">AssetProvider</a> {</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a02909.html#a1ee68495079bbccc701efa4c32ba4133">   22</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02909.html#a1ee68495079bbccc701efa4c32ba4133">~AssetProvider</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a02909.html#a29f2513c04da078f0b4f6b3892e12001">   29</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02897.html">Asset</a>* <a class="code" href="a02909.html#a29f2513c04da078f0b4f6b3892e12001">create</a>() = 0;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;};</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;} <span class="comment">// namespace rg</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01760_html"><div class="ttname"><a href="a01760.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02897_html"><div class="ttname"><a href="a02897.html">bl::rc::rg::Asset</a></div><div class="ttdoc">Base class for assets in render graphs.</div><div class="ttdef"><b>Definition:</b> <a href="a00611_source.html#l00032">Asset.hpp:32</a></div></div>
-<div class="ttc" id="aa02909_html"><div class="ttname"><a href="a02909.html">bl::rc::rg::AssetProvider</a></div><div class="ttdoc">Base class for an asset provider. AssetProviders are used by AssetFactory.</div><div class="ttdef"><b>Definition:</b> <a href="a00620_source.html#l00017">AssetProvider.hpp:17</a></div></div>
-<div class="ttc" id="aa02909_html_a1ee68495079bbccc701efa4c32ba4133"><div class="ttname"><a href="a02909.html#a1ee68495079bbccc701efa4c32ba4133">bl::rc::rg::AssetProvider::~AssetProvider</a></div><div class="ttdeci">virtual ~AssetProvider()=default</div><div class="ttdoc">Destroys the provider.</div></div>
-<div class="ttc" id="aa02909_html_a29f2513c04da078f0b4f6b3892e12001"><div class="ttname"><a href="a02909.html#a29f2513c04da078f0b4f6b3892e12001">bl::rc::rg::AssetProvider::create</a></div><div class="ttdeci">virtual Asset * create()=0</div><div class="ttdoc">Create a new asset instance of the provided type.</div></div>
+<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="a01847.html">   10</a></span>&#160;<span class="keyword">namespace </span>event</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a02964.html">   17</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a02964.html">OverlayEntityScaled</a> {</div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a02964.html#aa2d98a3f4c7d2568077aee34fd74f33d">   23</a></span>&#160;    <a class="code" href="a02964.html#aa2d98a3f4c7d2568077aee34fd74f33d">OverlayEntityScaled</a>(<a class="code" href="a02176.html">ecs::Entity</a> <a class="code" href="a02964.html#ac74d863af4c287f2918bf8b4ea1767db">entity</a>)</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    : <a class="code" href="a02964.html#ac74d863af4c287f2918bf8b4ea1767db">entity</a>(<a class="code" href="a02964.html#ac74d863af4c287f2918bf8b4ea1767db">entity</a>) {}</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a02964.html#ac74d863af4c287f2918bf8b4ea1767db">   26</a></span>&#160;    <span class="keyword">const</span> <a class="code" href="a02176.html">ecs::Entity</a> <a class="code" href="a02964.html#ac74d863af4c287f2918bf8b4ea1767db">entity</a>;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;};</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;} <span class="comment">// namespace event</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00152_html"><div class="ttname"><a href="a00152.html">Entity.hpp</a></div></div>
+<div class="ttc" id="aa01803_html"><div class="ttname"><a href="a01803.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02176_html"><div class="ttname"><a href="a02176.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition:</b> <a href="a00152_source.html#l00023">Entity.hpp:23</a></div></div>
+<div class="ttc" id="aa02964_html"><div class="ttname"><a href="a02964.html">bl::rc::event::OverlayEntityScaled</a></div><div class="ttdoc">Fired when OverlayScalerSystem updates an entity.</div><div class="ttdef"><b>Definition:</b> <a href="a00620_source.html#l00017">OverlayEntityScaled.hpp:17</a></div></div>
+<div class="ttc" id="aa02964_html_aa2d98a3f4c7d2568077aee34fd74f33d"><div class="ttname"><a href="a02964.html#aa2d98a3f4c7d2568077aee34fd74f33d">bl::rc::event::OverlayEntityScaled::OverlayEntityScaled</a></div><div class="ttdeci">OverlayEntityScaled(ecs::Entity entity)</div><div class="ttdoc">Creates a new event.</div><div class="ttdef"><b>Definition:</b> <a href="a00620_source.html#l00023">OverlayEntityScaled.hpp:23</a></div></div>
+<div class="ttc" id="aa02964_html_ac74d863af4c287f2918bf8b4ea1767db"><div class="ttname"><a href="a02964.html#ac74d863af4c287f2918bf8b4ea1767db">bl::rc::event::OverlayEntityScaled::entity</a></div><div class="ttdeci">const ecs::Entity entity</div><div class="ttdef"><b>Definition:</b> <a href="a00620_source.html#l00026">OverlayEntityScaled.hpp:26</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 30 2023 22:56:45 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Oct 8 2023 18:56:18 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Vulkan/StandardAttachmentBuffers.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Vulkan/PerSwapFrame.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,88 +71,59 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">StandardAttachmentBuffers.hpp</div>  </div>
+<div class="title">PerSwapFrame.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00815.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_VULKAN_STANDARDIMAGEBUFFER_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_VULKAN_STANDARDIMAGEBUFFER_HPP</span></div>
+<a href="a00815.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_UTIL_PERSWAPFRAME_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_UTIL_PERSWAPFRAME_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00767.html">BLIB/Render/Vulkan/AttachmentBuffer.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00818.html">BLIB/Render/Vulkan/StandardAttachmentSet.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00827.html">BLIB/Render/Vulkan/VulkanState.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01061.html">BLIB/Vulkan.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01760.html">bl</a></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>rc</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span>vk</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a03257.html">   21</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03257.html">StandardAttachmentBuffers</a> {</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a03257.html#a045342d40146ab0c0eddfe2e349a07d1">   23</a></span>&#160;    <span class="keyword">static</span> constexpr VkFormat <a class="code" href="a03257.html#a045342d40146ab0c0eddfe2e349a07d1">DefaultColorFormat</a> = VK_FORMAT_R8G8B8A8_SRGB;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <a class="code" href="a03257.html#ace5f45b626f7695f0ed76a5658da823a">StandardAttachmentBuffers</a>();</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="a03257.html#a440cf7e204d33b1847993ace6951aa4c">   33</a></span>&#160;    <a class="code" href="a03257.html#a440cf7e204d33b1847993ace6951aa4c">~StandardAttachmentBuffers</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03257.html#a66fcfefa852d9399ecbf7154c68fc6bc">create</a>(<a class="code" href="a03277.html">VulkanState</a>&amp; vulkaState, <span class="keyword">const</span> VkExtent2D&amp; size);</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03257.html#a5e56c55716dd2fd017c3d768fd16cad8">destroy</a>();</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03257.html#a01449e63ae04a6a45eb9b37f604d2cb0">deferDestroy</a>();</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    constexpr <span class="keyword">const</span> <a class="code" href="a03261.html">StandardAttachmentSet</a>&amp; <a class="code" href="a03257.html#af86e8642a02edb3389321b0fb5439b2f">attachmentSet</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01803.html">bl</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>vk</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">class </span>Swapchain;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a03292.html">   23</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03292.html">PerSwapFrame</a> {</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <a class="code" href="a03292.html#a17d219888103e6e13bd8db38cf8d7425">PerSwapFrame</a>();</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCb&gt;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03292.html#a7a4260379573a1bd26052a0bb455fbae">init</a>(<a class="code" href="a03352.html">Swapchain</a>&amp; swapchain, <span class="keyword">const</span> TCb&amp; visitor);</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCb&gt;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03292.html#ad35fb2222a5c46a2fd1c2ca1e0442b33">cleanup</a>(<span class="keyword">const</span> TCb&amp; visitor);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    constexpr T&amp; <a class="code" href="a03292.html#a3a0490d5ae33c7f65c08905918d1416c">current</a>();</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    constexpr <span class="keyword">const</span> VkExtent2D&amp; <a class="code" href="a03257.html#a1aed7648107831ff98c43232093074a5">bufferSize</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keyword">static</span> VkFormat <a class="code" href="a03257.html#adbaa6e3ac32866a031e9462f5deffe09">findDepthFormat</a>(<a class="code" href="a03277.html">VulkanState</a>&amp; vulkanState);</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <a class="code" href="a03277.html">VulkanState</a>* owner;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <a class="code" href="a03261.html">StandardAttachmentSet</a> attachments;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <a class="code" href="a03157.html">AttachmentBuffer</a> colorAttachment;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <a class="code" href="a03157.html">AttachmentBuffer</a> depthAttachment;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;};</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="a03257.html#af86e8642a02edb3389321b0fb5439b2f">   80</a></span>&#160;<span class="keyword">inline</span> constexpr <span class="keyword">const</span> <a class="code" href="a03261.html">StandardAttachmentSet</a>&amp; <a class="code" href="a03257.html#af86e8642a02edb3389321b0fb5439b2f">StandardAttachmentBuffers::attachmentSet</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keywordflow">return</span> attachments;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;}</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
-<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="a03257.html#a1aed7648107831ff98c43232093074a5">   84</a></span>&#160;<span class="keyword">inline</span> constexpr <span class="keyword">const</span> VkExtent2D&amp; <a class="code" href="a03257.html#a1aed7648107831ff98c43232093074a5">StandardAttachmentBuffers::bufferSize</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordflow">return</span> attachments.<a class="code" href="a03161.html#a3b2d23677dd641f2c0e0dda9444662b7">renderExtent</a>();</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;}</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;} <span class="comment">// namespace vk</span></div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00767_html"><div class="ttname"><a href="a00767.html">AttachmentBuffer.hpp</a></div></div>
-<div class="ttc" id="aa00818_html"><div class="ttname"><a href="a00818.html">StandardAttachmentSet.hpp</a></div></div>
-<div class="ttc" id="aa00827_html"><div class="ttname"><a href="a00827.html">VulkanState.hpp</a></div></div>
-<div class="ttc" id="aa01061_html"><div class="ttname"><a href="a01061.html">Vulkan.hpp</a></div></div>
-<div class="ttc" id="aa01760_html"><div class="ttname"><a href="a01760.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03157_html"><div class="ttname"><a href="a03157.html">bl::rc::vk::AttachmentBuffer</a></div><div class="ttdoc">Utility class to create and manage an image attachment.</div><div class="ttdef"><b>Definition:</b> <a href="a00767_source.html#l00019">AttachmentBuffer.hpp:19</a></div></div>
-<div class="ttc" id="aa03161_html_a3b2d23677dd641f2c0e0dda9444662b7"><div class="ttname"><a href="a03161.html#a3b2d23677dd641f2c0e0dda9444662b7">bl::rc::vk::AttachmentSet::renderExtent</a></div><div class="ttdeci">constexpr const VkExtent2D &amp; renderExtent() const</div><div class="ttdoc">Returns the size of the renderable area.</div><div class="ttdef"><b>Definition:</b> <a href="a00770_source.html#l00080">AttachmentSet.hpp:80</a></div></div>
-<div class="ttc" id="aa03257_html"><div class="ttname"><a href="a03257.html">bl::rc::vk::StandardAttachmentBuffers</a></div><div class="ttdoc">Resource class that can create renderable target images that are compatible with most rendering flows...</div><div class="ttdef"><b>Definition:</b> <a href="a00815_source.html#l00021">StandardAttachmentBuffers.hpp:21</a></div></div>
-<div class="ttc" id="aa03257_html_a01449e63ae04a6a45eb9b37f604d2cb0"><div class="ttname"><a href="a03257.html#a01449e63ae04a6a45eb9b37f604d2cb0">bl::rc::vk::StandardAttachmentBuffers::deferDestroy</a></div><div class="ttdeci">void deferDestroy()</div><div class="ttdoc">Queues destruction for later.</div><div class="ttdef"><b>Definition:</b> <a href="a01571_source.html#l00036">StandardAttachmentBuffers.cpp:36</a></div></div>
-<div class="ttc" id="aa03257_html_a045342d40146ab0c0eddfe2e349a07d1"><div class="ttname"><a href="a03257.html#a045342d40146ab0c0eddfe2e349a07d1">bl::rc::vk::StandardAttachmentBuffers::DefaultColorFormat</a></div><div class="ttdeci">static constexpr VkFormat DefaultColorFormat</div><div class="ttdef"><b>Definition:</b> <a href="a00815_source.html#l00023">StandardAttachmentBuffers.hpp:23</a></div></div>
-<div class="ttc" id="aa03257_html_a1aed7648107831ff98c43232093074a5"><div class="ttname"><a href="a03257.html#a1aed7648107831ff98c43232093074a5">bl::rc::vk::StandardAttachmentBuffers::bufferSize</a></div><div class="ttdeci">constexpr const VkExtent2D &amp; bufferSize() const</div><div class="ttdoc">Returns the size of the images contained in the buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a00815_source.html#l00084">StandardAttachmentBuffers.hpp:84</a></div></div>
-<div class="ttc" id="aa03257_html_a440cf7e204d33b1847993ace6951aa4c"><div class="ttname"><a href="a03257.html#a440cf7e204d33b1847993ace6951aa4c">bl::rc::vk::StandardAttachmentBuffers::~StandardAttachmentBuffers</a></div><div class="ttdeci">~StandardAttachmentBuffers()=default</div><div class="ttdoc">Frees resources if not already destroyed.</div></div>
-<div class="ttc" id="aa03257_html_a5e56c55716dd2fd017c3d768fd16cad8"><div class="ttname"><a href="a03257.html#a5e56c55716dd2fd017c3d768fd16cad8">bl::rc::vk::StandardAttachmentBuffers::destroy</a></div><div class="ttdeci">void destroy()</div><div class="ttdoc">Destroys the images, views, sampler, and frees GPU memory.</div><div class="ttdef"><b>Definition:</b> <a href="a01571_source.html#l00028">StandardAttachmentBuffers.cpp:28</a></div></div>
-<div class="ttc" id="aa03257_html_a66fcfefa852d9399ecbf7154c68fc6bc"><div class="ttname"><a href="a03257.html#a66fcfefa852d9399ecbf7154c68fc6bc">bl::rc::vk::StandardAttachmentBuffers::create</a></div><div class="ttdeci">void create(VulkanState &amp;vulkaState, const VkExtent2D &amp;size)</div><div class="ttdoc">Frees prior images, if any, and creates a new color and depth image.</div><div class="ttdef"><b>Definition:</b> <a href="a01571_source.html#l00012">StandardAttachmentBuffers.cpp:12</a></div></div>
-<div class="ttc" id="aa03257_html_ace5f45b626f7695f0ed76a5658da823a"><div class="ttname"><a href="a03257.html#ace5f45b626f7695f0ed76a5658da823a">bl::rc::vk::StandardAttachmentBuffers::StandardAttachmentBuffers</a></div><div class="ttdeci">StandardAttachmentBuffers()</div><div class="ttdoc">Creates an empty render buffer with no resources.</div><div class="ttdef"><b>Definition:</b> <a href="a01571_source.html#l00009">StandardAttachmentBuffers.cpp:9</a></div></div>
-<div class="ttc" id="aa03257_html_adbaa6e3ac32866a031e9462f5deffe09"><div class="ttname"><a href="a03257.html#adbaa6e3ac32866a031e9462f5deffe09">bl::rc::vk::StandardAttachmentBuffers::findDepthFormat</a></div><div class="ttdeci">static VkFormat findDepthFormat(VulkanState &amp;vulkanState)</div><div class="ttdoc">Helper function find the proper format to use for the depth buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a01571_source.html#l00044">StandardAttachmentBuffers.cpp:44</a></div></div>
-<div class="ttc" id="aa03257_html_af86e8642a02edb3389321b0fb5439b2f"><div class="ttname"><a href="a03257.html#af86e8642a02edb3389321b0fb5439b2f">bl::rc::vk::StandardAttachmentBuffers::attachmentSet</a></div><div class="ttdeci">constexpr const StandardAttachmentSet &amp; attachmentSet() const</div><div class="ttdoc">Returns the attachment set to use to render to this target.</div><div class="ttdef"><b>Definition:</b> <a href="a00815_source.html#l00080">StandardAttachmentBuffers.hpp:80</a></div></div>
-<div class="ttc" id="aa03261_html"><div class="ttname"><a href="a03261.html">bl::rc::vk::StandardAttachmentSet</a></div><div class="ttdoc">Attachment set containing the standard attachments for render frames in the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00818_source.html#l00021">StandardAttachmentSet.hpp:21</a></div></div>
-<div class="ttc" id="aa03277_html"><div class="ttname"><a href="a03277.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a00827_source.html#l00036">VulkanState.hpp:36</a></div></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    constexpr <span class="keyword">const</span> T&amp; <a class="code" href="a03292.html#a3a0490d5ae33c7f65c08905918d1416c">current</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <a class="code" href="a03352.html">Swapchain</a>* chain;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    std::vector&lt;T&gt; data;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;};</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;} <span class="comment">// namespace vk</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01803_html"><div class="ttname"><a href="a01803.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03292_html"><div class="ttname"><a href="a03292.html">bl::rc::vk::PerSwapFrame</a></div><div class="ttdoc">Utility class to manage objects where one instance is needed per image in the swap chain....</div><div class="ttdef"><b>Definition:</b> <a href="a00815_source.html#l00023">PerSwapFrame.hpp:23</a></div></div>
+<div class="ttc" id="aa03292_html_a17d219888103e6e13bd8db38cf8d7425"><div class="ttname"><a href="a03292.html#a17d219888103e6e13bd8db38cf8d7425">bl::rc::vk::PerSwapFrame::PerSwapFrame</a></div><div class="ttdeci">PerSwapFrame()</div><div class="ttdoc">Creates an empty structure.</div><div class="ttdef"><b>Definition:</b> <a href="a00842_source.html#l00138">Swapchain.hpp:138</a></div></div>
+<div class="ttc" id="aa03292_html_a3a0490d5ae33c7f65c08905918d1416c"><div class="ttname"><a href="a03292.html#a3a0490d5ae33c7f65c08905918d1416c">bl::rc::vk::PerSwapFrame::current</a></div><div class="ttdeci">constexpr T &amp; current()</div><div class="ttdoc">Returns a reference to the currently active object.</div><div class="ttdef"><b>Definition:</b> <a href="a00842_source.html#l00160">Swapchain.hpp:160</a></div></div>
+<div class="ttc" id="aa03292_html_a7a4260379573a1bd26052a0bb455fbae"><div class="ttname"><a href="a03292.html#a7a4260379573a1bd26052a0bb455fbae">bl::rc::vk::PerSwapFrame::init</a></div><div class="ttdeci">void init(Swapchain &amp;swapchain, const TCb &amp;visitor)</div><div class="ttdoc">Initializes the contained objects. Clears the underlying storage before creating new objects.</div><div class="ttdef"><b>Definition:</b> <a href="a00842_source.html#l00143">Swapchain.hpp:143</a></div></div>
+<div class="ttc" id="aa03292_html_ad35fb2222a5c46a2fd1c2ca1e0442b33"><div class="ttname"><a href="a03292.html#ad35fb2222a5c46a2fd1c2ca1e0442b33">bl::rc::vk::PerSwapFrame::cleanup</a></div><div class="ttdeci">void cleanup(const TCb &amp;visitor)</div><div class="ttdoc">Runs a cleanup visitor per-object.</div><div class="ttdef"><b>Definition:</b> <a href="a00842_source.html#l00155">Swapchain.hpp:155</a></div></div>
+<div class="ttc" id="aa03352_html"><div class="ttname"><a href="a03352.html">bl::rc::vk::Swapchain</a></div><div class="ttdoc">Utility class for managing the Vulkan swap chain.</div><div class="ttdef"><b>Definition:</b> <a href="a00842_source.html#l00026">Swapchain.hpp:26</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 30 2023 22:56:46 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Oct 8 2023 18:56:18 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

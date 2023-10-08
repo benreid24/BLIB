@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Graph/Providers/StandardTargetProvider.cpp Source File</title>
+<title>BLIB: src/Render/Descriptors/DescriptorSetInstance.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,37 +66,41 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_7ebf59129457ae24134db92256c2545a.html">Graph</a></li><li class="navelem"><a class="el" href="dir_d1f75c974a7668dd3cdf10ddc389f4cf.html">Providers</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_c46d59b26ba1c7a895704386ecf9511b.html">Descriptors</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">StandardTargetProvider.cpp</div>  </div>
+<div class="title">DescriptorSetInstance.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01448.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00650.html">BLIB/Render/Graph/Providers/StandardTargetProvider.hpp</a>&gt;</span></div>
+<a href="a01448.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00611.html">BLIB/Render/Descriptors/DescriptorSetInstance.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00635.html">BLIB/Render/Graph/Assets/StandardTargetAsset.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;limits&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01760.html">bl</a></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01803.html">bl</a></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>rc</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>rgi</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>ds</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;rg::Asset* StandardAssetProvider::create() { <span class="keywordflow">return</span> <span class="keyword">new</span> StandardTargetAsset(); }</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;} <span class="comment">// namespace rgi</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00635_html"><div class="ttname"><a href="a00635.html">StandardTargetAsset.hpp</a></div></div>
-<div class="ttc" id="aa00650_html"><div class="ttname"><a href="a00650.html">StandardTargetProvider.hpp</a></div></div>
-<div class="ttc" id="aa01760_html"><div class="ttname"><a href="a01760.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="a02952.html#a8824c7c30fbcff84b14719d6c01dd617">   11</a></span>&#160;<a class="code" href="a02952.html#a8824c7c30fbcff84b14719d6c01dd617">DescriptorSetInstance::DescriptorSetInstance</a>(<a class="code" href="a02952.html#a0d2abd5826961d67047b9e5b4d60e611">BindMode</a> bindMode, <a class="code" href="a02952.html#a56d01a7643e3e65933db3c5a957db66f">SpeedBucketSetting</a> speedSetting)</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;: bindless(bindMode == Bindless)</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;, speedBind(speedSetting == RebindForNewSpeed) {}</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;} <span class="comment">// namespace ds</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00611_html"><div class="ttname"><a href="a00611.html">DescriptorSetInstance.hpp</a></div></div>
+<div class="ttc" id="aa01803_html"><div class="ttname"><a href="a01803.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02952_html_a0d2abd5826961d67047b9e5b4d60e611"><div class="ttname"><a href="a02952.html#a0d2abd5826961d67047b9e5b4d60e611">bl::rc::ds::DescriptorSetInstance::BindMode</a></div><div class="ttdeci">BindMode</div><div class="ttdoc">Bind mode of the descriptor set.</div><div class="ttdef"><b>Definition:</b> <a href="a00611_source.html#l00033">DescriptorSetInstance.hpp:33</a></div></div>
+<div class="ttc" id="aa02952_html_a56d01a7643e3e65933db3c5a957db66f"><div class="ttname"><a href="a02952.html#a56d01a7643e3e65933db3c5a957db66f">bl::rc::ds::DescriptorSetInstance::SpeedBucketSetting</a></div><div class="ttdeci">SpeedBucketSetting</div><div class="ttdoc">Whether or not the descriptor set needs to be re-bound for different update speeds.</div><div class="ttdef"><b>Definition:</b> <a href="a00611_source.html#l00036">DescriptorSetInstance.hpp:36</a></div></div>
+<div class="ttc" id="aa02952_html_a8824c7c30fbcff84b14719d6c01dd617"><div class="ttname"><a href="a02952.html#a8824c7c30fbcff84b14719d6c01dd617">bl::rc::ds::DescriptorSetInstance::DescriptorSetInstance</a></div><div class="ttdeci">DescriptorSetInstance(BindMode bindMode, SpeedBucketSetting speedSetting)</div><div class="ttdoc">Creates a new DescriptorSetInstance.</div><div class="ttdef"><b>Definition:</b> <a href="a01448_source.html#l00011">DescriptorSetInstance.cpp:11</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 30 2023 22:56:46 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Oct 8 2023 18:56:19 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Overlays/Viewport.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Graph/Tasks/ForwardRenderTask.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,63 +66,65 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_f985e6d9d3c728bc93d2b173ef2ebe49.html">Overlays</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_70f08ea54355502249f886f7ca541c6e.html">Graph</a></li><li class="navelem"><a class="el" href="dir_adf8e29d1ba8d413d8ee6c1365267c96.html">Tasks</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Viewport.hpp</div>  </div>
+<div class="title">ForwardRenderTask.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00692.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_OVERLAYS_VIEWPORT_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_OVERLAYS_VIEWPORT_HPP</span></div>
+<a href="a00692.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_GRAPH_TASKS_FORWARDRENDERTASK_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_GRAPH_TASKS_FORWARDRENDERTASK_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01061.html">BLIB/Vulkan.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;SFML/Graphics/Rect.hpp&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01760.html">bl</a></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>rc</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>ovy</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a03017.html">   19</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03017.html">Viewport</a> {</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00644.html">BLIB/Render/Graph/Assets/FramebufferAsset.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00647.html">BLIB/Render/Graph/Assets/SceneAsset.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00677.html">BLIB/Render/Graph/Task.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01803.html">bl</a></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>rgi</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a03068.html">   19</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03068.html">ForwardRenderTask</a> : <span class="keyword">public</span> <a class="code" href="a03048.html">rg::Task</a> {</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keyword">static</span> <a class="code" href="a03017.html">Viewport</a> <a class="code" href="a03017.html#a7ebac59be605af4ea6890e005ee92304">absolute</a>(<span class="keyword">const</span> sf::FloatRect&amp; viewport);</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keyword">static</span> <a class="code" href="a03017.html">Viewport</a> <a class="code" href="a03017.html#abce9c9f5a97b5b970ab25d7abf26484c">relative</a>(<span class="keyword">const</span> sf::FloatRect&amp; viewport);</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    VkViewport <a class="code" href="a03017.html#acbd15d27ee072c258beadebe55c05eb7">createViewport</a>(<span class="keyword">const</span> VkViewport&amp; global, <span class="keyword">const</span> VkViewport&amp; parent) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keyword">static</span> VkRect2D <a class="code" href="a03017.html#ae6f0f9360ff5222cece8a59c6fcc07db">viewportToScissor</a>(<span class="keyword">const</span> VkViewport&amp; viewport);</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keyword">static</span> VkViewport <a class="code" href="a03017.html#ac3d0ce1a2ee4a48ab7571660aa4c17cd">scissorToViewport</a>(<span class="keyword">const</span> VkRect2D&amp; scissor);</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordtype">bool</span> isAbsolute;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    sf::FloatRect region;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <a class="code" href="a03017.html">Viewport</a>(<span class="keywordtype">bool</span> abs, <span class="keyword">const</span> sf::FloatRect&amp; region);</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;};</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;} <span class="comment">// namespace ovy</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01061_html"><div class="ttname"><a href="a01061.html">Vulkan.hpp</a></div></div>
-<div class="ttc" id="aa01760_html"><div class="ttname"><a href="a01760.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03017_html"><div class="ttname"><a href="a03017.html">bl::rc::ovy::Viewport</a></div><div class="ttdoc">Represents a relative or absolute viewport for overlays. Is defined with respect to the global or par...</div><div class="ttdef"><b>Definition:</b> <a href="a00692_source.html#l00019">Viewport.hpp:19</a></div></div>
-<div class="ttc" id="aa03017_html_a7ebac59be605af4ea6890e005ee92304"><div class="ttname"><a href="a03017.html#a7ebac59be605af4ea6890e005ee92304">bl::rc::ovy::Viewport::absolute</a></div><div class="ttdeci">static Viewport absolute(const sf::FloatRect &amp;viewport)</div><div class="ttdoc">Create a viewport that is relative to the global rendering region.</div><div class="ttdef"><b>Definition:</b> <a href="a01481_source.html#l00015">Viewport.cpp:15</a></div></div>
-<div class="ttc" id="aa03017_html_abce9c9f5a97b5b970ab25d7abf26484c"><div class="ttname"><a href="a03017.html#abce9c9f5a97b5b970ab25d7abf26484c">bl::rc::ovy::Viewport::relative</a></div><div class="ttdeci">static Viewport relative(const sf::FloatRect &amp;viewport)</div><div class="ttdoc">Create a viewport that is relative to the parent rendering region.</div><div class="ttdef"><b>Definition:</b> <a href="a01481_source.html#l00017">Viewport.cpp:17</a></div></div>
-<div class="ttc" id="aa03017_html_ac3d0ce1a2ee4a48ab7571660aa4c17cd"><div class="ttname"><a href="a03017.html#ac3d0ce1a2ee4a48ab7571660aa4c17cd">bl::rc::ovy::Viewport::scissorToViewport</a></div><div class="ttdeci">static VkViewport scissorToViewport(const VkRect2D &amp;scissor)</div><div class="ttdoc">Converts the given scissor to a viewport of the same region.</div><div class="ttdef"><b>Definition:</b> <a href="a01481_source.html#l00041">Viewport.cpp:41</a></div></div>
-<div class="ttc" id="aa03017_html_acbd15d27ee072c258beadebe55c05eb7"><div class="ttname"><a href="a03017.html#acbd15d27ee072c258beadebe55c05eb7">bl::rc::ovy::Viewport::createViewport</a></div><div class="ttdeci">VkViewport createViewport(const VkViewport &amp;global, const VkViewport &amp;parent) const</div><div class="ttdoc">Constructs the Vulkan viewport from this viewport.</div><div class="ttdef"><b>Definition:</b> <a href="a01481_source.html#l00019">Viewport.cpp:19</a></div></div>
-<div class="ttc" id="aa03017_html_ae6f0f9360ff5222cece8a59c6fcc07db"><div class="ttname"><a href="a03017.html#ae6f0f9360ff5222cece8a59c6fcc07db">bl::rc::ovy::Viewport::viewportToScissor</a></div><div class="ttdeci">static VkRect2D viewportToScissor(const VkViewport &amp;viewport)</div><div class="ttdoc">Converts the given viewport into a scissor of the same region.</div><div class="ttdef"><b>Definition:</b> <a href="a01481_source.html#l00032">Viewport.cpp:32</a></div></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <a class="code" href="a03068.html#a75c041d83718b4fb9e2e24f0cfd64a26">ForwardRenderTask</a>();</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a03068.html#a16b44a007aa04318d4b48eafbc92dd88">   29</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03068.html#a16b44a007aa04318d4b48eafbc92dd88">~ForwardRenderTask</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <a class="code" href="a02996.html">FramebufferAsset</a>* output;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <a class="code" href="a03000.html">SceneAsset</a>* scene;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> create(<a class="code" href="a02264.html">engine::Engine</a>&amp; engine, <a class="code" href="a03112.html">Renderer</a>&amp; renderer) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> onGraphInit() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> execute(<span class="keyword">const</span> <a class="code" href="a03012.html">rg::ExecutionContext</a>&amp; ctx) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;};</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;} <span class="comment">// namespace rgi</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00644_html"><div class="ttname"><a href="a00644.html">FramebufferAsset.hpp</a></div></div>
+<div class="ttc" id="aa00647_html"><div class="ttname"><a href="a00647.html">SceneAsset.hpp</a></div></div>
+<div class="ttc" id="aa00677_html"><div class="ttname"><a href="a00677.html">Task.hpp</a></div></div>
+<div class="ttc" id="aa01803_html"><div class="ttname"><a href="a01803.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02264_html"><div class="ttname"><a href="a02264.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a05028_source.html#l00031">Engine.hpp:31</a></div></div>
+<div class="ttc" id="aa02996_html"><div class="ttname"><a href="a02996.html">bl::rc::rgi::FramebufferAsset</a></div><div class="ttdoc">Intermediate base class for assets that provide framebuffers.</div><div class="ttdef"><b>Definition:</b> <a href="a00644_source.html#l00021">FramebufferAsset.hpp:21</a></div></div>
+<div class="ttc" id="aa03000_html"><div class="ttname"><a href="a03000.html">bl::rc::rgi::SceneAsset</a></div><div class="ttdoc">Basic asset that provides the scene to tasks.</div><div class="ttdef"><b>Definition:</b> <a href="a00647_source.html#l00019">SceneAsset.hpp:19</a></div></div>
+<div class="ttc" id="aa03012_html"><div class="ttname"><a href="a03012.html">bl::rc::rg::ExecutionContext</a></div><div class="ttdoc">Context containing graph execution data that is passed down to tasks.</div><div class="ttdef"><b>Definition:</b> <a href="a00656_source.html#l00025">ExecutionContext.hpp:25</a></div></div>
+<div class="ttc" id="aa03048_html"><div class="ttname"><a href="a03048.html">bl::rc::rg::Task</a></div><div class="ttdoc">Base class for tasks within a RenderGraph.</div><div class="ttdef"><b>Definition:</b> <a href="a00677_source.html#l00025">Task.hpp:25</a></div></div>
+<div class="ttc" id="aa03068_html"><div class="ttname"><a href="a03068.html">bl::rc::rgi::ForwardRenderTask</a></div><div class="ttdoc">Basic forward renderer that calls into the scene render methods.</div><div class="ttdef"><b>Definition:</b> <a href="a00692_source.html#l00019">ForwardRenderTask.hpp:19</a></div></div>
+<div class="ttc" id="aa03068_html_a16b44a007aa04318d4b48eafbc92dd88"><div class="ttname"><a href="a03068.html#a16b44a007aa04318d4b48eafbc92dd88">bl::rc::rgi::ForwardRenderTask::~ForwardRenderTask</a></div><div class="ttdeci">virtual ~ForwardRenderTask()=default</div><div class="ttdoc">Destroys the task.</div></div>
+<div class="ttc" id="aa03068_html_a75c041d83718b4fb9e2e24f0cfd64a26"><div class="ttname"><a href="a03068.html#a75c041d83718b4fb9e2e24f0cfd64a26">bl::rc::rgi::ForwardRenderTask::ForwardRenderTask</a></div><div class="ttdeci">ForwardRenderTask()</div><div class="ttdoc">Creates a new forward renderer task.</div><div class="ttdef"><b>Definition:</b> <a href="a01499_source.html#l00013">ForwardRenderTask.cpp:13</a></div></div>
+<div class="ttc" id="aa03112_html"><div class="ttname"><a href="a03112.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition:</b> <a href="a05079_source.html#l00039">Renderer.hpp:39</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 30 2023 22:56:45 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Oct 8 2023 18:56:18 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

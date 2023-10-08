@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Scripts/ReferenceValue.cpp Source File</title>
+<title>BLIB: src/Resources/Bundling/FileHandlers/AnimationHandler.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,76 +66,57 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3ac9928fc2e7e2cbc53db7c1a11acda2.html">Scripts</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_7a475d59e09b1ce69b1dfbc6b0817add.html">Resources</a></li><li class="navelem"><a class="el" href="dir_650c2bb72fa499737589ce0469633186.html">Bundling</a></li><li class="navelem"><a class="el" href="dir_aa9914aaa11d841a9b5a3bf23363db45.html">FileHandlers</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">ReferenceValue.cpp</div>  </div>
+<div class="title">AnimationHandler.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01649.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00905.html">BLIB/Scripts/ReferenceValue.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00914.html">BLIB/Scripts/Value.hpp</a>&gt;</span></div>
+<a href="a01649.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00257.html">BLIB/Graphics/Animation2D/AnimationData.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00878.html">BLIB/Resources/Bundling/FileHandlers/AnimationHandler.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01760.html">bl</a></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01803.html">bl</a></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;{</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>script</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>resource</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>bundle</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;Value* get(<span class="keyword">const</span> std::variant&lt;std::shared_ptr&lt;Value&gt;, Value*&gt;&amp; val) {</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <span class="keywordflow">return</span> val.index() == 0 ? std::get_if&lt;std::shared_ptr&lt;Value&gt;&gt;(&amp;val)-&gt;get() :</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;                              *<a class="code" href="a01774.html">std</a>::get_if&lt;Value*&gt;(&amp;val);</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;}</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;} <span class="comment">// namespace</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a03445.html#a74990d22cd7c939ef84c77c5c7c804cf">   16</a></span>&#160;<a class="code" href="a03445.html#a8d7f6ceda6658e98684f1605bade87c1">ReferenceValue::ReferenceValue</a>(std::shared_ptr&lt;Value&gt;&amp;&amp; ptr)</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;: value(ptr) {}</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a03445.html#a5ddfd286965db4383361113b2b43113c">   19</a></span>&#160;<a class="code" href="a03445.html#a8d7f6ceda6658e98684f1605bade87c1">ReferenceValue::ReferenceValue</a>(<a class="code" href="a03461.html">Value</a>&amp;&amp; mv) { value.emplace&lt;std::shared_ptr&lt;Value&gt;&gt;(<span class="keyword">new</span> <a class="code" href="a03461.html">Value</a>(mv)); }</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a03445.html#a68be6f9e1fd922e62ecffbab9db28a81">   21</a></span>&#160;<a class="code" href="a03445.html#a8d7f6ceda6658e98684f1605bade87c1">ReferenceValue::ReferenceValue</a>(<span class="keyword">const</span> <a class="code" href="a03461.html">Value</a>&amp; cv) {</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    value.emplace&lt;std::shared_ptr&lt;Value&gt;&gt;(<span class="keyword">new</span> <a class="code" href="a03461.html">Value</a>(cv));</div>
+<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="a03412.html#adf22a2d2b974daba7cf8ec92a0bdcf89">   10</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a03412.html#adf22a2d2b974daba7cf8ec92a0bdcf89">AnimationHandler::processFile</a>(<span class="keyword">const</span> std::string&amp; path, std::ostream&amp; output,</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;                                   <a class="code" href="a03408.html">FileHandlerContext</a>&amp; ctx) {</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <a class="code" href="a02384.html">gfx::a2d::AnimationData</a> anim;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keywordflow">if</span> (!anim.<a class="code" href="a02384.html#a649a534c5017ee0df847c56712b43ff4">loadFromFileForBundling</a>(path)) {</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        <a class="code" href="a00485.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Failed to load animation: &quot;</span> &lt;&lt; path;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    }</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordflow">if</span> (!anim.<a class="code" href="a02384.html#a7aef7ec2981c8f70da4ad9dd2686c836">saveToBundle</a>(output)) {</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        <a class="code" href="a00485.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Failed to save animation: &quot;</span> &lt;&lt; path;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    }</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    ctx.<a class="code" href="a03408.html#a117fbcb7e5871373ebb7270b39b20721">addDependencyFile</a>(anim.<a class="code" href="a02384.html#a607d12f4ec60fe3da673878856f380ff">spritesheetFile</a>());</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;}</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a03445.html#ada9935f66d19c91769b662dd3bcfc72f">   25</a></span>&#160;<a class="code" href="a03445.html#a8d7f6ceda6658e98684f1605bade87c1">ReferenceValue::ReferenceValue</a>(<a class="code" href="a03461.html">Value</a>* val) { value.emplace&lt;<a class="code" href="a03461.html">Value</a>*&gt;(val); }</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="a03445.html#a57d32cd7c5bd824b1d0a9cc45ecbe672">   27</a></span>&#160;<span class="keyword">const</span> <a class="code" href="a03461.html">Value</a>&amp; <a class="code" href="a03445.html#a57d32cd7c5bd824b1d0a9cc45ecbe672">ReferenceValue::deref</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> *<span class="keyword">const_cast&lt;</span><a class="code" href="a03445.html">ReferenceValue</a>*<span class="keyword">&gt;</span>(<span class="keyword">this</span>)-&gt;ptr(); }</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a03445.html#ae46c9fb3e95b502f6ed78e2615f5bdbb">   29</a></span>&#160;<a class="code" href="a03461.html">Value</a>&amp; <a class="code" href="a03445.html#a57d32cd7c5bd824b1d0a9cc45ecbe672">ReferenceValue::deref</a>() { <span class="keywordflow">return</span> *ptr(); }</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="a03445.html#aeee3ebad7744898f2280a77fe8349de8">   31</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03445.html#aeee3ebad7744898f2280a77fe8349de8">ReferenceValue::makeSafe</a>() {</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordflow">if</span> (value.index() == 1) {</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <a class="code" href="a03461.html">Value</a>* v = std::get&lt;Value*&gt;(value);</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        value.emplace&lt;std::shared_ptr&lt;Value&gt;&gt;(<span class="keyword">new</span> <a class="code" href="a03461.html">Value</a>(*v));</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    }</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;}</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<a class="code" href="a03461.html">Value</a>* ReferenceValue::ptr() {</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <a class="code" href="a03461.html">Value</a>* v = get(value);</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordflow">while</span> (v-&gt;_value.<a class="code" href="a03437.html#a7bc30156ed009da88ac38b8b8a858d99">getType</a>() == <a class="code" href="a03437.html#ae46c56f7af29255ac8f117a0f97d593ba527b9b1f5fd953ea5f9814b54540f38c">PrimitiveValue::TRef</a>) { v = get(v-&gt;_value.<a class="code" href="a03437.html#a5585632b7c19f15a256a703379f958f6">getAsRef</a>().value); }</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordflow">return</span> v;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;}</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;} <span class="comment">// namespace script</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00905_html"><div class="ttname"><a href="a00905.html">ReferenceValue.hpp</a></div></div>
-<div class="ttc" id="aa00914_html"><div class="ttname"><a href="a00914.html">Value.hpp</a></div></div>
-<div class="ttc" id="aa01760_html"><div class="ttname"><a href="a01760.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa01774_html"><div class="ttname"><a href="a01774.html">std</a></div><div class="ttdef"><b>Definition:</b> <a href="a00125_source.html#l00154">Entity.hpp:155</a></div></div>
-<div class="ttc" id="aa03437_html_a5585632b7c19f15a256a703379f958f6"><div class="ttname"><a href="a03437.html#a5585632b7c19f15a256a703379f958f6">bl::script::PrimitiveValue::getAsRef</a></div><div class="ttdeci">const ReferenceValue &amp; getAsRef() const</div><div class="ttdoc">Get the value as ReferenceValue value.</div><div class="ttdef"><b>Definition:</b> <a href="a01646_source.html#l00188">PrimitiveValue.cpp:188</a></div></div>
-<div class="ttc" id="aa03437_html_a7bc30156ed009da88ac38b8b8a858d99"><div class="ttname"><a href="a03437.html#a7bc30156ed009da88ac38b8b8a858d99">bl::script::PrimitiveValue::getType</a></div><div class="ttdeci">Type getType() const</div><div class="ttdoc">Returns the current type of this PrimitiveValue.</div><div class="ttdef"><b>Definition:</b> <a href="a01646_source.html#l00113">PrimitiveValue.cpp:113</a></div></div>
-<div class="ttc" id="aa03437_html_ae46c56f7af29255ac8f117a0f97d593ba527b9b1f5fd953ea5f9814b54540f38c"><div class="ttname"><a href="a03437.html#ae46c56f7af29255ac8f117a0f97d593ba527b9b1f5fd953ea5f9814b54540f38c">bl::script::PrimitiveValue::TRef</a></div><div class="ttdeci">@ TRef</div><div class="ttdef"><b>Definition:</b> <a href="a00902_source.html#l00034">PrimitiveValue.hpp:34</a></div></div>
-<div class="ttc" id="aa03445_html"><div class="ttname"><a href="a03445.html">bl::script::ReferenceValue</a></div><div class="ttdoc">Reference type for values. Wrapper around std::shared_ptr.</div><div class="ttdef"><b>Definition:</b> <a href="a00905_source.html#l00019">ReferenceValue.hpp:19</a></div></div>
-<div class="ttc" id="aa03445_html_a57d32cd7c5bd824b1d0a9cc45ecbe672"><div class="ttname"><a href="a03445.html#a57d32cd7c5bd824b1d0a9cc45ecbe672">bl::script::ReferenceValue::deref</a></div><div class="ttdeci">const Value &amp; deref() const</div><div class="ttdoc">Access the value being referred to.</div><div class="ttdef"><b>Definition:</b> <a href="a01649_source.html#l00027">ReferenceValue.cpp:27</a></div></div>
-<div class="ttc" id="aa03445_html_a8d7f6ceda6658e98684f1605bade87c1"><div class="ttname"><a href="a03445.html#a8d7f6ceda6658e98684f1605bade87c1">bl::script::ReferenceValue::ReferenceValue</a></div><div class="ttdeci">ReferenceValue()=delete</div></div>
-<div class="ttc" id="aa03445_html_aeee3ebad7744898f2280a77fe8349de8"><div class="ttname"><a href="a03445.html#aeee3ebad7744898f2280a77fe8349de8">bl::script::ReferenceValue::makeSafe</a></div><div class="ttdeci">void makeSafe()</div><div class="ttdoc">Copies the referenced value to managed heap storage.</div><div class="ttdef"><b>Definition:</b> <a href="a01649_source.html#l00031">ReferenceValue.cpp:31</a></div></div>
-<div class="ttc" id="aa03461_html"><div class="ttname"><a href="a03461.html">bl::script::Value</a></div><div class="ttdoc">Main representation of a value in scripts.</div><div class="ttdef"><b>Definition:</b> <a href="a00914_source.html#l00022">Value.hpp:22</a></div></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;} <span class="comment">// namespace bundle</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;} <span class="comment">// namespace resource</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00257_html"><div class="ttname"><a href="a00257.html">AnimationData.hpp</a></div></div>
+<div class="ttc" id="aa00485_html_a927270d671e83a1c6b5382f30bfbf895"><div class="ttname"><a href="a00485.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a></div><div class="ttdeci">#define BL_LOG_ERROR</div><div class="ttdoc">Helper macro to log at error level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00485_source.html#l00101">Logger.hpp:101</a></div></div>
+<div class="ttc" id="aa00878_html"><div class="ttname"><a href="a00878.html">AnimationHandler.hpp</a></div></div>
+<div class="ttc" id="aa01803_html"><div class="ttname"><a href="a01803.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02384_html"><div class="ttname"><a href="a02384.html">bl::gfx::a2d::AnimationData</a></div><div class="ttdoc">Data class for 2d animations. Provides the backing for slideshows and skeletal animations....</div><div class="ttdef"><b>Definition:</b> <a href="a00257_source.html#l00022">AnimationData.hpp:22</a></div></div>
+<div class="ttc" id="aa02384_html_a607d12f4ec60fe3da673878856f380ff"><div class="ttname"><a href="a02384.html#a607d12f4ec60fe3da673878856f380ff">bl::gfx::a2d::AnimationData::spritesheetFile</a></div><div class="ttdeci">const std::string &amp; spritesheetFile() const</div><div class="ttdoc">Returns the filename of the spritesheet.</div><div class="ttdef"><b>Definition:</b> <a href="a01184_source.html#l00222">AnimationData.cpp:222</a></div></div>
+<div class="ttc" id="aa02384_html_a649a534c5017ee0df847c56712b43ff4"><div class="ttname"><a href="a02384.html#a649a534c5017ee0df847c56712b43ff4">bl::gfx::a2d::AnimationData::loadFromFileForBundling</a></div><div class="ttdeci">bool loadFromFileForBundling(const std::string &amp;filename)</div><div class="ttdoc">Same as loadFromFile, but rewrites the spritesheet source to be the full path to the spritesheet so t...</div><div class="ttdef"><b>Definition:</b> <a href="a01184_source.html#l00079">AnimationData.cpp:79</a></div></div>
+<div class="ttc" id="aa02384_html_a7aef7ec2981c8f70da4ad9dd2686c836"><div class="ttname"><a href="a02384.html#a7aef7ec2981c8f70da4ad9dd2686c836">bl::gfx::a2d::AnimationData::saveToBundle</a></div><div class="ttdeci">bool saveToBundle(std::ostream &amp;output) const</div><div class="ttdoc">Saves the animation data to the bundle.</div><div class="ttdef"><b>Definition:</b> <a href="a01184_source.html#l00084">AnimationData.cpp:84</a></div></div>
+<div class="ttc" id="aa03408_html"><div class="ttname"><a href="a03408.html">bl::resource::bundle::FileHandlerContext</a></div><div class="ttdoc">Context data that is provided to FileHandler objects when processing files.</div><div class="ttdef"><b>Definition:</b> <a href="a00875_source.html#l00023">FileHandlerContext.hpp:23</a></div></div>
+<div class="ttc" id="aa03408_html_a117fbcb7e5871373ebb7270b39b20721"><div class="ttname"><a href="a03408.html#a117fbcb7e5871373ebb7270b39b20721">bl::resource::bundle::FileHandlerContext::addDependencyFile</a></div><div class="ttdeci">void addDependencyFile(const std::string &amp;path)</div><div class="ttdoc">Adds a file to be bundled with the current file being processed. Call this for dependency files (ie s...</div><div class="ttdef"><b>Definition:</b> <a href="a01646_source.html#l00014">FileHandlerContext.cpp:14</a></div></div>
+<div class="ttc" id="aa03412_html_adf22a2d2b974daba7cf8ec92a0bdcf89"><div class="ttname"><a href="a03412.html#adf22a2d2b974daba7cf8ec92a0bdcf89">bl::resource::bundle::AnimationHandler::processFile</a></div><div class="ttdeci">virtual bool processFile(const std::string &amp;path, std::ostream &amp;output, FileHandlerContext &amp;context) override</div><div class="ttdoc">Process the given file and add its data to the bundle.</div><div class="ttdef"><b>Definition:</b> <a href="a01649_source.html#l00010">AnimationHandler.cpp:10</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 30 2023 22:56:46 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Oct 8 2023 18:56:19 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

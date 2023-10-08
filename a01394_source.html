@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Descriptors/Builtin/Scene2DInstance.cpp Source File</title>
+<title>BLIB: src/Parser/Stream.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,139 +66,102 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_c46d59b26ba1c7a895704386ecf9511b.html">Descriptors</a></li><li class="navelem"><a class="el" href="dir_1c9d8e1815e637956400971975ea0cfc.html">Builtin</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_be6b6bc8933d1b72ef64ada15681fca0.html">Parser</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Scene2DInstance.cpp</div>  </div>
+<div class="title">Stream.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01394.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00569.html">BLIB/Render/Descriptors/Builtin/Scene2DInstance.hpp</a>&gt;</span></div>
+<a href="a01394.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00524.html">BLIB/Parser/Stream.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a04871.html">BLIB/Render/Config.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00749.html">BLIB/Render/Scenes/SceneRenderContext.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;array&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01760.html">bl</a></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>rc</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>ds</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="a02833.html#a85d03d699c14cf3ba475665671af59ea">   13</a></span>&#160;<a class="code" href="a02833.html#a85d03d699c14cf3ba475665671af59ea">Scene2DInstance::Scene2DInstance</a>(<a class="code" href="a03277.html">vk::VulkanState</a>&amp; vulkanState, VkDescriptorSetLayout layout)</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;: vulkanState(vulkanState)</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;, setLayout(layout) {}</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a02833.html#af61d2666c0d0de2e2c77a04a88079711">   17</a></span>&#160;<a class="code" href="a02833.html#af61d2666c0d0de2e2c77a04a88079711">Scene2DInstance::~Scene2DInstance</a>() {</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <a class="code" href="a02885.html#a0a145382ab1e64d8c85dd63939bb0aca">cameraBuffer</a>.<a class="code" href="a03137.html#a998a9c05422f6188b474d275866a6b2b">stopTransferringEveryFrame</a>();</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    vulkanState.<a class="code" href="a03277.html#ac6ea18991f2fd8391eb44229ae2ac8f7">descriptorPool</a>.<a class="code" href="a03177.html#ac2810fc740edbfef995ff375e1b5a14e">release</a>(allocHandle);</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <a class="code" href="a02885.html#a0a145382ab1e64d8c85dd63939bb0aca">cameraBuffer</a>.<a class="code" href="a02773.html#a9b1ef30aa397a8ab33e277bd15e5d436">destroy</a>();</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;}</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keywordtype">void</span> Scene2DInstance::bindForPipeline(<a class="code" href="a03133.html">scene::SceneRenderContext</a>&amp; ctx, VkPipelineLayout layout,</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;                                      std::uint32_t setIndex, <a class="code" href="a01745.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a>)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    vkCmdBindDescriptorSets(ctx.<a class="code" href="a03133.html#ac39a1df376b596bd2d91c60124dc05db">getCommandBuffer</a>(),</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;                            VK_PIPELINE_BIND_POINT_GRAPHICS,</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;                            layout,</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;                            setIndex,</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;                            1,</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;                            &amp;descriptorSets.<a class="code" href="a03201.html#a64716578fccd7829f157ca462a45bda8">current</a>(ctx.<a class="code" href="a03133.html#abce5f477ae8df828081267f7a1d866b6">currentObserverIndex</a>()),</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;                            0,</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;                            <span class="keyword">nullptr</span>);</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;}</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keywordtype">void</span> Scene2DInstance::bindForObject(<a class="code" href="a03133.html">scene::SceneRenderContext</a>&amp;, VkPipelineLayout, std::uint32_t,</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;                                    <a class="code" href="a03093.html">scene::Key</a>)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="comment">// n/a</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;}</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="keywordtype">void</span> Scene2DInstance::releaseObject(<a class="code" href="a02093.html">ecs::Entity</a>, scene::Key) {</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="comment">// n/a</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;}</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="keywordtype">void</span> Scene2DInstance::init(DescriptorComponentStorageCache&amp;) {</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="comment">// allocate memory</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <a class="code" href="a02885.html#a0a145382ab1e64d8c85dd63939bb0aca">cameraBuffer</a>.<a class="code" href="a02773.html#a32e0fa0667e66c4c9d6fb9f79bd87384">create</a>(vulkanState, <a class="code" href="a02789.html#a950ca90be3d60934e97504807bd7f8af">Config::MaxSceneObservers</a>);</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <a class="code" href="a02885.html#a0a145382ab1e64d8c85dd63939bb0aca">cameraBuffer</a>.<a class="code" href="a03137.html#affdc9c965d73f5227f2d3e0c8a17064e">transferEveryFrame</a>(<a class="code" href="a03137.html#a109f9d7acc098649830f276c266b47d0a43f6615bbb2c40a5306ff804094420b1">tfr::Transferable::SyncRequirement::Immediate</a>);</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="comment">// allocate descriptors</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    descriptorSets.<a class="code" href="a03201.html#a25a3740608d37edde75e028b1267da27">emptyInit</a>(vulkanState, <a class="code" href="a02789.html#a950ca90be3d60934e97504807bd7f8af">Config::MaxSceneObservers</a>);</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    allocHandle = vulkanState.<a class="code" href="a03277.html#ac6ea18991f2fd8391eb44229ae2ac8f7">descriptorPool</a>.<a class="code" href="a03177.html#aa1e76e7083828e104e5014691e688a28">allocate</a>(</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        setLayout, descriptorSets.<a class="code" href="a03201.html#a2c9e6eab0a28a82873550d914f3685a3">data</a>(), descriptorSets.<a class="code" href="a03201.html#ab1b55763cd34112e2f8d288061fbb467">totalSize</a>());</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="comment">// create and configureWrite descriptors</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordflow">for</span> (std::uint32_t i = 0; i &lt; descriptorSets.<a class="code" href="a03201.html#a09fef90b3cb81cd453d89c6056ed7319">size</a>(); ++i) {</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="comment">// write descriptors</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keywordflow">for</span> (std::uint32_t j = 0; j &lt; <a class="code" href="a02789.html#acf7cd0741bc9e043674ec76ff77461a1">Config::MaxConcurrentFrames</a>; ++j) {</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            VkDescriptorBufferInfo bufferWrite{};</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            bufferWrite.buffer = <a class="code" href="a02885.html#a0a145382ab1e64d8c85dd63939bb0aca">cameraBuffer</a>.<a class="code" href="a02773.html#a580642b7ea5897f7963887538d701f33">gpuBufferHandles</a>().getRaw(j).getBuffer();</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            bufferWrite.offset = <span class="keyword">static_cast&lt;</span>VkDeviceSize<span class="keyword">&gt;</span>(i) * <a class="code" href="a02885.html#a0a145382ab1e64d8c85dd63939bb0aca">cameraBuffer</a>.<a class="code" href="a02773.html#a900373eb8320890b2cf61964d365f26a">alignedUniformSize</a>();</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            bufferWrite.range  = <a class="code" href="a02885.html#a0a145382ab1e64d8c85dd63939bb0aca">cameraBuffer</a>.<a class="code" href="a02773.html#a900373eb8320890b2cf61964d365f26a">alignedUniformSize</a>();</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            VkWriteDescriptorSet setWrite{};</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            setWrite.sType           = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            setWrite.descriptorCount = 1;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;            setWrite.dstBinding      = 0;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;            setWrite.dstArrayElement = 0;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;            setWrite.dstSet          = descriptorSets.<a class="code" href="a03201.html#a420a3c91e76a8f8951a3704be89bdb86">getRaw</a>(i, j);</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            setWrite.pBufferInfo     = &amp;bufferWrite;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            setWrite.descriptorType  = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;            vkUpdateDescriptorSets(vulkanState.<a class="code" href="a03277.html#a6ad0249d08d9ffb87af35b42f11a1db5">device</a>, 1, &amp;setWrite, 0, <span class="keyword">nullptr</span>);</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        }</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    }</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;}</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="keywordtype">bool</span> Scene2DInstance::allocateObject(ecs::Entity, scene::Key) {</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="comment">// n/a</span></div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;}</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="keywordtype">void</span> Scene2DInstance::handleFrameStart() {</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="comment">// noop</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;}</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;} <span class="comment">// namespace ds</span></div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00569_html"><div class="ttname"><a href="a00569.html">Scene2DInstance.hpp</a></div></div>
-<div class="ttc" id="aa00749_html"><div class="ttname"><a href="a00749.html">SceneRenderContext.hpp</a></div></div>
-<div class="ttc" id="aa01745_html_ga305dcc5dda3e28bd193ab31444664848"><div class="ttname"><a href="a01745.html#ga305dcc5dda3e28bd193ab31444664848">bl::rc::UpdateSpeed</a></div><div class="ttdeci">UpdateSpeed</div><div class="ttdoc">Enum representing how frequently an object is expected to be updated.</div><div class="ttdef"><b>Definition:</b> <a href="a00761_source.html#l00015">UpdateSpeed.hpp:15</a></div></div>
-<div class="ttc" id="aa01760_html"><div class="ttname"><a href="a01760.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02093_html"><div class="ttname"><a href="a02093.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition:</b> <a href="a00125_source.html#l00023">Entity.hpp:23</a></div></div>
-<div class="ttc" id="aa02773_html_a32e0fa0667e66c4c9d6fb9f79bd87384"><div class="ttname"><a href="a02773.html#a32e0fa0667e66c4c9d6fb9f79bd87384">bl::rc::buf::UniformBuffer::create</a></div><div class="ttdeci">void create(vk::VulkanState &amp;vulkanState, std::uint32_t size)</div><div class="ttdoc">Creates a new UniformBuffer.</div><div class="ttdef"><b>Definition:</b> <a href="a00539_source.html#l00110">UniformBuffer.hpp:110</a></div></div>
-<div class="ttc" id="aa02773_html_a580642b7ea5897f7963887538d701f33"><div class="ttname"><a href="a02773.html#a580642b7ea5897f7963887538d701f33">bl::rc::buf::UniformBuffer::gpuBufferHandles</a></div><div class="ttdeci">constexpr vk::PerFrame&lt; vk::Buffer &gt; &amp; gpuBufferHandles()</div><div class="ttdoc">Returns the Buffer objects of the GPU buffers.</div><div class="ttdef"><b>Definition:</b> <a href="a00539_source.html#l00162">UniformBuffer.hpp:162</a></div></div>
-<div class="ttc" id="aa02773_html_a900373eb8320890b2cf61964d365f26a"><div class="ttname"><a href="a02773.html#a900373eb8320890b2cf61964d365f26a">bl::rc::buf::UniformBuffer::alignedUniformSize</a></div><div class="ttdeci">constexpr std::uint32_t alignedUniformSize() const</div><div class="ttdoc">Returns the aligned size of contained uniforms.</div><div class="ttdef"><b>Definition:</b> <a href="a00539_source.html#l00167">UniformBuffer.hpp:167</a></div></div>
-<div class="ttc" id="aa02773_html_a9b1ef30aa397a8ab33e277bd15e5d436"><div class="ttname"><a href="a02773.html#a9b1ef30aa397a8ab33e277bd15e5d436">bl::rc::buf::UniformBuffer::destroy</a></div><div class="ttdeci">void destroy()</div><div class="ttdoc">Frees the GPU buffers.</div><div class="ttdef"><b>Definition:</b> <a href="a00539_source.html#l00156">UniformBuffer.hpp:156</a></div></div>
-<div class="ttc" id="aa02789_html_a950ca90be3d60934e97504807bd7f8af"><div class="ttname"><a href="a02789.html#a950ca90be3d60934e97504807bd7f8af">bl::rc::Config::MaxSceneObservers</a></div><div class="ttdeci">static constexpr unsigned int MaxSceneObservers</div><div class="ttdef"><b>Definition:</b> <a href="a04871_source.html#l00015">Config.hpp:15</a></div></div>
-<div class="ttc" id="aa02789_html_acf7cd0741bc9e043674ec76ff77461a1"><div class="ttname"><a href="a02789.html#acf7cd0741bc9e043674ec76ff77461a1">bl::rc::Config::MaxConcurrentFrames</a></div><div class="ttdeci">static constexpr unsigned int MaxConcurrentFrames</div><div class="ttdef"><b>Definition:</b> <a href="a04871_source.html#l00013">Config.hpp:13</a></div></div>
-<div class="ttc" id="aa02833_html_a85d03d699c14cf3ba475665671af59ea"><div class="ttname"><a href="a02833.html#a85d03d699c14cf3ba475665671af59ea">bl::rc::ds::Scene2DInstance::Scene2DInstance</a></div><div class="ttdeci">Scene2DInstance(vk::VulkanState &amp;vulkanState, VkDescriptorSetLayout layout)</div><div class="ttdoc">Creates a new instance of the descriptor set.</div><div class="ttdef"><b>Definition:</b> <a href="a01394_source.html#l00013">Scene2DInstance.cpp:13</a></div></div>
-<div class="ttc" id="aa02833_html_af61d2666c0d0de2e2c77a04a88079711"><div class="ttname"><a href="a02833.html#af61d2666c0d0de2e2c77a04a88079711">bl::rc::ds::Scene2DInstance::~Scene2DInstance</a></div><div class="ttdeci">virtual ~Scene2DInstance()</div><div class="ttdoc">Destroys the descriptor set.</div><div class="ttdef"><b>Definition:</b> <a href="a01394_source.html#l00017">Scene2DInstance.cpp:17</a></div></div>
-<div class="ttc" id="aa02885_html_a0a145382ab1e64d8c85dd63939bb0aca"><div class="ttname"><a href="a02885.html#a0a145382ab1e64d8c85dd63939bb0aca">bl::rc::ds::SceneDescriptorSetInstance::cameraBuffer</a></div><div class="ttdeci">buf::UniformBuffer&lt; glm::mat4 &gt; cameraBuffer</div><div class="ttdef"><b>Definition:</b> <a href="a00602_source.html#l00043">SceneDescriptorSetInstance.hpp:43</a></div></div>
-<div class="ttc" id="aa03093_html"><div class="ttname"><a href="a03093.html">bl::rc::scene::Key</a></div><div class="ttdoc">Key for objects in scenes. Contains update speed and scene id. Scene ids are not unique across update...</div><div class="ttdef"><b>Definition:</b> <a href="a00734_source.html#l00022">Key.hpp:22</a></div></div>
-<div class="ttc" id="aa03133_html"><div class="ttname"><a href="a03133.html">bl::rc::scene::SceneRenderContext</a></div><div class="ttdoc">Container class that holds the required parameters to render a scene and provides methods for descrip...</div><div class="ttdef"><b>Definition:</b> <a href="a00749_source.html#l00025">SceneRenderContext.hpp:25</a></div></div>
-<div class="ttc" id="aa03133_html_abce5f477ae8df828081267f7a1d866b6"><div class="ttname"><a href="a03133.html#abce5f477ae8df828081267f7a1d866b6">bl::rc::scene::SceneRenderContext::currentObserverIndex</a></div><div class="ttdeci">constexpr std::uint32_t currentObserverIndex() const</div><div class="ttdoc">Returns the scene index of the current observer.</div><div class="ttdef"><b>Definition:</b> <a href="a00749_source.html#l00117">SceneRenderContext.hpp:117</a></div></div>
-<div class="ttc" id="aa03133_html_ac39a1df376b596bd2d91c60124dc05db"><div class="ttname"><a href="a03133.html#ac39a1df376b596bd2d91c60124dc05db">bl::rc::scene::SceneRenderContext::getCommandBuffer</a></div><div class="ttdeci">constexpr VkCommandBuffer getCommandBuffer() const</div><div class="ttdoc">Returns the command buffer to use for rendering.</div><div class="ttdef"><b>Definition:</b> <a href="a00749_source.html#l00105">SceneRenderContext.hpp:105</a></div></div>
-<div class="ttc" id="aa03137_html_a109f9d7acc098649830f276c266b47d0a43f6615bbb2c40a5306ff804094420b1"><div class="ttname"><a href="a03137.html#a109f9d7acc098649830f276c266b47d0a43f6615bbb2c40a5306ff804094420b1">bl::rc::tfr::Transferable::SyncRequirement::Immediate</a></div><div class="ttdeci">@ Immediate</div><div class="ttdoc">Transfers with this requirement may be started immediately.</div></div>
-<div class="ttc" id="aa03137_html_a998a9c05422f6188b474d275866a6b2b"><div class="ttname"><a href="a03137.html#a998a9c05422f6188b474d275866a6b2b">bl::rc::tfr::Transferable::stopTransferringEveryFrame</a></div><div class="ttdeci">void stopTransferringEveryFrame()</div><div class="ttdoc">Removes this Transferable from the queue that gets transferred every frame.</div><div class="ttdef"><b>Definition:</b> <a href="a01526_source.html#l00043">Transferable.cpp:43</a></div></div>
-<div class="ttc" id="aa03137_html_affdc9c965d73f5227f2d3e0c8a17064e"><div class="ttname"><a href="a03137.html#affdc9c965d73f5227f2d3e0c8a17064e">bl::rc::tfr::Transferable::transferEveryFrame</a></div><div class="ttdeci">void transferEveryFrame(SyncRequirement syncReq=SyncRequirement::Immediate)</div><div class="ttdoc">Configures this Transferable to transfer every frame with the given sync requirement.</div><div class="ttdef"><b>Definition:</b> <a href="a01526_source.html#l00032">Transferable.cpp:32</a></div></div>
-<div class="ttc" id="aa03177_html_aa1e76e7083828e104e5014691e688a28"><div class="ttname"><a href="a03177.html#aa1e76e7083828e104e5014691e688a28">bl::rc::vk::DescriptorPool::allocate</a></div><div class="ttdeci">AllocationHandle allocate(VkDescriptorSetLayout layout, VkDescriptorSet *sets, std::size_t setCount, bool dedicatedPool=false)</div><div class="ttdoc">Allocates sets from the pool and returns a handle that can be used to release the allocated sets once...</div><div class="ttdef"><b>Definition:</b> <a href="a01547_source.html#l00061">DescriptorPool.cpp:61</a></div></div>
-<div class="ttc" id="aa03177_html_ac2810fc740edbfef995ff375e1b5a14e"><div class="ttname"><a href="a03177.html#ac2810fc740edbfef995ff375e1b5a14e">bl::rc::vk::DescriptorPool::release</a></div><div class="ttdeci">void release(AllocationHandle handle, const VkDescriptorSet *sets=nullptr)</div><div class="ttdoc">Releases descriptor sets allocated from this pool.</div><div class="ttdef"><b>Definition:</b> <a href="a01547_source.html#l00104">DescriptorPool.cpp:104</a></div></div>
-<div class="ttc" id="aa03201_html_a09fef90b3cb81cd453d89c6056ed7319"><div class="ttname"><a href="a03201.html#a09fef90b3cb81cd453d89c6056ed7319">bl::rc::vk::PerFrameVector::size</a></div><div class="ttdeci">constexpr std::uint32_t size() const</div><div class="ttdoc">Returns the number of elements in the vector.</div><div class="ttdef"><b>Definition:</b> <a href="a00827_source.html#l00360">VulkanState.hpp:360</a></div></div>
-<div class="ttc" id="aa03201_html_a25a3740608d37edde75e028b1267da27"><div class="ttname"><a href="a03201.html#a25a3740608d37edde75e028b1267da27">bl::rc::vk::PerFrameVector::emptyInit</a></div><div class="ttdeci">void emptyInit(VulkanState &amp;vulkanState, std::uint32_t capacity)</div><div class="ttdoc">Initializes the PerFrameVector object without initializing the wrapped values.</div><div class="ttdef"><b>Definition:</b> <a href="a00827_source.html#l00316">VulkanState.hpp:316</a></div></div>
-<div class="ttc" id="aa03201_html_a2c9e6eab0a28a82873550d914f3685a3"><div class="ttname"><a href="a03201.html#a2c9e6eab0a28a82873550d914f3685a3">bl::rc::vk::PerFrameVector::data</a></div><div class="ttdeci">constexpr T * data()</div><div class="ttdoc">Returns a pointer to the first element in the vector.</div><div class="ttdef"><b>Definition:</b> <a href="a00827_source.html#l00370">VulkanState.hpp:370</a></div></div>
-<div class="ttc" id="aa03201_html_a420a3c91e76a8f8951a3704be89bdb86"><div class="ttname"><a href="a03201.html#a420a3c91e76a8f8951a3704be89bdb86">bl::rc::vk::PerFrameVector::getRaw</a></div><div class="ttdeci">T &amp; getRaw(std::uint32_t i, std::uint32_t frame)</div><div class="ttdoc">Manually access the item at the given index for the given frame.</div><div class="ttdef"><b>Definition:</b> <a href="a00827_source.html#l00350">VulkanState.hpp:350</a></div></div>
-<div class="ttc" id="aa03201_html_a64716578fccd7829f157ca462a45bda8"><div class="ttname"><a href="a03201.html#a64716578fccd7829f157ca462a45bda8">bl::rc::vk::PerFrameVector::current</a></div><div class="ttdeci">T &amp; current(std::uint32_t i)</div><div class="ttdoc">Returns the active item at the given index.</div><div class="ttdef"><b>Definition:</b> <a href="a00827_source.html#l00340">VulkanState.hpp:340</a></div></div>
-<div class="ttc" id="aa03201_html_ab1b55763cd34112e2f8d288061fbb467"><div class="ttname"><a href="a03201.html#ab1b55763cd34112e2f8d288061fbb467">bl::rc::vk::PerFrameVector::totalSize</a></div><div class="ttdeci">constexpr std::uint32_t totalSize() const</div><div class="ttdoc">Returns the total number of elements when accounting for PerFrame logic.</div><div class="ttdef"><b>Definition:</b> <a href="a00827_source.html#l00365">VulkanState.hpp:365</a></div></div>
-<div class="ttc" id="aa03277_html"><div class="ttname"><a href="a03277.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a00827_source.html#l00036">VulkanState.hpp:36</a></div></div>
-<div class="ttc" id="aa03277_html_a6ad0249d08d9ffb87af35b42f11a1db5"><div class="ttname"><a href="a03277.html#a6ad0249d08d9ffb87af35b42f11a1db5">bl::rc::vk::VulkanState::device</a></div><div class="ttdeci">VkDevice device</div><div class="ttdef"><b>Definition:</b> <a href="a00827_source.html#l00201">VulkanState.hpp:201</a></div></div>
-<div class="ttc" id="aa03277_html_ac6ea18991f2fd8391eb44229ae2ac8f7"><div class="ttname"><a href="a03277.html#ac6ea18991f2fd8391eb44229ae2ac8f7">bl::rc::vk::VulkanState::descriptorPool</a></div><div class="ttdeci">DescriptorPool descriptorPool</div><div class="ttdef"><b>Definition:</b> <a href="a00827_source.html#l00209">VulkanState.hpp:209</a></div></div>
-<div class="ttc" id="aa04871_html"><div class="ttname"><a href="a04871.html">Config.hpp</a></div></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01803.html">bl</a></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>parser</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
+<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="a02808.html#a862cb08323b475be8071f9f9effcb8b6">    7</a></span>&#160;<a class="code" href="a02808.html#a862cb08323b475be8071f9f9effcb8b6">Stream::Stream</a>(<span class="keyword">const</span> std::string&amp; data)</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;: ss(data)</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;, stream(ss)</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;, curLine(1)</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;, curCol(0)</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;, isValid(true) {}</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="a02808.html#aaa273f3b62de0e0055041f938bb29cc5">   14</a></span>&#160;<a class="code" href="a02808.html#a862cb08323b475be8071f9f9effcb8b6">Stream::Stream</a>(std::istream&amp; stream)</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;: stream(stream)</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;, curLine(1)</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;, curCol(0)</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;, isValid(true) {}</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a02808.html#a067692cf77ea97b498566a7da9349ab5">   20</a></span>&#160;<span class="keywordtype">char</span> <a class="code" href="a02808.html#a067692cf77ea97b498566a7da9349ab5">Stream::peek</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> stream.peek(); }</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a02808.html#a51dc5b929d8aad7a3a9e645ec79bb234">   22</a></span>&#160;std::string <a class="code" href="a02808.html#a51dc5b929d8aad7a3a9e645ec79bb234">Stream::peekN</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> n) {</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    std::string <a class="code" href="a02808.html#a067692cf77ea97b498566a7da9349ab5">peek</a>;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordtype">int</span> offset = 0;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <a class="code" href="a02808.html#a067692cf77ea97b498566a7da9349ab5">peek</a>.reserve(n);</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">int</span> sn = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(n);</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordflow">while</span> (offset &lt; sn &amp;&amp; stream.good()) {</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">char</span> c = stream.peek();</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <a class="code" href="a02808.html#a067692cf77ea97b498566a7da9349ab5">peek</a>.push_back(c);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keywordflow">if</span> (c == EOF)</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;            <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;            stream.get();</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        ++offset;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    }</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    stream.seekg(-offset, std::ios_base::cur);</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="a02808.html#a067692cf77ea97b498566a7da9349ab5">peek</a>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;}</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="a02808.html#a1c866bd84c3c17f230f2e8b6c6d6d3bb">   41</a></span>&#160;<span class="keywordtype">char</span> <a class="code" href="a02808.html#a1c866bd84c3c17f230f2e8b6c6d6d3bb">Stream::get</a>() {</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">char</span> r = stream.get();</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordflow">if</span> (r == <span class="charliteral">&#39;\n&#39;</span>) {</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        ++curLine;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        curCol = 0;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    }</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        ++curCol;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordflow">return</span> r;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;}</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="a02808.html#ad399efce6e095b78c3670a1ed32386cd">   52</a></span>&#160;std::string <a class="code" href="a02808.html#ad399efce6e095b78c3670a1ed32386cd">Stream::getN</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> n) {</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    std::string read;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    read.reserve(n);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; n; ++i) {</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="keywordflow">if</span> (stream.peek() == EOF) <span class="keywordflow">return</span> read;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        read.push_back(<a class="code" href="a02808.html#a1c866bd84c3c17f230f2e8b6c6d6d3bb">get</a>());</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    }</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordflow">return</span> read;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;}</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="a02808.html#aa7ed863bd14ab8f2de6e071fd2781c94">   62</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02808.html#aa7ed863bd14ab8f2de6e071fd2781c94">Stream::invalidate</a>() { isValid = <span class="keyword">false</span>; }</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="a02808.html#a18506360239106e7d22e6c8813fd6e9d">   64</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a02808.html#a18506360239106e7d22e6c8813fd6e9d">Stream::valid</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> stream.good() &amp;&amp; isValid; }</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="a02808.html#a6226a1aa345b608ba72896bef6d4fbcb">   66</a></span>&#160;<span class="keywordtype">int</span> <a class="code" href="a02808.html#a6226a1aa345b608ba72896bef6d4fbcb">Stream::currentLine</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> curLine; }</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="a02808.html#a5e9935dd0afe99d67c3d47beb6167814">   68</a></span>&#160;<span class="keywordtype">int</span> <a class="code" href="a02808.html#a5e9935dd0afe99d67c3d47beb6167814">Stream::currentColumn</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> curCol; }</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;} <span class="comment">// namespace parser</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00524_html"><div class="ttname"><a href="a00524.html">Stream.hpp</a></div></div>
+<div class="ttc" id="aa01803_html"><div class="ttname"><a href="a01803.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02808_html_a067692cf77ea97b498566a7da9349ab5"><div class="ttname"><a href="a02808.html#a067692cf77ea97b498566a7da9349ab5">bl::parser::Stream::peek</a></div><div class="ttdeci">char peek() const</div><div class="ttdoc">Returns the next character without modifying stream.</div><div class="ttdef"><b>Definition:</b> <a href="a01394_source.html#l00020">Stream.cpp:20</a></div></div>
+<div class="ttc" id="aa02808_html_a18506360239106e7d22e6c8813fd6e9d"><div class="ttname"><a href="a02808.html#a18506360239106e7d22e6c8813fd6e9d">bl::parser::Stream::valid</a></div><div class="ttdeci">bool valid() const</div><div class="ttdoc">Tells whether the stream is valid. Takes into account invalidation and internal stream state.</div><div class="ttdef"><b>Definition:</b> <a href="a01394_source.html#l00064">Stream.cpp:64</a></div></div>
+<div class="ttc" id="aa02808_html_a1c866bd84c3c17f230f2e8b6c6d6d3bb"><div class="ttname"><a href="a02808.html#a1c866bd84c3c17f230f2e8b6c6d6d3bb">bl::parser::Stream::get</a></div><div class="ttdeci">char get()</div><div class="ttdoc">Returns next character and modifies stream.</div><div class="ttdef"><b>Definition:</b> <a href="a01394_source.html#l00041">Stream.cpp:41</a></div></div>
+<div class="ttc" id="aa02808_html_a51dc5b929d8aad7a3a9e645ec79bb234"><div class="ttname"><a href="a02808.html#a51dc5b929d8aad7a3a9e645ec79bb234">bl::parser::Stream::peekN</a></div><div class="ttdeci">std::string peekN(unsigned int n)</div><div class="ttdoc">Reads N characters ahead and returns the stream to it's prior state.</div><div class="ttdef"><b>Definition:</b> <a href="a01394_source.html#l00022">Stream.cpp:22</a></div></div>
+<div class="ttc" id="aa02808_html_a5e9935dd0afe99d67c3d47beb6167814"><div class="ttname"><a href="a02808.html#a5e9935dd0afe99d67c3d47beb6167814">bl::parser::Stream::currentColumn</a></div><div class="ttdeci">int currentColumn() const</div><div class="ttdoc">Stream internall tracks which column it is on.</div><div class="ttdef"><b>Definition:</b> <a href="a01394_source.html#l00068">Stream.cpp:68</a></div></div>
+<div class="ttc" id="aa02808_html_a6226a1aa345b608ba72896bef6d4fbcb"><div class="ttname"><a href="a02808.html#a6226a1aa345b608ba72896bef6d4fbcb">bl::parser::Stream::currentLine</a></div><div class="ttdeci">int currentLine() const</div><div class="ttdoc">Stream internally tracks which line it is on.</div><div class="ttdef"><b>Definition:</b> <a href="a01394_source.html#l00066">Stream.cpp:66</a></div></div>
+<div class="ttc" id="aa02808_html_a862cb08323b475be8071f9f9effcb8b6"><div class="ttname"><a href="a02808.html#a862cb08323b475be8071f9f9effcb8b6">bl::parser::Stream::Stream</a></div><div class="ttdeci">Stream(const std::string &amp;data)</div><div class="ttdoc">Construct a new Stream object.</div><div class="ttdef"><b>Definition:</b> <a href="a01394_source.html#l00007">Stream.cpp:7</a></div></div>
+<div class="ttc" id="aa02808_html_aa7ed863bd14ab8f2de6e071fd2781c94"><div class="ttname"><a href="a02808.html#aa7ed863bd14ab8f2de6e071fd2781c94">bl::parser::Stream::invalidate</a></div><div class="ttdeci">void invalidate()</div><div class="ttdoc">Marks the stream as invalid.</div><div class="ttdef"><b>Definition:</b> <a href="a01394_source.html#l00062">Stream.cpp:62</a></div></div>
+<div class="ttc" id="aa02808_html_ad399efce6e095b78c3670a1ed32386cd"><div class="ttname"><a href="a02808.html#ad399efce6e095b78c3670a1ed32386cd">bl::parser::Stream::getN</a></div><div class="ttdeci">std::string getN(unsigned int n)</div><div class="ttdoc">Reads N characters and returns as string.</div><div class="ttdef"><b>Definition:</b> <a href="a01394_source.html#l00052">Stream.cpp:52</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 30 2023 22:56:46 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Oct 8 2023 18:56:19 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

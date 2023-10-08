@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Logging.hpp Source File</title>
+<title>BLIB: include/BLIB/Interfaces/Menu/Items/TextItem.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,30 +66,69 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4a89db2e42278000e6aac6ace9db278e.html">Interfaces</a></li><li class="navelem"><a class="el" href="dir_e645930b0d1a2310fc6bb1d1038eb64b.html">Menu</a></li><li class="navelem"><a class="el" href="dir_fe1d2d20871395ed290489bc84d47034.html">Items</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Logging.hpp</div>  </div>
+<div class="title">TextItem.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00449.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_LOGGING_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_LOGGING_HPP</span></div>
+<a href="a00449.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_MENU_RENDERITEMS_TEXTITEM_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_MENU_RENDERITEMS_TEXTITEM_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a04868.html">BLIB/Logging/Config.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00443.html">BLIB/Logging/Logger.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00446.html">BLIB/Logging/Outputters.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00443_html"><div class="ttname"><a href="a00443.html">Logger.hpp</a></div></div>
-<div class="ttc" id="aa00446_html"><div class="ttname"><a href="a00446.html">Outputters.hpp</a></div></div>
-<div class="ttc" id="aa04868_html"><div class="ttname"><a href="a04868.html">Config.hpp</a></div></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00440.html">BLIB/Interfaces/Menu/Item.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;SFML/Graphics/Text.hpp&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01803.html">bl</a></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>menu</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a02724.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02724.html">TextItem</a> : <span class="keyword">public</span> <a class="code" href="a02712.html">Item</a> {</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a02724.html#adb1a9396fd04e471bb949fcf0b5b9f91">   19</a></span>&#160;    <span class="keyword">typedef</span> std::shared_ptr&lt;TextItem&gt; <a class="code" href="a02724.html#adb1a9396fd04e471bb949fcf0b5b9f91">Ptr</a>;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">static</span> <a class="code" href="a02712.html#ac09f75d0ea24baafc88f39b9e30e20ce">Ptr</a> <a class="code" href="a02724.html#ae37a5b423f404a0b32a852923bd9b0ac">create</a>(<span class="keyword">const</span> std::string&amp; text, <span class="keyword">const</span> sf::Font&amp; font,</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;                      <span class="keyword">const</span> sf::Color&amp; color = sf::Color::Black, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> fontSize = 30);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="a02724.html#a8e9e9319f9ec798ceab0045318de1b34">   37</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02724.html#a8e9e9319f9ec798ceab0045318de1b34">~TextItem</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    sf::Text&amp; <a class="code" href="a02724.html#a5e419cc97bf14de8d4ad3442d8d0341c">getTextObject</a>();</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">virtual</span> sf::Vector2f <a class="code" href="a02724.html#ab872cf5772c09489c6573c790be016ff">getSize</a>() <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <a class="code" href="a02724.html#aa6fcb2d5caea706025e2369547b352ed">TextItem</a>(<span class="keyword">const</span> std::string&amp; text, <span class="keyword">const</span> sf::Font&amp; font, <span class="keyword">const</span> sf::Color&amp; color,</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;             <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> fontSize);</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02724.html#a3a5dbdaf76c111e9e0f93fc7b172623a">render</a>(sf::RenderTarget&amp; target, sf::RenderStates states,</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;                        <span class="keyword">const</span> sf::Vector2f&amp; position) <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    sf::Text text;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;};</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;} <span class="comment">// namespace menu</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00440_html"><div class="ttname"><a href="a00440.html">Item.hpp</a></div></div>
+<div class="ttc" id="aa01803_html"><div class="ttname"><a href="a01803.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02712_html"><div class="ttname"><a href="a02712.html">bl::menu::Item</a></div><div class="ttdoc">Item for a mouseless menu. Can be 'attached' to other items in a Menu, configured to be selectable,...</div><div class="ttdef"><b>Definition:</b> <a href="a00440_source.html#l00025">Item.hpp:25</a></div></div>
+<div class="ttc" id="aa02712_html_ac09f75d0ea24baafc88f39b9e30e20ce"><div class="ttname"><a href="a02712.html#ac09f75d0ea24baafc88f39b9e30e20ce">bl::menu::Item::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; Item &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00440_source.html#l00027">Item.hpp:27</a></div></div>
+<div class="ttc" id="aa02724_html"><div class="ttname"><a href="a02724.html">bl::menu::TextItem</a></div><div class="ttdoc">RenderItem to display text.</div><div class="ttdef"><b>Definition:</b> <a href="a00449_source.html#l00017">TextItem.hpp:17</a></div></div>
+<div class="ttc" id="aa02724_html_a3a5dbdaf76c111e9e0f93fc7b172623a"><div class="ttname"><a href="a02724.html#a3a5dbdaf76c111e9e0f93fc7b172623a">bl::menu::TextItem::render</a></div><div class="ttdeci">virtual void render(sf::RenderTarget &amp;target, sf::RenderStates states, const sf::Vector2f &amp;position) const override</div><div class="ttdef"><b>Definition:</b> <a href="a01355_source.html#l00027">TextItem.cpp:27</a></div></div>
+<div class="ttc" id="aa02724_html_a5e419cc97bf14de8d4ad3442d8d0341c"><div class="ttname"><a href="a02724.html#a5e419cc97bf14de8d4ad3442d8d0341c">bl::menu::TextItem::getTextObject</a></div><div class="ttdeci">sf::Text &amp; getTextObject()</div><div class="ttdoc">Returns a modifiable reference to the Text object.</div><div class="ttdef"><b>Definition:</b> <a href="a01355_source.html#l00020">TextItem.cpp:20</a></div></div>
+<div class="ttc" id="aa02724_html_a8e9e9319f9ec798ceab0045318de1b34"><div class="ttname"><a href="a02724.html#a8e9e9319f9ec798ceab0045318de1b34">bl::menu::TextItem::~TextItem</a></div><div class="ttdeci">virtual ~TextItem()=default</div><div class="ttdoc">Destroy the Text Item object.</div></div>
+<div class="ttc" id="aa02724_html_aa6fcb2d5caea706025e2369547b352ed"><div class="ttname"><a href="a02724.html#aa6fcb2d5caea706025e2369547b352ed">bl::menu::TextItem::TextItem</a></div><div class="ttdeci">TextItem(const std::string &amp;text, const sf::Font &amp;font, const sf::Color &amp;color, unsigned int fontSize)</div><div class="ttdoc">Create a new TextItem from the sf::Text object.</div><div class="ttdef"><b>Definition:</b> <a href="a01355_source.html#l00012">TextItem.cpp:12</a></div></div>
+<div class="ttc" id="aa02724_html_ab872cf5772c09489c6573c790be016ff"><div class="ttname"><a href="a02724.html#ab872cf5772c09489c6573c790be016ff">bl::menu::TextItem::getSize</a></div><div class="ttdeci">virtual sf::Vector2f getSize() const override</div><div class="ttdef"><b>Definition:</b> <a href="a01355_source.html#l00022">TextItem.cpp:22</a></div></div>
+<div class="ttc" id="aa02724_html_adb1a9396fd04e471bb949fcf0b5b9f91"><div class="ttname"><a href="a02724.html#adb1a9396fd04e471bb949fcf0b5b9f91">bl::menu::TextItem::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; TextItem &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00449_source.html#l00019">TextItem.hpp:19</a></div></div>
+<div class="ttc" id="aa02724_html_ae37a5b423f404a0b32a852923bd9b0ac"><div class="ttname"><a href="a02724.html#ae37a5b423f404a0b32a852923bd9b0ac">bl::menu::TextItem::create</a></div><div class="ttdeci">static Ptr create(const std::string &amp;text, const sf::Font &amp;font, const sf::Color &amp;color=sf::Color::Black, unsigned int fontSize=30)</div><div class="ttdoc">Create a new TextItem from the sf::Text object.</div><div class="ttdef"><b>Definition:</b> <a href="a01355_source.html#l00007">TextItem.cpp:7</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 30 2023 22:56:45 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Oct 8 2023 18:56:18 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

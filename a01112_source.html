@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/ECS/Registry.cpp Source File</title>
+<title>BLIB: src/Cameras/3D/Camera3D.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,303 +66,122 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b1a122bf62c958266ec5bf64d14fde5a.html">ECS</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_ff0ce48e5847898e72a0a6a39233e415.html">Cameras</a></li><li class="navelem"><a class="el" href="dir_3ff25e5f64b17697c1b0fb6333ff3832.html">3D</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Registry.cpp</div>  </div>
+<div class="title">Camera3D.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01112.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00155.html">BLIB/ECS.hpp</a>&gt;</span></div>
+<a href="a01112.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00035.html">BLIB/Cameras/3D/Camera3D.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01760.html">bl</a></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>ecs</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="a02141.html#a8013e244778dc86d30405db8821fa5aa">    7</a></span>&#160;<a class="code" href="a02141.html#a8013e244778dc86d30405db8821fa5aa">Registry::Registry</a>()</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;: entityAllocator(DefaultCapacity)</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;, entityMasks(DefaultCapacity, <a class="code" href="a02057.html">ComponentMask</a>::EmptyMask)</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;, entityVersions(DefaultCapacity, 0)</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;, parentGraph(DefaultCapacity)</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;, dependencyGraph(DefaultCapacity) {</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    componentPools.reserve(<a class="code" href="a02057.html#a3178dc0fb7c900eb178bd1c268bc7a3e">ComponentMask::MaxComponentTypeCount</a>);</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    views.reserve(32);</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <a class="code" href="a02261.html#a36b6226eb7a776e0fc9c798689725bdc">bl::event::Dispatcher::subscribe</a>(<span class="keyword">this</span>);</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;}</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a02141.html#a5d7df62abc2d6674c31f0982321122cb">   18</a></span>&#160;<a class="code" href="a02093.html">Entity</a> <a class="code" href="a02141.html#a5d7df62abc2d6674c31f0982321122cb">Registry::createEntity</a>() {</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    std::lock_guard lock(entityLock);</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keyword">const</span> std::uint64_t index = entityAllocator.<a class="code" href="a03817.html#ae7fb1e9e6910be922de1188e21017610">allocate</a>();</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    std::uint64_t version     = 1;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordflow">if</span> (index + 1 &gt; entityMasks.size()) {</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        entityMasks.resize(index + 1, <a class="code" href="a02057.html#a281797a712e2ec4b04264000406ea5df">ComponentMask::EmptyMask</a>);</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        entityVersions.resize(index + 1, 1);</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    }</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        entityMasks[index] = <a class="code" href="a02057.html#a281797a712e2ec4b04264000406ea5df">ComponentMask::EmptyMask</a>;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        version            = ++entityVersions[index];</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    }</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00500.html">BLIB/Math/Trig.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05094.html">BLIB/Render/Config.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;glm/gtc/matrix_transform.hpp&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;glm/gtx/transform.hpp&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01803.html">bl</a></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>cam</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="a01960.html#a8830ba8023aca66f2b85ca3c2132e96b">   12</a></span>&#160;<a class="code" href="a01960.html#a8830ba8023aca66f2b85ca3c2132e96b">Camera3D::Camera3D</a>(<span class="keyword">const</span> glm::vec3&amp; pos, <span class="keywordtype">float</span> yaw, <span class="keywordtype">float</span> pitch, <span class="keywordtype">float</span> fov, <span class="keywordtype">float</span> roll)</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;: position(pos)</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;, orientation(yaw, pitch, roll)</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;, fov(fov) {}</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a01960.html#a4d85bb028a81e1c792b74a1c007c7898">   17</a></span>&#160;<a class="code" href="a01960.html#a8830ba8023aca66f2b85ca3c2132e96b">Camera3D::Camera3D</a>(<span class="keyword">const</span> glm::vec3&amp; pos, <span class="keyword">const</span> glm::vec3&amp; look, <span class="keywordtype">float</span> fov, <span class="keywordtype">float</span> roll)</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;: position(pos)</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;, orientation(look, pos, roll)</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;, fov(fov) {}</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a01960.html#ab920717d1389423460224e924d8fe2af">   22</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01960.html#ab920717d1389423460224e924d8fe2af">Camera3D::setPosition</a>(<span class="keyword">const</span> glm::vec3&amp; pos) {</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    position = pos;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <a class="code" href="a01976.html#a194c42e28c9bc4558095265ca862e761">markViewDirty</a>();</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;}</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="a01960.html#af5eb7c876fbb3d5009ecba69fce6180e">   27</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01960.html#af5eb7c876fbb3d5009ecba69fce6180e">Camera3D::move</a>(<span class="keyword">const</span> glm::vec3&amp; offset) {</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    position += offset;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <a class="code" href="a01976.html#a194c42e28c9bc4558095265ca862e761">markViewDirty</a>();</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;}</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keyword">const</span> <a class="code" href="a02093.html">Entity</a> ent(index, version);</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    bl::event::Dispatcher::dispatch&lt;event::EntityCreated&gt;({ent});</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordflow">return</span> ent;</div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="a01960.html#a44c9f6fa15da797e673386db4949327e">   32</a></span>&#160;<a class="code" href="a01996.html">com::Orientation3D</a>&amp; <a class="code" href="a01960.html#a44c9f6fa15da797e673386db4949327e">Camera3D::getOrientationForChange</a>() {</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <a class="code" href="a01976.html#a194c42e28c9bc4558095265ca862e761">markViewDirty</a>();</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordflow">return</span> orientation;</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;}</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="a02141.html#a2514480e0949da0c89faafc561aa0882">   37</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a02141.html#a2514480e0949da0c89faafc561aa0882">Registry::entityExists</a>(<a class="code" href="a02093.html">Entity</a> ent)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    std::lock_guard lock(entityLock);</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordflow">return</span> entityExistsLocked(ent);</div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="a01960.html#ad91815fbd49586e0218ca6a755583e02">   37</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01960.html#ad91815fbd49586e0218ca6a755583e02">Camera3D::setFov</a>(<span class="keywordtype">float</span> f) {</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    fov = f;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <a class="code" href="a01976.html#a8db0b22739ed85a8dc29ec7082d04640">markProjDirty</a>();</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;}</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keywordtype">bool</span> Registry::entityExistsLocked(<a class="code" href="a02093.html">Entity</a> ent)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keyword">const</span> std::uint64_t index = ent.<a class="code" href="a02093.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>();</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordflow">return</span> entityAllocator.<a class="code" href="a03817.html#ace0ff463eec7e042c0e53a6c53da58d5">isAllocated</a>(index) &amp;&amp; entityVersions[index] == ent.<a class="code" href="a02093.html#a375629bfb156b5397175f0304fcb93c6">getVersion</a>();</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;}</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keywordtype">void</span> Camera3D::refreshViewMatrix(glm::mat4&amp; view) {</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    glm::vec3 pos             = position;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <a class="code" href="a01996.html">com::Orientation3D</a> orient = orientation;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; a : affectors) { a-&gt;applyOnView(pos, orient); }</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="a02141.html#afbbbe957b4c0cc0f85be34421cae9a53">   47</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a02141.html#afbbbe957b4c0cc0f85be34421cae9a53">Registry::destroyEntity</a>(<a class="code" href="a02093.html">Entity</a> start) {</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    std::lock_guard lock(entityLock);</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="comment">// check if we can remove due to dependencies</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordflow">if</span> (dependencyGraph.<a class="code" href="a02089.html#a306e898c7fab38052be04f243e154f8c">hasDependencies</a>(start)) {</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        markEntityForRemoval(start);</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    }</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="comment">// determine list of entities to remove due to parenting and dependencies</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    std::vector&lt;Entity&gt; toRemove;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    std::vector&lt;Entity&gt; toVisit;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    toRemove.reserve(16);</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    toVisit.reserve(16);</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    toVisit.emplace_back(start);</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordflow">while</span> (!toVisit.empty()) {</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        <span class="keyword">const</span> <a class="code" href="a02093.html">Entity</a> ent = toVisit.back();</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        toVisit.pop_back();</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        toRemove.emplace_back(ent);</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <span class="comment">// add marked dependencies</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="a02093.html">Entity</a> resource : dependencyGraph.<a class="code" href="a02089.html#a334277ed7244554257b87ee0530b6d3a">getResources</a>(ent)) {</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            dependencyGraph.<a class="code" href="a02089.html#a578885f410b0ca7aa8551962258bb59f">removeDependency</a>(resource, ent);</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;            <span class="keywordflow">if</span> (!dependencyGraph.<a class="code" href="a02089.html#a306e898c7fab38052be04f243e154f8c">hasDependencies</a>(resource)) {</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                <span class="keyword">const</span> std::uint32_t i = resource.getIndex();</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                <span class="keywordflow">if</span> (i &lt; markedForRemoval.size() &amp;&amp; markedForRemoval[i]) {</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                    toVisit.emplace_back(resource);</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                }</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;            }</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        }</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        <span class="comment">// add children</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="a02093.html">Entity</a> child : parentGraph.<a class="code" href="a02137.html#ade74b5299fd5c0df5933e636664d07eb">getChildren</a>(ent)) { toVisit.emplace_back(child); }</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    }</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="comment">// roll by rotating up vector around look vector</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keyword">const</span> glm::vec3 up =</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        glm::mat3(glm::rotate(glm::radians(orient.<a class="code" href="a01996.html#ad1254dbe4b652931409c850475fc857d">getRoll</a>()), orient.<a class="code" href="a01996.html#a5f03e1a36bfde59000a175711a691a56">getFaceDirection</a>())) *</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <a class="code" href="a02860.html#a15fde9c74bd2a87559aec0e9cdbf4eec">rc::Config::UpDirection</a>;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    view = glm::lookAt(pos, pos + orient.<a class="code" href="a01996.html#a5f03e1a36bfde59000a175711a691a56">getFaceDirection</a>(), up);</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;}</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="keywordtype">void</span> Camera3D::refreshProjMatrix(glm::mat4&amp; proj, <span class="keyword">const</span> VkViewport&amp; viewport) {</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordtype">float</span> f         = fov;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordtype">float</span> nearValue = <a class="code" href="a01976.html#a9c66151fa1d297f82526d18b38836c2f">nearPlane</a>();</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordtype">float</span> farValue  = <a class="code" href="a01976.html#a8e2441211f24e3d0c682ea3ecfe1b168">farPlane</a>();</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; a : affectors) { a-&gt;applyOnProjection(f, nearValue, farValue); }</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    proj = glm::perspective(glm::radians(f), viewport.width / viewport.height, nearValue, farValue);</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    proj[1][1] *= -1.f;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;}</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="keywordtype">void</span> Camera3D::update(<span class="keywordtype">float</span> dt) {</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordflow">if</span> (controller) { controller-&gt;update(dt); }</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordtype">bool</span> view = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordtype">bool</span> proj = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; a : affectors) { a-&gt;update(dt, view, proj); }</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordflow">if</span> (view) { <a class="code" href="a01976.html#a194c42e28c9bc4558095265ca862e761">markViewDirty</a>(); }</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordflow">if</span> (proj) { <a class="code" href="a01976.html#a8db0b22739ed85a8dc29ec7082d04640">markProjDirty</a>(); }</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;}</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="a01960.html#a9d2f491ebfaf43f6d8fcaf736939ad93">   74</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01960.html#aba5e32a703871da0c5fd773833e8209b">Camera3D::removeAffector</a>(<span class="keyword">const</span> <a class="code" href="a01964.html">CameraAffector3D</a>* a) {</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = affectors.begin(); it != affectors.end(); ++it) {</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        <span class="keywordflow">if</span> (<span class="keyword">static_cast&lt;</span><a class="code" href="a01964.html">CameraAffector3D</a>*<span class="keyword">&gt;</span>(it-&gt;get()) == a) {</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;            affectors.erase(it);</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;            <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        }</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    }</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;}</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="comment">// remove all discovered entities</span></div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code" href="a02093.html">Entity</a> ent : toRemove) {</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        <span class="keyword">const</span> std::uint32_t index            = ent.<a class="code" href="a02093.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>();</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <span class="keyword">const</span> <a class="code" href="a02057.html#aefd97da33d1020c347856657dfb379ef">ComponentMask::SimpleMask</a> mask = entityMasks[index];</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        <span class="comment">// notify external and remove from views</span></div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        bl::event::Dispatcher::dispatch&lt;event::EntityDestroyed&gt;({ent});</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; view : views) {</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;            <span class="keywordflow">if</span> (view-&gt;mask.passes(mask)) { view-&gt;removeEntity(ent); }</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        }</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        <span class="comment">// destroy components</span></div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="a02065.html">ComponentPoolBase</a>* pool : componentPools) {</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;            <span class="keywordflow">if</span> (<a class="code" href="a02057.html#a87cc22416a35dfa00820fad10b37dfbd">ComponentMask::has</a>(mask, pool-&gt;ComponentIndex)) { pool-&gt;remove(ent); }</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        }</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        <span class="comment">// reset metadata</span></div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        entityAllocator.<a class="code" href="a03817.html#a999cf670cc7639d0c167ef6b950616b2">release</a>(index);</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        entityMasks[index] = <a class="code" href="a02057.html#a281797a712e2ec4b04264000406ea5df">ComponentMask::EmptyMask</a>;</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        <span class="comment">// remove parenting info</span></div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        parentGraph.<a class="code" href="a02137.html#a17db4dda4272bce51c49a7c96b71b03d">removeEntity</a>(ent);</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        <span class="comment">// remove dependency info</span></div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        <span class="keywordflow">if</span> (index &lt; markedForRemoval.size()) { markedForRemoval[index] = <span class="keyword">false</span>; }</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    }</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;}</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
-<div class="line"><a name="l00113"></a><span class="lineno"><a class="line" href="a02141.html#add0648ac525123cb7144b46790edbac9">  113</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02141.html#add0648ac525123cb7144b46790edbac9">Registry::destroyAllEntities</a>() {</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    std::lock_guard lock(entityLock);</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <span class="comment">// send entity events</span></div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="keywordflow">for</span> (std::uint32_t index = 0; index &lt; entityAllocator.<a class="code" href="a03817.html#a9c6d5813a146b1402c8a4814422df140">poolSize</a>(); ++index) {</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        <span class="keywordflow">if</span> (entityAllocator.<a class="code" href="a03817.html#ace0ff463eec7e042c0e53a6c53da58d5">isAllocated</a>(index)) {</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;            bl::event::Dispatcher::dispatch&lt;event::EntityDestroyed&gt;(</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;                {<a class="code" href="a02093.html">Entity</a>(index, entityVersions[index])});</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        }</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    }</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    <span class="comment">// clear pools</span></div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="a02065.html">ComponentPoolBase</a>* pool : componentPools) { pool-&gt;clear(); }</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160; </div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <span class="comment">// reset entity id management</span></div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    entityAllocator.<a class="code" href="a03817.html#acaa4e830f32672424758a5487b26f4d4">releaseAll</a>();</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    std::fill(entityMasks.begin(), entityMasks.end(), <a class="code" href="a02057.html#a281797a712e2ec4b04264000406ea5df">ComponentMask::EmptyMask</a>);</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    <span class="comment">// reset relationships</span></div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    parentGraph.<a class="code" href="a02137.html#acbcc3b794d2c338032bb80fc5bbbfc8f">reset</a>();</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    dependencyGraph.<a class="code" href="a02089.html#a46bb4369e09fcc49d21b3f8c07946f4c">clear</a>();</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    std::fill(markedForRemoval.begin(), markedForRemoval.end(), <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160; </div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    <span class="comment">// clear views</span></div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; view : views) { view-&gt;clearAndRefresh(); }</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;}</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160; </div>
-<div class="line"><a name="l00140"></a><span class="lineno"><a class="line" href="a02141.html#a17ba35999948def55af592092e38a4ed">  140</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02141.html#a17ba35999948def55af592092e38a4ed">Registry::setEntityParent</a>(<a class="code" href="a02093.html">Entity</a> child, <a class="code" href="a02093.html">Entity</a> parent) {</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    std::lock_guard lock(entityLock);</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    <span class="keyword">const</span> std::uint32_t ic = child.<a class="code" href="a02093.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>();</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    <span class="keyword">const</span> std::uint32_t ip = parent.<a class="code" href="a02093.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>();</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    <span class="keywordflow">if</span> (!entityAllocator.<a class="code" href="a03817.html#ace0ff463eec7e042c0e53a6c53da58d5">isAllocated</a>(ic) || !entityAllocator.<a class="code" href="a03817.html#ace0ff463eec7e042c0e53a6c53da58d5">isAllocated</a>(ip)) {</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;        <a class="code" href="a00443.html#af954e63cd52a20dcd7087a8c569f373f">BL_LOG_WARN</a> &lt;&lt; <span class="stringliteral">&quot;Tried to parent bad entities: &quot;</span> &lt;&lt; child &lt;&lt; <span class="stringliteral">&quot; &lt;- &quot;</span> &lt;&lt; parent;</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;        <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    }</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160; </div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    <span class="keyword">const</span> <a class="code" href="a02057.html">ComponentMask</a> mask{.<a class="code" href="a02057.html#a34764b733921cd31f6046f61c6c7611b">required</a> = entityMasks[ic]};</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    parentGraph.<a class="code" href="a02137.html#a9121be6b1da7de47f609491e7b84dd1e">setParent</a>(child, parent);</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="a02065.html">ComponentPoolBase</a>* pool : componentPools) {</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;        <span class="keywordflow">if</span> (mask.contains(pool-&gt;ComponentIndex)) { pool-&gt;onParentSet(child, parent); }</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    }</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160; </div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    bl::event::Dispatcher::dispatch&lt;event::EntityParentSet&gt;({parent, child});</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;}</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160; </div>
-<div class="line"><a name="l00158"></a><span class="lineno"><a class="line" href="a02141.html#a16e5bc97d10fa3e0e843b61092088be8">  158</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02141.html#a16e5bc97d10fa3e0e843b61092088be8">Registry::removeEntityParent</a>(<a class="code" href="a02093.html">Entity</a> child) {</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    std::lock_guard lock(entityLock);</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    <span class="keyword">const</span> <a class="code" href="a02093.html">Entity</a> parent = parentGraph.<a class="code" href="a02137.html#ab26869bf08eb3701dc146e226ef887da">getParent</a>(child);</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    <span class="keywordflow">if</span> (parent == <a class="code" href="a01772.html#a01655307bcb32baf2884e18213123917">InvalidEntity</a>) { <span class="keywordflow">return</span>; }</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    <span class="keyword">const</span> std::uint32_t ic = child.<a class="code" href="a02093.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>();</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    <span class="keyword">const</span> std::uint32_t ip = parent.<a class="code" href="a02093.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>();</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    <span class="keywordflow">if</span> (!entityAllocator.<a class="code" href="a03817.html#ace0ff463eec7e042c0e53a6c53da58d5">isAllocated</a>(ic) || !entityAllocator.<a class="code" href="a03817.html#ace0ff463eec7e042c0e53a6c53da58d5">isAllocated</a>(ip)) {</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;        <a class="code" href="a00443.html#af954e63cd52a20dcd7087a8c569f373f">BL_LOG_WARN</a> &lt;&lt; <span class="stringliteral">&quot;Tried to un-parent bad entities: &quot;</span> &lt;&lt; child &lt;&lt; <span class="stringliteral">&quot; &lt;- &quot;</span> &lt;&lt; parent;</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;        <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    }</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160; </div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    <span class="keyword">const</span> <a class="code" href="a02057.html">ComponentMask</a> mask{.<a class="code" href="a02057.html#a34764b733921cd31f6046f61c6c7611b">required</a> = entityMasks[ic]};</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    parentGraph.<a class="code" href="a02137.html#a965b2d787f0e6ccb2beed91b3d70a815">unParent</a>(child);</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="a02065.html">ComponentPoolBase</a>* pool : componentPools) {</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;        <span class="keywordflow">if</span> (mask.contains(pool-&gt;ComponentIndex)) { pool-&gt;onParentRemove(parent, child); }</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    }</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160; </div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    bl::event::Dispatcher::dispatch&lt;event::EntityParentRemoved&gt;({child});</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;}</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160; </div>
-<div class="line"><a name="l00178"></a><span class="lineno"><a class="line" href="a02141.html#a8f1be4eb808c6870b211e2fd5c6805ab">  178</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02141.html#a8f1be4eb808c6870b211e2fd5c6805ab">Registry::addDependency</a>(<a class="code" href="a02093.html">Entity</a> resource, <a class="code" href="a02093.html">Entity</a> user) {</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    std::lock_guard lock(entityLock);</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160; </div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;    <span class="keywordflow">if</span> (!entityExistsLocked(resource) || !entityExistsLocked(user)) {</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;        <a class="code" href="a00443.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Tried to add bad dependency (entities do not exist). Resource: &quot;</span></div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;                     &lt;&lt; resource &lt;&lt; <span class="stringliteral">&quot;. User: &quot;</span> &lt;&lt; user;</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;        <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    }</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160; </div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    dependencyGraph.<a class="code" href="a02089.html#a5be0aef92ec886c39769384811f02ccc">addDependency</a>(resource, user);</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160; </div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    bl::event::Dispatcher::dispatch&lt;event::EntityDependencyAdded&gt;({resource, user});</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;}</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160; </div>
-<div class="line"><a name="l00192"></a><span class="lineno"><a class="line" href="a02141.html#aec3a9d72c003fc0b6e509d984d53209c">  192</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02141.html#aec3a9d72c003fc0b6e509d984d53209c">Registry::removeDependency</a>(<a class="code" href="a02093.html">Entity</a> resource, <a class="code" href="a02093.html">Entity</a> user) {</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    {</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;        std::lock_guard lock(entityLock);</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160; </div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;        <span class="keywordflow">if</span> (!entityExistsLocked(resource) || !entityExistsLocked(user)) {</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;            <a class="code" href="a00443.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Tried to remove bad dependency (entities do not exist). Resource: &quot;</span></div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;                         &lt;&lt; resource &lt;&lt; <span class="stringliteral">&quot;. User: &quot;</span> &lt;&lt; user;</div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;            <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;        }</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160; </div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;        dependencyGraph.<a class="code" href="a02089.html#a578885f410b0ca7aa8551962258bb59f">removeDependency</a>(resource, user);</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    }</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160; </div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;    bl::event::Dispatcher::dispatch&lt;event::EntityDependencyRemoved&gt;({resource, user});</div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160; </div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    <span class="comment">// remove if marked</span></div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;    <span class="keyword">const</span> std::uint32_t i = resource.<a class="code" href="a02093.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>();</div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;    <span class="keywordflow">if</span> (i &lt; markedForRemoval.size() &amp;&amp; markedForRemoval[i]) {</div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;        markedForRemoval[i] = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;        <a class="code" href="a02141.html#afbbbe957b4c0cc0f85be34421cae9a53">destroyEntity</a>(resource);</div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    }</div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;}</div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160; </div>
-<div class="line"><a name="l00215"></a><span class="lineno"><a class="line" href="a02141.html#a5c1e8862b0868a2c79b95d24dbd2e8c7">  215</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02141.html#a5c1e8862b0868a2c79b95d24dbd2e8c7">Registry::removeDependencyAndDestroyIfPossible</a>(<a class="code" href="a02093.html">Entity</a> resource, <a class="code" href="a02093.html">Entity</a> user) {</div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;    <a class="code" href="a02141.html#aec3a9d72c003fc0b6e509d984d53209c">removeDependency</a>(resource, user);</div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="a02141.html#a2514480e0949da0c89faafc561aa0882">entityExists</a>(resource)) {</div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;        <span class="keywordflow">if</span> (!<a class="code" href="a02141.html#ac0718306a206eb2c7720fb92e06c6599">isDependedOn</a>(resource)) { <a class="code" href="a02141.html#afbbbe957b4c0cc0f85be34421cae9a53">destroyEntity</a>(resource); }</div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;        <span class="keywordflow">else</span> { markEntityForRemoval(resource); }</div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;    }</div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;}</div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160; </div>
-<div class="line"><a name="l00223"></a><span class="lineno"><a class="line" href="a02141.html#ac0718306a206eb2c7720fb92e06c6599">  223</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a02141.html#ac0718306a206eb2c7720fb92e06c6599">Registry::isDependedOn</a>(<a class="code" href="a02093.html">Entity</a> resource)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;    std::lock_guard lock(entityLock);</div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;    <span class="keywordflow">return</span> dependencyGraph.<a class="code" href="a02089.html#a306e898c7fab38052be04f243e154f8c">hasDependencies</a>(resource);</div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;}</div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160; </div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;<span class="keywordtype">void</span> Registry::markEntityForRemoval(<a class="code" href="a02093.html">Entity</a> ent) {</div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    <span class="keyword">const</span> std::uint32_t i = ent.<a class="code" href="a02093.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>();</div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;    <span class="keywordflow">if</span> (markedForRemoval.size() &lt;= i) { markedForRemoval.resize(i + 1, <span class="keyword">false</span>); }</div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;    markedForRemoval[i] = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;}</div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160; </div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;<span class="keywordtype">void</span> Registry::observe(<span class="keyword">const</span> event::ComponentPoolResized&amp; resize) {</div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; view : views) {</div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;        <span class="keywordflow">if</span> (view-&gt;mask.contains(resize.poolIndex)) { view-&gt;needsAddressReload = <span class="keyword">true</span>; }</div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;    }</div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;}</div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160; </div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;} <span class="comment">// namespace ecs</span></div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00155_html"><div class="ttname"><a href="a00155.html">ECS.hpp</a></div></div>
-<div class="ttc" id="aa00443_html_a927270d671e83a1c6b5382f30bfbf895"><div class="ttname"><a href="a00443.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a></div><div class="ttdeci">#define BL_LOG_ERROR</div><div class="ttdoc">Helper macro to log at error level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00443_source.html#l00101">Logger.hpp:101</a></div></div>
-<div class="ttc" id="aa00443_html_af954e63cd52a20dcd7087a8c569f373f"><div class="ttname"><a href="a00443.html#af954e63cd52a20dcd7087a8c569f373f">BL_LOG_WARN</a></div><div class="ttdeci">#define BL_LOG_WARN</div><div class="ttdoc">Helper macro to log at warn level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00443_source.html#l00104">Logger.hpp:104</a></div></div>
-<div class="ttc" id="aa01760_html"><div class="ttname"><a href="a01760.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa01772_html_a01655307bcb32baf2884e18213123917"><div class="ttname"><a href="a01772.html#a01655307bcb32baf2884e18213123917">bl::ecs::InvalidEntity</a></div><div class="ttdeci">static constexpr Entity InvalidEntity</div><div class="ttdoc">Special value to indicate that an Entity is not valid.</div><div class="ttdef"><b>Definition:</b> <a href="a00125_source.html#l00149">Entity.hpp:149</a></div></div>
-<div class="ttc" id="aa02057_html"><div class="ttname"><a href="a02057.html">bl::ecs::ComponentMask</a></div><div class="ttdoc">Helper struct for creating masks representing component types on an entity.</div><div class="ttdef"><b>Definition:</b> <a href="a00110_source.html#l00018">ComponentMask.hpp:18</a></div></div>
-<div class="ttc" id="aa02057_html_a281797a712e2ec4b04264000406ea5df"><div class="ttname"><a href="a02057.html#a281797a712e2ec4b04264000406ea5df">bl::ecs::ComponentMask::EmptyMask</a></div><div class="ttdeci">static constexpr SimpleMask EmptyMask</div><div class="ttdoc">A mask with no components.</div><div class="ttdef"><b>Definition:</b> <a href="a00110_source.html#l00026">ComponentMask.hpp:26</a></div></div>
-<div class="ttc" id="aa02057_html_a3178dc0fb7c900eb178bd1c268bc7a3e"><div class="ttname"><a href="a02057.html#a3178dc0fb7c900eb178bd1c268bc7a3e">bl::ecs::ComponentMask::MaxComponentTypeCount</a></div><div class="ttdeci">static constexpr unsigned int MaxComponentTypeCount</div><div class="ttdoc">Maximum number of component types supported by the ECS.</div><div class="ttdef"><b>Definition:</b> <a href="a00110_source.html#l00023">ComponentMask.hpp:23</a></div></div>
-<div class="ttc" id="aa02057_html_a34764b733921cd31f6046f61c6c7611b"><div class="ttname"><a href="a02057.html#a34764b733921cd31f6046f61c6c7611b">bl::ecs::ComponentMask::required</a></div><div class="ttdeci">SimpleMask required</div><div class="ttdef"><b>Definition:</b> <a href="a00110_source.html#l00028">ComponentMask.hpp:28</a></div></div>
-<div class="ttc" id="aa02057_html_a87cc22416a35dfa00820fad10b37dfbd"><div class="ttname"><a href="a02057.html#a87cc22416a35dfa00820fad10b37dfbd">bl::ecs::ComponentMask::has</a></div><div class="ttdeci">static bool has(SimpleMask mask, unsigned int componentIndex)</div><div class="ttdoc">Tests whether or not the given component exists in the given mask.</div><div class="ttdef"><b>Definition:</b> <a href="a00110_source.html#l00080">ComponentMask.hpp:80</a></div></div>
-<div class="ttc" id="aa02057_html_aefd97da33d1020c347856657dfb379ef"><div class="ttname"><a href="a02057.html#aefd97da33d1020c347856657dfb379ef">bl::ecs::ComponentMask::SimpleMask</a></div><div class="ttdeci">BLIB_ECS_MASK_TYPE SimpleMask</div><div class="ttdoc">The type of the bitmask itself.</div><div class="ttdef"><b>Definition:</b> <a href="a00110_source.html#l00020">ComponentMask.hpp:20</a></div></div>
-<div class="ttc" id="aa02065_html"><div class="ttname"><a href="a02065.html">bl::ecs::ComponentPoolBase</a></div><div class="ttdoc">Base class for component pools. Not intended to be used directly.</div><div class="ttdef"><b>Definition:</b> <a href="a00113_source.html#l00034">ComponentPool.hpp:34</a></div></div>
-<div class="ttc" id="aa02089_html_a306e898c7fab38052be04f243e154f8c"><div class="ttname"><a href="a02089.html#a306e898c7fab38052be04f243e154f8c">bl::ecs::DependencyGraph::hasDependencies</a></div><div class="ttdeci">bool hasDependencies(Entity parent) const</div><div class="ttdoc">Returns whether or not the given entity has others depending on it.</div><div class="ttdef"><b>Definition:</b> <a href="a01106_source.html#l00016">DependencyGraph.cpp:16</a></div></div>
-<div class="ttc" id="aa02089_html_a334277ed7244554257b87ee0530b6d3a"><div class="ttname"><a href="a02089.html#a334277ed7244554257b87ee0530b6d3a">bl::ecs::DependencyGraph::getResources</a></div><div class="ttdeci">ctr::IndexMappedList&lt; std::uint32_t, Entity &gt;::Range getResources(Entity child)</div><div class="ttdoc">Returns an iterable of dependencies for the given entity.</div><div class="ttdef"><b>Definition:</b> <a href="a01106_source.html#l00030">DependencyGraph.cpp:30</a></div></div>
-<div class="ttc" id="aa02089_html_a46bb4369e09fcc49d21b3f8c07946f4c"><div class="ttname"><a href="a02089.html#a46bb4369e09fcc49d21b3f8c07946f4c">bl::ecs::DependencyGraph::clear</a></div><div class="ttdeci">void clear()</div><div class="ttdoc">Clears out all relationship data.</div><div class="ttdef"><b>Definition:</b> <a href="a01106_source.html#l00025">DependencyGraph.cpp:25</a></div></div>
-<div class="ttc" id="aa02089_html_a578885f410b0ca7aa8551962258bb59f"><div class="ttname"><a href="a02089.html#a578885f410b0ca7aa8551962258bb59f">bl::ecs::DependencyGraph::removeDependency</a></div><div class="ttdeci">void removeDependency(Entity parent, Entity child)</div><div class="ttdoc">Removes the given dependency.</div><div class="ttdef"><b>Definition:</b> <a href="a01106_source.html#l00020">DependencyGraph.cpp:20</a></div></div>
-<div class="ttc" id="aa02089_html_a5be0aef92ec886c39769384811f02ccc"><div class="ttname"><a href="a02089.html#a5be0aef92ec886c39769384811f02ccc">bl::ecs::DependencyGraph::addDependency</a></div><div class="ttdeci">void addDependency(Entity parent, Entity child)</div><div class="ttdoc">Adds a dependency between two entities.</div><div class="ttdef"><b>Definition:</b> <a href="a01106_source.html#l00011">DependencyGraph.cpp:11</a></div></div>
-<div class="ttc" id="aa02093_html"><div class="ttname"><a href="a02093.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition:</b> <a href="a00125_source.html#l00023">Entity.hpp:23</a></div></div>
-<div class="ttc" id="aa02093_html_a375629bfb156b5397175f0304fcb93c6"><div class="ttname"><a href="a02093.html#a375629bfb156b5397175f0304fcb93c6">bl::ecs::Entity::getVersion</a></div><div class="ttdeci">std::uint64_t getVersion() const</div><div class="ttdoc">Returns the version of an entity. The same entity index may be reused, the version differentiates it ...</div><div class="ttdef"><b>Definition:</b> <a href="a00125_source.html#l00110">Entity.hpp:110</a></div></div>
-<div class="ttc" id="aa02093_html_aa3cb71b47f3a72f20913a27233a5dad0"><div class="ttname"><a href="a02093.html#aa3cb71b47f3a72f20913a27233a5dad0">bl::ecs::Entity::getIndex</a></div><div class="ttdeci">std::uint64_t getIndex() const</div><div class="ttdoc">Returns the 0-based index for the entity.</div><div class="ttdef"><b>Definition:</b> <a href="a00125_source.html#l00101">Entity.hpp:101</a></div></div>
-<div class="ttc" id="aa02137_html_a17db4dda4272bce51c49a7c96b71b03d"><div class="ttname"><a href="a02137.html#a17db4dda4272bce51c49a7c96b71b03d">bl::ecs::ParentGraph::removeEntity</a></div><div class="ttdeci">void removeEntity(Entity entity)</div><div class="ttdoc">Removes the given entity from the graph. Does not update children. remove() must be called manually f...</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00057">ParentGraph.cpp:57</a></div></div>
-<div class="ttc" id="aa02137_html_a9121be6b1da7de47f609491e7b84dd1e"><div class="ttname"><a href="a02137.html#a9121be6b1da7de47f609491e7b84dd1e">bl::ecs::ParentGraph::setParent</a></div><div class="ttdeci">void setParent(Entity child, Entity parent)</div><div class="ttdoc">Adds a parent &lt;-&gt; child association.</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00013">ParentGraph.cpp:13</a></div></div>
-<div class="ttc" id="aa02137_html_a965b2d787f0e6ccb2beed91b3d70a815"><div class="ttname"><a href="a02137.html#a965b2d787f0e6ccb2beed91b3d70a815">bl::ecs::ParentGraph::unParent</a></div><div class="ttdeci">void unParent(Entity child)</div><div class="ttdoc">Removes the parent from the given entity.</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00033">ParentGraph.cpp:33</a></div></div>
-<div class="ttc" id="aa02137_html_ab26869bf08eb3701dc146e226ef887da"><div class="ttname"><a href="a02137.html#ab26869bf08eb3701dc146e226ef887da">bl::ecs::ParentGraph::getParent</a></div><div class="ttdeci">Entity getParent(Entity child) const</div><div class="ttdoc">Returns the parent for the given child.</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00043">ParentGraph.cpp:43</a></div></div>
-<div class="ttc" id="aa02137_html_acbcc3b794d2c338032bb80fc5bbbfc8f"><div class="ttname"><a href="a02137.html#acbcc3b794d2c338032bb80fc5bbbfc8f">bl::ecs::ParentGraph::reset</a></div><div class="ttdeci">void reset()</div><div class="ttdoc">Resets the entire graph to the empty state.</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00052">ParentGraph.cpp:52</a></div></div>
-<div class="ttc" id="aa02137_html_ade74b5299fd5c0df5933e636664d07eb"><div class="ttname"><a href="a02137.html#ade74b5299fd5c0df5933e636664d07eb">bl::ecs::ParentGraph::getChildren</a></div><div class="ttdeci">ctr::IndexMappedList&lt; std::uint32_t, Entity &gt;::Range getChildren(Entity parent)</div><div class="ttdoc">Returns a range of children for the given entity.</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00048">ParentGraph.cpp:48</a></div></div>
-<div class="ttc" id="aa02141_html_a16e5bc97d10fa3e0e843b61092088be8"><div class="ttname"><a href="a02141.html#a16e5bc97d10fa3e0e843b61092088be8">bl::ecs::Registry::removeEntityParent</a></div><div class="ttdeci">void removeEntityParent(Entity child)</div><div class="ttdoc">Removes the parent of the given entity, if any.</div><div class="ttdef"><b>Definition:</b> <a href="a01112_source.html#l00158">Registry.cpp:158</a></div></div>
-<div class="ttc" id="aa02141_html_a17ba35999948def55af592092e38a4ed"><div class="ttname"><a href="a02141.html#a17ba35999948def55af592092e38a4ed">bl::ecs::Registry::setEntityParent</a></div><div class="ttdeci">void setEntityParent(Entity child, Entity parent)</div><div class="ttdoc">Sets the parent entity of the given entity.</div><div class="ttdef"><b>Definition:</b> <a href="a01112_source.html#l00140">Registry.cpp:140</a></div></div>
-<div class="ttc" id="aa02141_html_a2514480e0949da0c89faafc561aa0882"><div class="ttname"><a href="a02141.html#a2514480e0949da0c89faafc561aa0882">bl::ecs::Registry::entityExists</a></div><div class="ttdeci">bool entityExists(Entity entity) const</div><div class="ttdoc">Returns whether or not the given entity exists.</div><div class="ttdef"><b>Definition:</b> <a href="a01112_source.html#l00037">Registry.cpp:37</a></div></div>
-<div class="ttc" id="aa02141_html_a5c1e8862b0868a2c79b95d24dbd2e8c7"><div class="ttname"><a href="a02141.html#a5c1e8862b0868a2c79b95d24dbd2e8c7">bl::ecs::Registry::removeDependencyAndDestroyIfPossible</a></div><div class="ttdeci">void removeDependencyAndDestroyIfPossible(Entity resource, Entity user)</div><div class="ttdoc">Calls removeDependency() and then destroys the resource if nothing else depends on it....</div><div class="ttdef"><b>Definition:</b> <a href="a01112_source.html#l00215">Registry.cpp:215</a></div></div>
-<div class="ttc" id="aa02141_html_a5d7df62abc2d6674c31f0982321122cb"><div class="ttname"><a href="a02141.html#a5d7df62abc2d6674c31f0982321122cb">bl::ecs::Registry::createEntity</a></div><div class="ttdeci">Entity createEntity()</div><div class="ttdoc">Creates a new entity and returns its id.</div><div class="ttdef"><b>Definition:</b> <a href="a01112_source.html#l00018">Registry.cpp:18</a></div></div>
-<div class="ttc" id="aa02141_html_a8013e244778dc86d30405db8821fa5aa"><div class="ttname"><a href="a02141.html#a8013e244778dc86d30405db8821fa5aa">bl::ecs::Registry::Registry</a></div><div class="ttdeci">Registry()</div><div class="ttdoc">Creates a new entity registry.</div><div class="ttdef"><b>Definition:</b> <a href="a01112_source.html#l00007">Registry.cpp:7</a></div></div>
-<div class="ttc" id="aa02141_html_a8f1be4eb808c6870b211e2fd5c6805ab"><div class="ttname"><a href="a02141.html#a8f1be4eb808c6870b211e2fd5c6805ab">bl::ecs::Registry::addDependency</a></div><div class="ttdeci">void addDependency(Entity resource, Entity user)</div><div class="ttdoc">Adds a dependency on resource from user. Controls whether or not an entity may be safely deleted.</div><div class="ttdef"><b>Definition:</b> <a href="a01112_source.html#l00178">Registry.cpp:178</a></div></div>
-<div class="ttc" id="aa02141_html_ac0718306a206eb2c7720fb92e06c6599"><div class="ttname"><a href="a02141.html#ac0718306a206eb2c7720fb92e06c6599">bl::ecs::Registry::isDependedOn</a></div><div class="ttdeci">bool isDependedOn(Entity resource) const</div><div class="ttdoc">Returns whether or not the given entity is depended on by other entities.</div><div class="ttdef"><b>Definition:</b> <a href="a01112_source.html#l00223">Registry.cpp:223</a></div></div>
-<div class="ttc" id="aa02141_html_add0648ac525123cb7144b46790edbac9"><div class="ttname"><a href="a02141.html#add0648ac525123cb7144b46790edbac9">bl::ecs::Registry::destroyAllEntities</a></div><div class="ttdeci">void destroyAllEntities()</div><div class="ttdoc">Destroys and removes all entities and components from the ECS.</div><div class="ttdef"><b>Definition:</b> <a href="a01112_source.html#l00113">Registry.cpp:113</a></div></div>
-<div class="ttc" id="aa02141_html_aec3a9d72c003fc0b6e509d984d53209c"><div class="ttname"><a href="a02141.html#aec3a9d72c003fc0b6e509d984d53209c">bl::ecs::Registry::removeDependency</a></div><div class="ttdeci">void removeDependency(Entity resource, Entity user)</div><div class="ttdoc">Removes the given dependency. Will destroy the resource if a prior call to destroyEntity() failed for...</div><div class="ttdef"><b>Definition:</b> <a href="a01112_source.html#l00192">Registry.cpp:192</a></div></div>
-<div class="ttc" id="aa02141_html_afbbbe957b4c0cc0f85be34421cae9a53"><div class="ttname"><a href="a02141.html#afbbbe957b4c0cc0f85be34421cae9a53">bl::ecs::Registry::destroyEntity</a></div><div class="ttdeci">bool destroyEntity(Entity entity)</div><div class="ttdoc">Removes the given entity and destroys all of its components. Destruction will not occur if the entity...</div><div class="ttdef"><b>Definition:</b> <a href="a01112_source.html#l00047">Registry.cpp:47</a></div></div>
-<div class="ttc" id="aa02261_html_a36b6226eb7a776e0fc9c798689725bdc"><div class="ttname"><a href="a02261.html#a36b6226eb7a776e0fc9c798689725bdc">bl::event::Dispatcher::subscribe</a></div><div class="ttdeci">static void subscribe(Listener&lt; TEvents... &gt; *listener, bool defer=false)</div><div class="ttdoc">Subscribe the given listener to the event stream for the event types given.</div><div class="ttdef"><b>Definition:</b> <a href="a00209_source.html#l00093">Dispatcher.hpp:93</a></div></div>
-<div class="ttc" id="aa03817_html_a999cf670cc7639d0c167ef6b950616b2"><div class="ttname"><a href="a03817.html#a999cf670cc7639d0c167ef6b950616b2">bl::util::IdAllocatorUnbounded::release</a></div><div class="ttdeci">void release(T id)</div><div class="ttdoc">Releases the given id back into the pool. Double-release is an error.</div><div class="ttdef"><b>Definition:</b> <a href="a01019_source.html#l00104">IdAllocatorUnbounded.hpp:104</a></div></div>
-<div class="ttc" id="aa03817_html_a9c6d5813a146b1402c8a4814422df140"><div class="ttname"><a href="a03817.html#a9c6d5813a146b1402c8a4814422df140">bl::util::IdAllocatorUnbounded::poolSize</a></div><div class="ttdeci">constexpr T poolSize() const</div><div class="ttdoc">Returns the capacity of the id pool.</div><div class="ttdef"><b>Definition:</b> <a href="a01019_source.html#l00124">IdAllocatorUnbounded.hpp:124</a></div></div>
-<div class="ttc" id="aa03817_html_acaa4e830f32672424758a5487b26f4d4"><div class="ttname"><a href="a03817.html#acaa4e830f32672424758a5487b26f4d4">bl::util::IdAllocatorUnbounded::releaseAll</a></div><div class="ttdeci">void releaseAll()</div><div class="ttdoc">Releases all ids.</div><div class="ttdef"><b>Definition:</b> <a href="a01019_source.html#l00112">IdAllocatorUnbounded.hpp:112</a></div></div>
-<div class="ttc" id="aa03817_html_ace0ff463eec7e042c0e53a6c53da58d5"><div class="ttname"><a href="a03817.html#ace0ff463eec7e042c0e53a6c53da58d5">bl::util::IdAllocatorUnbounded::isAllocated</a></div><div class="ttdeci">constexpr bool isAllocated(T id) const</div><div class="ttdoc">Returns whether or not the given id is allocated.</div><div class="ttdef"><b>Definition:</b> <a href="a01019_source.html#l00119">IdAllocatorUnbounded.hpp:119</a></div></div>
-<div class="ttc" id="aa03817_html_ae7fb1e9e6910be922de1188e21017610"><div class="ttname"><a href="a03817.html#ae7fb1e9e6910be922de1188e21017610">bl::util::IdAllocatorUnbounded::allocate</a></div><div class="ttdeci">T allocate()</div><div class="ttdoc">Allocates a new id from the allocator.</div><div class="ttdef"><b>Definition:</b> <a href="a01019_source.html#l00089">IdAllocatorUnbounded.hpp:89</a></div></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;} <span class="comment">// namespace cam</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00035_html"><div class="ttname"><a href="a00035.html">Camera3D.hpp</a></div></div>
+<div class="ttc" id="aa00500_html"><div class="ttname"><a href="a00500.html">Trig.hpp</a></div></div>
+<div class="ttc" id="aa01803_html"><div class="ttname"><a href="a01803.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa01960_html_a44c9f6fa15da797e673386db4949327e"><div class="ttname"><a href="a01960.html#a44c9f6fa15da797e673386db4949327e">bl::cam::Camera3D::getOrientationForChange</a></div><div class="ttdeci">com::Orientation3D &amp; getOrientationForChange()</div><div class="ttdoc">Returns the orientation of the camera and marks the camera as needing to refresh the view matrix....</div><div class="ttdef"><b>Definition:</b> <a href="a01112_source.html#l00032">Camera3D.cpp:32</a></div></div>
+<div class="ttc" id="aa01960_html_a8830ba8023aca66f2b85ca3c2132e96b"><div class="ttname"><a href="a01960.html#a8830ba8023aca66f2b85ca3c2132e96b">bl::cam::Camera3D::Camera3D</a></div><div class="ttdeci">Camera3D(const glm::vec3 &amp;pos={}, float yaw=0.f, float pitch=0.f, float fov=75.f, float roll=0.f)</div><div class="ttdoc">Create a new Camera.</div><div class="ttdef"><b>Definition:</b> <a href="a01112_source.html#l00012">Camera3D.cpp:12</a></div></div>
+<div class="ttc" id="aa01960_html_ab920717d1389423460224e924d8fe2af"><div class="ttname"><a href="a01960.html#ab920717d1389423460224e924d8fe2af">bl::cam::Camera3D::setPosition</a></div><div class="ttdeci">void setPosition(const glm::vec3 &amp;pos)</div><div class="ttdoc">Set the world position of the camera.</div><div class="ttdef"><b>Definition:</b> <a href="a01112_source.html#l00022">Camera3D.cpp:22</a></div></div>
+<div class="ttc" id="aa01960_html_aba5e32a703871da0c5fd773833e8209b"><div class="ttname"><a href="a01960.html#aba5e32a703871da0c5fd773833e8209b">bl::cam::Camera3D::removeAffector</a></div><div class="ttdeci">void removeAffector()</div><div class="ttdoc">Removes the first affector found of the given type from this camera.</div><div class="ttdef"><b>Definition:</b> <a href="a00035_source.html#l00222">Camera3D.hpp:222</a></div></div>
+<div class="ttc" id="aa01960_html_ad91815fbd49586e0218ca6a755583e02"><div class="ttname"><a href="a01960.html#ad91815fbd49586e0218ca6a755583e02">bl::cam::Camera3D::setFov</a></div><div class="ttdeci">void setFov(float fov)</div><div class="ttdoc">Set the FOV of the camera.</div><div class="ttdef"><b>Definition:</b> <a href="a01112_source.html#l00037">Camera3D.cpp:37</a></div></div>
+<div class="ttc" id="aa01960_html_af5eb7c876fbb3d5009ecba69fce6180e"><div class="ttname"><a href="a01960.html#af5eb7c876fbb3d5009ecba69fce6180e">bl::cam::Camera3D::move</a></div><div class="ttdeci">void move(const glm::vec3 &amp;offset)</div><div class="ttdoc">Applies an offset to the camera's position.</div><div class="ttdef"><b>Definition:</b> <a href="a01112_source.html#l00027">Camera3D.cpp:27</a></div></div>
+<div class="ttc" id="aa01964_html"><div class="ttname"><a href="a01964.html">bl::cam::CameraAffector3D</a></div><div class="ttdoc">Base class for affectors that can be applied to 3d cameras. An affecter modifies the behavior of the ...</div><div class="ttdef"><b>Definition:</b> <a href="a00038_source.html#l00018">CameraAffector3D.hpp:18</a></div></div>
+<div class="ttc" id="aa01976_html_a194c42e28c9bc4558095265ca862e761"><div class="ttname"><a href="a01976.html#a194c42e28c9bc4558095265ca862e761">bl::cam::Camera::markViewDirty</a></div><div class="ttdeci">void markViewDirty()</div><div class="ttdoc">Mark the view matrix as needing to be refreshed on next use.</div><div class="ttdef"><b>Definition:</b> <a href="a01121_source.html#l00053">Camera.cpp:53</a></div></div>
+<div class="ttc" id="aa01976_html_a8db0b22739ed85a8dc29ec7082d04640"><div class="ttname"><a href="a01976.html#a8db0b22739ed85a8dc29ec7082d04640">bl::cam::Camera::markProjDirty</a></div><div class="ttdeci">void markProjDirty()</div><div class="ttdoc">Marks the projection matrix as needing to be refreshed on next use.</div><div class="ttdef"><b>Definition:</b> <a href="a01121_source.html#l00055">Camera.cpp:55</a></div></div>
+<div class="ttc" id="aa01976_html_a8e2441211f24e3d0c682ea3ecfe1b168"><div class="ttname"><a href="a01976.html#a8e2441211f24e3d0c682ea3ecfe1b168">bl::cam::Camera::farPlane</a></div><div class="ttdeci">constexpr float farPlane() const</div><div class="ttdoc">Returns the distance to the far plane.</div><div class="ttdef"><b>Definition:</b> <a href="a00047_source.html#l00121">Camera.hpp:121</a></div></div>
+<div class="ttc" id="aa01976_html_a9c66151fa1d297f82526d18b38836c2f"><div class="ttname"><a href="a01976.html#a9c66151fa1d297f82526d18b38836c2f">bl::cam::Camera::nearPlane</a></div><div class="ttdeci">constexpr float nearPlane() const</div><div class="ttdoc">Returns the distance to the near plane.</div><div class="ttdef"><b>Definition:</b> <a href="a00047_source.html#l00119">Camera.hpp:119</a></div></div>
+<div class="ttc" id="aa01996_html"><div class="ttname"><a href="a01996.html">bl::com::Orientation3D</a></div><div class="ttdoc">Angle-axis representation of a 3d orientation.</div><div class="ttdef"><b>Definition:</b> <a href="a00065_source.html#l00015">Orientation3D.hpp:15</a></div></div>
+<div class="ttc" id="aa01996_html_a5f03e1a36bfde59000a175711a691a56"><div class="ttname"><a href="a01996.html#a5f03e1a36bfde59000a175711a691a56">bl::com::Orientation3D::getFaceDirection</a></div><div class="ttdeci">constexpr const glm::vec3 &amp; getFaceDirection() const</div><div class="ttdoc">Returns a normalized direction vector that the orientation is facing.</div><div class="ttdef"><b>Definition:</b> <a href="a00065_source.html#l00138">Orientation3D.hpp:138</a></div></div>
+<div class="ttc" id="aa01996_html_ad1254dbe4b652931409c850475fc857d"><div class="ttname"><a href="a01996.html#ad1254dbe4b652931409c850475fc857d">bl::com::Orientation3D::getRoll</a></div><div class="ttdeci">constexpr float getRoll() const</div><div class="ttdoc">Returns the roll of the orientation in degrees.</div><div class="ttdef"><b>Definition:</b> <a href="a00065_source.html#l00136">Orientation3D.hpp:136</a></div></div>
+<div class="ttc" id="aa02860_html_a15fde9c74bd2a87559aec0e9cdbf4eec"><div class="ttname"><a href="a02860.html#a15fde9c74bd2a87559aec0e9cdbf4eec">bl::rc::Config::UpDirection</a></div><div class="ttdeci">static constexpr glm::vec3 UpDirection</div><div class="ttdef"><b>Definition:</b> <a href="a05094_source.html#l00028">Config.hpp:28</a></div></div>
+<div class="ttc" id="aa05094_html"><div class="ttname"><a href="a05094.html">Config.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 30 2023 22:56:46 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Oct 8 2023 18:56:19 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

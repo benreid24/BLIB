@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Math/Interpolate.hpp Source File</title>
+<title>BLIB: include/BLIB/Interfaces/Menu.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,52 +66,52 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_e9abbcd9e0c082db5b09973bee2e6f6b.html">Math</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4a89db2e42278000e6aac6ace9db278e.html">Interfaces</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Interpolate.hpp</div>  </div>
+<div class="title">Menu.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00455.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_MATH_INTERPOLATE_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_MATH_INTERPOLATE_HPP</span></div>
+<a href="a00455.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_INTERFACES_MENU_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_INTERFACES_MENU_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01760.html">bl</a></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;{</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>math</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a01741.html#ga8753daa77ceb8a99501d08876804bd00">   22</a></span>&#160;T <a class="code" href="a01741.html#ga8753daa77ceb8a99501d08876804bd00">interpolate</a>(T originStart, T originEnd, T destStart, T destEnd, T value) {</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keyword">const</span> T fr = originEnd - originStart;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keyword">const</span> T dr = destEnd - destStart;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordflow">return</span> (value - originStart) / fr * dr + destStart;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;}</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="a01741.html#ga6830e4fa6ad4c4737f34c0ea10cfa12e">   44</a></span>&#160;T <a class="code" href="a01741.html#ga8753daa77ceb8a99501d08876804bd00">interpolate</a>(T originStart, T originMid, T originEnd, T destStart, T destEnd, T value) {</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keyword">const</span> T destMid = (destEnd + destStart) / <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(2);</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordflow">return</span> value &lt;= originMid ? <a class="code" href="a01741.html#ga8753daa77ceb8a99501d08876804bd00">interpolate</a>(originStart, originMid, destStart, destMid, value) :</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;                                <a class="code" href="a01741.html#ga8753daa77ceb8a99501d08876804bd00">interpolate</a>(originMid, originEnd, destMid, destEnd, value);</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;}</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="a01741.html#ga51b3900901959abab6d527e6f849fab5">   67</a></span>&#160;T <a class="code" href="a01741.html#ga8753daa77ceb8a99501d08876804bd00">interpolate</a>(T originStart, T originMid, T originEnd, T destStart, T destMid, T destEnd, T value) {</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordflow">return</span> value &lt;= originMid ? <a class="code" href="a01741.html#ga8753daa77ceb8a99501d08876804bd00">interpolate</a>(originStart, originMid, destStart, destMid, value) :</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;                                <a class="code" href="a01741.html#ga8753daa77ceb8a99501d08876804bd00">interpolate</a>(originMid, originEnd, destMid, destEnd, value);</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;}</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;} <span class="comment">// namespace math</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01741_html_ga8753daa77ceb8a99501d08876804bd00"><div class="ttname"><a href="a01741.html#ga8753daa77ceb8a99501d08876804bd00">bl::math::interpolate</a></div><div class="ttdeci">T interpolate(T originStart, T originEnd, T destStart, T destEnd, T value)</div><div class="ttdoc">Linearly interpolate a value from one range to another.</div><div class="ttdef"><b>Definition:</b> <a href="a00455_source.html#l00022">Interpolate.hpp:22</a></div></div>
-<div class="ttc" id="aa01760_html"><div class="ttname"><a href="a01760.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00428.html">BLIB/Interfaces/Menu/Drivers/KeyboardDriver.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00431.html">BLIB/Interfaces/Menu/Drivers/MouseDriver.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00434.html">BLIB/Interfaces/Menu/Drivers/MovementDriver.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00437.html">BLIB/Interfaces/Menu/Drivers/TriggerDriver.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05070.html">BLIB/Interfaces/Menu/Event.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00440.html">BLIB/Interfaces/Menu/Item.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00443.html">BLIB/Interfaces/Menu/Items/ImageItem.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00446.html">BLIB/Interfaces/Menu/Items/SubmenuItem.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00449.html">BLIB/Interfaces/Menu/Items/TextItem.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00452.html">BLIB/Interfaces/Menu/Items/ToggleTextItem.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05088.html">BLIB/Interfaces/Menu/Menu.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00458.html">BLIB/Interfaces/Menu/Selector.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00461.html">BLIB/Interfaces/Menu/Selectors/ArrowSelector.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00464.html">BLIB/Interfaces/Menu/Selectors/NoSelector.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00428_html"><div class="ttname"><a href="a00428.html">KeyboardDriver.hpp</a></div></div>
+<div class="ttc" id="aa00431_html"><div class="ttname"><a href="a00431.html">MouseDriver.hpp</a></div></div>
+<div class="ttc" id="aa00434_html"><div class="ttname"><a href="a00434.html">MovementDriver.hpp</a></div></div>
+<div class="ttc" id="aa00437_html"><div class="ttname"><a href="a00437.html">TriggerDriver.hpp</a></div></div>
+<div class="ttc" id="aa00440_html"><div class="ttname"><a href="a00440.html">Item.hpp</a></div></div>
+<div class="ttc" id="aa00443_html"><div class="ttname"><a href="a00443.html">ImageItem.hpp</a></div></div>
+<div class="ttc" id="aa00446_html"><div class="ttname"><a href="a00446.html">SubmenuItem.hpp</a></div></div>
+<div class="ttc" id="aa00449_html"><div class="ttname"><a href="a00449.html">TextItem.hpp</a></div></div>
+<div class="ttc" id="aa00452_html"><div class="ttname"><a href="a00452.html">ToggleTextItem.hpp</a></div></div>
+<div class="ttc" id="aa00458_html"><div class="ttname"><a href="a00458.html">Selector.hpp</a></div></div>
+<div class="ttc" id="aa00461_html"><div class="ttname"><a href="a00461.html">ArrowSelector.hpp</a></div></div>
+<div class="ttc" id="aa00464_html"><div class="ttname"><a href="a00464.html">NoSelector.hpp</a></div></div>
+<div class="ttc" id="aa05070_html"><div class="ttname"><a href="a05070.html">Event.hpp</a></div></div>
+<div class="ttc" id="aa05088_html"><div class="ttname"><a href="a05088.html">Menu.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 30 2023 22:56:45 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Oct 8 2023 18:56:18 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>
