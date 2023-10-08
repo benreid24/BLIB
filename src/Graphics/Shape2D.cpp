@@ -19,7 +19,8 @@ Shape2D::Shape2D()
 , fillColor(1.f, 0.f, 0.f, 1.f)
 , outlineColor(0.f, 0.f, 0.f, 1.f)
 , outlineThickness(0.f)
-, dirty(true) {}
+, dirty(true)
+, updateQueued(false) {}
 
 void Shape2D::setFillColor(const glm::vec4& fc) {
     fillColor = fc;
@@ -49,8 +50,11 @@ const sf::FloatRect& Shape2D::getLocalBounds() {
 
 void Shape2D::markDirty() {
     dirty = true;
-    // TODO - one time run system for tasks to register. runs at certain (arbitrary) frame stage
-    update();
+    if (!updateQueued && entity() != ecs::InvalidEntity) {
+        updateQueued = true;
+        engine().systems().addFrameTask(engine::FrameStage::RenderObjectSync,
+                                        std::bind(&Shape2D::update, this));
+    }
 }
 
 void Shape2D::create(engine::Engine& engine) {
@@ -61,7 +65,8 @@ void Shape2D::create(engine::Engine& engine) {
 
 void Shape2D::update() {
     if (entity() == ecs::InvalidEntity || !dirty) { return; }
-    dirty = false;
+    dirty        = false;
+    updateQueued = false;
 
     // determine required vertex and index counts
     const bool hasOutline           = outlineThickness != 0.f;

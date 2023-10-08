@@ -101,6 +101,7 @@ private:
     float outlineThickness;
     sf::FloatRect localBounds;
     bool dirty;
+    bool updateQueued;
 
     void update();
 };
