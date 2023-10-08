@@ -93,7 +93,7 @@ RangeAllocatorUnbounded<T>::RangeAllocatorUnbounded(T cap)
 }
 
 template<typename T>
-RangeAllocatorUnbounded<T>::AllocResult RangeAllocatorUnbounded<T>::alloc(T size) {
+typename RangeAllocatorUnbounded<T>::AllocResult RangeAllocatorUnbounded<T>::alloc(T size) {
     // find smallest free range that fits
     Range* allocFrom = nullptr;
     Range* backRange = nullptr;
