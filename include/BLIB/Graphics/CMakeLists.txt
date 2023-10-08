@@ -1,5 +1,6 @@
 target_sources(BLIB PUBLIC
 	Animation2D.hpp
+	Circle.hpp
 	Drawable.hpp
 	Rectangle.hpp
 	Shape2D.hpp

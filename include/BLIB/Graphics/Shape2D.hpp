@@ -84,6 +84,15 @@ protected:
     virtual void populateVertex(unsigned int index, rc::prim::Vertex& vertex) = 0;
 
     /**
+     * @brief Allows derived classes to set the color of the center vertex. Simply return the
+     *        computed average color if no explicit center color is desired (default behavior).
+     *
+     * @param avgColor The computed average color of all the vertices
+     * @return The color of the center vertex that is managed by this class
+     */
+    virtual glm::vec4 getCenterColor(const glm::vec4& avgColor) const;
+
+    /**
      * @brief Call whenever the vertices need to be refreshed
      */
     void markDirty();

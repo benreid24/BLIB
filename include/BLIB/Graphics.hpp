@@ -9,6 +9,7 @@
 #include <BLIB/Render.hpp>
 
 #include <BLIB/Graphics/Animation2D.hpp>
+#include <BLIB/Graphics/Circle.hpp>
 #include <BLIB/Graphics/Components/OverlayScalable.hpp>
 #include <BLIB/Graphics/Components/Textured.hpp>
 #include <BLIB/Graphics/Components/Transform2D.hpp>

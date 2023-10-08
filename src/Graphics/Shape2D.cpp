@@ -48,6 +48,8 @@ const sf::FloatRect& Shape2D::getLocalBounds() {
     return localBounds;
 }
 
+glm::vec4 Shape2D::getCenterColor(const glm::vec4& avgColor) const { return avgColor; }
+
 void Shape2D::markDirty() {
     dirty = true;
     if (!updateQueued && entity() != ecs::InvalidEntity) {
@@ -99,7 +101,7 @@ void Shape2D::update() {
     glm::vec4 avgColor{};
     for (unsigned int i = 1; i < outlineStartIndex; ++i) { avgColor += ib.vertices()[i].color; }
     avgColor /= static_cast<float>(pointCount);
-    ib.vertices()[0].color = avgColor;
+    ib.vertices()[0].color = getCenterColor(avgColor);
 
     // determine bounds and set center vertex
     using FL    = std::numeric_limits<float>;

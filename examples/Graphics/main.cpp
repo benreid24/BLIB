@@ -19,6 +19,7 @@ private:
     bl::gfx::Slideshow slideshow;
     bl::gfx::Animation2D animation;
     bl::gfx::Rectangle rectangle;
+    bl::gfx::Circle circle;
 
     virtual const char* name() const override { return "DemoState"; }
 
@@ -57,6 +58,14 @@ private:
         rectangle.setOutlineThickness(2.f);
         rectangle.getTransform().setPosition({1000.f, 700.f});
         rectangle.addToScene(scene, bl::rc::UpdateSpeed::Static);
+
+        // add circle to scene
+        circle.create(engine, 75.f);
+        circle.setFillColor({0.f, 1.f, 0.f, 1.f});
+        circle.setOutlineColor({0.f, 0.f, 0.f, 1.f});
+        circle.setOutlineThickness(3.f);
+        circle.getTransform().setPosition({1300.f, 120.f});
+        circle.addToScene(scene, bl::rc::UpdateSpeed::Static);
     }
 
     virtual void deactivate(bl::engine::Engine& engine) override {
@@ -66,8 +75,12 @@ private:
     virtual void update(bl::engine::Engine&, float) override {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::G)) {
             rectangle.setHorizontalColorGradient({0.f, 0.f, 1.f, 1.f}, {0.f, 1.f, 0.f, 1.f});
+            circle.setColorGradient({1.f, 0.f, 0.f, 1.f}, {0.f, 0.f, 1.f, 1.f});
         }
-        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::B)) { rectangle.removeColorGradient(); }
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::B)) {
+            rectangle.removeColorGradient();
+            circle.removeColorGradient();
+        }
     }
 
     virtual void render(bl::engine::Engine&, float) override {
