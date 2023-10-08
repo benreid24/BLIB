@@ -36,6 +36,11 @@ function(compile_shaders)
     set(compiled_files "")
     foreach(shader_file ${ARG_SHADERS})
         set(compiled_file "${shader_dir}/${shader_file}.spv")
+
+        # Create output dir to support sub-directories
+        get_filename_component(compiled_dir ${compiled_file} DIRECTORY)
+        file(MAKE_DIRECTORY ${compiled_dir})
+
         list(APPEND compiled_files "${compiled_file}")
         add_custom_command(
             OUTPUT ${compiled_file}
