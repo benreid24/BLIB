@@ -8,4 +8,5 @@ target_sources(BLIB PUBLIC
 	RendererUpdateSystem.hpp
 	RenderSystem.hpp
 	TextSyncSystem.hpp
+	TogglerSystem.hpp
 )

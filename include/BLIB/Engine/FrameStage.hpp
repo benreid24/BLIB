@@ -20,6 +20,15 @@ struct FrameStage {
         /// systems are called into
         FrameStart = 0,
 
+        /// Generic update stage
+        Update0 = 0,
+
+        /// Generic update stage
+        Update1 = 1,
+
+        /// Generic update stage
+        Update2 = 2,
+
         /// Renderer components such as Animation update here
         Animate = 3,
 

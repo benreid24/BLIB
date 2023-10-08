@@ -4,4 +4,5 @@ target_sources(BLIB PRIVATE
 	RendererUpdateSystem.cpp
 	RenderSystem.cpp
 	TextSyncSystem.cpp
+	TogglerSystem.cpp
 )

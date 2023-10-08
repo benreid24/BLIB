@@ -1,6 +1,7 @@
 #ifndef BLIB_GRAPHICS_DRAWABLE_HPP
 #define BLIB_GRAPHICS_DRAWABLE_HPP
 
+#include <BLIB/Components/Toggler.hpp>
 #include <BLIB/ECS.hpp>
 #include <BLIB/Render/Components/DrawableBase.hpp>
 #include <BLIB/Systems/DrawableSystem.hpp>
@@ -101,6 +102,19 @@ public:
      * @brief Helper method to remove the parent of this drawable, if any
      */
     void removeParent();
+
+    /**
+     * @brief Causes the drawable to flash with the given settings
+     *
+     * @param onPeriod The amount of time to be visible, in seconds
+     * @param offPeriod The amount of time to be hidden, in seconds
+     */
+    void flash(float onPeriod, float offPeriod);
+
+    /**
+     * @brief Stops the component from flashing
+     */
+    void stopFlashing();
 
 protected:
     /**
@@ -261,6 +275,27 @@ void Drawable<TCom, TSys>::removeParent() {
 #endif
 
     enginePtr->ecs().removeEntityParent(entity());
+}
+
+template<typename TCom, typename TSys>
+void Drawable<TCom, TSys>::flash(float onPeriod, float offPeriod) {
+#ifdef BLIB_DEBUG
+    if (!enginePtr) { throw std::runtime_error("Drawable must be created before flashing"); }
+#endif
+
+    // swap off/on period because we have hidden toggle instead of visible toggle
+    enginePtr->ecs().emplaceComponent<com::Toggler>(
+        entity(), offPeriod, onPeriod, &component().sceneRef.object->hidden);
+}
+
+template<typename TCom, typename TSys>
+void Drawable<TCom, TSys>::stopFlashing() {
+#ifdef BLIB_DEBUG
+    if (!enginePtr) { throw std::runtime_error("Drawable must be created before flashing"); }
+#endif
+
+    enginePtr->ecs().removeComponent<com::Toggler>(entity());
+    component().sceneRef.object->hidden = false;
 }
 
 template<typename TCom, typename TSys>

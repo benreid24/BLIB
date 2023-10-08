@@ -93,6 +93,17 @@ private:
             circle.removeColorGradient();
             triangle.removeColorGradient();
         }
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::F)) {
+            circle.flash(0.4f, 0.8f);
+            rectangle.flash(1.f, 1.f);
+            slideshow.flash(0.5f, 0.3f);
+        }
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::V)) {
+            circle.stopFlashing();
+            rectangle.stopFlashing();
+            slideshow.stopFlashing();
+        }
     }
 
     virtual void render(bl::engine::Engine&, float) override {

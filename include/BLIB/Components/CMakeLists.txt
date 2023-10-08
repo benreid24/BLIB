@@ -9,6 +9,7 @@ target_sources(BLIB PUBLIC
 	Sprite.hpp
 	Text.hpp
 	Texture.hpp
+	Toggler.hpp
 	Transform2D.hpp
 	Transform3D.hpp
 )
