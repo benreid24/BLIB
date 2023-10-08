@@ -1,7 +1,8 @@
+#include <BLIB/Audio/Playlist.hpp>
+
 #include <BLIB/Containers/FastEraseVector.hpp>
 #include <BLIB/Engine/Configuration.hpp>
 #include <BLIB/Logging.hpp>
-#include <BLIB/Media/Audio/Playlist.hpp>
 #include <BLIB/Resources.hpp>
 #include <BLIB/Serialization.hpp>
 #include <BLIB/Util/FileUtil.hpp>
@@ -42,7 +43,7 @@ Playlist::Playlist(const Playlist& copy)
 }
 
 Playlist::~Playlist() {
-    if (!songs.empty()) {
+    if (!songs.empty() && playing) {
         stop();
         resource::FileSystem::purgePersistentData(songfile(songs[currentIndex]));
     }

@@ -1,6 +1,6 @@
 #include <BLIB/Engine/Configuration.hpp>
 
-#include <BLIB/Media/Audio/AudioSystem.hpp>
+#include <BLIB/Audio/AudioSystem.hpp>
 #include <fstream>
 
 namespace bl

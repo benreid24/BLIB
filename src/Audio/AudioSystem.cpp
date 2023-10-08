@@ -1,4 +1,4 @@
-#include <BLIB/Media/Audio/AudioSystem.hpp>
+#include <BLIB/Audio/AudioSystem.hpp>
 
 #include <BLIB/Engine/Configuration.hpp>
 #include <BLIB/Resources.hpp>

@@ -1,8 +1,8 @@
 #ifndef BLIB_MENU_SELECTORS_ARROWSELECTOR_HPP
 #define BLIB_MENU_SELECTORS_ARROWSELECTOR_HPP
 
+#include <BLIB/Graphics/Triangle.hpp>
 #include <BLIB/Interfaces/Menu/Selector.hpp>
-#include <BLIB/Media/Shapes/Triangle.hpp>
 
 namespace bl
 {
@@ -31,7 +31,7 @@ public:
      * @brief Exposes the underlying triangle
      *
      */
-    shapes::Triangle& getArrow();
+    gfx::Triangle& getArrow();
 
     /**
      * @see Selector::render
@@ -42,7 +42,7 @@ public:
 
 private:
     const float width;
-    mutable bl::shapes::Triangle triangle;
+    mutable gfx::Triangle triangle;
 
     ArrowSelector(float width, const sf::Color& f);
 };

@@ -1,7 +1,7 @@
 #include <BLIB/Engine/Engine.hpp>
 
+#include <BLIB/Audio.hpp>
 #include <BLIB/Logging.hpp>
-#include <BLIB/Media/Audio.hpp>
 #include <BLIB/Resources/GarbageCollector.hpp>
 #include <BLIB/Systems/TogglerSystem.hpp>
 #include <SFML/Window.hpp>

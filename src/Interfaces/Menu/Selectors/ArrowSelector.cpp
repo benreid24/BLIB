@@ -6,10 +6,11 @@ namespace menu
 {
 namespace
 {
-const float HeightRatio = 0.5;
+const float HeightRatio = 0.5f;
 
-bl::shapes::Triangle makeTriangle(float w) {
-    return bl::shapes::Triangle({0, 0}, {w, w * HeightRatio}, {0, 2.f * w * HeightRatio});
+std::array<glm::vec2, 3> makeTriangle(float w) {
+    return std::array<glm::vec2, 3>(
+        {glm::vec2{0.f, 0.f}, glm::vec2{w, w * HeightRatio}, glm::vec2{0, 2.f * w * HeightRatio}});
 }
 } // namespace
 
@@ -19,17 +20,19 @@ ArrowSelector::Ptr ArrowSelector::create(float w, const sf::Color& f) {
 
 ArrowSelector::ArrowSelector(float w, const sf::Color& f)
 : width(w)
-, triangle(makeTriangle(w)) {
-    triangle.setFillColor(f);
+, triangle() {
+    // triangle.setFillColor(f);
+    // TODO - create triangle. sf::Color helper
 }
 
-shapes::Triangle& ArrowSelector::getArrow() { return triangle; }
+gfx::Triangle& ArrowSelector::getArrow() { return triangle; }
 
 void ArrowSelector::render(sf::RenderTarget& target, sf::RenderStates states,
                            sf::FloatRect itemArea) const {
-    triangle.setPosition({itemArea.left - width - 2.f,
+    /* triangle.setPosition({itemArea.left - width - 2.f,
                           itemArea.top + itemArea.height / 2.f + width * HeightRatio / 2.f});
-    target.draw(triangle, states);
+    target.draw(triangle, states);*/
+    // TODO - set position earlier.
 }
 
 } // namespace menu

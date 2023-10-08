@@ -4,7 +4,7 @@
 #include <BLIB/Graphics/Animation2D/AnimationData.hpp>
 #include <BLIB/Graphics/Text/VulkanFont.hpp>
 #include <BLIB/Logging.hpp>
-#include <BLIB/Media/Audio/Playlist.hpp>
+#include <BLIB/Audio/Playlist.hpp>
 #include <BLIB/Resources/Ref.hpp>
 #include <BLIB/Resources/Resource.hpp>
 #include <SFML/Audio.hpp>

@@ -4,7 +4,7 @@
 #include <BLIB/Interfaces/Menu/Event.hpp>
 #include <BLIB/Interfaces/Menu/Item.hpp>
 #include <BLIB/Interfaces/Menu/Selector.hpp>
-#include <BLIB/Media/Audio/AudioSystem.hpp>
+#include <BLIB/Audio/AudioSystem.hpp>
 #include <BLIB/Util/Hashes.hpp>
 
 #include <list>

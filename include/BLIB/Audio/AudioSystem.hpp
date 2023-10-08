@@ -1,8 +1,8 @@
-#ifndef BLIB_MEDIA_AUDIO_AUDIOSYSTEM_HPP
-#define BLIB_MEDIA_AUDIO_AUDIOSYSTEM_HPP
+#ifndef BLIB_AUDIO_AUDIOSYSTEM_HPP
+#define BLIB_AUDIO_AUDIOSYSTEM_HPP
 
+#include <BLIB/Audio/Playlist.hpp>
 #include <BLIB/Containers/ObjectPool.hpp>
-#include <BLIB/Media/Audio/Playlist.hpp>
 #include <SFML/Audio.hpp>
 #include <cstdint>
 
