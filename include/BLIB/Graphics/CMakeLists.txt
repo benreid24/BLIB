@@ -7,6 +7,7 @@ target_sources(BLIB PUBLIC
 	Slideshow.hpp
 	Sprite.hpp
 	Text.hpp
+	Triangle.hpp
 )
 
 add_subdirectory(Animation2D)

@@ -21,5 +21,6 @@
 #include <BLIB/Graphics/Text.hpp>
 #include <BLIB/Graphics/Text/BasicText.hpp>
 #include <BLIB/Graphics/Text/VulkanFont.hpp>
+#include <BLIB/Graphics/Triangle.hpp>
 
 #endif

@@ -6,6 +6,7 @@ target_sources(BLIB PRIVATE
 	Slideshow.cpp
 	Sprite.cpp
 	Text.cpp
+	Triangle.cpp
 )
 
 add_subdirectory(Animation2D)

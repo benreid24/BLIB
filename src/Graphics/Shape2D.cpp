@@ -116,6 +116,7 @@ void Shape2D::update() {
     localBounds.height -= localBounds.top;
     ib.vertices()[0].pos.x = localBounds.left + localBounds.width * 0.5f;
     ib.vertices()[0].pos.y = localBounds.top + localBounds.height * 0.5f;
+    OverlayScalable::setLocalSize({localBounds.width, localBounds.height});
 
     // populate indices for shape vertices
     for (unsigned int i = 1; i < outlineStartIndex; ++i) {

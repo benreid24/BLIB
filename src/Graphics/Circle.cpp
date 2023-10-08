@@ -18,12 +18,10 @@ gfx::Circle::Circle(unsigned int pointCount)
 void gfx::Circle::create(engine::Engine& engine, float r) {
     radius = r;
     Shape2D::create(engine);
-    OverlayScalable::setLocalSize({r * 2.f, 2 * 2.f});
 }
 
 void gfx::Circle::setRadius(float r) {
     radius = r;
-    OverlayScalable::setLocalSize({r * 2.f, 2 * 2.f});
     markDirty();
 }
 

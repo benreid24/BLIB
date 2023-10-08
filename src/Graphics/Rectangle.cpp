@@ -13,11 +13,9 @@ Rectangle::Rectangle()
 void Rectangle::create(engine::Engine& engine, const glm::vec2& s) {
     size = s;
     Shape2D::create(engine);
-    OverlayScalable::setLocalSize(s);
 }
 
 void Rectangle::setSize(const glm::vec2& s) {
-    OverlayScalable::setLocalSize(s);
     size = s;
     markDirty();
 }

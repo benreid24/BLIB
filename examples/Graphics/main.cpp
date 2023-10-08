@@ -20,6 +20,7 @@ private:
     bl::gfx::Animation2D animation;
     bl::gfx::Rectangle rectangle;
     bl::gfx::Circle circle;
+    bl::gfx::Triangle triangle;
 
     virtual const char* name() const override { return "DemoState"; }
 
@@ -66,6 +67,14 @@ private:
         circle.setOutlineThickness(3.f);
         circle.getTransform().setPosition({1300.f, 120.f});
         circle.addToScene(scene, bl::rc::UpdateSpeed::Static);
+
+        // add triangle to scene
+        triangle.create(engine, {50.f, 0.f}, {100.f, 70.f}, {0.f, 70.f});
+        triangle.setFillColor({0.f, 0.f, 1.f, 1.f});
+        triangle.setOutlineColor({0.f, 0.f, 0.f, 1.f});
+        triangle.setOutlineThickness(3.f);
+        triangle.getTransform().setPosition({1500.f, 250.f});
+        triangle.addToScene(scene, bl::rc::UpdateSpeed::Static);
     }
 
     virtual void deactivate(bl::engine::Engine& engine) override {
@@ -76,10 +85,13 @@ private:
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::G)) {
             rectangle.setHorizontalColorGradient({0.f, 0.f, 1.f, 1.f}, {0.f, 1.f, 0.f, 1.f});
             circle.setColorGradient({1.f, 0.f, 0.f, 1.f}, {0.f, 0.f, 1.f, 1.f});
+            triangle.setColorGradient(
+                {1.f, 0.f, 0.f, 1.f}, {0.f, 1.f, 0.f, 1.f}, {0.f, 0.f, 1.f, 1.f});
         }
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::B)) {
             rectangle.removeColorGradient();
             circle.removeColorGradient();
+            triangle.removeColorGradient();
         }
     }
 
