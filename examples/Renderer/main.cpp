@@ -41,7 +41,8 @@ public:
             engine.renderer().texturePool().getOrLoadTexture("Resources/Textures/texture.png");
         messageBoxTxtr =
             engine.renderer().texturePool().getOrLoadTexture("Resources/Textures/messageBox.png");
-        font.loadFromFile("Resources/Fonts/font.ttf");
+        font = bl::resource::ResourceManager<sf::VulkanFont>::load("Resources/Fonts/font.ttf");
+        // font->loadFromFile("Resources/Fonts/font.ttf");
 
         // get first observer and set background color
         bl::rc::Observer& p1 = engine.renderer().getObserver(0);
@@ -108,7 +109,7 @@ public:
         messageBox.addToScene(overlay, bl::rc::UpdateSpeed::Static);
 
         // add text to overlay
-        text.create(engine, font, "Text can now be", 64);
+        text.create(engine, *font, "Text can now be", 64);
         text.addSection("rendered.", 64, {0.f, 0.8f, 0.6f, 1.f}, sf::Text::Italic);
         text.addSection("What a great time to be alive. I wonder if this will wrap properly.", 64);
         text.getTransform().setPosition({0.03f, 0.05f});
@@ -173,7 +174,7 @@ private:
     bl::ecs::Entity meshEntity;
     bl::rc::res::TextureRef texture;
     bl::rc::res::TextureRef messageBoxTxtr;
-    sf::VulkanFont font;
+    bl::resource::Ref<sf::VulkanFont> font;
     bl::gfx::Text text;
     bl::rc::vk::RenderTexture renderTexture;
     bl::gfx::Sprite renderTextureInnerSprite;
