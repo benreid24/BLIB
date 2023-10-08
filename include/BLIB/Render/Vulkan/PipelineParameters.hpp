@@ -82,7 +82,7 @@ public:
      * @param attributes The vertex attributes
      * @return PipelineParameters& A reference to this object
      */
-    template<std::uint32_t N>
+    template<std::size_t N>
     PipelineParameters& withVertexFormat(
         const VkVertexInputBindingDescription& binding,
         const std::array<VkVertexInputAttributeDescription, N>& attributes);
@@ -223,7 +223,7 @@ private:
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-template<std::uint32_t N>
+template<std::size_t N>
 PipelineParameters& PipelineParameters::withVertexFormat(
     const VkVertexInputBindingDescription& binding,
     const std::array<VkVertexInputAttributeDescription, N>& attributes) {

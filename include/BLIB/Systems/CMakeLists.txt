@@ -1,4 +1,5 @@
 target_sources(BLIB PUBLIC
+	Animation2DSystem.hpp
     BuiltinDrawableSystems.hpp
 	BuiltinDescriptorComponentSystems.hpp
 	DescriptorComponentSystem.hpp
@@ -7,4 +8,5 @@ target_sources(BLIB PUBLIC
 	RendererUpdateSystem.hpp
 	RenderSystem.hpp
 	TextSyncSystem.hpp
+	TogglerSystem.hpp
 )

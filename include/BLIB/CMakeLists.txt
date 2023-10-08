@@ -1,5 +1,6 @@
 target_sources(BLIB PUBLIC
     AI.hpp
+    Audio.hpp
     Cameras.hpp
     Containers.hpp
     Components.hpp
@@ -10,7 +11,6 @@ target_sources(BLIB PUBLIC
     Input.hpp
     Interfaces.hpp
     Logging.hpp
-    Media.hpp
     Parser.hpp
     Particles.hpp
     Render.hpp
@@ -22,6 +22,7 @@ target_sources(BLIB PUBLIC
 )
 
 add_subdirectory(AI)
+add_subdirectory(Audio)
 add_subdirectory(Cameras)
 add_subdirectory(Containers)
 add_subdirectory(Components)
@@ -33,7 +34,6 @@ add_subdirectory(Input)
 add_subdirectory(Interfaces)
 add_subdirectory(Logging)
 add_subdirectory(Math)
-add_subdirectory(Media)
 add_subdirectory(Parser)
 add_subdirectory(Particles)
 add_subdirectory(Render)

@@ -8,6 +8,8 @@ target_sources(BLIB PUBLIC
 	Scene2DInstance.hpp
 	Scene3DFactory.hpp
 	Scene3DInstance.hpp
+	SlideshowFactory.hpp
+	SlideshowInstance.hpp
 	TexturePoolFactory.hpp
 	TexturePoolInstance.hpp
 )

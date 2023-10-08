@@ -2,6 +2,7 @@
 #define BLIB_GUI_DATA_FONT_HPP
 
 #include <BLIB/Resources/Loader.hpp>
+#include <BLIB/Resources/Ref.hpp>
 #include <SFML/Graphics/Font.hpp>
 
 namespace bl

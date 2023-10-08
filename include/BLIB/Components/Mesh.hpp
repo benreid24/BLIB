@@ -3,7 +3,6 @@
 
 #include <BLIB/Render/Buffers/IndexBuffer.hpp>
 #include <BLIB/Render/Components/DrawableBase.hpp>
-#include <vector>
 
 namespace bl
 {

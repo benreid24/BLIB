@@ -3,4 +3,5 @@ target_sources(BLIB PUBLIC
 	IndexBuffer.hpp
 	StaticSSBO.hpp
 	UniformBuffer.hpp
+	VertexBuffer.hpp
 )

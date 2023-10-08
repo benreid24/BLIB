@@ -28,9 +28,7 @@ namespace ecs
  *
  * @ingroup ECS
  */
-class Registry
-: private util::NonCopyable
-, public bl::event::Listener<event::ComponentPoolResized> {
+class Registry : private util::NonCopyable {
 public:
     static constexpr std::size_t DefaultCapacity = 512;
 
@@ -255,8 +253,6 @@ private:
     template<typename T>
     void finishComponentAdd(Entity ent, unsigned int cindex, T* component);
 
-    virtual void observe(const event::ComponentPoolResized& resize) override;
-
     template<typename TRequire, typename TOptional, typename TExclude>
     friend class View;
     friend class engine::Engine;
@@ -318,12 +314,18 @@ void Registry::finishComponentAdd(Entity ent, unsigned int cIndex, T* component)
         }
     }
 
-    // notify pools of parent set
+    // ensure parent traits are up to date
     auto& pool = getPool<T>();
     for (Entity child : parentGraph.getChildren(ent)) {
-        const std::uint32_t ic = child.getIndex();
+        const std::uint64_t ic = child.getIndex();
         const ComponentMask mask{.required = entityMasks[ic]};
         if (mask.contains(pool.ComponentIndex)) { pool.onParentSet(child, ent); }
+    }
+    const Entity parent = parentGraph.getParent(ent);
+    if (parent != InvalidEntity) {
+        const std::uint64_t ip = parent.getIndex();
+        const ComponentMask mask{.required = entityMasks[ip]};
+        if (mask.contains(pool.ComponentIndex)) { pool.onParentSet(ent, parent); }
     }
 }
 

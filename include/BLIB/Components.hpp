@@ -6,11 +6,17 @@
  * @brief ECS components provided by the engine
  */
 
+#include <BLIB/Components/Animation2D.hpp>
+#include <BLIB/Components/Animation2DPlayer.hpp>
+#include <BLIB/Components/BatchSceneLink.hpp>
 #include <BLIB/Components/Mesh.hpp>
 #include <BLIB/Components/Orientation3D.hpp>
 #include <BLIB/Components/OverlayScaler.hpp>
+#include <BLIB/Components/Shape2D.hpp>
+#include <BLIB/Components/Slideshow.hpp>
 #include <BLIB/Components/Sprite.hpp>
 #include <BLIB/Components/Texture.hpp>
+#include <BLIB/Components/Toggler.hpp>
 #include <BLIB/Components/Transform2D.hpp>
 #include <BLIB/Components/Transform3D.hpp>
 

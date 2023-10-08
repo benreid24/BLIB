@@ -1,5 +1,5 @@
 #ifndef BLIB_TEST_TARGET
-#include <BLIB/Media/Audio/Playlist.hpp>
+#include <BLIB/Audio/Playlist.hpp>
 #include <BLIB/Resources/Bundling/FileHandlers/PlaylistHandler.hpp>
 
 namespace bl

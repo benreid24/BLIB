@@ -205,6 +205,7 @@ void ComponentPool<T>::postAdd(Entity ent, typename TStorage::iterator it) {
         entityToComponent.resize(entIndex + 1, nullptr);
         entityToIter.resize(entIndex + 1, storage.end());
     }
+
     entityToComponent[entIndex] = &it->component;
     entityToIter[entIndex]      = it;
 }

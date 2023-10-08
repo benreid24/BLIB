@@ -39,7 +39,6 @@ void Overlay::renderScene(scene::SceneRenderContext& ctx) {
 
     VkPipeline currentPipeline = nullptr;
     while (!renderStack.empty()) {
-        // TODO - if we get weird rendering we may need a queue here
         ovy::OverlayObject& obj = *renderStack.back();
         renderStack.pop_back();
 

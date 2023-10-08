@@ -7,7 +7,9 @@
 #include <BLIB/Render/Descriptors/Builtin/Object3DFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Scene2DFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Scene3DFactory.hpp>
+#include <BLIB/Render/Descriptors/Builtin/SlideshowFactory.hpp>
 #include <BLIB/Render/Descriptors/Builtin/TexturePoolFactory.hpp>
+#include <BLIB/Render/Primitives/SlideshowVertex.hpp>
 #include <BLIB/Render/Renderer.hpp>
 
 namespace bl
@@ -85,8 +87,8 @@ void PipelineCache::createBuiltins() {
     createPipline(Config::PipelineIds::LitSkinned2DGeometry,
                   vk::PipelineParameters({Config::RenderPassIds::StandardAttachmentDefault,
                                           Config::RenderPassIds::SwapchainDefault})
-                      .withShaders(Config::ShaderIds::LitSkinned2DVertex,
-                                   Config::ShaderIds::LitSkinned2DFragment)
+                      .withShaders(Config::ShaderIds::Vertex2DSkinned,
+                                   Config::ShaderIds::Fragment2DSkinnedLit)
                       .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
                       .withRasterizer(rasterizer)
                       .withDepthStencilState(&depthStencilDepthEnabled)
@@ -98,8 +100,8 @@ void PipelineCache::createBuiltins() {
     createPipline(Config::PipelineIds::UnlitSkinned2DGeometry,
                   vk::PipelineParameters({Config::RenderPassIds::StandardAttachmentDefault,
                                           Config::RenderPassIds::SwapchainDefault})
-                      .withShaders(Config::ShaderIds::UnlitSkinned2DVertex,
-                                   Config::ShaderIds::UnlitSkinned2DFragment)
+                      .withShaders(Config::ShaderIds::Vertex2DSkinned,
+                                   Config::ShaderIds::Fragment2DSkinnedUnlit)
                       .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
                       .withRasterizer(rasterizer)
                       .withDepthStencilState(&depthStencilDepthEnabled)
@@ -108,11 +110,33 @@ void PipelineCache::createBuiltins() {
                       .addDescriptorSet<ds::Object2DFactory>()
                       .build());
 
+    createPipline(Config::PipelineIds::Lit2DGeometry,
+                  vk::PipelineParameters({Config::RenderPassIds::StandardAttachmentDefault,
+                                          Config::RenderPassIds::SwapchainDefault})
+                      .withShaders(Config::ShaderIds::Vertex2D, Config::ShaderIds::Fragment2DLit)
+                      .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
+                      .withRasterizer(rasterizer)
+                      .withDepthStencilState(&depthStencilDepthEnabled)
+                      .addDescriptorSet<ds::Scene2DFactory>()
+                      .addDescriptorSet<ds::Object2DFactory>()
+                      .build());
+
+    createPipline(Config::PipelineIds::Unlit2DGeometry,
+                  vk::PipelineParameters({Config::RenderPassIds::StandardAttachmentDefault,
+                                          Config::RenderPassIds::SwapchainDefault})
+                      .withShaders(Config::ShaderIds::Vertex2D, Config::ShaderIds::Fragment2DUnlit)
+                      .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
+                      .withRasterizer(rasterizer)
+                      .withDepthStencilState(&depthStencilDepthEnabled)
+                      .addDescriptorSet<ds::Scene2DFactory>()
+                      .addDescriptorSet<ds::Object2DFactory>()
+                      .build());
+
     createPipline(
         Config::PipelineIds::Text,
         vk::PipelineParameters({Config::RenderPassIds::StandardAttachmentDefault,
                                 Config::RenderPassIds::SwapchainDefault})
-            .withShaders(Config::ShaderIds::UnlitSkinned2DVertex, Config::ShaderIds::TextFragment)
+            .withShaders(Config::ShaderIds::Vertex2DSkinned, Config::ShaderIds::TextFragment)
             .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
             .withRasterizer(rasterizer)
             .withDepthStencilState(&depthStencilDepthEnabled)
@@ -120,6 +144,38 @@ void PipelineCache::createBuiltins() {
             .addDescriptorSet<ds::Scene2DFactory>()
             .addDescriptorSet<ds::Object2DFactory>()
             .build());
+
+    createPipline(
+        Config::PipelineIds::SlideshowLit,
+        vk::PipelineParameters({Config::RenderPassIds::StandardAttachmentDefault,
+                                Config::RenderPassIds::SwapchainDefault})
+            .withShaders(Config::ShaderIds::SlideshowVert, Config::ShaderIds::Fragment2DSkinnedLit)
+            .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
+            .withRasterizer(rasterizer)
+            .withVertexFormat(prim::SlideshowVertex::bindingDescription(),
+                              prim::SlideshowVertex::attributeDescriptions())
+            .withDepthStencilState(&depthStencilDepthEnabled)
+            .addDescriptorSet<ds::TexturePoolFactory>()
+            .addDescriptorSet<ds::Scene2DFactory>()
+            .addDescriptorSet<ds::Object2DFactory>()
+            .addDescriptorSet<ds::SlideshowFactory>()
+            .build());
+
+    createPipline(Config::PipelineIds::SlideshowUnlit,
+                  vk::PipelineParameters({Config::RenderPassIds::StandardAttachmentDefault,
+                                          Config::RenderPassIds::SwapchainDefault})
+                      .withShaders(Config::ShaderIds::SlideshowVert,
+                                   Config::ShaderIds::Fragment2DSkinnedUnlit)
+                      .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
+                      .withRasterizer(rasterizer)
+                      .withVertexFormat(prim::SlideshowVertex::bindingDescription(),
+                                        prim::SlideshowVertex::attributeDescriptions())
+                      .withDepthStencilState(&depthStencilDepthEnabled)
+                      .addDescriptorSet<ds::TexturePoolFactory>()
+                      .addDescriptorSet<ds::Scene2DFactory>()
+                      .addDescriptorSet<ds::Object2DFactory>()
+                      .addDescriptorSet<ds::SlideshowFactory>()
+                      .build());
 
     createPipline(
         Config::PipelineIds::FadeEffect,

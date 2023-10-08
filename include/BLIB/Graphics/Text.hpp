@@ -1,7 +1,7 @@
 #ifndef BLIB_GRAPHICS_TEXT_HPP
 #define BLIB_GRAPHICS_TEXT_HPP
 
-#include <BLIB/Components/Mesh.hpp>
+#include <BLIB/Components/Text.hpp>
 #include <BLIB/Graphics/Components/OverlayScalable.hpp>
 #include <BLIB/Graphics/Components/Textured.hpp>
 #include <BLIB/Graphics/Components/Transform2D.hpp>
@@ -31,7 +31,7 @@ namespace gfx
  * @ingroup Graphics
  */
 class Text
-: public Drawable<com::Mesh>
+: public Drawable<com::Text>
 , private bcom::Textured
 , public bcom::OverlayScalable {
 public:

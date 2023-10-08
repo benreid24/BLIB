@@ -18,7 +18,7 @@ namespace buf
 /**
  * @brief Basic index buffer class built on top of vk::Buffer. Intended for static mesh data
  *
- * @tparam T The type of vertex to index into. Defaults to Vertex
+ * @tparam T The type of vertex to index into
  * @ingroup Renderer
  */
 template<typename T>
@@ -95,8 +95,14 @@ public:
      */
     constexpr VkBuffer indexBufferHandle() const;
 
+    /**
+     * @brief Records a pipeline barrier to prevent writes from occurring before fragment shader
+     *        reads are completed
+     */
+    void insertBarrierBeforeWrite();
+
 private:
-    std::vector<prim::Vertex> cpuVertexBuffer;
+    std::vector<T> cpuVertexBuffer;
     std::vector<std::uint32_t> cpuIndexBuffer;
     vk::Buffer gpuVertexBuffer;
     vk::Buffer gpuIndexBuffer;
@@ -168,6 +174,7 @@ constexpr const std::vector<std::uint32_t>& IndexBufferT<T>::indices() const {
 template<typename T>
 prim::DrawParameters IndexBufferT<T>::getDrawParameters() const {
     prim::DrawParameters params;
+    params.type          = prim::DrawParameters::DrawType::IndexBuffer;
     params.indexBuffer   = gpuIndexBuffer.getBuffer();
     params.indexCount    = cpuIndexBuffer.size();
     params.indexOffset   = 0;
@@ -232,6 +239,11 @@ void IndexBufferT<T>::executeTransfer(VkCommandBuffer commandBuffer,
     barrier.buffer = gpuIndexBuffer.getBuffer();
     barrier.size   = gpuIndexBuffer.getSize();
     context.registerBufferBarrier(barrier);
+}
+template<typename T>
+void IndexBufferT<T>::insertBarrierBeforeWrite() {
+    gpuVertexBuffer.insertPipelineBarrierBeforeChange();
+    gpuIndexBuffer.insertPipelineBarrierBeforeChange();
 }
 
 /**

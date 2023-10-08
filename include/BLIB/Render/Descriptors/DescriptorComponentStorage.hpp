@@ -4,6 +4,7 @@
 #include <BLIB/ECS.hpp>
 #include <BLIB/Render/Buffers/DynamicSSBO.hpp>
 #include <BLIB/Render/Buffers/StaticSSBO.hpp>
+#include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Scenes/Key.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
@@ -24,6 +25,18 @@ namespace ds
  */
 class DescriptorComponentStorageBase {
 public:
+    /**
+     * @brief Represents a range of dirty elements
+     */
+    struct DirtyRange {
+        std::uint32_t start;
+        std::uint32_t end;
+
+        DirtyRange()
+        : start(1)
+        , end(0) {}
+    };
+
     /// Callback signature to fetch entities from scene ids
     using EntityCallback = std::function<ecs::Entity(scene::Key)>;
 
@@ -44,16 +57,17 @@ public:
      */
     virtual void performSync() = 0;
 
+    /**
+     * @brief Returns the ranges of dirty dynamic elements
+     */
+    constexpr const DirtyRange& dirtyDynamicRange() const;
+
+    /**
+     * @brief Returns the ranges of static dynamic elements
+     */
+    constexpr const DirtyRange& dirtyStaticRange() const;
+
 protected:
-    struct DirtyRange {
-        std::uint32_t start;
-        std::uint32_t end;
-
-        DirtyRange()
-        : start(1)
-        , end(0) {}
-    };
-
     DirtyRange dirtyDynamic;
     DirtyRange dirtyStatic;
 };
@@ -118,6 +132,16 @@ public:
      */
     constexpr TStaticStorage& getStaticBuffer();
 
+    /**
+     * @brief Returns true if the dynamic descriptor sets need to be updated this frame
+     */
+    constexpr bool dynamicDescriptorUpdateRequired() const;
+
+    /**
+     * @brief Returns true if the static descriptor sets need to be updated this frame
+     */
+    constexpr bool staticDescriptorUpdateRequired() const;
+
 private:
     ecs::Registry& registry;
     const EntityCallback getEntityFromSceneKey;
@@ -125,6 +149,8 @@ private:
     TStaticStorage staticBuffer;
     std::vector<std::uint8_t> dynCounts;
     std::vector<std::uint8_t> statCounts;
+    std::uint8_t dynamicRefresh;
+    std::uint8_t staticRefresh;
 
     void refreshLinks(UpdateSpeed speed);
 };
@@ -137,12 +163,24 @@ inline void DescriptorComponentStorageBase::markObjectDirty(scene::Key key) {
     range.end   = key.sceneId > range.end ? key.sceneId : range.end;
 }
 
+inline constexpr const DescriptorComponentStorageBase::DirtyRange&
+DescriptorComponentStorageBase::dirtyDynamicRange() const {
+    return dirtyDynamic;
+}
+
+inline constexpr const DescriptorComponentStorageBase::DirtyRange&
+DescriptorComponentStorageBase::dirtyStaticRange() const {
+    return dirtyStatic;
+}
+
 template<typename TCom, typename TPayload, typename TDynamicStorage, typename TStaticStorage>
 DescriptorComponentStorage<TCom, TPayload, TDynamicStorage, TStaticStorage>::
     DescriptorComponentStorage(ecs::Registry& r, vk::VulkanState& vulkanState,
                                const EntityCallback& entityCb)
 : registry(r)
-, getEntityFromSceneKey(entityCb) {
+, getEntityFromSceneKey(entityCb)
+, dynamicRefresh(0x1 << Config::MaxConcurrentFrames)
+, staticRefresh(0x1 << Config::MaxConcurrentFrames) {
     dynamicBuffer.create(vulkanState, Config::DefaultSceneObjectCapacity);
     staticBuffer.create(vulkanState, Config::DefaultSceneObjectCapacity);
     dynCounts.resize(Config::DefaultSceneObjectCapacity, 0);
@@ -156,15 +194,21 @@ bool DescriptorComponentStorage<TCom, TPayload, TDynamicStorage, TStaticStorage>
     if (!component) { return false; }
 
     if (key.updateFreq == UpdateSpeed::Dynamic) {
-        if (dynamicBuffer.ensureSize(key.sceneId + 1)) { refreshLinks(key.updateFreq); }
+        if (dynamicBuffer.ensureSize(key.sceneId + 1)) {
+            refreshLinks(key.updateFreq);
+            dynCounts.resize(key.sceneId + 1, 0);
+            dynamicRefresh = 0x1 << Config::MaxConcurrentFrames;
+        }
         component->link(this, key, &dynamicBuffer[key.sceneId]);
-        dynCounts.resize(key.sceneId + 1, 0);
         dynCounts[key.sceneId] += 1;
     }
     else {
-        if (staticBuffer.ensureSize(key.sceneId + 1)) { refreshLinks(key.updateFreq); }
+        if (staticBuffer.ensureSize(key.sceneId + 1)) {
+            refreshLinks(key.updateFreq);
+            statCounts.resize(key.sceneId + 1, 0);
+            staticRefresh = 0x1 << Config::MaxConcurrentFrames;
+        }
         component->link(this, key, &staticBuffer[key.sceneId]);
-        statCounts.resize(key.sceneId + 1, 0);
         statCounts[key.sceneId] += 1;
     }
     markObjectDirty(key);
@@ -193,6 +237,8 @@ void DescriptorComponentStorage<TCom, TPayload, TDynamicStorage, TStaticStorage>
         dynamicBuffer.transferRange(dirtyDynamic.start, dirtyDynamic.end - dirtyDynamic.start + 1);
         dirtyDynamic = DirtyRange();
     }
+    dynamicRefresh = dynamicRefresh >> 1;
+    staticRefresh  = staticRefresh >> 1;
 }
 
 template<typename TCom, typename TPayload, typename TDynamicStorage, typename TStaticStorage>
@@ -221,6 +267,18 @@ void DescriptorComponentStorage<TCom, TPayload, TDynamicStorage, TStaticStorage>
             if (component) { component->link(this, {speed, scene::Key::InvalidSceneId}, payload); }
         }
     }
+}
+
+template<typename TCom, typename TPayload, typename TDynamicStorage, typename TStaticStorage>
+constexpr bool DescriptorComponentStorage<TCom, TPayload, TDynamicStorage,
+                                          TStaticStorage>::dynamicDescriptorUpdateRequired() const {
+    return dynamicRefresh != 0;
+}
+
+template<typename TCom, typename TPayload, typename TDynamicStorage, typename TStaticStorage>
+constexpr bool DescriptorComponentStorage<TCom, TPayload, TDynamicStorage,
+                                          TStaticStorage>::staticDescriptorUpdateRequired() const {
+    return staticRefresh != 0;
 }
 
 } // namespace ds

@@ -1,10 +1,11 @@
 #ifndef BLIB_RESOURCES_RESOURCELOADER_HPP
 #define BLIB_RESOURCES_RESOURCELOADER_HPP
 
-#include <BLIB/Logging.hpp>
-#include <BLIB/Media/Audio/Playlist.hpp>
-#include <BLIB/Media/Graphics/AnimationData.hpp>
+#include <BLIB/Graphics/Animation2D/AnimationData.hpp>
 #include <BLIB/Graphics/Text/VulkanFont.hpp>
+#include <BLIB/Logging.hpp>
+#include <BLIB/Audio/Playlist.hpp>
+#include <BLIB/Resources/Ref.hpp>
 #include <BLIB/Resources/Resource.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
@@ -16,7 +17,7 @@ namespace bl
 namespace resource
 {
 /**
- * @brief Templatized resource loader. Must be implemented for any resource type that is
+ * @brief Templated resource loader. Must be implemented for any resource type that is
  *        intended to be managed
  *
  * @ingroup Resources
@@ -190,11 +191,11 @@ struct DefaultLoader<sf::Image> : public LoaderBase<sf::Image> {
 };
 
 template<>
-struct DefaultLoader<rc::AnimationData> : public LoaderBase<rc::AnimationData> {
+struct DefaultLoader<gfx::a2d::AnimationData> : public LoaderBase<gfx::a2d::AnimationData> {
     virtual ~DefaultLoader() = default;
 
     virtual bool load(const std::string& path, const char* buffer, std::size_t len, std::istream&,
-                      rc::AnimationData& result) override {
+                      gfx::a2d::AnimationData& result) override {
         if (!result.loadFromMemory(buffer, len, path)) {
             BL_LOG_ERROR << "Failed to load animation: " << path;
             return false;

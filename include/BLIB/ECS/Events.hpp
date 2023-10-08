@@ -47,7 +47,7 @@ struct ComponentAdded {
     const Entity entity;
 
     /// The component that was added
-    const T& component;
+    T& component;
 
     /**
      * @brief Construct a new ComponentAdded event
@@ -55,7 +55,7 @@ struct ComponentAdded {
      * @param e The entity the component belongs to
      * @param component The component that was added
      */
-    ComponentAdded(Entity e, const T& component)
+    ComponentAdded(Entity e, T& component)
     : entity(e)
     , component(component) {}
 };
@@ -83,23 +83,6 @@ struct ComponentRemoved {
     ComponentRemoved(Entity e, const T& component)
     : entity(e)
     , component(component) {}
-};
-
-/**
- * @brief Fired when a component pool is resized
- *
- * @ingroup ECS
- */
-struct ComponentPoolResized {
-    /// The pool that resized
-    std::uint16_t poolIndex;
-
-    /**
-     * @brief Creates a new ComponentPoolResized event
-     * @param pool The pool that resized
-     */
-    ComponentPoolResized(std::uint16_t pool)
-    : poolIndex(pool) {}
 };
 
 /**

@@ -138,6 +138,30 @@ void* Buffer::mapMemory() {
 
 void Buffer::unMapMemory() { vmaUnmapMemory(vulkanState->vmaAllocator, alloc); }
 
+void Buffer::insertPipelineBarrierBeforeChange() {
+    VkCommandBuffer cb = vulkanState->beginSingleTimeCommands();
+
+    VkBufferMemoryBarrier barrier{};
+    barrier.sType         = VK_STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER;
+    barrier.buffer        = buffer;
+    barrier.offset        = 0;
+    barrier.size          = size;
+    barrier.srcAccessMask = VK_ACCESS_MEMORY_READ_BIT;
+    barrier.dstAccessMask = VK_ACCESS_MEMORY_WRITE_BIT;
+    vkCmdPipelineBarrier(cb,
+                         VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT,
+                         VK_PIPELINE_STAGE_TRANSFER_BIT,
+                         VK_DEPENDENCY_BY_REGION_BIT,
+                         0,
+                         nullptr,
+                         1,
+                         &barrier,
+                         0,
+                         nullptr);
+
+    vulkanState->endSingleTimeCommands(cb);
+}
+
 } // namespace vk
 } // namespace rc
 } // namespace bl

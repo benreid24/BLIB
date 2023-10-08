@@ -12,7 +12,6 @@ Registry::Registry()
 , dependencyGraph(DefaultCapacity) {
     componentPools.reserve(ComponentMask::MaxComponentTypeCount);
     views.reserve(32);
-    bl::event::Dispatcher::subscribe(this);
 }
 
 Entity Registry::createEntity() {
@@ -226,15 +225,9 @@ bool Registry::isDependedOn(Entity resource) const {
 }
 
 void Registry::markEntityForRemoval(Entity ent) {
-    const std::uint32_t i = ent.getIndex();
+    const std::uint64_t i = ent.getIndex();
     if (markedForRemoval.size() <= i) { markedForRemoval.resize(i + 1, false); }
     markedForRemoval[i] = true;
-}
-
-void Registry::observe(const event::ComponentPoolResized& resize) {
-    for (auto& view : views) {
-        if (view->mask.contains(resize.poolIndex)) { view->needsAddressReload = true; }
-    }
 }
 
 } // namespace ecs

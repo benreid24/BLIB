@@ -24,10 +24,9 @@ void Text::create(engine::Engine& engine, const sf::VulkanFont& f, const sf::Str
     Drawable::create(engine);
     Textured::create(engine.ecs(), entity(), font->syncTexture(engine.renderer()));
     OverlayScalable::create(engine, entity());
-    component().pipeline = rc::Config::PipelineIds::Text;
 
     const std::uint32_t vc = std::max(content.getSize(), static_cast<std::size_t>(20)) * 6;
-    component().create(engine.renderer().vulkanState(), vc, vc);
+    component().vertices.create(engine.renderer().vulkanState(), vc);
 
     addSection(content, fontSize, color, style);
 }
@@ -82,30 +81,27 @@ void Text::commit() {
         }
 
         // create larger buffer if required
-        if (component().gpuBuffer.vertices().size() < vertexCount) {
-            component().create(engine().renderer().vulkanState(), vertexCount * 2, vertexCount * 2);
-            for (unsigned int i = 0; i < component().gpuBuffer.indices().size(); ++i) {
-                component().gpuBuffer.indices()[i] = i;
-            }
+        if (component().vertices.vertexCount() < vertexCount) {
+            component().vertices.create(engine().renderer().vulkanState(), vertexCount * 2);
         }
 
         // assign vertices
         std::uint32_t vi = 0;
         glm::vec2 cornerPos(0.f, 0.f);
         for (auto& section : sections) {
-            vi += section.refreshVertices(*font, &component().gpuBuffer.vertices()[vi], cornerPos);
+            vi += section.refreshVertices(*font, &component().vertices.vertices()[vi], cornerPos);
         }
 
         // upload vertices
-        component().gpuBuffer.queueTransfer(rc::tfr::Transferable::SyncRequirement::Immediate);
+        component().vertices.queueTransfer(rc::tfr::Transferable::SyncRequirement::Immediate);
 
         const auto bounds = getLocalBounds();
         OverlayScalable::setLocalSize({bounds.width + bounds.left, bounds.height + bounds.top});
 
         // update draw parameters
-        component().drawParams            = component().gpuBuffer.getDrawParameters();
+        component().drawParams            = component().vertices.getDrawParameters();
         component().drawParams.indexCount = vi;
-        if (component().sceneRef.object) { component().syncDrawParamsToScene(); }
+        if (component().sceneRef.object) { component().updateDrawParams(); }
     }
 
     // always upload new font atlas if required

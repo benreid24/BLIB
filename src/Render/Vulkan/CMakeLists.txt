@@ -4,6 +4,7 @@ target_sources(BLIB PRIVATE
     CleanupManager.cpp
     CommonSamplers.cpp
     DescriptorPool.cpp
+    DescriptorSet.cpp
     Framebuffer.cpp
     Pipeline.cpp
     PipelineLayout.cpp

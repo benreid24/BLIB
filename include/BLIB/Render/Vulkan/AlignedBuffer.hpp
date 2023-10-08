@@ -262,7 +262,8 @@ const T* AlignedBuffer<T>::cast(std::size_t i) const {
 
 template<typename T>
 void AlignedBuffer<T>::ensureCapacity(std::size_t size) {
-    storage.resize(size * alignment);
+    const auto bytes = size * alignment;
+    if (bytes > storage.size()) { storage.resize(bytes); }
 }
 
 template<typename T>

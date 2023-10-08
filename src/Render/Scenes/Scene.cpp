@@ -47,8 +47,8 @@ void Scene::handleDescriptorSync() {
         }
         batchChanges.clear();
     }
-    descriptorComponents.syncDescriptors();
     descriptorSets.handleDescriptorSync();
+    descriptorComponents.syncDescriptors();
 }
 
 void Scene::createAndAddObject(ecs::Entity entity, rcom::DrawableBase& object,

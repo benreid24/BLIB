@@ -4,6 +4,7 @@
 #include <BLIB/Render/Graph/AssetTags.hpp>
 #include <BLIB/Render/Graph/Providers/StandardTargetProvider.hpp>
 #include <BLIB/Render/Graph/Strategies/ForwardRenderStrategy.hpp>
+#include <BLIB/Systems/Animation2DSystem.hpp>
 #include <BLIB/Systems/BuiltinDescriptorComponentSystems.hpp>
 #include <BLIB/Systems/BuiltinDrawableSystems.hpp>
 #include <BLIB/Systems/OverlayScalerSystem.hpp>
@@ -56,6 +57,7 @@ void Renderer::initialize() {
                                                               StateMask);
     engine.systems().registerSystem<sys::TextSyncSystem>(FrameStage::RenderIntermediateRefresh,
                                                          StateMask);
+    engine.systems().registerSystem<sys::Animation2DSystem>(FrameStage::Animate, StateMask, *this);
 
     // descriptor systems
     engine.systems().registerSystem<sys::Transform2DDescriptorSystem>(
@@ -74,6 +76,23 @@ void Renderer::initialize() {
                                                        StateMask,
                                                        Config::PipelineIds::LitSkinned2DGeometry,
                                                        Config::PipelineIds::UnlitSkinned2DGeometry);
+    engine.systems().registerSystem<sys::TextSystem>(FrameStage::RenderObjectSync,
+                                                     StateMask,
+                                                     Config::PipelineIds::Text,
+                                                     Config::PipelineIds::Text);
+    engine.systems().registerSystem<sys::SlideshowSystem>(FrameStage::RenderObjectSync,
+                                                          StateMask,
+                                                          Config::PipelineIds::SlideshowLit,
+                                                          Config::PipelineIds::SlideshowUnlit);
+    engine.systems().registerSystem<sys::Animation2DDrawableSystem>(
+        FrameStage::RenderObjectSync,
+        StateMask,
+        Config::PipelineIds::LitSkinned2DGeometry,
+        Config::PipelineIds::UnlitSkinned2DGeometry);
+    engine.systems().registerSystem<sys::Shape2DSystem>(FrameStage::RenderObjectSync,
+                                                        StateMask,
+                                                        Config::PipelineIds::Lit2DGeometry,
+                                                        Config::PipelineIds::Unlit2DGeometry);
 
     // asset providers
     assetFactory.addProvider<rgi::StandardAssetProvider>(rg::AssetTags::RenderedSceneOutput);
@@ -102,6 +121,7 @@ void Renderer::initialize() {
 void Renderer::cleanup() {
     vkCheck(vkDeviceWaitIdle(state.device));
 
+    engine.systems().getSystem<sys::Animation2DSystem>().cleanup();
     for (vk::RenderTexture* rt : renderTextures) { rt->destroy(); }
     observers.clear();
     commonObserver.cleanup();

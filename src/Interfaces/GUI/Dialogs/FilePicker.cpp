@@ -1,7 +1,6 @@
 #include <BLIB/Interfaces/GUI.hpp>
 
 #include <BLIB/Interfaces/GUI/Dialogs/tinyfiledialogs.hpp>
-#include <BLIB/Media/Shapes.hpp>
 #include <BLIB/Util/FileUtil.hpp>
 
 namespace bl
@@ -125,10 +124,12 @@ FilePicker::FilePicker(const std::string& rootdir, const std::vector<std::string
     rect.setSize({IconSize, IconSize - IndentY});
     folderTexture.draw(rect);
     folderTexture.draw(rect);
-    shapes::Triangle triangle({0.f, 0.f}, {4.f, IndentY}, {0.f, IndentY});
+    // TODO - use new graphics triangle
+    /* shapes::Triangle triangle({0.f, 0.f}, {4.f, IndentY}, {0.f, IndentY});
     triangle.setFillColor(folderColor);
     triangle.setPosition(IndentX, IconSize - IndentY);
     folderTexture.draw(triangle);
+    */
 }
 
 void FilePicker::open(Mode m, const std::string& title, GUI::Ptr parent, bool rpath) {
@@ -180,9 +181,7 @@ void FilePicker::onFolderClick(const std::string& f) {
             populateFiles();
             fileEntry->setInput("");
         }
-        else {
-            fileClickTime = n;
-        }
+        else { fileClickTime = n; }
     }
 }
 
@@ -197,9 +196,7 @@ void FilePicker::onFileClick(const std::string& f) {
     else {
         const float n = timer.getElapsedTime().asSeconds();
         if (n - fileClickTime < DoubleClick) { onChooseClicked(); }
-        else {
-            fileClickTime = n;
-        }
+        else { fileClickTime = n; }
     }
 }
 
@@ -242,9 +239,7 @@ void FilePicker::onChooseClicked() {
 void FilePicker::highlight(const std::string& f) {
     for (auto& pair : fileLabels) {
         if (pair.first == f) { pair.second->setColor(sf::Color(40, 95, 250), sf::Color::Blue); }
-        else {
-            pair.second->setColor(sf::Color::Transparent, sf::Color::Transparent);
-        }
+        else { pair.second->setColor(sf::Color::Transparent, sf::Color::Transparent); }
     }
 }
 

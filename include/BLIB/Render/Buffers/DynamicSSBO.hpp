@@ -5,6 +5,7 @@
 #include <BLIB/Render/Vulkan/AlignedBuffer.hpp>
 #include <BLIB/Render/Vulkan/Buffer.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
+#include <BLIB/Util/VectorRef.hpp>
 #include <array>
 #include <limits>
 
@@ -68,6 +69,14 @@ public:
     const T& operator[](std::uint32_t i) const;
 
     /**
+     * @brief Assigns the stable reference to the CPU side storage of this SSBO
+     *
+     * @param ref The reference to populate
+     * @param i The object index to assign
+     */
+    void assignRef(util::VectorRef<T, vk::AlignedBuffer<T>>& ref, std::uint32_t i);
+
+    /**
      * @brief If the buffer size is less than the required size, re-creates the buffer to be at
      *        least the given size
      *
@@ -98,6 +107,11 @@ public:
      * @param numElements The number of elements to copy
      */
     void transferRange(std::uint32_t start, std::uint32_t numElements);
+
+    /**
+     * @brief Copies the entire buffer
+     */
+    void transferAll();
 
     /**
      * @brief Returns the size of the SSBO on the device
@@ -144,7 +158,8 @@ void DynamicSSBO<T>::create(vk::VulkanState& vs, std::uint32_t size) {
             cpuBuffer.alignedSize(),
             VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT | VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT,
             VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT,
-            VK_BUFFER_USAGE_STORAGE_BUFFER_BIT,
+            VK_BUFFER_USAGE_STORAGE_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT |
+                VK_BUFFER_USAGE_TRANSFER_SRC_BIT,
             VMA_ALLOCATION_CREATE_HOST_ACCESS_SEQUENTIAL_WRITE_BIT |
                 VMA_ALLOCATION_CREATE_MAPPED_BIT);
     });
@@ -163,6 +178,10 @@ T& DynamicSSBO<T>::operator[](std::uint32_t i) {
 template<typename T>
 const T& DynamicSSBO<T>::operator[](std::uint32_t i) const {
     return cpuBuffer[i];
+}
+template<typename T>
+void DynamicSSBO<T>::assignRef(util::VectorRef<T, vk::AlignedBuffer<T>>& ref, std::uint32_t i) {
+    ref.assign(cpuBuffer, i);
 }
 
 template<typename T>
@@ -225,6 +244,12 @@ void DynamicSSBO<T>::transferRange(std::uint32_t start, std::uint32_t numElement
             std::memcpy(dst, &cpuBuffer[start], size);
         }
     }
+}
+
+template<typename T>
+void DynamicSSBO<T>::transferAll() {
+    dirtyRanges[vulkanState->currentFrameIndex()] = DirtyRange{0, size()};
+    std::memcpy(gpuBuffers.current().getMappedMemory(), cpuBuffer.data(), cpuBuffer.alignedSize());
 }
 
 template<typename T>

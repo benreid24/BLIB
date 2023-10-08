@@ -1,8 +1,9 @@
 #include <BLIB/Engine/Engine.hpp>
 
+#include <BLIB/Audio.hpp>
 #include <BLIB/Logging.hpp>
-#include <BLIB/Media/Audio.hpp>
 #include <BLIB/Resources/GarbageCollector.hpp>
+#include <BLIB/Systems/TogglerSystem.hpp>
 #include <SFML/Window.hpp>
 #include <cmath>
 
@@ -17,6 +18,7 @@ Engine::Engine(const Settings& settings)
 , renderingSystem(*this, renderWindow)
 , input(*this) {
     settings.syncToConfig();
+    systems().registerSystem<sys::TogglerSystem>(FrameStage::Update0, StateMask::All);
     bl::event::Dispatcher::subscribe(&input);
 }
 

@@ -6,7 +6,9 @@
 #include <BLIB/Engine/System.hpp>
 #include <BLIB/Logging.hpp>
 #include <array>
+#include <functional>
 #include <memory>
+#include <mutex>
 #include <stdexcept>
 #include <typeindex>
 #include <unordered_map>
@@ -26,6 +28,9 @@ class Engine;
  */
 class Systems {
 public:
+    /// Signature of one-off tasks that can be registered to run
+    using Task = std::function<void()>;
+
     /**
      * @brief Creates and adds a new system to the registry
      *
@@ -48,6 +53,15 @@ public:
     template<typename T>
     T& getSystem();
 
+    /**
+     * @brief Adds a one-off task to be executed in the given frame stage along with the systems in
+     *        that stage. Tasks should be thread safe. The task queue is drained once processed
+     *
+     * @param stage The frame stage to execute the task in
+     * @param task The task to execute
+     */
+    void addFrameTask(FrameStage::V stage, Task&& task);
+
 private:
     struct SystemInstance {
         StateMask::V mask;
@@ -60,9 +74,12 @@ private:
 
     struct StageSet {
         std::mutex mutex;
+        std::mutex taskMutex;
         std::vector<SystemInstance> systems;
+        std::vector<Task> tasks;
 
         StageSet();
+        void drainTasks();
     };
 
     Engine& engine;

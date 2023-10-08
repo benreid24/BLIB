@@ -230,6 +230,7 @@ void BatchedScene::renderScene(scene::SceneRenderContext& ctx) {
                     for (PipelineBatch& pb : *pipelineBatches) {
                         ctx.bindPipeline(pb.pipeline);
                         for (SceneObject* obj : pb.objects) {
+                            if (obj->hidden) { continue; }
                             for (std::uint8_t i = lb.perObjStart; i < lb.descriptorCount; ++i) {
                                 lb.descriptors[i]->bindForObject(ctx, layout, i, obj->sceneKey);
                             }
@@ -240,7 +241,10 @@ void BatchedScene::renderScene(scene::SceneRenderContext& ctx) {
                 else {
                     for (PipelineBatch& pb : *pipelineBatches) {
                         ctx.bindPipeline(pb.pipeline);
-                        for (SceneObject* obj : pb.objects) { ctx.renderObject(*obj); }
+                        for (SceneObject* obj : pb.objects) {
+                            if (obj->hidden) { continue; }
+                            ctx.renderObject(*obj);
+                        }
                     }
                 }
 

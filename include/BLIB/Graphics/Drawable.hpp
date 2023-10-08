@@ -1,6 +1,7 @@
 #ifndef BLIB_GRAPHICS_DRAWABLE_HPP
 #define BLIB_GRAPHICS_DRAWABLE_HPP
 
+#include <BLIB/Components/Toggler.hpp>
 #include <BLIB/ECS.hpp>
 #include <BLIB/Render/Components/DrawableBase.hpp>
 #include <BLIB/Systems/DrawableSystem.hpp>
@@ -102,6 +103,19 @@ public:
      */
     void removeParent();
 
+    /**
+     * @brief Causes the drawable to flash with the given settings
+     *
+     * @param onPeriod The amount of time to be visible, in seconds
+     * @param offPeriod The amount of time to be hidden, in seconds
+     */
+    void flash(float onPeriod, float offPeriod);
+
+    /**
+     * @brief Stops the component from flashing
+     */
+    void stopFlashing();
+
 protected:
     /**
      * @brief Initializes the drawable
@@ -127,6 +141,22 @@ protected:
      */
     template<typename... TArgs>
     void create(engine::Engine& engine, TArgs&&... args);
+
+    /**
+     * @brief Creates the ECS entity for the drawable but does not create the component
+     *
+     * @param engine Game engine instance
+     */
+    void createEntityOnly(engine::Engine& engine);
+
+    /**
+     * @brief Creates the component for the drawable. Must only be called after entity creation
+     *
+     * @tparam ...TArgs Argument types to the components constructor
+     * @param ...args Arguments to the components constructor
+     */
+    template<typename... TArgs>
+    void createComponentOnly(TArgs&&... args);
 
     /**
      * @brief Called after the entity is added to a scene. Allows derived to sync data if required
@@ -248,6 +278,27 @@ void Drawable<TCom, TSys>::removeParent() {
 }
 
 template<typename TCom, typename TSys>
+void Drawable<TCom, TSys>::flash(float onPeriod, float offPeriod) {
+#ifdef BLIB_DEBUG
+    if (!enginePtr) { throw std::runtime_error("Drawable must be created before flashing"); }
+#endif
+
+    // swap off/on period because we have hidden toggle instead of visible toggle
+    enginePtr->ecs().emplaceComponent<com::Toggler>(
+        entity(), offPeriod, onPeriod, &component().sceneRef.object->hidden);
+}
+
+template<typename TCom, typename TSys>
+void Drawable<TCom, TSys>::stopFlashing() {
+#ifdef BLIB_DEBUG
+    if (!enginePtr) { throw std::runtime_error("Drawable must be created before flashing"); }
+#endif
+
+    enginePtr->ecs().removeComponent<com::Toggler>(entity());
+    component().sceneRef.object->hidden = false;
+}
+
+template<typename TCom, typename TSys>
 constexpr engine::Engine& Drawable<TCom, TSys>::engine() {
     return *enginePtr;
 }
@@ -275,6 +326,12 @@ void Drawable<TCom, TSys>::destroy() {
 }
 
 template<typename TCom, typename TSys>
+void Drawable<TCom, TSys>::createEntityOnly(engine::Engine& engine) {
+    enginePtr = &engine;
+    ecsId     = engine.ecs().createEntity();
+}
+
+template<typename TCom, typename TSys>
 void Drawable<TCom, TSys>::onAdd(const rc::rcom::SceneObjectRef&) {}
 
 template<typename TCom, typename TSys>
@@ -282,12 +339,16 @@ void Drawable<TCom, TSys>::onRemove() {}
 
 template<typename TCom, typename TSys>
 template<typename... TArgs>
+void Drawable<TCom, TSys>::createComponentOnly(TArgs&&... args) {
+    handle = enginePtr->ecs().emplaceComponent<TCom>(ecsId, std::forward<TArgs>(args)...);
+}
+
+template<typename TCom, typename TSys>
+template<typename... TArgs>
 void Drawable<TCom, TSys>::create(engine::Engine& engine, TArgs&&... args) {
     if (handle != nullptr) { destroy(); }
-    enginePtr = &engine;
-
-    ecsId  = engine.ecs().createEntity();
-    handle = engine.ecs().emplaceComponent<TCom>(ecsId, std::forward<TArgs>(args)...);
+    createEntityOnly(engine);
+    createComponentOnly(std::forward<TArgs>(args)...);
 }
 
 } // namespace gfx

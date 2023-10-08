@@ -4,6 +4,8 @@ namespace bl
 {
 namespace gui
 {
+// TODO - use new animation
+/*
 Animation::Ptr Animation::create(resource::Ref<rc::AnimationData> anim) {
     return Ptr(new Animation(anim));
 }
@@ -50,6 +52,7 @@ sf::Vector2f Animation::minimumRequisition() const { return size.value_or(source
 void Animation::doRender(sf::RenderTarget& target, sf::RenderStates states, const Renderer&) const {
     target.draw(animation, states);
 }
+*/
 
 } // namespace gui
 } // namespace bl

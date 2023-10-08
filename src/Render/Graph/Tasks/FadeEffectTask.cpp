@@ -25,7 +25,9 @@ FadeEffectTask::FadeEffectTask(float fadeTime, float start, float end)
 FadeEffectTask::~FadeEffectTask() {
     if (renderer) {
         renderer->vulkanState().cleanupManager.add(
-            [r = renderer, alloc = dsAlloc, dsCopy = descriptorSets]() {
+            [r      = renderer,
+             alloc  = dsAlloc,
+             dsCopy = vk::PerFrame<VkDescriptorSet>::copy(descriptorSets)]() {
                 r->vulkanState().descriptorPool.release(alloc, dsCopy.rawData());
             });
     }

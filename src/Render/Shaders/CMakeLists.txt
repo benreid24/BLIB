@@ -5,18 +5,22 @@ compile_shaders(
     
     SHADERS
 	empty.vert
-    fadeEffect.frag
-    mesh.frag
-    mesh.vert
-    skinnedMesh.vert
-    skinnedMesh.frag
-    2d.vert
-    2d.frag
-    skinned2d.vert
-    skinned2d.frag
-    2dlit.vert
-    2dlit.frag
-    skinned2dlit.vert
-    skinned2dlit.frag
-    text.frag
+
+    3D/mesh.frag
+    3D/mesh.vert
+    3D/skinnedMesh.vert
+    3D/skinnedMesh.frag
+
+    2D/skinned2d.vert
+    2D/skinned2d.frag
+    2D/skinned2dlit.frag
+
+    2D/2d.vert
+    2D/2d.frag
+    2D/2dlit.frag
+    
+    2D/text.frag
+    2D/slideshow.vert
+
+    PostFX/fadeEffect.frag
 )
