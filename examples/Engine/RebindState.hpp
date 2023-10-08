@@ -2,6 +2,7 @@
 #define REBINDSTATE_HPP
 
 #include <BLIB/Engine.hpp>
+#include <BLIB/Graphics.hpp>
 #include <BLIB/Input.hpp>
 #include <BLIB/Resources.hpp>
 
@@ -21,8 +22,10 @@ public:
 private:
     bl::input::Configurator configurator;
 
-    bl::resource::Ref<sf::Font> font;
-    sf::Text text;
+    bl::resource::Ref<sf::VulkanFont> font;
+    bl::gfx::Text text;
+    const unsigned int ctrl;
+    bool inited;
 
     RebindState(bl::engine::Engine& engine, unsigned int ctrl);
 };

@@ -2,8 +2,10 @@
 #define BLIB_ENGINE_STATE_HPP
 
 #include <BLIB/Engine/StateMask.hpp>
+#include <BLIB/Logging.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 #include <memory>
+#include <stdexcept>
 
 namespace bl
 {

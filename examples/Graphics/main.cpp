@@ -26,10 +26,9 @@ private:
 
     virtual void activate(bl::engine::Engine& engine) override {
         // create scene and camera
-        auto& o   = engine.renderer().getObserver();
-        scene     = o.pushScene<bl::rc::scene::BatchedScene>();
-        auto* cam = o.setCamera<bl::cam::Camera2D>(sf::FloatRect{0.f, 0.f, 1920.f, 1080.f});
-        cam->setNearAndFarPlanes(-100000.f, 100000.f);
+        auto& o = engine.renderer().getObserver();
+        scene   = o.pushScene<bl::rc::scene::BatchedScene>();
+        o.setCamera<bl::cam::Camera2D>(sf::FloatRect{0.f, 0.f, 1920.f, 1080.f});
         o.setClearColor({1.f, 1.f, 1.f, 1.f});
 
         // add slideshow animation to scene

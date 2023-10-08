@@ -5,15 +5,17 @@
 
 InputListener::InputListener()
 : rebindExample(false)
-, rebindMovement(false) {
-    font = bl::resource::ResourceManager<sf::Font>::load("font.ttf");
-    text.setFont(*font);
-    text.setFillColor(sf::Color(0, 50, 185));
-    text.setPosition(10.f, 50.f);
-    text.setString("Last input:");
+, rebindMovement(false) {}
+
+void InputListener::init(bl::engine::Engine& engine) {
+    font = bl::resource::ResourceManager<sf::VulkanFont>::load("font.ttf");
+    text.create(engine, *font, "Last input:", 22, {0.f, 0.2f, 0.72f, 1.f});
+    text.getTransform().setPosition({10.f, 50.f});
 }
 
-void InputListener::render(sf::RenderTarget& target) { target.draw(text); }
+void InputListener::addToScene(bl::rc::Scene* scene) {
+    text.addToScene(scene, bl::rc::UpdateSpeed::Static);
+}
 
 bool InputListener::shouldRebindExample() {
     const bool r  = rebindExample;
@@ -75,6 +77,6 @@ bool InputListener::observe(const bl::input::Actor& actor, unsigned int activate
     }
     ctrl += actor.joystickMode() ? "\n(Controller)" : "\n(Keyboard/Mouse)";
     ctrl += fromEvent ? "\n(User event)" : "\n(Repeated input)";
-    text.setString("Last input:\n  " + ctrl);
+    text.getSection().setString("Last input:\n  " + ctrl);
     return true;
 }

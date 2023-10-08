@@ -3,6 +3,7 @@
 
 #include "InputListener.hpp"
 #include <BLIB/Engine.hpp>
+#include <BLIB/Graphics.hpp>
 
 class MainState : public bl::engine::State {
 public:
@@ -18,10 +19,11 @@ public:
     virtual void render(bl::engine::Engine& engine, float lag) override;
 
 private:
-    bl::resource::Ref<sf::Font> font;
-    sf::Text kbmControls;
-    sf::Text jsControls;
-    sf::RectangleShape cover;
+    bl::resource::Ref<sf::VulkanFont> font;
+    bl::gfx::Text kbmControls;
+    bl::gfx::Text jsControls;
+    bl::gfx::Rectangle cover;
+    bool inited;
     InputListener listener;
 
     MainState();
