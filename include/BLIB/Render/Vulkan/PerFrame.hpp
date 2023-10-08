@@ -29,6 +29,18 @@ public:
     PerFrame();
 
     /**
+     * @brief Explicit copy constructor
+     *
+     * @param c The PerFrame object to duplicate
+     */
+    static PerFrame copy(const PerFrame& c) {
+        PerFrame r;
+        r.vs   = c.vs;
+        r.data = c.data;
+        return r;
+    }
+
+    /**
      * @brief Construct a new PerFrame object in the empty state for objects with custom
      *        constructors
      *
