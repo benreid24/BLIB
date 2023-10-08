@@ -35,7 +35,7 @@ VkShaderModule ShaderModuleCache::loadShader(const std::string& path) {
             return loadShader(BUILTIN_SHADER("3D/skinnedMesh.frag.spv"));
 
         case Config::ShaderIds::Vertex2D[0]:
-            return loadShader(BUILTIN_SHADER("2D/2dlit.vert.spv"));
+            return loadShader(BUILTIN_SHADER("2D/2d.vert.spv"));
         case Config::ShaderIds::Fragment2DLit[0]:
             return loadShader(BUILTIN_SHADER("2D/2dlit.frag.spv"));
         case Config::ShaderIds::Fragment2DUnlit[0]:

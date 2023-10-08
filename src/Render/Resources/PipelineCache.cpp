@@ -110,6 +110,28 @@ void PipelineCache::createBuiltins() {
                       .addDescriptorSet<ds::Object2DFactory>()
                       .build());
 
+    createPipline(Config::PipelineIds::Lit2DGeometry,
+                  vk::PipelineParameters({Config::RenderPassIds::StandardAttachmentDefault,
+                                          Config::RenderPassIds::SwapchainDefault})
+                      .withShaders(Config::ShaderIds::Vertex2D, Config::ShaderIds::Fragment2DLit)
+                      .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
+                      .withRasterizer(rasterizer)
+                      .withDepthStencilState(&depthStencilDepthEnabled)
+                      .addDescriptorSet<ds::Scene2DFactory>()
+                      .addDescriptorSet<ds::Object2DFactory>()
+                      .build());
+
+    createPipline(Config::PipelineIds::Unlit2DGeometry,
+                  vk::PipelineParameters({Config::RenderPassIds::StandardAttachmentDefault,
+                                          Config::RenderPassIds::SwapchainDefault})
+                      .withShaders(Config::ShaderIds::Vertex2D, Config::ShaderIds::Fragment2DUnlit)
+                      .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
+                      .withRasterizer(rasterizer)
+                      .withDepthStencilState(&depthStencilDepthEnabled)
+                      .addDescriptorSet<ds::Scene2DFactory>()
+                      .addDescriptorSet<ds::Object2DFactory>()
+                      .build());
+
     createPipline(
         Config::PipelineIds::Text,
         vk::PipelineParameters({Config::RenderPassIds::StandardAttachmentDefault,

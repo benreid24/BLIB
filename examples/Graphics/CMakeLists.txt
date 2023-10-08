@@ -1,12 +1,12 @@
-add_executable(animation main.cpp)
+add_executable(graphics main.cpp)
 
 include(configure_blib_target)
 include(link_blib_target)
 
-configure_blib_target(animation)
-link_blib_target(animation)
+configure_blib_target(graphics)
+link_blib_target(graphics)
 
-set_target_properties(animation
+set_target_properties(graphics
     PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY_DEBUG "${CMAKE_CURRENT_SOURCE_DIR}"
     RUNTIME_OUTPUT_DIRECTORY_RELEASE "${CMAKE_CURRENT_SOURCE_DIR}"
@@ -18,7 +18,7 @@ if(TARGET blib_builtin_shaders)
         COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_LIST_DIR}/copy_shaders.cmake
         DEPENDS blib_builtin_shaders
     )
-    add_dependencies(animation copy_animation_shaders)
+    add_dependencies(graphics copy_animation_shaders)
 else()
-    message(WARNING "Animation example requires the built-in shaders to be compiled. Specify glslc path in GLSLC_PATH")
+    message(WARNING "Graphics example requires the built-in shaders to be compiled. Specify glslc path in GLSLC_PATH")
 endif()

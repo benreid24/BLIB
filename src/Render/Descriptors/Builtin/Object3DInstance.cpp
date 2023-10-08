@@ -144,10 +144,7 @@ void Object3DInstance::releaseObject(ecs::Entity entity, scene::Key key) {
 
 bool Object3DInstance::allocateObject(ecs::Entity entity, scene::Key key) {
     if (!transforms->allocateObject(entity, key)) return false;
-    if (!textures->allocateObject(entity, key)) {
-        transforms->releaseObject(entity, key);
-        return false;
-    }
+    textures->allocateObject(entity, key);
     return true;
 }
 

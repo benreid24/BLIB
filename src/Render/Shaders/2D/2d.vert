@@ -11,12 +11,12 @@ layout(set = 0, binding = 0) uniform cam {
     mat4 viewProj;
 } camera;
 
-layout(set = 1, binding = 0) uniform obj {
-    mat4 model;
+layout(std140, set = 1, binding = 0) readonly buffer obj {
+    mat4 model[];
 } object;
 
 void main() {
-	gl_Position = camera.viewProj * object.model * vec4(inPosition, 1.0);
+	gl_Position = camera.viewProj * object.model[gl_InstanceIndex] * vec4(inPosition, 1.0);
 	fragColor = inColor;
 	fragTexCoords = inTexCoords;
 }

@@ -41,11 +41,13 @@ const sf::FloatRect& Shape2D::getLocalBounds() {
 void Shape2D::markDirty() {
     dirty = true;
     // TODO - one time run system for tasks to register. runs at certain (arbitrary) frame stage
+    update();
 }
 
 void Shape2D::create(engine::Engine& engine) {
     Drawable::create(engine);
     OverlayScalable::create(engine, entity());
+    markDirty();
 }
 
 void Shape2D::update() {
@@ -86,8 +88,8 @@ void Shape2D::update() {
     for (unsigned int i = 1; i < outlineStartIndex; ++i) {
         localBounds.left   = std::min(localBounds.left, ib.vertices()[i].pos.x);
         localBounds.top    = std::min(localBounds.top, ib.vertices()[i].pos.y);
-        localBounds.width  = std::min(localBounds.width, ib.vertices()[i].pos.x);
-        localBounds.height = std::min(localBounds.height, ib.vertices()[i].pos.y);
+        localBounds.width  = std::max(localBounds.width, ib.vertices()[i].pos.x);
+        localBounds.height = std::max(localBounds.height, ib.vertices()[i].pos.y);
     }
     localBounds.width -= localBounds.left;
     localBounds.height -= localBounds.top;
@@ -95,16 +97,16 @@ void Shape2D::update() {
     ib.vertices()[0].pos.y = localBounds.top + localBounds.height * 0.5f;
 
     // populate indices for shape vertices
-    for (unsigned int i = 0; i < outlineStartIndex; ++i) {
+    for (unsigned int i = 1; i < outlineStartIndex; ++i) {
         const unsigned int j = i * 3;
         ib.indices()[j + 0]  = 0;
-        ib.indices()[j + 1]  = (i == outlineStartIndex - 1) ? 1 : i + 1;
-        ib.indices()[j + 2]  = (i == 0) ? outlineStartIndex - 1 : i - 1;
+        ib.indices()[j + 1]  = i;
+        ib.indices()[j + 2]  = (i == outlineStartIndex - 1) ? 1 : i + 1;
     }
 
     // TODO - populate outline vertices
 
-    // TODO - one time run system for tasks to register. runs at certain (arbitrary) frame stage
+    component().commit();
 }
 
 } // namespace gfx
