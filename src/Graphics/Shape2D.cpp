@@ -82,6 +82,12 @@ void Shape2D::update() {
         populateVertex(i - 1, ib.vertices()[i]);
     }
 
+    // set center vertex color to average color of all vertices
+    glm::vec4 avgColor{};
+    for (unsigned int i = 1; i < outlineStartIndex; ++i) { avgColor += ib.vertices()[i].color; }
+    avgColor /= static_cast<float>(pointCount);
+    ib.vertices()[0].color = avgColor;
+
     // determine bounds and set center vertex
     using FL    = std::numeric_limits<float>;
     localBounds = {FL::max(), FL::max(), FL::min(), FL::min()};

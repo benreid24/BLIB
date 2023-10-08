@@ -64,7 +64,10 @@ private:
     }
 
     virtual void update(bl::engine::Engine&, float) override {
-        // all handled in systems
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::G)) {
+            rectangle.setHorizontalColorGradient({0.f, 0.f, 1.f, 1.f}, {0.f, 1.f, 0.f, 1.f});
+        }
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::B)) { rectangle.removeColorGradient(); }
     }
 
     virtual void render(bl::engine::Engine&, float) override {
