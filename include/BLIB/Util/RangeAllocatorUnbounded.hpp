@@ -28,6 +28,21 @@ public:
     struct Range {
         T start;
         T size;
+
+        /**
+         * @brief Sets fields to 0
+         */
+        Range() = default;
+
+        /**
+         * @brief Creates a range
+         *
+         * @param start The start index of the range
+         * @param size The size of the range
+         */
+        Range(T start, T size)
+        : start(start)
+        , size(size) {}
     };
 
     /**
