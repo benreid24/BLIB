@@ -429,6 +429,63 @@ TEST(ECS, Dependencies) {
     EXPECT_FALSE(testRegistry.entityExists(parent));
 }
 
+namespace
+{
+struct ParentVersionedComponent : public trait::ParentAwareVersioned<ParentVersionedComponent> {
+    void refresh() {
+        if (hasParent()) { getParent().refresh(); }
+        markRefreshed();
+    }
+};
+} // namespace
+
+TEST(ECS, ParentAwareVersionedTrait) {
+    Registry testRegistry;
+
+    Entity child  = testRegistry.createEntity();
+    Entity parent = testRegistry.createEntity();
+
+    ParentVersionedComponent& childCom =
+        *testRegistry.emplaceComponent<ParentVersionedComponent>(child);
+    ParentVersionedComponent& parentCom =
+        *testRegistry.emplaceComponent<ParentVersionedComponent>(parent);
+
+    // verify components are dirty to start
+    EXPECT_TRUE(childCom.isDirty());
+    EXPECT_TRUE(parentCom.isDirty());
+
+    // verify that refreshing marks as clean
+    childCom.refresh();
+    parentCom.refresh();
+    EXPECT_FALSE(childCom.isDirty());
+    EXPECT_FALSE(parentCom.isDirty());
+
+    // verify that incrementing version sets dirty
+    childCom.incrementVersion();
+    EXPECT_TRUE(childCom.isDirty());
+    childCom.refresh();
+    EXPECT_FALSE(childCom.isDirty());
+
+    // set parent and verify that child is dirty
+    testRegistry.setEntityParent(child, parent);
+    EXPECT_TRUE(childCom.isDirty());
+    childCom.refresh();
+    EXPECT_FALSE(childCom.isDirty());
+
+    // verify that marking parent as dirty sets child dirty
+    parentCom.incrementVersion();
+    EXPECT_TRUE(childCom.isDirty());
+    childCom.refresh();
+    EXPECT_FALSE(childCom.isDirty());
+    EXPECT_FALSE(parentCom.isDirty());
+
+    // un-parent and verify that child gets set dirty
+    testRegistry.removeEntityParent(child);
+    EXPECT_TRUE(childCom.isDirty());
+    childCom.refresh();
+    EXPECT_FALSE(childCom.isDirty());
+}
+
 } // namespace unittest
 } // namespace ecs
 } // namespace bl
