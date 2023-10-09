@@ -48,7 +48,7 @@ void MainState::deactivate(bl::engine::Engine& engine) {
     engine.inputSystem().getActor().removeListener(listener);
 }
 
-void MainState::update(bl::engine::Engine& engine, float) {
+void MainState::update(bl::engine::Engine& engine, float, float) {
     const bl::input::Actor& a = engine.inputSystem().getActor();
     kbmControls.getSection().setString(
         std::string("Keyboard Controls:") +

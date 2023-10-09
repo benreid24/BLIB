@@ -46,7 +46,7 @@ void RebindState::deactivate(bl::engine::Engine& engine) {
     bl::engine::Configuration::save("config.cfg");
 }
 
-void RebindState::update(bl::engine::Engine& engine, float) {
+void RebindState::update(bl::engine::Engine& engine, float, float) {
     switch (configurator.getState()) {
     case bl::input::Configurator::WaitingVertAxis:
         text.getSection().setString("Move the desired up/down stick back and forth a few times");

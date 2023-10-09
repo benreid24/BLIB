@@ -80,7 +80,7 @@ private:
         engine.renderer().getObserver().popScene();
     }
 
-    virtual void update(bl::engine::Engine&, float) override {
+    virtual void update(bl::engine::Engine&, float, float) override {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::G)) {
             rectangle.setHorizontalColorGradient({0.f, 0.f, 1.f, 1.f}, {0.f, 1.f, 0.f, 1.f});
             circle.setColorGradient({1.f, 0.f, 0.f, 1.f}, {0.f, 0.f, 1.f, 1.f});

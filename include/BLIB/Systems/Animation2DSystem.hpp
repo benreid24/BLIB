@@ -122,7 +122,7 @@ private:
 
     void cleanup();
     virtual void init(engine::Engine& engine) override;
-    virtual void update(std::mutex& stageMutex, float dt) override;
+    virtual void update(std::mutex& stageMutex, float dt, float, float, float) override;
     virtual void observe(const ecs::event::ComponentAdded<com::Animation2DPlayer>& event) override;
     virtual void observe(
         const ecs::event::ComponentRemoved<com::Animation2DPlayer>& event) override;

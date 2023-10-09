@@ -38,7 +38,7 @@ private:
     std::vector<gfx::Text*> texts;
 
     virtual void init(engine::Engine& engine) override;
-    virtual void update(std::mutex& stageMutex, float dt) override;
+    virtual void update(std::mutex& stageMutex, float dt, float, float, float) override;
     virtual void observe(const rc::event::OverlayEntityScaled& event) override;
 
     void registerText(gfx::Text* text);

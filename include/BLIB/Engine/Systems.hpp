@@ -88,7 +88,8 @@ private:
 
     Systems(Engine& engine);
     void init();
-    void update(FrameStage::V startStage, FrameStage::V endStage, StateMask::V stateMask, float dt);
+    void update(FrameStage::V startStage, FrameStage::V endStage, StateMask::V stateMask, float dt,
+                float realDt, float lag, float realLag);
 
     friend class Engine;
 };

@@ -55,7 +55,7 @@ void Animation2DSystem::init(engine::Engine& engine) {
     event::Dispatcher::subscribe(this);
 }
 
-void Animation2DSystem::update(std::mutex&, float dt) {
+void Animation2DSystem::update(std::mutex&, float dt, float, float, float) {
     // play animations
     players->forEach([dt](ecs::Entity, com::Animation2DPlayer& player) { player.update(dt); });
 

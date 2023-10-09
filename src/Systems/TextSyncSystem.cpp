@@ -10,7 +10,7 @@ TextSyncSystem::TextSyncSystem() { texts.reserve(32); }
 
 void TextSyncSystem::init(engine::Engine&) { bl::event::Dispatcher::subscribe(this); }
 
-void TextSyncSystem::update(std::mutex&, float) {
+void TextSyncSystem::update(std::mutex&, float, float, float, float) {
     for (gfx::Text* text : texts) {
         if (text->refreshRequired()) { text->commit(); }
     }

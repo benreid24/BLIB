@@ -33,8 +33,11 @@ public:
      *
      * @param Unused
      * @param Unused
+     * @param Unused
+     * @param Unused
+     * @param Unused
      */
-    virtual void update(std::mutex&, float) override;
+    virtual void update(std::mutex&, float, float, float, float) override;
 
     /**
      * @brief Initializes the system
@@ -50,7 +53,7 @@ private:
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 template<typename T, typename TP>
-void DescriptorComponentSystem<T, TP>::update(std::mutex&, float) {
+void DescriptorComponentSystem<T, TP>::update(std::mutex&, float, float, float, float) {
     pool->forEach([](ecs::Entity, T& component) {
         if (component.isDirty()) { component.refresh(); }
     });

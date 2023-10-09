@@ -156,7 +156,7 @@ public:
         engine.ecs().destroyAllEntities();
     }
 
-    virtual void update(bl::engine::Engine&, float dt) override { angle += 180.f * dt; }
+    virtual void update(bl::engine::Engine&, float dt, float) override { angle += 180.f * dt; }
 
     // deprecated
     virtual void render(bl::engine::Engine&, float lag) override {

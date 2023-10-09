@@ -114,7 +114,7 @@ private:
     virtual void observe(const ecs::event::ComponentRemoved<T>& rm) override;
     virtual void observe(const rc::event::SceneDestroyed& rm) override;
     virtual void init(engine::Engine& engine) override;
-    virtual void update(std::mutex& mutex, float dt) override;
+    virtual void update(std::mutex& mutex, float dt, float, float, float) override;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -211,7 +211,7 @@ void DrawableSystem<T>::init(engine::Engine& engine) {
 }
 
 template<typename T>
-void DrawableSystem<T>::update(std::mutex& frameMutex, float dt) {
+void DrawableSystem<T>::update(std::mutex& frameMutex, float dt, float, float, float) {
     std::unique_lock lock(mutex);
 
     if (!toAdd.empty() || !erased.empty()) {

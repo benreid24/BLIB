@@ -153,11 +153,14 @@ bool Engine::run(State::Ptr initialState) {
             // core update game logic
             totalDt += updateTimestep;
             input.update();
-            states.top()->update(*this, updateTimestep);
+            states.top()->update(*this, updateTimestep, updateTimestep / timeScale);
             ecsSystems.update(FrameStage::FrameStart,
                               FrameStage::MARKER_OncePerFrame,
                               states.top()->systemsMask(),
-                              updateTimestep);
+                              updateTimestep,
+                              updateTimestep / timeScale,
+                              lag,
+                              lag / timeScale);
             bl::event::Dispatcher::syncListeners();
 
             // check if we should end early
@@ -196,13 +199,17 @@ bool Engine::run(State::Ptr initialState) {
             updateTimestep = newTs;
         }
 
+        // render
         if (renderWindow.isOpen()) {
             if (!engineFlags.stateChangeReady()) {
                 states.top()->render(*this, lag);
                 ecsSystems.update(FrameStage::MARKER_OncePerFrame,
                                   FrameStage::COUNT,
                                   states.top()->systemsMask(),
-                                  totalDt);
+                                  totalDt,
+                                  totalDt / timeScale,
+                                  lag,
+                                  lag / timeScale);
             }
         }
 

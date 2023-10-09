@@ -52,7 +52,7 @@ private:
     ecs::ComponentPool<com::OverlayScaler>* scalerPool;
 
     virtual void init(engine::Engine& engine) override;
-    virtual void update(std::mutex& stageMutex, float dt) override;
+    virtual void update(std::mutex& stageMutex, float dt, float, float, float) override;
 
     // called by Overlay
     void refreshObjectAndChildren(rc::ovy::OverlayObject& obj, const VkViewport& viewport);

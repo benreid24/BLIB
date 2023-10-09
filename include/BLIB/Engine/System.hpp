@@ -34,9 +34,14 @@ public:
      *
      * @param stageMutex Reference to a mutex that can be used to synchronize systems in the same
      *                   stage that run in parallel
+     *
      * @param dt Time to simulate in seconds
+     * @param realDt Time elapsed in real seconds
+     * @param residual Simulation time, in seconds, not yet accounted for
+     * @param realResidual Real time, in seconds, not yet accounted for
      */
-    virtual void update(std::mutex& stageMutex, float dt) = 0;
+    virtual void update(std::mutex& stageMutex, float dt, float realDt, float residual,
+                        float realResidual) = 0;
 };
 
 } // namespace engine

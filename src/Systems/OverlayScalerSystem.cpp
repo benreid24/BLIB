@@ -31,7 +31,7 @@ void OverlayScalerSystem::init(engine::Engine& engine) {
     bl::event::Dispatcher::subscribe(this);
 }
 
-void OverlayScalerSystem::update(std::mutex&, float) {
+void OverlayScalerSystem::update(std::mutex&, float, float, float, float) {
     view->forEach([this](Result& row) {
         com::OverlayScaler* scaler = row.get<com::OverlayScaler>();
         if (scaler && scaler->isDirty()) {
