@@ -18,7 +18,7 @@ Buffer::Buffer()
 , memPool{}
 , usage{} {}
 
-Buffer::~Buffer() { destroy(); }
+Buffer::~Buffer() { deferDestruction(); }
 
 bool Buffer::create(VulkanState& vs, VkDeviceSize bsize, VkMemoryPropertyFlags memProps,
                     VkBufferUsageFlags use, VmaAllocationCreateFlags flags) {

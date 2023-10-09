@@ -154,8 +154,8 @@ constexpr std::uint32_t UniformBuffer<T>::size() const {
 
 template<typename T>
 inline void UniformBuffer<T>::destroy() {
-    gpuBuffers.cleanup([](vk::Buffer& buffer) { buffer.destroy(); });
-    stagingBuffers.cleanup([](vk::Buffer& buffer) { buffer.destroy(); });
+    gpuBuffers.cleanup([](vk::Buffer& buffer) { buffer.deferDestruction(); });
+    stagingBuffers.cleanup([](vk::Buffer& buffer) { buffer.deferDestruction(); });
 }
 
 template<typename T>

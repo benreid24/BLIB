@@ -1,5 +1,6 @@
 #include <BLIB/Render/Resources/ScenePool.hpp>
 
+#include <BLIB/Engine.hpp>
 #include <BLIB/Events.hpp>
 #include <BLIB/Render/Events/SceneDestroyed.hpp>
 
@@ -20,6 +21,7 @@ void ScenePool::cleanup() {
 }
 
 void ScenePool::destroyScene(Scene* scene) {
+    vkDeviceWaitIdle(engine.renderer().vulkanState().device);
     std::unique_lock lock(mutex);
 
     bl::event::Dispatcher::dispatch<rc::event::SceneDestroyed>({scene});
