@@ -55,8 +55,8 @@ void PipelineCache::createBuiltins() {
     depthStencilDepthEnabled.back                  = {}; // Optional (Stencil)
 
     VkPipelineDepthStencilStateCreateInfo depthStencilDepthDisabled = depthStencilDepthEnabled;
-    depthStencilDepthEnabled.depthTestEnable                        = VK_FALSE;
-    depthStencilDepthEnabled.depthWriteEnable                       = VK_FALSE;
+    depthStencilDepthDisabled.depthTestEnable                       = VK_FALSE;
+    depthStencilDepthDisabled.depthWriteEnable                      = VK_FALSE;
 
     VkPipelineRasterizationStateCreateInfo rasterizer{};
     rasterizer.sType                   = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;

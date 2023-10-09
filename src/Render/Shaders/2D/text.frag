@@ -21,5 +21,10 @@ void main() {
         discard;
     }
 
+    gl_FragDepth = gl_FragCoord.z;
+    if (texColor.a < 0.5) {
+        gl_FragDepth = 1.0;
+    }
+
     outColor = fragColor * texColor;
 }
