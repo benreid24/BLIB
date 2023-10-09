@@ -30,7 +30,6 @@ void MainState::activate(bl::engine::Engine& engine) {
 
         cover.create(engine, {800.f, 800.f});
         cover.setFillColor({1.f, 1.f, 1.f, 1.f});
-        cover.getTransform().setDepth(5.f);
     }
 
     bl::rc::Scene* scene = engine.renderer().getObserver().pushScene<bl::rc::scene::BatchedScene>();
@@ -39,10 +38,8 @@ void MainState::activate(bl::engine::Engine& engine) {
     cover.addToScene(scene, bl::rc::UpdateSpeed::Static);
     listener.addToScene(scene);
 
-    engine.renderer()
-        .getObserver()
-        .setCamera<bl::cam::Camera2D>(sf::FloatRect{0.f, 0.f, 800.f, 600.f})
-        ->setNearAndFarPlanes(0.f, -10.f);
+    engine.renderer().getObserver().setCamera<bl::cam::Camera2D>(
+        sf::FloatRect{0.f, 0.f, 800.f, 600.f});
     engine.inputSystem().getActor().addListener(listener);
 }
 

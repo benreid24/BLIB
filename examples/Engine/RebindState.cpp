@@ -17,9 +17,12 @@ RebindState::RebindState(bl::engine::Engine& engine, unsigned int ctrl)
 const char* RebindState::name() const { return "RebindState"; }
 
 void RebindState::activate(bl::engine::Engine& engine) {
-    engine.renderer().setClearColor({1.f, 1.f, 1.f});
+    engine.renderer().getObserver().setClearColor({1.f, 1.f, 1.f, 1.f});
 
-    if (!inited) { text.create(engine, *font, "", 22, {0.1f, 0.65f, 0.22f, 1.f}); }
+    if (!inited) {
+        text.create(engine, *font, "", 22, {0.1f, 0.65f, 0.22f, 1.f});
+        text.getTransform().setPosition({50.f, 300.f});
+    }
 
     if (ctrl == Control::Movement) {
         configurator.start(engine.inputSystem().getActor().getJoystickMovementControl(ctrl));

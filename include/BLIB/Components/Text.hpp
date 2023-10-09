@@ -17,6 +17,11 @@ struct Text : public rc::rcom::DrawableBase {
     rc::buf::VertexBuffer vertices;
 
     /**
+     * @brief Creates an empty component
+     */
+    Text();
+
+    /**
      * @brief Updates the draw parameters to render the entire vertex buffer
      */
     void updateDrawParams();

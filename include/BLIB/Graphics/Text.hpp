@@ -53,6 +53,11 @@ public:
     Text();
 
     /**
+     * @brief Cleans up
+     */
+    ~Text();
+
+    /**
      * @brief Creates the text entity and components in the ECS and creates a section using the
      *        given settings. This must be called before using any other method on the Text object
      *

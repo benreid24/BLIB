@@ -15,6 +15,8 @@ Text::Text()
     sections.reserve(4);
 }
 
+Text::~Text() { onRemove(); }
+
 void Text::create(engine::Engine& engine, const sf::VulkanFont& f, const sf::String& content,
                   unsigned int fontSize, const glm::vec4& color, std::uint32_t style) {
     textSystem  = &engine.systems().getSystem<sys::TextSyncSystem>();

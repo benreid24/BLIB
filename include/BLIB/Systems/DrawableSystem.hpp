@@ -187,8 +187,10 @@ void DrawableSystem<T>::doUpdate(std::mutex&, float) {}
 
 template<typename T>
 void DrawableSystem<T>::observe(const ecs::event::ComponentRemoved<T>& rm) {
-    std::unique_lock lock(mutex);
-    erased.emplace_back(rm.component.sceneRef);
+    if (rm.component.sceneRef.scene) {
+        std::unique_lock lock(mutex);
+        erased.emplace_back(rm.component.sceneRef);
+    }
 }
 
 template<typename T>
@@ -196,6 +198,9 @@ void DrawableSystem<T>::observe(const rc::event::SceneDestroyed& rm) {
     registry->getAllComponents<T>().forEach([&rm](ecs::Entity, T& c) {
         if (c.sceneRef.scene == rm.scene) { c.sceneRef.scene = nullptr; }
     });
+    for (auto& cm : erased) {
+        if (cm.scene == rm.scene) { cm.scene = nullptr; }
+    }
 }
 
 template<typename T>
@@ -212,7 +217,9 @@ void DrawableSystem<T>::update(std::mutex& frameMutex, float dt) {
     if (!toAdd.empty() || !erased.empty()) {
         std::unique_lock lock(frameMutex);
 
-        for (const rc::rcom::SceneObjectRef& ref : erased) { ref.scene->removeObject(ref.object); }
+        for (const rc::rcom::SceneObjectRef& ref : erased) {
+            if (ref.scene) { ref.scene->removeObject(ref.object); }
+        }
         erased.clear();
 
         for (const auto& add : toAdd) {
