@@ -13,6 +13,7 @@ namespace engine
 {
 Engine::Engine(const Settings& settings)
 : engineSettings(settings)
+, timeScale(1.f)
 , ecsSystems(*this)
 , entityRegistry()
 , renderingSystem(*this, renderWindow)
@@ -139,7 +140,7 @@ bool Engine::run(State::Ptr initialState) {
         }
 
         // Update and render
-        lag += updateOuterTimer.getElapsedTime().asSeconds();
+        lag += updateOuterTimer.getElapsedTime().asSeconds() * timeScale;
         updateOuterTimer.restart();
         const float startingLag = lag;
         float totalDt           = 0.f;
@@ -361,6 +362,12 @@ void Engine::handleResize(const sf::Event::SizeEvent& resize, bool ss) {
 
     bl::event::Dispatcher::dispatch<event::WindowResized>({renderWindow});
 }
+
+void Engine::setTimeScale(float s) { timeScale = s; }
+
+float Engine::getTimeScale() const { return timeScale; }
+
+void Engine::resetTimeScale() { timeScale = 1.f; }
 
 } // namespace engine
 } // namespace bl
