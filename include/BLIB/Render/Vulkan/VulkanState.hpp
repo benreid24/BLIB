@@ -146,12 +146,21 @@ struct VulkanState {
      * @brief Converts an image from one layout to another
      *
      * @param image The image to convert
-     * @param format The format of the image to convert
      * @param oldLayout The current layout to convert from
      * @param newLayout The layout to convert to
      */
-    void transitionImageLayout(VkImage image, VkFormat format, VkImageLayout oldLayout,
-                               VkImageLayout newLayout);
+    void transitionImageLayout(VkImage image, VkImageLayout oldLayout, VkImageLayout newLayout);
+
+    /**
+     * @brief Converts an image from one layout to another and uses an existing command buffer
+     *
+     * @param commandBuffer The command buffer to record the pipeline barrier into
+     * @param image The image to convert
+     * @param oldLayout The current layout to convert from
+     * @param newLayout The layout to convert to
+     */
+    void transitionImageLayout(VkCommandBuffer commandbuffer, VkImage image,
+                               VkImageLayout oldLayout, VkImageLayout newLayout);
 
     /**
      * @brief Helper function to copy a raw buffer's contents into an image
