@@ -202,7 +202,6 @@ bool Engine::run(State::Ptr initialState) {
         // render
         if (renderWindow.isOpen()) {
             if (!engineFlags.stateChangeReady()) {
-                states.top()->render(*this, lag);
                 ecsSystems.update(FrameStage::MARKER_OncePerFrame,
                                   FrameStage::COUNT,
                                   states.top()->systemsMask(),

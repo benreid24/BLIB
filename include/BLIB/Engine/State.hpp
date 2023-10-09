@@ -68,15 +68,6 @@ public:
      */
     virtual void update(Engine& engine, float dt, float realDt) = 0;
 
-    /**
-     * @brief Render the application to the window owned by the Engine. Deprecated. Use Renderer
-     *
-     * @param engine The main Engine managing the window to render to
-     * @param residualLag Residual elapsed time between calls to update(). May be used for
-     *                    graphical interpolation
-     */
-    virtual void render(Engine& engine, float residualLag) = 0;
-
 private:
     const StateMask::V mask;
 };

@@ -104,10 +104,6 @@ private:
             slideshow.stopFlashing();
         }
     }
-
-    virtual void render(bl::engine::Engine&, float) override {
-        // deprecated
-    }
 };
 
 int main() {

@@ -61,7 +61,3 @@ void RebindState::update(bl::engine::Engine& engine, float, float) {
         break;
     }
 }
-
-void RebindState::render(bl::engine::Engine&, float) {
-    // deprecated
-}

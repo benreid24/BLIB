@@ -79,7 +79,3 @@ void MainState::update(bl::engine::Engine& engine, float, float) {
         engine.pushState(RebindState::create(engine, Control::Movement));
     }
 }
-
-void MainState::render(bl::engine::Engine&, float) {
-    // deprecated
-}

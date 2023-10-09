@@ -34,8 +34,6 @@ public:
         ++callCount;
     }
 
-    virtual void render(Engine&, float) override {}
-
     int timesUpdated() const { return callCount; }
 
     virtual const char* name() const override { return "FlagTestState"; }
@@ -112,8 +110,6 @@ public:
         times.push_back(dt);
         if (times.size() >= 10) engine.flags().set(Flags::Terminate);
     }
-
-    virtual void render(Engine&, float) override {}
 
     const std::vector<float>& getTimes() const { return times; }
 
@@ -210,8 +206,6 @@ public:
         simulatedTime += dt;
         if (totalTime >= 5.f) { engine.flags().set(Flags::Terminate); }
     }
-
-    virtual void render(Engine&, float) override {}
 
     float timeElapsed() const { return totalTime; }
 

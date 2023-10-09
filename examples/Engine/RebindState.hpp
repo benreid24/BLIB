@@ -17,7 +17,6 @@ public:
     virtual void deactivate(bl::engine::Engine& engine) override;
 
     virtual void update(bl::engine::Engine& engine, float dt, float) override;
-    virtual void render(bl::engine::Engine& engine, float lag) override;
 
 private:
     bl::input::Configurator configurator;
