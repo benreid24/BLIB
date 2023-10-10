@@ -57,7 +57,7 @@ void OverlayScalerSystem::refreshEntity(Result& cset) {
     com::OverlayScaler& scaler  = *cset.get<com::OverlayScaler>();
     com::Transform2D& transform = *cset.get<com::Transform2D>();
     const VkViewport& viewport  = *cset.get<rc::ovy::OverlayObject>()->overlayViewport;
-    glm::vec2 parentSize        = glm::vec2{viewport.width, viewport.height};
+    glm::vec2 parentSize        = glm::vec2{1.f, 1.f};
     if (scaler.hasParent()) {
         parentSize.x = scaler.getParent().cachedObjectSize.x * transform.getParent().getScale().x;
         parentSize.y = scaler.getParent().cachedObjectSize.y * transform.getParent().getScale().y;
@@ -71,18 +71,17 @@ void OverlayScalerSystem::refreshEntity(Result& cset) {
 
     switch (scaler.scaleType) {
     case com::OverlayScaler::WidthPercent:
-        xScale = scaler.widthPercent * (parentSize.x / viewport.width) / scaler.cachedObjectSize.x;
+        xScale = scaler.widthPercent * parentSize.x / scaler.cachedObjectSize.x;
         yScale = xScale * viewport.width / viewport.height;
         break;
 
     case com::OverlayScaler::HeightPercent:
-        yScale =
-            scaler.heightPercent * (parentSize.y / viewport.height) / scaler.cachedObjectSize.y;
+        yScale = scaler.heightPercent * parentSize.y / scaler.cachedObjectSize.y;
         xScale = yScale * viewport.height / viewport.width;
         break;
 
     case com::OverlayScaler::SizePercent:
-        xScale = scaler.widthPercent * (parentSize.x / viewport.width) / scaler.cachedObjectSize.x;
+        xScale = scaler.widthPercent * parentSize.x / scaler.cachedObjectSize.x;
         yScale =
             scaler.heightPercent * (parentSize.y / viewport.height) / scaler.cachedObjectSize.y;
         break;
@@ -93,7 +92,7 @@ void OverlayScalerSystem::refreshEntity(Result& cset) {
         break;
 
     case com::OverlayScaler::LineHeight:
-        yScale = scaler.overlayRatio * (parentSize.y / viewport.height);
+        yScale = scaler.overlayRatio * parentSize.y;
         xScale = yScale * viewport.height / viewport.width;
         break;
 
