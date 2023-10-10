@@ -93,7 +93,7 @@ void Transform2D::rotate(float delta) {
     makeDirty();
 }
 
-void Transform2D::refreshDescriptor(glm::mat4& dest) { dest = getLocalTransform(); }
+void Transform2D::refreshDescriptor(glm::mat4& dest) { dest = getGlobalTransform(); }
 
 glm::mat4 Transform2D::getLocalTransform() const {
     glm::mat4 result = glm::translate(glm::vec3(position, getGlobalDepth()));

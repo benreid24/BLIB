@@ -57,8 +57,11 @@ void OverlayScalerSystem::refreshEntity(Result& cset) {
     com::OverlayScaler& scaler  = *cset.get<com::OverlayScaler>();
     com::Transform2D& transform = *cset.get<com::Transform2D>();
     const VkViewport& viewport  = *cset.get<rc::ovy::OverlayObject>()->overlayViewport;
-    const glm::vec2 parentSize  = scaler.hasParent() ? scaler.getParent().cachedObjectSize :
-                                                       glm::vec2{viewport.width, viewport.height};
+    glm::vec2 parentSize        = glm::vec2{viewport.width, viewport.height};
+    if (scaler.hasParent()) {
+        parentSize.x = scaler.getParent().cachedObjectSize.x * transform.getParent().getScale().x;
+        parentSize.y = scaler.getParent().cachedObjectSize.y * transform.getParent().getScale().y;
+    }
 
     scaler.dirty              = false;
     scaler.cachedTargetRegion = {viewport.x, viewport.y, viewport.width, viewport.height};
@@ -66,17 +69,16 @@ void OverlayScalerSystem::refreshEntity(Result& cset) {
     float xScale = 1.f;
     float yScale = 1.f;
 
-    // TODO - update scale calculations to parent size
     switch (scaler.scaleType) {
     case com::OverlayScaler::WidthPercent:
         xScale = scaler.widthPercent * (parentSize.x / viewport.width) / scaler.cachedObjectSize.x;
-        yScale = xScale;
+        yScale = xScale * viewport.width / viewport.height;
         break;
 
     case com::OverlayScaler::HeightPercent:
         yScale =
             scaler.heightPercent * (parentSize.y / viewport.height) / scaler.cachedObjectSize.y;
-        xScale = yScale;
+        xScale = yScale * viewport.height / viewport.width;
         break;
 
     case com::OverlayScaler::SizePercent:
@@ -92,7 +94,7 @@ void OverlayScalerSystem::refreshEntity(Result& cset) {
 
     case com::OverlayScaler::LineHeight:
         yScale = scaler.overlayRatio * (parentSize.y / viewport.height);
-        xScale = yScale;
+        xScale = yScale * viewport.height / viewport.width;
         break;
 
     case com::OverlayScaler::None:
@@ -100,7 +102,11 @@ void OverlayScalerSystem::refreshEntity(Result& cset) {
         return;
     }
 
-    bool scaleChanged = false;
+    if (transform.getScale().x != xScale || transform.getScale().y != yScale) {
+        transform.setScale({xScale, yScale});
+        bl::event::Dispatcher::dispatch<rc::event::OverlayEntityScaled>({cset.entity()});
+    }
+
     if (scaler.useScissor) {
         const glm::vec2 pos     = transform.getGlobalPosition();
         const glm::vec2& origin = transform.getOrigin();
@@ -115,19 +121,12 @@ void OverlayScalerSystem::refreshEntity(Result& cset) {
         // TODO - constrain child scissors to parent? make option? (dropdown extend past window)
     }
     else {
-        scaleChanged = transform.getScale().x != xScale || transform.getScale().y != yScale;
-        transform.setScale({xScale, yScale});
-
         // ensure scissor is updated
         VkRect2D& scissor     = cset.get<rc::ovy::OverlayObject>()->cachedScissor;
         scissor.offset.x      = viewport.x;
         scissor.offset.y      = viewport.y;
         scissor.extent.width  = viewport.width;
         scissor.extent.height = viewport.height;
-    }
-
-    if (scaleChanged) {
-        bl::event::Dispatcher::dispatch<rc::event::OverlayEntityScaled>({cset.entity()});
     }
 }
 
