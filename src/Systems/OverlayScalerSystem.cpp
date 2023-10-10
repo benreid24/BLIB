@@ -118,15 +118,22 @@ void OverlayScalerSystem::refreshEntity(Result& cset) {
         scissor.offset.y      = viewport.y + viewport.height * corner.y;
         scissor.extent.width  = viewport.width * scaler.cachedObjectSize.x * xScale;
         scissor.extent.height = viewport.height * scaler.cachedObjectSize.y * yScale;
-        // TODO - constrain child scissors to parent? make option? (dropdown extend past window)
+        // TODO - constrain child scissors to parent? make option? (selection extend past window)
     }
     else {
         // ensure scissor is updated
-        VkRect2D& scissor     = cset.get<rc::ovy::OverlayObject>()->cachedScissor;
-        scissor.offset.x      = viewport.x;
-        scissor.offset.y      = viewport.y;
-        scissor.extent.width  = viewport.width;
-        scissor.extent.height = viewport.height;
+        auto& obj = *cset.get<rc::ovy::OverlayObject>();
+        if (!obj.hasParent()) {
+            VkRect2D& scissor     = obj.cachedScissor;
+            scissor.offset.x      = viewport.x;
+            scissor.offset.y      = viewport.y;
+            scissor.extent.width  = viewport.width;
+            scissor.extent.height = viewport.height;
+        }
+        else {
+            // TODO - make this optional?
+            obj.cachedScissor = obj.getParent().cachedScissor;
+        }
     }
 }
 
