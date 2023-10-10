@@ -35,8 +35,6 @@ void OverlayScalerSystem::update(std::mutex&, float, float, float, float) {
         if (scaler && scaler->isDirty()) {
             // skip if parent dirty, will be refreshed when parent is
             if (!parentsAllClean(scaler)) { return; }
-
-            const rc::ovy::OverlayObject& obj = *row.get<rc::ovy::OverlayObject>();
             refreshObjectAndChildren(row);
         }
     });
@@ -59,6 +57,8 @@ void OverlayScalerSystem::refreshEntity(Result& cset) {
     com::OverlayScaler& scaler  = *cset.get<com::OverlayScaler>();
     com::Transform2D& transform = *cset.get<com::Transform2D>();
     const VkViewport& viewport  = *cset.get<rc::ovy::OverlayObject>()->overlayViewport;
+    const glm::vec2 parentSize  = scaler.hasParent() ? scaler.getParent().cachedObjectSize :
+                                                       glm::vec2{viewport.width, viewport.height};
 
     scaler.dirty              = false;
     scaler.cachedTargetRegion = {viewport.x, viewport.y, viewport.width, viewport.height};
@@ -69,18 +69,20 @@ void OverlayScalerSystem::refreshEntity(Result& cset) {
     // TODO - update scale calculations to parent size
     switch (scaler.scaleType) {
     case com::OverlayScaler::WidthPercent:
-        xScale = scaler.widthPercent / scaler.cachedObjectSize.x;
-        yScale = xScale * viewport.width / viewport.height;
+        xScale = scaler.widthPercent * (parentSize.x / viewport.width) / scaler.cachedObjectSize.x;
+        yScale = xScale;
         break;
 
     case com::OverlayScaler::HeightPercent:
-        yScale = scaler.heightPercent / scaler.cachedObjectSize.y;
-        xScale = yScale * viewport.height / viewport.width;
+        yScale =
+            scaler.heightPercent * (parentSize.y / viewport.height) / scaler.cachedObjectSize.y;
+        xScale = yScale;
         break;
 
     case com::OverlayScaler::SizePercent:
-        xScale = scaler.widthPercent / scaler.cachedObjectSize.x;
-        yScale = scaler.heightPercent / scaler.cachedObjectSize.y;
+        xScale = scaler.widthPercent * (parentSize.x / viewport.width) / scaler.cachedObjectSize.x;
+        yScale =
+            scaler.heightPercent * (parentSize.y / viewport.height) / scaler.cachedObjectSize.y;
         break;
 
     case com::OverlayScaler::PixelRatio:
@@ -89,8 +91,8 @@ void OverlayScalerSystem::refreshEntity(Result& cset) {
         break;
 
     case com::OverlayScaler::LineHeight:
-        yScale = scaler.overlayRatio;
-        xScale = yScale * viewport.height / viewport.width;
+        yScale = scaler.overlayRatio * (parentSize.y / viewport.height);
+        xScale = yScale;
         break;
 
     case com::OverlayScaler::None:

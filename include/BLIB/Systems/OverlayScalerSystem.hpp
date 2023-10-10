@@ -37,8 +37,8 @@ public:
     virtual ~OverlayScalerSystem() = default;
 
 private:
-    using Required = ecs::Require<rc::ovy::OverlayObject, com::Transform2D>;
-    using Optional = ecs::Optional<com::OverlayScaler>;
+    using Required = ecs::Require<rc::ovy::OverlayObject, com::OverlayScaler, com::Transform2D>;
+    using Optional = ecs::Optional<>;
     using Result   = ecs::ComponentSet<Required, Optional>;
 
     ecs::Registry* registry;

@@ -96,14 +96,12 @@ void Animation2DSystem::ensureSlideshowDescriptorsUpdated() {
 }
 
 void Animation2DSystem::observe(const ecs::event::ComponentAdded<com::Animation2DPlayer>& event) {
-    if (event.component.animation->isSlideshow()) { doSlideshowAdd(event.entity, event.component); }
+    if (event.component.animation->isSlideshow()) { doSlideshowAdd(event.component); }
     else { doNonSlideshowCreate(event.component); }
 }
 
 void Animation2DSystem::observe(const ecs::event::ComponentRemoved<com::Animation2DPlayer>& event) {
-    if (event.component.animation->isSlideshow()) {
-        doSlideshowFree(event.entity, event.component);
-    }
+    if (event.component.animation->isSlideshow()) { doSlideshowFree(event.component); }
     else { tryFreeVertexData(event.component); }
 }
 
@@ -111,7 +109,7 @@ void Animation2DSystem::observe(const ecs::event::ComponentRemoved<com::Animatio
     doNonSlideshowRemove(event.component);
 }
 
-void Animation2DSystem::doSlideshowAdd(ecs::Entity playerEntity, com::Animation2DPlayer& player) {
+void Animation2DSystem::doSlideshowAdd(com::Animation2DPlayer& player) {
     // determine frame offset and player index
     const auto it           = slideshowFrameMap.find(player.animation.get());
     const bool uploadFrames = it == slideshowFrameMap.end();
@@ -156,8 +154,7 @@ void Animation2DSystem::doSlideshowAdd(ecs::Entity playerEntity, com::Animation2
     slideshowRefreshRequired = rc::Config::MaxConcurrentFrames;
 }
 
-void Animation2DSystem::doSlideshowFree(ecs::Entity playerEntity,
-                                        const com::Animation2DPlayer& player) {
+void Animation2DSystem::doSlideshowFree(const com::Animation2DPlayer& player) {
     slideshowPlayerIds.release(player.playerIndex);
 
     const auto refCountIt = slideshowDataRefCounts.find(player.animation.get());
@@ -272,16 +269,14 @@ void Animation2DSystem::tryFreeVertexData(const com::Animation2DPlayer& player) 
 Animation2DSystem::VertexAnimation::VertexAnimation(rc::vk::VulkanState& vs,
                                                     const gfx::a2d::AnimationData& anim)
 : useCount(0) {
-    unsigned int actualShardCount = 0;
+    unsigned int shardCount = 0;
     for (unsigned int i = 0; i < anim.frameCount(); ++i) {
-        actualShardCount += anim.getFrame(i).shards.size();
+        shardCount += anim.getFrame(i).shards.size();
     }
     if (anim.frameCount() > 0) {
         frameToIndices.resize(anim.frameCount(), {});
 
         // allocate buffer
-        const auto& lf                 = anim.getFrame(anim.frameCount() - 1);
-        const std::uint32_t shardCount = actualShardCount; // lf.shardIndex + lf.shards.size();
         indexBuffer.create(vs, shardCount * 4, shardCount * 6);
 
         // populate buffer
