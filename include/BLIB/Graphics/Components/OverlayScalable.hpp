@@ -6,7 +6,6 @@
 #include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Graphics/Components/Transform2D.hpp>
 #include <BLIB/Render/Components/SceneObjectRef.hpp>
-#include <BLIB/Render/Overlays/Viewport.hpp>
 
 namespace bl
 {
@@ -51,33 +50,16 @@ public:
     glm::vec2 getOverlaySize() const;
 
     /**
-     * @brief Returns the post-transform and post-viewport size in target space
-     */
-    glm::vec2 getTargetSize() const;
-
-    /**
      * @brief Returns the viewport this entity is rendered to in target space
      */
     const sf::FloatRect& getTargetRegion() const;
-
-    /**
-     * @brief Creates or updates the viewport of this drawable
-     *
-     * @param viewport The viewport to constrain rendering to
-     */
-    void setViewport(const rc::ovy::Viewport& viewport);
 
     /**
      * @brief Helper method to set the viewport to the region the drawable is in
      *
      * @param setToSelf True to create and use a viewport, false to render normally
      */
-    void setViewportToSelf(bool setToSelf = true);
-
-    /**
-     * @brief Removes any viewport for this drawable
-     */
-    void clearViewport();
+    void setScissorToSelf(bool setToSelf = true);
 
 protected:
     /**
@@ -123,13 +105,9 @@ void OverlayScalable::create(engine::Engine& engine, ecs::Entity entity, TArgs&&
     handle = registry->emplaceComponent<com::OverlayScaler>(entity);
 }
 
-inline void OverlayScalable::setLocalSize(const glm::vec2& size) {
-    handle->setEntitySize(size);
-}
+inline void OverlayScalable::setLocalSize(const glm::vec2& size) { handle->setEntitySize(size); }
 
-inline const glm::vec2& OverlayScalable::getLocalSize() const {
-    return handle->getEntitySize();
-}
+inline const glm::vec2& OverlayScalable::getLocalSize() const { return handle->getEntitySize(); }
 
 inline const sf::FloatRect& OverlayScalable::getTargetRegion() const {
     return handle->cachedTargetRegion;

@@ -56,13 +56,13 @@ public:
      * @brief Returns whether or not this component needs to be refreshed. Takes into account parent
      *        state as well, including parent changes
      */
-    bool isDirty() const {
+    bool refreshRequired() const {
         if (lastRefreshVersion != getVersion()) { return true; }
         if (this->hasParent()) {
             auto& parent = this->getParent();
             if (lastParent != &parent) { return true; }
             if (parent.getVersion() != lastParentVersion) { return true; }
-            return parent.isDirty();
+            return parent.refreshRequired();
         }
         return lastParent != nullptr;
     }

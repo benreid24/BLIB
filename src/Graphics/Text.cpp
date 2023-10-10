@@ -208,7 +208,8 @@ Text::CharSearchResult Text::findCharacterAtPosition(const glm::vec2& targetPos)
                                (targetPos.y - targetBounds.top) / targetBounds.height,
                                0.f,
                                1.f);
-    const glm::vec2 localPosGlm = getTransform().getInverse() * overlayPos;
+    auto& tform                 = const_cast<com::Transform2D&>(getTransform());
+    const glm::vec2 localPosGlm = glm::inverse(tform.getGlobalTransform()) * overlayPos;
     const sf::Vector2f localPos(localPosGlm.x, localPosGlm.y);
 
     glm::vec2 nextPos(0.f, 0.f);

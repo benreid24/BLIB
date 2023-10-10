@@ -306,7 +306,7 @@ Animation2DSystem::VertexAnimation::VertexAnimation(rc::vk::VulkanState& vs,
                 transform.setRotation(shard.rotation);
                 transform.setPosition({shard.offset.x, shard.offset.y});
                 transform.setScale({shard.scale.x, shard.scale.y});
-                const glm::mat4 tmat = transform.getMatrix();
+                const glm::mat4 tmat = transform.getLocalTransform();
 
                 // set draw indices (CW winding)
                 const auto ibase                 = ii + j * 6;

@@ -105,7 +105,7 @@ public:
         messageBox.getTransform().setPosition({0.5f, 0.85f});
         messageBox.getTransform().setOrigin(messageBox.getTexture()->size() * 0.5f);
         messageBox.getOverlayScaler().scaleToHeightPercent(0.3f);
-        messageBox.setViewportToSelf();
+        messageBox.setScissorToSelf();
         messageBox.addToScene(overlay, bl::rc::UpdateSpeed::Static);
 
         // add text to overlay

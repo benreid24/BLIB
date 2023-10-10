@@ -44,7 +44,7 @@ void Overlay::renderScene(scene::SceneRenderContext& ctx) {
 
         if (obj.hidden) { continue; }
 
-        obj.applyViewport(ctx.getCommandBuffer());
+        vkCmdSetScissor(ctx.getCommandBuffer(), 0, 1, &obj.cachedScissor);
 
         const VkPipeline np = obj.pipeline->rawPipeline(ctx.currentRenderPass());
         if (np != currentPipeline) {
@@ -124,7 +124,7 @@ void Overlay::doBatchChange(const BatchChange& change, std::uint32_t ogPipeline)
 }
 
 void Overlay::refreshAll() {
-    for (auto o : roots) { scaler.refreshObjectAndChildren(*o, cachedParentViewport); }
+    for (auto o : roots) { scaler.refreshObjectAndChildren(*o); }
 }
 
 void Overlay::observe(const ecs::event::EntityParentSet& event) {

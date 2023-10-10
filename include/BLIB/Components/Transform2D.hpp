@@ -1,6 +1,7 @@
 #ifndef BLIB_COMPONENTS_TRANSFORM2D_HPP
 #define BLIB_COMPONENTS_TRANSFORM2D_HPP
 
+#include <BLIB/ECS/Traits/ParentAwareVersioned.hpp>
 #include <BLIB/Render/Components/DescriptorComponentBase.hpp>
 #include <glm/glm.hpp>
 
@@ -14,7 +15,9 @@ namespace com
  *
  * @ingroup Components
  */
-class Transform2D : public rc::rcom::DescriptorComponentBase<Transform2D, glm::mat4> {
+class Transform2D
+: public rc::rcom::DescriptorComponentBase<Transform2D, glm::mat4>
+, public ecs::trait::ParentAwareVersioned<Transform2D> {
 public:
     /**
      * @brief Creates a new transform with sane defaults
@@ -38,10 +41,10 @@ public:
     /**
      * @brief Returns the origin of the transform
      */
-    constexpr const glm::vec2& getOrigin() const;
+    const glm::vec2& getOrigin() const;
 
     /**
-     * @brief Sets the position of this transform
+     * @brief Sets the position of this transform. Relative to the parent
      *
      * @param position The new position to transform to
      */
@@ -55,9 +58,15 @@ public:
     void move(const glm::vec2& delta);
 
     /**
-     * @brief Returns the current position
+     * @brief Returns the current position relative to the parent
      */
-    constexpr const glm::vec2& getPosition() const;
+    const glm::vec2& getLocalPosition() const;
+
+    /**
+     * @brief Returns the position in global space, taking into account the parent's global
+     *        position. Essentially just transforms the origin by the global transform
+     */
+    glm::vec2 getGlobalPosition();
 
     /**
      * @brief Sets the depth of the transform on the z-axis. Affects render order only. Default is 0
@@ -77,6 +86,12 @@ public:
      * @brief Returns the current depth of the transform
      */
     float getDepth() const;
+
+    /**
+     * @brief Returns the total depth of the transform. Total depth is the sum of all parent depths
+     *        plus this depth
+     */
+    float getGlobalDepth() const;
 
     /**
      * @brief Sets the scale factors of the transform
@@ -109,7 +124,7 @@ public:
     /**
      * @brief Returns the scale factors of the transform
      */
-    constexpr const glm::vec2& getScale() const;
+    const glm::vec2& getScale() const;
 
     /**
      * @brief Sets the rotation of the transform
@@ -128,7 +143,7 @@ public:
     /**
      * @brief Returns the current rotation in degrees
      */
-    constexpr float getRotation() const;
+    float getRotation() const;
 
     /**
      * @brief Populates the given 4x4 matrix to apply this transform
@@ -138,14 +153,14 @@ public:
     void refreshDescriptor(glm::mat4& dest);
 
     /**
-     * @brief Returns the transform matrix
+     * @brief Returns the local transform matrix of this transform
      */
-    glm::mat4 getMatrix() const;
+    glm::mat4 getLocalTransform() const;
 
     /**
-     * @brief Returns the inverse transform matrix
+     * @brief Returns the global transform matrix for this transform
      */
-    glm::mat4 getInverse() const;
+    const glm::mat4& getGlobalTransform();
 
 private:
     glm::vec2 origin;
@@ -153,17 +168,21 @@ private:
     glm::vec2 scaleFactors;
     float rotation;
     float depth;
+    glm::mat4 cachedGlobalTransform;
+
+    void makeDirty();
+    void ensureUpdated();
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline constexpr float Transform2D::getRotation() const { return rotation; }
+inline float Transform2D::getRotation() const { return rotation; }
 
-inline constexpr const glm::vec2& Transform2D::getScale() const { return scaleFactors; }
+inline const glm::vec2& Transform2D::getScale() const { return scaleFactors; }
 
-inline constexpr const glm::vec2& Transform2D::getPosition() const { return position; }
+inline const glm::vec2& Transform2D::getLocalPosition() const { return position; }
 
-inline constexpr const glm::vec2& Transform2D::getOrigin() const { return origin; }
+inline const glm::vec2& Transform2D::getOrigin() const { return origin; }
 
 } // namespace com
 } // namespace bl

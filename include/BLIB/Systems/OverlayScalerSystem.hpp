@@ -7,7 +7,6 @@
 #include <BLIB/Engine/System.hpp>
 #include <BLIB/Render/Components/SceneObjectRef.hpp>
 #include <BLIB/Render/Overlays/OverlayObject.hpp>
-#include <BLIB/Render/Overlays/Viewport.hpp>
 #include <vector>
 
 namespace bl
@@ -25,10 +24,7 @@ namespace sys
  *
  * @ingroup Systems
  */
-class OverlayScalerSystem
-: public engine::System
-, public bl::event::Listener<ecs::event::ComponentAdded<rc::ovy::Viewport>,
-                             ecs::event::ComponentRemoved<rc::ovy::Viewport>> {
+class OverlayScalerSystem : public engine::System {
 public:
     /**
      * @brief Creates the system
@@ -42,12 +38,11 @@ public:
 
 private:
     using Required = ecs::Require<rc::ovy::OverlayObject, com::Transform2D>;
-    using Optional = ecs::Optional<rc::ovy::Viewport, com::OverlayScaler>;
+    using Optional = ecs::Optional<com::OverlayScaler>;
     using Result   = ecs::ComponentSet<Required, Optional>;
 
     ecs::Registry* registry;
     std::vector<rc::Overlay*> overlays;
-    ecs::Entity ignoredEntity;
     ecs::View<Required, Optional>* view;
     ecs::ComponentPool<com::OverlayScaler>* scalerPool;
 
@@ -55,13 +50,10 @@ private:
     virtual void update(std::mutex& stageMutex, float dt, float, float, float) override;
 
     // called by Overlay
-    void refreshObjectAndChildren(rc::ovy::OverlayObject& obj, const VkViewport& viewport);
+    void refreshObjectAndChildren(rc::ovy::OverlayObject& obj);
 
-    void refreshObjectAndChildren(Result& row, const VkViewport& viewport);
-    void refreshEntity(Result& row, const VkViewport& viewport);
-
-    virtual void observe(const ecs::event::ComponentAdded<rc::ovy::Viewport>& event) override;
-    virtual void observe(const ecs::event::ComponentRemoved<rc::ovy::Viewport>& event) override;
+    void refreshObjectAndChildren(Result& row);
+    void refreshEntity(Result& row);
 
     friend class bl::rc::Overlay;
 };

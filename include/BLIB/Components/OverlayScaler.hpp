@@ -97,6 +97,13 @@ public:
     constexpr const glm::vec2& getEntitySize() const;
 
     /**
+     * @brief Helper method to set the viewport to the region the drawable is in
+     *
+     * @param setToSelf True to create and use a viewport, false to render normally
+     */
+    void setScissorToSelf(bool setToSelf);
+
+    /**
      * @brief Returns whether or not the scale needs to be re-computed
      */
     constexpr bool isDirty() const;
@@ -104,8 +111,8 @@ public:
 private:
     enum ScaleType { None, WidthPercent, HeightPercent, SizePercent, PixelRatio, LineHeight };
 
-    sf::FloatRect cachedTargetRegion;
     glm::vec2 cachedObjectSize;
+    sf::FloatRect cachedTargetRegion;
     ScaleType scaleType;
     union {
         float pixelRatio;
@@ -114,11 +121,8 @@ private:
         glm::vec2 sizePercent;
         float overlayRatio;
     };
-    bool useViewport;
-    std::optional<glm::vec2> ogPos;
+    bool useScissor;
     bool dirty;
-
-    void setViewportToSelf(bool setToSelf);
 
     friend class sys::OverlayScalerSystem;
     friend class gfx::bcom::OverlayScalable;

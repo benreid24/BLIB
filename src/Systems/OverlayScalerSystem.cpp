@@ -23,12 +23,10 @@ bool parentsAllClean(com::OverlayScaler* scaler) {
 } // namespace
 
 void OverlayScalerSystem::init(engine::Engine& engine) {
-    ignoredEntity = ecs::InvalidEntity;
-    registry      = &engine.ecs();
+    registry = &engine.ecs();
     overlays.reserve(4);
     view       = engine.ecs().getOrCreateView<Required, Optional>();
     scalerPool = &engine.ecs().getAllComponents<com::OverlayScaler>();
-    bl::event::Dispatcher::subscribe(this);
 }
 
 void OverlayScalerSystem::update(std::mutex&, float, float, float, float) {
@@ -39,40 +37,36 @@ void OverlayScalerSystem::update(std::mutex&, float, float, float, float) {
             if (!parentsAllClean(scaler)) { return; }
 
             const rc::ovy::OverlayObject& obj = *row.get<rc::ovy::OverlayObject>();
-            const VkViewport& pvp =
-                obj.hasParent() ? obj.getParent().cachedViewport : *obj.overlayViewport;
-            refreshObjectAndChildren(row, pvp);
+            refreshObjectAndChildren(row);
         }
     });
 }
 
-void OverlayScalerSystem::refreshObjectAndChildren(Result& row, const VkViewport& viewport) {
-    refreshEntity(row, viewport);
-    row.get<rc::ovy::OverlayObject>()->refreshViewport(
-        registry->getComponent<rc::ovy::Viewport>(row.entity()), viewport);
-    const auto& nvp = row.get<rc::ovy::OverlayObject>()->cachedViewport;
+void OverlayScalerSystem::refreshObjectAndChildren(Result& row) {
+    refreshEntity(row);
     for (rc::ovy::OverlayObject* child : row.get<rc::ovy::OverlayObject>()->getChildren()) {
-        refreshObjectAndChildren(*child, nvp);
+        refreshObjectAndChildren(*child);
     }
 }
 
-void OverlayScalerSystem::refreshObjectAndChildren(rc::ovy::OverlayObject& obj,
-                                                   const VkViewport& viewport) {
+void OverlayScalerSystem::refreshObjectAndChildren(rc::ovy::OverlayObject& obj) {
     Result childRow = registry->getComponentSet<Required, Optional>(obj.entity);
-    if (childRow.isValid()) { refreshObjectAndChildren(childRow, viewport); }
+    if (childRow.isValid()) { refreshObjectAndChildren(childRow); }
     else { BL_LOG_ERROR << "Invalid child entity: " << obj.entity; }
 }
 
-void OverlayScalerSystem::refreshEntity(Result& cset, const VkViewport& viewport) {
+void OverlayScalerSystem::refreshEntity(Result& cset) {
     com::OverlayScaler& scaler  = *cset.get<com::OverlayScaler>();
     com::Transform2D& transform = *cset.get<com::Transform2D>();
-    scaler.dirty                = false;
-    scaler.cachedTargetRegion =
-        sf::FloatRect{viewport.x, viewport.y, viewport.width, viewport.height};
+    const VkViewport& viewport  = *cset.get<rc::ovy::OverlayObject>()->overlayViewport;
+
+    scaler.dirty              = false;
+    scaler.cachedTargetRegion = {viewport.x, viewport.y, viewport.width, viewport.height};
 
     float xScale = 1.f;
     float yScale = 1.f;
 
+    // TODO - update scale calculations to parent size
     switch (scaler.scaleType) {
     case com::OverlayScaler::WidthPercent:
         xScale = scaler.widthPercent / scaler.cachedObjectSize.x;
@@ -105,52 +99,34 @@ void OverlayScalerSystem::refreshEntity(Result& cset, const VkViewport& viewport
     }
 
     bool scaleChanged = false;
-    if (scaler.useViewport) {
-        ignoredEntity           = cset.entity();
-        const glm::vec2 pos     = scaler.ogPos.value_or(transform.getPosition());
+    if (scaler.useScissor) {
+        const glm::vec2 pos     = transform.getGlobalPosition();
         const glm::vec2& origin = transform.getOrigin();
         const glm::vec2 offset(origin.x * xScale, origin.y * yScale);
         const glm::vec2 corner = pos - offset;
 
-        if (!scaler.ogPos.has_value()) {
-            // TODO - how to handle setPosition now?
-            // possible: use existing viewport to map back into parent space
-            scaler.ogPos = transform.getPosition();
-        }
-
-        registry->emplaceComponent<rc::ovy::Viewport>(
-            cset.entity(),
-            rc::ovy::Viewport::relative({corner.x,
-                                         corner.y,
-                                         scaler.cachedObjectSize.x * xScale,
-                                         scaler.cachedObjectSize.y * yScale}));
-
-        const glm::vec2 newScale{1.f / scaler.cachedObjectSize.x, 1.f / scaler.cachedObjectSize.y};
-        scaleChanged = transform.getScale().x != xScale || transform.getScale().y != yScale;
-        transform.setPosition({origin.x * newScale.x, origin.y * newScale.y});
-        transform.setScale(newScale);
-        ignoredEntity = ecs::InvalidEntity;
+        VkRect2D& scissor     = cset.get<rc::ovy::OverlayObject>()->cachedScissor;
+        scissor.offset.x      = viewport.x + viewport.width * corner.x;
+        scissor.offset.y      = viewport.y + viewport.height * corner.y;
+        scissor.extent.width  = viewport.width * scaler.cachedObjectSize.x * xScale;
+        scissor.extent.height = viewport.height * scaler.cachedObjectSize.y * yScale;
+        // TODO - constrain child scissors to parent? make option? (dropdown extend past window)
     }
     else {
         scaleChanged = transform.getScale().x != xScale || transform.getScale().y != yScale;
         transform.setScale({xScale, yScale});
+
+        // ensure scissor is updated
+        VkRect2D& scissor     = cset.get<rc::ovy::OverlayObject>()->cachedScissor;
+        scissor.offset.x      = viewport.x;
+        scissor.offset.y      = viewport.y;
+        scissor.extent.width  = viewport.width;
+        scissor.extent.height = viewport.height;
     }
 
     if (scaleChanged) {
         bl::event::Dispatcher::dispatch<rc::event::OverlayEntityScaled>({cset.entity()});
     }
-}
-
-void OverlayScalerSystem::observe(const ecs::event::ComponentAdded<rc::ovy::Viewport>& event) {
-    if (event.entity == ignoredEntity) return;
-    com::OverlayScaler* c = scalerPool->get(event.entity);
-    if (c) { c->dirty = true; }
-}
-
-void OverlayScalerSystem::observe(const ecs::event::ComponentRemoved<rc::ovy::Viewport>& event) {
-    if (event.entity == ignoredEntity) return;
-    com::OverlayScaler* c = scalerPool->get(event.entity);
-    if (c) { c->dirty = true; }
 }
 
 } // namespace sys

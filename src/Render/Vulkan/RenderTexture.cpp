@@ -2,7 +2,6 @@
 
 #include <BLIB/Cameras/2D/Camera2D.hpp>
 #include <BLIB/Cameras/3D/Camera3D.hpp>
-#include <BLIB/Render/Overlays/Viewport.hpp>
 #include <BLIB/Render/Renderer.hpp>
 #include <BLIB/Render/Vulkan/StandardAttachmentBuffers.hpp>
 
@@ -38,7 +37,12 @@ void RenderTexture::create(Renderer& r, const glm::u32vec2& size, VkSampler samp
     scissor.extent.width  = size.x;
     scissor.extent.height = size.y;
     scissor.offset        = {0, 0};
-    viewport              = ovy::Viewport::scissorToViewport(scissor);
+    viewport.minDepth     = 0.f;
+    viewport.maxDepth     = 1.f;
+    viewport.x            = 0.f;
+    viewport.y            = 0.f;
+    viewport.width        = size.x;
+    viewport.height       = size.y;
 
     // allocate textures and depth buffers
     if (firstInit) { texture = renderer->texturePool().createRenderTexture(size, sampler); }
@@ -49,8 +53,9 @@ void RenderTexture::create(Renderer& r, const glm::u32vec2& size, VkSampler samp
                        {size.x, size.y});
 
     // set attachment sets and bind framebuffers
-    VkRenderPass renderPass =
-        r.renderPassCache().getRenderPass(Config::RenderPassIds::StandardAttachmentDefault).rawPass();
+    VkRenderPass renderPass = r.renderPassCache()
+                                  .getRenderPass(Config::RenderPassIds::StandardAttachmentDefault)
+                                  .rawPass();
     attachmentSet.setRenderExtent(scissor.extent);
     attachmentSet.setAttachments(
         texture->getImage(), texture->getView(), depthBuffer.image(), depthBuffer.view());
