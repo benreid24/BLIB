@@ -63,8 +63,7 @@ public:
     const glm::vec2& getLocalPosition() const;
 
     /**
-     * @brief Returns the position in global space, taking into account the parent's global
-     *        position. Essentially just transforms the origin by the global transform
+     * @brief Returns the position in global space
      */
     glm::vec2 getGlobalPosition();
 
@@ -151,6 +150,18 @@ public:
      * @param dest The matrix to populate
      */
     void refreshDescriptor(glm::mat4& dest);
+
+    /**
+     * @brief Creates a transform matrix from the components of a 2d transform
+     *
+     * @param origin The local origin of the transform
+     * @param position The position of the transform. z is the depth
+     * @param scale The scale factors of the transform
+     * @param rotation The rotation, in degrees, of the transform
+     * @return A transformation matrix for the given parameters
+     */
+    static glm::mat4 createTransformMatrix(const glm::vec2& origin, const glm::vec3& position,
+                                           const glm::vec2& scale, float rotation);
 
     /**
      * @brief Returns the local transform matrix of this transform

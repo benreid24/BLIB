@@ -39,10 +39,17 @@ public:
      * @brief Basic struct representing a lookup from position to character
      */
     struct CharSearchResult {
+        CharSearchResult()
+        : found(false)
+        , sectionIndex(0)
+        , characterIndex(0) {}
+
         CharSearchResult(std::uint32_t sectionIndex, std::uint32_t characterIndex)
-        : sectionIndex(sectionIndex)
+        : found(true)
+        , sectionIndex(sectionIndex)
         , characterIndex(characterIndex) {}
 
+        bool found;
         std::uint32_t sectionIndex;
         std::uint32_t characterIndex;
     };

@@ -38,9 +38,13 @@ void Transform2D::move(const glm::vec2& delta) {
 }
 
 glm::vec2 Transform2D::getGlobalPosition() {
-    glm::vec4 pos(origin, 0.f, 1.f);
-    pos = getGlobalTransform() * pos;
-    return {pos.x, pos.y};
+    glm::vec2 result = position;
+    Transform2D* t   = this;
+    while (t->hasParent()) {
+        t = &t->getParent();
+        result += t->getLocalPosition() - t->getOrigin() * t->getScale();
+    }
+    return result;
 }
 
 void Transform2D::setDepth(float d) {
@@ -95,12 +99,18 @@ void Transform2D::rotate(float delta) {
 
 void Transform2D::refreshDescriptor(glm::mat4& dest) { dest = getGlobalTransform(); }
 
-glm::mat4 Transform2D::getLocalTransform() const {
-    glm::mat4 result = glm::translate(glm::vec3(position, getGlobalDepth()));
-    result           = glm::scale(result, glm::vec3(scaleFactors, 1.f));
+glm::mat4 Transform2D::createTransformMatrix(const glm::vec2& origin, const glm::vec3& position,
+                                             const glm::vec2& scale, float rotation) {
+    glm::mat4 result = glm::translate(position);
+    result           = glm::scale(result, glm::vec3(scale, 1.f));
     result           = glm::rotate(result, glm::radians(rotation), rc::Config::Rotate2DAxis);
     result           = glm::translate(result, glm::vec3(-origin, 0.f));
     return result;
+}
+
+glm::mat4 Transform2D::getLocalTransform() const {
+    return createTransformMatrix(
+        origin, glm::vec3(position, getGlobalDepth()), scaleFactors, rotation);
 }
 
 const glm::mat4& Transform2D::getGlobalTransform() {
@@ -117,7 +127,10 @@ void Transform2D::ensureUpdated() {
     if (ParentAwareVersioned::refreshRequired()) {
         markRefreshed();
         if (hasParent()) {
-            cachedGlobalTransform = getParent().getGlobalTransform() * getLocalTransform();
+            // TODO - only parent position? how to anchor in case of scaled/rotated parent?
+            //      - use parentTform*pos to compute anchor point?
+            cachedGlobalTransform = createTransformMatrix(
+                origin, glm::vec3(getGlobalPosition(), getGlobalDepth()), scaleFactors, rotation);
         }
         else { cachedGlobalTransform = getLocalTransform(); }
     }

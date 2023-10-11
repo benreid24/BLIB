@@ -202,7 +202,7 @@ sf::FloatRect Text::getLocalBounds() const {
 
 Text::CharSearchResult Text::findCharacterAtPosition(const glm::vec2& targetPos) const {
     const sf::FloatRect& targetBounds = getTargetRegion();
-    if (!targetBounds.contains({targetPos.x, targetPos.y})) { return {0, 0}; }
+    if (!targetBounds.contains({targetPos.x, targetPos.y})) { return {}; }
 
     const glm::vec4 overlayPos((targetPos.x - targetBounds.left) / targetBounds.width,
                                (targetPos.y - targetBounds.top) / targetBounds.height,
@@ -242,8 +242,8 @@ Text::CharSearchResult Text::findCharacterAtPosition(const glm::vec2& targetPos)
         }
     }
 
-    BL_LOG_WARN << "Could not find character position";
-    return {0, 0};
+    BL_LOG_DEBUG << "Could not find character position";
+    return {};
 }
 
 } // namespace gfx

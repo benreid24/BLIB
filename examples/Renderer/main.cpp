@@ -120,7 +120,7 @@ public:
 
         // sanity check children
         sprite2.create(engine, texture);
-        sprite2.getTransform().setPosition({0.9f, 0.9f});
+        sprite2.getTransform().setPosition({0.2f, 0.1f});
         sprite2.getOverlayScaler().scaleToHeightPercent(0.1f);
         sprite2.getTransform().setOrigin(texture->size() * 0.5f);
         sprite2.setParent(messageBox);
@@ -227,10 +227,14 @@ private:
         else if (event.type == sf::Event::MouseButtonPressed) {
             const glm::vec2 mpos(event.mouseButton.x, event.mouseButton.y);
             const auto ir = text.findCharacterAtPosition(mpos);
-            BL_LOG_INFO << "Clicked: (" << ir.sectionIndex << ", " << ir.characterIndex << ") => '"
-                        << static_cast<char>(text.getSection(ir.sectionIndex)
-                                                 .getWordWrappedString()[ir.characterIndex])
-                        << "'";
+            if (ir.found) {
+                BL_LOG_INFO << "Clicked: (" << ir.sectionIndex << ", " << ir.characterIndex
+                            << ") => '"
+                            << static_cast<char>(text.getSection(ir.sectionIndex)
+                                                     .getWordWrappedString()[ir.characterIndex])
+                            << "'";
+            }
+            else { BL_LOG_INFO << "Did not click text"; }
         }
     }
 };
