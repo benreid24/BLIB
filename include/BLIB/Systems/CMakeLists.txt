@@ -9,4 +9,5 @@ target_sources(BLIB PUBLIC
 	RenderSystem.hpp
 	TextSyncSystem.hpp
 	TogglerSystem.hpp
+	Transform2DDescriptorSystem.hpp
 )

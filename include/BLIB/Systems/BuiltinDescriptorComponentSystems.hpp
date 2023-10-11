@@ -12,12 +12,6 @@ namespace bl
 namespace sys
 {
 /**
- * @brief Descriptor component system for 2d transforms
- * @ingroup Systems
- */
-using Transform2DDescriptorSystem = DescriptorComponentSystem<com::Transform2D, glm::mat4>;
-
-/**
  * @brief Descriptor component system for 3d transforms
  * @ingroup Systems
  */

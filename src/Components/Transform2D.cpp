@@ -125,7 +125,9 @@ void Transform2D::makeDirty() {
 
 void Transform2D::ensureUpdated() {
     if (ParentAwareVersioned::refreshRequired()) {
+        DescriptorComponentBase::markDirty();
         markRefreshed();
+
         if (hasParent()) {
             // TODO - only parent position? how to anchor in case of scaled/rotated parent?
             //      - use parentTform*pos to compute anchor point?

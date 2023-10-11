@@ -173,6 +173,14 @@ public:
      */
     const glm::mat4& getGlobalTransform();
 
+    /**
+     * @brief Returns whether or not the transform requires a refresh. Prefer this to inherited
+     *        methods from ecs traits or descriptor component base
+     */
+    bool requiresRefresh() const {
+        return ParentAwareVersioned::refreshRequired() || DescriptorComponentBase::isDirty();
+    }
+
 private:
     glm::vec2 origin;
     glm::vec2 position;
