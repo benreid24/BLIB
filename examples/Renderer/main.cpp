@@ -113,7 +113,7 @@ public:
         text.create(engine, *font, "Text can now be", 64);
         text.addSection("rendered.", 64, {0.f, 0.8f, 0.6f, 1.f}, sf::Text::Italic);
         text.addSection("What a great time to be alive. I wonder if this will wrap properly.", 64);
-        text.getOverlayScaler().positionInParentSpace({0.03f, 0.05f});
+        text.getOverlayScaler().positionInParentSpace({-0.47f, -0.45f});
         text.getOverlayScaler().scaleToHeightRatio(64.f, 0.19f);
         text.wordWrapToParent(0.9f);
         text.setParent(messageBox);
@@ -121,7 +121,7 @@ public:
 
         // sanity check children
         sprite2.create(engine, texture);
-        sprite2.getOverlayScaler().positionInParentSpace({0.9f, 0.9f});
+        sprite2.getOverlayScaler().positionInParentSpace({0.4f, 0.4f});
         sprite2.getOverlayScaler().scaleToHeightPercent(0.1f);
         sprite2.getTransform().setOrigin(texture->size() * 0.5f);
         sprite2.setParent(messageBox);

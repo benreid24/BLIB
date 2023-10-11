@@ -42,7 +42,7 @@ glm::vec2 Transform2D::getGlobalPosition() {
     Transform2D* t   = this;
     while (t->hasParent()) {
         t = &t->getParent();
-        result += t->getLocalPosition() - t->getOrigin() * t->getScale();
+        result += t->getLocalPosition();
     }
     return result;
 }
