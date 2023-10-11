@@ -34,7 +34,8 @@ public:
     virtual const char* name() const override { return "DemoState"; }
 
     virtual void activate(bl::engine::Engine& engine) override {
-        renderer = &engine.renderer();
+        this->engine = &engine;
+        renderer     = &engine.renderer();
 
         // load resources
         texture =
@@ -164,6 +165,7 @@ public:
     }
 
 private:
+    bl::engine::Engine* engine;
     bl::rc::Renderer* renderer;
     bl::gfx::Sprite sprite;
     bl::gfx::Sprite sprite2;
@@ -235,6 +237,13 @@ private:
                             << "'";
             }
             else { BL_LOG_INFO << "Did not click text"; }
+        }
+        else if (event.type == sf::Event::MouseWheelScrolled) {
+            if (event.mouseWheelScroll.delta < 0.f) {
+                engine->setTimeScale(engine->getTimeScale() * 0.9f);
+            }
+            else { engine->setTimeScale(engine->getTimeScale() * 1.1f); }
+            BL_LOG_INFO << "Scaling time: " << engine->getTimeScale();
         }
     }
 };
