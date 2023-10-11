@@ -89,7 +89,15 @@ public:
      * @param child The entity to test for a parent
      * @return True if child has a parent, false otherwise
      */
-    bool hasParent(Entity child) const;
+    bool entityHasParent(Entity child) const;
+
+    /**
+     * @brief Returns the entity id of the parent of the given entity if one is set
+     *
+     * @param child The entity to get the parent for
+     * @return The parent entity or InvalidEntity if no parent
+     */
+    Entity getEntityParent(Entity child) const;
 
     /**
      * @brief Adds a dependency on resource from user. Controls whether or not an entity may be
@@ -426,9 +434,11 @@ void Registry::populateViewWithLock(View<TRequire, TOptional, TExclude>& view) {
     populateView(view);
 }
 
-inline bool Registry::hasParent(Entity child) const {
+inline bool Registry::entityHasParent(Entity child) const {
     return parentGraph.getParent(child) != InvalidEntity;
 }
+
+inline Entity Registry::getEntityParent(Entity child) const { return parentGraph.getParent(child); }
 
 } // namespace ecs
 } // namespace bl

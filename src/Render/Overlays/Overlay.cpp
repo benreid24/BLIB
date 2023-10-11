@@ -84,7 +84,7 @@ scene::SceneObject* Overlay::doAdd(ecs::Entity entity, rcom::DrawableBase& objec
         }
     }
 
-    if (!engine.ecs().hasParent(entity)) { roots.emplace_back(&obj); }
+    if (!engine.ecs().entityHasParent(entity)) { roots.emplace_back(&obj); }
 
     return &obj;
 }

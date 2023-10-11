@@ -50,7 +50,7 @@ public:
     glm::vec2 getOverlaySize() const;
 
     /**
-     * @brief Returns the viewport this entity is rendered to in target space
+     * @brief Returns the parent bounds in overlay space
      */
     const sf::FloatRect& getTargetRegion() const;
 

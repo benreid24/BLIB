@@ -14,7 +14,6 @@ Text::Text()
 void Text::updateDrawParams() {
     const bool wasTrans = containsTransparency;
 
-    drawParams           = vertices.getDrawParameters();
     pipeline             = rc::Config::PipelineIds::Text;
     containsTransparency = true;
 

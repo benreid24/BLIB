@@ -134,6 +134,16 @@ void OverlayScalerSystem::refreshEntity(Result& cset) {
             obj.cachedScissor = obj.getParent().cachedScissor;
         }
     }
+
+    switch (scaler.posType) {
+    case com::OverlayScaler::ParentSpace:
+        transform.setPosition(scaler.parentPosition * parentSize);
+        break;
+
+    case com::OverlayScaler::NoPosition:
+    default:
+        break;
+    }
 }
 
 } // namespace sys

@@ -8,6 +8,7 @@ OverlayScaler::OverlayScaler()
 : cachedObjectSize(50.f, 50.f)
 , scaleType(None)
 , sizePercent(0.1f, 0.1f)
+, posType(NoPosition)
 , useScissor(false)
 , dirty(true) {}
 
@@ -54,6 +55,17 @@ void OverlayScaler::setEntitySize(const glm::vec2& s) {
 void OverlayScaler::setScissorToSelf(bool s) {
     useScissor = s;
     dirty      = scaleType != None;
+}
+
+void OverlayScaler::positionInParentSpace(const glm::vec2& pos) {
+    posType        = ParentSpace;
+    parentPosition = pos;
+    dirty          = true;
+}
+
+void OverlayScaler::stopPositioning() {
+    dirty   = posType != NoPosition;
+    posType = NoPosition;
 }
 
 } // namespace com

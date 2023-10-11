@@ -136,11 +136,19 @@ public:
     CharSearchResult findCharacterAtPosition(const glm::vec2& targetPos) const;
 
     /**
-     * @brief Adds newlines as required to limit the text width. Adjusts as scale and content change
+     * @brief Adds newlines as required to limit the text width. Adjusts as scale and contents
+     *        change, as well as on parent changes
      *
      * @param width The post-transform max width to take up
      */
     void wordWrap(float width);
+
+    /**
+     * @brief Word wraps to a normalized width relative to the parent component
+     *
+     * @param width Normalized width with respect to the parent entity
+     */
+    void wordWrapToParent(float width);
 
     /**
      * @brief Stops word wrapping the text. Reverts to the original content
@@ -197,9 +205,12 @@ private:
         , i(i) {}
     };
 
+    enum struct WrapType { None, Absolute, Relative };
+
     sys::TextSyncSystem* textSystem;
     const sf::VulkanFont* font;
     std::vector<txt::BasicText> sections;
+    WrapType wrapType;
     float wordWrapWidth;
     bool needsCommit;
 

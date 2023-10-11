@@ -112,15 +112,15 @@ public:
         text.create(engine, *font, "Text can now be", 64);
         text.addSection("rendered.", 64, {0.f, 0.8f, 0.6f, 1.f}, sf::Text::Italic);
         text.addSection("What a great time to be alive. I wonder if this will wrap properly.", 64);
-        text.getTransform().setPosition({0.03f, 0.05f});
+        text.getOverlayScaler().positionInParentSpace({0.03f, 0.05f});
         text.getOverlayScaler().scaleToHeightRatio(64.f, 0.19f);
-        text.wordWrap(0.9f);
+        text.wordWrapToParent(0.9f);
         text.setParent(messageBox);
         text.addToScene(overlay, bl::rc::UpdateSpeed::Static);
 
         // sanity check children
         sprite2.create(engine, texture);
-        sprite2.getTransform().setPosition({0.2f, 0.1f});
+        sprite2.getOverlayScaler().positionInParentSpace({0.9f, 0.9f});
         sprite2.getOverlayScaler().scaleToHeightPercent(0.1f);
         sprite2.getTransform().setOrigin(texture->size() * 0.5f);
         sprite2.setParent(messageBox);

@@ -104,12 +104,25 @@ public:
     void setScissorToSelf(bool setToSelf);
 
     /**
+     * @brief Updates the entity position relative to the parent region
+     *
+     * @param position Normalized coordinates to position at
+     */
+    void positionInParentSpace(const glm::vec2& position);
+
+    /**
+     * @brief Stops any positioning of the entity
+     */
+    void stopPositioning();
+
+    /**
      * @brief Returns whether or not the scale needs to be re-computed
      */
     constexpr bool isDirty() const;
 
 private:
     enum ScaleType { None, WidthPercent, HeightPercent, SizePercent, PixelRatio, LineHeight };
+    enum PositionType { NoPosition, ParentSpace };
 
     glm::vec2 cachedObjectSize;
     sf::FloatRect cachedTargetRegion;
@@ -120,6 +133,10 @@ private:
         float heightPercent;
         glm::vec2 sizePercent;
         float overlayRatio;
+    };
+    PositionType posType;
+    union {
+        glm::vec2 parentPosition;
     };
     bool useScissor;
     bool dirty;
