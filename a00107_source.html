@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Containers/Grid.hpp Source File</title>
+<title>BLIB: include/BLIB/Containers/FastQueue.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,228 +71,147 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Grid.hpp</div>  </div>
+<div class="title">FastQueue.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00107.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_CONTAINERS_GRID_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_CONTAINERS_GRID_HPP</span></div>
+<a href="a00107.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_CONTAINERS_FASTQUEUE_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_CONTAINERS_FASTQUEUE_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00101.html">BLIB/Containers/FastEraseVector.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00128.html">BLIB/Containers/Vector2d.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01052.html">BLIB/Util/NonCopyable.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;SFML/Graphics/Rect.hpp&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;SFML/System/Vector2.hpp&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;algorithm&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;cmath&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;utility&gt;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01803.html">bl</a></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span>ctr</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="a02052.html">   27</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02052.html">Grid</a> {</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    static_assert(std::is_trivial_v&lt;T&gt;, <span class="stringliteral">&quot;Grid should only be used with trivial types&quot;</span>);</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="a02052.html#afd271cd58a09c8f5e7c4375b11336acf">   32</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a02044.html">Cell</a> = <a class="code" href="a02044.html">FastEraseVector&lt;T&gt;</a>;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <a class="code" href="a02052.html#ae9648b30bb567504ca8d8ab285995077">Grid</a>(<span class="keyword">const</span> sf::FloatRect&amp; space, <span class="keywordtype">float</span> cellWidth, <span class="keywordtype">float</span> cellHeight);</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02052.html#a090b49b4c88e42d6bd9eb0c8712a7651">setSize</a>(<span class="keyword">const</span> sf::FloatRect&amp; space, <span class="keywordtype">float</span> cellWidth, <span class="keywordtype">float</span> cellHeight);</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02052.html#ac742e259d6be5c108f4ab0013df219f7">add</a>(<span class="keyword">const</span> sf::Vector2f&amp; pos, T value);</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02052.html#a05d9c2b2e48e75496d4ff7f5cb527615">remove</a>(<span class="keyword">const</span> sf::Vector2f&amp; pos, T value);</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02052.html#a39a0045d718d72a05d2f2bfb68d5705b">move</a>(<span class="keyword">const</span> sf::Vector2f&amp; oldPos, <span class="keyword">const</span> sf::Vector2f&amp; newPos, T value);</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02052.html#a168fb24aa5b3c54a60fe76737c988a1f">clear</a>();</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keyword">const</span> <a class="code" href="a02044.html">Cell</a>&amp; <a class="code" href="a02052.html#ac3263f3ff24261debee5ad2b6197b17c">getCell</a>(<span class="keyword">const</span> sf::Vector2f&amp; pos);</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    sf::Vector2u <a class="code" href="a02052.html#ab903ac13ef3c5d6095f9897fcdda05e4">getIndexAtPosition</a>(<span class="keyword">const</span> sf::Vector2f&amp; pos);</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keyword">const</span> <a class="code" href="a02044.html">Cell</a>&amp; <a class="code" href="a02052.html#ac49dc9047a03ee948e05daab19658cec">getCellByIndex</a>(<span class="keyword">const</span> sf::Vector2u&amp; indices);</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCallback&gt;</div>
-<div class="line"><a name="l00118"></a><span class="lineno"><a class="line" href="a02052.html#a42d4a22ef55e71b055cdaff50707020a">  118</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02052.html#a42d4a22ef55e71b055cdaff50707020a">forAllInRegion</a>(<span class="keyword">const</span> sf::FloatRect&amp; region, <span class="keyword">const</span> TCallback&amp; cb);</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCallback&gt;</div>
-<div class="line"><a name="l00129"></a><span class="lineno"><a class="line" href="a02052.html#aa0b7c594049c25b76b502ffa8e9cb29c">  129</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02052.html#aa0b7c594049c25b76b502ffa8e9cb29c">forAllInCellAndNeighbors</a>(<span class="keyword">const</span> sf::Vector2f&amp; cellPoint, <span class="keyword">const</span> TCallback&amp; cb);</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    sf::Vector2f origin;</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    <span class="keywordtype">float</span> cellWidth, cellHeight;</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    <a class="code" href="a02132.html">Vector2D&lt;Cell&gt;</a> cells;</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160; </div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    <span class="keywordtype">void</span> doAdd(<a class="code" href="a02044.html">Cell</a>&amp; cell, T val);</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    <span class="keywordtype">void</span> doRemove(<a class="code" href="a02044.html">Cell</a>&amp; cell, T val);</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;};</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160; </div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160; </div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00143"></a><span class="lineno"><a class="line" href="a02052.html#ae9648b30bb567504ca8d8ab285995077">  143</a></span>&#160;<a class="code" href="a02052.html#ae9648b30bb567504ca8d8ab285995077">Grid&lt;T&gt;::Grid</a>(<span class="keyword">const</span> sf::FloatRect&amp; space, <span class="keywordtype">float</span> cw, <span class="keywordtype">float</span> ch)</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;: origin(space.left, space.top)</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;, cellWidth(cw)</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;, cellHeight(ch)</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;, cells(<a class="code" href="a01820.html">std</a>::ceil(space.width / cw), <a class="code" href="a01820.html">std</a>::ceil(space.height / ch)) {</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; cell : cells) { cell.reserve(64); }</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;}</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160; </div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00152"></a><span class="lineno"><a class="line" href="a02052.html#a090b49b4c88e42d6bd9eb0c8712a7651">  152</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02052.html#a090b49b4c88e42d6bd9eb0c8712a7651">Grid&lt;T&gt;::setSize</a>(<span class="keyword">const</span> sf::FloatRect&amp; space, <span class="keywordtype">float</span> cw, <span class="keywordtype">float</span> ch) {</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    clear();</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    origin.x   = space.left;</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    origin.y   = space.top;</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    cellWidth  = cw;</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    cellHeight = ch;</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    cells.setSize(std::ceil(space.width / cw), std::ceil(space.height / ch));</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; cell : cells) { cell.reserve(64); }</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;}</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160; </div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00163"></a><span class="lineno"><a class="line" href="a02052.html#ac742e259d6be5c108f4ab0013df219f7">  163</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02052.html#ac742e259d6be5c108f4ab0013df219f7">Grid&lt;T&gt;::add</a>(<span class="keyword">const</span> sf::Vector2f&amp; pos, T val) {</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    <span class="keyword">const</span> sf::Vector2u ci = getIndexAtPosition(pos);</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    doAdd(cells(ci.x, ci.y), val);</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;}</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160; </div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02052.html">Grid&lt;T&gt;::doAdd</a>(Cell&amp; cell, T val) {</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    cell.emplace_back(val);</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;}</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160; </div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00174"></a><span class="lineno"><a class="line" href="a02052.html#a05d9c2b2e48e75496d4ff7f5cb527615">  174</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02052.html#a05d9c2b2e48e75496d4ff7f5cb527615">Grid&lt;T&gt;::remove</a>(<span class="keyword">const</span> sf::Vector2f&amp; pos, T val) {</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    <span class="keyword">const</span> sf::Vector2u ci = getIndexAtPosition(pos);</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    doRemove(cells(ci.x, ci.y), val);</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;}</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160; </div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02052.html">Grid&lt;T&gt;::doRemove</a>(Cell&amp; cell, T val) {</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = cell.begin(); it != cell.end(); ++it) {</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;        <span class="keywordflow">if</span> (*it == val) {</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;            cell.erase(it);</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;        }</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    }</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;}</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160; </div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00190"></a><span class="lineno"><a class="line" href="a02052.html#a39a0045d718d72a05d2f2bfb68d5705b">  190</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02052.html#a39a0045d718d72a05d2f2bfb68d5705b">Grid&lt;T&gt;::move</a>(<span class="keyword">const</span> sf::Vector2f&amp; oldPos, <span class="keyword">const</span> sf::Vector2f&amp; newPos, T val) {</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    <span class="keyword">const</span> sf::Vector2u oi = getIndexAtPosition(oldPos);</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;    <span class="keyword">const</span> sf::Vector2u ni = getIndexAtPosition(newPos);</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    <span class="keywordflow">if</span> (oi == ni) <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160; </div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    doRemove(cells(oi.x, oi.y), val);</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    doAdd(cells(ni.x, ni.y), val);</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;}</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160; </div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00200"></a><span class="lineno"><a class="line" href="a02052.html#a168fb24aa5b3c54a60fe76737c988a1f">  200</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02052.html#a168fb24aa5b3c54a60fe76737c988a1f">Grid&lt;T&gt;::clear</a>() {</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; cell : cells) { cell.clear(); }</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;}</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160; </div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00205"></a><span class="lineno"><a class="line" href="a02052.html#ac3263f3ff24261debee5ad2b6197b17c">  205</a></span>&#160;<span class="keyword">const</span> <span class="keyword">typename</span> <a class="code" href="a02044.html">Grid&lt;T&gt;::Cell</a>&amp; <a class="code" href="a02052.html#ac3263f3ff24261debee5ad2b6197b17c">Grid&lt;T&gt;::getCell</a>(<span class="keyword">const</span> sf::Vector2f&amp; pos) {</div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;    <span class="keyword">const</span> sf::Vector2u i = getIndexAtPosition(pos);</div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    <span class="keywordflow">return</span> cells(i.x, i.y);</div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;}</div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160; </div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00211"></a><span class="lineno"><a class="line" href="a02052.html#ab903ac13ef3c5d6095f9897fcdda05e4">  211</a></span>&#160;sf::Vector2u <a class="code" href="a02052.html#ab903ac13ef3c5d6095f9897fcdda05e4">Grid&lt;T&gt;::getIndexAtPosition</a>(<span class="keyword">const</span> sf::Vector2f&amp; pos) {</div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    sf::Vector2f v2f(pos - origin);</div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;    v2f.x = std::max(v2f.x, 0.f);</div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;    v2f.y = std::max(v2f.y, 0.f);</div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;    v2f.x /= cellWidth;</div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;    v2f.y /= cellHeight;</div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;    sf::Vector2u v2u(v2f);</div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;    v2u.x = std::min(v2u.x, cells.getWidth() - 1);</div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;    v2u.y = std::min(v2u.y, cells.getHeight() - 1);</div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;    <span class="keywordflow">return</span> v2u;</div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;}</div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160; </div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00224"></a><span class="lineno"><a class="line" href="a02052.html#ac49dc9047a03ee948e05daab19658cec">  224</a></span>&#160;<span class="keyword">const</span> <span class="keyword">typename</span> <a class="code" href="a02044.html">Grid&lt;T&gt;::Cell</a>&amp; <a class="code" href="a02052.html#ac49dc9047a03ee948e05daab19658cec">Grid&lt;T&gt;::getCellByIndex</a>(<span class="keyword">const</span> sf::Vector2u&amp; i) {</div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;    <span class="keywordflow">return</span> cells(i.x, i.y);</div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;}</div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160; </div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCb&gt;</div>
-<div class="line"><a name="l00230"></a><span class="lineno"><a class="line" href="a02052.html#a8dd60637e50177c06ff0a6824ff9107c">  230</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02052.html#a42d4a22ef55e71b055cdaff50707020a">Grid&lt;T&gt;::forAllInRegion</a>(<span class="keyword">const</span> sf::FloatRect&amp; region, <span class="keyword">const</span> TCb&amp; cb) {</div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;    static_assert(std::is_invocable&lt;TCb, T&gt;::value,</div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;                  <span class="stringliteral">&quot;Visitor signature is void(T val) or bool(T val&quot;</span>);</div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160; </div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    <span class="keyword">const</span> sf::Vector2u sp = getIndexAtPosition({region.left, region.top});</div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;    <span class="keyword">const</span> sf::Vector2u ep =</div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;        getIndexAtPosition({region.left + region.width, region.top + region.height});</div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> x = sp.x; x &lt;= ep.x; ++x) {</div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> y = sp.y; y &lt;= ep.y; ++y) {</div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;            <a class="code" href="a02044.html">Cell</a>&amp; cell = cells(x, y);</div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;            <span class="keywordflow">for</span> (T val : cell) {</div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;                <span class="keywordflow">if</span> constexpr (std::is_same_v&lt;std::invoke_result_t&lt;TCb, T&gt;, <span class="keywordtype">bool</span>&gt;) {</div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;                    <span class="keywordflow">if</span> (cb(val)) <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;                }</div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;                <span class="keywordflow">else</span> { cb(val); }</div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;            }</div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;        }</div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;    }</div>
-<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;}</div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160; </div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCb&gt;</div>
-<div class="line"><a name="l00252"></a><span class="lineno"><a class="line" href="a02052.html#a58520228f7743f7a304abc384a43f872">  252</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02052.html#aa0b7c594049c25b76b502ffa8e9cb29c">Grid&lt;T&gt;::forAllInCellAndNeighbors</a>(<span class="keyword">const</span> sf::Vector2f&amp; pos, <span class="keyword">const</span> TCb&amp; cb) {</div>
-<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;    static_assert(std::is_invocable&lt;TCb, T&gt;::value,</div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;                  <span class="stringliteral">&quot;Visitor signature is void(T val) or bool(T val&quot;</span>);</div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160; </div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;    <span class="keyword">const</span> sf::Vector2u i  = getIndexAtPosition(pos);</div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> sx = i.x &gt; 0 ? i.x - 1 : 0;</div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> ex = i.x &lt; cells.getWidth() - 2 ? i.x + 1 : cells.getWidth() - 1;</div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> sy = i.y &gt; 0 ? i.y - 1 : 0;</div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> ey = i.y &lt; cells.getHeight() - 2 ? i.y + 1 : cells.getHeight() - 1;</div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160; </div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> x = sx; x &lt;= ex; ++x) {</div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> y = sy; y &lt;= ey; ++y) {</div>
-<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;            <a class="code" href="a02044.html">Cell</a>&amp; cell = cells(x, y);</div>
-<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;            <span class="keywordflow">for</span> (T val : cell) {</div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;                <span class="keywordflow">if</span> constexpr (std::is_same_v&lt;std::invoke_result_t&lt;TCb, T&gt;, <span class="keywordtype">bool</span>&gt;) {</div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;                    <span class="keywordflow">if</span> (cb(val)) <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;                }</div>
-<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;                <span class="keywordflow">else</span> { cb(val); }</div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;            }</div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;        }</div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;    }</div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;}</div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160; </div>
-<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;} <span class="comment">// namespace ctr</span></div>
-<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160; </div>
-<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00101_html"><div class="ttname"><a href="a00101.html">FastEraseVector.hpp</a></div></div>
-<div class="ttc" id="aa00128_html"><div class="ttname"><a href="a00128.html">Vector2d.hpp</a></div></div>
-<div class="ttc" id="aa01052_html"><div class="ttname"><a href="a01052.html">NonCopyable.hpp</a></div></div>
-<div class="ttc" id="aa01803_html"><div class="ttname"><a href="a01803.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa01820_html"><div class="ttname"><a href="a01820.html">std</a></div><div class="ttdef"><b>Definition:</b> <a href="a00152_source.html#l00154">Entity.hpp:155</a></div></div>
-<div class="ttc" id="aa02044_html"><div class="ttname"><a href="a02044.html">bl::ctr::FastEraseVector</a></div><div class="ttdoc">A thin reskin of std::vector, this vector replaces the O(n) erase() methods of vector with a constant...</div><div class="ttdef"><b>Definition:</b> <a href="a00101_source.html#l00022">FastEraseVector.hpp:22</a></div></div>
-<div class="ttc" id="aa02052_html"><div class="ttname"><a href="a02052.html">bl::ctr::Grid</a></div><div class="ttdoc">Basic spatial partioning grid class for breaking down areas into equal sized boxes....</div><div class="ttdef"><b>Definition:</b> <a href="a00107_source.html#l00027">Grid.hpp:27</a></div></div>
-<div class="ttc" id="aa02052_html_a05d9c2b2e48e75496d4ff7f5cb527615"><div class="ttname"><a href="a02052.html#a05d9c2b2e48e75496d4ff7f5cb527615">bl::ctr::Grid::remove</a></div><div class="ttdeci">void remove(const sf::Vector2f &amp;pos, T value)</div><div class="ttdoc">Removes an entity to the grid at the given position.</div><div class="ttdef"><b>Definition:</b> <a href="a00107_source.html#l00174">Grid.hpp:174</a></div></div>
-<div class="ttc" id="aa02052_html_a090b49b4c88e42d6bd9eb0c8712a7651"><div class="ttname"><a href="a02052.html#a090b49b4c88e42d6bd9eb0c8712a7651">bl::ctr::Grid::setSize</a></div><div class="ttdeci">void setSize(const sf::FloatRect &amp;space, float cellWidth, float cellHeight)</div><div class="ttdoc">Resizes the grid. Stored elements are cleared.</div><div class="ttdef"><b>Definition:</b> <a href="a00107_source.html#l00152">Grid.hpp:152</a></div></div>
-<div class="ttc" id="aa02052_html_a168fb24aa5b3c54a60fe76737c988a1f"><div class="ttname"><a href="a02052.html#a168fb24aa5b3c54a60fe76737c988a1f">bl::ctr::Grid::clear</a></div><div class="ttdeci">void clear()</div><div class="ttdoc">Removes all elements. All iterators invalidated. Grid size is unchanged.</div><div class="ttdef"><b>Definition:</b> <a href="a00107_source.html#l00200">Grid.hpp:200</a></div></div>
-<div class="ttc" id="aa02052_html_a39a0045d718d72a05d2f2bfb68d5705b"><div class="ttname"><a href="a02052.html#a39a0045d718d72a05d2f2bfb68d5705b">bl::ctr::Grid::move</a></div><div class="ttdeci">void move(const sf::Vector2f &amp;oldPos, const sf::Vector2f &amp;newPos, T value)</div><div class="ttdoc">Moves the given value from it's old position in the grid to the new position.</div><div class="ttdef"><b>Definition:</b> <a href="a00107_source.html#l00190">Grid.hpp:190</a></div></div>
-<div class="ttc" id="aa02052_html_a42d4a22ef55e71b055cdaff50707020a"><div class="ttname"><a href="a02052.html#a42d4a22ef55e71b055cdaff50707020a">bl::ctr::Grid::forAllInRegion</a></div><div class="ttdeci">void forAllInRegion(const sf::FloatRect &amp;region, const TCallback &amp;cb)</div><div class="ttdoc">Iterates over all contained values within the given region. Callback can optionally return a boolean ...</div></div>
-<div class="ttc" id="aa02052_html_aa0b7c594049c25b76b502ffa8e9cb29c"><div class="ttname"><a href="a02052.html#aa0b7c594049c25b76b502ffa8e9cb29c">bl::ctr::Grid::forAllInCellAndNeighbors</a></div><div class="ttdeci">void forAllInCellAndNeighbors(const sf::Vector2f &amp;cellPoint, const TCallback &amp;cb)</div><div class="ttdoc">Iterates over all contained values within the cell and it's neighbors. Callback can optionally return...</div></div>
-<div class="ttc" id="aa02052_html_ab903ac13ef3c5d6095f9897fcdda05e4"><div class="ttname"><a href="a02052.html#ab903ac13ef3c5d6095f9897fcdda05e4">bl::ctr::Grid::getIndexAtPosition</a></div><div class="ttdeci">sf::Vector2u getIndexAtPosition(const sf::Vector2f &amp;pos)</div><div class="ttdoc">Returns the 0-based cell index containing the given spacial position. Returned value is bounded to th...</div><div class="ttdef"><b>Definition:</b> <a href="a00107_source.html#l00211">Grid.hpp:211</a></div></div>
-<div class="ttc" id="aa02052_html_ac3263f3ff24261debee5ad2b6197b17c"><div class="ttname"><a href="a02052.html#ac3263f3ff24261debee5ad2b6197b17c">bl::ctr::Grid::getCell</a></div><div class="ttdeci">const Cell &amp; getCell(const sf::Vector2f &amp;pos)</div><div class="ttdoc">Returns the cell at the given position in spacial units.</div><div class="ttdef"><b>Definition:</b> <a href="a00107_source.html#l00205">Grid.hpp:205</a></div></div>
-<div class="ttc" id="aa02052_html_ac49dc9047a03ee948e05daab19658cec"><div class="ttname"><a href="a02052.html#ac49dc9047a03ee948e05daab19658cec">bl::ctr::Grid::getCellByIndex</a></div><div class="ttdeci">const Cell &amp; getCellByIndex(const sf::Vector2u &amp;indices)</div><div class="ttdoc">Returns the cell at the given x and y indices.</div><div class="ttdef"><b>Definition:</b> <a href="a00107_source.html#l00224">Grid.hpp:224</a></div></div>
-<div class="ttc" id="aa02052_html_ac742e259d6be5c108f4ab0013df219f7"><div class="ttname"><a href="a02052.html#ac742e259d6be5c108f4ab0013df219f7">bl::ctr::Grid::add</a></div><div class="ttdeci">void add(const sf::Vector2f &amp;pos, T value)</div><div class="ttdoc">Adds an entity to the grid at the given position.</div><div class="ttdef"><b>Definition:</b> <a href="a00107_source.html#l00163">Grid.hpp:163</a></div></div>
-<div class="ttc" id="aa02052_html_ae9648b30bb567504ca8d8ab285995077"><div class="ttname"><a href="a02052.html#ae9648b30bb567504ca8d8ab285995077">bl::ctr::Grid::Grid</a></div><div class="ttdeci">Grid(const sf::FloatRect &amp;space, float cellWidth, float cellHeight)</div><div class="ttdoc">Creates the grid.</div><div class="ttdef"><b>Definition:</b> <a href="a00107_source.html#l00143">Grid.hpp:143</a></div></div>
-<div class="ttc" id="aa02132_html"><div class="ttname"><a href="a02132.html">bl::ctr::Vector2D</a></div><div class="ttdoc">Utility class that wraps std::vector, making it indexable in two dimensions.</div><div class="ttdef"><b>Definition:</b> <a href="a00128_source.html#l00017">Vector2d.hpp:17</a></div></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;list&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01818.html">bl</a></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>ctr</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a02071.html">   20</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02071.html">FastQueue</a> {</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a02071.html#a05fff1511bac48ffaf33f5e78d139310">   28</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a02071.html#a05fff1511bac48ffaf33f5e78d139310">push_front</a>(<span class="keyword">const</span> T&amp; value);</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="a02071.html#ab033d3c33b39b3e8617411e35cfd8c3b">   37</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a02071.html#ab033d3c33b39b3e8617411e35cfd8c3b">promote_front</a>(<span class="keyword">const</span> T&amp; value, <span class="keywordtype">bool</span> addIfNotFound = <span class="keyword">false</span>);</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="a02071.html#aa92247b94102e1e7f60bf7026fde9b68">   45</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a02071.html#aa92247b94102e1e7f60bf7026fde9b68">remove</a>(<span class="keyword">const</span> T&amp; value);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="a02071.html#a473e4d50dea6273f67d2a1fac147106a">   54</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a02071.html#a473e4d50dea6273f67d2a1fac147106a">pop_back</a>(T&amp; value);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="a02071.html#a9eb8d07e44f81714ab5c724f8f57c788">   61</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a02071.html#a9eb8d07e44f81714ab5c724f8f57c788">pop_back</a>();</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="a02071.html#ac18a9a58c3c183246bdc4fdd5dc5206f">   68</a></span>&#160;    <span class="keyword">const</span> T&amp; <a class="code" href="a02071.html#ac18a9a58c3c183246bdc4fdd5dc5206f">back</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="a02071.html#a3880207a983db6da30ed87e6878d41d1">   74</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a02071.html#a3880207a983db6da30ed87e6878d41d1">empty</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="a02071.html#a680b0be9c6d923c33874f26335d23107">   80</a></span>&#160;    <span class="keywordtype">size_t</span> <a class="code" href="a02071.html#a680b0be9c6d923c33874f26335d23107">size</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00086"></a><span class="lineno"><a class="line" href="a02071.html#abaa77cb378a322509272db6e3ee9ba5b">   86</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02071.html#abaa77cb378a322509272db6e3ee9ba5b">clear</a>();</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    std::unordered_map&lt;T, typename std::list&lt;T&gt;::iterator&gt; containedValues;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    std::list&lt;T&gt; queue;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;};</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00096"></a><span class="lineno"><a class="line" href="a02071.html#a05fff1511bac48ffaf33f5e78d139310">   96</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a02071.html#a05fff1511bac48ffaf33f5e78d139310">FastQueue&lt;T&gt;::push_front</a>(<span class="keyword">const</span> T&amp; value) {</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keywordflow">if</span> (containedValues.find(value) == containedValues.end()) {</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        queue.emplace_front(value);</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        containedValues.emplace(value, queue.begin());</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    }</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;}</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00106"></a><span class="lineno"><a class="line" href="a02071.html#ab033d3c33b39b3e8617411e35cfd8c3b">  106</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a02071.html#ab033d3c33b39b3e8617411e35cfd8c3b">FastQueue&lt;T&gt;::promote_front</a>(<span class="keyword">const</span> T&amp; value, <span class="keywordtype">bool</span> insert) {</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keyword">auto</span> it = containedValues.find(value);</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keywordflow">if</span> (it != containedValues.end()) {</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        queue.erase(it-&gt;second);</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        queue.emplace_front(value);</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        it-&gt;second = queue.begin();</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    }</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (insert) {</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        queue.emplace_front(value);</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        containedValues.emplace(value, queue.begin());</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    }</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;}</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00123"></a><span class="lineno"><a class="line" href="a02071.html#aa92247b94102e1e7f60bf7026fde9b68">  123</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a02071.html#aa92247b94102e1e7f60bf7026fde9b68">FastQueue&lt;T&gt;::remove</a>(<span class="keyword">const</span> T&amp; value) {</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    <span class="keyword">auto</span> it = containedValues.find(value);</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <span class="keywordflow">if</span> (it != containedValues.end()) {</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        queue.erase(it-&gt;second);</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        containedValues.erase(it);</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    }</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;}</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160; </div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00134"></a><span class="lineno"><a class="line" href="a02071.html#a473e4d50dea6273f67d2a1fac147106a">  134</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a02071.html#a9eb8d07e44f81714ab5c724f8f57c788">FastQueue&lt;T&gt;::pop_back</a>(T&amp; value) {</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    <span class="keywordflow">if</span> (!queue.empty()) {</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;        value = queue.back();</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;        containedValues.erase(value);</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;        queue.pop_back();</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    }</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;}</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160; </div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00145"></a><span class="lineno"><a class="line" href="a02071.html#a9eb8d07e44f81714ab5c724f8f57c788">  145</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a02071.html#a9eb8d07e44f81714ab5c724f8f57c788">FastQueue&lt;T&gt;::pop_back</a>() {</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    <span class="keywordflow">if</span> (!queue.empty()) {</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;        containedValues.erase(queue.back());</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;        queue.pop_back();</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    }</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;}</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160; </div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00155"></a><span class="lineno"><a class="line" href="a02071.html#ac18a9a58c3c183246bdc4fdd5dc5206f">  155</a></span>&#160;<span class="keyword">const</span> T&amp; <a class="code" href="a02071.html#ac18a9a58c3c183246bdc4fdd5dc5206f">FastQueue&lt;T&gt;::back</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    <span class="keywordflow">return</span> queue.back();</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;}</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160; </div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00160"></a><span class="lineno"><a class="line" href="a02071.html#a3880207a983db6da30ed87e6878d41d1">  160</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a02071.html#a3880207a983db6da30ed87e6878d41d1">FastQueue&lt;T&gt;::empty</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    <span class="keywordflow">return</span> queue.empty();</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;}</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160; </div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00165"></a><span class="lineno"><a class="line" href="a02071.html#a680b0be9c6d923c33874f26335d23107">  165</a></span>&#160;<span class="keywordtype">size_t</span> <a class="code" href="a02071.html#a680b0be9c6d923c33874f26335d23107">FastQueue&lt;T&gt;::size</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    <span class="keywordflow">return</span> queue.size();</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;}</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160; </div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00170"></a><span class="lineno"><a class="line" href="a02071.html#abaa77cb378a322509272db6e3ee9ba5b">  170</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02071.html#abaa77cb378a322509272db6e3ee9ba5b">FastQueue&lt;T&gt;::clear</a>() {</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    queue.clear();</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    containedValues.clear();</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;}</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160; </div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;} <span class="comment">// namespace ctr</span></div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160; </div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01818_html"><div class="ttname"><a href="a01818.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02071_html"><div class="ttname"><a href="a02071.html">bl::ctr::FastQueue</a></div><div class="ttdoc">FIFO Container class similar to std::queue but allows promoting an element back to the front in O(1) ...</div><div class="ttdef"><b>Definition:</b> <a href="a00107_source.html#l00020">FastQueue.hpp:20</a></div></div>
+<div class="ttc" id="aa02071_html_a05fff1511bac48ffaf33f5e78d139310"><div class="ttname"><a href="a02071.html#a05fff1511bac48ffaf33f5e78d139310">bl::ctr::FastQueue::push_front</a></div><div class="ttdeci">bool push_front(const T &amp;value)</div><div class="ttdoc">Push the given value onto the front of the queue.</div><div class="ttdef"><b>Definition:</b> <a href="a00107_source.html#l00096">FastQueue.hpp:96</a></div></div>
+<div class="ttc" id="aa02071_html_a3880207a983db6da30ed87e6878d41d1"><div class="ttname"><a href="a02071.html#a3880207a983db6da30ed87e6878d41d1">bl::ctr::FastQueue::empty</a></div><div class="ttdeci">bool empty() const</div><div class="ttdoc">Returns whether or not the queue is empty.</div><div class="ttdef"><b>Definition:</b> <a href="a00107_source.html#l00160">FastQueue.hpp:160</a></div></div>
+<div class="ttc" id="aa02071_html_a473e4d50dea6273f67d2a1fac147106a"><div class="ttname"><a href="a02071.html#a473e4d50dea6273f67d2a1fac147106a">bl::ctr::FastQueue::pop_back</a></div><div class="ttdeci">bool pop_back(T &amp;value)</div><div class="ttdoc">Removes the value in the back of the queue and sets the parameter to the removed value.</div><div class="ttdef"><b>Definition:</b> <a href="a00107_source.html#l00134">FastQueue.hpp:134</a></div></div>
+<div class="ttc" id="aa02071_html_a680b0be9c6d923c33874f26335d23107"><div class="ttname"><a href="a02071.html#a680b0be9c6d923c33874f26335d23107">bl::ctr::FastQueue::size</a></div><div class="ttdeci">size_t size() const</div><div class="ttdoc">Returns the number of elements in the queue.</div><div class="ttdef"><b>Definition:</b> <a href="a00107_source.html#l00165">FastQueue.hpp:165</a></div></div>
+<div class="ttc" id="aa02071_html_a9eb8d07e44f81714ab5c724f8f57c788"><div class="ttname"><a href="a02071.html#a9eb8d07e44f81714ab5c724f8f57c788">bl::ctr::FastQueue::pop_back</a></div><div class="ttdeci">bool pop_back()</div><div class="ttdoc">Removes the value in the back of the queue.</div><div class="ttdef"><b>Definition:</b> <a href="a00107_source.html#l00145">FastQueue.hpp:145</a></div></div>
+<div class="ttc" id="aa02071_html_aa92247b94102e1e7f60bf7026fde9b68"><div class="ttname"><a href="a02071.html#aa92247b94102e1e7f60bf7026fde9b68">bl::ctr::FastQueue::remove</a></div><div class="ttdeci">bool remove(const T &amp;value)</div><div class="ttdoc">Delete the given value from the queue.</div><div class="ttdef"><b>Definition:</b> <a href="a00107_source.html#l00123">FastQueue.hpp:123</a></div></div>
+<div class="ttc" id="aa02071_html_ab033d3c33b39b3e8617411e35cfd8c3b"><div class="ttname"><a href="a02071.html#ab033d3c33b39b3e8617411e35cfd8c3b">bl::ctr::FastQueue::promote_front</a></div><div class="ttdeci">bool promote_front(const T &amp;value, bool addIfNotFound=false)</div><div class="ttdoc">Promote the given value back to the front of the queue.</div><div class="ttdef"><b>Definition:</b> <a href="a00107_source.html#l00106">FastQueue.hpp:106</a></div></div>
+<div class="ttc" id="aa02071_html_abaa77cb378a322509272db6e3ee9ba5b"><div class="ttname"><a href="a02071.html#abaa77cb378a322509272db6e3ee9ba5b">bl::ctr::FastQueue::clear</a></div><div class="ttdeci">void clear()</div><div class="ttdoc">Clears the queue.</div><div class="ttdef"><b>Definition:</b> <a href="a00107_source.html#l00170">FastQueue.hpp:170</a></div></div>
+<div class="ttc" id="aa02071_html_ac18a9a58c3c183246bdc4fdd5dc5206f"><div class="ttname"><a href="a02071.html#ac18a9a58c3c183246bdc4fdd5dc5206f">bl::ctr::FastQueue::back</a></div><div class="ttdeci">const T &amp; back() const</div><div class="ttdoc">Returns the value contained in the back of the queue.</div><div class="ttdef"><b>Definition:</b> <a href="a00107_source.html#l00155">FastQueue.hpp:155</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 8 2023 18:56:18 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Oct 12 2023 01:16:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

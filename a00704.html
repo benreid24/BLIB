@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Overlays/OverlayObject.hpp File Reference</title>
+<title>BLIB: include/BLIB/Render/Observer.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,7 +66,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_f985e6d9d3c728bc93d2b173ef2ebe49.html">Overlays</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -74,48 +74,48 @@ $(function() {
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">OverlayObject.hpp File Reference</div>  </div>
+<div class="title">Observer.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00068_source.html">BLIB/Components/OverlayScaler.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00182_source.html">BLIB/ECS.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00173_source.html">BLIB/ECS/Traits/ParentAware.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a05094_source.html">BLIB/Render/Config.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00611_source.html">BLIB/Render/Descriptors/DescriptorSetInstance.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00707_source.html">BLIB/Render/Overlays/Viewport.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00710_source.html">BLIB/Render/Primitives/DrawParameters.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00752_source.html">BLIB/Render/Scenes/Key.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00758_source.html">BLIB/Render/Scenes/SceneObject.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00818_source.html">BLIB/Render/Vulkan/Pipeline.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a01091_source.html">BLIB/Vulkan.hpp</a>&gt;</code><br />
-<code>#include &lt;array&gt;</code><br />
-<code>#include &lt;cstdint&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00047_source.html">BLIB/Cameras/Camera.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00641_source.html">BLIB/Render/Graph/AssetPool.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00650_source.html">BLIB/Render/Graph/Assets/FinalSwapframeAsset.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00677_source.html">BLIB/Render/Graph/RenderGraph.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00707_source.html">BLIB/Render/Overlays/Overlay.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00710_source.html">BLIB/Render/Overlays/OverlayCamera.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00761_source.html">BLIB/Render/Scenes/Scene.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00815_source.html">BLIB/Render/Vulkan/PerFrame.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00842_source.html">BLIB/Render/Vulkan/StandardAttachmentBuffers.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01103_source.html">BLIB/Vulkan.hpp</a>&gt;</code><br />
+<code>#include &lt;SFML/Window.hpp&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
+<code>#include &lt;mutex&gt;</code><br />
+<code>#include &lt;stack&gt;</code><br />
+<code>#include &lt;utility&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 </div>
 <p><a href="a00704_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03088.html">bl::rc::ovy::OverlayObject</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03103.html">bl::rc::Observer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Top level class for observers in the renderer. Corresponds to Engine Actors. Each observer may have it's own scene stack and overlay, but the <a class="el" href="a03139.html" title="Top level rendering system of the game engine.">Renderer</a> may also have a common scene and overlay for all observers. Observers may use the same scene amongst themselves and simply render it from different perspectives.  <a href="a03103.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a01803"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01803.html">bl</a></td></tr>
-<tr class="memdesc:a01803"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="memitem:a01818"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01818.html">bl</a></td></tr>
+<tr class="memdesc:a01818"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01815"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01815.html">bl::rc</a></td></tr>
-<tr class="memdesc:a01815"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a03112.html" title="Top level rendering system of the game engine.">Renderer</a> core implementation classes and functionality. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01850"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01850.html">bl::rc::ovy</a></td></tr>
-<tr class="memdesc:a01850"><td class="mdescLeft">&#160;</td><td class="mdescRight">Classes for <a class="el" href="a03072.html" title="Top level class for observers in the renderer. Corresponds to Engine Actors. Each observer may have i...">Observer</a> overlays. <br /></td></tr>
+<tr class="memitem:a01830"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01830.html">bl::rc</a></td></tr>
+<tr class="memdesc:a01830"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a03139.html" title="Top level rendering system of the game engine.">Renderer</a> core implementation classes and functionality. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 8 2023 18:56:19 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Oct 12 2023 01:16:56 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

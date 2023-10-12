@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::logging::Config Class Reference</title>
+<title>BLIB: Member List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,439 +66,55 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01803.html">bl</a></li><li class="navelem"><a class="el" href="a01838.html">logging</a></li><li class="navelem"><a class="el" href="a02756.html">Config</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01818.html">bl</a></li><li class="navelem"><a class="el" href="a01851.html">menu</a></li><li class="navelem"><a class="el" href="a02759.html">ToggleTextItem</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="summary">
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
-<a href="#friends">Friends</a> &#124;
-<a href="a02753.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::logging::Config Class Reference<div class="ingroups"><a class="el" href="a01786.html">Logging</a></div></div>  </div>
+<div class="title">bl::menu::ToggleTextItem Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Global log config class. Stores the various output streams and their configured log levels. Loggers flush their output here. Logging is threadsafe, however none of the public methods are threadsafe.  
- <a href="a02756.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="a05091_source.html">Config.hpp</a>&gt;</code></p>
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::logging::Config:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
- <div class="center">
-  <img src="a02756.png" usemap="#bl::logging::Config_map" alt=""/>
-  <map id="bl::logging::Config_map" name="bl::logging::Config_map">
-<area href="a03940.html" title="Helper class to make derived classes impossible for user to copy directly." alt="bl::util::NonCopyable" shape="rect" coords="0,0,127,24"/>
-  </map>
-</div></div>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a45b4d4f5d56a4e0307731ad499caab87"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02756.html#a45b4d4f5d56a4e0307731ad499caab87">configureOutput</a> (std::ostream &amp;output, int logLevel=<a class="el" href="a02756.html#a745f41edd43beb42056a1616117ee196">Info</a>)</td></tr>
-<tr class="memdesc:a45b4d4f5d56a4e0307731ad499caab87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add or modify an output stream to the config. Can be called multiple times on the same stream to change the log level. If no output is configured before the first item logged the default is to log to std::cout at Info level.  <a href="a02756.html#a45b4d4f5d56a4e0307731ad499caab87">More...</a><br /></td></tr>
-<tr class="separator:a45b4d4f5d56a4e0307731ad499caab87"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3d402c341d1f7e1874c434e52469b56f"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02756.html#a3d402c341d1f7e1874c434e52469b56f">addFileOutput</a> (const std::string &amp;file, int logLevel=<a class="el" href="a02756.html#a745f41edd43beb42056a1616117ee196">Info</a>)</td></tr>
-<tr class="memdesc:a3d402c341d1f7e1874c434e52469b56f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper method to open a file stream and configure it's level. The config maintains the stream internally, however the log level may not be changed later.  <a href="a02756.html#a3d402c341d1f7e1874c434e52469b56f">More...</a><br /></td></tr>
-<tr class="separator:a3d402c341d1f7e1874c434e52469b56f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6c63582cf5d86a1d311b376f759de319"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02756.html#a6c63582cf5d86a1d311b376f759de319">rollLogs</a> (const std::string &amp;dir, const std::string &amp;name, unsigned int keepCount=3)</td></tr>
-<tr class="memdesc:a6c63582cf5d86a1d311b376f759de319"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rolls logs in the given directory. Files in the form "{name}.log" are rolled into "{name}.{n}.log" and logs of the form "{name}.{n}.log" are rolled into "{name}.{n+1}.log". Logs where n &gt;= keepCount are deleted.  <a href="a02756.html#a6c63582cf5d86a1d311b376f759de319">More...</a><br /></td></tr>
-<tr class="separator:a6c63582cf5d86a1d311b376f759de319"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adf1b325bd87336122a54365a330fe8aa"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02756.html#adf1b325bd87336122a54365a330fe8aa">timeInUTC</a> (bool utc)</td></tr>
-<tr class="memdesc:adf1b325bd87336122a54365a330fe8aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set whether to log times in UTC or local time. Default is local time.  <a href="a02756.html#adf1b325bd87336122a54365a330fe8aa">More...</a><br /></td></tr>
-<tr class="separator:adf1b325bd87336122a54365a330fe8aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
-Static Public Attributes</h2></td></tr>
-<tr class="memitem:a9d96f5c8eb33c589e625f8431fc529d6"><td class="memItemLeft" align="right" valign="top">static constexpr int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02756.html#a9d96f5c8eb33c589e625f8431fc529d6">Critical</a> = 5</td></tr>
-<tr class="separator:a9d96f5c8eb33c589e625f8431fc529d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a250079749bf4d8040898e39d87b88ce1"><td class="memItemLeft" align="right" valign="top">static constexpr int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02756.html#a250079749bf4d8040898e39d87b88ce1">Error</a> = 4</td></tr>
-<tr class="separator:a250079749bf4d8040898e39d87b88ce1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3ae6ba0bf40434238378e10e2f291804"><td class="memItemLeft" align="right" valign="top">static constexpr int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02756.html#a3ae6ba0bf40434238378e10e2f291804">Warn</a> = 3</td></tr>
-<tr class="separator:a3ae6ba0bf40434238378e10e2f291804"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a745f41edd43beb42056a1616117ee196"><td class="memItemLeft" align="right" valign="top">static constexpr int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02756.html#a745f41edd43beb42056a1616117ee196">Info</a> = 2</td></tr>
-<tr class="separator:a745f41edd43beb42056a1616117ee196"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a32b0a01f1377244acb18aab50588a515"><td class="memItemLeft" align="right" valign="top">static constexpr int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02756.html#a32b0a01f1377244acb18aab50588a515">Debug</a> = 1</td></tr>
-<tr class="separator:a32b0a01f1377244acb18aab50588a515"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a74e5da1abfb366b222375bf333369421"><td class="memItemLeft" align="right" valign="top">static constexpr int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02756.html#a74e5da1abfb366b222375bf333369421">Trace</a> = 0</td></tr>
-<tr class="separator:a74e5da1abfb366b222375bf333369421"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
-Friends</h2></td></tr>
-<tr class="memitem:a6ef866033498134ea52d9c9ea8072a29"><td class="memItemLeft" align="right" valign="top">struct&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02756.html#a6ef866033498134ea52d9c9ea8072a29">Logger</a></td></tr>
-<tr class="separator:a6ef866033498134ea52d9c9ea8072a29"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Global log config class. Stores the various output streams and their configured log levels. Loggers flush their output here. Logging is threadsafe, however none of the public methods are threadsafe. </p>
-
-<p class="definition">Definition at line <a class="el" href="a05091_source.html#l00027">27</a> of file <a class="el" href="a05091_source.html">Config.hpp</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a3d402c341d1f7e1874c434e52469b56f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3d402c341d1f7e1874c434e52469b56f">&#9670;&nbsp;</a></span>addFileOutput()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::logging::Config::addFileOutput </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>file</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>logLevel</em> = <code><a class="el" href="a02756.html#a745f41edd43beb42056a1616117ee196">Info</a></code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Helper method to open a file stream and configure it's level. The config maintains the stream internally, however the log level may not be changed later. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">file</td><td>Filename to open and log to. Logs are appended </td></tr>
-    <tr><td class="paramname">logLevel</td><td>The level at which to send logs. Lower level logs omitted </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a05166_source.html#l00063">63</a> of file <a class="el" href="a05166_source.html">Config.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a45b4d4f5d56a4e0307731ad499caab87"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a45b4d4f5d56a4e0307731ad499caab87">&#9670;&nbsp;</a></span>configureOutput()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::logging::Config::configureOutput </td>
-          <td>(</td>
-          <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"><em>output</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>logLevel</em> = <code><a class="el" href="a02756.html#a745f41edd43beb42056a1616117ee196">Info</a></code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Add or modify an output stream to the config. Can be called multiple times on the same stream to change the log level. If no output is configured before the first item logged the default is to log to std::cout at Info level. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">output</td><td>The stream to log to. Must remain valid </td></tr>
-    <tr><td class="paramname">logLevel</td><td>The level at which to send logs. Lower level logs omitted </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a05166_source.html#l00052">52</a> of file <a class="el" href="a05166_source.html">Config.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a6c63582cf5d86a1d311b376f759de319"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6c63582cf5d86a1d311b376f759de319">&#9670;&nbsp;</a></span>rollLogs()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::logging::Config::rollLogs </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>dir</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>keepCount</em> = <code>3</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Rolls logs in the given directory. Files in the form "{name}.log" are rolled into "{name}.{n}.log" and logs of the form "{name}.{n}.log" are rolled into "{name}.{n+1}.log". Logs where n &gt;= keepCount are deleted. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">dir</td><td>The directory to roll logs in </td></tr>
-    <tr><td class="paramname">name</td><td>The base filename of the log files to roll, excluding extension </td></tr>
-    <tr><td class="paramname">keepCount</td><td>How many logs to keep, including the current log file </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a05166_source.html#l00040">40</a> of file <a class="el" href="a05166_source.html">Config.cpp</a>.</p>
-
-</div>
-</div>
-<a id="adf1b325bd87336122a54365a330fe8aa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adf1b325bd87336122a54365a330fe8aa">&#9670;&nbsp;</a></span>timeInUTC()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::logging::Config::timeInUTC </td>
-          <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>utc</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Set whether to log times in UTC or local time. Default is local time. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">utc</td><td>True to log in UTC, false for local time </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a05166_source.html#l00070">70</a> of file <a class="el" href="a05166_source.html">Config.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Friends And Related Function Documentation</h2>
-<a id="a6ef866033498134ea52d9c9ea8072a29"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6ef866033498134ea52d9c9ea8072a29">&#9670;&nbsp;</a></span>Logger</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">friend struct <a class="el" href="a02760.html">Logger</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a05091_source.html#l00087">87</a> of file <a class="el" href="a05091_source.html">Config.hpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="a9d96f5c8eb33c589e625f8431fc529d6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9d96f5c8eb33c589e625f8431fc529d6">&#9670;&nbsp;</a></span>Critical</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr int bl::logging::Config::Critical = 5</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a05091_source.html#l00029">29</a> of file <a class="el" href="a05091_source.html">Config.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a32b0a01f1377244acb18aab50588a515"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a32b0a01f1377244acb18aab50588a515">&#9670;&nbsp;</a></span>Debug</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr int bl::logging::Config::Debug = 1</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a05091_source.html#l00033">33</a> of file <a class="el" href="a05091_source.html">Config.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a250079749bf4d8040898e39d87b88ce1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a250079749bf4d8040898e39d87b88ce1">&#9670;&nbsp;</a></span>Error</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr int bl::logging::Config::Error = 4</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a05091_source.html#l00030">30</a> of file <a class="el" href="a05091_source.html">Config.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a745f41edd43beb42056a1616117ee196"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a745f41edd43beb42056a1616117ee196">&#9670;&nbsp;</a></span>Info</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr int bl::logging::Config::Info = 2</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a05091_source.html#l00032">32</a> of file <a class="el" href="a05091_source.html">Config.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a74e5da1abfb366b222375bf333369421"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a74e5da1abfb366b222375bf333369421">&#9670;&nbsp;</a></span>Trace</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr int bl::logging::Config::Trace = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a05091_source.html#l00034">34</a> of file <a class="el" href="a05091_source.html">Config.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a3ae6ba0bf40434238378e10e2f291804"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3ae6ba0bf40434238378e10e2f291804">&#9670;&nbsp;</a></span>Warn</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr int bl::logging::Config::Warn = 3</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a05091_source.html#l00031">31</a> of file <a class="el" href="a05091_source.html">Config.hpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Logging/<a class="el" href="a05091_source.html">Config.hpp</a></li>
-<li>src/Logging/<a class="el" href="a05166_source.html">Config.cpp</a></li>
-</ul>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="a02759.html">bl::menu::ToggleTextItem</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="a02743.html#a59352334626855d0cd8c8ca1b173db68a2816176a831a8a4c942a0d09e653a9c4">_NUM_ATTACHPOINTS</a> enum value</td><td class="entry"><a class="el" href="a02743.html">bl::menu::Item</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a02743.html#a0bae0491b79706cac6c93b58cfeb5ec5aa86dd8b1fbfe5e9c37417099d60a5d9d">_NUM_EVENTS</a> enum value</td><td class="entry"><a class="el" href="a02743.html">bl::menu::Item</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02743.html#a0bae0491b79706cac6c93b58cfeb5ec5a6698b73a862c1caef37c9d00070fd250">Activated</a> enum value</td><td class="entry"><a class="el" href="a02743.html">bl::menu::Item</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a02743.html#ab5f75c6ebfb7625ff18c0d78afd5c5f0">allowsSelectionCrossing</a>() const</td><td class="entry"><a class="el" href="a02743.html">bl::menu::Item</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02743.html#a59352334626855d0cd8c8ca1b173db68">AttachPoint</a> enum name</td><td class="entry"><a class="el" href="a02743.html">bl::menu::Item</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a02743.html#a59352334626855d0cd8c8ca1b173db68a9b46e5a4c9ffaadc81ac4559e23ebb8d">Bottom</a> enum value</td><td class="entry"><a class="el" href="a02743.html">bl::menu::Item</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02759.html#ad2dc5019278fb04f76df3bd853fd0416">create</a>(const std::string &amp;text, const sf::Font &amp;font, const sf::Color &amp;color=sf::Color::Black, unsigned int fontSize=30)</td><td class="entry"><a class="el" href="a02759.html">bl::menu::ToggleTextItem</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a02743.html#a0bae0491b79706cac6c93b58cfeb5ec5a4275858e386e70954b80ef36823ff369">Deselected</a> enum value</td><td class="entry"><a class="el" href="a02743.html">bl::menu::Item</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02743.html#a0bae0491b79706cac6c93b58cfeb5ec5">EventType</a> enum name</td><td class="entry"><a class="el" href="a02743.html">bl::menu::Item</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a02743.html#af945fad2658b430b3bd940f2ac3a431a">getPosition</a>() const</td><td class="entry"><a class="el" href="a02743.html">bl::menu::Item</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02743.html#a1ec1d4800025cc512ad596ef13cb03fd">getSignal</a>(EventType event)</td><td class="entry"><a class="el" href="a02743.html">bl::menu::Item</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a02759.html#aaff5aad5d041edb80068ba8a243881ad">getSize</a>() const override</td><td class="entry"><a class="el" href="a02759.html">bl::menu::ToggleTextItem</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02755.html#a5e419cc97bf14de8d4ad3442d8d0341c">getTextObject</a>()</td><td class="entry"><a class="el" href="a02755.html">bl::menu::TextItem</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a02743.html#a6456946a5c7e6ecd87bd21c5fedd57c6">isAttached</a>() const</td><td class="entry"><a class="el" href="a02743.html">bl::menu::Item</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02759.html#aa18351c53161fb123f84406173e93628">isChecked</a>() const</td><td class="entry"><a class="el" href="a02759.html">bl::menu::ToggleTextItem</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a02743.html#a8b17ae5ffbb9b3fe97e6105479b601b6">isSelectable</a>() const</td><td class="entry"><a class="el" href="a02743.html">bl::menu::Item</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02743.html#a8224a125d7cb278731f971b8ece7645c">Item</a>()</td><td class="entry"><a class="el" href="a02743.html">bl::menu::Item</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a02743.html#a59352334626855d0cd8c8ca1b173db68ad917703e5fdbb06791acd491310bd14f">Left</a> enum value</td><td class="entry"><a class="el" href="a02743.html">bl::menu::Item</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02743.html#a8fec45b0851a45c4f753b91062a518fe">oppositeSide</a>(AttachPoint point)</td><td class="entry"><a class="el" href="a02743.html">bl::menu::Item</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a02743.html#ad6e8ab9f0c9d820794a74efdb7d66918">overridePosition</a>(const sf::Vector2f &amp;position)</td><td class="entry"><a class="el" href="a02743.html">bl::menu::Item</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02759.html#a1b7c315a66d920841667219ebbaa266b">Ptr</a> typedef</td><td class="entry"><a class="el" href="a02759.html">bl::menu::ToggleTextItem</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a02759.html#a5d414aadccda9139cf786d5c5e438b2c">render</a>(sf::RenderTarget &amp;target, sf::RenderStates states, const sf::Vector2f &amp;position) const override</td><td class="entry"><a class="el" href="a02759.html">bl::menu::ToggleTextItem</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02743.html#a59352334626855d0cd8c8ca1b173db68ae5d7a5789d9f7a019ac01873f986e866">Right</a> enum value</td><td class="entry"><a class="el" href="a02743.html">bl::menu::Item</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a02743.html#a0bae0491b79706cac6c93b58cfeb5ec5a78269e44a81151f5e3e97a49dc6a2aa3">Selected</a> enum value</td><td class="entry"><a class="el" href="a02743.html">bl::menu::Item</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02743.html#a84f76cf2dc6f67fb425d09d804d66948">setAllowSelectionCrossing</a>(bool allow)</td><td class="entry"><a class="el" href="a02743.html">bl::menu::Item</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a02759.html#a7cb3b1d2c0f502ed93f05a76e510bd2a">setBoxProperties</a>(sf::Color fillColor, sf::Color borderColor, float width, float borderThickness, float padding, bool showOnLeft)</td><td class="entry"><a class="el" href="a02759.html">bl::menu::ToggleTextItem</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02759.html#a310d3a7e7602420c2293f81b6659852f">setChecked</a>(bool checked)</td><td class="entry"><a class="el" href="a02759.html">bl::menu::ToggleTextItem</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a02743.html#a944e2405bfafe6b3bf4718cab498b4a2">setSelectable</a>(bool selectable)</td><td class="entry"><a class="el" href="a02743.html">bl::menu::Item</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02755.html#aa6fcb2d5caea706025e2369547b352ed">TextItem</a>(const std::string &amp;text, const sf::Font &amp;font, const sf::Color &amp;color, unsigned int fontSize)</td><td class="entry"><a class="el" href="a02755.html">bl::menu::TextItem</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a02759.html#a9bc671e655dcfea61bab58916ae62a10">ToggleTextItem</a>(const std::string &amp;text, const sf::Font &amp;font, const sf::Color &amp;color, unsigned int fontSize)</td><td class="entry"><a class="el" href="a02759.html">bl::menu::ToggleTextItem</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02743.html#a59352334626855d0cd8c8ca1b173db68a8ee44d5181ad1e85a92709f1d0b4937c">Top</a> enum value</td><td class="entry"><a class="el" href="a02743.html">bl::menu::Item</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a02755.html#a8e9e9319f9ec798ceab0045318de1b34">~TextItem</a>()=default</td><td class="entry"><a class="el" href="a02755.html">bl::menu::TextItem</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02759.html#ad5c888335da52451b869d062c13d4b20">~ToggleTextItem</a>()=default</td><td class="entry"><a class="el" href="a02759.html">bl::menu::ToggleTextItem</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+</table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 8 2023 18:56:20 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Oct 12 2023 01:16:57 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

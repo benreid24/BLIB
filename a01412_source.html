@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Descriptors/Builtin/Object3DFactory.cpp Source File</title>
+<title>BLIB: src/Render/Components/DrawableBase.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,74 +66,83 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_c46d59b26ba1c7a895704386ecf9511b.html">Descriptors</a></li><li class="navelem"><a class="el" href="dir_1c9d8e1815e637956400971975ea0cfc.html">Builtin</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_87a971c54d90ce1f92a0d8b596a58523.html">Components</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Object3DFactory.cpp</div>  </div>
+<div class="title">DrawableBase.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01412.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00569.html">BLIB/Render/Descriptors/Builtin/Object3DFactory.hpp</a>&gt;</span></div>
+<a href="a01412.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00563.html">BLIB/Render/Components/DrawableBase.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05028.html">BLIB/Engine/Engine.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00572.html">BLIB/Render/Descriptors/Builtin/Object3DInstance.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05079.html">BLIB/Render/Renderer.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01803.html">bl</a></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00761.html">BLIB/Render/Scenes/Scene.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01818.html">bl</a></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>rc</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>rcom</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>ds</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="a02888.html#a085e515210457efd3a6286bd8011e018">   13</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02888.html#a085e515210457efd3a6286bd8011e018">Object3DFactory::init</a>(<a class="code" href="a02264.html">engine::Engine</a>&amp; e, <a class="code" href="a03112.html">Renderer</a>&amp; renderer) {</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    engine = &amp;e;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="comment">// create descriptor layout</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <a class="code" href="a03264.html">vk::DescriptorPool::SetBindingInfo</a> bindings;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    bindings.<a class="code" href="a03264.html#ad44b120901116ab5216ddfdc35d30d95">bindingCount</a> = 2;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    bindings.<a class="code" href="a03264.html#ab972da11e25938a0637ebf832a6b9bd7">bindings</a>[0].binding         = 0;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    bindings.<a class="code" href="a03264.html#ab972da11e25938a0637ebf832a6b9bd7">bindings</a>[0].descriptorCount = 1;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    bindings.<a class="code" href="a03264.html#ab972da11e25938a0637ebf832a6b9bd7">bindings</a>[0].descriptorType  = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    bindings.<a class="code" href="a03264.html#ab972da11e25938a0637ebf832a6b9bd7">bindings</a>[0].stageFlags      = VK_SHADER_STAGE_VERTEX_BIT;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    bindings.<a class="code" href="a03264.html#ab972da11e25938a0637ebf832a6b9bd7">bindings</a>[1].binding         = 1;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    bindings.<a class="code" href="a03264.html#ab972da11e25938a0637ebf832a6b9bd7">bindings</a>[1].descriptorCount = 1;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    bindings.<a class="code" href="a03264.html#ab972da11e25938a0637ebf832a6b9bd7">bindings</a>[1].descriptorType  = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    bindings.<a class="code" href="a03264.html#ab972da11e25938a0637ebf832a6b9bd7">bindings</a>[1].stageFlags      = VK_SHADER_STAGE_VERTEX_BIT;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <a class="code" href="a02944.html#a272948ed73908bcc35626a495366cba6">descriptorSetLayout</a> = renderer.<a class="code" href="a03112.html#ac80c82fc9945bff8ee2311207fb53f3f">vulkanState</a>().<a class="code" href="a03364.html#ac6ea18991f2fd8391eb44229ae2ac8f7">descriptorPool</a>.<a class="code" href="a03260.html#a5a206bab1969632a78bca5e79532eb70">createLayout</a>(bindings);</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;}</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="a02888.html#a818849cac5a22a280dfb2da49d84e98f">   33</a></span>&#160;std::unique_ptr&lt;DescriptorSetInstance&gt; <a class="code" href="a02888.html#a818849cac5a22a280dfb2da49d84e98f">Object3DFactory::createDescriptorSet</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordflow">return</span> std::make_unique&lt;Object3DInstance&gt;(*engine, <a class="code" href="a02944.html#a272948ed73908bcc35626a495366cba6">descriptorSetLayout</a>);</div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="a02883.html#a03ee0c5d330728cbcf4311e90530c934">   11</a></span>&#160;<a class="code" href="a02883.html#a03ee0c5d330728cbcf4311e90530c934">DrawableBase::DrawableBase</a>()</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;: pipeline(PipelineNotSet)</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;, containsTransparency(false) {}</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="a02883.html#ab08990a036324010f3f4b620312b5370">   15</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02883.html#ab08990a036324010f3f4b620312b5370">DrawableBase::syncDrawParamsToScene</a>() {</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#ifdef BLIB_DEBUG</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="a02883.html#aef2f171ca710ef07cb6a40750c99a5ff">sceneRef</a>.<a class="code" href="a02887.html#a273ff1de9ff2bba46ea348e0b0237e25">object</a>) {</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        <a class="code" href="a00494.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Called syncDrawParamsToScene on object not in scene&quot;</span>;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    }</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <a class="code" href="a02883.html#aef2f171ca710ef07cb6a40750c99a5ff">sceneRef</a>.<a class="code" href="a02887.html#a273ff1de9ff2bba46ea348e0b0237e25">object</a>-&gt;<a class="code" href="a03219.html#a251c0291ae86aed29fde7493498f8d4c">drawParams</a> = <a class="code" href="a02883.html#a9c3ad2caaf2846e720343ec52eaf1073">drawParams</a>;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;}</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a02883.html#aee0207a9ccc82d92bfd3a8059ceb4b73">   26</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02883.html#aee0207a9ccc82d92bfd3a8059ceb4b73">DrawableBase::setHidden</a>(<span class="keywordtype">bool</span> hide) {</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#ifdef BLIB_DEBUG</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="a02883.html#aef2f171ca710ef07cb6a40750c99a5ff">sceneRef</a>.<a class="code" href="a02887.html#a273ff1de9ff2bba46ea348e0b0237e25">object</a>) {</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <a class="code" href="a00494.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Called setHidden on object not in scene&quot;</span>;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    }</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <a class="code" href="a02883.html#aef2f171ca710ef07cb6a40750c99a5ff">sceneRef</a>.<a class="code" href="a02887.html#a273ff1de9ff2bba46ea348e0b0237e25">object</a>-&gt;<a class="code" href="a03219.html#a77b37dc1fe2a7d75500ee76e570885d4">hidden</a> = hide;</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;}</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;} <span class="comment">// namespace ds</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00569_html"><div class="ttname"><a href="a00569.html">Object3DFactory.hpp</a></div></div>
-<div class="ttc" id="aa00572_html"><div class="ttname"><a href="a00572.html">Object3DInstance.hpp</a></div></div>
-<div class="ttc" id="aa01803_html"><div class="ttname"><a href="a01803.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02264_html"><div class="ttname"><a href="a02264.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a05028_source.html#l00031">Engine.hpp:31</a></div></div>
-<div class="ttc" id="aa02888_html_a085e515210457efd3a6286bd8011e018"><div class="ttname"><a href="a02888.html#a085e515210457efd3a6286bd8011e018">bl::rc::ds::Object3DFactory::init</a></div><div class="ttdeci">virtual void init(engine::Engine &amp;engine, Renderer &amp;renderer) override</div><div class="ttdoc">Initializes the factory and creates the descriptor set layout.</div><div class="ttdef"><b>Definition:</b> <a href="a01412_source.html#l00013">Object3DFactory.cpp:13</a></div></div>
-<div class="ttc" id="aa02888_html_a818849cac5a22a280dfb2da49d84e98f"><div class="ttname"><a href="a02888.html#a818849cac5a22a280dfb2da49d84e98f">bl::rc::ds::Object3DFactory::createDescriptorSet</a></div><div class="ttdeci">virtual std::unique_ptr&lt; DescriptorSetInstance &gt; createDescriptorSet() const override</div><div class="ttdoc">Creates an instance of the descriptor set for this factory.</div><div class="ttdef"><b>Definition:</b> <a href="a01412_source.html#l00033">Object3DFactory.cpp:33</a></div></div>
-<div class="ttc" id="aa02944_html_a272948ed73908bcc35626a495366cba6"><div class="ttname"><a href="a02944.html#a272948ed73908bcc35626a495366cba6">bl::rc::ds::DescriptorSetFactory::descriptorSetLayout</a></div><div class="ttdeci">VkDescriptorSetLayout descriptorSetLayout</div><div class="ttdef"><b>Definition:</b> <a href="a00605_source.html#l00061">DescriptorSetFactory.hpp:61</a></div></div>
-<div class="ttc" id="aa03112_html"><div class="ttname"><a href="a03112.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition:</b> <a href="a05079_source.html#l00039">Renderer.hpp:39</a></div></div>
-<div class="ttc" id="aa03112_html_ac80c82fc9945bff8ee2311207fb53f3f"><div class="ttname"><a href="a03112.html#ac80c82fc9945bff8ee2311207fb53f3f">bl::rc::Renderer::vulkanState</a></div><div class="ttdeci">constexpr vk::VulkanState &amp; vulkanState()</div><div class="ttdoc">Returns the Vulkan state of the renderer.</div><div class="ttdef"><b>Definition:</b> <a href="a05079_source.html#l00251">Renderer.hpp:251</a></div></div>
-<div class="ttc" id="aa03260_html_a5a206bab1969632a78bca5e79532eb70"><div class="ttname"><a href="a03260.html#a5a206bab1969632a78bca5e79532eb70">bl::rc::vk::DescriptorPool::createLayout</a></div><div class="ttdeci">VkDescriptorSetLayout createLayout(const SetBindingInfo &amp;allocInfo)</div><div class="ttdoc">Creates a descriptor set layout from the set allocation info.</div><div class="ttdef"><b>Definition:</b> <a href="a01583_source.html#l00045">DescriptorPool.cpp:45</a></div></div>
-<div class="ttc" id="aa03264_html"><div class="ttname"><a href="a03264.html">bl::rc::vk::DescriptorPool::SetBindingInfo</a></div><div class="ttdoc">Struct containing the data required to create descriptor sets and layouts.</div><div class="ttdef"><b>Definition:</b> <a href="a00800_source.html#l00035">DescriptorPool.hpp:35</a></div></div>
-<div class="ttc" id="aa03264_html_ab972da11e25938a0637ebf832a6b9bd7"><div class="ttname"><a href="a03264.html#ab972da11e25938a0637ebf832a6b9bd7">bl::rc::vk::DescriptorPool::SetBindingInfo::bindings</a></div><div class="ttdeci">std::array&lt; VkDescriptorSetLayoutBinding, Config::MaxDescriptorSets &gt; bindings</div><div class="ttdef"><b>Definition:</b> <a href="a00800_source.html#l00038">DescriptorPool.hpp:38</a></div></div>
-<div class="ttc" id="aa03264_html_ad44b120901116ab5216ddfdc35d30d95"><div class="ttname"><a href="a03264.html#ad44b120901116ab5216ddfdc35d30d95">bl::rc::vk::DescriptorPool::SetBindingInfo::bindingCount</a></div><div class="ttdeci">std::uint32_t bindingCount</div><div class="ttdef"><b>Definition:</b> <a href="a00800_source.html#l00039">DescriptorPool.hpp:39</a></div></div>
-<div class="ttc" id="aa03364_html_ac6ea18991f2fd8391eb44229ae2ac8f7"><div class="ttname"><a href="a03364.html#ac6ea18991f2fd8391eb44229ae2ac8f7">bl::rc::vk::VulkanState::descriptorPool</a></div><div class="ttdeci">DescriptorPool descriptorPool</div><div class="ttdef"><b>Definition:</b> <a href="a00848_source.html#l00210">VulkanState.hpp:210</a></div></div>
-<div class="ttc" id="aa05028_html"><div class="ttname"><a href="a05028.html">Engine.hpp</a></div></div>
-<div class="ttc" id="aa05079_html"><div class="ttname"><a href="a05079.html">Renderer.hpp</a></div></div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="a02883.html#a83586a1015dbd9ae42ebc85fd1ac2fa0">   37</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02883.html#a83586a1015dbd9ae42ebc85fd1ac2fa0">DrawableBase::setPipeline</a>(std::uint32_t pid) {</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <a class="code" href="a02883.html#ae75ff4332cec695e0a276152ee96227b">pipeline</a> = pid;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <a class="code" href="a02883.html#a90b4f7dc1b91ff4a26d69865187226ee">rebucket</a>();</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;}</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="a02883.html#a90b4f7dc1b91ff4a26d69865187226ee">   42</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02883.html#a90b4f7dc1b91ff4a26d69865187226ee">DrawableBase::rebucket</a>() {</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="a02883.html#aef2f171ca710ef07cb6a40750c99a5ff">sceneRef</a>.<a class="code" href="a02887.html#a166737f0613cee8337cf16694c0d4803">scene</a>) { <a class="code" href="a02883.html#aef2f171ca710ef07cb6a40750c99a5ff">sceneRef</a>.<a class="code" href="a02887.html#a166737f0613cee8337cf16694c0d4803">scene</a>-&gt;rebucketObject(*<span class="keyword">this</span>); }</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;}</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;} <span class="comment">// namespace rcom</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00494_html_a927270d671e83a1c6b5382f30bfbf895"><div class="ttname"><a href="a00494.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a></div><div class="ttdeci">#define BL_LOG_ERROR</div><div class="ttdoc">Helper macro to log at error level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00494_source.html#l00101">Logger.hpp:101</a></div></div>
+<div class="ttc" id="aa00563_html"><div class="ttname"><a href="a00563.html">DrawableBase.hpp</a></div></div>
+<div class="ttc" id="aa00761_html"><div class="ttname"><a href="a00761.html">Scene.hpp</a></div></div>
+<div class="ttc" id="aa01818_html"><div class="ttname"><a href="a01818.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02883_html_a03ee0c5d330728cbcf4311e90530c934"><div class="ttname"><a href="a02883.html#a03ee0c5d330728cbcf4311e90530c934">bl::rc::rcom::DrawableBase::DrawableBase</a></div><div class="ttdeci">DrawableBase()</div><div class="ttdoc">Sets reasonable defaults.</div><div class="ttdef"><b>Definition:</b> <a href="a01412_source.html#l00011">DrawableBase.cpp:11</a></div></div>
+<div class="ttc" id="aa02883_html_a83586a1015dbd9ae42ebc85fd1ac2fa0"><div class="ttname"><a href="a02883.html#a83586a1015dbd9ae42ebc85fd1ac2fa0">bl::rc::rcom::DrawableBase::setPipeline</a></div><div class="ttdeci">void setPipeline(std::uint32_t pipeline)</div><div class="ttdoc">Sets the pipeline to render with. Re-buckets if already in a scene.</div><div class="ttdef"><b>Definition:</b> <a href="a01412_source.html#l00037">DrawableBase.cpp:37</a></div></div>
+<div class="ttc" id="aa02883_html_a90b4f7dc1b91ff4a26d69865187226ee"><div class="ttname"><a href="a02883.html#a90b4f7dc1b91ff4a26d69865187226ee">bl::rc::rcom::DrawableBase::rebucket</a></div><div class="ttdeci">void rebucket()</div><div class="ttdoc">Triggers the owning scene to re-bucket this object. Call when transparency changes.</div><div class="ttdef"><b>Definition:</b> <a href="a01412_source.html#l00042">DrawableBase.cpp:42</a></div></div>
+<div class="ttc" id="aa02883_html_a9c3ad2caaf2846e720343ec52eaf1073"><div class="ttname"><a href="a02883.html#a9c3ad2caaf2846e720343ec52eaf1073">bl::rc::rcom::DrawableBase::drawParams</a></div><div class="ttdeci">prim::DrawParameters drawParams</div><div class="ttdef"><b>Definition:</b> <a href="a00563_source.html#l00025">DrawableBase.hpp:25</a></div></div>
+<div class="ttc" id="aa02883_html_ab08990a036324010f3f4b620312b5370"><div class="ttname"><a href="a02883.html#ab08990a036324010f3f4b620312b5370">bl::rc::rcom::DrawableBase::syncDrawParamsToScene</a></div><div class="ttdeci">void syncDrawParamsToScene()</div><div class="ttdoc">Helper method to sync this component's draw parameters to the scene it is in.</div><div class="ttdef"><b>Definition:</b> <a href="a01412_source.html#l00015">DrawableBase.cpp:15</a></div></div>
+<div class="ttc" id="aa02883_html_ae75ff4332cec695e0a276152ee96227b"><div class="ttname"><a href="a02883.html#ae75ff4332cec695e0a276152ee96227b">bl::rc::rcom::DrawableBase::pipeline</a></div><div class="ttdeci">std::uint32_t pipeline</div><div class="ttdef"><b>Definition:</b> <a href="a00563_source.html#l00024">DrawableBase.hpp:24</a></div></div>
+<div class="ttc" id="aa02883_html_aee0207a9ccc82d92bfd3a8059ceb4b73"><div class="ttname"><a href="a02883.html#aee0207a9ccc82d92bfd3a8059ceb4b73">bl::rc::rcom::DrawableBase::setHidden</a></div><div class="ttdeci">void setHidden(bool hide)</div><div class="ttdoc">Sets whether or not the object should be rendered.</div><div class="ttdef"><b>Definition:</b> <a href="a01412_source.html#l00026">DrawableBase.cpp:26</a></div></div>
+<div class="ttc" id="aa02883_html_aef2f171ca710ef07cb6a40750c99a5ff"><div class="ttname"><a href="a02883.html#aef2f171ca710ef07cb6a40750c99a5ff">bl::rc::rcom::DrawableBase::sceneRef</a></div><div class="ttdeci">SceneObjectRef sceneRef</div><div class="ttdef"><b>Definition:</b> <a href="a00563_source.html#l00023">DrawableBase.hpp:23</a></div></div>
+<div class="ttc" id="aa02887_html_a166737f0613cee8337cf16694c0d4803"><div class="ttname"><a href="a02887.html#a166737f0613cee8337cf16694c0d4803">bl::rc::rcom::SceneObjectRef::scene</a></div><div class="ttdeci">Scene * scene</div><div class="ttdef"><b>Definition:</b> <a href="a00566_source.html#l00028">SceneObjectRef.hpp:28</a></div></div>
+<div class="ttc" id="aa02887_html_a273ff1de9ff2bba46ea348e0b0237e25"><div class="ttname"><a href="a02887.html#a273ff1de9ff2bba46ea348e0b0237e25">bl::rc::rcom::SceneObjectRef::object</a></div><div class="ttdeci">scene::SceneObject * object</div><div class="ttdef"><b>Definition:</b> <a href="a00566_source.html#l00029">SceneObjectRef.hpp:29</a></div></div>
+<div class="ttc" id="aa03219_html_a251c0291ae86aed29fde7493498f8d4c"><div class="ttname"><a href="a03219.html#a251c0291ae86aed29fde7493498f8d4c">bl::rc::scene::SceneObject::drawParams</a></div><div class="ttdeci">prim::DrawParameters drawParams</div><div class="ttdef"><b>Definition:</b> <a href="a00764_source.html#l00029">SceneObject.hpp:29</a></div></div>
+<div class="ttc" id="aa03219_html_a77b37dc1fe2a7d75500ee76e570885d4"><div class="ttname"><a href="a03219.html#a77b37dc1fe2a7d75500ee76e570885d4">bl::rc::scene::SceneObject::hidden</a></div><div class="ttdeci">bool hidden</div><div class="ttdef"><b>Definition:</b> <a href="a00764_source.html#l00027">SceneObject.hpp:27</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 8 2023 18:56:19 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Oct 12 2023 01:16:56 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

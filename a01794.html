@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Systems</title>
+<title>BLIB: Containers</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -67,243 +67,67 @@ $(function() {
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#typedef-members">Typedefs</a>  </div>
+<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">Systems</div>  </div>
+<div class="title">Containers</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Built-in engine systems.  
+<p>Different containers meant to add to what's available in the standard library.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03848.html">bl::sys::Animation2DSystem</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Systems that updates and advances all 2d animations. Also manages GPU local buffers containing animation data.  <a href="a03848.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02063.html">bl::ctr::Cache&lt; TKey, TPayload &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Auto-evicting cache with several policy options and programmable watermarks.  <a href="a02063.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03868.html">bl::sys::DescriptorComponentSystem&lt; TCom, TPayload &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Templated system for managing ECS components that sync into renderer descriptor sets. Components should derive from DescriptorComponentBase.  <a href="a03868.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02067.html">bl::ctr::FastEraseVector&lt; T, Alloc &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A thin reskin of std::vector, this vector replaces the O(n) <a class="el" href="a02067.html#a2311c45c3a001bf19a0e1ba03d66413a" title="Erase a single element using an iterator.">erase()</a> methods of vector with a constant time implementation. It works by copying the last item into the position being erased, then popping the last item. This vector works best for items that are trivial to copy.  <a href="a02067.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03156.html">bl::sys::DrawableSystem&lt; T &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for renderer systems that manage scene objects in the ECS. Custom renderable types should have a system that inherits from this class that manages their membership within scenes. These systems should run in the <a class="el" href="a02296.html#af6ea181be91b7069f9f52557a1445e1aa3f81ee2718a9735d701d01e03039048d" title="Synchronizes objects from the ECS into the scene-local object buffers.">engine::FrameStage::RenderObjectSync</a> step.  <a href="a03156.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02071.html">bl::ctr::FastQueue&lt; T &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">FIFO Container class similar to std::queue but allows promoting an element back to the front in O(1) time. Values contained must be unique.  <a href="a02071.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03876.html">bl::sys::OverlayScalerSystem</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">System that processes entities that are scaled for overlays. Keeps scales up-to-date as overlay size changes.  <a href="a03876.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02075.html">bl::ctr::Grid&lt; T &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic spatial partioning grid class for breaking down areas into equal sized boxes. <a class="el" href="a02075.html" title="Basic spatial partioning grid class for breaking down areas into equal sized boxes....">Grid</a> is meant only to point to objects stored elsewhere, however all trivial types are allowed. Contained values should be unique, otherwise <a class="el" href="a02075.html#a39a0045d718d72a05d2f2bfb68d5705b" title="Moves the given value from it&#39;s old position in the grid to the new position.">move()</a> and <a class="el" href="a02075.html#a05d9c2b2e48e75496d4ff7f5cb527615" title="Removes an entity to the grid at the given position.">remove()</a> may behave unexpectedly.  <a href="a02075.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03880.html">bl::sys::RendererUpdateSystem</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">System that updates all observer cameras and task graphs while the renderer is waiting on the prior frame to complete.  <a href="a03880.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02079.html">bl::ctr::IndexMappedList&lt; TKey, TValue &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialized storage that is like a multimap, but internally is comprised of only a few vectors. This keeps the storage relatively cache friendly and helps to minimize fragmentation over time. Chief usage is one-to-many relationship mapping in the ECS.  <a href="a02079.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03884.html">bl::sys::RenderSystem</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">System that triggers the renderer each frame.  <a href="a03884.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02095.html">bl::ctr::ObjectPool&lt; T &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic object pool that may vary in size. Similar to <a class="el" href="a02067.html" title="A thin reskin of std::vector, this vector replaces the O(n) erase() methods of vector with a constant...">FastEraseVector</a> in that erase is O(1), however objects in the pool maintain their indices in the <a class="el" href="a02095.html" title="Basic object pool that may vary in size. Similar to FastEraseVector in that erase is O(1),...">ObjectPool</a>. Object slots are marked free on <a class="el" href="a02095.html#a0a34e3aefad3cfc486b8afc5d63d03f0" title="Removes the given iterator from the pool and marks the object slot for reuse. All iterators remain va...">erase()</a>, reused on <a class="el" href="a02095.html#adcee9cdc08b14f17b144bab36228e877" title="Adds the given object to the pool. Either reuses an empty object slot or expands the pool if no empty...">add()</a>, and the pool grows in size if no slot is when <a class="el" href="a02095.html#adcee9cdc08b14f17b144bab36228e877" title="Adds the given object to the pool. Either reuses an empty object slot or expands the pool if no empty...">add()</a> is called. Objects must implement a default constructor and copy constructor.  <a href="a02095.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03888.html">bl::sys::TextSyncSystem</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simple system which ensures that Text geometry stays updated.  <a href="a03888.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02115.html">bl::ctr::ObjectWrapper&lt; T &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Thin wrapper over objects that functions similar to std::optional but does not have any overhead. Does not store the presence state of the object contained. That must be done by the user. Intended to be used within other data structures that can know if elements are constructed or not.  <a href="a02115.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03892.html">bl::sys::TogglerSystem</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic system to update Toggler components.  <a href="a03892.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02123.html">bl::ctr::QuadTree&lt; TCoord, TPayload &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fairly basic implementation of a quadtree for spatially partitioning objects. Works most efficiently if the payload type is trivially movable. Stored objects are keyed on position.  <a href="a02123.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:gac818e5c6ace18f20d9f03da1ad8ebe41"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01794.html#gac818e5c6ace18f20d9f03da1ad8ebe41">bl::sys::Transform2DDescriptorSystem</a> = <a class="el" href="a03868.html">DescriptorComponentSystem</a>&lt; <a class="el" href="a02032.html">com::Transform2D</a>, glm::mat4 &gt;</td></tr>
-<tr class="memdesc:gac818e5c6ace18f20d9f03da1ad8ebe41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Descriptor component system for 2d transforms.  <a href="a01794.html#gac818e5c6ace18f20d9f03da1ad8ebe41">More...</a><br /></td></tr>
-<tr class="separator:gac818e5c6ace18f20d9f03da1ad8ebe41"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8de8e24f3a0b8643626494bcd58a745c"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01794.html#ga8de8e24f3a0b8643626494bcd58a745c">bl::sys::Transform3DDescriptorSystem</a> = <a class="el" href="a03868.html">DescriptorComponentSystem</a>&lt; <a class="el" href="a02036.html">com::Transform3D</a>, glm::mat4 &gt;</td></tr>
-<tr class="memdesc:ga8de8e24f3a0b8643626494bcd58a745c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Descriptor component system for 3d transforms.  <a href="a01794.html#ga8de8e24f3a0b8643626494bcd58a745c">More...</a><br /></td></tr>
-<tr class="separator:ga8de8e24f3a0b8643626494bcd58a745c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga11d6ea46ca8a7d452ae7049bf7948c21"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01794.html#ga11d6ea46ca8a7d452ae7049bf7948c21">bl::sys::TextureDescriptorSystem</a> = <a class="el" href="a03868.html">DescriptorComponentSystem</a>&lt; <a class="el" href="a02024.html">com::Texture</a>, std::uint32_t &gt;</td></tr>
-<tr class="memdesc:ga11d6ea46ca8a7d452ae7049bf7948c21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Descriptor component system for textures.  <a href="a01794.html#ga11d6ea46ca8a7d452ae7049bf7948c21">More...</a><br /></td></tr>
-<tr class="separator:ga11d6ea46ca8a7d452ae7049bf7948c21"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga4477117aea35eeac21751bf038a0098b"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01794.html#ga4477117aea35eeac21751bf038a0098b">bl::sys::MeshSystem</a> = <a class="el" href="a03156.html">DrawableSystem</a>&lt; <a class="el" href="a01992.html">com::Mesh</a> &gt;</td></tr>
-<tr class="memdesc:ga4477117aea35eeac21751bf038a0098b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Engine system for managing entity meshes.  <a href="a01794.html#ga4477117aea35eeac21751bf038a0098b">More...</a><br /></td></tr>
-<tr class="separator:ga4477117aea35eeac21751bf038a0098b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga68bd85b37280b05c447083208d4079f7"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01794.html#ga68bd85b37280b05c447083208d4079f7">bl::sys::SpriteSystem</a> = <a class="el" href="a03156.html">DrawableSystem</a>&lt; <a class="el" href="a02016.html">com::Sprite</a> &gt;</td></tr>
-<tr class="memdesc:ga68bd85b37280b05c447083208d4079f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Engine system for managing entity sprites.  <a href="a01794.html#ga68bd85b37280b05c447083208d4079f7">More...</a><br /></td></tr>
-<tr class="separator:ga68bd85b37280b05c447083208d4079f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga09945f85269b1a8ed93da9da3150378f"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01794.html#ga09945f85269b1a8ed93da9da3150378f">bl::sys::TextSystem</a> = <a class="el" href="a03156.html">DrawableSystem</a>&lt; <a class="el" href="a02020.html">com::Text</a> &gt;</td></tr>
-<tr class="memdesc:ga09945f85269b1a8ed93da9da3150378f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Engine system for managing text entities.  <a href="a01794.html#ga09945f85269b1a8ed93da9da3150378f">More...</a><br /></td></tr>
-<tr class="separator:ga09945f85269b1a8ed93da9da3150378f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gafc72d25e40dc5e41d1b7876e99072b2f"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01794.html#gafc72d25e40dc5e41d1b7876e99072b2f">bl::sys::SlideshowSystem</a> = <a class="el" href="a03156.html">DrawableSystem</a>&lt; <a class="el" href="a02012.html">com::Slideshow</a> &gt;</td></tr>
-<tr class="memdesc:gafc72d25e40dc5e41d1b7876e99072b2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Engine system for managing slideshow animations.  <a href="a01794.html#gafc72d25e40dc5e41d1b7876e99072b2f">More...</a><br /></td></tr>
-<tr class="separator:gafc72d25e40dc5e41d1b7876e99072b2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae9d9f38e1109df2f51f1c4327fdb2bf0"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01794.html#gae9d9f38e1109df2f51f1c4327fdb2bf0">bl::sys::Animation2DDrawableSystem</a> = <a class="el" href="a03156.html">DrawableSystem</a>&lt; <a class="el" href="a01980.html">com::Animation2D</a> &gt;</td></tr>
-<tr class="memdesc:gae9d9f38e1109df2f51f1c4327fdb2bf0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Engine system for managing non-slideshow animations.  <a href="a01794.html#gae9d9f38e1109df2f51f1c4327fdb2bf0">More...</a><br /></td></tr>
-<tr class="separator:gae9d9f38e1109df2f51f1c4327fdb2bf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga15d83a9ebb5cec163379398bf32e248b"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01794.html#ga15d83a9ebb5cec163379398bf32e248b">bl::sys::Shape2DSystem</a> = <a class="el" href="a03156.html">DrawableSystem</a>&lt; <a class="el" href="a02008.html">com::Shape2D</a> &gt;</td></tr>
-<tr class="memdesc:ga15d83a9ebb5cec163379398bf32e248b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Engine system for managing 2d shapes.  <a href="a01794.html#ga15d83a9ebb5cec163379398bf32e248b">More...</a><br /></td></tr>
-<tr class="separator:ga15d83a9ebb5cec163379398bf32e248b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02127.html">bl::ctr::QuadTree&lt; TCoord, TPayload &gt;::ResultSet</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores an iterable result set from a <a class="el" href="a02123.html" title="Fairly basic implementation of a quadtree for spatially partitioning objects. Works most efficiently ...">QuadTree</a> query.  <a href="a02127.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02131.html">bl::ctr::QuadTree&lt; TCoord, TPayload &gt;::ResultSet::Iterator</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Special iterator for traversing a <a class="el" href="a02127.html" title="Stores an iterable result set from a QuadTree query.">ResultSet</a>.  <a href="a02131.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02135.html">bl::ctr::QuadTree&lt; TCoord, TPayload &gt;::Area</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper struct that represents a spatial region.  <a href="a02135.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02143.html">bl::ctr::RingBuffer&lt; T &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simple circular buffer implementation for small objects. Underlying storage is a std::vector of buffers. Objects are constructed with placement new and destructors are called when erased, cleared, or overwritten.  <a href="a02143.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02151.html">bl::ctr::RingQueue&lt; T &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queue that uses a fixed size buffer internally to maintain contiguous storage and avoid allocations. The queue cannot hold more elements than it's capacity.  <a href="a02151.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02155.html">bl::ctr::Vector2D&lt; T &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility class that wraps std::vector, making it indexable in two dimensions.  <a href="a02155.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<p>Built-in engine systems. </p>
-<h2 class="groupheader">Typedef Documentation</h2>
-<a id="gae9d9f38e1109df2f51f1c4327fdb2bf0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gae9d9f38e1109df2f51f1c4327fdb2bf0">&#9670;&nbsp;</a></span>Animation2DDrawableSystem</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a01794.html#gae9d9f38e1109df2f51f1c4327fdb2bf0">bl::sys::Animation2DDrawableSystem</a> = typedef <a class="el" href="a03156.html">DrawableSystem</a>&lt;<a class="el" href="a01980.html">com::Animation2D</a>&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Engine system for managing non-slideshow animations. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01004_source.html#l00049">49</a> of file <a class="el" href="a01004_source.html">BuiltinDrawableSystems.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ga4477117aea35eeac21751bf038a0098b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga4477117aea35eeac21751bf038a0098b">&#9670;&nbsp;</a></span>MeshSystem</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a01794.html#ga4477117aea35eeac21751bf038a0098b">bl::sys::MeshSystem</a> = typedef <a class="el" href="a03156.html">DrawableSystem</a>&lt;<a class="el" href="a01992.html">com::Mesh</a>&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Engine system for managing entity meshes. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01004_source.html#l00021">21</a> of file <a class="el" href="a01004_source.html">BuiltinDrawableSystems.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ga15d83a9ebb5cec163379398bf32e248b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga15d83a9ebb5cec163379398bf32e248b">&#9670;&nbsp;</a></span>Shape2DSystem</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a01794.html#ga15d83a9ebb5cec163379398bf32e248b">bl::sys::Shape2DSystem</a> = typedef <a class="el" href="a03156.html">DrawableSystem</a>&lt;<a class="el" href="a02008.html">com::Shape2D</a>&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Engine system for managing 2d shapes. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01004_source.html#l00056">56</a> of file <a class="el" href="a01004_source.html">BuiltinDrawableSystems.hpp</a>.</p>
-
-</div>
-</div>
-<a id="gafc72d25e40dc5e41d1b7876e99072b2f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gafc72d25e40dc5e41d1b7876e99072b2f">&#9670;&nbsp;</a></span>SlideshowSystem</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a01794.html#gafc72d25e40dc5e41d1b7876e99072b2f">bl::sys::SlideshowSystem</a> = typedef <a class="el" href="a03156.html">DrawableSystem</a>&lt;<a class="el" href="a02012.html">com::Slideshow</a>&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Engine system for managing slideshow animations. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01004_source.html#l00042">42</a> of file <a class="el" href="a01004_source.html">BuiltinDrawableSystems.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ga68bd85b37280b05c447083208d4079f7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga68bd85b37280b05c447083208d4079f7">&#9670;&nbsp;</a></span>SpriteSystem</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a01794.html#ga68bd85b37280b05c447083208d4079f7">bl::sys::SpriteSystem</a> = typedef <a class="el" href="a03156.html">DrawableSystem</a>&lt;<a class="el" href="a02016.html">com::Sprite</a>&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Engine system for managing entity sprites. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01004_source.html#l00028">28</a> of file <a class="el" href="a01004_source.html">BuiltinDrawableSystems.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ga09945f85269b1a8ed93da9da3150378f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga09945f85269b1a8ed93da9da3150378f">&#9670;&nbsp;</a></span>TextSystem</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a01794.html#ga09945f85269b1a8ed93da9da3150378f">bl::sys::TextSystem</a> = typedef <a class="el" href="a03156.html">DrawableSystem</a>&lt;<a class="el" href="a02020.html">com::Text</a>&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Engine system for managing text entities. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01004_source.html#l00035">35</a> of file <a class="el" href="a01004_source.html">BuiltinDrawableSystems.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ga11d6ea46ca8a7d452ae7049bf7948c21"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga11d6ea46ca8a7d452ae7049bf7948c21">&#9670;&nbsp;</a></span>TextureDescriptorSystem</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a01794.html#ga11d6ea46ca8a7d452ae7049bf7948c21">bl::sys::TextureDescriptorSystem</a> = typedef <a class="el" href="a03868.html">DescriptorComponentSystem</a>&lt;<a class="el" href="a02024.html">com::Texture</a>, std::uint32_t&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Descriptor component system for textures. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01001_source.html#l00030">30</a> of file <a class="el" href="a01001_source.html">BuiltinDescriptorComponentSystems.hpp</a>.</p>
-
-</div>
-</div>
-<a id="gac818e5c6ace18f20d9f03da1ad8ebe41"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gac818e5c6ace18f20d9f03da1ad8ebe41">&#9670;&nbsp;</a></span>Transform2DDescriptorSystem</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a01794.html#gac818e5c6ace18f20d9f03da1ad8ebe41">bl::sys::Transform2DDescriptorSystem</a> = typedef <a class="el" href="a03868.html">DescriptorComponentSystem</a>&lt;<a class="el" href="a02032.html">com::Transform2D</a>, glm::mat4&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Descriptor component system for 2d transforms. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01001_source.html#l00018">18</a> of file <a class="el" href="a01001_source.html">BuiltinDescriptorComponentSystems.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ga8de8e24f3a0b8643626494bcd58a745c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga8de8e24f3a0b8643626494bcd58a745c">&#9670;&nbsp;</a></span>Transform3DDescriptorSystem</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a01794.html#ga8de8e24f3a0b8643626494bcd58a745c">bl::sys::Transform3DDescriptorSystem</a> = typedef <a class="el" href="a03868.html">DescriptorComponentSystem</a>&lt;<a class="el" href="a02036.html">com::Transform3D</a>, glm::mat4&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Descriptor component system for 3d transforms. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01001_source.html#l00024">24</a> of file <a class="el" href="a01001_source.html">BuiltinDescriptorComponentSystems.hpp</a>.</p>
-
-</div>
-</div>
+<p>Different containers meant to add to what's available in the standard library. </p>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 8 2023 18:56:19 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Oct 12 2023 01:16:56 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

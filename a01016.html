@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Systems/RendererUpdateSystem.hpp File Reference</title>
+<title>BLIB: include/BLIB/Systems/DrawableSystem.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,36 +74,45 @@ $(function() {
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">RendererUpdateSystem.hpp File Reference</div>  </div>
+<div class="title">DrawableSystem.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a05031_source.html">BLIB/Engine/System.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00191_source.html">BLIB/ECS.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a05063_source.html">BLIB/Engine/Engine.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a05066_source.html">BLIB/Engine/System.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00158_source.html">BLIB/Events.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00500_source.html">BLIB/Logging.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00563_source.html">BLIB/Render/Components/DrawableBase.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00566_source.html">BLIB/Render/Components/SceneObjectRef.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00632_source.html">BLIB/Render/Events/SceneDestroyed.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00707_source.html">BLIB/Render/Overlays/Overlay.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00761_source.html">BLIB/Render/Scenes/Scene.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00764_source.html">BLIB/Render/Scenes/SceneObject.hpp</a>&gt;</code><br />
+<code>#include &lt;mutex&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
 </div>
 <p><a href="a01016_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03880.html">bl::sys::RendererUpdateSystem</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">System that updates all observer cameras and task graphs while the renderer is waiting on the prior frame to complete.  <a href="a03880.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03183.html">bl::sys::DrawableSystem&lt; T &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for renderer systems that manage scene objects in the ECS. Custom renderable types should have a system that inherits from this class that manages their membership within scenes. These systems should run in the <a class="el" href="a02327.html#af6ea181be91b7069f9f52557a1445e1aa3f81ee2718a9735d701d01e03039048d" title="Synchronizes objects from the ECS into the scene-local object buffers.">engine::FrameStage::RenderObjectSync</a> step.  <a href="a03183.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a01803"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01803.html">bl</a></td></tr>
-<tr class="memdesc:a01803"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="memitem:a01818"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01818.html">bl</a></td></tr>
+<tr class="memdesc:a01818"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01815"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01815.html">bl::rc</a></td></tr>
-<tr class="memdesc:a01815"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a03112.html" title="Top level rendering system of the game engine.">Renderer</a> core implementation classes and functionality. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01812"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01812.html">bl::sys</a></td></tr>
-<tr class="memdesc:a01812"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of built-in engine systems. <br /></td></tr>
+<tr class="memitem:a01827"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01827.html">bl::sys</a></td></tr>
+<tr class="memdesc:a01827"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of built-in engine systems. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 8 2023 18:56:19 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Oct 12 2023 01:16:56 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

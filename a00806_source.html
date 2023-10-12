@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Vulkan/Framebuffer.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Vulkan/DescriptorPool.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,77 +71,119 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Framebuffer.hpp</div>  </div>
+<div class="title">DescriptorPool.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00806.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_VULKAN_FRAMEBUFFER_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_VULKAN_FRAMEBUFFER_HPP</span></div>
+<a href="a00806.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_VULKAN_DESCRIPTORPOOL_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_VULKAN_DESCRIPTORPOOL_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00788.html">BLIB/Render/Vulkan/AttachmentSet.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01091.html">BLIB/Vulkan.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;stdexcept&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01803.html">bl</a></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>rc</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>vk</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05129.html">BLIB/Render/Config.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01103.html">BLIB/Vulkan.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;array&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;cstdint&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;list&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01818.html">bl</a></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">struct </span>VulkanState;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">class </span>Swapchain;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a03280.html">   22</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03280.html">Framebuffer</a> {</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <a class="code" href="a03280.html#aad02c212251c31f9524dbe1dbe1448a7">Framebuffer</a>();</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <a class="code" href="a03280.html#a70c511ea95f29b9e581c1d88797d0923">~Framebuffer</a>();</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03280.html#a87b11f36b2c275c83ad0d07302eb3ae6">create</a>(<a class="code" href="a03364.html">VulkanState</a>&amp; vulkanState, VkRenderPass renderPass, <span class="keyword">const</span> <a class="code" href="a03244.html">vk::AttachmentSet</a>&amp; target);</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span>vk</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">struct </span>VulkanState;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a03287.html">   26</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03287.html">DescriptorPool</a> {</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keyword">struct </span>Allocation;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a03287.html#a4b656e9650a98c63bb60869810236291">   30</a></span>&#160;    <span class="keyword">static</span> constexpr std::size_t <a class="code" href="a03287.html#a4b656e9650a98c63bb60869810236291">BindingTypeCount</a> = VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT + 1;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="a03291.html">   35</a></span>&#160;    <span class="keyword">struct </span><a class="code" href="a03291.html">SetBindingInfo</a> {</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <a class="code" href="a03291.html#a037e4c431ff1ae1591eb12cdf79d1d06">SetBindingInfo</a>();</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="a03291.html#ab972da11e25938a0637ebf832a6b9bd7">   38</a></span>&#160;        std::array&lt;VkDescriptorSetLayoutBinding, Config::MaxDescriptorSets&gt; <a class="code" href="a03291.html#ab972da11e25938a0637ebf832a6b9bd7">bindings</a>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="a03291.html#ad44b120901116ab5216ddfdc35d30d95">   39</a></span>&#160;        std::uint32_t <a class="code" href="a03291.html#ad44b120901116ab5216ddfdc35d30d95">bindingCount</a>;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    };</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="a03287.html#a7bb5a0efe4177857484ecb6ae66c75dd">   43</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a03287.html#a7bb5a0efe4177857484ecb6ae66c75dd">AllocationHandle</a> = std::list&lt;Allocation&gt;::iterator;</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03280.html#acfaf7d553d0d09a4fdaa0df2677495a9">recreateIfChanged</a>(<span class="keyword">const</span> <a class="code" href="a03244.html">vk::AttachmentSet</a>&amp; target);</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03280.html#a78b12eff614ce0a570bd72ed3c20ed6d">cleanup</a>();</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03280.html#ab37b7f6a5cf70cbfad202b58b83a7f3a">deferCleanup</a>();</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03280.html#ad293c2a38590323eaad5eb1db8a8cab9">beginRender</a>(VkCommandBuffer commandBuffer, <span class="keyword">const</span> VkRect2D&amp; region,</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                     <span class="keyword">const</span> VkClearValue* clearColors, std::uint32_t clearColorCount,</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                     <span class="keywordtype">bool</span> setViewport = <span class="keyword">true</span>, VkRenderPass renderPass = <span class="keyword">nullptr</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03280.html#a89578f57aa18fa98319129860fb930ca">finishRender</a>(VkCommandBuffer commandBuffer) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <a class="code" href="a03364.html">VulkanState</a>* vulkanState;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    VkRenderPass renderPass;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keyword">const</span> <a class="code" href="a03244.html">vk::AttachmentSet</a>* target;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    VkFramebuffer framebuffer;</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    VkImageView cachedAttachment;</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;};</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;} <span class="comment">// namespace vk</span></div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00788_html"><div class="ttname"><a href="a00788.html">AttachmentSet.hpp</a></div></div>
-<div class="ttc" id="aa01091_html"><div class="ttname"><a href="a01091.html">Vulkan.hpp</a></div></div>
-<div class="ttc" id="aa01803_html"><div class="ttname"><a href="a01803.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03244_html"><div class="ttname"><a href="a03244.html">bl::rc::vk::AttachmentSet</a></div><div class="ttdoc">Base class representing an attachment set that can be rendered to. Derived classes can provide additi...</div><div class="ttdef"><b>Definition:</b> <a href="a00788_source.html#l00020">AttachmentSet.hpp:20</a></div></div>
-<div class="ttc" id="aa03280_html"><div class="ttname"><a href="a03280.html">bl::rc::vk::Framebuffer</a></div><div class="ttdoc">Utility struct that wraps a Vulkan framebuffer.</div><div class="ttdef"><b>Definition:</b> <a href="a00806_source.html#l00022">Framebuffer.hpp:22</a></div></div>
-<div class="ttc" id="aa03280_html_a70c511ea95f29b9e581c1d88797d0923"><div class="ttname"><a href="a03280.html#a70c511ea95f29b9e581c1d88797d0923">bl::rc::vk::Framebuffer::~Framebuffer</a></div><div class="ttdeci">~Framebuffer()</div><div class="ttdoc">Destroy the Framebuffer object.</div><div class="ttdef"><b>Definition:</b> <a href="a01589_source.html#l00017">Framebuffer.cpp:17</a></div></div>
-<div class="ttc" id="aa03280_html_a78b12eff614ce0a570bd72ed3c20ed6d"><div class="ttname"><a href="a03280.html#a78b12eff614ce0a570bd72ed3c20ed6d">bl::rc::vk::Framebuffer::cleanup</a></div><div class="ttdeci">void cleanup()</div><div class="ttdoc">Frees owned resources and invalidates this object.</div><div class="ttdef"><b>Definition:</b> <a href="a01589_source.html#l00088">Framebuffer.cpp:88</a></div></div>
-<div class="ttc" id="aa03280_html_a87b11f36b2c275c83ad0d07302eb3ae6"><div class="ttname"><a href="a03280.html#a87b11f36b2c275c83ad0d07302eb3ae6">bl::rc::vk::Framebuffer::create</a></div><div class="ttdeci">void create(VulkanState &amp;vulkanState, VkRenderPass renderPass, const vk::AttachmentSet &amp;target)</div><div class="ttdoc">Creates (or recreates) the framebuffer.</div><div class="ttdef"><b>Definition:</b> <a href="a01589_source.html#l00021">Framebuffer.cpp:21</a></div></div>
-<div class="ttc" id="aa03280_html_a89578f57aa18fa98319129860fb930ca"><div class="ttname"><a href="a03280.html#a89578f57aa18fa98319129860fb930ca">bl::rc::vk::Framebuffer::finishRender</a></div><div class="ttdeci">void finishRender(VkCommandBuffer commandBuffer) const</div><div class="ttdoc">Ends the render pass.</div><div class="ttdef"><b>Definition:</b> <a href="a01589_source.html#l00084">Framebuffer.cpp:84</a></div></div>
-<div class="ttc" id="aa03280_html_aad02c212251c31f9524dbe1dbe1448a7"><div class="ttname"><a href="a03280.html#aad02c212251c31f9524dbe1dbe1448a7">bl::rc::vk::Framebuffer::Framebuffer</a></div><div class="ttdeci">Framebuffer()</div><div class="ttdoc">Construct an empty Framebuffer.</div><div class="ttdef"><b>Definition:</b> <a href="a01589_source.html#l00011">Framebuffer.cpp:11</a></div></div>
-<div class="ttc" id="aa03280_html_ab37b7f6a5cf70cbfad202b58b83a7f3a"><div class="ttname"><a href="a03280.html#ab37b7f6a5cf70cbfad202b58b83a7f3a">bl::rc::vk::Framebuffer::deferCleanup</a></div><div class="ttdeci">void deferCleanup()</div><div class="ttdoc">Queues the framebuffer to be cleaned up later. Invalidates the object immediately.</div><div class="ttdef"><b>Definition:</b> <a href="a01589_source.html#l00093">Framebuffer.cpp:93</a></div></div>
-<div class="ttc" id="aa03280_html_acfaf7d553d0d09a4fdaa0df2677495a9"><div class="ttname"><a href="a03280.html#acfaf7d553d0d09a4fdaa0df2677495a9">bl::rc::vk::Framebuffer::recreateIfChanged</a></div><div class="ttdeci">void recreateIfChanged(const vk::AttachmentSet &amp;target)</div><div class="ttdoc">Recreates the framebuffer if the underlying target has changed.</div><div class="ttdef"><b>Definition:</b> <a href="a01589_source.html#l00047">Framebuffer.cpp:47</a></div></div>
-<div class="ttc" id="aa03280_html_ad293c2a38590323eaad5eb1db8a8cab9"><div class="ttname"><a href="a03280.html#ad293c2a38590323eaad5eb1db8a8cab9">bl::rc::vk::Framebuffer::beginRender</a></div><div class="ttdeci">void beginRender(VkCommandBuffer commandBuffer, const VkRect2D &amp;region, const VkClearValue *clearColors, std::uint32_t clearColorCount, bool setViewport=true, VkRenderPass renderPass=nullptr) const</div><div class="ttdoc">Begins the render pass, recreating the framebuffer if necessary. Scissor is set.</div><div class="ttdef"><b>Definition:</b> <a href="a01589_source.html#l00051">Framebuffer.cpp:51</a></div></div>
-<div class="ttc" id="aa03364_html"><div class="ttname"><a href="a03364.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a00848_source.html#l00037">VulkanState.hpp:37</a></div></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    VkDescriptorSetLayout <a class="code" href="a03287.html#a5a206bab1969632a78bca5e79532eb70">createLayout</a>(<span class="keyword">const</span> <a class="code" href="a03291.html">SetBindingInfo</a>&amp; allocInfo);</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <a class="code" href="a03287.html#a7bb5a0efe4177857484ecb6ae66c75dd">AllocationHandle</a> <a class="code" href="a03287.html#aa1e76e7083828e104e5014691e688a28">allocate</a>(VkDescriptorSetLayout layout, VkDescriptorSet* sets,</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                              std::size_t setCount, <span class="keywordtype">bool</span> dedicatedPool = <span class="keyword">false</span>);</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03287.html#ac2810fc740edbfef995ff375e1b5a14e">release</a>(<a class="code" href="a03287.html#a7bb5a0efe4177857484ecb6ae66c75dd">AllocationHandle</a> handle, <span class="keyword">const</span> VkDescriptorSet* sets = <span class="keyword">nullptr</span>);</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keyword">struct </span>Subpool {</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        Subpool(<a class="code" href="a03391.html">VulkanState</a>&amp; vulkanState);</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        Subpool(<a class="code" href="a03391.html">VulkanState</a>&amp; vulkanState, <span class="keyword">const</span> <a class="code" href="a03291.html">SetBindingInfo</a>&amp; allocInfo, std::size_t setCount);</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        ~Subpool();</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        <span class="keywordtype">bool</span> canAllocate(<span class="keyword">const</span> <a class="code" href="a03291.html">SetBindingInfo</a>&amp; allocInfo, std::size_t setCount) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="a03287.html#aa1e76e7083828e104e5014691e688a28">allocate</a>(<span class="keyword">const</span> <a class="code" href="a03291.html">SetBindingInfo</a>&amp; allocInfo, VkDescriptorSetLayout layout,</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;                      VkDescriptorSet* sets, std::size_t setCount);</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="a03287.html#ac2810fc740edbfef995ff375e1b5a14e">release</a>(<span class="keyword">const</span> <a class="code" href="a03291.html">SetBindingInfo</a>&amp; allocInfo, <span class="keyword">const</span> VkDescriptorSet* sets,</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;                     std::size_t setCount);</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        <a class="code" href="a03391.html">VulkanState</a>&amp; vulkanState;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        VkDescriptorPool pool;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> freeSets;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        std::array&lt;unsigned int, BindingTypeCount&gt; available;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    };</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keyword">struct </span>Allocation {</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        std::list&lt;Subpool&gt;::iterator pool;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        <span class="keywordtype">bool</span> dedicated;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        VkDescriptorSetLayout layout;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        std::size_t setCount;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <span class="keyword">const</span> VkDescriptorSet* sets;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        Allocation(<span class="keywordtype">bool</span> ded, VkDescriptorSetLayout ly, std::size_t set, <span class="keyword">const</span> VkDescriptorSet* sets)</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        : dedicated(ded)</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        , layout(ly)</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        , setCount(set)</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        , sets(sets) {}</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    };</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <a class="code" href="a03287.html#a88be4fe9fe4217b2dc1f69e6888906f6">VulkanState</a>&amp; vulkanState;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    std::unordered_map&lt;VkDescriptorSetLayout, SetBindingInfo&gt; layoutMap;</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    std::list&lt;Subpool&gt; pools;</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    std::list&lt;Allocation&gt; allocations;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    DescriptorPool(<a class="code" href="a03287.html#a88be4fe9fe4217b2dc1f69e6888906f6">VulkanState</a>&amp; vulkanState);</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keywordtype">void</span> init();</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keywordtype">void</span> cleanup();</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
+<div class="line"><a name="l00116"></a><span class="lineno"><a class="line" href="a03287.html#a88be4fe9fe4217b2dc1f69e6888906f6">  116</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">struct </span><a class="code" href="a03391.html">VulkanState</a>;</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;};</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;} <span class="comment">// namespace vk</span></div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01103_html"><div class="ttname"><a href="a01103.html">Vulkan.hpp</a></div></div>
+<div class="ttc" id="aa01818_html"><div class="ttname"><a href="a01818.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03287_html"><div class="ttname"><a href="a03287.html">bl::rc::vk::DescriptorPool</a></div><div class="ttdoc">Utility class to manage descriptor set allocation. Maintains a list of descriptor pools and automatic...</div><div class="ttdef"><b>Definition:</b> <a href="a00806_source.html#l00026">DescriptorPool.hpp:26</a></div></div>
+<div class="ttc" id="aa03287_html_a4b656e9650a98c63bb60869810236291"><div class="ttname"><a href="a03287.html#a4b656e9650a98c63bb60869810236291">bl::rc::vk::DescriptorPool::BindingTypeCount</a></div><div class="ttdeci">static constexpr std::size_t BindingTypeCount</div><div class="ttdef"><b>Definition:</b> <a href="a00806_source.html#l00030">DescriptorPool.hpp:30</a></div></div>
+<div class="ttc" id="aa03287_html_a5a206bab1969632a78bca5e79532eb70"><div class="ttname"><a href="a03287.html#a5a206bab1969632a78bca5e79532eb70">bl::rc::vk::DescriptorPool::createLayout</a></div><div class="ttdeci">VkDescriptorSetLayout createLayout(const SetBindingInfo &amp;allocInfo)</div><div class="ttdoc">Creates a descriptor set layout from the set allocation info.</div><div class="ttdef"><b>Definition:</b> <a href="a01592_source.html#l00045">DescriptorPool.cpp:45</a></div></div>
+<div class="ttc" id="aa03287_html_a7bb5a0efe4177857484ecb6ae66c75dd"><div class="ttname"><a href="a03287.html#a7bb5a0efe4177857484ecb6ae66c75dd">bl::rc::vk::DescriptorPool::AllocationHandle</a></div><div class="ttdeci">std::list&lt; Allocation &gt;::iterator AllocationHandle</div><div class="ttdoc">Handle to an allocation from the pool.</div><div class="ttdef"><b>Definition:</b> <a href="a00806_source.html#l00043">DescriptorPool.hpp:43</a></div></div>
+<div class="ttc" id="aa03287_html_a88be4fe9fe4217b2dc1f69e6888906f6"><div class="ttname"><a href="a03287.html#a88be4fe9fe4217b2dc1f69e6888906f6">bl::rc::vk::DescriptorPool::VulkanState</a></div><div class="ttdeci">friend struct VulkanState</div><div class="ttdef"><b>Definition:</b> <a href="a00806_source.html#l00116">DescriptorPool.hpp:116</a></div></div>
+<div class="ttc" id="aa03287_html_aa1e76e7083828e104e5014691e688a28"><div class="ttname"><a href="a03287.html#aa1e76e7083828e104e5014691e688a28">bl::rc::vk::DescriptorPool::allocate</a></div><div class="ttdeci">AllocationHandle allocate(VkDescriptorSetLayout layout, VkDescriptorSet *sets, std::size_t setCount, bool dedicatedPool=false)</div><div class="ttdoc">Allocates sets from the pool and returns a handle that can be used to release the allocated sets once...</div><div class="ttdef"><b>Definition:</b> <a href="a01592_source.html#l00061">DescriptorPool.cpp:61</a></div></div>
+<div class="ttc" id="aa03287_html_ac2810fc740edbfef995ff375e1b5a14e"><div class="ttname"><a href="a03287.html#ac2810fc740edbfef995ff375e1b5a14e">bl::rc::vk::DescriptorPool::release</a></div><div class="ttdeci">void release(AllocationHandle handle, const VkDescriptorSet *sets=nullptr)</div><div class="ttdoc">Releases descriptor sets allocated from this pool.</div><div class="ttdef"><b>Definition:</b> <a href="a01592_source.html#l00104">DescriptorPool.cpp:104</a></div></div>
+<div class="ttc" id="aa03291_html"><div class="ttname"><a href="a03291.html">bl::rc::vk::DescriptorPool::SetBindingInfo</a></div><div class="ttdoc">Struct containing the data required to create descriptor sets and layouts.</div><div class="ttdef"><b>Definition:</b> <a href="a00806_source.html#l00035">DescriptorPool.hpp:35</a></div></div>
+<div class="ttc" id="aa03291_html_a037e4c431ff1ae1591eb12cdf79d1d06"><div class="ttname"><a href="a03291.html#a037e4c431ff1ae1591eb12cdf79d1d06">bl::rc::vk::DescriptorPool::SetBindingInfo::SetBindingInfo</a></div><div class="ttdeci">SetBindingInfo()</div><div class="ttdef"><b>Definition:</b> <a href="a01592_source.html#l00030">DescriptorPool.cpp:30</a></div></div>
+<div class="ttc" id="aa03291_html_ab972da11e25938a0637ebf832a6b9bd7"><div class="ttname"><a href="a03291.html#ab972da11e25938a0637ebf832a6b9bd7">bl::rc::vk::DescriptorPool::SetBindingInfo::bindings</a></div><div class="ttdeci">std::array&lt; VkDescriptorSetLayoutBinding, Config::MaxDescriptorSets &gt; bindings</div><div class="ttdef"><b>Definition:</b> <a href="a00806_source.html#l00038">DescriptorPool.hpp:38</a></div></div>
+<div class="ttc" id="aa03291_html_ad44b120901116ab5216ddfdc35d30d95"><div class="ttname"><a href="a03291.html#ad44b120901116ab5216ddfdc35d30d95">bl::rc::vk::DescriptorPool::SetBindingInfo::bindingCount</a></div><div class="ttdeci">std::uint32_t bindingCount</div><div class="ttdef"><b>Definition:</b> <a href="a00806_source.html#l00039">DescriptorPool.hpp:39</a></div></div>
+<div class="ttc" id="aa03391_html"><div class="ttname"><a href="a03391.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a00854_source.html#l00037">VulkanState.hpp:37</a></div></div>
+<div class="ttc" id="aa05129_html"><div class="ttname"><a href="a05129.html">Config.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 8 2023 18:56:18 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Oct 12 2023 01:16:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::resource::bundle::FileHandler Struct Reference</title>
+<title>BLIB: Member List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,141 +66,37 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01803.html">bl</a></li><li class="navelem"><a class="el" href="a01853.html">resource</a></li><li class="navelem"><a class="el" href="a01854.html">bundle</a></li><li class="navelem"><a class="el" href="a03404.html">FileHandler</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01818.html">bl</a></li><li class="navelem"><a class="el" href="a01821.html">serial</a></li><li class="navelem"><a class="el" href="a03407.html">SerializableObject&lt; resource::bundle::BundledFileMetadata &gt;</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="a03401.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::resource::bundle::FileHandler Struct Reference<span class="mlabels"><span class="mlabel">abstract</span></span><div class="ingroups"><a class="el" href="a01791.html">Resources</a> &raquo; <a class="el" href="a01801.html">Bundling</a></div></div>  </div>
+<div class="title">bl::serial::SerializableObject&lt; resource::bundle::BundledFileMetadata &gt; Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Base class for file handlers. File handlers process raw files and pack them into bundles. The purpose of handlers is to register dependency files, exclude sidecar files, and perform conversions (ie json -&gt; binary) before packing data into the bundle.  
- <a href="a03404.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="a00872_source.html">FileHandler.hpp</a>&gt;</code></p>
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::resource::bundle::FileHandler:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
- <div class="center">
-  <img src="a03404.png" usemap="#bl::resource::bundle::FileHandler_map" alt=""/>
-  <map id="bl::resource::bundle::FileHandler_map" name="bl::resource::bundle::FileHandler_map">
-<area href="a03412.html" title="File handler for animations. Copies the data from disk as-is and adds the spritesheet file to the bun..." alt="bl::resource::bundle::AnimationHandler" shape="rect" coords="0,56,229,80"/>
-<area href="a03416.html" title="Default file handler used for all files that do not have a matching handler. Simply copies the file a..." alt="bl::resource::bundle::DefaultHandler" shape="rect" coords="239,56,468,80"/>
-<area href="a03420.html" title="File handlers for processing playlists. Loads them as json from disk and saves as binary in the bundl..." alt="bl::resource::bundle::PlaylistHandler" shape="rect" coords="478,56,707,80"/>
-  </map>
-</div></div>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a900c2270f110d450fc1ad0592fcd59a8"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03404.html#a900c2270f110d450fc1ad0592fcd59a8">processFile</a> (const std::string &amp;path, std::ostream &amp;output, <a class="el" href="a03408.html">FileHandlerContext</a> &amp;context)=0</td></tr>
-<tr class="memdesc:a900c2270f110d450fc1ad0592fcd59a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process the given file and add its data to the bundle.  <a href="a03404.html#a900c2270f110d450fc1ad0592fcd59a8">More...</a><br /></td></tr>
-<tr class="separator:a900c2270f110d450fc1ad0592fcd59a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02791d492932955f6faae5681d9c78ce"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03404.html#a02791d492932955f6faae5681d9c78ce">~FileHandler</a> ()=default</td></tr>
-<tr class="memdesc:a02791d492932955f6faae5681d9c78ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the File Handler object.  <a href="a03404.html#a02791d492932955f6faae5681d9c78ce">More...</a><br /></td></tr>
-<tr class="separator:a02791d492932955f6faae5681d9c78ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Base class for file handlers. File handlers process raw files and pack them into bundles. The purpose of handlers is to register dependency files, exclude sidecar files, and perform conversions (ie json -&gt; binary) before packing data into the bundle. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00872_source.html#l00021">21</a> of file <a class="el" href="a00872_source.html">FileHandler.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a02791d492932955f6faae5681d9c78ce"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a02791d492932955f6faae5681d9c78ce">&#9670;&nbsp;</a></span>~FileHandler()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual bl::resource::bundle::FileHandler::~FileHandler </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Destroy the File Handler object. </p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a900c2270f110d450fc1ad0592fcd59a8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a900c2270f110d450fc1ad0592fcd59a8">&#9670;&nbsp;</a></span>processFile()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual bool bl::resource::bundle::FileHandler::processFile </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>path</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"><em>output</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a03408.html">FileHandlerContext</a> &amp;&#160;</td>
-          <td class="paramname"><em>context</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Process the given file and add its data to the bundle. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">path</td><td>The file to process </td></tr>
-    <tr><td class="paramname">output</td><td>The stream to output packed data to </td></tr>
-    <tr><td class="paramname">context</td><td>Context to register dependency files and exclude files with </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the file was able to be packed, false on error </dd></dl>
-
-<p>Implemented in <a class="el" href="a03420.html#afca0b240a71de04cb2cc40199e4c80d4">bl::resource::bundle::PlaylistHandler</a>, <a class="el" href="a03416.html#a89b9df24d442d31bef0c79d1d012c560">bl::resource::bundle::DefaultHandler</a>, and <a class="el" href="a03412.html#adf22a2d2b974daba7cf8ec92a0bdcf89">bl::resource::bundle::AnimationHandler</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/BLIB/Resources/Bundling/<a class="el" href="a00872_source.html">FileHandler.hpp</a></li>
-</ul>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="a03407.html">bl::serial::SerializableObject&lt; resource::bundle::BundledFileMetadata &gt;</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="a03863.html#a9f2cfad057c98e516e8696b4ca0a3514">binarySize</a>(const void *object) const</td><td class="entry"><a class="el" href="a03863.html">bl::serial::SerializableObjectBase</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a03863.html#ada114cd12dcd921e0dd964a9a4d7585d">deserializeBinary</a>(binary::InputStream &amp;stream, void *object) const</td><td class="entry"><a class="el" href="a03863.html">bl::serial::SerializableObjectBase</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a03863.html#a17aeb69c9783dfecc1eeba5e407e534b">deserializeJSON</a>(const json::Group &amp;value, void *object) const</td><td class="entry"><a class="el" href="a03863.html">bl::serial::SerializableObjectBase</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a03863.html#abab6b81436fea719270aded7fa3b9814">deserializeJsonStream</a>(std::istream &amp;stream, void *object)</td><td class="entry"><a class="el" href="a03863.html">bl::serial::SerializableObjectBase</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a03863.html#aa9fc337af69bc870b6abfaef7caf82af">deserializePackedBinary</a>(binary::InputStream &amp;stream, void *object) const</td><td class="entry"><a class="el" href="a03863.html">bl::serial::SerializableObjectBase</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a03863.html#ae56e840ae8ac727820de828d0da3f403">get</a>()</td><td class="entry"><a class="el" href="a03863.html">bl::serial::SerializableObjectBase</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a03407.html#ab9c27ac80d945165ab8a59b95583c56e">length</a></td><td class="entry"><a class="el" href="a03407.html">bl::serial::SerializableObject&lt; resource::bundle::BundledFileMetadata &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a03407.html#aaee75e259fd71bdc2bf6e27d483df5e1">offset</a></td><td class="entry"><a class="el" href="a03407.html">bl::serial::SerializableObject&lt; resource::bundle::BundledFileMetadata &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a03407.html#acf703e38fb6a2f46cd07f8bf75166a65">SerializableObject</a>()</td><td class="entry"><a class="el" href="a03407.html">bl::serial::SerializableObject&lt; resource::bundle::BundledFileMetadata &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a03863.html#a4b9bbed755e3da7ff487271ce26841ab">SerializableObjectBase</a>(const std::string &amp;debugName)</td><td class="entry"><a class="el" href="a03863.html">bl::serial::SerializableObjectBase</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a03863.html#a01e9ab4c33606f741aac46c210fb8a56">serializeBinary</a>(binary::OutputStream &amp;stream, const void *object) const</td><td class="entry"><a class="el" href="a03863.html">bl::serial::SerializableObjectBase</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a03863.html#a9ea50247bce55d115ee96c83f5f00524">serializeJSON</a>(const void *object) const</td><td class="entry"><a class="el" href="a03863.html">bl::serial::SerializableObjectBase</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a03863.html#a6e4b2491e4fc0e4b292c0528bb5867f1">serializeJsonStream</a>(std::ostream &amp;stream, const void *object, unsigned int tabSize, unsigned int currentIndent=0)</td><td class="entry"><a class="el" href="a03863.html">bl::serial::SerializableObjectBase</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a03863.html#acbd7146768fd2db6cbf36b6e8c4acf37">serializePackedBinary</a>(binary::OutputStream &amp;stream, const void *object) const</td><td class="entry"><a class="el" href="a03863.html">bl::serial::SerializableObjectBase</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a03407.html#a3ba48f1eca77be66fbfb3bf3bf8aff45">T</a> typedef</td><td class="entry"><a class="el" href="a03407.html">bl::serial::SerializableObject&lt; resource::bundle::BundledFileMetadata &gt;</a></td><td class="entry"></td></tr>
+</table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 8 2023 18:56:21 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Oct 12 2023 01:16:58 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

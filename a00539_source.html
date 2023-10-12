@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Buffers/IndexBuffer.hpp Source File</title>
+<title>BLIB: include/BLIB/Parser/WhitespaceSkipper.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,258 +66,56 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_77bce416c82938c0e86eeeeb6fb338bb.html">Buffers</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_68e8475672e907ae2e4c385fdd89fef9.html">Parser</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">IndexBuffer.hpp</div>  </div>
+<div class="title">WhitespaceSkipper.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00539.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_PRIMITIVES_INDEXBUFFER_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_PRIMITIVES_INDEXBUFFER_HPP</span></div>
+<a href="a00539.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_PARSER_WHITESPACESKIPPER_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_PARSER_WHITESPACESKIPPER_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00710.html">BLIB/Render/Primitives/DrawParameters.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00716.html">BLIB/Render/Primitives/Vertex.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00770.html">BLIB/Render/Transfers/Transferable.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00791.html">BLIB/Render/Vulkan/Buffer.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;cstring&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01803.html">bl</a></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span>rc</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span>buf</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a02832.html">   25</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02832.html">IndexBufferT</a> : <span class="keyword">public</span> <a class="code" href="a03220.html">tfr::Transferable</a> {</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="a02832.html#a97600659a596051a04944dbb357eb622">   27</a></span>&#160;    <span class="keyword">static</span> constexpr VkIndexType <a class="code" href="a02832.html#a97600659a596051a04944dbb357eb622">IndexType</a> = VK_INDEX_TYPE_UINT32;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00524.html">BLIB/Parser/ISkipper.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;cctype&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01818.html">bl</a></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>parser</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a02847.html">   16</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02847.html">WhitespaceSkipper</a> : <span class="keyword">public</span> <a class="code" href="a02815.html">ISkipper</a> {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a02847.html#a04d6ad43bd37419797b6f5cbb625a760">   18</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02847.html#a04d6ad43bd37419797b6f5cbb625a760">~WhitespaceSkipper</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a02847.html#a17380f013a7b0b8bca4839683da5742b">   20</a></span>&#160;    <span class="keyword">static</span> <a class="code" href="a02815.html#ac94262dbc4b796277c22a958aa727323">ISkipper::Ptr</a> <a class="code" href="a02847.html#a17380f013a7b0b8bca4839683da5742b">create</a>() { <span class="keywordflow">return</span> <a class="code" href="a02815.html#ac94262dbc4b796277c22a958aa727323">ISkipper::Ptr</a>(<span class="keyword">new</span> <a class="code" href="a02847.html">WhitespaceSkipper</a>()); }</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a02847.html#a77fb74e134d21e95a59ef5bb4686dc74">   22</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02847.html#a77fb74e134d21e95a59ef5bb4686dc74">skip</a>(<a class="code" href="a02839.html">Stream</a>&amp; stream)<span class="keyword"> const override </span>{</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        <span class="keywordflow">while</span> (std::isspace(stream.<a class="code" href="a02839.html#a067692cf77ea97b498566a7da9349ab5">peek</a>())) stream.<a class="code" href="a02839.html#a1c866bd84c3c17f230f2e8b6c6d6d3bb">get</a>();</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    }</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;};</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;} <span class="comment">// namespace parser</span></div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="a02832.html#a15912a7adcce91cad59e05c70e116a40">   32</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02832.html#a15912a7adcce91cad59e05c70e116a40">~IndexBufferT</a>();</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="a02832.html#ad0b395bc88a2cf9c8cce245b5d9763bf">   41</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02832.html#ad0b395bc88a2cf9c8cce245b5d9763bf">create</a>(<a class="code" href="a03364.html">vk::VulkanState</a>&amp; <a class="code" href="a03220.html#ae134133a20147f77b4feae59dc9b447d">vulkanState</a>, std::uint32_t <a class="code" href="a02832.html#af358a9ed58565725299d95bddcfe9f72">vertexCount</a>, std::uint32_t <a class="code" href="a02832.html#a689811ec81ac21a1fd68d0ce45746051">indexCount</a>);</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="a02832.html#a164310dc7cc198cc6849a6b3db71f8ef">   46</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02832.html#a164310dc7cc198cc6849a6b3db71f8ef">destroy</a>();</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="a02832.html#a26d8cce563e9ee6eae8ccf2c8f61e12b">   51</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02832.html#a26d8cce563e9ee6eae8ccf2c8f61e12b">deferDestruction</a>();</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="a02832.html#a8ab311d1edf2121ba1b570b9f61fd145">   56</a></span>&#160;    constexpr std::vector&lt;T&gt;&amp; <a class="code" href="a02832.html#a8ab311d1edf2121ba1b570b9f61fd145">vertices</a>();</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="a02832.html#a08bddf999980c347edc6ae67bdf2e269">   61</a></span>&#160;    constexpr <span class="keyword">const</span> std::vector&lt;T&gt;&amp; <a class="code" href="a02832.html#a08bddf999980c347edc6ae67bdf2e269">vertices</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="a02832.html#ae08f6375209ad3754477497237e0f6e7">   66</a></span>&#160;    constexpr std::vector&lt;std::uint32_t&gt;&amp; <a class="code" href="a02832.html#ae08f6375209ad3754477497237e0f6e7">indices</a>();</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="a02832.html#a340a12673d1d2ee954714001c46558de">   71</a></span>&#160;    constexpr <span class="keyword">const</span> std::vector&lt;std::uint32_t&gt;&amp; <a class="code" href="a02832.html#a340a12673d1d2ee954714001c46558de">indices</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="a02832.html#af615777e9f82e5c6bdad436203b4f024">   76</a></span>&#160;    <a class="code" href="a03096.html">prim::DrawParameters</a> <a class="code" href="a02832.html#af615777e9f82e5c6bdad436203b4f024">getDrawParameters</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="a02832.html#a689811ec81ac21a1fd68d0ce45746051">   81</a></span>&#160;    constexpr std::uint32_t <a class="code" href="a02832.html#a689811ec81ac21a1fd68d0ce45746051">indexCount</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
-<div class="line"><a name="l00086"></a><span class="lineno"><a class="line" href="a02832.html#af358a9ed58565725299d95bddcfe9f72">   86</a></span>&#160;    constexpr std::uint32_t <a class="code" href="a02832.html#af358a9ed58565725299d95bddcfe9f72">vertexCount</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
-<div class="line"><a name="l00091"></a><span class="lineno"><a class="line" href="a02832.html#a41abc2c1b23bb4929fa9d2a1d0552654">   91</a></span>&#160;    constexpr VkBuffer <a class="code" href="a02832.html#a41abc2c1b23bb4929fa9d2a1d0552654">vertexBufferHandle</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
-<div class="line"><a name="l00096"></a><span class="lineno"><a class="line" href="a02832.html#a0e8bb0b433b0de2b7b6b8c17427ba924">   96</a></span>&#160;    constexpr VkBuffer <a class="code" href="a02832.html#a0e8bb0b433b0de2b7b6b8c17427ba924">indexBufferHandle</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
-<div class="line"><a name="l00102"></a><span class="lineno"><a class="line" href="a02832.html#a5d4e198cde1a857772dcde98c4bd21e1">  102</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02832.html#a5d4e198cde1a857772dcde98c4bd21e1">insertBarrierBeforeWrite</a>();</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    std::vector&lt;T&gt; cpuVertexBuffer;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    std::vector&lt;std::uint32_t&gt; cpuIndexBuffer;</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <a class="code" href="a03248.html">vk::Buffer</a> gpuVertexBuffer;</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <a class="code" href="a03248.html">vk::Buffer</a> gpuIndexBuffer;</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> executeTransfer(VkCommandBuffer commandBuffer,</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;                                 <a class="code" href="a03224.html">tfr::TransferContext</a>&amp; context) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;};</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00117"></a><span class="lineno"><a class="line" href="a02832.html#a15912a7adcce91cad59e05c70e116a40">  117</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="a02832.html#a15912a7adcce91cad59e05c70e116a40">IndexBufferT&lt;T&gt;::~IndexBufferT</a>() {</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    deferDestruction();</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;}</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00122"></a><span class="lineno"><a class="line" href="a02832.html#ad0b395bc88a2cf9c8cce245b5d9763bf">  122</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02832.html#ad0b395bc88a2cf9c8cce245b5d9763bf">IndexBufferT&lt;T&gt;::create</a>(<a class="code" href="a03364.html">vk::VulkanState</a>&amp; vs, std::uint32_t vc, std::uint32_t ic) {</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    vulkanState = &amp;vs;</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    cpuVertexBuffer.resize(vc);</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    cpuIndexBuffer.resize(ic, 0);</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    gpuVertexBuffer.create(vs,</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;                           vc * <span class="keyword">sizeof</span>(T),</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;                           VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;                           VK_BUFFER_USAGE_VERTEX_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT,</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;                           0);</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    gpuIndexBuffer.create(vs,</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;                          ic * <span class="keyword">sizeof</span>(std::uint32_t),</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;                          VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;                          VK_BUFFER_USAGE_INDEX_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT,</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;                          0);</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;}</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; </div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00139"></a><span class="lineno"><a class="line" href="a02832.html#a164310dc7cc198cc6849a6b3db71f8ef">  139</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02832.html#a164310dc7cc198cc6849a6b3db71f8ef">IndexBufferT&lt;T&gt;::destroy</a>() {</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    cpuVertexBuffer.clear();</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    cpuIndexBuffer.clear();</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    gpuVertexBuffer.destroy();</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    gpuIndexBuffer.destroy();</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;}</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160; </div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00147"></a><span class="lineno"><a class="line" href="a02832.html#a26d8cce563e9ee6eae8ccf2c8f61e12b">  147</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="a02832.html#a26d8cce563e9ee6eae8ccf2c8f61e12b">IndexBufferT&lt;T&gt;::deferDestruction</a>() {</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    cpuVertexBuffer.clear();</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    cpuIndexBuffer.clear();</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    gpuVertexBuffer.deferDestruction();</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    gpuIndexBuffer.deferDestruction();</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;}</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160; </div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00155"></a><span class="lineno"><a class="line" href="a02832.html#a8ab311d1edf2121ba1b570b9f61fd145">  155</a></span>&#160;constexpr std::vector&lt;T&gt;&amp; <a class="code" href="a02832.html#a8ab311d1edf2121ba1b570b9f61fd145">IndexBufferT&lt;T&gt;::vertices</a>() {</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    <span class="keywordflow">return</span> cpuVertexBuffer;</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;}</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160; </div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00160"></a><span class="lineno"><a class="line" href="a02832.html#a08bddf999980c347edc6ae67bdf2e269">  160</a></span>&#160;constexpr <span class="keyword">const</span> std::vector&lt;T&gt;&amp; <a class="code" href="a02832.html#a8ab311d1edf2121ba1b570b9f61fd145">IndexBufferT&lt;T&gt;::vertices</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    <span class="keywordflow">return</span> cpuVertexBuffer;</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;}</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160; </div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00165"></a><span class="lineno"><a class="line" href="a02832.html#ae08f6375209ad3754477497237e0f6e7">  165</a></span>&#160;constexpr std::vector&lt;std::uint32_t&gt;&amp; <a class="code" href="a02832.html#ae08f6375209ad3754477497237e0f6e7">IndexBufferT&lt;T&gt;::indices</a>() {</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    <span class="keywordflow">return</span> cpuIndexBuffer;</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;}</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160; </div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00170"></a><span class="lineno"><a class="line" href="a02832.html#a340a12673d1d2ee954714001c46558de">  170</a></span>&#160;constexpr <span class="keyword">const</span> std::vector&lt;std::uint32_t&gt;&amp; <a class="code" href="a02832.html#ae08f6375209ad3754477497237e0f6e7">IndexBufferT&lt;T&gt;::indices</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    <span class="keywordflow">return</span> cpuIndexBuffer;</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;}</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160; </div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00175"></a><span class="lineno"><a class="line" href="a02832.html#af615777e9f82e5c6bdad436203b4f024">  175</a></span>&#160;<a class="code" href="a03096.html">prim::DrawParameters</a> <a class="code" href="a02832.html#af615777e9f82e5c6bdad436203b4f024">IndexBufferT&lt;T&gt;::getDrawParameters</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    <a class="code" href="a03096.html">prim::DrawParameters</a> params;</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    params.<a class="code" href="a03096.html#a326822946f31074ef8df1bed6550039d">type</a>          = <a class="code" href="a03096.html#abe53ce802d2125e3553fd3c7fca439f8a7c3895116254ff0417e58b6286de27c0">prim::DrawParameters::DrawType::IndexBuffer</a>;</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    params.<a class="code" href="a03096.html#ac6218e06fd3bbcd7f2739c53b7581a73">indexBuffer</a>   = gpuIndexBuffer.getBuffer();</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    params.<a class="code" href="a03096.html#a6c514a24c6c747266eaae2e87582f999">indexCount</a>    = cpuIndexBuffer.size();</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    params.<a class="code" href="a03096.html#a40a1bb84d0856d3d69d3a46efbf260eb">indexOffset</a>   = 0;</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;    params.<a class="code" href="a03096.html#a962d4d5348b4b6e0f9c11413340d3b5b">vertexBuffer</a>  = gpuVertexBuffer.getBuffer();</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    params.<a class="code" href="a03096.html#ad7efd03d865ca379d80d00c1d13a912b">vertexOffset</a>  = 0;</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    params.<a class="code" href="a03096.html#a3946c2a7339aacf2dfb602bd7a471c9b">firstInstance</a> = 0;</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    params.<a class="code" href="a03096.html#af69724acb861a73b0a05592001285584">instanceCount</a> = 1;</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    <span class="keywordflow">return</span> params;</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;}</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160; </div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00189"></a><span class="lineno"><a class="line" href="a02832.html#a689811ec81ac21a1fd68d0ce45746051">  189</a></span>&#160;constexpr std::uint32_t <a class="code" href="a02832.html#a689811ec81ac21a1fd68d0ce45746051">IndexBufferT&lt;T&gt;::indexCount</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    <span class="keywordflow">return</span> cpuIndexBuffer.size();</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;}</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160; </div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00194"></a><span class="lineno"><a class="line" href="a02832.html#af358a9ed58565725299d95bddcfe9f72">  194</a></span>&#160;constexpr std::uint32_t <a class="code" href="a02832.html#af358a9ed58565725299d95bddcfe9f72">IndexBufferT&lt;T&gt;::vertexCount</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    <span class="keywordflow">return</span> cpuVertexBuffer.size();</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;}</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160; </div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00199"></a><span class="lineno"><a class="line" href="a02832.html#a41abc2c1b23bb4929fa9d2a1d0552654">  199</a></span>&#160;constexpr VkBuffer <a class="code" href="a02832.html#a41abc2c1b23bb4929fa9d2a1d0552654">IndexBufferT&lt;T&gt;::vertexBufferHandle</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    <span class="keywordflow">return</span> gpuVertexBuffer.getBuffer();</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;}</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160; </div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00204"></a><span class="lineno"><a class="line" href="a02832.html#a0e8bb0b433b0de2b7b6b8c17427ba924">  204</a></span>&#160;constexpr VkBuffer <a class="code" href="a02832.html#a0e8bb0b433b0de2b7b6b8c17427ba924">IndexBufferT&lt;T&gt;::indexBufferHandle</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;    <span class="keywordflow">return</span> gpuIndexBuffer.getBuffer();</div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;}</div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160; </div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02832.html">IndexBufferT&lt;T&gt;::executeTransfer</a>(VkCommandBuffer commandBuffer,</div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;                                      <a class="code" href="a03224.html">tfr::TransferContext</a>&amp; context) {</div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;    <span class="comment">// vertex buffer</span></div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    VkBuffer stagingBuf;</div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;    <span class="keywordtype">void</span>* stagingMem;</div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;    context.<a class="code" href="a03224.html#a0095891b196aaca7b289210a8a774bee">createTemporaryStagingBuffer</a>(gpuVertexBuffer.getSize(), stagingBuf, &amp;stagingMem);</div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;    std::memcpy(stagingMem, cpuVertexBuffer.data(), gpuVertexBuffer.getSize());</div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160; </div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;    VkBufferCopy copyCmd{};</div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;    copyCmd.srcOffset = 0;</div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;    copyCmd.dstOffset = 0;</div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;    copyCmd.size      = gpuVertexBuffer.getSize();</div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;    vkCmdCopyBuffer(commandBuffer, stagingBuf, gpuVertexBuffer.getBuffer(), 1, &amp;copyCmd);</div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160; </div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;    VkBufferMemoryBarrier barrier{};</div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;    barrier.sType         = VK_STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER;</div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;    barrier.buffer        = gpuVertexBuffer.getBuffer();</div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    barrier.offset        = 0;</div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;    barrier.size          = gpuVertexBuffer.getSize();</div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;    barrier.srcAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;</div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    barrier.dstAccessMask = VK_ACCESS_VERTEX_ATTRIBUTE_READ_BIT;</div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;    context.<a class="code" href="a03224.html#ad3498b85b2352fb77251503598d24bf0">registerBufferBarrier</a>(barrier);</div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160; </div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;    <span class="comment">// index buffer</span></div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;    context.<a class="code" href="a03224.html#a0095891b196aaca7b289210a8a774bee">createTemporaryStagingBuffer</a>(gpuIndexBuffer.getSize(), stagingBuf, &amp;stagingMem);</div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    std::memcpy(stagingMem, cpuIndexBuffer.data(), gpuIndexBuffer.getSize());</div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160; </div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;    copyCmd.size = gpuIndexBuffer.getSize();</div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;    vkCmdCopyBuffer(commandBuffer, stagingBuf, gpuIndexBuffer.getBuffer(), 1, &amp;copyCmd);</div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160; </div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;    barrier.buffer = gpuIndexBuffer.getBuffer();</div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;    barrier.size   = gpuIndexBuffer.getSize();</div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;    context.<a class="code" href="a03224.html#ad3498b85b2352fb77251503598d24bf0">registerBufferBarrier</a>(barrier);</div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;}</div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00244"></a><span class="lineno"><a class="line" href="a02832.html#a5d4e198cde1a857772dcde98c4bd21e1">  244</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02832.html#a5d4e198cde1a857772dcde98c4bd21e1">IndexBufferT&lt;T&gt;::insertBarrierBeforeWrite</a>() {</div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;    gpuVertexBuffer.insertPipelineBarrierBeforeChange();</div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;    gpuIndexBuffer.insertPipelineBarrierBeforeChange();</div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;}</div>
-<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160; </div>
-<div class="line"><a name="l00253"></a><span class="lineno"><a class="line" href="a01790.html#gaefb3729dcc560378d43cc72e50f7d438">  253</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a02832.html">IndexBuffer</a> = <a class="code" href="a02832.html">IndexBufferT&lt;prim::Vertex&gt;</a>;</div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160; </div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;} <span class="comment">// namespace buf</span></div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160; </div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00710_html"><div class="ttname"><a href="a00710.html">DrawParameters.hpp</a></div></div>
-<div class="ttc" id="aa00716_html"><div class="ttname"><a href="a00716.html">Vertex.hpp</a></div></div>
-<div class="ttc" id="aa00770_html"><div class="ttname"><a href="a00770.html">Transferable.hpp</a></div></div>
-<div class="ttc" id="aa00791_html"><div class="ttname"><a href="a00791.html">Buffer.hpp</a></div></div>
-<div class="ttc" id="aa01803_html"><div class="ttname"><a href="a01803.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02832_html"><div class="ttname"><a href="a02832.html">bl::rc::buf::IndexBufferT</a></div><div class="ttdoc">Basic index buffer class built on top of vk::Buffer. Intended for static mesh data.</div><div class="ttdef"><b>Definition:</b> <a href="a00539_source.html#l00025">IndexBuffer.hpp:25</a></div></div>
-<div class="ttc" id="aa02832_html_a08bddf999980c347edc6ae67bdf2e269"><div class="ttname"><a href="a02832.html#a08bddf999980c347edc6ae67bdf2e269">bl::rc::buf::IndexBufferT::vertices</a></div><div class="ttdeci">constexpr const std::vector&lt; T &gt; &amp; vertices() const</div><div class="ttdoc">Returns the vertex buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a00539_source.html#l00160">IndexBuffer.hpp:160</a></div></div>
-<div class="ttc" id="aa02832_html_a0e8bb0b433b0de2b7b6b8c17427ba924"><div class="ttname"><a href="a02832.html#a0e8bb0b433b0de2b7b6b8c17427ba924">bl::rc::buf::IndexBufferT::indexBufferHandle</a></div><div class="ttdeci">constexpr VkBuffer indexBufferHandle() const</div><div class="ttdoc">Returns the Vulkan handle of the index buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a00539_source.html#l00204">IndexBuffer.hpp:204</a></div></div>
-<div class="ttc" id="aa02832_html_a15912a7adcce91cad59e05c70e116a40"><div class="ttname"><a href="a02832.html#a15912a7adcce91cad59e05c70e116a40">bl::rc::buf::IndexBufferT::~IndexBufferT</a></div><div class="ttdeci">virtual ~IndexBufferT()</div><div class="ttdoc">Defers destruction of the buffers.</div><div class="ttdef"><b>Definition:</b> <a href="a00539_source.html#l00117">IndexBuffer.hpp:117</a></div></div>
-<div class="ttc" id="aa02832_html_a164310dc7cc198cc6849a6b3db71f8ef"><div class="ttname"><a href="a02832.html#a164310dc7cc198cc6849a6b3db71f8ef">bl::rc::buf::IndexBufferT::destroy</a></div><div class="ttdeci">void destroy()</div><div class="ttdoc">Frees both the vertex buffer and index buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a00539_source.html#l00139">IndexBuffer.hpp:139</a></div></div>
-<div class="ttc" id="aa02832_html_a26d8cce563e9ee6eae8ccf2c8f61e12b"><div class="ttname"><a href="a02832.html#a26d8cce563e9ee6eae8ccf2c8f61e12b">bl::rc::buf::IndexBufferT::deferDestruction</a></div><div class="ttdeci">void deferDestruction()</div><div class="ttdoc">Queues the buffer to be erased in a deferred manner.</div><div class="ttdef"><b>Definition:</b> <a href="a00539_source.html#l00147">IndexBuffer.hpp:147</a></div></div>
-<div class="ttc" id="aa02832_html_a340a12673d1d2ee954714001c46558de"><div class="ttname"><a href="a02832.html#a340a12673d1d2ee954714001c46558de">bl::rc::buf::IndexBufferT::indices</a></div><div class="ttdeci">constexpr const std::vector&lt; std::uint32_t &gt; &amp; indices() const</div><div class="ttdoc">Returns the index buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a00539_source.html#l00170">IndexBuffer.hpp:170</a></div></div>
-<div class="ttc" id="aa02832_html_a41abc2c1b23bb4929fa9d2a1d0552654"><div class="ttname"><a href="a02832.html#a41abc2c1b23bb4929fa9d2a1d0552654">bl::rc::buf::IndexBufferT::vertexBufferHandle</a></div><div class="ttdeci">constexpr VkBuffer vertexBufferHandle() const</div><div class="ttdoc">Returns the Vulkan handle of the vertex buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a00539_source.html#l00199">IndexBuffer.hpp:199</a></div></div>
-<div class="ttc" id="aa02832_html_a5d4e198cde1a857772dcde98c4bd21e1"><div class="ttname"><a href="a02832.html#a5d4e198cde1a857772dcde98c4bd21e1">bl::rc::buf::IndexBufferT::insertBarrierBeforeWrite</a></div><div class="ttdeci">void insertBarrierBeforeWrite()</div><div class="ttdoc">Records a pipeline barrier to prevent writes from occurring before fragment shader reads are complete...</div><div class="ttdef"><b>Definition:</b> <a href="a00539_source.html#l00244">IndexBuffer.hpp:244</a></div></div>
-<div class="ttc" id="aa02832_html_a689811ec81ac21a1fd68d0ce45746051"><div class="ttname"><a href="a02832.html#a689811ec81ac21a1fd68d0ce45746051">bl::rc::buf::IndexBufferT::indexCount</a></div><div class="ttdeci">constexpr std::uint32_t indexCount() const</div><div class="ttdoc">Returns the number of indices in the buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a00539_source.html#l00189">IndexBuffer.hpp:189</a></div></div>
-<div class="ttc" id="aa02832_html_a8ab311d1edf2121ba1b570b9f61fd145"><div class="ttname"><a href="a02832.html#a8ab311d1edf2121ba1b570b9f61fd145">bl::rc::buf::IndexBufferT::vertices</a></div><div class="ttdeci">constexpr std::vector&lt; T &gt; &amp; vertices()</div><div class="ttdoc">Returns the vertex buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a00539_source.html#l00155">IndexBuffer.hpp:155</a></div></div>
-<div class="ttc" id="aa02832_html_a97600659a596051a04944dbb357eb622"><div class="ttname"><a href="a02832.html#a97600659a596051a04944dbb357eb622">bl::rc::buf::IndexBufferT::IndexType</a></div><div class="ttdeci">static constexpr VkIndexType IndexType</div><div class="ttdef"><b>Definition:</b> <a href="a00539_source.html#l00027">IndexBuffer.hpp:27</a></div></div>
-<div class="ttc" id="aa02832_html_ad0b395bc88a2cf9c8cce245b5d9763bf"><div class="ttname"><a href="a02832.html#ad0b395bc88a2cf9c8cce245b5d9763bf">bl::rc::buf::IndexBufferT::create</a></div><div class="ttdeci">void create(vk::VulkanState &amp;vulkanState, std::uint32_t vertexCount, std::uint32_t indexCount)</div><div class="ttdoc">Creates the vertex and index buffers.</div><div class="ttdef"><b>Definition:</b> <a href="a00539_source.html#l00122">IndexBuffer.hpp:122</a></div></div>
-<div class="ttc" id="aa02832_html_ae08f6375209ad3754477497237e0f6e7"><div class="ttname"><a href="a02832.html#ae08f6375209ad3754477497237e0f6e7">bl::rc::buf::IndexBufferT::indices</a></div><div class="ttdeci">constexpr std::vector&lt; std::uint32_t &gt; &amp; indices()</div><div class="ttdoc">Returns the index buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a00539_source.html#l00165">IndexBuffer.hpp:165</a></div></div>
-<div class="ttc" id="aa02832_html_af358a9ed58565725299d95bddcfe9f72"><div class="ttname"><a href="a02832.html#af358a9ed58565725299d95bddcfe9f72">bl::rc::buf::IndexBufferT::vertexCount</a></div><div class="ttdeci">constexpr std::uint32_t vertexCount() const</div><div class="ttdoc">Returns the number of vertices in the buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a00539_source.html#l00194">IndexBuffer.hpp:194</a></div></div>
-<div class="ttc" id="aa02832_html_af615777e9f82e5c6bdad436203b4f024"><div class="ttname"><a href="a02832.html#af615777e9f82e5c6bdad436203b4f024">bl::rc::buf::IndexBufferT::getDrawParameters</a></div><div class="ttdeci">prim::DrawParameters getDrawParameters() const</div><div class="ttdoc">Builds and returns the parameters required to render the index buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a00539_source.html#l00175">IndexBuffer.hpp:175</a></div></div>
-<div class="ttc" id="aa03096_html"><div class="ttname"><a href="a03096.html">bl::rc::prim::DrawParameters</a></div><div class="ttdoc">Collection of the required parameters to issue draw commands per object.</div><div class="ttdef"><b>Definition:</b> <a href="a00710_source.html#l00018">DrawParameters.hpp:18</a></div></div>
-<div class="ttc" id="aa03096_html_a326822946f31074ef8df1bed6550039d"><div class="ttname"><a href="a03096.html#a326822946f31074ef8df1bed6550039d">bl::rc::prim::DrawParameters::type</a></div><div class="ttdeci">DrawType type</div><div class="ttdef"><b>Definition:</b> <a href="a00710_source.html#l00024">DrawParameters.hpp:24</a></div></div>
-<div class="ttc" id="aa03096_html_a3946c2a7339aacf2dfb602bd7a471c9b"><div class="ttname"><a href="a03096.html#a3946c2a7339aacf2dfb602bd7a471c9b">bl::rc::prim::DrawParameters::firstInstance</a></div><div class="ttdeci">std::uint32_t firstInstance</div><div class="ttdef"><b>Definition:</b> <a href="a00710_source.html#l00033">DrawParameters.hpp:33</a></div></div>
-<div class="ttc" id="aa03096_html_a40a1bb84d0856d3d69d3a46efbf260eb"><div class="ttname"><a href="a03096.html#a40a1bb84d0856d3d69d3a46efbf260eb">bl::rc::prim::DrawParameters::indexOffset</a></div><div class="ttdeci">std::uint32_t indexOffset</div><div class="ttdef"><b>Definition:</b> <a href="a00710_source.html#l00031">DrawParameters.hpp:31</a></div></div>
-<div class="ttc" id="aa03096_html_a6c514a24c6c747266eaae2e87582f999"><div class="ttname"><a href="a03096.html#a6c514a24c6c747266eaae2e87582f999">bl::rc::prim::DrawParameters::indexCount</a></div><div class="ttdeci">std::uint32_t indexCount</div><div class="ttdef"><b>Definition:</b> <a href="a00710_source.html#l00028">DrawParameters.hpp:28</a></div></div>
-<div class="ttc" id="aa03096_html_a962d4d5348b4b6e0f9c11413340d3b5b"><div class="ttname"><a href="a03096.html#a962d4d5348b4b6e0f9c11413340d3b5b">bl::rc::prim::DrawParameters::vertexBuffer</a></div><div class="ttdeci">VkBuffer vertexBuffer</div><div class="ttdef"><b>Definition:</b> <a href="a00710_source.html#l00025">DrawParameters.hpp:25</a></div></div>
-<div class="ttc" id="aa03096_html_abe53ce802d2125e3553fd3c7fca439f8a7c3895116254ff0417e58b6286de27c0"><div class="ttname"><a href="a03096.html#abe53ce802d2125e3553fd3c7fca439f8a7c3895116254ff0417e58b6286de27c0">bl::rc::prim::DrawParameters::DrawType::IndexBuffer</a></div><div class="ttdeci">@ IndexBuffer</div></div>
-<div class="ttc" id="aa03096_html_ac6218e06fd3bbcd7f2739c53b7581a73"><div class="ttname"><a href="a03096.html#ac6218e06fd3bbcd7f2739c53b7581a73">bl::rc::prim::DrawParameters::indexBuffer</a></div><div class="ttdeci">VkBuffer indexBuffer</div><div class="ttdef"><b>Definition:</b> <a href="a00710_source.html#l00026">DrawParameters.hpp:26</a></div></div>
-<div class="ttc" id="aa03096_html_ad7efd03d865ca379d80d00c1d13a912b"><div class="ttname"><a href="a03096.html#ad7efd03d865ca379d80d00c1d13a912b">bl::rc::prim::DrawParameters::vertexOffset</a></div><div class="ttdeci">std::uint32_t vertexOffset</div><div class="ttdef"><b>Definition:</b> <a href="a00710_source.html#l00032">DrawParameters.hpp:32</a></div></div>
-<div class="ttc" id="aa03096_html_af69724acb861a73b0a05592001285584"><div class="ttname"><a href="a03096.html#af69724acb861a73b0a05592001285584">bl::rc::prim::DrawParameters::instanceCount</a></div><div class="ttdeci">std::uint32_t instanceCount</div><div class="ttdef"><b>Definition:</b> <a href="a00710_source.html#l00034">DrawParameters.hpp:34</a></div></div>
-<div class="ttc" id="aa03220_html"><div class="ttname"><a href="a03220.html">bl::rc::tfr::Transferable</a></div><div class="ttdoc">Base class for objects that transfer state or data to the GPU. Used in conjunction with the TransferE...</div><div class="ttdef"><b>Definition:</b> <a href="a00770_source.html#l00025">Transferable.hpp:25</a></div></div>
-<div class="ttc" id="aa03220_html_ae134133a20147f77b4feae59dc9b447d"><div class="ttname"><a href="a03220.html#ae134133a20147f77b4feae59dc9b447d">bl::rc::tfr::Transferable::vulkanState</a></div><div class="ttdeci">vk::VulkanState * vulkanState</div><div class="ttdef"><b>Definition:</b> <a href="a00770_source.html#l00061">Transferable.hpp:61</a></div></div>
-<div class="ttc" id="aa03224_html"><div class="ttname"><a href="a03224.html">bl::rc::tfr::TransferContext</a></div><div class="ttdef"><b>Definition:</b> <a href="a00773_source.html#l00018">TransferContext.hpp:18</a></div></div>
-<div class="ttc" id="aa03224_html_a0095891b196aaca7b289210a8a774bee"><div class="ttname"><a href="a03224.html#a0095891b196aaca7b289210a8a774bee">bl::rc::tfr::TransferContext::createTemporaryStagingBuffer</a></div><div class="ttdeci">void createTemporaryStagingBuffer(VkDeviceSize size, VkBuffer &amp;bufferResult, void **mappedMemory)</div><div class="ttdoc">Creates a staging buffer of the given size. Should only be called from Transferable::executeTransferA...</div><div class="ttdef"><b>Definition:</b> <a href="a01565_source.html#l00023">TransferContext.cpp:23</a></div></div>
-<div class="ttc" id="aa03224_html_ad3498b85b2352fb77251503598d24bf0"><div class="ttname"><a href="a03224.html#ad3498b85b2352fb77251503598d24bf0">bl::rc::tfr::TransferContext::registerBufferBarrier</a></div><div class="ttdeci">void registerBufferBarrier(const VkBufferMemoryBarrier &amp;barrier)</div><div class="ttdoc">Registers the given barrier to be recorded after all transfers are started.</div><div class="ttdef"><b>Definition:</b> <a href="a01565_source.html#l00044">TransferContext.cpp:44</a></div></div>
-<div class="ttc" id="aa03248_html"><div class="ttname"><a href="a03248.html">bl::rc::vk::Buffer</a></div><div class="ttdoc">Wrapper over Vulkan buffers. Provides simpler interfaces and resize ability.</div><div class="ttdef"><b>Definition:</b> <a href="a00791_source.html#l00019">Buffer.hpp:19</a></div></div>
-<div class="ttc" id="aa03364_html"><div class="ttname"><a href="a03364.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a00848_source.html#l00037">VulkanState.hpp:37</a></div></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00524_html"><div class="ttname"><a href="a00524.html">ISkipper.hpp</a></div></div>
+<div class="ttc" id="aa01818_html"><div class="ttname"><a href="a01818.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02815_html"><div class="ttname"><a href="a02815.html">bl::parser::ISkipper</a></div><div class="ttdoc">Interface for custom parsers to skip past unwanted characters such as whitespace or comments.</div><div class="ttdef"><b>Definition:</b> <a href="a00524_source.html#l00017">ISkipper.hpp:17</a></div></div>
+<div class="ttc" id="aa02815_html_ac94262dbc4b796277c22a958aa727323"><div class="ttname"><a href="a02815.html#ac94262dbc4b796277c22a958aa727323">bl::parser::ISkipper::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; ISkipper &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00524_source.html#l00019">ISkipper.hpp:19</a></div></div>
+<div class="ttc" id="aa02839_html"><div class="ttname"><a href="a02839.html">bl::parser::Stream</a></div><div class="ttdoc">Wrapper class around std::ostream. Used for keeping track of current line and column numbers.</div><div class="ttdef"><b>Definition:</b> <a href="a00533_source.html#l00017">Stream.hpp:17</a></div></div>
+<div class="ttc" id="aa02839_html_a067692cf77ea97b498566a7da9349ab5"><div class="ttname"><a href="a02839.html#a067692cf77ea97b498566a7da9349ab5">bl::parser::Stream::peek</a></div><div class="ttdeci">char peek() const</div><div class="ttdoc">Returns the next character without modifying stream.</div><div class="ttdef"><b>Definition:</b> <a href="a01406_source.html#l00020">Stream.cpp:20</a></div></div>
+<div class="ttc" id="aa02839_html_a1c866bd84c3c17f230f2e8b6c6d6d3bb"><div class="ttname"><a href="a02839.html#a1c866bd84c3c17f230f2e8b6c6d6d3bb">bl::parser::Stream::get</a></div><div class="ttdeci">char get()</div><div class="ttdoc">Returns next character and modifies stream.</div><div class="ttdef"><b>Definition:</b> <a href="a01406_source.html#l00041">Stream.cpp:41</a></div></div>
+<div class="ttc" id="aa02847_html"><div class="ttname"><a href="a02847.html">bl::parser::WhitespaceSkipper</a></div><div class="ttdoc">Default skipper that skips over all whitespace beginning with the next token Note that this will not ...</div><div class="ttdef"><b>Definition:</b> <a href="a00539_source.html#l00016">WhitespaceSkipper.hpp:16</a></div></div>
+<div class="ttc" id="aa02847_html_a04d6ad43bd37419797b6f5cbb625a760"><div class="ttname"><a href="a02847.html#a04d6ad43bd37419797b6f5cbb625a760">bl::parser::WhitespaceSkipper::~WhitespaceSkipper</a></div><div class="ttdeci">virtual ~WhitespaceSkipper()=default</div></div>
+<div class="ttc" id="aa02847_html_a17380f013a7b0b8bca4839683da5742b"><div class="ttname"><a href="a02847.html#a17380f013a7b0b8bca4839683da5742b">bl::parser::WhitespaceSkipper::create</a></div><div class="ttdeci">static ISkipper::Ptr create()</div><div class="ttdef"><b>Definition:</b> <a href="a00539_source.html#l00020">WhitespaceSkipper.hpp:20</a></div></div>
+<div class="ttc" id="aa02847_html_a77fb74e134d21e95a59ef5bb4686dc74"><div class="ttname"><a href="a02847.html#a77fb74e134d21e95a59ef5bb4686dc74">bl::parser::WhitespaceSkipper::skip</a></div><div class="ttdeci">virtual void skip(Stream &amp;stream) const override</div><div class="ttdoc">Skip past unwanted characters in the stream.</div><div class="ttdef"><b>Definition:</b> <a href="a00539_source.html#l00022">WhitespaceSkipper.hpp:22</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 8 2023 18:56:18 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Oct 12 2023 01:16:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

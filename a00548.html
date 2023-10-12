@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Buffers/VertexBuffer.hpp File Reference</title>
+<title>BLIB: include/BLIB/Render/Buffers/IndexBuffer.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -75,13 +75,13 @@ $(function() {
 <a href="#namespaces">Namespaces</a> &#124;
 <a href="#typedef-members">Typedefs</a>  </div>
   <div class="headertitle">
-<div class="title">VertexBuffer.hpp File Reference</div>  </div>
+<div class="title">IndexBuffer.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00710_source.html">BLIB/Render/Primitives/DrawParameters.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00716_source.html">BLIB/Render/Primitives/Vertex.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00770_source.html">BLIB/Render/Transfers/Transferable.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00791_source.html">BLIB/Render/Vulkan/Buffer.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00716_source.html">BLIB/Render/Primitives/DrawParameters.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00722_source.html">BLIB/Render/Primitives/Vertex.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00776_source.html">BLIB/Render/Transfers/Transferable.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00797_source.html">BLIB/Render/Vulkan/Buffer.hpp</a>&gt;</code><br />
 <code>#include &lt;cstring&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 </div>
@@ -89,33 +89,33 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02844.html">bl::rc::buf::VertexBufferT&lt; T &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic vertex buffer class built on top of <a class="el" href="a03248.html" title="Wrapper over Vulkan buffers. Provides simpler interfaces and resize ability.">vk::Buffer</a>. Intended for static mesh data.  <a href="a02844.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02863.html">bl::rc::buf::IndexBufferT&lt; T &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic index buffer class built on top of <a class="el" href="a03275.html" title="Wrapper over Vulkan buffers. Provides simpler interfaces and resize ability.">vk::Buffer</a>. Intended for static mesh data.  <a href="a02863.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a01803"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01803.html">bl</a></td></tr>
-<tr class="memdesc:a01803"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="memitem:a01818"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01818.html">bl</a></td></tr>
+<tr class="memdesc:a01818"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01815"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01815.html">bl::rc</a></td></tr>
-<tr class="memdesc:a01815"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a03112.html" title="Top level rendering system of the game engine.">Renderer</a> core implementation classes and functionality. <br /></td></tr>
+<tr class="memitem:a01830"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01830.html">bl::rc</a></td></tr>
+<tr class="memdesc:a01830"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a03139.html" title="Top level rendering system of the game engine.">Renderer</a> core implementation classes and functionality. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01843"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01843.html">bl::rc::buf</a></td></tr>
-<tr class="memdesc:a01843"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of common buffer classes. <br /></td></tr>
+<tr class="memitem:a01858"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01858.html">bl::rc::buf</a></td></tr>
+<tr class="memdesc:a01858"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of common buffer classes. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:ga711b89e5d389c3e62540520ef7f76a25"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01790.html#ga711b89e5d389c3e62540520ef7f76a25">bl::rc::buf::VertexBuffer</a> = VertexBufferT&lt; prim::Vertex &gt;</td></tr>
-<tr class="memdesc:ga711b89e5d389c3e62540520ef7f76a25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience alias for a standard vertex buffer.  <a href="a01790.html#ga711b89e5d389c3e62540520ef7f76a25">More...</a><br /></td></tr>
-<tr class="separator:ga711b89e5d389c3e62540520ef7f76a25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaefb3729dcc560378d43cc72e50f7d438"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01805.html#gaefb3729dcc560378d43cc72e50f7d438">bl::rc::buf::IndexBuffer</a> = IndexBufferT&lt; prim::Vertex &gt;</td></tr>
+<tr class="memdesc:gaefb3729dcc560378d43cc72e50f7d438"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience alias for a standard index buffer.  <a href="a01805.html#gaefb3729dcc560378d43cc72e50f7d438">More...</a><br /></td></tr>
+<tr class="separator:gaefb3729dcc560378d43cc72e50f7d438"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 8 2023 18:56:19 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Oct 12 2023 01:16:56 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

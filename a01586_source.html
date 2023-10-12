@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Vulkan/DescriptorSet.cpp Source File</title>
+<title>BLIB: src/Render/Vulkan/CleanupManager.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,89 +71,51 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">DescriptorSet.cpp</div>  </div>
+<div class="title">CleanupManager.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01586.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00803.html">BLIB/Render/Vulkan/DescriptorSet.hpp</a>&gt;</span></div>
+<a href="a01586.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00800.html">BLIB/Render/Vulkan/CleanupManager.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00848.html">BLIB/Render/Vulkan/VulkanState.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01803.html">bl</a></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01818.html">bl</a></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>rc</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>vk</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>vk</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="a03276.html#a8f194eda22254c760637377a84bb7c9b">   11</a></span>&#160;<a class="code" href="a03276.html#a8f194eda22254c760637377a84bb7c9b">DescriptorSet::DescriptorSet</a>(<a class="code" href="a03364.html">VulkanState</a>&amp; vs)</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;: vulkanState(vs)</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;, set(nullptr) {}</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="a03276.html#a4188235e62ffe691c6d2717246e2428f">   15</a></span>&#160;<a class="code" href="a03276.html#a8f194eda22254c760637377a84bb7c9b">DescriptorSet::DescriptorSet</a>(<a class="code" href="a03364.html">VulkanState</a>&amp; vs, VkDescriptorSetLayout layout, <span class="keywordtype">bool</span> ded)</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;: <a class="code" href="a03276.html">DescriptorSet</a>(vs) {</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <a class="code" href="a03276.html#ab4688b60580626c3a49ae1dc37a8b64a">allocate</a>(layout, ded);</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;CleanupManager::CleanupManager()</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;: clearIndex(0) {</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; v : buckets) { v.reserve(64); }</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;}</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keywordtype">void</span> CleanupManager::flush() {</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; bucket : buckets) {</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; cb : bucket) { cb(); }</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    }</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;}</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a03276.html#a751625200d6da3a6c87198702c834997">   20</a></span>&#160;<a class="code" href="a03276.html#a8f194eda22254c760637377a84bb7c9b">DescriptorSet::DescriptorSet</a>(<a class="code" href="a03276.html">DescriptorSet</a>&amp;&amp; ds)</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;: vulkanState(ds.vulkanState)</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;, alloc(ds.alloc)</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;, set(ds.set) {</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    ds.set = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;}</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="a03276.html#a799707e8dfa2b1993b61607fe8a1dd1d">   27</a></span>&#160;<a class="code" href="a03276.html#a799707e8dfa2b1993b61607fe8a1dd1d">DescriptorSet::~DescriptorSet</a>() { <a class="code" href="a03276.html#a13eec443ddabd8645770709f0e0e5fe7">deferRelease</a>(); }</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a03276.html#a012e03bc0e13567b074cd6a8c4fb181e">   29</a></span>&#160;<a class="code" href="a03276.html">DescriptorSet</a>&amp; <a class="code" href="a03276.html#a4435b071e9cebdda93a8676f79be795c">DescriptorSet::operator=</a>(<a class="code" href="a03276.html">DescriptorSet</a>&amp;&amp; ds) {</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    alloc  = ds.alloc;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    set    = ds.set;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    ds.set = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;}</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="a03276.html#ab4688b60580626c3a49ae1dc37a8b64a">   36</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03276.html#ab4688b60580626c3a49ae1dc37a8b64a">DescriptorSet::allocate</a>(VkDescriptorSetLayout layout, <span class="keywordtype">bool</span> dedicated) {</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <a class="code" href="a03276.html#a13eec443ddabd8645770709f0e0e5fe7">deferRelease</a>();</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    alloc = vulkanState.<a class="code" href="a03364.html#ac6ea18991f2fd8391eb44229ae2ac8f7">descriptorPool</a>.<a class="code" href="a03260.html#aa1e76e7083828e104e5014691e688a28">allocate</a>(layout, &amp;set, 1, dedicated);</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;}</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="a03276.html#a76d00935670fc4f545dbfbf4e995b51e">   41</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03276.html#a76d00935670fc4f545dbfbf4e995b51e">DescriptorSet::release</a>() {</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordflow">if</span> (set) {</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        vulkanState.<a class="code" href="a03364.html#ac6ea18991f2fd8391eb44229ae2ac8f7">descriptorPool</a>.<a class="code" href="a03260.html#ac2810fc740edbfef995ff375e1b5a14e">release</a>(alloc);</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        set = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    }</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;}</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="a03276.html#a13eec443ddabd8645770709f0e0e5fe7">   48</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03276.html#a13eec443ddabd8645770709f0e0e5fe7">DescriptorSet::deferRelease</a>() {</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordflow">if</span> (set) {</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        vulkanState.<a class="code" href="a03364.html#a0c4eb8115deab88591131a3d5afd4eea">cleanupManager</a>.<a class="code" href="a03252.html#a0be2d519d4e836c5040713fda94e8cee">add</a>([vs = &amp;vulkanState, alloc = alloc, set = set]() {</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            vs-&gt;descriptorPool.release(alloc, &amp;set);</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        });</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        set = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    }</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;}</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;} <span class="comment">// namespace vk</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00803_html"><div class="ttname"><a href="a00803.html">DescriptorSet.hpp</a></div></div>
-<div class="ttc" id="aa00848_html"><div class="ttname"><a href="a00848.html">VulkanState.hpp</a></div></div>
-<div class="ttc" id="aa01803_html"><div class="ttname"><a href="a01803.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03252_html_a0be2d519d4e836c5040713fda94e8cee"><div class="ttname"><a href="a03252.html#a0be2d519d4e836c5040713fda94e8cee">bl::rc::vk::CleanupManager::add</a></div><div class="ttdeci">void add(Callback &amp;&amp;cb)</div><div class="ttdoc">Adds the given callback to the queue.</div><div class="ttdef"><b>Definition:</b> <a href="a01577_source.html#l00022">CleanupManager.cpp:22</a></div></div>
-<div class="ttc" id="aa03260_html_aa1e76e7083828e104e5014691e688a28"><div class="ttname"><a href="a03260.html#aa1e76e7083828e104e5014691e688a28">bl::rc::vk::DescriptorPool::allocate</a></div><div class="ttdeci">AllocationHandle allocate(VkDescriptorSetLayout layout, VkDescriptorSet *sets, std::size_t setCount, bool dedicatedPool=false)</div><div class="ttdoc">Allocates sets from the pool and returns a handle that can be used to release the allocated sets once...</div><div class="ttdef"><b>Definition:</b> <a href="a01583_source.html#l00061">DescriptorPool.cpp:61</a></div></div>
-<div class="ttc" id="aa03260_html_ac2810fc740edbfef995ff375e1b5a14e"><div class="ttname"><a href="a03260.html#ac2810fc740edbfef995ff375e1b5a14e">bl::rc::vk::DescriptorPool::release</a></div><div class="ttdeci">void release(AllocationHandle handle, const VkDescriptorSet *sets=nullptr)</div><div class="ttdoc">Releases descriptor sets allocated from this pool.</div><div class="ttdef"><b>Definition:</b> <a href="a01583_source.html#l00104">DescriptorPool.cpp:104</a></div></div>
-<div class="ttc" id="aa03276_html"><div class="ttname"><a href="a03276.html">bl::rc::vk::DescriptorSet</a></div><div class="ttdoc">Wrapper around a single allocated descriptor set from the DescriptorPool.</div><div class="ttdef"><b>Definition:</b> <a href="a00803_source.html#l00020">DescriptorSet.hpp:20</a></div></div>
-<div class="ttc" id="aa03276_html_a13eec443ddabd8645770709f0e0e5fe7"><div class="ttname"><a href="a03276.html#a13eec443ddabd8645770709f0e0e5fe7">bl::rc::vk::DescriptorSet::deferRelease</a></div><div class="ttdeci">void deferRelease()</div><div class="ttdoc">Defers release of the descriptor set if any.</div><div class="ttdef"><b>Definition:</b> <a href="a01586_source.html#l00048">DescriptorSet.cpp:48</a></div></div>
-<div class="ttc" id="aa03276_html_a4435b071e9cebdda93a8676f79be795c"><div class="ttname"><a href="a03276.html#a4435b071e9cebdda93a8676f79be795c">bl::rc::vk::DescriptorSet::operator=</a></div><div class="ttdeci">DescriptorSet &amp; operator=(const DescriptorSet &amp;)=delete</div><div class="ttdoc">Deleted.</div></div>
-<div class="ttc" id="aa03276_html_a76d00935670fc4f545dbfbf4e995b51e"><div class="ttname"><a href="a03276.html#a76d00935670fc4f545dbfbf4e995b51e">bl::rc::vk::DescriptorSet::release</a></div><div class="ttdeci">void release()</div><div class="ttdoc">Immediately releases the descriptor set if any.</div><div class="ttdef"><b>Definition:</b> <a href="a01586_source.html#l00041">DescriptorSet.cpp:41</a></div></div>
-<div class="ttc" id="aa03276_html_a799707e8dfa2b1993b61607fe8a1dd1d"><div class="ttname"><a href="a03276.html#a799707e8dfa2b1993b61607fe8a1dd1d">bl::rc::vk::DescriptorSet::~DescriptorSet</a></div><div class="ttdeci">~DescriptorSet()</div><div class="ttdoc">Defers release of the set if allocated.</div><div class="ttdef"><b>Definition:</b> <a href="a01586_source.html#l00027">DescriptorSet.cpp:27</a></div></div>
-<div class="ttc" id="aa03276_html_a8f194eda22254c760637377a84bb7c9b"><div class="ttname"><a href="a03276.html#a8f194eda22254c760637377a84bb7c9b">bl::rc::vk::DescriptorSet::DescriptorSet</a></div><div class="ttdeci">DescriptorSet(VulkanState &amp;vulkanState)</div><div class="ttdoc">Creates an un-allocated descriptor set.</div><div class="ttdef"><b>Definition:</b> <a href="a01586_source.html#l00011">DescriptorSet.cpp:11</a></div></div>
-<div class="ttc" id="aa03276_html_ab4688b60580626c3a49ae1dc37a8b64a"><div class="ttname"><a href="a03276.html#ab4688b60580626c3a49ae1dc37a8b64a">bl::rc::vk::DescriptorSet::allocate</a></div><div class="ttdeci">void allocate(VkDescriptorSetLayout layout, bool dedicatedPool=false)</div><div class="ttdoc">Creates and allocates the descriptor set. Defers release of the prior set if any.</div><div class="ttdef"><b>Definition:</b> <a href="a01586_source.html#l00036">DescriptorSet.cpp:36</a></div></div>
-<div class="ttc" id="aa03364_html"><div class="ttname"><a href="a03364.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a00848_source.html#l00037">VulkanState.hpp:37</a></div></div>
-<div class="ttc" id="aa03364_html_a0c4eb8115deab88591131a3d5afd4eea"><div class="ttname"><a href="a03364.html#a0c4eb8115deab88591131a3d5afd4eea">bl::rc::vk::VulkanState::cleanupManager</a></div><div class="ttdeci">CleanupManager cleanupManager</div><div class="ttdef"><b>Definition:</b> <a href="a00848_source.html#l00212">VulkanState.hpp:212</a></div></div>
-<div class="ttc" id="aa03364_html_ac6ea18991f2fd8391eb44229ae2ac8f7"><div class="ttname"><a href="a03364.html#ac6ea18991f2fd8391eb44229ae2ac8f7">bl::rc::vk::VulkanState::descriptorPool</a></div><div class="ttdeci">DescriptorPool descriptorPool</div><div class="ttdef"><b>Definition:</b> <a href="a00848_source.html#l00210">VulkanState.hpp:210</a></div></div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a03279.html#aa8511d9ff0c759834c2c63a525363e8d">   20</a></span>&#160;<span class="keywordtype">void</span> CleanupManager::add(<span class="keyword">const</span> <a class="code" href="a03279.html#a7231a9195e01c0dba86bc19ce2f56544">Callback</a>&amp; cb) { buckets[addIndex()].emplace_back(cb); }</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a03279.html#a0be2d519d4e836c5040713fda94e8cee">   22</a></span>&#160;<span class="keywordtype">void</span> CleanupManager::add(<a class="code" href="a03279.html#a7231a9195e01c0dba86bc19ce2f56544">Callback</a>&amp;&amp; cb) {</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    buckets[addIndex()].emplace_back(std::forward&lt;Callback&gt;(cb));</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;}</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keywordtype">void</span> CleanupManager::onFrameStart() {</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; cb : buckets[clearIndex]) { cb(); }</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    buckets[clearIndex].clear();</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    clearIndex = clearIndex &lt; Config::MaxConcurrentFrames ? clearIndex + 1 : 0;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;}</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;} <span class="comment">// namespace vk</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00800_html"><div class="ttname"><a href="a00800.html">CleanupManager.hpp</a></div></div>
+<div class="ttc" id="aa01818_html"><div class="ttname"><a href="a01818.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03279_html_a7231a9195e01c0dba86bc19ce2f56544"><div class="ttname"><a href="a03279.html#a7231a9195e01c0dba86bc19ce2f56544">bl::rc::vk::CleanupManager::Callback</a></div><div class="ttdeci">std::function&lt; void()&gt; Callback</div><div class="ttdoc">Signature of cleanup callbacks.</div><div class="ttdef"><b>Definition:</b> <a href="a00800_source.html#l00024">CleanupManager.hpp:24</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 8 2023 18:56:19 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Oct 12 2023 01:16:56 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

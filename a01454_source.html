@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Descriptors/SceneDescriptorSetInstance.cpp Source File</title>
+<title>BLIB: src/Render/Descriptors/DescriptorComponentStorageCache.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,42 +71,43 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">SceneDescriptorSetInstance.cpp</div>  </div>
+<div class="title">DescriptorComponentStorageCache.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01454.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00617.html">BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp</a>&gt;</span></div>
+<a href="a01454.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00611.html">BLIB/Render/Descriptors/DescriptorComponentStorageCache.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05094.html">BLIB/Render/Config.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01803.html">bl</a></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01818.html">bl</a></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>rc</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>ds</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>ds</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="a02960.html#a4e4d85081fc95e511efd38849f047eb5">   11</a></span>&#160;<a class="code" href="a02960.html#a4e4d85081fc95e511efd38849f047eb5">SceneDescriptorSetInstance::SceneDescriptorSetInstance</a>()</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;: <a class="code" href="a02952.html">DescriptorSetInstance</a>(Bindless, SpeedAgnostic) {}</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="a02960.html#ad0135cab959d2ab6c8c454054e1c23d4">   14</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02960.html#ad0135cab959d2ab6c8c454054e1c23d4">SceneDescriptorSetInstance::updateObserverCamera</a>(std::uint32_t observerIndex,</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;                                                      <span class="keyword">const</span> glm::mat4&amp; cam) {</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <a class="code" href="a02960.html#a0a145382ab1e64d8c85dd63939bb0aca">cameraBuffer</a>[observerIndex] = cam;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;}</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;} <span class="comment">// namespace ds</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00617_html"><div class="ttname"><a href="a00617.html">SceneDescriptorSetInstance.hpp</a></div></div>
-<div class="ttc" id="aa01803_html"><div class="ttname"><a href="a01803.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02952_html"><div class="ttname"><a href="a02952.html">bl::rc::ds::DescriptorSetInstance</a></div><div class="ttdoc">Base class for descriptor sets that exist for each scene. Derived classes are created by DescriptorSe...</div><div class="ttdef"><b>Definition:</b> <a href="a00611_source.html#l00030">DescriptorSetInstance.hpp:30</a></div></div>
-<div class="ttc" id="aa02960_html_a0a145382ab1e64d8c85dd63939bb0aca"><div class="ttname"><a href="a02960.html#a0a145382ab1e64d8c85dd63939bb0aca">bl::rc::ds::SceneDescriptorSetInstance::cameraBuffer</a></div><div class="ttdeci">buf::UniformBuffer&lt; glm::mat4 &gt; cameraBuffer</div><div class="ttdef"><b>Definition:</b> <a href="a00617_source.html#l00043">SceneDescriptorSetInstance.hpp:43</a></div></div>
-<div class="ttc" id="aa02960_html_a4e4d85081fc95e511efd38849f047eb5"><div class="ttname"><a href="a02960.html#a4e4d85081fc95e511efd38849f047eb5">bl::rc::ds::SceneDescriptorSetInstance::SceneDescriptorSetInstance</a></div><div class="ttdeci">SceneDescriptorSetInstance()</div><div class="ttdoc">Creates the descriptor set instance.</div><div class="ttdef"><b>Definition:</b> <a href="a01454_source.html#l00011">SceneDescriptorSetInstance.cpp:11</a></div></div>
-<div class="ttc" id="aa02960_html_ad0135cab959d2ab6c8c454054e1c23d4"><div class="ttname"><a href="a02960.html#ad0135cab959d2ab6c8c454054e1c23d4">bl::rc::ds::SceneDescriptorSetInstance::updateObserverCamera</a></div><div class="ttdeci">void updateObserverCamera(std::uint32_t observerIndex, const glm::mat4 &amp;projView)</div><div class="ttdoc">Updates the camera value for the given observer.</div><div class="ttdef"><b>Definition:</b> <a href="a01454_source.html#l00014">SceneDescriptorSetInstance.cpp:14</a></div></div>
-<div class="ttc" id="aa05094_html"><div class="ttname"><a href="a05094.html">Config.hpp</a></div></div>
+<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a02971.html#a9fe8f8185bb0cae7af077dba90387385">    9</a></span>&#160;<a class="code" href="a02971.html#a9fe8f8185bb0cae7af077dba90387385">DescriptorComponentStorageCache::DescriptorComponentStorageCache</a>(</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <a class="code" href="a02243.html">ecs::Registry</a>&amp; registry, <a class="code" href="a03391.html">vk::VulkanState</a>&amp; vulkanState,</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <span class="keyword">const</span> <a class="code" href="a02959.html#a80984df19e4cbb663aa059d56784cf6e">DescriptorComponentStorageBase::EntityCallback</a>&amp; entityCb)</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;: registry(registry)</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;, vulkanState(vulkanState)</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;, entityCb(entityCb) {}</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a02971.html#a8542b8010111186c901cff294f03aba6">   16</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02971.html#a8542b8010111186c901cff294f03aba6">DescriptorComponentStorageCache::syncDescriptors</a>() {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; pair : cache) { pair.second-&gt;performSync(); }</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;}</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;} <span class="comment">// namespace ds</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00611_html"><div class="ttname"><a href="a00611.html">DescriptorComponentStorageCache.hpp</a></div></div>
+<div class="ttc" id="aa01818_html"><div class="ttname"><a href="a01818.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02243_html"><div class="ttname"><a href="a02243.html">bl::ecs::Registry</a></div><div class="ttdoc">This is the main interface of the ECS. This class manages all entities and components and views and s...</div><div class="ttdef"><b>Definition:</b> <a href="a00164_source.html#l00031">Registry.hpp:31</a></div></div>
+<div class="ttc" id="aa02959_html_a80984df19e4cbb663aa059d56784cf6e"><div class="ttname"><a href="a02959.html#a80984df19e4cbb663aa059d56784cf6e">bl::rc::ds::DescriptorComponentStorageBase::EntityCallback</a></div><div class="ttdeci">std::function&lt; ecs::Entity(scene::Key)&gt; EntityCallback</div><div class="ttdoc">Callback signature to fetch entities from scene ids.</div><div class="ttdef"><b>Definition:</b> <a href="a00608_source.html#l00041">DescriptorComponentStorage.hpp:41</a></div></div>
+<div class="ttc" id="aa02971_html_a8542b8010111186c901cff294f03aba6"><div class="ttname"><a href="a02971.html#a8542b8010111186c901cff294f03aba6">bl::rc::ds::DescriptorComponentStorageCache::syncDescriptors</a></div><div class="ttdeci">void syncDescriptors()</div><div class="ttdoc">Syncs modified descriptor values in the contained storage modules.</div><div class="ttdef"><b>Definition:</b> <a href="a01454_source.html#l00016">DescriptorComponentStorageCache.cpp:16</a></div></div>
+<div class="ttc" id="aa02971_html_a9fe8f8185bb0cae7af077dba90387385"><div class="ttname"><a href="a02971.html#a9fe8f8185bb0cae7af077dba90387385">bl::rc::ds::DescriptorComponentStorageCache::DescriptorComponentStorageCache</a></div><div class="ttdeci">DescriptorComponentStorageCache(ecs::Registry &amp;registry, vk::VulkanState &amp;vulkanState, const DescriptorComponentStorageBase::EntityCallback &amp;entityCb)</div><div class="ttdoc">Creates a new storage cache.</div><div class="ttdef"><b>Definition:</b> <a href="a01454_source.html#l00009">DescriptorComponentStorageCache.cpp:9</a></div></div>
+<div class="ttc" id="aa03391_html"><div class="ttname"><a href="a03391.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a00854_source.html#l00037">VulkanState.hpp:37</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 8 2023 18:56:19 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Oct 12 2023 01:16:56 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

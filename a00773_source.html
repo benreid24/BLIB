@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Transfers/TransferContext.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Scenes/SceneRenderContext.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,79 +66,115 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_1371b99667ed992b8332faf3b4f2dec9.html">Transfers</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_1582fe53e8ca010e140dea1b69a5a9f3.html">Scenes</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">TransferContext.hpp</div>  </div>
+<div class="title">SceneRenderContext.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00773.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_TRANSFERS_TRANSFERCONTEXT_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_TRANSFERS_TRANSFERCONTEXT_HPP</span></div>
+<a href="a00773.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_RENDERER_SCENERENDERCONTEXT_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_RENDERER_SCENERENDERCONTEXT_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01091.html">BLIB/Vulkan.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01803.html">bl</a></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>rc</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>vk</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">struct </span>VulkanState;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;}</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span>tfr</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a03224.html">   18</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03224.html">TransferContext</a> {</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03224.html#a0095891b196aaca7b289210a8a774bee">createTemporaryStagingBuffer</a>(VkDeviceSize size, VkBuffer&amp; bufferResult,</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;                                      <span class="keywordtype">void</span>** mappedMemory);</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03224.html#a0516ada22d07c935ad2a1dbff375a55f">registerMemoryBarrier</a>(<span class="keyword">const</span> VkMemoryBarrier&amp; barrier);</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03224.html#ad3498b85b2352fb77251503598d24bf0">registerBufferBarrier</a>(<span class="keyword">const</span> VkBufferMemoryBarrier&amp; barrier);</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03224.html#ab4518b0ecbee6232e04ea2aab04f05aa">registerImageBarrier</a>(<span class="keyword">const</span> VkImageMemoryBarrier&amp; barrier);</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    VkDevice <a class="code" href="a03224.html#a37f3aa2f09d5a38a8c6761f09ac26d8c">device</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <a class="code" href="a03224.html#a80c571067bacb2926a724329a6f1e5a6">TransferContext</a>(<a class="code" href="a03364.html">vk::VulkanState</a>&amp; vulkanState, std::vector&lt;VkBuffer&gt;&amp; stagingBuffers,</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                    std::vector&lt;VmaAllocation&gt;&amp; stagingAllocs,</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                    std::vector&lt;VkMemoryBarrier&gt;&amp; memoryBarriers,</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                    std::vector&lt;VkBufferMemoryBarrier&gt;&amp; bufferBarriers,</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                    std::vector&lt;VkImageMemoryBarrier&gt;&amp; imageBarriers);</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <a class="code" href="a03364.html">vk::VulkanState</a>&amp; vulkanState;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    std::vector&lt;VkBuffer&gt;&amp; stagingBuffers;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    std::vector&lt;VmaAllocation&gt;&amp; stagingAllocs;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    std::vector&lt;VkMemoryBarrier&gt;&amp; memoryBarriers;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    std::vector&lt;VkBufferMemoryBarrier&gt;&amp; bufferBarriers;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    std::vector&lt;VkImageMemoryBarrier&gt;&amp; imageBarriers;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;};</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00620.html">BLIB/Render/Descriptors/DescriptorSetInstance.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00716.html">BLIB/Render/Primitives/DrawParameters.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00764.html">BLIB/Render/Scenes/SceneObject.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00824.html">BLIB/Render/Vulkan/Pipeline.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00845.html">BLIB/Render/Vulkan/StandardAttachmentSet.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01103.html">BLIB/Vulkan.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;array&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;glm/glm.hpp&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01818.html">bl</a></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">namespace </span>scene</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;{</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a03243.html">   25</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03243.html">SceneRenderContext</a> {</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <a class="code" href="a03243.html#a1cbcea0eb2abae6fae3e0009378add22">SceneRenderContext</a>(VkCommandBuffer commandBuffer, std::uint32_t observerIndex,</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;                       <span class="keyword">const</span> VkViewport&amp; viewport, std::uint32_t renderPassId,</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;                       <span class="keywordtype">bool</span> renderingToRenderTexture);</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03243.html#a083d8786d75db9838805d175874934f0">bindPipeline</a>(<a class="code" href="a03323.html">vk::Pipeline</a>&amp; pipeline);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03243.html#a9f9dafa91dc6025a8ed7c4b4c5c12d3b">bindDescriptors</a>(VkPipelineLayout layout, <a class="code" href="a01805.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a> updateFreq,</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                         <a class="code" href="a02983.html">ds::DescriptorSetInstance</a>** descriptors, std::uint32_t descriptorCount);</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03243.html#a25f6ac72e581b7ac3f387d14c51c8ab4">renderObject</a>(<span class="keyword">const</span> <a class="code" href="a03219.html">SceneObject</a>&amp; <span class="keywordtype">object</span>);</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    constexpr VkCommandBuffer <a class="code" href="a03243.html#ac39a1df376b596bd2d91c60124dc05db">getCommandBuffer</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    constexpr <span class="keyword">const</span> VkViewport&amp; <a class="code" href="a03243.html#a3ac88506d4131fc85e45478d0df781c1">parentViewport</a>() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;} <span class="comment">// namespace tfr</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01091_html"><div class="ttname"><a href="a01091.html">Vulkan.hpp</a></div></div>
-<div class="ttc" id="aa01803_html"><div class="ttname"><a href="a01803.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03224_html"><div class="ttname"><a href="a03224.html">bl::rc::tfr::TransferContext</a></div><div class="ttdef"><b>Definition:</b> <a href="a00773_source.html#l00018">TransferContext.hpp:18</a></div></div>
-<div class="ttc" id="aa03224_html_a0095891b196aaca7b289210a8a774bee"><div class="ttname"><a href="a03224.html#a0095891b196aaca7b289210a8a774bee">bl::rc::tfr::TransferContext::createTemporaryStagingBuffer</a></div><div class="ttdeci">void createTemporaryStagingBuffer(VkDeviceSize size, VkBuffer &amp;bufferResult, void **mappedMemory)</div><div class="ttdoc">Creates a staging buffer of the given size. Should only be called from Transferable::executeTransferA...</div><div class="ttdef"><b>Definition:</b> <a href="a01565_source.html#l00023">TransferContext.cpp:23</a></div></div>
-<div class="ttc" id="aa03224_html_a0516ada22d07c935ad2a1dbff375a55f"><div class="ttname"><a href="a03224.html#a0516ada22d07c935ad2a1dbff375a55f">bl::rc::tfr::TransferContext::registerMemoryBarrier</a></div><div class="ttdeci">void registerMemoryBarrier(const VkMemoryBarrier &amp;barrier)</div><div class="ttdoc">Registers the given barrier to be recorded after all transfers are started.</div><div class="ttdef"><b>Definition:</b> <a href="a01565_source.html#l00040">TransferContext.cpp:40</a></div></div>
-<div class="ttc" id="aa03224_html_a37f3aa2f09d5a38a8c6761f09ac26d8c"><div class="ttname"><a href="a03224.html#a37f3aa2f09d5a38a8c6761f09ac26d8c">bl::rc::tfr::TransferContext::device</a></div><div class="ttdeci">VkDevice device() const</div><div class="ttdoc">Returns the logical device to be used.</div><div class="ttdef"><b>Definition:</b> <a href="a01565_source.html#l00052">TransferContext.cpp:52</a></div></div>
-<div class="ttc" id="aa03224_html_a80c571067bacb2926a724329a6f1e5a6"><div class="ttname"><a href="a03224.html#a80c571067bacb2926a724329a6f1e5a6">bl::rc::tfr::TransferContext::TransferContext</a></div><div class="ttdeci">TransferContext(vk::VulkanState &amp;vulkanState, std::vector&lt; VkBuffer &gt; &amp;stagingBuffers, std::vector&lt; VmaAllocation &gt; &amp;stagingAllocs, std::vector&lt; VkMemoryBarrier &gt; &amp;memoryBarriers, std::vector&lt; VkBufferMemoryBarrier &gt; &amp;bufferBarriers, std::vector&lt; VkImageMemoryBarrier &gt; &amp;imageBarriers)</div><div class="ttdoc">Internal constructor, do not use.</div><div class="ttdef"><b>Definition:</b> <a href="a01565_source.html#l00011">TransferContext.cpp:11</a></div></div>
-<div class="ttc" id="aa03224_html_ab4518b0ecbee6232e04ea2aab04f05aa"><div class="ttname"><a href="a03224.html#ab4518b0ecbee6232e04ea2aab04f05aa">bl::rc::tfr::TransferContext::registerImageBarrier</a></div><div class="ttdeci">void registerImageBarrier(const VkImageMemoryBarrier &amp;barrier)</div><div class="ttdoc">Registers the given barrier to be recorded after all transfers are started.</div><div class="ttdef"><b>Definition:</b> <a href="a01565_source.html#l00048">TransferContext.cpp:48</a></div></div>
-<div class="ttc" id="aa03224_html_ad3498b85b2352fb77251503598d24bf0"><div class="ttname"><a href="a03224.html#ad3498b85b2352fb77251503598d24bf0">bl::rc::tfr::TransferContext::registerBufferBarrier</a></div><div class="ttdeci">void registerBufferBarrier(const VkBufferMemoryBarrier &amp;barrier)</div><div class="ttdoc">Registers the given barrier to be recorded after all transfers are started.</div><div class="ttdef"><b>Definition:</b> <a href="a01565_source.html#l00044">TransferContext.cpp:44</a></div></div>
-<div class="ttc" id="aa03364_html"><div class="ttname"><a href="a03364.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a00848_source.html#l00037">VulkanState.hpp:37</a></div></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    constexpr std::uint32_t <a class="code" href="a03243.html#a1457a6601775ebb24b3cc19d837c636f">currentRenderPass</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    constexpr <span class="keywordtype">bool</span> <a class="code" href="a03243.html#a0b438286e6b674cd3c6f818804a55368">targetIsRenderTexture</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    constexpr std::uint32_t <a class="code" href="a03243.html#abce5f477ae8df828081267f7a1d866b6">currentObserverIndex</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keyword">const</span> VkCommandBuffer commandBuffer;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keyword">const</span> std::uint32_t observerIndex;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    VkBuffer prevVB;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    VkBuffer prevIB;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <a class="code" href="a01805.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a> boundSpeed;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    std::array&lt;ds::DescriptorSetInstance*, Config::MaxDescriptorSets&gt; boundDescriptors;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keyword">const</span> VkViewport viewport;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keyword">const</span> std::uint32_t renderPassId;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">bool</span> isRenderTexture;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;};</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
+<div class="line"><a name="l00105"></a><span class="lineno"><a class="line" href="a03243.html#ac39a1df376b596bd2d91c60124dc05db">  105</a></span>&#160;<span class="keyword">inline</span> constexpr VkCommandBuffer <a class="code" href="a03243.html#ac39a1df376b596bd2d91c60124dc05db">SceneRenderContext::getCommandBuffer</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="keywordflow">return</span> commandBuffer;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;}</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
+<div class="line"><a name="l00109"></a><span class="lineno"><a class="line" href="a03243.html#a3ac88506d4131fc85e45478d0df781c1">  109</a></span>&#160;<span class="keyword">inline</span> constexpr <span class="keyword">const</span> VkViewport&amp; <a class="code" href="a03243.html#a3ac88506d4131fc85e45478d0df781c1">SceneRenderContext::parentViewport</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> viewport; }</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
+<div class="line"><a name="l00111"></a><span class="lineno"><a class="line" href="a03243.html#a1457a6601775ebb24b3cc19d837c636f">  111</a></span>&#160;<span class="keyword">inline</span> constexpr std::uint32_t <a class="code" href="a03243.html#a1457a6601775ebb24b3cc19d837c636f">SceneRenderContext::currentRenderPass</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keywordflow">return</span> renderPassId;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;}</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
+<div class="line"><a name="l00115"></a><span class="lineno"><a class="line" href="a03243.html#a0b438286e6b674cd3c6f818804a55368">  115</a></span>&#160;<span class="keyword">inline</span> constexpr <span class="keywordtype">bool</span> <a class="code" href="a03243.html#a0b438286e6b674cd3c6f818804a55368">SceneRenderContext::targetIsRenderTexture</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> isRenderTexture; }</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
+<div class="line"><a name="l00117"></a><span class="lineno"><a class="line" href="a03243.html#abce5f477ae8df828081267f7a1d866b6">  117</a></span>&#160;<span class="keyword">inline</span> constexpr std::uint32_t <a class="code" href="a03243.html#abce5f477ae8df828081267f7a1d866b6">SceneRenderContext::currentObserverIndex</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <span class="keywordflow">return</span> observerIndex;</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;}</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;} <span class="comment">// namespace scene</span></div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160; </div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00620_html"><div class="ttname"><a href="a00620.html">DescriptorSetInstance.hpp</a></div></div>
+<div class="ttc" id="aa00716_html"><div class="ttname"><a href="a00716.html">DrawParameters.hpp</a></div></div>
+<div class="ttc" id="aa00764_html"><div class="ttname"><a href="a00764.html">SceneObject.hpp</a></div></div>
+<div class="ttc" id="aa00824_html"><div class="ttname"><a href="a00824.html">Pipeline.hpp</a></div></div>
+<div class="ttc" id="aa00845_html"><div class="ttname"><a href="a00845.html">StandardAttachmentSet.hpp</a></div></div>
+<div class="ttc" id="aa01103_html"><div class="ttname"><a href="a01103.html">Vulkan.hpp</a></div></div>
+<div class="ttc" id="aa01805_html_ga305dcc5dda3e28bd193ab31444664848"><div class="ttname"><a href="a01805.html#ga305dcc5dda3e28bd193ab31444664848">bl::rc::UpdateSpeed</a></div><div class="ttdeci">UpdateSpeed</div><div class="ttdoc">Enum representing how frequently an object is expected to be updated.</div><div class="ttdef"><b>Definition:</b> <a href="a00785_source.html#l00015">UpdateSpeed.hpp:15</a></div></div>
+<div class="ttc" id="aa01818_html"><div class="ttname"><a href="a01818.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02983_html"><div class="ttname"><a href="a02983.html">bl::rc::ds::DescriptorSetInstance</a></div><div class="ttdoc">Base class for descriptor sets that exist for each scene. Derived classes are created by DescriptorSe...</div><div class="ttdef"><b>Definition:</b> <a href="a00620_source.html#l00030">DescriptorSetInstance.hpp:30</a></div></div>
+<div class="ttc" id="aa03219_html"><div class="ttname"><a href="a03219.html">bl::rc::scene::SceneObject</a></div><div class="ttdoc">Base renderable object. Everything that is rendered will reference an instance of this....</div><div class="ttdef"><b>Definition:</b> <a href="a00764_source.html#l00021">SceneObject.hpp:21</a></div></div>
+<div class="ttc" id="aa03243_html"><div class="ttname"><a href="a03243.html">bl::rc::scene::SceneRenderContext</a></div><div class="ttdoc">Container class that holds the required parameters to render a scene and provides methods for descrip...</div><div class="ttdef"><b>Definition:</b> <a href="a00773_source.html#l00025">SceneRenderContext.hpp:25</a></div></div>
+<div class="ttc" id="aa03243_html_a083d8786d75db9838805d175874934f0"><div class="ttname"><a href="a03243.html#a083d8786d75db9838805d175874934f0">bl::rc::scene::SceneRenderContext::bindPipeline</a></div><div class="ttdeci">void bindPipeline(vk::Pipeline &amp;pipeline)</div><div class="ttdoc">Binds the given pipeline.</div><div class="ttdef"><b>Definition:</b> <a href="a01568_source.html#l00024">SceneRenderContext.cpp:24</a></div></div>
+<div class="ttc" id="aa03243_html_a0b438286e6b674cd3c6f818804a55368"><div class="ttname"><a href="a03243.html#a0b438286e6b674cd3c6f818804a55368">bl::rc::scene::SceneRenderContext::targetIsRenderTexture</a></div><div class="ttdeci">constexpr bool targetIsRenderTexture() const</div><div class="ttdoc">Returns whether or not the current target is a render texture.</div><div class="ttdef"><b>Definition:</b> <a href="a00773_source.html#l00115">SceneRenderContext.hpp:115</a></div></div>
+<div class="ttc" id="aa03243_html_a1457a6601775ebb24b3cc19d837c636f"><div class="ttname"><a href="a03243.html#a1457a6601775ebb24b3cc19d837c636f">bl::rc::scene::SceneRenderContext::currentRenderPass</a></div><div class="ttdeci">constexpr std::uint32_t currentRenderPass() const</div><div class="ttdoc">Returns the id of the active render pass.</div><div class="ttdef"><b>Definition:</b> <a href="a00773_source.html#l00111">SceneRenderContext.hpp:111</a></div></div>
+<div class="ttc" id="aa03243_html_a1cbcea0eb2abae6fae3e0009378add22"><div class="ttname"><a href="a03243.html#a1cbcea0eb2abae6fae3e0009378add22">bl::rc::scene::SceneRenderContext::SceneRenderContext</a></div><div class="ttdeci">SceneRenderContext(VkCommandBuffer commandBuffer, std::uint32_t observerIndex, const VkViewport &amp;viewport, std::uint32_t renderPassId, bool renderingToRenderTexture)</div><div class="ttdoc">Creates a scene render context.</div><div class="ttdef"><b>Definition:</b> <a href="a01568_source.html#l00011">SceneRenderContext.cpp:11</a></div></div>
+<div class="ttc" id="aa03243_html_a25f6ac72e581b7ac3f387d14c51c8ab4"><div class="ttname"><a href="a03243.html#a25f6ac72e581b7ac3f387d14c51c8ab4">bl::rc::scene::SceneRenderContext::renderObject</a></div><div class="ttdeci">void renderObject(const SceneObject &amp;object)</div><div class="ttdoc">Issues the required commands to render the given scene object.</div><div class="ttdef"><b>Definition:</b> <a href="a01568_source.html#l00044">SceneRenderContext.cpp:44</a></div></div>
+<div class="ttc" id="aa03243_html_a3ac88506d4131fc85e45478d0df781c1"><div class="ttname"><a href="a03243.html#a3ac88506d4131fc85e45478d0df781c1">bl::rc::scene::SceneRenderContext::parentViewport</a></div><div class="ttdeci">constexpr const VkViewport &amp; parentViewport() const</div><div class="ttdoc">Returns the viewport the scene is being rendered to.</div><div class="ttdef"><b>Definition:</b> <a href="a00773_source.html#l00109">SceneRenderContext.hpp:109</a></div></div>
+<div class="ttc" id="aa03243_html_a9f9dafa91dc6025a8ed7c4b4c5c12d3b"><div class="ttname"><a href="a03243.html#a9f9dafa91dc6025a8ed7c4b4c5c12d3b">bl::rc::scene::SceneRenderContext::bindDescriptors</a></div><div class="ttdeci">void bindDescriptors(VkPipelineLayout layout, UpdateSpeed updateFreq, ds::DescriptorSetInstance **descriptors, std::uint32_t descriptorCount)</div><div class="ttdoc">Binds the given descriptors. Only issues bind commands for descriptors that changed from the last cal...</div><div class="ttdef"><b>Definition:</b> <a href="a01568_source.html#l00028">SceneRenderContext.cpp:28</a></div></div>
+<div class="ttc" id="aa03243_html_abce5f477ae8df828081267f7a1d866b6"><div class="ttname"><a href="a03243.html#abce5f477ae8df828081267f7a1d866b6">bl::rc::scene::SceneRenderContext::currentObserverIndex</a></div><div class="ttdeci">constexpr std::uint32_t currentObserverIndex() const</div><div class="ttdoc">Returns the scene index of the current observer.</div><div class="ttdef"><b>Definition:</b> <a href="a00773_source.html#l00117">SceneRenderContext.hpp:117</a></div></div>
+<div class="ttc" id="aa03243_html_ac39a1df376b596bd2d91c60124dc05db"><div class="ttname"><a href="a03243.html#ac39a1df376b596bd2d91c60124dc05db">bl::rc::scene::SceneRenderContext::getCommandBuffer</a></div><div class="ttdeci">constexpr VkCommandBuffer getCommandBuffer() const</div><div class="ttdoc">Returns the command buffer to use for rendering.</div><div class="ttdef"><b>Definition:</b> <a href="a00773_source.html#l00105">SceneRenderContext.hpp:105</a></div></div>
+<div class="ttc" id="aa03323_html"><div class="ttname"><a href="a03323.html">bl::rc::vk::Pipeline</a></div><div class="ttdoc">Core renderer class representing a pipeline that is a part of a RenderPass. Pipelines are managed by ...</div><div class="ttdef"><b>Definition:</b> <a href="a00824_source.html#l00030">Pipeline.hpp:30</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 8 2023 18:56:18 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Oct 12 2023 01:16:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

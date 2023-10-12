@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::rc::vk::CleanupManager Class Reference</title>
+<title>BLIB: Member List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,159 +66,28 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01803.html">bl</a></li><li class="navelem"><a class="el" href="a01815.html">rc</a></li><li class="navelem"><a class="el" href="a01816.html">vk</a></li><li class="navelem"><a class="el" href="a03252.html">CleanupManager</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01818.html">bl</a></li><li class="navelem"><a class="el" href="a01830.html">rc</a></li><li class="navelem"><a class="el" href="a01867.html">tfr</a></li><li class="navelem"><a class="el" href="a03255.html">TransferEngine</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#friends">Friends</a> &#124;
-<a href="a03249.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::rc::vk::CleanupManager Class Reference<div class="ingroups"><a class="el" href="a01790.html">Renderer</a></div></div>  </div>
+<div class="title">bl::rc::tfr::TransferEngine Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Utility to defer resource destruction for several frames to ensure resources are no longer in use without explicit synchronization or stalling.  
- <a href="a03252.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="a00794_source.html">CleanupManager.hpp</a>&gt;</code></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:a7231a9195e01c0dba86bc19ce2f56544"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03252.html#a7231a9195e01c0dba86bc19ce2f56544">Callback</a> = std::function&lt; void()&gt;</td></tr>
-<tr class="memdesc:a7231a9195e01c0dba86bc19ce2f56544"><td class="mdescLeft">&#160;</td><td class="mdescRight">Signature of cleanup callbacks.  <a href="a03252.html#a7231a9195e01c0dba86bc19ce2f56544">More...</a><br /></td></tr>
-<tr class="separator:a7231a9195e01c0dba86bc19ce2f56544"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a0be2d519d4e836c5040713fda94e8cee"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03252.html#a0be2d519d4e836c5040713fda94e8cee">add</a> (<a class="el" href="a03252.html#a7231a9195e01c0dba86bc19ce2f56544">Callback</a> &amp;&amp;cb)</td></tr>
-<tr class="memdesc:a0be2d519d4e836c5040713fda94e8cee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds the given callback to the queue.  <a href="a03252.html#a0be2d519d4e836c5040713fda94e8cee">More...</a><br /></td></tr>
-<tr class="separator:a0be2d519d4e836c5040713fda94e8cee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa8511d9ff0c759834c2c63a525363e8d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03252.html#aa8511d9ff0c759834c2c63a525363e8d">add</a> (const <a class="el" href="a03252.html#a7231a9195e01c0dba86bc19ce2f56544">Callback</a> &amp;cb)</td></tr>
-<tr class="memdesc:aa8511d9ff0c759834c2c63a525363e8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds the given callback to the queue.  <a href="a03252.html#aa8511d9ff0c759834c2c63a525363e8d">More...</a><br /></td></tr>
-<tr class="separator:aa8511d9ff0c759834c2c63a525363e8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
-Friends</h2></td></tr>
-<tr class="memitem:a88be4fe9fe4217b2dc1f69e6888906f6"><td class="memItemLeft" align="right" valign="top">struct&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03252.html#a88be4fe9fe4217b2dc1f69e6888906f6">VulkanState</a></td></tr>
-<tr class="separator:a88be4fe9fe4217b2dc1f69e6888906f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Utility to defer resource destruction for several frames to ensure resources are no longer in use without explicit synchronization or stalling. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00794_source.html#l00021">21</a> of file <a class="el" href="a00794_source.html">CleanupManager.hpp</a>.</p>
-</div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="a7231a9195e01c0dba86bc19ce2f56544"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7231a9195e01c0dba86bc19ce2f56544">&#9670;&nbsp;</a></span>Callback</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a03252.html#a7231a9195e01c0dba86bc19ce2f56544">bl::rc::vk::CleanupManager::Callback</a> =  std::function&lt;void()&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Signature of cleanup callbacks. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00794_source.html#l00024">24</a> of file <a class="el" href="a00794_source.html">CleanupManager.hpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a0be2d519d4e836c5040713fda94e8cee"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0be2d519d4e836c5040713fda94e8cee">&#9670;&nbsp;</a></span>add() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::rc::vk::CleanupManager::add </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a03252.html#a7231a9195e01c0dba86bc19ce2f56544">Callback</a> &amp;&amp;&#160;</td>
-          <td class="paramname"><em>cb</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Adds the given callback to the queue. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">cb</td><td>The callback to invoke after <a class="el" href="a02860.html#acf7cd0741bc9e043674ec76ff77461a1">Config::MaxConcurrentFrames</a> frames have elapsed </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01577_source.html#l00022">22</a> of file <a class="el" href="a01577_source.html">CleanupManager.cpp</a>.</p>
-
-</div>
-</div>
-<a id="aa8511d9ff0c759834c2c63a525363e8d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa8511d9ff0c759834c2c63a525363e8d">&#9670;&nbsp;</a></span>add() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::rc::vk::CleanupManager::add </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a03252.html#a7231a9195e01c0dba86bc19ce2f56544">Callback</a> &amp;&#160;</td>
-          <td class="paramname"><em>cb</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Adds the given callback to the queue. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">cb</td><td>The callback to invoke after <a class="el" href="a02860.html#acf7cd0741bc9e043674ec76ff77461a1">Config::MaxConcurrentFrames</a> frames have elapsed </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01577_source.html#l00020">20</a> of file <a class="el" href="a01577_source.html">CleanupManager.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Friends And Related Function Documentation</h2>
-<a id="a88be4fe9fe4217b2dc1f69e6888906f6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a88be4fe9fe4217b2dc1f69e6888906f6">&#9670;&nbsp;</a></span>VulkanState</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">friend struct <a class="el" href="a03364.html">VulkanState</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00794_source.html#l00053">53</a> of file <a class="el" href="a00794_source.html">CleanupManager.hpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Render/Vulkan/<a class="el" href="a00794_source.html">CleanupManager.hpp</a></li>
-<li>src/Render/Vulkan/<a class="el" href="a01577_source.html">CleanupManager.cpp</a></li>
-</ul>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="a03255.html">bl::rc::tfr::TransferEngine</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="a03255.html#a1fc8c4ea65463b448e068f1287349540">bl::rc::Renderer</a> class</td><td class="entry"><a class="el" href="a03255.html">bl::rc::tfr::TransferEngine</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a03255.html#a622ac404dfd07350c2cc847211fc9de3">createOneTimeIndexStorage</a>(std::uint32_t count)</td><td class="entry"><a class="el" href="a03255.html">bl::rc::tfr::TransferEngine</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a03255.html#afa673e0977f9a95bd36603116bc17516">createOneTimeVertexStorage</a>(std::uint32_t count)</td><td class="entry"><a class="el" href="a03255.html">bl::rc::tfr::TransferEngine</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a03255.html#a23a553e20f95450f3e823a7a08741394">executeTransfers</a>()</td><td class="entry"><a class="el" href="a03255.html">bl::rc::tfr::TransferEngine</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a03255.html#aa262fa1478699e80e491638aef63fa10">Transferable</a> class</td><td class="entry"><a class="el" href="a03255.html">bl::rc::tfr::TransferEngine</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a03255.html#a6ee612d03dbd6864b495f39f45c05513">vk::VulkanState</a></td><td class="entry"><a class="el" href="a03255.html">bl::rc::tfr::TransferEngine</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
+</table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 8 2023 18:56:21 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Oct 12 2023 01:16:58 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

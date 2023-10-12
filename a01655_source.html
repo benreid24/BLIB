@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Resources/Bundling/FileHandlers/PlaylistHandler.cpp Source File</title>
+<title>BLIB: src/Resources/Bundling/FileHandlerContext.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,64 +66,41 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_7a475d59e09b1ce69b1dfbc6b0817add.html">Resources</a></li><li class="navelem"><a class="el" href="dir_650c2bb72fa499737589ce0469633186.html">Bundling</a></li><li class="navelem"><a class="el" href="dir_aa9914aaa11d841a9b5a3bf23363db45.html">FileHandlers</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_7a475d59e09b1ce69b1dfbc6b0817add.html">Resources</a></li><li class="navelem"><a class="el" href="dir_650c2bb72fa499737589ce0469633186.html">Bundling</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">PlaylistHandler.cpp</div>  </div>
+<div class="title">FileHandlerContext.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01655.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_TEST_TARGET</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00014.html">BLIB/Audio/Playlist.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00884.html">BLIB/Resources/Bundling/FileHandlers/PlaylistHandler.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01803.html">bl</a></div>
+<a href="a01655.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00881.html">BLIB/Resources/Bundling/FileHandlerContext.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01818.html">bl</a></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>resource</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>resource</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>bundle</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>bundle</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="a03420.html#af1d4746fd48ca4112fde79fde3b0d6f5">   11</a></span>&#160;<a class="code" href="a03420.html#af1d4746fd48ca4112fde79fde3b0d6f5">PlaylistHandler::PlaylistHandler</a>(<span class="keywordtype">bool</span> bdeps)</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;: bundleMusicFiles(bdeps) {}</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;FileHandlerContext::FileHandlerContext(std::unordered_set&lt;std::string&gt;&amp; excludes,</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;                                       std::stack&lt;std::string, std::vector&lt;std::string&gt;&gt;&amp; fileStack)</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;: excludes(excludes)</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;, fileList(fileStack) {}</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="a03420.html#afca0b240a71de04cb2cc40199e4c80d4">   14</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a03420.html#afca0b240a71de04cb2cc40199e4c80d4">PlaylistHandler::processFile</a>(<span class="keyword">const</span> std::string&amp; path, std::ostream&amp; output,</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;                                  <a class="code" href="a03408.html">FileHandlerContext</a>&amp; ctx) {</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <a class="code" href="a01928.html">audio::Playlist</a> <a class="code" href="a01094.html#a34cfaee126866c60bb82a2c96e47940d">playlist</a>;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="a01094.html#a34cfaee126866c60bb82a2c96e47940d">playlist</a>.loadFromFile(path)) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <a class="code" href="a03692.html">serial::StreamOutputBuffer</a> wrapper(output);</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <a class="code" href="a03564.html">serial::binary::OutputStream</a> os(wrapper);</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="a01094.html#a34cfaee126866c60bb82a2c96e47940d">playlist</a>.saveToMemory(os)) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="a03420.html#a16c3946d25a3118840098ffffa4687c7">bundleMusicFiles</a>) {</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">const</span> std::string&amp; song : <a class="code" href="a01094.html#a34cfaee126866c60bb82a2c96e47940d">playlist</a>.getSongList()) { ctx.<a class="code" href="a03408.html#a117fbcb7e5871373ebb7270b39b20721">addDependencyFile</a>(song); }</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    }</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;}</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;} <span class="comment">// namespace bundle</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;} <span class="comment">// namespace resource</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00014_html"><div class="ttname"><a href="a00014.html">Playlist.hpp</a></div></div>
-<div class="ttc" id="aa00884_html"><div class="ttname"><a href="a00884.html">PlaylistHandler.hpp</a></div></div>
-<div class="ttc" id="aa01094_html_a34cfaee126866c60bb82a2c96e47940d"><div class="ttname"><a href="a01094.html#a34cfaee126866c60bb82a2c96e47940d">playlist</a></div><div class="ttdeci">Playlist * playlist</div><div class="ttdef"><b>Definition:</b> <a href="a01094_source.html#l00042">AudioSystem.cpp:42</a></div></div>
-<div class="ttc" id="aa01803_html"><div class="ttname"><a href="a01803.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa01928_html"><div class="ttname"><a href="a01928.html">bl::audio::Playlist</a></div><div class="ttdoc">A playable, serializable music playlist. Can be manually manipulated or loaded from files.</div><div class="ttdef"><b>Definition:</b> <a href="a00014_source.html#l00020">Playlist.hpp:20</a></div></div>
-<div class="ttc" id="aa03408_html"><div class="ttname"><a href="a03408.html">bl::resource::bundle::FileHandlerContext</a></div><div class="ttdoc">Context data that is provided to FileHandler objects when processing files.</div><div class="ttdef"><b>Definition:</b> <a href="a00875_source.html#l00023">FileHandlerContext.hpp:23</a></div></div>
-<div class="ttc" id="aa03408_html_a117fbcb7e5871373ebb7270b39b20721"><div class="ttname"><a href="a03408.html#a117fbcb7e5871373ebb7270b39b20721">bl::resource::bundle::FileHandlerContext::addDependencyFile</a></div><div class="ttdeci">void addDependencyFile(const std::string &amp;path)</div><div class="ttdoc">Adds a file to be bundled with the current file being processed. Call this for dependency files (ie s...</div><div class="ttdef"><b>Definition:</b> <a href="a01646_source.html#l00014">FileHandlerContext.cpp:14</a></div></div>
-<div class="ttc" id="aa03420_html_a16c3946d25a3118840098ffffa4687c7"><div class="ttname"><a href="a03420.html#a16c3946d25a3118840098ffffa4687c7">bl::resource::bundle::PlaylistHandler::bundleMusicFiles</a></div><div class="ttdeci">const bool bundleMusicFiles</div><div class="ttdef"><b>Definition:</b> <a href="a00884_source.html#l00033">PlaylistHandler.hpp:33</a></div></div>
-<div class="ttc" id="aa03420_html_af1d4746fd48ca4112fde79fde3b0d6f5"><div class="ttname"><a href="a03420.html#af1d4746fd48ca4112fde79fde3b0d6f5">bl::resource::bundle::PlaylistHandler::PlaylistHandler</a></div><div class="ttdeci">PlaylistHandler(bool bundleMusicFiles=false)</div><div class="ttdoc">Construct a new Playlist Handler.</div><div class="ttdef"><b>Definition:</b> <a href="a01655_source.html#l00011">PlaylistHandler.cpp:11</a></div></div>
-<div class="ttc" id="aa03420_html_afca0b240a71de04cb2cc40199e4c80d4"><div class="ttname"><a href="a03420.html#afca0b240a71de04cb2cc40199e4c80d4">bl::resource::bundle::PlaylistHandler::processFile</a></div><div class="ttdeci">virtual bool processFile(const std::string &amp;path, std::ostream &amp;output, FileHandlerContext &amp;context) override</div><div class="ttdoc">Process the given file and add its data to the bundle.</div><div class="ttdef"><b>Definition:</b> <a href="a01655_source.html#l00014">PlaylistHandler.cpp:14</a></div></div>
-<div class="ttc" id="aa03564_html"><div class="ttname"><a href="a03564.html">bl::serial::binary::OutputStream</a></div><div class="ttdoc">A writable stream for binary serialization.</div><div class="ttdef"><b>Definition:</b> <a href="a00950_source.html#l00022">OutputStream.hpp:22</a></div></div>
-<div class="ttc" id="aa03692_html"><div class="ttname"><a href="a03692.html">bl::serial::StreamOutputBuffer</a></div><div class="ttdoc">Output buffer that allows writing to C++ streams.</div><div class="ttdef"><b>Definition:</b> <a href="a00977_source.html#l00017">StreamOutputBuffer.hpp:17</a></div></div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="a03435.html#a117fbcb7e5871373ebb7270b39b20721">   14</a></span>&#160;<span class="keywordtype">void</span> FileHandlerContext::addDependencyFile(<span class="keyword">const</span> std::string&amp; path) { fileList.emplace(path); }</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a03435.html#acf80fad2b5d9f50e479ef3182d34c447">   16</a></span>&#160;<span class="keywordtype">void</span> FileHandlerContext::addExcludeFile(<span class="keyword">const</span> std::string&amp; path) { excludes.emplace(path); }</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;} <span class="comment">// namespace bundle</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;} <span class="comment">// namespace resource</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00881_html"><div class="ttname"><a href="a00881.html">FileHandlerContext.hpp</a></div></div>
+<div class="ttc" id="aa01818_html"><div class="ttname"><a href="a01818.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 8 2023 18:56:19 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Oct 12 2023 01:16:56 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Vulkan/Buffer.cpp Source File</title>
+<title>BLIB: src/Render/Transfers/TransferContext.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,207 +66,87 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_2a24e9216d188d12785cf0650df1274b.html">Vulkan</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_7607afd44543cedc5723cabe6929dc94.html">Transfers</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Buffer.cpp</div>  </div>
+<div class="title">TransferContext.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01574.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00791.html">BLIB/Render/Vulkan/Buffer.hpp</a>&gt;</span></div>
+<a href="a01574.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00779.html">BLIB/Render/Transfers/TransferContext.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00848.html">BLIB/Render/Vulkan/VulkanState.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00854.html">BLIB/Render/Vulkan/VulkanState.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01803.html">bl</a></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01818.html">bl</a></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>rc</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>vk</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>tfr</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="a03248.html#ae8599c386307d38472556aff229f855d">   11</a></span>&#160;<a class="code" href="a03248.html#ae8599c386307d38472556aff229f855d">Buffer::Buffer</a>()</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;: vulkanState(nullptr)</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;, <a class="code" href="a01094.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>(nullptr)</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;, alloc{}</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;, mapped(nullptr)</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;, allocFlags(0)</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;, size(0)</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;, memPool{}</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;, usage{} {}</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a03248.html#a85ef6f357cd442e1a25fcff18e5cb134">   21</a></span>&#160;<a class="code" href="a03248.html#a85ef6f357cd442e1a25fcff18e5cb134">Buffer::~Buffer</a>() { <a class="code" href="a03248.html#a309978f0b161def0aa4b67ce4f763946">destroy</a>(); }</div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="a03251.html#a80c571067bacb2926a724329a6f1e5a6">   11</a></span>&#160;<a class="code" href="a03251.html#a80c571067bacb2926a724329a6f1e5a6">TransferContext::TransferContext</a>(<a class="code" href="a03391.html">vk::VulkanState</a>&amp; vs, std::vector&lt;VkBuffer&gt;&amp; stagingBuffers,</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;                                 std::vector&lt;VmaAllocation&gt;&amp; stagingAllocs,</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;                                 std::vector&lt;VkMemoryBarrier&gt;&amp; memoryBarriers,</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;                                 std::vector&lt;VkBufferMemoryBarrier&gt;&amp; bufferBarriers,</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;                                 std::vector&lt;VkImageMemoryBarrier&gt;&amp; imageBarriers)</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;: vulkanState(vs)</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;, stagingBuffers(stagingBuffers)</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;, stagingAllocs(stagingAllocs)</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;, memoryBarriers(memoryBarriers)</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;, bufferBarriers(bufferBarriers)</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;, imageBarriers(imageBarriers) {}</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a03248.html#a5b36ff08918b967ac273d064993c9e0f">   23</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a03248.html#a5b36ff08918b967ac273d064993c9e0f">Buffer::create</a>(<a class="code" href="a03364.html">VulkanState</a>&amp; vs, VkDeviceSize bsize, VkMemoryPropertyFlags memProps,</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;                    VkBufferUsageFlags use, VmaAllocationCreateFlags flags) {</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    doDefer();</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    vulkanState = &amp;vs;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    memPool     = memProps;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    size        = bsize;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    usage       = use;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    allocFlags  = flags;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordflow">return</span> doCreate();</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;}</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keywordtype">bool</span> Buffer::doCreate() {</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    VkBufferCreateInfo bufferInfo{};</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    bufferInfo.sType       = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    bufferInfo.size        = size;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    bufferInfo.usage       = usage;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    bufferInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    VmaAllocationCreateInfo allocInfo{};</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    allocInfo.requiredFlags = memPool;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    allocInfo.usage         = VMA_MEMORY_USAGE_AUTO;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    allocInfo.flags         = allocFlags;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    VmaAllocationInfo resultInfo{};</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keyword">const</span> VkResult result = vmaCreateBuffer(</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        vulkanState-&gt;<a class="code" href="a03364.html#a781a2fe56188f13e65f1b511d9db23f6">vmaAllocator</a>, &amp;bufferInfo, &amp;allocInfo, &amp;buffer, &amp;alloc, &amp;resultInfo);</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordflow">if</span> (result != VK_SUCCESS) {</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        vulkanState = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        size        = 0;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    }</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    mapped = resultInfo.pMappedData;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;}</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="a03248.html#a31906a1fd51a5140e0649968ad381786">   59</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a03248.html#a31906a1fd51a5140e0649968ad381786">Buffer::createWithFallback</a>(<a class="code" href="a03364.html">VulkanState</a>&amp; vs, VkDeviceSize bsize, VkMemoryPropertyFlags memProps,</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;                                VkMemoryPropertyFlags fallbackPool, VkBufferUsageFlags use,</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;                                VmaAllocationCreateFlags flags) {</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="a03248.html#a5b36ff08918b967ac273d064993c9e0f">create</a>(vs, bsize, memProps, use, flags)) {</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="a03248.html#a5b36ff08918b967ac273d064993c9e0f">create</a>(vs, bsize, fallbackPool, use, flags);</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    }</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;}</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="a03248.html#a309978f0b161def0aa4b67ce4f763946">   68</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03248.html#a309978f0b161def0aa4b67ce4f763946">Buffer::destroy</a>() {</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="a03248.html#a3004808ef5c84f0150d8bbf5f7c8ad7d">created</a>()) {</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        vmaDestroyBuffer(vulkanState-&gt;<a class="code" href="a03364.html#a781a2fe56188f13e65f1b511d9db23f6">vmaAllocator</a>, buffer, alloc);</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        vulkanState = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        size        = 0;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    }</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;}</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="a03248.html#afdc83a0683dd29514aacdac9b8ed13d6">   76</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03248.html#afdc83a0683dd29514aacdac9b8ed13d6">Buffer::deferDestruction</a>() {</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    doDefer();</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    vulkanState = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    size        = 0;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;}</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="keywordtype">void</span> Buffer::doDefer() {</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="a03248.html#a3004808ef5c84f0150d8bbf5f7c8ad7d">created</a>()) {</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        vulkanState-&gt;<a class="code" href="a03364.html#a0c4eb8115deab88591131a3d5afd4eea">cleanupManager</a>.<a class="code" href="a03252.html#a0be2d519d4e836c5040713fda94e8cee">add</a>([vs = vulkanState, buffer = buffer, alloc = alloc]() {</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;            vmaDestroyBuffer(vs-&gt;vmaAllocator, buffer, alloc);</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        });</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    }</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;}</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
-<div class="line"><a name="l00090"></a><span class="lineno"><a class="line" href="a03248.html#a9524dc938539d09965a995b96c0ed2a8">   90</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a03248.html#a9524dc938539d09965a995b96c0ed2a8">Buffer::ensureSize</a>(VkDeviceSize newSize) {</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keywordflow">if</span> (newSize &gt; size) {</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        doDefer();</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        <span class="keyword">const</span> VkDeviceSize oldSize = size;</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        <span class="keyword">const</span> VkBuffer oldBuffer   = buffer;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        size                       = newSize;</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        <span class="keywordflow">if</span> (!doCreate()) { <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Failed to resize buffer&quot;</span>); }</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        VkCommandBuffer commandBuffer = vulkanState-&gt;<a class="code" href="a03364.html#aaf786288ff5ca35ec63657b14279b4fa">beginSingleTimeCommands</a>();</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        <span class="comment">// copy old buffer into new</span></div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        VkBufferCopy copyCmd{};</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        copyCmd.dstOffset = 0;</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        copyCmd.size      = oldSize;</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        copyCmd.srcOffset = 0;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        vkCmdCopyBuffer(commandBuffer, oldBuffer, buffer, 1, &amp;copyCmd);</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        <span class="comment">// insert pipeline barrier</span></div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        VkBufferMemoryBarrier bufBarrier{};</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        bufBarrier.sType         = VK_STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER;</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        bufBarrier.srcAccessMask = VK_ACCESS_MEMORY_WRITE_BIT;</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        bufBarrier.dstAccessMask = VK_ACCESS_MEMORY_READ_BIT;</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        bufBarrier.buffer        = buffer;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        bufBarrier.offset        = 0;</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        bufBarrier.size          = oldSize;</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        vkCmdPipelineBarrier(commandBuffer,</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;                             VK_PIPELINE_STAGE_TRANSFER_BIT,</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;                             VK_PIPELINE_STAGE_VERTEX_INPUT_BIT,</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;                             VK_DEPENDENCY_BY_REGION_BIT,</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;                             0,</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;                             <span class="keyword">nullptr</span>,</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;                             1,</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;                             &amp;bufBarrier,</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;                             0,</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;                             <span class="keyword">nullptr</span>);</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160; </div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        vulkanState-&gt;<a class="code" href="a03364.html#accc9e16987a396ec60334aaf7a3a131d">endSingleTimeCommands</a>(commandBuffer);</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160; </div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    }</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;}</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160; </div>
-<div class="line"><a name="l00134"></a><span class="lineno"><a class="line" href="a03248.html#a59f9f42618fdfb237afec34ca505ac32">  134</a></span>&#160;<span class="keywordtype">void</span>* <a class="code" href="a03248.html#a59f9f42618fdfb237afec34ca505ac32">Buffer::mapMemory</a>() {</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    vmaMapMemory(vulkanState-&gt;<a class="code" href="a03364.html#a781a2fe56188f13e65f1b511d9db23f6">vmaAllocator</a>, alloc, &amp;mapped);</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    <span class="keywordflow">return</span> mapped;</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;}</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160; </div>
-<div class="line"><a name="l00139"></a><span class="lineno"><a class="line" href="a03248.html#abf2405a0936e0fd85a481405e6435552">  139</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03248.html#abf2405a0936e0fd85a481405e6435552">Buffer::unMapMemory</a>() { vmaUnmapMemory(vulkanState-&gt;<a class="code" href="a03364.html#a781a2fe56188f13e65f1b511d9db23f6">vmaAllocator</a>, alloc); }</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160; </div>
-<div class="line"><a name="l00141"></a><span class="lineno"><a class="line" href="a03248.html#a72d4d58d118f62ae3f58818a5a50187f">  141</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03248.html#a72d4d58d118f62ae3f58818a5a50187f">Buffer::insertPipelineBarrierBeforeChange</a>() {</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    VkCommandBuffer cb = vulkanState-&gt;<a class="code" href="a03364.html#aaf786288ff5ca35ec63657b14279b4fa">beginSingleTimeCommands</a>();</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160; </div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    VkBufferMemoryBarrier barrier{};</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    barrier.sType         = VK_STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER;</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    barrier.buffer        = buffer;</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    barrier.offset        = 0;</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    barrier.size          = size;</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    barrier.srcAccessMask = VK_ACCESS_MEMORY_READ_BIT;</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    barrier.dstAccessMask = VK_ACCESS_MEMORY_WRITE_BIT;</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    vkCmdPipelineBarrier(cb,</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;                         VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT,</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;                         VK_PIPELINE_STAGE_TRANSFER_BIT,</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;                         VK_DEPENDENCY_BY_REGION_BIT,</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;                         0,</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;                         <span class="keyword">nullptr</span>,</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;                         1,</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;                         &amp;barrier,</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;                         0,</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;                         <span class="keyword">nullptr</span>);</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160; </div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    vulkanState-&gt;<a class="code" href="a03364.html#accc9e16987a396ec60334aaf7a3a131d">endSingleTimeCommands</a>(cb);</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;}</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160; </div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;} <span class="comment">// namespace vk</span></div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00791_html"><div class="ttname"><a href="a00791.html">Buffer.hpp</a></div></div>
-<div class="ttc" id="aa00848_html"><div class="ttname"><a href="a00848.html">VulkanState.hpp</a></div></div>
-<div class="ttc" id="aa01094_html_ad2ae6b0ac080ea0ac45f7a06ccc480ba"><div class="ttname"><a href="a01094.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a></div><div class="ttdeci">SoundHandle buffer</div><div class="ttdef"><b>Definition:</b> <a href="a01094_source.html#l00025">AudioSystem.cpp:25</a></div></div>
-<div class="ttc" id="aa01803_html"><div class="ttname"><a href="a01803.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03248_html_a3004808ef5c84f0150d8bbf5f7c8ad7d"><div class="ttname"><a href="a03248.html#a3004808ef5c84f0150d8bbf5f7c8ad7d">bl::rc::vk::Buffer::created</a></div><div class="ttdeci">constexpr bool created() const</div><div class="ttdoc">Returns whether or not the buffer is currently created.</div><div class="ttdef"><b>Definition:</b> <a href="a00791_source.html#l00137">Buffer.hpp:137</a></div></div>
-<div class="ttc" id="aa03248_html_a309978f0b161def0aa4b67ce4f763946"><div class="ttname"><a href="a03248.html#a309978f0b161def0aa4b67ce4f763946">bl::rc::vk::Buffer::destroy</a></div><div class="ttdeci">void destroy()</div><div class="ttdoc">Destroys the buffer immediately.</div><div class="ttdef"><b>Definition:</b> <a href="a01574_source.html#l00068">Buffer.cpp:68</a></div></div>
-<div class="ttc" id="aa03248_html_a31906a1fd51a5140e0649968ad381786"><div class="ttname"><a href="a03248.html#a31906a1fd51a5140e0649968ad381786">bl::rc::vk::Buffer::createWithFallback</a></div><div class="ttdeci">bool createWithFallback(VulkanState &amp;vulkanState, VkDeviceSize size, VkMemoryPropertyFlags memPool, VkMemoryPropertyFlags fallbackPool, VkBufferUsageFlags usage, VmaAllocationCreateFlags allocFlags)</div><div class="ttdoc">Creates the buffer with the given parameters and a backup memory type.</div><div class="ttdef"><b>Definition:</b> <a href="a01574_source.html#l00059">Buffer.cpp:59</a></div></div>
-<div class="ttc" id="aa03248_html_a59f9f42618fdfb237afec34ca505ac32"><div class="ttname"><a href="a03248.html#a59f9f42618fdfb237afec34ca505ac32">bl::rc::vk::Buffer::mapMemory</a></div><div class="ttdeci">void * mapMemory()</div><div class="ttdoc">Maps the buffer. Does not check if buffer is map-able or if it is already mapped.</div><div class="ttdef"><b>Definition:</b> <a href="a01574_source.html#l00134">Buffer.cpp:134</a></div></div>
-<div class="ttc" id="aa03248_html_a5b36ff08918b967ac273d064993c9e0f"><div class="ttname"><a href="a03248.html#a5b36ff08918b967ac273d064993c9e0f">bl::rc::vk::Buffer::create</a></div><div class="ttdeci">bool create(VulkanState &amp;vulkanState, VkDeviceSize size, VkMemoryPropertyFlags memPool, VkBufferUsageFlags usage, VmaAllocationCreateFlags allocFlags)</div><div class="ttdoc">Creates the buffer with the given parameters.</div><div class="ttdef"><b>Definition:</b> <a href="a01574_source.html#l00023">Buffer.cpp:23</a></div></div>
-<div class="ttc" id="aa03248_html_a72d4d58d118f62ae3f58818a5a50187f"><div class="ttname"><a href="a03248.html#a72d4d58d118f62ae3f58818a5a50187f">bl::rc::vk::Buffer::insertPipelineBarrierBeforeChange</a></div><div class="ttdeci">void insertPipelineBarrierBeforeChange()</div><div class="ttdoc">Records a pipeline barrier to prevent writes from occurring before fragment shader reads are complete...</div><div class="ttdef"><b>Definition:</b> <a href="a01574_source.html#l00141">Buffer.cpp:141</a></div></div>
-<div class="ttc" id="aa03248_html_a85ef6f357cd442e1a25fcff18e5cb134"><div class="ttname"><a href="a03248.html#a85ef6f357cd442e1a25fcff18e5cb134">bl::rc::vk::Buffer::~Buffer</a></div><div class="ttdeci">~Buffer()</div><div class="ttdoc">Destroys the buffer if created.</div><div class="ttdef"><b>Definition:</b> <a href="a01574_source.html#l00021">Buffer.cpp:21</a></div></div>
-<div class="ttc" id="aa03248_html_a9524dc938539d09965a995b96c0ed2a8"><div class="ttname"><a href="a03248.html#a9524dc938539d09965a995b96c0ed2a8">bl::rc::vk::Buffer::ensureSize</a></div><div class="ttdeci">bool ensureSize(VkDeviceSize size)</div><div class="ttdoc">If the buffer size is less than the required size, re-creates the buffer to be at least the given siz...</div><div class="ttdef"><b>Definition:</b> <a href="a01574_source.html#l00090">Buffer.cpp:90</a></div></div>
-<div class="ttc" id="aa03248_html_abf2405a0936e0fd85a481405e6435552"><div class="ttname"><a href="a03248.html#abf2405a0936e0fd85a481405e6435552">bl::rc::vk::Buffer::unMapMemory</a></div><div class="ttdeci">void unMapMemory()</div><div class="ttdoc">Unmaps the buffer. Does not check if the buffer is currently mapped.</div><div class="ttdef"><b>Definition:</b> <a href="a01574_source.html#l00139">Buffer.cpp:139</a></div></div>
-<div class="ttc" id="aa03248_html_ae8599c386307d38472556aff229f855d"><div class="ttname"><a href="a03248.html#ae8599c386307d38472556aff229f855d">bl::rc::vk::Buffer::Buffer</a></div><div class="ttdeci">Buffer()</div><div class="ttdoc">Does nothing.</div><div class="ttdef"><b>Definition:</b> <a href="a01574_source.html#l00011">Buffer.cpp:11</a></div></div>
-<div class="ttc" id="aa03248_html_afdc83a0683dd29514aacdac9b8ed13d6"><div class="ttname"><a href="a03248.html#afdc83a0683dd29514aacdac9b8ed13d6">bl::rc::vk::Buffer::deferDestruction</a></div><div class="ttdeci">void deferDestruction()</div><div class="ttdoc">Defers destruction of the buffer for Config::MaxConcurrentFrames + 1 frames. Buffer can be re-used im...</div><div class="ttdef"><b>Definition:</b> <a href="a01574_source.html#l00076">Buffer.cpp:76</a></div></div>
-<div class="ttc" id="aa03252_html_a0be2d519d4e836c5040713fda94e8cee"><div class="ttname"><a href="a03252.html#a0be2d519d4e836c5040713fda94e8cee">bl::rc::vk::CleanupManager::add</a></div><div class="ttdeci">void add(Callback &amp;&amp;cb)</div><div class="ttdoc">Adds the given callback to the queue.</div><div class="ttdef"><b>Definition:</b> <a href="a01577_source.html#l00022">CleanupManager.cpp:22</a></div></div>
-<div class="ttc" id="aa03364_html"><div class="ttname"><a href="a03364.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a00848_source.html#l00037">VulkanState.hpp:37</a></div></div>
-<div class="ttc" id="aa03364_html_a0c4eb8115deab88591131a3d5afd4eea"><div class="ttname"><a href="a03364.html#a0c4eb8115deab88591131a3d5afd4eea">bl::rc::vk::VulkanState::cleanupManager</a></div><div class="ttdeci">CleanupManager cleanupManager</div><div class="ttdef"><b>Definition:</b> <a href="a00848_source.html#l00212">VulkanState.hpp:212</a></div></div>
-<div class="ttc" id="aa03364_html_a781a2fe56188f13e65f1b511d9db23f6"><div class="ttname"><a href="a03364.html#a781a2fe56188f13e65f1b511d9db23f6">bl::rc::vk::VulkanState::vmaAllocator</a></div><div class="ttdeci">VmaAllocator vmaAllocator</div><div class="ttdef"><b>Definition:</b> <a href="a00848_source.html#l00203">VulkanState.hpp:203</a></div></div>
-<div class="ttc" id="aa03364_html_aaf786288ff5ca35ec63657b14279b4fa"><div class="ttname"><a href="a03364.html#aaf786288ff5ca35ec63657b14279b4fa">bl::rc::vk::VulkanState::beginSingleTimeCommands</a></div><div class="ttdeci">VkCommandBuffer beginSingleTimeCommands(VkCommandPool commandPool=nullptr)</div><div class="ttdoc">Helper function to create a command buffer optimized for one-off single commands such as transfers.</div><div class="ttdef"><b>Definition:</b> <a href="a01631_source.html#l00504">VulkanState.cpp:504</a></div></div>
-<div class="ttc" id="aa03364_html_accc9e16987a396ec60334aaf7a3a131d"><div class="ttname"><a href="a03364.html#accc9e16987a396ec60334aaf7a3a131d">bl::rc::vk::VulkanState::endSingleTimeCommands</a></div><div class="ttdeci">void endSingleTimeCommands(VkCommandBuffer commandBuffer, VkCommandPool commandPool=nullptr)</div><div class="ttdoc">Finalizes the given command buffer and frees it.</div><div class="ttdef"><b>Definition:</b> <a href="a01631_source.html#l00523">VulkanState.cpp:523</a></div></div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a03251.html#a0095891b196aaca7b289210a8a774bee">   23</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03251.html#a0095891b196aaca7b289210a8a774bee">TransferContext::createTemporaryStagingBuffer</a>(VkDeviceSize size, VkBuffer&amp; bufferHandle,</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;                                                   <span class="keywordtype">void</span>** mapped) {</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    VmaAllocation alloc;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    VmaAllocationInfo allocInfo;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    vulkanState.<a class="code" href="a03391.html#a570efdaea45eb7a14a67901db5cce8d4">createBuffer</a>(</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        size,</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        VK_BUFFER_USAGE_TRANSFER_SRC_BIT,</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        VMA_ALLOCATION_CREATE_HOST_ACCESS_SEQUENTIAL_WRITE_BIT | VMA_ALLOCATION_CREATE_MAPPED_BIT,</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT,</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        &amp;bufferHandle,</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        &amp;alloc,</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        &amp;allocInfo);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    stagingBuffers.emplace_back(bufferHandle);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    stagingAllocs.emplace_back(alloc);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    *mapped = allocInfo.pMappedData;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;}</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="a03251.html#a0516ada22d07c935ad2a1dbff375a55f">   40</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03251.html#a0516ada22d07c935ad2a1dbff375a55f">TransferContext::registerMemoryBarrier</a>(<span class="keyword">const</span> VkMemoryBarrier&amp; barrier) {</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    memoryBarriers.emplace_back(barrier);</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;}</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="a03251.html#ad3498b85b2352fb77251503598d24bf0">   44</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03251.html#ad3498b85b2352fb77251503598d24bf0">TransferContext::registerBufferBarrier</a>(<span class="keyword">const</span> VkBufferMemoryBarrier&amp; barrier) {</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    bufferBarriers.emplace_back(barrier);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;}</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="a03251.html#ab4518b0ecbee6232e04ea2aab04f05aa">   48</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03251.html#ab4518b0ecbee6232e04ea2aab04f05aa">TransferContext::registerImageBarrier</a>(<span class="keyword">const</span> VkImageMemoryBarrier&amp; barrier) {</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    imageBarriers.emplace_back(barrier);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;}</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="a03251.html#a37f3aa2f09d5a38a8c6761f09ac26d8c">   52</a></span>&#160;VkDevice <a class="code" href="a03251.html#a37f3aa2f09d5a38a8c6761f09ac26d8c">TransferContext::device</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> vulkanState.<a class="code" href="a03391.html#a6ad0249d08d9ffb87af35b42f11a1db5">device</a>; }</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;} <span class="comment">// namespace tfr</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00779_html"><div class="ttname"><a href="a00779.html">TransferContext.hpp</a></div></div>
+<div class="ttc" id="aa00854_html"><div class="ttname"><a href="a00854.html">VulkanState.hpp</a></div></div>
+<div class="ttc" id="aa01818_html"><div class="ttname"><a href="a01818.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03251_html_a0095891b196aaca7b289210a8a774bee"><div class="ttname"><a href="a03251.html#a0095891b196aaca7b289210a8a774bee">bl::rc::tfr::TransferContext::createTemporaryStagingBuffer</a></div><div class="ttdeci">void createTemporaryStagingBuffer(VkDeviceSize size, VkBuffer &amp;bufferResult, void **mappedMemory)</div><div class="ttdoc">Creates a staging buffer of the given size. Should only be called from Transferable::executeTransferA...</div><div class="ttdef"><b>Definition:</b> <a href="a01574_source.html#l00023">TransferContext.cpp:23</a></div></div>
+<div class="ttc" id="aa03251_html_a0516ada22d07c935ad2a1dbff375a55f"><div class="ttname"><a href="a03251.html#a0516ada22d07c935ad2a1dbff375a55f">bl::rc::tfr::TransferContext::registerMemoryBarrier</a></div><div class="ttdeci">void registerMemoryBarrier(const VkMemoryBarrier &amp;barrier)</div><div class="ttdoc">Registers the given barrier to be recorded after all transfers are started.</div><div class="ttdef"><b>Definition:</b> <a href="a01574_source.html#l00040">TransferContext.cpp:40</a></div></div>
+<div class="ttc" id="aa03251_html_a37f3aa2f09d5a38a8c6761f09ac26d8c"><div class="ttname"><a href="a03251.html#a37f3aa2f09d5a38a8c6761f09ac26d8c">bl::rc::tfr::TransferContext::device</a></div><div class="ttdeci">VkDevice device() const</div><div class="ttdoc">Returns the logical device to be used.</div><div class="ttdef"><b>Definition:</b> <a href="a01574_source.html#l00052">TransferContext.cpp:52</a></div></div>
+<div class="ttc" id="aa03251_html_a80c571067bacb2926a724329a6f1e5a6"><div class="ttname"><a href="a03251.html#a80c571067bacb2926a724329a6f1e5a6">bl::rc::tfr::TransferContext::TransferContext</a></div><div class="ttdeci">TransferContext(vk::VulkanState &amp;vulkanState, std::vector&lt; VkBuffer &gt; &amp;stagingBuffers, std::vector&lt; VmaAllocation &gt; &amp;stagingAllocs, std::vector&lt; VkMemoryBarrier &gt; &amp;memoryBarriers, std::vector&lt; VkBufferMemoryBarrier &gt; &amp;bufferBarriers, std::vector&lt; VkImageMemoryBarrier &gt; &amp;imageBarriers)</div><div class="ttdoc">Internal constructor, do not use.</div><div class="ttdef"><b>Definition:</b> <a href="a01574_source.html#l00011">TransferContext.cpp:11</a></div></div>
+<div class="ttc" id="aa03251_html_ab4518b0ecbee6232e04ea2aab04f05aa"><div class="ttname"><a href="a03251.html#ab4518b0ecbee6232e04ea2aab04f05aa">bl::rc::tfr::TransferContext::registerImageBarrier</a></div><div class="ttdeci">void registerImageBarrier(const VkImageMemoryBarrier &amp;barrier)</div><div class="ttdoc">Registers the given barrier to be recorded after all transfers are started.</div><div class="ttdef"><b>Definition:</b> <a href="a01574_source.html#l00048">TransferContext.cpp:48</a></div></div>
+<div class="ttc" id="aa03251_html_ad3498b85b2352fb77251503598d24bf0"><div class="ttname"><a href="a03251.html#ad3498b85b2352fb77251503598d24bf0">bl::rc::tfr::TransferContext::registerBufferBarrier</a></div><div class="ttdeci">void registerBufferBarrier(const VkBufferMemoryBarrier &amp;barrier)</div><div class="ttdoc">Registers the given barrier to be recorded after all transfers are started.</div><div class="ttdef"><b>Definition:</b> <a href="a01574_source.html#l00044">TransferContext.cpp:44</a></div></div>
+<div class="ttc" id="aa03391_html"><div class="ttname"><a href="a03391.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a00854_source.html#l00037">VulkanState.hpp:37</a></div></div>
+<div class="ttc" id="aa03391_html_a570efdaea45eb7a14a67901db5cce8d4"><div class="ttname"><a href="a03391.html#a570efdaea45eb7a14a67901db5cce8d4">bl::rc::vk::VulkanState::createBuffer</a></div><div class="ttdeci">void createBuffer(VkDeviceSize size, VkBufferUsageFlags usage, VmaAllocationCreateFlags allocFlags, VkMemoryPropertyFlags properties, VkBuffer *buffer, VmaAllocation *vmaAlloc, VmaAllocationInfo *vmaAllocInfo)</div><div class="ttdoc">Helper function to create a VkBuffer with some parameters.</div><div class="ttdef"><b>Definition:</b> <a href="a01640_source.html#l00460">VulkanState.cpp:460</a></div></div>
+<div class="ttc" id="aa03391_html_a6ad0249d08d9ffb87af35b42f11a1db5"><div class="ttname"><a href="a03391.html#a6ad0249d08d9ffb87af35b42f11a1db5">bl::rc::vk::VulkanState::device</a></div><div class="ttdeci">VkDevice device</div><div class="ttdef"><b>Definition:</b> <a href="a00854_source.html#l00211">VulkanState.hpp:211</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 8 2023 18:56:19 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Oct 12 2023 01:16:56 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

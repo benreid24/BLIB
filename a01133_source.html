@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Components/Orientation3D.cpp Source File</title>
+<title>BLIB: src/Cameras/Camera.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,87 +66,89 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_c610c8504d46288da7634b3c0b18263f.html">Components</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_ff0ce48e5847898e72a0a6a39233e415.html">Cameras</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Orientation3D.cpp</div>  </div>
+<div class="title">Camera.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01133.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00065.html">BLIB/Components/Orientation3D.hpp</a>&gt;</span></div>
+<a href="a01133.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00047.html">BLIB/Cameras/Camera.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01803.html">bl</a></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>com</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;glm/gtc/matrix_transform.hpp&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01818.html">bl</a></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="a01996.html#a65e09b4c73a47adb059a052274a3a0f0">    7</a></span>&#160;<a class="code" href="a01996.html#a65e09b4c73a47adb059a052274a3a0f0">Orientation3D::Orientation3D</a>(<span class="keywordtype">float</span> yaw, <span class="keywordtype">float</span> pitch, <span class="keywordtype">float</span> roll)</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;: roll(roll) {</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    <a class="code" href="a01996.html#a7d4a859619d866c0bcccb83016d16ced">setYawAndPitch</a>(yaw, pitch);</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;}</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="a01996.html#ab53e6fe6f67e60636ee36d838134bd44">   12</a></span>&#160;<a class="code" href="a01996.html#a65e09b4c73a47adb059a052274a3a0f0">Orientation3D::Orientation3D</a>(<span class="keyword">const</span> glm::vec3&amp; dir, <span class="keywordtype">float</span> r)</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;: faceDir(dir)</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;, roll(r) {}</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a01996.html#af253d8e8e9856019ef683f5e73d756a8">   16</a></span>&#160;<a class="code" href="a01996.html#a65e09b4c73a47adb059a052274a3a0f0">Orientation3D::Orientation3D</a>(<span class="keyword">const</span> glm::vec3&amp; lookAt, <span class="keyword">const</span> glm::vec3&amp; from, <span class="keywordtype">float</span> r)</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;: faceDir(glm::<a class="code" href="a01787.html#gabe5a1e6b62ee715c30c7d49051a8d3fc">normalize</a>(lookAt - from))</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;, roll(r) {}</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a01996.html#a935595e4769dbaeb584c5af72052fa1b">   20</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01996.html#a935595e4769dbaeb584c5af72052fa1b">Orientation3D::setPitch</a>(<span class="keywordtype">float</span> p) { <a class="code" href="a01996.html#a7d4a859619d866c0bcccb83016d16ced">setYawAndPitch</a>(<a class="code" href="a01996.html#a7caa149cc7a3799ef2ba5d06510a9540">getYaw</a>(), p); }</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a01996.html#a272c7bcb7b91ccab7d01fcbc1125ac7a">   22</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01996.html#a272c7bcb7b91ccab7d01fcbc1125ac7a">Orientation3D::applyPitch</a>(<span class="keywordtype">float</span> offset) { <a class="code" href="a01996.html#a7d4a859619d866c0bcccb83016d16ced">setYawAndPitch</a>(<a class="code" href="a01996.html#a7caa149cc7a3799ef2ba5d06510a9540">getYaw</a>(), <a class="code" href="a01996.html#ac3b4fcaf367105dbbf5a8c188a2ea240">getPitch</a>() + offset); }</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>cam</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a01991.html#a371f8cb60ba6a690287f556a91163fa8">    9</a></span>&#160;<a class="code" href="a01991.html#a371f8cb60ba6a690287f556a91163fa8">Camera::Camera</a>()</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;: view(1.f)</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;, viewDirty(true)</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;, proj(1.f)</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;, projDirty(true)</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;, vpWidth(0.f)</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;, vpHeight(0.f)</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;, nearValue(0.1f)</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;, farValue(100.f) {}</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a01991.html#a395d70678534a5f5b6495bbb5c832598">   19</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01991.html#a395d70678534a5f5b6495bbb5c832598">Camera::setNearPlane</a>(<span class="keywordtype">float</span> n) {</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    nearValue = n;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <a class="code" href="a01991.html#a8db0b22739ed85a8dc29ec7082d04640">markProjDirty</a>();</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;}</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a01996.html#ac3b4fcaf367105dbbf5a8c188a2ea240">   24</a></span>&#160;<span class="keywordtype">float</span> <a class="code" href="a01996.html#ac3b4fcaf367105dbbf5a8c188a2ea240">Orientation3D::getPitch</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> glm::degrees(std::asin(faceDir.y)); }</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a01996.html#af3f17113b18e44bae8af536e8e4dafea">   26</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01996.html#af3f17113b18e44bae8af536e8e4dafea">Orientation3D::setYaw</a>(<span class="keywordtype">float</span> y) { <a class="code" href="a01996.html#a7d4a859619d866c0bcccb83016d16ced">setYawAndPitch</a>(y, <a class="code" href="a01996.html#ac3b4fcaf367105dbbf5a8c188a2ea240">getPitch</a>()); }</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a01996.html#a2863ca46af23ea5d7189324567c93757">   28</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01996.html#a2863ca46af23ea5d7189324567c93757">Orientation3D::applyYaw</a>(<span class="keywordtype">float</span> offset) { <a class="code" href="a01996.html#a7d4a859619d866c0bcccb83016d16ced">setYawAndPitch</a>(<a class="code" href="a01996.html#a7caa149cc7a3799ef2ba5d06510a9540">getYaw</a>(), <a class="code" href="a01996.html#ac3b4fcaf367105dbbf5a8c188a2ea240">getPitch</a>() + offset); }</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a01996.html#a7caa149cc7a3799ef2ba5d06510a9540">   30</a></span>&#160;<span class="keywordtype">float</span> <a class="code" href="a01996.html#a7caa149cc7a3799ef2ba5d06510a9540">Orientation3D::getYaw</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> glm::degrees(std::atan2(faceDir.z, faceDir.x)); }</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="a01996.html#ae076f8a1b20405ca19e08e7825405376">   32</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01996.html#ae076f8a1b20405ca19e08e7825405376">Orientation3D::setRoll</a>(<span class="keywordtype">float</span> r) { roll = r; }</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="a01996.html#a2f1c20894c65b552fd6293a829fb100a">   34</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01996.html#a2f1c20894c65b552fd6293a829fb100a">Orientation3D::applyRoll</a>(<span class="keywordtype">float</span> r) { roll += r; }</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="a01996.html#afbb197f10284feaa07e55db73af7df07">   36</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01996.html#afbb197f10284feaa07e55db73af7df07">Orientation3D::lookAt</a>(<span class="keyword">const</span> glm::vec3&amp; pos, <span class="keyword">const</span> glm::vec3&amp; from) {</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    faceDir = <a class="code" href="a01787.html#gabe5a1e6b62ee715c30c7d49051a8d3fc">glm::normalize</a>(pos - from);</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;}</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="a01996.html#a7d4a859619d866c0bcccb83016d16ced">   40</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01996.html#a7d4a859619d866c0bcccb83016d16ced">Orientation3D::setYawAndPitch</a>(<span class="keywordtype">float</span> yaw, <span class="keywordtype">float</span> pitch) {</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> yawRad   = glm::radians(yaw);</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> pitchRad = glm::radians(pitch);</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    faceDir              = <a class="code" href="a01787.html#gabe5a1e6b62ee715c30c7d49051a8d3fc">glm::normalize</a>(glm::vec3{<a class="code" href="a01787.html#gae8e482156412ed87dc2d91572ee817ab">std::cos</a>(yawRad) * <a class="code" href="a01787.html#gae8e482156412ed87dc2d91572ee817ab">std::cos</a>(pitchRad),</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                                       <a class="code" href="a01787.html#ga0379b8bbdfc3c74fecd12c93fdf0ca5b">std::sin</a>(pitchRad),</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                                       <a class="code" href="a01787.html#ga0379b8bbdfc3c74fecd12c93fdf0ca5b">std::sin</a>(yawRad) * <a class="code" href="a01787.html#gae8e482156412ed87dc2d91572ee817ab">std::cos</a>(pitchRad)});</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;}</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="a01996.html#a55e316ef43064a70e7fa741556e5734a">   48</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01996.html#a55e316ef43064a70e7fa741556e5734a">Orientation3D::setFaceDirection</a>(<span class="keyword">const</span> glm::vec3&amp; f) { faceDir = f; }</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;} <span class="comment">// namespace com</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00065_html"><div class="ttname"><a href="a00065.html">Orientation3D.hpp</a></div></div>
-<div class="ttc" id="aa01787_html_ga0379b8bbdfc3c74fecd12c93fdf0ca5b"><div class="ttname"><a href="a01787.html#ga0379b8bbdfc3c74fecd12c93fdf0ca5b">bl::math::sin</a></div><div class="ttdeci">float sin(float degrees)</div><div class="ttdoc">Computes the sine of the given angle using cached values. Values are cached in quarter degree increme...</div><div class="ttdef"><b>Definition:</b> <a href="a01382_source.html#l00037">Trig.cpp:37</a></div></div>
-<div class="ttc" id="aa01787_html_gabe5a1e6b62ee715c30c7d49051a8d3fc"><div class="ttname"><a href="a01787.html#gabe5a1e6b62ee715c30c7d49051a8d3fc">bl::math::normalize</a></div><div class="ttdeci">void normalize(sf::Vector2&lt; T &gt; &amp;vec)</div><div class="ttdoc">Normalizes the given vector in place.</div><div class="ttdef"><b>Definition:</b> <a href="a00503_source.html#l00095">Vector.hpp:95</a></div></div>
-<div class="ttc" id="aa01787_html_gae8e482156412ed87dc2d91572ee817ab"><div class="ttname"><a href="a01787.html#gae8e482156412ed87dc2d91572ee817ab">bl::math::cos</a></div><div class="ttdeci">float cos(float degrees)</div><div class="ttdoc">Computes the cosine of the given angle using cached values. Values are cached in quarter degree incre...</div><div class="ttdef"><b>Definition:</b> <a href="a01382_source.html#l00031">Trig.cpp:31</a></div></div>
-<div class="ttc" id="aa01803_html"><div class="ttname"><a href="a01803.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa01996_html_a272c7bcb7b91ccab7d01fcbc1125ac7a"><div class="ttname"><a href="a01996.html#a272c7bcb7b91ccab7d01fcbc1125ac7a">bl::com::Orientation3D::applyPitch</a></div><div class="ttdeci">void applyPitch(float offset)</div><div class="ttdoc">Adds the given offset to the pitch of the orientation.</div><div class="ttdef"><b>Definition:</b> <a href="a01133_source.html#l00022">Orientation3D.cpp:22</a></div></div>
-<div class="ttc" id="aa01996_html_a2863ca46af23ea5d7189324567c93757"><div class="ttname"><a href="a01996.html#a2863ca46af23ea5d7189324567c93757">bl::com::Orientation3D::applyYaw</a></div><div class="ttdeci">void applyYaw(float offset)</div><div class="ttdoc">Adds the given offset to the yaw of the orientation.</div><div class="ttdef"><b>Definition:</b> <a href="a01133_source.html#l00028">Orientation3D.cpp:28</a></div></div>
-<div class="ttc" id="aa01996_html_a2f1c20894c65b552fd6293a829fb100a"><div class="ttname"><a href="a01996.html#a2f1c20894c65b552fd6293a829fb100a">bl::com::Orientation3D::applyRoll</a></div><div class="ttdeci">void applyRoll(float roll)</div><div class="ttdoc">Adds the given roll to the roll angle of the orientation.</div><div class="ttdef"><b>Definition:</b> <a href="a01133_source.html#l00034">Orientation3D.cpp:34</a></div></div>
-<div class="ttc" id="aa01996_html_a55e316ef43064a70e7fa741556e5734a"><div class="ttname"><a href="a01996.html#a55e316ef43064a70e7fa741556e5734a">bl::com::Orientation3D::setFaceDirection</a></div><div class="ttdeci">void setFaceDirection(const glm ::vec3 &amp;faceDir)</div><div class="ttdoc">Sets the direction the orientation is facing towards.</div><div class="ttdef"><b>Definition:</b> <a href="a01133_source.html#l00048">Orientation3D.cpp:48</a></div></div>
-<div class="ttc" id="aa01996_html_a65e09b4c73a47adb059a052274a3a0f0"><div class="ttname"><a href="a01996.html#a65e09b4c73a47adb059a052274a3a0f0">bl::com::Orientation3D::Orientation3D</a></div><div class="ttdeci">Orientation3D(float yaw=0.f, float pitch=0.f, float roll=0.f)</div><div class="ttdoc">Creates a new orientation from the given Euler angles.</div><div class="ttdef"><b>Definition:</b> <a href="a01133_source.html#l00007">Orientation3D.cpp:7</a></div></div>
-<div class="ttc" id="aa01996_html_a7caa149cc7a3799ef2ba5d06510a9540"><div class="ttname"><a href="a01996.html#a7caa149cc7a3799ef2ba5d06510a9540">bl::com::Orientation3D::getYaw</a></div><div class="ttdeci">float getYaw() const</div><div class="ttdoc">Returns the yaw of the orientation in degrees.</div><div class="ttdef"><b>Definition:</b> <a href="a01133_source.html#l00030">Orientation3D.cpp:30</a></div></div>
-<div class="ttc" id="aa01996_html_a7d4a859619d866c0bcccb83016d16ced"><div class="ttname"><a href="a01996.html#a7d4a859619d866c0bcccb83016d16ced">bl::com::Orientation3D::setYawAndPitch</a></div><div class="ttdeci">void setYawAndPitch(float yaw, float pitch)</div><div class="ttdoc">Sets both the yaw and pitch of the orientation. Call this if both are changing as it's more efficient...</div><div class="ttdef"><b>Definition:</b> <a href="a01133_source.html#l00040">Orientation3D.cpp:40</a></div></div>
-<div class="ttc" id="aa01996_html_a935595e4769dbaeb584c5af72052fa1b"><div class="ttname"><a href="a01996.html#a935595e4769dbaeb584c5af72052fa1b">bl::com::Orientation3D::setPitch</a></div><div class="ttdeci">void setPitch(float pitch)</div><div class="ttdoc">Sets the pitch angle of the orientation.</div><div class="ttdef"><b>Definition:</b> <a href="a01133_source.html#l00020">Orientation3D.cpp:20</a></div></div>
-<div class="ttc" id="aa01996_html_ac3b4fcaf367105dbbf5a8c188a2ea240"><div class="ttname"><a href="a01996.html#ac3b4fcaf367105dbbf5a8c188a2ea240">bl::com::Orientation3D::getPitch</a></div><div class="ttdeci">float getPitch() const</div><div class="ttdoc">Returns the pitch of the orientation in degrees.</div><div class="ttdef"><b>Definition:</b> <a href="a01133_source.html#l00024">Orientation3D.cpp:24</a></div></div>
-<div class="ttc" id="aa01996_html_ae076f8a1b20405ca19e08e7825405376"><div class="ttname"><a href="a01996.html#ae076f8a1b20405ca19e08e7825405376">bl::com::Orientation3D::setRoll</a></div><div class="ttdeci">void setRoll(float roll)</div><div class="ttdoc">Sets the roll of the orientation.</div><div class="ttdef"><b>Definition:</b> <a href="a01133_source.html#l00032">Orientation3D.cpp:32</a></div></div>
-<div class="ttc" id="aa01996_html_af3f17113b18e44bae8af536e8e4dafea"><div class="ttname"><a href="a01996.html#af3f17113b18e44bae8af536e8e4dafea">bl::com::Orientation3D::setYaw</a></div><div class="ttdeci">void setYaw(float yaw)</div><div class="ttdoc">Sets the yaw angle of the orientation.</div><div class="ttdef"><b>Definition:</b> <a href="a01133_source.html#l00026">Orientation3D.cpp:26</a></div></div>
-<div class="ttc" id="aa01996_html_afbb197f10284feaa07e55db73af7df07"><div class="ttname"><a href="a01996.html#afbb197f10284feaa07e55db73af7df07">bl::com::Orientation3D::lookAt</a></div><div class="ttdeci">void lookAt(const glm::vec3 &amp;lookAt, const glm::vec3 &amp;from)</div><div class="ttdoc">Orients the orientation to look at the given position from its current position.</div><div class="ttdef"><b>Definition:</b> <a href="a01133_source.html#l00036">Orientation3D.cpp:36</a></div></div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a01991.html#a5a5b4868ae35b77f52c2f878b18bcc59">   24</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01991.html#a5a5b4868ae35b77f52c2f878b18bcc59">Camera::setFarPlane</a>(<span class="keywordtype">float</span> f) {</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    farValue = f;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <a class="code" href="a01991.html#a8db0b22739ed85a8dc29ec7082d04640">markProjDirty</a>();</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;}</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a01991.html#a60e436aa6a89793a9e3fd8c3b0378fbf">   29</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01991.html#a60e436aa6a89793a9e3fd8c3b0378fbf">Camera::setNearAndFarPlanes</a>(<span class="keywordtype">float</span> n, <span class="keywordtype">float</span> f) {</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    nearValue = n;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    farValue  = f;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <a class="code" href="a01991.html#a8db0b22739ed85a8dc29ec7082d04640">markProjDirty</a>();</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;}</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="a01991.html#aa7d175dedf0a83d5acb4abdd7931109f">   35</a></span>&#160;<span class="keyword">const</span> glm::mat4&amp; <a class="code" href="a01991.html#aa7d175dedf0a83d5acb4abdd7931109f">Camera::getViewMatrix</a>() {</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordflow">if</span> (viewDirty) {</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <a class="code" href="a01991.html#ad997afe84942385e1fc059ad44d59782">refreshViewMatrix</a>(view);</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        viewDirty = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    }</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordflow">return</span> view;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;}</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="a01991.html#acf354685b1d274c379fe085076fa4051">   43</a></span>&#160;<span class="keyword">const</span> glm::mat4&amp; <a class="code" href="a01991.html#acf354685b1d274c379fe085076fa4051">Camera::getProjectionMatrix</a>(<span class="keyword">const</span> VkViewport&amp; viewport) {</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordflow">if</span> (projDirty || vpWidth != viewport.width || vpHeight != viewport.height) {</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <a class="code" href="a01991.html#ad84589ac3d7c29b7ef31ba89729c4860">refreshProjMatrix</a>(proj, viewport);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        projDirty = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        vpWidth   = viewport.width;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        vpHeight  = viewport.height;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    }</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordflow">return</span> proj;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;}</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="a01991.html#a194c42e28c9bc4558095265ca862e761">   53</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01991.html#a194c42e28c9bc4558095265ca862e761">Camera::markViewDirty</a>() { viewDirty = <span class="keyword">true</span>; }</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="a01991.html#a8db0b22739ed85a8dc29ec7082d04640">   55</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01991.html#a8db0b22739ed85a8dc29ec7082d04640">Camera::markProjDirty</a>() { projDirty = <span class="keyword">true</span>; }</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;} <span class="comment">// namespace cam</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00047_html"><div class="ttname"><a href="a00047.html">Camera.hpp</a></div></div>
+<div class="ttc" id="aa01818_html"><div class="ttname"><a href="a01818.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa01991_html_a194c42e28c9bc4558095265ca862e761"><div class="ttname"><a href="a01991.html#a194c42e28c9bc4558095265ca862e761">bl::cam::Camera::markViewDirty</a></div><div class="ttdeci">void markViewDirty()</div><div class="ttdoc">Mark the view matrix as needing to be refreshed on next use.</div><div class="ttdef"><b>Definition:</b> <a href="a01133_source.html#l00053">Camera.cpp:53</a></div></div>
+<div class="ttc" id="aa01991_html_a371f8cb60ba6a690287f556a91163fa8"><div class="ttname"><a href="a01991.html#a371f8cb60ba6a690287f556a91163fa8">bl::cam::Camera::Camera</a></div><div class="ttdeci">Camera()</div><div class="ttdoc">Construct a new Camera.</div><div class="ttdef"><b>Definition:</b> <a href="a01133_source.html#l00009">Camera.cpp:9</a></div></div>
+<div class="ttc" id="aa01991_html_a395d70678534a5f5b6495bbb5c832598"><div class="ttname"><a href="a01991.html#a395d70678534a5f5b6495bbb5c832598">bl::cam::Camera::setNearPlane</a></div><div class="ttdeci">void setNearPlane(float nearValue)</div><div class="ttdoc">Sets the near plane distance.</div><div class="ttdef"><b>Definition:</b> <a href="a01133_source.html#l00019">Camera.cpp:19</a></div></div>
+<div class="ttc" id="aa01991_html_a5a5b4868ae35b77f52c2f878b18bcc59"><div class="ttname"><a href="a01991.html#a5a5b4868ae35b77f52c2f878b18bcc59">bl::cam::Camera::setFarPlane</a></div><div class="ttdeci">void setFarPlane(float farValue)</div><div class="ttdoc">Sets the far plane distance.</div><div class="ttdef"><b>Definition:</b> <a href="a01133_source.html#l00024">Camera.cpp:24</a></div></div>
+<div class="ttc" id="aa01991_html_a60e436aa6a89793a9e3fd8c3b0378fbf"><div class="ttname"><a href="a01991.html#a60e436aa6a89793a9e3fd8c3b0378fbf">bl::cam::Camera::setNearAndFarPlanes</a></div><div class="ttdeci">void setNearAndFarPlanes(float nearValue, float farValue)</div><div class="ttdoc">Sets the distance to the near and far planes.</div><div class="ttdef"><b>Definition:</b> <a href="a01133_source.html#l00029">Camera.cpp:29</a></div></div>
+<div class="ttc" id="aa01991_html_a8db0b22739ed85a8dc29ec7082d04640"><div class="ttname"><a href="a01991.html#a8db0b22739ed85a8dc29ec7082d04640">bl::cam::Camera::markProjDirty</a></div><div class="ttdeci">void markProjDirty()</div><div class="ttdoc">Marks the projection matrix as needing to be refreshed on next use.</div><div class="ttdef"><b>Definition:</b> <a href="a01133_source.html#l00055">Camera.cpp:55</a></div></div>
+<div class="ttc" id="aa01991_html_aa7d175dedf0a83d5acb4abdd7931109f"><div class="ttname"><a href="a01991.html#aa7d175dedf0a83d5acb4abdd7931109f">bl::cam::Camera::getViewMatrix</a></div><div class="ttdeci">const glm::mat4 &amp; getViewMatrix()</div><div class="ttdoc">Returns the view matrix of this camera.</div><div class="ttdef"><b>Definition:</b> <a href="a01133_source.html#l00035">Camera.cpp:35</a></div></div>
+<div class="ttc" id="aa01991_html_acf354685b1d274c379fe085076fa4051"><div class="ttname"><a href="a01991.html#acf354685b1d274c379fe085076fa4051">bl::cam::Camera::getProjectionMatrix</a></div><div class="ttdeci">const glm::mat4 &amp; getProjectionMatrix(const VkViewport &amp;viewport)</div><div class="ttdoc">Returns the projection matrix of this camera for the given viewport.</div><div class="ttdef"><b>Definition:</b> <a href="a01133_source.html#l00043">Camera.cpp:43</a></div></div>
+<div class="ttc" id="aa01991_html_ad84589ac3d7c29b7ef31ba89729c4860"><div class="ttname"><a href="a01991.html#ad84589ac3d7c29b7ef31ba89729c4860">bl::cam::Camera::refreshProjMatrix</a></div><div class="ttdeci">virtual void refreshProjMatrix(glm::mat4 &amp;proj, const VkViewport &amp;viewport)=0</div><div class="ttdoc">Called when the projection matrix needs to be refreshed.</div></div>
+<div class="ttc" id="aa01991_html_ad997afe84942385e1fc059ad44d59782"><div class="ttname"><a href="a01991.html#ad997afe84942385e1fc059ad44d59782">bl::cam::Camera::refreshViewMatrix</a></div><div class="ttdeci">virtual void refreshViewMatrix(glm::mat4 &amp;view)=0</div><div class="ttdoc">Called when the view matrix needs to be refreshed.</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 8 2023 18:56:19 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Oct 12 2023 01:16:56 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

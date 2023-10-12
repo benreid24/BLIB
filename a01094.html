@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Audio/AudioSystem.cpp File Reference</title>
+<title>BLIB: include/BLIB/Util/Visitor.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,494 +66,47 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_c64386e93f356b78d4612c7b7741707c.html">Audio</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4b3af2b25a05b4f12e892fbe45139fe9.html">Util</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">AudioSystem.cpp File Reference</div>  </div>
+<div class="title">Visitor.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00011_source.html">BLIB/Audio/AudioSystem.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00185_source.html">BLIB/Engine/Configuration.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00908_source.html">BLIB/Resources.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a01055_source.html">BLIB/Util/Random.hpp</a>&gt;</code><br />
-<code>#include &lt;SFML/Audio.hpp&gt;</code><br />
-<code>#include &lt;atomic&gt;</code><br />
-<code>#include &lt;condition_variable&gt;</code><br />
-<code>#include &lt;list&gt;</code><br />
-<code>#include &lt;mutex&gt;</code><br />
-<code>#include &lt;shared_mutex&gt;</code><br />
-<code>#include &lt;thread&gt;</code><br />
-<code>#include &lt;unordered_map&gt;</code><br />
-</div>
+
 <p><a href="a01094_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04063.html">bl::util::Visitor&lt; Ts &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility class to wrap a collection of lambdas for std::visit.  <a href="a04063.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a01803"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01803.html">bl</a></td></tr>
-<tr class="memdesc:a01803"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="memitem:a01818"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01818.html">bl</a></td></tr>
+<tr class="memdesc:a01818"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01805"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01805.html">bl::audio</a></td></tr>
-<tr class="memdesc:a01805"><td class="mdescLeft">&#160;</td><td class="mdescRight">Audio utilities, tools, and functionality. <br /></td></tr>
+<tr class="memitem:a01876"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01876.html">bl::util</a></td></tr>
+<tr class="memdesc:a01876"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains a set of common utility classes that do not fit into any other modules. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a155bd66bb1b81565b2f84b5cbeafbf78"><td class="memTemplParams" colspan="2">template&lt;class... Ts&gt; </td></tr>
+<tr class="memitem:a155bd66bb1b81565b2f84b5cbeafbf78"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01876.html#a155bd66bb1b81565b2f84b5cbeafbf78">bl::util::Visitor</a> (Ts...) -&gt; Visitor&lt; Ts... &gt;</td></tr>
+<tr class="separator:a155bd66bb1b81565b2f84b5cbeafbf78"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Variable Documentation</h2>
-<a id="ad2ae6b0ac080ea0ac45f7a06ccc480ba"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad2ae6b0ac080ea0ac45f7a06ccc480ba">&#9670;&nbsp;</a></span>buffer</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">SoundHandle buffer</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01094_source.html#l00025">25</a> of file <a class="el" href="a01094_source.html">AudioSystem.cpp</a>.</p>
-
-</div>
-</div>
-<a id="afcd9606706aca5711d9607382d158a6a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afcd9606706aca5711d9607382d158a6a">&#9670;&nbsp;</a></span>fadeIn</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">PlaylistFader fadeIn</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01094_source.html#l00073">73</a> of file <a class="el" href="a01094_source.html">AudioSystem.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a369a0540d4dbe20f7c7177677c72dea8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a369a0540d4dbe20f7c7177677c72dea8">&#9670;&nbsp;</a></span>fadeOut</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">PlaylistFader fadeOut</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01094_source.html#l00074">74</a> of file <a class="el" href="a01094_source.html">AudioSystem.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a274c88687060ed01146159f619242fce"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a274c88687060ed01146159f619242fce">&#9670;&nbsp;</a></span>fadeTimer</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">sf::Clock fadeTimer</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01094_source.html#l00072">72</a> of file <a class="el" href="a01094_source.html">AudioSystem.cpp</a>.</p>
-
-</div>
-</div>
-<a id="aedda4637d6492436cc86f0b864d19c90"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aedda4637d6492436cc86f0b864d19c90">&#9670;&nbsp;</a></span>fadingSounds</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::list&lt;SoundFader&gt; fadingSounds</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01094_source.html#l00065">65</a> of file <a class="el" href="a01094_source.html">AudioSystem.cpp</a>.</p>
-
-</div>
-</div>
-<a id="aa3a2f37abfabbbc036edc019ccb98af9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa3a2f37abfabbbc036edc019ccb98af9">&#9670;&nbsp;</a></span>fvel</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float fvel</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01094_source.html#l00034">34</a> of file <a class="el" href="a01094_source.html">AudioSystem.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a8d61e66142eeff806c70575b199f063d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8d61e66142eeff806c70575b199f063d">&#9670;&nbsp;</a></span>lastInteractTime</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float lastInteractTime</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01094_source.html#l00027">27</a> of file <a class="el" href="a01094_source.html">AudioSystem.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a9c6d12ad0d044ddbc4992dec34d8e153"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9c6d12ad0d044ddbc4992dec34d8e153">&#9670;&nbsp;</a></span>me</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::list&lt;SoundFader&gt;::iterator me</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01094_source.html#l00035">35</a> of file <a class="el" href="a01094_source.html">AudioSystem.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a3de32eff7fd2ae1c93d4095b57b3f2f7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3de32eff7fd2ae1c93d4095b57b3f2f7">&#9670;&nbsp;</a></span>muted</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool muted</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01094_source.html#l00097">97</a> of file <a class="el" href="a01094_source.html">AudioSystem.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a73e94bcc2ac5315656823b2f6b6d6d7f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a73e94bcc2ac5315656823b2f6b6d6d7f">&#9670;&nbsp;</a></span>MuteKey</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const std::string MuteKey = &quot;blib.audio.muted&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01094_source.html#l00094">94</a> of file <a class="el" href="a01094_source.html">AudioSystem.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a3cc8bf9f913e668e50c15355bfe5e749"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3cc8bf9f913e668e50c15355bfe5e749">&#9670;&nbsp;</a></span>pauseCond</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::condition_variable pauseCond</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01094_source.html#l00078">78</a> of file <a class="el" href="a01094_source.html">AudioSystem.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a1656129c4a4fd8809254194f08f0ac70"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1656129c4a4fd8809254194f08f0ac70">&#9670;&nbsp;</a></span>paused</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool paused</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01094_source.html#l00079">79</a> of file <a class="el" href="a01094_source.html">AudioSystem.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ab0b690c2f98a6e21215ad99725ade8d3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab0b690c2f98a6e21215ad99725ade8d3">&#9670;&nbsp;</a></span>pauseMutex</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::mutex pauseMutex</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01094_source.html#l00077">77</a> of file <a class="el" href="a01094_source.html">AudioSystem.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a34cfaee126866c60bb82a2c96e47940d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a34cfaee126866c60bb82a2c96e47940d">&#9670;&nbsp;</a></span>playlist</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Playlist* playlist</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01094_source.html#l00042">42</a> of file <a class="el" href="a01094_source.html">AudioSystem.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a0c470a51950ab07829f009fd4961a0c7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0c470a51950ab07829f009fd4961a0c7">&#9670;&nbsp;</a></span>playlistHandles</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::unordered_map&lt;std::string, AudioSystem::Handle&gt; playlistHandles</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01094_source.html#l00069">69</a> of file <a class="el" href="a01094_source.html">AudioSystem.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a3a8166a081fa86e6d733655337bab261"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3a8166a081fa86e6d733655337bab261">&#9670;&nbsp;</a></span>playlistMutex</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::mutex playlistMutex</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01094_source.html#l00075">75</a> of file <a class="el" href="a01094_source.html">AudioSystem.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ac2fab8e6020f1344863b0dee7ce8878d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac2fab8e6020f1344863b0dee7ce8878d">&#9670;&nbsp;</a></span>playlistSources</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::unordered_map&lt;AudioSystem::Handle, std::string&gt; playlistSources</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01094_source.html#l00070">70</a> of file <a class="el" href="a01094_source.html">AudioSystem.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a01cdd6e23b69c26eff31de4b20ced7ee"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a01cdd6e23b69c26eff31de4b20ced7ee">&#9670;&nbsp;</a></span>playlistStack</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt;PlaylistHandle&gt; playlistStack</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01094_source.html#l00071">71</a> of file <a class="el" href="a01094_source.html">AudioSystem.cpp</a>.</p>
-
-</div>
-</div>
-<a id="aec033227294b0120711fd356ed3801bc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aec033227294b0120711fd356ed3801bc">&#9670;&nbsp;</a></span>sound</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">sf::Sound&amp; sound</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01094_source.html#l00026">26</a> of file <a class="el" href="a01094_source.html">AudioSystem.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a23630641768ab28f7cdd41ceb50ca816"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a23630641768ab28f7cdd41ceb50ca816">&#9670;&nbsp;</a></span>soundHandles</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::unordered_map&lt;std::string, AudioSystem::Handle&gt; soundHandles</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01094_source.html#l00062">62</a> of file <a class="el" href="a01094_source.html">AudioSystem.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a1660a48091966cb4b9ae67a54c5d4b35"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1660a48091966cb4b9ae67a54c5d4b35">&#9670;&nbsp;</a></span>soundMutex</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::shared_mutex soundMutex</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01094_source.html#l00067">67</a> of file <a class="el" href="a01094_source.html">AudioSystem.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a9d6a875c171d350a3f15c0f56cd0a45a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9d6a875c171d350a3f15c0f56cd0a45a">&#9670;&nbsp;</a></span>sounds</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::unordered_map&lt;AudioSystem::Handle, Sound&gt; sounds</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01094_source.html#l00064">64</a> of file <a class="el" href="a01094_source.html">AudioSystem.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a38bde58fc288c1b0a063ea4b88b891de"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a38bde58fc288c1b0a063ea4b88b891de">&#9670;&nbsp;</a></span>soundSources</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::unordered_map&lt;AudioSystem::Handle, std::string&gt; soundSources</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01094_source.html#l00063">63</a> of file <a class="el" href="a01094_source.html">AudioSystem.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a97401eb9803ec7529694a79895c417de"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a97401eb9803ec7529694a79895c417de">&#9670;&nbsp;</a></span>soundTimer</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">sf::Clock soundTimer</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01094_source.html#l00066">66</a> of file <a class="el" href="a01094_source.html">AudioSystem.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ab105e62bb50794909d1a163cae4af596"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab105e62bb50794909d1a163cae4af596">&#9670;&nbsp;</a></span>timer</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">sf::Clock timer</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01094_source.html#l00059">59</a> of file <a class="el" href="a01094_source.html">AudioSystem.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a546ad79b06e76d21ddd54920a1c47e37"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a546ad79b06e76d21ddd54920a1c47e37">&#9670;&nbsp;</a></span>unloadTimeout</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float unloadTimeout = 120.f</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01094_source.html#l00060">60</a> of file <a class="el" href="a01094_source.html">AudioSystem.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a016abda2855c77dcc1630f9d2f9f8d18"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a016abda2855c77dcc1630f9d2f9f8d18">&#9670;&nbsp;</a></span>volume</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float volume</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01094_source.html#l00098">98</a> of file <a class="el" href="a01094_source.html">AudioSystem.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a3b086c2c628c862147dbb1083feb2dca"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3b086c2c628c862147dbb1083feb2dca">&#9670;&nbsp;</a></span>VolumeKey</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const std::string VolumeKey = &quot;blib.audio.volume&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01094_source.html#l00095">95</a> of file <a class="el" href="a01094_source.html">AudioSystem.cpp</a>.</p>
-
-</div>
-</div>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 8 2023 18:56:19 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Oct 12 2023 01:16:56 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

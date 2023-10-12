@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/ECS/ComponentMask.hpp Source File</title>
+<title>BLIB: include/BLIB/ECS/Cleaner.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,74 +71,62 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">ComponentMask.hpp</div>  </div>
+<div class="title">Cleaner.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00137.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_ECS_COMPONENTMASK_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_ECS_COMPONENTMASK_HPP</span></div>
+<a href="a00137.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_ECS_CLEANER_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_ECS_CLEANER_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;cstdint&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00164.html">BLIB/ECS/Registry.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01803.html">bl</a></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01818.html">bl</a></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>ecs</div>
+<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="a01833.html">    8</a></span>&#160;<span class="keyword">namespace </span>ecs</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">class </span>Registry;</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a02140.html">   18</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a02140.html">ComponentMask</a> {</div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a02140.html#aefd97da33d1020c347856657dfb379ef">   20</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a02140.html#aefd97da33d1020c347856657dfb379ef">SimpleMask</a> = BLIB_ECS_MASK_TYPE;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a02140.html#a3178dc0fb7c900eb178bd1c268bc7a3e">   23</a></span>&#160;    <span class="keyword">static</span> constexpr <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="a02140.html#a3178dc0fb7c900eb178bd1c268bc7a3e">MaxComponentTypeCount</a> = <span class="keyword">sizeof</span>(<a class="code" href="a02140.html#aefd97da33d1020c347856657dfb379ef">SimpleMask</a>) * 8;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a02140.html#a281797a712e2ec4b04264000406ea5df">   26</a></span>&#160;    <span class="keyword">static</span> constexpr <a class="code" href="a02140.html#aefd97da33d1020c347856657dfb379ef">SimpleMask</a> <a class="code" href="a02140.html#a281797a712e2ec4b04264000406ea5df">EmptyMask</a> = 0;</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a02159.html">   18</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02159.html">Cleaner</a> {</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <a class="code" href="a02159.html#ab6248b85fbd69834e0155f72a360651b">Cleaner</a>(<a class="code" href="a02243.html">Registry</a>&amp; registry, <a class="code" href="a02199.html">Entity</a> entity);</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a02140.html#a34764b733921cd31f6046f61c6c7611b">   28</a></span>&#160;    <a class="code" href="a02140.html#aefd97da33d1020c347856657dfb379ef">SimpleMask</a> <a class="code" href="a02140.html#a34764b733921cd31f6046f61c6c7611b">required</a>;</div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a02140.html#a0ac283e481b4ac1631b2e1ef2b13f258">   29</a></span>&#160;    <a class="code" href="a02140.html#aefd97da33d1020c347856657dfb379ef">SimpleMask</a> <a class="code" href="a02140.html#a0ac283e481b4ac1631b2e1ef2b13f258">optional</a>;</div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a02140.html#aad9820388ed7c3f08b25a1b41ec43a6b">   30</a></span>&#160;    <a class="code" href="a02140.html#aefd97da33d1020c347856657dfb379ef">SimpleMask</a> <a class="code" href="a02140.html#aad9820388ed7c3f08b25a1b41ec43a6b">excluded</a>;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="a02140.html#a4b1efacf738ba4aa88604046561d1c4e">   38</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a02140.html#a4b1efacf738ba4aa88604046561d1c4e">passes</a>(<a class="code" href="a02140.html#aefd97da33d1020c347856657dfb379ef">SimpleMask</a> entityMask)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="keywordflow">return</span> (entityMask &amp; <a class="code" href="a02140.html#a34764b733921cd31f6046f61c6c7611b">required</a>) != 0 &amp;&amp; (entityMask &amp; <a class="code" href="a02140.html#aad9820388ed7c3f08b25a1b41ec43a6b">excluded</a>) == 0;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    }</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="a02140.html#acf57669a9597f49ca684b687a935f031">   49</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a02140.html#acf57669a9597f49ca684b687a935f031">contains</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> index)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keywordflow">return</span> ((<a class="code" href="a02140.html#a34764b733921cd31f6046f61c6c7611b">required</a> | <a class="code" href="a02140.html#a0ac283e481b4ac1631b2e1ef2b13f258">optional</a>) &amp; (<span class="keyword">static_cast&lt;</span><a class="code" href="a02140.html#aefd97da33d1020c347856657dfb379ef">SimpleMask</a><span class="keyword">&gt;</span>(0x1) &lt;&lt; index)) != 0;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    }</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <a class="code" href="a02159.html#a0644e801b619139c143a1c1b42a88209">~Cleaner</a>();</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02159.html#a38dbf3ffd4f0dc4e950886581fc9b15f">disarm</a>();</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <a class="code" href="a02243.html">Registry</a>&amp; registry;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">const</span> <a class="code" href="a02199.html">Entity</a> entity;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordtype">bool</span> armed;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;};</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="a02159.html#ab6248b85fbd69834e0155f72a360651b">   48</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="a02159.html#ab6248b85fbd69834e0155f72a360651b">Cleaner::Cleaner</a>(<a class="code" href="a02243.html">Registry</a>&amp; registry, <a class="code" href="a02199.html">Entity</a> entity)</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;: registry(registry)</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;, entity(entity)</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;, armed(true) {}</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="a02140.html#a8d85955ca987603243f8b63db7c00076">   59</a></span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="a02140.html#a8d85955ca987603243f8b63db7c00076">add</a>(<a class="code" href="a02140.html#aefd97da33d1020c347856657dfb379ef">SimpleMask</a>&amp; mask, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> componentIndex) {</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        mask |= (<span class="keyword">static_cast&lt;</span><a class="code" href="a02140.html#aefd97da33d1020c347856657dfb379ef">SimpleMask</a><span class="keyword">&gt;</span>(0x1) &lt;&lt; componentIndex);</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    }</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="a02140.html#a944c5301b7bae754bef0bdfc2cff7713">   69</a></span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="a02140.html#a944c5301b7bae754bef0bdfc2cff7713">remove</a>(<a class="code" href="a02140.html#aefd97da33d1020c347856657dfb379ef">SimpleMask</a>&amp; mask, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> componentIndex) {</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        mask &amp;= ~(<span class="keyword">static_cast&lt;</span><a class="code" href="a02140.html#aefd97da33d1020c347856657dfb379ef">SimpleMask</a><span class="keyword">&gt;</span>(0x1) &lt;&lt; componentIndex);</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    }</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="a02140.html#a87cc22416a35dfa00820fad10b37dfbd">   80</a></span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="a02140.html#a87cc22416a35dfa00820fad10b37dfbd">has</a>(<a class="code" href="a02140.html#aefd97da33d1020c347856657dfb379ef">SimpleMask</a> mask, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> componentIndex) {</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        <span class="keywordflow">return</span> (mask &amp; (<span class="keyword">static_cast&lt;</span><a class="code" href="a02140.html#aefd97da33d1020c347856657dfb379ef">SimpleMask</a><span class="keyword">&gt;</span>(0x1) &lt;&lt; componentIndex)) != 0;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    }</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;};</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;} <span class="comment">// namespace ecs</span></div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01803_html"><div class="ttname"><a href="a01803.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02140_html"><div class="ttname"><a href="a02140.html">bl::ecs::ComponentMask</a></div><div class="ttdoc">Helper struct for creating masks representing component types on an entity.</div><div class="ttdef"><b>Definition:</b> <a href="a00137_source.html#l00018">ComponentMask.hpp:18</a></div></div>
-<div class="ttc" id="aa02140_html_a0ac283e481b4ac1631b2e1ef2b13f258"><div class="ttname"><a href="a02140.html#a0ac283e481b4ac1631b2e1ef2b13f258">bl::ecs::ComponentMask::optional</a></div><div class="ttdeci">SimpleMask optional</div><div class="ttdef"><b>Definition:</b> <a href="a00137_source.html#l00029">ComponentMask.hpp:29</a></div></div>
-<div class="ttc" id="aa02140_html_a281797a712e2ec4b04264000406ea5df"><div class="ttname"><a href="a02140.html#a281797a712e2ec4b04264000406ea5df">bl::ecs::ComponentMask::EmptyMask</a></div><div class="ttdeci">static constexpr SimpleMask EmptyMask</div><div class="ttdoc">A mask with no components.</div><div class="ttdef"><b>Definition:</b> <a href="a00137_source.html#l00026">ComponentMask.hpp:26</a></div></div>
-<div class="ttc" id="aa02140_html_a3178dc0fb7c900eb178bd1c268bc7a3e"><div class="ttname"><a href="a02140.html#a3178dc0fb7c900eb178bd1c268bc7a3e">bl::ecs::ComponentMask::MaxComponentTypeCount</a></div><div class="ttdeci">static constexpr unsigned int MaxComponentTypeCount</div><div class="ttdoc">Maximum number of component types supported by the ECS.</div><div class="ttdef"><b>Definition:</b> <a href="a00137_source.html#l00023">ComponentMask.hpp:23</a></div></div>
-<div class="ttc" id="aa02140_html_a34764b733921cd31f6046f61c6c7611b"><div class="ttname"><a href="a02140.html#a34764b733921cd31f6046f61c6c7611b">bl::ecs::ComponentMask::required</a></div><div class="ttdeci">SimpleMask required</div><div class="ttdef"><b>Definition:</b> <a href="a00137_source.html#l00028">ComponentMask.hpp:28</a></div></div>
-<div class="ttc" id="aa02140_html_a4b1efacf738ba4aa88604046561d1c4e"><div class="ttname"><a href="a02140.html#a4b1efacf738ba4aa88604046561d1c4e">bl::ecs::ComponentMask::passes</a></div><div class="ttdeci">bool passes(SimpleMask entityMask) const</div><div class="ttdoc">Returns whether or not the given mask passes the tagged filter for this mask.</div><div class="ttdef"><b>Definition:</b> <a href="a00137_source.html#l00038">ComponentMask.hpp:38</a></div></div>
-<div class="ttc" id="aa02140_html_a87cc22416a35dfa00820fad10b37dfbd"><div class="ttname"><a href="a02140.html#a87cc22416a35dfa00820fad10b37dfbd">bl::ecs::ComponentMask::has</a></div><div class="ttdeci">static bool has(SimpleMask mask, unsigned int componentIndex)</div><div class="ttdoc">Tests whether or not the given component exists in the given mask.</div><div class="ttdef"><b>Definition:</b> <a href="a00137_source.html#l00080">ComponentMask.hpp:80</a></div></div>
-<div class="ttc" id="aa02140_html_a8d85955ca987603243f8b63db7c00076"><div class="ttname"><a href="a02140.html#a8d85955ca987603243f8b63db7c00076">bl::ecs::ComponentMask::add</a></div><div class="ttdeci">static void add(SimpleMask &amp;mask, unsigned int componentIndex)</div><div class="ttdoc">Adds the given component index to the existing mask.</div><div class="ttdef"><b>Definition:</b> <a href="a00137_source.html#l00059">ComponentMask.hpp:59</a></div></div>
-<div class="ttc" id="aa02140_html_a944c5301b7bae754bef0bdfc2cff7713"><div class="ttname"><a href="a02140.html#a944c5301b7bae754bef0bdfc2cff7713">bl::ecs::ComponentMask::remove</a></div><div class="ttdeci">static void remove(SimpleMask &amp;mask, unsigned int componentIndex)</div><div class="ttdoc">Removes the given component index from the existing mask.</div><div class="ttdef"><b>Definition:</b> <a href="a00137_source.html#l00069">ComponentMask.hpp:69</a></div></div>
-<div class="ttc" id="aa02140_html_aad9820388ed7c3f08b25a1b41ec43a6b"><div class="ttname"><a href="a02140.html#aad9820388ed7c3f08b25a1b41ec43a6b">bl::ecs::ComponentMask::excluded</a></div><div class="ttdeci">SimpleMask excluded</div><div class="ttdef"><b>Definition:</b> <a href="a00137_source.html#l00030">ComponentMask.hpp:30</a></div></div>
-<div class="ttc" id="aa02140_html_acf57669a9597f49ca684b687a935f031"><div class="ttname"><a href="a02140.html#acf57669a9597f49ca684b687a935f031">bl::ecs::ComponentMask::contains</a></div><div class="ttdeci">bool contains(unsigned int index) const</div><div class="ttdoc">Returns whether or not this mask contains the given index. Uses both required and optional masks.</div><div class="ttdef"><b>Definition:</b> <a href="a00137_source.html#l00049">ComponentMask.hpp:49</a></div></div>
-<div class="ttc" id="aa02140_html_aefd97da33d1020c347856657dfb379ef"><div class="ttname"><a href="a02140.html#aefd97da33d1020c347856657dfb379ef">bl::ecs::ComponentMask::SimpleMask</a></div><div class="ttdeci">BLIB_ECS_MASK_TYPE SimpleMask</div><div class="ttdoc">The type of the bitmask itself.</div><div class="ttdef"><b>Definition:</b> <a href="a00137_source.html#l00020">ComponentMask.hpp:20</a></div></div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="a02159.html#a0644e801b619139c143a1c1b42a88209">   53</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="a02159.html#a0644e801b619139c143a1c1b42a88209">Cleaner::~Cleaner</a>() {</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordflow">if</span> (armed) registry.<a class="code" href="a02243.html#afbbbe957b4c0cc0f85be34421cae9a53">destroyEntity</a>(entity);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;}</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="a02159.html#a38dbf3ffd4f0dc4e950886581fc9b15f">   57</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="a02159.html#a38dbf3ffd4f0dc4e950886581fc9b15f">Cleaner::disarm</a>() { armed = <span class="keyword">false</span>; }</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;} <span class="comment">// namespace ecs</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00164_html"><div class="ttname"><a href="a00164.html">Registry.hpp</a></div></div>
+<div class="ttc" id="aa01818_html"><div class="ttname"><a href="a01818.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02159_html"><div class="ttname"><a href="a02159.html">bl::ecs::Cleaner</a></div><div class="ttdoc">Helper class to automatically remove entities using RAII based cleanup. Useful for functions that bui...</div><div class="ttdef"><b>Definition:</b> <a href="a00137_source.html#l00018">Cleaner.hpp:18</a></div></div>
+<div class="ttc" id="aa02159_html_a0644e801b619139c143a1c1b42a88209"><div class="ttname"><a href="a02159.html#a0644e801b619139c143a1c1b42a88209">bl::ecs::Cleaner::~Cleaner</a></div><div class="ttdeci">~Cleaner()</div><div class="ttdoc">Destroys the entity unless disarmed.</div><div class="ttdef"><b>Definition:</b> <a href="a00137_source.html#l00053">Cleaner.hpp:53</a></div></div>
+<div class="ttc" id="aa02159_html_a38dbf3ffd4f0dc4e950886581fc9b15f"><div class="ttname"><a href="a02159.html#a38dbf3ffd4f0dc4e950886581fc9b15f">bl::ecs::Cleaner::disarm</a></div><div class="ttdeci">void disarm()</div><div class="ttdoc">Prevents destruction of the entity.</div><div class="ttdef"><b>Definition:</b> <a href="a00137_source.html#l00057">Cleaner.hpp:57</a></div></div>
+<div class="ttc" id="aa02159_html_ab6248b85fbd69834e0155f72a360651b"><div class="ttname"><a href="a02159.html#ab6248b85fbd69834e0155f72a360651b">bl::ecs::Cleaner::Cleaner</a></div><div class="ttdeci">Cleaner(Registry &amp;registry, Entity entity)</div><div class="ttdoc">Construct a new Cleaner object.</div><div class="ttdef"><b>Definition:</b> <a href="a00137_source.html#l00048">Cleaner.hpp:48</a></div></div>
+<div class="ttc" id="aa02199_html"><div class="ttname"><a href="a02199.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition:</b> <a href="a00155_source.html#l00023">Entity.hpp:23</a></div></div>
+<div class="ttc" id="aa02243_html"><div class="ttname"><a href="a02243.html">bl::ecs::Registry</a></div><div class="ttdoc">This is the main interface of the ECS. This class manages all entities and components and views and s...</div><div class="ttdef"><b>Definition:</b> <a href="a00164_source.html#l00031">Registry.hpp:31</a></div></div>
+<div class="ttc" id="aa02243_html_afbbbe957b4c0cc0f85be34421cae9a53"><div class="ttname"><a href="a02243.html#afbbbe957b4c0cc0f85be34421cae9a53">bl::ecs::Registry::destroyEntity</a></div><div class="ttdeci">bool destroyEntity(Entity entity)</div><div class="ttdoc">Removes the given entity and destroys all of its components. Destruction will not occur if the entity...</div><div class="ttdef"><b>Definition:</b> <a href="a01172_source.html#l00046">Registry.cpp:46</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 8 2023 18:56:18 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Oct 12 2023 01:16:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

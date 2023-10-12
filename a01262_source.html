@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Interfaces/GUI/Elements/CheckButton.cpp Source File</title>
+<title>BLIB: src/Interfaces/GUI/Elements/Animation.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,56 +71,74 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">CheckButton.cpp</div>  </div>
+<div class="title">Animation.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01262.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00347.html">BLIB/Interfaces/GUI/Elements/CheckButton.hpp</a>&gt;</span></div>
+<a href="a01262.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00344.html">BLIB/Interfaces/GUI/Elements/Animation.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00365.html">BLIB/Interfaces/GUI/Elements/Label.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01803.html">bl</a></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01818.html">bl</a></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>gui</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>gui</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a02560.html#a906aa43385325d8f4aa49e60543dd06d">    9</a></span>&#160;<a class="code" href="a02560.html#acb6996d5b34ba347bd611207c7a2a16e">CheckButton::Ptr</a> <a class="code" href="a02560.html#a906aa43385325d8f4aa49e60543dd06d">CheckButton::create</a>(<span class="keyword">const</span> std::string&amp; <a class="code" href="a01328.html#a6d372f7ea1f537bfbc73492e24ef8623">text</a>) {</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="a02560.html#a906aa43385325d8f4aa49e60543dd06d">create</a>(<a class="code" href="a02584.html#a8a3c2d68e95cb5ed4f706b4105e27ad0">Label::create</a>(<a class="code" href="a01328.html#a6d372f7ea1f537bfbc73492e24ef8623">text</a>));</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;}</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="a02560.html#a8c8b28b88755f8d06a84b923638ecca7">   13</a></span>&#160;<a class="code" href="a02560.html#acb6996d5b34ba347bd611207c7a2a16e">CheckButton::Ptr</a> <a class="code" href="a02560.html#a906aa43385325d8f4aa49e60543dd06d">CheckButton::create</a>(<span class="keyword">const</span> <a class="code" href="a02576.html#a21b57f73febb9e1c62e8abcef64b1654">Element::Ptr</a>&amp; child) {</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="a02560.html#acb6996d5b34ba347bd611207c7a2a16e">Ptr</a>(<span class="keyword">new</span> <a class="code" href="a02560.html#a58458d681287f65b777f0910d8065eae">CheckButton</a>(child));</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;}</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a02560.html#a58458d681287f65b777f0910d8065eae">   17</a></span>&#160;<a class="code" href="a02560.html#a58458d681287f65b777f0910d8065eae">CheckButton::CheckButton</a>(<span class="keyword">const</span> <a class="code" href="a02576.html#a21b57f73febb9e1c62e8abcef64b1654">Element::Ptr</a>&amp; child)</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;: <a class="code" href="a02628.html">ToggleButton</a>(child) {}</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a02560.html#ac0e8efd979a38b44c9f0c0c064abea60">   20</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02560.html#ac0e8efd979a38b44c9f0c0c064abea60">CheckButton::renderToggles</a>(<a class="code" href="a02556.html">Canvas</a>&amp; activeBut, <a class="code" href="a02556.html">Canvas</a>&amp; inactiveBut,</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;                                <span class="keyword">const</span> <a class="code" href="a02664.html">Renderer</a>&amp; renderer)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    renderer.<a class="code" href="a02664.html#a9db4a8cf578589fecb22e10a997f2e65">renderToggleCheckButton</a>(activeBut.<a class="code" href="a02556.html#aa0fff4d04f1ecdf42f22c42594c02b85">getTexture</a>(), <span class="keyword">true</span>);</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    renderer.<a class="code" href="a02664.html#a9db4a8cf578589fecb22e10a997f2e65">renderToggleCheckButton</a>(inactiveBut.<a class="code" href="a02556.html#aa0fff4d04f1ecdf42f22c42594c02b85">getTexture</a>(), <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;}</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;} <span class="comment">// namespace gui</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00347_html"><div class="ttname"><a href="a00347.html">CheckButton.hpp</a></div></div>
-<div class="ttc" id="aa00365_html"><div class="ttname"><a href="a00365.html">Label.hpp</a></div></div>
-<div class="ttc" id="aa01328_html_a6d372f7ea1f537bfbc73492e24ef8623"><div class="ttname"><a href="a01328.html#a6d372f7ea1f537bfbc73492e24ef8623">text</a></div><div class="ttdeci">sf::Text text</div><div class="ttdef"><b>Definition:</b> <a href="a01328_source.html#l00015">DefaultRenderer.cpp:15</a></div></div>
-<div class="ttc" id="aa01803_html"><div class="ttname"><a href="a01803.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02556_html"><div class="ttname"><a href="a02556.html">bl::gui::Canvas</a></div><div class="ttdoc">Specialized Element that allows user code to render to its area.</div><div class="ttdef"><b>Definition:</b> <a href="a00344_source.html#l00017">Canvas.hpp:17</a></div></div>
-<div class="ttc" id="aa02556_html_aa0fff4d04f1ecdf42f22c42594c02b85"><div class="ttname"><a href="a02556.html#aa0fff4d04f1ecdf42f22c42594c02b85">bl::gui::Canvas::getTexture</a></div><div class="ttdeci">sf::RenderTexture &amp; getTexture()</div><div class="ttdoc">Returns a mutable reference to the underlying texture. This may be rendered to Note that display() mu...</div><div class="ttdef"><b>Definition:</b> <a href="a01259_source.html#l00042">Canvas.cpp:42</a></div></div>
-<div class="ttc" id="aa02560_html_a58458d681287f65b777f0910d8065eae"><div class="ttname"><a href="a02560.html#a58458d681287f65b777f0910d8065eae">bl::gui::CheckButton::CheckButton</a></div><div class="ttdeci">CheckButton(const Element::Ptr &amp;child)</div><div class="ttdoc">Create a new CheckButton with any child to its right.</div><div class="ttdef"><b>Definition:</b> <a href="a01262_source.html#l00017">CheckButton.cpp:17</a></div></div>
-<div class="ttc" id="aa02560_html_a906aa43385325d8f4aa49e60543dd06d"><div class="ttname"><a href="a02560.html#a906aa43385325d8f4aa49e60543dd06d">bl::gui::CheckButton::create</a></div><div class="ttdeci">static Ptr create(const std::string &amp;text)</div><div class="ttdoc">Create a new CheckButton with a Label as it's child.</div><div class="ttdef"><b>Definition:</b> <a href="a01262_source.html#l00009">CheckButton.cpp:9</a></div></div>
-<div class="ttc" id="aa02560_html_ac0e8efd979a38b44c9f0c0c064abea60"><div class="ttname"><a href="a02560.html#ac0e8efd979a38b44c9f0c0c064abea60">bl::gui::CheckButton::renderToggles</a></div><div class="ttdeci">virtual void renderToggles(Canvas &amp;activeBut, Canvas &amp;inactiveBut, const Renderer &amp;renderer) const override</div><div class="ttdoc">Renders the unchecked and checked box.</div><div class="ttdef"><b>Definition:</b> <a href="a01262_source.html#l00020">CheckButton.cpp:20</a></div></div>
-<div class="ttc" id="aa02560_html_acb6996d5b34ba347bd611207c7a2a16e"><div class="ttname"><a href="a02560.html#acb6996d5b34ba347bd611207c7a2a16e">bl::gui::CheckButton::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; CheckButton &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00347_source.html#l00018">CheckButton.hpp:18</a></div></div>
-<div class="ttc" id="aa02576_html_a21b57f73febb9e1c62e8abcef64b1654"><div class="ttname"><a href="a02576.html#a21b57f73febb9e1c62e8abcef64b1654">bl::gui::Element::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; Element &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00359_source.html#l00034">Element.hpp:34</a></div></div>
-<div class="ttc" id="aa02584_html_a8a3c2d68e95cb5ed4f706b4105e27ad0"><div class="ttname"><a href="a02584.html#a8a3c2d68e95cb5ed4f706b4105e27ad0">bl::gui::Label::create</a></div><div class="ttdeci">static Ptr create(const std::string &amp;text)</div><div class="ttdoc">Construct a new Label.</div><div class="ttdef"><b>Definition:</b> <a href="a01277_source.html#l00009">Label.cpp:9</a></div></div>
-<div class="ttc" id="aa02628_html"><div class="ttname"><a href="a02628.html">bl::gui::ToggleButton</a></div><div class="ttdoc">Base class for toggleable buttons. RadioButton and CheckBox are derived from this....</div><div class="ttdef"><b>Definition:</b> <a href="a00392_source.html#l00018">ToggleButton.hpp:18</a></div></div>
-<div class="ttc" id="aa02664_html"><div class="ttname"><a href="a02664.html">bl::gui::Renderer</a></div><div class="ttdoc">Interface for renderers for GUIs. Derived classes may elect to inherit from DefaultRenderer and only ...</div><div class="ttdef"><b>Definition:</b> <a href="a05076_source.html#l00037">Renderer.hpp:37</a></div></div>
-<div class="ttc" id="aa02664_html_a9db4a8cf578589fecb22e10a997f2e65"><div class="ttname"><a href="a02664.html#a9db4a8cf578589fecb22e10a997f2e65">bl::gui::Renderer::renderToggleCheckButton</a></div><div class="ttdeci">virtual void renderToggleCheckButton(sf::RenderTexture &amp;texture, bool active) const =0</div><div class="ttdoc">Render a check button to an internal texture.</div></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">// TODO - use new animation</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">Animation::Ptr Animation::create(resource::Ref&lt;rc::AnimationData&gt; anim) {</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">    return Ptr(new Animation(anim));</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">}</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">Animation::Animation(resource::Ref&lt;rc::AnimationData&gt; anim)</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">: Element()</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">, centered(false)</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">, source(anim)</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">, animation(*anim) {</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">    animation.setIsLoop(true);</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">    animation.play();</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">    const auto updatePos = [this](const Event&amp;, Element*) {</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">        const sf::Vector2f offset =</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">            centered ? sf::Vector2f{getAcquisition().width * 0.5f, getAcquisition().height * 0.5f} :</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">                       sf::Vector2f{0.f, 0.f};</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">        animation.setPosition(getPosition() + offset);</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">    };</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">    getSignal(Event::AcquisitionChanged).willAlwaysCall(updatePos);</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">    getSignal(Event::Moved).willAlwaysCall(updatePos);</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">}</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">void Animation::setAnimation(resource::Ref&lt;rc::AnimationData&gt; src) {</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">    source = src;</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">    animation.setData(*source);</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">    animation.setIsLoop(true);</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">    animation.play();</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">    makeDirty();</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">}</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">void Animation::scaleToSize(const sf::Vector2f&amp; s) {</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">    size = s;</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">    animation.setScale({s.x / source-&gt;getMaxSize().x, s.y / source-&gt;getMaxSize().y});</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">    makeDirty();</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">}</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment">void Animation::update(float dt) {</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment">    Element::update(dt);</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment">    animation.update(dt);</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">}</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment">sf::Vector2f Animation::minimumRequisition() const { return size.value_or(source-&gt;getMaxSize()); }</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment">void Animation::doRender(sf::RenderTarget&amp; target, sf::RenderStates states, const Renderer&amp;) const {</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">    target.draw(animation, states);</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment">}</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;} <span class="comment">// namespace gui</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00344_html"><div class="ttname"><a href="a00344.html">Animation.hpp</a></div></div>
+<div class="ttc" id="aa01818_html"><div class="ttname"><a href="a01818.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 8 2023 18:56:19 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Oct 12 2023 01:16:56 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

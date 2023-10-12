@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Engine/FrameStage.hpp Source File</title>
+<title>BLIB: include/BLIB/Engine/Events/StateChange.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,78 +66,44 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_21925c401d8b9381bdf61383d8a14cd0.html">Engine</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_21925c401d8b9381bdf61383d8a14cd0.html">Engine</a></li><li class="navelem"><a class="el" href="dir_b1e11ac7deb2d68a3ec768925497826d.html">Events</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">FrameStage.hpp</div>  </div>
+<div class="title">StateChange.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00212.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_ENGINE_FRAMESTAGE_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_ENGINE_FRAMESTAGE_HPP</span></div>
+<a href="a00212.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_ENGINE_EVENTS_STATECHANGED_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_ENGINE_EVENTS_STATECHANGED_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;cstdint&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01803.html">bl</a></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01818.html">bl</a></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;{</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>engine</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>engine</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>event</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a02296.html">   16</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a02296.html">FrameStage</a> {</div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a02296.html#af6ea181be91b7069f9f52557a1445e1a">   18</a></span>&#160;    <span class="keyword">enum</span> <a class="code" href="a02296.html#af6ea181be91b7069f9f52557a1445e1a">V</a> : std::uint32_t {</div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a02296.html#af6ea181be91b7069f9f52557a1445e1aa15e5f3b76e514e80175827b422de3053">   21</a></span>&#160;        <a class="code" href="a02296.html#af6ea181be91b7069f9f52557a1445e1aa15e5f3b76e514e80175827b422de3053">FrameStart</a> = 0,</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a02296.html#af6ea181be91b7069f9f52557a1445e1aae1841fb58eed03ad746e8c4b86240cec">   24</a></span>&#160;        <a class="code" href="a02296.html#af6ea181be91b7069f9f52557a1445e1aae1841fb58eed03ad746e8c4b86240cec">Update0</a> = 0,</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="a02296.html#af6ea181be91b7069f9f52557a1445e1aa62af1c83438baa6083a75cc9b8607c63">   27</a></span>&#160;        <a class="code" href="a02296.html#af6ea181be91b7069f9f52557a1445e1aa62af1c83438baa6083a75cc9b8607c63">Update1</a> = 1,</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a02296.html#af6ea181be91b7069f9f52557a1445e1aacacbc2d4e0d3c6f3073620730d0145eb">   30</a></span>&#160;        <a class="code" href="a02296.html#af6ea181be91b7069f9f52557a1445e1aacacbc2d4e0d3c6f3073620730d0145eb">Update2</a> = 2,</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="a02296.html#af6ea181be91b7069f9f52557a1445e1aa7328b8a6a44b06374ea2f74db68b927d">   33</a></span>&#160;        <a class="code" href="a02296.html#af6ea181be91b7069f9f52557a1445e1aa7328b8a6a44b06374ea2f74db68b927d">Animate</a> = 3,</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="a02296.html#af6ea181be91b7069f9f52557a1445e1aae39ab93e73fa7414f95b3748e3f333c7">   37</a></span>&#160;        <a class="code" href="a02296.html#af6ea181be91b7069f9f52557a1445e1aae39ab93e73fa7414f95b3748e3f333c7">MARKER_OncePerTick</a> = 3,</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="a02296.html#af6ea181be91b7069f9f52557a1445e1aa7e7062476254536759fa6e3886642c34">   40</a></span>&#160;        <a class="code" href="a02296.html#af6ea181be91b7069f9f52557a1445e1aa7e7062476254536759fa6e3886642c34">MARKER_OncePerFrame</a> = 4,</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="a02296.html#af6ea181be91b7069f9f52557a1445e1aa3f81ee2718a9735d701d01e03039048d">   43</a></span>&#160;        <a class="code" href="a02296.html#af6ea181be91b7069f9f52557a1445e1aa3f81ee2718a9735d701d01e03039048d">RenderObjectSync</a> = 5,</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="a02296.html#af6ea181be91b7069f9f52557a1445e1aa241391bf36b082c505d61ee4eb92079b">   46</a></span>&#160;        <a class="code" href="a02296.html#af6ea181be91b7069f9f52557a1445e1aa241391bf36b082c505d61ee4eb92079b">RenderIntermediateRefresh</a> = 6,</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="a02296.html#af6ea181be91b7069f9f52557a1445e1aaa021f1980f88350a8b51b37a7ded6e9f">   49</a></span>&#160;        <a class="code" href="a02296.html#af6ea181be91b7069f9f52557a1445e1aaa021f1980f88350a8b51b37a7ded6e9f">RenderDescriptorRefresh</a> = 7,</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="a02296.html#af6ea181be91b7069f9f52557a1445e1aab76b45a8908b6932899af2250df0bcb0">   52</a></span>&#160;        <a class="code" href="a02296.html#af6ea181be91b7069f9f52557a1445e1aab76b45a8908b6932899af2250df0bcb0">Render</a> = 8,</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="a02296.html#af6ea181be91b7069f9f52557a1445e1aacb8614a4b4f9a01a7106f99aac12cb3b">   55</a></span>&#160;        <a class="code" href="a02296.html#af6ea181be91b7069f9f52557a1445e1aacb8614a4b4f9a01a7106f99aac12cb3b">FrameEnd</a> = 9,</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <a class="code" href="a02296.html#af6ea181be91b7069f9f52557a1445e1aa26b344c7b826a7fab5414d6bd9ee6ae2">COUNT</a> = 10</div>
-<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="a02296.html#af6ea181be91b7069f9f52557a1445e1aa26b344c7b826a7fab5414d6bd9ee6ae2">   59</a></span>&#160;    };</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;};</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;} <span class="comment">// namespace engine</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01803_html"><div class="ttname"><a href="a01803.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02296_html"><div class="ttname"><a href="a02296.html">bl::engine::FrameStage</a></div><div class="ttdoc">Container for the names of each stage of a frame in the engine. Used by Systems to bucket systems by ...</div><div class="ttdef"><b>Definition:</b> <a href="a00212_source.html#l00016">FrameStage.hpp:16</a></div></div>
-<div class="ttc" id="aa02296_html_af6ea181be91b7069f9f52557a1445e1a"><div class="ttname"><a href="a02296.html#af6ea181be91b7069f9f52557a1445e1a">bl::engine::FrameStage::V</a></div><div class="ttdeci">V</div><div class="ttdoc">Value-type for engine stage ids.</div><div class="ttdef"><b>Definition:</b> <a href="a00212_source.html#l00018">FrameStage.hpp:18</a></div></div>
-<div class="ttc" id="aa02296_html_af6ea181be91b7069f9f52557a1445e1aa15e5f3b76e514e80175827b422de3053"><div class="ttname"><a href="a02296.html#af6ea181be91b7069f9f52557a1445e1aa15e5f3b76e514e80175827b422de3053">bl::engine::FrameStage::FrameStart</a></div><div class="ttdeci">@ FrameStart</div><div class="ttdef"><b>Definition:</b> <a href="a00212_source.html#l00021">FrameStage.hpp:21</a></div></div>
-<div class="ttc" id="aa02296_html_af6ea181be91b7069f9f52557a1445e1aa241391bf36b082c505d61ee4eb92079b"><div class="ttname"><a href="a02296.html#af6ea181be91b7069f9f52557a1445e1aa241391bf36b082c505d61ee4eb92079b">bl::engine::FrameStage::RenderIntermediateRefresh</a></div><div class="ttdeci">@ RenderIntermediateRefresh</div><div class="ttdoc">Separate stage for descriptors to be modified prior to syncing into scene buffers.</div><div class="ttdef"><b>Definition:</b> <a href="a00212_source.html#l00046">FrameStage.hpp:46</a></div></div>
-<div class="ttc" id="aa02296_html_af6ea181be91b7069f9f52557a1445e1aa26b344c7b826a7fab5414d6bd9ee6ae2"><div class="ttname"><a href="a02296.html#af6ea181be91b7069f9f52557a1445e1aa26b344c7b826a7fab5414d6bd9ee6ae2">bl::engine::FrameStage::COUNT</a></div><div class="ttdeci">@ COUNT</div><div class="ttdoc">The number of engine stages.</div><div class="ttdef"><b>Definition:</b> <a href="a00212_source.html#l00059">FrameStage.hpp:58</a></div></div>
-<div class="ttc" id="aa02296_html_af6ea181be91b7069f9f52557a1445e1aa3f81ee2718a9735d701d01e03039048d"><div class="ttname"><a href="a02296.html#af6ea181be91b7069f9f52557a1445e1aa3f81ee2718a9735d701d01e03039048d">bl::engine::FrameStage::RenderObjectSync</a></div><div class="ttdeci">@ RenderObjectSync</div><div class="ttdoc">Synchronizes objects from the ECS into the scene-local object buffers.</div><div class="ttdef"><b>Definition:</b> <a href="a00212_source.html#l00043">FrameStage.hpp:43</a></div></div>
-<div class="ttc" id="aa02296_html_af6ea181be91b7069f9f52557a1445e1aa62af1c83438baa6083a75cc9b8607c63"><div class="ttname"><a href="a02296.html#af6ea181be91b7069f9f52557a1445e1aa62af1c83438baa6083a75cc9b8607c63">bl::engine::FrameStage::Update1</a></div><div class="ttdeci">@ Update1</div><div class="ttdoc">Generic update stage.</div><div class="ttdef"><b>Definition:</b> <a href="a00212_source.html#l00027">FrameStage.hpp:27</a></div></div>
-<div class="ttc" id="aa02296_html_af6ea181be91b7069f9f52557a1445e1aa7328b8a6a44b06374ea2f74db68b927d"><div class="ttname"><a href="a02296.html#af6ea181be91b7069f9f52557a1445e1aa7328b8a6a44b06374ea2f74db68b927d">bl::engine::FrameStage::Animate</a></div><div class="ttdeci">@ Animate</div><div class="ttdoc">Renderer components such as Animation update here.</div><div class="ttdef"><b>Definition:</b> <a href="a00212_source.html#l00033">FrameStage.hpp:33</a></div></div>
-<div class="ttc" id="aa02296_html_af6ea181be91b7069f9f52557a1445e1aa7e7062476254536759fa6e3886642c34"><div class="ttname"><a href="a02296.html#af6ea181be91b7069f9f52557a1445e1aa7e7062476254536759fa6e3886642c34">bl::engine::FrameStage::MARKER_OncePerFrame</a></div><div class="ttdeci">@ MARKER_OncePerFrame</div><div class="ttdoc">This stage and later are called once per frame.</div><div class="ttdef"><b>Definition:</b> <a href="a00212_source.html#l00040">FrameStage.hpp:40</a></div></div>
-<div class="ttc" id="aa02296_html_af6ea181be91b7069f9f52557a1445e1aaa021f1980f88350a8b51b37a7ded6e9f"><div class="ttname"><a href="a02296.html#af6ea181be91b7069f9f52557a1445e1aaa021f1980f88350a8b51b37a7ded6e9f">bl::engine::FrameStage::RenderDescriptorRefresh</a></div><div class="ttdeci">@ RenderDescriptorRefresh</div><div class="ttdoc">Syncs dirty descriptor components (ie transforms) into scene-local descriptor sets.</div><div class="ttdef"><b>Definition:</b> <a href="a00212_source.html#l00049">FrameStage.hpp:49</a></div></div>
-<div class="ttc" id="aa02296_html_af6ea181be91b7069f9f52557a1445e1aab76b45a8908b6932899af2250df0bcb0"><div class="ttname"><a href="a02296.html#af6ea181be91b7069f9f52557a1445e1aab76b45a8908b6932899af2250df0bcb0">bl::engine::FrameStage::Render</a></div><div class="ttdeci">@ Render</div><div class="ttdoc">Records command buffers and submits to the GPU.</div><div class="ttdef"><b>Definition:</b> <a href="a00212_source.html#l00052">FrameStage.hpp:52</a></div></div>
-<div class="ttc" id="aa02296_html_af6ea181be91b7069f9f52557a1445e1aacacbc2d4e0d3c6f3073620730d0145eb"><div class="ttname"><a href="a02296.html#af6ea181be91b7069f9f52557a1445e1aacacbc2d4e0d3c6f3073620730d0145eb">bl::engine::FrameStage::Update2</a></div><div class="ttdeci">@ Update2</div><div class="ttdoc">Generic update stage.</div><div class="ttdef"><b>Definition:</b> <a href="a00212_source.html#l00030">FrameStage.hpp:30</a></div></div>
-<div class="ttc" id="aa02296_html_af6ea181be91b7069f9f52557a1445e1aacb8614a4b4f9a01a7106f99aac12cb3b"><div class="ttname"><a href="a02296.html#af6ea181be91b7069f9f52557a1445e1aacb8614a4b4f9a01a7106f99aac12cb3b">bl::engine::FrameStage::FrameEnd</a></div><div class="ttdeci">@ FrameEnd</div><div class="ttdoc">Slot for more user-defined operations.</div><div class="ttdef"><b>Definition:</b> <a href="a00212_source.html#l00055">FrameStage.hpp:55</a></div></div>
-<div class="ttc" id="aa02296_html_af6ea181be91b7069f9f52557a1445e1aae1841fb58eed03ad746e8c4b86240cec"><div class="ttname"><a href="a02296.html#af6ea181be91b7069f9f52557a1445e1aae1841fb58eed03ad746e8c4b86240cec">bl::engine::FrameStage::Update0</a></div><div class="ttdeci">@ Update0</div><div class="ttdoc">Generic update stage.</div><div class="ttdef"><b>Definition:</b> <a href="a00212_source.html#l00024">FrameStage.hpp:24</a></div></div>
-<div class="ttc" id="aa02296_html_af6ea181be91b7069f9f52557a1445e1aae39ab93e73fa7414f95b3748e3f333c7"><div class="ttname"><a href="a02296.html#af6ea181be91b7069f9f52557a1445e1aae39ab93e73fa7414f95b3748e3f333c7">bl::engine::FrameStage::MARKER_OncePerTick</a></div><div class="ttdeci">@ MARKER_OncePerTick</div><div class="ttdef"><b>Definition:</b> <a href="a00212_source.html#l00037">FrameStage.hpp:37</a></div></div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a02315.html">   16</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a02315.html">StateChange</a> {</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a02315.html#ac658b229cad73461262df7d59599c603">   18</a></span>&#160;    <a class="code" href="a02339.html#af13f7b9dd4d6e317dbc378896ddcf6d5">State::Ptr</a> <a class="code" href="a02315.html#ac658b229cad73461262df7d59599c603">newState</a>;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a02315.html#a2e182969892b6bbb8c88ee5e75b24047">   21</a></span>&#160;    <a class="code" href="a02339.html#af13f7b9dd4d6e317dbc378896ddcf6d5">State::Ptr</a> <a class="code" href="a02315.html#a2e182969892b6bbb8c88ee5e75b24047">prevState</a>;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;};</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;} <span class="comment">// namespace event</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;} <span class="comment">// namespace engine</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01818_html"><div class="ttname"><a href="a01818.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02315_html"><div class="ttname"><a href="a02315.html">bl::engine::event::StateChange</a></div><div class="ttdoc">Fired when the engine switches states.</div><div class="ttdef"><b>Definition:</b> <a href="a00212_source.html#l00016">StateChange.hpp:16</a></div></div>
+<div class="ttc" id="aa02315_html_a2e182969892b6bbb8c88ee5e75b24047"><div class="ttname"><a href="a02315.html#a2e182969892b6bbb8c88ee5e75b24047">bl::engine::event::StateChange::prevState</a></div><div class="ttdeci">State::Ptr prevState</div><div class="ttdoc">The previous state of the engine. May be null.</div><div class="ttdef"><b>Definition:</b> <a href="a00212_source.html#l00021">StateChange.hpp:21</a></div></div>
+<div class="ttc" id="aa02315_html_ac658b229cad73461262df7d59599c603"><div class="ttname"><a href="a02315.html#ac658b229cad73461262df7d59599c603">bl::engine::event::StateChange::newState</a></div><div class="ttdeci">State::Ptr newState</div><div class="ttdoc">The new state of the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00212_source.html#l00018">StateChange.hpp:18</a></div></div>
+<div class="ttc" id="aa02339_html_af13f7b9dd4d6e317dbc378896ddcf6d5"><div class="ttname"><a href="a02339.html#af13f7b9dd4d6e317dbc378896ddcf6d5">bl::engine::State::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; State &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00227_source.html#l00025">State.hpp:25</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 8 2023 18:56:18 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Oct 12 2023 01:16:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

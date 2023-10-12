@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Util/TupleLoop.hpp Source File</title>
+<title>BLIB: include/BLIB/Util/ReadWriteLock.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,41 +71,91 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">TupleLoop.hpp</div>  </div>
+<div class="title">ReadWriteLock.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01073.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_UTIL_TUPLELOOP_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_UTIL_TUPLELOOP_HPP</span></div>
+<a href="a01073.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_UTIL_MUTEX_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_UTIL_MUTEX_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;tuple&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;utility&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01803.html">bl</a></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>util</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">template</span>&lt;std::size_t I = 0, <span class="keyword">typename</span> FuncT, <span class="keyword">typename</span>... Tp&gt;</div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a01795.html#ga5d5816901da87f0dd35b765c5ab2639e">   22</a></span>&#160;<span class="keyword">inline</span> <span class="keyword">typename</span> std::enable_if&lt;I == <span class="keyword">sizeof</span>...(Tp), <span class="keywordtype">void</span>&gt;::type <a class="code" href="a01795.html#ga5d5816901da87f0dd35b765c5ab2639e">TupleLoop</a>(std::tuple&lt;Tp...&gt;&amp;,</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;                                                                         FuncT) {}</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keyword">template</span>&lt;std::size_t I = 0, <span class="keyword">typename</span> FuncT, <span class="keyword">typename</span>... Tp&gt;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keyword">inline</span> <span class="keyword">typename</span> std::enable_if &lt;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    I&lt;<span class="keyword">sizeof</span>...(Tp), <span class="keywordtype">void</span>&gt;::type <a class="code" href="a01795.html#ga5d5816901da87f0dd35b765c5ab2639e">TupleLoop</a>(std::tuple&lt;Tp...&gt;&amp; t, FuncT f) {</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    f(I, std::get&lt;I&gt;(t));</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <a class="code" href="a01795.html#ga5d5816901da87f0dd35b765c5ab2639e">TupleLoop</a>&lt;I + 1, FuncT, Tp...&gt;(t, f);</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;}</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;} <span class="comment">// namespace util</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01795_html_ga5d5816901da87f0dd35b765c5ab2639e"><div class="ttname"><a href="a01795.html#ga5d5816901da87f0dd35b765c5ab2639e">bl::util::TupleLoop</a></div><div class="ttdeci">std::enable_if&lt; I==sizeof...(Tp), void &gt;::type TupleLoop(std::tuple&lt; Tp... &gt; &amp;, FuncT)</div><div class="ttdoc">Base case for TupleLoop utility.</div><div class="ttdef"><b>Definition:</b> <a href="a01073_source.html#l00022">TupleLoop.hpp:22</a></div></div>
-<div class="ttc" id="aa01803_html"><div class="ttname"><a href="a01803.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01064.html">BLIB/Util/NonCopyable.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;mutex&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;shared_mutex&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01818.html">bl</a></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>util</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a04011.html">   20</a></span>&#160;<span class="keyword">class </span><a class="code" href="a04011.html">ReadWriteLock</a> : <span class="keyword">private</span> <a class="code" href="a03975.html">NonCopyable</a> {</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a04011.html#a3bcfe87dc7927f11d661f25f6908a600">   26</a></span>&#160;    <a class="code" href="a04011.html#a3bcfe87dc7927f11d661f25f6908a600">ReadWriteLock</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04011.html#a71234a7cb8b764c834c02fcdc097a728">lockRead</a>();</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04011.html#ad37b398dbe7861cd2763e20002069263">lockWrite</a>();</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04011.html#abcce04734931a45bdeeab0241135133b">unlockRead</a>();</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04011.html#a751259f66b9b1aece13bbf155cdd50c5">unlockWrite</a>();</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="a04015.html">   59</a></span>&#160;    <span class="keyword">class </span><a class="code" href="a04015.html">ReadScopeGuard</a> : <span class="keyword">private</span> <a class="code" href="a03975.html">NonCopyable</a> {</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        <a class="code" href="a04015.html#ab719cee3c0b58e1166b0cf43cb433005">ReadScopeGuard</a>(<a class="code" href="a04011.html">ReadWriteLock</a>&amp; lock);</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <a class="code" href="a04015.html#a58ede3553dd29824ecaa84a5df69c922">~ReadScopeGuard</a>();</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="a04015.html#a10c313a07d4ea8c2534651fb071feca1">unlock</a>();</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        <a class="code" href="a04011.html">ReadWriteLock</a>&amp; lock;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        <span class="keywordtype">bool</span> unlocked;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    };</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
+<div class="line"><a name="l00091"></a><span class="lineno"><a class="line" href="a04019.html">   91</a></span>&#160;    <span class="keyword">class </span><a class="code" href="a04019.html">WriteScopeGuard</a> : <span class="keyword">private</span> <a class="code" href="a03975.html">NonCopyable</a> {</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <a class="code" href="a04019.html#aa1c42e9d6b77fc0a8acb1e659ea1a01a">WriteScopeGuard</a>(<a class="code" href="a04011.html">ReadWriteLock</a>&amp; lock);</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        <a class="code" href="a04019.html#a571f6359834209775899f3507a549e40">~WriteScopeGuard</a>();</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="a04019.html#a0f80b4382191c0117105c121d0e29b96">unlock</a>();</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        <a class="code" href="a04011.html">ReadWriteLock</a>&amp; lock;</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        <span class="keywordtype">bool</span> unlocked;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    };</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    std::shared_mutex mutex;</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="keywordtype">bool</span>&amp; readLockFlag();</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keywordtype">bool</span>&amp; writeLockFlag();</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;};</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;} <span class="comment">// namespace util</span></div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160; </div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01064_html"><div class="ttname"><a href="a01064.html">NonCopyable.hpp</a></div></div>
+<div class="ttc" id="aa01818_html"><div class="ttname"><a href="a01818.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03975_html"><div class="ttname"><a href="a03975.html">bl::util::NonCopyable</a></div><div class="ttdoc">Helper class to make derived classes impossible for user to copy directly.</div><div class="ttdef"><b>Definition:</b> <a href="a01064_source.html#l00013">NonCopyable.hpp:13</a></div></div>
+<div class="ttc" id="aa04011_html"><div class="ttname"><a href="a04011.html">bl::util::ReadWriteLock</a></div><div class="ttdoc">Reader-writer lock built on top of std::shared_mutex. The primary benefit of this class is that lockR...</div><div class="ttdef"><b>Definition:</b> <a href="a01073_source.html#l00020">ReadWriteLock.hpp:20</a></div></div>
+<div class="ttc" id="aa04011_html_a3bcfe87dc7927f11d661f25f6908a600"><div class="ttname"><a href="a04011.html#a3bcfe87dc7927f11d661f25f6908a600">bl::util::ReadWriteLock::ReadWriteLock</a></div><div class="ttdeci">ReadWriteLock()=default</div><div class="ttdoc">Construct a new Read Write Lock object.</div></div>
+<div class="ttc" id="aa04011_html_a71234a7cb8b764c834c02fcdc097a728"><div class="ttname"><a href="a04011.html#a71234a7cb8b764c834c02fcdc097a728">bl::util::ReadWriteLock::lockRead</a></div><div class="ttdeci">void lockRead()</div><div class="ttdoc">Acquires a lock for reading a shared resource. Multiple threads may acquire a read lock provided that...</div><div class="ttdef"><b>Definition:</b> <a href="a01778_source.html#l00017">ReadWriteLock.cpp:17</a></div></div>
+<div class="ttc" id="aa04011_html_a751259f66b9b1aece13bbf155cdd50c5"><div class="ttname"><a href="a04011.html#a751259f66b9b1aece13bbf155cdd50c5">bl::util::ReadWriteLock::unlockWrite</a></div><div class="ttdeci">void unlockWrite()</div><div class="ttdoc">Releases the write lock held by this thread.</div><div class="ttdef"><b>Definition:</b> <a href="a01778_source.html#l00035">ReadWriteLock.cpp:35</a></div></div>
+<div class="ttc" id="aa04011_html_abcce04734931a45bdeeab0241135133b"><div class="ttname"><a href="a04011.html#abcce04734931a45bdeeab0241135133b">bl::util::ReadWriteLock::unlockRead</a></div><div class="ttdeci">void unlockRead()</div><div class="ttdoc">Releases the read lock held by this thread.</div><div class="ttdef"><b>Definition:</b> <a href="a01778_source.html#l00023">ReadWriteLock.cpp:23</a></div></div>
+<div class="ttc" id="aa04011_html_ad37b398dbe7861cd2763e20002069263"><div class="ttname"><a href="a04011.html#ad37b398dbe7861cd2763e20002069263">bl::util::ReadWriteLock::lockWrite</a></div><div class="ttdeci">void lockWrite()</div><div class="ttdoc">Acquires a lock for writing a shared resource. Only one thread may hold this lock.</div><div class="ttdef"><b>Definition:</b> <a href="a01778_source.html#l00029">ReadWriteLock.cpp:29</a></div></div>
+<div class="ttc" id="aa04015_html"><div class="ttname"><a href="a04015.html">bl::util::ReadWriteLock::ReadScopeGuard</a></div><div class="ttdoc">RAII helper to acquire a read lock and release it when the scope is exited.</div><div class="ttdef"><b>Definition:</b> <a href="a01073_source.html#l00059">ReadWriteLock.hpp:59</a></div></div>
+<div class="ttc" id="aa04015_html_a10c313a07d4ea8c2534651fb071feca1"><div class="ttname"><a href="a04015.html#a10c313a07d4ea8c2534651fb071feca1">bl::util::ReadWriteLock::ReadScopeGuard::unlock</a></div><div class="ttdeci">void unlock()</div><div class="ttdoc">Prematurely unlocks the underlying lock.</div><div class="ttdef"><b>Definition:</b> <a href="a01778_source.html#l00053">ReadWriteLock.cpp:53</a></div></div>
+<div class="ttc" id="aa04015_html_a58ede3553dd29824ecaa84a5df69c922"><div class="ttname"><a href="a04015.html#a58ede3553dd29824ecaa84a5df69c922">bl::util::ReadWriteLock::ReadScopeGuard::~ReadScopeGuard</a></div><div class="ttdeci">~ReadScopeGuard()</div><div class="ttdoc">Unlocks the underlying lock.</div><div class="ttdef"><b>Definition:</b> <a href="a01778_source.html#l00051">ReadWriteLock.cpp:51</a></div></div>
+<div class="ttc" id="aa04015_html_ab719cee3c0b58e1166b0cf43cb433005"><div class="ttname"><a href="a04015.html#ab719cee3c0b58e1166b0cf43cb433005">bl::util::ReadWriteLock::ReadScopeGuard::ReadScopeGuard</a></div><div class="ttdeci">ReadScopeGuard(ReadWriteLock &amp;lock)</div><div class="ttdoc">Construct a new Read Scope Guard object.</div><div class="ttdef"><b>Definition:</b> <a href="a01778_source.html#l00045">ReadWriteLock.cpp:45</a></div></div>
+<div class="ttc" id="aa04019_html"><div class="ttname"><a href="a04019.html">bl::util::ReadWriteLock::WriteScopeGuard</a></div><div class="ttdoc">RAII helper to acquire a write lock and release it when the scope is exited.</div><div class="ttdef"><b>Definition:</b> <a href="a01073_source.html#l00091">ReadWriteLock.hpp:91</a></div></div>
+<div class="ttc" id="aa04019_html_a0f80b4382191c0117105c121d0e29b96"><div class="ttname"><a href="a04019.html#a0f80b4382191c0117105c121d0e29b96">bl::util::ReadWriteLock::WriteScopeGuard::unlock</a></div><div class="ttdeci">void unlock()</div><div class="ttdoc">Prematurely unlocks the underlying lock.</div><div class="ttdef"><b>Definition:</b> <a href="a01778_source.html#l00068">ReadWriteLock.cpp:68</a></div></div>
+<div class="ttc" id="aa04019_html_a571f6359834209775899f3507a549e40"><div class="ttname"><a href="a04019.html#a571f6359834209775899f3507a549e40">bl::util::ReadWriteLock::WriteScopeGuard::~WriteScopeGuard</a></div><div class="ttdeci">~WriteScopeGuard()</div><div class="ttdoc">Unlocks the underlying lock.</div><div class="ttdef"><b>Definition:</b> <a href="a01778_source.html#l00066">ReadWriteLock.cpp:66</a></div></div>
+<div class="ttc" id="aa04019_html_aa1c42e9d6b77fc0a8acb1e659ea1a01a"><div class="ttname"><a href="a04019.html#aa1c42e9d6b77fc0a8acb1e659ea1a01a">bl::util::ReadWriteLock::WriteScopeGuard::WriteScopeGuard</a></div><div class="ttdeci">WriteScopeGuard(ReadWriteLock &amp;lock)</div><div class="ttdoc">Construct a new Write Scope Guard object.</div><div class="ttdef"><b>Definition:</b> <a href="a01778_source.html#l00060">ReadWriteLock.cpp:60</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 8 2023 18:56:19 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Oct 12 2023 01:16:56 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

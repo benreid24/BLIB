@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Interfaces/GUI/Elements/Separator.hpp Source File</title>
+<title>BLIB: include/BLIB/Interfaces/GUI/Elements/RadioButton.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,75 +71,94 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Separator.hpp</div>  </div>
+<div class="title">RadioButton.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00383.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_GUI_ELEMENTS_SEPARATOR_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_GUI_ELEMENTS_SEPARATOR_HPP</span></div>
+<a href="a00383.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_GUI_ELEMENTS_RADIOBUTTON_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_GUI_ELEMENTS_RADIOBUTTON_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00359.html">BLIB/Interfaces/GUI/Elements/Element.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00401.html">BLIB/Interfaces/GUI/Elements/ToggleButton.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01803.html">bl</a></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01818.html">bl</a></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>gui</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">/***</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"> * @brief Basic element that is represented as a line between other elements. Note that the</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"> *        outline thickness is used as the line thickness and fill color for the line color</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment"> * @ingroup GUI</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a02616.html">   16</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02616.html">Separator</a> : <span class="keyword">public</span> <a class="code" href="a02576.html">Element</a> {</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a02631.html">   16</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02631.html">RadioButton</a> : <span class="keyword">public</span> <a class="code" href="a02659.html">ToggleButton</a> {</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a02616.html#a92e67393e74cccdc92bb3ea6b8a73033">   18</a></span>&#160;    <span class="keyword">typedef</span> std::shared_ptr&lt;Separator&gt; <a class="code" href="a02616.html#a92e67393e74cccdc92bb3ea6b8a73033">Ptr</a>;</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a02631.html#aee044683920ba0cc61aa1baa5f9d32ef">   18</a></span>&#160;    <span class="keyword">typedef</span> std::shared_ptr&lt;RadioButton&gt; <a class="code" href="a02631.html#aee044683920ba0cc61aa1baa5f9d32ef">Ptr</a>;</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a02616.html#aa3a2bce89d4ed26d49c9246c25ec93c7">   20</a></span>&#160;    <span class="keyword">static</span> constexpr <span class="keywordtype">float</span> <a class="code" href="a02616.html#aa3a2bce89d4ed26d49c9246c25ec93c7">DefaultThickness</a> = 1.f;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a02616.html#a8e27b73e8ac0553fa864ad002ae19b4d">   22</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02616.html#a8e27b73e8ac0553fa864ad002ae19b4d">~Separator</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a02616.html#ad0731961632fe5b5a812099fd85d6704">   25</a></span>&#160;    <span class="keyword">enum</span> <a class="code" href="a02616.html#ad0731961632fe5b5a812099fd85d6704">Direction</a> { <a class="code" href="a02616.html#ad0731961632fe5b5a812099fd85d6704aaeacfaa0eac28dee53054e6ce52eed9d">Horizontal</a>, <a class="code" href="a02616.html#ad0731961632fe5b5a812099fd85d6704a00bf78874a94368fc5747b29f68667a4">Vertical</a> };</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keyword">static</span> <a class="code" href="a02616.html#a92e67393e74cccdc92bb3ea6b8a73033">Ptr</a> <a class="code" href="a02616.html#a699c67f7dc92402dc55c0226c5ce000d">create</a>(<a class="code" href="a02616.html#ad0731961632fe5b5a812099fd85d6704">Direction</a> direction);</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <a class="code" href="a02616.html#ad0731961632fe5b5a812099fd85d6704">Direction</a> <a class="code" href="a02616.html#a80eda3361abc3d2ffae81b7ac2da4bed">getDirection</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a02635.html">   26</a></span>&#160;    <span class="keyword">class </span><a class="code" href="a02635.html">Group</a> {</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <a class="code" href="a02631.html">RadioButton</a>* <a class="code" href="a02635.html#a8c76591ff3b665c54341e26fcbab3903">getActiveButton</a>();</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="a02635.html#a6a68a7a035376150a6d6fd2cf1e16251">setActiveButton</a>(<a class="code" href="a02631.html">RadioButton</a>* button);</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <a class="code" href="a02616.html#a94a6acd38c3f6ff1a0fbcbeeaf0ff239">Separator</a>(<a class="code" href="a02616.html#ad0731961632fe5b5a812099fd85d6704">Direction</a> direction);</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keyword">virtual</span> sf::Vector2f <a class="code" href="a02616.html#acbc5fa438064e73bee81d32eae096546">minimumRequisition</a>() <span class="keyword">const override</span>;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02616.html#ac21fc3fc99cc517e3b7ae609a40500fa">doRender</a>(sf::RenderTarget&amp; target, sf::RenderStates states,</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                          <span class="keyword">const</span> <a class="code" href="a02664.html">Renderer</a>&amp; renderer) <span class="keyword">const override</span>;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keyword">const</span> <a class="code" href="a02616.html#ad0731961632fe5b5a812099fd85d6704">Direction</a> dir;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;};</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;} <span class="comment">// namespace gui</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00359_html"><div class="ttname"><a href="a00359.html">Element.hpp</a></div></div>
-<div class="ttc" id="aa01803_html"><div class="ttname"><a href="a01803.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02576_html"><div class="ttname"><a href="a02576.html">bl::gui::Element</a></div><div class="ttdoc">Base class for all GUI elements. Provides the common interface used for positioning,...</div><div class="ttdef"><b>Definition:</b> <a href="a00359_source.html#l00030">Element.hpp:32</a></div></div>
-<div class="ttc" id="aa02616_html"><div class="ttname"><a href="a02616.html">bl::gui::Separator</a></div><div class="ttdef"><b>Definition:</b> <a href="a00383_source.html#l00016">Separator.hpp:16</a></div></div>
-<div class="ttc" id="aa02616_html_a699c67f7dc92402dc55c0226c5ce000d"><div class="ttname"><a href="a02616.html#a699c67f7dc92402dc55c0226c5ce000d">bl::gui::Separator::create</a></div><div class="ttdeci">static Ptr create(Direction direction)</div><div class="ttdoc">Create a new separator in the given direction.</div><div class="ttdef"><b>Definition:</b> <a href="a01295_source.html#l00007">Separator.cpp:7</a></div></div>
-<div class="ttc" id="aa02616_html_a80eda3361abc3d2ffae81b7ac2da4bed"><div class="ttname"><a href="a02616.html#a80eda3361abc3d2ffae81b7ac2da4bed">bl::gui::Separator::getDirection</a></div><div class="ttdeci">Direction getDirection() const</div><div class="ttdoc">Returns the direction the separator is facing.</div><div class="ttdef"><b>Definition:</b> <a href="a01295_source.html#l00018">Separator.cpp:18</a></div></div>
-<div class="ttc" id="aa02616_html_a8e27b73e8ac0553fa864ad002ae19b4d"><div class="ttname"><a href="a02616.html#a8e27b73e8ac0553fa864ad002ae19b4d">bl::gui::Separator::~Separator</a></div><div class="ttdeci">virtual ~Separator()=default</div></div>
-<div class="ttc" id="aa02616_html_a92e67393e74cccdc92bb3ea6b8a73033"><div class="ttname"><a href="a02616.html#a92e67393e74cccdc92bb3ea6b8a73033">bl::gui::Separator::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; Separator &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00383_source.html#l00018">Separator.hpp:18</a></div></div>
-<div class="ttc" id="aa02616_html_a94a6acd38c3f6ff1a0fbcbeeaf0ff239"><div class="ttname"><a href="a02616.html#a94a6acd38c3f6ff1a0fbcbeeaf0ff239">bl::gui::Separator::Separator</a></div><div class="ttdeci">Separator(Direction direction)</div><div class="ttdoc">Create a new separator in the given direction.</div><div class="ttdef"><b>Definition:</b> <a href="a01295_source.html#l00009">Separator.cpp:9</a></div></div>
-<div class="ttc" id="aa02616_html_aa3a2bce89d4ed26d49c9246c25ec93c7"><div class="ttname"><a href="a02616.html#aa3a2bce89d4ed26d49c9246c25ec93c7">bl::gui::Separator::DefaultThickness</a></div><div class="ttdeci">static constexpr float DefaultThickness</div><div class="ttdef"><b>Definition:</b> <a href="a00383_source.html#l00020">Separator.hpp:20</a></div></div>
-<div class="ttc" id="aa02616_html_ac21fc3fc99cc517e3b7ae609a40500fa"><div class="ttname"><a href="a02616.html#ac21fc3fc99cc517e3b7ae609a40500fa">bl::gui::Separator::doRender</a></div><div class="ttdeci">virtual void doRender(sf::RenderTarget &amp;target, sf::RenderStates states, const Renderer &amp;renderer) const override</div><div class="ttdoc">Renders the separator.</div><div class="ttdef"><b>Definition:</b> <a href="a01295_source.html#l00025">Separator.cpp:25</a></div></div>
-<div class="ttc" id="aa02616_html_acbc5fa438064e73bee81d32eae096546"><div class="ttname"><a href="a02616.html#acbc5fa438064e73bee81d32eae096546">bl::gui::Separator::minimumRequisition</a></div><div class="ttdeci">virtual sf::Vector2f minimumRequisition() const override</div><div class="ttdoc">Returns the the outline thickness in both the x and y components.</div><div class="ttdef"><b>Definition:</b> <a href="a01295_source.html#l00020">Separator.cpp:20</a></div></div>
-<div class="ttc" id="aa02616_html_ad0731961632fe5b5a812099fd85d6704"><div class="ttname"><a href="a02616.html#ad0731961632fe5b5a812099fd85d6704">bl::gui::Separator::Direction</a></div><div class="ttdeci">Direction</div><div class="ttdoc">Direction the separator should be in.</div><div class="ttdef"><b>Definition:</b> <a href="a00383_source.html#l00025">Separator.hpp:25</a></div></div>
-<div class="ttc" id="aa02616_html_ad0731961632fe5b5a812099fd85d6704a00bf78874a94368fc5747b29f68667a4"><div class="ttname"><a href="a02616.html#ad0731961632fe5b5a812099fd85d6704a00bf78874a94368fc5747b29f68667a4">bl::gui::Separator::Vertical</a></div><div class="ttdeci">@ Vertical</div><div class="ttdef"><b>Definition:</b> <a href="a00383_source.html#l00025">Separator.hpp:25</a></div></div>
-<div class="ttc" id="aa02616_html_ad0731961632fe5b5a812099fd85d6704aaeacfaa0eac28dee53054e6ce52eed9d"><div class="ttname"><a href="a02616.html#ad0731961632fe5b5a812099fd85d6704aaeacfaa0eac28dee53054e6ce52eed9d">bl::gui::Separator::Horizontal</a></div><div class="ttdeci">@ Horizontal</div><div class="ttdef"><b>Definition:</b> <a href="a00383_source.html#l00025">Separator.hpp:25</a></div></div>
-<div class="ttc" id="aa02664_html"><div class="ttname"><a href="a02664.html">bl::gui::Renderer</a></div><div class="ttdoc">Interface for renderers for GUIs. Derived classes may elect to inherit from DefaultRenderer and only ...</div><div class="ttdef"><b>Definition:</b> <a href="a05076_source.html#l00037">Renderer.hpp:37</a></div></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <a class="code" href="a02635.html">Group</a>(<a class="code" href="a02631.html">RadioButton</a>* owner);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="keywordtype">void</span> removeButton(<a class="code" href="a02631.html">RadioButton</a>* button);</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <a class="code" href="a02631.html">RadioButton</a>* owner;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <a class="code" href="a02631.html">RadioButton</a>* active;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        std::vector&lt;RadioButton*&gt; buttons;</div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="a02635.html#a894022a048993dca367ba1a01423b844">   48</a></span>&#160;        <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a02631.html">RadioButton</a>;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    };</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keyword">static</span> <a class="code" href="a02607.html#a21b57f73febb9e1c62e8abcef64b1654">Ptr</a> <a class="code" href="a02631.html#a0ab72305ac5b3579a23b9be60840e3ef">create</a>(<span class="keyword">const</span> std::string&amp; <a class="code" href="a01340.html#a6d372f7ea1f537bfbc73492e24ef8623">text</a>, <span class="keyword">const</span> std::string&amp; name,</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;                      <a class="code" href="a02635.html">Group</a>* radioGroup = <span class="keyword">nullptr</span>);</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keyword">static</span> <a class="code" href="a02607.html#a21b57f73febb9e1c62e8abcef64b1654">Ptr</a> <a class="code" href="a02631.html#a0ab72305ac5b3579a23b9be60840e3ef">create</a>(<span class="keyword">const</span> <a class="code" href="a02607.html#a21b57f73febb9e1c62e8abcef64b1654">Element::Ptr</a>&amp; child, <span class="keyword">const</span> std::string&amp; name,</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;                      <a class="code" href="a02635.html">Group</a>* radioGroup = <span class="keyword">nullptr</span>);</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02631.html#a3d9fd393d64fe17d8eac3b2418de444b">~RadioButton</a>();</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <a class="code" href="a02635.html">Group</a>* <a class="code" href="a02631.html#a9b433094308ef1c1cff481bb16e3d803">getRadioGroup</a>();</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keyword">const</span> std::string&amp; <a class="code" href="a02631.html#ad5fa84152b152bd33cfa5f05cd838e10">getName</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <a class="code" href="a02631.html#a2e9b31b89b34c3c37831decf9851e370">RadioButton</a>(<span class="keyword">const</span> <a class="code" href="a02607.html#a21b57f73febb9e1c62e8abcef64b1654">Element::Ptr</a>&amp; child, <span class="keyword">const</span> std::string&amp; name, <a class="code" href="a02635.html">Group</a>* radioGroup);</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02631.html#a42355caf16e53155f60c6c09a9bc22cd">renderToggles</a>(<a class="code" href="a02587.html">Canvas</a>&amp; activeBut, <a class="code" href="a02587.html">Canvas</a>&amp; inactiveBut,</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;                               <span class="keyword">const</span> <a class="code" href="a02695.html">Renderer</a>&amp; renderer) <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02631.html#abd1bfb6a5127905fd84fbad60b4b206d">onClick</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <span class="keyword">const</span> std::string name;</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <a class="code" href="a02635.html">Group</a> myGroup;</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <a class="code" href="a02635.html">Group</a>* rgroup;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
+<div class="line"><a name="l00122"></a><span class="lineno"><a class="line" href="a02631.html#a2697825715974a353728f0d4d5658112">  122</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a02635.html">Group</a>;</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;};</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160; </div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;} <span class="comment">// namespace gui</span></div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00401_html"><div class="ttname"><a href="a00401.html">ToggleButton.hpp</a></div></div>
+<div class="ttc" id="aa01340_html_a6d372f7ea1f537bfbc73492e24ef8623"><div class="ttname"><a href="a01340.html#a6d372f7ea1f537bfbc73492e24ef8623">text</a></div><div class="ttdeci">sf::Text text</div><div class="ttdef"><b>Definition:</b> <a href="a01340_source.html#l00015">DefaultRenderer.cpp:15</a></div></div>
+<div class="ttc" id="aa01818_html"><div class="ttname"><a href="a01818.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02587_html"><div class="ttname"><a href="a02587.html">bl::gui::Canvas</a></div><div class="ttdoc">Specialized Element that allows user code to render to its area.</div><div class="ttdef"><b>Definition:</b> <a href="a00353_source.html#l00017">Canvas.hpp:17</a></div></div>
+<div class="ttc" id="aa02607_html_a21b57f73febb9e1c62e8abcef64b1654"><div class="ttname"><a href="a02607.html#a21b57f73febb9e1c62e8abcef64b1654">bl::gui::Element::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; Element &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00368_source.html#l00034">Element.hpp:34</a></div></div>
+<div class="ttc" id="aa02631_html"><div class="ttname"><a href="a02631.html">bl::gui::RadioButton</a></div><div class="ttdoc">A radio button element. Only one button in the group may be active.</div><div class="ttdef"><b>Definition:</b> <a href="a00383_source.html#l00016">RadioButton.hpp:16</a></div></div>
+<div class="ttc" id="aa02631_html_a0ab72305ac5b3579a23b9be60840e3ef"><div class="ttname"><a href="a02631.html#a0ab72305ac5b3579a23b9be60840e3ef">bl::gui::RadioButton::create</a></div><div class="ttdeci">static Ptr create(const std::string &amp;text, const std::string &amp;name, Group *radioGroup=nullptr)</div><div class="ttdef"><b>Definition:</b> <a href="a01298_source.html#l00009">RadioButton.cpp:9</a></div></div>
+<div class="ttc" id="aa02631_html_a2e9b31b89b34c3c37831decf9851e370"><div class="ttname"><a href="a02631.html#a2e9b31b89b34c3c37831decf9851e370">bl::gui::RadioButton::RadioButton</a></div><div class="ttdeci">RadioButton(const Element::Ptr &amp;child, const std::string &amp;name, Group *radioGroup)</div><div class="ttdef"><b>Definition:</b> <a href="a01298_source.html#l00019">RadioButton.cpp:19</a></div></div>
+<div class="ttc" id="aa02631_html_a3d9fd393d64fe17d8eac3b2418de444b"><div class="ttname"><a href="a02631.html#a3d9fd393d64fe17d8eac3b2418de444b">bl::gui::RadioButton::~RadioButton</a></div><div class="ttdeci">virtual ~RadioButton()</div><div class="ttdoc">Removes this button from the group.</div><div class="ttdef"><b>Definition:</b> <a href="a01298_source.html#l00030">RadioButton.cpp:30</a></div></div>
+<div class="ttc" id="aa02631_html_a42355caf16e53155f60c6c09a9bc22cd"><div class="ttname"><a href="a02631.html#a42355caf16e53155f60c6c09a9bc22cd">bl::gui::RadioButton::renderToggles</a></div><div class="ttdeci">virtual void renderToggles(Canvas &amp;activeBut, Canvas &amp;inactiveBut, const Renderer &amp;renderer) const override</div><div class="ttdoc">Renders the unchecked and checked box.</div><div class="ttdef"><b>Definition:</b> <a href="a01298_source.html#l00034">RadioButton.cpp:34</a></div></div>
+<div class="ttc" id="aa02631_html_a9b433094308ef1c1cff481bb16e3d803"><div class="ttname"><a href="a02631.html#a9b433094308ef1c1cff481bb16e3d803">bl::gui::RadioButton::getRadioGroup</a></div><div class="ttdeci">Group * getRadioGroup()</div><div class="ttdoc">Returns the group of this RadioButton.</div><div class="ttdef"><b>Definition:</b> <a href="a01298_source.html#l00032">RadioButton.cpp:32</a></div></div>
+<div class="ttc" id="aa02631_html_abd1bfb6a5127905fd84fbad60b4b206d"><div class="ttname"><a href="a02631.html#abd1bfb6a5127905fd84fbad60b4b206d">bl::gui::RadioButton::onClick</a></div><div class="ttdeci">virtual void onClick() override</div><div class="ttdoc">Activates the radio button. Does not deactivate if already active.</div><div class="ttdef"><b>Definition:</b> <a href="a01298_source.html#l00040">RadioButton.cpp:40</a></div></div>
+<div class="ttc" id="aa02631_html_ad5fa84152b152bd33cfa5f05cd838e10"><div class="ttname"><a href="a02631.html#ad5fa84152b152bd33cfa5f05cd838e10">bl::gui::RadioButton::getName</a></div><div class="ttdeci">const std::string &amp; getName() const</div><div class="ttdoc">Get the name of this button.</div><div class="ttdef"><b>Definition:</b> <a href="a01298_source.html#l00082">RadioButton.cpp:82</a></div></div>
+<div class="ttc" id="aa02631_html_aee044683920ba0cc61aa1baa5f9d32ef"><div class="ttname"><a href="a02631.html#aee044683920ba0cc61aa1baa5f9d32ef">bl::gui::RadioButton::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; RadioButton &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00383_source.html#l00018">RadioButton.hpp:18</a></div></div>
+<div class="ttc" id="aa02635_html"><div class="ttname"><a href="a02635.html">bl::gui::RadioButton::Group</a></div><div class="ttdoc">A group of radio buttons. Used to disable buttons.</div><div class="ttdef"><b>Definition:</b> <a href="a00383_source.html#l00026">RadioButton.hpp:26</a></div></div>
+<div class="ttc" id="aa02635_html_a6a68a7a035376150a6d6fd2cf1e16251"><div class="ttname"><a href="a02635.html#a6a68a7a035376150a6d6fd2cf1e16251">bl::gui::RadioButton::Group::setActiveButton</a></div><div class="ttdeci">void setActiveButton(RadioButton *button)</div><div class="ttdoc">Set the currently active button. Deactivates the rest.</div><div class="ttdef"><b>Definition:</b> <a href="a01298_source.html#l00053">RadioButton.cpp:53</a></div></div>
+<div class="ttc" id="aa02635_html_a8c76591ff3b665c54341e26fcbab3903"><div class="ttname"><a href="a02635.html#a8c76591ff3b665c54341e26fcbab3903">bl::gui::RadioButton::Group::getActiveButton</a></div><div class="ttdeci">RadioButton * getActiveButton()</div><div class="ttdoc">Returns the currently selected radio button. May be null.</div><div class="ttdef"><b>Definition:</b> <a href="a01298_source.html#l00051">RadioButton.cpp:51</a></div></div>
+<div class="ttc" id="aa02659_html"><div class="ttname"><a href="a02659.html">bl::gui::ToggleButton</a></div><div class="ttdoc">Base class for toggleable buttons. RadioButton and CheckBox are derived from this....</div><div class="ttdef"><b>Definition:</b> <a href="a00401_source.html#l00018">ToggleButton.hpp:18</a></div></div>
+<div class="ttc" id="aa02695_html"><div class="ttname"><a href="a02695.html">bl::gui::Renderer</a></div><div class="ttdoc">Interface for renderers for GUIs. Derived classes may elect to inherit from DefaultRenderer and only ...</div><div class="ttdef"><b>Definition:</b> <a href="a05111_source.html#l00037">Renderer.hpp:37</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 8 2023 18:56:18 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Oct 12 2023 01:16:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Graph/Providers/StandardTargetProvider.cpp Source File</title>
+<title>BLIB: src/Render/Graph/Assets/FramebufferAsset.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,37 +66,55 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_7ebf59129457ae24134db92256c2545a.html">Graph</a></li><li class="navelem"><a class="el" href="dir_d1f75c974a7668dd3cdf10ddc389f4cf.html">Providers</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_7ebf59129457ae24134db92256c2545a.html">Graph</a></li><li class="navelem"><a class="el" href="dir_be4517bec2734308d87aa8b601dda893.html">Assets</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">StandardTargetProvider.cpp</div>  </div>
+<div class="title">FramebufferAsset.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01481.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00665.html">BLIB/Render/Graph/Providers/StandardTargetProvider.hpp</a>&gt;</span></div>
+<a href="a01481.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00653.html">BLIB/Render/Graph/Assets/FramebufferAsset.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00650.html">BLIB/Render/Graph/Assets/StandardTargetAsset.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01803.html">bl</a></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01818.html">bl</a></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>rc</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>rgi</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>rgi</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;rg::Asset* StandardAssetProvider::create() { <span class="keywordflow">return</span> <span class="keyword">new</span> StandardTargetAsset(); }</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;} <span class="comment">// namespace rgi</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00650_html"><div class="ttname"><a href="a00650.html">StandardTargetAsset.hpp</a></div></div>
-<div class="ttc" id="aa00665_html"><div class="ttname"><a href="a00665.html">StandardTargetProvider.hpp</a></div></div>
-<div class="ttc" id="aa01803_html"><div class="ttname"><a href="a01803.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a03027.html#a3fc28ba6c24994e7665d516409ba46a3">    9</a></span>&#160;<a class="code" href="a03027.html#a3fc28ba6c24994e7665d516409ba46a3">FramebufferAsset::FramebufferAsset</a>(std::string_view tag, std::uint32_t renderPassId,</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;                                   <span class="keyword">const</span> VkViewport&amp; viewport, <span class="keyword">const</span> VkRect2D&amp; scissor,</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;                                   <span class="keyword">const</span> VkClearValue* clearColors,</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;                                   <span class="keyword">const</span> std::uint32_t clearColorCount)</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;: Asset(tag)</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;, renderPassId(renderPassId)</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;, viewport(viewport)</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;, scissor(scissor)</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;, renderPass(nullptr)</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;, clearColors(clearColors)</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;, clearColorCount(clearColorCount)</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;, cachedSize(0, 0) {}</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a03027.html#a409660b3905d16d4d3fb9208e674c99c">   22</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03027.html#a409660b3905d16d4d3fb9208e674c99c">FramebufferAsset::notifyResize</a>(glm::u32vec2 newSize) {</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordflow">if</span> (newSize != cachedSize) {</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        cachedSize = newSize;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <a class="code" href="a03027.html#ace30b9b5cedf18504dbc17fd21023afa">onResize</a>(newSize);</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    }</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;}</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;} <span class="comment">// namespace rgi</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00653_html"><div class="ttname"><a href="a00653.html">FramebufferAsset.hpp</a></div></div>
+<div class="ttc" id="aa01818_html"><div class="ttname"><a href="a01818.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03027_html_a3fc28ba6c24994e7665d516409ba46a3"><div class="ttname"><a href="a03027.html#a3fc28ba6c24994e7665d516409ba46a3">bl::rc::rgi::FramebufferAsset::FramebufferAsset</a></div><div class="ttdeci">FramebufferAsset(std::string_view tag, std::uint32_t renderPassId, const VkViewport &amp;viewport, const VkRect2D &amp;scissor, const VkClearValue *clearColors, const std::uint32_t clearColorCount)</div><div class="ttdoc">Creates the asset.</div><div class="ttdef"><b>Definition:</b> <a href="a01481_source.html#l00009">FramebufferAsset.cpp:9</a></div></div>
+<div class="ttc" id="aa03027_html_a409660b3905d16d4d3fb9208e674c99c"><div class="ttname"><a href="a03027.html#a409660b3905d16d4d3fb9208e674c99c">bl::rc::rgi::FramebufferAsset::notifyResize</a></div><div class="ttdeci">void notifyResize(glm::u32vec2 newSize)</div><div class="ttdoc">Intended to be called by observer when it resizes.</div><div class="ttdef"><b>Definition:</b> <a href="a01481_source.html#l00022">FramebufferAsset.cpp:22</a></div></div>
+<div class="ttc" id="aa03027_html_ace30b9b5cedf18504dbc17fd21023afa"><div class="ttname"><a href="a03027.html#ace30b9b5cedf18504dbc17fd21023afa">bl::rc::rgi::FramebufferAsset::onResize</a></div><div class="ttdeci">virtual void onResize(glm::u32vec2 newSize)=0</div><div class="ttdoc">Called when the observer render region changes size.</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 8 2023 18:56:19 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Oct 12 2023 01:16:56 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Events/Dispatcher.hpp File Reference</title>
+<title>BLIB: include/BLIB/Systems.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,55 +66,33 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_b1ab5f494aad7f0e2da16d9fefe047e9.html">Events</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">Dispatcher.hpp File Reference</div>  </div>
+<div class="title">Systems.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a05046_source.html">BLIB/Events/Listener.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00251_source.html">BLIB/Events/SingleDispatcher.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00254_source.html">BLIB/Events/SubscribeHelpers.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a01052_source.html">BLIB/Util/NonCopyable.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a01061_source.html">BLIB/Util/ReadWriteLock.hpp</a>&gt;</code><br />
-<code>#include &lt;mutex&gt;</code><br />
-<code>#include &lt;shared_mutex&gt;</code><br />
-<code>#include &lt;typeindex&gt;</code><br />
-<code>#include &lt;unordered_map&gt;</code><br />
-<code>#include &lt;unordered_set&gt;</code><br />
-<code>#include &lt;vector&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00248_source.html">BLIB/Events/ListenerImpl.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a01004_source.html">BLIB/Systems/Animation2DSystem.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01007_source.html">BLIB/Systems/BuiltinDescriptorComponentSystems.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01010_source.html">BLIB/Systems/BuiltinDrawableSystems.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01013_source.html">BLIB/Systems/DescriptorComponentSystem.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01016_source.html">BLIB/Systems/DrawableSystem.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01019_source.html">BLIB/Systems/OverlayScalerSystem.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01025_source.html">BLIB/Systems/RenderSystem.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01022_source.html">BLIB/Systems/RendererUpdateSystem.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01028_source.html">BLIB/Systems/TextSyncSystem.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01031_source.html">BLIB/Systems/TogglerSystem.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01034_source.html">BLIB/Systems/Transform2DDescriptorSystem.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01037_source.html">BLIB/Systems/VelocitySystem.hpp</a>&gt;</code><br />
 </div>
 <p><a href="a00236_source.html">Go to the source code of this file.</a></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02340.html">bl::event::Dispatcher</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Event dispatcher capable of handling events of many different types. The dispatcher is threadsafe. If events are dispatched by multiple threads care should be taken to keep the listeners threadsafe as well. Care must also be taken to not subscribe the same listener more than once or it will get notified more than once per event.  <a href="a02340.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:a01803"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01803.html">bl</a></td></tr>
-<tr class="memdesc:a01803"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01826"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01826.html">bl::event</a></td></tr>
-<tr class="memdesc:a01826"><td class="mdescLeft">&#160;</td><td class="mdescRight">Event dispatcher and listener infrastructure. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01827"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01827.html">bl::event::priv</a></td></tr>
-<tr class="memdesc:a01827"><td class="mdescLeft">&#160;</td><td class="mdescRight">Private namespace. Contained classes are internal implementation details. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 8 2023 18:56:19 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Oct 12 2023 01:16:56 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Overlays/Overlay.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Graph/Tasks/FadeEffectTask.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,130 +66,99 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_f985e6d9d3c728bc93d2b173ef2ebe49.html">Overlays</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_70f08ea54355502249f886f7ca541c6e.html">Graph</a></li><li class="navelem"><a class="el" href="dir_adf8e29d1ba8d413d8ee6c1365267c96.html">Tasks</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Overlay.hpp</div>  </div>
+<div class="title">FadeEffectTask.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00698.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_OVERLAYS_OVERLAY_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_OVERLAYS_OVERLAY_HPP</span></div>
+<a href="a00698.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_GRAPH_TASKS_FADEEFFECTTASK_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_GRAPH_TASKS_FADEEFFECTTASK_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00152.html">BLIB/ECS/Entity.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00155.html">BLIB/Events.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00608.html">BLIB/Render/Descriptors/DescriptorSetFactoryCache.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00614.html">BLIB/Render/Descriptors/DescriptorSetInstanceCache.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00617.html">BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00704.html">BLIB/Render/Overlays/OverlayObject.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00755.html">BLIB/Render/Scenes/Scene.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00761.html">BLIB/Render/Scenes/SceneObjectECSAdaptor.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01013.html">BLIB/Systems/OverlayScalerSystem.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01043.html">BLIB/Util/IdAllocator.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;limits&gt;</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01803.html">bl</a></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;{</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">namespace </span>engine</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;{</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">class </span>Engine;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;}</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">namespace </span>rc</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;{</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">class </span>Renderer;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">class </span>Observer;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="a03080.html">   36</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03080.html">Overlay</a></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;: <span class="keyword">public</span> <a class="code" href="a03184.html">Scene</a></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;, <span class="keyword">public</span> <a class="code" href="a02352.html">bl::event::Listener</a>&lt;ecs::event::EntityParentSet, ecs::event::EntityParentRemoved&gt; {</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="a03080.html#a9b2c696174039b223dfed6f1f148639d">   40</a></span>&#160;    <span class="keyword">static</span> constexpr std::uint32_t <a class="code" href="a03080.html#a9b2c696174039b223dfed6f1f148639d">NoParent</a> = std::numeric_limits&lt;std::uint32_t&gt;::max();</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <a class="code" href="a03080.html#a7d7dae291dbc5057ff45f35fbcd5c685">Overlay</a>(<a class="code" href="a02264.html">engine::Engine</a>&amp; engine);</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03080.html#a341424341b9e578bea91b39480787536">~Overlay</a>();</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03080.html#a71f4df3107e9cbbcd50c1ef315f05ea1">renderScene</a>(<a class="code" href="a03216.html">scene::SceneRenderContext</a>&amp; context) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03192.html">scene::SceneObject</a>* <a class="code" href="a03080.html#a75c75bc5c48e77bf06960487c490c2ef">doAdd</a>(<a class="code" href="a02176.html">ecs::Entity</a> entity, <a class="code" href="a02852.html">rcom::DrawableBase</a>&amp; <span class="keywordtype">object</span>,</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                                      <a class="code" href="a01790.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a> updateFreq) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03080.html#a48e5dd12c416c3ede097d12193f0228d">doRemove</a>(<a class="code" href="a03192.html">scene::SceneObject</a>* <span class="keywordtype">object</span>, std::uint32_t pipeline) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03080.html#ac7f49fdba3becc74f5d668ce866cc92f">doBatchChange</a>(<span class="keyword">const</span> <a class="code" href="a03188.html">BatchChange</a>&amp; change, std::uint32_t ogPipeline) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <a class="code" href="a02264.html">engine::Engine</a>&amp; engine;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <a class="code" href="a02152.html">ecs::ComponentPool&lt;ovy::OverlayObject&gt;</a>* ecsPool;</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <a class="code" href="a03196.html">scene::SceneObjectECSAdaptor&lt;ovy::OverlayObject&gt;</a> objects;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <a class="code" href="a03876.html">sys::OverlayScalerSystem</a>&amp; scaler;</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    std::vector&lt;ovy::OverlayObject*&gt; roots;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keywordtype">bool</span> needRefreshAll;</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    std::vector&lt;ovy::OverlayObject*&gt; renderStack;</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    VkViewport cachedParentViewport;</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    glm::u32vec2 cachedTargetSize;</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="keywordtype">void</span> refreshAll();</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> observe(<span class="keyword">const</span> <a class="code" href="a02200.html">ecs::event::EntityParentSet</a>&amp; event) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> observe(<span class="keyword">const</span> <a class="code" href="a02204.html">ecs::event::EntityParentRemoved</a>&amp; event) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00110"></a><span class="lineno"><a class="line" href="a03080.html#afbb15852c78e1a43aed96b8ccc399c5b">  110</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a03156.html">sys::DrawableSystem</a>;</div>
-<div class="line"><a name="l00111"></a><span class="lineno"><a class="line" href="a03080.html#a4a6a3be2932b640ceb285770c5346ff3">  111</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a03876.html">sys::OverlayScalerSystem</a>;</div>
-<div class="line"><a name="l00112"></a><span class="lineno"><a class="line" href="a03080.html#a1bc1613ca5d6d0e8b2fbce5ef15dd38f">  112</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a03072.html">Observer</a>;</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;};</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00152_html"><div class="ttname"><a href="a00152.html">Entity.hpp</a></div></div>
-<div class="ttc" id="aa00155_html"><div class="ttname"><a href="a00155.html">Events.hpp</a></div></div>
-<div class="ttc" id="aa00608_html"><div class="ttname"><a href="a00608.html">DescriptorSetFactoryCache.hpp</a></div></div>
-<div class="ttc" id="aa00614_html"><div class="ttname"><a href="a00614.html">DescriptorSetInstanceCache.hpp</a></div></div>
-<div class="ttc" id="aa00617_html"><div class="ttname"><a href="a00617.html">SceneDescriptorSetInstance.hpp</a></div></div>
-<div class="ttc" id="aa00704_html"><div class="ttname"><a href="a00704.html">OverlayObject.hpp</a></div></div>
-<div class="ttc" id="aa00755_html"><div class="ttname"><a href="a00755.html">Scene.hpp</a></div></div>
-<div class="ttc" id="aa00761_html"><div class="ttname"><a href="a00761.html">SceneObjectECSAdaptor.hpp</a></div></div>
-<div class="ttc" id="aa01013_html"><div class="ttname"><a href="a01013.html">OverlayScalerSystem.hpp</a></div></div>
-<div class="ttc" id="aa01043_html"><div class="ttname"><a href="a01043.html">IdAllocator.hpp</a></div></div>
-<div class="ttc" id="aa01790_html_ga305dcc5dda3e28bd193ab31444664848"><div class="ttname"><a href="a01790.html#ga305dcc5dda3e28bd193ab31444664848">bl::rc::UpdateSpeed</a></div><div class="ttdeci">UpdateSpeed</div><div class="ttdoc">Enum representing how frequently an object is expected to be updated.</div><div class="ttdef"><b>Definition:</b> <a href="a00779_source.html#l00015">UpdateSpeed.hpp:15</a></div></div>
-<div class="ttc" id="aa01803_html"><div class="ttname"><a href="a01803.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02152_html"><div class="ttname"><a href="a02152.html">bl::ecs::ComponentPool</a></div><div class="ttdoc">Provides storage and management for components in the ECS. Used internally in the Registry.</div><div class="ttdef"><b>Definition:</b> <a href="a00140_source.html#l00069">ComponentPool.hpp:69</a></div></div>
-<div class="ttc" id="aa02176_html"><div class="ttname"><a href="a02176.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition:</b> <a href="a00152_source.html#l00023">Entity.hpp:23</a></div></div>
-<div class="ttc" id="aa02200_html"><div class="ttname"><a href="a02200.html">bl::ecs::event::EntityParentSet</a></div><div class="ttdoc">Fired when an entity has a parent set.</div><div class="ttdef"><b>Definition:</b> <a href="a05022_source.html#l00093">Events.hpp:93</a></div></div>
-<div class="ttc" id="aa02204_html"><div class="ttname"><a href="a02204.html">bl::ecs::event::EntityParentRemoved</a></div><div class="ttdoc">Fired when an entity's parent is removed.</div><div class="ttdef"><b>Definition:</b> <a href="a05022_source.html#l00116">Events.hpp:116</a></div></div>
-<div class="ttc" id="aa02264_html"><div class="ttname"><a href="a02264.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a05028_source.html#l00031">Engine.hpp:31</a></div></div>
-<div class="ttc" id="aa02352_html"><div class="ttname"><a href="a02352.html">bl::event::Listener</a></div><div class="ttdoc">Listener of multiple event types. Listeners should inherit this class with the types of events they w...</div><div class="ttdef"><b>Definition:</b> <a href="a05046_source.html#l00049">Listener.hpp:49</a></div></div>
-<div class="ttc" id="aa02852_html"><div class="ttname"><a href="a02852.html">bl::rc::rcom::DrawableBase</a></div><div class="ttdoc">Base class for drawable scene components for the ECS. Provides common members.</div><div class="ttdef"><b>Definition:</b> <a href="a00554_source.html#l00020">DrawableBase.hpp:20</a></div></div>
-<div class="ttc" id="aa03072_html"><div class="ttname"><a href="a03072.html">bl::rc::Observer</a></div><div class="ttdoc">Top level class for observers in the renderer. Corresponds to Engine Actors. Each observer may have i...</div><div class="ttdef"><b>Definition:</b> <a href="a00695_source.html#l00035">Observer.hpp:35</a></div></div>
-<div class="ttc" id="aa03080_html"><div class="ttname"><a href="a03080.html">bl::rc::Overlay</a></div><div class="ttdoc">Special type of scene specialized for 2d overlays with fixed cameras. Objects are organized into a tr...</div><div class="ttdef"><b>Definition:</b> <a href="a00698_source.html#l00036">Overlay.hpp:38</a></div></div>
-<div class="ttc" id="aa03080_html_a341424341b9e578bea91b39480787536"><div class="ttname"><a href="a03080.html#a341424341b9e578bea91b39480787536">bl::rc::Overlay::~Overlay</a></div><div class="ttdeci">virtual ~Overlay()</div><div class="ttdoc">Frees resources.</div><div class="ttdef"><b>Definition:</b> <a href="a01505_source.html#l00025">Overlay.cpp:25</a></div></div>
-<div class="ttc" id="aa03080_html_a48e5dd12c416c3ede097d12193f0228d"><div class="ttname"><a href="a03080.html#a48e5dd12c416c3ede097d12193f0228d">bl::rc::Overlay::doRemove</a></div><div class="ttdeci">virtual void doRemove(scene::SceneObject *object, std::uint32_t pipeline) override</div><div class="ttdoc">Called when an object is removed from the scene. Unlink from descriptors here.</div><div class="ttdef"><b>Definition:</b> <a href="a01505_source.html#l00092">Overlay.cpp:92</a></div></div>
-<div class="ttc" id="aa03080_html_a71f4df3107e9cbbcd50c1ef315f05ea1"><div class="ttname"><a href="a03080.html#a71f4df3107e9cbbcd50c1ef315f05ea1">bl::rc::Overlay::renderScene</a></div><div class="ttdeci">virtual void renderScene(scene::SceneRenderContext &amp;context) override</div><div class="ttdoc">Derived classes should record render commands in here.</div><div class="ttdef"><b>Definition:</b> <a href="a01505_source.html#l00027">Overlay.cpp:27</a></div></div>
-<div class="ttc" id="aa03080_html_a75c75bc5c48e77bf06960487c490c2ef"><div class="ttname"><a href="a03080.html#a75c75bc5c48e77bf06960487c490c2ef">bl::rc::Overlay::doAdd</a></div><div class="ttdeci">virtual scene::SceneObject * doAdd(ecs::Entity entity, rcom::DrawableBase &amp;object, UpdateSpeed updateFreq) override</div><div class="ttdoc">Called when an object is added to the scene. Derived should create the SceneObject here and initializ...</div><div class="ttdef"><b>Definition:</b> <a href="a01505_source.html#l00070">Overlay.cpp:70</a></div></div>
-<div class="ttc" id="aa03080_html_a7d7dae291dbc5057ff45f35fbcd5c685"><div class="ttname"><a href="a03080.html#a7d7dae291dbc5057ff45f35fbcd5c685">bl::rc::Overlay::Overlay</a></div><div class="ttdeci">Overlay(engine::Engine &amp;engine)</div><div class="ttdoc">Creates a new overlay scene.</div><div class="ttdef"><b>Definition:</b> <a href="a01505_source.html#l00011">Overlay.cpp:11</a></div></div>
-<div class="ttc" id="aa03080_html_a9b2c696174039b223dfed6f1f148639d"><div class="ttname"><a href="a03080.html#a9b2c696174039b223dfed6f1f148639d">bl::rc::Overlay::NoParent</a></div><div class="ttdeci">static constexpr std::uint32_t NoParent</div><div class="ttdef"><b>Definition:</b> <a href="a00698_source.html#l00040">Overlay.hpp:40</a></div></div>
-<div class="ttc" id="aa03080_html_ac7f49fdba3becc74f5d668ce866cc92f"><div class="ttname"><a href="a03080.html#ac7f49fdba3becc74f5d668ce866cc92f">bl::rc::Overlay::doBatchChange</a></div><div class="ttdeci">virtual void doBatchChange(const BatchChange &amp;change, std::uint32_t ogPipeline) override</div><div class="ttdoc">Called by Scene in handleDescriptorSync for objects that need to be re-batched.</div><div class="ttdef"><b>Definition:</b> <a href="a01505_source.html#l00111">Overlay.cpp:111</a></div></div>
-<div class="ttc" id="aa03156_html"><div class="ttname"><a href="a03156.html">bl::sys::DrawableSystem</a></div><div class="ttdoc">Base class for renderer systems that manage scene objects in the ECS. Custom renderable types should ...</div><div class="ttdef"><b>Definition:</b> <a href="a01010_source.html#l00031">DrawableSystem.hpp:33</a></div></div>
-<div class="ttc" id="aa03184_html"><div class="ttname"><a href="a03184.html">bl::rc::Scene</a></div><div class="ttdoc">Base class for all scene types and overlays. Provides common scene logic and object management....</div><div class="ttdef"><b>Definition:</b> <a href="a00755_source.html#l00051">Scene.hpp:51</a></div></div>
-<div class="ttc" id="aa03188_html"><div class="ttname"><a href="a03188.html">bl::rc::Scene::BatchChange</a></div><div class="ttdoc">POD containing data for when an object needs to be re-batched.</div><div class="ttdef"><b>Definition:</b> <a href="a00755_source.html#l00085">Scene.hpp:85</a></div></div>
-<div class="ttc" id="aa03192_html"><div class="ttname"><a href="a03192.html">bl::rc::scene::SceneObject</a></div><div class="ttdoc">Base renderable object. Everything that is rendered will reference an instance of this....</div><div class="ttdef"><b>Definition:</b> <a href="a00758_source.html#l00021">SceneObject.hpp:21</a></div></div>
-<div class="ttc" id="aa03196_html"><div class="ttname"><a href="a03196.html">bl::rc::scene::SceneObjectECSAdaptor</a></div><div class="ttdoc">Similar to SceneObjectStorage, but uses the ECS as underlying storage.</div><div class="ttdef"><b>Definition:</b> <a href="a00761_source.html#l00028">SceneObjectECSAdaptor.hpp:28</a></div></div>
-<div class="ttc" id="aa03216_html"><div class="ttname"><a href="a03216.html">bl::rc::scene::SceneRenderContext</a></div><div class="ttdoc">Container class that holds the required parameters to render a scene and provides methods for descrip...</div><div class="ttdef"><b>Definition:</b> <a href="a00767_source.html#l00025">SceneRenderContext.hpp:25</a></div></div>
-<div class="ttc" id="aa03876_html"><div class="ttname"><a href="a03876.html">bl::sys::OverlayScalerSystem</a></div><div class="ttdoc">System that processes entities that are scaled for overlays. Keeps scales up-to-date as overlay size ...</div><div class="ttdef"><b>Definition:</b> <a href="a01013_source.html#l00028">OverlayScalerSystem.hpp:31</a></div></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00548.html">BLIB/Render/Buffers/IndexBuffer.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00653.html">BLIB/Render/Graph/Assets/FramebufferAsset.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00659.html">BLIB/Render/Graph/Assets/StandardTargetAsset.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00686.html">BLIB/Render/Graph/Task.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00806.html">BLIB/Render/Vulkan/DescriptorPool.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00815.html">BLIB/Render/Vulkan/PerFrame.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00824.html">BLIB/Render/Vulkan/Pipeline.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01818.html">bl</a></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span>rgi</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a03095.html">   24</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03095.html">FadeEffectTask</a> : <span class="keyword">public</span> <a class="code" href="a03079.html">rg::Task</a> {</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <a class="code" href="a03095.html#af7da795ccc33bae21dc81592651f9ef2">FadeEffectTask</a>(<span class="keywordtype">float</span> fadeTime, <span class="keywordtype">float</span> factorStart = 1.f, <span class="keywordtype">float</span> factorEnd = 0.f);</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03095.html#a346e7826b48616256c90c9704a05a18d">~FadeEffectTask</a>();</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03095.html#a9a1833c08ab8b64a020c869497c988b7">fadeTo</a>(<span class="keywordtype">float</span> fadeTime, <span class="keywordtype">float</span> factorEnd);</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03095.html#a323b30f2e1f0b076f1b8ff644919b989">fade</a>(<span class="keywordtype">float</span> fadeTime, <span class="keywordtype">float</span> fadeStart = 1.f, <span class="keywordtype">float</span> fadeEnd = 0.f);</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03095.html#acb9b3f7739cf04562aa253d458817e2e">update</a>(<span class="keywordtype">float</span> dt) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="a03095.html#a6368bb390ad2ff38fbc427f83ee057c1">   67</a></span>&#160;    constexpr <span class="keywordtype">bool</span> <a class="code" href="a03095.html#a6368bb390ad2ff38fbc427f83ee057c1">complete</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> factor == fadeEnd; }</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="a03095.html#a7fa4758c8e347ee94a9804a721d75644">   72</a></span>&#160;    constexpr <span class="keywordtype">float</span> <a class="code" href="a03095.html#a7fa4758c8e347ee94a9804a721d75644">currentFactor</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> factor; }</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <a class="code" href="a03139.html">Renderer</a>* renderer;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <a class="code" href="a03027.html">FramebufferAsset</a>* output;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <a class="code" href="a02863.html">buf::IndexBuffer</a> indexBuffer;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <a class="code" href="a03323.html">vk::Pipeline</a>* pipeline;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <a class="code" href="a03287.html#a7bb5a0efe4177857484ecb6ae66c75dd">vk::DescriptorPool::AllocationHandle</a> dsAlloc;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <a class="code" href="a03311.html">vk::PerFrame&lt;VkDescriptorSet&gt;</a> descriptorSets;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    VkImageView cachedView;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordtype">float</span> fadeEnd;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordtype">float</span> fadeSpeed;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keywordtype">float</span> factor;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> create(<a class="code" href="a02295.html">engine::Engine</a>&amp; engine, <a class="code" href="a03139.html">Renderer</a>&amp; renderer) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> onGraphInit() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> execute(<span class="keyword">const</span> <a class="code" href="a03043.html">rg::ExecutionContext</a>&amp; ctx) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;};</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;} <span class="comment">// namespace rgi</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00548_html"><div class="ttname"><a href="a00548.html">IndexBuffer.hpp</a></div></div>
+<div class="ttc" id="aa00653_html"><div class="ttname"><a href="a00653.html">FramebufferAsset.hpp</a></div></div>
+<div class="ttc" id="aa00659_html"><div class="ttname"><a href="a00659.html">StandardTargetAsset.hpp</a></div></div>
+<div class="ttc" id="aa00686_html"><div class="ttname"><a href="a00686.html">Task.hpp</a></div></div>
+<div class="ttc" id="aa00806_html"><div class="ttname"><a href="a00806.html">DescriptorPool.hpp</a></div></div>
+<div class="ttc" id="aa00815_html"><div class="ttname"><a href="a00815.html">PerFrame.hpp</a></div></div>
+<div class="ttc" id="aa00824_html"><div class="ttname"><a href="a00824.html">Pipeline.hpp</a></div></div>
+<div class="ttc" id="aa01818_html"><div class="ttname"><a href="a01818.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02295_html"><div class="ttname"><a href="a02295.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a05063_source.html#l00031">Engine.hpp:31</a></div></div>
+<div class="ttc" id="aa02863_html"><div class="ttname"><a href="a02863.html">bl::rc::buf::IndexBufferT</a></div><div class="ttdoc">Basic index buffer class built on top of vk::Buffer. Intended for static mesh data.</div><div class="ttdef"><b>Definition:</b> <a href="a00548_source.html#l00025">IndexBuffer.hpp:25</a></div></div>
+<div class="ttc" id="aa03027_html"><div class="ttname"><a href="a03027.html">bl::rc::rgi::FramebufferAsset</a></div><div class="ttdoc">Intermediate base class for assets that provide framebuffers.</div><div class="ttdef"><b>Definition:</b> <a href="a00653_source.html#l00021">FramebufferAsset.hpp:21</a></div></div>
+<div class="ttc" id="aa03043_html"><div class="ttname"><a href="a03043.html">bl::rc::rg::ExecutionContext</a></div><div class="ttdoc">Context containing graph execution data that is passed down to tasks.</div><div class="ttdef"><b>Definition:</b> <a href="a00665_source.html#l00025">ExecutionContext.hpp:25</a></div></div>
+<div class="ttc" id="aa03079_html"><div class="ttname"><a href="a03079.html">bl::rc::rg::Task</a></div><div class="ttdoc">Base class for tasks within a RenderGraph.</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00025">Task.hpp:25</a></div></div>
+<div class="ttc" id="aa03095_html"><div class="ttname"><a href="a03095.html">bl::rc::rgi::FadeEffectTask</a></div><div class="ttdoc">Basic post effect task that multiplies the rendered color by a factor in the range [0,...</div><div class="ttdef"><b>Definition:</b> <a href="a00698_source.html#l00024">FadeEffectTask.hpp:24</a></div></div>
+<div class="ttc" id="aa03095_html_a323b30f2e1f0b076f1b8ff644919b989"><div class="ttname"><a href="a03095.html#a323b30f2e1f0b076f1b8ff644919b989">bl::rc::rgi::FadeEffectTask::fade</a></div><div class="ttdeci">void fade(float fadeTime, float fadeStart=1.f, float fadeEnd=0.f)</div><div class="ttdoc">Resets the fade to interpolate between the two factors.</div><div class="ttdef"><b>Definition:</b> <a href="a01508_source.html#l00041">FadeEffectTask.cpp:41</a></div></div>
+<div class="ttc" id="aa03095_html_a346e7826b48616256c90c9704a05a18d"><div class="ttname"><a href="a03095.html#a346e7826b48616256c90c9704a05a18d">bl::rc::rgi::FadeEffectTask::~FadeEffectTask</a></div><div class="ttdeci">virtual ~FadeEffectTask()</div><div class="ttdoc">Frees resources.</div><div class="ttdef"><b>Definition:</b> <a href="a01508_source.html#l00025">FadeEffectTask.cpp:25</a></div></div>
+<div class="ttc" id="aa03095_html_a6368bb390ad2ff38fbc427f83ee057c1"><div class="ttname"><a href="a03095.html#a6368bb390ad2ff38fbc427f83ee057c1">bl::rc::rgi::FadeEffectTask::complete</a></div><div class="ttdeci">constexpr bool complete() const</div><div class="ttdoc">Returns whether or not the fade is complete.</div><div class="ttdef"><b>Definition:</b> <a href="a00698_source.html#l00067">FadeEffectTask.hpp:67</a></div></div>
+<div class="ttc" id="aa03095_html_a7fa4758c8e347ee94a9804a721d75644"><div class="ttname"><a href="a03095.html#a7fa4758c8e347ee94a9804a721d75644">bl::rc::rgi::FadeEffectTask::currentFactor</a></div><div class="ttdeci">constexpr float currentFactor() const</div><div class="ttdoc">Returns the current fade factor.</div><div class="ttdef"><b>Definition:</b> <a href="a00698_source.html#l00072">FadeEffectTask.hpp:72</a></div></div>
+<div class="ttc" id="aa03095_html_a9a1833c08ab8b64a020c869497c988b7"><div class="ttname"><a href="a03095.html#a9a1833c08ab8b64a020c869497c988b7">bl::rc::rgi::FadeEffectTask::fadeTo</a></div><div class="ttdeci">void fadeTo(float fadeTime, float factorEnd)</div><div class="ttdoc">Resets the fade to interpolate to the new factor from the current factor.</div><div class="ttdef"><b>Definition:</b> <a href="a01508_source.html#l00036">FadeEffectTask.cpp:36</a></div></div>
+<div class="ttc" id="aa03095_html_acb9b3f7739cf04562aa253d458817e2e"><div class="ttname"><a href="a03095.html#acb9b3f7739cf04562aa253d458817e2e">bl::rc::rgi::FadeEffectTask::update</a></div><div class="ttdeci">virtual void update(float dt) override</div><div class="ttdoc">Advances the fade by the given amount of time.</div><div class="ttdef"><b>Definition:</b> <a href="a01508_source.html#l00163">FadeEffectTask.cpp:163</a></div></div>
+<div class="ttc" id="aa03095_html_af7da795ccc33bae21dc81592651f9ef2"><div class="ttname"><a href="a03095.html#af7da795ccc33bae21dc81592651f9ef2">bl::rc::rgi::FadeEffectTask::FadeEffectTask</a></div><div class="ttdeci">FadeEffectTask(float fadeTime, float factorStart=1.f, float factorEnd=0.f)</div><div class="ttdoc">Creates a new fade task.</div><div class="ttdef"><b>Definition:</b> <a href="a01508_source.html#l00015">FadeEffectTask.cpp:15</a></div></div>
+<div class="ttc" id="aa03139_html"><div class="ttname"><a href="a03139.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition:</b> <a href="a05114_source.html#l00039">Renderer.hpp:39</a></div></div>
+<div class="ttc" id="aa03287_html_a7bb5a0efe4177857484ecb6ae66c75dd"><div class="ttname"><a href="a03287.html#a7bb5a0efe4177857484ecb6ae66c75dd">bl::rc::vk::DescriptorPool::AllocationHandle</a></div><div class="ttdeci">std::list&lt; Allocation &gt;::iterator AllocationHandle</div><div class="ttdoc">Handle to an allocation from the pool.</div><div class="ttdef"><b>Definition:</b> <a href="a00806_source.html#l00043">DescriptorPool.hpp:43</a></div></div>
+<div class="ttc" id="aa03311_html"><div class="ttname"><a href="a03311.html">bl::rc::vk::PerFrame&lt; VkDescriptorSet &gt;</a></div></div>
+<div class="ttc" id="aa03323_html"><div class="ttname"><a href="a03323.html">bl::rc::vk::Pipeline</a></div><div class="ttdoc">Core renderer class representing a pipeline that is a part of a RenderPass. Pipelines are managed by ...</div><div class="ttdef"><b>Definition:</b> <a href="a00824_source.html#l00030">Pipeline.hpp:30</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 8 2023 18:56:18 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Oct 12 2023 01:16:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

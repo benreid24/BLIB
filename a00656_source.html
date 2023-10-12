@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Graph/ExecutionContext.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Graph/Assets/SceneAsset.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,73 +66,63 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_70f08ea54355502249f886f7ca541c6e.html">Graph</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_70f08ea54355502249f886f7ca541c6e.html">Graph</a></li><li class="navelem"><a class="el" href="dir_318f4421f1f7fb4c659a5f109f7dfe6e.html">Assets</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">ExecutionContext.hpp</div>  </div>
+<div class="title">SceneAsset.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00656.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_GRAPH_EXECUTIONCONTEXT_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_GRAPH_EXECUTIONCONTEXT_HPP</span></div>
+<a href="a00656.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_GRAPH_ASSETS_SCENEASSET_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_GRAPH_ASSETS_SCENEASSET_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01091.html">BLIB/Vulkan.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;cstdint&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01803.html">bl</a></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>engine</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">class </span>Engine;</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;}</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span>rc</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">class </span>Renderer;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">namespace </span>rg</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;{</div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a03012.html">   25</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a03012.html">ExecutionContext</a> {</div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a03012.html#a5e1eb97f7655838dbc12b69399099e06">   26</a></span>&#160;    <a class="code" href="a02264.html">engine::Engine</a>&amp; <a class="code" href="a03012.html#a5e1eb97f7655838dbc12b69399099e06">engine</a>;</div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="a03012.html#a0b0009ede380bf4334a812519ddd43a3">   27</a></span>&#160;    <a class="code" href="a03112.html">Renderer</a>&amp; <a class="code" href="a03012.html#a0b0009ede380bf4334a812519ddd43a3">renderer</a>;</div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a03012.html#af86e7c13ce3a866091ea39889b1a23cb">   28</a></span>&#160;    VkCommandBuffer <a class="code" href="a03012.html#af86e7c13ce3a866091ea39889b1a23cb">commandBuffer</a>;</div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a03012.html#aad6a98a0fe6ea59e376cd68452b9e91f">   29</a></span>&#160;    std::uint32_t <a class="code" href="a03012.html#aad6a98a0fe6ea59e376cd68452b9e91f">observerIndex</a>;</div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a03012.html#a8f58fa5c948867ecef48f99c6abec378">   30</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a03012.html#a8f58fa5c948867ecef48f99c6abec378">renderingToRenderTexture</a>;</div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="a03012.html#ad3d3f6ba628e3f077d147030bec22ef0">   31</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a03012.html#ad3d3f6ba628e3f077d147030bec22ef0">isFinalStep</a>;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00635.html">BLIB/Render/Graph/Asset.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01818.html">bl</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">class </span>Scene;</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>rgi</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a03031.html">   19</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03031.html">SceneAsset</a> : <span class="keyword">public</span> <a class="code" href="a03003.html">rg::Asset</a> {</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <a class="code" href="a03031.html#a0b5c6cdefb32d150f1f344f7cac47acf">SceneAsset</a>(<a class="code" href="a03211.html">Scene</a>* <a class="code" href="a03031.html#a5e4731f6b824801a27c6c0dcca4d3777">scene</a>);</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="a03031.html#ab71e1e2833d6f6440dd0f84b638d650e">   31</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03031.html#ab71e1e2833d6f6440dd0f84b638d650e">~SceneAsset</a>() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="a03012.html#a4dd83f08bfea35b3f0a28220df2d8ece">   43</a></span>&#160;    <a class="code" href="a03012.html#a4dd83f08bfea35b3f0a28220df2d8ece">ExecutionContext</a>(<a class="code" href="a02264.html">engine::Engine</a>&amp; <a class="code" href="a03012.html#a5e1eb97f7655838dbc12b69399099e06">engine</a>, <a class="code" href="a03112.html">Renderer</a>&amp; <a class="code" href="a03012.html#a0b0009ede380bf4334a812519ddd43a3">renderer</a>, VkCommandBuffer <a class="code" href="a03012.html#af86e7c13ce3a866091ea39889b1a23cb">commandBuffer</a>,</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                     std::uint32_t <a class="code" href="a03012.html#aad6a98a0fe6ea59e376cd68452b9e91f">observerIndex</a>, <span class="keywordtype">bool</span> renderTexture, <span class="keywordtype">bool</span> <a class="code" href="a03012.html#ad3d3f6ba628e3f077d147030bec22ef0">isFinalStep</a>)</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    : <a class="code" href="a03012.html#a5e1eb97f7655838dbc12b69399099e06">engine</a>(<a class="code" href="a03012.html#a5e1eb97f7655838dbc12b69399099e06">engine</a>)</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    , <a class="code" href="a03012.html#a0b0009ede380bf4334a812519ddd43a3">renderer</a>(<a class="code" href="a03012.html#a0b0009ede380bf4334a812519ddd43a3">renderer</a>)</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    , <a class="code" href="a03012.html#af86e7c13ce3a866091ea39889b1a23cb">commandBuffer</a>(<a class="code" href="a03012.html#af86e7c13ce3a866091ea39889b1a23cb">commandBuffer</a>)</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    , <a class="code" href="a03012.html#aad6a98a0fe6ea59e376cd68452b9e91f">observerIndex</a>(<a class="code" href="a03012.html#aad6a98a0fe6ea59e376cd68452b9e91f">observerIndex</a>)</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    , <a class="code" href="a03012.html#a8f58fa5c948867ecef48f99c6abec378">renderingToRenderTexture</a>(renderTexture)</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    , <a class="code" href="a03012.html#ad3d3f6ba628e3f077d147030bec22ef0">isFinalStep</a>(<a class="code" href="a03012.html#ad3d3f6ba628e3f077d147030bec22ef0">isFinalStep</a>) {}</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;};</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;} <span class="comment">// namespace rg</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01091_html"><div class="ttname"><a href="a01091.html">Vulkan.hpp</a></div></div>
-<div class="ttc" id="aa01803_html"><div class="ttname"><a href="a01803.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02264_html"><div class="ttname"><a href="a02264.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a05028_source.html#l00031">Engine.hpp:31</a></div></div>
-<div class="ttc" id="aa03012_html"><div class="ttname"><a href="a03012.html">bl::rc::rg::ExecutionContext</a></div><div class="ttdoc">Context containing graph execution data that is passed down to tasks.</div><div class="ttdef"><b>Definition:</b> <a href="a00656_source.html#l00025">ExecutionContext.hpp:25</a></div></div>
-<div class="ttc" id="aa03012_html_a0b0009ede380bf4334a812519ddd43a3"><div class="ttname"><a href="a03012.html#a0b0009ede380bf4334a812519ddd43a3">bl::rc::rg::ExecutionContext::renderer</a></div><div class="ttdeci">Renderer &amp; renderer</div><div class="ttdef"><b>Definition:</b> <a href="a00656_source.html#l00027">ExecutionContext.hpp:27</a></div></div>
-<div class="ttc" id="aa03012_html_a4dd83f08bfea35b3f0a28220df2d8ece"><div class="ttname"><a href="a03012.html#a4dd83f08bfea35b3f0a28220df2d8ece">bl::rc::rg::ExecutionContext::ExecutionContext</a></div><div class="ttdeci">ExecutionContext(engine::Engine &amp;engine, Renderer &amp;renderer, VkCommandBuffer commandBuffer, std::uint32_t observerIndex, bool renderTexture, bool isFinalStep)</div><div class="ttdoc">Creates an execution context.</div><div class="ttdef"><b>Definition:</b> <a href="a00656_source.html#l00043">ExecutionContext.hpp:43</a></div></div>
-<div class="ttc" id="aa03012_html_a5e1eb97f7655838dbc12b69399099e06"><div class="ttname"><a href="a03012.html#a5e1eb97f7655838dbc12b69399099e06">bl::rc::rg::ExecutionContext::engine</a></div><div class="ttdeci">engine::Engine &amp; engine</div><div class="ttdef"><b>Definition:</b> <a href="a00656_source.html#l00026">ExecutionContext.hpp:26</a></div></div>
-<div class="ttc" id="aa03012_html_a8f58fa5c948867ecef48f99c6abec378"><div class="ttname"><a href="a03012.html#a8f58fa5c948867ecef48f99c6abec378">bl::rc::rg::ExecutionContext::renderingToRenderTexture</a></div><div class="ttdeci">bool renderingToRenderTexture</div><div class="ttdef"><b>Definition:</b> <a href="a00656_source.html#l00030">ExecutionContext.hpp:30</a></div></div>
-<div class="ttc" id="aa03012_html_aad6a98a0fe6ea59e376cd68452b9e91f"><div class="ttname"><a href="a03012.html#aad6a98a0fe6ea59e376cd68452b9e91f">bl::rc::rg::ExecutionContext::observerIndex</a></div><div class="ttdeci">std::uint32_t observerIndex</div><div class="ttdef"><b>Definition:</b> <a href="a00656_source.html#l00029">ExecutionContext.hpp:29</a></div></div>
-<div class="ttc" id="aa03012_html_ad3d3f6ba628e3f077d147030bec22ef0"><div class="ttname"><a href="a03012.html#ad3d3f6ba628e3f077d147030bec22ef0">bl::rc::rg::ExecutionContext::isFinalStep</a></div><div class="ttdeci">bool isFinalStep</div><div class="ttdef"><b>Definition:</b> <a href="a00656_source.html#l00031">ExecutionContext.hpp:31</a></div></div>
-<div class="ttc" id="aa03012_html_af86e7c13ce3a866091ea39889b1a23cb"><div class="ttname"><a href="a03012.html#af86e7c13ce3a866091ea39889b1a23cb">bl::rc::rg::ExecutionContext::commandBuffer</a></div><div class="ttdeci">VkCommandBuffer commandBuffer</div><div class="ttdef"><b>Definition:</b> <a href="a00656_source.html#l00028">ExecutionContext.hpp:28</a></div></div>
-<div class="ttc" id="aa03112_html"><div class="ttname"><a href="a03112.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition:</b> <a href="a05079_source.html#l00039">Renderer.hpp:39</a></div></div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="a03031.html#a5e4731f6b824801a27c6c0dcca4d3777">   33</a></span>&#160;    <a class="code" href="a03211.html">Scene</a>* <a class="code" href="a03031.html#a5e4731f6b824801a27c6c0dcca4d3777">scene</a>;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> doCreate(<a class="code" href="a02295.html">engine::Engine</a>&amp; engine, <a class="code" href="a03139.html">Renderer</a>&amp; renderer, <a class="code" href="a03103.html">Observer</a>* observer) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> doPrepareForInput(<span class="keyword">const</span> <a class="code" href="a03043.html">rg::ExecutionContext</a>&amp; context) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> doPrepareForOutput(<span class="keyword">const</span> <a class="code" href="a03043.html">rg::ExecutionContext</a>&amp; context) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;};</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;} <span class="comment">// namespace rgi</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00635_html"><div class="ttname"><a href="a00635.html">Asset.hpp</a></div></div>
+<div class="ttc" id="aa01818_html"><div class="ttname"><a href="a01818.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02295_html"><div class="ttname"><a href="a02295.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a05063_source.html#l00031">Engine.hpp:31</a></div></div>
+<div class="ttc" id="aa03003_html"><div class="ttname"><a href="a03003.html">bl::rc::rg::Asset</a></div><div class="ttdoc">Base class for assets in render graphs.</div><div class="ttdef"><b>Definition:</b> <a href="a00635_source.html#l00032">Asset.hpp:32</a></div></div>
+<div class="ttc" id="aa03031_html"><div class="ttname"><a href="a03031.html">bl::rc::rgi::SceneAsset</a></div><div class="ttdoc">Basic asset that provides the scene to tasks.</div><div class="ttdef"><b>Definition:</b> <a href="a00656_source.html#l00019">SceneAsset.hpp:19</a></div></div>
+<div class="ttc" id="aa03031_html_a0b5c6cdefb32d150f1f344f7cac47acf"><div class="ttname"><a href="a03031.html#a0b5c6cdefb32d150f1f344f7cac47acf">bl::rc::rgi::SceneAsset::SceneAsset</a></div><div class="ttdeci">SceneAsset(Scene *scene)</div><div class="ttdoc">Creates the asset from a scene.</div><div class="ttdef"><b>Definition:</b> <a href="a01484_source.html#l00011">SceneAsset.cpp:11</a></div></div>
+<div class="ttc" id="aa03031_html_a5e4731f6b824801a27c6c0dcca4d3777"><div class="ttname"><a href="a03031.html#a5e4731f6b824801a27c6c0dcca4d3777">bl::rc::rgi::SceneAsset::scene</a></div><div class="ttdeci">Scene * scene</div><div class="ttdef"><b>Definition:</b> <a href="a00656_source.html#l00033">SceneAsset.hpp:33</a></div></div>
+<div class="ttc" id="aa03031_html_ab71e1e2833d6f6440dd0f84b638d650e"><div class="ttname"><a href="a03031.html#ab71e1e2833d6f6440dd0f84b638d650e">bl::rc::rgi::SceneAsset::~SceneAsset</a></div><div class="ttdeci">virtual ~SceneAsset()=default</div><div class="ttdoc">Destroys the asset.</div></div>
+<div class="ttc" id="aa03043_html"><div class="ttname"><a href="a03043.html">bl::rc::rg::ExecutionContext</a></div><div class="ttdoc">Context containing graph execution data that is passed down to tasks.</div><div class="ttdef"><b>Definition:</b> <a href="a00665_source.html#l00025">ExecutionContext.hpp:25</a></div></div>
+<div class="ttc" id="aa03103_html"><div class="ttname"><a href="a03103.html">bl::rc::Observer</a></div><div class="ttdoc">Top level class for observers in the renderer. Corresponds to Engine Actors. Each observer may have i...</div><div class="ttdef"><b>Definition:</b> <a href="a00704_source.html#l00035">Observer.hpp:35</a></div></div>
+<div class="ttc" id="aa03139_html"><div class="ttname"><a href="a03139.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition:</b> <a href="a05114_source.html#l00039">Renderer.hpp:39</a></div></div>
+<div class="ttc" id="aa03211_html"><div class="ttname"><a href="a03211.html">bl::rc::Scene</a></div><div class="ttdoc">Base class for all scene types and overlays. Provides common scene logic and object management....</div><div class="ttdef"><b>Definition:</b> <a href="a00761_source.html#l00051">Scene.hpp:51</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 8 2023 18:56:18 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Oct 12 2023 01:16:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

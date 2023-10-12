@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Scripts/Script.hpp File Reference</title>
+<title>BLIB: include/BLIB/Scripts/PrimitiveValue.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -72,44 +72,89 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a>  </div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">Script.hpp File Reference</div>  </div>
+<div class="title">PrimitiveValue.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00518_source.html">BLIB/Parser/Node.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00911_source.html">BLIB/Scripts/Context.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00932_source.html">BLIB/Scripts/SymbolTable.hpp</a>&gt;</code><br />
-<code>#include &lt;atomic&gt;</code><br />
-<code>#include &lt;mutex&gt;</code><br />
-<code>#include &lt;optional&gt;</code><br />
-<code>#include &lt;thread&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00923_source.html">BLIB/Scripts/Function.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00932_source.html">BLIB/Scripts/ReferenceValue.hpp</a>&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
 </div>
 <p><a href="a00929_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03536.html">bl::script::Script</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads scripts. Can run scripts directly or in the background. Is threadsafe.  <a href="a03536.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03551.html">bl::script::PrimitiveValue</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents the lowest level values in scripts.  <a href="a03551.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a01803"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01803.html">bl</a></td></tr>
-<tr class="memdesc:a01803"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="memitem:a01818"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01818.html">bl</a></td></tr>
+<tr class="memdesc:a01818"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01810"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01810.html">bl::engine</a></td></tr>
-<tr class="memdesc:a01810"><td class="mdescLeft">&#160;</td><td class="mdescRight">The core game engine and related classes. <br /></td></tr>
+<tr class="memitem:a01870"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01870.html">bl::script</a></td></tr>
+<tr class="memdesc:a01870"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a03563.html" title="Loads scripts. Can run scripts directly or in the background. Is threadsafe.">Script</a> interpreter for bScript. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01855"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01855.html">bl::script</a></td></tr>
-<tr class="memdesc:a01855"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a03536.html" title="Loads scripts. Can run scripts directly or in the background. Is threadsafe.">Script</a> interpreter for bScript. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a949fe37cb751cac53f257c3c0241a652"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01870.html#a949fe37cb751cac53f257c3c0241a652">bl::script::ArrayValue</a> = std::vector&lt; Value &gt;</td></tr>
+<tr class="memdesc:a949fe37cb751cac53f257c3c0241a652"><td class="mdescLeft">&#160;</td><td class="mdescRight">An array of values.  <a href="a01870.html#a949fe37cb751cac53f257c3c0241a652">More...</a><br /></td></tr>
+<tr class="separator:a949fe37cb751cac53f257c3c0241a652"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ab0f7d498130aeb1460f4e78be9cde0da"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="a03551.html#ae46c56f7af29255ac8f117a0f97d593b">bl::script::PrimitiveValue::Type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00929.html#ab0f7d498130aeb1460f4e78be9cde0da">operator|</a> (<a class="el" href="a03551.html#ae46c56f7af29255ac8f117a0f97d593b">bl::script::PrimitiveValue::Type</a> l, <a class="el" href="a03551.html#ae46c56f7af29255ac8f117a0f97d593b">bl::script::PrimitiveValue::Type</a> r)</td></tr>
+<tr class="separator:ab0f7d498130aeb1460f4e78be9cde0da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="ab0f7d498130aeb1460f4e78be9cde0da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0f7d498130aeb1460f4e78be9cde0da">&#9670;&nbsp;</a></span>operator|()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr <a class="el" href="a03551.html#ae46c56f7af29255ac8f117a0f97d593b">bl::script::PrimitiveValue::Type</a> operator| </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a03551.html#ae46c56f7af29255ac8f117a0f97d593b">bl::script::PrimitiveValue::Type</a>&#160;</td>
+          <td class="paramname"><em>l</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a03551.html#ae46c56f7af29255ac8f117a0f97d593b">bl::script::PrimitiveValue::Type</a>&#160;</td>
+          <td class="paramname"><em>r</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00929_source.html#l00297">297</a> of file <a class="el" href="a00929_source.html">PrimitiveValue.hpp</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 8 2023 18:56:19 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Oct 12 2023 01:16:56 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

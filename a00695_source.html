@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Observer.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Graph/TaskInput.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,201 +66,55 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_70f08ea54355502249f886f7ca541c6e.html">Graph</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Observer.hpp</div>  </div>
+<div class="title">TaskInput.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00695.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_OBSERVER_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_OBSERVER_HPP</span></div>
+<a href="a00695.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_GRAPH_TASKINPUT_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_GRAPH_TASKINPUT_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00047.html">BLIB/Cameras/Camera.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00632.html">BLIB/Render/Graph/AssetPool.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00641.html">BLIB/Render/Graph/Assets/FinalSwapframeAsset.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00668.html">BLIB/Render/Graph/RenderGraph.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00698.html">BLIB/Render/Overlays/Overlay.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00701.html">BLIB/Render/Overlays/OverlayCamera.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00755.html">BLIB/Render/Scenes/Scene.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00809.html">BLIB/Render/Vulkan/PerFrame.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00836.html">BLIB/Render/Vulkan/StandardAttachmentBuffers.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01091.html">BLIB/Vulkan.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;SFML/Window.hpp&gt;</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;mutex&gt;</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &lt;stack&gt;</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &lt;utility&gt;</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01803.html">bl</a></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;{</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">namespace </span>rc</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;{</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">class </span>Renderer;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="a03072.html">   35</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03072.html">Observer</a> {</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <a class="code" href="a03072.html#aab97846e8d0d3237f36ddf0909bdf4a5">~Observer</a>();</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> TScene, <span class="keyword">typename</span>... TArgs&gt;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    TScene* <a class="code" href="a03072.html#a640fd87f7e28a0725b1a88d70822d482">pushScene</a>(TArgs&amp;&amp;... args);</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03072.html#a640fd87f7e28a0725b1a88d70822d482">pushScene</a>(<a class="code" href="a03184.html">Scene</a>* scene);</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <a class="code" href="a03080.html">Overlay</a>* <a class="code" href="a03072.html#ac8a0a81137a8f32f848ce6c4d41459dd">createSceneOverlay</a>();</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <a class="code" href="a03080.html">Overlay</a>* <a class="code" href="a03072.html#a1d5c0433b38eac1a059c951827dd803e">getOrCreateSceneOverlay</a>();</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <a class="code" href="a03080.html">Overlay</a>* <a class="code" href="a03072.html#a683f178f4530548a6ec6ea93aaba29dd">getCurrentOverlay</a>();</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <a class="code" href="a03184.html">Scene</a>* <a class="code" href="a03072.html#a7431f5603968ff478d97a27aee22f1db">popSceneNoRelease</a>();</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03072.html#a84e2231d442d9913070429313faa4918">popScene</a>();</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03072.html#a31b109f596ef0673ea81f47e0a8b29e9">clearScenes</a>();</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03072.html#a3a537f320fe7c4aa98f17a2304a290b0">clearScenesNoRelease</a>();</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    std::size_t <a class="code" href="a03072.html#ab652a9d7ef6bbccce4518147d7f5fb2d">sceneCount</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a03072.html#a0c8bb753497dcb5ac34053461f780f4b">hasScene</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCamera, <span class="keyword">typename</span>... TArgs&gt;</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    TCamera* <a class="code" href="a03072.html#a704aced897014f096d651b0b76c60892">setCamera</a>(TArgs&amp;&amp;... args);</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03072.html#afda9f1828ace901b35e5df72cacb705a">setClearColor</a>(<span class="keyword">const</span> glm::vec4&amp; color);</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160; </div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    constexpr <span class="keyword">const</span> VkClearValue* <a class="code" href="a03072.html#af9e8e1ade882c52725d28a45e2ae6218">getClearColors</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; </div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    <a class="code" href="a03028.html">rg::RenderGraph</a>&amp; <a class="code" href="a03072.html#a8a55dcd89959093f1aab427cb4105a51">getRenderGraph</a>();</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160; </div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    constexpr glm::u32vec2 <a class="code" href="a03072.html#a9f05da7d27538ab65ffd437936a70ae3">getRegionSize</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160; </div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    <span class="keyword">struct </span>SceneInstance {</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;        <a class="code" href="a03184.html">Scene</a>* scene;</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        <a class="code" href="a03080.html">Overlay</a>* overlay;</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;        <a class="code" href="a03028.html">rg::RenderGraph</a> graph;</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;        std::uint32_t observerIndex;</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;        std::uint32_t overlayIndex;</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;        std::unique_ptr&lt;cam::Camera&gt; camera;</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160; </div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;        SceneInstance(<a class="code" href="a02264.html">engine::Engine</a>&amp; e, <a class="code" href="a03112.html">Renderer</a>&amp; r, <a class="code" href="a03072.html">Observer</a>* owner, <a class="code" href="a02980.html">rg::AssetPool</a>&amp; pool,</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;                      <a class="code" href="a03184.html">Scene</a>* s)</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;        : scene(s)</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;        , overlay(<span class="keyword">nullptr</span>)</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;        , graph(e, r, pool, owner)</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;        , observerIndex(0)</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;        , overlayIndex(0) {}</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    };</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160; </div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">bool</span> isCommon;</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    <a class="code" href="a02264.html">engine::Engine</a>&amp; engine;</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    <a class="code" href="a03112.html">Renderer</a>&amp; renderer;</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    <a class="code" href="a02980.html">rg::AssetPool</a> graphAssets;</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    <span class="keywordtype">bool</span> resourcesFreed;</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    VkViewport viewport;</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    VkRect2D scissor;</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    <a class="code" href="a02992.html">rgi::FinalSwapframeAsset</a>* swapframeAsset;</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    std::vector&lt;SceneInstance&gt; scenes;</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    <span class="keywordtype">float</span> defaultNear, defaultFar;</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    VkClearValue clearColors[2];</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    <a class="code" href="a03084.html">ovy::OverlayCamera</a> overlayCamera;</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    glm::mat4 overlayProjView;</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160; </div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    <a class="code" href="a03072.html">Observer</a>(<a class="code" href="a02264.html">engine::Engine</a>&amp; engine, <a class="code" href="a03112.html">Renderer</a>&amp; renderer, <a class="code" href="a02976.html">rg::AssetFactory</a>&amp; factory, <span class="keywordtype">bool</span> isCommon);</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;    <span class="keywordtype">void</span> handleDescriptorSync();</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    <span class="keywordtype">void</span> update(<span class="keywordtype">float</span> dt);</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    <span class="keywordtype">void</span> assignRegion(<span class="keyword">const</span> sf::Vector2u&amp; windowSize, <span class="keyword">const</span> sf::Rect&lt;std::uint32_t&gt;&amp; parentRegion,</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;                      <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> observerCount, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> index, <span class="keywordtype">bool</span> topBottomFirst);</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    <span class="keywordtype">void</span> setDefaultNearFar(<span class="keywordtype">float</span> nearValue, <span class="keywordtype">float</span> farValue);</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    <span class="keywordtype">void</span> cleanup();</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    <span class="keywordtype">void</span> onSceneAdd();</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;    <span class="keywordtype">void</span> onSceneChange();</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160; </div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    <span class="comment">// called by Renderer</span></div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    <span class="keywordtype">void</span> renderScene(VkCommandBuffer commandBuffer);</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;    <span class="keywordtype">void</span> compositeSceneAndOverlay(VkCommandBuffer commandBuffer);</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160; </div>
-<div class="line"><a name="l00194"></a><span class="lineno"><a class="line" href="a03072.html#a1fc8c4ea65463b448e068f1287349540">  194</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a03112.html">bl::rc::Renderer</a>;</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;};</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160; </div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160; </div>
-<div class="line"><a name="l00199"></a><span class="lineno"><a class="line" href="a03072.html#ab652a9d7ef6bbccce4518147d7f5fb2d">  199</a></span>&#160;<span class="keyword">inline</span> std::size_t <a class="code" href="a03072.html#ab652a9d7ef6bbccce4518147d7f5fb2d">Observer::sceneCount</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> scenes.size(); }</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160; </div>
-<div class="line"><a name="l00201"></a><span class="lineno"><a class="line" href="a03072.html#a0c8bb753497dcb5ac34053461f780f4b">  201</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="a03072.html#a0c8bb753497dcb5ac34053461f780f4b">Observer::hasScene</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> !scenes.empty(); }</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160; </div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCamera, <span class="keyword">typename</span>... TArgs&gt;</div>
-<div class="line"><a name="l00204"></a><span class="lineno"><a class="line" href="a03072.html#a704aced897014f096d651b0b76c60892">  204</a></span>&#160;TCamera* <a class="code" href="a03072.html#a704aced897014f096d651b0b76c60892">Observer::setCamera</a>(TArgs&amp;&amp;... args) {</div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="a03072.html#a0c8bb753497dcb5ac34053461f780f4b">hasScene</a>()) {</div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;        TCamera* cam = <span class="keyword">new</span> TCamera(std::forward&lt;TArgs&gt;(args)...);</div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;        <span class="keyword">static_cast&lt;</span><a class="code" href="a01976.html">cam::Camera</a>*<span class="keyword">&gt;</span>(cam)-&gt;setNearAndFarPlanes(defaultNear, defaultFar);</div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;        scenes.back().camera.reset(cam);</div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;        <span class="keywordflow">return</span> cam;</div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    }</div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160; </div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    <a class="code" href="a00485.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Tried to set camera for observer with no current scene&quot;</span>;</div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;}</div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160; </div>
-<div class="line"><a name="l00216"></a><span class="lineno"><a class="line" href="a03072.html#a8a55dcd89959093f1aab427cb4105a51">  216</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="a03028.html">rg::RenderGraph</a>&amp; <a class="code" href="a03072.html#a8a55dcd89959093f1aab427cb4105a51">Observer::getRenderGraph</a>() { <span class="keywordflow">return</span> scenes.back().graph; }</div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160; </div>
-<div class="line"><a name="l00218"></a><span class="lineno"><a class="line" href="a03072.html#af9e8e1ade882c52725d28a45e2ae6218">  218</a></span>&#160;<span class="keyword">inline</span> constexpr <span class="keyword">const</span> VkClearValue* <a class="code" href="a03072.html#af9e8e1ade882c52725d28a45e2ae6218">Observer::getClearColors</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> clearColors; }</div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160; </div>
-<div class="line"><a name="l00220"></a><span class="lineno"><a class="line" href="a03072.html#a9f05da7d27538ab65ffd437936a70ae3">  220</a></span>&#160;<span class="keyword">inline</span> constexpr glm::u32vec2 <a class="code" href="a03072.html#a9f05da7d27538ab65ffd437936a70ae3">Observer::getRegionSize</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;    <span class="keywordflow">return</span> {scissor.extent.width, scissor.extent.height};</div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;}</div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160; </div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160; </div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00047_html"><div class="ttname"><a href="a00047.html">Camera.hpp</a></div></div>
-<div class="ttc" id="aa00485_html_a927270d671e83a1c6b5382f30bfbf895"><div class="ttname"><a href="a00485.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a></div><div class="ttdeci">#define BL_LOG_ERROR</div><div class="ttdoc">Helper macro to log at error level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00485_source.html#l00101">Logger.hpp:101</a></div></div>
-<div class="ttc" id="aa00632_html"><div class="ttname"><a href="a00632.html">AssetPool.hpp</a></div></div>
-<div class="ttc" id="aa00641_html"><div class="ttname"><a href="a00641.html">FinalSwapframeAsset.hpp</a></div></div>
-<div class="ttc" id="aa00668_html"><div class="ttname"><a href="a00668.html">RenderGraph.hpp</a></div></div>
-<div class="ttc" id="aa00698_html"><div class="ttname"><a href="a00698.html">Overlay.hpp</a></div></div>
-<div class="ttc" id="aa00701_html"><div class="ttname"><a href="a00701.html">OverlayCamera.hpp</a></div></div>
-<div class="ttc" id="aa00755_html"><div class="ttname"><a href="a00755.html">Scene.hpp</a></div></div>
-<div class="ttc" id="aa00809_html"><div class="ttname"><a href="a00809.html">PerFrame.hpp</a></div></div>
-<div class="ttc" id="aa00836_html"><div class="ttname"><a href="a00836.html">StandardAttachmentBuffers.hpp</a></div></div>
-<div class="ttc" id="aa01091_html"><div class="ttname"><a href="a01091.html">Vulkan.hpp</a></div></div>
-<div class="ttc" id="aa01803_html"><div class="ttname"><a href="a01803.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa01976_html"><div class="ttname"><a href="a01976.html">bl::cam::Camera</a></div><div class="ttdoc">Base class for all cameras.</div><div class="ttdef"><b>Definition:</b> <a href="a00047_source.html#l00017">Camera.hpp:17</a></div></div>
-<div class="ttc" id="aa02264_html"><div class="ttname"><a href="a02264.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a05028_source.html#l00031">Engine.hpp:31</a></div></div>
-<div class="ttc" id="aa02976_html"><div class="ttname"><a href="a02976.html">bl::rc::rg::AssetFactory</a></div><div class="ttdoc">Factory for render graph assets. Manages the set of providers keyed on tag.</div><div class="ttdef"><b>Definition:</b> <a href="a00629_source.html#l00021">AssetFactory.hpp:21</a></div></div>
-<div class="ttc" id="aa02980_html"><div class="ttname"><a href="a02980.html">bl::rc::rg::AssetPool</a></div><div class="ttdoc">Observer level asset pool that owns assets directly.</div><div class="ttdef"><b>Definition:</b> <a href="a00632_source.html#l00032">AssetPool.hpp:32</a></div></div>
-<div class="ttc" id="aa02992_html"><div class="ttname"><a href="a02992.html">bl::rc::rgi::FinalSwapframeAsset</a></div><div class="ttdoc">Asset for the swapchain image that an observer renders to.</div><div class="ttdef"><b>Definition:</b> <a href="a00641_source.html#l00019">FinalSwapframeAsset.hpp:19</a></div></div>
-<div class="ttc" id="aa03028_html"><div class="ttname"><a href="a03028.html">bl::rc::rg::RenderGraph</a></div><div class="ttdoc">The core render graph functionality. Drives rendering for each observer.</div><div class="ttdef"><b>Definition:</b> <a href="a00668_source.html#l00030">RenderGraph.hpp:30</a></div></div>
-<div class="ttc" id="aa03072_html"><div class="ttname"><a href="a03072.html">bl::rc::Observer</a></div><div class="ttdoc">Top level class for observers in the renderer. Corresponds to Engine Actors. Each observer may have i...</div><div class="ttdef"><b>Definition:</b> <a href="a00695_source.html#l00035">Observer.hpp:35</a></div></div>
-<div class="ttc" id="aa03072_html_a0c8bb753497dcb5ac34053461f780f4b"><div class="ttname"><a href="a03072.html#a0c8bb753497dcb5ac34053461f780f4b">bl::rc::Observer::hasScene</a></div><div class="ttdeci">bool hasScene() const</div><div class="ttdoc">Returns whether or not this observer has an active scene.</div><div class="ttdef"><b>Definition:</b> <a href="a00695_source.html#l00201">Observer.hpp:201</a></div></div>
-<div class="ttc" id="aa03072_html_a1d5c0433b38eac1a059c951827dd803e"><div class="ttname"><a href="a03072.html#a1d5c0433b38eac1a059c951827dd803e">bl::rc::Observer::getOrCreateSceneOverlay</a></div><div class="ttdeci">Overlay * getOrCreateSceneOverlay()</div><div class="ttdoc">Returns the current overlay, creating a new one if necessary.</div><div class="ttdef"><b>Definition:</b> <a href="a01502_source.html#l00066">Observer.cpp:66</a></div></div>
-<div class="ttc" id="aa03072_html_a31b109f596ef0673ea81f47e0a8b29e9"><div class="ttname"><a href="a03072.html#a31b109f596ef0673ea81f47e0a8b29e9">bl::rc::Observer::clearScenes</a></div><div class="ttdeci">void clearScenes()</div><div class="ttdoc">Removes all scenes from the observer and returns them to the scene pool. Also clears all cameras....</div><div class="ttdef"><b>Definition:</b> <a href="a01502_source.html#l00093">Observer.cpp:93</a></div></div>
-<div class="ttc" id="aa03072_html_a3a537f320fe7c4aa98f17a2304a290b0"><div class="ttname"><a href="a03072.html#a3a537f320fe7c4aa98f17a2304a290b0">bl::rc::Observer::clearScenesNoRelease</a></div><div class="ttdeci">void clearScenesNoRelease()</div><div class="ttdoc">Removes all scenes but does not return them to the scene pool. Also clears all cameras.</div><div class="ttdef"><b>Definition:</b> <a href="a01502_source.html#l00102">Observer.cpp:102</a></div></div>
-<div class="ttc" id="aa03072_html_a640fd87f7e28a0725b1a88d70822d482"><div class="ttname"><a href="a03072.html#a640fd87f7e28a0725b1a88d70822d482">bl::rc::Observer::pushScene</a></div><div class="ttdeci">TScene * pushScene(TArgs &amp;&amp;... args)</div><div class="ttdoc">Creates a new scene on top the Observer's scene stack and returns it.</div><div class="ttdef"><b>Definition:</b> <a href="a05079_source.html#l00283">Renderer.hpp:283</a></div></div>
-<div class="ttc" id="aa03072_html_a683f178f4530548a6ec6ea93aaba29dd"><div class="ttname"><a href="a03072.html#a683f178f4530548a6ec6ea93aaba29dd">bl::rc::Observer::getCurrentOverlay</a></div><div class="ttdeci">Overlay * getCurrentOverlay()</div><div class="ttdoc">Returns the current Overlay. Will be nullptr if one has not been created.</div><div class="ttdef"><b>Definition:</b> <a href="a01502_source.html#l00075">Observer.cpp:75</a></div></div>
-<div class="ttc" id="aa03072_html_a704aced897014f096d651b0b76c60892"><div class="ttname"><a href="a03072.html#a704aced897014f096d651b0b76c60892">bl::rc::Observer::setCamera</a></div><div class="ttdeci">TCamera * setCamera(TArgs &amp;&amp;... args)</div><div class="ttdoc">Replaces the camera to render the current scene with.</div><div class="ttdef"><b>Definition:</b> <a href="a00695_source.html#l00204">Observer.hpp:204</a></div></div>
-<div class="ttc" id="aa03072_html_a7431f5603968ff478d97a27aee22f1db"><div class="ttname"><a href="a03072.html#a7431f5603968ff478d97a27aee22f1db">bl::rc::Observer::popSceneNoRelease</a></div><div class="ttdeci">Scene * popSceneNoRelease()</div><div class="ttdoc">Removes the top scene from the observer's scene stack and returns it. Does not release the scene back...</div><div class="ttdef"><b>Definition:</b> <a href="a01502_source.html#l00077">Observer.cpp:77</a></div></div>
-<div class="ttc" id="aa03072_html_a84e2231d442d9913070429313faa4918"><div class="ttname"><a href="a03072.html#a84e2231d442d9913070429313faa4918">bl::rc::Observer::popScene</a></div><div class="ttdeci">void popScene()</div><div class="ttdoc">Removes and releases the current active scene to the scene pool.</div><div class="ttdef"><b>Definition:</b> <a href="a01502_source.html#l00085">Observer.cpp:85</a></div></div>
-<div class="ttc" id="aa03072_html_a8a55dcd89959093f1aab427cb4105a51"><div class="ttname"><a href="a03072.html#a8a55dcd89959093f1aab427cb4105a51">bl::rc::Observer::getRenderGraph</a></div><div class="ttdeci">rg::RenderGraph &amp; getRenderGraph()</div><div class="ttdoc">Returns the render graph for the current scene. Can be used to add custom steps.</div><div class="ttdef"><b>Definition:</b> <a href="a00695_source.html#l00216">Observer.hpp:216</a></div></div>
-<div class="ttc" id="aa03072_html_a9f05da7d27538ab65ffd437936a70ae3"><div class="ttname"><a href="a03072.html#a9f05da7d27538ab65ffd437936a70ae3">bl::rc::Observer::getRegionSize</a></div><div class="ttdeci">constexpr glm::u32vec2 getRegionSize() const</div><div class="ttdoc">Returns the size of the observers render region in pixels.</div><div class="ttdef"><b>Definition:</b> <a href="a00695_source.html#l00220">Observer.hpp:220</a></div></div>
-<div class="ttc" id="aa03072_html_aab97846e8d0d3237f36ddf0909bdf4a5"><div class="ttname"><a href="a03072.html#aab97846e8d0d3237f36ddf0909bdf4a5">bl::rc::Observer::~Observer</a></div><div class="ttdeci">~Observer()</div><div class="ttdoc">Releases resources.</div><div class="ttdef"><b>Definition:</b> <a href="a01502_source.html#l00031">Observer.cpp:31</a></div></div>
-<div class="ttc" id="aa03072_html_ab652a9d7ef6bbccce4518147d7f5fb2d"><div class="ttname"><a href="a03072.html#ab652a9d7ef6bbccce4518147d7f5fb2d">bl::rc::Observer::sceneCount</a></div><div class="ttdeci">std::size_t sceneCount() const</div><div class="ttdoc">Returns the number of scenes in this observer's scene stack.</div><div class="ttdef"><b>Definition:</b> <a href="a00695_source.html#l00199">Observer.hpp:199</a></div></div>
-<div class="ttc" id="aa03072_html_ac8a0a81137a8f32f848ce6c4d41459dd"><div class="ttname"><a href="a03072.html#ac8a0a81137a8f32f848ce6c4d41459dd">bl::rc::Observer::createSceneOverlay</a></div><div class="ttdeci">Overlay * createSceneOverlay()</div><div class="ttdoc">Creates a new Overlay for the current scene for this Observer. Replaces the existing Overlay if one w...</div><div class="ttdef"><b>Definition:</b> <a href="a01502_source.html#l00054">Observer.cpp:54</a></div></div>
-<div class="ttc" id="aa03072_html_af9e8e1ade882c52725d28a45e2ae6218"><div class="ttname"><a href="a03072.html#af9e8e1ade882c52725d28a45e2ae6218">bl::rc::Observer::getClearColors</a></div><div class="ttdeci">constexpr const VkClearValue * getClearColors() const</div><div class="ttdoc">Returns a raw pointer to the clear values for the observer.</div><div class="ttdef"><b>Definition:</b> <a href="a00695_source.html#l00218">Observer.hpp:218</a></div></div>
-<div class="ttc" id="aa03072_html_afda9f1828ace901b35e5df72cacb705a"><div class="ttname"><a href="a03072.html#afda9f1828ace901b35e5df72cacb705a">bl::rc::Observer::setClearColor</a></div><div class="ttdeci">void setClearColor(const glm::vec4 &amp;color)</div><div class="ttdoc">Sets the color to clear the observer's render region to prior to rendering.</div><div class="ttdef"><b>Definition:</b> <a href="a01502_source.html#l00275">Observer.cpp:275</a></div></div>
-<div class="ttc" id="aa03080_html"><div class="ttname"><a href="a03080.html">bl::rc::Overlay</a></div><div class="ttdoc">Special type of scene specialized for 2d overlays with fixed cameras. Objects are organized into a tr...</div><div class="ttdef"><b>Definition:</b> <a href="a00698_source.html#l00036">Overlay.hpp:38</a></div></div>
-<div class="ttc" id="aa03084_html"><div class="ttname"><a href="a03084.html">bl::rc::ovy::OverlayCamera</a></div><div class="ttdoc">Special camera that provides a fixed view for overlays.</div><div class="ttdef"><b>Definition:</b> <a href="a00701_source.html#l00017">OverlayCamera.hpp:17</a></div></div>
-<div class="ttc" id="aa03112_html"><div class="ttname"><a href="a03112.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition:</b> <a href="a05079_source.html#l00039">Renderer.hpp:39</a></div></div>
-<div class="ttc" id="aa03184_html"><div class="ttname"><a href="a03184.html">bl::rc::Scene</a></div><div class="ttdoc">Base class for all scene types and overlays. Provides common scene logic and object management....</div><div class="ttdef"><b>Definition:</b> <a href="a00755_source.html#l00051">Scene.hpp:51</a></div></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;initializer_list&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;string_view&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01818.html">bl</a></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>rg</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a03091.html">   20</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a03091.html">TaskInput</a> {</div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a03091.html#a7b20890367da473fb8f1654f1c47129f">   21</a></span>&#160;    std::vector&lt;std::string_view&gt; <a class="code" href="a03091.html#a7b20890367da473fb8f1654f1c47129f">options</a>;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a03091.html#ad2ba6e85637d6fb0ba73769d7a468809">   26</a></span>&#160;    <a class="code" href="a03091.html#ad2ba6e85637d6fb0ba73769d7a468809">TaskInput</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="a03091.html#ac5067fd18313665f6c04ab901ae3a672">   33</a></span>&#160;    <a class="code" href="a03091.html#ac5067fd18313665f6c04ab901ae3a672">TaskInput</a>(std::string_view input)</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    : <a class="code" href="a03091.html#a7b20890367da473fb8f1654f1c47129f">options</a>(1, input) {}</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="a03091.html#a816f9a6da394458b5cc2c94b6e00ccb5">   41</a></span>&#160;    <a class="code" href="a03091.html#a816f9a6da394458b5cc2c94b6e00ccb5">TaskInput</a>(std::initializer_list&lt;std::string_view&gt; inputs)</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    : <a class="code" href="a03091.html#a7b20890367da473fb8f1654f1c47129f">options</a>(inputs) {}</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;};</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;} <span class="comment">// namespace rg</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01818_html"><div class="ttname"><a href="a01818.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03091_html"><div class="ttname"><a href="a03091.html">bl::rc::rg::TaskInput</a></div><div class="ttdoc">Wrapper for a single input for a task. Allows multiple tags to be options for a single input slot.</div><div class="ttdef"><b>Definition:</b> <a href="a00695_source.html#l00020">TaskInput.hpp:20</a></div></div>
+<div class="ttc" id="aa03091_html_a7b20890367da473fb8f1654f1c47129f"><div class="ttname"><a href="a03091.html#a7b20890367da473fb8f1654f1c47129f">bl::rc::rg::TaskInput::options</a></div><div class="ttdeci">std::vector&lt; std::string_view &gt; options</div><div class="ttdef"><b>Definition:</b> <a href="a00695_source.html#l00021">TaskInput.hpp:21</a></div></div>
+<div class="ttc" id="aa03091_html_a816f9a6da394458b5cc2c94b6e00ccb5"><div class="ttname"><a href="a03091.html#a816f9a6da394458b5cc2c94b6e00ccb5">bl::rc::rg::TaskInput::TaskInput</a></div><div class="ttdeci">TaskInput(std::initializer_list&lt; std::string_view &gt; inputs)</div><div class="ttdoc">Creates an input with a collection of possible tags for the input slot.</div><div class="ttdef"><b>Definition:</b> <a href="a00695_source.html#l00041">TaskInput.hpp:41</a></div></div>
+<div class="ttc" id="aa03091_html_ac5067fd18313665f6c04ab901ae3a672"><div class="ttname"><a href="a03091.html#ac5067fd18313665f6c04ab901ae3a672">bl::rc::rg::TaskInput::TaskInput</a></div><div class="ttdeci">TaskInput(std::string_view input)</div><div class="ttdoc">Creates an input with a single asset tag option.</div><div class="ttdef"><b>Definition:</b> <a href="a00695_source.html#l00033">TaskInput.hpp:33</a></div></div>
+<div class="ttc" id="aa03091_html_ad2ba6e85637d6fb0ba73769d7a468809"><div class="ttname"><a href="a03091.html#ad2ba6e85637d6fb0ba73769d7a468809">bl::rc::rg::TaskInput::TaskInput</a></div><div class="ttdeci">TaskInput()=default</div><div class="ttdoc">Creates an empty input.</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 8 2023 18:56:18 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Oct 12 2023 01:16:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

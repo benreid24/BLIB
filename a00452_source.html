@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Interfaces/Menu/Items/ToggleTextItem.hpp Source File</title>
+<title>BLIB: include/BLIB/Interfaces/Menu/Items/ImageItem.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,69 +71,68 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">ToggleTextItem.hpp</div>  </div>
+<div class="title">ImageItem.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00452.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00449.html">BLIB/Interfaces/Menu/Items/TextItem.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01803.html">bl</a></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>menu</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="a02728.html">   13</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02728.html">ToggleTextItem</a> : <span class="keyword">public</span> <a class="code" href="a02724.html">TextItem</a> {</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="a02728.html#a1b7c315a66d920841667219ebbaa266b">   15</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a02712.html#ac09f75d0ea24baafc88f39b9e30e20ce">Ptr</a> = std::shared_ptr&lt;ToggleTextItem&gt;;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">static</span> <a class="code" href="a02712.html#ac09f75d0ea24baafc88f39b9e30e20ce">Ptr</a> <a class="code" href="a02728.html#ad2dc5019278fb04f76df3bd853fd0416">create</a>(<span class="keyword">const</span> std::string&amp; text, <span class="keyword">const</span> sf::Font&amp; font,</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;                      <span class="keyword">const</span> sf::Color&amp; color = sf::Color::Black, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> fontSize = 30);</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="a02728.html#ad5c888335da52451b869d062c13d4b20">   33</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02728.html#ad5c888335da52451b869d062c13d4b20">~ToggleTextItem</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a02728.html#aa18351c53161fb123f84406173e93628">isChecked</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02728.html#a310d3a7e7602420c2293f81b6659852f">setChecked</a>(<span class="keywordtype">bool</span> checked);</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02728.html#a7cb3b1d2c0f502ed93f05a76e510bd2a">setBoxProperties</a>(sf::Color fillColor, sf::Color borderColor, <span class="keywordtype">float</span> width,</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;                          <span class="keywordtype">float</span> borderThickness, <span class="keywordtype">float</span> padding, <span class="keywordtype">bool</span> showOnLeft);</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keyword">virtual</span> sf::Vector2f <a class="code" href="a02728.html#aaff5aad5d041edb80068ba8a243881ad">getSize</a>() <span class="keyword">const override</span>;</div>
+<a href="a00452.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_MENU_ITEMS_IMAGEITEM_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_MENU_ITEMS_IMAGEITEM_HPP</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00449.html">BLIB/Interfaces/Menu/Item.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00914.html">BLIB/Resources.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;SFML/Graphics/Sprite.hpp&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01818.html">bl</a></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>menu</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a02747.html">   18</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02747.html">ImageItem</a> : <span class="keyword">public</span> <a class="code" href="a02743.html">Item</a> {</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a02747.html#a372990cfe7881edc72052935d5f65eef">   20</a></span>&#160;    <span class="keyword">typedef</span> std::shared_ptr&lt;ImageItem&gt; <a class="code" href="a02747.html#a372990cfe7881edc72052935d5f65eef">Ptr</a>;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">static</span> <a class="code" href="a02743.html#ac09f75d0ea24baafc88f39b9e30e20ce">Ptr</a> <a class="code" href="a02747.html#aa2b8b146810add54867807c9f115ec35">create</a>(<span class="keyword">const</span> <a class="code" href="a03515.html">resource::Ref&lt;sf::Texture&gt;</a>&amp; texture);</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="a02747.html#a707ba69edf9a66bcc929f1e7f9cb96fc">   32</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02747.html#a707ba69edf9a66bcc929f1e7f9cb96fc">~ImageItem</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    sf::Sprite&amp; <a class="code" href="a02747.html#af04a90ecd2046795de1ae4e23ea125bf">getSprite</a>();</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02747.html#a6d224ec61dcdcd74b9581cb4aaf1cd65">setTexture</a>(<span class="keyword">const</span> <a class="code" href="a03515.html">resource::Ref&lt;sf::Texture&gt;</a>&amp; texture);</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keyword">virtual</span> sf::Vector2f <a class="code" href="a02747.html#ae57a463a145219f999e51a0dfe8ba18e">getSize</a>() <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02747.html#ab9085c109af32c30e0532de3196cab46">render</a>(sf::RenderTarget&amp; target, sf::RenderStates states,</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                        <span class="keyword">const</span> sf::Vector2f&amp; position) <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <a class="code" href="a03515.html">resource::Ref&lt;sf::Texture&gt;</a> texture;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    sf::Sprite sprite;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <a class="code" href="a02747.html">ImageItem</a>(<span class="keyword">const</span> <a class="code" href="a03515.html">resource::Ref&lt;sf::Texture&gt;</a>&amp; texture);</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;};</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;} <span class="comment">// namespace menu</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;} <span class="comment">// namespace bl</span></div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <a class="code" href="a02728.html#a9bc671e655dcfea61bab58916ae62a10">ToggleTextItem</a>(<span class="keyword">const</span> std::string&amp; text, <span class="keyword">const</span> sf::Font&amp; font, <span class="keyword">const</span> sf::Color&amp; color,</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                   <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> fontSize);</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02728.html#a5d414aadccda9139cf786d5c5e438b2c">render</a>(sf::RenderTarget&amp; target, sf::RenderStates states,</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;                        <span class="keyword">const</span> sf::Vector2f&amp; position) <span class="keyword">const override</span>;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keywordtype">bool</span> checked;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keywordtype">bool</span> leftSide;</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="keywordtype">float</span> padding;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    sf::RectangleShape box;</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    sf::RectangleShape innerBox;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keywordtype">float</span> textOffset;</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;};</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;} <span class="comment">// namespace menu</span></div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00449_html"><div class="ttname"><a href="a00449.html">TextItem.hpp</a></div></div>
-<div class="ttc" id="aa01803_html"><div class="ttname"><a href="a01803.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02712_html_ac09f75d0ea24baafc88f39b9e30e20ce"><div class="ttname"><a href="a02712.html#ac09f75d0ea24baafc88f39b9e30e20ce">bl::menu::Item::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; Item &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00440_source.html#l00027">Item.hpp:27</a></div></div>
-<div class="ttc" id="aa02724_html"><div class="ttname"><a href="a02724.html">bl::menu::TextItem</a></div><div class="ttdoc">RenderItem to display text.</div><div class="ttdef"><b>Definition:</b> <a href="a00449_source.html#l00017">TextItem.hpp:17</a></div></div>
-<div class="ttc" id="aa02728_html"><div class="ttname"><a href="a02728.html">bl::menu::ToggleTextItem</a></div><div class="ttdoc">Text item with a boolean toggle state. Renders a checkbox to the side of the text.</div><div class="ttdef"><b>Definition:</b> <a href="a00452_source.html#l00013">ToggleTextItem.hpp:13</a></div></div>
-<div class="ttc" id="aa02728_html_a310d3a7e7602420c2293f81b6659852f"><div class="ttname"><a href="a02728.html#a310d3a7e7602420c2293f81b6659852f">bl::menu::ToggleTextItem::setChecked</a></div><div class="ttdeci">void setChecked(bool checked)</div><div class="ttdoc">Sets whether or not the box is currently checked. This is called for you.</div><div class="ttdef"><b>Definition:</b> <a href="a01358_source.html#l00023">ToggleTextItem.cpp:23</a></div></div>
-<div class="ttc" id="aa02728_html_a5d414aadccda9139cf786d5c5e438b2c"><div class="ttname"><a href="a02728.html#a5d414aadccda9139cf786d5c5e438b2c">bl::menu::ToggleTextItem::render</a></div><div class="ttdeci">virtual void render(sf::RenderTarget &amp;target, sf::RenderStates states, const sf::Vector2f &amp;position) const override</div><div class="ttdoc">Renders the text and checkbox.</div><div class="ttdef"><b>Definition:</b> <a href="a01358_source.html#l00053">ToggleTextItem.cpp:53</a></div></div>
-<div class="ttc" id="aa02728_html_a7cb3b1d2c0f502ed93f05a76e510bd2a"><div class="ttname"><a href="a02728.html#a7cb3b1d2c0f502ed93f05a76e510bd2a">bl::menu::ToggleTextItem::setBoxProperties</a></div><div class="ttdeci">void setBoxProperties(sf::Color fillColor, sf::Color borderColor, float width, float borderThickness, float padding, bool showOnLeft)</div><div class="ttdoc">Sets the settings to render the checkbox with. Note that the outline is rendered inside of the width ...</div><div class="ttdef"><b>Definition:</b> <a href="a01358_source.html#l00025">ToggleTextItem.cpp:25</a></div></div>
-<div class="ttc" id="aa02728_html_a9bc671e655dcfea61bab58916ae62a10"><div class="ttname"><a href="a02728.html#a9bc671e655dcfea61bab58916ae62a10">bl::menu::ToggleTextItem::ToggleTextItem</a></div><div class="ttdeci">ToggleTextItem(const std::string &amp;text, const sf::Font &amp;font, const sf::Color &amp;color, unsigned int fontSize)</div><div class="ttdoc">Creates a ToggleTextItem using parameters for TextItem.</div><div class="ttdef"><b>Definition:</b> <a href="a01358_source.html#l00012">ToggleTextItem.cpp:12</a></div></div>
-<div class="ttc" id="aa02728_html_aa18351c53161fb123f84406173e93628"><div class="ttname"><a href="a02728.html#aa18351c53161fb123f84406173e93628">bl::menu::ToggleTextItem::isChecked</a></div><div class="ttdeci">bool isChecked() const</div><div class="ttdoc">Returns whether or not the toggle is currently in the checked state.</div><div class="ttdef"><b>Definition:</b> <a href="a01358_source.html#l00021">ToggleTextItem.cpp:21</a></div></div>
-<div class="ttc" id="aa02728_html_aaff5aad5d041edb80068ba8a243881ad"><div class="ttname"><a href="a02728.html#aaff5aad5d041edb80068ba8a243881ad">bl::menu::ToggleTextItem::getSize</a></div><div class="ttdeci">virtual sf::Vector2f getSize() const override</div><div class="ttdoc">Returns the size of the text plus the box and padding.</div><div class="ttdef"><b>Definition:</b> <a href="a01358_source.html#l00047">ToggleTextItem.cpp:47</a></div></div>
-<div class="ttc" id="aa02728_html_ad2dc5019278fb04f76df3bd853fd0416"><div class="ttname"><a href="a02728.html#ad2dc5019278fb04f76df3bd853fd0416">bl::menu::ToggleTextItem::create</a></div><div class="ttdeci">static Ptr create(const std::string &amp;text, const sf::Font &amp;font, const sf::Color &amp;color=sf::Color::Black, unsigned int fontSize=30)</div><div class="ttdoc">Creates a ToggleTextItem using parameters for TextItem.</div><div class="ttdef"><b>Definition:</b> <a href="a01358_source.html#l00007">ToggleTextItem.cpp:7</a></div></div>
-<div class="ttc" id="aa02728_html_ad5c888335da52451b869d062c13d4b20"><div class="ttname"><a href="a02728.html#ad5c888335da52451b869d062c13d4b20">bl::menu::ToggleTextItem::~ToggleTextItem</a></div><div class="ttdeci">virtual ~ToggleTextItem()=default</div><div class="ttdoc">Destroy the Toggle Text Item object.</div></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00449_html"><div class="ttname"><a href="a00449.html">Item.hpp</a></div></div>
+<div class="ttc" id="aa00914_html"><div class="ttname"><a href="a00914.html">Resources.hpp</a></div></div>
+<div class="ttc" id="aa01818_html"><div class="ttname"><a href="a01818.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02743_html"><div class="ttname"><a href="a02743.html">bl::menu::Item</a></div><div class="ttdoc">Item for a mouseless menu. Can be 'attached' to other items in a Menu, configured to be selectable,...</div><div class="ttdef"><b>Definition:</b> <a href="a00449_source.html#l00025">Item.hpp:25</a></div></div>
+<div class="ttc" id="aa02743_html_ac09f75d0ea24baafc88f39b9e30e20ce"><div class="ttname"><a href="a02743.html#ac09f75d0ea24baafc88f39b9e30e20ce">bl::menu::Item::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; Item &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00449_source.html#l00027">Item.hpp:27</a></div></div>
+<div class="ttc" id="aa02747_html"><div class="ttname"><a href="a02747.html">bl::menu::ImageItem</a></div><div class="ttdoc">RenderItem for displaying sprites in a Menu.</div><div class="ttdef"><b>Definition:</b> <a href="a00452_source.html#l00018">ImageItem.hpp:18</a></div></div>
+<div class="ttc" id="aa02747_html_a372990cfe7881edc72052935d5f65eef"><div class="ttname"><a href="a02747.html#a372990cfe7881edc72052935d5f65eef">bl::menu::ImageItem::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; ImageItem &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00452_source.html#l00020">ImageItem.hpp:20</a></div></div>
+<div class="ttc" id="aa02747_html_a6d224ec61dcdcd74b9581cb4aaf1cd65"><div class="ttname"><a href="a02747.html#a6d224ec61dcdcd74b9581cb4aaf1cd65">bl::menu::ImageItem::setTexture</a></div><div class="ttdeci">void setTexture(const resource::Ref&lt; sf::Texture &gt; &amp;texture)</div><div class="ttdoc">Changes the texture of this image. Does not trigger a menu refresh.</div><div class="ttdef"><b>Definition:</b> <a href="a01361_source.html#l00017">ImageItem.cpp:17</a></div></div>
+<div class="ttc" id="aa02747_html_a707ba69edf9a66bcc929f1e7f9cb96fc"><div class="ttname"><a href="a02747.html#a707ba69edf9a66bcc929f1e7f9cb96fc">bl::menu::ImageItem::~ImageItem</a></div><div class="ttdeci">virtual ~ImageItem()=default</div><div class="ttdoc">Destroy the Image Item object.</div></div>
+<div class="ttc" id="aa02747_html_aa2b8b146810add54867807c9f115ec35"><div class="ttname"><a href="a02747.html#aa2b8b146810add54867807c9f115ec35">bl::menu::ImageItem::create</a></div><div class="ttdeci">static Ptr create(const resource::Ref&lt; sf::Texture &gt; &amp;texture)</div><div class="ttdoc">Create the render item from a sprite.</div><div class="ttdef"><b>Definition:</b> <a href="a01361_source.html#l00007">ImageItem.cpp:7</a></div></div>
+<div class="ttc" id="aa02747_html_ab9085c109af32c30e0532de3196cab46"><div class="ttname"><a href="a02747.html#ab9085c109af32c30e0532de3196cab46">bl::menu::ImageItem::render</a></div><div class="ttdeci">virtual void render(sf::RenderTarget &amp;target, sf::RenderStates states, const sf::Vector2f &amp;position) const override</div><div class="ttdef"><b>Definition:</b> <a href="a01361_source.html#l00026">ImageItem.cpp:26</a></div></div>
+<div class="ttc" id="aa02747_html_ae57a463a145219f999e51a0dfe8ba18e"><div class="ttname"><a href="a02747.html#ae57a463a145219f999e51a0dfe8ba18e">bl::menu::ImageItem::getSize</a></div><div class="ttdeci">virtual sf::Vector2f getSize() const override</div><div class="ttdef"><b>Definition:</b> <a href="a01361_source.html#l00022">ImageItem.cpp:22</a></div></div>
+<div class="ttc" id="aa02747_html_af04a90ecd2046795de1ae4e23ea125bf"><div class="ttname"><a href="a02747.html#af04a90ecd2046795de1ae4e23ea125bf">bl::menu::ImageItem::getSprite</a></div><div class="ttdeci">sf::Sprite &amp; getSprite()</div><div class="ttdoc">Returns a modifiable reference to the contained sprite.</div><div class="ttdef"><b>Definition:</b> <a href="a01361_source.html#l00015">ImageItem.cpp:15</a></div></div>
+<div class="ttc" id="aa03515_html"><div class="ttname"><a href="a03515.html">bl::resource::Ref&lt; sf::Texture &gt;</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 8 2023 18:56:18 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Oct 12 2023 01:16:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

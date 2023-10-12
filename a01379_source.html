@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Logging/Logger.cpp Source File</title>
+<title>BLIB: src/Interfaces/Utilities/GhostWriter.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,68 +66,80 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_ac55354187c8c6c264902bc62bdefbb0.html">Logging</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_ce6405ba0afce575b27b3b998c1d24f9.html">Interfaces</a></li><li class="navelem"><a class="el" href="dir_eed0eefb63b0ec37b1a5e1e52f21cab7.html">Utilities</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Logger.cpp</div>  </div>
+<div class="title">GhostWriter.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01379.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00491.html">BLIB/Logging.hpp</a>&gt;</span></div>
+<a href="a01379.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00476.html">BLIB/Interfaces/Utilities/GhostWriter.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00233.html">BLIB/Engine/Worker.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01803.html">bl</a></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>logging</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a02760.html#a36d91bbd3134b0a9d49d8d77a88cb8b5">    9</a></span>&#160;<a class="code" href="a02760.html">Logger</a> <a class="code" href="a02760.html#a36d91bbd3134b0a9d49d8d77a88cb8b5">Logger::critical</a>() { <span class="keywordflow">return</span> <a class="code" href="a02760.html">Logger</a>(<a class="code" href="a02756.html#a9d96f5c8eb33c589e625f8431fc529d6">Config::Critical</a>); }</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="a02760.html#a6fa6adfe984a64fb906c37591be6caa6">   11</a></span>&#160;<a class="code" href="a02760.html">Logger</a> <a class="code" href="a02760.html#a6fa6adfe984a64fb906c37591be6caa6">Logger::error</a>() { <span class="keywordflow">return</span> <a class="code" href="a02760.html">Logger</a>(<a class="code" href="a02756.html#a250079749bf4d8040898e39d87b88ce1">Config::Error</a>); }</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="a02760.html#aceeb9b5121a77f94e4c52382ecca0b20">   13</a></span>&#160;<a class="code" href="a02760.html">Logger</a> <a class="code" href="a02760.html#aceeb9b5121a77f94e4c52382ecca0b20">Logger::warn</a>() { <span class="keywordflow">return</span> <a class="code" href="a02760.html">Logger</a>(<a class="code" href="a02756.html#a3ae6ba0bf40434238378e10e2f291804">Config::Warn</a>); }</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00194.html">BLIB/Engine/Configuration.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;cmath&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01818.html">bl</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>interface</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="a02779.html#ac3e6ba246fc0e9cec8eae65a6702998d">   10</a></span>&#160;<a class="code" href="a02779.html#ac3e6ba246fc0e9cec8eae65a6702998d">GhostWriter::GhostWriter</a>()</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;: speed(engine::Configuration::getOrDefault&lt;float&gt;(<span class="stringliteral">&quot;blib.interface.ghost_speed&quot;</span>, 20.f))</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;, showing(0)</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;, residual(0.f) {}</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="a02760.html#a9a2a3f45661caa993573918c1facda31">   15</a></span>&#160;<a class="code" href="a02760.html">Logger</a> <a class="code" href="a02760.html#a9a2a3f45661caa993573918c1facda31">Logger::info</a>() { <span class="keywordflow">return</span> <a class="code" href="a02760.html">Logger</a>(<a class="code" href="a02756.html#a745f41edd43beb42056a1616117ee196">Config::Info</a>); }</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a02760.html#aed4a225248fd95298110965be134530c">   17</a></span>&#160;<a class="code" href="a02760.html">Logger</a> <a class="code" href="a02760.html#aed4a225248fd95298110965be134530c">Logger::debug</a>() { <span class="keywordflow">return</span> <a class="code" href="a02760.html">Logger</a>(<a class="code" href="a02756.html#a32b0a01f1377244acb18aab50588a515">Config::Debug</a>); }</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a02760.html#a7df75dafbd91fae955cfe5772963e786">   19</a></span>&#160;<a class="code" href="a02760.html">Logger</a> <a class="code" href="a02760.html#a7df75dafbd91fae955cfe5772963e786">Logger::trace</a>() { <span class="keywordflow">return</span> <a class="code" href="a02760.html">Logger</a>(<a class="code" href="a02756.html#a74e5da1abfb366b222375bf333369421">Config::Trace</a>); }</div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="a02779.html#a5dd9ed9a3f52c7426ba83a23d64bc3ed">   15</a></span>&#160;<a class="code" href="a02779.html#ac3e6ba246fc0e9cec8eae65a6702998d">GhostWriter::GhostWriter</a>(<span class="keyword">const</span> std::string&amp; content)</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;: speed(engine::Configuration::getOrDefault&lt;float&gt;(<span class="stringliteral">&quot;blib.interface.ghost_speed&quot;</span>, 20.f))</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;, content(content)</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;, showing(0)</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;, residual(0.f) {}</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;Logger::Logger(<span class="keywordtype">int</span> level)</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;: level(level) {</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    ss &lt;&lt; Config::get().genPrefix(level);</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;}</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a02760.html#afbe3b6969c9128f05076d5f79c5130bc">   26</a></span>&#160;<a class="code" href="a02760.html#afbe3b6969c9128f05076d5f79c5130bc">Logger::~Logger</a>() {</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <a class="code" href="a02336.html#a2bcafcef59a2e5f33043b9623f16135d">engine::Worker::submit</a>(std::bind(&amp;Config::doWrite, &amp;Config::get(), ss.str(), level));</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;}</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;} <span class="comment">// namespace logging</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00233_html"><div class="ttname"><a href="a00233.html">Worker.hpp</a></div></div>
-<div class="ttc" id="aa00491_html"><div class="ttname"><a href="a00491.html">Logging.hpp</a></div></div>
-<div class="ttc" id="aa01803_html"><div class="ttname"><a href="a01803.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02336_html_a2bcafcef59a2e5f33043b9623f16135d"><div class="ttname"><a href="a02336.html#a2bcafcef59a2e5f33043b9623f16135d">bl::engine::Worker::submit</a></div><div class="ttdeci">static void submit(Task &amp;&amp;task)</div><div class="ttdoc">Submit a task to be executed. Submitted tasks should be relatively lightweight. More advanced or inte...</div></div>
-<div class="ttc" id="aa02756_html_a250079749bf4d8040898e39d87b88ce1"><div class="ttname"><a href="a02756.html#a250079749bf4d8040898e39d87b88ce1">bl::logging::Config::Error</a></div><div class="ttdeci">static constexpr int Error</div><div class="ttdef"><b>Definition:</b> <a href="a05091_source.html#l00030">Config.hpp:30</a></div></div>
-<div class="ttc" id="aa02756_html_a32b0a01f1377244acb18aab50588a515"><div class="ttname"><a href="a02756.html#a32b0a01f1377244acb18aab50588a515">bl::logging::Config::Debug</a></div><div class="ttdeci">static constexpr int Debug</div><div class="ttdef"><b>Definition:</b> <a href="a05091_source.html#l00033">Config.hpp:33</a></div></div>
-<div class="ttc" id="aa02756_html_a3ae6ba0bf40434238378e10e2f291804"><div class="ttname"><a href="a02756.html#a3ae6ba0bf40434238378e10e2f291804">bl::logging::Config::Warn</a></div><div class="ttdeci">static constexpr int Warn</div><div class="ttdef"><b>Definition:</b> <a href="a05091_source.html#l00031">Config.hpp:31</a></div></div>
-<div class="ttc" id="aa02756_html_a745f41edd43beb42056a1616117ee196"><div class="ttname"><a href="a02756.html#a745f41edd43beb42056a1616117ee196">bl::logging::Config::Info</a></div><div class="ttdeci">static constexpr int Info</div><div class="ttdef"><b>Definition:</b> <a href="a05091_source.html#l00032">Config.hpp:32</a></div></div>
-<div class="ttc" id="aa02756_html_a74e5da1abfb366b222375bf333369421"><div class="ttname"><a href="a02756.html#a74e5da1abfb366b222375bf333369421">bl::logging::Config::Trace</a></div><div class="ttdeci">static constexpr int Trace</div><div class="ttdef"><b>Definition:</b> <a href="a05091_source.html#l00034">Config.hpp:34</a></div></div>
-<div class="ttc" id="aa02756_html_a9d96f5c8eb33c589e625f8431fc529d6"><div class="ttname"><a href="a02756.html#a9d96f5c8eb33c589e625f8431fc529d6">bl::logging::Config::Critical</a></div><div class="ttdeci">static constexpr int Critical</div><div class="ttdef"><b>Definition:</b> <a href="a05091_source.html#l00029">Config.hpp:29</a></div></div>
-<div class="ttc" id="aa02760_html"><div class="ttname"><a href="a02760.html">bl::logging::Logger</a></div><div class="ttdoc">Actual logging class. Provides several static methods to begin log output. Instances of Logger only l...</div><div class="ttdef"><b>Definition:</b> <a href="a00485_source.html#l00027">Logger.hpp:27</a></div></div>
-<div class="ttc" id="aa02760_html_a36d91bbd3134b0a9d49d8d77a88cb8b5"><div class="ttname"><a href="a02760.html#a36d91bbd3134b0a9d49d8d77a88cb8b5">bl::logging::Logger::critical</a></div><div class="ttdeci">static Logger critical()</div><div class="ttdoc">Create a new Logger for logging a critical error.</div><div class="ttdef"><b>Definition:</b> <a href="a01379_source.html#l00009">Logger.cpp:9</a></div></div>
-<div class="ttc" id="aa02760_html_a6fa6adfe984a64fb906c37591be6caa6"><div class="ttname"><a href="a02760.html#a6fa6adfe984a64fb906c37591be6caa6">bl::logging::Logger::error</a></div><div class="ttdeci">static Logger error()</div><div class="ttdoc">Create a new Logger for logging an error.</div><div class="ttdef"><b>Definition:</b> <a href="a01379_source.html#l00011">Logger.cpp:11</a></div></div>
-<div class="ttc" id="aa02760_html_a7df75dafbd91fae955cfe5772963e786"><div class="ttname"><a href="a02760.html#a7df75dafbd91fae955cfe5772963e786">bl::logging::Logger::trace</a></div><div class="ttdeci">static Logger trace()</div><div class="ttdoc">Create a new Logger for logging high volume low level info.</div><div class="ttdef"><b>Definition:</b> <a href="a01379_source.html#l00019">Logger.cpp:19</a></div></div>
-<div class="ttc" id="aa02760_html_a9a2a3f45661caa993573918c1facda31"><div class="ttname"><a href="a02760.html#a9a2a3f45661caa993573918c1facda31">bl::logging::Logger::info</a></div><div class="ttdeci">static Logger info()</div><div class="ttdoc">Create a new Logger for logging a piece of info.</div><div class="ttdef"><b>Definition:</b> <a href="a01379_source.html#l00015">Logger.cpp:15</a></div></div>
-<div class="ttc" id="aa02760_html_aceeb9b5121a77f94e4c52382ecca0b20"><div class="ttname"><a href="a02760.html#aceeb9b5121a77f94e4c52382ecca0b20">bl::logging::Logger::warn</a></div><div class="ttdeci">static Logger warn()</div><div class="ttdoc">Create a new Logger for logging a warning.</div><div class="ttdef"><b>Definition:</b> <a href="a01379_source.html#l00013">Logger.cpp:13</a></div></div>
-<div class="ttc" id="aa02760_html_aed4a225248fd95298110965be134530c"><div class="ttname"><a href="a02760.html#aed4a225248fd95298110965be134530c">bl::logging::Logger::debug</a></div><div class="ttdeci">static Logger debug()</div><div class="ttdoc">Create a new Logger for logging low level debug info.</div><div class="ttdef"><b>Definition:</b> <a href="a01379_source.html#l00017">Logger.cpp:17</a></div></div>
-<div class="ttc" id="aa02760_html_afbe3b6969c9128f05076d5f79c5130bc"><div class="ttname"><a href="a02760.html#afbe3b6969c9128f05076d5f79c5130bc">bl::logging::Logger::~Logger</a></div><div class="ttdeci">~Logger()</div><div class="ttdoc">Flushes the generated log line.</div><div class="ttdef"><b>Definition:</b> <a href="a01379_source.html#l00026">Logger.cpp:26</a></div></div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a02779.html#a3baa128cabca4d11a196cfa2deceb10b">   21</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02779.html#a3baa128cabca4d11a196cfa2deceb10b">GhostWriter::setContent</a>(<span class="keyword">const</span> std::string&amp; c) {</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    content  = c;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    showing  = 0;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    residual = 0.f;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;}</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="a02779.html#a905ee8e94ae389c4a4025bb94458df22">   27</a></span>&#160;<span class="keyword">const</span> std::string&amp; <a class="code" href="a02779.html#a905ee8e94ae389c4a4025bb94458df22">GhostWriter::getContent</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> content; }</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a02779.html#a1f44b42d6074a27161940c7104501ae2">   29</a></span>&#160;std::string_view <a class="code" href="a02779.html#a1f44b42d6074a27161940c7104501ae2">GhostWriter::getVisible</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> {content.c_str(), showing}; }</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="a02779.html#a40c732d31f2ac5b10eade6baba81d5d9">   31</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a02779.html#a40c732d31f2ac5b10eade6baba81d5d9">GhostWriter::update</a>(<span class="keywordtype">float</span> dt) {</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="a02779.html#ab0849712c86901dea7556e87ac77778e">finished</a>()) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    residual += dt;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> a = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(std::floor(residual * speed));</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    residual -= <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(a) / speed;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; a; ++i) {</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="keywordflow">do</span> { ++showing; } <span class="keywordflow">while</span> (showing &lt; content.size() &amp;&amp; std::isspace(content[showing]));</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="a02779.html#ab0849712c86901dea7556e87ac77778e">finished</a>()) <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    }</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordflow">return</span> a &gt; 0;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;}</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="a02779.html#ab0849712c86901dea7556e87ac77778e">   46</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a02779.html#ab0849712c86901dea7556e87ac77778e">GhostWriter::finished</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> showing &gt;= content.size(); }</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="a02779.html#abbc49a8343e43cc5829c52999c3368a7">   48</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02779.html#abbc49a8343e43cc5829c52999c3368a7">GhostWriter::showAll</a>() { showing = <span class="keyword">static_cast&lt;</span><span class="keywordtype">unsigned</span> <span class="keywordtype">int</span><span class="keyword">&gt;</span>(content.size()); }</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;} <span class="comment">// namespace interface</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00194_html"><div class="ttname"><a href="a00194.html">Configuration.hpp</a></div></div>
+<div class="ttc" id="aa00476_html"><div class="ttname"><a href="a00476.html">GhostWriter.hpp</a></div></div>
+<div class="ttc" id="aa01818_html"><div class="ttname"><a href="a01818.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02779_html_a1f44b42d6074a27161940c7104501ae2"><div class="ttname"><a href="a02779.html#a1f44b42d6074a27161940c7104501ae2">bl::interface::GhostWriter::getVisible</a></div><div class="ttdeci">std::string_view getVisible() const</div><div class="ttdoc">Returns the visible portion of the content of the writer.</div><div class="ttdef"><b>Definition:</b> <a href="a01379_source.html#l00029">GhostWriter.cpp:29</a></div></div>
+<div class="ttc" id="aa02779_html_a3baa128cabca4d11a196cfa2deceb10b"><div class="ttname"><a href="a02779.html#a3baa128cabca4d11a196cfa2deceb10b">bl::interface::GhostWriter::setContent</a></div><div class="ttdeci">void setContent(const std::string &amp;content)</div><div class="ttdoc">Set the content to display. Resets to showing 0 characters.</div><div class="ttdef"><b>Definition:</b> <a href="a01379_source.html#l00021">GhostWriter.cpp:21</a></div></div>
+<div class="ttc" id="aa02779_html_a40c732d31f2ac5b10eade6baba81d5d9"><div class="ttname"><a href="a02779.html#a40c732d31f2ac5b10eade6baba81d5d9">bl::interface::GhostWriter::update</a></div><div class="ttdeci">bool update(float dt)</div><div class="ttdoc">Updates the writer and unhides more characters based on time elapsed.</div><div class="ttdef"><b>Definition:</b> <a href="a01379_source.html#l00031">GhostWriter.cpp:31</a></div></div>
+<div class="ttc" id="aa02779_html_a905ee8e94ae389c4a4025bb94458df22"><div class="ttname"><a href="a02779.html#a905ee8e94ae389c4a4025bb94458df22">bl::interface::GhostWriter::getContent</a></div><div class="ttdeci">const std::string &amp; getContent() const</div><div class="ttdoc">Returns the full content of the writer.</div><div class="ttdef"><b>Definition:</b> <a href="a01379_source.html#l00027">GhostWriter.cpp:27</a></div></div>
+<div class="ttc" id="aa02779_html_ab0849712c86901dea7556e87ac77778e"><div class="ttname"><a href="a02779.html#ab0849712c86901dea7556e87ac77778e">bl::interface::GhostWriter::finished</a></div><div class="ttdeci">bool finished() const</div><div class="ttdoc">Returns whether or not all characters are visible.</div><div class="ttdef"><b>Definition:</b> <a href="a01379_source.html#l00046">GhostWriter.cpp:46</a></div></div>
+<div class="ttc" id="aa02779_html_abbc49a8343e43cc5829c52999c3368a7"><div class="ttname"><a href="a02779.html#abbc49a8343e43cc5829c52999c3368a7">bl::interface::GhostWriter::showAll</a></div><div class="ttdeci">void showAll()</div><div class="ttdoc">Immediately shows all characters.</div><div class="ttdef"><b>Definition:</b> <a href="a01379_source.html#l00048">GhostWriter.cpp:48</a></div></div>
+<div class="ttc" id="aa02779_html_ac3e6ba246fc0e9cec8eae65a6702998d"><div class="ttname"><a href="a02779.html#ac3e6ba246fc0e9cec8eae65a6702998d">bl::interface::GhostWriter::GhostWriter</a></div><div class="ttdeci">GhostWriter()</div><div class="ttdoc">Construct a new GhostWriter with empty content.</div><div class="ttdef"><b>Definition:</b> <a href="a01379_source.html#l00010">GhostWriter.cpp:10</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 8 2023 18:56:19 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Oct 12 2023 01:16:56 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

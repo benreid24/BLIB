@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::sys Namespace Reference</title>
+<title>BLIB: Controllers</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -50,6 +50,7 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -64,87 +65,30 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="a01803.html">bl</a></li><li class="navelem"><a class="el" href="a01812.html">sys</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#typedef-members">Typedefs</a>  </div>
+<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">bl::sys Namespace Reference</div>  </div>
+<div class="title">Controllers<div class="ingroups"><a class="el" href="a01799.html">Input</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Collection of built-in engine systems.  
-<a href="a01812.html#details">More...</a></p>
+<p>Collection of constexpr configs for some common controllers (joysticks)  
+<a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03156.html">DrawableSystem</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for renderer systems that manage scene objects in the ECS. Custom renderable types should have a system that inherits from this class that manages their membership within scenes. These systems should run in the <a class="el" href="a02296.html#af6ea181be91b7069f9f52557a1445e1aa3f81ee2718a9735d701d01e03039048d" title="Synchronizes objects from the ECS into the scene-local object buffers.">engine::FrameStage::RenderObjectSync</a> step.  <a href="a03156.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02523.html">bl::input::controllers::Xbox360</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Some constansts for buttons and axes for an Xbox 360 controller. Tested on Windows. For the sticks left and up are negative. For the D-Pad left is negative but up is positive. For the triggers LT is positive and RT is negative.  <a href="a02523.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03848.html">Animation2DSystem</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Systems that updates and advances all 2d animations. Also manages GPU local buffers containing animation data.  <a href="a03848.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03868.html">DescriptorComponentSystem</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Templated system for managing ECS components that sync into renderer descriptor sets. Components should derive from DescriptorComponentBase.  <a href="a03868.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03876.html">OverlayScalerSystem</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">System that processes entities that are scaled for overlays. Keeps scales up-to-date as overlay size changes.  <a href="a03876.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03880.html">RendererUpdateSystem</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">System that updates all observer cameras and task graphs while the renderer is waiting on the prior frame to complete.  <a href="a03880.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03884.html">RenderSystem</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">System that triggers the renderer each frame.  <a href="a03884.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03888.html">TextSyncSystem</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simple system which ensures that Text geometry stays updated.  <a href="a03888.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03892.html">TogglerSystem</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic system to update Toggler components.  <a href="a03892.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:gac818e5c6ace18f20d9f03da1ad8ebe41"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01794.html#gac818e5c6ace18f20d9f03da1ad8ebe41">Transform2DDescriptorSystem</a> = <a class="el" href="a03868.html">DescriptorComponentSystem</a>&lt; <a class="el" href="a02032.html">com::Transform2D</a>, glm::mat4 &gt;</td></tr>
-<tr class="memdesc:gac818e5c6ace18f20d9f03da1ad8ebe41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Descriptor component system for 2d transforms.  <a href="a01794.html#gac818e5c6ace18f20d9f03da1ad8ebe41">More...</a><br /></td></tr>
-<tr class="separator:gac818e5c6ace18f20d9f03da1ad8ebe41"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8de8e24f3a0b8643626494bcd58a745c"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01794.html#ga8de8e24f3a0b8643626494bcd58a745c">Transform3DDescriptorSystem</a> = <a class="el" href="a03868.html">DescriptorComponentSystem</a>&lt; <a class="el" href="a02036.html">com::Transform3D</a>, glm::mat4 &gt;</td></tr>
-<tr class="memdesc:ga8de8e24f3a0b8643626494bcd58a745c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Descriptor component system for 3d transforms.  <a href="a01794.html#ga8de8e24f3a0b8643626494bcd58a745c">More...</a><br /></td></tr>
-<tr class="separator:ga8de8e24f3a0b8643626494bcd58a745c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga11d6ea46ca8a7d452ae7049bf7948c21"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01794.html#ga11d6ea46ca8a7d452ae7049bf7948c21">TextureDescriptorSystem</a> = <a class="el" href="a03868.html">DescriptorComponentSystem</a>&lt; <a class="el" href="a02024.html">com::Texture</a>, std::uint32_t &gt;</td></tr>
-<tr class="memdesc:ga11d6ea46ca8a7d452ae7049bf7948c21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Descriptor component system for textures.  <a href="a01794.html#ga11d6ea46ca8a7d452ae7049bf7948c21">More...</a><br /></td></tr>
-<tr class="separator:ga11d6ea46ca8a7d452ae7049bf7948c21"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga4477117aea35eeac21751bf038a0098b"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01794.html#ga4477117aea35eeac21751bf038a0098b">MeshSystem</a> = <a class="el" href="a03156.html">DrawableSystem</a>&lt; <a class="el" href="a01992.html">com::Mesh</a> &gt;</td></tr>
-<tr class="memdesc:ga4477117aea35eeac21751bf038a0098b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Engine system for managing entity meshes.  <a href="a01794.html#ga4477117aea35eeac21751bf038a0098b">More...</a><br /></td></tr>
-<tr class="separator:ga4477117aea35eeac21751bf038a0098b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga68bd85b37280b05c447083208d4079f7"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01794.html#ga68bd85b37280b05c447083208d4079f7">SpriteSystem</a> = <a class="el" href="a03156.html">DrawableSystem</a>&lt; <a class="el" href="a02016.html">com::Sprite</a> &gt;</td></tr>
-<tr class="memdesc:ga68bd85b37280b05c447083208d4079f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Engine system for managing entity sprites.  <a href="a01794.html#ga68bd85b37280b05c447083208d4079f7">More...</a><br /></td></tr>
-<tr class="separator:ga68bd85b37280b05c447083208d4079f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga09945f85269b1a8ed93da9da3150378f"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01794.html#ga09945f85269b1a8ed93da9da3150378f">TextSystem</a> = <a class="el" href="a03156.html">DrawableSystem</a>&lt; <a class="el" href="a02020.html">com::Text</a> &gt;</td></tr>
-<tr class="memdesc:ga09945f85269b1a8ed93da9da3150378f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Engine system for managing text entities.  <a href="a01794.html#ga09945f85269b1a8ed93da9da3150378f">More...</a><br /></td></tr>
-<tr class="separator:ga09945f85269b1a8ed93da9da3150378f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gafc72d25e40dc5e41d1b7876e99072b2f"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01794.html#gafc72d25e40dc5e41d1b7876e99072b2f">SlideshowSystem</a> = <a class="el" href="a03156.html">DrawableSystem</a>&lt; <a class="el" href="a02012.html">com::Slideshow</a> &gt;</td></tr>
-<tr class="memdesc:gafc72d25e40dc5e41d1b7876e99072b2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Engine system for managing slideshow animations.  <a href="a01794.html#gafc72d25e40dc5e41d1b7876e99072b2f">More...</a><br /></td></tr>
-<tr class="separator:gafc72d25e40dc5e41d1b7876e99072b2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae9d9f38e1109df2f51f1c4327fdb2bf0"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01794.html#gae9d9f38e1109df2f51f1c4327fdb2bf0">Animation2DDrawableSystem</a> = <a class="el" href="a03156.html">DrawableSystem</a>&lt; <a class="el" href="a01980.html">com::Animation2D</a> &gt;</td></tr>
-<tr class="memdesc:gae9d9f38e1109df2f51f1c4327fdb2bf0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Engine system for managing non-slideshow animations.  <a href="a01794.html#gae9d9f38e1109df2f51f1c4327fdb2bf0">More...</a><br /></td></tr>
-<tr class="separator:gae9d9f38e1109df2f51f1c4327fdb2bf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga15d83a9ebb5cec163379398bf32e248b"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01794.html#ga15d83a9ebb5cec163379398bf32e248b">Shape2DSystem</a> = <a class="el" href="a03156.html">DrawableSystem</a>&lt; <a class="el" href="a02008.html">com::Shape2D</a> &gt;</td></tr>
-<tr class="memdesc:ga15d83a9ebb5cec163379398bf32e248b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Engine system for managing 2d shapes.  <a href="a01794.html#ga15d83a9ebb5cec163379398bf32e248b">More...</a><br /></td></tr>
-<tr class="separator:ga15d83a9ebb5cec163379398bf32e248b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Collection of built-in engine systems. </p>
-</div></div><!-- contents -->
+<p>Collection of constexpr configs for some common controllers (joysticks) </p>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 8 2023 18:56:21 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Oct 12 2023 01:16:56 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

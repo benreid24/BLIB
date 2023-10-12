@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Descriptors/DescriptorComponentStorageCache.cpp Source File</title>
+<title>BLIB: src/Render/Descriptors/Builtin/SlideshowFactory.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,48 +66,62 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_c46d59b26ba1c7a895704386ecf9511b.html">Descriptors</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_c46d59b26ba1c7a895704386ecf9511b.html">Descriptors</a></li><li class="navelem"><a class="el" href="dir_1c9d8e1815e637956400971975ea0cfc.html">Builtin</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">DescriptorComponentStorageCache.cpp</div>  </div>
+<div class="title">SlideshowFactory.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01442.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00602.html">BLIB/Render/Descriptors/DescriptorComponentStorageCache.hpp</a>&gt;</span></div>
+<a href="a01442.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00596.html">BLIB/Render/Descriptors/Builtin/SlideshowFactory.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01803.html">bl</a></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>rc</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>ds</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05063.html">BLIB/Engine/Engine.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00599.html">BLIB/Render/Descriptors/Builtin/SlideshowInstance.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05114.html">BLIB/Render/Renderer.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01818.html">bl</a></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a02940.html#a9fe8f8185bb0cae7af077dba90387385">    9</a></span>&#160;<a class="code" href="a02940.html#a9fe8f8185bb0cae7af077dba90387385">DescriptorComponentStorageCache::DescriptorComponentStorageCache</a>(</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <a class="code" href="a02220.html">ecs::Registry</a>&amp; registry, <a class="code" href="a03364.html">vk::VulkanState</a>&amp; vulkanState,</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <span class="keyword">const</span> <a class="code" href="a02928.html#a80984df19e4cbb663aa059d56784cf6e">DescriptorComponentStorageBase::EntityCallback</a>&amp; entityCb)</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;: registry(registry)</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;, vulkanState(vulkanState)</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;, entityCb(entityCb) {}</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>ds</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keywordtype">void</span> SlideshowFactory::init(engine::Engine&amp; e, Renderer&amp; renderer) {</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    engine = &amp;e;</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a02940.html#a8542b8010111186c901cff294f03aba6">   16</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02940.html#a8542b8010111186c901cff294f03aba6">DescriptorComponentStorageCache::syncDescriptors</a>() {</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; pair : cache) { pair.second-&gt;performSync(); }</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;}</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;} <span class="comment">// namespace ds</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00602_html"><div class="ttname"><a href="a00602.html">DescriptorComponentStorageCache.hpp</a></div></div>
-<div class="ttc" id="aa01803_html"><div class="ttname"><a href="a01803.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02220_html"><div class="ttname"><a href="a02220.html">bl::ecs::Registry</a></div><div class="ttdoc">This is the main interface of the ECS. This class manages all entities and components and views and s...</div><div class="ttdef"><b>Definition:</b> <a href="a00161_source.html#l00031">Registry.hpp:31</a></div></div>
-<div class="ttc" id="aa02928_html_a80984df19e4cbb663aa059d56784cf6e"><div class="ttname"><a href="a02928.html#a80984df19e4cbb663aa059d56784cf6e">bl::rc::ds::DescriptorComponentStorageBase::EntityCallback</a></div><div class="ttdeci">std::function&lt; ecs::Entity(scene::Key)&gt; EntityCallback</div><div class="ttdoc">Callback signature to fetch entities from scene ids.</div><div class="ttdef"><b>Definition:</b> <a href="a00599_source.html#l00041">DescriptorComponentStorage.hpp:41</a></div></div>
-<div class="ttc" id="aa02940_html_a8542b8010111186c901cff294f03aba6"><div class="ttname"><a href="a02940.html#a8542b8010111186c901cff294f03aba6">bl::rc::ds::DescriptorComponentStorageCache::syncDescriptors</a></div><div class="ttdeci">void syncDescriptors()</div><div class="ttdoc">Syncs modified descriptor values in the contained storage modules.</div><div class="ttdef"><b>Definition:</b> <a href="a01442_source.html#l00016">DescriptorComponentStorageCache.cpp:16</a></div></div>
-<div class="ttc" id="aa02940_html_a9fe8f8185bb0cae7af077dba90387385"><div class="ttname"><a href="a02940.html#a9fe8f8185bb0cae7af077dba90387385">bl::rc::ds::DescriptorComponentStorageCache::DescriptorComponentStorageCache</a></div><div class="ttdeci">DescriptorComponentStorageCache(ecs::Registry &amp;registry, vk::VulkanState &amp;vulkanState, const DescriptorComponentStorageBase::EntityCallback &amp;entityCb)</div><div class="ttdoc">Creates a new storage cache.</div><div class="ttdef"><b>Definition:</b> <a href="a01442_source.html#l00009">DescriptorComponentStorageCache.cpp:9</a></div></div>
-<div class="ttc" id="aa03364_html"><div class="ttname"><a href="a03364.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a00848_source.html#l00037">VulkanState.hpp:37</a></div></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    vk::DescriptorPool::SetBindingInfo bindings;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    bindings.bindingCount = 3;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keywordflow">for</span> (std::uint32_t i = 0; i &lt; bindings.bindingCount; ++i) {</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        <span class="keyword">auto</span>&amp; binding           = bindings.bindings[i];</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        binding.binding         = i;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        binding.descriptorCount = 1;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        binding.descriptorType  = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        binding.stageFlags      = VK_SHADER_STAGE_VERTEX_BIT;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        binding.pImmutableSamplers = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    }</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <a class="code" href="a02975.html#a272948ed73908bcc35626a495366cba6">descriptorSetLayout</a> = renderer.vulkanState().descriptorPool.createLayout(bindings);</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;}</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;std::unique_ptr&lt;DescriptorSetInstance&gt; SlideshowFactory::createDescriptorSet()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordflow">return</span> std::make_unique&lt;SlideshowInstance&gt;(*engine);</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;}</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;} <span class="comment">// namespace ds</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00596_html"><div class="ttname"><a href="a00596.html">SlideshowFactory.hpp</a></div></div>
+<div class="ttc" id="aa00599_html"><div class="ttname"><a href="a00599.html">SlideshowInstance.hpp</a></div></div>
+<div class="ttc" id="aa01818_html"><div class="ttname"><a href="a01818.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02975_html_a272948ed73908bcc35626a495366cba6"><div class="ttname"><a href="a02975.html#a272948ed73908bcc35626a495366cba6">bl::rc::ds::DescriptorSetFactory::descriptorSetLayout</a></div><div class="ttdeci">VkDescriptorSetLayout descriptorSetLayout</div><div class="ttdef"><b>Definition:</b> <a href="a00614_source.html#l00061">DescriptorSetFactory.hpp:61</a></div></div>
+<div class="ttc" id="aa05063_html"><div class="ttname"><a href="a05063.html">Engine.hpp</a></div></div>
+<div class="ttc" id="aa05114_html"><div class="ttname"><a href="a05114.html">Renderer.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 8 2023 18:56:19 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Oct 12 2023 01:16:56 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>
