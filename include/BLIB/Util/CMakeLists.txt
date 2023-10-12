@@ -14,6 +14,7 @@ target_sources(BLIB PUBLIC
     Signal.hpp
     StreamUtil.hpp
     TemplateLogic.hpp
+    ThreadPool.hpp
     Timer.hpp
     TupleLoop.hpp
     UnderlyingType.hpp

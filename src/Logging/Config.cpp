@@ -86,7 +86,7 @@ std::string Config::genPrefix(int level) const {
 
 void Config::doWrite(const std::string& data, int level) {
     for (const auto& log : outputs) {
-        if (log.second <= level) (*log.first) << data << std::endl;
+        if (log.second <= level) (*log.first) << data << std::flush;
     }
 }
 
