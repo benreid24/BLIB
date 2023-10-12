@@ -5,11 +5,11 @@ namespace bl
 namespace com
 {
 OverlayScaler::OverlayScaler()
-: cachedTargetRegion()
-, cachedObjectSize(50.f, 50.f)
+: cachedObjectSize(50.f, 50.f)
 , scaleType(None)
 , sizePercent(0.1f, 0.1f)
-, useViewport(false)
+, posType(NoPosition)
+, useScissor(false)
 , dirty(true) {}
 
 void OverlayScaler::scaleToWidthPercent(float p) {
@@ -52,9 +52,20 @@ void OverlayScaler::setEntitySize(const glm::vec2& s) {
     dirty            = scaleType != None;
 }
 
-void OverlayScaler::setViewportToSelf(bool s) {
-    useViewport = s;
-    dirty       = scaleType != None;
+void OverlayScaler::setScissorToSelf(bool s) {
+    useScissor = s;
+    dirty      = scaleType != None;
+}
+
+void OverlayScaler::positionInParentSpace(const glm::vec2& pos) {
+    posType        = ParentSpace;
+    parentPosition = pos;
+    dirty          = true;
+}
+
+void OverlayScaler::stopPositioning() {
+    dirty   = posType != NoPosition;
+    posType = NoPosition;
 }
 
 } // namespace com

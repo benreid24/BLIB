@@ -11,9 +11,12 @@ namespace gfx
 Text::Text()
 : textSystem(nullptr)
 , font(nullptr)
+, wrapType(WrapType::None)
 , wordWrapWidth(-1.f) {
     sections.reserve(4);
 }
+
+Text::~Text() { onRemove(); }
 
 void Text::create(engine::Engine& engine, const sf::VulkanFont& f, const sf::String& content,
                   unsigned int fontSize, const glm::vec4& color, std::uint32_t style) {
@@ -99,9 +102,9 @@ void Text::commit() {
         OverlayScalable::setLocalSize({bounds.width + bounds.left, bounds.height + bounds.top});
 
         // update draw parameters
-        component().drawParams            = component().vertices.getDrawParameters();
-        component().drawParams.indexCount = vi;
-        if (component().sceneRef.object) { component().updateDrawParams(); }
+        component().drawParams             = component().vertices.getDrawParameters();
+        component().drawParams.vertexCount = vertexCount;
+        component().updateDrawParams();
     }
 
     // always upload new font atlas if required
@@ -109,11 +112,19 @@ void Text::commit() {
 }
 
 void Text::wordWrap(float w) {
+    wrapType      = WrapType::Absolute;
+    wordWrapWidth = w;
+    needsCommit   = true;
+}
+
+void Text::wordWrapToParent(float w) {
+    wrapType      = WrapType::Relative;
     wordWrapWidth = w;
     needsCommit   = true;
 }
 
 void Text::stopWordWrap() {
+    wrapType      = WrapType::None;
     wordWrapWidth = -1.f;
     needsCommit   = true;
 }
@@ -123,9 +134,20 @@ void Text::computeWordWrap() {
         section.wordWrappedContent = section.content;
         section.cachedLineHeight   = section.computeLineSpacing(*font);
     }
-    if (wordWrapWidth <= 0.f) { return; }
+    if (wrapType == WrapType::None || wordWrapWidth <= 0.f) { return; }
 
-    const float maxWidth = wordWrapWidth / getTransform().getScale().x;
+    float pw = 1.f;
+    if (wrapType == WrapType::Relative && getTransform().hasParent()) {
+        const ecs::Entity parent = engine().ecs().getEntityParent(entity());
+        auto cset =
+            engine().ecs().getComponentSet<ecs::Require<com::OverlayScaler, com::Transform2D>>(
+                parent);
+        if (cset.isValid()) {
+            pw = cset.get<com::OverlayScaler>()->getEntitySize().x *
+                 cset.get<com::Transform2D>()->getScale().x;
+        }
+    }
+    const float maxWidth = wordWrapWidth * pw / getTransform().getScale().x;
     const Iter EndIter   = Iter::end(sections);
 
     glm::vec2 nextPos(0.f, 0.f);
@@ -200,13 +222,14 @@ sf::FloatRect Text::getLocalBounds() const {
 
 Text::CharSearchResult Text::findCharacterAtPosition(const glm::vec2& targetPos) const {
     const sf::FloatRect& targetBounds = getTargetRegion();
-    if (!targetBounds.contains({targetPos.x, targetPos.y})) { return {0, 0}; }
+    if (!targetBounds.contains({targetPos.x, targetPos.y})) { return {}; }
 
     const glm::vec4 overlayPos((targetPos.x - targetBounds.left) / targetBounds.width,
                                (targetPos.y - targetBounds.top) / targetBounds.height,
                                0.f,
                                1.f);
-    const glm::vec2 localPosGlm = getTransform().getInverse() * overlayPos;
+    auto& tform                 = const_cast<com::Transform2D&>(getTransform());
+    const glm::vec2 localPosGlm = glm::inverse(tform.getGlobalTransform()) * overlayPos;
     const sf::Vector2f localPos(localPosGlm.x, localPosGlm.y);
 
     glm::vec2 nextPos(0.f, 0.f);
@@ -239,8 +262,8 @@ Text::CharSearchResult Text::findCharacterAtPosition(const glm::vec2& targetPos)
         }
     }
 
-    BL_LOG_WARN << "Could not find character position";
-    return {0, 0};
+    BL_LOG_DEBUG << "Could not find character position";
+    return {};
 }
 
 } // namespace gfx

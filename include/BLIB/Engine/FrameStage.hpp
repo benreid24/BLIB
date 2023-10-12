@@ -29,7 +29,8 @@ struct FrameStage {
         /// Generic update stage
         Update2 = 2,
 
-        /// Renderer components such as Animation update here
+        /// Renderer components such as Animation update here. Also when velocity is applied to
+        /// transforms
         Animate = 3,
 
         /// This stage and earlier are called once per engine tick. Stages later than this are

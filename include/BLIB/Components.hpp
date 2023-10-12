@@ -19,5 +19,6 @@
 #include <BLIB/Components/Toggler.hpp>
 #include <BLIB/Components/Transform2D.hpp>
 #include <BLIB/Components/Transform3D.hpp>
+#include <BLIB/Components/Velocity2D.hpp>
 
 #endif

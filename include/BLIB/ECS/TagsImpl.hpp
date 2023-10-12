@@ -7,6 +7,7 @@
 
 #include <BLIB/ECS/ComponentMask.hpp>
 #include <BLIB/ECS/Tags.hpp>
+#include <BLIB/ECS/View.hpp>
 
 namespace bl
 {
@@ -15,6 +16,7 @@ namespace ecs
 template<typename... TReqComs, typename... TOptComs, typename... TExcComs>
 struct Tags<Require<TReqComs...>, Optional<TOptComs...>, Exclude<TExcComs...>> {
     using TComponentSet = ComponentSet<Require<TReqComs...>, Optional<TOptComs...>>;
+    using TView         = View<Require<TReqComs...>, Optional<TOptComs...>, Exclude<TExcComs...>>;
     static constexpr std::size_t NumComponents = sizeof...(TReqComs) + sizeof...(TOptComs);
 
     static ComponentMask createMask(Registry& registry) {
@@ -23,6 +25,11 @@ struct Tags<Require<TReqComs...>, Optional<TOptComs...>, Exclude<TExcComs...>> {
         result.excluded = createHelper<TExcComs...>(registry);
         result.optional = createHelper<TOptComs...>(registry);
         return result;
+    }
+
+    static TView* getView(Registry& registry) {
+        return registry
+            .getOrCreateView<Require<TReqComs...>, Optional<TOptComs...>, Exclude<TExcComs...>>();
     }
 
 private:

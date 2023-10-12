@@ -10,7 +10,7 @@ void TogglerSystem::init(engine::Engine& engine) {
     pool = &engine.ecs().getAllComponents<com::Toggler>();
 }
 
-void TogglerSystem::update(std::mutex&, float dt) {
+void TogglerSystem::update(std::mutex&, float dt, float, float, float) {
     pool->forEach([dt](ecs::Entity, com::Toggler& tog) {
         tog.time += dt;
         float period = *tog.value ? tog.onPeriod : tog.offPeriod;

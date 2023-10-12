@@ -5,4 +5,6 @@ target_sources(BLIB PRIVATE
 	RenderSystem.cpp
 	TextSyncSystem.cpp
 	TogglerSystem.cpp
+	Transform2DDescriptorSystem.cpp
+	VelocitySystem.cpp
 )

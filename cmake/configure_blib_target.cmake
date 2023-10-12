@@ -48,6 +48,8 @@ function(configure_blib_target target_name)
             /wd4457
             /wd4706
             /wd26495
+            /wd26439
+            /wd26451
         )
 
         # No warnings from VMA

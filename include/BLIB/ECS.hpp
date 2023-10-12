@@ -16,4 +16,9 @@
 #include <BLIB/ECS/Registry.hpp>
 #include <BLIB/ECS/View.hpp>
 
+#include <BLIB/ECS/Traits/ChildAware.hpp>
+#include <BLIB/ECS/Traits/ParentAware.hpp>
+#include <BLIB/ECS/Traits/ParentAwareVersioned.hpp>
+#include <BLIB/ECS/Traits/Versioned.hpp>
+
 #endif

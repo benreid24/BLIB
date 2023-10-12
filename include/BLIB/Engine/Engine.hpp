@@ -144,12 +144,33 @@ public:
      */
     void popState();
 
+    /**
+     * @brief Sets the scaling factor for simulated time. Essentially multiples real elapsed time by
+     *        the given scaling factor. Real elapsed time is multiplied by the factor when the clock
+     *        is queried, which may result in additional (or fewer) ticks in order to keep the time
+     *        step consistent
+     *
+     * @param scaleFactor Factor to multiple elapsed time by to determine simulated time
+     */
+    void setTimeScale(float scaleFactor);
+
+    /**
+     * @brief Returns the scaling factor used when determining simulation time from real time
+     */
+    float getTimeScale() const;
+
+    /**
+     * @brief Resets the time scale to 1 so that simulation time matches real time
+     */
+    void resetTimeScale();
+
 private:
     Worker worker;
     Settings engineSettings;
     Flags engineFlags;
     std::stack<State::Ptr> states;
     State::Ptr newState;
+    float timeScale;
 
     EngineWindow renderWindow;
     Systems ecsSystems;

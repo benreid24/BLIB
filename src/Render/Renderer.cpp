@@ -4,13 +4,7 @@
 #include <BLIB/Render/Graph/AssetTags.hpp>
 #include <BLIB/Render/Graph/Providers/StandardTargetProvider.hpp>
 #include <BLIB/Render/Graph/Strategies/ForwardRenderStrategy.hpp>
-#include <BLIB/Systems/Animation2DSystem.hpp>
-#include <BLIB/Systems/BuiltinDescriptorComponentSystems.hpp>
-#include <BLIB/Systems/BuiltinDrawableSystems.hpp>
-#include <BLIB/Systems/OverlayScalerSystem.hpp>
-#include <BLIB/Systems/RenderSystem.hpp>
-#include <BLIB/Systems/RendererUpdateSystem.hpp>
-#include <BLIB/Systems/TextSyncSystem.hpp>
+#include <BLIB/Systems.hpp>
 #include <cmath>
 
 namespace bl
@@ -30,8 +24,8 @@ Renderer::Renderer(engine::Engine& engine, engine::EngineWindow& window)
 , scenes(engine)
 , splitscreenDirection(SplitscreenDirection::TopAndBottom)
 , commonObserver(engine, *this, assetFactory, true)
-, defaultNear(0.1f)
-, defaultFar(100.f) {
+, defaultNear(0.f)
+, defaultFar(-100.f) {
     renderTextures.reserve(16);
     commonObserver.setDefaultNearFar(defaultNear, defaultFar);
     clearColors[0].color        = {{0.f, 0.f, 0.f, 1.f}};
@@ -57,7 +51,8 @@ void Renderer::initialize() {
                                                               StateMask);
     engine.systems().registerSystem<sys::TextSyncSystem>(FrameStage::RenderIntermediateRefresh,
                                                          StateMask);
-    engine.systems().registerSystem<sys::Animation2DSystem>(FrameStage::Animate, StateMask, *this);
+    engine.systems().registerSystem<sys::Animation2DSystem>(
+        FrameStage::Animate, engine::StateMask::Running | engine::StateMask::Menu, *this);
 
     // descriptor systems
     engine.systems().registerSystem<sys::Transform2DDescriptorSystem>(
@@ -121,6 +116,7 @@ void Renderer::initialize() {
 void Renderer::cleanup() {
     vkCheck(vkDeviceWaitIdle(state.device));
 
+    resource::ResourceManager<sf::VulkanFont>::freeAndDestroyAll();
     engine.systems().getSystem<sys::Animation2DSystem>().cleanup();
     for (vk::RenderTexture* rt : renderTextures) { rt->destroy(); }
     observers.clear();

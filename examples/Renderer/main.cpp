@@ -26,22 +26,23 @@ class DemoState
 public:
     DemoState()
     : State(bl::engine::StateMask::All)
-    , fadeout(nullptr)
-    , angle(0.f) {}
+    , fadeout(nullptr) {}
 
     virtual ~DemoState() = default;
 
     virtual const char* name() const override { return "DemoState"; }
 
     virtual void activate(bl::engine::Engine& engine) override {
-        renderer = &engine.renderer();
+        this->engine = &engine;
+        renderer     = &engine.renderer();
 
         // load resources
         texture =
             engine.renderer().texturePool().getOrLoadTexture("Resources/Textures/texture.png");
         messageBoxTxtr =
             engine.renderer().texturePool().getOrLoadTexture("Resources/Textures/messageBox.png");
-        font.loadFromFile("Resources/Fonts/font.ttf");
+        font = bl::resource::ResourceManager<sf::VulkanFont>::load("Resources/Fonts/font.ttf");
+        // font->loadFromFile("Resources/Fonts/font.ttf");
 
         // get first observer and set background color
         bl::rc::Observer& p1 = engine.renderer().getObserver(0);
@@ -51,11 +52,10 @@ public:
         bl::rc::Scene* scene = p1.pushScene<bl::rc::scene::BatchedScene>();
         auto* p1cam =
             p1.setCamera<bl::cam::Camera2D>(sf::FloatRect{0.f, 0.f, 1920.f, 1080.f * 0.5f});
-        p1cam->setNearAndFarPlanes(-100000.f, 100000.f);
         p1cam->setRotation(15.f);
 
         // create sprite in scene
-        spriteEntity   = engine.ecs().createEntity();
+        bl::ecs::Entity spriteEntity = engine.ecs().createEntity();
         spritePosition = engine.ecs().emplaceComponent<bl::com::Transform2D>(spriteEntity);
         engine.ecs().emplaceComponent<bl::com::Texture>(spriteEntity, texture);
         engine.ecs().emplaceComponent<bl::com::Sprite>(spriteEntity, engine.renderer(), texture);
@@ -64,6 +64,7 @@ public:
         spritePosition->setPosition({1920.f * 0.5f, 1080.f * 0.25f});
         spritePosition->setScale({100.f / texture->size().x, 100.f / texture->size().y});
         spritePosition->setOrigin(texture->size() * 0.5f);
+        engine.ecs().emplaceComponent<bl::com::Velocity2D>(spriteEntity, glm::vec2{}, 180.f);
 
         // use SFML-like class to make another
         sprite.create(engine, texture);
@@ -83,6 +84,7 @@ public:
         player2Cam->setController<bl::cam::c3d::OrbiterController>(
             glm::vec3{0.f, 0.f, 0.f}, 4.f, glm::vec3{0.3f, 1.f, 0.1f}, 2.f, 4.f);
         player2Cam->addAffector<bl::cam::c3d::CameraShake>(0.1f, 7.f);
+        player2Cam->setNearAndFarPlanes(0.1f, 100.f); // TODO - remove when defaulted
 
         // get handle to mesh system
         bl::sys::MeshSystem& meshSystem = engine.systems().getSystem<bl::sys::MeshSystem>();
@@ -104,22 +106,22 @@ public:
         messageBox.getTransform().setPosition({0.5f, 0.85f});
         messageBox.getTransform().setOrigin(messageBox.getTexture()->size() * 0.5f);
         messageBox.getOverlayScaler().scaleToHeightPercent(0.3f);
-        messageBox.setViewportToSelf();
+        messageBox.setScissorToSelf();
         messageBox.addToScene(overlay, bl::rc::UpdateSpeed::Static);
 
         // add text to overlay
-        text.create(engine, font, "Text can now be", 64);
+        text.create(engine, *font, "Text can now be", 64);
         text.addSection("rendered.", 64, {0.f, 0.8f, 0.6f, 1.f}, sf::Text::Italic);
         text.addSection("What a great time to be alive. I wonder if this will wrap properly.", 64);
-        text.getTransform().setPosition({0.03f, 0.05f});
+        text.getOverlayScaler().positionInParentSpace({-0.47f, -0.45f});
         text.getOverlayScaler().scaleToHeightRatio(64.f, 0.19f);
-        text.wordWrap(0.9f);
+        text.wordWrapToParent(0.9f);
         text.setParent(messageBox);
         text.addToScene(overlay, bl::rc::UpdateSpeed::Static);
 
         // sanity check children
         sprite2.create(engine, texture);
-        sprite2.getTransform().setPosition({0.9f, 0.9f});
+        sprite2.getOverlayScaler().positionInParentSpace({0.4f, 0.4f});
         sprite2.getOverlayScaler().scaleToHeightPercent(0.1f);
         sprite2.getTransform().setOrigin(texture->size() * 0.5f);
         sprite2.setParent(messageBox);
@@ -155,31 +157,24 @@ public:
         engine.ecs().destroyAllEntities();
     }
 
-    virtual void update(bl::engine::Engine&, float dt) override { angle += 180.f * dt; }
-
-    // deprecated
-    virtual void render(bl::engine::Engine&, float lag) override {
-        // TODO - renderer interpolate support
-        spritePosition->setRotation(angle + 180.f * lag);
-    }
+    virtual void update(bl::engine::Engine&, float, float) override {}
 
 private:
+    bl::engine::Engine* engine;
     bl::rc::Renderer* renderer;
     bl::gfx::Sprite sprite;
     bl::gfx::Sprite sprite2;
     bl::gfx::Sprite messageBox;
-    bl::ecs::Entity spriteEntity;
     bl::com::Transform2D* spritePosition;
     bl::ecs::Entity meshEntity;
     bl::rc::res::TextureRef texture;
     bl::rc::res::TextureRef messageBoxTxtr;
-    sf::VulkanFont font;
+    bl::resource::Ref<sf::VulkanFont> font;
     bl::gfx::Text text;
     bl::rc::vk::RenderTexture renderTexture;
     bl::gfx::Sprite renderTextureInnerSprite;
     bl::gfx::Sprite renderTextureOuterSprite;
     bl::rc::rgi::FadeEffectTask* fadeout;
-    float angle;
 
     virtual void observe(const sf::Event& event) override {
         if (event.type == sf::Event::KeyPressed) {
@@ -227,10 +222,21 @@ private:
         else if (event.type == sf::Event::MouseButtonPressed) {
             const glm::vec2 mpos(event.mouseButton.x, event.mouseButton.y);
             const auto ir = text.findCharacterAtPosition(mpos);
-            BL_LOG_INFO << "Clicked: (" << ir.sectionIndex << ", " << ir.characterIndex << ") => '"
-                        << static_cast<char>(text.getSection(ir.sectionIndex)
-                                                 .getWordWrappedString()[ir.characterIndex])
-                        << "'";
+            if (ir.found) {
+                BL_LOG_INFO << "Clicked: (" << ir.sectionIndex << ", " << ir.characterIndex
+                            << ") => '"
+                            << static_cast<char>(text.getSection(ir.sectionIndex)
+                                                     .getWordWrappedString()[ir.characterIndex])
+                            << "'";
+            }
+            else { BL_LOG_INFO << "Did not click text"; }
+        }
+        else if (event.type == sf::Event::MouseWheelScrolled) {
+            if (event.mouseWheelScroll.delta < 0.f) {
+                engine->setTimeScale(engine->getTimeScale() * 0.9f);
+            }
+            else { engine->setTimeScale(engine->getTimeScale() * 1.1f); }
+            BL_LOG_INFO << "Scaling time: " << engine->getTimeScale();
         }
     }
 };

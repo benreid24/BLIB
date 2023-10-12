@@ -44,7 +44,7 @@ void Overlay::renderScene(scene::SceneRenderContext& ctx) {
 
         if (obj.hidden) { continue; }
 
-        obj.applyViewport(ctx.getCommandBuffer());
+        vkCmdSetScissor(ctx.getCommandBuffer(), 0, 1, &obj.cachedScissor);
 
         const VkPipeline np = obj.pipeline->rawPipeline(ctx.currentRenderPass());
         if (np != currentPipeline) {
@@ -84,7 +84,7 @@ scene::SceneObject* Overlay::doAdd(ecs::Entity entity, rcom::DrawableBase& objec
         }
     }
 
-    if (!engine.ecs().hasParent(entity)) { roots.emplace_back(&obj); }
+    if (!engine.ecs().entityHasParent(entity)) { roots.emplace_back(&obj); }
 
     return &obj;
 }
@@ -124,7 +124,7 @@ void Overlay::doBatchChange(const BatchChange& change, std::uint32_t ogPipeline)
 }
 
 void Overlay::refreshAll() {
-    for (auto o : roots) { scaler.refreshObjectAndChildren(*o, cachedParentViewport); }
+    for (auto o : roots) { scaler.refreshObjectAndChildren(*o); }
 }
 
 void Overlay::observe(const ecs::event::EntityParentSet& event) {

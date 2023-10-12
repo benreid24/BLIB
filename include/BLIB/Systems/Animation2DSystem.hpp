@@ -122,15 +122,15 @@ private:
 
     void cleanup();
     virtual void init(engine::Engine& engine) override;
-    virtual void update(std::mutex& stageMutex, float dt) override;
+    virtual void update(std::mutex& stageMutex, float dt, float, float, float) override;
     virtual void observe(const ecs::event::ComponentAdded<com::Animation2DPlayer>& event) override;
     virtual void observe(
         const ecs::event::ComponentRemoved<com::Animation2DPlayer>& event) override;
     virtual void observe(const ecs::event::ComponentRemoved<com::Animation2D>& event) override;
 
     // slideshow methods
-    void doSlideshowAdd(ecs::Entity playerEntity, com::Animation2DPlayer& player);
-    void doSlideshowFree(ecs::Entity playerEntity, const com::Animation2DPlayer& player);
+    void doSlideshowAdd(com::Animation2DPlayer& player);
+    void doSlideshowFree(const com::Animation2DPlayer& player);
     void ensureSlideshowDescriptorsUpdated();
     void updateSlideshowDescriptorSets();
 

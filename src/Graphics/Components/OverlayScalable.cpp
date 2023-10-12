@@ -16,24 +16,12 @@ OverlayScalable::OverlayScalable()
 , ecsId(ecs::InvalidEntity)
 , handle(nullptr) {}
 
-void OverlayScalable::setViewport(const rc::ovy::Viewport& vp) {
-    registry->emplaceComponent<rc::ovy::Viewport>(ecsId, vp);
-}
-
-void OverlayScalable::setViewportToSelf(bool setToSelf) {
-    handle->setViewportToSelf(setToSelf);
-}
-
-void OverlayScalable::clearViewport() { registry->removeComponent<rc::ovy::Viewport>(ecsId); }
+void OverlayScalable::setScissorToSelf(bool setToSelf) { handle->setScissorToSelf(setToSelf); }
 
 glm::vec2 OverlayScalable::getOverlaySize() const {
     const glm::vec2& ls    = getLocalSize();
     const glm::vec2& scale = Transform2D::getTransform().getScale();
     return {ls.x * scale.x, ls.y * scale.y};
-}
-
-glm::vec2 OverlayScalable::getTargetSize() const {
-    return {handle->cachedTargetRegion.width, handle->cachedTargetRegion.height};
 }
 
 } // namespace bcom

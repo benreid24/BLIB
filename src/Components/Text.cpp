@@ -6,18 +6,16 @@ namespace bl
 {
 namespace com
 {
+Text::Text()
+: DrawableBase() {
+    containsTransparency = true;
+}
+
 void Text::updateDrawParams() {
     const bool wasTrans = containsTransparency;
 
-    drawParams           = vertices.getDrawParameters();
     pipeline             = rc::Config::PipelineIds::Text;
-    containsTransparency = false;
-    for (unsigned int i = 0; i < vertices.vertexCount(); ++i) {
-        if (vertices.vertices()[i].color.w > 0.f && vertices.vertices()[i].color.w < 1.f) {
-            containsTransparency = true;
-            break;
-        }
-    }
+    containsTransparency = true;
 
     if (sceneRef.object) {
         syncDrawParamsToScene();

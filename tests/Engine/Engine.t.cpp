@@ -22,7 +22,7 @@ public:
     , r(replace)
     , flag(flag) {}
 
-    virtual void update(Engine& engine, float) override {
+    virtual void update(Engine& engine, float, float) override {
         if (n) {
             if (r)
                 engine.replaceState(n);
@@ -33,8 +33,6 @@ public:
         else { engine.flags().set(flag); }
         ++callCount;
     }
-
-    virtual void render(Engine&, float) override {}
 
     int timesUpdated() const { return callCount; }
 
@@ -108,12 +106,10 @@ public:
     FixedTimestepTestState()
     : State(StateMask::All) {}
 
-    virtual void update(Engine& engine, float dt) override {
+    virtual void update(Engine& engine, float dt, float) override {
         times.push_back(dt);
         if (times.size() >= 10) engine.flags().set(Flags::Terminate);
     }
-
-    virtual void render(Engine&, float) override {}
 
     const std::vector<float>& getTimes() const { return times; }
 
@@ -202,16 +198,18 @@ class TimeTestState : public bl::engine::State {
 public:
     TimeTestState()
     : State(StateMask::All)
-    , totalTime(0) {}
+    , totalTime(0.f)
+    , simulatedTime(0.f) {}
 
-    virtual void update(Engine& engine, float dt) override {
-        totalTime += dt;
+    virtual void update(Engine& engine, float dt, float realDt) override {
+        totalTime += realDt;
+        simulatedTime += dt;
         if (totalTime >= 5.f) { engine.flags().set(Flags::Terminate); }
     }
 
-    virtual void render(Engine&, float) override {}
-
     float timeElapsed() const { return totalTime; }
+
+    float timeSimulated() const { return simulatedTime; }
 
     virtual const char* name() const override { return "TimeTestState"; }
 
@@ -220,6 +218,7 @@ public:
 
 private:
     float totalTime;
+    float simulatedTime;
 };
 
 } // namespace
@@ -229,9 +228,12 @@ TEST(Engine, TimeElapsedParity) {
     TimeTestState* state = new TimeTestState();
     State::Ptr ptr(state);
 
+    engine.setTimeScale(2.f);
     ASSERT_EQ(engine.run(ptr), 1);
     EXPECT_GE(state->timeElapsed(), 5.f);
     EXPECT_LE(state->timeElapsed(), 5.2f);
+    EXPECT_GE(state->timeSimulated(), 10.f);
+    EXPECT_LE(state->timeSimulated(), 10.2f);
 }
 
 } // namespace unittest

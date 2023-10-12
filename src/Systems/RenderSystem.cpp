@@ -11,7 +11,7 @@ RenderSystem::RenderSystem(rc::Renderer& r)
 
 void RenderSystem::init(engine::Engine&) {}
 
-void RenderSystem::update(std::mutex&, float) { renderer.renderFrame(); }
+void RenderSystem::update(std::mutex&, float, float, float, float) { renderer.renderFrame(); }
 
 } // namespace sys
 } // namespace bl

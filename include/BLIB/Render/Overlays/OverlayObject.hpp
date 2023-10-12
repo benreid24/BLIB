@@ -6,7 +6,6 @@
 #include <BLIB/ECS/Traits/ParentAware.hpp>
 #include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
-#include <BLIB/Render/Overlays/Viewport.hpp>
 #include <BLIB/Render/Primitives/DrawParameters.hpp>
 #include <BLIB/Render/Scenes/Key.hpp>
 #include <BLIB/Render/Scenes/SceneObject.hpp>
@@ -34,21 +33,6 @@ struct OverlayObject
      */
     OverlayObject();
 
-    /**
-     * @brief Recomputes the target-space viewport
-     *
-     * @param viewport Pointer to this object's viewport component, if any
-     * @param parent The parent viewport of this object
-     */
-    void refreshViewport(Viewport* viewport, const VkViewport& parent);
-
-    /**
-     * @brief Issues the commands to set the viewport and scissor
-     *
-     * @param commandBuffer The command buffer to issue commands into
-     */
-    void applyViewport(VkCommandBuffer commandBuffer);
-
     ecs::Entity entity;
     Overlay* overlay;
     vk::Pipeline* pipeline;
@@ -57,7 +41,6 @@ struct OverlayObject
     std::uint8_t perObjStart;
 
     VkViewport* overlayViewport;
-    VkViewport cachedViewport;
     VkRect2D cachedScissor;
 };
 

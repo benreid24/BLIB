@@ -212,6 +212,10 @@ bool VulkanFont::loadFromMemory(const void* data, std::size_t sizeInBytes) {
     cleanup();
     m_refCount = new int(1);
 
+    // copy data into owned buffer
+    buffer.resize(sizeInBytes);
+    std::memcpy(buffer.data(), data, sizeInBytes);
+
     // Initialize FreeType
     // Note: we initialize FreeType for every font instance in order to avoid having a single
     // global manager that would create a lot of issues regarding creation and destruction order.
@@ -225,7 +229,7 @@ bool VulkanFont::loadFromMemory(const void* data, std::size_t sizeInBytes) {
     // Load the new font face from the specified file
     FT_Face face;
     if (FT_New_Memory_Face(static_cast<FT_Library>(m_library),
-                           reinterpret_cast<const FT_Byte*>(data),
+                           reinterpret_cast<const FT_Byte*>(buffer.data()),
                            static_cast<FT_Long>(sizeInBytes),
                            0,
                            &face) != 0) {
@@ -510,6 +514,7 @@ void VulkanFont::cleanup() {
     needsUpload = true;
     vulkanTexture.release();
     std::vector<Uint8>().swap(m_pixelBuffer);
+    buffer.clear();
 }
 
 ////////////////////////////////////////////////////////////

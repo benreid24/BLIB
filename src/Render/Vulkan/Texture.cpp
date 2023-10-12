@@ -46,11 +46,11 @@ void Texture::create(const glm::u32vec2& s, VkFormat f, VkImageUsageFlags u) {
 
     if ((u & VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT) == 0) {
         vulkanState->transitionImageLayout(
-            image, format, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
+            image, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
     }
     else {
         vulkanState->transitionImageLayout(
-            image, format, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
+            image, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
     }
 }
 
@@ -91,7 +91,7 @@ void Texture::ensureSize(const glm::u32vec2& s) {
 
     // transition original image to transfer source layout
     vulkanState->transitionImageLayout(
-        image, format, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL);
+        image, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL);
 
     // create new image
     const glm::u32vec2 oldSize = sizeRaw;
@@ -153,6 +153,11 @@ void Texture::executeTransfer(VkCommandBuffer cb, tfr::TransferContext& engine) 
             }
         }
         else { std::memcpy(data, src.getPixelsPtr(), stageSize); }
+
+        // transition to transfer dst prior to copy
+        // TODO - add pre-tfr barrier params to context
+        vulkanState->transitionImageLayout(
+            cb, image, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
 
         // issue copy command
         VkBufferImageCopy copyInfo{};

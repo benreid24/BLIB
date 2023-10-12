@@ -235,6 +235,7 @@ private:
     mutable std::vector<Row> rows; //!< List containing the position of all the existing rows
     mutable std::vector<Uint8> m_pixelBuffer; //!< Pixel buffer holding a glyph's pixels before
                                               //!< being written to the texture
+    std::vector<char> buffer;
 #ifdef SFML_SYSTEM_ANDROID
     void* m_stream; //!< Asset file streamer (if loaded from file)
 #endif

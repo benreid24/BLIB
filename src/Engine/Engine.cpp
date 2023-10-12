@@ -3,7 +3,7 @@
 #include <BLIB/Audio.hpp>
 #include <BLIB/Logging.hpp>
 #include <BLIB/Resources/GarbageCollector.hpp>
-#include <BLIB/Systems/TogglerSystem.hpp>
+#include <BLIB/Systems.hpp>
 #include <SFML/Window.hpp>
 #include <cmath>
 
@@ -13,12 +13,14 @@ namespace engine
 {
 Engine::Engine(const Settings& settings)
 : engineSettings(settings)
+, timeScale(1.f)
 , ecsSystems(*this)
 , entityRegistry()
 , renderingSystem(*this, renderWindow)
 , input(*this) {
     settings.syncToConfig();
     systems().registerSystem<sys::TogglerSystem>(FrameStage::Update0, StateMask::All);
+    systems().registerSystem<sys::VelocitySystem>(FrameStage::Animate, StateMask::Running);
     bl::event::Dispatcher::subscribe(&input);
 }
 
@@ -139,7 +141,7 @@ bool Engine::run(State::Ptr initialState) {
         }
 
         // Update and render
-        lag += updateOuterTimer.getElapsedTime().asSeconds();
+        lag += updateOuterTimer.getElapsedTime().asSeconds() * timeScale;
         updateOuterTimer.restart();
         const float startingLag = lag;
         float totalDt           = 0.f;
@@ -152,11 +154,14 @@ bool Engine::run(State::Ptr initialState) {
             // core update game logic
             totalDt += updateTimestep;
             input.update();
-            states.top()->update(*this, updateTimestep);
+            states.top()->update(*this, updateTimestep, updateTimestep / timeScale);
             ecsSystems.update(FrameStage::FrameStart,
                               FrameStage::MARKER_OncePerFrame,
                               states.top()->systemsMask(),
-                              updateTimestep);
+                              updateTimestep,
+                              updateTimestep / timeScale,
+                              lag,
+                              lag / timeScale);
             bl::event::Dispatcher::syncListeners();
 
             // check if we should end early
@@ -195,13 +200,16 @@ bool Engine::run(State::Ptr initialState) {
             updateTimestep = newTs;
         }
 
+        // render
         if (renderWindow.isOpen()) {
             if (!engineFlags.stateChangeReady()) {
-                states.top()->render(*this, lag);
                 ecsSystems.update(FrameStage::MARKER_OncePerFrame,
                                   FrameStage::COUNT,
                                   states.top()->systemsMask(),
-                                  totalDt);
+                                  totalDt,
+                                  totalDt / timeScale,
+                                  lag,
+                                  lag / timeScale);
             }
         }
 
@@ -361,6 +369,12 @@ void Engine::handleResize(const sf::Event::SizeEvent& resize, bool ss) {
 
     bl::event::Dispatcher::dispatch<event::WindowResized>({renderWindow});
 }
+
+void Engine::setTimeScale(float s) { timeScale = s; }
+
+float Engine::getTimeScale() const { return timeScale; }
+
+void Engine::resetTimeScale() { timeScale = 1.f; }
 
 } // namespace engine
 } // namespace bl

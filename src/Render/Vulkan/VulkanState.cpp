@@ -534,10 +534,15 @@ void VulkanState::endSingleTimeCommands(VkCommandBuffer commandBuffer, VkCommand
     vkFreeCommandBuffers(device, pool != nullptr ? pool : sharedCommandPool, 1, &commandBuffer);
 }
 
-void VulkanState::transitionImageLayout(VkImage image, VkFormat, VkImageLayout oldLayout,
+void VulkanState::transitionImageLayout(VkImage image, VkImageLayout oldLayout,
                                         VkImageLayout newLayout) {
     VkCommandBuffer commandBuffer = beginSingleTimeCommands();
+    transitionImageLayout(commandBuffer, image, oldLayout, newLayout);
+    endSingleTimeCommands(commandBuffer);
+}
 
+void VulkanState::transitionImageLayout(VkCommandBuffer commandBuffer, VkImage image,
+                                        VkImageLayout oldLayout, VkImageLayout newLayout) {
     VkImageMemoryBarrier barrier{};
     barrier.sType               = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER;
     barrier.oldLayout           = oldLayout;
@@ -591,8 +596,6 @@ void VulkanState::transitionImageLayout(VkImage image, VkFormat, VkImageLayout o
 
     vkCmdPipelineBarrier(
         commandBuffer, sourceStage, destinationStage, 0, 0, nullptr, 0, nullptr, 1, &barrier);
-
-    endSingleTimeCommands(commandBuffer);
 }
 
 void VulkanState::copyBufferToImage(VkBuffer buffer, VkImage image, std::uint32_t width,

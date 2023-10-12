@@ -18,7 +18,7 @@ void Systems::init() {
 }
 
 void Systems::update(FrameStage::V startStage, FrameStage::V endStage, StateMask::V stateMask,
-                     float dt) {
+                     float dt, float realDt, float lag, float realLag) {
     const auto beg = systems.begin() + startStage;
     const auto end = systems.begin() + endStage;
 
@@ -26,7 +26,9 @@ void Systems::update(FrameStage::V startStage, FrameStage::V endStage, StateMask
         it->drainTasks();
         // TODO - parallelize system updates within the same bucket
         for (auto& system : it->systems) {
-            if ((system.mask & stateMask) != 0) { system.system->update(it->mutex, dt); }
+            if ((system.mask & stateMask) != 0) {
+                system.system->update(it->mutex, dt, realDt, lag, realLag);
+            }
         }
     }
 }
