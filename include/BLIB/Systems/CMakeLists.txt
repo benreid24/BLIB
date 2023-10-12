@@ -10,4 +10,5 @@ target_sources(BLIB PUBLIC
 	TextSyncSystem.hpp
 	TogglerSystem.hpp
 	Transform2DDescriptorSystem.hpp
+	VelocitySystem.hpp
 )

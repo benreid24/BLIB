@@ -17,5 +17,6 @@
 #include <BLIB/Systems/TextSyncSystem.hpp>
 #include <BLIB/Systems/TogglerSystem.hpp>
 #include <BLIB/Systems/Transform2DDescriptorSystem.hpp>
+#include <BLIB/Systems/VelocitySystem.hpp>
 
 #endif

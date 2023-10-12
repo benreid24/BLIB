@@ -6,4 +6,5 @@ target_sources(BLIB PRIVATE
 	TextSyncSystem.cpp
 	TogglerSystem.cpp
 	Transform2DDescriptorSystem.cpp
+	VelocitySystem.cpp
 )

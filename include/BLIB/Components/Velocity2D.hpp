@@ -1,6 +1,7 @@
 #ifndef BLIB_COMPONENTS_VELOCITY2D_HPP
 #define BLIB_COMPONENTS_VELOCITY2D_HPP
 
+#include <BLIB/Components/Transform2D.hpp>
 #include <glm/glm.hpp>
 
 namespace bl
@@ -35,9 +36,20 @@ struct Velocity2D {
      * @param velocity The velocity to translate at in units per second
      * @param anglularVelocity The speed to rotate at in degrees per second
      */
-    Velocity2D(const glm::vec2& velocity, float anglularVelocity)
+    Velocity2D(const glm::vec2& velocity, float angularVelocity)
     : velocity(velocity)
     , angularVelocity(angularVelocity) {}
+
+    /**
+     * @brief Helper method to apply the velocity to the given transform
+     *
+     * @param transform The transform to modify
+     * @param dt
+     */
+    void apply(com::Transform2D& transform, float dt) {
+        transform.move(velocity * dt);
+        transform.rotate(angularVelocity * dt);
+    }
 
     /// Velocity to apply to the position in units per second
     glm::vec2 velocity;

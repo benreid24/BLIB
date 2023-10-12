@@ -2,6 +2,7 @@
 #define BLIB_SYSTEMS_TRANSFORM2DDESCRIPTORSYSTEM_HPP
 
 #include <BLIB/Components/Transform2D.hpp>
+#include <BLIB/Components/Velocity2D.hpp>
 #include <BLIB/ECS.hpp>
 #include <BLIB/Engine/System.hpp>
 
@@ -28,8 +29,12 @@ public:
     virtual ~Transform2DDescriptorSystem() = default;
 
 private:
-    ecs::ComponentPool<com::Transform2D>* pool;
-    // TODO - view for velocity
+    using InterpTags = ecs::Tags<ecs::Require<com::Velocity2D, com::Transform2D>>;
+    using PosTags =
+        ecs::Tags<ecs::Require<com::Transform2D>, ecs::Optional<>, ecs::Exclude<com::Velocity2D>>;
+
+    InterpTags::TView* interpView;
+    PosTags::TView* posOnlyView;
 
     virtual void update(std::mutex&, float, float, float, float) override;
     virtual void init(engine::Engine& engine) override;

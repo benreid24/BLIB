@@ -26,8 +26,7 @@ class DemoState
 public:
     DemoState()
     : State(bl::engine::StateMask::All)
-    , fadeout(nullptr)
-    , angle(0.f) {}
+    , fadeout(nullptr) {}
 
     virtual ~DemoState() = default;
 
@@ -56,7 +55,7 @@ public:
         p1cam->setRotation(15.f);
 
         // create sprite in scene
-        spriteEntity   = engine.ecs().createEntity();
+        bl::ecs::Entity spriteEntity = engine.ecs().createEntity();
         spritePosition = engine.ecs().emplaceComponent<bl::com::Transform2D>(spriteEntity);
         engine.ecs().emplaceComponent<bl::com::Texture>(spriteEntity, texture);
         engine.ecs().emplaceComponent<bl::com::Sprite>(spriteEntity, engine.renderer(), texture);
@@ -65,6 +64,7 @@ public:
         spritePosition->setPosition({1920.f * 0.5f, 1080.f * 0.25f});
         spritePosition->setScale({100.f / texture->size().x, 100.f / texture->size().y});
         spritePosition->setOrigin(texture->size() * 0.5f);
+        engine.ecs().emplaceComponent<bl::com::Velocity2D>(spriteEntity, glm::vec2{}, 180.f);
 
         // use SFML-like class to make another
         sprite.create(engine, texture);
@@ -157,12 +157,7 @@ public:
         engine.ecs().destroyAllEntities();
     }
 
-    virtual void update(bl::engine::Engine&, float dt, float lag) override {
-        angle += 180.f * dt;
-
-        // TODO - renderer interpolate support
-        spritePosition->setRotation(angle + 180.f * lag);
-    }
+    virtual void update(bl::engine::Engine&, float, float) override {}
 
 private:
     bl::engine::Engine* engine;
@@ -170,7 +165,6 @@ private:
     bl::gfx::Sprite sprite;
     bl::gfx::Sprite sprite2;
     bl::gfx::Sprite messageBox;
-    bl::ecs::Entity spriteEntity;
     bl::com::Transform2D* spritePosition;
     bl::ecs::Entity meshEntity;
     bl::rc::res::TextureRef texture;
@@ -181,7 +175,6 @@ private:
     bl::gfx::Sprite renderTextureInnerSprite;
     bl::gfx::Sprite renderTextureOuterSprite;
     bl::rc::rgi::FadeEffectTask* fadeout;
-    float angle;
 
     virtual void observe(const sf::Event& event) override {
         if (event.type == sf::Event::KeyPressed) {

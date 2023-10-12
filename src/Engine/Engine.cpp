@@ -3,7 +3,7 @@
 #include <BLIB/Audio.hpp>
 #include <BLIB/Logging.hpp>
 #include <BLIB/Resources/GarbageCollector.hpp>
-#include <BLIB/Systems/TogglerSystem.hpp>
+#include <BLIB/Systems.hpp>
 #include <SFML/Window.hpp>
 #include <cmath>
 
@@ -20,6 +20,7 @@ Engine::Engine(const Settings& settings)
 , input(*this) {
     settings.syncToConfig();
     systems().registerSystem<sys::TogglerSystem>(FrameStage::Update0, StateMask::All);
+    systems().registerSystem<sys::VelocitySystem>(FrameStage::Animate, StateMask::Running);
     bl::event::Dispatcher::subscribe(&input);
 }
 
