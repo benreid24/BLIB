@@ -17,6 +17,7 @@
 #include <array>
 #include <cstdint>
 #include <initializer_list>
+#include <mutex>
 #include <stdexcept>
 #include <utility>
 #include <vector>
@@ -219,6 +220,7 @@ struct VulkanState {
     DescriptorPool descriptorPool;
     CommonSamplers samplerCache;
     CleanupManager cleanupManager;
+    std::mutex bufferAllocMutex;
 
 private:
     std::uint32_t currentFrame;

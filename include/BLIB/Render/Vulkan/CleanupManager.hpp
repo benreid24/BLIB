@@ -4,6 +4,7 @@
 #include <BLIB/Render/Config.hpp>
 #include <array>
 #include <functional>
+#include <mutex>
 #include <vector>
 
 namespace bl
@@ -38,6 +39,7 @@ public:
     void add(const Callback& cb);
 
 private:
+    std::mutex mutex;
     std::array<std::vector<Callback>, Config::MaxConcurrentFrames + 1> buckets;
     unsigned int clearIndex;
 

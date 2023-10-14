@@ -43,8 +43,9 @@ void DescriptorPool::cleanup() {
 }
 
 VkDescriptorSetLayout DescriptorPool::createLayout(const SetBindingInfo& allocInfo) {
-    VkDescriptorSetLayout layout;
+    std::unique_lock lock(mutex);
 
+    VkDescriptorSetLayout layout;
     VkDescriptorSetLayoutCreateInfo descriptorCreateInfo{};
     descriptorCreateInfo.sType        = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
     descriptorCreateInfo.bindingCount = allocInfo.bindingCount;
@@ -61,6 +62,8 @@ VkDescriptorSetLayout DescriptorPool::createLayout(const SetBindingInfo& allocIn
 DescriptorPool::AllocationHandle DescriptorPool::allocate(VkDescriptorSetLayout layout,
                                                           VkDescriptorSet* sets,
                                                           std::size_t setCount, bool dedicated) {
+    std::unique_lock lock(mutex);
+
     // find layout info
     const auto lit = layoutMap.find(layout);
     if (lit == layoutMap.end()) {
@@ -102,6 +105,8 @@ newPoolNotNeeded:
 }
 
 void DescriptorPool::release(AllocationHandle handle, const VkDescriptorSet* sets) {
+    std::unique_lock lock(mutex);
+
     // find layout info
     const auto lit = layoutMap.find(handle->layout);
     if (lit == layoutMap.end()) {
