@@ -31,8 +31,7 @@ bool ThreadPool::running() const { return !workers.empty() && !shuttingDown.load
 void ThreadPool::drain() {
     std::unique_lock lock(taskMutex);
     const auto isDrained = [this]() { return tasks.empty() && inFlightCount.load() == 0; };
-    if (isDrained()) { return; }
-    taskDoneCv.wait(lock, isDrained);
+    if (!isDrained()) { taskDoneCv.wait(lock, isDrained); }
 }
 
 void ThreadPool::shutdown() {
@@ -70,10 +69,11 @@ std::future<void> ThreadPool::queueTask(Task&& task) {
     if (shuttingDown.load()) { return {}; } // in case of race
 
     auto& t = tasks.emplace(std::forward<Task>(task));
+    auto f  = t.get_future();
     lock.unlock();
     taskQueuedCv.notify_one();
 
-    return t.get_future();
+    return f;
 }
 
 void ThreadPool::worker(std::stop_token stopToken) {
@@ -86,19 +86,18 @@ void ThreadPool::worker(std::stop_token stopToken) {
 
         if (tasks.empty()) { taskQueuedCv.wait(lock); }
 
-        if (stopToken.stop_requested()) { break; }
-        if (tasks.empty()) {
-            BL_LOG_WARN << "No tasks for worker after waiting, terminating worker";
-            break;
-        }
+        if (tasks.empty()) { continue; }
 
         std::packaged_task<void()> task = std::move(tasks.front());
         ++inFlightCount;
         tasks.pop();
         lock.unlock();
         task();
+        lock.lock();
         --inFlightCount;
         taskDoneCv.notify_all();
+
+        if (stopToken.stop_requested()) { break; }
     }
 
     BL_LOG_INFO << "Worker thread terminated";

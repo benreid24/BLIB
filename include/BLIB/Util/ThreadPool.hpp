@@ -9,6 +9,7 @@
 #include <list>
 #include <mutex>
 #include <queue>
+#include <shared_mutex>
 #include <thread>
 
 namespace bl
@@ -76,7 +77,7 @@ private:
     std::atomic_uint32_t inFlightCount;
     std::mutex taskMutex;
     std::condition_variable taskQueuedCv;
-    std::condition_variable taskDoneCv;
+    std::condition_variable_any taskDoneCv;
 
     void worker(std::stop_token stopToken);
 };

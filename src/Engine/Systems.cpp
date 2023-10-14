@@ -21,15 +21,20 @@ void Systems::update(FrameStage::V startStage, FrameStage::V endStage, StateMask
                      float dt, float realDt, float lag, float realLag) {
     const auto beg = systems.begin() + startStage;
     const auto end = systems.begin() + endStage;
+    auto& tp       = engine.threadPool();
 
     for (auto it = beg; it != end; ++it) {
-        it->drainTasks();
-        // TODO - parallelize system updates within the same bucket
+        if (!it->tasks.empty()) {
+            tp.queueTask([it]() { it->drainTasks(); });
+        }
         for (auto& system : it->systems) {
             if ((system.mask & stateMask) != 0) {
-                system.system->update(it->mutex, dt, realDt, lag, realLag);
+                tp.queueTask([&system, it, dt, realDt, lag, realLag]() {
+                    system.system->update(it->mutex, dt, realDt, lag, realLag);
+                });
             }
         }
+        tp.drain();
     }
 }
 
@@ -40,10 +45,7 @@ void Systems::addFrameTask(FrameStage::V stage, Task&& task) {
 
 void Systems::StageSet::drainTasks() {
     std::unique_lock lock(taskMutex);
-    for (const auto& task : tasks) {
-        // TODO - parallelize
-        task();
-    }
+    for (const auto& task : tasks) { task(); }
     tasks.clear();
 }
 
