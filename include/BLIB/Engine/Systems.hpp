@@ -52,6 +52,11 @@ public:
         bool isValid() const;
 
         /**
+         * @brief Returns whether or not the task is currently queued and waiting to be executed
+         */
+        bool isQueued() const;
+
+        /**
          * @brief Cancels the task if it has not yet ran. Safe to call on invalid handles
          */
         void cancel();

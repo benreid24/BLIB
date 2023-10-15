@@ -12,7 +12,7 @@ void TextSyncSystem::init(engine::Engine&) {}
 
 void TextSyncSystem::update(std::mutex&, float, float, float, float) {
     for (gfx::Text* text : texts) {
-        if (text->refreshRequired()) { text->commit(); }
+        //if (text->refreshRequired()) { text->commit(); }
     }
 }
 

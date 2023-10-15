@@ -2,6 +2,7 @@
 #define BLIB_GRAPHICS_TEXT_HPP
 
 #include <BLIB/Components/Text.hpp>
+#include <BLIB/Engine/Systems.hpp>
 #include <BLIB/Graphics/Components/OverlayScalable.hpp>
 #include <BLIB/Graphics/Components/Textured.hpp>
 #include <BLIB/Graphics/Components/Transform2D.hpp>
@@ -207,18 +208,19 @@ private:
 
     enum struct WrapType { None, Absolute, Relative };
 
-    sys::TextSyncSystem* textSystem;
+    engine::Systems* systems;
     const sf::VulkanFont* font;
     std::vector<txt::BasicText> sections;
     WrapType wrapType;
     float wordWrapWidth;
-    bool needsCommit;
+    engine::Systems::TaskHandle commitTask;
 
-    bool refreshRequired() const;
+    void queueCommit();
     void computeWordWrap();
     virtual void onAdd(const rc::rcom::SceneObjectRef& sceneRef) override;
     virtual void onRemove() override;
 
+    friend class txt::BasicText;
     friend class sys::TextSyncSystem;
 };
 

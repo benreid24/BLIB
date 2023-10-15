@@ -74,6 +74,14 @@ Systems::TaskHandle::TaskHandle(StageSet* owner, std::size_t index, std::future<
 
 bool Systems::TaskHandle::isValid() const { return future.valid(); }
 
+bool Systems::TaskHandle::isQueued() const {
+    if (owner) {
+        std::unique_lock lock(owner->taskMutex);
+        return version == owner->version && index < owner->tasks.size();
+    }
+    return false;
+}
+
 void Systems::TaskHandle::cancel() {
     if (owner) {
         std::unique_lock lock(owner->taskMutex);
