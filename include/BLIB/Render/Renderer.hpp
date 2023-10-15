@@ -94,14 +94,6 @@ public:
     Scene* popSceneFromAllObserversNoRelease();
 
     /**
-     * @brief Sets the default near and far values to be used for all cameras
-     *
-     * @param near The distance of the near plane
-     * @param Far The distance of the far plane
-     */
-    void setDefaultNearAndFar(float nearValue, float farValue);
-
-    /**
      * @brief Returns the common observer for the renderer. Use this to render scenes that should be
      *        fullscreen regardless of the observer count (ie cutscenes). If the common observer has
      *        any active scenes then the other observers will not render their scenes
@@ -166,16 +158,6 @@ public:
     void setClearColor(const glm::vec3& color);
 
     /**
-     * @brief Returns the distance of the default near plane for observers and cameras
-     */
-    constexpr float defaultNearPlane() const;
-
-    /**
-     * @brief Returns the distance of the default far plane for observers and cameras
-     */
-    constexpr float defaultFarPlane() const;
-
-    /**
      * @brief Replaces the current strategy with a new one of type T. Default is
      *        rgi::ForwardRendererStrategy
      *
@@ -218,7 +200,6 @@ private:
     SplitscreenDirection splitscreenDirection;
     Observer commonObserver;
     std::vector<std::unique_ptr<Observer>> observers;
-    float defaultNear, defaultFar;
     VkClearValue clearColors[2];
     std::vector<vk::RenderTexture*> renderTextures;
     std::unique_ptr<rg::Strategy> strategy;
@@ -297,10 +278,6 @@ TScene* vk::RenderTexture::setScene(TArgs&&... args) {
     return s;
 }
 
-inline constexpr float Renderer::defaultNearPlane() const { return defaultNear; }
-
-inline constexpr float Renderer::defaultFarPlane() const { return defaultFar; }
-
 template<typename T, typename... TArgs>
 T* Renderer::useRenderStrategy(TArgs&&... args) {
     static_assert(std::is_base_of_v<rg::Strategy, T>, "Strategy must derive from rg::Strategy");
@@ -309,7 +286,7 @@ T* Renderer::useRenderStrategy(TArgs&&... args) {
     strategy.reset(s);
     return s;
 }
- 
+
 inline constexpr rg::AssetFactory& Renderer::getAssetFactory() { return assetFactory; }
 
 inline constexpr vk::PerSwapFrame<vk::Framebuffer>& Renderer::getSwapframeBuffers() {

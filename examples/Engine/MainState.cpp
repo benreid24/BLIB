@@ -32,7 +32,7 @@ void MainState::activate(bl::engine::Engine& engine) {
         cover.setFillColor({1.f, 1.f, 1.f, 1.f});
     }
 
-    bl::rc::Scene* scene = engine.renderer().getObserver().pushScene<bl::rc::scene::BatchedScene>();
+    bl::rc::Scene* scene = engine.renderer().getObserver().pushScene<bl::rc::scene::Scene2D>();
     kbmControls.addToScene(scene, bl::rc::UpdateSpeed::Static);
     jsControls.addToScene(scene, bl::rc::UpdateSpeed::Static);
     cover.addToScene(scene, bl::rc::UpdateSpeed::Static);

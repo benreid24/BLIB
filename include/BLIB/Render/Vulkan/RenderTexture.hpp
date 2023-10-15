@@ -119,13 +119,11 @@ private:
     VkRect2D scissor;
     VkViewport viewport;
     VkClearValue clearColors[2];
-    float defaultNear, defaultFar;
 
     Scene* scene;
     std::unique_ptr<cam::Camera> camera;
     std::uint32_t observerIndex;
 
-    void ensureCamera();
     void onSceneSet();
 
     // called by renderer
@@ -149,7 +147,7 @@ inline constexpr glm::u32vec2 RenderTexture::getSize() const {
 template<typename TCamera, typename... TArgs>
 TCamera* RenderTexture::setCamera(TArgs&&... args) {
     TCamera* cam = new TCamera(std::forward<TArgs>(args)...);
-    static_cast<cam::Camera*>(cam)->setNearAndFarPlanes(defaultNear, defaultFar);
+    if (hasScene()) { scene->setDefaultNearAndFarPlanes(*cam); }
     camera.reset(cam);
     return cam;
 }

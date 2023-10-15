@@ -49,7 +49,7 @@ public:
         p1.setClearColor({0.f, 0.f, 1.f, 1.f});
 
         // create 2d scene and camera for observer 1
-        bl::rc::Scene* scene = p1.pushScene<bl::rc::scene::BatchedScene>();
+        bl::rc::Scene* scene = p1.pushScene<bl::rc::scene::Scene2D>();
         auto* p1cam =
             p1.setCamera<bl::cam::Camera2D>(sf::FloatRect{0.f, 0.f, 1920.f, 1080.f * 0.5f});
         p1cam->setRotation(15.f);
@@ -75,7 +75,7 @@ public:
 
         // create 3d scene for observer 2
         bl::rc::Observer& p2 = engine.renderer().addObserver();
-        scene                = p2.pushScene<bl::rc::scene::BatchedScene>();
+        scene                = p2.pushScene<bl::rc::scene::Scene3D>();
 
         // create camera for observer 2
         p2.setClearColor({0.f, 1.f, 0.f, 1.f});
@@ -84,7 +84,6 @@ public:
         player2Cam->setController<bl::cam::c3d::OrbiterController>(
             glm::vec3{0.f, 0.f, 0.f}, 4.f, glm::vec3{0.3f, 1.f, 0.1f}, 2.f, 4.f);
         player2Cam->addAffector<bl::cam::c3d::CameraShake>(0.1f, 7.f);
-        player2Cam->setNearAndFarPlanes(0.1f, 100.f); // TODO - remove when defaulted
 
         // get handle to mesh system
         bl::sys::MeshSystem& meshSystem = engine.systems().getSystem<bl::sys::MeshSystem>();

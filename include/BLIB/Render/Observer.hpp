@@ -172,7 +172,6 @@ private:
     VkRect2D scissor;
     rgi::FinalSwapframeAsset* swapframeAsset;
     std::vector<SceneInstance> scenes;
-    float defaultNear, defaultFar;
     VkClearValue clearColors[2];
     ovy::OverlayCamera overlayCamera;
     glm::mat4 overlayProjView;
@@ -182,7 +181,6 @@ private:
     void update(float dt);
     void assignRegion(const sf::Vector2u& windowSize, const sf::Rect<std::uint32_t>& parentRegion,
                       unsigned int observerCount, unsigned int index, bool topBottomFirst);
-    void setDefaultNearFar(float nearValue, float farValue);
     void cleanup();
     void onSceneAdd();
     void onSceneChange();
@@ -204,7 +202,7 @@ template<typename TCamera, typename... TArgs>
 TCamera* Observer::setCamera(TArgs&&... args) {
     if (hasScene()) {
         TCamera* cam = new TCamera(std::forward<TArgs>(args)...);
-        static_cast<cam::Camera*>(cam)->setNearAndFarPlanes(defaultNear, defaultFar);
+        scenes.back().scene->setDefaultNearAndFarPlanes(*cam);
         scenes.back().camera.reset(cam);
         return cam;
     }

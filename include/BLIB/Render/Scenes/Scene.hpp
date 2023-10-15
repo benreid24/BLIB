@@ -76,7 +76,15 @@ public:
      *
      * @return The default camera to use
      */
-    virtual std::unique_ptr<cam::Camera> createDefaultCamera();
+    virtual std::unique_ptr<cam::Camera> createDefaultCamera() = 0;
+
+    /**
+     * @brief Called once when a new camera is created by someone other than the scene. Not called
+     *        for cameras created in createDefaultCamera()
+     *
+     * @param camera The camera to initialize
+     */
+    virtual void setDefaultNearAndFarPlanes(cam::Camera& camera) const = 0;
 
 protected:
     /**

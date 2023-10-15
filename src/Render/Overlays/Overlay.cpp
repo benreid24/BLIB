@@ -2,6 +2,7 @@
 
 #include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Render/Config.hpp>
+#include <BLIB/Render/Overlays/OverlayCamera.hpp>
 #include <BLIB/Render/Renderer.hpp>
 
 namespace bl
@@ -147,6 +148,10 @@ void Overlay::observe(const ecs::event::EntityParentRemoved& event) {
     if (std::find(roots.begin(), roots.end(), obj) != roots.end()) { return; }
     roots.emplace_back(obj);
     needRefreshAll = true;
+}
+
+std::unique_ptr<cam::Camera> Overlay::createDefaultCamera() {
+    return std::make_unique<ovy::OverlayCamera>();
 }
 
 } // namespace rc

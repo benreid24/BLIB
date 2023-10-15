@@ -89,6 +89,16 @@ protected:
      */
     virtual void doBatchChange(const BatchChange& change, std::uint32_t ogPipeline) override;
 
+    /**
+     * @brief Creates an overlay camera
+     */
+    virtual std::unique_ptr<cam::Camera> createDefaultCamera() override;
+
+    /**
+     * @brief Noop
+     */
+    virtual void setDefaultNearAndFarPlanes(cam::Camera&) const override{};
+
 private:
     engine::Engine& engine;
     ecs::ComponentPool<ovy::OverlayObject>* ecsPool;

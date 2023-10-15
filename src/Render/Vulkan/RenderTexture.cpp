@@ -13,8 +13,6 @@ namespace vk
 {
 RenderTexture::RenderTexture()
 : renderer(nullptr)
-, defaultNear(0.1f)
-, defaultFar(100.f)
 , scene(nullptr) {
     viewport.minDepth = 0.f;
     viewport.maxDepth = 1.f;
@@ -30,8 +28,6 @@ void RenderTexture::create(Renderer& r, const glm::u32vec2& size, VkSampler samp
 
     renderer = &r;
     r.registerRenderTexture(this);
-    defaultNear = r.defaultNearPlane();
-    defaultFar  = r.defaultFarPlane();
 
     // viewport and scissor come from size
     scissor.extent.width  = size.x;
@@ -80,7 +76,8 @@ void RenderTexture::setScene(Scene* s) {
 
 void RenderTexture::onSceneSet() {
     observerIndex = scene->registerObserver();
-    ensureCamera();
+    if (!camera) { camera = scene->createDefaultCamera(); }
+    else { scene->setDefaultNearAndFarPlanes(*camera); }
 }
 
 void RenderTexture::removeScene(bool cam) {
@@ -92,12 +89,13 @@ void RenderTexture::setClearColor(const glm::vec4& color) {
     clearColors[0].color = {{color.x, color.y, color.z, color.w}};
 }
 
-void RenderTexture::ensureCamera() {
-    if (!camera && scene) { camera = scene->createDefaultCamera(); }
-}
-
 void RenderTexture::handleDescriptorSync() {
     if (hasScene()) {
+        if (!camera) {
+            BL_LOG_WARN
+                << "Scene being rendered before having a camera set. Creating default camera";
+            camera = scene->createDefaultCamera();
+        }
         const glm::mat4 projView = camera->getProjectionMatrix(viewport) * camera->getViewMatrix();
         scene->updateObserverCamera(observerIndex, projView);
         scene->handleDescriptorSync();

@@ -23,11 +23,8 @@ Renderer::Renderer(engine::Engine& engine, engine::EngineWindow& window)
 , pipelines(*this)
 , scenes(engine)
 , splitscreenDirection(SplitscreenDirection::TopAndBottom)
-, commonObserver(engine, *this, assetFactory, true)
-, defaultNear(0.f)
-, defaultFar(-100.f) {
+, commonObserver(engine, *this, assetFactory, true) {
     renderTextures.reserve(16);
-    commonObserver.setDefaultNearFar(defaultNear, defaultFar);
     clearColors[0].color        = {{0.f, 0.f, 0.f, 1.f}};
     clearColors[1].depthStencil = {1.f, 0};
 }
@@ -205,12 +202,6 @@ void Renderer::renderFrame() {
     state.completeFrame();
 }
 
-void Renderer::setDefaultNearAndFar(float n, float f) {
-    defaultNear = n;
-    defaultFar  = f;
-    for (auto& o : observers) { o->setDefaultNearFar(n, f); }
-}
-
 Observer& Renderer::addObserver() {
 #ifdef BLIB_DEBUG
     if (observers.size() == 4) {
@@ -221,7 +212,6 @@ Observer& Renderer::addObserver() {
 
     observers.emplace_back(new Observer(engine, *this, assetFactory, false));
     assignObserverRegions();
-    observers.back()->setDefaultNearFar(defaultNear, defaultFar);
     return *observers.back();
 }
 

@@ -108,7 +108,6 @@ void Observer::clearScenesNoRelease() {
 
 void Observer::onSceneAdd() {
     scenes.back().observerIndex = scenes.back().scene->registerObserver();
-    scenes.back().camera        = scenes.back().scene->createDefaultCamera();
     onSceneChange();
 }
 
@@ -124,6 +123,12 @@ void Observer::onSceneChange() {
 
 void Observer::handleDescriptorSync() {
     if (hasScene()) {
+        if (!scenes.back().camera) {
+            BL_LOG_WARN
+                << "Scene being rendered before having a camera set. Creating default camera";
+            scenes.back().camera = scenes.back().scene->createDefaultCamera();
+        }
+
         const glm::mat4 projView = scenes.back().camera->getProjectionMatrix(viewport) *
                                    scenes.back().camera->getViewMatrix();
         scenes.back().scene->updateObserverCamera(scenes.back().observerIndex, projView);
@@ -265,11 +270,6 @@ void Observer::assignRegion(const sf::Vector2u& windowSize,
         vkCheck(vkDeviceWaitIdle(renderer.vulkanState().device));
         graphAssets.notifyResize({scissor.extent.width, scissor.extent.height});
     }
-}
-
-void Observer::setDefaultNearFar(float n, float f) {
-    defaultNear = n;
-    defaultFar  = f;
 }
 
 void Observer::setClearColor(const glm::vec4& color) {

@@ -27,7 +27,7 @@ private:
     virtual void activate(bl::engine::Engine& engine) override {
         // create scene and camera
         auto& o = engine.renderer().getObserver();
-        scene   = o.pushScene<bl::rc::scene::BatchedScene>();
+        scene   = o.pushScene<bl::rc::scene::Scene2D>();
         o.setCamera<bl::cam::Camera2D>(sf::FloatRect{0.f, 0.f, 1920.f, 1080.f});
         o.setClearColor({1.f, 1.f, 1.f, 1.f});
 
