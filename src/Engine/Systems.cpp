@@ -23,7 +23,6 @@ void Systems::update(FrameStage::V startStage, FrameStage::V endStage, StateMask
     const auto end = systems.begin() + endStage;
     auto& tp       = engine.threadPool();
 
-    FrameStage::V i = startStage;
     for (auto it = beg; it != end; ++it) {
         if (!it->tasks.empty()) {
             tp.queueTask([it]() { it->drainTasks(); });
@@ -44,7 +43,6 @@ void Systems::update(FrameStage::V startStage, FrameStage::V endStage, StateMask
             }
         }
         tp.drain();
-        i = static_cast<FrameStage::V>(static_cast<unsigned int>(i) + 1);
     }
 }
 

@@ -20,7 +20,7 @@ bool ThreadPool::start(unsigned int wc) {
     BL_LOG_INFO << "Thread pool starting with " << wc << " workers";
 
     for (unsigned int i = 0; i < wc; ++i) {
-        workers.emplace_back(std::bind(&ThreadPool::worker, this, std::placeholders::_1));
+        workers.emplace_back(std::bind(&ThreadPool::worker, this));
     }
 
     return true;
@@ -38,15 +38,6 @@ void ThreadPool::shutdown() {
     BL_LOG_INFO << "Thread pool shutting down";
 
     shuttingDown.store(true);
-    drain();
-
-    for (auto& t : workers) {
-        if (!t.joinable()) { continue; }
-        t.request_stop();
-    }
-
-    // give workers time to settle before notifying cv
-    std::this_thread::sleep_for(std::chrono::milliseconds(50));
     taskQueuedCv.notify_all();
 
     for (auto& t : workers) {
@@ -57,6 +48,13 @@ void ThreadPool::shutdown() {
     std::unique_lock lock(taskMutex);
     workers.clear();
     inFlightCount.store(0);
+
+    // run remaining tasks serially
+    while (!tasks.empty()) {
+        tasks.front()();
+        tasks.pop();
+    }
+
     shuttingDown.store(false);
 
     BL_LOG_INFO << "Thread pool shut down";
@@ -76,13 +74,13 @@ std::future<void> ThreadPool::queueTask(Task&& task) {
     return f;
 }
 
-void ThreadPool::worker(std::stop_token stopToken) {
+void ThreadPool::worker() {
     BL_LOG_INFO << "Worker thread started";
 
-    while (!stopToken.stop_requested()) {
+    while (!shuttingDown) {
         std::unique_lock lock(taskMutex);
 
-        if (stopToken.stop_requested()) { break; }
+        if (shuttingDown) { break; }
 
         if (tasks.empty()) { taskQueuedCv.wait(lock); }
 
@@ -97,7 +95,7 @@ void ThreadPool::worker(std::stop_token stopToken) {
         --inFlightCount;
         taskDoneCv.notify_all();
 
-        if (stopToken.stop_requested()) { break; }
+        if (shuttingDown) { break; }
     }
 
     BL_LOG_INFO << "Worker thread terminated";

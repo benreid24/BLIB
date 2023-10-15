@@ -72,14 +72,14 @@ public:
 
 private:
     std::atomic_bool shuttingDown;
-    std::list<std::jthread> workers;
+    std::list<std::thread> workers;
     std::queue<std::packaged_task<void()>> tasks;
     std::atomic_uint32_t inFlightCount;
     std::mutex taskMutex;
     std::condition_variable taskQueuedCv;
     std::condition_variable_any taskDoneCv;
 
-    void worker(std::stop_token stopToken);
+    void worker();
 };
 
 } // namespace util
