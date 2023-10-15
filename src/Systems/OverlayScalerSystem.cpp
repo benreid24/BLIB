@@ -3,7 +3,6 @@
 #include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Events.hpp>
 #include <BLIB/Graphics/Components/OverlayScalable.hpp>
-#include <BLIB/Render/Events/OverlayEntityScaled.hpp>
 #include <BLIB/Render/Overlays/Overlay.hpp>
 
 namespace bl
@@ -103,7 +102,7 @@ void OverlayScalerSystem::refreshEntity(Result& cset) {
 
     if (transform.getScale().x != xScale || transform.getScale().y != yScale) {
         transform.setScale({xScale, yScale});
-        bl::event::Dispatcher::dispatch<rc::event::OverlayEntityScaled>({cset.entity()});
+        if (scaler.onScale) { scaler.onScale(); }
     }
 
     if (scaler.useScissor) {

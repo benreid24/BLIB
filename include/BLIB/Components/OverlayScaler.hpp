@@ -3,6 +3,7 @@
 
 #include <BLIB/ECS/Traits/ParentAware.hpp>
 #include <SFML/Graphics/Rect.hpp>
+#include <functional>
 #include <glm/glm.hpp>
 #include <optional>
 
@@ -37,6 +38,8 @@ namespace com
  */
 class OverlayScaler : public ecs::trait::ParentAware<OverlayScaler> {
 public:
+    using OnScale = std::function<void()>;
+
     /**
      * @brief Initializes the component to have no scaling effect
      */
@@ -120,10 +123,18 @@ public:
      */
     constexpr bool isDirty() const;
 
+    /**
+     * @brief Sets the callback to call when the entity is scaled
+     *
+     * @param onScale The callback to call when the entity is scaled
+     */
+    void setScaleCallback(OnScale&& onScale);
+
 private:
     enum ScaleType { None, WidthPercent, HeightPercent, SizePercent, PixelRatio, LineHeight };
     enum PositionType { NoPosition, ParentSpace };
 
+    OnScale onScale;
     glm::vec2 cachedObjectSize;
     sf::FloatRect cachedTargetRegion;
     ScaleType scaleType;

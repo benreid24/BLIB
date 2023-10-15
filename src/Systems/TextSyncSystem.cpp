@@ -8,7 +8,7 @@ namespace sys
 {
 TextSyncSystem::TextSyncSystem() { texts.reserve(32); }
 
-void TextSyncSystem::init(engine::Engine&) { bl::event::Dispatcher::subscribe(this); }
+void TextSyncSystem::init(engine::Engine&) {}
 
 void TextSyncSystem::update(std::mutex&, float, float, float, float) {
     for (gfx::Text* text : texts) {
@@ -23,15 +23,6 @@ void TextSyncSystem::removeText(gfx::Text* text) {
         if (*it == text) {
             texts.erase(it);
             return;
-        }
-    }
-}
-
-void TextSyncSystem::observe(const rc::event::OverlayEntityScaled& event) {
-    for (gfx::Text* text : texts) {
-        if (text->entity() == event.entity && text->wordWrapWidth > 0.f) {
-            text->needsCommit = true;
-            break;
         }
     }
 }

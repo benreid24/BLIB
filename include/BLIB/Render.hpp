@@ -36,7 +36,6 @@
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstanceCache.hpp>
 #include <BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp>
-#include <BLIB/Render/Events/OverlayEntityScaled.hpp>
 #include <BLIB/Render/Events/SceneDestroyed.hpp>
 #include <BLIB/Render/Graph/Asset.hpp>
 #include <BLIB/Render/Graph/AssetFactory.hpp>

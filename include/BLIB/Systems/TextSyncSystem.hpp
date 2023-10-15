@@ -3,7 +3,6 @@
 
 #include <BLIB/Engine/System.hpp>
 #include <BLIB/Events.hpp>
-#include <BLIB/Render/Events/OverlayEntityScaled.hpp>
 #include <vector>
 
 namespace bl
@@ -20,9 +19,7 @@ namespace sys
  *
  * @ingroup Systems
  */
-class TextSyncSystem
-: public engine::System
-, public bl::event::Listener<rc::event::OverlayEntityScaled> {
+class TextSyncSystem : public engine::System {
 public:
     /**
      * @brief Initializes the system
@@ -39,7 +36,6 @@ private:
 
     virtual void init(engine::Engine& engine) override;
     virtual void update(std::mutex& stageMutex, float dt, float, float, float) override;
-    virtual void observe(const rc::event::OverlayEntityScaled& event) override;
 
     void registerText(gfx::Text* text);
     void removeText(gfx::Text* text);

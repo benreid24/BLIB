@@ -27,6 +27,9 @@ void Text::create(engine::Engine& engine, const sf::VulkanFont& f, const sf::Str
     Drawable::create(engine);
     Textured::create(engine.ecs(), entity(), font->syncTexture(engine.renderer()));
     OverlayScalable::create(engine, entity());
+    OverlayScalable::getOverlayScaler().setScaleCallback([this]() {
+        if (wordWrapWidth > 0.f) { needsCommit = true; }
+    });
 
     const std::uint32_t vc = std::max(content.getSize(), static_cast<std::size_t>(20)) * 6;
     component().vertices.create(engine.renderer().vulkanState(), vc);
