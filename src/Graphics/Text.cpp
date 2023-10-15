@@ -2,7 +2,6 @@
 
 #include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Render/Overlays/Overlay.hpp>
-#include <BLIB/Systems/TextSyncSystem.hpp>
 
 namespace bl
 {

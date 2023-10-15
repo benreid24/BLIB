@@ -46,8 +46,6 @@ void Renderer::initialize() {
     engine.systems().registerSystem<sys::RenderSystem>(FrameStage::Render, StateMask, *this);
     engine.systems().registerSystem<sys::OverlayScalerSystem>(FrameStage::RenderIntermediateRefresh,
                                                               StateMask);
-    engine.systems().registerSystem<sys::TextSyncSystem>(FrameStage::RenderIntermediateRefresh,
-                                                         StateMask);
     engine.systems().registerSystem<sys::Animation2DSystem>(
         FrameStage::Animate, engine::StateMask::Running | engine::StateMask::Menu, *this);
 

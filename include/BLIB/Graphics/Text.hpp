@@ -14,10 +14,6 @@
 
 namespace bl
 {
-namespace sys
-{
-class TextSyncSystem;
-}
 namespace engine
 {
 class Engine;
@@ -221,7 +217,6 @@ private:
     virtual void onRemove() override;
 
     friend class txt::BasicText;
-    friend class sys::TextSyncSystem;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
