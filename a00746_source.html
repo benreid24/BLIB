@@ -77,11 +77,11 @@ $(function() {
 <a href="a00746.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_RESOURCES_SHADERMODULECACHE_HPP</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_RESOURCES_SHADERMODULECACHE_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01103.html">BLIB/Vulkan.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01106.html">BLIB/Vulkan.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01818.html">bl</a></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01824.html">bl</a></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>rc</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
@@ -92,19 +92,19 @@ $(function() {
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">namespace </span>res</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;{</div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a03171.html">   24</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03171.html">ShaderModuleCache</a> {</div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a03177.html">   24</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03177.html">ShaderModuleCache</a> {</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    VkShaderModule <a class="code" href="a03171.html#ad10d56d22b2735a5c105b46130ca3bad">loadShader</a>(<span class="keyword">const</span> std::string&amp; path);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    VkShaderModule <a class="code" href="a03177.html#ad10d56d22b2735a5c105b46130ca3bad">loadShader</a>(<span class="keyword">const</span> std::string&amp; path);</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keyword">private</span>:</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    VkDevice device;</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    std::unordered_map&lt;std::string, VkShaderModule&gt; cache;</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <a class="code" href="a03171.html">ShaderModuleCache</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <a class="code" href="a03177.html">ShaderModuleCache</a>() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordtype">void</span> init(VkDevice device);</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordtype">void</span> cleanup();</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="a03171.html#a6ee612d03dbd6864b495f39f45c05513">   42</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">struct </span><a class="code" href="a03391.html">vk::VulkanState</a>;</div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="a03177.html#a6ee612d03dbd6864b495f39f45c05513">   42</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">struct </span><a class="code" href="a03397.html">vk::VulkanState</a>;</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;};</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;} <span class="comment">// namespace res</span></div>
@@ -112,16 +112,16 @@ $(function() {
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;} <span class="comment">// namespace bl</span></div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01103_html"><div class="ttname"><a href="a01103.html">Vulkan.hpp</a></div></div>
-<div class="ttc" id="aa01818_html"><div class="ttname"><a href="a01818.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03171_html"><div class="ttname"><a href="a03171.html">bl::rc::res::ShaderModuleCache</a></div><div class="ttdoc">Basic cache for shaders to avoid re-loading/re-compiling the same shaders.</div><div class="ttdef"><b>Definition:</b> <a href="a00746_source.html#l00024">ShaderModuleCache.hpp:24</a></div></div>
-<div class="ttc" id="aa03171_html_ad10d56d22b2735a5c105b46130ca3bad"><div class="ttname"><a href="a03171.html#ad10d56d22b2735a5c105b46130ca3bad">bl::rc::res::ShaderModuleCache::loadShader</a></div><div class="ttdeci">VkShaderModule loadShader(const std::string &amp;path)</div><div class="ttdoc">Loads a new shader.</div><div class="ttdef"><b>Definition:</b> <a href="a01550_source.html#l00016">ShaderModuleCache.cpp:16</a></div></div>
-<div class="ttc" id="aa03391_html"><div class="ttname"><a href="a03391.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a00854_source.html#l00037">VulkanState.hpp:37</a></div></div>
+<div class="ttc" id="aa01106_html"><div class="ttname"><a href="a01106.html">Vulkan.hpp</a></div></div>
+<div class="ttc" id="aa01824_html"><div class="ttname"><a href="a01824.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03177_html"><div class="ttname"><a href="a03177.html">bl::rc::res::ShaderModuleCache</a></div><div class="ttdoc">Basic cache for shaders to avoid re-loading/re-compiling the same shaders.</div><div class="ttdef"><b>Definition:</b> <a href="a00746_source.html#l00024">ShaderModuleCache.hpp:24</a></div></div>
+<div class="ttc" id="aa03177_html_ad10d56d22b2735a5c105b46130ca3bad"><div class="ttname"><a href="a03177.html#ad10d56d22b2735a5c105b46130ca3bad">bl::rc::res::ShaderModuleCache::loadShader</a></div><div class="ttdeci">VkShaderModule loadShader(const std::string &amp;path)</div><div class="ttdoc">Loads a new shader.</div><div class="ttdef"><b>Definition:</b> <a href="a01553_source.html#l00016">ShaderModuleCache.cpp:16</a></div></div>
+<div class="ttc" id="aa03397_html"><div class="ttname"><a href="a03397.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a00854_source.html#l00038">VulkanState.hpp:38</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Oct 12 2023 01:16:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Oct 15 2023 19:53:39 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

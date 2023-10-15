@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Resources/Bundling/BundleRuntime.cpp Source File</title>
+<title>BLIB: src/Resources/Bundling/BundleMetadata.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,83 +71,64 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">BundleRuntime.cpp</div>  </div>
+<div class="title">BundleMetadata.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01652.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00872.html">BLIB/Resources/Bundling/BundleRuntime.hpp</a>&gt;</span></div>
+<a href="a01652.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00869.html">BLIB/Resources/Bundling/BundleMetadata.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01818.html">bl</a></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01824.html">bl</a></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>resource</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>bundle</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a03419.html#ab9e0d65a7ba96dcd20590d7f9ce49838">    9</a></span>&#160;<a class="code" href="a03419.html#ab9e0d65a7ba96dcd20590d7f9ce49838">BundleRuntime::BundleRuntime</a>(<span class="keyword">const</span> std::string&amp; path)</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;: manifest(path) {}</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="a03419.html#a96af771d2521b03320d93e0cd83d3d61">   12</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a03419.html#a96af771d2521b03320d93e0cd83d3d61">BundleRuntime::initialize</a>() {</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    std::unique_lock lock(cleanMutex);</div>
+<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a01875.html#a8a2a9b32bbe1a4a8091826b7556796c1">    9</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a03601.html">Serializer</a> = <a class="code" href="a03601.html">serial::binary::Serializer&lt;BundleMetadata&gt;</a>;</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="a03417.html#a3703c69b35ae0f1f187e73ff5e8e3159">   11</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03417.html#a3703c69b35ae0f1f187e73ff5e8e3159">BundleMetadata::addFileInfo</a>(<span class="keyword">const</span> std::string&amp; path, <span class="keyword">const</span> <a class="code" href="a03409.html">BundledFileMetadata</a>&amp; info) {</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    manifest[path] = info;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;}</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keywordflow">return</span> manifest.<a class="code" href="a03451.html#a994b50ede5fce659271f4f7f69030349">load</a>();</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;}</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a03419.html#a1041bc77f1877c64a499cdd2918e0621">   18</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a03419.html#a1041bc77f1877c64a499cdd2918e0621">BundleRuntime::getResource</a>(<span class="keyword">const</span> std::string&amp; path, <span class="keywordtype">char</span>** buf, std::size_t&amp; len) {</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    std::unique_lock lock(cleanMutex);</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <a class="code" href="a03399.html">Bundle</a>* bundle = getOrLoadBundle(path);</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keywordflow">if</span> (bundle) { <span class="keywordflow">return</span> bundle-&gt;<a class="code" href="a03399.html#acc4d1154848a80c64f0a0b405bca16ff">getResource</a>(path, buf, len); }</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        <a class="code" href="a00494.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Resource &#39;&quot;</span> &lt;&lt; path &lt;&lt; <span class="stringliteral">&quot;&#39; not bundled&quot;</span>;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    }</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;}</div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="a03417.html#a5ee5ad07b7fe5b2d1e6f815810e059cd">   15</a></span>&#160;<a class="code" href="a03409.html">BundledFileMetadata</a> <a class="code" href="a03417.html#a5ee5ad07b7fe5b2d1e6f815810e059cd">BundleMetadata::getFileInfo</a>(<span class="keyword">const</span> std::string&amp; path)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> it = manifest.find(path);</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordflow">return</span> it != manifest.end() ? it-&gt;second : <a class="code" href="a03409.html">BundledFileMetadata</a>{-1, -1};</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;}</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a03417.html#a98ffb4582c0b6b07d39c5e43042fd1ae">   20</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a03417.html#a98ffb4582c0b6b07d39c5e43042fd1ae">BundleMetadata::save</a>(std::ostream&amp; stream)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <a class="code" href="a03725.html">serial::StreamOutputBuffer</a> wrapper(stream);</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <a class="code" href="a03597.html">serial::binary::OutputStream</a> bs(wrapper);</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="a03601.html#a5f0be3d348bae8bf6823f4d2a3a98b9b">Serializer::serialize</a>(bs, *<span class="keyword">this</span>);</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;}</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a03417.html#af644d928891785dc98ff4eb2a4dfecda">   26</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a03417.html#af644d928891785dc98ff4eb2a4dfecda">BundleMetadata::load</a>(std::istream&amp; stream) {</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    manifest.clear();</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a03419.html#af40d2b1f34198e6b242a4d3534783188">   29</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a03419.html#af40d2b1f34198e6b242a4d3534783188">BundleRuntime::resourceExists</a>(<span class="keyword">const</span> std::string&amp; path)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordflow">return</span> manifest.<a class="code" href="a03451.html#aee7a024f8a9c42b55fff3bb8e698067f">containsFile</a>(path);</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;}</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="a03419.html#a35b334d8380cc8ffe14d0a71a5f8064b">   33</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03419.html#a35b334d8380cc8ffe14d0a71a5f8064b">BundleRuntime::clean</a>() {</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    std::unique_lock lock(cleanMutex);</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = bundles.begin(); it != bundles.end();) {</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="keyword">auto</span> jit = it++;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="keywordflow">if</span> (jit-&gt;second.expired()) {</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            <a class="code" href="a00494.html#a459f7ea96e34815206480bf681ee2a2f">BL_LOG_INFO</a> &lt;&lt; <span class="stringliteral">&quot;Purging expired bundle: &quot;</span> &lt;&lt; jit-&gt;first;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;            bundles.erase(jit);</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        }</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    }</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;}</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<a class="code" href="a03399.html">Bundle</a>* BundleRuntime::getOrLoadBundle(<span class="keyword">const</span> std::string&amp; path) {</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keyword">const</span> std::string&amp; bundlePath = manifest.<a class="code" href="a03451.html#a08c1a66c93a9a3be6dfcfef542a36641">getBundleForFile</a>(path);</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordflow">if</span> (bundlePath.empty()) <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keyword">auto</span> it = bundles.find(bundlePath);</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordflow">if</span> (it == bundles.end()) { it = bundles.emplace(bundlePath, bundlePath).first; }</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordflow">return</span> &amp;it-&gt;second;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;}</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;} <span class="comment">// namespace bundle</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;} <span class="comment">// namespace resource</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00494_html_a459f7ea96e34815206480bf681ee2a2f"><div class="ttname"><a href="a00494.html#a459f7ea96e34815206480bf681ee2a2f">BL_LOG_INFO</a></div><div class="ttdeci">#define BL_LOG_INFO</div><div class="ttdoc">Helper macro to log at info level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00494_source.html#l00107">Logger.hpp:107</a></div></div>
-<div class="ttc" id="aa00494_html_a927270d671e83a1c6b5382f30bfbf895"><div class="ttname"><a href="a00494.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a></div><div class="ttdeci">#define BL_LOG_ERROR</div><div class="ttdoc">Helper macro to log at error level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00494_source.html#l00101">Logger.hpp:101</a></div></div>
-<div class="ttc" id="aa00872_html"><div class="ttname"><a href="a00872.html">BundleRuntime.hpp</a></div></div>
-<div class="ttc" id="aa01818_html"><div class="ttname"><a href="a01818.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03399_html"><div class="ttname"><a href="a03399.html">bl::resource::bundle::Bundle</a></div><div class="ttdoc">Bundle to be used at runtime by BundleRuntime. Do not use directly.</div><div class="ttdef"><b>Definition:</b> <a href="a00863_source.html#l00022">Bundle.hpp:22</a></div></div>
-<div class="ttc" id="aa03399_html_acc4d1154848a80c64f0a0b405bca16ff"><div class="ttname"><a href="a03399.html#acc4d1154848a80c64f0a0b405bca16ff">bl::resource::bundle::Bundle::getResource</a></div><div class="ttdeci">bool getResource(const std::string &amp;path, char **buffer, std::size_t &amp;len)</div><div class="ttdoc">Loads the given resource from the bundle.</div><div class="ttdef"><b>Definition:</b> <a href="a01646_source.html#l00034">Bundle.cpp:34</a></div></div>
-<div class="ttc" id="aa03419_html_a1041bc77f1877c64a499cdd2918e0621"><div class="ttname"><a href="a03419.html#a1041bc77f1877c64a499cdd2918e0621">bl::resource::bundle::BundleRuntime::getResource</a></div><div class="ttdeci">bool getResource(const std::string &amp;path, char **buffer, std::size_t &amp;len)</div><div class="ttdoc">Fetch the given resource from the bundles.</div><div class="ttdef"><b>Definition:</b> <a href="a01652_source.html#l00018">BundleRuntime.cpp:18</a></div></div>
-<div class="ttc" id="aa03419_html_a35b334d8380cc8ffe14d0a71a5f8064b"><div class="ttname"><a href="a03419.html#a35b334d8380cc8ffe14d0a71a5f8064b">bl::resource::bundle::BundleRuntime::clean</a></div><div class="ttdeci">void clean()</div><div class="ttdoc">Purges expired bundles.</div><div class="ttdef"><b>Definition:</b> <a href="a01652_source.html#l00033">BundleRuntime.cpp:33</a></div></div>
-<div class="ttc" id="aa03419_html_a96af771d2521b03320d93e0cd83d3d61"><div class="ttname"><a href="a03419.html#a96af771d2521b03320d93e0cd83d3d61">bl::resource::bundle::BundleRuntime::initialize</a></div><div class="ttdeci">bool initialize()</div><div class="ttdoc">Load the given bundle path.</div><div class="ttdef"><b>Definition:</b> <a href="a01652_source.html#l00012">BundleRuntime.cpp:12</a></div></div>
-<div class="ttc" id="aa03419_html_ab9e0d65a7ba96dcd20590d7f9ce49838"><div class="ttname"><a href="a03419.html#ab9e0d65a7ba96dcd20590d7f9ce49838">bl::resource::bundle::BundleRuntime::BundleRuntime</a></div><div class="ttdeci">BundleRuntime(const std::string &amp;bundlePath)</div><div class="ttdoc">Construct a new Bundle Runtime in an empty state.</div><div class="ttdef"><b>Definition:</b> <a href="a01652_source.html#l00009">BundleRuntime.cpp:9</a></div></div>
-<div class="ttc" id="aa03419_html_af40d2b1f34198e6b242a4d3534783188"><div class="ttname"><a href="a03419.html#af40d2b1f34198e6b242a4d3534783188">bl::resource::bundle::BundleRuntime::resourceExists</a></div><div class="ttdeci">bool resourceExists(const std::string &amp;path) const</div><div class="ttdoc">Returns whether or not a resource with the given path exists.</div><div class="ttdef"><b>Definition:</b> <a href="a01652_source.html#l00029">BundleRuntime.cpp:29</a></div></div>
-<div class="ttc" id="aa03451_html_a08c1a66c93a9a3be6dfcfef542a36641"><div class="ttname"><a href="a03451.html#a08c1a66c93a9a3be6dfcfef542a36641">bl::resource::bundle::Manifest::getBundleForFile</a></div><div class="ttdeci">const std::string &amp; getBundleForFile(const std::string &amp;path) const</div><div class="ttdoc">Returns the fully qualified path to the bundle containing the given path. Returns an empty string if ...</div><div class="ttdef"><b>Definition:</b> <a href="a01667_source.html#l00014">Manifest.cpp:14</a></div></div>
-<div class="ttc" id="aa03451_html_a994b50ede5fce659271f4f7f69030349"><div class="ttname"><a href="a03451.html#a994b50ede5fce659271f4f7f69030349">bl::resource::bundle::Manifest::load</a></div><div class="ttdeci">bool load()</div><div class="ttdoc">Loads the manifest from disk.</div><div class="ttdef"><b>Definition:</b> <a href="a01667_source.html#l00029">Manifest.cpp:29</a></div></div>
-<div class="ttc" id="aa03451_html_aee7a024f8a9c42b55fff3bb8e698067f"><div class="ttname"><a href="a03451.html#aee7a024f8a9c42b55fff3bb8e698067f">bl::resource::bundle::Manifest::containsFile</a></div><div class="ttdeci">bool containsFile(const std::string &amp;path) const</div><div class="ttdoc">Returns whether or not the given path is in the manifest.</div><div class="ttdef"><b>Definition:</b> <a href="a01667_source.html#l00020">Manifest.cpp:20</a></div></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <a class="code" href="a03721.html">serial::StreamInputBuffer</a> wrapper(stream);</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <a class="code" href="a03589.html">serial::binary::InputStream</a> bs(wrapper);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="a03601.html#ae6050208537dd1364dd2779ffe36d057">Serializer::deserialize</a>(bs, *<span class="keyword">this</span>);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;}</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;} <span class="comment">// namespace bundle</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;} <span class="comment">// namespace resource</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00869_html"><div class="ttname"><a href="a00869.html">BundleMetadata.hpp</a></div></div>
+<div class="ttc" id="aa01824_html"><div class="ttname"><a href="a01824.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03409_html"><div class="ttname"><a href="a03409.html">bl::resource::bundle::BundledFileMetadata</a></div><div class="ttdoc">Basic struct containing metadata about a file in a bundle.</div><div class="ttdef"><b>Definition:</b> <a href="a00866_source.html#l00019">BundledFileMetadata.hpp:19</a></div></div>
+<div class="ttc" id="aa03417_html_a3703c69b35ae0f1f187e73ff5e8e3159"><div class="ttname"><a href="a03417.html#a3703c69b35ae0f1f187e73ff5e8e3159">bl::resource::bundle::BundleMetadata::addFileInfo</a></div><div class="ttdeci">void addFileInfo(const std::string &amp;path, const BundledFileMetadata &amp;info)</div><div class="ttdoc">Adds information for the given file to the bundle manifest.</div><div class="ttdef"><b>Definition:</b> <a href="a01652_source.html#l00011">BundleMetadata.cpp:11</a></div></div>
+<div class="ttc" id="aa03417_html_a5ee5ad07b7fe5b2d1e6f815810e059cd"><div class="ttname"><a href="a03417.html#a5ee5ad07b7fe5b2d1e6f815810e059cd">bl::resource::bundle::BundleMetadata::getFileInfo</a></div><div class="ttdeci">BundledFileMetadata getFileInfo(const std::string &amp;path) const</div><div class="ttdoc">Get the information locating a specific file in the bundle.</div><div class="ttdef"><b>Definition:</b> <a href="a01652_source.html#l00015">BundleMetadata.cpp:15</a></div></div>
+<div class="ttc" id="aa03417_html_a98ffb4582c0b6b07d39c5e43042fd1ae"><div class="ttname"><a href="a03417.html#a98ffb4582c0b6b07d39c5e43042fd1ae">bl::resource::bundle::BundleMetadata::save</a></div><div class="ttdeci">bool save(std::ostream &amp;stream) const</div><div class="ttdoc">Saves the bundle metadata to the given stream.</div><div class="ttdef"><b>Definition:</b> <a href="a01652_source.html#l00020">BundleMetadata.cpp:20</a></div></div>
+<div class="ttc" id="aa03417_html_af644d928891785dc98ff4eb2a4dfecda"><div class="ttname"><a href="a03417.html#af644d928891785dc98ff4eb2a4dfecda">bl::resource::bundle::BundleMetadata::load</a></div><div class="ttdeci">bool load(std::istream &amp;stream)</div><div class="ttdoc">Loads the bundle metadata from the given stream.</div><div class="ttdef"><b>Definition:</b> <a href="a01652_source.html#l00026">BundleMetadata.cpp:26</a></div></div>
+<div class="ttc" id="aa03589_html"><div class="ttname"><a href="a03589.html">bl::serial::binary::InputStream</a></div><div class="ttdoc">A readable stream for binary deserialization.</div><div class="ttdef"><b>Definition:</b> <a href="a00950_source.html#l00028">InputStream.hpp:28</a></div></div>
+<div class="ttc" id="aa03597_html"><div class="ttname"><a href="a03597.html">bl::serial::binary::OutputStream</a></div><div class="ttdoc">A writable stream for binary serialization.</div><div class="ttdef"><b>Definition:</b> <a href="a00956_source.html#l00022">OutputStream.hpp:22</a></div></div>
+<div class="ttc" id="aa03601_html"><div class="ttname"><a href="a03601.html">bl::serial::binary::Serializer</a></div><div class="ttdoc">Helper struct for serializing types into binary streams. Integral types, strings, vector,...</div><div class="ttdef"><b>Definition:</b> <a href="a05154_source.html#l00034">Serializer.hpp:34</a></div></div>
+<div class="ttc" id="aa03601_html_a5f0be3d348bae8bf6823f4d2a3a98b9b"><div class="ttname"><a href="a03601.html#a5f0be3d348bae8bf6823f4d2a3a98b9b">bl::serial::binary::Serializer::serialize</a></div><div class="ttdeci">static bool serialize(OutputStream &amp;output, const T &amp;value)</div><div class="ttdoc">Serialize the given value to the given file.</div></div>
+<div class="ttc" id="aa03601_html_ae6050208537dd1364dd2779ffe36d057"><div class="ttname"><a href="a03601.html#ae6050208537dd1364dd2779ffe36d057">bl::serial::binary::Serializer::deserialize</a></div><div class="ttdeci">static bool deserialize(InputStream &amp;input, T &amp;result)</div><div class="ttdoc">Reads the value from input into result.</div></div>
+<div class="ttc" id="aa03721_html"><div class="ttname"><a href="a03721.html">bl::serial::StreamInputBuffer</a></div><div class="ttdoc">Input buffer that operates on C++ streams.</div><div class="ttdef"><b>Definition:</b> <a href="a00980_source.html#l00017">StreamInputBuffer.hpp:17</a></div></div>
+<div class="ttc" id="aa03725_html"><div class="ttname"><a href="a03725.html">bl::serial::StreamOutputBuffer</a></div><div class="ttdoc">Output buffer that allows writing to C++ streams.</div><div class="ttdef"><b>Definition:</b> <a href="a00983_source.html#l00017">StreamOutputBuffer.hpp:17</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Oct 12 2023 01:16:56 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Oct 15 2023 19:53:39 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

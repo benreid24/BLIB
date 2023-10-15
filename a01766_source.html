@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Systems/Transform2DDescriptorSystem.cpp Source File</title>
+<title>BLIB: src/Systems/TogglerSystem.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,51 +71,42 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Transform2DDescriptorSystem.cpp</div>  </div>
+<div class="title">TogglerSystem.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01766.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01034.html">BLIB/Systems/Transform2DDescriptorSystem.hpp</a>&gt;</span></div>
+<a href="a01766.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01031.html">BLIB/Systems/TogglerSystem.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05063.html">BLIB/Engine/Engine.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00197.html">BLIB/Engine.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01818.html">bl</a></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01824.html">bl</a></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>sys</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a03923.html#a7ea148facfb8b44362e26c299efd2f19">    9</a></span>&#160;<a class="code" href="a03923.html#a7ea148facfb8b44362e26c299efd2f19">Transform2DDescriptorSystem::Transform2DDescriptorSystem</a>()</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;: interpView(nullptr)</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;, posOnlyView(nullptr) {}</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keywordtype">void</span> TogglerSystem::init(engine::Engine&amp; engine) {</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    pool = &amp;engine.ecs().getAllComponents&lt;com::Toggler&gt;();</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;}</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keywordtype">void</span> Transform2DDescriptorSystem::update(std::mutex&amp;, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>, <span class="keywordtype">float</span> lag, <span class="keywordtype">float</span>) {</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    posOnlyView-&gt;forEach([](PosTags::TComponentSet&amp; cset) {</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        <span class="keyword">auto</span>&amp; t = *cset.get&lt;<a class="code" href="a02051.html">com::Transform2D</a>&gt;();</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        <span class="keywordflow">if</span> (t.requiresRefresh()) { t.<a class="code" href="a02879.html#a0913d5b5ac715000106df37c04f5dee7">refresh</a>(); }</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    });</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    interpView-&gt;forEach([lag](InterpTags::TComponentSet&amp; cset) {</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        com::Transform2D t = *cset.get&lt;com::Transform2D&gt;();</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        cset.get&lt;com::Velocity2D&gt;()-&gt;apply(t, lag);</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        t.refresh();</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    });</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;}</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keywordtype">void</span> Transform2DDescriptorSystem::init(engine::Engine&amp; e) {</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    interpView  = InterpTags::getView(e.ecs());</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    posOnlyView = PosTags::getView(e.ecs());</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;}</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;} <span class="comment">// namespace sys</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa01034_html"><div class="ttname"><a href="a01034.html">Transform2DDescriptorSystem.hpp</a></div></div>
-<div class="ttc" id="aa01818_html"><div class="ttname"><a href="a01818.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02051_html"><div class="ttname"><a href="a02051.html">bl::com::Transform2D</a></div><div class="ttdoc">Representation of a 2d transform with a depth component to allow the depth buffer to be used when ren...</div><div class="ttdef"><b>Definition:</b> <a href="a05051_source.html#l00018">Transform2D.hpp:20</a></div></div>
-<div class="ttc" id="aa02879_html_a0913d5b5ac715000106df37c04f5dee7"><div class="ttname"><a href="a02879.html#a0913d5b5ac715000106df37c04f5dee7">bl::rc::rcom::DescriptorComponentBase::refresh</a></div><div class="ttdeci">void refresh()</div><div class="ttdoc">Refreshes and syncs the descriptor value and marks as clean.</div><div class="ttdef"><b>Definition:</b> <a href="a00560_source.html#l00120">DescriptorComponentBase.hpp:120</a></div></div>
-<div class="ttc" id="aa03923_html_a7ea148facfb8b44362e26c299efd2f19"><div class="ttname"><a href="a03923.html#a7ea148facfb8b44362e26c299efd2f19">bl::sys::Transform2DDescriptorSystem::Transform2DDescriptorSystem</a></div><div class="ttdeci">Transform2DDescriptorSystem()</div><div class="ttdoc">Initializes the system.</div><div class="ttdef"><b>Definition:</b> <a href="a01766_source.html#l00009">Transform2DDescriptorSystem.cpp:9</a></div></div>
-<div class="ttc" id="aa05063_html"><div class="ttname"><a href="a05063.html">Engine.hpp</a></div></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keywordtype">void</span> TogglerSystem::update(std::mutex&amp;, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>) {</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    pool-&gt;forEach([dt](ecs::Entity, com::Toggler&amp; tog) {</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        tog.time += dt;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        <span class="keywordtype">float</span> period = *tog.value ? tog.onPeriod : tog.offPeriod;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        <span class="keywordflow">if</span> (tog.time &gt;= period) {</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;            *tog.value = !*tog.value;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;            tog.time -= std::floor(tog.time / period) * period;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        }</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    });</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;}</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;} <span class="comment">// namespace sys</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00197_html"><div class="ttname"><a href="a00197.html">Engine.hpp</a></div></div>
+<div class="ttc" id="aa01031_html"><div class="ttname"><a href="a01031.html">TogglerSystem.hpp</a></div></div>
+<div class="ttc" id="aa01824_html"><div class="ttname"><a href="a01824.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Oct 12 2023 01:16:56 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Oct 15 2023 19:53:40 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

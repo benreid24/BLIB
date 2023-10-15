@@ -77,33 +77,33 @@ $(function() {
 <a href="a01061.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_UTIL_LASTVARIADIC_HPP</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_UTIL_LASTVARIADIC_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01818.html">bl</a></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01824.html">bl</a></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;{</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>util</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span>... Ts&gt;</div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="a03967.html">   15</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03967.html">LastVariadic</a> {</div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="a03973.html">   15</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03973.html">LastVariadic</a> {</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keyword">struct </span>tag {</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        <span class="keyword">using</span> type = T;</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    };</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a03967.html#af272ecfc09083f9cec3776a769bd2509">   23</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a03967.html#af272ecfc09083f9cec3776a769bd2509">Last</a> = <span class="keyword">typename</span> decltype((tag&lt;Ts&gt;{}, ...))::type;</div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a03973.html#af272ecfc09083f9cec3776a769bd2509">   23</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a03973.html#af272ecfc09083f9cec3776a769bd2509">Last</a> = <span class="keyword">typename</span> decltype((tag&lt;Ts&gt;{}, ...))::type;</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;};</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;} <span class="comment">// namespace util</span></div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;} <span class="comment">// namespace bl</span></div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01818_html"><div class="ttname"><a href="a01818.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03967_html"><div class="ttname"><a href="a03967.html">bl::util::LastVariadic</a></div><div class="ttdoc">Provides a typedef for the last type in a variadic template parameter list.</div><div class="ttdef"><b>Definition:</b> <a href="a01061_source.html#l00015">LastVariadic.hpp:15</a></div></div>
-<div class="ttc" id="aa03967_html_af272ecfc09083f9cec3776a769bd2509"><div class="ttname"><a href="a03967.html#af272ecfc09083f9cec3776a769bd2509">bl::util::LastVariadic::Last</a></div><div class="ttdeci">typename decltype((tag&lt; Ts &gt;{},...))::type Last</div><div class="ttdoc">The last type in the provided list of types.</div><div class="ttdef"><b>Definition:</b> <a href="a01061_source.html#l00023">LastVariadic.hpp:23</a></div></div>
+<div class="ttc" id="aa01824_html"><div class="ttname"><a href="a01824.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03973_html"><div class="ttname"><a href="a03973.html">bl::util::LastVariadic</a></div><div class="ttdoc">Provides a typedef for the last type in a variadic template parameter list.</div><div class="ttdef"><b>Definition:</b> <a href="a01061_source.html#l00015">LastVariadic.hpp:15</a></div></div>
+<div class="ttc" id="aa03973_html_af272ecfc09083f9cec3776a769bd2509"><div class="ttname"><a href="a03973.html#af272ecfc09083f9cec3776a769bd2509">bl::util::LastVariadic::Last</a></div><div class="ttdeci">typename decltype((tag&lt; Ts &gt;{},...))::type Last</div><div class="ttdoc">The last type in the provided list of types.</div><div class="ttdef"><b>Definition:</b> <a href="a01061_source.html#l00023">LastVariadic.hpp:23</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Oct 12 2023 01:16:56 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Oct 15 2023 19:53:39 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

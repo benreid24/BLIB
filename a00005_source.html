@@ -85,14 +85,14 @@ $(function() {
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="a01818.html">   12</a></span>&#160;<span class="keyword">namespace </span><a class="code" href="a01818.html">bl</a></div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="a01824.html">   12</a></span>&#160;<span class="keyword">namespace </span><a class="code" href="a01824.html">bl</a></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="a01819.html">   15</a></span>&#160;<span class="keyword">namespace </span>ai</div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="a01825.html">   15</a></span>&#160;<span class="keyword">namespace </span>ai</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> TNode, <span class="keyword">typename</span> CoordHash&gt;</div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a01935.html">   25</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a01935.html">PathFinder</a> {</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a01941.html">   25</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a01941.html">PathFinder</a> {</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> TMapCallback, <span class="keyword">typename</span> TDistFunc&gt;</div>
-<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="a01935.html#acf1db4fbab14c3a131d71e937d019a89">   43</a></span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="a01935.html#acf1db4fbab14c3a131d71e937d019a89">findPath</a>(<span class="keyword">const</span> TNode&amp; start, <span class="keyword">const</span> TNode&amp; destination,</div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="a01941.html#acf1db4fbab14c3a131d71e937d019a89">   43</a></span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="a01941.html#acf1db4fbab14c3a131d71e937d019a89">findPath</a>(<span class="keyword">const</span> TNode&amp; start, <span class="keyword">const</span> TNode&amp; destination,</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                         TMapCallback&amp;&amp; adjacentNodeCb, TDistFunc&amp;&amp; distCb,</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                         std::vector&lt;TNode&gt;&amp; result);</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;};</div>
@@ -100,7 +100,7 @@ $(function() {
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> TNode, <span class="keyword">typename</span> CHash&gt;</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> TMapCb, <span class="keyword">typename</span> TDistFunc&gt;</div>
-<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="a01935.html#aa7f7fda9fb55ab275e59b100a12c1602">   52</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a01935.html#acf1db4fbab14c3a131d71e937d019a89">PathFinder&lt;TNode, CHash&gt;::findPath</a>(<span class="keyword">const</span> TNode&amp; start, <span class="keyword">const</span> TNode&amp; destination,</div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="a01941.html#aa7f7fda9fb55ab275e59b100a12c1602">   52</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a01941.html#acf1db4fbab14c3a131d71e937d019a89">PathFinder&lt;TNode, CHash&gt;::findPath</a>(<span class="keyword">const</span> TNode&amp; start, <span class="keyword">const</span> TNode&amp; destination,</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                                        TMapCb&amp;&amp; nodeCb, TDistFunc&amp;&amp; distCb,</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;                                        std::vector&lt;TNode&gt;&amp; result) {</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    static_assert(</div>
@@ -174,14 +174,14 @@ $(function() {
 <div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
 <div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aa01052_html"><div class="ttname"><a href="a01052.html">Hashes.hpp</a></div></div>
-<div class="ttc" id="aa01818_html"><div class="ttname"><a href="a01818.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa01935_html"><div class="ttname"><a href="a01935.html">bl::ai::PathFinder</a></div><div class="ttdoc">Class for calculating paths between arbitrary points in a PathMap.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00025">PathFinder.hpp:25</a></div></div>
-<div class="ttc" id="aa01935_html_acf1db4fbab14c3a131d71e937d019a89"><div class="ttname"><a href="a01935.html#acf1db4fbab14c3a131d71e937d019a89">bl::ai::PathFinder::findPath</a></div><div class="ttdeci">static bool findPath(const TNode &amp;start, const TNode &amp;destination, TMapCallback &amp;&amp;adjacentNodeCb, TDistFunc &amp;&amp;distCb, std::vector&lt; TNode &gt; &amp;result)</div><div class="ttdoc">Calculates the shortest path between the two points using the map callback. Map callback signature sh...</div></div>
+<div class="ttc" id="aa01824_html"><div class="ttname"><a href="a01824.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa01941_html"><div class="ttname"><a href="a01941.html">bl::ai::PathFinder</a></div><div class="ttdoc">Class for calculating paths between arbitrary points in a PathMap.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00025">PathFinder.hpp:25</a></div></div>
+<div class="ttc" id="aa01941_html_acf1db4fbab14c3a131d71e937d019a89"><div class="ttname"><a href="a01941.html#acf1db4fbab14c3a131d71e937d019a89">bl::ai::PathFinder::findPath</a></div><div class="ttdeci">static bool findPath(const TNode &amp;start, const TNode &amp;destination, TMapCallback &amp;&amp;adjacentNodeCb, TDistFunc &amp;&amp;distCb, std::vector&lt; TNode &gt; &amp;result)</div><div class="ttdoc">Calculates the shortest path between the two points using the map callback. Map callback signature sh...</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Oct 12 2023 01:16:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Oct 15 2023 19:53:38 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

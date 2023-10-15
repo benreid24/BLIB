@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Scripts/Context.cpp Source File</title>
+<title>BLIB: src/Resources/ResourceManager.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,43 +66,47 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3ac9928fc2e7e2cbc53db7c1a11acda2.html">Scripts</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_7a475d59e09b1ce69b1dfbc6b0817add.html">Resources</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Context.cpp</div>  </div>
+<div class="title">ResourceManager.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01682.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00917.html">BLIB/Scripts/Context.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01712.html">Scripts/ScriptLibrary.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01818.html">bl</a></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;{</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>script</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keywordtype">void</span> Context::initializeTable(SymbolTable&amp; table)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    <a class="code" href="a04147.html#ace07fac924c00874885a109b4fb8ad2d">Library::addBuiltIns</a>(table);</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <a class="code" href="a03531.html#a60d6dc826b2e1dbd3d54ef4a58d1816a">addCustomSymbols</a>(table);</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;}</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="a03531.html#a60d6dc826b2e1dbd3d54ef4a58d1816a">   13</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03531.html#a60d6dc826b2e1dbd3d54ef4a58d1816a">Context::addCustomSymbols</a>(<a class="code" href="a03571.html">SymbolTable</a>&amp;)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="comment">// empty</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;}</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;} <span class="comment">// namespace script</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00917_html"><div class="ttname"><a href="a00917.html">Context.hpp</a></div></div>
-<div class="ttc" id="aa01712_html"><div class="ttname"><a href="a01712.html">ScriptLibrary.hpp</a></div></div>
-<div class="ttc" id="aa01818_html"><div class="ttname"><a href="a01818.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03531_html_a60d6dc826b2e1dbd3d54ef4a58d1816a"><div class="ttname"><a href="a03531.html#a60d6dc826b2e1dbd3d54ef4a58d1816a">bl::script::Context::addCustomSymbols</a></div><div class="ttdeci">virtual void addCustomSymbols(SymbolTable &amp;table) const</div><div class="ttdoc">Add your custom functions and variables to the symbol table here.</div><div class="ttdef"><b>Definition:</b> <a href="a01682_source.html#l00013">Context.cpp:13</a></div></div>
-<div class="ttc" id="aa03571_html"><div class="ttname"><a href="a03571.html">bl::script::SymbolTable</a></div><div class="ttdoc">Stack aware symbol table for managing functions and variables Each Script holds a single instance.</div><div class="ttdef"><b>Definition:</b> <a href="a00938_source.html#l00026">SymbolTable.hpp:26</a></div></div>
-<div class="ttc" id="aa04147_html_ace07fac924c00874885a109b4fb8ad2d"><div class="ttname"><a href="a04147.html#ace07fac924c00874885a109b4fb8ad2d">bl::script::Library::addBuiltIns</a></div><div class="ttdeci">static void addBuiltIns(SymbolTable &amp;table)</div><div class="ttdef"><b>Definition:</b> <a href="a01709_source.html#l00102">ScriptLibrary.cpp:102</a></div></div>
+<a href="a01682.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00911.html">BLIB/Resources/ResourceManager.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00899.html">BLIB/Resources/GarbageCollector.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01824.html">bl</a></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>resource</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a03533.html#aefb504334dee80cd3692d5cd7492c48e">    9</a></span>&#160;<a class="code" href="a03533.html#aefb504334dee80cd3692d5cd7492c48e">ResourceManagerBase::ResourceManagerBase</a>()</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;: gcPeriod(300) {</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    GarbageCollector::get().registerManager(<span class="keyword">this</span>);</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;}</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="a03533.html#a772009bb487d321e8bd0d6fef65cd701">   14</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03533.html#a772009bb487d321e8bd0d6fef65cd701">ResourceManagerBase::unregister</a>() { GarbageCollector::get().unregisterManager(<span class="keyword">this</span>); }</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a03533.html#a3a86e73410fa6cf7c507341a09b1429b">   16</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03533.html#a3a86e73410fa6cf7c507341a09b1429b">ResourceManagerBase::getGCPeriod</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> gc) {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    gcPeriod = gc;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    GarbageCollector::get().managerPeriodChanged(<span class="keyword">this</span>);</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;}</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;} <span class="comment">// namespace resource</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00899_html"><div class="ttname"><a href="a00899.html">GarbageCollector.hpp</a></div></div>
+<div class="ttc" id="aa00911_html"><div class="ttname"><a href="a00911.html">ResourceManager.hpp</a></div></div>
+<div class="ttc" id="aa01824_html"><div class="ttname"><a href="a01824.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03533_html_a3a86e73410fa6cf7c507341a09b1429b"><div class="ttname"><a href="a03533.html#a3a86e73410fa6cf7c507341a09b1429b">bl::resource::ResourceManagerBase::getGCPeriod</a></div><div class="ttdeci">void getGCPeriod(unsigned int period)</div><div class="ttdef"><b>Definition:</b> <a href="a01682_source.html#l00016">ResourceManager.cpp:16</a></div></div>
+<div class="ttc" id="aa03533_html_a772009bb487d321e8bd0d6fef65cd701"><div class="ttname"><a href="a03533.html#a772009bb487d321e8bd0d6fef65cd701">bl::resource::ResourceManagerBase::unregister</a></div><div class="ttdeci">void unregister()</div><div class="ttdef"><b>Definition:</b> <a href="a01682_source.html#l00014">ResourceManager.cpp:14</a></div></div>
+<div class="ttc" id="aa03533_html_aefb504334dee80cd3692d5cd7492c48e"><div class="ttname"><a href="a03533.html#aefb504334dee80cd3692d5cd7492c48e">bl::resource::ResourceManagerBase::ResourceManagerBase</a></div><div class="ttdeci">ResourceManagerBase()</div><div class="ttdef"><b>Definition:</b> <a href="a01682_source.html#l00009">ResourceManager.cpp:9</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Oct 12 2023 01:16:56 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Oct 15 2023 19:53:39 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

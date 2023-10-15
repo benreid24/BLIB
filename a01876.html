@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::util Namespace Reference</title>
+<title>BLIB: bl::script Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,230 +66,123 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01818.html">bl</a></li><li class="navelem"><a class="el" href="a01876.html">util</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01824.html">bl</a></li><li class="navelem"><a class="el" href="a01876.html">script</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#typedef-members">Typedefs</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#typedef-members">Typedefs</a>  </div>
   <div class="headertitle">
-<div class="title">bl::util Namespace Reference</div>  </div>
+<div class="title">bl::script Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Contains a set of common utility classes that do not fit into any other modules.  
+<p><a class="el" href="a03569.html" title="Loads scripts. Can run scripts directly or in the background. Is threadsafe.">Script</a> interpreter for bScript.  
 <a href="a01876.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03931.html">AngularVector</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Angular contemporary to sf::Vector2&lt;T&gt;. The angle is consistent with SFML's rendering reference frame. 0 degrees is straight up.  <a href="a03931.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03537.html">Context</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A context to run a script with. Custom context classes may be created to have different types of scripts. For example, an NPC running a script may have a context that adds several global functions to manipulate that NPC directly from the script.  <a href="a03537.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03935.html">BufferIstreamBuf</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper class that represents a streambuf around a vector&lt;char&gt;. Use to create istream objects from vector&lt;char&gt; buffers.  <a href="a03935.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03541.html">Error</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a03569.html" title="Loads scripts. Can run scripts directly or in the background. Is threadsafe.">Script</a> utility class to represent an error. Can be used to build a call stack for script errors.  <a href="a03541.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03939.html">FileUtil</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Common utility functions for dealing with files and filenames.  <a href="a03939.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03545.html">Exit</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Special Exception for Scripts to exit without an <a class="el" href="a03541.html" title="Script utility class to represent an error. Can be used to build a call stack for script errors.">Error</a>.  <a href="a03545.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03947.html">PairHash</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility struct to allow hashing of std::pair objects.  <a href="a03947.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03549.html">Function</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility class for functions defined in scripts themselves.  <a href="a03549.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03951.html">Vector2Hash</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialized hash for sf::Vector2.  <a href="a03951.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03553.html">Manager</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility class that can manage sets of concurrently running scripts.  <a href="a03553.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03955.html">Vector3Hash</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialized hash for sf::Vector3.  <a href="a03955.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03557.html">PrimitiveValue</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents the lowest level values in scripts.  <a href="a03557.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03959.html">IdAllocator</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility to allocate integral ids in some range [0, max). Allows ids to be reused as well as tracks the current highest id to allow for tighter iteration over the id range. Ids are allocated in linear order.  <a href="a03959.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03565.html">ReferenceValue</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference type for values. Wrapper around std::shared_ptr.  <a href="a03565.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03963.html">IdAllocatorUnbounded</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Similar to <a class="el" href="a03959.html" title="Utility to allocate integral ids in some range [0, max). Allows ids to be reused as well as tracks th...">IdAllocator</a>, but with no max id restriction.  <a href="a03963.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03569.html">Script</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads scripts. Can run scripts directly or in the background. Is threadsafe.  <a href="a03569.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03967.html">LastVariadic</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides a typedef for the last type in a variadic template parameter list.  <a href="a03967.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03577.html">SymbolTable</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stack aware symbol table for managing functions and variables Each <a class="el" href="a03569.html" title="Loads scripts. Can run scripts directly or in the background. Is threadsafe.">Script</a> holds a single instance.  <a href="a03577.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03975.html">NonCopyable</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper class to make derived classes impossible for user to copy directly.  <a href="a03975.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03581.html">Value</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main representation of a value in scripts.  <a href="a03581.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03979.html">Random</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a03979.html" title="Random number generator for integral and floating point numbers.">Random</a> number generator for integral and floating point numbers.  <a href="a03979.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04145.html">Parser</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implementation of a <a class="el" href="a04145.html" title="Implementation of a Parser for the scripting language.">Parser</a> for the scripting language.  <a href="a04145.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03999.html">RangeAllocatorUnbounded</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility class to manage allocation of integer ranges.  <a href="a03999.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04153.html">ScriptImpl</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of testable utility methods for executing components of scripts.  <a href="a04153.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04011.html">ReadWriteLock</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reader-writer lock built on top of std::shared_mutex. The primary benefit of this class is that lockRead and lockWrite do not deadlock if called by the same thread more than once. Note that calling one and then the other will still deadlock.  <a href="a04011.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04023.html">Signal</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility class perform callback actions on events. Can be configured to perform multiple callbacks. Includes a helper method to simply set a boolean variable.  <a href="a04023.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04027.html">StreamUtil</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper utility for parsing text streams.  <a href="a04027.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04031.html">Not</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Does the boolean negation of true_type and false_type.  <a href="a04031.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04035.html">Not&lt; std::true_type &gt;</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04039.html">Not&lt; std::false_type &gt;</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04043.html">Timer</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Global class for tracking time. Implemented over the top of sf::Clock to allow for pausing.  <a href="a04043.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04047.html">UnderlyingType</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides the underlying type of an enum with the added benefit of allow integral types to pass-through instead of throwing errors.  <a href="a04047.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04051.html">UnderlyingType&lt; U, false &gt;</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04055.html">UnderlyingType&lt; U, true &gt;</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04059.html">VectorRef</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility struct to provide a stable iterator into a vector where indices do not change.  <a href="a04059.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04063.html">Visitor</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility class to wrap a collection of lambdas for std::visit.  <a href="a04063.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04067.html">Waiter</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic utility class to pause a thread while waiting for a specific event.  <a href="a04067.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04157.html">Library</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Static helper to add built-in functions to each script.  <a href="a04157.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:a2a7b94b765eeaf95c297d7ae9af3c41b"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="a03931.html">AngularVector</a>&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01876.html#a2a7b94b765eeaf95c297d7ae9af3c41b">AngularVectorF</a></td></tr>
-<tr class="separator:a2a7b94b765eeaf95c297d7ae9af3c41b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a70f1d000d3d0b57485b52b096d74d76f"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a70f1d000d3d0b57485b52b096d74d76f"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01876.html#a70f1d000d3d0b57485b52b096d74d76f">NotV</a> = <a class="el" href="a04031.html">Not</a>&lt; T &gt;::value</td></tr>
-<tr class="separator:a70f1d000d3d0b57485b52b096d74d76f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa8853668ec5ed0e2e9cc964b2e38334d"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:aa8853668ec5ed0e2e9cc964b2e38334d"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01876.html#aa8853668ec5ed0e2e9cc964b2e38334d">UnderlyingTypeT</a> = typename <a class="el" href="a04047.html">UnderlyingType</a>&lt; T &gt;::type</td></tr>
-<tr class="separator:aa8853668ec5ed0e2e9cc964b2e38334d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:a867dbeaa40c3e27ca66b3217256cd351"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01876.html#a867dbeaa40c3e27ca66b3217256cd351">hashCombine</a> (std::size_t right, std::size_t left)</td></tr>
-<tr class="separator:a867dbeaa40c3e27ca66b3217256cd351"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga5d5816901da87f0dd35b765c5ab2639e"><td class="memTemplParams" colspan="2">template&lt;std::size_t I = 0, typename FuncT , typename... Tp&gt; </td></tr>
-<tr class="memitem:ga5d5816901da87f0dd35b765c5ab2639e"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if&lt; I==sizeof...(Tp), void &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01810.html#ga5d5816901da87f0dd35b765c5ab2639e">TupleLoop</a> (std::tuple&lt; Tp... &gt; &amp;, FuncT)</td></tr>
-<tr class="memdesc:ga5d5816901da87f0dd35b765c5ab2639e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base case for TupleLoop utility.  <a href="a01810.html#ga5d5816901da87f0dd35b765c5ab2639e">More...</a><br /></td></tr>
-<tr class="separator:ga5d5816901da87f0dd35b765c5ab2639e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a155bd66bb1b81565b2f84b5cbeafbf78"><td class="memTemplParams" colspan="2">template&lt;class... Ts&gt; </td></tr>
-<tr class="memitem:a155bd66bb1b81565b2f84b5cbeafbf78"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01876.html#a155bd66bb1b81565b2f84b5cbeafbf78">Visitor</a> (Ts...) -&gt; <a class="el" href="a04063.html">Visitor</a>&lt; Ts... &gt;</td></tr>
-<tr class="separator:a155bd66bb1b81565b2f84b5cbeafbf78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a949fe37cb751cac53f257c3c0241a652"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01876.html#a949fe37cb751cac53f257c3c0241a652">ArrayValue</a> = std::vector&lt; <a class="el" href="a03581.html">Value</a> &gt;</td></tr>
+<tr class="memdesc:a949fe37cb751cac53f257c3c0241a652"><td class="mdescLeft">&#160;</td><td class="mdescRight">An array of values.  <a href="a01876.html#a949fe37cb751cac53f257c3c0241a652">More...</a><br /></td></tr>
+<tr class="separator:a949fe37cb751cac53f257c3c0241a652"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af4832d1de10443d84f1fb19c16bfa24c"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01876.html#af4832d1de10443d84f1fb19c16bfa24c">Symbol</a> = const <a class="el" href="a02825.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a> &amp;</td></tr>
+<tr class="separator:af4832d1de10443d84f1fb19c16bfa24c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af98b10434d6862ecf69f33b6b5b25f27"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01876.html#af98b10434d6862ecf69f33b6b5b25f27">G</a> = <a class="el" href="a04145.html#aab7cdda02e78cc66c150f58063c8b9e4">Parser::Grammar</a></td></tr>
+<tr class="separator:af98b10434d6862ecf69f33b6b5b25f27"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Contains a set of common utility classes that do not fit into any other modules. </p>
+<div class="textblock"><p><a class="el" href="a03569.html" title="Loads scripts. Can run scripts directly or in the background. Is threadsafe.">Script</a> interpreter for bScript. </p>
 </div><h2 class="groupheader">Typedef Documentation</h2>
-<a id="a2a7b94b765eeaf95c297d7ae9af3c41b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2a7b94b765eeaf95c297d7ae9af3c41b">&#9670;&nbsp;</a></span>AngularVectorF</h2>
+<a id="a949fe37cb751cac53f257c3c0241a652"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a949fe37cb751cac53f257c3c0241a652">&#9670;&nbsp;</a></span>ArrayValue</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef <a class="el" href="a03931.html">AngularVector</a>&lt;float&gt; <a class="el" href="a01876.html#a2a7b94b765eeaf95c297d7ae9af3c41b">bl::util::AngularVectorF</a></td>
+          <td class="memname">using <a class="el" href="a01876.html#a949fe37cb751cac53f257c3c0241a652">bl::script::ArrayValue</a> = typedef std::vector&lt;<a class="el" href="a03581.html">Value</a>&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a01040_source.html#l00132">132</a> of file <a class="el" href="a01040_source.html">AngularVector.hpp</a>.</p>
+<p>An array of values. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00929_source.html#l00015">15</a> of file <a class="el" href="a00929_source.html">PrimitiveValue.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a70f1d000d3d0b57485b52b096d74d76f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a70f1d000d3d0b57485b52b096d74d76f">&#9670;&nbsp;</a></span>NotV</h2>
+<a id="af98b10434d6862ecf69f33b6b5b25f27"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af98b10434d6862ecf69f33b6b5b25f27">&#9670;&nbsp;</a></span>G</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="a01876.html#a70f1d000d3d0b57485b52b096d74d76f">bl::util::NotV</a> = typedef <a class="el" href="a04031.html">Not</a>&lt;T&gt;::value</td>
+          <td class="memname">using <a class="el" href="a04145.html#aab7cdda02e78cc66c150f58063c8b9e4">bl::script::G</a> = typedef <a class="el" href="a04145.html#aab7cdda02e78cc66c150f58063c8b9e4">Parser::Grammar</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a01079_source.html#l00029">29</a> of file <a class="el" href="a01079_source.html">TemplateLogic.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01706_source.html#l00012">12</a> of file <a class="el" href="a01706_source.html">ScriptImpl.cpp</a>.</p>
 
 </div>
 </div>
-<a id="aa8853668ec5ed0e2e9cc964b2e38334d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa8853668ec5ed0e2e9cc964b2e38334d">&#9670;&nbsp;</a></span>UnderlyingTypeT</h2>
+<a id="af4832d1de10443d84f1fb19c16bfa24c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af4832d1de10443d84f1fb19c16bfa24c">&#9670;&nbsp;</a></span>Symbol</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="a01876.html#aa8853668ec5ed0e2e9cc964b2e38334d">bl::util::UnderlyingTypeT</a> = typedef typename <a class="el" href="a04047.html">UnderlyingType</a>&lt;T&gt;::type</td>
+          <td class="memname">using <a class="el" href="a01876.html#af4832d1de10443d84f1fb19c16bfa24c">bl::script::Symbol</a> = typedef const <a class="el" href="a02825.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&amp;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a01088_source.html#l00031">31</a> of file <a class="el" href="a01088_source.html">UnderlyingType.hpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Function Documentation</h2>
-<a id="a867dbeaa40c3e27ca66b3217256cd351"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a867dbeaa40c3e27ca66b3217256cd351">&#9670;&nbsp;</a></span>hashCombine()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::size_t bl::util::hashCombine </td>
-          <td>(</td>
-          <td class="paramtype">std::size_t&#160;</td>
-          <td class="paramname"><em>right</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::size_t&#160;</td>
-          <td class="paramname"><em>left</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01049_source.html#l00011">11</a> of file <a class="el" href="a01049_source.html">HashCombine.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a155bd66bb1b81565b2f84b5cbeafbf78"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a155bd66bb1b81565b2f84b5cbeafbf78">&#9670;&nbsp;</a></span>Visitor()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class... Ts&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a04063.html">bl::util::Visitor</a> </td>
-          <td>(</td>
-          <td class="paramtype">Ts...&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td> -&gt;  <a class="el" href="a04063.html">Visitor</a>&lt; Ts... &gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
+<p class="definition">Definition at line <a class="el" href="a01706_source.html#l00011">11</a> of file <a class="el" href="a01706_source.html">ScriptImpl.cpp</a>.</p>
 
 </div>
 </div>
@@ -297,7 +190,7 @@ template&lt;class... Ts&gt; </div>
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Oct 12 2023 01:16:58 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Oct 15 2023 19:53:41 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

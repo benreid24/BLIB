@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Engine/Worker.cpp Source File</title>
+<title>BLIB: src/Engine/Systems.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,64 +71,80 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Worker.cpp</div>  </div>
+<div class="title">Systems.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01190.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00242.html">BLIB/Engine/Worker.hpp</a>&gt;</span></div>
+<a href="a01190.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05082.html">BLIB/Engine/Systems.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00500.html">BLIB/Logging.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05073.html">BLIB/Engine/Engine.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01818.html">bl</a></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01824.html">bl</a></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>engine</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;Worker* Worker::worker = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;Systems::StageSet::StageSet() { systems.reserve(8); };</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;Worker::Worker()</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;: running(true)</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;, workQueue(64)</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;, runner(&amp;Worker::runLoop, this) {</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    std::unique_lock lock(mutex);</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    worker = <span class="keyword">this</span>;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    lock.unlock();</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <a class="code" href="a00494.html#a459f7ea96e34815206480bf681ee2a2f">BL_LOG_INFO</a> &lt;&lt; <span class="stringliteral">&quot;Started engine worker&quot;</span>;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;}</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;Worker::~Worker() {</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <a class="code" href="a00494.html#a459f7ea96e34815206480bf681ee2a2f">BL_LOG_INFO</a> &lt;&lt; <span class="stringliteral">&quot;Shutting down engine worker&quot;</span>;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    mutex.lock();</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    worker  = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    running = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    mutex.unlock();</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    cv.notify_all();</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    runner.join();</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <a class="code" href="a00494.html#a459f7ea96e34815206480bf681ee2a2f">BL_LOG_INFO</a> &lt;&lt; <span class="stringliteral">&quot;Engine worker shutdown&quot;</span>;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;}</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keywordtype">void</span> Worker::runLoop() {</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordflow">while</span> (running) {</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        std::unique_lock lock(mutex);</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="keywordflow">if</span> (workQueue.empty()) { cv.wait(lock); }</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="keywordflow">while</span> (!workQueue.empty()) {</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            workQueue.front()();</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;            workQueue.pop();</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        }</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    }</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;}</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;} <span class="comment">// namespace engine</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00242_html"><div class="ttname"><a href="a00242.html">Worker.hpp</a></div></div>
-<div class="ttc" id="aa00494_html_a459f7ea96e34815206480bf681ee2a2f"><div class="ttname"><a href="a00494.html#a459f7ea96e34815206480bf681ee2a2f">BL_LOG_INFO</a></div><div class="ttdeci">#define BL_LOG_INFO</div><div class="ttdoc">Helper macro to log at info level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00494_source.html#l00107">Logger.hpp:107</a></div></div>
-<div class="ttc" id="aa00500_html"><div class="ttname"><a href="a00500.html">Logging.hpp</a></div></div>
-<div class="ttc" id="aa01818_html"><div class="ttname"><a href="a01818.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;Systems::Systems(Engine&amp; e)</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;: engine(e) {}</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keywordtype">void</span> Systems::init() {</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; set : systems) {</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; system : set.systems) { system.system-&gt;init(engine); }</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    }</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;}</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keywordtype">void</span> Systems::update(FrameStage::V startStage, FrameStage::V endStage, StateMask::V stateMask,</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;                     <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span> realDt, <span class="keywordtype">float</span> lag, <span class="keywordtype">float</span> realLag) {</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> beg = systems.begin() + startStage;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> end = systems.begin() + endStage;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keyword">auto</span>&amp; tp       = engine.threadPool();</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = beg; it != end; ++it) {</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="keywordflow">if</span> (!it-&gt;tasks.empty()) {</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;            tp.queueTask([it]() { it-&gt;drainTasks(); });</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        }</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="keywordflow">if</span> (it-&gt;systems.size() &gt; 1) {</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;            <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; system : it-&gt;systems) {</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;                <span class="keywordflow">if</span> ((system.mask &amp; stateMask) != 0) {</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;                    tp.queueTask([&amp;system, it, dt, realDt, lag, realLag]() {</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;                        system.system-&gt;update(it-&gt;mutex, dt, realDt, lag, realLag);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;                    });</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;                }</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            }</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        }</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (!it-&gt;systems.empty()) {</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;            <span class="keyword">auto</span>&amp; system = it-&gt;systems.front();</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;            <span class="keywordflow">if</span> ((system.mask &amp; stateMask) != 0) {</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;                system.system-&gt;update(it-&gt;mutex, dt, realDt, lag, realLag);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            }</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        }</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        tp.drain();</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    }</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;}</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="a02357.html#abd2fcfc3f53dab243e9c88694e7bcf02">   49</a></span>&#160;<span class="keywordtype">void</span> Systems::addFrameTask(<a class="code" href="a02333.html#af6ea181be91b7069f9f52557a1445e1a">FrameStage::V</a> stage, <a class="code" href="a02357.html#a0f4d079b76e506c0a630dfe30c0cbc2f">Task</a>&amp;&amp; task) {</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    std::unique_lock lock(systems[stage].taskMutex);</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    systems[stage].tasks.emplace_back(std::forward&lt;Task&gt;(task));</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;}</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="keywordtype">void</span> Systems::StageSet::drainTasks() {</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    std::unique_lock lock(taskMutex);</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; task : tasks) { task(); }</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    tasks.clear();</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;}</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;} <span class="comment">// namespace engine</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa01824_html"><div class="ttname"><a href="a01824.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02333_html_af6ea181be91b7069f9f52557a1445e1a"><div class="ttname"><a href="a02333.html#af6ea181be91b7069f9f52557a1445e1a">bl::engine::FrameStage::V</a></div><div class="ttdeci">V</div><div class="ttdoc">Value-type for engine stage ids.</div><div class="ttdef"><b>Definition:</b> <a href="a00221_source.html#l00018">FrameStage.hpp:18</a></div></div>
+<div class="ttc" id="aa02357_html_a0f4d079b76e506c0a630dfe30c0cbc2f"><div class="ttname"><a href="a02357.html#a0f4d079b76e506c0a630dfe30c0cbc2f">bl::engine::Systems::Task</a></div><div class="ttdeci">std::function&lt; void()&gt; Task</div><div class="ttdoc">Signature of one-off tasks that can be registered to run.</div><div class="ttdef"><b>Definition:</b> <a href="a05082_source.html#l00032">Systems.hpp:32</a></div></div>
+<div class="ttc" id="aa05073_html"><div class="ttname"><a href="a05073.html">Engine.hpp</a></div></div>
+<div class="ttc" id="aa05082_html"><div class="ttname"><a href="a05082.html">Systems.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Oct 12 2023 01:16:56 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Oct 15 2023 19:53:39 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

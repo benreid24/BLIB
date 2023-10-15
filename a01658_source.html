@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Resources/Bundling/FileHandlers/AnimationHandler.cpp Source File</title>
+<title>BLIB: src/Resources/Bundling/FileHandlerContext.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,57 +66,41 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_7a475d59e09b1ce69b1dfbc6b0817add.html">Resources</a></li><li class="navelem"><a class="el" href="dir_650c2bb72fa499737589ce0469633186.html">Bundling</a></li><li class="navelem"><a class="el" href="dir_aa9914aaa11d841a9b5a3bf23363db45.html">FileHandlers</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_7a475d59e09b1ce69b1dfbc6b0817add.html">Resources</a></li><li class="navelem"><a class="el" href="dir_650c2bb72fa499737589ce0469633186.html">Bundling</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">AnimationHandler.cpp</div>  </div>
+<div class="title">FileHandlerContext.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01658.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00266.html">BLIB/Graphics/Animation2D/AnimationData.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00884.html">BLIB/Resources/Bundling/FileHandlers/AnimationHandler.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01818.html">bl</a></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;{</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>resource</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>bundle</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="a03439.html#adf22a2d2b974daba7cf8ec92a0bdcf89">   10</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a03439.html#adf22a2d2b974daba7cf8ec92a0bdcf89">AnimationHandler::processFile</a>(<span class="keyword">const</span> std::string&amp; path, std::ostream&amp; output,</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;                                   <a class="code" href="a03435.html">FileHandlerContext</a>&amp; ctx) {</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <a class="code" href="a02415.html">gfx::a2d::AnimationData</a> anim;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keywordflow">if</span> (!anim.<a class="code" href="a02415.html#a649a534c5017ee0df847c56712b43ff4">loadFromFileForBundling</a>(path)) {</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        <a class="code" href="a00494.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Failed to load animation: &quot;</span> &lt;&lt; path;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    }</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordflow">if</span> (!anim.<a class="code" href="a02415.html#a7aef7ec2981c8f70da4ad9dd2686c836">saveToBundle</a>(output)) {</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        <a class="code" href="a00494.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Failed to save animation: &quot;</span> &lt;&lt; path;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    }</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    ctx.<a class="code" href="a03435.html#a117fbcb7e5871373ebb7270b39b20721">addDependencyFile</a>(anim.<a class="code" href="a02415.html#a607d12f4ec60fe3da673878856f380ff">spritesheetFile</a>());</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;}</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;} <span class="comment">// namespace bundle</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;} <span class="comment">// namespace resource</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00266_html"><div class="ttname"><a href="a00266.html">AnimationData.hpp</a></div></div>
-<div class="ttc" id="aa00494_html_a927270d671e83a1c6b5382f30bfbf895"><div class="ttname"><a href="a00494.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a></div><div class="ttdeci">#define BL_LOG_ERROR</div><div class="ttdoc">Helper macro to log at error level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00494_source.html#l00101">Logger.hpp:101</a></div></div>
-<div class="ttc" id="aa00884_html"><div class="ttname"><a href="a00884.html">AnimationHandler.hpp</a></div></div>
-<div class="ttc" id="aa01818_html"><div class="ttname"><a href="a01818.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02415_html"><div class="ttname"><a href="a02415.html">bl::gfx::a2d::AnimationData</a></div><div class="ttdoc">Data class for 2d animations. Provides the backing for slideshows and skeletal animations....</div><div class="ttdef"><b>Definition:</b> <a href="a00266_source.html#l00022">AnimationData.hpp:22</a></div></div>
-<div class="ttc" id="aa02415_html_a607d12f4ec60fe3da673878856f380ff"><div class="ttname"><a href="a02415.html#a607d12f4ec60fe3da673878856f380ff">bl::gfx::a2d::AnimationData::spritesheetFile</a></div><div class="ttdeci">const std::string &amp; spritesheetFile() const</div><div class="ttdoc">Returns the filename of the spritesheet.</div><div class="ttdef"><b>Definition:</b> <a href="a01196_source.html#l00222">AnimationData.cpp:222</a></div></div>
-<div class="ttc" id="aa02415_html_a649a534c5017ee0df847c56712b43ff4"><div class="ttname"><a href="a02415.html#a649a534c5017ee0df847c56712b43ff4">bl::gfx::a2d::AnimationData::loadFromFileForBundling</a></div><div class="ttdeci">bool loadFromFileForBundling(const std::string &amp;filename)</div><div class="ttdoc">Same as loadFromFile, but rewrites the spritesheet source to be the full path to the spritesheet so t...</div><div class="ttdef"><b>Definition:</b> <a href="a01196_source.html#l00079">AnimationData.cpp:79</a></div></div>
-<div class="ttc" id="aa02415_html_a7aef7ec2981c8f70da4ad9dd2686c836"><div class="ttname"><a href="a02415.html#a7aef7ec2981c8f70da4ad9dd2686c836">bl::gfx::a2d::AnimationData::saveToBundle</a></div><div class="ttdeci">bool saveToBundle(std::ostream &amp;output) const</div><div class="ttdoc">Saves the animation data to the bundle.</div><div class="ttdef"><b>Definition:</b> <a href="a01196_source.html#l00084">AnimationData.cpp:84</a></div></div>
-<div class="ttc" id="aa03435_html"><div class="ttname"><a href="a03435.html">bl::resource::bundle::FileHandlerContext</a></div><div class="ttdoc">Context data that is provided to FileHandler objects when processing files.</div><div class="ttdef"><b>Definition:</b> <a href="a00881_source.html#l00023">FileHandlerContext.hpp:23</a></div></div>
-<div class="ttc" id="aa03435_html_a117fbcb7e5871373ebb7270b39b20721"><div class="ttname"><a href="a03435.html#a117fbcb7e5871373ebb7270b39b20721">bl::resource::bundle::FileHandlerContext::addDependencyFile</a></div><div class="ttdeci">void addDependencyFile(const std::string &amp;path)</div><div class="ttdoc">Adds a file to be bundled with the current file being processed. Call this for dependency files (ie s...</div><div class="ttdef"><b>Definition:</b> <a href="a01655_source.html#l00014">FileHandlerContext.cpp:14</a></div></div>
-<div class="ttc" id="aa03439_html_adf22a2d2b974daba7cf8ec92a0bdcf89"><div class="ttname"><a href="a03439.html#adf22a2d2b974daba7cf8ec92a0bdcf89">bl::resource::bundle::AnimationHandler::processFile</a></div><div class="ttdeci">virtual bool processFile(const std::string &amp;path, std::ostream &amp;output, FileHandlerContext &amp;context) override</div><div class="ttdoc">Process the given file and add its data to the bundle.</div><div class="ttdef"><b>Definition:</b> <a href="a01658_source.html#l00010">AnimationHandler.cpp:10</a></div></div>
+<a href="a01658.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00881.html">BLIB/Resources/Bundling/FileHandlerContext.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01824.html">bl</a></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>resource</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>bundle</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;FileHandlerContext::FileHandlerContext(std::unordered_set&lt;std::string&gt;&amp; excludes,</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;                                       std::stack&lt;std::string, std::vector&lt;std::string&gt;&gt;&amp; fileStack)</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;: excludes(excludes)</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;, fileList(fileStack) {}</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="a03441.html#a117fbcb7e5871373ebb7270b39b20721">   14</a></span>&#160;<span class="keywordtype">void</span> FileHandlerContext::addDependencyFile(<span class="keyword">const</span> std::string&amp; path) { fileList.emplace(path); }</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a03441.html#acf80fad2b5d9f50e479ef3182d34c447">   16</a></span>&#160;<span class="keywordtype">void</span> FileHandlerContext::addExcludeFile(<span class="keyword">const</span> std::string&amp; path) { excludes.emplace(path); }</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;} <span class="comment">// namespace bundle</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;} <span class="comment">// namespace resource</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00881_html"><div class="ttname"><a href="a00881.html">FileHandlerContext.hpp</a></div></div>
+<div class="ttc" id="aa01824_html"><div class="ttname"><a href="a01824.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Oct 12 2023 01:16:56 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Oct 15 2023 19:53:39 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

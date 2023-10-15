@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Vulkan/Utils/QueueFamilyLocator.hpp Source File</title>
+<title>BLIB: src/Render/Vulkan/Utils/QueueFamilyLocator.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,48 +71,63 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">QueueFamilyLocator.hpp</div>  </div>
+<div class="title">QueueFamilyLocator.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01631.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_VULKAN_UTILS_QUEUEFAMILYLOCATOR_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_VULKAN_UTILS_QUEUEFAMILYLOCATOR_HPP</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01103.html">BLIB/Vulkan.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;cstdint&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;optional&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01818.html">bl</a></div>
+<a href="a01631.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01634.html">Render/Vulkan/Utils/QueueFamilyLocator.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00851.html">BLIB/Render/Vulkan/VkCheck.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01824.html">bl</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>rc</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>rc</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="a04119.html">   12</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a04119.html">QueueFamilyLocator</a> {</div>
-<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="a04119.html#ab88679f0de04a766f7cd93b6b8330c95">   13</a></span>&#160;    std::optional&lt;std::uint32_t&gt; <a class="code" href="a04119.html#ab88679f0de04a766f7cd93b6b8330c95">graphicsFamily</a>;</div>
-<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="a04119.html#a8ec71bc186887ea633c17e7c85d0fff4">   14</a></span>&#160;    std::optional&lt;std::uint32_t&gt; <a class="code" href="a04119.html#a8ec71bc186887ea633c17e7c85d0fff4">presentFamily</a>;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a04119.html#ab5c31507770656779a3aa5fa99c59e54">   16</a></span>&#160;    <a class="code" href="a04119.html#ab5c31507770656779a3aa5fa99c59e54">QueueFamilyLocator</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <a class="code" href="a04119.html#ab5c31507770656779a3aa5fa99c59e54">QueueFamilyLocator</a>(VkPhysicalDevice device, VkSurfaceKHR surface);</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04119.html#ad1c1d597b0e1b2a45334ae128242570b">populate</a>(VkPhysicalDevice device, VkSurfaceKHR surface);</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a04119.html#aecff064c1d89b3dee0d7344bd84c6b74">complete</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;};</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="a04129.html#abf077b33effb16d9e597eb7e516845a6">   10</a></span>&#160;<a class="code" href="a04129.html#ab5c31507770656779a3aa5fa99c59e54">QueueFamilyLocator::QueueFamilyLocator</a>(VkPhysicalDevice device, VkSurfaceKHR surface) {</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <a class="code" href="a04129.html#ad1c1d597b0e1b2a45334ae128242570b">populate</a>(device, surface);</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;}</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="a04129.html#ad1c1d597b0e1b2a45334ae128242570b">   14</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04129.html#ad1c1d597b0e1b2a45334ae128242570b">QueueFamilyLocator::populate</a>(VkPhysicalDevice device, VkSurfaceKHR surface) {</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    std::uint32_t queueFamilyCount = 0;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    vkGetPhysicalDeviceQueueFamilyProperties(device, &amp;queueFamilyCount, <span class="keyword">nullptr</span>);</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    std::vector&lt;VkQueueFamilyProperties&gt; queueFamilies(queueFamilyCount);</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    vkGetPhysicalDeviceQueueFamilyProperties(device, &amp;queueFamilyCount, queueFamilies.data());</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="comment">// find queues</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; queueFamilies.size(); ++i) {</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        <span class="comment">// graphics queue</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        <span class="keywordflow">if</span> (queueFamilies[i].queueFlags &amp; VK_QUEUE_GRAPHICS_BIT) { <a class="code" href="a04129.html#ab88679f0de04a766f7cd93b6b8330c95">graphicsFamily</a> = i; }</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01103_html"><div class="ttname"><a href="a01103.html">Vulkan.hpp</a></div></div>
-<div class="ttc" id="aa01818_html"><div class="ttname"><a href="a01818.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04119_html"><div class="ttname"><a href="a04119.html">bl::rc::QueueFamilyLocator</a></div><div class="ttdef"><b>Definition:</b> <a href="a01631_source.html#l00012">QueueFamilyLocator.hpp:12</a></div></div>
-<div class="ttc" id="aa04119_html_a8ec71bc186887ea633c17e7c85d0fff4"><div class="ttname"><a href="a04119.html#a8ec71bc186887ea633c17e7c85d0fff4">bl::rc::QueueFamilyLocator::presentFamily</a></div><div class="ttdeci">std::optional&lt; std::uint32_t &gt; presentFamily</div><div class="ttdef"><b>Definition:</b> <a href="a01631_source.html#l00014">QueueFamilyLocator.hpp:14</a></div></div>
-<div class="ttc" id="aa04119_html_ab5c31507770656779a3aa5fa99c59e54"><div class="ttname"><a href="a04119.html#ab5c31507770656779a3aa5fa99c59e54">bl::rc::QueueFamilyLocator::QueueFamilyLocator</a></div><div class="ttdeci">QueueFamilyLocator()=default</div></div>
-<div class="ttc" id="aa04119_html_ab88679f0de04a766f7cd93b6b8330c95"><div class="ttname"><a href="a04119.html#ab88679f0de04a766f7cd93b6b8330c95">bl::rc::QueueFamilyLocator::graphicsFamily</a></div><div class="ttdeci">std::optional&lt; std::uint32_t &gt; graphicsFamily</div><div class="ttdef"><b>Definition:</b> <a href="a01631_source.html#l00013">QueueFamilyLocator.hpp:13</a></div></div>
-<div class="ttc" id="aa04119_html_ad1c1d597b0e1b2a45334ae128242570b"><div class="ttname"><a href="a04119.html#ad1c1d597b0e1b2a45334ae128242570b">bl::rc::QueueFamilyLocator::populate</a></div><div class="ttdeci">void populate(VkPhysicalDevice device, VkSurfaceKHR surface)</div><div class="ttdef"><b>Definition:</b> <a href="a01628_source.html#l00014">QueueFamilyLocator.cpp:14</a></div></div>
-<div class="ttc" id="aa04119_html_aecff064c1d89b3dee0d7344bd84c6b74"><div class="ttname"><a href="a04119.html#aecff064c1d89b3dee0d7344bd84c6b74">bl::rc::QueueFamilyLocator::complete</a></div><div class="ttdeci">bool complete() const</div><div class="ttdef"><b>Definition:</b> <a href="a01628_source.html#l00035">QueueFamilyLocator.cpp:35</a></div></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        <span class="comment">// presentation support</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        VkBool32 presentSupport = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        <a class="code" href="a00851.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a>(vkGetPhysicalDeviceSurfaceSupportKHR(device, i, surface, &amp;presentSupport));</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="keywordflow">if</span> (presentSupport) { <a class="code" href="a04129.html#a8ec71bc186887ea633c17e7c85d0fff4">presentFamily</a> = i; }</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="a04129.html#aecff064c1d89b3dee0d7344bd84c6b74">complete</a>()) <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    }</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;}</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="a04129.html#aecff064c1d89b3dee0d7344bd84c6b74">   35</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a04129.html#aecff064c1d89b3dee0d7344bd84c6b74">QueueFamilyLocator::complete</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="a04129.html#ab88679f0de04a766f7cd93b6b8330c95">graphicsFamily</a>.has_value() &amp;&amp; <a class="code" href="a04129.html#a8ec71bc186887ea633c17e7c85d0fff4">presentFamily</a>.has_value();</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;}</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00851_html"><div class="ttname"><a href="a00851.html">VkCheck.hpp</a></div></div>
+<div class="ttc" id="aa00851_html_a95c2f7535355f5f3855410ab629f9310"><div class="ttname"><a href="a00851.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a></div><div class="ttdeci">#define vkCheck(expr)</div><div class="ttdef"><b>Definition:</b> <a href="a00851_source.html#l00015">VkCheck.hpp:15</a></div></div>
+<div class="ttc" id="aa01634_html"><div class="ttname"><a href="a01634.html">QueueFamilyLocator.hpp</a></div></div>
+<div class="ttc" id="aa01824_html"><div class="ttname"><a href="a01824.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04129_html_a8ec71bc186887ea633c17e7c85d0fff4"><div class="ttname"><a href="a04129.html#a8ec71bc186887ea633c17e7c85d0fff4">bl::rc::QueueFamilyLocator::presentFamily</a></div><div class="ttdeci">std::optional&lt; std::uint32_t &gt; presentFamily</div><div class="ttdef"><b>Definition:</b> <a href="a01634_source.html#l00014">QueueFamilyLocator.hpp:14</a></div></div>
+<div class="ttc" id="aa04129_html_ab5c31507770656779a3aa5fa99c59e54"><div class="ttname"><a href="a04129.html#ab5c31507770656779a3aa5fa99c59e54">bl::rc::QueueFamilyLocator::QueueFamilyLocator</a></div><div class="ttdeci">QueueFamilyLocator()=default</div></div>
+<div class="ttc" id="aa04129_html_ab88679f0de04a766f7cd93b6b8330c95"><div class="ttname"><a href="a04129.html#ab88679f0de04a766f7cd93b6b8330c95">bl::rc::QueueFamilyLocator::graphicsFamily</a></div><div class="ttdeci">std::optional&lt; std::uint32_t &gt; graphicsFamily</div><div class="ttdef"><b>Definition:</b> <a href="a01634_source.html#l00013">QueueFamilyLocator.hpp:13</a></div></div>
+<div class="ttc" id="aa04129_html_ad1c1d597b0e1b2a45334ae128242570b"><div class="ttname"><a href="a04129.html#ad1c1d597b0e1b2a45334ae128242570b">bl::rc::QueueFamilyLocator::populate</a></div><div class="ttdeci">void populate(VkPhysicalDevice device, VkSurfaceKHR surface)</div><div class="ttdef"><b>Definition:</b> <a href="a01631_source.html#l00014">QueueFamilyLocator.cpp:14</a></div></div>
+<div class="ttc" id="aa04129_html_aecff064c1d89b3dee0d7344bd84c6b74"><div class="ttname"><a href="a04129.html#aecff064c1d89b3dee0d7344bd84c6b74">bl::rc::QueueFamilyLocator::complete</a></div><div class="ttdeci">bool complete() const</div><div class="ttdef"><b>Definition:</b> <a href="a01631_source.html#l00035">QueueFamilyLocator.cpp:35</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Oct 12 2023 01:16:56 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Oct 15 2023 19:53:39 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>
