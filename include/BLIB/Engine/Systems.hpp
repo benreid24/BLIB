@@ -7,6 +7,7 @@
 #include <BLIB/Logging.hpp>
 #include <array>
 #include <functional>
+#include <future>
 #include <memory>
 #include <mutex>
 #include <stdexcept>
@@ -27,9 +28,49 @@ class Engine;
  * @ingroup Engine
  */
 class Systems {
+    struct StageSet;
+
 public:
     /// Signature of one-off tasks that can be registered to run
     using Task = std::function<void()>;
+
+    /**
+     * @brief Handle to a task submitted to Systems
+     *
+     * @ingroup Engine
+     */
+    class TaskHandle {
+    public:
+        /**
+         * @brief Constructs a null handle
+         */
+        TaskHandle();
+
+        /**
+         * @brief Returns whether or not the handle refers to a valid task
+         */
+        bool isValid() const;
+
+        /**
+         * @brief Cancels the task if it has not yet ran. Safe to call on invalid handles
+         */
+        void cancel();
+
+        /**
+         * @brief Waits for the submitted task to complete. Safe to call on invalid handles
+         */
+        void wait();
+
+    private:
+        StageSet* owner;
+        std::size_t index;
+        std::uint16_t version;
+        std::future<void> future;
+
+        TaskHandle(StageSet* owner, std::size_t index, std::future<void>&& future);
+
+        friend class Systems;
+    };
 
     /**
      * @brief Creates and adds a new system to the registry
@@ -60,7 +101,7 @@ public:
      * @param stage The frame stage to execute the task in
      * @param task The task to execute
      */
-    void addFrameTask(FrameStage::V stage, Task&& task);
+    TaskHandle addFrameTask(FrameStage::V stage, Task&& task);
 
 private:
     struct SystemInstance {
@@ -72,11 +113,27 @@ private:
         , system(std::forward<std::unique_ptr<System>>(sys)) {}
     };
 
+    struct TaskEntry {
+        std::packaged_task<void()> task;
+        bool cancelled;
+
+        TaskEntry(Task&& task)
+        : task(std::forward<Task>(task))
+        , cancelled(false) {}
+
+        TaskEntry(TaskEntry&&) = default;
+
+        void execute() {
+            if (!cancelled) task();
+        }
+    };
+
     struct StageSet {
         std::mutex mutex;
         std::mutex taskMutex;
         std::vector<SystemInstance> systems;
-        std::vector<Task> tasks;
+        std::vector<TaskEntry> tasks;
+        std::uint16_t version;
 
         StageSet();
         void drainTasks();

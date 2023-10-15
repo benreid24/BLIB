@@ -6,7 +6,10 @@ namespace bl
 {
 namespace engine
 {
-Systems::StageSet::StageSet() { systems.reserve(8); };
+Systems::StageSet::StageSet()
+: version(0) {
+    systems.reserve(8);
+};
 
 Systems::Systems(Engine& e)
 : engine(e) {}
@@ -46,15 +49,42 @@ void Systems::update(FrameStage::V startStage, FrameStage::V endStage, StateMask
     }
 }
 
-void Systems::addFrameTask(FrameStage::V stage, Task&& task) {
-    std::unique_lock lock(systems[stage].taskMutex);
-    systems[stage].tasks.emplace_back(std::forward<Task>(task));
+Systems::TaskHandle Systems::addFrameTask(FrameStage::V stage, Task&& task) {
+    auto& set = systems[stage];
+    std::unique_lock lock(set.taskMutex);
+    set.tasks.emplace_back(std::forward<Task>(task));
+    return TaskHandle(&set, set.tasks.size() - 1, std::move(set.tasks.back().task.get_future()));
 }
 
 void Systems::StageSet::drainTasks() {
     std::unique_lock lock(taskMutex);
-    for (const auto& task : tasks) { task(); }
+    for (auto& task : tasks) { task.execute(); }
     tasks.clear();
+    ++version;
+}
+
+Systems::TaskHandle::TaskHandle()
+: owner(nullptr) {}
+
+Systems::TaskHandle::TaskHandle(StageSet* owner, std::size_t index, std::future<void>&& future)
+: owner(owner)
+, index(index)
+, version(owner->version)
+, future(std::forward<std::future<void>>(future)) {}
+
+bool Systems::TaskHandle::isValid() const { return future.valid(); }
+
+void Systems::TaskHandle::cancel() {
+    if (owner) {
+        std::unique_lock lock(owner->taskMutex);
+        if (version == owner->version && index < owner->tasks.size()) {
+            owner->tasks[index].cancelled = true;
+        }
+    }
+}
+
+void Systems::TaskHandle::wait() {
+    if (future.valid()) { future.wait(); }
 }
 
 } // namespace engine
