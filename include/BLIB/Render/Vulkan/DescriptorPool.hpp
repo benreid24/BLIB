@@ -6,6 +6,7 @@
 #include <array>
 #include <cstdint>
 #include <list>
+#include <mutex>
 #include <unordered_map>
 #include <vector>
 
@@ -105,6 +106,7 @@ private:
     };
 
     VulkanState& vulkanState;
+    std::mutex mutex;
     std::unordered_map<VkDescriptorSetLayout, SetBindingInfo> layoutMap;
     std::list<Subpool> pools;
     std::list<Allocation> allocations;

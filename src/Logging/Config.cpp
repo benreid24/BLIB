@@ -38,6 +38,8 @@ Config& Config::get() {
 }
 
 void Config::rollLogs(const std::string& path, const std::string& name, unsigned int n) {
+    std::unique_lock lock(get().mutex);
+
     util::FileUtil::createDirectory(path);
 
     const std::string base = util::FileUtil::joinPath(path, name);
@@ -50,6 +52,8 @@ void Config::rollLogs(const std::string& path, const std::string& name, unsigned
 }
 
 void Config::configureOutput(std::ostream& s, int level) {
+    std::unique_lock lock(get().mutex);
+
     Config& c = get();
     for (auto& o : c.outputs) {
         if (o.first == &s) {
@@ -61,6 +65,8 @@ void Config::configureOutput(std::ostream& s, int level) {
 }
 
 void Config::addFileOutput(const std::string& file, int level) {
+    std::unique_lock lock(get().mutex);
+
     Config& c = get();
     c.files.emplace_back(file.c_str(), std::ios::out | std::ios::app);
     c.files.back() << std::endl << "Beginning new log" << std::endl;
@@ -85,8 +91,9 @@ std::string Config::genPrefix(int level) const {
 }
 
 void Config::doWrite(const std::string& data, int level) {
+    std::unique_lock lock(mutex);
     for (const auto& log : outputs) {
-        if (log.second <= level) (*log.first) << data << std::endl;
+        if (log.second <= level) { (*log.first) << data << std::flush; }
     }
 }
 

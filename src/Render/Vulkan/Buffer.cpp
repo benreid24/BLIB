@@ -44,6 +44,7 @@ bool Buffer::doCreate() {
     allocInfo.usage         = VMA_MEMORY_USAGE_AUTO;
     allocInfo.flags         = allocFlags;
 
+    std::unique_lock lock(vulkanState->bufferAllocMutex);
     VmaAllocationInfo resultInfo{};
     const VkResult result = vmaCreateBuffer(
         vulkanState->vmaAllocator, &bufferInfo, &allocInfo, &buffer, &alloc, &resultInfo);
@@ -95,6 +96,9 @@ bool Buffer::ensureSize(VkDeviceSize newSize) {
         const VkBuffer oldBuffer   = buffer;
         size                       = newSize;
         if (!doCreate()) { throw std::runtime_error("Failed to resize buffer"); }
+
+        // TODO - remove this when command buffers are thread safe
+        std::unique_lock lock(vulkanState->bufferAllocMutex);
 
         VkCommandBuffer commandBuffer = vulkanState->beginSingleTimeCommands();
 

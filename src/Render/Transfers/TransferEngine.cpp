@@ -108,7 +108,8 @@ void TransferEngine::Bucket::executeTransfers() {
     vkCheck(vkBeginCommandBuffer(commandBuffer.current(), &begin));
 
     // queue transfer commands
-    TransferContext context(vulkanState,
+    TransferContext context(mutex,
+                            vulkanState,
                             stagingBuffers.current(),
                             stagingAllocs.current(),
                             memoryBarriers,
@@ -141,7 +142,7 @@ void TransferEngine::Bucket::executeTransfers() {
     submit.pCommandBuffers    = &commandBuffer.current();
     submit.commandBufferCount = 1;
     vkCheck(vkResetFences(vulkanState.device, 1, &fence.current()));
-    vkCheck(vkQueueSubmit(vulkanState.graphicsQueue, 1, &submit, fence.current()));
+    vulkanState.submitCommandBuffer(submit, fence.current());
 
     // cleanup
     memoryBarriers.clear();

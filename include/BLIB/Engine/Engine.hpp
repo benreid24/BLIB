@@ -15,6 +15,7 @@
 #include <BLIB/Resources.hpp>
 #include <BLIB/Scripts/Manager.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
+#include <BLIB/Util/ThreadPool.hpp>
 #include <stack>
 
 namespace bl
@@ -56,7 +57,6 @@ public:
 
     /**
      * @brief Returns a reference to the engine's script Manager
-     *
      */
     script::Manager& scriptManager();
 
@@ -73,6 +73,11 @@ public:
      * @return input::InputSystem& The user input system
      */
     input::InputSystem& inputSystem();
+
+    /**
+     * @brief Returns the engine thread pool
+     */
+    util::ThreadPool& threadPool();
 
     /**
      * @brief Returns the settings the engine is using
@@ -178,6 +183,7 @@ private:
     ecs::Registry entityRegistry;
     rc::Renderer renderingSystem;
     input::InputSystem input;
+    util::ThreadPool workers;
 
     bool awaitFocus();
     void handleResize(const sf::Event::SizeEvent& resize, bool saveAndSend);
@@ -200,6 +206,8 @@ inline const Settings& Engine::settings() const { return engineSettings; }
 inline Flags& Engine::flags() { return engineFlags; }
 
 inline EngineWindow& Engine::window() { return renderWindow; }
+
+inline util::ThreadPool& Engine::threadPool() { return workers; }
 
 } // namespace engine
 } // namespace bl

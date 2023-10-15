@@ -17,6 +17,7 @@
 #include <array>
 #include <cstdint>
 #include <initializer_list>
+#include <mutex>
 #include <stdexcept>
 #include <utility>
 #include <vector>
@@ -96,6 +97,15 @@ struct VulkanState {
      * @param commandPool The command pool used to allocate the buffer
      */
     void endSingleTimeCommands(VkCommandBuffer commandBuffer, VkCommandPool commandPool = nullptr);
+
+    /**
+     * @brief Performs a synchronized submission of the command buffer to the graphics queue
+     *
+     * @param submitInfo The command buffer(s) to submit
+     * @param fence Optional fence to pass to the submit command
+     * @return The result code from the submit command
+     */
+    VkResult submitCommandBuffer(const VkSubmitInfo& submitInfo, VkFence fence = VK_NULL_HANDLE);
 
     /**
      * @brief Helper function to create a VkBuffer with some parameters
@@ -219,6 +229,11 @@ struct VulkanState {
     DescriptorPool descriptorPool;
     CommonSamplers samplerCache;
     CleanupManager cleanupManager;
+
+    std::mutex cbAllocMutex;
+    std::mutex cbSubmitMutex;
+    std::mutex bufferAllocMutex;
+    std::mutex imageAllocMutex;
 
 private:
     std::uint32_t currentFrame;

@@ -12,18 +12,24 @@ CleanupManager::CleanupManager()
 }
 
 void CleanupManager::flush() {
+    std::unique_lock lock(mutex);
     for (auto& bucket : buckets) {
         for (auto& cb : bucket) { cb(); }
     }
 }
 
-void CleanupManager::add(const Callback& cb) { buckets[addIndex()].emplace_back(cb); }
+void CleanupManager::add(const Callback& cb) {
+    std::unique_lock lock(mutex);
+    buckets[addIndex()].emplace_back(cb);
+}
 
 void CleanupManager::add(Callback&& cb) {
+    std::unique_lock lock(mutex);
     buckets[addIndex()].emplace_back(std::forward<Callback>(cb));
 }
 
 void CleanupManager::onFrameStart() {
+    std::unique_lock lock(mutex);
     for (auto& cb : buckets[clearIndex]) { cb(); }
     buckets[clearIndex].clear();
     clearIndex = clearIndex < Config::MaxConcurrentFrames ? clearIndex + 1 : 0;

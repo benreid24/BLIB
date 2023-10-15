@@ -4,5 +4,6 @@ target_sources(BLIB.t PUBLIC
     IdAllocatorUnbounded.t.cpp
     RangeAllocatorUnbounded.t.cpp
     Signal.t.cpp
+    ThreadPool.t.cpp
     Waiter.t.cpp
 )

@@ -24,6 +24,7 @@ Logger::Logger(int level)
 }
 
 Logger::~Logger() {
+    if (ss.str().back() != '\n') { ss << '\n'; }
     engine::Worker::submit(std::bind(&Config::doWrite, &Config::get(), ss.str(), level));
 }
 

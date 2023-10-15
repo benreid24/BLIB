@@ -461,6 +461,8 @@ void VulkanState::createBuffer(VkDeviceSize size, VkBufferUsageFlags usage,
                                VmaAllocationCreateFlags allocFlags,
                                VkMemoryPropertyFlags properties, VkBuffer* buffer,
                                VmaAllocation* vmaAlloc, VmaAllocationInfo* vmaAllocInfo) {
+    std::unique_lock lock(bufferAllocMutex);
+
     VkBufferCreateInfo bufferInfo{};
     bufferInfo.sType       = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
     bufferInfo.size        = size;
@@ -479,6 +481,8 @@ void VulkanState::createImage(std::uint32_t width, std::uint32_t height, VkForma
                               VkImageTiling tiling, VkImageUsageFlags usage,
                               VkMemoryPropertyFlags properties, VkImage* image,
                               VmaAllocation* vmaAlloc, VmaAllocationInfo* vmaAllocInfo) {
+    std::unique_lock lock(imageAllocMutex);
+
     VkImageCreateInfo imageInfo{};
     imageInfo.sType         = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
     imageInfo.imageType     = VK_IMAGE_TYPE_2D;
@@ -502,6 +506,8 @@ void VulkanState::createImage(std::uint32_t width, std::uint32_t height, VkForma
 }
 
 VkCommandBuffer VulkanState::beginSingleTimeCommands(VkCommandPool pool) {
+    std::unique_lock lock(cbAllocMutex);
+
     VkCommandBufferAllocateInfo allocInfo{};
     allocInfo.sType              = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
     allocInfo.level              = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
@@ -528,10 +534,21 @@ void VulkanState::endSingleTimeCommands(VkCommandBuffer commandBuffer, VkCommand
     submitInfo.commandBufferCount = 1;
     submitInfo.pCommandBuffers    = &commandBuffer;
 
-    vkCheck(vkQueueSubmit(graphicsQueue, 1, &submitInfo, VK_NULL_HANDLE));
-    vkCheck(vkQueueWaitIdle(graphicsQueue));
+    submitCommandBuffer(submitInfo);
 
-    vkFreeCommandBuffers(device, pool != nullptr ? pool : sharedCommandPool, 1, &commandBuffer);
+    pool = pool != nullptr ? pool : sharedCommandPool;
+    cleanupManager.add([this, commandBuffer, pool]() {
+        std::unique_lock lock(cbAllocMutex);
+        vkFreeCommandBuffers(device, pool, 1, &commandBuffer);
+    });
+}
+
+VkResult VulkanState::submitCommandBuffer(const VkSubmitInfo& submitInfo, VkFence fence) {
+    std::unique_lock lock(cbSubmitMutex);
+
+    const auto r = vkQueueSubmit(graphicsQueue, 1, &submitInfo, fence);
+    vkCheck(r);
+    return r;
 }
 
 void VulkanState::transitionImageLayout(VkImage image, VkImageLayout oldLayout,

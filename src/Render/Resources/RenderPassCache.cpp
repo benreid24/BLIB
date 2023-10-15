@@ -73,6 +73,16 @@ void RenderPassCache::addDefaults() {
     swapchainAvailDep.dstStageMask  = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
     swapchainAvailDep.dstAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
 
+    VkSubpassDependency depthDependency{};
+    depthDependency.srcSubpass = VK_SUBPASS_EXTERNAL;
+    depthDependency.dstSubpass = 0;
+    depthDependency.srcStageMask =
+        VK_PIPELINE_STAGE_EARLY_FRAGMENT_TESTS_BIT | VK_PIPELINE_STAGE_LATE_FRAGMENT_TESTS_BIT;
+    depthDependency.dstStageMask =
+        VK_PIPELINE_STAGE_EARLY_FRAGMENT_TESTS_BIT | VK_PIPELINE_STAGE_LATE_FRAGMENT_TESTS_BIT;
+    depthDependency.srcAccessMask = 0;
+    depthDependency.dstAccessMask = VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_WRITE_BIT;
+
     vk::RenderPassParameters sceneParams;
     sceneParams.addAttachment(standardColorAttachment);
     sceneParams.addAttachment(depthAttachment);
@@ -83,6 +93,7 @@ void RenderPassCache::addDefaults() {
             .build());
     sceneParams.addSubpassDependency(renderCompleteDep);
     sceneParams.addSubpassDependency(swapchainAvailDep);
+    sceneParams.addSubpassDependency(depthDependency);
     createRenderPass(Config::RenderPassIds::StandardAttachmentDefault, sceneParams.build());
 
     // primary render pass for final swapchain compositing
@@ -105,6 +116,7 @@ void RenderPassCache::addDefaults() {
             .withDepthAttachment(1, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL)
             .build());
     primaryParams.addSubpassDependency(swapchainAvailDep);
+    primaryParams.addSubpassDependency(depthDependency);
     createRenderPass(Config::RenderPassIds::SwapchainDefault, primaryParams.build());
 }
 

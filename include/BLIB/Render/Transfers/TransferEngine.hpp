@@ -52,6 +52,7 @@ public:
 
 private:
     struct Bucket {
+        std::mutex mutex;
         vk::VulkanState& vulkanState;
         vk::PerFrame<VkCommandBuffer> commandBuffer;
         vk::PerFrame<VkFence> fence;

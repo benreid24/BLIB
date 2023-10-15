@@ -22,9 +22,11 @@ Engine::Engine(const Settings& settings)
     systems().registerSystem<sys::TogglerSystem>(FrameStage::Update0, StateMask::All);
     systems().registerSystem<sys::VelocitySystem>(FrameStage::Animate, StateMask::Running);
     bl::event::Dispatcher::subscribe(&input);
+    workers.start();
 }
 
 Engine::~Engine() {
+    workers.shutdown();
     bl::event::Dispatcher::clearAllListeners();
     if (renderingSystem.vulkanState().device) {
         vkCheck(vkDeviceWaitIdle(renderingSystem.vulkanState().device));
