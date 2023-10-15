@@ -2,6 +2,7 @@
 #define BLIB_RENDER_TRANSFERS_TRANSFERCONTEXT_HPP
 
 #include <BLIB/Vulkan.hpp>
+#include <mutex>
 #include <vector>
 
 namespace bl
@@ -58,13 +59,15 @@ public:
     /**
      * @brief Internal constructor, do not use
      */
-    TransferContext(vk::VulkanState& vulkanState, std::vector<VkBuffer>& stagingBuffers,
+    TransferContext(std::mutex& bucketMutex, vk::VulkanState& vulkanState,
+                    std::vector<VkBuffer>& stagingBuffers,
                     std::vector<VmaAllocation>& stagingAllocs,
                     std::vector<VkMemoryBarrier>& memoryBarriers,
                     std::vector<VkBufferMemoryBarrier>& bufferBarriers,
                     std::vector<VkImageMemoryBarrier>& imageBarriers);
 
 private:
+    std::mutex& bucketMutex;
     vk::VulkanState& vulkanState;
     std::vector<VkBuffer>& stagingBuffers;
     std::vector<VmaAllocation>& stagingAllocs;

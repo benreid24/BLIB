@@ -8,12 +8,14 @@ namespace rc
 {
 namespace tfr
 {
-TransferContext::TransferContext(vk::VulkanState& vs, std::vector<VkBuffer>& stagingBuffers,
+TransferContext::TransferContext(std::mutex& bucketMutex, vk::VulkanState& vs,
+                                 std::vector<VkBuffer>& stagingBuffers,
                                  std::vector<VmaAllocation>& stagingAllocs,
                                  std::vector<VkMemoryBarrier>& memoryBarriers,
                                  std::vector<VkBufferMemoryBarrier>& bufferBarriers,
                                  std::vector<VkImageMemoryBarrier>& imageBarriers)
-: vulkanState(vs)
+: bucketMutex(bucketMutex)
+, vulkanState(vs)
 , stagingBuffers(stagingBuffers)
 , stagingAllocs(stagingAllocs)
 , memoryBarriers(memoryBarriers)
@@ -32,20 +34,25 @@ void TransferContext::createTemporaryStagingBuffer(VkDeviceSize size, VkBuffer& 
         &bufferHandle,
         &alloc,
         &allocInfo);
+
+    std::unique_lock lock(bucketMutex);
     stagingBuffers.emplace_back(bufferHandle);
     stagingAllocs.emplace_back(alloc);
     *mapped = allocInfo.pMappedData;
 }
 
 void TransferContext::registerMemoryBarrier(const VkMemoryBarrier& barrier) {
+    std::unique_lock lock(bucketMutex);
     memoryBarriers.emplace_back(barrier);
 }
 
 void TransferContext::registerBufferBarrier(const VkBufferMemoryBarrier& barrier) {
+    std::unique_lock lock(bucketMutex);
     bufferBarriers.emplace_back(barrier);
 }
 
 void TransferContext::registerImageBarrier(const VkImageMemoryBarrier& barrier) {
+    std::unique_lock lock(bucketMutex);
     imageBarriers.emplace_back(barrier);
 }
 

@@ -108,7 +108,8 @@ void TransferEngine::Bucket::executeTransfers() {
     vkCheck(vkBeginCommandBuffer(commandBuffer.current(), &begin));
 
     // queue transfer commands
-    TransferContext context(vulkanState,
+    TransferContext context(mutex,
+                            vulkanState,
                             stagingBuffers.current(),
                             stagingAllocs.current(),
                             memoryBarriers,

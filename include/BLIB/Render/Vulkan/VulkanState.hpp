@@ -220,7 +220,10 @@ struct VulkanState {
     DescriptorPool descriptorPool;
     CommonSamplers samplerCache;
     CleanupManager cleanupManager;
+
+    std::mutex cbAllocMutex;
     std::mutex bufferAllocMutex;
+    std::mutex imageAllocMutex;
 
 private:
     std::uint32_t currentFrame;
