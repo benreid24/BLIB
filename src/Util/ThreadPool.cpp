@@ -15,7 +15,7 @@ ThreadPool::~ThreadPool() { shutdown(); }
 
 bool ThreadPool::start(unsigned int wc) {
     if (running()) { return false; }
-    if (wc == 0) { wc = std::max(std::jthread::hardware_concurrency(), 4u); }
+    if (wc == 0) { wc = std::max(std::thread::hardware_concurrency(), 4u); }
 
     BL_LOG_INFO << "Thread pool starting with " << wc << " workers";
 
