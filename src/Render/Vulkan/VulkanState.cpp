@@ -527,8 +527,6 @@ VkCommandBuffer VulkanState::beginSingleTimeCommands(VkCommandPool pool) {
 }
 
 void VulkanState::endSingleTimeCommands(VkCommandBuffer commandBuffer, VkCommandPool pool) {
-    std::unique_lock lock(cbAllocMutex); // TODO - use submit method with submission lock
-
     vkCheck(vkEndCommandBuffer(commandBuffer));
 
     VkSubmitInfo submitInfo{};
@@ -536,10 +534,21 @@ void VulkanState::endSingleTimeCommands(VkCommandBuffer commandBuffer, VkCommand
     submitInfo.commandBufferCount = 1;
     submitInfo.pCommandBuffers    = &commandBuffer;
 
-    vkCheck(vkQueueSubmit(graphicsQueue, 1, &submitInfo, VK_NULL_HANDLE));
-    vkCheck(vkQueueWaitIdle(graphicsQueue));
+    submitCommandBuffer(submitInfo);
 
-    vkFreeCommandBuffers(device, pool != nullptr ? pool : sharedCommandPool, 1, &commandBuffer);
+    pool = pool != nullptr ? pool : sharedCommandPool;
+    cleanupManager.add([this, commandBuffer, pool]() {
+        std::unique_lock lock(cbAllocMutex);
+        vkFreeCommandBuffers(device, pool, 1, &commandBuffer);
+    });
+}
+
+VkResult VulkanState::submitCommandBuffer(const VkSubmitInfo& submitInfo, VkFence fence) {
+    std::unique_lock lock(cbSubmitMutex);
+
+    const auto r = vkQueueSubmit(graphicsQueue, 1, &submitInfo, fence);
+    vkCheck(r);
+    return r;
 }
 
 void VulkanState::transitionImageLayout(VkImage image, VkImageLayout oldLayout,

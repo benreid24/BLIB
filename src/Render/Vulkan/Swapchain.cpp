@@ -122,8 +122,7 @@ void Swapchain::completeFrame() {
     submitInfo.pSignalSemaphores    = signalSemaphores;
     submitInfo.commandBufferCount   = 1;
     submitInfo.pCommandBuffers      = &frameData.current().commandBuffer;
-    if (vkQueueSubmit(
-            vulkanState.graphicsQueue, 1, &submitInfo, frameData.current().commandBufferFence) !=
+    if (vulkanState.submitCommandBuffer(submitInfo, frameData.current().commandBufferFence) !=
         VK_SUCCESS) {
         throw std::runtime_error("Failed to submit draw command buffer");
     }

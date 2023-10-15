@@ -23,18 +23,28 @@ void Systems::update(FrameStage::V startStage, FrameStage::V endStage, StateMask
     const auto end = systems.begin() + endStage;
     auto& tp       = engine.threadPool();
 
+    FrameStage::V i = startStage;
     for (auto it = beg; it != end; ++it) {
         if (!it->tasks.empty()) {
             tp.queueTask([it]() { it->drainTasks(); });
         }
-        for (auto& system : it->systems) {
+        if (it->systems.size() > 1) {
+            for (auto& system : it->systems) {
+                if ((system.mask & stateMask) != 0) {
+                    tp.queueTask([&system, it, dt, realDt, lag, realLag]() {
+                        system.system->update(it->mutex, dt, realDt, lag, realLag);
+                    });
+                }
+            }
+        }
+        else if (!it->systems.empty()) {
+            auto& system = it->systems.front();
             if ((system.mask & stateMask) != 0) {
-                tp.queueTask([&system, it, dt, realDt, lag, realLag]() {
-                    system.system->update(it->mutex, dt, realDt, lag, realLag);
-                });
+                system.system->update(it->mutex, dt, realDt, lag, realLag);
             }
         }
         tp.drain();
+        i = static_cast<FrameStage::V>(static_cast<unsigned int>(i) + 1);
     }
 }
 
