@@ -46,7 +46,7 @@ void Observer::update(float dt) {
     }
 }
 
-void Observer::pushScene(Scene* s) {
+void Observer::pushScene(SceneRef s) {
     scenes.emplace_back(engine, renderer, this, graphAssets, s);
     onSceneAdd();
 }
@@ -57,8 +57,8 @@ Overlay* Observer::createSceneOverlay() {
         throw std::runtime_error("Tried to create Overlay with no current scene");
     }
 
-    if (scenes.back().overlay) { renderer.scenePool().destroyScene(scenes.back().overlay); }
-    scenes.back().overlay      = renderer.scenePool().allocateScene<Overlay>();
+    scenes.back().overlayRef   = renderer.scenePool().allocateScene<Overlay>();
+    scenes.back().overlay      = static_cast<Overlay*>(scenes.back().overlayRef.get());
     scenes.back().overlayIndex = scenes.back().overlay->registerObserver();
     return scenes.back().overlay;
 }
@@ -74,37 +74,19 @@ Overlay* Observer::getOrCreateSceneOverlay() {
 
 Overlay* Observer::getCurrentOverlay() { return scenes.empty() ? nullptr : scenes.back().overlay; }
 
-Scene* Observer::popSceneNoRelease() {
-    Scene* s = scenes.back().scene;
-    if (scenes.back().overlay) { renderer.scenePool().destroyScene(scenes.back().overlay); }
+SceneRef Observer::popSceneNoRelease() {
+    SceneRef s = scenes.back().scene;
     scenes.pop_back();
     onSceneChange();
     return s;
 }
 
 void Observer::popScene() {
-    Scene* s = scenes.back().scene;
-    renderer.scenePool().destroyScene(s);
-    if (scenes.back().overlay) { renderer.scenePool().destroyScene(scenes.back().overlay); }
     scenes.pop_back();
     onSceneChange();
 }
 
-void Observer::clearScenes() {
-    while (!scenes.empty()) {
-        Scene* s = scenes.back().scene;
-        if (scenes.back().overlay) { renderer.scenePool().destroyScene(scenes.back().overlay); }
-        scenes.pop_back();
-        renderer.scenePool().destroyScene(s); // TODO - multi free
-    }
-}
-
-void Observer::clearScenesNoRelease() {
-    for (auto& scene : scenes) {
-        if (scene.overlay) { renderer.scenePool().destroyScene(scene.overlay); }
-    }
-    scenes.clear();
-}
+void Observer::clearScenes() { scenes.clear(); }
 
 void Observer::onSceneAdd() {
     scenes.back().observerIndex = scenes.back().scene->registerObserver();
@@ -113,7 +95,7 @@ void Observer::onSceneAdd() {
 
 void Observer::onSceneChange() {
     if (hasScene()) {
-        graphAssets.replaceAsset<rgi::SceneAsset>(scenes.back().scene);
+        graphAssets.replaceAsset<rgi::SceneAsset>(scenes.back().scene.get());
         if (scenes.back().graph.needsRepopulation()) {
             scenes.back().graph.populate(renderer.getRenderStrategy(), *scenes.back().scene);
         }

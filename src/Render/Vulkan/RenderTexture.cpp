@@ -13,7 +13,7 @@ namespace vk
 {
 RenderTexture::RenderTexture()
 : renderer(nullptr)
-, scene(nullptr) {
+, scene() {
     viewport.minDepth = 0.f;
     viewport.maxDepth = 1.f;
 
@@ -65,11 +65,10 @@ void RenderTexture::destroy() {
         depthBuffer.destroy();
         renderer->texturePool().releaseTexture(texture);
         renderer = nullptr;
-        // TODO - should we refcount scenes?
     }
 }
 
-void RenderTexture::setScene(Scene* s) {
+void RenderTexture::setScene(SceneRef s) {
     scene = s;
     onSceneSet();
 }
@@ -81,7 +80,7 @@ void RenderTexture::onSceneSet() {
 }
 
 void RenderTexture::removeScene(bool cam) {
-    scene = nullptr;
+    scene.release();
     if (cam) { camera.release(); }
 }
 

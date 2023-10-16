@@ -2,10 +2,12 @@
 #define BLIB_RENDER_RESOURCES_SCENEPOOL_HPP
 
 #include <BLIB/Containers/ObjectWrapper.hpp>
+#include <BLIB/Render/Resources/SceneRef.hpp>
 #include <BLIB/Render/Scenes/BatchedScene.hpp>
 #include <BLIB/Util/IdAllocator.hpp>
-#include <array>
+#include <atomic>
 #include <cstdint>
+#include <list>
 #include <mutex>
 #include <type_traits>
 
@@ -49,37 +51,82 @@ public:
      * @return The new scene
      */
     template<typename TScene, typename... TArgs>
-    TScene* allocateScene(TArgs&&... args);
-
-    /**
-     * @brief Destroys the given scene and returns it to the pool
-     *
-     * @param scene The scene to destroy and reuse
-     */
-    void destroyScene(Scene* scene);
+    SceneRef allocateScene(TArgs&&... args);
 
 private:
+    struct Entry {
+        ScenePool* owner;
+        std::unique_ptr<Scene> scene;
+        std::atomic_uint refCount;
+
+        Entry(ScenePool* owner, Scene* s)
+        : owner(owner)
+        , scene(s)
+        , refCount(0) {}
+    };
+
     engine::Engine& engine;
-    std::vector<std::unique_ptr<Scene>> scenes;
+    std::list<Entry> scenes;
     std::mutex mutex;
+
+    void release(Entry* entry);
+
+    friend class SceneRef;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 template<typename TScene, typename... TArgs>
-TScene* ScenePool::allocateScene(TArgs&&... args) {
+SceneRef ScenePool::allocateScene(TArgs&&... args) {
     static_assert(std::is_base_of_v<Scene, TScene>, "TScene must derive from Scene");
     static_assert(std::is_constructible_v<TScene, engine::Engine&, TArgs...>,
                   "TScene constructor must accept an Engine& as the first parameter");
 
     std::unique_lock lock(mutex);
 
-    TScene* ns = new TScene(engine, std::forward<TArgs>(args)...);
-    scenes.emplace_back(ns);
-    return ns;
+    auto& entry = scenes.emplace_back(this, new TScene(engine, std::forward<TArgs>(args)...));
+    return SceneRef(&entry);
 }
 
 } // namespace res
+
+inline SceneRef::SceneRef(void* handle)
+: handle(handle) {
+    res::ScenePool::Entry* entry = static_cast<res::ScenePool::Entry*>(handle);
+    scene                        = entry->scene.get();
+    incrementRefCount();
+}
+
+inline SceneRef::SceneRef(const SceneRef& copy)
+: scene(copy.scene)
+, handle(copy.handle) {
+    incrementRefCount();
+}
+
+inline SceneRef& SceneRef::operator=(const SceneRef& c) {
+    decrementRefCount();
+    scene  = c.scene;
+    handle = c.handle;
+    incrementRefCount();
+    return *this;
+}
+
+inline void SceneRef::incrementRefCount() {
+    if (scene) { ++static_cast<res::ScenePool::Entry*>(handle)->refCount; }
+}
+
+inline void SceneRef::decrementRefCount() {
+    if (scene) {
+        res::ScenePool::Entry* entry = static_cast<res::ScenePool::Entry*>(handle);
+        if (--entry->refCount == 0) { entry->owner->release(entry); }
+    }
+}
+
+inline void SceneRef::release() {
+    decrementRefCount();
+    scene = nullptr;
+}
+
 } // namespace rc
 } // namespace bl
 

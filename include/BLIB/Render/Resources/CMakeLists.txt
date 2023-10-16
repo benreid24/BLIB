@@ -6,6 +6,7 @@ target_sources(BLIB PUBLIC
     PipelineLayoutCache.hpp
     RenderPassCache.hpp
     ScenePool.hpp
+    SceneRef.hpp
     ShaderModuleCache.hpp
     TexturePool.hpp
     TextureRef.hpp

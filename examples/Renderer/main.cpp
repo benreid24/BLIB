@@ -49,7 +49,7 @@ public:
         p1.setClearColor({0.f, 0.f, 1.f, 1.f});
 
         // create 2d scene and camera for observer 1
-        bl::rc::Scene* scene = p1.pushScene<bl::rc::scene::Scene2D>();
+        bl::rc::SceneRef scene = p1.pushScene<bl::rc::scene::Scene2D>();
         auto* p1cam =
             p1.setCamera<bl::cam::Camera2D>(sf::FloatRect{0.f, 0.f, 1920.f, 1080.f * 0.5f});
         p1cam->setRotation(15.f);
@@ -128,7 +128,7 @@ public:
 
         // setup render texture
         renderTexture.create(engine.renderer(), {128, 128});
-        bl::rc::Overlay* rto = engine.renderer().scenePool().allocateScene<bl::rc::Overlay>();
+        bl::rc::SceneRef rto = engine.renderer().scenePool().allocateScene<bl::rc::Overlay>();
         renderTexture.setScene(rto);
         renderTexture.setCamera<bl::rc::ovy::OverlayCamera>();
         renderTexture.setClearColor({0.f, 0.0f, 0.7f, 0.4f});

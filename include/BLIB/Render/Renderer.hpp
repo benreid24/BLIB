@@ -77,21 +77,12 @@ public:
      * @return A pointer to the new scene active in all observers
      */
     template<typename TScene, typename... TArgs>
-    TScene* pushSceneToAllObservers(TArgs&&... args);
+    SceneRef pushSceneToAllObservers(TArgs&&... args);
 
     /**
      * @brief Removes the current scene from all observers
      */
     void popSceneFromAllObservers();
-
-    /**
-     * @brief Pops the current scene from all observers and returns it without releasing it from the
-     *        scene pool. Note that only a single scene is returned, so care should be taken to only
-     *        call this when all observers are using the same scene
-     *
-     * @return The scene that was removed
-     */
-    Scene* popSceneFromAllObserversNoRelease();
 
     /**
      * @brief Returns the common observer for the renderer. Use this to render scenes that should be
@@ -254,28 +245,27 @@ inline constexpr Observer& Renderer::getCommonObserver() { return commonObserver
 inline Observer& Renderer::getObserver(unsigned int i) { return *observers[i]; }
 
 template<typename TScene, typename... TArgs>
-TScene* Renderer::pushSceneToAllObservers(TArgs&&... args) {
-    TScene* s = scenes.allocateScene<TScene, TArgs...>(std::forward<TArgs>(args)...);
+SceneRef Renderer::pushSceneToAllObservers(TArgs&&... args) {
+    SceneRef s = scenes.allocateScene<TScene, TArgs...>(std::forward<TArgs>(args)...);
     for (auto& o : observers) { o->pushScene(s); }
     return s;
 }
 
 template<typename TScene, typename... TArgs>
-TScene* Observer::pushScene(TArgs&&... args) {
+SceneRef Observer::pushScene(TArgs&&... args) {
     static_assert(std::is_base_of_v<Scene, TScene>, "Scene must derive from Scene");
 
-    TScene* s = renderer.scenePool().allocateScene<TScene, TArgs...>(std::forward<TArgs>(args)...);
+    SceneRef s = renderer.scenePool().allocateScene<TScene, TArgs...>(std::forward<TArgs>(args)...);
     scenes.emplace_back(engine, renderer, this, graphAssets, s);
     onSceneAdd();
     return s;
 }
 
 template<typename TScene, typename... TArgs>
-TScene* vk::RenderTexture::setScene(TArgs&&... args) {
-    TScene* s = renderer->scenePool().allocateScene<TScene, TArgs...>(std::forward<TArgs>(args)...);
-    scene     = s;
+SceneRef vk::RenderTexture::setScene(TArgs&&... args) {
+    scene = renderer->scenePool().allocateScene<TScene, TArgs...>(std::forward<TArgs>(args)...);
     onSceneSet();
-    return s;
+    return scene;
 }
 
 template<typename T, typename... TArgs>

@@ -7,6 +7,7 @@
 #include <BLIB/Render/Graph/RenderGraph.hpp>
 #include <BLIB/Render/Overlays/Overlay.hpp>
 #include <BLIB/Render/Overlays/OverlayCamera.hpp>
+#include <BLIB/Render/Resources/SceneRef.hpp>
 #include <BLIB/Render/Scenes/Scene.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
 #include <BLIB/Render/Vulkan/StandardAttachmentBuffers.hpp>
@@ -48,14 +49,14 @@ public:
      * @return The newly created, now active, scene
      */
     template<typename TScene, typename... TArgs>
-    TScene* pushScene(TArgs&&... args);
+    SceneRef pushScene(TArgs&&... args);
 
     /**
      * @brief Pushes an existing scene onto the Observer's scene stack
      *
      * @param scene The scene to make active
      */
-    void pushScene(Scene* scene);
+    void pushScene(SceneRef scene);
 
     /**
      * @brief Creates a new Overlay for the current scene for this Observer. Replaces the existing
@@ -83,7 +84,7 @@ public:
      *
      * @return The scene that was removed
      */
-    Scene* popSceneNoRelease();
+    SceneRef popSceneNoRelease();
 
     /**
      * @brief Removes and releases the current active scene to the scene pool
@@ -91,16 +92,9 @@ public:
     void popScene();
 
     /**
-     * @brief Removes all scenes from the observer and returns them to the scene pool. Also clears
-     *       all cameras. This should be called for observers being destructed if they own their own
-     *       scenes. Care must be taken not to release scenes held by other observers
+     * @brief Removes all scenes from the observer
      */
     void clearScenes();
-
-    /**
-     * @brief Removes all scenes but does not return them to the scene pool. Also clears all cameras
-     */
-    void clearScenesNoRelease();
 
     /**
      * @brief Returns the number of scenes in this observer's scene stack
@@ -147,7 +141,8 @@ public:
 
 private:
     struct SceneInstance {
-        Scene* scene;
+        SceneRef scene;
+        SceneRef overlayRef;
         Overlay* overlay;
         rg::RenderGraph graph;
         std::uint32_t observerIndex;
@@ -155,7 +150,7 @@ private:
         std::unique_ptr<cam::Camera> camera;
 
         SceneInstance(engine::Engine& e, Renderer& r, Observer* owner, rg::AssetPool& pool,
-                      Scene* s)
+                      SceneRef s)
         : scene(s)
         , overlay(nullptr)
         , graph(e, r, pool, owner)

@@ -11,22 +11,20 @@ namespace rc
 namespace res
 {
 ScenePool::ScenePool(engine::Engine& e)
-: engine(e) {
-    scenes.reserve(16);
-}
+: engine(e) {}
 
 void ScenePool::cleanup() {
     std::unique_lock lock(mutex);
     scenes.clear();
 }
 
-void ScenePool::destroyScene(Scene* scene) {
+void ScenePool::release(Entry* entry) {
     vkDeviceWaitIdle(engine.renderer().vulkanState().device);
     std::unique_lock lock(mutex);
 
-    bl::event::Dispatcher::dispatch<rc::event::SceneDestroyed>({scene});
+    bl::event::Dispatcher::dispatch<rc::event::SceneDestroyed>({entry->scene.get()});
     for (auto it = scenes.begin(); it != scenes.end(); ++it) {
-        if (it->get() == scene) {
+        if (&(*it) == entry) {
             scenes.erase(it);
             return;
         }

@@ -2,11 +2,9 @@
 #include "Controls.hpp"
 #include <BLIB/Cameras.hpp>
 
-bl::engine::State::Ptr RebindState::create(bl::engine::Engine& engine, unsigned int ctrl) {
-    return Ptr{new RebindState(engine, ctrl)};
-}
+bl::engine::State::Ptr RebindState::create(unsigned int ctrl) { return Ptr{new RebindState(ctrl)}; }
 
-RebindState::RebindState(bl::engine::Engine& engine, unsigned int ctrl)
+RebindState::RebindState(unsigned int ctrl)
 : State(bl::engine::StateMask::All)
 , configurator()
 , ctrl(ctrl)
@@ -32,7 +30,7 @@ void RebindState::activate(bl::engine::Engine& engine) {
         text.getSection().setString("Press the desired control (keyboard/mouse only)");
     }
 
-    bl::rc::Scene* scene = engine.renderer().getObserver().pushScene<bl::rc::scene::Scene2D>();
+    bl::rc::SceneRef scene = engine.renderer().getObserver().pushScene<bl::rc::scene::Scene2D>();
     engine.renderer().getObserver().setCamera<bl::cam::Camera2D>(
         sf::FloatRect{0.f, 0.f, 800.f, 600.f});
     text.addToScene(scene, bl::rc::UpdateSpeed::Static);

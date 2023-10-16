@@ -223,20 +223,6 @@ void Renderer::popSceneFromAllObservers() {
     for (auto& o : observers) { o->popScene(); }
 }
 
-Scene* Renderer::popSceneFromAllObserversNoRelease() {
-    Scene* s = nullptr;
-    for (auto& o : observers) {
-        Scene* ns = o->popSceneNoRelease();
-#ifdef BLIB_DEBUG
-        if (s != nullptr && ns != s) {
-            BL_LOG_ERROR << "Popping scene without release but observers have different scenes";
-        }
-#endif
-        s = ns;
-    }
-    return s;
-}
-
 unsigned int Renderer::observerCount() const { return observers.size(); }
 
 void Renderer::assignObserverRegions() {
