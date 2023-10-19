@@ -5,16 +5,14 @@
 
 namespace bl
 {
-namespace rc
-{
-namespace ovy
+namespace cam
 {
 /**
  * @brief Special camera that provides a fixed view for overlays
  *
  * @ingroup Renderer
  */
-class OverlayCamera : public cam::Camera {
+class OverlayCamera : public Camera {
 public:
     /**
      * @brief Creates the overlay camera
@@ -32,8 +30,7 @@ private:
     virtual void refreshProjMatrix(glm::mat4& proj, const VkViewport& viewport) override;
 };
 
-} // namespace ovy
-} // namespace rc
+} // namespace cam
 } // namespace bl
 
 #endif

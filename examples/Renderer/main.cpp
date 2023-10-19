@@ -130,7 +130,7 @@ public:
         renderTexture.create(engine.renderer(), {128, 128});
         bl::rc::SceneRef rto = engine.renderer().scenePool().allocateScene<bl::rc::Overlay>();
         renderTexture.setScene(rto);
-        renderTexture.setCamera<bl::rc::ovy::OverlayCamera>();
+        renderTexture.setCamera<bl::cam::OverlayCamera>();
         renderTexture.setClearColor({0.f, 0.0f, 0.7f, 0.4f});
 
         renderTextureInnerSprite.create(engine, texture);

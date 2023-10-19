@@ -2,11 +2,11 @@
 #define BLIB_RENDER_OBSERVER_HPP
 
 #include <BLIB/Cameras/Camera.hpp>
+#include <BLIB/Cameras/OverlayCamera.hpp>
 #include <BLIB/Render/Graph/AssetPool.hpp>
 #include <BLIB/Render/Graph/Assets/FinalSwapframeAsset.hpp>
 #include <BLIB/Render/Graph/RenderGraph.hpp>
 #include <BLIB/Render/Overlays/Overlay.hpp>
-#include <BLIB/Render/Overlays/OverlayCamera.hpp>
 #include <BLIB/Render/Resources/SceneRef.hpp>
 #include <BLIB/Render/Scenes/Scene.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
@@ -168,7 +168,7 @@ private:
     rgi::FinalSwapframeAsset* swapframeAsset;
     std::vector<SceneInstance> scenes;
     VkClearValue clearColors[2];
-    ovy::OverlayCamera overlayCamera;
+    cam::OverlayCamera overlayCamera;
     glm::mat4 overlayProjView;
 
     Observer(engine::Engine& engine, Renderer& renderer, rg::AssetFactory& factory, bool isCommon);

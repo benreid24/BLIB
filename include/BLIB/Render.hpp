@@ -62,7 +62,6 @@
 #include <BLIB/Render/Graph/Tasks/ForwardRenderTask.hpp>
 #include <BLIB/Render/Observer.hpp>
 #include <BLIB/Render/Overlays/Overlay.hpp>
-#include <BLIB/Render/Overlays/OverlayCamera.hpp>
 #include <BLIB/Render/Overlays/OverlayObject.hpp>
 #include <BLIB/Render/Primitives/DrawParameters.hpp>
 #include <BLIB/Render/Primitives/Vertex.hpp>

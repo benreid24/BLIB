@@ -1,13 +1,11 @@
-#include <BLIB/Render/Overlays/OverlayCamera.hpp>
+#include <BLIB/Cameras/OverlayCamera.hpp>
 
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/transform.hpp>
 
 namespace bl
 {
-namespace rc
-{
-namespace ovy
+namespace cam
 {
 OverlayCamera::OverlayCamera()
 : Camera() {
@@ -23,6 +21,5 @@ void OverlayCamera::refreshProjMatrix(glm::mat4& proj, const VkViewport&) {
     proj = glm::ortho(0.f, 1.f, 0.f, 1.f);
 }
 
-} // namespace ovy
-} // namespace rc
+} // namespace cam
 } // namespace bl
