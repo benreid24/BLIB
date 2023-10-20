@@ -128,13 +128,16 @@ public:
 
         // setup render texture
         renderTexture.create(engine.renderer(), {128, 128});
-        bl::rc::SceneRef rto = engine.renderer().scenePool().allocateScene<bl::rc::Overlay>();
+        bl::rc::SceneRef rto =
+            engine.renderer().scenePool().allocateScene<bl::rc::scene::Scene2D>();
         renderTexture.setScene(rto);
-        renderTexture.setCamera<bl::cam::OverlayCamera>();
+        renderTexture.setCamera<bl::cam::Camera2D>(sf::FloatRect{0.f, 0.f, 1.f, 1.f});
         renderTexture.setClearColor({0.f, 0.0f, 0.7f, 0.4f});
 
         renderTextureInnerSprite.create(engine, texture);
-        renderTextureInnerSprite.getOverlayScaler().scaleToWidthPercent(1.f);
+        renderTextureInnerSprite.getTransform().setScale(
+            {1.f / renderTextureInnerSprite.getLocalSize().x,
+             1.f / renderTextureInnerSprite.getLocalSize().y});
         renderTextureInnerSprite.getTransform().setPosition({0.f, 0.f});
         renderTextureInnerSprite.addToScene(rto, bl::rc::UpdateSpeed::Static);
 
