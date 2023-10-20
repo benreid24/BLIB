@@ -178,5 +178,9 @@ void Shape2D::update() {
     component().commit();
 }
 
+void Shape2D::scaleToSize(const glm::vec2& size) {
+    getTransform().setScale({size.x / localBounds.width, size.y / localBounds.height});
+}
+
 } // namespace gfx
 } // namespace bl

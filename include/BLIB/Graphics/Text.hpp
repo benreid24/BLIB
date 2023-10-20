@@ -157,6 +157,13 @@ public:
      */
     void commit();
 
+    /**
+     * @brief Helper method to set the scale so that the entity is a certain size
+     *
+     * @param size The size to scale to
+     */
+    virtual void scaleToSize(const glm::vec2& size) override;
+
 private:
     class Iter {
     public:

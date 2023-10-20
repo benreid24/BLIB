@@ -257,5 +257,9 @@ void Text::queueCommit() {
     }
 }
 
+void Text::scaleToSize(const glm::vec2& size) {
+    getTransform().setScale(size / OverlayScalable::getLocalSize());
+}
+
 } // namespace gfx
 } // namespace bl

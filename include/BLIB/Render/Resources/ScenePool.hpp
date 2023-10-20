@@ -71,7 +71,7 @@ private:
 
     void release(Entry* entry);
 
-    friend class SceneRef;
+    friend class bl::rc::SceneRef;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////

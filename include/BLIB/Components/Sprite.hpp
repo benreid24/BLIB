@@ -49,7 +49,7 @@ public:
      * @param texture The texture to render
      * @param region The region of the texture to render
      */
-    void create(rc::Renderer& renderer, const rc::res::TextureRef& texture,
+    void create(rc::Renderer* renderer, const rc::res::TextureRef& texture,
                 sf::FloatRect region = {});
 
     /**

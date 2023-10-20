@@ -69,7 +69,7 @@ public:
         // use SFML-like class to make another
         sprite.create(engine, texture);
         sprite.getTransform().setPosition({1920.f * 0.75f, 1080.f * 0.25f});
-        sprite.getTransform().setScale({150.f / texture->size().x, 150.f / texture->size().y});
+        sprite.scaleToSize({150.f, 150.f});
         sprite.getTransform().setOrigin(texture->size() * 0.5f);
         sprite.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
