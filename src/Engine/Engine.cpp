@@ -235,6 +235,7 @@ bool Engine::run(State::Ptr initialState) {
                 BL_LOG_INFO << "New engine state (popped): " << states.top()->name();
                 engineFlags.clear();
                 states.top()->activate(*this);
+                renderingSystem.texturePool().releaseUnused();
                 bl::event::Dispatcher::dispatch<event::StateChange>({states.top(), prev});
             }
             else if (engineFlags.active(Flags::_priv_ReplaceState)) {
@@ -246,6 +247,7 @@ bool Engine::run(State::Ptr initialState) {
                 engineFlags.clear();
                 newState.reset();
                 states.top()->activate(*this);
+                renderingSystem.texturePool().releaseUnused();
                 bl::event::Dispatcher::dispatch<event::StateChange>({states.top(), prev});
             }
             else if (engineFlags.active(Flags::_priv_PushState)) {
@@ -256,6 +258,7 @@ bool Engine::run(State::Ptr initialState) {
                 engineFlags.clear();
                 newState.reset();
                 states.top()->activate(*this);
+                renderingSystem.texturePool().releaseUnused();
                 bl::event::Dispatcher::dispatch<event::StateChange>({states.top(), prev});
             }
 

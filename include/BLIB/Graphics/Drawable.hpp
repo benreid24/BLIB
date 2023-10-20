@@ -189,10 +189,7 @@ Drawable<TCom, TSys>::Drawable()
 
 template<typename TCom, typename TSys>
 Drawable<TCom, TSys>::~Drawable() {
-    if (enginePtr && ecsId != ecs::InvalidEntity) {
-        onRemove();
-        enginePtr->ecs().destroyEntity(ecsId);
-    }
+    if (enginePtr && ecsId != ecs::InvalidEntity) { enginePtr->ecs().destroyEntity(ecsId); }
 }
 
 template<typename TCom, typename TSys>
