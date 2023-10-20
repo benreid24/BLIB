@@ -102,9 +102,9 @@ public:
         // create overlay and add sprite for observer 2
         bl::rc::Overlay* overlay = p2.getOrCreateSceneOverlay();
         messageBox.create(engine, messageBoxTxtr);
-        messageBox.getTransform().setPosition({0.5f, 0.85f});
         messageBox.getTransform().setOrigin(messageBox.getTexture()->size() * 0.5f);
         messageBox.getOverlayScaler().scaleToHeightPercent(0.3f);
+        messageBox.getOverlayScaler().positionInParentSpace({0.5f, 0.85f});
         messageBox.setScissorToSelf();
         messageBox.addToScene(overlay, bl::rc::UpdateSpeed::Static);
 
@@ -142,8 +142,8 @@ public:
         renderTextureInnerSprite.addToScene(rto, bl::rc::UpdateSpeed::Static);
 
         renderTextureOuterSprite.create(engine, renderTexture.getTexture());
-        renderTextureOuterSprite.getTransform().setPosition({0.05f, 0.1f});
         renderTextureOuterSprite.getOverlayScaler().scaleToHeightPercent(0.15f);
+        renderTextureOuterSprite.getOverlayScaler().positionInParentSpace({0.05f, 0.1f});
         renderTextureOuterSprite.addToScene(overlay, bl::rc::UpdateSpeed::Static);
 
         // subscribe to window events
@@ -244,6 +244,8 @@ private:
 };
 
 int main() {
+    bl::cam::OverlayCamera::setOverlayCoordinateSpace(1920.f * 0.5f, 1080.f * 0.5f * 0.5f);
+
     const bl::engine::Settings engineSettings = bl::engine::Settings().withWindowParameters(
         bl::engine::Settings::WindowParameters()
             .withVideoMode(sf::VideoMode(1920, 1080, 32))

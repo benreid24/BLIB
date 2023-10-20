@@ -34,6 +34,11 @@ public:
      */
     static void setOverlayCoordinateSpace(float width, float height);
 
+    /**
+     * @brief Returns the size of the Overlay coordinate space
+     */
+    static const glm::vec2& getOverlayCoordinateSpace();
+
 private:
     unsigned int settingVersion;
 
