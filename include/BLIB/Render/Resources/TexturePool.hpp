@@ -132,6 +132,7 @@ private:
     TexturePool(vk::VulkanState& vulkanState);
     void init();
     void cleanup();
+    void onFrameStart();
 
     TextureRef allocateTexture();
     void finalizeNewTexture(std::uint32_t i, VkSampler sampler);

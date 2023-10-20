@@ -142,6 +142,7 @@ void Renderer::update(float dt) {
 
 void Renderer::renderFrame() {
     // kick off transfers
+    textures.onFrameStart();
     for (vk::RenderTexture* rt : renderTextures) { rt->handleDescriptorSync(); }
     if (commonObserver.hasScene()) { commonObserver.handleDescriptorSync(); }
     else {

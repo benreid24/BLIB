@@ -224,6 +224,8 @@ TextureRef TexturePool::getOrLoadTexture(const std::string& path, VkSampler samp
     return txtr;
 }
 
+void TexturePool::onFrameStart() { textures.commitDescriptorUpdates(); }
+
 } // namespace res
 } // namespace rc
 } // namespace bl

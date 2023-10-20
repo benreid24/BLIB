@@ -106,6 +106,12 @@ public:
     void updateTexture(vk::Texture* texture);
 
     /**
+     * @brief Performs the descriptor updates for all queued textures. Waits for the device to be
+     *        idle only if there are queued textures
+     */
+    void commitDescriptorUpdates();
+
+    /**
      * @brief Helper method to send descriptor writes for the given texture across a batch of
      *        texture arrays. Useful for uses like MaterialPool where each id has several associated
      *        textures. This method resets the texture to the error image for each array
@@ -128,6 +134,7 @@ private:
     std::vector<vk::Texture> textures;
     VkDescriptorSet descriptorSet;
     VkDescriptorSet rtDescriptorSet;
+    std::vector<vk::Texture*> queuedUpdates;
 
     friend class vk::Texture;
 };
