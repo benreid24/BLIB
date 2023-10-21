@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::rc::ds::DescriptorSetFactoryCache Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,32 +66,195 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01824.html">bl</a></li><li class="navelem"><a class="el" href="a01836.html">rc</a></li><li class="navelem"><a class="el" href="a01869.html">rg</a></li><li class="navelem"><a class="el" href="a03009.html">Asset</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01830.html">bl</a></li><li class="navelem"><a class="el" href="a01842.html">rc</a></li><li class="navelem"><a class="el" href="a01873.html">ds</a></li><li class="navelem"><a class="el" href="a03006.html">DescriptorSetFactoryCache</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
+<a href="a03003.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::rc::rg::Asset Member List</div>  </div>
+<div class="title">bl::rc::ds::DescriptorSetFactoryCache Class Reference<div class="ingroups"><a class="el" href="a01817.html">Renderer</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a03009.html">bl::rc::rg::Asset</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a03009.html#ab984db5a4ee19a0df80425a62a9917bb">Asset</a>(std::string_view tag)</td><td class="entry"><a class="el" href="a03009.html">bl::rc::rg::Asset</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a03009.html#a8a2809ed6d9c5add58711e4387945e5c">AssetPool</a> class</td><td class="entry"><a class="el" href="a03009.html">bl::rc::rg::Asset</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a03009.html#aacadff13b18b866c449d6543b8b5d0d4">AssetRef</a> class</td><td class="entry"><a class="el" href="a03009.html">bl::rc::rg::Asset</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a03009.html#a5c8499ec4bafae0119028310732e4f0b">doCreate</a>(engine::Engine &amp;engine, Renderer &amp;renderer, Observer *observer)=0</td><td class="entry"><a class="el" href="a03009.html">bl::rc::rg::Asset</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a03009.html#ab78fbbf18304eeb57015200c5e7b60b1">doPrepareForInput</a>(const ExecutionContext &amp;context)=0</td><td class="entry"><a class="el" href="a03009.html">bl::rc::rg::Asset</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a03009.html#ac4f55b304bd6b766189a129fdef93fec">doPrepareForOutput</a>(const ExecutionContext &amp;context)=0</td><td class="entry"><a class="el" href="a03009.html">bl::rc::rg::Asset</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a03009.html#a3df08d0a98f5610cd407847d32b817c9">getTag</a>() const</td><td class="entry"><a class="el" href="a03009.html">bl::rc::rg::Asset</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a03009.html#ae8616549439d5f18e19a25f3a898a306">isExternal</a>() const</td><td class="entry"><a class="el" href="a03009.html">bl::rc::rg::Asset</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a03009.html#a776ad5f3945240fe50246c49982f9cee">RenderGraph</a> class</td><td class="entry"><a class="el" href="a03009.html">bl::rc::rg::Asset</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a03009.html#a364f0ec0f68e25d421423d023294bfbf">~Asset</a>()=default</td><td class="entry"><a class="el" href="a03009.html">bl::rc::rg::Asset</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-</table></div><!-- contents -->
+<p>Internal cache for descriptor set factories. Ensures that only one instance of each derived factory type exists in the renderer and ensures that each factory type is initialized exactly once and cleaned up during renderer cleanup.  
+ <a href="a03006.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00614_source.html">DescriptorSetFactoryCache.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ae7fa86995060f4e006707e0472f4627a"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ae7fa86995060f4e006707e0472f4627a"><td class="memTemplItemLeft" align="right" valign="top">T *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a03006.html#ae7fa86995060f4e006707e0472f4627a">getFactory</a> ()</td></tr>
+<tr class="memdesc:ae7fa86995060f4e006707e0472f4627a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a pointer to a contained factory of the given type, or nullptr if not found.  <a href="a03006.html#ae7fa86995060f4e006707e0472f4627a">More...</a><br /></td></tr>
+<tr class="separator:ae7fa86995060f4e006707e0472f4627a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28f61c708e0e041938fce05317a1c071"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03002.html">DescriptorSetFactory</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03006.html#a28f61c708e0e041938fce05317a1c071">getOrAddFactory</a> (std::type_index derivedType, std::unique_ptr&lt; <a class="el" href="a03002.html">DescriptorSetFactory</a> &gt; &amp;&amp;factory)</td></tr>
+<tr class="memdesc:a28f61c708e0e041938fce05317a1c071"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a pointer to the correct instance of the factory to use for the given derived type. Takes ownership and initializes the passed in factory if it is the first copy.  <a href="a03006.html#a28f61c708e0e041938fce05317a1c071">More...</a><br /></td></tr>
+<tr class="separator:a28f61c708e0e041938fce05317a1c071"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a96cacebb79b14ad001e964c308ef1af9"><td class="memTemplParams" colspan="2">template&lt;typename T , typename... TArgs&gt; </td></tr>
+<tr class="memitem:a96cacebb79b14ad001e964c308ef1af9"><td class="memTemplItemLeft" align="right" valign="top">T *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a03006.html#a96cacebb79b14ad001e964c308ef1af9">getOrCreateFactory</a> (TArgs &amp;&amp;... args)</td></tr>
+<tr class="memdesc:a96cacebb79b14ad001e964c308ef1af9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper method for fetching or creating a factory without unnecessarily allocating a new factory if one is already in the cache.  <a href="a03006.html#a96cacebb79b14ad001e964c308ef1af9">More...</a><br /></td></tr>
+<tr class="separator:a96cacebb79b14ad001e964c308ef1af9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a1fc8c4ea65463b448e068f1287349540"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03006.html#a1fc8c4ea65463b448e068f1287349540">bl::rc::Renderer</a></td></tr>
+<tr class="separator:a1fc8c4ea65463b448e068f1287349540"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Internal cache for descriptor set factories. Ensures that only one instance of each derived factory type exists in the renderer and ensures that each factory type is initialized exactly once and cleaned up during renderer cleanup. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00614_source.html#l00028">28</a> of file <a class="el" href="a00614_source.html">DescriptorSetFactoryCache.hpp</a>.</p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="ae7fa86995060f4e006707e0472f4627a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7fa86995060f4e006707e0472f4627a">&#9670;&nbsp;</a></span>getFactory()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">T * bl::rc::ds::DescriptorSetFactoryCache::getFactory</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns a pointer to a contained factory of the given type, or nullptr if not found. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The factory type to fetch </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the contained factory or nullptr if not found </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00614_source.html#l00076">76</a> of file <a class="el" href="a00614_source.html">DescriptorSetFactoryCache.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a28f61c708e0e041938fce05317a1c071"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28f61c708e0e041938fce05317a1c071">&#9670;&nbsp;</a></span>getOrAddFactory()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a03002.html">DescriptorSetFactory</a> * bl::rc::ds::DescriptorSetFactoryCache::getOrAddFactory </td>
+          <td>(</td>
+          <td class="paramtype">std::type_index&#160;</td>
+          <td class="paramname"><em>derivedType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::unique_ptr&lt; <a class="el" href="a03002.html">DescriptorSetFactory</a> &gt; &amp;&amp;&#160;</td>
+          <td class="paramname"><em>factory</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns a pointer to the correct instance of the factory to use for the given derived type. Takes ownership and initializes the passed in factory if it is the first copy. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">derivedType</td><td>The typeid of the derived factory type being requested </td></tr>
+    <tr><td class="paramname">factory</td><td>An instance of the factory. May or may not take ownership </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A pointer to the instance of the factory to use </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a01466_source.html#l00015">15</a> of file <a class="el" href="a01466_source.html">DescriptorSetFactoryCache.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a96cacebb79b14ad001e964c308ef1af9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a96cacebb79b14ad001e964c308ef1af9">&#9670;&nbsp;</a></span>getOrCreateFactory()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename... TArgs&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">T * bl::rc::ds::DescriptorSetFactoryCache::getOrCreateFactory </td>
+          <td>(</td>
+          <td class="paramtype">TArgs &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>args</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Helper method for fetching or creating a factory without unnecessarily allocating a new factory if one is already in the cache. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Type of factory to create </td></tr>
+    <tr><td class="paramname">...TArgs</td><td>Argument types to factory constructor </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">...args</td><td>Arguments to factory constructor </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to a factory of type T in the cache </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00614_source.html#l00083">83</a> of file <a class="el" href="a00614_source.html">DescriptorSetFactoryCache.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Friends And Related Function Documentation</h2>
+<a id="a1fc8c4ea65463b448e068f1287349540"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1fc8c4ea65463b448e068f1287349540">&#9670;&nbsp;</a></span>bl::rc::Renderer</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="a03158.html">bl::rc::Renderer</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00614_source.html#l00070">70</a> of file <a class="el" href="a00614_source.html">DescriptorSetFactoryCache.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/BLIB/Render/Descriptors/<a class="el" href="a00614_source.html">DescriptorSetFactoryCache.hpp</a></li>
+<li>src/Render/Descriptors/<a class="el" href="a01466_source.html">DescriptorSetFactoryCache.cpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 15 2023 19:53:41 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Oct 21 2023 00:16:53 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

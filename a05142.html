@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Resources/Bundling/Config.hpp File Reference</title>
+<title>BLIB: include/BLIB/Logging/Config.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,7 +66,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_70ae3ed4186da77d71126d34066606f0.html">Resources</a></li><li class="navelem"><a class="el" href="dir_8c0830a2e11435882738e77910337c62.html">Bundling</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_cde0df6af65f4871d5c46345537df011.html">Logging</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -77,40 +77,37 @@ $(function() {
 <div class="title">Config.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00875_source.html">BLIB/Resources/Bundling/BundleSource.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00878_source.html">BLIB/Resources/Bundling/FileHandler.hpp</a>&gt;</code><br />
-<code>#include &lt;memory&gt;</code><br />
-<code>#include &lt;regex&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a01061_source.html">BLIB/Util/NonCopyable.hpp</a>&gt;</code><br />
+<code>#include &lt;fstream&gt;</code><br />
+<code>#include &lt;list&gt;</code><br />
+<code>#include &lt;mutex&gt;</code><br />
+<code>#include &lt;optional&gt;</code><br />
+<code>#include &lt;ostream&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
-<code>#include &lt;unordered_map&gt;</code><br />
-<code>#include &lt;unordered_set&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 </div>
 <p><a href="a05142_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03433.html">bl::resource::bundle::Config</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a03401.html" title="Top level resource bundler class. Use this to create bundles for release builds.">Bundler</a> configuration class. This determines the behavior of the bundler.  <a href="a03433.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02814.html">bl::logging::Config</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Global log config class. Stores the various output streams and their configured log levels. Loggers flush their output here. Logging is threadsafe, however none of the public methods are threadsafe.  <a href="a02814.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a01824"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01824.html">bl</a></td></tr>
-<tr class="memdesc:a01824"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="memitem:a01830"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01830.html">bl</a></td></tr>
+<tr class="memdesc:a01830"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01874"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01874.html">bl::resource</a></td></tr>
-<tr class="memdesc:a01874"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes for resource management and flyweight pattern. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01875"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01875.html">bl::resource::bundle</a></td></tr>
-<tr class="memdesc:a01875"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a03525.html" title="Internal struct used by ResourceManager. Use Ref externally.">Resource</a> bundling utility for combining external files into bundles. <br /></td></tr>
+<tr class="memitem:a01865"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01865.html">bl::logging</a></td></tr>
+<tr class="memdesc:a01865"><td class="mdescLeft">&#160;</td><td class="mdescRight">Logging utility. Supports a configurable log environment and multiple outputs. Threadsafe. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 15 2023 19:53:40 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Oct 21 2023 00:16:52 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

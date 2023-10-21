@@ -77,81 +77,81 @@ $(function() {
 <a href="a00857.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_HPP</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05073.html">BLIB/Engine/Engine.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05094.html">BLIB/Engine/Engine.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00545.html">BLIB/Render/Buffers/DynamicSSBO.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00548.html">BLIB/Render/Buffers/IndexBuffer.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00551.html">BLIB/Render/Buffers/StaticSSBO.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00554.html">BLIB/Render/Buffers/UniformBuffer.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00560.html">BLIB/Render/Components/DescriptorComponentBase.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00563.html">BLIB/Render/Components/DrawableBase.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00566.html">BLIB/Render/Components/SceneObjectRef.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05139.html">BLIB/Render/Config.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00569.html">BLIB/Render/Descriptors/Builtin/FadeEffectFactory.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00572.html">BLIB/Render/Descriptors/Builtin/Object2DFactory.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00575.html">BLIB/Render/Descriptors/Builtin/Object2DInstance.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00578.html">BLIB/Render/Descriptors/Builtin/Object3DFactory.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00581.html">BLIB/Render/Descriptors/Builtin/Object3DInstance.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00584.html">BLIB/Render/Descriptors/Builtin/Scene2DFactory.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00587.html">BLIB/Render/Descriptors/Builtin/Scene2DInstance.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00590.html">BLIB/Render/Descriptors/Builtin/Scene3DFactory.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00593.html">BLIB/Render/Descriptors/Builtin/Scene3DInstance.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00596.html">BLIB/Render/Descriptors/Builtin/SlideshowFactory.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00599.html">BLIB/Render/Descriptors/Builtin/SlideshowInstance.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00602.html">BLIB/Render/Descriptors/Builtin/TexturePoolFactory.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00605.html">BLIB/Render/Descriptors/Builtin/TexturePoolInstance.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00608.html">BLIB/Render/Descriptors/DescriptorComponentStorage.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00611.html">BLIB/Render/Descriptors/DescriptorComponentStorageCache.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00614.html">BLIB/Render/Descriptors/DescriptorSetFactory.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00617.html">BLIB/Render/Descriptors/DescriptorSetFactoryCache.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00620.html">BLIB/Render/Descriptors/DescriptorSetInstance.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00623.html">BLIB/Render/Descriptors/DescriptorSetInstanceCache.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00626.html">BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00629.html">BLIB/Render/Events/OverlayEntityScaled.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00632.html">BLIB/Render/Events/SceneDestroyed.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00635.html">BLIB/Render/Graph/Asset.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00638.html">BLIB/Render/Graph/AssetFactory.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00641.html">BLIB/Render/Graph/AssetPool.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00644.html">BLIB/Render/Graph/AssetProvider.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00647.html">BLIB/Render/Graph/AssetRef.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00662.html">BLIB/Render/Graph/AssetTags.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00650.html">BLIB/Render/Graph/Assets/FinalSwapframeAsset.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00653.html">BLIB/Render/Graph/Assets/FramebufferAsset.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00656.html">BLIB/Render/Graph/Assets/SceneAsset.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00659.html">BLIB/Render/Graph/Assets/StandardTargetAsset.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00665.html">BLIB/Render/Graph/ExecutionContext.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00668.html">BLIB/Render/Graph/GraphAsset.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00671.html">BLIB/Render/Graph/GraphAssetPool.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00674.html">BLIB/Render/Graph/Providers/StandardTargetProvider.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00677.html">BLIB/Render/Graph/RenderGraph.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00680.html">BLIB/Render/Graph/Strategies/ForwardRenderStrategy.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00683.html">BLIB/Render/Graph/Strategy.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00686.html">BLIB/Render/Graph/Task.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00692.html">BLIB/Render/Graph/TaskAssetTags.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00689.html">BLIB/Render/Graph/TaskAssets.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00695.html">BLIB/Render/Graph/TaskInput.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00698.html">BLIB/Render/Graph/Tasks/FadeEffectTask.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00701.html">BLIB/Render/Graph/Tasks/ForwardRenderTask.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00704.html">BLIB/Render/Observer.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00707.html">BLIB/Render/Overlays/Overlay.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00710.html">BLIB/Render/Overlays/OverlayCamera.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00713.html">BLIB/Render/Overlays/OverlayObject.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00716.html">BLIB/Render/Primitives/DrawParameters.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00722.html">BLIB/Render/Primitives/Vertex.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05124.html">BLIB/Render/Renderer.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00725.html">BLIB/Render/Resources/BindlessTextureArray.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00728.html">BLIB/Render/Resources/Material.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00731.html">BLIB/Render/Resources/MaterialPool.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00734.html">BLIB/Render/Resources/PipelineCache.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00737.html">BLIB/Render/Resources/PipelineLayoutCache.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00740.html">BLIB/Render/Resources/RenderPassCache.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00743.html">BLIB/Render/Resources/ScenePool.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00746.html">BLIB/Render/Resources/ShaderModuleCache.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00749.html">BLIB/Render/Resources/TexturePool.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00752.html">BLIB/Render/Resources/TextureRef.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00755.html">BLIB/Render/Scenes/BatchedScene.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00758.html">BLIB/Render/Scenes/Key.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00761.html">BLIB/Render/Scenes/Scene.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00542.html">BLIB/Render/Buffers/DynamicSSBO.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00545.html">BLIB/Render/Buffers/IndexBuffer.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00548.html">BLIB/Render/Buffers/StaticSSBO.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00551.html">BLIB/Render/Buffers/UniformBuffer.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00557.html">BLIB/Render/Components/DescriptorComponentBase.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00560.html">BLIB/Render/Components/DrawableBase.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00563.html">BLIB/Render/Components/SceneObjectRef.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05145.html">BLIB/Render/Config.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00566.html">BLIB/Render/Descriptors/Builtin/FadeEffectFactory.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00569.html">BLIB/Render/Descriptors/Builtin/Object2DFactory.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00572.html">BLIB/Render/Descriptors/Builtin/Object2DInstance.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00575.html">BLIB/Render/Descriptors/Builtin/Object3DFactory.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00578.html">BLIB/Render/Descriptors/Builtin/Object3DInstance.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00581.html">BLIB/Render/Descriptors/Builtin/Scene2DFactory.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00584.html">BLIB/Render/Descriptors/Builtin/Scene2DInstance.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00587.html">BLIB/Render/Descriptors/Builtin/Scene3DFactory.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00590.html">BLIB/Render/Descriptors/Builtin/Scene3DInstance.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00593.html">BLIB/Render/Descriptors/Builtin/SlideshowFactory.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00596.html">BLIB/Render/Descriptors/Builtin/SlideshowInstance.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00599.html">BLIB/Render/Descriptors/Builtin/TexturePoolFactory.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00602.html">BLIB/Render/Descriptors/Builtin/TexturePoolInstance.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00605.html">BLIB/Render/Descriptors/DescriptorComponentStorage.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00608.html">BLIB/Render/Descriptors/DescriptorComponentStorageCache.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00611.html">BLIB/Render/Descriptors/DescriptorSetFactory.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00614.html">BLIB/Render/Descriptors/DescriptorSetFactoryCache.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00617.html">BLIB/Render/Descriptors/DescriptorSetInstance.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00620.html">BLIB/Render/Descriptors/DescriptorSetInstanceCache.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00623.html">BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00626.html">BLIB/Render/Events/SceneDestroyed.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00629.html">BLIB/Render/Graph/Asset.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00632.html">BLIB/Render/Graph/AssetFactory.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00635.html">BLIB/Render/Graph/AssetPool.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00638.html">BLIB/Render/Graph/AssetProvider.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00641.html">BLIB/Render/Graph/AssetRef.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00656.html">BLIB/Render/Graph/AssetTags.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00644.html">BLIB/Render/Graph/Assets/FinalSwapframeAsset.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00647.html">BLIB/Render/Graph/Assets/FramebufferAsset.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00650.html">BLIB/Render/Graph/Assets/SceneAsset.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00653.html">BLIB/Render/Graph/Assets/StandardTargetAsset.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00659.html">BLIB/Render/Graph/ExecutionContext.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00662.html">BLIB/Render/Graph/GraphAsset.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00665.html">BLIB/Render/Graph/GraphAssetPool.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00668.html">BLIB/Render/Graph/Providers/StandardTargetProvider.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00671.html">BLIB/Render/Graph/RenderGraph.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00674.html">BLIB/Render/Graph/Strategies/ForwardRenderStrategy.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00677.html">BLIB/Render/Graph/Strategy.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00680.html">BLIB/Render/Graph/Task.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00686.html">BLIB/Render/Graph/TaskAssetTags.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00683.html">BLIB/Render/Graph/TaskAssets.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00689.html">BLIB/Render/Graph/TaskInput.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00692.html">BLIB/Render/Graph/Tasks/FadeEffectTask.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00695.html">BLIB/Render/Graph/Tasks/ForwardRenderTask.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00698.html">BLIB/Render/Observer.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00701.html">BLIB/Render/Overlays/Overlay.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00704.html">BLIB/Render/Overlays/OverlayObject.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00707.html">BLIB/Render/Primitives/DrawParameters.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00713.html">BLIB/Render/Primitives/Vertex.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05130.html">BLIB/Render/Renderer.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00716.html">BLIB/Render/Resources/BindlessTextureArray.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00719.html">BLIB/Render/Resources/Material.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00722.html">BLIB/Render/Resources/MaterialPool.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00725.html">BLIB/Render/Resources/PipelineCache.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00728.html">BLIB/Render/Resources/PipelineLayoutCache.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00731.html">BLIB/Render/Resources/RenderPassCache.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00734.html">BLIB/Render/Resources/ScenePool.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00740.html">BLIB/Render/Resources/ShaderModuleCache.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00743.html">BLIB/Render/Resources/TexturePool.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00746.html">BLIB/Render/Resources/TextureRef.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00749.html">BLIB/Render/Scenes/BatchedScene.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00752.html">BLIB/Render/Scenes/Key.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00755.html">BLIB/Render/Scenes/Scene.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00758.html">BLIB/Render/Scenes/Scene2D.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00761.html">BLIB/Render/Scenes/Scene3D.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00764.html">BLIB/Render/Scenes/SceneObject.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00770.html">BLIB/Render/Scenes/SceneObjectStorage.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00773.html">BLIB/Render/Scenes/SceneRenderContext.hpp</a>&gt;</span></div>
@@ -179,82 +179,82 @@ $(function() {
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00842.html">BLIB/Render/Vulkan/StandardAttachmentBuffers.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00845.html">BLIB/Render/Vulkan/StandardAttachmentSet.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00848.html">BLIB/Render/Vulkan/Swapchain.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05058.html">BLIB/Render/Vulkan/Texture.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05079.html">BLIB/Render/Vulkan/Texture.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00851.html">BLIB/Render/Vulkan/VkCheck.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00854.html">BLIB/Render/Vulkan/VulkanState.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00545_html"><div class="ttname"><a href="a00545.html">DynamicSSBO.hpp</a></div></div>
-<div class="ttc" id="aa00548_html"><div class="ttname"><a href="a00548.html">IndexBuffer.hpp</a></div></div>
-<div class="ttc" id="aa00551_html"><div class="ttname"><a href="a00551.html">StaticSSBO.hpp</a></div></div>
-<div class="ttc" id="aa00554_html"><div class="ttname"><a href="a00554.html">UniformBuffer.hpp</a></div></div>
-<div class="ttc" id="aa00560_html"><div class="ttname"><a href="a00560.html">DescriptorComponentBase.hpp</a></div></div>
-<div class="ttc" id="aa00563_html"><div class="ttname"><a href="a00563.html">DrawableBase.hpp</a></div></div>
-<div class="ttc" id="aa00566_html"><div class="ttname"><a href="a00566.html">SceneObjectRef.hpp</a></div></div>
-<div class="ttc" id="aa00569_html"><div class="ttname"><a href="a00569.html">FadeEffectFactory.hpp</a></div></div>
-<div class="ttc" id="aa00572_html"><div class="ttname"><a href="a00572.html">Object2DFactory.hpp</a></div></div>
-<div class="ttc" id="aa00575_html"><div class="ttname"><a href="a00575.html">Object2DInstance.hpp</a></div></div>
-<div class="ttc" id="aa00578_html"><div class="ttname"><a href="a00578.html">Object3DFactory.hpp</a></div></div>
-<div class="ttc" id="aa00581_html"><div class="ttname"><a href="a00581.html">Object3DInstance.hpp</a></div></div>
-<div class="ttc" id="aa00584_html"><div class="ttname"><a href="a00584.html">Scene2DFactory.hpp</a></div></div>
-<div class="ttc" id="aa00587_html"><div class="ttname"><a href="a00587.html">Scene2DInstance.hpp</a></div></div>
-<div class="ttc" id="aa00590_html"><div class="ttname"><a href="a00590.html">Scene3DFactory.hpp</a></div></div>
-<div class="ttc" id="aa00593_html"><div class="ttname"><a href="a00593.html">Scene3DInstance.hpp</a></div></div>
-<div class="ttc" id="aa00596_html"><div class="ttname"><a href="a00596.html">SlideshowFactory.hpp</a></div></div>
-<div class="ttc" id="aa00599_html"><div class="ttname"><a href="a00599.html">SlideshowInstance.hpp</a></div></div>
-<div class="ttc" id="aa00602_html"><div class="ttname"><a href="a00602.html">TexturePoolFactory.hpp</a></div></div>
-<div class="ttc" id="aa00605_html"><div class="ttname"><a href="a00605.html">TexturePoolInstance.hpp</a></div></div>
-<div class="ttc" id="aa00608_html"><div class="ttname"><a href="a00608.html">DescriptorComponentStorage.hpp</a></div></div>
-<div class="ttc" id="aa00611_html"><div class="ttname"><a href="a00611.html">DescriptorComponentStorageCache.hpp</a></div></div>
-<div class="ttc" id="aa00614_html"><div class="ttname"><a href="a00614.html">DescriptorSetFactory.hpp</a></div></div>
-<div class="ttc" id="aa00617_html"><div class="ttname"><a href="a00617.html">DescriptorSetFactoryCache.hpp</a></div></div>
-<div class="ttc" id="aa00620_html"><div class="ttname"><a href="a00620.html">DescriptorSetInstance.hpp</a></div></div>
-<div class="ttc" id="aa00623_html"><div class="ttname"><a href="a00623.html">DescriptorSetInstanceCache.hpp</a></div></div>
-<div class="ttc" id="aa00626_html"><div class="ttname"><a href="a00626.html">SceneDescriptorSetInstance.hpp</a></div></div>
-<div class="ttc" id="aa00629_html"><div class="ttname"><a href="a00629.html">OverlayEntityScaled.hpp</a></div></div>
-<div class="ttc" id="aa00632_html"><div class="ttname"><a href="a00632.html">SceneDestroyed.hpp</a></div></div>
-<div class="ttc" id="aa00635_html"><div class="ttname"><a href="a00635.html">Asset.hpp</a></div></div>
-<div class="ttc" id="aa00638_html"><div class="ttname"><a href="a00638.html">AssetFactory.hpp</a></div></div>
-<div class="ttc" id="aa00641_html"><div class="ttname"><a href="a00641.html">AssetPool.hpp</a></div></div>
-<div class="ttc" id="aa00644_html"><div class="ttname"><a href="a00644.html">AssetProvider.hpp</a></div></div>
-<div class="ttc" id="aa00647_html"><div class="ttname"><a href="a00647.html">AssetRef.hpp</a></div></div>
-<div class="ttc" id="aa00650_html"><div class="ttname"><a href="a00650.html">FinalSwapframeAsset.hpp</a></div></div>
-<div class="ttc" id="aa00653_html"><div class="ttname"><a href="a00653.html">FramebufferAsset.hpp</a></div></div>
-<div class="ttc" id="aa00656_html"><div class="ttname"><a href="a00656.html">SceneAsset.hpp</a></div></div>
-<div class="ttc" id="aa00659_html"><div class="ttname"><a href="a00659.html">StandardTargetAsset.hpp</a></div></div>
-<div class="ttc" id="aa00662_html"><div class="ttname"><a href="a00662.html">AssetTags.hpp</a></div></div>
-<div class="ttc" id="aa00665_html"><div class="ttname"><a href="a00665.html">ExecutionContext.hpp</a></div></div>
-<div class="ttc" id="aa00668_html"><div class="ttname"><a href="a00668.html">GraphAsset.hpp</a></div></div>
-<div class="ttc" id="aa00671_html"><div class="ttname"><a href="a00671.html">GraphAssetPool.hpp</a></div></div>
-<div class="ttc" id="aa00674_html"><div class="ttname"><a href="a00674.html">StandardTargetProvider.hpp</a></div></div>
-<div class="ttc" id="aa00677_html"><div class="ttname"><a href="a00677.html">RenderGraph.hpp</a></div></div>
-<div class="ttc" id="aa00680_html"><div class="ttname"><a href="a00680.html">ForwardRenderStrategy.hpp</a></div></div>
-<div class="ttc" id="aa00683_html"><div class="ttname"><a href="a00683.html">Strategy.hpp</a></div></div>
-<div class="ttc" id="aa00686_html"><div class="ttname"><a href="a00686.html">Task.hpp</a></div></div>
-<div class="ttc" id="aa00689_html"><div class="ttname"><a href="a00689.html">TaskAssets.hpp</a></div></div>
-<div class="ttc" id="aa00692_html"><div class="ttname"><a href="a00692.html">TaskAssetTags.hpp</a></div></div>
-<div class="ttc" id="aa00695_html"><div class="ttname"><a href="a00695.html">TaskInput.hpp</a></div></div>
-<div class="ttc" id="aa00698_html"><div class="ttname"><a href="a00698.html">FadeEffectTask.hpp</a></div></div>
-<div class="ttc" id="aa00701_html"><div class="ttname"><a href="a00701.html">ForwardRenderTask.hpp</a></div></div>
-<div class="ttc" id="aa00704_html"><div class="ttname"><a href="a00704.html">Observer.hpp</a></div></div>
-<div class="ttc" id="aa00707_html"><div class="ttname"><a href="a00707.html">Overlay.hpp</a></div></div>
-<div class="ttc" id="aa00710_html"><div class="ttname"><a href="a00710.html">OverlayCamera.hpp</a></div></div>
-<div class="ttc" id="aa00713_html"><div class="ttname"><a href="a00713.html">OverlayObject.hpp</a></div></div>
-<div class="ttc" id="aa00716_html"><div class="ttname"><a href="a00716.html">DrawParameters.hpp</a></div></div>
-<div class="ttc" id="aa00722_html"><div class="ttname"><a href="a00722.html">Vertex.hpp</a></div></div>
-<div class="ttc" id="aa00725_html"><div class="ttname"><a href="a00725.html">BindlessTextureArray.hpp</a></div></div>
-<div class="ttc" id="aa00728_html"><div class="ttname"><a href="a00728.html">Material.hpp</a></div></div>
-<div class="ttc" id="aa00731_html"><div class="ttname"><a href="a00731.html">MaterialPool.hpp</a></div></div>
-<div class="ttc" id="aa00734_html"><div class="ttname"><a href="a00734.html">PipelineCache.hpp</a></div></div>
-<div class="ttc" id="aa00737_html"><div class="ttname"><a href="a00737.html">PipelineLayoutCache.hpp</a></div></div>
-<div class="ttc" id="aa00740_html"><div class="ttname"><a href="a00740.html">RenderPassCache.hpp</a></div></div>
-<div class="ttc" id="aa00743_html"><div class="ttname"><a href="a00743.html">ScenePool.hpp</a></div></div>
-<div class="ttc" id="aa00746_html"><div class="ttname"><a href="a00746.html">ShaderModuleCache.hpp</a></div></div>
-<div class="ttc" id="aa00749_html"><div class="ttname"><a href="a00749.html">TexturePool.hpp</a></div></div>
-<div class="ttc" id="aa00752_html"><div class="ttname"><a href="a00752.html">TextureRef.hpp</a></div></div>
-<div class="ttc" id="aa00755_html"><div class="ttname"><a href="a00755.html">BatchedScene.hpp</a></div></div>
-<div class="ttc" id="aa00758_html"><div class="ttname"><a href="a00758.html">Key.hpp</a></div></div>
-<div class="ttc" id="aa00761_html"><div class="ttname"><a href="a00761.html">Scene.hpp</a></div></div>
+<div class="ttc" id="aa00542_html"><div class="ttname"><a href="a00542.html">DynamicSSBO.hpp</a></div></div>
+<div class="ttc" id="aa00545_html"><div class="ttname"><a href="a00545.html">IndexBuffer.hpp</a></div></div>
+<div class="ttc" id="aa00548_html"><div class="ttname"><a href="a00548.html">StaticSSBO.hpp</a></div></div>
+<div class="ttc" id="aa00551_html"><div class="ttname"><a href="a00551.html">UniformBuffer.hpp</a></div></div>
+<div class="ttc" id="aa00557_html"><div class="ttname"><a href="a00557.html">DescriptorComponentBase.hpp</a></div></div>
+<div class="ttc" id="aa00560_html"><div class="ttname"><a href="a00560.html">DrawableBase.hpp</a></div></div>
+<div class="ttc" id="aa00563_html"><div class="ttname"><a href="a00563.html">SceneObjectRef.hpp</a></div></div>
+<div class="ttc" id="aa00566_html"><div class="ttname"><a href="a00566.html">FadeEffectFactory.hpp</a></div></div>
+<div class="ttc" id="aa00569_html"><div class="ttname"><a href="a00569.html">Object2DFactory.hpp</a></div></div>
+<div class="ttc" id="aa00572_html"><div class="ttname"><a href="a00572.html">Object2DInstance.hpp</a></div></div>
+<div class="ttc" id="aa00575_html"><div class="ttname"><a href="a00575.html">Object3DFactory.hpp</a></div></div>
+<div class="ttc" id="aa00578_html"><div class="ttname"><a href="a00578.html">Object3DInstance.hpp</a></div></div>
+<div class="ttc" id="aa00581_html"><div class="ttname"><a href="a00581.html">Scene2DFactory.hpp</a></div></div>
+<div class="ttc" id="aa00584_html"><div class="ttname"><a href="a00584.html">Scene2DInstance.hpp</a></div></div>
+<div class="ttc" id="aa00587_html"><div class="ttname"><a href="a00587.html">Scene3DFactory.hpp</a></div></div>
+<div class="ttc" id="aa00590_html"><div class="ttname"><a href="a00590.html">Scene3DInstance.hpp</a></div></div>
+<div class="ttc" id="aa00593_html"><div class="ttname"><a href="a00593.html">SlideshowFactory.hpp</a></div></div>
+<div class="ttc" id="aa00596_html"><div class="ttname"><a href="a00596.html">SlideshowInstance.hpp</a></div></div>
+<div class="ttc" id="aa00599_html"><div class="ttname"><a href="a00599.html">TexturePoolFactory.hpp</a></div></div>
+<div class="ttc" id="aa00602_html"><div class="ttname"><a href="a00602.html">TexturePoolInstance.hpp</a></div></div>
+<div class="ttc" id="aa00605_html"><div class="ttname"><a href="a00605.html">DescriptorComponentStorage.hpp</a></div></div>
+<div class="ttc" id="aa00608_html"><div class="ttname"><a href="a00608.html">DescriptorComponentStorageCache.hpp</a></div></div>
+<div class="ttc" id="aa00611_html"><div class="ttname"><a href="a00611.html">DescriptorSetFactory.hpp</a></div></div>
+<div class="ttc" id="aa00614_html"><div class="ttname"><a href="a00614.html">DescriptorSetFactoryCache.hpp</a></div></div>
+<div class="ttc" id="aa00617_html"><div class="ttname"><a href="a00617.html">DescriptorSetInstance.hpp</a></div></div>
+<div class="ttc" id="aa00620_html"><div class="ttname"><a href="a00620.html">DescriptorSetInstanceCache.hpp</a></div></div>
+<div class="ttc" id="aa00623_html"><div class="ttname"><a href="a00623.html">SceneDescriptorSetInstance.hpp</a></div></div>
+<div class="ttc" id="aa00626_html"><div class="ttname"><a href="a00626.html">SceneDestroyed.hpp</a></div></div>
+<div class="ttc" id="aa00629_html"><div class="ttname"><a href="a00629.html">Asset.hpp</a></div></div>
+<div class="ttc" id="aa00632_html"><div class="ttname"><a href="a00632.html">AssetFactory.hpp</a></div></div>
+<div class="ttc" id="aa00635_html"><div class="ttname"><a href="a00635.html">AssetPool.hpp</a></div></div>
+<div class="ttc" id="aa00638_html"><div class="ttname"><a href="a00638.html">AssetProvider.hpp</a></div></div>
+<div class="ttc" id="aa00641_html"><div class="ttname"><a href="a00641.html">AssetRef.hpp</a></div></div>
+<div class="ttc" id="aa00644_html"><div class="ttname"><a href="a00644.html">FinalSwapframeAsset.hpp</a></div></div>
+<div class="ttc" id="aa00647_html"><div class="ttname"><a href="a00647.html">FramebufferAsset.hpp</a></div></div>
+<div class="ttc" id="aa00650_html"><div class="ttname"><a href="a00650.html">SceneAsset.hpp</a></div></div>
+<div class="ttc" id="aa00653_html"><div class="ttname"><a href="a00653.html">StandardTargetAsset.hpp</a></div></div>
+<div class="ttc" id="aa00656_html"><div class="ttname"><a href="a00656.html">AssetTags.hpp</a></div></div>
+<div class="ttc" id="aa00659_html"><div class="ttname"><a href="a00659.html">ExecutionContext.hpp</a></div></div>
+<div class="ttc" id="aa00662_html"><div class="ttname"><a href="a00662.html">GraphAsset.hpp</a></div></div>
+<div class="ttc" id="aa00665_html"><div class="ttname"><a href="a00665.html">GraphAssetPool.hpp</a></div></div>
+<div class="ttc" id="aa00668_html"><div class="ttname"><a href="a00668.html">StandardTargetProvider.hpp</a></div></div>
+<div class="ttc" id="aa00671_html"><div class="ttname"><a href="a00671.html">RenderGraph.hpp</a></div></div>
+<div class="ttc" id="aa00674_html"><div class="ttname"><a href="a00674.html">ForwardRenderStrategy.hpp</a></div></div>
+<div class="ttc" id="aa00677_html"><div class="ttname"><a href="a00677.html">Strategy.hpp</a></div></div>
+<div class="ttc" id="aa00680_html"><div class="ttname"><a href="a00680.html">Task.hpp</a></div></div>
+<div class="ttc" id="aa00683_html"><div class="ttname"><a href="a00683.html">TaskAssets.hpp</a></div></div>
+<div class="ttc" id="aa00686_html"><div class="ttname"><a href="a00686.html">TaskAssetTags.hpp</a></div></div>
+<div class="ttc" id="aa00689_html"><div class="ttname"><a href="a00689.html">TaskInput.hpp</a></div></div>
+<div class="ttc" id="aa00692_html"><div class="ttname"><a href="a00692.html">FadeEffectTask.hpp</a></div></div>
+<div class="ttc" id="aa00695_html"><div class="ttname"><a href="a00695.html">ForwardRenderTask.hpp</a></div></div>
+<div class="ttc" id="aa00698_html"><div class="ttname"><a href="a00698.html">Observer.hpp</a></div></div>
+<div class="ttc" id="aa00701_html"><div class="ttname"><a href="a00701.html">Overlay.hpp</a></div></div>
+<div class="ttc" id="aa00704_html"><div class="ttname"><a href="a00704.html">OverlayObject.hpp</a></div></div>
+<div class="ttc" id="aa00707_html"><div class="ttname"><a href="a00707.html">DrawParameters.hpp</a></div></div>
+<div class="ttc" id="aa00713_html"><div class="ttname"><a href="a00713.html">Vertex.hpp</a></div></div>
+<div class="ttc" id="aa00716_html"><div class="ttname"><a href="a00716.html">BindlessTextureArray.hpp</a></div></div>
+<div class="ttc" id="aa00719_html"><div class="ttname"><a href="a00719.html">Material.hpp</a></div></div>
+<div class="ttc" id="aa00722_html"><div class="ttname"><a href="a00722.html">MaterialPool.hpp</a></div></div>
+<div class="ttc" id="aa00725_html"><div class="ttname"><a href="a00725.html">PipelineCache.hpp</a></div></div>
+<div class="ttc" id="aa00728_html"><div class="ttname"><a href="a00728.html">PipelineLayoutCache.hpp</a></div></div>
+<div class="ttc" id="aa00731_html"><div class="ttname"><a href="a00731.html">RenderPassCache.hpp</a></div></div>
+<div class="ttc" id="aa00734_html"><div class="ttname"><a href="a00734.html">ScenePool.hpp</a></div></div>
+<div class="ttc" id="aa00740_html"><div class="ttname"><a href="a00740.html">ShaderModuleCache.hpp</a></div></div>
+<div class="ttc" id="aa00743_html"><div class="ttname"><a href="a00743.html">TexturePool.hpp</a></div></div>
+<div class="ttc" id="aa00746_html"><div class="ttname"><a href="a00746.html">TextureRef.hpp</a></div></div>
+<div class="ttc" id="aa00749_html"><div class="ttname"><a href="a00749.html">BatchedScene.hpp</a></div></div>
+<div class="ttc" id="aa00752_html"><div class="ttname"><a href="a00752.html">Key.hpp</a></div></div>
+<div class="ttc" id="aa00755_html"><div class="ttname"><a href="a00755.html">Scene.hpp</a></div></div>
+<div class="ttc" id="aa00758_html"><div class="ttname"><a href="a00758.html">Scene2D.hpp</a></div></div>
+<div class="ttc" id="aa00761_html"><div class="ttname"><a href="a00761.html">Scene3D.hpp</a></div></div>
 <div class="ttc" id="aa00764_html"><div class="ttname"><a href="a00764.html">SceneObject.hpp</a></div></div>
 <div class="ttc" id="aa00770_html"><div class="ttname"><a href="a00770.html">SceneObjectStorage.hpp</a></div></div>
 <div class="ttc" id="aa00773_html"><div class="ttname"><a href="a00773.html">SceneRenderContext.hpp</a></div></div>
@@ -284,15 +284,15 @@ $(function() {
 <div class="ttc" id="aa00848_html"><div class="ttname"><a href="a00848.html">Swapchain.hpp</a></div></div>
 <div class="ttc" id="aa00851_html"><div class="ttname"><a href="a00851.html">VkCheck.hpp</a></div></div>
 <div class="ttc" id="aa00854_html"><div class="ttname"><a href="a00854.html">VulkanState.hpp</a></div></div>
-<div class="ttc" id="aa05058_html"><div class="ttname"><a href="a05058.html">Texture.hpp</a></div></div>
-<div class="ttc" id="aa05073_html"><div class="ttname"><a href="a05073.html">Engine.hpp</a></div></div>
-<div class="ttc" id="aa05124_html"><div class="ttname"><a href="a05124.html">Renderer.hpp</a></div></div>
-<div class="ttc" id="aa05139_html"><div class="ttname"><a href="a05139.html">Config.hpp</a></div></div>
+<div class="ttc" id="aa05079_html"><div class="ttname"><a href="a05079.html">Texture.hpp</a></div></div>
+<div class="ttc" id="aa05094_html"><div class="ttname"><a href="a05094.html">Engine.hpp</a></div></div>
+<div class="ttc" id="aa05130_html"><div class="ttname"><a href="a05130.html">Renderer.hpp</a></div></div>
+<div class="ttc" id="aa05145_html"><div class="ttname"><a href="a05145.html">Config.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 15 2023 19:53:39 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Oct 21 2023 00:16:51 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

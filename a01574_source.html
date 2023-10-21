@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Transfers/Transferable.cpp Source File</title>
+<title>BLIB: src/Render/Scenes/Scene3D.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,88 +66,61 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_7607afd44543cedc5723cabe6929dc94.html">Transfers</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_90555a6f6bc1bb4149f0b831943ef307.html">Scenes</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Transferable.cpp</div>  </div>
+<div class="title">Scene3D.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01574.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00776.html">BLIB/Render/Transfers/Transferable.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00854.html">BLIB/Render/Vulkan/VulkanState.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01824.html">bl</a></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;{</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>rc</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>tfr</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="a03253.html#a168f2c871b5f008471d22febc6fed7c1">   10</a></span>&#160;<a class="code" href="a03253.html#a168f2c871b5f008471d22febc6fed7c1">Transferable::Transferable</a>()</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;: vulkanState(nullptr)</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;, perFrame(NotPerFrame) {}</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="a03253.html#acf37a5209f8b287ba4e03acf9aeaaf5d">   14</a></span>&#160;<a class="code" href="a03253.html#a168f2c871b5f008471d22febc6fed7c1">Transferable::Transferable</a>(<a class="code" href="a03397.html">vk::VulkanState</a>&amp; vs)</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;: vulkanState(&amp;vs)</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;, perFrame(NotPerFrame) {}</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a03253.html#a05233a758f0875563aea077dde3096f6">   18</a></span>&#160;<a class="code" href="a03253.html#a05233a758f0875563aea077dde3096f6">Transferable::~Transferable</a>() {</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keywordflow">if</span> (perFrame != NotPerFrame) { <a class="code" href="a03253.html#a998a9c05422f6188b474d275866a6b2b">stopTransferringEveryFrame</a>(); }</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;}</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a03253.html#ab3128a7ed8a1e2d7ca44dab3f8e3981d">   22</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03253.html#ab3128a7ed8a1e2d7ca44dab3f8e3981d">Transferable::queueTransfer</a>(<a class="code" href="a03253.html#a109f9d7acc098649830f276c266b47d0">SyncRequirement</a> syncReq) {</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#ifdef BLIB_DEBUG</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="a03253.html#ae134133a20147f77b4feae59dc9b447d">vulkanState</a> == <span class="keyword">nullptr</span>) {</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <a class="code" href="a00494.html#aab250887595d9e02b1f0b670fe342683">BL_LOG_CRITICAL</a> &lt;&lt; <span class="stringliteral">&quot;Tried to queue transfer with nullptr Vulkan state&quot;</span>;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    }</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <a class="code" href="a03253.html#ae134133a20147f77b4feae59dc9b447d">vulkanState</a>-&gt;<a class="code" href="a03397.html#a08eacbdbb12875a6d1cfc19e922deec2">transferEngine</a>.queueOneTimeTransfer(<span class="keyword">this</span>, syncReq);</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;}</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="a03253.html#affdc9c965d73f5227f2d3e0c8a17064e">   32</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03253.html#affdc9c965d73f5227f2d3e0c8a17064e">Transferable::transferEveryFrame</a>(<a class="code" href="a03253.html#a109f9d7acc098649830f276c266b47d0">SyncRequirement</a> syncReq) {</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#ifdef BLIB_DEBUG</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="a03253.html#ae134133a20147f77b4feae59dc9b447d">vulkanState</a> == <span class="keyword">nullptr</span>) {</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <a class="code" href="a00494.html#aab250887595d9e02b1f0b670fe342683">BL_LOG_CRITICAL</a> &lt;&lt; <span class="stringliteral">&quot;Tried to queue transfer with nullptr Vulkan state&quot;</span>;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    }</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    perFrame = syncReq;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <a class="code" href="a03253.html#ae134133a20147f77b4feae59dc9b447d">vulkanState</a>-&gt;<a class="code" href="a03397.html#a08eacbdbb12875a6d1cfc19e922deec2">transferEngine</a>.registerPerFrameTransfer(<span class="keyword">this</span>, syncReq);</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;}</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="a03253.html#a998a9c05422f6188b474d275866a6b2b">   43</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03253.html#a998a9c05422f6188b474d275866a6b2b">Transferable::stopTransferringEveryFrame</a>() {</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="preprocessor">#ifdef BLIB_DEBUG</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="a03253.html#ae134133a20147f77b4feae59dc9b447d">vulkanState</a> == <span class="keyword">nullptr</span>) {</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <a class="code" href="a00494.html#aab250887595d9e02b1f0b670fe342683">BL_LOG_CRITICAL</a> &lt;&lt; <span class="stringliteral">&quot;Tried to queue transfer with nullptr Vulkan state&quot;</span>;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    }</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <a class="code" href="a03253.html#ae134133a20147f77b4feae59dc9b447d">vulkanState</a>-&gt;<a class="code" href="a03397.html#a08eacbdbb12875a6d1cfc19e922deec2">transferEngine</a>.unregisterPerFrameTransfer(<span class="keyword">this</span>, perFrame);</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    perFrame = NotPerFrame;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;}</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;} <span class="comment">// namespace tfr</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00494_html_aab250887595d9e02b1f0b670fe342683"><div class="ttname"><a href="a00494.html#aab250887595d9e02b1f0b670fe342683">BL_LOG_CRITICAL</a></div><div class="ttdeci">#define BL_LOG_CRITICAL</div><div class="ttdoc">Helper macro to log at critical level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00494_source.html#l00098">Logger.hpp:98</a></div></div>
-<div class="ttc" id="aa00776_html"><div class="ttname"><a href="a00776.html">Transferable.hpp</a></div></div>
-<div class="ttc" id="aa00854_html"><div class="ttname"><a href="a00854.html">VulkanState.hpp</a></div></div>
-<div class="ttc" id="aa01824_html"><div class="ttname"><a href="a01824.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03253_html_a05233a758f0875563aea077dde3096f6"><div class="ttname"><a href="a03253.html#a05233a758f0875563aea077dde3096f6">bl::rc::tfr::Transferable::~Transferable</a></div><div class="ttdeci">virtual ~Transferable()</div><div class="ttdoc">Destroy the transferable object.</div><div class="ttdef"><b>Definition:</b> <a href="a01574_source.html#l00018">Transferable.cpp:18</a></div></div>
-<div class="ttc" id="aa03253_html_a109f9d7acc098649830f276c266b47d0"><div class="ttname"><a href="a03253.html#a109f9d7acc098649830f276c266b47d0">bl::rc::tfr::Transferable::SyncRequirement</a></div><div class="ttdeci">SyncRequirement</div><div class="ttdoc">Enum containing requirements for when transfers may start.</div><div class="ttdef"><b>Definition:</b> <a href="a00776_source.html#l00028">Transferable.hpp:28</a></div></div>
-<div class="ttc" id="aa03253_html_a168f2c871b5f008471d22febc6fed7c1"><div class="ttname"><a href="a03253.html#a168f2c871b5f008471d22febc6fed7c1">bl::rc::tfr::Transferable::Transferable</a></div><div class="ttdeci">Transferable()</div><div class="ttdoc">Sets vulkanState to nullptr.</div><div class="ttdef"><b>Definition:</b> <a href="a01574_source.html#l00010">Transferable.cpp:10</a></div></div>
-<div class="ttc" id="aa03253_html_a998a9c05422f6188b474d275866a6b2b"><div class="ttname"><a href="a03253.html#a998a9c05422f6188b474d275866a6b2b">bl::rc::tfr::Transferable::stopTransferringEveryFrame</a></div><div class="ttdeci">void stopTransferringEveryFrame()</div><div class="ttdoc">Removes this Transferable from the queue that gets transferred every frame.</div><div class="ttdef"><b>Definition:</b> <a href="a01574_source.html#l00043">Transferable.cpp:43</a></div></div>
-<div class="ttc" id="aa03253_html_ab3128a7ed8a1e2d7ca44dab3f8e3981d"><div class="ttname"><a href="a03253.html#ab3128a7ed8a1e2d7ca44dab3f8e3981d">bl::rc::tfr::Transferable::queueTransfer</a></div><div class="ttdeci">void queueTransfer(SyncRequirement syncReq=SyncRequirement::Immediate)</div><div class="ttdoc">Queues this object with the TransferEngine to be transfered on the next frame.</div><div class="ttdef"><b>Definition:</b> <a href="a01574_source.html#l00022">Transferable.cpp:22</a></div></div>
-<div class="ttc" id="aa03253_html_ae134133a20147f77b4feae59dc9b447d"><div class="ttname"><a href="a03253.html#ae134133a20147f77b4feae59dc9b447d">bl::rc::tfr::Transferable::vulkanState</a></div><div class="ttdeci">vk::VulkanState * vulkanState</div><div class="ttdef"><b>Definition:</b> <a href="a00776_source.html#l00061">Transferable.hpp:61</a></div></div>
-<div class="ttc" id="aa03253_html_affdc9c965d73f5227f2d3e0c8a17064e"><div class="ttname"><a href="a03253.html#affdc9c965d73f5227f2d3e0c8a17064e">bl::rc::tfr::Transferable::transferEveryFrame</a></div><div class="ttdeci">void transferEveryFrame(SyncRequirement syncReq=SyncRequirement::Immediate)</div><div class="ttdoc">Configures this Transferable to transfer every frame with the given sync requirement.</div><div class="ttdef"><b>Definition:</b> <a href="a01574_source.html#l00032">Transferable.cpp:32</a></div></div>
-<div class="ttc" id="aa03397_html"><div class="ttname"><a href="a03397.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a00854_source.html#l00038">VulkanState.hpp:38</a></div></div>
-<div class="ttc" id="aa03397_html_a08eacbdbb12875a6d1cfc19e922deec2"><div class="ttname"><a href="a03397.html#a08eacbdbb12875a6d1cfc19e922deec2">bl::rc::vk::VulkanState::transferEngine</a></div><div class="ttdeci">tfr::TransferEngine transferEngine</div><div class="ttdef"><b>Definition:</b> <a href="a00854_source.html#l00228">VulkanState.hpp:228</a></div></div>
+<a href="a01574.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00761.html">BLIB/Render/Scenes/Scene3D.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00035.html">BLIB/Cameras/3D/Camera3D.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01830.html">bl</a></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>scene</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;constexpr <span class="keywordtype">float</span> DefaultNear = 0.1f;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;constexpr <span class="keywordtype">float</span> DefaultFar  = 100.f;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;} <span class="comment">// namespace</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a03250.html#ab1b8fcf847d7cbe9493b0ecfbebedad4">   17</a></span>&#160;<a class="code" href="a03250.html#ab1b8fcf847d7cbe9493b0ecfbebedad4">Scene3D::Scene3D</a>(<a class="code" href="a02314.html">engine::Engine</a>&amp; e)</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;: <a class="code" href="a03214.html">BatchedScene</a>(e) {}</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a03250.html#a0dcf3ebaa6fac1ff72e2264fd57ab435">   20</a></span>&#160;std::unique_ptr&lt;cam::Camera&gt; <a class="code" href="a03250.html#a0dcf3ebaa6fac1ff72e2264fd57ab435">Scene3D::createDefaultCamera</a>() {</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keyword">auto</span> cam = std::make_unique&lt;cam::Camera3D&gt;();</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    cam-&gt;setNearAndFarPlanes(DefaultNear, DefaultFar);</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordflow">return</span> cam;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;}</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a03250.html#ad3722c0cc57b7d59306f68fcdddfe15d">   26</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03250.html#ad3722c0cc57b7d59306f68fcdddfe15d">Scene3D::setDefaultNearAndFarPlanes</a>(<a class="code" href="a02006.html">cam::Camera</a>&amp; cam)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    cam.<a class="code" href="a02006.html#a60e436aa6a89793a9e3fd8c3b0378fbf">setNearAndFarPlanes</a>(DefaultNear, -DefaultFar);</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;}</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;} <span class="comment">// namespace scene</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00035_html"><div class="ttname"><a href="a00035.html">Camera3D.hpp</a></div></div>
+<div class="ttc" id="aa00761_html"><div class="ttname"><a href="a00761.html">Scene3D.hpp</a></div></div>
+<div class="ttc" id="aa01830_html"><div class="ttname"><a href="a01830.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02006_html"><div class="ttname"><a href="a02006.html">bl::cam::Camera</a></div><div class="ttdoc">Base class for all cameras.</div><div class="ttdef"><b>Definition:</b> <a href="a00047_source.html#l00017">Camera.hpp:17</a></div></div>
+<div class="ttc" id="aa02006_html_a60e436aa6a89793a9e3fd8c3b0378fbf"><div class="ttname"><a href="a02006.html#a60e436aa6a89793a9e3fd8c3b0378fbf">bl::cam::Camera::setNearAndFarPlanes</a></div><div class="ttdeci">void setNearAndFarPlanes(float nearValue, float farValue)</div><div class="ttdoc">Sets the distance to the near and far planes.</div><div class="ttdef"><b>Definition:</b> <a href="a01133_source.html#l00029">Camera.cpp:29</a></div></div>
+<div class="ttc" id="aa02314_html"><div class="ttname"><a href="a02314.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a05094_source.html#l00032">Engine.hpp:32</a></div></div>
+<div class="ttc" id="aa03214_html"><div class="ttname"><a href="a03214.html">bl::rc::scene::BatchedScene</a></div><div class="ttdoc">Primary scene class for the renderer. Provides batched rendering of objects by pipeline....</div><div class="ttdef"><b>Definition:</b> <a href="a00749_source.html#l00029">BatchedScene.hpp:29</a></div></div>
+<div class="ttc" id="aa03250_html_a0dcf3ebaa6fac1ff72e2264fd57ab435"><div class="ttname"><a href="a03250.html#a0dcf3ebaa6fac1ff72e2264fd57ab435">bl::rc::scene::Scene3D::createDefaultCamera</a></div><div class="ttdeci">virtual std::unique_ptr&lt; cam::Camera &gt; createDefaultCamera() override</div><div class="ttdoc">Creates a 3d camera.</div><div class="ttdef"><b>Definition:</b> <a href="a01574_source.html#l00020">Scene3D.cpp:20</a></div></div>
+<div class="ttc" id="aa03250_html_ab1b8fcf847d7cbe9493b0ecfbebedad4"><div class="ttname"><a href="a03250.html#ab1b8fcf847d7cbe9493b0ecfbebedad4">bl::rc::scene::Scene3D::Scene3D</a></div><div class="ttdeci">Scene3D(engine::Engine &amp;engine)</div><div class="ttdoc">Creates the scene.</div><div class="ttdef"><b>Definition:</b> <a href="a01574_source.html#l00017">Scene3D.cpp:17</a></div></div>
+<div class="ttc" id="aa03250_html_ad3722c0cc57b7d59306f68fcdddfe15d"><div class="ttname"><a href="a03250.html#ad3722c0cc57b7d59306f68fcdddfe15d">bl::rc::scene::Scene3D::setDefaultNearAndFarPlanes</a></div><div class="ttdeci">virtual void setDefaultNearAndFarPlanes(cam::Camera &amp;camera) const override</div><div class="ttdoc">Sets the default near and far planes on the given camera.</div><div class="ttdef"><b>Definition:</b> <a href="a01574_source.html#l00026">Scene3D.cpp:26</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 15 2023 19:53:39 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Oct 21 2023 00:16:51 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

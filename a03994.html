@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::util::IdAllocatorUnbounded&lt; T &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,23 +66,289 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01824.html">bl</a></li><li class="navelem"><a class="el" href="a01882.html">util</a></li><li class="navelem"><a class="el" href="a03985.html">Random</a></li><li class="navelem"><a class="el" href="a03997.html">CharHelper&lt; char &gt;</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01830.html">bl</a></li><li class="navelem"><a class="el" href="a01888.html">util</a></li><li class="navelem"><a class="el" href="a03994.html">IdAllocatorUnbounded</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="a03991.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::util::Random::CharHelper&lt; char &gt; Member List</div>  </div>
+<div class="title">bl::util::IdAllocatorUnbounded&lt; T &gt; Class Template Reference<div class="ingroups"><a class="el" href="a01822.html">Util</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a03997.html">bl::util::Random::CharHelper&lt; char &gt;</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a03997.html#a7641b785399bb91075719694604c6001">T</a> typedef</td><td class="entry"><a class="el" href="a03997.html">bl::util::Random::CharHelper&lt; char &gt;</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Similar to <a class="el" href="a03990.html" title="Utility to allocate integral ids in some range [0, max). Allows ids to be reused as well as tracks th...">IdAllocator</a>, but with no max id restriction.  
+ <a href="a03994.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a01055_source.html">IdAllocatorUnbounded.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a8b2a142e074338a13ffb614ff3565ab9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03994.html#a8b2a142e074338a13ffb614ff3565ab9">IdAllocatorUnbounded</a> ()</td></tr>
+<tr class="memdesc:a8b2a142e074338a13ffb614ff3565ab9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new id allocator.  <a href="a03994.html#a8b2a142e074338a13ffb614ff3565ab9">More...</a><br /></td></tr>
+<tr class="separator:a8b2a142e074338a13ffb614ff3565ab9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8bdca69c91eeb15834b1894c953c4549"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03994.html#a8bdca69c91eeb15834b1894c953c4549">IdAllocatorUnbounded</a> (std::size_t capacityHint)</td></tr>
+<tr class="memdesc:a8bdca69c91eeb15834b1894c953c4549"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new id allocator and pre-allocates some memory.  <a href="a03994.html#a8bdca69c91eeb15834b1894c953c4549">More...</a><br /></td></tr>
+<tr class="separator:a8bdca69c91eeb15834b1894c953c4549"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7fb1e9e6910be922de1188e21017610"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03994.html#ae7fb1e9e6910be922de1188e21017610">allocate</a> ()</td></tr>
+<tr class="memdesc:ae7fb1e9e6910be922de1188e21017610"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates a new id from the allocator.  <a href="a03994.html#ae7fb1e9e6910be922de1188e21017610">More...</a><br /></td></tr>
+<tr class="separator:ae7fb1e9e6910be922de1188e21017610"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a999cf670cc7639d0c167ef6b950616b2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03994.html#a999cf670cc7639d0c167ef6b950616b2">release</a> (T id)</td></tr>
+<tr class="memdesc:a999cf670cc7639d0c167ef6b950616b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Releases the given id back into the pool. Double-release is an error.  <a href="a03994.html#a999cf670cc7639d0c167ef6b950616b2">More...</a><br /></td></tr>
+<tr class="separator:a999cf670cc7639d0c167ef6b950616b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acaa4e830f32672424758a5487b26f4d4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03994.html#acaa4e830f32672424758a5487b26f4d4">releaseAll</a> ()</td></tr>
+<tr class="memdesc:acaa4e830f32672424758a5487b26f4d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Releases all ids.  <a href="a03994.html#acaa4e830f32672424758a5487b26f4d4">More...</a><br /></td></tr>
+<tr class="separator:acaa4e830f32672424758a5487b26f4d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace0ff463eec7e042c0e53a6c53da58d5"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03994.html#ace0ff463eec7e042c0e53a6c53da58d5">isAllocated</a> (T id) const</td></tr>
+<tr class="memdesc:ace0ff463eec7e042c0e53a6c53da58d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the given id is allocated.  <a href="a03994.html#ace0ff463eec7e042c0e53a6c53da58d5">More...</a><br /></td></tr>
+<tr class="separator:ace0ff463eec7e042c0e53a6c53da58d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c6d5813a146b1402c8a4814422df140"><td class="memItemLeft" align="right" valign="top">constexpr T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03994.html#a9c6d5813a146b1402c8a4814422df140">poolSize</a> () const</td></tr>
+<tr class="memdesc:a9c6d5813a146b1402c8a4814422df140"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the capacity of the id pool.  <a href="a03994.html#a9c6d5813a146b1402c8a4814422df140">More...</a><br /></td></tr>
+<tr class="separator:a9c6d5813a146b1402c8a4814422df140"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a689b826aa77e490dd3db07a18914bd3d"><td class="memItemLeft" align="right" valign="top">constexpr T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03994.html#a689b826aa77e490dd3db07a18914bd3d">endId</a> () const</td></tr>
+<tr class="memdesc:a689b826aa77e490dd3db07a18914bd3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns essentially maxId+1 for iteration.  <a href="a03994.html#a689b826aa77e490dd3db07a18914bd3d">More...</a><br /></td></tr>
+<tr class="separator:a689b826aa77e490dd3db07a18914bd3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><h3>template&lt;typename T&gt;<br />
+class bl::util::IdAllocatorUnbounded&lt; T &gt;</h3>
+
+<p>Similar to <a class="el" href="a03990.html" title="Utility to allocate integral ids in some range [0, max). Allows ids to be reused as well as tracks th...">IdAllocator</a>, but with no max id restriction. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The id type to allocate </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01055_source.html#l00018">18</a> of file <a class="el" href="a01055_source.html">IdAllocatorUnbounded.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a8b2a142e074338a13ffb614ff3565ab9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b2a142e074338a13ffb614ff3565ab9">&#9670;&nbsp;</a></span>IdAllocatorUnbounded() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a03994.html">bl::util::IdAllocatorUnbounded</a>&lt; T &gt;::<a class="el" href="a03994.html">IdAllocatorUnbounded</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates a new id allocator. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01055_source.html#l00078">78</a> of file <a class="el" href="a01055_source.html">IdAllocatorUnbounded.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a8bdca69c91eeb15834b1894c953c4549"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8bdca69c91eeb15834b1894c953c4549">&#9670;&nbsp;</a></span>IdAllocatorUnbounded() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a03994.html">bl::util::IdAllocatorUnbounded</a>&lt; T &gt;::<a class="el" href="a03994.html">IdAllocatorUnbounded</a> </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>capacityHint</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates a new id allocator and pre-allocates some memory. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">capacityHint</td><td>Id capacity to pre-allocate </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01055_source.html#l00082">82</a> of file <a class="el" href="a01055_source.html">IdAllocatorUnbounded.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ae7fb1e9e6910be922de1188e21017610"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7fb1e9e6910be922de1188e21017610">&#9670;&nbsp;</a></span>allocate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">T <a class="el" href="a03994.html">bl::util::IdAllocatorUnbounded</a>&lt; T &gt;::allocate</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Allocates a new id from the allocator. </p>
+<dl class="section return"><dt>Returns</dt><dd>The new id </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a01055_source.html#l00089">89</a> of file <a class="el" href="a01055_source.html">IdAllocatorUnbounded.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a689b826aa77e490dd3db07a18914bd3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a689b826aa77e490dd3db07a18914bd3d">&#9670;&nbsp;</a></span>endId()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr T <a class="el" href="a03994.html">bl::util::IdAllocatorUnbounded</a>&lt; T &gt;::endId</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns essentially maxId+1 for iteration. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01055_source.html#l00129">129</a> of file <a class="el" href="a01055_source.html">IdAllocatorUnbounded.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ace0ff463eec7e042c0e53a6c53da58d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace0ff463eec7e042c0e53a6c53da58d5">&#9670;&nbsp;</a></span>isAllocated()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr bool <a class="el" href="a03994.html">bl::util::IdAllocatorUnbounded</a>&lt; T &gt;::isAllocated </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns whether or not the given id is allocated. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>The id to check </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the id is allocated, false if free </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a01055_source.html#l00119">119</a> of file <a class="el" href="a01055_source.html">IdAllocatorUnbounded.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a9c6d5813a146b1402c8a4814422df140"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c6d5813a146b1402c8a4814422df140">&#9670;&nbsp;</a></span>poolSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr T <a class="el" href="a03994.html">bl::util::IdAllocatorUnbounded</a>&lt; T &gt;::poolSize</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the capacity of the id pool. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01055_source.html#l00124">124</a> of file <a class="el" href="a01055_source.html">IdAllocatorUnbounded.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a999cf670cc7639d0c167ef6b950616b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a999cf670cc7639d0c167ef6b950616b2">&#9670;&nbsp;</a></span>release()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a03994.html">bl::util::IdAllocatorUnbounded</a>&lt; T &gt;::release </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Releases the given id back into the pool. Double-release is an error. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>The id to release </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01055_source.html#l00104">104</a> of file <a class="el" href="a01055_source.html">IdAllocatorUnbounded.hpp</a>.</p>
+
+</div>
+</div>
+<a id="acaa4e830f32672424758a5487b26f4d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acaa4e830f32672424758a5487b26f4d4">&#9670;&nbsp;</a></span>releaseAll()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a03994.html">bl::util::IdAllocatorUnbounded</a>&lt; T &gt;::releaseAll</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Releases all ids. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01055_source.html#l00112">112</a> of file <a class="el" href="a01055_source.html">IdAllocatorUnbounded.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>include/BLIB/Util/<a class="el" href="a01055_source.html">IdAllocatorUnbounded.hpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 15 2023 19:53:41 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Oct 21 2023 00:16:53 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

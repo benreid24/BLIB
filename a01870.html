@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::rc::rgi Namespace Reference</title>
+<title>BLIB: bl::rc::buf Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,54 +66,55 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01824.html">bl</a></li><li class="navelem"><a class="el" href="a01836.html">rc</a></li><li class="navelem"><a class="el" href="a01870.html">rgi</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01830.html">bl</a></li><li class="navelem"><a class="el" href="a01842.html">rc</a></li><li class="navelem"><a class="el" href="a01870.html">buf</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#typedef-members">Typedefs</a>  </div>
   <div class="headertitle">
-<div class="title">bl::rc::rgi Namespace Reference</div>  </div>
+<div class="title">bl::rc::buf Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Contains render graph asset, task, and strategy implementations.  
+<p>Collection of common buffer classes.  
 <a href="a01870.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03029.html">FinalSwapframeAsset</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Asset for the swapchain image that an observer renders to.  <a href="a03029.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02882.html">DynamicSSBO</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device-local SSBO intended for use with per-object data for dynamic objects.  <a href="a02882.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03033.html">FramebufferAsset</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Intermediate base class for assets that provide framebuffers.  <a href="a03033.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02890.html">IndexBufferT</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic index buffer class built on top of <a class="el" href="a03310.html" title="Wrapper over Vulkan buffers. Provides simpler interfaces and resize ability.">vk::Buffer</a>. Intended for static mesh data.  <a href="a02890.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03037.html">SceneAsset</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic asset that provides the scene to tasks.  <a href="a03037.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02894.html">StaticSSBO</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device-local SSBO intended for use with per-object data for static objects.  <a href="a02894.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03041.html">StandardTargetAsset</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Asset for a standard render target consisting of a single color and depth attachment.  <a href="a03041.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02898.html">UniformBuffer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device-local, staged, uniform buffer array. Intended for small, dynamic data such as per-frame scene data. Not intended for larger data sets such as per-object data. Writes go directly to the staging buffer, so the used portions of the UBO must be written to every frame otherwise stale data will be copied to the GPU.  <a href="a02898.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03061.html">StandardAssetProvider</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provider for <a class="el" href="a03041.html" title="Asset for a standard render target consisting of a single color and depth attachment.">StandardTargetAsset</a> assets.  <a href="a03061.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02902.html">VertexBufferT</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic vertex buffer class built on top of <a class="el" href="a03310.html" title="Wrapper over Vulkan buffers. Provides simpler interfaces and resize ability.">vk::Buffer</a>. Intended for static mesh data.  <a href="a02902.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03077.html">ForwardRenderStrategy</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default render strategy. Implements a basic forward renderer.  <a href="a03077.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03101.html">FadeEffectTask</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic post effect task that multiplies the rendered color by a factor in the range [0, 1] and interpolates that factor. Typically used for a fade in or out to black.  <a href="a03101.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03105.html">ForwardRenderTask</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic forward renderer that calls into the scene render methods.  <a href="a03105.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:gaefb3729dcc560378d43cc72e50f7d438"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01817.html#gaefb3729dcc560378d43cc72e50f7d438">IndexBuffer</a> = <a class="el" href="a02890.html">IndexBufferT</a>&lt; <a class="el" href="a03154.html">prim::Vertex</a> &gt;</td></tr>
+<tr class="memdesc:gaefb3729dcc560378d43cc72e50f7d438"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience alias for a standard index buffer.  <a href="a01817.html#gaefb3729dcc560378d43cc72e50f7d438">More...</a><br /></td></tr>
+<tr class="separator:gaefb3729dcc560378d43cc72e50f7d438"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga711b89e5d389c3e62540520ef7f76a25"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01817.html#ga711b89e5d389c3e62540520ef7f76a25">VertexBuffer</a> = <a class="el" href="a02902.html">VertexBufferT</a>&lt; <a class="el" href="a03154.html">prim::Vertex</a> &gt;</td></tr>
+<tr class="memdesc:ga711b89e5d389c3e62540520ef7f76a25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience alias for a standard vertex buffer.  <a href="a01817.html#ga711b89e5d389c3e62540520ef7f76a25">More...</a><br /></td></tr>
+<tr class="separator:ga711b89e5d389c3e62540520ef7f76a25"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Contains render graph asset, task, and strategy implementations. </p>
+<div class="textblock"><p>Collection of common buffer classes. </p>
 </div></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 15 2023 19:53:41 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Oct 21 2023 00:16:53 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

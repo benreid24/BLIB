@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Graphics/Animation2D.cpp Source File</title>
+<title>BLIB: src/Cameras/3D/Affectors/CameraShake.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,90 +66,67 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3419e189e460663ec2c964233bf8dcd6.html">Graphics</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_ff0ce48e5847898e72a0a6a39233e415.html">Cameras</a></li><li class="navelem"><a class="el" href="dir_3ff25e5f64b17697c1b0fb6333ff3832.html">3D</a></li><li class="navelem"><a class="el" href="dir_89c5173aa2e4948d3b514718005eafed.html">Affectors</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Animation2D.cpp</div>  </div>
+<div class="title">CameraShake.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a05172.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05022.html">BLIB/Graphics/Animation2D.hpp</a>&gt;</span></div>
+<a href="a05172.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05037.html">BLIB/Cameras/3D/Affectors/CameraShake.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01824.html">bl</a></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>gfx</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;glm::vec2 getSize(<span class="keyword">const</span> resource::Ref&lt;a2d::AnimationData&gt;&amp; animation) {</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <span class="keywordflow">if</span> (!animation || animation-&gt;frameCount() == 0) { <span class="keywordflow">return</span> {1.f, 1.f}; }</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    sf::Vector2f s = animation-&gt;getFrameSize(0);</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 1; i &lt; animation-&gt;frameCount(); ++i) {</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;        s.x = std::max(s.x, animation-&gt;getFrame(i).size.x);</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        s.y = std::max(s.y, animation-&gt;getFrame(i).size.y);</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    }</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keywordflow">return</span> {s.x, s.y};</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;}</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;} <span class="comment">// namespace</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00512.html">BLIB/Math.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;cmath&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01830.html">bl</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>cam</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>c3d</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="a01986.html#a9c3874005a1878368f309a072326f3ba">   12</a></span>&#160;<a class="code" href="a01986.html#a9c3874005a1878368f309a072326f3ba">CameraShake::CameraShake</a>(<span class="keywordtype">float</span> m, <span class="keywordtype">float</span> s)</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;: time(0.f)</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;, mag(m) {</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <a class="code" href="a01986.html#a58d0c9b8a78e106706c3a6d794767bbe">setShakesPerSecond</a>(s);</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;}</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a01986.html#ab39045ef5e11962aa94863b9649ada2d">   18</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01986.html#ab39045ef5e11962aa94863b9649ada2d">CameraShake::setMagnitude</a>(<span class="keywordtype">float</span> m) { mag = m; }</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a02433.html#a0636a8b12eea2014d7b55c102c6e0459">   20</a></span>&#160;<a class="code" href="a02433.html#ac0db581e7a8d6ca16891834afb2e923f">Animation2D::Animation2D</a>(<a class="code" href="a02301.html">engine::Engine</a>&amp; engine, <span class="keyword">const</span> <a class="code" href="a03521.html">resource::Ref&lt;a2d::AnimationData&gt;</a>&amp; animation,</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;                         <span class="keywordtype">bool</span> play, <span class="keywordtype">bool</span> forceLoop)</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;: <a class="code" href="a02433.html">Animation2D</a>() {</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <a class="code" href="a02433.html#a0fa289fdba32605e5e475b9d79a5c158">createWithUniquePlayer</a>(<a class="code" href="a02457.html#adef5d2a123c05b5b6f6be50c2ffe1454">engine</a>, animation, play, forceLoop);</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;}</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a02433.html#ac3f3edd4118c4e260619ab956d3495e5">   26</a></span>&#160;<a class="code" href="a02433.html#ac0db581e7a8d6ca16891834afb2e923f">Animation2D::Animation2D</a>(<a class="code" href="a02301.html">engine::Engine</a>&amp; engine, <span class="keyword">const</span> <a class="code" href="a02433.html">Animation2D</a>&amp; player)</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;: <a class="code" href="a02433.html">Animation2D</a>() {</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <a class="code" href="a02433.html#ae5ee273e33865432b7111332147cb6f4">createWithSharedPlayer</a>(<a class="code" href="a02457.html#adef5d2a123c05b5b6f6be50c2ffe1454">engine</a>, player);</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;}</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="a02433.html#a0fa289fdba32605e5e475b9d79a5c158">   31</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02433.html#a0fa289fdba32605e5e475b9d79a5c158">Animation2D::createWithUniquePlayer</a>(<a class="code" href="a02301.html">engine::Engine</a>&amp; engine,</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;                                         <span class="keyword">const</span> <a class="code" href="a03521.html">resource::Ref&lt;a2d::AnimationData&gt;</a>&amp; animation,</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;                                         <span class="keywordtype">bool</span> play, <span class="keywordtype">bool</span> forceLoop) {</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <a class="code" href="a02457.html#a35b338cdd6e950db4efa0ae3fae13ad2">Drawable::create</a>(<a class="code" href="a02457.html#adef5d2a123c05b5b6f6be50c2ffe1454">engine</a>);</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    OverlayScalable::create(<a class="code" href="a02457.html#adef5d2a123c05b5b6f6be50c2ffe1454">engine</a>, <a class="code" href="a02457.html#afb6e023344eafbba7d8ae49d7d8fed3b">entity</a>());</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    OverlayScalable::setLocalSize(getSize(animation));</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    Animation2DPlayer::create(</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <a class="code" href="a02457.html#adef5d2a123c05b5b6f6be50c2ffe1454">engine</a>.<a class="code" href="a02301.html#a04332dee562be55a73c43b5eed176837">renderer</a>(), <a class="code" href="a02457.html#adef5d2a123c05b5b6f6be50c2ffe1454">engine</a>.<a class="code" href="a02301.html#a25e3869bfc4a1fefd83bcd5773c7a5ef">ecs</a>(), <a class="code" href="a02457.html#afb6e023344eafbba7d8ae49d7d8fed3b">entity</a>(), animation, play, forceLoop);</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <a class="code" href="a02457.html#ad80022f5deb90f89ab57048a3cfa187b">component</a>().<a class="code" href="a02001.html#a56f310cbfbd51df4d3c79ef30c770c5e">create</a>(<a class="code" href="a02457.html#adef5d2a123c05b5b6f6be50c2ffe1454">engine</a>, Animation2DPlayer::getPlayer());</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <a class="code" href="a02457.html#ad80022f5deb90f89ab57048a3cfa187b">component</a>().<a class="code" href="a02889.html#aba09d98e0f8f44a23bd45f323771af5d">containsTransparency</a> = Textured::getTexture()-&gt;containsTransparency();</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;}</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="a02433.html#ae5ee273e33865432b7111332147cb6f4">   43</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02433.html#ae5ee273e33865432b7111332147cb6f4">Animation2D::createWithSharedPlayer</a>(<a class="code" href="a02301.html">engine::Engine</a>&amp; engine, <span class="keyword">const</span> <a class="code" href="a02433.html">Animation2D</a>&amp; player) {</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <a class="code" href="a02457.html#a35b338cdd6e950db4efa0ae3fae13ad2">Drawable::create</a>(<a class="code" href="a02457.html#adef5d2a123c05b5b6f6be50c2ffe1454">engine</a>);</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    OverlayScalable::create(<a class="code" href="a02457.html#adef5d2a123c05b5b6f6be50c2ffe1454">engine</a>, <a class="code" href="a02457.html#afb6e023344eafbba7d8ae49d7d8fed3b">entity</a>());</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    OverlayScalable::setLocalSize(player.<a class="code" href="a02445.html#a95522b5ea039383b978004341c91d009">getLocalSize</a>());</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    Animation2DPlayer::create(<a class="code" href="a02457.html#adef5d2a123c05b5b6f6be50c2ffe1454">engine</a>.<a class="code" href="a02301.html#a04332dee562be55a73c43b5eed176837">renderer</a>(), <a class="code" href="a02457.html#adef5d2a123c05b5b6f6be50c2ffe1454">engine</a>.<a class="code" href="a02301.html#a25e3869bfc4a1fefd83bcd5773c7a5ef">ecs</a>(), <a class="code" href="a02457.html#afb6e023344eafbba7d8ae49d7d8fed3b">entity</a>(), player.<a class="code" href="a02441.html#adff6c12352fcece0996814cb886c8546">getPlayerEntity</a>());</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <a class="code" href="a02457.html#ad80022f5deb90f89ab57048a3cfa187b">component</a>().<a class="code" href="a02001.html#a56f310cbfbd51df4d3c79ef30c770c5e">create</a>(<a class="code" href="a02457.html#adef5d2a123c05b5b6f6be50c2ffe1454">engine</a>, Animation2DPlayer::getPlayer());</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <a class="code" href="a02457.html#ad80022f5deb90f89ab57048a3cfa187b">component</a>().<a class="code" href="a02889.html#aba09d98e0f8f44a23bd45f323771af5d">containsTransparency</a> = Textured::getTexture()-&gt;containsTransparency();</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;}</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;} <span class="comment">// namespace gfx</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa01824_html"><div class="ttname"><a href="a01824.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02001_html_a56f310cbfbd51df4d3c79ef30c770c5e"><div class="ttname"><a href="a02001.html#a56f310cbfbd51df4d3c79ef30c770c5e">bl::com::Animation2D::create</a></div><div class="ttdeci">void create(engine::Engine &amp;engine, const Animation2DPlayer &amp;anim)</div><div class="ttdoc">Creates the index buffer to render the animation. Does not register ECS dependency....</div><div class="ttdef"><b>Definition:</b> <a href="a05169_source.html#l00015">Animation2D.cpp:15</a></div></div>
-<div class="ttc" id="aa02301_html"><div class="ttname"><a href="a02301.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a05073_source.html#l00032">Engine.hpp:32</a></div></div>
-<div class="ttc" id="aa02301_html_a04332dee562be55a73c43b5eed176837"><div class="ttname"><a href="a02301.html#a04332dee562be55a73c43b5eed176837">bl::engine::Engine::renderer</a></div><div class="ttdeci">rc::Renderer &amp; renderer()</div><div class="ttdoc">Returns the rendering system of the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a05073_source.html#l00200">Engine.hpp:200</a></div></div>
-<div class="ttc" id="aa02301_html_a25e3869bfc4a1fefd83bcd5773c7a5ef"><div class="ttname"><a href="a02301.html#a25e3869bfc4a1fefd83bcd5773c7a5ef">bl::engine::Engine::ecs</a></div><div class="ttdeci">ecs::Registry &amp; ecs()</div><div class="ttdoc">Returns a reference to the engine wide entity registry.</div><div class="ttdef"><b>Definition:</b> <a href="a05073_source.html#l00194">Engine.hpp:194</a></div></div>
-<div class="ttc" id="aa02433_html"><div class="ttname"><a href="a02433.html">bl::gfx::Animation2D</a></div><div class="ttdoc">Basic 2d animation. Supports arbitrary animations. Prefer Slideshow for supported animations as more ...</div><div class="ttdef"><b>Definition:</b> <a href="a05022_source.html#l00022">Animation2D.hpp:25</a></div></div>
-<div class="ttc" id="aa02433_html_a0fa289fdba32605e5e475b9d79a5c158"><div class="ttname"><a href="a02433.html#a0fa289fdba32605e5e475b9d79a5c158">bl::gfx::Animation2D::createWithUniquePlayer</a></div><div class="ttdeci">void createWithUniquePlayer(engine::Engine &amp;engine, const resource::Ref&lt; a2d::AnimationData &gt; &amp;animation, bool play=false, bool forceLoop=false)</div><div class="ttdoc">Creates the animation with its own player.</div><div class="ttdef"><b>Definition:</b> <a href="a05172_source.html#l00031">Animation2D.cpp:31</a></div></div>
-<div class="ttc" id="aa02433_html_ac0db581e7a8d6ca16891834afb2e923f"><div class="ttname"><a href="a02433.html#ac0db581e7a8d6ca16891834afb2e923f">bl::gfx::Animation2D::Animation2D</a></div><div class="ttdeci">Animation2D()=default</div><div class="ttdoc">Does nothing.</div></div>
-<div class="ttc" id="aa02433_html_ae5ee273e33865432b7111332147cb6f4"><div class="ttname"><a href="a02433.html#ae5ee273e33865432b7111332147cb6f4">bl::gfx::Animation2D::createWithSharedPlayer</a></div><div class="ttdeci">void createWithSharedPlayer(engine::Engine &amp;engine, const Animation2D &amp;player)</div><div class="ttdoc">Creates the animation sharing player state with the given animation.</div><div class="ttdef"><b>Definition:</b> <a href="a05172_source.html#l00043">Animation2D.cpp:43</a></div></div>
-<div class="ttc" id="aa02441_html_adff6c12352fcece0996814cb886c8546"><div class="ttname"><a href="a02441.html#adff6c12352fcece0996814cb886c8546">bl::gfx::bcom::Animation2DPlayer::getPlayerEntity</a></div><div class="ttdeci">ecs::Entity getPlayerEntity() const</div><div class="ttdoc">Returns the ECS entity id of the player.</div><div class="ttdef"><b>Definition:</b> <a href="a05028_source.html#l00104">Animation2DPlayer.hpp:104</a></div></div>
-<div class="ttc" id="aa02445_html_a95522b5ea039383b978004341c91d009"><div class="ttname"><a href="a02445.html#a95522b5ea039383b978004341c91d009">bl::gfx::bcom::OverlayScalable::getLocalSize</a></div><div class="ttdeci">const glm::vec2 &amp; getLocalSize() const</div><div class="ttdoc">Returns the pre-transform size of this entity.</div><div class="ttdef"><b>Definition:</b> <a href="a00272_source.html#l00110">OverlayScalable.hpp:110</a></div></div>
-<div class="ttc" id="aa02457_html_a35b338cdd6e950db4efa0ae3fae13ad2"><div class="ttname"><a href="a02457.html#a35b338cdd6e950db4efa0ae3fae13ad2">bl::gfx::Drawable::create</a></div><div class="ttdeci">void create(engine::Engine &amp;engine, TArgs &amp;&amp;... args)</div><div class="ttdoc">Creates the ECS entity and drawable component. Will destroy the prior instance if any.</div><div class="ttdef"><b>Definition:</b> <a href="a00278_source.html#l00348">Drawable.hpp:348</a></div></div>
-<div class="ttc" id="aa02457_html_ad80022f5deb90f89ab57048a3cfa187b"><div class="ttname"><a href="a02457.html#ad80022f5deb90f89ab57048a3cfa187b">bl::gfx::Drawable&lt; com::Animation2D &gt;::component</a></div><div class="ttdeci">com::Animation2D &amp; component()</div><div class="ttdoc">Returns the drawable component. Only call after create()</div><div class="ttdef"><b>Definition:</b> <a href="a00278_source.html#l00085">Drawable.hpp:251</a></div></div>
-<div class="ttc" id="aa02457_html_adef5d2a123c05b5b6f6be50c2ffe1454"><div class="ttname"><a href="a02457.html#adef5d2a123c05b5b6f6be50c2ffe1454">bl::gfx::Drawable&lt; com::Animation2D &gt;::engine</a></div><div class="ttdeci">constexpr engine::Engine &amp; engine()</div><div class="ttdoc">Returns the game engine instance. Only call after create()</div><div class="ttdef"><b>Definition:</b> <a href="a00278_source.html#l00128">Drawable.hpp:302</a></div></div>
-<div class="ttc" id="aa02457_html_afb6e023344eafbba7d8ae49d7d8fed3b"><div class="ttname"><a href="a02457.html#afb6e023344eafbba7d8ae49d7d8fed3b">bl::gfx::Drawable&lt; com::Animation2D &gt;::entity</a></div><div class="ttdeci">constexpr ecs::Entity entity() const</div><div class="ttdoc">Returns the ECS entity of this drawable.</div><div class="ttdef"><b>Definition:</b> <a href="a00278_source.html#l00075">Drawable.hpp:246</a></div></div>
-<div class="ttc" id="aa02889_html_aba09d98e0f8f44a23bd45f323771af5d"><div class="ttname"><a href="a02889.html#aba09d98e0f8f44a23bd45f323771af5d">bl::rc::rcom::DrawableBase::containsTransparency</a></div><div class="ttdeci">bool containsTransparency</div><div class="ttdef"><b>Definition:</b> <a href="a00563_source.html#l00026">DrawableBase.hpp:26</a></div></div>
-<div class="ttc" id="aa03521_html"><div class="ttname"><a href="a03521.html">bl::resource::Ref</a></div><div class="ttdoc">Represents a reference to a managed resource. Performs reference counting, but resources are never de...</div><div class="ttdef"><b>Definition:</b> <a href="a00905_source.html#l00025">Ref.hpp:25</a></div></div>
-<div class="ttc" id="aa05022_html"><div class="ttname"><a href="a05022.html">Animation2D.hpp</a></div></div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a01986.html#a58d0c9b8a78e106706c3a6d794767bbe">   20</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01986.html#a58d0c9b8a78e106706c3a6d794767bbe">CameraShake::setShakesPerSecond</a>(<span class="keywordtype">float</span> s) { speed = 2.f * <a class="code" href="a01866.html#a5d956eb5741fd61ccb4d7a18bd6fd431">math::Pi</a> * s; }</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a01986.html#a383c2a89e278a6521d7707654c17d109">   22</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01986.html#a383c2a89e278a6521d7707654c17d109">CameraShake::applyOnView</a>(glm::vec3&amp; pos, <a class="code" href="a02030.html">com::Orientation3D</a>&amp;) {</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> t = time * speed;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    pos.x += mag * <a class="code" href="a01814.html#gae8e482156412ed87dc2d91572ee817ab">std::cos</a>(t);</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    pos.y += mag * <a class="code" href="a01814.html#gae8e482156412ed87dc2d91572ee817ab">std::cos</a>(t);</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    pos.z += mag * <a class="code" href="a01814.html#gae8e482156412ed87dc2d91572ee817ab">std::cos</a>(-t);</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;}</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a01986.html#abf58291e26b4d73d55cd1737be007ce0">   30</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01986.html#abf58291e26b4d73d55cd1737be007ce0">CameraShake::update</a>(<span class="keywordtype">float</span> dt, <span class="keywordtype">bool</span>&amp; view, <span class="keywordtype">bool</span>&amp;) {</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    time += dt;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    view = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;}</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;} <span class="comment">// namespace c3d</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;} <span class="comment">// namespace cam</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00512_html"><div class="ttname"><a href="a00512.html">Math.hpp</a></div></div>
+<div class="ttc" id="aa01814_html_gae8e482156412ed87dc2d91572ee817ab"><div class="ttname"><a href="a01814.html#gae8e482156412ed87dc2d91572ee817ab">bl::math::cos</a></div><div class="ttdeci">float cos(float degrees)</div><div class="ttdoc">Computes the cosine of the given angle using cached values. Values are cached in quarter degree incre...</div><div class="ttdef"><b>Definition:</b> <a href="a01403_source.html#l00031">Trig.cpp:31</a></div></div>
+<div class="ttc" id="aa01830_html"><div class="ttname"><a href="a01830.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa01866_html_a5d956eb5741fd61ccb4d7a18bd6fd431"><div class="ttname"><a href="a01866.html#a5d956eb5741fd61ccb4d7a18bd6fd431">bl::math::Pi</a></div><div class="ttdeci">constexpr float Pi</div><div class="ttdoc">It's pi.</div><div class="ttdef"><b>Definition:</b> <a href="a00500_source.html#l00010">Constants.hpp:10</a></div></div>
+<div class="ttc" id="aa01986_html_a383c2a89e278a6521d7707654c17d109"><div class="ttname"><a href="a01986.html#a383c2a89e278a6521d7707654c17d109">bl::cam::c3d::CameraShake::applyOnView</a></div><div class="ttdeci">virtual void applyOnView(glm::vec3 &amp;position, com::Orientation3D &amp;orientation) override</div><div class="ttdoc">Modifies the camera view matrix with the shake.</div><div class="ttdef"><b>Definition:</b> <a href="a05172_source.html#l00022">CameraShake.cpp:22</a></div></div>
+<div class="ttc" id="aa01986_html_a58d0c9b8a78e106706c3a6d794767bbe"><div class="ttname"><a href="a01986.html#a58d0c9b8a78e106706c3a6d794767bbe">bl::cam::c3d::CameraShake::setShakesPerSecond</a></div><div class="ttdeci">void setShakesPerSecond(float shakesPerSecond)</div><div class="ttdoc">Sets the speed of the camera shake.</div><div class="ttdef"><b>Definition:</b> <a href="a05172_source.html#l00020">CameraShake.cpp:20</a></div></div>
+<div class="ttc" id="aa01986_html_a9c3874005a1878368f309a072326f3ba"><div class="ttname"><a href="a01986.html#a9c3874005a1878368f309a072326f3ba">bl::cam::c3d::CameraShake::CameraShake</a></div><div class="ttdeci">CameraShake(float magnitude, float shakesPerSecond)</div><div class="ttdoc">Creates a new camera shake affector.</div><div class="ttdef"><b>Definition:</b> <a href="a05172_source.html#l00012">CameraShake.cpp:12</a></div></div>
+<div class="ttc" id="aa01986_html_ab39045ef5e11962aa94863b9649ada2d"><div class="ttname"><a href="a01986.html#ab39045ef5e11962aa94863b9649ada2d">bl::cam::c3d::CameraShake::setMagnitude</a></div><div class="ttdeci">void setMagnitude(float magnitude)</div><div class="ttdoc">Sets the magnitude of the camera shake.</div><div class="ttdef"><b>Definition:</b> <a href="a05172_source.html#l00018">CameraShake.cpp:18</a></div></div>
+<div class="ttc" id="aa01986_html_abf58291e26b4d73d55cd1737be007ce0"><div class="ttname"><a href="a01986.html#abf58291e26b4d73d55cd1737be007ce0">bl::cam::c3d::CameraShake::update</a></div><div class="ttdeci">virtual void update(float dt, bool &amp;view, bool &amp;proj) override</div><div class="ttdoc">Updates the camera shaking.</div><div class="ttdef"><b>Definition:</b> <a href="a05172_source.html#l00030">CameraShake.cpp:30</a></div></div>
+<div class="ttc" id="aa02030_html"><div class="ttname"><a href="a02030.html">bl::com::Orientation3D</a></div><div class="ttdoc">Angle-axis representation of a 3d orientation.</div><div class="ttdef"><b>Definition:</b> <a href="a00068_source.html#l00015">Orientation3D.hpp:15</a></div></div>
+<div class="ttc" id="aa05037_html"><div class="ttname"><a href="a05037.html">CameraShake.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 15 2023 19:53:39 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Oct 21 2023 00:16:51 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Util/ThreadPool.cpp Source File</title>
+<title>BLIB: src/Util/ReadWriteLock.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,131 +71,103 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">ThreadPool.cpp</div>  </div>
+<div class="title">ReadWriteLock.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01787.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01082.html">BLIB/Util/ThreadPool.hpp</a>&gt;</span></div>
+<a href="a01787.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01070.html">BLIB/Util/ReadWriteLock.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00500.html">BLIB/Logging.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;cmath&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01824.html">bl</a></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>util</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="a04049.html#a460d8cce09b5e1c14157d395457e3bfd">   10</a></span>&#160;<a class="code" href="a04049.html#a460d8cce09b5e1c14157d395457e3bfd">ThreadPool::ThreadPool</a>()</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;: shuttingDown(false)</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;, inFlightCount(0) {}</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="a04049.html#af14005becc6ac6d61be21015e323968c">   14</a></span>&#160;<a class="code" href="a04049.html#af14005becc6ac6d61be21015e323968c">ThreadPool::~ThreadPool</a>() { <a class="code" href="a04049.html#a5422d1988e881339da8cecd35049d352">shutdown</a>(); }</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a04049.html#a267094fe3aa471ed368b229e7ace11e8">   16</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a04049.html#a267094fe3aa471ed368b229e7ace11e8">ThreadPool::start</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> wc) {</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="a04049.html#ad9a5691b5c3c8a79d4d635a528702cca">running</a>()) { <span class="keywordflow">return</span> <span class="keyword">false</span>; }</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keywordflow">if</span> (wc == 0) { wc = std::max(std::thread::hardware_concurrency(), 4u); }</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <a class="code" href="a00494.html#a459f7ea96e34815206480bf681ee2a2f">BL_LOG_INFO</a> &lt;&lt; <span class="stringliteral">&quot;Thread pool starting with &quot;</span> &lt;&lt; wc &lt;&lt; <span class="stringliteral">&quot; workers&quot;</span>;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; wc; ++i) {</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        workers.emplace_back(std::bind(&amp;ThreadPool::worker, <span class="keyword">this</span>));</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    }</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01830.html">bl</a></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>util</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;thread_local std::unordered_map&lt;ReadWriteLock*, bool&gt;* readLockFlags =</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keyword">new</span> std::unordered_map&lt;ReadWriteLock*, bool&gt;();</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;thread_local std::unordered_map&lt;ReadWriteLock*, bool&gt;* writeLockFlags =</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="keyword">new</span> std::unordered_map&lt;ReadWriteLock*, bool&gt;();</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;} <span class="comment">// namespace</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a04042.html#a71234a7cb8b764c834c02fcdc097a728">   17</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04042.html#a71234a7cb8b764c834c02fcdc097a728">ReadWriteLock::lockRead</a>() {</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keywordflow">if</span> (readLockFlag()) <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    readLockFlag() = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    mutex.lock_shared();</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;}</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a04042.html#abcce04734931a45bdeeab0241135133b">   23</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04042.html#abcce04734931a45bdeeab0241135133b">ReadWriteLock::unlockRead</a>() {</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordflow">if</span> (!readLockFlag()) <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    readLockFlag() = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    mutex.unlock_shared();</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;}</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a04049.html#ad9a5691b5c3c8a79d4d635a528702cca">   29</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a04049.html#ad9a5691b5c3c8a79d4d635a528702cca">ThreadPool::running</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> !workers.empty() &amp;&amp; !shuttingDown.load(); }</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="a04049.html#a38acd300a96f722e47c9f6214bfa759f">   31</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04049.html#a38acd300a96f722e47c9f6214bfa759f">ThreadPool::drain</a>() {</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    std::unique_lock lock(taskMutex);</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> isDrained = [<span class="keyword">this</span>]() { <span class="keywordflow">return</span> tasks.empty() &amp;&amp; inFlightCount.load() == 0; };</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordflow">if</span> (!isDrained()) { taskDoneCv.wait(lock, isDrained); }</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;}</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="a04049.html#a5422d1988e881339da8cecd35049d352">   37</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04049.html#a5422d1988e881339da8cecd35049d352">ThreadPool::shutdown</a>() {</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <a class="code" href="a00494.html#a459f7ea96e34815206480bf681ee2a2f">BL_LOG_INFO</a> &lt;&lt; <span class="stringliteral">&quot;Thread pool shutting down&quot;</span>;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    shuttingDown.store(<span class="keyword">true</span>);</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    taskQueuedCv.notify_all();</div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a04042.html#ad37b398dbe7861cd2763e20002069263">   29</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04042.html#ad37b398dbe7861cd2763e20002069263">ReadWriteLock::lockWrite</a>() {</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordflow">if</span> (writeLockFlag()) <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    writeLockFlag() = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    mutex.lock();</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;}</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="a04042.html#a751259f66b9b1aece13bbf155cdd50c5">   35</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04042.html#a751259f66b9b1aece13bbf155cdd50c5">ReadWriteLock::unlockWrite</a>() {</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordflow">if</span> (!writeLockFlag()) <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    writeLockFlag() = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    mutex.unlock();</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;}</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keywordtype">bool</span>&amp; ReadWriteLock::readLockFlag() { <span class="keywordflow">return</span> (*readLockFlags)[<span class="keyword">this</span>]; }</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; t : workers) {</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <span class="keywordflow">if</span> (!t.joinable()) { <span class="keywordflow">continue</span>; }</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        t.join();</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    }</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    std::unique_lock lock(taskMutex);</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    workers.clear();</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    inFlightCount.store(0);</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="comment">// run remaining tasks serially</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordflow">while</span> (!tasks.empty()) {</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        tasks.front()();</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        tasks.pop();</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    }</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    shuttingDown.store(<span class="keyword">false</span>);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="keywordtype">bool</span>&amp; ReadWriteLock::writeLockFlag() { <span class="keywordflow">return</span> (*writeLockFlags)[<span class="keyword">this</span>]; }</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="a04046.html#ab719cee3c0b58e1166b0cf43cb433005">   45</a></span>&#160;<a class="code" href="a04046.html#ab719cee3c0b58e1166b0cf43cb433005">ReadWriteLock::ReadScopeGuard::ReadScopeGuard</a>(<a class="code" href="a04042.html">ReadWriteLock</a>&amp; lock)</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;: lock(lock)</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;, unlocked(false) {</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    lock.<a class="code" href="a04042.html#a71234a7cb8b764c834c02fcdc097a728">lockRead</a>();</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;}</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="a04046.html#a58ede3553dd29824ecaa84a5df69c922">   51</a></span>&#160;<a class="code" href="a04046.html#a58ede3553dd29824ecaa84a5df69c922">ReadWriteLock::ReadScopeGuard::~ReadScopeGuard</a>() { unlock(); }</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="a04046.html#a10c313a07d4ea8c2534651fb071feca1">   53</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04046.html#a10c313a07d4ea8c2534651fb071feca1">ReadWriteLock::ReadScopeGuard::unlock</a>() {</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordflow">if</span> (!unlocked) {</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        unlocked = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        lock.unlockRead();</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    }</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;}</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <a class="code" href="a00494.html#a459f7ea96e34815206480bf681ee2a2f">BL_LOG_INFO</a> &lt;&lt; <span class="stringliteral">&quot;Thread pool shut down&quot;</span>;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;}</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="a04049.html#a2093b8daf49ca46987c69b69c1a10e59">   63</a></span>&#160;std::future&lt;void&gt; <a class="code" href="a04049.html#a2093b8daf49ca46987c69b69c1a10e59">ThreadPool::queueTask</a>(<a class="code" href="a04049.html#a1da062602c1bbf14d5d17ce12e777697">Task</a>&amp;&amp; task) {</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordflow">if</span> (shuttingDown.load() || !<a class="code" href="a04049.html#ad9a5691b5c3c8a79d4d635a528702cca">running</a>()) { <span class="keywordflow">return</span> {}; }</div>
+<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="a04050.html#aa1c42e9d6b77fc0a8acb1e659ea1a01a">   60</a></span>&#160;<a class="code" href="a04050.html#aa1c42e9d6b77fc0a8acb1e659ea1a01a">ReadWriteLock::WriteScopeGuard::WriteScopeGuard</a>(<a class="code" href="a04042.html">ReadWriteLock</a>&amp; lock)</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;: lock(lock)</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;, unlocked(false) {</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    lock.<a class="code" href="a04042.html#ad37b398dbe7861cd2763e20002069263">lockWrite</a>();</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;}</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    std::unique_lock lock(taskMutex);</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordflow">if</span> (shuttingDown.load()) { <span class="keywordflow">return</span> {}; } <span class="comment">// in case of race</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keyword">auto</span>&amp; t = tasks.emplace(std::forward&lt;Task&gt;(task));</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keyword">auto</span> f  = t.get_future();</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    lock.unlock();</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    taskQueuedCv.notify_one();</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordflow">return</span> f;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;}</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="keywordtype">void</span> ThreadPool::worker() {</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <a class="code" href="a00494.html#a459f7ea96e34815206480bf681ee2a2f">BL_LOG_INFO</a> &lt;&lt; <span class="stringliteral">&quot;Worker thread started&quot;</span>;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordflow">while</span> (!shuttingDown) {</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        std::unique_lock lock(taskMutex);</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <span class="keywordflow">if</span> (shuttingDown) { <span class="keywordflow">break</span>; }</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        <span class="keywordflow">if</span> (tasks.empty()) { taskQueuedCv.wait(lock); }</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        <span class="keywordflow">if</span> (tasks.empty()) { <span class="keywordflow">continue</span>; }</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        std::packaged_task&lt;void()&gt; task = std::move(tasks.front());</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        ++inFlightCount;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        tasks.pop();</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        lock.unlock();</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        task();</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        lock.lock();</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        --inFlightCount;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        taskDoneCv.notify_all();</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <span class="keywordflow">if</span> (shuttingDown) { <span class="keywordflow">break</span>; }</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    }</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <a class="code" href="a00494.html#a459f7ea96e34815206480bf681ee2a2f">BL_LOG_INFO</a> &lt;&lt; <span class="stringliteral">&quot;Worker thread terminated&quot;</span>;</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;}</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;} <span class="comment">// namespace util</span></div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00494_html_a459f7ea96e34815206480bf681ee2a2f"><div class="ttname"><a href="a00494.html#a459f7ea96e34815206480bf681ee2a2f">BL_LOG_INFO</a></div><div class="ttdeci">#define BL_LOG_INFO</div><div class="ttdoc">Helper macro to log at info level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00494_source.html#l00107">Logger.hpp:107</a></div></div>
-<div class="ttc" id="aa00500_html"><div class="ttname"><a href="a00500.html">Logging.hpp</a></div></div>
-<div class="ttc" id="aa01082_html"><div class="ttname"><a href="a01082.html">ThreadPool.hpp</a></div></div>
-<div class="ttc" id="aa01824_html"><div class="ttname"><a href="a01824.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04049_html_a1da062602c1bbf14d5d17ce12e777697"><div class="ttname"><a href="a04049.html#a1da062602c1bbf14d5d17ce12e777697">bl::util::ThreadPool::Task</a></div><div class="ttdeci">std::function&lt; void()&gt; Task</div><div class="ttdoc">Callback signature of tasks to be submitted.</div><div class="ttdef"><b>Definition:</b> <a href="a01082_source.html#l00027">ThreadPool.hpp:27</a></div></div>
-<div class="ttc" id="aa04049_html_a2093b8daf49ca46987c69b69c1a10e59"><div class="ttname"><a href="a04049.html#a2093b8daf49ca46987c69b69c1a10e59">bl::util::ThreadPool::queueTask</a></div><div class="ttdeci">std::future&lt; void &gt; queueTask(Task &amp;&amp;task)</div><div class="ttdoc">Queues a task to be executed by a worker. Returns an invalid future if the pool is not accepting task...</div><div class="ttdef"><b>Definition:</b> <a href="a01787_source.html#l00063">ThreadPool.cpp:63</a></div></div>
-<div class="ttc" id="aa04049_html_a267094fe3aa471ed368b229e7ace11e8"><div class="ttname"><a href="a04049.html#a267094fe3aa471ed368b229e7ace11e8">bl::util::ThreadPool::start</a></div><div class="ttdeci">bool start(unsigned int workerCount=0)</div><div class="ttdoc">Starts the thread pool with the given concurrency. If the workerCount is 0 then std::thread::hardware...</div><div class="ttdef"><b>Definition:</b> <a href="a01787_source.html#l00016">ThreadPool.cpp:16</a></div></div>
-<div class="ttc" id="aa04049_html_a38acd300a96f722e47c9f6214bfa759f"><div class="ttname"><a href="a04049.html#a38acd300a96f722e47c9f6214bfa759f">bl::util::ThreadPool::drain</a></div><div class="ttdeci">void drain()</div><div class="ttdoc">Blocks until the task queue is empty and all workers are idle. If more tasks are submitted during thi...</div><div class="ttdef"><b>Definition:</b> <a href="a01787_source.html#l00031">ThreadPool.cpp:31</a></div></div>
-<div class="ttc" id="aa04049_html_a460d8cce09b5e1c14157d395457e3bfd"><div class="ttname"><a href="a04049.html#a460d8cce09b5e1c14157d395457e3bfd">bl::util::ThreadPool::ThreadPool</a></div><div class="ttdeci">ThreadPool()</div><div class="ttdoc">Initializes the thread pool. Does not start it.</div><div class="ttdef"><b>Definition:</b> <a href="a01787_source.html#l00010">ThreadPool.cpp:10</a></div></div>
-<div class="ttc" id="aa04049_html_a5422d1988e881339da8cecd35049d352"><div class="ttname"><a href="a04049.html#a5422d1988e881339da8cecd35049d352">bl::util::ThreadPool::shutdown</a></div><div class="ttdeci">void shutdown()</div><div class="ttdoc">Prevents new tasks from being submitted, drains the queue, and stops all workers.</div><div class="ttdef"><b>Definition:</b> <a href="a01787_source.html#l00037">ThreadPool.cpp:37</a></div></div>
-<div class="ttc" id="aa04049_html_ad9a5691b5c3c8a79d4d635a528702cca"><div class="ttname"><a href="a04049.html#ad9a5691b5c3c8a79d4d635a528702cca">bl::util::ThreadPool::running</a></div><div class="ttdeci">bool running() const</div><div class="ttdoc">Returns whether or not the pool is running.</div><div class="ttdef"><b>Definition:</b> <a href="a01787_source.html#l00029">ThreadPool.cpp:29</a></div></div>
-<div class="ttc" id="aa04049_html_af14005becc6ac6d61be21015e323968c"><div class="ttname"><a href="a04049.html#af14005becc6ac6d61be21015e323968c">bl::util::ThreadPool::~ThreadPool</a></div><div class="ttdeci">~ThreadPool()</div><div class="ttdoc">Terminates the pool.</div><div class="ttdef"><b>Definition:</b> <a href="a01787_source.html#l00014">ThreadPool.cpp:14</a></div></div>
+<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="a04050.html#a571f6359834209775899f3507a549e40">   66</a></span>&#160;<a class="code" href="a04050.html#a571f6359834209775899f3507a549e40">ReadWriteLock::WriteScopeGuard::~WriteScopeGuard</a>() { unlock(); }</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="a04050.html#a0f80b4382191c0117105c121d0e29b96">   68</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04050.html#a0f80b4382191c0117105c121d0e29b96">ReadWriteLock::WriteScopeGuard::unlock</a>() {</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordflow">if</span> (!unlocked) {</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        unlocked = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        lock.unlockWrite();</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    }</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;}</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;} <span class="comment">// namespace util</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa01070_html"><div class="ttname"><a href="a01070.html">ReadWriteLock.hpp</a></div></div>
+<div class="ttc" id="aa01830_html"><div class="ttname"><a href="a01830.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04042_html"><div class="ttname"><a href="a04042.html">bl::util::ReadWriteLock</a></div><div class="ttdoc">Reader-writer lock built on top of std::shared_mutex. The primary benefit of this class is that lockR...</div><div class="ttdef"><b>Definition:</b> <a href="a01070_source.html#l00020">ReadWriteLock.hpp:20</a></div></div>
+<div class="ttc" id="aa04042_html_a71234a7cb8b764c834c02fcdc097a728"><div class="ttname"><a href="a04042.html#a71234a7cb8b764c834c02fcdc097a728">bl::util::ReadWriteLock::lockRead</a></div><div class="ttdeci">void lockRead()</div><div class="ttdoc">Acquires a lock for reading a shared resource. Multiple threads may acquire a read lock provided that...</div><div class="ttdef"><b>Definition:</b> <a href="a01787_source.html#l00017">ReadWriteLock.cpp:17</a></div></div>
+<div class="ttc" id="aa04042_html_a751259f66b9b1aece13bbf155cdd50c5"><div class="ttname"><a href="a04042.html#a751259f66b9b1aece13bbf155cdd50c5">bl::util::ReadWriteLock::unlockWrite</a></div><div class="ttdeci">void unlockWrite()</div><div class="ttdoc">Releases the write lock held by this thread.</div><div class="ttdef"><b>Definition:</b> <a href="a01787_source.html#l00035">ReadWriteLock.cpp:35</a></div></div>
+<div class="ttc" id="aa04042_html_abcce04734931a45bdeeab0241135133b"><div class="ttname"><a href="a04042.html#abcce04734931a45bdeeab0241135133b">bl::util::ReadWriteLock::unlockRead</a></div><div class="ttdeci">void unlockRead()</div><div class="ttdoc">Releases the read lock held by this thread.</div><div class="ttdef"><b>Definition:</b> <a href="a01787_source.html#l00023">ReadWriteLock.cpp:23</a></div></div>
+<div class="ttc" id="aa04042_html_ad37b398dbe7861cd2763e20002069263"><div class="ttname"><a href="a04042.html#ad37b398dbe7861cd2763e20002069263">bl::util::ReadWriteLock::lockWrite</a></div><div class="ttdeci">void lockWrite()</div><div class="ttdoc">Acquires a lock for writing a shared resource. Only one thread may hold this lock.</div><div class="ttdef"><b>Definition:</b> <a href="a01787_source.html#l00029">ReadWriteLock.cpp:29</a></div></div>
+<div class="ttc" id="aa04046_html_a10c313a07d4ea8c2534651fb071feca1"><div class="ttname"><a href="a04046.html#a10c313a07d4ea8c2534651fb071feca1">bl::util::ReadWriteLock::ReadScopeGuard::unlock</a></div><div class="ttdeci">void unlock()</div><div class="ttdoc">Prematurely unlocks the underlying lock.</div><div class="ttdef"><b>Definition:</b> <a href="a01787_source.html#l00053">ReadWriteLock.cpp:53</a></div></div>
+<div class="ttc" id="aa04046_html_a58ede3553dd29824ecaa84a5df69c922"><div class="ttname"><a href="a04046.html#a58ede3553dd29824ecaa84a5df69c922">bl::util::ReadWriteLock::ReadScopeGuard::~ReadScopeGuard</a></div><div class="ttdeci">~ReadScopeGuard()</div><div class="ttdoc">Unlocks the underlying lock.</div><div class="ttdef"><b>Definition:</b> <a href="a01787_source.html#l00051">ReadWriteLock.cpp:51</a></div></div>
+<div class="ttc" id="aa04046_html_ab719cee3c0b58e1166b0cf43cb433005"><div class="ttname"><a href="a04046.html#ab719cee3c0b58e1166b0cf43cb433005">bl::util::ReadWriteLock::ReadScopeGuard::ReadScopeGuard</a></div><div class="ttdeci">ReadScopeGuard(ReadWriteLock &amp;lock)</div><div class="ttdoc">Construct a new Read Scope Guard object.</div><div class="ttdef"><b>Definition:</b> <a href="a01787_source.html#l00045">ReadWriteLock.cpp:45</a></div></div>
+<div class="ttc" id="aa04050_html_a0f80b4382191c0117105c121d0e29b96"><div class="ttname"><a href="a04050.html#a0f80b4382191c0117105c121d0e29b96">bl::util::ReadWriteLock::WriteScopeGuard::unlock</a></div><div class="ttdeci">void unlock()</div><div class="ttdoc">Prematurely unlocks the underlying lock.</div><div class="ttdef"><b>Definition:</b> <a href="a01787_source.html#l00068">ReadWriteLock.cpp:68</a></div></div>
+<div class="ttc" id="aa04050_html_a571f6359834209775899f3507a549e40"><div class="ttname"><a href="a04050.html#a571f6359834209775899f3507a549e40">bl::util::ReadWriteLock::WriteScopeGuard::~WriteScopeGuard</a></div><div class="ttdeci">~WriteScopeGuard()</div><div class="ttdoc">Unlocks the underlying lock.</div><div class="ttdef"><b>Definition:</b> <a href="a01787_source.html#l00066">ReadWriteLock.cpp:66</a></div></div>
+<div class="ttc" id="aa04050_html_aa1c42e9d6b77fc0a8acb1e659ea1a01a"><div class="ttname"><a href="a04050.html#aa1c42e9d6b77fc0a8acb1e659ea1a01a">bl::util::ReadWriteLock::WriteScopeGuard::WriteScopeGuard</a></div><div class="ttdeci">WriteScopeGuard(ReadWriteLock &amp;lock)</div><div class="ttdoc">Construct a new Write Scope Guard object.</div><div class="ttdef"><b>Definition:</b> <a href="a01787_source.html#l00060">ReadWriteLock.cpp:60</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 15 2023 19:53:40 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Oct 21 2023 00:16:52 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

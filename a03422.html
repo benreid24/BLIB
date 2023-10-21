@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::rc::vk::Texture Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,27 +66,696 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01824.html">bl</a></li><li class="navelem"><a class="el" href="a01874.html">resource</a></li><li class="navelem"><a class="el" href="a01875.html">bundle</a></li><li class="navelem"><a class="el" href="a03425.html">BundleRuntime</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01830.html">bl</a></li><li class="navelem"><a class="el" href="a01842.html">rc</a></li><li class="navelem"><a class="el" href="a01843.html">vk</a></li><li class="navelem"><a class="el" href="a03422.html">Texture</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
+<a href="#friends">Friends</a> &#124;
+<a href="a03419.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::resource::bundle::BundleRuntime Member List</div>  </div>
+<div class="title">bl::rc::vk::Texture Class Reference<div class="ingroups"><a class="el" href="a01817.html">Renderer</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a03425.html">bl::resource::bundle::BundleRuntime</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a03425.html#ab9e0d65a7ba96dcd20590d7f9ce49838">BundleRuntime</a>(const std::string &amp;bundlePath)</td><td class="entry"><a class="el" href="a03425.html">bl::resource::bundle::BundleRuntime</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a03425.html#a35b334d8380cc8ffe14d0a71a5f8064b">clean</a>()</td><td class="entry"><a class="el" href="a03425.html">bl::resource::bundle::BundleRuntime</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a03425.html#a1041bc77f1877c64a499cdd2918e0621">getResource</a>(const std::string &amp;path, char **buffer, std::size_t &amp;len)</td><td class="entry"><a class="el" href="a03425.html">bl::resource::bundle::BundleRuntime</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a03425.html#a96af771d2521b03320d93e0cd83d3d61">initialize</a>()</td><td class="entry"><a class="el" href="a03425.html">bl::resource::bundle::BundleRuntime</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a03425.html#af40d2b1f34198e6b242a4d3534783188">resourceExists</a>(const std::string &amp;path) const</td><td class="entry"><a class="el" href="a03425.html">bl::resource::bundle::BundleRuntime</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Helper struct to manage a texture in Vulkan. Textures are managed and owned by the TexturePool and should not be allocated directly.  
+ <a href="a03422.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a05079_source.html">Texture.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::rc::vk::Texture:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a03422.png" usemap="#bl::rc::vk::Texture_map" alt=""/>
+  <map id="bl::rc::vk::Texture_map" name="bl::rc::vk::Texture_map">
+<area href="a03282.html" title="Base class for objects that transfer state or data to the GPU. Used in conjunction with the TransferE..." alt="bl::rc::tfr::Transferable" shape="rect" coords="0,0,136,24"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a109f9d7acc098649830f276c266b47d0"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03282.html#a109f9d7acc098649830f276c266b47d0">SyncRequirement</a> { <a class="el" href="a03282.html#a109f9d7acc098649830f276c266b47d0a43f6615bbb2c40a5306ff804094420b1">Immediate</a>
+, <a class="el" href="a03282.html#a109f9d7acc098649830f276c266b47d0a11fb2e916cb91ad9afad4da5711d81d0">DeviceIdle</a>
+ }</td></tr>
+<tr class="memdesc:a109f9d7acc098649830f276c266b47d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enum containing requirements for when transfers may start.  <a href="a03282.html#a109f9d7acc098649830f276c266b47d0">More...</a><br /></td></tr>
+<tr class="separator:a109f9d7acc098649830f276c266b47d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:afc1f7714d8ed74fd624b8fa9fc51decb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03422.html#afc1f7714d8ed74fd624b8fa9fc51decb">Texture</a> ()</td></tr>
+<tr class="memdesc:afc1f7714d8ed74fd624b8fa9fc51decb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an empty <a class="el" href="a03422.html" title="Helper struct to manage a texture in Vulkan. Textures are managed and owned by the TexturePool and sh...">Texture</a>.  <a href="a03422.html#afc1f7714d8ed74fd624b8fa9fc51decb">More...</a><br /></td></tr>
+<tr class="separator:afc1f7714d8ed74fd624b8fa9fc51decb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8ac21d6e7ff5f1de2e0dda02cc52b21"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03422.html#ab8ac21d6e7ff5f1de2e0dda02cc52b21">~Texture</a> ()=default</td></tr>
+<tr class="memdesc:ab8ac21d6e7ff5f1de2e0dda02cc52b21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Does nothing.  <a href="a03422.html#ab8ac21d6e7ff5f1de2e0dda02cc52b21">More...</a><br /></td></tr>
+<tr class="separator:ab8ac21d6e7ff5f1de2e0dda02cc52b21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00566c85bdae853fd462cb59b02d4c44"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03422.html#a00566c85bdae853fd462cb59b02d4c44">ensureSize</a> (const glm::u32vec2 &amp;<a class="el" href="a03422.html#aaa9e88efca1dd0a3b9348bd4b476994a">size</a>)</td></tr>
+<tr class="memdesc:a00566c85bdae853fd462cb59b02d4c44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resizes the texture to be the given size unless it is already bigger.  <a href="a03422.html#a00566c85bdae853fd462cb59b02d4c44">More...</a><br /></td></tr>
+<tr class="separator:a00566c85bdae853fd462cb59b02d4c44"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07d9d3e82ba1c20c73bf844d2eb1fb90"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03422.html#a07d9d3e82ba1c20c73bf844d2eb1fb90">update</a> (const sf::Image &amp;content, const glm::u32vec2 &amp;destPos={0, 0}, const sf::IntRect &amp;source={})</td></tr>
+<tr class="memdesc:a07d9d3e82ba1c20c73bf844d2eb1fb90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the content of the texture from the given image. Performs no bounds validation.  <a href="a03422.html#a07d9d3e82ba1c20c73bf844d2eb1fb90">More...</a><br /></td></tr>
+<tr class="separator:a07d9d3e82ba1c20c73bf844d2eb1fb90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38cefb8b6e0cec85a318b94256a569e1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03422.html#a38cefb8b6e0cec85a318b94256a569e1">update</a> (const <a class="el" href="a03550.html">resource::Ref</a>&lt; sf::Image &gt; &amp;content, const glm::u32vec2 &amp;destPos={0, 0}, const sf::IntRect &amp;source={})</td></tr>
+<tr class="memdesc:a38cefb8b6e0cec85a318b94256a569e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the content of the texture from the given image. Performs no bounds validation.  <a href="a03422.html#a38cefb8b6e0cec85a318b94256a569e1">More...</a><br /></td></tr>
+<tr class="separator:a38cefb8b6e0cec85a318b94256a569e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6e6cbfad46371b2b0ed9c2524b61828"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03422.html#af6e6cbfad46371b2b0ed9c2524b61828">setSampler</a> (VkSampler sampler)</td></tr>
+<tr class="memdesc:af6e6cbfad46371b2b0ed9c2524b61828"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the sampler that this texture uses.  <a href="a03422.html#af6e6cbfad46371b2b0ed9c2524b61828">More...</a><br /></td></tr>
+<tr class="separator:af6e6cbfad46371b2b0ed9c2524b61828"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afef5d7ccbbf691adc26b918c4b4ad547"><td class="memItemLeft" align="right" valign="top">constexpr const glm::u32vec2 &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03422.html#afef5d7ccbbf691adc26b918c4b4ad547">rawSize</a> () const</td></tr>
+<tr class="memdesc:afef5d7ccbbf691adc26b918c4b4ad547"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the size of the texture in pixels.  <a href="a03422.html#afef5d7ccbbf691adc26b918c4b4ad547">More...</a><br /></td></tr>
+<tr class="separator:afef5d7ccbbf691adc26b918c4b4ad547"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa9e88efca1dd0a3b9348bd4b476994a"><td class="memItemLeft" align="right" valign="top">constexpr const glm::vec2 &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03422.html#aaa9e88efca1dd0a3b9348bd4b476994a">size</a> () const</td></tr>
+<tr class="memdesc:aaa9e88efca1dd0a3b9348bd4b476994a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the size of the texture in pixels.  <a href="a03422.html#aaa9e88efca1dd0a3b9348bd4b476994a">More...</a><br /></td></tr>
+<tr class="separator:aaa9e88efca1dd0a3b9348bd4b476994a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e75a2335738e9dbb0cfea1ea14d68cc"><td class="memItemLeft" align="right" valign="top">constexpr VkImage&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03422.html#a8e75a2335738e9dbb0cfea1ea14d68cc">getImage</a> () const</td></tr>
+<tr class="memdesc:a8e75a2335738e9dbb0cfea1ea14d68cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the Vulkan image handle.  <a href="a03422.html#a8e75a2335738e9dbb0cfea1ea14d68cc">More...</a><br /></td></tr>
+<tr class="separator:a8e75a2335738e9dbb0cfea1ea14d68cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abafc5a771ee89c9e5d9f9d7c48f94b8a"><td class="memItemLeft" align="right" valign="top">constexpr VkImageView&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03422.html#abafc5a771ee89c9e5d9f9d7c48f94b8a">getView</a> () const</td></tr>
+<tr class="memdesc:abafc5a771ee89c9e5d9f9d7c48f94b8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the Vulkan image view handle.  <a href="a03422.html#abafc5a771ee89c9e5d9f9d7c48f94b8a">More...</a><br /></td></tr>
+<tr class="separator:abafc5a771ee89c9e5d9f9d7c48f94b8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f564b510456b31abea70850817ad561"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03422.html#a4f564b510456b31abea70850817ad561">containsTransparency</a> () const</td></tr>
+<tr class="memdesc:a4f564b510456b31abea70850817ad561"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not this texture contains significant transparency (more than 10%). Only valid for textures loaded from static data, not render textures.  <a href="a03422.html#a4f564b510456b31abea70850817ad561">More...</a><br /></td></tr>
+<tr class="separator:a4f564b510456b31abea70850817ad561"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3128a7ed8a1e2d7ca44dab3f8e3981d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03282.html#ab3128a7ed8a1e2d7ca44dab3f8e3981d">queueTransfer</a> (<a class="el" href="a03282.html#a109f9d7acc098649830f276c266b47d0">SyncRequirement</a> syncReq=<a class="el" href="a03282.html#a109f9d7acc098649830f276c266b47d0a43f6615bbb2c40a5306ff804094420b1">SyncRequirement::Immediate</a>)</td></tr>
+<tr class="memdesc:ab3128a7ed8a1e2d7ca44dab3f8e3981d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queues this object with the <a class="el" href="a03290.html" title="Utility class to manage the synchronized transfer of data to the GPU.">TransferEngine</a> to be transfered on the next frame.  <a href="a03282.html#ab3128a7ed8a1e2d7ca44dab3f8e3981d">More...</a><br /></td></tr>
+<tr class="separator:ab3128a7ed8a1e2d7ca44dab3f8e3981d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:affdc9c965d73f5227f2d3e0c8a17064e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03282.html#affdc9c965d73f5227f2d3e0c8a17064e">transferEveryFrame</a> (<a class="el" href="a03282.html#a109f9d7acc098649830f276c266b47d0">SyncRequirement</a> syncReq=<a class="el" href="a03282.html#a109f9d7acc098649830f276c266b47d0a43f6615bbb2c40a5306ff804094420b1">SyncRequirement::Immediate</a>)</td></tr>
+<tr class="memdesc:affdc9c965d73f5227f2d3e0c8a17064e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures this <a class="el" href="a03282.html" title="Base class for objects that transfer state or data to the GPU. Used in conjunction with the TransferE...">Transferable</a> to transfer every frame with the given sync requirement.  <a href="a03282.html#affdc9c965d73f5227f2d3e0c8a17064e">More...</a><br /></td></tr>
+<tr class="separator:affdc9c965d73f5227f2d3e0c8a17064e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a998a9c05422f6188b474d275866a6b2b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03282.html#a998a9c05422f6188b474d275866a6b2b">stopTransferringEveryFrame</a> ()</td></tr>
+<tr class="memdesc:a998a9c05422f6188b474d275866a6b2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes this <a class="el" href="a03282.html" title="Base class for objects that transfer state or data to the GPU. Used in conjunction with the TransferE...">Transferable</a> from the queue that gets transferred every frame.  <a href="a03282.html#a998a9c05422f6188b474d275866a6b2b">More...</a><br /></td></tr>
+<tr class="separator:a998a9c05422f6188b474d275866a6b2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a1dedc29c248cdfefd474f09a62acd4be"><td class="memItemLeft" align="right" valign="top">static constexpr VkFormat&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03422.html#a1dedc29c248cdfefd474f09a62acd4be">DefaultFormat</a> = VK_FORMAT_R8G8B8A8_UNORM</td></tr>
+<tr class="separator:a1dedc29c248cdfefd474f09a62acd4be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:ae134133a20147f77b4feae59dc9b447d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03426.html">vk::VulkanState</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03282.html#ae134133a20147f77b4feae59dc9b447d">vulkanState</a></td></tr>
+<tr class="separator:ae134133a20147f77b4feae59dc9b447d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:aca1ccc949c6170876ec275e6c3c92a59"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03422.html#aca1ccc949c6170876ec275e6c3c92a59">res::TexturePool</a></td></tr>
+<tr class="separator:aca1ccc949c6170876ec275e6c3c92a59"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a713c98eafbeaafeac77f2d17326f92b3"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03422.html#a713c98eafbeaafeac77f2d17326f92b3">res::BindlessTextureArray</a></td></tr>
+<tr class="separator:a713c98eafbeaafeac77f2d17326f92b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Helper struct to manage a texture in Vulkan. Textures are managed and owned by the TexturePool and should not be allocated directly. </p>
+
+<p class="definition">Definition at line <a class="el" href="a05079_source.html#l00030">30</a> of file <a class="el" href="a05079_source.html">Texture.hpp</a>.</p>
+</div><h2 class="groupheader">Member Enumeration Documentation</h2>
+<a id="a109f9d7acc098649830f276c266b47d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a109f9d7acc098649830f276c266b47d0">&#9670;&nbsp;</a></span>SyncRequirement</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="a03282.html#a109f9d7acc098649830f276c266b47d0">bl::rc::tfr::Transferable::SyncRequirement</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Enum containing requirements for when transfers may start. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a109f9d7acc098649830f276c266b47d0a43f6615bbb2c40a5306ff804094420b1"></a>Immediate&#160;</td><td class="fielddoc"><p>Transfers with this requirement may be started immediately. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a109f9d7acc098649830f276c266b47d0a11fb2e916cb91ad9afad4da5711d81d0"></a>DeviceIdle&#160;</td><td class="fielddoc"><p>Transfers with this requirement cannot start until the device is idle. </p>
+</td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="a00776_source.html#l00028">28</a> of file <a class="el" href="a00776_source.html">Transferable.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="afc1f7714d8ed74fd624b8fa9fc51decb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc1f7714d8ed74fd624b8fa9fc51decb">&#9670;&nbsp;</a></span>Texture()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::rc::vk::Texture::Texture </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates an empty <a class="el" href="a03422.html" title="Helper struct to manage a texture in Vulkan. Textures are managed and owned by the TexturePool and sh...">Texture</a>. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01637_source.html#l00012">12</a> of file <a class="el" href="a01637_source.html">Texture.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ab8ac21d6e7ff5f1de2e0dda02cc52b21"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8ac21d6e7ff5f1de2e0dda02cc52b21">&#9670;&nbsp;</a></span>~Texture()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bl::rc::vk::Texture::~Texture </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Does nothing. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a4f564b510456b31abea70850817ad561"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f564b510456b31abea70850817ad561">&#9670;&nbsp;</a></span>containsTransparency()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr bool bl::rc::vk::Texture::containsTransparency </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns whether or not this texture contains significant transparency (more than 10%). Only valid for textures loaded from static data, not render textures. </p>
+
+<p class="definition">Definition at line <a class="el" href="a05079_source.html#l00147">147</a> of file <a class="el" href="a05079_source.html">Texture.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a00566c85bdae853fd462cb59b02d4c44"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a00566c85bdae853fd462cb59b02d4c44">&#9670;&nbsp;</a></span>ensureSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::rc::vk::Texture::ensureSize </td>
+          <td>(</td>
+          <td class="paramtype">const glm::u32vec2 &amp;&#160;</td>
+          <td class="paramname"><em>size</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Resizes the texture to be the given size unless it is already bigger. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">size</td><td>The size to ensure </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01637_source.html#l00079">79</a> of file <a class="el" href="a01637_source.html">Texture.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a8e75a2335738e9dbb0cfea1ea14d68cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e75a2335738e9dbb0cfea1ea14d68cc">&#9670;&nbsp;</a></span>getImage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr VkImage bl::rc::vk::Texture::getImage </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the Vulkan image handle. </p>
+
+<p class="definition">Definition at line <a class="el" href="a05079_source.html#l00143">143</a> of file <a class="el" href="a05079_source.html">Texture.hpp</a>.</p>
+
+</div>
+</div>
+<a id="abafc5a771ee89c9e5d9f9d7c48f94b8a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abafc5a771ee89c9e5d9f9d7c48f94b8a">&#9670;&nbsp;</a></span>getView()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr VkImageView bl::rc::vk::Texture::getView </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the Vulkan image view handle. </p>
+
+<p class="definition">Definition at line <a class="el" href="a05079_source.html#l00145">145</a> of file <a class="el" href="a05079_source.html">Texture.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ab3128a7ed8a1e2d7ca44dab3f8e3981d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3128a7ed8a1e2d7ca44dab3f8e3981d">&#9670;&nbsp;</a></span>queueTransfer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::rc::tfr::Transferable::queueTransfer </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a03282.html#a109f9d7acc098649830f276c266b47d0">SyncRequirement</a>&#160;</td>
+          <td class="paramname"><em>syncReq</em> = <code><a class="el" href="a03282.html#a109f9d7acc098649830f276c266b47d0a43f6615bbb2c40a5306ff804094420b1">SyncRequirement::Immediate</a></code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Queues this object with the TransferEngine to be transfered on the next frame. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">syncReq</td><td>Synchronization requirements for the transfer </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01583_source.html#l00022">22</a> of file <a class="el" href="a01583_source.html">Transferable.cpp</a>.</p>
+
+</div>
+</div>
+<a id="afef5d7ccbbf691adc26b918c4b4ad547"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afef5d7ccbbf691adc26b918c4b4ad547">&#9670;&nbsp;</a></span>rawSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr const glm::u32vec2 &amp; bl::rc::vk::Texture::rawSize </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the size of the texture in pixels. </p>
+
+<p class="definition">Definition at line <a class="el" href="a05079_source.html#l00139">139</a> of file <a class="el" href="a05079_source.html">Texture.hpp</a>.</p>
+
+</div>
+</div>
+<a id="af6e6cbfad46371b2b0ed9c2524b61828"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6e6cbfad46371b2b0ed9c2524b61828">&#9670;&nbsp;</a></span>setSampler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::rc::vk::Texture::setSampler </td>
+          <td>(</td>
+          <td class="paramtype">VkSampler&#160;</td>
+          <td class="paramname"><em>sampler</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Updates the sampler that this texture uses. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sampler</td><td>The new sampler to use </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01637_source.html#l00057">57</a> of file <a class="el" href="a01637_source.html">Texture.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aaa9e88efca1dd0a3b9348bd4b476994a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa9e88efca1dd0a3b9348bd4b476994a">&#9670;&nbsp;</a></span>size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr const glm::vec2 &amp; bl::rc::vk::Texture::size </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the size of the texture in pixels. </p>
+
+<p class="definition">Definition at line <a class="el" href="a05079_source.html#l00141">141</a> of file <a class="el" href="a05079_source.html">Texture.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a998a9c05422f6188b474d275866a6b2b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a998a9c05422f6188b474d275866a6b2b">&#9670;&nbsp;</a></span>stopTransferringEveryFrame()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::rc::tfr::Transferable::stopTransferringEveryFrame </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Removes this Transferable from the queue that gets transferred every frame. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01583_source.html#l00043">43</a> of file <a class="el" href="a01583_source.html">Transferable.cpp</a>.</p>
+
+</div>
+</div>
+<a id="affdc9c965d73f5227f2d3e0c8a17064e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#affdc9c965d73f5227f2d3e0c8a17064e">&#9670;&nbsp;</a></span>transferEveryFrame()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::rc::tfr::Transferable::transferEveryFrame </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a03282.html#a109f9d7acc098649830f276c266b47d0">SyncRequirement</a>&#160;</td>
+          <td class="paramname"><em>syncReq</em> = <code><a class="el" href="a03282.html#a109f9d7acc098649830f276c266b47d0a43f6615bbb2c40a5306ff804094420b1">SyncRequirement::Immediate</a></code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Configures this Transferable to transfer every frame with the given sync requirement. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">syncReq</td><td>Synchronization requirements for the transfer </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01583_source.html#l00032">32</a> of file <a class="el" href="a01583_source.html">Transferable.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a38cefb8b6e0cec85a318b94256a569e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38cefb8b6e0cec85a318b94256a569e1">&#9670;&nbsp;</a></span>update() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::rc::vk::Texture::update </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a03550.html">resource::Ref</a>&lt; sf::Image &gt; &amp;&#160;</td>
+          <td class="paramname"><em>content</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const glm::u32vec2 &amp;&#160;</td>
+          <td class="paramname"><em>destPos</em> = <code>{0,&#160;0}</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const sf::IntRect &amp;&#160;</td>
+          <td class="paramname"><em>source</em> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Updates the content of the texture from the given image. Performs no bounds validation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">content</td><td>The image containing the content to copy </td></tr>
+    <tr><td class="paramname">destPos</td><td>Offset into the texture to copy the new content </td></tr>
+    <tr><td class="paramname">source</td><td>Region from the source to copy </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01637_source.html#l00070">70</a> of file <a class="el" href="a01637_source.html">Texture.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a07d9d3e82ba1c20c73bf844d2eb1fb90"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07d9d3e82ba1c20c73bf844d2eb1fb90">&#9670;&nbsp;</a></span>update() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::rc::vk::Texture::update </td>
+          <td>(</td>
+          <td class="paramtype">const sf::Image &amp;&#160;</td>
+          <td class="paramname"><em>content</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const glm::u32vec2 &amp;&#160;</td>
+          <td class="paramname"><em>destPos</em> = <code>{0,&#160;0}</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const sf::IntRect &amp;&#160;</td>
+          <td class="paramname"><em>source</em> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Updates the content of the texture from the given image. Performs no bounds validation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">content</td><td>The image containing the content to copy </td></tr>
+    <tr><td class="paramname">destPos</td><td>Offset into the texture to copy the new content </td></tr>
+    <tr><td class="paramname">source</td><td>Region from the source to copy </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01637_source.html#l00062">62</a> of file <a class="el" href="a01637_source.html">Texture.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Friends And Related Function Documentation</h2>
+<a id="a713c98eafbeaafeac77f2d17326f92b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a713c98eafbeaafeac77f2d17326f92b3">&#9670;&nbsp;</a></span>res::BindlessTextureArray</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="a03162.html">res::BindlessTextureArray</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a05079_source.html#l00134">134</a> of file <a class="el" href="a05079_source.html">Texture.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aca1ccc949c6170876ec275e6c3c92a59"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca1ccc949c6170876ec275e6c3c92a59">&#9670;&nbsp;</a></span>res::TexturePool</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="a03202.html">res::TexturePool</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a05079_source.html#l00133">133</a> of file <a class="el" href="a05079_source.html">Texture.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a1dedc29c248cdfefd474f09a62acd4be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1dedc29c248cdfefd474f09a62acd4be">&#9670;&nbsp;</a></span>DefaultFormat</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr VkFormat bl::rc::vk::Texture::DefaultFormat = VK_FORMAT_R8G8B8A8_UNORM</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a05079_source.html#l00032">32</a> of file <a class="el" href="a05079_source.html">Texture.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ae134133a20147f77b4feae59dc9b447d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae134133a20147f77b4feae59dc9b447d">&#9670;&nbsp;</a></span>vulkanState</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a03426.html">vk::VulkanState</a>* bl::rc::tfr::Transferable::vulkanState</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00776_source.html#l00061">61</a> of file <a class="el" href="a00776_source.html">Transferable.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/BLIB/Render/Vulkan/<a class="el" href="a05079_source.html">Texture.hpp</a></li>
+<li>src/Render/Vulkan/<a class="el" href="a01637_source.html">Texture.cpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 15 2023 19:53:41 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Oct 21 2023 00:16:53 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

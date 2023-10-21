@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::util::StreamUtil Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,23 +66,229 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01824.html">bl</a></li><li class="navelem"><a class="el" href="a01882.html">util</a></li><li class="navelem"><a class="el" href="a04061.html">UnderlyingType&lt; U, false &gt;</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01830.html">bl</a></li><li class="navelem"><a class="el" href="a01888.html">util</a></li><li class="navelem"><a class="el" href="a04058.html">StreamUtil</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="a04055.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::util::UnderlyingType&lt; U, false &gt; Member List</div>  </div>
+<div class="title">bl::util::StreamUtil Struct Reference<div class="ingroups"><a class="el" href="a01822.html">Util</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a04061.html">bl::util::UnderlyingType&lt; U, false &gt;</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a04061.html#a5f74c7105c35498fe4eeea79c781ac6a">type</a> typedef</td><td class="entry"><a class="el" href="a04061.html">bl::util::UnderlyingType&lt; U, false &gt;</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Helper utility for parsing text streams.  
+ <a href="a04058.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a01073_source.html">StreamUtil.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:aaefeea8843d802e72a42de4a6b38597b"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04058.html#aaefeea8843d802e72a42de4a6b38597b">skipWhitespace</a> (std::istream &amp;stream)</td></tr>
+<tr class="memdesc:aaefeea8843d802e72a42de4a6b38597b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Skips whitespace up until the next non-whitespace character.  <a href="a04058.html#aaefeea8843d802e72a42de4a6b38597b">More...</a><br /></td></tr>
+<tr class="separator:aaefeea8843d802e72a42de4a6b38597b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaededcb8364f5c2f9a83aaa2d017955a"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04058.html#aaededcb8364f5c2f9a83aaa2d017955a">skipUntil</a> (std::istream &amp;stream, char delim)</td></tr>
+<tr class="memdesc:aaededcb8364f5c2f9a83aaa2d017955a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Skips all characters up until the given delimeter character.  <a href="a04058.html#aaededcb8364f5c2f9a83aaa2d017955a">More...</a><br /></td></tr>
+<tr class="separator:aaededcb8364f5c2f9a83aaa2d017955a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2fa0042b61855f6ef422d7a6fde449e8"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04058.html#a2fa0042b61855f6ef422d7a6fde449e8">isNumeric</a> (char c)</td></tr>
+<tr class="memdesc:a2fa0042b61855f6ef422d7a6fde449e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the given character is numeric. Allows digits and '-'.  <a href="a04058.html#a2fa0042b61855f6ef422d7a6fde449e8">More...</a><br /></td></tr>
+<tr class="separator:a2fa0042b61855f6ef422d7a6fde449e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ee4ee3ad1c725fb70215e7e2dd34eeb"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04058.html#a8ee4ee3ad1c725fb70215e7e2dd34eeb">writeRepeated</a> (std::ostream &amp;stream, char c, unsigned int count)</td></tr>
+<tr class="memdesc:a8ee4ee3ad1c725fb70215e7e2dd34eeb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the given character into the stream a given number of times.  <a href="a04058.html#a8ee4ee3ad1c725fb70215e7e2dd34eeb">More...</a><br /></td></tr>
+<tr class="separator:a8ee4ee3ad1c725fb70215e7e2dd34eeb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Helper utility for parsing text streams. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01073_source.html#l00016">16</a> of file <a class="el" href="a01073_source.html">StreamUtil.hpp</a>.</p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a2fa0042b61855f6ef422d7a6fde449e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2fa0042b61855f6ef422d7a6fde449e8">&#9670;&nbsp;</a></span>isNumeric()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::util::StreamUtil::isNumeric </td>
+          <td>(</td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>c</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns whether or not the given character is numeric. Allows digits and '-'. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">c</td><td>The character to test </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the character could be the start of a number, false otherwise </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a01790_source.html#l00017">17</a> of file <a class="el" href="a01790_source.html">StreamUtil.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aaededcb8364f5c2f9a83aaa2d017955a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaededcb8364f5c2f9a83aaa2d017955a">&#9670;&nbsp;</a></span>skipUntil()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::util::StreamUtil::skipUntil </td>
+          <td>(</td>
+          <td class="paramtype">std::istream &amp;&#160;</td>
+          <td class="paramname"><em>stream</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>delim</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Skips all characters up until the given delimeter character. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">stream</td><td>The stream to skip ahead in </td></tr>
+    <tr><td class="paramname">delim</td><td>The character to read until. Is left in the stream </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the stream is in a valid state, false otherwise </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a01790_source.html#l00012">12</a> of file <a class="el" href="a01790_source.html">StreamUtil.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aaefeea8843d802e72a42de4a6b38597b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaefeea8843d802e72a42de4a6b38597b">&#9670;&nbsp;</a></span>skipWhitespace()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::util::StreamUtil::skipWhitespace </td>
+          <td>(</td>
+          <td class="paramtype">std::istream &amp;&#160;</td>
+          <td class="paramname"><em>stream</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Skips whitespace up until the next non-whitespace character. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">stream</td><td>The stream to skip ahead </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the stream is in a valid state, false otherwise </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a01790_source.html#l00007">7</a> of file <a class="el" href="a01790_source.html">StreamUtil.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a8ee4ee3ad1c725fb70215e7e2dd34eeb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ee4ee3ad1c725fb70215e7e2dd34eeb">&#9670;&nbsp;</a></span>writeRepeated()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::util::StreamUtil::writeRepeated </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>stream</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>c</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>count</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Writes the given character into the stream a given number of times. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">stream</td><td>The stream to write into </td></tr>
+    <tr><td class="paramname">c</td><td>The character to write </td></tr>
+    <tr><td class="paramname">count</td><td>The number of times to write the character </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the stream is in a valid state, false otherwise </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a01790_source.html#l00021">21</a> of file <a class="el" href="a01790_source.html">StreamUtil.cpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following files:<ul>
+<li>include/BLIB/Util/<a class="el" href="a01073_source.html">StreamUtil.hpp</a></li>
+<li>src/Util/<a class="el" href="a01790_source.html">StreamUtil.cpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 15 2023 19:53:41 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Oct 21 2023 00:16:54 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

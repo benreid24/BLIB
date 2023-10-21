@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::rc::scene::SceneObject Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,28 +66,134 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01824.html">bl</a></li><li class="navelem"><a class="el" href="a01836.html">rc</a></li><li class="navelem"><a class="el" href="a01873.html">tfr</a></li><li class="navelem"><a class="el" href="a03257.html">TransferContext</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01830.html">bl</a></li><li class="navelem"><a class="el" href="a01842.html">rc</a></li><li class="navelem"><a class="el" href="a01872.html">scene</a></li><li class="navelem"><a class="el" href="a03254.html">SceneObject</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="a03251.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::rc::tfr::TransferContext Member List</div>  </div>
+<div class="title">bl::rc::scene::SceneObject Struct Reference<div class="ingroups"><a class="el" href="a01817.html">Renderer</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a03257.html">bl::rc::tfr::TransferContext</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a03257.html#a0095891b196aaca7b289210a8a774bee">createTemporaryStagingBuffer</a>(VkDeviceSize size, VkBuffer &amp;bufferResult, void **mappedMemory)</td><td class="entry"><a class="el" href="a03257.html">bl::rc::tfr::TransferContext</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a03257.html#a37f3aa2f09d5a38a8c6761f09ac26d8c">device</a>() const</td><td class="entry"><a class="el" href="a03257.html">bl::rc::tfr::TransferContext</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a03257.html#ad3498b85b2352fb77251503598d24bf0">registerBufferBarrier</a>(const VkBufferMemoryBarrier &amp;barrier)</td><td class="entry"><a class="el" href="a03257.html">bl::rc::tfr::TransferContext</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a03257.html#ab4518b0ecbee6232e04ea2aab04f05aa">registerImageBarrier</a>(const VkImageMemoryBarrier &amp;barrier)</td><td class="entry"><a class="el" href="a03257.html">bl::rc::tfr::TransferContext</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a03257.html#a0516ada22d07c935ad2a1dbff375a55f">registerMemoryBarrier</a>(const VkMemoryBarrier &amp;barrier)</td><td class="entry"><a class="el" href="a03257.html">bl::rc::tfr::TransferContext</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a03257.html#a9895ebe07a88d4990699ce7bc1c6975b">TransferContext</a>(std::mutex &amp;bucketMutex, vk::VulkanState &amp;vulkanState, std::vector&lt; VkBuffer &gt; &amp;stagingBuffers, std::vector&lt; VmaAllocation &gt; &amp;stagingAllocs, std::vector&lt; VkMemoryBarrier &gt; &amp;memoryBarriers, std::vector&lt; VkBufferMemoryBarrier &gt; &amp;bufferBarriers, std::vector&lt; VkImageMemoryBarrier &gt; &amp;imageBarriers)</td><td class="entry"><a class="el" href="a03257.html">bl::rc::tfr::TransferContext</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Base renderable object. Everything that is rendered will reference an instance of this. Exists within the renderer and is batched per pipeline. Other classes reference into the renderer to modify this. The renderer itself will rip through these to render everything.  
+ <a href="a03254.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00764_source.html">SceneObject.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::rc::scene::SceneObject:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a03254.png" usemap="#bl::rc::scene::SceneObject_map" alt=""/>
+  <map id="bl::rc::scene::SceneObject_map" name="bl::rc::scene::SceneObject_map">
+<area href="a03138.html" alt="bl::rc::ovy::OverlayObject" shape="rect" coords="0,56,159,80"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ae9ccabc5eaa5c7a787d525d9796cd234"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03254.html#ae9ccabc5eaa5c7a787d525d9796cd234">SceneObject</a> ()</td></tr>
+<tr class="memdesc:ae9ccabc5eaa5c7a787d525d9796cd234"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a03254.html" title="Base renderable object. Everything that is rendered will reference an instance of this....">SceneObject</a>.  <a href="a03254.html#ae9ccabc5eaa5c7a787d525d9796cd234">More...</a><br /></td></tr>
+<tr class="separator:ae9ccabc5eaa5c7a787d525d9796cd234"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a77b37dc1fe2a7d75500ee76e570885d4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03254.html#a77b37dc1fe2a7d75500ee76e570885d4">hidden</a></td></tr>
+<tr class="separator:a77b37dc1fe2a7d75500ee76e570885d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abcab0336de531ae31c77e9ae436cfd47"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03230.html">Key</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03254.html#abcab0336de531ae31c77e9ae436cfd47">sceneKey</a></td></tr>
+<tr class="separator:abcab0336de531ae31c77e9ae436cfd47"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a251c0291ae86aed29fde7493498f8d4c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03142.html">prim::DrawParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03254.html#a251c0291ae86aed29fde7493498f8d4c">drawParams</a></td></tr>
+<tr class="separator:a251c0291ae86aed29fde7493498f8d4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Base renderable object. Everything that is rendered will reference an instance of this. Exists within the renderer and is batched per pipeline. Other classes reference into the renderer to modify this. The renderer itself will rip through these to render everything. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00764_source.html#l00021">21</a> of file <a class="el" href="a00764_source.html">SceneObject.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ae9ccabc5eaa5c7a787d525d9796cd234"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9ccabc5eaa5c7a787d525d9796cd234">&#9670;&nbsp;</a></span>SceneObject()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::rc::scene::SceneObject::SceneObject </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Construct a new <a class="el" href="a03254.html" title="Base renderable object. Everything that is rendered will reference an instance of this....">SceneObject</a>. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01577_source.html#l00009">9</a> of file <a class="el" href="a01577_source.html">SceneObject.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a251c0291ae86aed29fde7493498f8d4c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a251c0291ae86aed29fde7493498f8d4c">&#9670;&nbsp;</a></span>drawParams</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a03142.html">prim::DrawParameters</a> bl::rc::scene::SceneObject::drawParams</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00764_source.html#l00029">29</a> of file <a class="el" href="a00764_source.html">SceneObject.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a77b37dc1fe2a7d75500ee76e570885d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77b37dc1fe2a7d75500ee76e570885d4">&#9670;&nbsp;</a></span>hidden</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::rc::scene::SceneObject::hidden</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00764_source.html#l00027">27</a> of file <a class="el" href="a00764_source.html">SceneObject.hpp</a>.</p>
+
+</div>
+</div>
+<a id="abcab0336de531ae31c77e9ae436cfd47"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abcab0336de531ae31c77e9ae436cfd47">&#9670;&nbsp;</a></span>sceneKey</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a03230.html">Key</a> bl::rc::scene::SceneObject::sceneKey</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00764_source.html#l00028">28</a> of file <a class="el" href="a00764_source.html">SceneObject.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following files:<ul>
+<li>include/BLIB/Render/Scenes/<a class="el" href="a00764_source.html">SceneObject.hpp</a></li>
+<li>src/Render/Scenes/<a class="el" href="a01577_source.html">SceneObject.cpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 15 2023 19:53:41 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Oct 21 2023 00:16:53 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

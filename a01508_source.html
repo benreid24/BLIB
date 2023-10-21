@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Graph/TaskAssets.cpp Source File</title>
+<title>BLIB: src/Render/Graph/Strategies/ForwardRenderStrategy.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,49 +66,43 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_7ebf59129457ae24134db92256c2545a.html">Graph</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_7ebf59129457ae24134db92256c2545a.html">Graph</a></li><li class="navelem"><a class="el" href="dir_838c988e0ffb30f80d8a7dca6d2e696f.html">Strategies</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">TaskAssets.cpp</div>  </div>
+<div class="title">ForwardRenderStrategy.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01508.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00689.html">BLIB/Render/Graph/TaskAssets.hpp</a>&gt;</span></div>
+<a href="a01508.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00674.html">BLIB/Render/Graph/Strategies/ForwardRenderStrategy.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01824.html">bl</a></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>rc</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>rg</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a03089.html#aff149b2e77e78be28685552a116ceb8d">    9</a></span>&#160;<a class="code" href="a03089.html#aff149b2e77e78be28685552a116ceb8d">TaskAssets::TaskAssets</a>()</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;: output(nullptr) {}</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="a03089.html#a0df9b2131b064f2d488c02fd9a3cbc7d">   12</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03089.html#a0df9b2131b064f2d488c02fd9a3cbc7d">TaskAssets::init</a>(<span class="keyword">const</span> <a class="code" href="a03093.html">TaskAssetTags</a>&amp; tags) {</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <a class="code" href="a03089.html#a721b54079c2c3517cabda5a851154b52">output</a> = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <a class="code" href="a03089.html#a5c54cf96c3a6980a60264cd77b57ea0d">requiredInputs</a>.resize(tags.<a class="code" href="a03093.html#af629a8d79e580fce30b340ddc7a18985">requiredInputs</a>.size(), <span class="keyword">nullptr</span>);</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <a class="code" href="a03089.html#ac323e645d78eef3de573a933b6c04eea">optionalInputs</a>.resize(tags.<a class="code" href="a03093.html#a643dfc7073ed1a88677ab7012e562b5d">optionalInputs</a>.size(), <span class="keyword">nullptr</span>);</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;}</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;} <span class="comment">// namespace rg</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00689_html"><div class="ttname"><a href="a00689.html">TaskAssets.hpp</a></div></div>
-<div class="ttc" id="aa01824_html"><div class="ttname"><a href="a01824.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03089_html_a0df9b2131b064f2d488c02fd9a3cbc7d"><div class="ttname"><a href="a03089.html#a0df9b2131b064f2d488c02fd9a3cbc7d">bl::rc::rg::TaskAssets::init</a></div><div class="ttdeci">void init(const TaskAssetTags &amp;tags)</div><div class="ttdoc">Sizes the inputs and sets all pointers to nullptr.</div><div class="ttdef"><b>Definition:</b> <a href="a01508_source.html#l00012">TaskAssets.cpp:12</a></div></div>
-<div class="ttc" id="aa03089_html_a5c54cf96c3a6980a60264cd77b57ea0d"><div class="ttname"><a href="a03089.html#a5c54cf96c3a6980a60264cd77b57ea0d">bl::rc::rg::TaskAssets::requiredInputs</a></div><div class="ttdeci">std::vector&lt; GraphAsset * &gt; requiredInputs</div><div class="ttdef"><b>Definition:</b> <a href="a00689_source.html#l00024">TaskAssets.hpp:24</a></div></div>
-<div class="ttc" id="aa03089_html_a721b54079c2c3517cabda5a851154b52"><div class="ttname"><a href="a03089.html#a721b54079c2c3517cabda5a851154b52">bl::rc::rg::TaskAssets::output</a></div><div class="ttdeci">GraphAsset * output</div><div class="ttdef"><b>Definition:</b> <a href="a00689_source.html#l00023">TaskAssets.hpp:23</a></div></div>
-<div class="ttc" id="aa03089_html_ac323e645d78eef3de573a933b6c04eea"><div class="ttname"><a href="a03089.html#ac323e645d78eef3de573a933b6c04eea">bl::rc::rg::TaskAssets::optionalInputs</a></div><div class="ttdeci">std::vector&lt; GraphAsset * &gt; optionalInputs</div><div class="ttdef"><b>Definition:</b> <a href="a00689_source.html#l00025">TaskAssets.hpp:25</a></div></div>
-<div class="ttc" id="aa03089_html_aff149b2e77e78be28685552a116ceb8d"><div class="ttname"><a href="a03089.html#aff149b2e77e78be28685552a116ceb8d">bl::rc::rg::TaskAssets::TaskAssets</a></div><div class="ttdeci">TaskAssets()</div><div class="ttdoc">Creates an empty asset set.</div><div class="ttdef"><b>Definition:</b> <a href="a01508_source.html#l00009">TaskAssets.cpp:9</a></div></div>
-<div class="ttc" id="aa03093_html"><div class="ttname"><a href="a03093.html">bl::rc::rg::TaskAssetTags</a></div><div class="ttdoc">Basic struct containing the tags for a task for linking within a graph.</div><div class="ttdef"><b>Definition:</b> <a href="a00692_source.html#l00019">TaskAssetTags.hpp:19</a></div></div>
-<div class="ttc" id="aa03093_html_a643dfc7073ed1a88677ab7012e562b5d"><div class="ttname"><a href="a03093.html#a643dfc7073ed1a88677ab7012e562b5d">bl::rc::rg::TaskAssetTags::optionalInputs</a></div><div class="ttdeci">std::vector&lt; TaskInput &gt; optionalInputs</div><div class="ttdoc">List of optional inputs.</div><div class="ttdef"><b>Definition:</b> <a href="a00692_source.html#l00030">TaskAssetTags.hpp:30</a></div></div>
-<div class="ttc" id="aa03093_html_af629a8d79e580fce30b340ddc7a18985"><div class="ttname"><a href="a03093.html#af629a8d79e580fce30b340ddc7a18985">bl::rc::rg::TaskAssetTags::requiredInputs</a></div><div class="ttdeci">std::vector&lt; TaskInput &gt; requiredInputs</div><div class="ttdoc">List of required inputs.</div><div class="ttdef"><b>Definition:</b> <a href="a00692_source.html#l00027">TaskAssetTags.hpp:27</a></div></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00671.html">BLIB/Render/Graph/RenderGraph.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00695.html">BLIB/Render/Graph/Tasks/ForwardRenderTask.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01830.html">bl</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>rgi</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="a03094.html#a7d62f1fa763d2c7156030c83062c22ad">   12</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03094.html#a7d62f1fa763d2c7156030c83062c22ad">ForwardRenderStrategy::populate</a>(<a class="code" href="a03082.html">rg::RenderGraph</a>&amp; graph) { graph.<a class="code" href="a03082.html#ae7f758d0ac6a624fa5d0ae1976edb2bb">putTask</a>&lt;<a class="code" href="a03122.html">ForwardRenderTask</a>&gt;(); }</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;} <span class="comment">// namespace rgi</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00671_html"><div class="ttname"><a href="a00671.html">RenderGraph.hpp</a></div></div>
+<div class="ttc" id="aa00674_html"><div class="ttname"><a href="a00674.html">ForwardRenderStrategy.hpp</a></div></div>
+<div class="ttc" id="aa00695_html"><div class="ttname"><a href="a00695.html">ForwardRenderTask.hpp</a></div></div>
+<div class="ttc" id="aa01830_html"><div class="ttname"><a href="a01830.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03082_html"><div class="ttname"><a href="a03082.html">bl::rc::rg::RenderGraph</a></div><div class="ttdoc">The core render graph functionality. Drives rendering for each observer.</div><div class="ttdef"><b>Definition:</b> <a href="a00671_source.html#l00030">RenderGraph.hpp:30</a></div></div>
+<div class="ttc" id="aa03082_html_ae7f758d0ac6a624fa5d0ae1976edb2bb"><div class="ttname"><a href="a03082.html#ae7f758d0ac6a624fa5d0ae1976edb2bb">bl::rc::rg::RenderGraph::putTask</a></div><div class="ttdeci">T * putTask(TArgs &amp;&amp;... args)</div><div class="ttdoc">Adds a new task to the graph to become a part of the render process.</div><div class="ttdef"><b>Definition:</b> <a href="a00671_source.html#l00052">RenderGraph.hpp:52</a></div></div>
+<div class="ttc" id="aa03094_html_a7d62f1fa763d2c7156030c83062c22ad"><div class="ttname"><a href="a03094.html#a7d62f1fa763d2c7156030c83062c22ad">bl::rc::rgi::ForwardRenderStrategy::populate</a></div><div class="ttdeci">virtual void populate(rg::RenderGraph &amp;graph) override</div><div class="ttdoc">Adds the forward rendering task to the given graph.</div><div class="ttdef"><b>Definition:</b> <a href="a01508_source.html#l00012">ForwardRenderStrategy.cpp:12</a></div></div>
+<div class="ttc" id="aa03122_html"><div class="ttname"><a href="a03122.html">bl::rc::rgi::ForwardRenderTask</a></div><div class="ttdoc">Basic forward renderer that calls into the scene render methods.</div><div class="ttdef"><b>Definition:</b> <a href="a00695_source.html#l00019">ForwardRenderTask.hpp:19</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 15 2023 19:53:39 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Oct 21 2023 00:16:51 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

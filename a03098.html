@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::rc::rg::Strategy Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,32 +66,120 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01824.html">bl</a></li><li class="navelem"><a class="el" href="a01836.html">rc</a></li><li class="navelem"><a class="el" href="a01870.html">rgi</a></li><li class="navelem"><a class="el" href="a03101.html">FadeEffectTask</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01830.html">bl</a></li><li class="navelem"><a class="el" href="a01842.html">rc</a></li><li class="navelem"><a class="el" href="a01875.html">rg</a></li><li class="navelem"><a class="el" href="a03098.html">Strategy</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="a03095.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::rc::rgi::FadeEffectTask Member List</div>  </div>
+<div class="title">bl::rc::rg::Strategy Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span><div class="ingroups"><a class="el" href="a01817.html">Renderer</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a03101.html">bl::rc::rgi::FadeEffectTask</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a03085.html#a663136a9c9645a13f420b7bf622ece36">assets</a></td><td class="entry"><a class="el" href="a03085.html">bl::rc::rg::Task</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a03085.html#aeca701513a61a6e75e5525db2d180cbc">assetTags</a></td><td class="entry"><a class="el" href="a03085.html">bl::rc::rg::Task</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a03101.html#a6368bb390ad2ff38fbc427f83ee057c1">complete</a>() const</td><td class="entry"><a class="el" href="a03101.html">bl::rc::rgi::FadeEffectTask</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a03101.html#a7fa4758c8e347ee94a9804a721d75644">currentFactor</a>() const</td><td class="entry"><a class="el" href="a03101.html">bl::rc::rgi::FadeEffectTask</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a03101.html#a323b30f2e1f0b076f1b8ff644919b989">fade</a>(float fadeTime, float fadeStart=1.f, float fadeEnd=0.f)</td><td class="entry"><a class="el" href="a03101.html">bl::rc::rgi::FadeEffectTask</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a03101.html#af7da795ccc33bae21dc81592651f9ef2">FadeEffectTask</a>(float fadeTime, float factorStart=1.f, float factorEnd=0.f)</td><td class="entry"><a class="el" href="a03101.html">bl::rc::rgi::FadeEffectTask</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a03101.html#a9a1833c08ab8b64a020c869497c988b7">fadeTo</a>(float fadeTime, float factorEnd)</td><td class="entry"><a class="el" href="a03101.html">bl::rc::rgi::FadeEffectTask</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a03101.html#acb9b3f7739cf04562aa253d458817e2e">update</a>(float dt) override</td><td class="entry"><a class="el" href="a03101.html">bl::rc::rgi::FadeEffectTask</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a03101.html#a346e7826b48616256c90c9704a05a18d">~FadeEffectTask</a>()</td><td class="entry"><a class="el" href="a03101.html">bl::rc::rgi::FadeEffectTask</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a03085.html#ace7f18b2a5587c854d755408e084ec98">~Task</a>()=default</td><td class="entry"><a class="el" href="a03085.html">bl::rc::rg::Task</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-</table></div><!-- contents -->
+<p>Base class for renderer strategies. Render strategies populate render graphs with tasks when they are first created.  
+ <a href="a03098.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00677_source.html">Strategy.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::rc::rg::Strategy:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a03098.png" usemap="#bl::rc::rg::Strategy_map" alt=""/>
+  <map id="bl::rc::rg::Strategy_map" name="bl::rc::rg::Strategy_map">
+<area href="a03094.html" title="Default render strategy. Implements a basic forward renderer." alt="bl::rc::rgi::ForwardRenderStrategy" shape="rect" coords="0,56,203,80"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a52d8932e923fc4ceac54ded8232d3e0a"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03098.html#a52d8932e923fc4ceac54ded8232d3e0a">~Strategy</a> ()=default</td></tr>
+<tr class="memdesc:a52d8932e923fc4ceac54ded8232d3e0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the strategy.  <a href="a03098.html#a52d8932e923fc4ceac54ded8232d3e0a">More...</a><br /></td></tr>
+<tr class="separator:a52d8932e923fc4ceac54ded8232d3e0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae55bc09629c3a1a0b3e4026cd3044b36"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03098.html#ae55bc09629c3a1a0b3e4026cd3044b36">populate</a> (<a class="el" href="a03082.html">RenderGraph</a> &amp;graph)=0</td></tr>
+<tr class="memdesc:ae55bc09629c3a1a0b3e4026cd3044b36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Populates the given graph with tasks.  <a href="a03098.html#ae55bc09629c3a1a0b3e4026cd3044b36">More...</a><br /></td></tr>
+<tr class="separator:ae55bc09629c3a1a0b3e4026cd3044b36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Base class for renderer strategies. Render strategies populate render graphs with tasks when they are first created. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00677_source.html#l00018">18</a> of file <a class="el" href="a00677_source.html">Strategy.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a52d8932e923fc4ceac54ded8232d3e0a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52d8932e923fc4ceac54ded8232d3e0a">&#9670;&nbsp;</a></span>~Strategy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bl::rc::rg::Strategy::~Strategy </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Destroys the strategy. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ae55bc09629c3a1a0b3e4026cd3044b36"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae55bc09629c3a1a0b3e4026cd3044b36">&#9670;&nbsp;</a></span>populate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void bl::rc::rg::Strategy::populate </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a03082.html">RenderGraph</a> &amp;&#160;</td>
+          <td class="paramname"><em>graph</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Populates the given graph with tasks. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">graph</td><td>The graph to populate </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="a03094.html#a7d62f1fa763d2c7156030c83062c22ad">bl::rc::rgi::ForwardRenderStrategy</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>include/BLIB/Render/Graph/<a class="el" href="a00677_source.html">Strategy.hpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 15 2023 19:53:41 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Oct 21 2023 00:16:53 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

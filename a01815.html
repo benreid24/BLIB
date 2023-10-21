@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Systems</title>
+<title>BLIB: Parser</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -67,228 +67,40 @@ $(function() {
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#typedef-members">Typedefs</a>  </div>
+<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">Systems</div>  </div>
+<div class="title">Parser</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Built-in engine systems.  
+<p>Collection of classes implementing a generic LR0 parser.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03881.html">bl::sys::Animation2DSystem</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Systems that updates and advances all 2d animations. Also manages GPU local buffers containing animation data.  <a href="a03881.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02842.html">bl::parser::ISkipper</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface for custom parsers to skip past unwanted characters such as whitespace or comments.  <a href="a02842.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03901.html">bl::sys::DescriptorComponentSystem&lt; TCom, TPayload &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Templated system for managing ECS components that sync into renderer descriptor sets. Components should derive from DescriptorComponentBase.  <a href="a03901.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02846.html">bl::parser::Node</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a basic parse node. Can be both tokens (terminals) or non terminal grammar elements.  <a href="a02846.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03189.html">bl::sys::DrawableSystem&lt; T &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for renderer systems that manage scene objects in the ECS. Custom renderable types should have a system that inherits from this class that manages their membership within scenes. These systems should run in the <a class="el" href="a02333.html#af6ea181be91b7069f9f52557a1445e1aa3f81ee2718a9735d701d01e03039048d" title="Synchronizes objects from the ECS into the scene-local object buffers.">engine::FrameStage::RenderObjectSync</a> step.  <a href="a03189.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02854.html">bl::parser::Parser</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Top level <a class="el" href="a02854.html" title="Top level Parser class. Implements a basic LR0 parser from a Grammar and Tokenizer.">Parser</a> class. Implements a basic LR0 parser from a <a class="el" href="a02826.html" title="Represents a grammar for a Parser to build a parse tree with from a token sequence.">Grammar</a> and <a class="el" href="a02870.html" title="Utility class for a Parser to break down an input string into tokens.">Tokenizer</a>.  <a href="a02854.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03909.html">bl::sys::OverlayScalerSystem</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">System that processes entities that are scaled for overlays. Keeps scales up-to-date as overlay size changes.  <a href="a03909.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02866.html">bl::parser::Stream</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper class around std::ostream. Used for keeping track of current line and column numbers.  <a href="a02866.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03913.html">bl::sys::RendererUpdateSystem</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">System that updates all observer cameras and task graphs while the renderer is waiting on the prior frame to complete.  <a href="a03913.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02870.html">bl::parser::Tokenizer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility class for a <a class="el" href="a02854.html" title="Top level Parser class. Implements a basic LR0 parser from a Grammar and Tokenizer.">Parser</a> to break down an input string into tokens.  <a href="a02870.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03917.html">bl::sys::RenderSystem</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">System that triggers the renderer each frame.  <a href="a03917.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03921.html">bl::sys::TextSyncSystem</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simple system which ensures that Text geometry stays updated.  <a href="a03921.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03925.html">bl::sys::TogglerSystem</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic system to update Toggler components.  <a href="a03925.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03929.html">bl::sys::Transform2DDescriptorSystem</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">System that updates 2d transforms into renderer descriptor sets. Also performs interpolation for entities that also have velocity.  <a href="a03929.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03933.html">bl::sys::VelocitySystem</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">System that applies velocity to positions over time.  <a href="a03933.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:ga8de8e24f3a0b8643626494bcd58a745c"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01815.html#ga8de8e24f3a0b8643626494bcd58a745c">bl::sys::Transform3DDescriptorSystem</a> = <a class="el" href="a03901.html">DescriptorComponentSystem</a>&lt; <a class="el" href="a02061.html">com::Transform3D</a>, glm::mat4 &gt;</td></tr>
-<tr class="memdesc:ga8de8e24f3a0b8643626494bcd58a745c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Descriptor component system for 3d transforms.  <a href="a01815.html#ga8de8e24f3a0b8643626494bcd58a745c">More...</a><br /></td></tr>
-<tr class="separator:ga8de8e24f3a0b8643626494bcd58a745c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga11d6ea46ca8a7d452ae7049bf7948c21"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01815.html#ga11d6ea46ca8a7d452ae7049bf7948c21">bl::sys::TextureDescriptorSystem</a> = <a class="el" href="a03901.html">DescriptorComponentSystem</a>&lt; <a class="el" href="a02049.html">com::Texture</a>, std::uint32_t &gt;</td></tr>
-<tr class="memdesc:ga11d6ea46ca8a7d452ae7049bf7948c21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Descriptor component system for textures.  <a href="a01815.html#ga11d6ea46ca8a7d452ae7049bf7948c21">More...</a><br /></td></tr>
-<tr class="separator:ga11d6ea46ca8a7d452ae7049bf7948c21"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga4477117aea35eeac21751bf038a0098b"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01815.html#ga4477117aea35eeac21751bf038a0098b">bl::sys::MeshSystem</a> = <a class="el" href="a03189.html">DrawableSystem</a>&lt; <a class="el" href="a02013.html">com::Mesh</a> &gt;</td></tr>
-<tr class="memdesc:ga4477117aea35eeac21751bf038a0098b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Engine system for managing entity meshes.  <a href="a01815.html#ga4477117aea35eeac21751bf038a0098b">More...</a><br /></td></tr>
-<tr class="separator:ga4477117aea35eeac21751bf038a0098b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga68bd85b37280b05c447083208d4079f7"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01815.html#ga68bd85b37280b05c447083208d4079f7">bl::sys::SpriteSystem</a> = <a class="el" href="a03189.html">DrawableSystem</a>&lt; <a class="el" href="a02041.html">com::Sprite</a> &gt;</td></tr>
-<tr class="memdesc:ga68bd85b37280b05c447083208d4079f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Engine system for managing entity sprites.  <a href="a01815.html#ga68bd85b37280b05c447083208d4079f7">More...</a><br /></td></tr>
-<tr class="separator:ga68bd85b37280b05c447083208d4079f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga09945f85269b1a8ed93da9da3150378f"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01815.html#ga09945f85269b1a8ed93da9da3150378f">bl::sys::TextSystem</a> = <a class="el" href="a03189.html">DrawableSystem</a>&lt; <a class="el" href="a02045.html">com::Text</a> &gt;</td></tr>
-<tr class="memdesc:ga09945f85269b1a8ed93da9da3150378f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Engine system for managing text entities.  <a href="a01815.html#ga09945f85269b1a8ed93da9da3150378f">More...</a><br /></td></tr>
-<tr class="separator:ga09945f85269b1a8ed93da9da3150378f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gafc72d25e40dc5e41d1b7876e99072b2f"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01815.html#gafc72d25e40dc5e41d1b7876e99072b2f">bl::sys::SlideshowSystem</a> = <a class="el" href="a03189.html">DrawableSystem</a>&lt; <a class="el" href="a02037.html">com::Slideshow</a> &gt;</td></tr>
-<tr class="memdesc:gafc72d25e40dc5e41d1b7876e99072b2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Engine system for managing slideshow animations.  <a href="a01815.html#gafc72d25e40dc5e41d1b7876e99072b2f">More...</a><br /></td></tr>
-<tr class="separator:gafc72d25e40dc5e41d1b7876e99072b2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae9d9f38e1109df2f51f1c4327fdb2bf0"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01815.html#gae9d9f38e1109df2f51f1c4327fdb2bf0">bl::sys::Animation2DDrawableSystem</a> = <a class="el" href="a03189.html">DrawableSystem</a>&lt; <a class="el" href="a02001.html">com::Animation2D</a> &gt;</td></tr>
-<tr class="memdesc:gae9d9f38e1109df2f51f1c4327fdb2bf0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Engine system for managing non-slideshow animations.  <a href="a01815.html#gae9d9f38e1109df2f51f1c4327fdb2bf0">More...</a><br /></td></tr>
-<tr class="separator:gae9d9f38e1109df2f51f1c4327fdb2bf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga15d83a9ebb5cec163379398bf32e248b"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01815.html#ga15d83a9ebb5cec163379398bf32e248b">bl::sys::Shape2DSystem</a> = <a class="el" href="a03189.html">DrawableSystem</a>&lt; <a class="el" href="a02033.html">com::Shape2D</a> &gt;</td></tr>
-<tr class="memdesc:ga15d83a9ebb5cec163379398bf32e248b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Engine system for managing 2d shapes.  <a href="a01815.html#ga15d83a9ebb5cec163379398bf32e248b">More...</a><br /></td></tr>
-<tr class="separator:ga15d83a9ebb5cec163379398bf32e248b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<p>Built-in engine systems. </p>
-<h2 class="groupheader">Typedef Documentation</h2>
-<a id="gae9d9f38e1109df2f51f1c4327fdb2bf0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gae9d9f38e1109df2f51f1c4327fdb2bf0">&#9670;&nbsp;</a></span>Animation2DDrawableSystem</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a01815.html#gae9d9f38e1109df2f51f1c4327fdb2bf0">bl::sys::Animation2DDrawableSystem</a> = typedef <a class="el" href="a03189.html">DrawableSystem</a>&lt;<a class="el" href="a02001.html">com::Animation2D</a>&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Engine system for managing non-slideshow animations. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01010_source.html#l00049">49</a> of file <a class="el" href="a01010_source.html">BuiltinDrawableSystems.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ga4477117aea35eeac21751bf038a0098b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga4477117aea35eeac21751bf038a0098b">&#9670;&nbsp;</a></span>MeshSystem</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a01815.html#ga4477117aea35eeac21751bf038a0098b">bl::sys::MeshSystem</a> = typedef <a class="el" href="a03189.html">DrawableSystem</a>&lt;<a class="el" href="a02013.html">com::Mesh</a>&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Engine system for managing entity meshes. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01010_source.html#l00021">21</a> of file <a class="el" href="a01010_source.html">BuiltinDrawableSystems.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ga15d83a9ebb5cec163379398bf32e248b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga15d83a9ebb5cec163379398bf32e248b">&#9670;&nbsp;</a></span>Shape2DSystem</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a01815.html#ga15d83a9ebb5cec163379398bf32e248b">bl::sys::Shape2DSystem</a> = typedef <a class="el" href="a03189.html">DrawableSystem</a>&lt;<a class="el" href="a02033.html">com::Shape2D</a>&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Engine system for managing 2d shapes. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01010_source.html#l00056">56</a> of file <a class="el" href="a01010_source.html">BuiltinDrawableSystems.hpp</a>.</p>
-
-</div>
-</div>
-<a id="gafc72d25e40dc5e41d1b7876e99072b2f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gafc72d25e40dc5e41d1b7876e99072b2f">&#9670;&nbsp;</a></span>SlideshowSystem</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a01815.html#gafc72d25e40dc5e41d1b7876e99072b2f">bl::sys::SlideshowSystem</a> = typedef <a class="el" href="a03189.html">DrawableSystem</a>&lt;<a class="el" href="a02037.html">com::Slideshow</a>&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Engine system for managing slideshow animations. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01010_source.html#l00042">42</a> of file <a class="el" href="a01010_source.html">BuiltinDrawableSystems.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ga68bd85b37280b05c447083208d4079f7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga68bd85b37280b05c447083208d4079f7">&#9670;&nbsp;</a></span>SpriteSystem</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a01815.html#ga68bd85b37280b05c447083208d4079f7">bl::sys::SpriteSystem</a> = typedef <a class="el" href="a03189.html">DrawableSystem</a>&lt;<a class="el" href="a02041.html">com::Sprite</a>&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Engine system for managing entity sprites. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01010_source.html#l00028">28</a> of file <a class="el" href="a01010_source.html">BuiltinDrawableSystems.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ga09945f85269b1a8ed93da9da3150378f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga09945f85269b1a8ed93da9da3150378f">&#9670;&nbsp;</a></span>TextSystem</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a01815.html#ga09945f85269b1a8ed93da9da3150378f">bl::sys::TextSystem</a> = typedef <a class="el" href="a03189.html">DrawableSystem</a>&lt;<a class="el" href="a02045.html">com::Text</a>&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Engine system for managing text entities. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01010_source.html#l00035">35</a> of file <a class="el" href="a01010_source.html">BuiltinDrawableSystems.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ga11d6ea46ca8a7d452ae7049bf7948c21"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga11d6ea46ca8a7d452ae7049bf7948c21">&#9670;&nbsp;</a></span>TextureDescriptorSystem</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a01815.html#ga11d6ea46ca8a7d452ae7049bf7948c21">bl::sys::TextureDescriptorSystem</a> = typedef <a class="el" href="a03901.html">DescriptorComponentSystem</a>&lt;<a class="el" href="a02049.html">com::Texture</a>, std::uint32_t&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Descriptor component system for textures. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01007_source.html#l00024">24</a> of file <a class="el" href="a01007_source.html">BuiltinDescriptorComponentSystems.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ga8de8e24f3a0b8643626494bcd58a745c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga8de8e24f3a0b8643626494bcd58a745c">&#9670;&nbsp;</a></span>Transform3DDescriptorSystem</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a01815.html#ga8de8e24f3a0b8643626494bcd58a745c">bl::sys::Transform3DDescriptorSystem</a> = typedef <a class="el" href="a03901.html">DescriptorComponentSystem</a>&lt;<a class="el" href="a02061.html">com::Transform3D</a>, glm::mat4&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Descriptor component system for 3d transforms. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01007_source.html#l00018">18</a> of file <a class="el" href="a01007_source.html">BuiltinDescriptorComponentSystems.hpp</a>.</p>
-
-</div>
-</div>
+<p>Collection of classes implementing a generic LR0 parser. </p>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 15 2023 19:53:40 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Oct 21 2023 00:16:52 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::script Namespace Reference</title>
+<title>BLIB: bl::rc::rgi Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,131 +66,54 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01824.html">bl</a></li><li class="navelem"><a class="el" href="a01876.html">script</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01830.html">bl</a></li><li class="navelem"><a class="el" href="a01842.html">rc</a></li><li class="navelem"><a class="el" href="a01876.html">rgi</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#typedef-members">Typedefs</a>  </div>
+<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">bl::script Namespace Reference</div>  </div>
+<div class="title">bl::rc::rgi Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="a03569.html" title="Loads scripts. Can run scripts directly or in the background. Is threadsafe.">Script</a> interpreter for bScript.  
+<p>Contains render graph asset, task, and strategy implementations.  
 <a href="a01876.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03537.html">Context</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A context to run a script with. Custom context classes may be created to have different types of scripts. For example, an NPC running a script may have a context that adds several global functions to manipulate that NPC directly from the script.  <a href="a03537.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03046.html">FinalSwapframeAsset</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Asset for the swapchain image that an observer renders to.  <a href="a03046.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03541.html">Error</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a03569.html" title="Loads scripts. Can run scripts directly or in the background. Is threadsafe.">Script</a> utility class to represent an error. Can be used to build a call stack for script errors.  <a href="a03541.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03050.html">FramebufferAsset</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Intermediate base class for assets that provide framebuffers.  <a href="a03050.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03545.html">Exit</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Special Exception for Scripts to exit without an <a class="el" href="a03541.html" title="Script utility class to represent an error. Can be used to build a call stack for script errors.">Error</a>.  <a href="a03545.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03054.html">SceneAsset</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic asset that provides the scene to tasks.  <a href="a03054.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03549.html">Function</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility class for functions defined in scripts themselves.  <a href="a03549.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03058.html">StandardTargetAsset</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Asset for a standard render target consisting of a single color and depth attachment.  <a href="a03058.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03553.html">Manager</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility class that can manage sets of concurrently running scripts.  <a href="a03553.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03078.html">StandardAssetProvider</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provider for <a class="el" href="a03058.html" title="Asset for a standard render target consisting of a single color and depth attachment.">StandardTargetAsset</a> assets.  <a href="a03078.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03557.html">PrimitiveValue</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents the lowest level values in scripts.  <a href="a03557.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03094.html">ForwardRenderStrategy</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default render strategy. Implements a basic forward renderer.  <a href="a03094.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03565.html">ReferenceValue</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference type for values. Wrapper around std::shared_ptr.  <a href="a03565.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03118.html">FadeEffectTask</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic post effect task that multiplies the rendered color by a factor in the range [0, 1] and interpolates that factor. Typically used for a fade in or out to black.  <a href="a03118.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03569.html">Script</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads scripts. Can run scripts directly or in the background. Is threadsafe.  <a href="a03569.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03122.html">ForwardRenderTask</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic forward renderer that calls into the scene render methods.  <a href="a03122.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03577.html">SymbolTable</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stack aware symbol table for managing functions and variables Each <a class="el" href="a03569.html" title="Loads scripts. Can run scripts directly or in the background. Is threadsafe.">Script</a> holds a single instance.  <a href="a03577.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03581.html">Value</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main representation of a value in scripts.  <a href="a03581.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04145.html">Parser</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implementation of a <a class="el" href="a04145.html" title="Implementation of a Parser for the scripting language.">Parser</a> for the scripting language.  <a href="a04145.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04153.html">ScriptImpl</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of testable utility methods for executing components of scripts.  <a href="a04153.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04157.html">Library</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Static helper to add built-in functions to each script.  <a href="a04157.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:a949fe37cb751cac53f257c3c0241a652"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01876.html#a949fe37cb751cac53f257c3c0241a652">ArrayValue</a> = std::vector&lt; <a class="el" href="a03581.html">Value</a> &gt;</td></tr>
-<tr class="memdesc:a949fe37cb751cac53f257c3c0241a652"><td class="mdescLeft">&#160;</td><td class="mdescRight">An array of values.  <a href="a01876.html#a949fe37cb751cac53f257c3c0241a652">More...</a><br /></td></tr>
-<tr class="separator:a949fe37cb751cac53f257c3c0241a652"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af4832d1de10443d84f1fb19c16bfa24c"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01876.html#af4832d1de10443d84f1fb19c16bfa24c">Symbol</a> = const <a class="el" href="a02825.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a> &amp;</td></tr>
-<tr class="separator:af4832d1de10443d84f1fb19c16bfa24c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af98b10434d6862ecf69f33b6b5b25f27"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01876.html#af98b10434d6862ecf69f33b6b5b25f27">G</a> = <a class="el" href="a04145.html#aab7cdda02e78cc66c150f58063c8b9e4">Parser::Grammar</a></td></tr>
-<tr class="separator:af98b10434d6862ecf69f33b6b5b25f27"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="a03569.html" title="Loads scripts. Can run scripts directly or in the background. Is threadsafe.">Script</a> interpreter for bScript. </p>
-</div><h2 class="groupheader">Typedef Documentation</h2>
-<a id="a949fe37cb751cac53f257c3c0241a652"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a949fe37cb751cac53f257c3c0241a652">&#9670;&nbsp;</a></span>ArrayValue</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a01876.html#a949fe37cb751cac53f257c3c0241a652">bl::script::ArrayValue</a> = typedef std::vector&lt;<a class="el" href="a03581.html">Value</a>&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>An array of values. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00929_source.html#l00015">15</a> of file <a class="el" href="a00929_source.html">PrimitiveValue.hpp</a>.</p>
-
-</div>
-</div>
-<a id="af98b10434d6862ecf69f33b6b5b25f27"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af98b10434d6862ecf69f33b6b5b25f27">&#9670;&nbsp;</a></span>G</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a04145.html#aab7cdda02e78cc66c150f58063c8b9e4">bl::script::G</a> = typedef <a class="el" href="a04145.html#aab7cdda02e78cc66c150f58063c8b9e4">Parser::Grammar</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01706_source.html#l00012">12</a> of file <a class="el" href="a01706_source.html">ScriptImpl.cpp</a>.</p>
-
-</div>
-</div>
-<a id="af4832d1de10443d84f1fb19c16bfa24c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af4832d1de10443d84f1fb19c16bfa24c">&#9670;&nbsp;</a></span>Symbol</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a01876.html#af4832d1de10443d84f1fb19c16bfa24c">bl::script::Symbol</a> = typedef const <a class="el" href="a02825.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&amp;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01706_source.html#l00011">11</a> of file <a class="el" href="a01706_source.html">ScriptImpl.cpp</a>.</p>
-
-</div>
-</div>
-</div><!-- contents -->
+<div class="textblock"><p>Contains render graph asset, task, and strategy implementations. </p>
+</div></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 15 2023 19:53:41 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Oct 21 2023 00:16:53 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

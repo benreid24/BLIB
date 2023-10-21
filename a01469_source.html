@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Descriptors/SceneDescriptorSetInstance.cpp Source File</title>
+<title>BLIB: src/Render/Descriptors/DescriptorSetInstance.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,42 +71,36 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">SceneDescriptorSetInstance.cpp</div>  </div>
+<div class="title">DescriptorSetInstance.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01469.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00626.html">BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp</a>&gt;</span></div>
+<a href="a01469.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00617.html">BLIB/Render/Descriptors/DescriptorSetInstance.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05139.html">BLIB/Render/Config.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;limits&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01824.html">bl</a></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01830.html">bl</a></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>rc</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>ds</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="a02997.html#a4e4d85081fc95e511efd38849f047eb5">   11</a></span>&#160;<a class="code" href="a02997.html#a4e4d85081fc95e511efd38849f047eb5">SceneDescriptorSetInstance::SceneDescriptorSetInstance</a>()</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;: <a class="code" href="a02989.html">DescriptorSetInstance</a>(Bindless, SpeedAgnostic) {}</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="a02997.html#ad0135cab959d2ab6c8c454054e1c23d4">   14</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02997.html#ad0135cab959d2ab6c8c454054e1c23d4">SceneDescriptorSetInstance::updateObserverCamera</a>(std::uint32_t observerIndex,</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;                                                      <span class="keyword">const</span> glm::mat4&amp; cam) {</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <a class="code" href="a02997.html#a0a145382ab1e64d8c85dd63939bb0aca">cameraBuffer</a>[observerIndex] = cam;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;}</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;} <span class="comment">// namespace ds</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00626_html"><div class="ttname"><a href="a00626.html">SceneDescriptorSetInstance.hpp</a></div></div>
-<div class="ttc" id="aa01824_html"><div class="ttname"><a href="a01824.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02989_html"><div class="ttname"><a href="a02989.html">bl::rc::ds::DescriptorSetInstance</a></div><div class="ttdoc">Base class for descriptor sets that exist for each scene. Derived classes are created by DescriptorSe...</div><div class="ttdef"><b>Definition:</b> <a href="a00620_source.html#l00030">DescriptorSetInstance.hpp:30</a></div></div>
-<div class="ttc" id="aa02997_html_a0a145382ab1e64d8c85dd63939bb0aca"><div class="ttname"><a href="a02997.html#a0a145382ab1e64d8c85dd63939bb0aca">bl::rc::ds::SceneDescriptorSetInstance::cameraBuffer</a></div><div class="ttdeci">buf::UniformBuffer&lt; glm::mat4 &gt; cameraBuffer</div><div class="ttdef"><b>Definition:</b> <a href="a00626_source.html#l00043">SceneDescriptorSetInstance.hpp:43</a></div></div>
-<div class="ttc" id="aa02997_html_a4e4d85081fc95e511efd38849f047eb5"><div class="ttname"><a href="a02997.html#a4e4d85081fc95e511efd38849f047eb5">bl::rc::ds::SceneDescriptorSetInstance::SceneDescriptorSetInstance</a></div><div class="ttdeci">SceneDescriptorSetInstance()</div><div class="ttdoc">Creates the descriptor set instance.</div><div class="ttdef"><b>Definition:</b> <a href="a01469_source.html#l00011">SceneDescriptorSetInstance.cpp:11</a></div></div>
-<div class="ttc" id="aa02997_html_ad0135cab959d2ab6c8c454054e1c23d4"><div class="ttname"><a href="a02997.html#ad0135cab959d2ab6c8c454054e1c23d4">bl::rc::ds::SceneDescriptorSetInstance::updateObserverCamera</a></div><div class="ttdeci">void updateObserverCamera(std::uint32_t observerIndex, const glm::mat4 &amp;projView)</div><div class="ttdoc">Updates the camera value for the given observer.</div><div class="ttdef"><b>Definition:</b> <a href="a01469_source.html#l00014">SceneDescriptorSetInstance.cpp:14</a></div></div>
-<div class="ttc" id="aa05139_html"><div class="ttname"><a href="a05139.html">Config.hpp</a></div></div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="a03010.html#a8824c7c30fbcff84b14719d6c01dd617">   11</a></span>&#160;<a class="code" href="a03010.html#a8824c7c30fbcff84b14719d6c01dd617">DescriptorSetInstance::DescriptorSetInstance</a>(<a class="code" href="a03010.html#a0d2abd5826961d67047b9e5b4d60e611">BindMode</a> bindMode, <a class="code" href="a03010.html#a56d01a7643e3e65933db3c5a957db66f">SpeedBucketSetting</a> speedSetting)</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;: bindless(bindMode == Bindless)</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;, speedBind(speedSetting == RebindForNewSpeed) {}</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;} <span class="comment">// namespace ds</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00617_html"><div class="ttname"><a href="a00617.html">DescriptorSetInstance.hpp</a></div></div>
+<div class="ttc" id="aa01830_html"><div class="ttname"><a href="a01830.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03010_html_a0d2abd5826961d67047b9e5b4d60e611"><div class="ttname"><a href="a03010.html#a0d2abd5826961d67047b9e5b4d60e611">bl::rc::ds::DescriptorSetInstance::BindMode</a></div><div class="ttdeci">BindMode</div><div class="ttdoc">Bind mode of the descriptor set.</div><div class="ttdef"><b>Definition:</b> <a href="a00617_source.html#l00033">DescriptorSetInstance.hpp:33</a></div></div>
+<div class="ttc" id="aa03010_html_a56d01a7643e3e65933db3c5a957db66f"><div class="ttname"><a href="a03010.html#a56d01a7643e3e65933db3c5a957db66f">bl::rc::ds::DescriptorSetInstance::SpeedBucketSetting</a></div><div class="ttdeci">SpeedBucketSetting</div><div class="ttdoc">Whether or not the descriptor set needs to be re-bound for different update speeds.</div><div class="ttdef"><b>Definition:</b> <a href="a00617_source.html#l00036">DescriptorSetInstance.hpp:36</a></div></div>
+<div class="ttc" id="aa03010_html_a8824c7c30fbcff84b14719d6c01dd617"><div class="ttname"><a href="a03010.html#a8824c7c30fbcff84b14719d6c01dd617">bl::rc::ds::DescriptorSetInstance::DescriptorSetInstance</a></div><div class="ttdeci">DescriptorSetInstance(BindMode bindMode, SpeedBucketSetting speedSetting)</div><div class="ttdoc">Creates a new DescriptorSetInstance.</div><div class="ttdef"><b>Definition:</b> <a href="a01469_source.html#l00011">DescriptorSetInstance.cpp:11</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 15 2023 19:53:39 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Oct 21 2023 00:16:51 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

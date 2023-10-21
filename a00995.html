@@ -77,12 +77,12 @@ $(function() {
 <div class="title">SerializableField.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00500_source.html">BLIB/Logging.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a05154_source.html">BLIB/Serialization/Binary/Serializer.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a05160_source.html">BLIB/Serialization/JSON/JSON.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a05157_source.html">BLIB/Serialization/JSON/Serializer.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00497_source.html">BLIB/Logging.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a05160_source.html">BLIB/Serialization/Binary/Serializer.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a05166_source.html">BLIB/Serialization/JSON/JSON.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a05163_source.html">BLIB/Serialization/JSON/Serializer.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="a00998_source.html">BLIB/Serialization/SerializableObject.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a01064_source.html">BLIB/Util/NonCopyable.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01061_source.html">BLIB/Util/NonCopyable.hpp</a>&gt;</code><br />
 <code>#include &lt;memory&gt;</code><br />
 <code>#include &lt;type_traits&gt;</code><br />
 </div>
@@ -90,44 +90,44 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03837.html">bl::serial::priv::DefaultHolder&lt; C, U, bool &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03866.html">bl::serial::priv::DefaultHolder&lt; C, U, bool &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03841.html">bl::serial::SerializableFieldBase</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for <a class="el" href="a03853.html" title="Represents a field in a class that can be serialized. Serializable objects should inherit from Serial...">SerializableField</a> objects. Not to be used directly.  <a href="a03841.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03870.html">bl::serial::SerializableFieldBase</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for <a class="el" href="a03882.html" title="Represents a field in a class that can be serialized. Serializable objects should inherit from Serial...">SerializableField</a> objects. Not to be used directly.  <a href="a03870.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03845.html">bl::serial::SerializableFieldBase::Optional</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates that this field is optional.  <a href="a03845.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03874.html">bl::serial::SerializableFieldBase::Optional</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates that this field is optional.  <a href="a03874.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03849.html">bl::serial::SerializableFieldBase::Required</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates that this field is required.  <a href="a03849.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03878.html">bl::serial::SerializableFieldBase::Required</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates that this field is required.  <a href="a03878.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03853.html">bl::serial::SerializableField&lt; Id, C, T &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a field in a class that can be serialized. Serializable objects should inherit from <a class="el" href="a03873.html" title="Base class for user defined classes meant to be serialized to and from JSON. Data members of serializ...">SerializableObject</a> and make their data fields of type <a class="el" href="a03853.html" title="Represents a field in a class that can be serialized. Serializable objects should inherit from Serial...">SerializableField</a>. Serialization is builtin for primitive json types, vectors, maps, and nested <a class="el" href="a03873.html" title="Base class for user defined classes meant to be serialized to and from JSON. Data members of serializ...">SerializableObject</a> members. Specializations of Serializer may be created to support other types which are not easily represented as Serializable objects.  <a href="a03853.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03882.html">bl::serial::SerializableField&lt; Id, C, T &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a field in a class that can be serialized. Serializable objects should inherit from <a class="el" href="a03902.html" title="Base class for user defined classes meant to be serialized to and from JSON. Data members of serializ...">SerializableObject</a> and make their data fields of type <a class="el" href="a03882.html" title="Represents a field in a class that can be serialized. Serializable objects should inherit from Serial...">SerializableField</a>. Serialization is builtin for primitive json types, vectors, maps, and nested <a class="el" href="a03902.html" title="Base class for user defined classes meant to be serialized to and from JSON. Data members of serializ...">SerializableObject</a> members. Specializations of Serializer may be created to support other types which are not easily represented as Serializable objects.  <a href="a03882.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03857.html">bl::serial::priv::DefaultHolder&lt; C, U, true &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03886.html">bl::serial::priv::DefaultHolder&lt; C, U, true &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03861.html">bl::serial::priv::DefaultHolder&lt; C, U, false &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03890.html">bl::serial::priv::DefaultHolder&lt; C, U, false &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03865.html">bl::serial::priv::DefaultHolder&lt; C, U[N], false &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03894.html">bl::serial::priv::DefaultHolder&lt; C, U[N], false &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a01824"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01824.html">bl</a></td></tr>
-<tr class="memdesc:a01824"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="memitem:a01830"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01830.html">bl</a></td></tr>
+<tr class="memdesc:a01830"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01827"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01827.html">bl::serial</a></td></tr>
-<tr class="memdesc:a01827"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes and utilities for serializing and deserializing data. <br /></td></tr>
+<tr class="memitem:a01833"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01833.html">bl::serial</a></td></tr>
+<tr class="memdesc:a01833"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes and utilities for serializing and deserializing data. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01881"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01881.html">bl::serial::priv</a></td></tr>
-<tr class="memdesc:a01881"><td class="mdescLeft">&#160;</td><td class="mdescRight">Private namespace containing internal implementation. Do not use. <br /></td></tr>
+<tr class="memitem:a01887"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01887.html">bl::serial::priv</a></td></tr>
+<tr class="memdesc:a01887"><td class="mdescLeft">&#160;</td><td class="mdescRight">Private namespace containing internal implementation. Do not use. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 15 2023 19:53:40 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Oct 21 2023 00:16:52 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Graphics/Rectangle.cpp Source File</title>
+<title>BLIB: include/BLIB/Engine/System.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,19 +66,51 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_8af985930208ac2752e8061e22535a56.html">Graphics</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_21925c401d8b9381bdf61383d8a14cd0.html">Engine</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Rectangle.cpp</div>  </div>
+<div class="title">System.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a05097.html">Go to the documentation of this file.</a><div class="fragment"></div><!-- fragment --></div><!-- contents -->
+<a href="a05097.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_ENGINE_SYSTEM_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_ENGINE_SYSTEM_HPP</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;cstdint&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;mutex&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01830.html">bl</a></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>engine</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">class </span>Engine;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a02366.html">   18</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02366.html">System</a> {</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a02366.html#aa94c5ee9b05530eb29c7ad3e5b801225">   23</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02366.html#aa94c5ee9b05530eb29c7ad3e5b801225">~System</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a02366.html#a9ec226cb2c0e129eaf4f7c53c318d0da">   30</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02366.html#a9ec226cb2c0e129eaf4f7c53c318d0da">init</a>(<a class="code" href="a02314.html">engine::Engine</a>&amp; engine) = 0;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="a02366.html#af8ce424a5aa9cd48a5f4058115ab27a6">   43</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02366.html#af8ce424a5aa9cd48a5f4058115ab27a6">update</a>(std::mutex&amp; stageMutex, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span> realDt, <span class="keywordtype">float</span> residual,</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                        <span class="keywordtype">float</span> realResidual) = 0;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;};</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;} <span class="comment">// namespace engine</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01830_html"><div class="ttname"><a href="a01830.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02314_html"><div class="ttname"><a href="a02314.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a05094_source.html#l00032">Engine.hpp:32</a></div></div>
+<div class="ttc" id="aa02366_html"><div class="ttname"><a href="a02366.html">bl::engine::System</a></div><div class="ttdoc">Base class for Engine systems which can be registered in the Systems registry.</div><div class="ttdef"><b>Definition:</b> <a href="a05097_source.html#l00018">System.hpp:18</a></div></div>
+<div class="ttc" id="aa02366_html_a9ec226cb2c0e129eaf4f7c53c318d0da"><div class="ttname"><a href="a02366.html#a9ec226cb2c0e129eaf4f7c53c318d0da">bl::engine::System::init</a></div><div class="ttdeci">virtual void init(engine::Engine &amp;engine)=0</div><div class="ttdoc">This is called once on engine startup.</div></div>
+<div class="ttc" id="aa02366_html_aa94c5ee9b05530eb29c7ad3e5b801225"><div class="ttname"><a href="a02366.html#aa94c5ee9b05530eb29c7ad3e5b801225">bl::engine::System::~System</a></div><div class="ttdeci">virtual ~System()=default</div><div class="ttdoc">Destroys the system.</div></div>
+<div class="ttc" id="aa02366_html_af8ce424a5aa9cd48a5f4058115ab27a6"><div class="ttname"><a href="a02366.html#af8ce424a5aa9cd48a5f4058115ab27a6">bl::engine::System::update</a></div><div class="ttdeci">virtual void update(std::mutex &amp;stageMutex, float dt, float realDt, float residual, float realResidual)=0</div><div class="ttdoc">This is called each frame with the time to simulate.</div></div>
+</div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 15 2023 19:53:39 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Oct 21 2023 00:16:51 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

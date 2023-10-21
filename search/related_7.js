@@ -1,8 +1,7 @@
 var searchData=
 [
-  ['font_7253',['Font',['../a03521.html#ab4971339d6bc377a1679c552cd3069b1',1,'bl::resource::Ref']]],
-  ['garbagecollector_7254',['GarbageCollector',['../a03533.html#aed63c75a6d93c19ed9b14ec512386a34',1,'bl::resource::ResourceManagerBase']]],
-  ['group_7255',['Group',['../a02637.html#a2697825715974a353728f0d4d5658112',1,'bl::gui::RadioButton']]],
-  ['overlayscalable_7256',['OverlayScalable',['../a02021.html#ae965abe33c967f45ce73685301ae0d0e',1,'bl::com::OverlayScaler']]],
-  ['text_7257',['Text',['../a03921.html#a3f04a83bc1aa45f2d9fc4e3c5899a2ea',1,'bl::sys::TextSyncSystem']]]
+  ['font_7279',['Font',['../a03550.html#ab4971339d6bc377a1679c552cd3069b1',1,'bl::resource::Ref']]],
+  ['garbagecollector_7280',['GarbageCollector',['../a03562.html#aed63c75a6d93c19ed9b14ec512386a34',1,'bl::resource::ResourceManagerBase']]],
+  ['group_7281',['Group',['../a02658.html#a2697825715974a353728f0d4d5658112',1,'bl::gui::RadioButton']]],
+  ['overlayscalable_7282',['OverlayScalable',['../a02034.html#ae965abe33c967f45ce73685301ae0d0e',1,'bl::com::OverlayScaler']]]
 ];

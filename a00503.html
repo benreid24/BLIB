@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Math/Constants.hpp File Reference</title>
+<title>BLIB: include/BLIB/Math/Interpolate.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -72,9 +72,9 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#namespaces">Namespaces</a> &#124;
-<a href="#var-members">Variables</a>  </div>
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">Constants.hpp File Reference</div>  </div>
+<div class="title">Interpolate.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -82,24 +82,33 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a01824"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01824.html">bl</a></td></tr>
-<tr class="memdesc:a01824"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="memitem:a01830"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01830.html">bl</a></td></tr>
+<tr class="memdesc:a01830"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01860"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01860.html">bl::math</a></td></tr>
-<tr class="memdesc:a01860"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of functions and constants for doing math. <br /></td></tr>
+<tr class="memitem:a01866"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01866.html">bl::math</a></td></tr>
+<tr class="memdesc:a01866"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of functions and constants for doing math. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
-Variables</h2></td></tr>
-<tr class="memitem:a5d956eb5741fd61ccb4d7a18bd6fd431"><td class="memItemLeft" align="right" valign="top">constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01860.html#a5d956eb5741fd61ccb4d7a18bd6fd431">bl::math::Pi</a> = 3.14159265359f</td></tr>
-<tr class="memdesc:a5d956eb5741fd61ccb4d7a18bd6fd431"><td class="mdescLeft">&#160;</td><td class="mdescRight">It's pi.  <a href="a01860.html#a5d956eb5741fd61ccb4d7a18bd6fd431">More...</a><br /></td></tr>
-<tr class="separator:a5d956eb5741fd61ccb4d7a18bd6fd431"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ga8753daa77ceb8a99501d08876804bd00"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga8753daa77ceb8a99501d08876804bd00"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01814.html#ga8753daa77ceb8a99501d08876804bd00">bl::math::interpolate</a> (T originStart, T originEnd, T destStart, T destEnd, T value)</td></tr>
+<tr class="memdesc:ga8753daa77ceb8a99501d08876804bd00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Linearly interpolate a value from one range to another.  <a href="a01814.html#ga8753daa77ceb8a99501d08876804bd00">More...</a><br /></td></tr>
+<tr class="separator:ga8753daa77ceb8a99501d08876804bd00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6830e4fa6ad4c4737f34c0ea10cfa12e"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga6830e4fa6ad4c4737f34c0ea10cfa12e"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01814.html#ga6830e4fa6ad4c4737f34c0ea10cfa12e">bl::math::interpolate</a> (T originStart, T originMid, T originEnd, T destStart, T destEnd, T value)</td></tr>
+<tr class="memdesc:ga6830e4fa6ad4c4737f34c0ea10cfa12e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Linearly interpolate a value from one range to another with a midpoint on the initial range and an assumed centered endpoint on the end range.  <a href="a01814.html#ga6830e4fa6ad4c4737f34c0ea10cfa12e">More...</a><br /></td></tr>
+<tr class="separator:ga6830e4fa6ad4c4737f34c0ea10cfa12e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga51b3900901959abab6d527e6f849fab5"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga51b3900901959abab6d527e6f849fab5"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01814.html#ga51b3900901959abab6d527e6f849fab5">bl::math::interpolate</a> (T originStart, T originMid, T originEnd, T destStart, T destMid, T destEnd, T value)</td></tr>
+<tr class="memdesc:ga51b3900901959abab6d527e6f849fab5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Linearly interpolate a value from one range to another with a midpoint on both the initial range and the final range.  <a href="a01814.html#ga51b3900901959abab6d527e6f849fab5">More...</a><br /></td></tr>
+<tr class="separator:ga51b3900901959abab6d527e6f849fab5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 15 2023 19:53:40 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Oct 21 2023 00:16:52 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

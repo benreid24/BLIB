@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::engine::Worker Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,23 +66,183 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01824.html">bl</a></li><li class="navelem"><a class="el" href="a01847.html">event</a></li><li class="navelem"><a class="el" href="a01848.html">priv</a></li><li class="navelem"><a class="el" href="a02397.html">SingleDispatcherBase</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01830.html">bl</a></li><li class="navelem"><a class="el" href="a01837.html">engine</a></li><li class="navelem"><a class="el" href="a02394.html">Worker</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
+<a href="a02391.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::event::priv::SingleDispatcherBase Member List</div>  </div>
+<div class="title">bl::engine::Worker Class Reference<div class="ingroups"><a class="el" href="a01808.html">Engine</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a02397.html">bl::event::priv::SingleDispatcherBase</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a02397.html#a8851c41da4b18722c985e63301502b59">::bl::event::Dispatcher</a> class</td><td class="entry"><a class="el" href="a02397.html">bl::event::priv::SingleDispatcherBase</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
-</table></div><!-- contents -->
+<p><a class="el" href="a02394.html" title="Worker interface providing access to the background worker thread of the engine. This thread performs...">Worker</a> interface providing access to the background worker thread of the engine. This thread performs logging and other async engine tasks that are relatively lightweight and sporadic. The thread is terminated when the engine instance is destructed.  
+ <a href="a02394.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00245_source.html">Worker.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::engine::Worker:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a02394.png" usemap="#bl::engine::Worker_map" alt=""/>
+  <map id="bl::engine::Worker_map" name="bl::engine::Worker_map">
+<area href="a04006.html" title="Helper class to make derived classes impossible for user to copy directly." alt="bl::util::NonCopyable" shape="rect" coords="0,0,127,24"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:af3d2209ab584a19616e88a973adb2b71"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02394.html#af3d2209ab584a19616e88a973adb2b71">QueuedTask</a> = std::function&lt; void()&gt;</td></tr>
+<tr class="memdesc:af3d2209ab584a19616e88a973adb2b71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a task that is queued.  <a href="a02394.html#af3d2209ab584a19616e88a973adb2b71">More...</a><br /></td></tr>
+<tr class="separator:af3d2209ab584a19616e88a973adb2b71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a4f19ad9dab7cefc3e05c26cddad0a9b6"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a4f19ad9dab7cefc3e05c26cddad0a9b6"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a02394.html#a4f19ad9dab7cefc3e05c26cddad0a9b6">submit</a> (T &amp;&amp;task)</td></tr>
+<tr class="separator:a4f19ad9dab7cefc3e05c26cddad0a9b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a2bcafcef59a2e5f33043b9623f16135d"><td class="memTemplParams" colspan="2">template&lt;typename Task &gt; </td></tr>
+<tr class="memitem:a2bcafcef59a2e5f33043b9623f16135d"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a02394.html#a2bcafcef59a2e5f33043b9623f16135d">submit</a> (Task &amp;&amp;task)</td></tr>
+<tr class="memdesc:a2bcafcef59a2e5f33043b9623f16135d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Submit a task to be executed. Submitted tasks should be relatively lightweight. More advanced or intensive workflows should get their own thread generally. If there is no active worker thread then the task is executed by the calling thread immediately.  <a href="a02394.html#a2bcafcef59a2e5f33043b9623f16135d">More...</a><br /></td></tr>
+<tr class="separator:a2bcafcef59a2e5f33043b9623f16135d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a3e1914489e4bed4f9f23cdeab34a43dc"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02394.html#a3e1914489e4bed4f9f23cdeab34a43dc">Engine</a></td></tr>
+<tr class="separator:a3e1914489e4bed4f9f23cdeab34a43dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p><a class="el" href="a02394.html" title="Worker interface providing access to the background worker thread of the engine. This thread performs...">Worker</a> interface providing access to the background worker thread of the engine. This thread performs logging and other async engine tasks that are relatively lightweight and sporadic. The thread is terminated when the engine instance is destructed. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00245_source.html#l00027">27</a> of file <a class="el" href="a00245_source.html">Worker.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="af3d2209ab584a19616e88a973adb2b71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af3d2209ab584a19616e88a973adb2b71">&#9670;&nbsp;</a></span>QueuedTask</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a02394.html#af3d2209ab584a19616e88a973adb2b71">bl::engine::Worker::QueuedTask</a> =  std::function&lt;void()&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Represents a task that is queued. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00245_source.html#l00030">30</a> of file <a class="el" href="a00245_source.html">Worker.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a4f19ad9dab7cefc3e05c26cddad0a9b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f19ad9dab7cefc3e05c26cddad0a9b6">&#9670;&nbsp;</a></span>submit() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::engine::Worker::submit </td>
+          <td>(</td>
+          <td class="paramtype">T &amp;&amp;&#160;</td>
+          <td class="paramname"><em>task</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00245_source.html#l00062">62</a> of file <a class="el" href="a00245_source.html">Worker.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a2bcafcef59a2e5f33043b9623f16135d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2bcafcef59a2e5f33043b9623f16135d">&#9670;&nbsp;</a></span>submit() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Task &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void bl::engine::Worker::submit </td>
+          <td>(</td>
+          <td class="paramtype">Task &amp;&amp;&#160;</td>
+          <td class="paramname"><em>task</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Submit a task to be executed. Submitted tasks should be relatively lightweight. More advanced or intensive workflows should get their own thread generally. If there is no active worker thread then the task is executed by the calling thread immediately. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">Task</td><td>The task type to submit </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">task</td><td>The task to submit. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Friends And Related Function Documentation</h2>
+<a id="a3e1914489e4bed4f9f23cdeab34a43dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e1914489e4bed4f9f23cdeab34a43dc">&#9670;&nbsp;</a></span>Engine</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="a02314.html">Engine</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00245_source.html#l00056">56</a> of file <a class="el" href="a00245_source.html">Worker.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/BLIB/Engine/<a class="el" href="a00245_source.html">Worker.hpp</a></li>
+<li>src/Engine/<a class="el" href="a01196_source.html">Worker.cpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 15 2023 19:53:40 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Oct 21 2023 00:16:52 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

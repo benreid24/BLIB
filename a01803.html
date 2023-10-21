@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Events</title>
+<title>BLIB: Audio</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -69,38 +69,29 @@ $(function() {
   <div class="summary">
 <a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">Events</div>  </div>
+<div class="title">Audio</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Collection of utility classes for pub/sub style event queues.  
+<p>A more sophisticated audio system over SFML's system. Provides playlist, music stack, sound system, and spatial sound.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02377.html">bl::event::Dispatcher</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Event dispatcher capable of handling events of many different types. The dispatcher is threadsafe. If events are dispatched by multiple threads care should be taken to keep the listeners threadsafe as well. Care must also be taken to not subscribe the same listener more than once or it will get notified more than once per event.  <a href="a02377.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01954.html">bl::audio::AudioSystem</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Centralized audio system for playing sounds and music.  <a href="a01954.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02381.html">bl::event::EventWaiter&lt; T &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility class to block until a specific event is fired on the bus.  <a href="a02381.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02385.html">bl::event::ListenerBase&lt; T &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for <a class="el" href="a02389.html" title="Listener of multiple event types. Listeners should inherit this class with the types of events they w...">Listener</a>. Do not use directly.  <a href="a02385.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02389.html">bl::event::Listener&lt; TEvents &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a02389.html" title="Listener of multiple event types. Listeners should inherit this class with the types of events they w...">Listener</a> of multiple event types. Listeners should inherit this class with the types of events they would like to subscribe to as template params. An observe method from <a class="el" href="a02389.html" title="Listener of multiple event types. Listeners should inherit this class with the types of events they w...">Listener</a> will be created for each passed type and must be implemented.  <a href="a02389.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02393.html">bl::event::ListenerGuard&lt; TEvents &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Version of scope guard but for classes. Classes that subscribe to event buses through a member <a class="el" href="a02393.html" title="Version of scope guard but for classes. Classes that subscribe to event buses through a member Listen...">ListenerGuard</a> will automatically unsubscribe when they are destructed.  <a href="a02393.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01958.html">bl::audio::Playlist</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A playable, serializable music playlist. Can be manually manipulated or loaded from files.  <a href="a01958.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<p>Collection of utility classes for pub/sub style event queues. </p>
+<p>A more sophisticated audio system over SFML's system. Provides playlist, music stack, sound system, and spatial sound. </p>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 15 2023 19:53:40 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Oct 21 2023 00:16:52 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

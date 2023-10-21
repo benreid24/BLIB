@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Util/RangeAllocatorUnbounded.hpp Source File</title>
+<title>BLIB: include/BLIB/Util/ReadWriteLock.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,189 +71,91 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">RangeAllocatorUnbounded.hpp</div>  </div>
+<div class="title">ReadWriteLock.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01070.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_UTIL_RANGEALLOCATORUNBOUNDED_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_UTIL_RANGEALLOCATORUNBOUNDED_HPP</span></div>
+<a href="a01070.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_UTIL_MUTEX_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_UTIL_MUTEX_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00500.html">BLIB/Logging.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;limits&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;type_traits&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01824.html">bl</a></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>util</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a04005.html">   20</a></span>&#160;<span class="keyword">class </span><a class="code" href="a04005.html">RangeAllocatorUnbounded</a> {</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    static_assert(std::is_integral_v&lt;T&gt;, <span class="stringliteral">&quot;T must be an integer type&quot;</span>);</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    static_assert(std::is_unsigned_v&lt;T&gt;, <span class="stringliteral">&quot;T must be unsigned&quot;</span>);</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a04009.html">   28</a></span>&#160;    <span class="keyword">struct </span><a class="code" href="a04009.html">Range</a> {</div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a04009.html#a288b19b143888752c70b22481dd08eff">   29</a></span>&#160;        T <a class="code" href="a04009.html#a288b19b143888752c70b22481dd08eff">start</a>;</div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a04009.html#a856652f614fabec8a6bbe1a2fd275359">   30</a></span>&#160;        T <a class="code" href="a04009.html#a856652f614fabec8a6bbe1a2fd275359">size</a>;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="a04009.html#a70040704fd1f98e63ffb4101b182435e">   35</a></span>&#160;        <a class="code" href="a04009.html#a70040704fd1f98e63ffb4101b182435e">Range</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="a04009.html#a2a48d97b162b2bec1b714d6a3376a4cc">   43</a></span>&#160;        <a class="code" href="a04009.html#a2a48d97b162b2bec1b714d6a3376a4cc">Range</a>(T <a class="code" href="a04009.html#a288b19b143888752c70b22481dd08eff">start</a>, T <a class="code" href="a04009.html#a856652f614fabec8a6bbe1a2fd275359">size</a>)</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        : <a class="code" href="a04009.html#a288b19b143888752c70b22481dd08eff">start</a>(<a class="code" href="a04009.html#a288b19b143888752c70b22481dd08eff">start</a>)</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        , <a class="code" href="a04009.html#a856652f614fabec8a6bbe1a2fd275359">size</a>(<a class="code" href="a04009.html#a856652f614fabec8a6bbe1a2fd275359">size</a>) {}</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    };</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="a04013.html">   51</a></span>&#160;    <span class="keyword">struct </span><a class="code" href="a04013.html">AllocResult</a> {</div>
-<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="a04013.html#a1ec5ad5513da5ede3f52531ac55226ad">   52</a></span>&#160;        <a class="code" href="a04009.html">Range</a> <a class="code" href="a04013.html#a1ec5ad5513da5ede3f52531ac55226ad">range</a>;</div>
-<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="a04013.html#a74f31609020418a45bd0ffdb37f1eb18">   53</a></span>&#160;        <span class="keywordtype">bool</span> <a class="code" href="a04013.html#a74f31609020418a45bd0ffdb37f1eb18">poolExpanded</a>;</div>
-<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="a04013.html#af93b831eb09812639e7ddb4d8c4b9775">   54</a></span>&#160;        T <a class="code" href="a04013.html#af93b831eb09812639e7ddb4d8c4b9775">newPoolSize</a>;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    };</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="a04005.html#a77b5852f2116229ec0deb38fe68c2d17">   62</a></span>&#160;    <a class="code" href="a04005.html#a77b5852f2116229ec0deb38fe68c2d17">RangeAllocatorUnbounded</a>(T initialCapacity = 0);</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="a04005.html#ae37c61792bac11523d5c0f954ca806ef">   70</a></span>&#160;    AllocResult <a class="code" href="a04005.html#ae37c61792bac11523d5c0f954ca806ef">alloc</a>(T size);</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="a04005.html#afe1c2d843f8958ba5a6b76ee1a480a56">   77</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04005.html#afe1c2d843f8958ba5a6b76ee1a480a56">release</a>(Range range);</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
-<div class="line"><a name="l00082"></a><span class="lineno"><a class="line" href="a04005.html#a34d0f1fb2758e4c77ce22e0002fde2ea">   82</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04005.html#a34d0f1fb2758e4c77ce22e0002fde2ea">releaseAll</a>();</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
-<div class="line"><a name="l00089"></a><span class="lineno"><a class="line" href="a04005.html#a90e9e5b3cb32644b362cf7b45a86b07f">   89</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04005.html#a90e9e5b3cb32644b362cf7b45a86b07f">releaseAllAndResize</a>(T newSize);</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00094"></a><span class="lineno"><a class="line" href="a04005.html#a68ef04ab923c334c449ee5af9b946c90">   94</a></span>&#160;    constexpr T <a class="code" href="a04005.html#a68ef04ab923c334c449ee5af9b946c90">poolSize</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    T totalSize;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    std::vector&lt;Range&gt; freeRanges;</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;};</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00104"></a><span class="lineno"><a class="line" href="a04005.html#a77b5852f2116229ec0deb38fe68c2d17">  104</a></span>&#160;<a class="code" href="a04005.html#a77b5852f2116229ec0deb38fe68c2d17">RangeAllocatorUnbounded&lt;T&gt;::RangeAllocatorUnbounded</a>(T cap)</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;: totalSize(cap) {</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    freeRanges.reserve(std::max(cap / 8, <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(16)));</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    freeRanges.emplace_back(0, cap);</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;}</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00111"></a><span class="lineno"><a class="line" href="a04005.html#ae37c61792bac11523d5c0f954ca806ef">  111</a></span>&#160;<span class="keyword">typename</span> <a class="code" href="a04013.html">RangeAllocatorUnbounded&lt;T&gt;::AllocResult</a> <a class="code" href="a04005.html#ae37c61792bac11523d5c0f954ca806ef">RangeAllocatorUnbounded&lt;T&gt;::alloc</a>(T size) {</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="comment">// find smallest free range that fits</span></div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <a class="code" href="a04009.html">Range</a>* allocFrom = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <a class="code" href="a04009.html">Range</a>* backRange = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="a04009.html">Range</a>&amp; range : freeRanges) {</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        <span class="keywordflow">if</span> (range.start + range.size == totalSize) { backRange = &amp;range; }</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        <span class="keywordflow">if</span> (range.size &gt;= size) {</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;            <span class="keywordflow">if</span> (!allocFrom || allocFrom-&gt;<a class="code" href="a04009.html#a856652f614fabec8a6bbe1a2fd275359">size</a> &gt; range.size) { allocFrom = &amp;range; }</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        }</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    }</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    <a class="code" href="a04013.html">AllocResult</a> result;</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    result.<a class="code" href="a04013.html#a1ec5ad5513da5ede3f52531ac55226ad">range</a>.<a class="code" href="a04009.html#a856652f614fabec8a6bbe1a2fd275359">size</a>  = size;</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    result.<a class="code" href="a04013.html#af93b831eb09812639e7ddb4d8c4b9775">newPoolSize</a> = totalSize;</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <span class="comment">// alloc from range and update range</span></div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <span class="keywordflow">if</span> (allocFrom) {</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        result.<a class="code" href="a04013.html#a74f31609020418a45bd0ffdb37f1eb18">poolExpanded</a> = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        result.<a class="code" href="a04013.html#a1ec5ad5513da5ede3f52531ac55226ad">range</a>.<a class="code" href="a04009.html#a288b19b143888752c70b22481dd08eff">start</a>  = allocFrom-&gt;<a class="code" href="a04009.html#a288b19b143888752c70b22481dd08eff">start</a>;</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;        <span class="keywordflow">if</span> (allocFrom-&gt;<a class="code" href="a04009.html#a856652f614fabec8a6bbe1a2fd275359">size</a> &gt; size) {</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;            allocFrom-&gt;<a class="code" href="a04009.html#a288b19b143888752c70b22481dd08eff">start</a> += size;</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;            allocFrom-&gt;<a class="code" href="a04009.html#a856652f614fabec8a6bbe1a2fd275359">size</a> -= size;</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;        }</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;        <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;            <span class="keyword">const</span> std::size_t i = allocFrom - freeRanges.data();</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;            freeRanges.erase(freeRanges.begin() + i);</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;        }</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    }</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    <span class="comment">// expand pool if no free range large enough</span></div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;        result.<a class="code" href="a04013.html#a74f31609020418a45bd0ffdb37f1eb18">poolExpanded</a> = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;        <span class="keyword">const</span> T credit      = backRange ? backRange-&gt;<a class="code" href="a04009.html#a856652f614fabec8a6bbe1a2fd275359">size</a> : 0;</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;        <span class="keyword">const</span> T newSize     = std::max(totalSize * 2, totalSize + size - credit);</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;        <span class="keyword">const</span> T expandedBy  = newSize - totalSize;</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;        result.<a class="code" href="a04013.html#af93b831eb09812639e7ddb4d8c4b9775">newPoolSize</a>  = newSize;</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;        <span class="keywordflow">if</span> (backRange) {</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;            backRange-&gt;<a class="code" href="a04009.html#a856652f614fabec8a6bbe1a2fd275359">size</a> += expandedBy;</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;            result.<a class="code" href="a04013.html#a1ec5ad5513da5ede3f52531ac55226ad">range</a>.<a class="code" href="a04009.html#a288b19b143888752c70b22481dd08eff">start</a> = backRange-&gt;<a class="code" href="a04009.html#a288b19b143888752c70b22481dd08eff">start</a>;</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;            backRange-&gt;<a class="code" href="a04009.html#a288b19b143888752c70b22481dd08eff">start</a> += size;</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;            backRange-&gt;<a class="code" href="a04009.html#a856652f614fabec8a6bbe1a2fd275359">size</a> -= size;</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        }</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;        <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;            result.<a class="code" href="a04013.html#a1ec5ad5513da5ede3f52531ac55226ad">range</a>.<a class="code" href="a04009.html#a288b19b143888752c70b22481dd08eff">start</a> = totalSize;</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;            <span class="keywordflow">if</span> (expandedBy &gt; size) { freeRanges.emplace_back(totalSize + size, expandedBy - size); }</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;        }</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;        totalSize = newSize;</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    }</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160; </div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    <span class="keywordflow">return</span> result;</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;}</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160; </div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00163"></a><span class="lineno"><a class="line" href="a04005.html#afe1c2d843f8958ba5a6b76ee1a480a56">  163</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04005.html#afe1c2d843f8958ba5a6b76ee1a480a56">RangeAllocatorUnbounded&lt;T&gt;::release</a>(<a class="code" href="a04009.html">Range</a> range) {</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    <span class="comment">// find adjacent range(s)</span></div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    <a class="code" href="a04009.html">Range</a>* frontCon = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    <a class="code" href="a04009.html">Range</a>* backCon  = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="a04009.html">Range</a>&amp; fr : freeRanges) {</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;        <span class="keywordflow">if</span> (fr.start + fr.size == range.<a class="code" href="a04009.html#a288b19b143888752c70b22481dd08eff">start</a>) { frontCon = &amp;fr; }</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (range.<a class="code" href="a04009.html#a288b19b143888752c70b22481dd08eff">start</a> + range.<a class="code" href="a04009.html#a856652f614fabec8a6bbe1a2fd275359">size</a> == fr.start) { backCon = &amp;fr; }</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    }</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160; </div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    <span class="comment">// expand or combine ranges if found</span></div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    <span class="keywordflow">if</span> (frontCon &amp;&amp; backCon) {</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;        frontCon-&gt;<a class="code" href="a04009.html#a856652f614fabec8a6bbe1a2fd275359">size</a> += backCon-&gt;<a class="code" href="a04009.html#a856652f614fabec8a6bbe1a2fd275359">size</a> + range.<a class="code" href="a04009.html#a856652f614fabec8a6bbe1a2fd275359">size</a>;</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;        <span class="keyword">const</span> std::size_t bi = backCon - freeRanges.data();</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;        freeRanges.erase(freeRanges.begin() + bi);</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    }</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (frontCon) { frontCon-&gt;<a class="code" href="a04009.html#a856652f614fabec8a6bbe1a2fd275359">size</a> += range.<a class="code" href="a04009.html#a856652f614fabec8a6bbe1a2fd275359">size</a>; }</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (backCon) {</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;        backCon-&gt;<a class="code" href="a04009.html#a288b19b143888752c70b22481dd08eff">start</a> -= range.<a class="code" href="a04009.html#a856652f614fabec8a6bbe1a2fd275359">size</a>;</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;        backCon-&gt;<a class="code" href="a04009.html#a856652f614fabec8a6bbe1a2fd275359">size</a> += range.<a class="code" href="a04009.html#a856652f614fabec8a6bbe1a2fd275359">size</a>;</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    }</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    <span class="keywordflow">else</span> { freeRanges.emplace_back(range); }</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;}</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160; </div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00187"></a><span class="lineno"><a class="line" href="a04005.html#a34d0f1fb2758e4c77ce22e0002fde2ea">  187</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04005.html#a34d0f1fb2758e4c77ce22e0002fde2ea">RangeAllocatorUnbounded&lt;T&gt;::releaseAll</a>() {</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;    freeRanges.clear();</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    freeRanges.emplace_back(0, totalSize);</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;}</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160; </div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00193"></a><span class="lineno"><a class="line" href="a04005.html#a90e9e5b3cb32644b362cf7b45a86b07f">  193</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04005.html#a90e9e5b3cb32644b362cf7b45a86b07f">RangeAllocatorUnbounded&lt;T&gt;::releaseAllAndResize</a>(T newSize) {</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    totalSize = newSize;</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    releaseAll();</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;}</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160; </div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00199"></a><span class="lineno"><a class="line" href="a04005.html#a68ef04ab923c334c449ee5af9b946c90">  199</a></span>&#160;constexpr T <a class="code" href="a04005.html#a68ef04ab923c334c449ee5af9b946c90">RangeAllocatorUnbounded&lt;T&gt;::poolSize</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    <span class="keywordflow">return</span> totalSize;</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;}</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160; </div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;} <span class="comment">// namespace util</span></div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160; </div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00500_html"><div class="ttname"><a href="a00500.html">Logging.hpp</a></div></div>
-<div class="ttc" id="aa01824_html"><div class="ttname"><a href="a01824.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04005_html"><div class="ttname"><a href="a04005.html">bl::util::RangeAllocatorUnbounded</a></div><div class="ttdoc">Utility class to manage allocation of integer ranges.</div><div class="ttdef"><b>Definition:</b> <a href="a01070_source.html#l00020">RangeAllocatorUnbounded.hpp:20</a></div></div>
-<div class="ttc" id="aa04005_html_a34d0f1fb2758e4c77ce22e0002fde2ea"><div class="ttname"><a href="a04005.html#a34d0f1fb2758e4c77ce22e0002fde2ea">bl::util::RangeAllocatorUnbounded::releaseAll</a></div><div class="ttdeci">void releaseAll()</div><div class="ttdoc">Marks the entire pool as free.</div><div class="ttdef"><b>Definition:</b> <a href="a01070_source.html#l00187">RangeAllocatorUnbounded.hpp:187</a></div></div>
-<div class="ttc" id="aa04005_html_a68ef04ab923c334c449ee5af9b946c90"><div class="ttname"><a href="a04005.html#a68ef04ab923c334c449ee5af9b946c90">bl::util::RangeAllocatorUnbounded::poolSize</a></div><div class="ttdeci">constexpr T poolSize() const</div><div class="ttdoc">Returns the current pool size.</div><div class="ttdef"><b>Definition:</b> <a href="a01070_source.html#l00199">RangeAllocatorUnbounded.hpp:199</a></div></div>
-<div class="ttc" id="aa04005_html_a77b5852f2116229ec0deb38fe68c2d17"><div class="ttname"><a href="a04005.html#a77b5852f2116229ec0deb38fe68c2d17">bl::util::RangeAllocatorUnbounded::RangeAllocatorUnbounded</a></div><div class="ttdeci">RangeAllocatorUnbounded(T initialCapacity=0)</div><div class="ttdoc">Creates a new allocator with the given initial capacity.</div><div class="ttdef"><b>Definition:</b> <a href="a01070_source.html#l00104">RangeAllocatorUnbounded.hpp:104</a></div></div>
-<div class="ttc" id="aa04005_html_a90e9e5b3cb32644b362cf7b45a86b07f"><div class="ttname"><a href="a04005.html#a90e9e5b3cb32644b362cf7b45a86b07f">bl::util::RangeAllocatorUnbounded::releaseAllAndResize</a></div><div class="ttdeci">void releaseAllAndResize(T newSize)</div><div class="ttdoc">Marks the entire pool as free and resizes to the new size.</div><div class="ttdef"><b>Definition:</b> <a href="a01070_source.html#l00193">RangeAllocatorUnbounded.hpp:193</a></div></div>
-<div class="ttc" id="aa04005_html_ae37c61792bac11523d5c0f954ca806ef"><div class="ttname"><a href="a04005.html#ae37c61792bac11523d5c0f954ca806ef">bl::util::RangeAllocatorUnbounded::alloc</a></div><div class="ttdeci">AllocResult alloc(T size)</div><div class="ttdoc">Allocates a range of the given size, expanding if necessary.</div><div class="ttdef"><b>Definition:</b> <a href="a01070_source.html#l00111">RangeAllocatorUnbounded.hpp:111</a></div></div>
-<div class="ttc" id="aa04005_html_afe1c2d843f8958ba5a6b76ee1a480a56"><div class="ttname"><a href="a04005.html#afe1c2d843f8958ba5a6b76ee1a480a56">bl::util::RangeAllocatorUnbounded::release</a></div><div class="ttdeci">void release(Range range)</div><div class="ttdoc">Marks the given range as free.</div><div class="ttdef"><b>Definition:</b> <a href="a01070_source.html#l00163">RangeAllocatorUnbounded.hpp:163</a></div></div>
-<div class="ttc" id="aa04009_html"><div class="ttname"><a href="a04009.html">bl::util::RangeAllocatorUnbounded::Range</a></div><div class="ttdoc">An allocated range.</div><div class="ttdef"><b>Definition:</b> <a href="a01070_source.html#l00028">RangeAllocatorUnbounded.hpp:28</a></div></div>
-<div class="ttc" id="aa04009_html_a288b19b143888752c70b22481dd08eff"><div class="ttname"><a href="a04009.html#a288b19b143888752c70b22481dd08eff">bl::util::RangeAllocatorUnbounded::Range::start</a></div><div class="ttdeci">T start</div><div class="ttdef"><b>Definition:</b> <a href="a01070_source.html#l00029">RangeAllocatorUnbounded.hpp:29</a></div></div>
-<div class="ttc" id="aa04009_html_a2a48d97b162b2bec1b714d6a3376a4cc"><div class="ttname"><a href="a04009.html#a2a48d97b162b2bec1b714d6a3376a4cc">bl::util::RangeAllocatorUnbounded::Range::Range</a></div><div class="ttdeci">Range(T start, T size)</div><div class="ttdoc">Creates a range.</div><div class="ttdef"><b>Definition:</b> <a href="a01070_source.html#l00043">RangeAllocatorUnbounded.hpp:43</a></div></div>
-<div class="ttc" id="aa04009_html_a70040704fd1f98e63ffb4101b182435e"><div class="ttname"><a href="a04009.html#a70040704fd1f98e63ffb4101b182435e">bl::util::RangeAllocatorUnbounded::Range::Range</a></div><div class="ttdeci">Range()=default</div><div class="ttdoc">Sets fields to 0.</div></div>
-<div class="ttc" id="aa04009_html_a856652f614fabec8a6bbe1a2fd275359"><div class="ttname"><a href="a04009.html#a856652f614fabec8a6bbe1a2fd275359">bl::util::RangeAllocatorUnbounded::Range::size</a></div><div class="ttdeci">T size</div><div class="ttdef"><b>Definition:</b> <a href="a01070_source.html#l00030">RangeAllocatorUnbounded.hpp:30</a></div></div>
-<div class="ttc" id="aa04013_html"><div class="ttname"><a href="a04013.html">bl::util::RangeAllocatorUnbounded::AllocResult</a></div><div class="ttdoc">Contains information about new allocations.</div><div class="ttdef"><b>Definition:</b> <a href="a01070_source.html#l00051">RangeAllocatorUnbounded.hpp:51</a></div></div>
-<div class="ttc" id="aa04013_html_a1ec5ad5513da5ede3f52531ac55226ad"><div class="ttname"><a href="a04013.html#a1ec5ad5513da5ede3f52531ac55226ad">bl::util::RangeAllocatorUnbounded::AllocResult::range</a></div><div class="ttdeci">Range range</div><div class="ttdef"><b>Definition:</b> <a href="a01070_source.html#l00052">RangeAllocatorUnbounded.hpp:52</a></div></div>
-<div class="ttc" id="aa04013_html_a74f31609020418a45bd0ffdb37f1eb18"><div class="ttname"><a href="a04013.html#a74f31609020418a45bd0ffdb37f1eb18">bl::util::RangeAllocatorUnbounded::AllocResult::poolExpanded</a></div><div class="ttdeci">bool poolExpanded</div><div class="ttdef"><b>Definition:</b> <a href="a01070_source.html#l00053">RangeAllocatorUnbounded.hpp:53</a></div></div>
-<div class="ttc" id="aa04013_html_af93b831eb09812639e7ddb4d8c4b9775"><div class="ttname"><a href="a04013.html#af93b831eb09812639e7ddb4d8c4b9775">bl::util::RangeAllocatorUnbounded::AllocResult::newPoolSize</a></div><div class="ttdeci">T newPoolSize</div><div class="ttdef"><b>Definition:</b> <a href="a01070_source.html#l00054">RangeAllocatorUnbounded.hpp:54</a></div></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01061.html">BLIB/Util/NonCopyable.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;mutex&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;shared_mutex&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01830.html">bl</a></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>util</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a04042.html">   20</a></span>&#160;<span class="keyword">class </span><a class="code" href="a04042.html">ReadWriteLock</a> : <span class="keyword">private</span> <a class="code" href="a04006.html">NonCopyable</a> {</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a04042.html#a3bcfe87dc7927f11d661f25f6908a600">   26</a></span>&#160;    <a class="code" href="a04042.html#a3bcfe87dc7927f11d661f25f6908a600">ReadWriteLock</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04042.html#a71234a7cb8b764c834c02fcdc097a728">lockRead</a>();</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04042.html#ad37b398dbe7861cd2763e20002069263">lockWrite</a>();</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04042.html#abcce04734931a45bdeeab0241135133b">unlockRead</a>();</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04042.html#a751259f66b9b1aece13bbf155cdd50c5">unlockWrite</a>();</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="a04046.html">   59</a></span>&#160;    <span class="keyword">class </span><a class="code" href="a04046.html">ReadScopeGuard</a> : <span class="keyword">private</span> <a class="code" href="a04006.html">NonCopyable</a> {</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        <a class="code" href="a04046.html#ab719cee3c0b58e1166b0cf43cb433005">ReadScopeGuard</a>(<a class="code" href="a04042.html">ReadWriteLock</a>&amp; lock);</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <a class="code" href="a04046.html#a58ede3553dd29824ecaa84a5df69c922">~ReadScopeGuard</a>();</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="a04046.html#a10c313a07d4ea8c2534651fb071feca1">unlock</a>();</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        <a class="code" href="a04042.html">ReadWriteLock</a>&amp; lock;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        <span class="keywordtype">bool</span> unlocked;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    };</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
+<div class="line"><a name="l00091"></a><span class="lineno"><a class="line" href="a04050.html">   91</a></span>&#160;    <span class="keyword">class </span><a class="code" href="a04050.html">WriteScopeGuard</a> : <span class="keyword">private</span> <a class="code" href="a04006.html">NonCopyable</a> {</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <a class="code" href="a04050.html#aa1c42e9d6b77fc0a8acb1e659ea1a01a">WriteScopeGuard</a>(<a class="code" href="a04042.html">ReadWriteLock</a>&amp; lock);</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        <a class="code" href="a04050.html#a571f6359834209775899f3507a549e40">~WriteScopeGuard</a>();</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="a04050.html#a0f80b4382191c0117105c121d0e29b96">unlock</a>();</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        <a class="code" href="a04042.html">ReadWriteLock</a>&amp; lock;</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        <span class="keywordtype">bool</span> unlocked;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    };</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    std::shared_mutex mutex;</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="keywordtype">bool</span>&amp; readLockFlag();</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keywordtype">bool</span>&amp; writeLockFlag();</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;};</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;} <span class="comment">// namespace util</span></div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160; </div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01061_html"><div class="ttname"><a href="a01061.html">NonCopyable.hpp</a></div></div>
+<div class="ttc" id="aa01830_html"><div class="ttname"><a href="a01830.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04006_html"><div class="ttname"><a href="a04006.html">bl::util::NonCopyable</a></div><div class="ttdoc">Helper class to make derived classes impossible for user to copy directly.</div><div class="ttdef"><b>Definition:</b> <a href="a01061_source.html#l00013">NonCopyable.hpp:13</a></div></div>
+<div class="ttc" id="aa04042_html"><div class="ttname"><a href="a04042.html">bl::util::ReadWriteLock</a></div><div class="ttdoc">Reader-writer lock built on top of std::shared_mutex. The primary benefit of this class is that lockR...</div><div class="ttdef"><b>Definition:</b> <a href="a01070_source.html#l00020">ReadWriteLock.hpp:20</a></div></div>
+<div class="ttc" id="aa04042_html_a3bcfe87dc7927f11d661f25f6908a600"><div class="ttname"><a href="a04042.html#a3bcfe87dc7927f11d661f25f6908a600">bl::util::ReadWriteLock::ReadWriteLock</a></div><div class="ttdeci">ReadWriteLock()=default</div><div class="ttdoc">Construct a new Read Write Lock object.</div></div>
+<div class="ttc" id="aa04042_html_a71234a7cb8b764c834c02fcdc097a728"><div class="ttname"><a href="a04042.html#a71234a7cb8b764c834c02fcdc097a728">bl::util::ReadWriteLock::lockRead</a></div><div class="ttdeci">void lockRead()</div><div class="ttdoc">Acquires a lock for reading a shared resource. Multiple threads may acquire a read lock provided that...</div><div class="ttdef"><b>Definition:</b> <a href="a01787_source.html#l00017">ReadWriteLock.cpp:17</a></div></div>
+<div class="ttc" id="aa04042_html_a751259f66b9b1aece13bbf155cdd50c5"><div class="ttname"><a href="a04042.html#a751259f66b9b1aece13bbf155cdd50c5">bl::util::ReadWriteLock::unlockWrite</a></div><div class="ttdeci">void unlockWrite()</div><div class="ttdoc">Releases the write lock held by this thread.</div><div class="ttdef"><b>Definition:</b> <a href="a01787_source.html#l00035">ReadWriteLock.cpp:35</a></div></div>
+<div class="ttc" id="aa04042_html_abcce04734931a45bdeeab0241135133b"><div class="ttname"><a href="a04042.html#abcce04734931a45bdeeab0241135133b">bl::util::ReadWriteLock::unlockRead</a></div><div class="ttdeci">void unlockRead()</div><div class="ttdoc">Releases the read lock held by this thread.</div><div class="ttdef"><b>Definition:</b> <a href="a01787_source.html#l00023">ReadWriteLock.cpp:23</a></div></div>
+<div class="ttc" id="aa04042_html_ad37b398dbe7861cd2763e20002069263"><div class="ttname"><a href="a04042.html#ad37b398dbe7861cd2763e20002069263">bl::util::ReadWriteLock::lockWrite</a></div><div class="ttdeci">void lockWrite()</div><div class="ttdoc">Acquires a lock for writing a shared resource. Only one thread may hold this lock.</div><div class="ttdef"><b>Definition:</b> <a href="a01787_source.html#l00029">ReadWriteLock.cpp:29</a></div></div>
+<div class="ttc" id="aa04046_html"><div class="ttname"><a href="a04046.html">bl::util::ReadWriteLock::ReadScopeGuard</a></div><div class="ttdoc">RAII helper to acquire a read lock and release it when the scope is exited.</div><div class="ttdef"><b>Definition:</b> <a href="a01070_source.html#l00059">ReadWriteLock.hpp:59</a></div></div>
+<div class="ttc" id="aa04046_html_a10c313a07d4ea8c2534651fb071feca1"><div class="ttname"><a href="a04046.html#a10c313a07d4ea8c2534651fb071feca1">bl::util::ReadWriteLock::ReadScopeGuard::unlock</a></div><div class="ttdeci">void unlock()</div><div class="ttdoc">Prematurely unlocks the underlying lock.</div><div class="ttdef"><b>Definition:</b> <a href="a01787_source.html#l00053">ReadWriteLock.cpp:53</a></div></div>
+<div class="ttc" id="aa04046_html_a58ede3553dd29824ecaa84a5df69c922"><div class="ttname"><a href="a04046.html#a58ede3553dd29824ecaa84a5df69c922">bl::util::ReadWriteLock::ReadScopeGuard::~ReadScopeGuard</a></div><div class="ttdeci">~ReadScopeGuard()</div><div class="ttdoc">Unlocks the underlying lock.</div><div class="ttdef"><b>Definition:</b> <a href="a01787_source.html#l00051">ReadWriteLock.cpp:51</a></div></div>
+<div class="ttc" id="aa04046_html_ab719cee3c0b58e1166b0cf43cb433005"><div class="ttname"><a href="a04046.html#ab719cee3c0b58e1166b0cf43cb433005">bl::util::ReadWriteLock::ReadScopeGuard::ReadScopeGuard</a></div><div class="ttdeci">ReadScopeGuard(ReadWriteLock &amp;lock)</div><div class="ttdoc">Construct a new Read Scope Guard object.</div><div class="ttdef"><b>Definition:</b> <a href="a01787_source.html#l00045">ReadWriteLock.cpp:45</a></div></div>
+<div class="ttc" id="aa04050_html"><div class="ttname"><a href="a04050.html">bl::util::ReadWriteLock::WriteScopeGuard</a></div><div class="ttdoc">RAII helper to acquire a write lock and release it when the scope is exited.</div><div class="ttdef"><b>Definition:</b> <a href="a01070_source.html#l00091">ReadWriteLock.hpp:91</a></div></div>
+<div class="ttc" id="aa04050_html_a0f80b4382191c0117105c121d0e29b96"><div class="ttname"><a href="a04050.html#a0f80b4382191c0117105c121d0e29b96">bl::util::ReadWriteLock::WriteScopeGuard::unlock</a></div><div class="ttdeci">void unlock()</div><div class="ttdoc">Prematurely unlocks the underlying lock.</div><div class="ttdef"><b>Definition:</b> <a href="a01787_source.html#l00068">ReadWriteLock.cpp:68</a></div></div>
+<div class="ttc" id="aa04050_html_a571f6359834209775899f3507a549e40"><div class="ttname"><a href="a04050.html#a571f6359834209775899f3507a549e40">bl::util::ReadWriteLock::WriteScopeGuard::~WriteScopeGuard</a></div><div class="ttdeci">~WriteScopeGuard()</div><div class="ttdoc">Unlocks the underlying lock.</div><div class="ttdef"><b>Definition:</b> <a href="a01787_source.html#l00066">ReadWriteLock.cpp:66</a></div></div>
+<div class="ttc" id="aa04050_html_aa1c42e9d6b77fc0a8acb1e659ea1a01a"><div class="ttname"><a href="a04050.html#aa1c42e9d6b77fc0a8acb1e659ea1a01a">bl::util::ReadWriteLock::WriteScopeGuard::WriteScopeGuard</a></div><div class="ttdeci">WriteScopeGuard(ReadWriteLock &amp;lock)</div><div class="ttdoc">Construct a new Write Scope Guard object.</div><div class="ttdef"><b>Definition:</b> <a href="a01787_source.html#l00060">ReadWriteLock.cpp:60</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 15 2023 19:53:39 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Oct 21 2023 00:16:51 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

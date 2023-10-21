@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Graph/Strategy.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Graph/TaskAssets.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,42 +71,54 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Strategy.hpp</div>  </div>
+<div class="title">TaskAssets.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00683.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_GRAPH_STRATEGY_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_GRAPH_STRATEGY_HPP</span></div>
+<a href="a00683.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_GRAPH_TASKASSETS_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_GRAPH_TASKASSETS_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01824.html">bl</a></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;{</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>rc</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>rg</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00686.html">BLIB/Render/Graph/TaskAssetTags.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;string_view&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01830.html">bl</a></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">class </span>RenderGraph;</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a03081.html">   18</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03081.html">Strategy</a> {</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a03081.html#a52d8932e923fc4ceac54ded8232d3e0a">   23</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03081.html#a52d8932e923fc4ceac54ded8232d3e0a">~Strategy</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a03081.html#ae55bc09629c3a1a0b3e4026cd3044b36">   30</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03081.html#ae55bc09629c3a1a0b3e4026cd3044b36">populate</a>(<a class="code" href="a03065.html">RenderGraph</a>&amp; graph) = 0;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;};</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;} <span class="comment">// namespace rg</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01824_html"><div class="ttname"><a href="a01824.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03065_html"><div class="ttname"><a href="a03065.html">bl::rc::rg::RenderGraph</a></div><div class="ttdoc">The core render graph functionality. Drives rendering for each observer.</div><div class="ttdef"><b>Definition:</b> <a href="a00677_source.html#l00030">RenderGraph.hpp:30</a></div></div>
-<div class="ttc" id="aa03081_html"><div class="ttname"><a href="a03081.html">bl::rc::rg::Strategy</a></div><div class="ttdoc">Base class for renderer strategies. Render strategies populate render graphs with tasks when they are...</div><div class="ttdef"><b>Definition:</b> <a href="a00683_source.html#l00018">Strategy.hpp:18</a></div></div>
-<div class="ttc" id="aa03081_html_a52d8932e923fc4ceac54ded8232d3e0a"><div class="ttname"><a href="a03081.html#a52d8932e923fc4ceac54ded8232d3e0a">bl::rc::rg::Strategy::~Strategy</a></div><div class="ttdeci">virtual ~Strategy()=default</div><div class="ttdoc">Destroys the strategy.</div></div>
-<div class="ttc" id="aa03081_html_ae55bc09629c3a1a0b3e4026cd3044b36"><div class="ttname"><a href="a03081.html#ae55bc09629c3a1a0b3e4026cd3044b36">bl::rc::rg::Strategy::populate</a></div><div class="ttdeci">virtual void populate(RenderGraph &amp;graph)=0</div><div class="ttdoc">Populates the given graph with tasks.</div></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>rg</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">struct </span>GraphAsset;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a03106.html">   22</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a03106.html">TaskAssets</a> {</div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a03106.html#a721b54079c2c3517cabda5a851154b52">   23</a></span>&#160;    <a class="code" href="a03070.html">GraphAsset</a>* <a class="code" href="a03106.html#a721b54079c2c3517cabda5a851154b52">output</a>;</div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a03106.html#a5c54cf96c3a6980a60264cd77b57ea0d">   24</a></span>&#160;    std::vector&lt;GraphAsset*&gt; <a class="code" href="a03106.html#a5c54cf96c3a6980a60264cd77b57ea0d">requiredInputs</a>;</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a03106.html#ac323e645d78eef3de573a933b6c04eea">   25</a></span>&#160;    std::vector&lt;GraphAsset*&gt; <a class="code" href="a03106.html#ac323e645d78eef3de573a933b6c04eea">optionalInputs</a>;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <a class="code" href="a03106.html#aff149b2e77e78be28685552a116ceb8d">TaskAssets</a>();</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03106.html#a0df9b2131b064f2d488c02fd9a3cbc7d">init</a>(<span class="keyword">const</span> <a class="code" href="a03110.html">TaskAssetTags</a>&amp; tags);</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;};</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;} <span class="comment">// namespace rg</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00686_html"><div class="ttname"><a href="a00686.html">TaskAssetTags.hpp</a></div></div>
+<div class="ttc" id="aa01830_html"><div class="ttname"><a href="a01830.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03070_html"><div class="ttname"><a href="a03070.html">bl::rc::rg::GraphAsset</a></div><div class="ttdoc">Wrapper around AssetRef for assets owned by a RenderGraph instance.</div><div class="ttdef"><b>Definition:</b> <a href="a00662_source.html#l00019">GraphAsset.hpp:19</a></div></div>
+<div class="ttc" id="aa03106_html"><div class="ttname"><a href="a03106.html">bl::rc::rg::TaskAssets</a></div><div class="ttdoc">Basic struct containing the assets for a task. Corresponds to TaskAssetTags. Indices are consistent w...</div><div class="ttdef"><b>Definition:</b> <a href="a00683_source.html#l00022">TaskAssets.hpp:22</a></div></div>
+<div class="ttc" id="aa03106_html_a0df9b2131b064f2d488c02fd9a3cbc7d"><div class="ttname"><a href="a03106.html#a0df9b2131b064f2d488c02fd9a3cbc7d">bl::rc::rg::TaskAssets::init</a></div><div class="ttdeci">void init(const TaskAssetTags &amp;tags)</div><div class="ttdoc">Sizes the inputs and sets all pointers to nullptr.</div><div class="ttdef"><b>Definition:</b> <a href="a01514_source.html#l00012">TaskAssets.cpp:12</a></div></div>
+<div class="ttc" id="aa03106_html_a5c54cf96c3a6980a60264cd77b57ea0d"><div class="ttname"><a href="a03106.html#a5c54cf96c3a6980a60264cd77b57ea0d">bl::rc::rg::TaskAssets::requiredInputs</a></div><div class="ttdeci">std::vector&lt; GraphAsset * &gt; requiredInputs</div><div class="ttdef"><b>Definition:</b> <a href="a00683_source.html#l00024">TaskAssets.hpp:24</a></div></div>
+<div class="ttc" id="aa03106_html_a721b54079c2c3517cabda5a851154b52"><div class="ttname"><a href="a03106.html#a721b54079c2c3517cabda5a851154b52">bl::rc::rg::TaskAssets::output</a></div><div class="ttdeci">GraphAsset * output</div><div class="ttdef"><b>Definition:</b> <a href="a00683_source.html#l00023">TaskAssets.hpp:23</a></div></div>
+<div class="ttc" id="aa03106_html_ac323e645d78eef3de573a933b6c04eea"><div class="ttname"><a href="a03106.html#ac323e645d78eef3de573a933b6c04eea">bl::rc::rg::TaskAssets::optionalInputs</a></div><div class="ttdeci">std::vector&lt; GraphAsset * &gt; optionalInputs</div><div class="ttdef"><b>Definition:</b> <a href="a00683_source.html#l00025">TaskAssets.hpp:25</a></div></div>
+<div class="ttc" id="aa03106_html_aff149b2e77e78be28685552a116ceb8d"><div class="ttname"><a href="a03106.html#aff149b2e77e78be28685552a116ceb8d">bl::rc::rg::TaskAssets::TaskAssets</a></div><div class="ttdeci">TaskAssets()</div><div class="ttdoc">Creates an empty asset set.</div><div class="ttdef"><b>Definition:</b> <a href="a01514_source.html#l00009">TaskAssets.cpp:9</a></div></div>
+<div class="ttc" id="aa03110_html"><div class="ttname"><a href="a03110.html">bl::rc::rg::TaskAssetTags</a></div><div class="ttdoc">Basic struct containing the tags for a task for linking within a graph.</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00019">TaskAssetTags.hpp:19</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 15 2023 19:53:39 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Oct 21 2023 00:16:51 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

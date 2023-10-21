@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::input::ListenerBoundary Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,31 +66,80 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01824.html">bl</a></li><li class="navelem"><a class="el" href="a01855.html">gui</a></li><li class="navelem"><a class="el" href="a02577.html">FilePicker</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01830.html">bl</a></li><li class="navelem"><a class="el" href="a01859.html">input</a></li><li class="navelem"><a class="el" href="a02574.html">ListenerBoundary</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="a02571.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::gui::FilePicker Member List</div>  </div>
+<div class="title">bl::input::ListenerBoundary Class Reference<div class="ingroups"><a class="el" href="a01811.html">Input</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a02577.html">bl::gui::FilePicker</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a02577.html#ae2d6cea5ee7827f6b98bd44c8610b772">CancelCb</a> typedef</td><td class="entry"><a class="el" href="a02577.html">bl::gui::FilePicker</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a02577.html#ad99b9ef7e69802a1a4877a138139ff01">ChooseCb</a> typedef</td><td class="entry"><a class="el" href="a02577.html">bl::gui::FilePicker</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02577.html#a9e0b4eb6b447707926e60f7399c14875">close</a>()</td><td class="entry"><a class="el" href="a02577.html">bl::gui::FilePicker</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a02577.html#a3d8d2dab280491a0c844645880dd214dadaf8cfb2616b7734d3a678b1f45f210b">CreateNew</a> enum value</td><td class="entry"><a class="el" href="a02577.html">bl::gui::FilePicker</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02577.html#a3d8d2dab280491a0c844645880dd214da5e6c78a1d4db6a65a9ea964ecf0851c5">CreateOrPick</a> enum value</td><td class="entry"><a class="el" href="a02577.html">bl::gui::FilePicker</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a02577.html#aaec40a4fd47c00eca12feb83978046be">FilePicker</a>(const std::string &amp;rootdir, const std::vector&lt; std::string &gt; &amp;extensions, const ChooseCb &amp;onChoose, const CancelCb &amp;onCancel)</td><td class="entry"><a class="el" href="a02577.html">bl::gui::FilePicker</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02577.html#a3d8d2dab280491a0c844645880dd214d">Mode</a> enum name</td><td class="entry"><a class="el" href="a02577.html">bl::gui::FilePicker</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a02577.html#abeaa864c138e23c026acfc4682348c63">open</a>(Mode mode, const std::string &amp;title, GUI::Ptr parent, bool resetPath=false)</td><td class="entry"><a class="el" href="a02577.html">bl::gui::FilePicker</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02577.html#a3d8d2dab280491a0c844645880dd214da3afd10eb0b08296feedbbcda55ecedab">PickExisting</a> enum value</td><td class="entry"><a class="el" href="a02577.html">bl::gui::FilePicker</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Helper class that ignores and blocks all inputs. Use this as a backstop between menus/states to avoid inputs from leaking back to inactive listeners.  
+ <a href="a02574.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00323_source.html">ListenerBoundary.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::input::ListenerBoundary:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a02574.png" usemap="#bl::input::ListenerBoundary_map" alt=""/>
+  <map id="bl::input::ListenerBoundary_map" name="bl::input::ListenerBoundary_map">
+<area href="a02570.html" title="Base class for input listeners that can subscribe to an Actor. The base class keeps the input system ..." alt="bl::input::Listener" shape="rect" coords="0,0,161,24"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a069bdca8ecb766d1b09bdadd3e0ede56"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02574.html#a069bdca8ecb766d1b09bdadd3e0ede56">~ListenerBoundary</a> ()=default</td></tr>
+<tr class="memdesc:a069bdca8ecb766d1b09bdadd3e0ede56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the <a class="el" href="a02570.html" title="Base class for input listeners that can subscribe to an Actor. The base class keeps the input system ...">Listener</a> Boundary object.  <a href="a02574.html#a069bdca8ecb766d1b09bdadd3e0ede56">More...</a><br /></td></tr>
+<tr class="separator:a069bdca8ecb766d1b09bdadd3e0ede56"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Helper class that ignores and blocks all inputs. Use this as a backstop between menus/states to avoid inputs from leaking back to inactive listeners. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00323_source.html#l00017">17</a> of file <a class="el" href="a00323_source.html">ListenerBoundary.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a069bdca8ecb766d1b09bdadd3e0ede56"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a069bdca8ecb766d1b09bdadd3e0ede56">&#9670;&nbsp;</a></span>~ListenerBoundary()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bl::input::ListenerBoundary::~ListenerBoundary </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Destroy the <a class="el" href="a02570.html" title="Base class for input listeners that can subscribe to an Actor. The base class keeps the input system ...">Listener</a> Boundary object. </p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>include/BLIB/Input/<a class="el" href="a00323_source.html">ListenerBoundary.hpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 15 2023 19:53:40 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Oct 21 2023 00:16:53 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

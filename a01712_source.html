@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Scripts/ScriptLibrary.cpp Source File</title>
+<title>BLIB: src/Scripts/Script.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,490 +71,154 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">ScriptLibrary.cpp</div>  </div>
+<div class="title">Script.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01712.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01715.html">Scripts/ScriptLibrary.hpp</a>&gt;</span></div>
+<a href="a01712.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00944.html">BLIB/Scripts.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00500.html">BLIB/Logging.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00944.html">BLIB/Scripts.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01103.html">BLIB/Util.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;chrono&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;cmath&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;iostream&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;sstream&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;thread&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01824.html">bl</a></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span>script</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keywordtype">void</span> print(SymbolTable&amp;, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp; args, Value&amp; result);</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keywordtype">void</span> loginfo(SymbolTable&amp;, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp; args, Value&amp; result);</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keywordtype">void</span> logerror(SymbolTable&amp;, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp; args, Value&amp; result);</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keywordtype">void</span> logdebug(SymbolTable&amp;, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp; args, Value&amp; result);</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keywordtype">void</span> randomInt(SymbolTable&amp;, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp; args, Value&amp; result);</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keywordtype">void</span> randomFloat(SymbolTable&amp;, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp; args, Value&amp; result);</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keywordtype">void</span> sleep(SymbolTable&amp;, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp; args, Value&amp; result);</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keywordtype">void</span> time(SymbolTable&amp;, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp; args, Value&amp; result);</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keywordtype">void</span> run(SymbolTable&amp;, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp; args, Value&amp; result);</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keywordtype">void</span> exit(SymbolTable&amp;, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp; args, Value&amp; result);</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keywordtype">void</span> error(SymbolTable&amp;, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp; args, Value&amp; result);</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keywordtype">void</span> str(SymbolTable&amp;, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp; args, Value&amp; result);</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keywordtype">void</span> toFloat(SymbolTable&amp;, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp; args, Value&amp; result);</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keywordtype">void</span> toInt(SymbolTable&amp;, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp; args, Value&amp; result);</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keywordtype">void</span> sqrt(SymbolTable&amp;, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp; args, Value&amp; result);</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="keywordtype">void</span> abs(SymbolTable&amp;, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp; args, Value&amp; result);</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keywordtype">void</span> round(SymbolTable&amp;, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp; args, Value&amp; result);</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keywordtype">void</span> floor(SymbolTable&amp;, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp; args, Value&amp; result);</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keywordtype">void</span> ceil(SymbolTable&amp;, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp; args, Value&amp; result);</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01808.html#ga0379b8bbdfc3c74fecd12c93fdf0ca5b">sin</a>(SymbolTable&amp;, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp; args, Value&amp; result);</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01808.html#gae8e482156412ed87dc2d91572ee817ab">cos</a>(SymbolTable&amp;, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp; args, Value&amp; result);</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keywordtype">void</span> tan(SymbolTable&amp;, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp; args, Value&amp; result);</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="keywordtype">void</span> atan2(SymbolTable&amp;, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp; args, Value&amp; result);</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keywordtype">void</span> min(SymbolTable&amp;, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp; args, Value&amp; result);</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keywordtype">void</span> max(SymbolTable&amp;, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp; args, Value&amp; result);</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="keywordtype">void</span> sum(SymbolTable&amp;, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp; args, Value&amp; result);</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="keywordtype">void</span> typeofStr(SymbolTable&amp;, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp; args, Value&amp; result);</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="keyword">typedef</span> std::pair&lt;std::string, Function::CustomCB&gt; builtin;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="keyword">const</span> std::vector&lt;builtin&gt; builtins = {builtin(<span class="stringliteral">&quot;print&quot;</span>, print),</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;                                       builtin(<span class="stringliteral">&quot;loginfo&quot;</span>, loginfo),</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;                                       builtin(<span class="stringliteral">&quot;logdebug&quot;</span>, logdebug),</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;                                       builtin(<span class="stringliteral">&quot;logerror&quot;</span>, logerror),</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;                                       builtin(<span class="stringliteral">&quot;typeof&quot;</span>, typeofStr),</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                                       builtin(<span class="stringliteral">&quot;randomInt&quot;</span>, randomInt),</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                                       builtin(<span class="stringliteral">&quot;randomFloat&quot;</span>, randomFloat),</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;                                       builtin(<span class="stringliteral">&quot;int&quot;</span>, toInt),</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;                                       builtin(<span class="stringliteral">&quot;float&quot;</span>, toFloat),</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                                       builtin(<span class="stringliteral">&quot;sleep&quot;</span>, sleep),</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                                       builtin(<span class="stringliteral">&quot;time&quot;</span>, time),</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                                       builtin(<span class="stringliteral">&quot;run&quot;</span>, run),</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;                                       builtin(<span class="stringliteral">&quot;exit&quot;</span>, exit),</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;                                       builtin(<span class="stringliteral">&quot;error&quot;</span>, error),</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;                                       builtin(<span class="stringliteral">&quot;str&quot;</span>, str),</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                                       builtin(<span class="stringliteral">&quot;sqrt&quot;</span>, sqrt),</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                                       builtin(<span class="stringliteral">&quot;abs&quot;</span>, abs),</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                                       builtin(<span class="stringliteral">&quot;round&quot;</span>, round),</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                                       builtin(<span class="stringliteral">&quot;floor&quot;</span>, floor),</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                                       builtin(<span class="stringliteral">&quot;ceil&quot;</span>, ceil),</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                                       builtin(<span class="stringliteral">&quot;sin&quot;</span>, <a class="code" href="a01808.html#ga0379b8bbdfc3c74fecd12c93fdf0ca5b">sin</a>),</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;                                       builtin(<span class="stringliteral">&quot;cos&quot;</span>, <a class="code" href="a01808.html#gae8e482156412ed87dc2d91572ee817ab">cos</a>),</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;                                       builtin(<span class="stringliteral">&quot;tan&quot;</span>, tan),</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;                                       builtin(<span class="stringliteral">&quot;atan2&quot;</span>, atan2),</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;                                       builtin(<span class="stringliteral">&quot;min&quot;</span>, min),</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                                       builtin(<span class="stringliteral">&quot;max&quot;</span>, max),</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                                       builtin(<span class="stringliteral">&quot;sum&quot;</span>, sum)};</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="keywordtype">bool</span> isInt(<span class="keyword">const</span> std::string&amp; s) {</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; s.size(); ++i) {</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <span class="keywordflow">if</span> (!std::isdigit(s[i])) {</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;            <span class="keywordflow">if</span> (s[i] == <span class="charliteral">&#39;-&#39;</span> &amp;&amp; i == 0) <span class="keywordflow">continue</span>;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        }</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    }</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;}</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="keywordtype">bool</span> isFloat(<span class="keyword">const</span> std::string&amp; s) {</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a01808.html#gac8b2038a9402b7f30b43233c62229a50">dot</a> = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; s.size(); ++i) {</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        <span class="keywordflow">if</span> (!std::isdigit(s[i])) {</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;            <span class="keywordflow">if</span> (s[i] == <span class="charliteral">&#39;-&#39;</span> &amp;&amp; i == 0) <span class="keywordflow">continue</span>;</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;            <span class="keywordflow">if</span> (s[i] == <span class="charliteral">&#39;.&#39;</span> &amp;&amp; !<a class="code" href="a01808.html#gac8b2038a9402b7f30b43233c62229a50">dot</a>) {</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;                <a class="code" href="a01808.html#gac8b2038a9402b7f30b43233c62229a50">dot</a> = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;                <span class="keywordflow">continue</span>;</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;            }</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        }</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    }</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;}</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;} <span class="comment">// namespace</span></div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
-<div class="line"><a name="l00102"></a><span class="lineno"><a class="line" href="a04157.html#ace07fac924c00874885a109b4fb8ad2d">  102</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04157.html#ace07fac924c00874885a109b4fb8ad2d">Library::addBuiltIns</a>(<a class="code" href="a03577.html">SymbolTable</a>&amp; table) {</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">const</span> builtin&amp; b : builtins) { table.<a class="code" href="a03577.html#ae08d79fb72d918aa0842c13a3707253c">set</a>(b.first, <a class="code" href="a03581.html">Value</a>(<a class="code" href="a03549.html">Function</a>(b.second))); }</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;}</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="keyword">namespace</span></div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;{</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;std::string argsToStr(<a class="code" href="a03577.html">SymbolTable</a>&amp; t, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp; args) {</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    std::stringstream ss;</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code" href="a03581.html">Value</a>&amp; v : args) {</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        <a class="code" href="a03581.html">Value</a> s;</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        str(t, {v}, s);</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        ss &lt;&lt; s.<a class="code" href="a03581.html#ab3613acbcdfa329399fad51dcda41209">value</a>().<a class="code" href="a03557.html#a55b944fc76b0eff919d4cfe95ccf9cbb">getAsString</a>();</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    }</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <span class="keywordflow">return</span> ss.str();</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;}</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="keywordtype">void</span> print(SymbolTable&amp; t, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp; args, Value&amp;) {</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    std::cout &lt;&lt; argsToStr(t, args) &lt;&lt; std::endl;</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;}</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="keywordtype">void</span> loginfo(SymbolTable&amp; t, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp; args, Value&amp;) {</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <a class="code" href="a02797.html#a9a2a3f45661caa993573918c1facda31">bl::logging::Logger::info</a>() &lt;&lt; argsToStr(t, args);</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;}</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="keywordtype">void</span> logerror(SymbolTable&amp; t, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp; args, Value&amp;) {</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <a class="code" href="a02797.html#a6fa6adfe984a64fb906c37591be6caa6">bl::logging::Logger::error</a>() &lt;&lt; argsToStr(t, args);</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;}</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160; </div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;<span class="keywordtype">void</span> logdebug(SymbolTable&amp; t, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp; args, Value&amp;) {</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    <a class="code" href="a02797.html#aed4a225248fd95298110965be134530c">bl::logging::Logger::debug</a>() &lt;&lt; argsToStr(t, args);</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;}</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160; </div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;<span class="keywordtype">void</span> typeofStr(SymbolTable&amp;, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp; args, Value&amp; result) {</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    <span class="keywordflow">if</span> (args.size() != 1) <span class="keywordflow">throw</span> Error(<span class="stringliteral">&quot;typeof expects 1 argument&quot;</span>);</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    result = <a class="code" href="a03557.html#a8cc21afdac8f77c6a02240a3dd374958">PrimitiveValue::typeToString</a>(args.front().value().getType());</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;}</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160; </div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;<span class="keywordtype">void</span> randomFloat(SymbolTable&amp;, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp; args, Value&amp; result) {</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    Value::validateArgs&lt;PrimitiveValue::TFloat, PrimitiveValue::TFloat&gt;(<span class="stringliteral">&quot;randomFloat&quot;</span>, args);</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160; </div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> l = args[0].value().getAsFloat();</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> r = args[1].value().getAsFloat();</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    result        = <a class="code" href="a03985.html#a27b767cceb5591cb6e60972235551dec">util::Random::get</a>(std::min(l, r), std::max(l, r));</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;}</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160; </div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;<span class="keywordtype">void</span> randomInt(SymbolTable&amp;, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp; args, Value&amp; result) {</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    Value::validateArgs&lt;PrimitiveValue::TInteger, PrimitiveValue::TInteger&gt;(<span class="stringliteral">&quot;randomInt&quot;</span>, args);</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160; </div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">long</span> l = args[0].value().getAsInt();</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">long</span> r = args[1].value().getAsInt();</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    result       = <a class="code" href="a03985.html#a27b767cceb5591cb6e60972235551dec">util::Random::get</a>(std::min(l, r), std::max(l, r));</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;}</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160; </div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;<span class="keywordtype">void</span> toInt(SymbolTable&amp;, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp; args, Value&amp; result) {</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    <span class="keywordflow">if</span> (args.size() != 1) <span class="keywordflow">throw</span> Error(<span class="stringliteral">&quot;&#39;int&#39; expects 1 argument&quot;</span>);</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160; </div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    <span class="keywordflow">switch</span> (args[0].value().getType()) {</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="a03557.html#ae46c56f7af29255ac8f117a0f97d593ba2159a572c2b2757871e899f5380bc769">PrimitiveValue::TBool</a>:</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;        result = (args[0].value().getAsBool() ? 1 : 0);</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="a03557.html#ae46c56f7af29255ac8f117a0f97d593ba9e3ff271f93dadba861d71ec0773a0fd">PrimitiveValue::TInteger</a>:</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;        result = args[0].value().getAsInt();</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="a03557.html#ae46c56f7af29255ac8f117a0f97d593bac6c8856c0495f966f5e59a6a5d0ba56c">PrimitiveValue::TFloat</a>:</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;        result = <span class="keyword">static_cast&lt;</span><span class="keywordtype">long</span><span class="keyword">&gt;</span>(args[0].value().getAsFloat());</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="a03557.html#ae46c56f7af29255ac8f117a0f97d593ba6da8dbac5fb2543e59c4d5f4586fd977">PrimitiveValue::TString</a>:</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;        <span class="keywordflow">if</span> (!isInt(args[0].value().getAsString())) {</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;            <span class="keywordflow">throw</span> Error(<span class="stringliteral">&quot;Invalid string for integer conversion: &quot;</span> + args[0].value().getAsString());</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;        }</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;        result = std::atol(args[0].value().getAsString().c_str());</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    <span class="keywordflow">default</span>:</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;        <span class="keywordflow">throw</span> Error(<span class="stringliteral">&quot;Invalid type for integer conversion: &quot;</span> +</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;                    <a class="code" href="a03557.html#a8cc21afdac8f77c6a02240a3dd374958">PrimitiveValue::typeToString</a>(args[0].value().getType()));</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    }</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;}</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160; </div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;<span class="keywordtype">void</span> toFloat(SymbolTable&amp;, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp; args, Value&amp; result) {</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;    <span class="keywordflow">if</span> (args.size() != 1) <span class="keywordflow">throw</span> Error(<span class="stringliteral">&quot;&#39;float&#39; expects 1 argument&quot;</span>);</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160; </div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    <span class="keywordflow">switch</span> (args[0].value().getType()) {</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="a03557.html#ae46c56f7af29255ac8f117a0f97d593ba2159a572c2b2757871e899f5380bc769">PrimitiveValue::TBool</a>:</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;        result = (args[0].value().getAsBool() ? 1.f : 0.f);</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="a03557.html#ae46c56f7af29255ac8f117a0f97d593ba9e3ff271f93dadba861d71ec0773a0fd">PrimitiveValue::TInteger</a>:</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;        result = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(args[0].value().getAsInt());</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="a03557.html#ae46c56f7af29255ac8f117a0f97d593bac6c8856c0495f966f5e59a6a5d0ba56c">PrimitiveValue::TFloat</a>:</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;        result = args[0].value().getAsFloat();</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="a03557.html#ae46c56f7af29255ac8f117a0f97d593ba6da8dbac5fb2543e59c4d5f4586fd977">PrimitiveValue::TString</a>:</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;        <span class="keywordflow">if</span> (!isFloat(args[0].value().getAsString())) {</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;            <span class="keywordflow">throw</span> Error(<span class="stringliteral">&quot;Invalid string for float conversion: &quot;</span> + args[0].value().getAsString());</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;        }</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;        result = std::atof(args[0].value().getAsString().c_str());</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;    <span class="keywordflow">default</span>:</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;        <span class="keywordflow">throw</span> Error(<span class="stringliteral">&quot;Invalid type for float conversion: &quot;</span> +</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;                    <a class="code" href="a03557.html#a8cc21afdac8f77c6a02240a3dd374958">PrimitiveValue::typeToString</a>(args[0].value().getType()));</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    }</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;}</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160; </div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;<span class="keywordtype">void</span> sleep(SymbolTable&amp; table, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp; args, Value&amp;) {</div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;    Value::validateArgs&lt;PrimitiveValue::TInteger&gt;(<span class="stringliteral">&quot;sleep&quot;</span>, args);</div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160; </div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;    <span class="keywordflow">if</span> (args[0].value().getAsInt() &lt;= 0) <span class="keywordflow">throw</span> Error(<span class="stringliteral">&quot;sleep() must be given a positive value&quot;</span>);</div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> ms = args[0].value().getAsInt();</div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    table.waitFor(ms);</div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;    <span class="keywordflow">if</span> (table.killed()) <span class="keywordflow">throw</span> Error(<span class="stringliteral">&quot;Script killed&quot;</span>);</div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;}</div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160; </div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;<span class="keywordtype">void</span> time(SymbolTable&amp;, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp; args, Value&amp; result) {</div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;    <span class="keywordflow">if</span> (!args.empty()) <span class="keywordflow">throw</span> Error(<span class="stringliteral">&quot;time() takes 0 arguments&quot;</span>);</div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;    result = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(<a class="code" href="a04053.html#aecde32b54c94ec7f5c2eca40e0975584">util::Timer::get</a>().<a class="code" href="a04053.html#a57708d1e70962d8764fc11839425d332">timeElapsedRaw</a>().asMilliseconds());</div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;}</div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160; </div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;<span class="keywordtype">void</span> run(SymbolTable&amp; table, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp; args, Value&amp; result) {</div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;    Value::validateArgs&lt;PrimitiveValue::TString, PrimitiveValue::TBool&gt;(<span class="stringliteral">&quot;run&quot;</span>, args);</div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160; </div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;    Script script(args[0].value().getAsString(), table.base());</div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;    <span class="keywordflow">if</span> (!script.valid()) <span class="keywordflow">throw</span> Error(<span class="stringliteral">&quot;Syntax error in script passed to run()&quot;</span>);</div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160; </div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;    <span class="keywordflow">if</span> (args[1].value().getAsBool()) {</div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;        script.runBackground(table.manager());</div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;        result = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;    }</div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;        <span class="keyword">const</span> std::optional&lt;Value&gt; r = script.run(table.manager());</div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;        result                       = r.value_or(Value());</div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;    }</div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;}</div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160; </div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;<span class="keywordtype">void</span> exit(SymbolTable&amp;, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp; args, Value&amp;) {</div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;    <span class="keywordflow">if</span> (!args.empty()) <span class="keywordflow">throw</span> Error(<span class="stringliteral">&quot;exit() takes 0 arguments&quot;</span>);</div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;    <span class="keywordflow">throw</span> Exit();</div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;}</div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160; </div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;<span class="keywordtype">void</span> error(SymbolTable&amp;, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp; args, Value&amp;) {</div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;    Value::validateArgs&lt;PrimitiveValue::TString&gt;(<span class="stringliteral">&quot;error&quot;</span>, args);</div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;    <span class="keywordflow">throw</span> Error(args[0].value().getAsString());</div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;}</div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160; </div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;<span class="keywordtype">void</span> str(SymbolTable&amp; t, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp; args, Value&amp; result) {</div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;    <span class="keywordflow">if</span> (args.size() != 1) <span class="keywordflow">throw</span> Error(<span class="stringliteral">&quot;str() takes 1 argument&quot;</span>);</div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160; </div>
-<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;    <span class="keywordflow">switch</span> (args[0].value().getType()) {</div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="a03557.html#ae46c56f7af29255ac8f117a0f97d593ba2159a572c2b2757871e899f5380bc769">PrimitiveValue::TBool</a>:</div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;        result = (args[0].value().getAsBool() ? <span class="stringliteral">&quot;true&quot;</span> : <span class="stringliteral">&quot;false&quot;</span>);</div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="a03557.html#ae46c56f7af29255ac8f117a0f97d593ba9e3ff271f93dadba861d71ec0773a0fd">PrimitiveValue::TInteger</a>:</div>
-<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;        result = std::to_string(args[0].value().getAsInt());</div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="a03557.html#ae46c56f7af29255ac8f117a0f97d593bac6c8856c0495f966f5e59a6a5d0ba56c">PrimitiveValue::TFloat</a>:</div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;        result = std::to_string(args[0].value().getAsFloat());</div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="a03557.html#ae46c56f7af29255ac8f117a0f97d593ba6da8dbac5fb2543e59c4d5f4586fd977">PrimitiveValue::TString</a>:</div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;        result = args[0].value().getAsString();</div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="a03557.html#ae46c56f7af29255ac8f117a0f97d593ba072266baaed6b88ae76be77718db1e7e">PrimitiveValue::TArray</a>: {</div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;        std::string s = <span class="stringliteral">&quot;[&quot;</span>;</div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;        <span class="keywordflow">if</span> (!args[0].value().getAsArray().empty()) {</div>
-<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;            Value sv;</div>
-<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;            str(t, {args[0].value().getAsArray()[0]}, sv);</div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;            s += sv.<a class="code" href="a03581.html#ab3613acbcdfa329399fad51dcda41209">value</a>().<a class="code" href="a03557.html#a55b944fc76b0eff919d4cfe95ccf9cbb">getAsString</a>();</div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;        }</div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 1; i &lt; args[0].value().getAsArray().size(); ++i) {</div>
-<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;            Value sv;</div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;            str(t, {args[0].value().getAsArray()[i]}, sv);</div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;            s += <span class="stringliteral">&quot;, &quot;</span> + sv.value().getAsString();</div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;        }</div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;        s += <span class="stringliteral">&quot;]&quot;</span>;</div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;        result = s;</div>
-<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;    }</div>
-<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="a03557.html#ae46c56f7af29255ac8f117a0f97d593ba527b9b1f5fd953ea5f9814b54540f38c">PrimitiveValue::TRef</a>:</div>
-<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;        str(t, {args[0].value()}, result);</div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160; </div>
-<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="a03557.html#ae46c56f7af29255ac8f117a0f97d593ba86b634d536efde80680a212abeeee4f2">PrimitiveValue::TFunction</a>:</div>
-<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;        result = <span class="stringliteral">&quot;&lt;function&gt;&quot;</span>;</div>
-<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160; </div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="a03557.html#ae46c56f7af29255ac8f117a0f97d593bae833bd63c765e8af44880943007075a9">PrimitiveValue::TVoid</a>:</div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;        result = <span class="stringliteral">&quot;&lt;void&gt;&quot;</span>;</div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160; </div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;    <span class="keywordflow">default</span>:</div>
-<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;        <span class="keywordflow">throw</span> Error(<span class="stringliteral">&quot;Internal error: Invalid void type&quot;</span>);</div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;    }</div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;}</div>
-<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160; </div>
-<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;<span class="keywordtype">void</span> sqrt(SymbolTable&amp;, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp; args, Value&amp; result) {</div>
-<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;    Value::validateArgs&lt;PrimitiveValue::TNumeric&gt;(<span class="stringliteral">&quot;sqrt&quot;</span>, args);</div>
-<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160; </div>
-<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> n = args[0].value().getNumAsFloat();</div>
-<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;    <span class="keywordflow">if</span> (n &lt; 0.f) <span class="keywordflow">throw</span> Error(<span class="stringliteral">&quot;Cannot take sqrt of negative value&quot;</span>);</div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;    result = std::sqrt(n);</div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;}</div>
-<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160; </div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;<span class="keywordtype">void</span> abs(SymbolTable&amp;, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp; args, Value&amp; result) {</div>
-<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;    Value::validateArgs&lt;PrimitiveValue::TNumeric&gt;(<span class="stringliteral">&quot;abs&quot;</span>, args);</div>
-<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;    <span class="keywordflow">if</span> (args[0].value().getType() == <a class="code" href="a03557.html#ae46c56f7af29255ac8f117a0f97d593ba9e3ff271f93dadba861d71ec0773a0fd">PrimitiveValue::TInteger</a>)</div>
-<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;        result = std::abs(args[0].value().getAsInt());</div>
-<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;    <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;        result = std::abs(args[0].value().getAsFloat());</div>
-<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;}</div>
-<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160; </div>
-<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;<span class="keywordtype">void</span> round(SymbolTable&amp;, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp; args, Value&amp; result) {</div>
-<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;    Value::validateArgs&lt;PrimitiveValue::TNumeric&gt;(<span class="stringliteral">&quot;round&quot;</span>, args);</div>
-<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;    result = <span class="keyword">static_cast&lt;</span><span class="keywordtype">long</span><span class="keyword">&gt;</span>(std::round(args[0].value().getNumAsFloat()));</div>
-<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;}</div>
-<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160; </div>
-<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;<span class="keywordtype">void</span> floor(SymbolTable&amp;, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp; args, Value&amp; result) {</div>
-<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;    Value::validateArgs&lt;PrimitiveValue::TNumeric&gt;(<span class="stringliteral">&quot;floor&quot;</span>, args);</div>
-<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;    result = <span class="keyword">static_cast&lt;</span><span class="keywordtype">long</span><span class="keyword">&gt;</span>(std::floor(args[0].value().getNumAsFloat()));</div>
-<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;}</div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160; </div>
-<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;<span class="keywordtype">void</span> ceil(SymbolTable&amp;, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp; args, Value&amp; result) {</div>
-<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;    Value::validateArgs&lt;PrimitiveValue::TNumeric&gt;(<span class="stringliteral">&quot;ceil&quot;</span>, args);</div>
-<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;    result = <span class="keyword">static_cast&lt;</span><span class="keywordtype">long</span><span class="keyword">&gt;</span>(std::ceil(args[0].value().getNumAsFloat()));</div>
-<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;}</div>
-<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160; </div>
-<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01808.html#ga0379b8bbdfc3c74fecd12c93fdf0ca5b">sin</a>(SymbolTable&amp;, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp; args, Value&amp; result) {</div>
-<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;    Value::validateArgs&lt;PrimitiveValue::TNumeric&gt;(<span class="stringliteral">&quot;sin&quot;</span>, args);</div>
-<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;    result = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(<a class="code" href="a01808.html#ga0379b8bbdfc3c74fecd12c93fdf0ca5b">std::sin</a>(args[0].value().getNumAsFloat() / 180 * 3.1415926));</div>
-<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;}</div>
-<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160; </div>
-<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01808.html#gae8e482156412ed87dc2d91572ee817ab">cos</a>(SymbolTable&amp;, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp; args, Value&amp; result) {</div>
-<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;    Value::validateArgs&lt;PrimitiveValue::TNumeric&gt;(<span class="stringliteral">&quot;cos&quot;</span>, args);</div>
-<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;    result = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(<a class="code" href="a01808.html#gae8e482156412ed87dc2d91572ee817ab">std::cos</a>(args[0].value().getNumAsFloat() / 180 * 3.1415926));</div>
-<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;}</div>
-<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160; </div>
-<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;<span class="keywordtype">void</span> tan(SymbolTable&amp;, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp; args, Value&amp; result) {</div>
-<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;    Value::validateArgs&lt;PrimitiveValue::TNumeric&gt;(<span class="stringliteral">&quot;tan&quot;</span>, args);</div>
-<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;    result = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(std::tan(args[0].value().getNumAsFloat() / 180 * 3.1415926));</div>
-<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;}</div>
-<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160; </div>
-<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;<span class="keywordtype">void</span> atan2(SymbolTable&amp;, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp; args, Value&amp; result) {</div>
-<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;    Value::validateArgs&lt;PrimitiveValue::TNumeric, PrimitiveValue::TNumeric&gt;(<span class="stringliteral">&quot;atan2&quot;</span>, args);</div>
-<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;    result = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(</div>
-<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;        std::atan2(args[0].value().getNumAsFloat(), args[1].value().getNumAsFloat()) * 180 /</div>
-<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;        3.1415926);</div>
-<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;}</div>
-<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160; </div>
-<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;<span class="keywordtype">void</span> min(SymbolTable&amp;, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp; args, Value&amp; result) {</div>
-<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;    PrimitiveValue mn(std::numeric_limits&lt;long&gt;::max());</div>
-<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;    <span class="keywordflow">if</span> (args.size() == 1) {</div>
-<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;        <span class="keyword">const</span> Value&amp; arr = args[0].value();</div>
-<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;        <span class="keywordflow">if</span> (arr.value().getType() == <a class="code" href="a03557.html#ae46c56f7af29255ac8f117a0f97d593ba072266baaed6b88ae76be77718db1e7e">PrimitiveValue::TArray</a>) {</div>
-<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;            <span class="keywordflow">for</span> (<span class="keyword">const</span> Value&amp; v : arr.value().getAsArray()) {</div>
-<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;                <span class="keyword">const</span> Value&amp; dr = v.value();</div>
-<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;                <span class="keywordflow">if</span> ((dr.value().getType() &amp; <a class="code" href="a03557.html#ae46c56f7af29255ac8f117a0f97d593badbfebc0a4c28a32923d6e0a658dd5bc4">PrimitiveValue::TNumeric</a>) == 0)</div>
-<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;                    <span class="keywordflow">throw</span> Error(<span class="stringliteral">&quot;Arguments to min(array) must all be Numeric&quot;</span>);</div>
-<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;                <span class="keywordflow">if</span> (dr.value().getNumAsFloat() &lt; mn.getNumAsFloat()) mn = dr.value();</div>
-<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;            }</div>
-<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;            result = mn;</div>
-<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;            <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;        }</div>
-<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;    }</div>
-<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;    <span class="comment">// deliberate fallthrough</span></div>
-<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">const</span> Value&amp; v : args) {</div>
-<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;        <span class="keyword">const</span> Value dv = v.value();</div>
-<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;        <span class="keywordflow">if</span> ((dv.value().getType() &amp; <a class="code" href="a03557.html#ae46c56f7af29255ac8f117a0f97d593badbfebc0a4c28a32923d6e0a658dd5bc4">PrimitiveValue::TNumeric</a>) == 0)</div>
-<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;            <span class="keywordflow">throw</span> Error(<span class="stringliteral">&quot;Arguments to min() must all be Numeric&quot;</span>);</div>
-<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;        <span class="keywordflow">if</span> (dv.value().getNumAsFloat() &lt; mn.getNumAsFloat()) mn = dv.value();</div>
-<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;    }</div>
-<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;    result = mn;</div>
-<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;}</div>
-<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160; </div>
-<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;<span class="keywordtype">void</span> max(SymbolTable&amp;, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp; args, Value&amp; result) {</div>
-<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;    PrimitiveValue mx(std::numeric_limits&lt;long&gt;::min());</div>
-<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;    <span class="keywordflow">if</span> (args.size() == 1) {</div>
-<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;        <span class="keyword">const</span> Value&amp; arr = args[0].value();</div>
-<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;        <span class="keywordflow">if</span> (arr.value().getType() == <a class="code" href="a03557.html#ae46c56f7af29255ac8f117a0f97d593ba072266baaed6b88ae76be77718db1e7e">PrimitiveValue::TArray</a>) {</div>
-<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;            <span class="keywordflow">for</span> (<span class="keyword">const</span> Value&amp; v : arr.value().getAsArray()) {</div>
-<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;                <span class="keyword">const</span> Value&amp; dv = v.value();</div>
-<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;                <span class="keywordflow">if</span> ((dv.value().getType() &amp; <a class="code" href="a03557.html#ae46c56f7af29255ac8f117a0f97d593badbfebc0a4c28a32923d6e0a658dd5bc4">PrimitiveValue::TNumeric</a>) == 0)</div>
-<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;                    <span class="keywordflow">throw</span> Error(<span class="stringliteral">&quot;Arguments to max(array) must all be Numeric&quot;</span>);</div>
-<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;                <span class="keywordflow">if</span> (dv.value().getNumAsFloat() &gt; mx.getNumAsFloat()) mx = dv.value();</div>
-<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;            }</div>
-<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;            result = mx;</div>
-<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;            <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;        }</div>
-<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;    }</div>
-<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;    <span class="comment">// deliberate fallthrough</span></div>
-<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">const</span> Value&amp; v : args) {</div>
-<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;        <span class="keyword">const</span> Value&amp; dv = v.value();</div>
-<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;        <span class="keywordflow">if</span> ((dv.value().getType() &amp; <a class="code" href="a03557.html#ae46c56f7af29255ac8f117a0f97d593badbfebc0a4c28a32923d6e0a658dd5bc4">PrimitiveValue::TNumeric</a>) == 0)</div>
-<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;            <span class="keywordflow">throw</span> Error(<span class="stringliteral">&quot;Arguments to max() must all be numberic&quot;</span>);</div>
-<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;        <span class="keywordflow">if</span> (dv.value().getNumAsFloat() &gt; mx.getNumAsFloat()) mx = dv.value();</div>
-<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;    }</div>
-<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;    result = mx;</div>
-<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;}</div>
-<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160; </div>
-<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;<span class="keywordtype">void</span> sum(SymbolTable&amp;, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp; args, Value&amp; result) {</div>
-<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;    PrimitiveValue s(0);</div>
-<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;    <span class="keywordflow">if</span> (args.size() == 1) {</div>
-<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;        <span class="keyword">const</span> Value&amp; arr = args[0].value();</div>
-<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;        <span class="keywordflow">if</span> (arr.value().getType() == <a class="code" href="a03557.html#ae46c56f7af29255ac8f117a0f97d593ba072266baaed6b88ae76be77718db1e7e">PrimitiveValue::TArray</a>) {</div>
-<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;            <span class="keywordflow">for</span> (<span class="keyword">const</span> Value&amp; v : arr.value().getAsArray()) {</div>
-<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;                <span class="keyword">const</span> Value&amp; dv = v.value();</div>
-<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;                <span class="keywordflow">if</span> ((dv.value().getType() &amp; <a class="code" href="a03557.html#ae46c56f7af29255ac8f117a0f97d593badbfebc0a4c28a32923d6e0a658dd5bc4">PrimitiveValue::TNumeric</a>) == 0)</div>
-<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;                    <span class="keywordflow">throw</span> Error(<span class="stringliteral">&quot;Arguments to sum(array) must all be Numeric&quot;</span>);</div>
-<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;                <span class="keywordflow">if</span> (s.getType() == <a class="code" href="a03557.html#ae46c56f7af29255ac8f117a0f97d593ba9e3ff271f93dadba861d71ec0773a0fd">PrimitiveValue::TInteger</a>) {</div>
-<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;                    <span class="keywordflow">if</span> (dv.value().getType() == <a class="code" href="a03557.html#ae46c56f7af29255ac8f117a0f97d593ba9e3ff271f93dadba861d71ec0773a0fd">PrimitiveValue::TInteger</a>) {</div>
-<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;                        s = s.getAsInt() + dv.value().getAsInt();</div>
-<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;                    }</div>
-<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;                    <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;                        s = s.getNumAsFloat() + dv.value().getAsFloat();</div>
-<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;                    }</div>
-<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;                }</div>
-<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;                <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;                    s = s.getAsFloat() + dv.value().getNumAsFloat();</div>
-<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;                }</div>
-<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;            }</div>
-<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;            result = s;</div>
-<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;            <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;        }</div>
-<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;    }</div>
-<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;    <span class="comment">// deliberate fallthrough</span></div>
-<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">const</span> Value&amp; v : args) {</div>
-<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;        <span class="keyword">const</span> Value&amp; dv = v.value();</div>
-<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;        <span class="keywordflow">if</span> ((dv.value().getType() &amp; <a class="code" href="a03557.html#ae46c56f7af29255ac8f117a0f97d593badbfebc0a4c28a32923d6e0a658dd5bc4">PrimitiveValue::TNumeric</a>) == 0)</div>
-<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;            <span class="keywordflow">throw</span> Error(<span class="stringliteral">&quot;Arguments to sum() must all be numberic&quot;</span>);</div>
-<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;        <span class="keywordflow">if</span> (s.getType() == <a class="code" href="a03557.html#ae46c56f7af29255ac8f117a0f97d593ba9e3ff271f93dadba861d71ec0773a0fd">PrimitiveValue::TInteger</a>) {</div>
-<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;            <span class="keywordflow">if</span> (dv.value().getType() == <a class="code" href="a03557.html#ae46c56f7af29255ac8f117a0f97d593ba9e3ff271f93dadba861d71ec0773a0fd">PrimitiveValue::TInteger</a>) {</div>
-<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;                s = s.getAsInt() + dv.value().getAsInt();</div>
-<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;            }</div>
-<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;            <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;                s = s.getNumAsFloat() + dv.value().getAsFloat();</div>
-<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;            }</div>
-<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;        }</div>
-<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;        <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;            s = s.getAsFloat() + dv.value().getNumAsFloat();</div>
-<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;        }</div>
-<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;    }</div>
-<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;    result = s;</div>
-<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;}</div>
-<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160; </div>
-<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;} <span class="comment">// namespace</span></div>
-<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160; </div>
-<div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;} <span class="comment">// namespace script</span></div>
-<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00500_html"><div class="ttname"><a href="a00500.html">Logging.hpp</a></div></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00197.html">BLIB/Engine/Configuration.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05094.html">BLIB/Engine/Engine.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00497.html">BLIB/Logging.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00914.html">BLIB/Resources.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01043.html">BLIB/Util/FileUtil.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05157.html">Scripts/Parser.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01718.html">Scripts/ScriptImpl.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;fstream&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;streambuf&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01830.html">bl</a></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span>script</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a03598.html#a169a772d20de6bf5825ee587a32fc8e7">   17</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a03598.html#a169a772d20de6bf5825ee587a32fc8e7">Script::getFullScriptPath</a>(std::string&amp; script) {</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">auto</span> exists = [](<span class="keyword">const</span> std::string&amp; v) {</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="a03494.html#a0d9f7b7a55974210bdbaf2bad3fb9367">resource::FileSystem::resourceExists</a>(v)) {</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;            <span class="keywordflow">if</span> (<a class="code" href="a03970.html#a2e6063fffb7b61a547b75f37c64c5c87">util::FileUtil::getExtension</a>(v) != <span class="stringliteral">&quot;bs&quot;</span>) {</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;                <a class="code" href="a00491.html#af954e63cd52a20dcd7087a8c569f373f">BL_LOG_WARN</a> &lt;&lt; <span class="stringliteral">&quot;bScript files should have &#39;.bs&#39; extension: &quot;</span> &lt;&lt; v;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;            }</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        }</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    };</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> std::string path =</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        engine::Configuration::getOrDefault&lt;std::string&gt;(<span class="stringliteral">&quot;blib.script.path&quot;</span>, <span class="stringliteral">&quot;&quot;</span>);</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordflow">if</span> (exists(script)) <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    script = <a class="code" href="a03970.html#a7b2da3c07d55afdf5faf689ac6503a4c">util::FileUtil::joinPath</a>(path, script);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordflow">if</span> (exists(script)) <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;}</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<a class="code" href="a03598.html#a4aac30cd37f26b14b91a4e019b5232df">Script::Script</a>(<span class="keyword">const</span> std::string&amp; data, <span class="keywordtype">bool</span> addDefaults)</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;: source(data) {</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    std::string input = data;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="a03598.html#a169a772d20de6bf5825ee587a32fc8e7">getFullScriptPath</a>(input)) {</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <a class="code" href="a00491.html#a6b4a6c9a77636c98a3c0821ae6a4c119">BL_LOG_DEBUG</a> &lt;&lt; <span class="stringliteral">&quot;Loading bScript: &quot;</span> &lt;&lt; input;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keywordtype">char</span>* buf       = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        std::size_t len = 0;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <a class="code" href="a03494.html#a4333f7b4fcde422a5a9edccb8af201fb">resource::FileSystem::getData</a>(input, &amp;buf, len);</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        root = <a class="code" href="a04170.html#a9ef704f0aebc378fce106ffefd2f12e4">script::Parser::parse</a>(std::string{buf, len}, &amp;error);</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    }</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <a class="code" href="a00491.html#a6b4a6c9a77636c98a3c0821ae6a4c119">BL_LOG_DEBUG</a> &lt;&lt; <span class="stringliteral">&quot;Loading bScript: &quot;</span> &lt;&lt; data;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        root = <a class="code" href="a04170.html#a9ef704f0aebc378fce106ffefd2f12e4">script::Parser::parse</a>(data, &amp;error);</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    }</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordflow">if</span> (addDefaults) Context().initializeTable(defaultTable);</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;}</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="a03598.html#a4aac30cd37f26b14b91a4e019b5232df">   54</a></span>&#160;<a class="code" href="a03598.html#a4aac30cd37f26b14b91a4e019b5232df">Script::Script</a>(<span class="keyword">const</span> std::string&amp; data)</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;: <a class="code" href="a03598.html">Script</a>(data, true) {}</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="a03598.html#a908a5a034ede972a71bb65ec872daece">   57</a></span>&#160;<a class="code" href="a03598.html#a4aac30cd37f26b14b91a4e019b5232df">Script::Script</a>(<span class="keyword">const</span> std::string&amp; data, <span class="keyword">const</span> <a class="code" href="a03566.html">Context</a>&amp; ctx)</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;: <a class="code" href="a03598.html">Script</a>(data, false) {</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    ctx.initializeTable(defaultTable);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;}</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="a03598.html#ab562102c792cdd9425e2e7a49cb56d03">   62</a></span>&#160;<a class="code" href="a03598.html#a4aac30cd37f26b14b91a4e019b5232df">Script::Script</a>(<span class="keyword">const</span> std::string&amp; s, <span class="keyword">const</span> <a class="code" href="a03606.html">SymbolTable</a>&amp; t)</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;: <a class="code" href="a03598.html">Script</a>(s, false) {</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    defaultTable.<a class="code" href="a03606.html#afee9f317cfd4c1608fa454fcf9c3bc6e">copy</a>(t);</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;}</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
+<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="a03598.html#a0ac39ed384b38fb7eb08f30be44fed34">   67</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a03598.html#a0ac39ed384b38fb7eb08f30be44fed34">Script::valid</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> root.get() != <span class="keyword">nullptr</span>; }</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="a03598.html#abc73a9e723f50f88920dae6f34b28a31">   69</a></span>&#160;<span class="keyword">const</span> std::string&amp; <a class="code" href="a03598.html#abc73a9e723f50f88920dae6f34b28a31">Script::errorMessage</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> error; }</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="a03598.html#aef3618c17f3baef3331cd0128d899183">   71</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03598.html#aef3618c17f3baef3331cd0128d899183">Script::resetContext</a>(<span class="keyword">const</span> <a class="code" href="a03566.html">Context</a>&amp; ctx, <span class="keywordtype">bool</span> clear) {</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordflow">if</span> (clear) { defaultTable.<a class="code" href="a03606.html#a06b0fb82c874d64a8b831e35ffaa5ff7">reset</a>(); }</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    ctx.initializeTable(defaultTable);</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;}</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
+<div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="a03598.html#aeae73e353105783f1e01364aff7f6bcc">   76</a></span>&#160;std::optional&lt;script::Value&gt; <a class="code" href="a03598.html#aeae73e353105783f1e01364aff7f6bcc">Script::run</a>(<a class="code" href="a03582.html">Manager</a>* manager)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="a03598.html#a0ac39ed384b38fb7eb08f30be44fed34">valid</a>()) <span class="keywordflow">return</span> {};</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    ExecutionContext::Ptr ctx(<span class="keyword">new</span> ExecutionContext(root, defaultTable, source));</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordflow">if</span> (manager) ctx-&gt;table.registerManager(manager);</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordflow">return</span> execute(ctx);</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;}</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="a03598.html#a984f8ef988f91d6122def4cbd5f5bdf3">   83</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03598.html#a984f8ef988f91d6122def4cbd5f5bdf3">Script::runBackground</a>(<a class="code" href="a03582.html">Manager</a>* manager)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="a03598.html#a0ac39ed384b38fb7eb08f30be44fed34">valid</a>()) <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    ExecutionContext::Ptr ctx(<span class="keyword">new</span> ExecutionContext(root, defaultTable, source));</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keywordflow">if</span> (manager) ctx-&gt;table.registerManager(manager);</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    ctx-&gt;thread.reset(<span class="keyword">new</span> std::thread(&amp;Script::execute, ctx));</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    ctx-&gt;thread-&gt;detach();</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordflow">if</span> (manager) manager-&gt;watch(ctx);</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;}</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;std::optional&lt;script::Value&gt; Script::execute(ExecutionContext::Ptr context) {</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keywordflow">try</span> {</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        std::optional&lt;script::Value&gt; r =</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;            <a class="code" href="a04178.html#a6b8c371d6bd8211fc97a31e753a2254d">ScriptImpl::runStatementList</a>(context-&gt;root-&gt;children[0], context-&gt;table);</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        context-&gt;running = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        context.reset();</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <span class="keywordflow">return</span> r.value_or(<a class="code" href="a03610.html">Value</a>());</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    } <span class="keywordflow">catch</span> (<span class="keyword">const</span> Error&amp; err) {</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        context-&gt;running = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        <a class="code" href="a00491.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Error in script &#39;&quot;</span> &lt;&lt; context-&gt;source &lt;&lt; <span class="stringliteral">&quot;&#39;:\n&quot;</span> &lt;&lt; err.stacktrace();</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        context.reset();</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        <span class="keywordflow">return</span> {};</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    } <span class="keywordflow">catch</span> (<span class="keyword">const</span> Exit&amp;) { <span class="keywordflow">return</span> {}; }</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;}</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;} <span class="comment">// namespace script</span></div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00197_html"><div class="ttname"><a href="a00197.html">Configuration.hpp</a></div></div>
+<div class="ttc" id="aa00491_html_a6b4a6c9a77636c98a3c0821ae6a4c119"><div class="ttname"><a href="a00491.html#a6b4a6c9a77636c98a3c0821ae6a4c119">BL_LOG_DEBUG</a></div><div class="ttdeci">#define BL_LOG_DEBUG</div><div class="ttdoc">Helper macro to log at debug level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00491_source.html#l00110">Logger.hpp:110</a></div></div>
+<div class="ttc" id="aa00491_html_a927270d671e83a1c6b5382f30bfbf895"><div class="ttname"><a href="a00491.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a></div><div class="ttdeci">#define BL_LOG_ERROR</div><div class="ttdoc">Helper macro to log at error level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00491_source.html#l00101">Logger.hpp:101</a></div></div>
+<div class="ttc" id="aa00491_html_af954e63cd52a20dcd7087a8c569f373f"><div class="ttname"><a href="a00491.html#af954e63cd52a20dcd7087a8c569f373f">BL_LOG_WARN</a></div><div class="ttdeci">#define BL_LOG_WARN</div><div class="ttdoc">Helper macro to log at warn level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00491_source.html#l00104">Logger.hpp:104</a></div></div>
+<div class="ttc" id="aa00497_html"><div class="ttname"><a href="a00497.html">Logging.hpp</a></div></div>
+<div class="ttc" id="aa00914_html"><div class="ttname"><a href="a00914.html">Resources.hpp</a></div></div>
 <div class="ttc" id="aa00944_html"><div class="ttname"><a href="a00944.html">Scripts.hpp</a></div></div>
-<div class="ttc" id="aa01103_html"><div class="ttname"><a href="a01103.html">Util.hpp</a></div></div>
-<div class="ttc" id="aa01715_html"><div class="ttname"><a href="a01715.html">ScriptLibrary.hpp</a></div></div>
-<div class="ttc" id="aa01808_html_ga0379b8bbdfc3c74fecd12c93fdf0ca5b"><div class="ttname"><a href="a01808.html#ga0379b8bbdfc3c74fecd12c93fdf0ca5b">bl::math::sin</a></div><div class="ttdeci">float sin(float degrees)</div><div class="ttdoc">Computes the sine of the given angle using cached values. Values are cached in quarter degree increme...</div><div class="ttdef"><b>Definition:</b> <a href="a01397_source.html#l00037">Trig.cpp:37</a></div></div>
-<div class="ttc" id="aa01808_html_gac8b2038a9402b7f30b43233c62229a50"><div class="ttname"><a href="a01808.html#gac8b2038a9402b7f30b43233c62229a50">bl::math::dot</a></div><div class="ttdeci">T dot(const sf::Vector2&lt; T &gt; &amp;v1, const sf::Vector2&lt; T &gt; &amp;v2)</div><div class="ttdoc">Computes the dot product of the two given vectors.</div><div class="ttdef"><b>Definition:</b> <a href="a00512_source.html#l00127">Vector.hpp:127</a></div></div>
-<div class="ttc" id="aa01808_html_gae8e482156412ed87dc2d91572ee817ab"><div class="ttname"><a href="a01808.html#gae8e482156412ed87dc2d91572ee817ab">bl::math::cos</a></div><div class="ttdeci">float cos(float degrees)</div><div class="ttdoc">Computes the cosine of the given angle using cached values. Values are cached in quarter degree incre...</div><div class="ttdef"><b>Definition:</b> <a href="a01397_source.html#l00031">Trig.cpp:31</a></div></div>
-<div class="ttc" id="aa01824_html"><div class="ttname"><a href="a01824.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02797_html_a6fa6adfe984a64fb906c37591be6caa6"><div class="ttname"><a href="a02797.html#a6fa6adfe984a64fb906c37591be6caa6">bl::logging::Logger::error</a></div><div class="ttdeci">static Logger error()</div><div class="ttdoc">Create a new Logger for logging an error.</div><div class="ttdef"><b>Definition:</b> <a href="a01394_source.html#l00011">Logger.cpp:11</a></div></div>
-<div class="ttc" id="aa02797_html_a9a2a3f45661caa993573918c1facda31"><div class="ttname"><a href="a02797.html#a9a2a3f45661caa993573918c1facda31">bl::logging::Logger::info</a></div><div class="ttdeci">static Logger info()</div><div class="ttdoc">Create a new Logger for logging a piece of info.</div><div class="ttdef"><b>Definition:</b> <a href="a01394_source.html#l00015">Logger.cpp:15</a></div></div>
-<div class="ttc" id="aa02797_html_aed4a225248fd95298110965be134530c"><div class="ttname"><a href="a02797.html#aed4a225248fd95298110965be134530c">bl::logging::Logger::debug</a></div><div class="ttdeci">static Logger debug()</div><div class="ttdoc">Create a new Logger for logging low level debug info.</div><div class="ttdef"><b>Definition:</b> <a href="a01394_source.html#l00017">Logger.cpp:17</a></div></div>
-<div class="ttc" id="aa03549_html"><div class="ttname"><a href="a03549.html">bl::script::Function</a></div><div class="ttdoc">Utility class for functions defined in scripts themselves.</div><div class="ttdef"><b>Definition:</b> <a href="a00923_source.html#l00025">Function.hpp:25</a></div></div>
-<div class="ttc" id="aa03557_html_a55b944fc76b0eff919d4cfe95ccf9cbb"><div class="ttname"><a href="a03557.html#a55b944fc76b0eff919d4cfe95ccf9cbb">bl::script::PrimitiveValue::getAsString</a></div><div class="ttdeci">const std::string &amp; getAsString() const</div><div class="ttdoc">Get the value as String value.</div><div class="ttdef"><b>Definition:</b> <a href="a01697_source.html#l00176">PrimitiveValue.cpp:176</a></div></div>
-<div class="ttc" id="aa03557_html_a8cc21afdac8f77c6a02240a3dd374958"><div class="ttname"><a href="a03557.html#a8cc21afdac8f77c6a02240a3dd374958">bl::script::PrimitiveValue::typeToString</a></div><div class="ttdeci">static std::string typeToString(Type type)</div><div class="ttdoc">Helper function to print types as strings.</div><div class="ttdef"><b>Definition:</b> <a href="a01697_source.html#l00009">PrimitiveValue.cpp:9</a></div></div>
-<div class="ttc" id="aa03557_html_ae46c56f7af29255ac8f117a0f97d593ba072266baaed6b88ae76be77718db1e7e"><div class="ttname"><a href="a03557.html#ae46c56f7af29255ac8f117a0f97d593ba072266baaed6b88ae76be77718db1e7e">bl::script::PrimitiveValue::TArray</a></div><div class="ttdeci">@ TArray</div><div class="ttdef"><b>Definition:</b> <a href="a00929_source.html#l00032">PrimitiveValue.hpp:32</a></div></div>
-<div class="ttc" id="aa03557_html_ae46c56f7af29255ac8f117a0f97d593ba2159a572c2b2757871e899f5380bc769"><div class="ttname"><a href="a03557.html#ae46c56f7af29255ac8f117a0f97d593ba2159a572c2b2757871e899f5380bc769">bl::script::PrimitiveValue::TBool</a></div><div class="ttdeci">@ TBool</div><div class="ttdef"><b>Definition:</b> <a href="a00929_source.html#l00028">PrimitiveValue.hpp:28</a></div></div>
-<div class="ttc" id="aa03557_html_ae46c56f7af29255ac8f117a0f97d593ba527b9b1f5fd953ea5f9814b54540f38c"><div class="ttname"><a href="a03557.html#ae46c56f7af29255ac8f117a0f97d593ba527b9b1f5fd953ea5f9814b54540f38c">bl::script::PrimitiveValue::TRef</a></div><div class="ttdeci">@ TRef</div><div class="ttdef"><b>Definition:</b> <a href="a00929_source.html#l00034">PrimitiveValue.hpp:34</a></div></div>
-<div class="ttc" id="aa03557_html_ae46c56f7af29255ac8f117a0f97d593ba6da8dbac5fb2543e59c4d5f4586fd977"><div class="ttname"><a href="a03557.html#ae46c56f7af29255ac8f117a0f97d593ba6da8dbac5fb2543e59c4d5f4586fd977">bl::script::PrimitiveValue::TString</a></div><div class="ttdeci">@ TString</div><div class="ttdef"><b>Definition:</b> <a href="a00929_source.html#l00029">PrimitiveValue.hpp:29</a></div></div>
-<div class="ttc" id="aa03557_html_ae46c56f7af29255ac8f117a0f97d593ba86b634d536efde80680a212abeeee4f2"><div class="ttname"><a href="a03557.html#ae46c56f7af29255ac8f117a0f97d593ba86b634d536efde80680a212abeeee4f2">bl::script::PrimitiveValue::TFunction</a></div><div class="ttdeci">@ TFunction</div><div class="ttdef"><b>Definition:</b> <a href="a00929_source.html#l00033">PrimitiveValue.hpp:33</a></div></div>
-<div class="ttc" id="aa03557_html_ae46c56f7af29255ac8f117a0f97d593ba9e3ff271f93dadba861d71ec0773a0fd"><div class="ttname"><a href="a03557.html#ae46c56f7af29255ac8f117a0f97d593ba9e3ff271f93dadba861d71ec0773a0fd">bl::script::PrimitiveValue::TInteger</a></div><div class="ttdeci">@ TInteger</div><div class="ttdef"><b>Definition:</b> <a href="a00929_source.html#l00031">PrimitiveValue.hpp:31</a></div></div>
-<div class="ttc" id="aa03557_html_ae46c56f7af29255ac8f117a0f97d593bac6c8856c0495f966f5e59a6a5d0ba56c"><div class="ttname"><a href="a03557.html#ae46c56f7af29255ac8f117a0f97d593bac6c8856c0495f966f5e59a6a5d0ba56c">bl::script::PrimitiveValue::TFloat</a></div><div class="ttdeci">@ TFloat</div><div class="ttdef"><b>Definition:</b> <a href="a00929_source.html#l00030">PrimitiveValue.hpp:30</a></div></div>
-<div class="ttc" id="aa03557_html_ae46c56f7af29255ac8f117a0f97d593badbfebc0a4c28a32923d6e0a658dd5bc4"><div class="ttname"><a href="a03557.html#ae46c56f7af29255ac8f117a0f97d593badbfebc0a4c28a32923d6e0a658dd5bc4">bl::script::PrimitiveValue::TNumeric</a></div><div class="ttdeci">@ TNumeric</div><div class="ttdef"><b>Definition:</b> <a href="a00929_source.html#l00035">PrimitiveValue.hpp:35</a></div></div>
-<div class="ttc" id="aa03557_html_ae46c56f7af29255ac8f117a0f97d593bae833bd63c765e8af44880943007075a9"><div class="ttname"><a href="a03557.html#ae46c56f7af29255ac8f117a0f97d593bae833bd63c765e8af44880943007075a9">bl::script::PrimitiveValue::TVoid</a></div><div class="ttdeci">@ TVoid</div><div class="ttdef"><b>Definition:</b> <a href="a00929_source.html#l00027">PrimitiveValue.hpp:27</a></div></div>
-<div class="ttc" id="aa03577_html"><div class="ttname"><a href="a03577.html">bl::script::SymbolTable</a></div><div class="ttdoc">Stack aware symbol table for managing functions and variables Each Script holds a single instance.</div><div class="ttdef"><b>Definition:</b> <a href="a00938_source.html#l00026">SymbolTable.hpp:26</a></div></div>
-<div class="ttc" id="aa03577_html_ae08d79fb72d918aa0842c13a3707253c"><div class="ttname"><a href="a03577.html#ae08d79fb72d918aa0842c13a3707253c">bl::script::SymbolTable::set</a></div><div class="ttdeci">void set(const std::string &amp;name, const Value &amp;value, bool forceTop=false)</div><div class="ttdoc">Sets a Value in the table in the current frame.</div><div class="ttdef"><b>Definition:</b> <a href="a01718_source.html#l00074">SymbolTable.cpp:74</a></div></div>
-<div class="ttc" id="aa03581_html"><div class="ttname"><a href="a03581.html">bl::script::Value</a></div><div class="ttdoc">Main representation of a value in scripts.</div><div class="ttdef"><b>Definition:</b> <a href="a00941_source.html#l00022">Value.hpp:22</a></div></div>
-<div class="ttc" id="aa03581_html_ab3613acbcdfa329399fad51dcda41209"><div class="ttname"><a href="a03581.html#ab3613acbcdfa329399fad51dcda41209">bl::script::Value::value</a></div><div class="ttdeci">PrimitiveValue &amp; value()</div><div class="ttdoc">Access the primitive value of this value.</div><div class="ttdef"><b>Definition:</b> <a href="a01721_source.html#l00087">Value.cpp:87</a></div></div>
-<div class="ttc" id="aa03985_html_a27b767cceb5591cb6e60972235551dec"><div class="ttname"><a href="a03985.html#a27b767cceb5591cb6e60972235551dec">bl::util::Random::get</a></div><div class="ttdeci">static std::enable_if_t&lt; std::is_integral_v&lt; T &gt;, T &gt; get(T min, T max)</div><div class="ttdoc">Returns a random number in the given range of an integral type.</div><div class="ttdef"><b>Definition:</b> <a href="a01067_source.html#l00039">Random.hpp:39</a></div></div>
-<div class="ttc" id="aa04053_html_a57708d1e70962d8764fc11839425d332"><div class="ttname"><a href="a04053.html#a57708d1e70962d8764fc11839425d332">bl::util::Timer::timeElapsedRaw</a></div><div class="ttdeci">sf::Time timeElapsedRaw() const</div><div class="ttdoc">Returns the raw elapsed time. Does not compensate for pausing.</div><div class="ttdef"><b>Definition:</b> <a href="a01790_source.html#l00015">Timer.cpp:15</a></div></div>
-<div class="ttc" id="aa04053_html_aecde32b54c94ec7f5c2eca40e0975584"><div class="ttname"><a href="a04053.html#aecde32b54c94ec7f5c2eca40e0975584">bl::util::Timer::get</a></div><div class="ttdeci">static Timer &amp; get()</div><div class="ttdoc">Returns the global timer object.</div><div class="ttdef"><b>Definition:</b> <a href="a01790_source.html#l00010">Timer.cpp:10</a></div></div>
-<div class="ttc" id="aa04157_html_ace07fac924c00874885a109b4fb8ad2d"><div class="ttname"><a href="a04157.html#ace07fac924c00874885a109b4fb8ad2d">bl::script::Library::addBuiltIns</a></div><div class="ttdeci">static void addBuiltIns(SymbolTable &amp;table)</div><div class="ttdef"><b>Definition:</b> <a href="a01712_source.html#l00102">ScriptLibrary.cpp:102</a></div></div>
+<div class="ttc" id="aa01043_html"><div class="ttname"><a href="a01043.html">FileUtil.hpp</a></div></div>
+<div class="ttc" id="aa01718_html"><div class="ttname"><a href="a01718.html">ScriptImpl.hpp</a></div></div>
+<div class="ttc" id="aa01830_html"><div class="ttname"><a href="a01830.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03494_html_a0d9f7b7a55974210bdbaf2bad3fb9367"><div class="ttname"><a href="a03494.html#a0d9f7b7a55974210bdbaf2bad3fb9367">bl::resource::FileSystem::resourceExists</a></div><div class="ttdeci">static bool resourceExists(const std::string &amp;path)</div><div class="ttdoc">Returns whether or not the given path points to a valid resource. Essentially a bundle-aware version ...</div><div class="ttdef"><b>Definition:</b> <a href="a01685_source.html#l00040">FileSystem.cpp:40</a></div></div>
+<div class="ttc" id="aa03494_html_a4333f7b4fcde422a5a9edccb8af201fb"><div class="ttname"><a href="a03494.html#a4333f7b4fcde422a5a9edccb8af201fb">bl::resource::FileSystem::getData</a></div><div class="ttdeci">static bool getData(const std::string &amp;path, char **buffer, std::size_t &amp;len)</div><div class="ttdoc">Loads the data for the given path. Either loads from the underlying file system or from the active bu...</div><div class="ttdef"><b>Definition:</b> <a href="a01685_source.html#l00023">FileSystem.cpp:23</a></div></div>
+<div class="ttc" id="aa03566_html"><div class="ttname"><a href="a03566.html">bl::script::Context</a></div><div class="ttdoc">A context to run a script with. Custom context classes may be created to have different types of scri...</div><div class="ttdef"><b>Definition:</b> <a href="a00917_source.html#l00020">Context.hpp:20</a></div></div>
+<div class="ttc" id="aa03582_html"><div class="ttname"><a href="a03582.html">bl::script::Manager</a></div><div class="ttdoc">Utility class that can manage sets of concurrently running scripts.</div><div class="ttdef"><b>Definition:</b> <a href="a00926_source.html#l00018">Manager.hpp:18</a></div></div>
+<div class="ttc" id="aa03598_html"><div class="ttname"><a href="a03598.html">bl::script::Script</a></div><div class="ttdoc">Loads scripts. Can run scripts directly or in the background. Is threadsafe.</div><div class="ttdef"><b>Definition:</b> <a href="a00935_source.html#l00030">Script.hpp:30</a></div></div>
+<div class="ttc" id="aa03598_html_a0ac39ed384b38fb7eb08f30be44fed34"><div class="ttname"><a href="a03598.html#a0ac39ed384b38fb7eb08f30be44fed34">bl::script::Script::valid</a></div><div class="ttdeci">bool valid() const</div><div class="ttdoc">Returns if the Script is valid or not.</div><div class="ttdef"><b>Definition:</b> <a href="a01712_source.html#l00067">Script.cpp:67</a></div></div>
+<div class="ttc" id="aa03598_html_a169a772d20de6bf5825ee587a32fc8e7"><div class="ttname"><a href="a03598.html#a169a772d20de6bf5825ee587a32fc8e7">bl::script::Script::getFullScriptPath</a></div><div class="ttdeci">static bool getFullScriptPath(std::string &amp;path)</div><div class="ttdoc">Modifies the given script to its full file path and returns true if the script points to a file....</div><div class="ttdef"><b>Definition:</b> <a href="a01712_source.html#l00017">Script.cpp:17</a></div></div>
+<div class="ttc" id="aa03598_html_a4aac30cd37f26b14b91a4e019b5232df"><div class="ttname"><a href="a03598.html#a4aac30cd37f26b14b91a4e019b5232df">bl::script::Script::Script</a></div><div class="ttdeci">Script(const std::string &amp;data)</div><div class="ttdoc">Determines if the input is a file, then loads the script from the file or from the input directly.</div><div class="ttdef"><b>Definition:</b> <a href="a01712_source.html#l00054">Script.cpp:54</a></div></div>
+<div class="ttc" id="aa03598_html_a984f8ef988f91d6122def4cbd5f5bdf3"><div class="ttname"><a href="a03598.html#a984f8ef988f91d6122def4cbd5f5bdf3">bl::script::Script::runBackground</a></div><div class="ttdeci">void runBackground(Manager *manager=nullptr) const</div><div class="ttdoc">Runs the script in the background.</div><div class="ttdef"><b>Definition:</b> <a href="a01712_source.html#l00083">Script.cpp:83</a></div></div>
+<div class="ttc" id="aa03598_html_abc73a9e723f50f88920dae6f34b28a31"><div class="ttname"><a href="a03598.html#abc73a9e723f50f88920dae6f34b28a31">bl::script::Script::errorMessage</a></div><div class="ttdeci">const std::string &amp; errorMessage() const</div><div class="ttdoc">Returns an error message for the last parsing error that occured.</div><div class="ttdef"><b>Definition:</b> <a href="a01712_source.html#l00069">Script.cpp:69</a></div></div>
+<div class="ttc" id="aa03598_html_aeae73e353105783f1e01364aff7f6bcc"><div class="ttname"><a href="a03598.html#aeae73e353105783f1e01364aff7f6bcc">bl::script::Script::run</a></div><div class="ttdeci">std::optional&lt; script::Value &gt; run(Manager *manager=nullptr) const</div><div class="ttdoc">Runs the script in the current thread.</div><div class="ttdef"><b>Definition:</b> <a href="a01712_source.html#l00076">Script.cpp:76</a></div></div>
+<div class="ttc" id="aa03598_html_aef3618c17f3baef3331cd0128d899183"><div class="ttname"><a href="a03598.html#aef3618c17f3baef3331cd0128d899183">bl::script::Script::resetContext</a></div><div class="ttdeci">void resetContext(const Context &amp;context, bool clear=false)</div><div class="ttdoc">Recreates the script's starting symbol table from a new context. Optionally clears the existing symbo...</div><div class="ttdef"><b>Definition:</b> <a href="a01712_source.html#l00071">Script.cpp:71</a></div></div>
+<div class="ttc" id="aa03606_html"><div class="ttname"><a href="a03606.html">bl::script::SymbolTable</a></div><div class="ttdoc">Stack aware symbol table for managing functions and variables Each Script holds a single instance.</div><div class="ttdef"><b>Definition:</b> <a href="a00938_source.html#l00026">SymbolTable.hpp:26</a></div></div>
+<div class="ttc" id="aa03606_html_a06b0fb82c874d64a8b831e35ffaa5ff7"><div class="ttname"><a href="a03606.html#a06b0fb82c874d64a8b831e35ffaa5ff7">bl::script::SymbolTable::reset</a></div><div class="ttdeci">void reset()</div><div class="ttdoc">Resets the table to an empty state with an empty global frame.</div><div class="ttdef"><b>Definition:</b> <a href="a01727_source.html#l00105">SymbolTable.cpp:105</a></div></div>
+<div class="ttc" id="aa03606_html_afee9f317cfd4c1608fa454fcf9c3bc6e"><div class="ttname"><a href="a03606.html#afee9f317cfd4c1608fa454fcf9c3bc6e">bl::script::SymbolTable::copy</a></div><div class="ttdeci">void copy(const SymbolTable &amp;copy)</div><div class="ttdoc">Copies the symbol table.</div><div class="ttdef"><b>Definition:</b> <a href="a01727_source.html#l00019">SymbolTable.cpp:19</a></div></div>
+<div class="ttc" id="aa03610_html"><div class="ttname"><a href="a03610.html">bl::script::Value</a></div><div class="ttdoc">Main representation of a value in scripts.</div><div class="ttdef"><b>Definition:</b> <a href="a00941_source.html#l00022">Value.hpp:22</a></div></div>
+<div class="ttc" id="aa03970_html_a2e6063fffb7b61a547b75f37c64c5c87"><div class="ttname"><a href="a03970.html#a2e6063fffb7b61a547b75f37c64c5c87">bl::util::FileUtil::getExtension</a></div><div class="ttdeci">static std::string getExtension(const std::string &amp;file)</div><div class="ttdoc">Returns the extention of the given filename. Example: &quot;file.tmp.txt&quot; extension is &quot;txt&quot;.</div><div class="ttdef"><b>Definition:</b> <a href="a01784_source.html#l00062">FileUtil.cpp:62</a></div></div>
+<div class="ttc" id="aa03970_html_a7b2da3c07d55afdf5faf689ac6503a4c"><div class="ttname"><a href="a03970.html#a7b2da3c07d55afdf5faf689ac6503a4c">bl::util::FileUtil::joinPath</a></div><div class="ttdeci">static std::string joinPath(const std::string &amp;leftPath, const std::string &amp;rightPath)</div><div class="ttdoc">Joins a file path with another path or filename. Takes care of slashes Example: &quot;path/&quot; + &quot;/file....</div><div class="ttdef"><b>Definition:</b> <a href="a01784_source.html#l00088">FileUtil.cpp:88</a></div></div>
+<div class="ttc" id="aa04170_html_a9ef704f0aebc378fce106ffefd2f12e4"><div class="ttname"><a href="a04170.html#a9ef704f0aebc378fce106ffefd2f12e4">bl::script::Parser::parse</a></div><div class="ttdeci">static parser::Node::Ptr parse(const std::string &amp;input, std::string *err=nullptr)</div><div class="ttdoc">Parses the input script into a parse tree.</div><div class="ttdef"><b>Definition:</b> <a href="a05232_source.html#l00281">Parser.cpp:281</a></div></div>
+<div class="ttc" id="aa04178_html_a6b8c371d6bd8211fc97a31e753a2254d"><div class="ttname"><a href="a04178.html#a6b8c371d6bd8211fc97a31e753a2254d">bl::script::ScriptImpl::runStatementList</a></div><div class="ttdeci">static std::optional&lt; Value &gt; runStatementList(const parser::Node::Ptr &amp;statement, SymbolTable &amp;table)</div><div class="ttdoc">Executes a list of statements. Can take Statement, StmtList, or StmtBlock.</div><div class="ttdef"><b>Definition:</b> <a href="a01715_source.html#l00177">ScriptImpl.cpp:177</a></div></div>
+<div class="ttc" id="aa05094_html"><div class="ttname"><a href="a05094.html">Engine.hpp</a></div></div>
+<div class="ttc" id="aa05157_html"><div class="ttname"><a href="a05157.html">Parser.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 15 2023 19:53:39 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Oct 21 2023 00:16:52 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Cameras/Camera.cpp Source File</title>
+<title>BLIB: src/Cameras/OverlayCamera.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,84 +71,83 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Camera.cpp</div>  </div>
+<div class="title">OverlayCamera.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01136.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00047.html">BLIB/Cameras/Camera.hpp</a>&gt;</span></div>
+<a href="a01136.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00050.html">BLIB/Cameras/OverlayCamera.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;glm/gtc/matrix_transform.hpp&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01824.html">bl</a></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>cam</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00197.html">BLIB/Engine/Configuration.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;glm/gtc/matrix_transform.hpp&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;glm/gtx/transform.hpp&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01830.html">bl</a></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a01997.html#a371f8cb60ba6a690287f556a91163fa8">    9</a></span>&#160;<a class="code" href="a01997.html#a371f8cb60ba6a690287f556a91163fa8">Camera::Camera</a>()</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;: view(1.f)</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;, viewDirty(true)</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;, proj(1.f)</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;, projDirty(true)</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;, vpWidth(0.f)</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;, vpHeight(0.f)</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;, nearValue(0.1f)</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;, farValue(100.f) {}</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a01997.html#a395d70678534a5f5b6495bbb5c832598">   19</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01997.html#a395d70678534a5f5b6495bbb5c832598">Camera::setNearPlane</a>(<span class="keywordtype">float</span> n) {</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    nearValue = n;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <a class="code" href="a01997.html#a8db0b22739ed85a8dc29ec7082d04640">markProjDirty</a>();</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;}</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a01997.html#a5a5b4868ae35b77f52c2f878b18bcc59">   24</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01997.html#a5a5b4868ae35b77f52c2f878b18bcc59">Camera::setFarPlane</a>(<span class="keywordtype">float</span> f) {</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    farValue = f;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <a class="code" href="a01997.html#a8db0b22739ed85a8dc29ec7082d04640">markProjDirty</a>();</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;}</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>cam</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;constexpr <span class="keyword">const</span> <span class="keywordtype">char</span>* WidthKey  = <span class="stringliteral">&quot;blib.overlay.width&quot;</span>;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;constexpr <span class="keyword">const</span> <span class="keywordtype">char</span>* HeightKey = <span class="stringliteral">&quot;blib.overlay.height&quot;</span>;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;glm::vec2 overlaySpace(1.f, 1.f);</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keywordtype">bool</span> configLoaded          = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> configVersion = 0;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keywordtype">void</span> ensureConfigLoaded() {</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keywordflow">if</span> (!configLoaded) {</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        configLoaded   = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        overlaySpace.x = engine::Configuration::getOrDefault&lt;float&gt;(WidthKey, 1.f);</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        overlaySpace.y = engine::Configuration::getOrDefault&lt;float&gt;(HeightKey, 1.f);</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    }</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;}</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;} <span class="comment">// namespace</span></div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a01997.html#a60e436aa6a89793a9e3fd8c3b0378fbf">   29</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01997.html#a60e436aa6a89793a9e3fd8c3b0378fbf">Camera::setNearAndFarPlanes</a>(<span class="keywordtype">float</span> n, <span class="keywordtype">float</span> f) {</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    nearValue = n;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    farValue  = f;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <a class="code" href="a01997.html#a8db0b22739ed85a8dc29ec7082d04640">markProjDirty</a>();</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;}</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="a01997.html#aa7d175dedf0a83d5acb4abdd7931109f">   35</a></span>&#160;<span class="keyword">const</span> glm::mat4&amp; <a class="code" href="a01997.html#aa7d175dedf0a83d5acb4abdd7931109f">Camera::getViewMatrix</a>() {</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordflow">if</span> (viewDirty) {</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <a class="code" href="a01997.html#ad997afe84942385e1fc059ad44d59782">refreshViewMatrix</a>(view);</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        viewDirty = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    }</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordflow">return</span> view;</div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a02010.html#a257430f4cf38422901a9c6ad5afffa99">   29</a></span>&#160;<a class="code" href="a02010.html#a257430f4cf38422901a9c6ad5afffa99">OverlayCamera::OverlayCamera</a>()</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;: <a class="code" href="a02006.html">Camera</a>()</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;, settingVersion(0) {</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <a class="code" href="a02006.html#a194c42e28c9bc4558095265ca862e761">markViewDirty</a>();</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <a class="code" href="a02006.html#a8db0b22739ed85a8dc29ec7082d04640">markProjDirty</a>();</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;}</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keywordtype">void</span> OverlayCamera::update(<span class="keywordtype">float</span>) {</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordflow">if</span> (settingVersion != configVersion) {</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        settingVersion = configVersion;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <a class="code" href="a02006.html#a8db0b22739ed85a8dc29ec7082d04640">markProjDirty</a>();</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    }</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;}</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="a01997.html#acf354685b1d274c379fe085076fa4051">   43</a></span>&#160;<span class="keyword">const</span> glm::mat4&amp; <a class="code" href="a01997.html#acf354685b1d274c379fe085076fa4051">Camera::getProjectionMatrix</a>(<span class="keyword">const</span> VkViewport&amp; viewport) {</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordflow">if</span> (projDirty || vpWidth != viewport.width || vpHeight != viewport.height) {</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <a class="code" href="a01997.html#ad84589ac3d7c29b7ef31ba89729c4860">refreshProjMatrix</a>(proj, viewport);</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        projDirty = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        vpWidth   = viewport.width;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        vpHeight  = viewport.height;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    }</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordflow">return</span> proj;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;}</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="a01997.html#a194c42e28c9bc4558095265ca862e761">   53</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01997.html#a194c42e28c9bc4558095265ca862e761">Camera::markViewDirty</a>() { viewDirty = <span class="keyword">true</span>; }</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="a01997.html#a8db0b22739ed85a8dc29ec7082d04640">   55</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01997.html#a8db0b22739ed85a8dc29ec7082d04640">Camera::markProjDirty</a>() { projDirty = <span class="keyword">true</span>; }</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="keywordtype">void</span> OverlayCamera::refreshViewMatrix(glm::mat4&amp; view) { view = glm::mat4(1.f); }</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="keywordtype">void</span> OverlayCamera::refreshProjMatrix(glm::mat4&amp; proj, <span class="keyword">const</span> VkViewport&amp;) {</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    ensureConfigLoaded();</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    proj = glm::ortho(0.f, overlaySpace.x, 0.f, overlaySpace.y);</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;}</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="a02010.html#ab81d94e0294992a912b117e476ea9594">   50</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02010.html#ab81d94e0294992a912b117e476ea9594">OverlayCamera::setOverlayCoordinateSpace</a>(<span class="keywordtype">float</span> width, <span class="keywordtype">float</span> height) {</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    overlaySpace = {width, height};</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    ++configVersion;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    engine::Configuration::set&lt;float&gt;(WidthKey, width);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    engine::Configuration::set&lt;float&gt;(HeightKey, height);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;}</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;} <span class="comment">// namespace cam</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00047_html"><div class="ttname"><a href="a00047.html">Camera.hpp</a></div></div>
-<div class="ttc" id="aa01824_html"><div class="ttname"><a href="a01824.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa01997_html_a194c42e28c9bc4558095265ca862e761"><div class="ttname"><a href="a01997.html#a194c42e28c9bc4558095265ca862e761">bl::cam::Camera::markViewDirty</a></div><div class="ttdeci">void markViewDirty()</div><div class="ttdoc">Mark the view matrix as needing to be refreshed on next use.</div><div class="ttdef"><b>Definition:</b> <a href="a01136_source.html#l00053">Camera.cpp:53</a></div></div>
-<div class="ttc" id="aa01997_html_a371f8cb60ba6a690287f556a91163fa8"><div class="ttname"><a href="a01997.html#a371f8cb60ba6a690287f556a91163fa8">bl::cam::Camera::Camera</a></div><div class="ttdeci">Camera()</div><div class="ttdoc">Construct a new Camera.</div><div class="ttdef"><b>Definition:</b> <a href="a01136_source.html#l00009">Camera.cpp:9</a></div></div>
-<div class="ttc" id="aa01997_html_a395d70678534a5f5b6495bbb5c832598"><div class="ttname"><a href="a01997.html#a395d70678534a5f5b6495bbb5c832598">bl::cam::Camera::setNearPlane</a></div><div class="ttdeci">void setNearPlane(float nearValue)</div><div class="ttdoc">Sets the near plane distance.</div><div class="ttdef"><b>Definition:</b> <a href="a01136_source.html#l00019">Camera.cpp:19</a></div></div>
-<div class="ttc" id="aa01997_html_a5a5b4868ae35b77f52c2f878b18bcc59"><div class="ttname"><a href="a01997.html#a5a5b4868ae35b77f52c2f878b18bcc59">bl::cam::Camera::setFarPlane</a></div><div class="ttdeci">void setFarPlane(float farValue)</div><div class="ttdoc">Sets the far plane distance.</div><div class="ttdef"><b>Definition:</b> <a href="a01136_source.html#l00024">Camera.cpp:24</a></div></div>
-<div class="ttc" id="aa01997_html_a60e436aa6a89793a9e3fd8c3b0378fbf"><div class="ttname"><a href="a01997.html#a60e436aa6a89793a9e3fd8c3b0378fbf">bl::cam::Camera::setNearAndFarPlanes</a></div><div class="ttdeci">void setNearAndFarPlanes(float nearValue, float farValue)</div><div class="ttdoc">Sets the distance to the near and far planes.</div><div class="ttdef"><b>Definition:</b> <a href="a01136_source.html#l00029">Camera.cpp:29</a></div></div>
-<div class="ttc" id="aa01997_html_a8db0b22739ed85a8dc29ec7082d04640"><div class="ttname"><a href="a01997.html#a8db0b22739ed85a8dc29ec7082d04640">bl::cam::Camera::markProjDirty</a></div><div class="ttdeci">void markProjDirty()</div><div class="ttdoc">Marks the projection matrix as needing to be refreshed on next use.</div><div class="ttdef"><b>Definition:</b> <a href="a01136_source.html#l00055">Camera.cpp:55</a></div></div>
-<div class="ttc" id="aa01997_html_aa7d175dedf0a83d5acb4abdd7931109f"><div class="ttname"><a href="a01997.html#aa7d175dedf0a83d5acb4abdd7931109f">bl::cam::Camera::getViewMatrix</a></div><div class="ttdeci">const glm::mat4 &amp; getViewMatrix()</div><div class="ttdoc">Returns the view matrix of this camera.</div><div class="ttdef"><b>Definition:</b> <a href="a01136_source.html#l00035">Camera.cpp:35</a></div></div>
-<div class="ttc" id="aa01997_html_acf354685b1d274c379fe085076fa4051"><div class="ttname"><a href="a01997.html#acf354685b1d274c379fe085076fa4051">bl::cam::Camera::getProjectionMatrix</a></div><div class="ttdeci">const glm::mat4 &amp; getProjectionMatrix(const VkViewport &amp;viewport)</div><div class="ttdoc">Returns the projection matrix of this camera for the given viewport.</div><div class="ttdef"><b>Definition:</b> <a href="a01136_source.html#l00043">Camera.cpp:43</a></div></div>
-<div class="ttc" id="aa01997_html_ad84589ac3d7c29b7ef31ba89729c4860"><div class="ttname"><a href="a01997.html#ad84589ac3d7c29b7ef31ba89729c4860">bl::cam::Camera::refreshProjMatrix</a></div><div class="ttdeci">virtual void refreshProjMatrix(glm::mat4 &amp;proj, const VkViewport &amp;viewport)=0</div><div class="ttdoc">Called when the projection matrix needs to be refreshed.</div></div>
-<div class="ttc" id="aa01997_html_ad997afe84942385e1fc059ad44d59782"><div class="ttname"><a href="a01997.html#ad997afe84942385e1fc059ad44d59782">bl::cam::Camera::refreshViewMatrix</a></div><div class="ttdeci">virtual void refreshViewMatrix(glm::mat4 &amp;view)=0</div><div class="ttdoc">Called when the view matrix needs to be refreshed.</div></div>
+<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="a02010.html#a3a328ddad01a4245357debbf7398fc20">   57</a></span>&#160;<span class="keyword">const</span> glm::vec2&amp; <a class="code" href="a02010.html#a3a328ddad01a4245357debbf7398fc20">OverlayCamera::getOverlayCoordinateSpace</a>() { <span class="keywordflow">return</span> overlaySpace; }</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;} <span class="comment">// namespace cam</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00050_html"><div class="ttname"><a href="a00050.html">OverlayCamera.hpp</a></div></div>
+<div class="ttc" id="aa00197_html"><div class="ttname"><a href="a00197.html">Configuration.hpp</a></div></div>
+<div class="ttc" id="aa01830_html"><div class="ttname"><a href="a01830.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02006_html"><div class="ttname"><a href="a02006.html">bl::cam::Camera</a></div><div class="ttdoc">Base class for all cameras.</div><div class="ttdef"><b>Definition:</b> <a href="a00047_source.html#l00017">Camera.hpp:17</a></div></div>
+<div class="ttc" id="aa02006_html_a194c42e28c9bc4558095265ca862e761"><div class="ttname"><a href="a02006.html#a194c42e28c9bc4558095265ca862e761">bl::cam::Camera::markViewDirty</a></div><div class="ttdeci">void markViewDirty()</div><div class="ttdoc">Mark the view matrix as needing to be refreshed on next use.</div><div class="ttdef"><b>Definition:</b> <a href="a01133_source.html#l00053">Camera.cpp:53</a></div></div>
+<div class="ttc" id="aa02006_html_a8db0b22739ed85a8dc29ec7082d04640"><div class="ttname"><a href="a02006.html#a8db0b22739ed85a8dc29ec7082d04640">bl::cam::Camera::markProjDirty</a></div><div class="ttdeci">void markProjDirty()</div><div class="ttdoc">Marks the projection matrix as needing to be refreshed on next use.</div><div class="ttdef"><b>Definition:</b> <a href="a01133_source.html#l00055">Camera.cpp:55</a></div></div>
+<div class="ttc" id="aa02010_html_a257430f4cf38422901a9c6ad5afffa99"><div class="ttname"><a href="a02010.html#a257430f4cf38422901a9c6ad5afffa99">bl::cam::OverlayCamera::OverlayCamera</a></div><div class="ttdeci">OverlayCamera()</div><div class="ttdoc">Creates the overlay camera.</div><div class="ttdef"><b>Definition:</b> <a href="a01136_source.html#l00029">OverlayCamera.cpp:29</a></div></div>
+<div class="ttc" id="aa02010_html_a3a328ddad01a4245357debbf7398fc20"><div class="ttname"><a href="a02010.html#a3a328ddad01a4245357debbf7398fc20">bl::cam::OverlayCamera::getOverlayCoordinateSpace</a></div><div class="ttdeci">static const glm::vec2 &amp; getOverlayCoordinateSpace()</div><div class="ttdoc">Returns the size of the Overlay coordinate space.</div><div class="ttdef"><b>Definition:</b> <a href="a01136_source.html#l00057">OverlayCamera.cpp:57</a></div></div>
+<div class="ttc" id="aa02010_html_ab81d94e0294992a912b117e476ea9594"><div class="ttname"><a href="a02010.html#ab81d94e0294992a912b117e476ea9594">bl::cam::OverlayCamera::setOverlayCoordinateSpace</a></div><div class="ttdeci">static void setOverlayCoordinateSpace(float width, float height)</div><div class="ttdoc">Configures the width and height of the virtual coordinate space for all overlays. The engine configs ...</div><div class="ttdef"><b>Definition:</b> <a href="a01136_source.html#l00050">OverlayCamera.cpp:50</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 15 2023 19:53:39 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Oct 21 2023 00:16:51 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

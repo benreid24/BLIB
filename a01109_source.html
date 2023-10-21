@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Audio/AudioSystem.cpp Source File</title>
+<title>BLIB: src/Audio/Playlist.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,648 +71,267 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">AudioSystem.cpp</div>  </div>
+<div class="title">Playlist.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01109.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00011.html">BLIB/Audio/AudioSystem.hpp</a>&gt;</span></div>
+<a href="a01109.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00014.html">BLIB/Audio/Playlist.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00194.html">BLIB/Engine/Configuration.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00914.html">BLIB/Resources.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01067.html">BLIB/Util/Random.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;SFML/Audio.hpp&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;atomic&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;condition_variable&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;list&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;mutex&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;shared_mutex&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;thread&gt;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01824.html">bl</a></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00107.html">BLIB/Containers/FastEraseVector.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00197.html">BLIB/Engine/Configuration.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00497.html">BLIB/Logging.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00914.html">BLIB/Resources.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01001.html">BLIB/Serialization.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01043.html">BLIB/Util/FileUtil.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01064.html">BLIB/Util/Random.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01830.html">bl</a></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span>audio</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace</span></div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">namespace </span>audio</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;{</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">namespace</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;{</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">using</span> SoundHandle    = resource::Ref&lt;sf::SoundBuffer&gt;;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">using</span> PlaylistHandle = resource::Ref&lt;Playlist&gt;;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">struct </span>Sound {</div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a01109.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">   25</a></span>&#160;    SoundHandle <a class="code" href="a01109.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>;</div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a01109.html#aec033227294b0120711fd356ed3801bc">   26</a></span>&#160;    sf::Sound <a class="code" href="a01109.html#aec033227294b0120711fd356ed3801bc">sound</a>;</div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="a01109.html#a8d61e66142eeff806c70575b199f063d">   27</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a01109.html#a8d61e66142eeff806c70575b199f063d">lastInteractTime</a>;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    Sound();</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;};</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keyword">struct </span>SoundFader {</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    sf::Sound&amp; <a class="code" href="a01109.html#aec033227294b0120711fd356ed3801bc">sound</a>;</div>
-<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="a01109.html#aa3a2f37abfabbbc036edc019ccb98af9">   34</a></span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> <a class="code" href="a01109.html#aa3a2f37abfabbbc036edc019ccb98af9">fvel</a>;</div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="a01109.html#a9c6d12ad0d044ddbc4992dec34d8e153">   35</a></span>&#160;    std::list&lt;SoundFader&gt;::iterator <a class="code" href="a01109.html#a9c6d12ad0d044ddbc4992dec34d8e153">me</a>;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    SoundFader(sf::Sound&amp; s, <span class="keywordtype">float</span> <a class="code" href="a01109.html#aa3a2f37abfabbbc036edc019ccb98af9">fvel</a>);</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordtype">void</span> update();</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;};</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keyword">struct </span>PlaylistFader {</div>
-<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="a01109.html#a34cfaee126866c60bb82a2c96e47940d">   42</a></span>&#160;    Playlist* <a class="code" href="a01109.html#a34cfaee126866c60bb82a2c96e47940d">playlist</a>;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a01109.html#aa3a2f37abfabbbc036edc019ccb98af9">fvel</a>;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">inline</span> std::string songfile(<span class="keyword">const</span> std::string&amp; path) {</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="a03970.html#a7b2da3c07d55afdf5faf689ac6503a4c">util::FileUtil::joinPath</a>(</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        engine::Configuration::get&lt;std::string&gt;(<span class="stringliteral">&quot;blib.playlist.song_path&quot;</span>), path);</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;}</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">using</span> BinarySerializer = serial::binary::Serializer&lt;Playlist&gt;;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">using</span> JsonSerializer   = serial::json::Serializer&lt;Playlist&gt;;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;} <span class="comment">// namespace</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a01958.html#a7540a4439817e454b7829edc0093d21b">   26</a></span>&#160;<a class="code" href="a01958.html#a7540a4439817e454b7829edc0093d21b">Playlist::Playlist</a>()</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;: _shuffle(false)</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;, shuffleOnLoop(false)</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;, currentIndex(0)</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;, playing(false)</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;, <a class="code" href="a01106.html#a1656129c4a4fd8809254194f08f0ac70">paused</a>(false) {}</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="a01958.html#a92d5a7f9573722bd7b6c096539cc2a7b">   33</a></span>&#160;<a class="code" href="a01958.html#a7540a4439817e454b7829edc0093d21b">Playlist::Playlist</a>(<span class="keyword">const</span> std::string&amp; file)</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;: <a class="code" href="a01958.html">Playlist</a>() {</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <a class="code" href="a01958.html#a60cba1996b928968b8eb7c052c73d6ff">loadFromFile</a>(file);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;}</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="a01958.html#a118490f5f6d881780d4ec5b5012f63df">   38</a></span>&#160;<a class="code" href="a01958.html#a7540a4439817e454b7829edc0093d21b">Playlist::Playlist</a>(<span class="keyword">const</span> <a class="code" href="a01958.html">Playlist</a>&amp; copy)</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;: <a class="code" href="a01958.html">Playlist</a>() {</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    songs         = copy.songs;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    _shuffle      = copy._shuffle;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    shuffleOnLoop = copy.shuffleOnLoop;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;}</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordtype">void</span> update();</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;};</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="keywordtype">void</span> initiateCrossfade(Playlist* in, Playlist* out, <span class="keywordtype">float</span> inTime, <span class="keywordtype">float</span> outTime);</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="keyword">class </span>Runner {</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keyword">static</span> Runner&amp; get();</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> stop();</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    std::unordered_map&lt;AudioSystem::Handle, Sound&gt;::iterator validateAndLoadSound(</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <a class="code" href="a01945.html#a1976c9cbec3cb0348a2e6f0381ea9906">AudioSystem::Handle</a> handle);</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    PlaylistHandle validateAndLoadPlaylist(<a class="code" href="a01945.html#a1976c9cbec3cb0348a2e6f0381ea9906">AudioSystem::Handle</a> handle);</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="a01109.html#ab105e62bb50794909d1a163cae4af596">   59</a></span>&#160;    sf::Clock <a class="code" href="a01109.html#ab105e62bb50794909d1a163cae4af596">timer</a>;</div>
-<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="a01109.html#a546ad79b06e76d21ddd54920a1c47e37">   60</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a01109.html#a546ad79b06e76d21ddd54920a1c47e37">unloadTimeout</a> = 120.f;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="a01109.html#a23630641768ab28f7cdd41ceb50ca816">   62</a></span>&#160;    std::unordered_map&lt;std::string, AudioSystem::Handle&gt; <a class="code" href="a01109.html#a23630641768ab28f7cdd41ceb50ca816">soundHandles</a>;</div>
-<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="a01109.html#a38bde58fc288c1b0a063ea4b88b891de">   63</a></span>&#160;    std::unordered_map&lt;AudioSystem::Handle, std::string&gt; <a class="code" href="a01109.html#a38bde58fc288c1b0a063ea4b88b891de">soundSources</a>;</div>
-<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="a01109.html#a9d6a875c171d350a3f15c0f56cd0a45a">   64</a></span>&#160;    std::unordered_map&lt;AudioSystem::Handle, Sound&gt; <a class="code" href="a01109.html#a9d6a875c171d350a3f15c0f56cd0a45a">sounds</a>;</div>
-<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="a01109.html#aedda4637d6492436cc86f0b864d19c90">   65</a></span>&#160;    std::list&lt;SoundFader&gt; <a class="code" href="a01109.html#aedda4637d6492436cc86f0b864d19c90">fadingSounds</a>;</div>
-<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="a01109.html#a97401eb9803ec7529694a79895c417de">   66</a></span>&#160;    sf::Clock <a class="code" href="a01109.html#a97401eb9803ec7529694a79895c417de">soundTimer</a>;</div>
-<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="a01109.html#a1660a48091966cb4b9ae67a54c5d4b35">   67</a></span>&#160;    std::shared_mutex <a class="code" href="a01109.html#a1660a48091966cb4b9ae67a54c5d4b35">soundMutex</a>;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="a01109.html#a0c470a51950ab07829f009fd4961a0c7">   69</a></span>&#160;    std::unordered_map&lt;std::string, AudioSystem::Handle&gt; <a class="code" href="a01109.html#a0c470a51950ab07829f009fd4961a0c7">playlistHandles</a>;</div>
-<div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="a01109.html#ac2fab8e6020f1344863b0dee7ce8878d">   70</a></span>&#160;    std::unordered_map&lt;AudioSystem::Handle, std::string&gt; <a class="code" href="a01109.html#ac2fab8e6020f1344863b0dee7ce8878d">playlistSources</a>;</div>
-<div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="a01109.html#a01cdd6e23b69c26eff31de4b20ced7ee">   71</a></span>&#160;    std::vector&lt;PlaylistHandle&gt; <a class="code" href="a01109.html#a01cdd6e23b69c26eff31de4b20ced7ee">playlistStack</a>;</div>
-<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="a01109.html#a274c88687060ed01146159f619242fce">   72</a></span>&#160;    sf::Clock <a class="code" href="a01109.html#a274c88687060ed01146159f619242fce">fadeTimer</a>;</div>
-<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="a01109.html#afcd9606706aca5711d9607382d158a6a">   73</a></span>&#160;    PlaylistFader <a class="code" href="a01109.html#afcd9606706aca5711d9607382d158a6a">fadeIn</a>;</div>
-<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="a01109.html#a369a0540d4dbe20f7c7177677c72dea8">   74</a></span>&#160;    PlaylistFader <a class="code" href="a01109.html#a369a0540d4dbe20f7c7177677c72dea8">fadeOut</a>;</div>
-<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="a01109.html#a3a8166a081fa86e6d733655337bab261">   75</a></span>&#160;    std::mutex <a class="code" href="a01109.html#a3a8166a081fa86e6d733655337bab261">playlistMutex</a>;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="a01109.html#ab0b690c2f98a6e21215ad99725ade8d3">   77</a></span>&#160;    std::mutex <a class="code" href="a01109.html#ab0b690c2f98a6e21215ad99725ade8d3">pauseMutex</a>;</div>
-<div class="line"><a name="l00078"></a><span class="lineno"><a class="line" href="a01109.html#a3cc8bf9f913e668e50c15355bfe5e749">   78</a></span>&#160;    std::condition_variable <a class="code" href="a01109.html#a3cc8bf9f913e668e50c15355bfe5e749">pauseCond</a>;</div>
-<div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="a01109.html#a1656129c4a4fd8809254194f08f0ac70">   79</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a01109.html#a1656129c4a4fd8809254194f08f0ac70">paused</a>;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    Runner();</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    ~Runner();</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    std::thread thread;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keyword">static</span> std::atomic&lt;bool&gt; started;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    std::atomic&lt;bool&gt; shouldStop;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordtype">void</span> run();</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keywordtype">void</span> shutdown();</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;};</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="keyword">struct </span>SystemSettings {</div>
-<div class="line"><a name="l00094"></a><span class="lineno"><a class="line" href="a01109.html#a73e94bcc2ac5315656823b2f6b6d6d7f">   94</a></span>&#160;    <span class="keyword">const</span> std::string <a class="code" href="a01109.html#a73e94bcc2ac5315656823b2f6b6d6d7f">MuteKey</a>   = <span class="stringliteral">&quot;blib.audio.muted&quot;</span>;</div>
-<div class="line"><a name="l00095"></a><span class="lineno"><a class="line" href="a01109.html#a3b086c2c628c862147dbb1083feb2dca">   95</a></span>&#160;    <span class="keyword">const</span> std::string <a class="code" href="a01109.html#a3b086c2c628c862147dbb1083feb2dca">VolumeKey</a> = <span class="stringliteral">&quot;blib.audio.volume&quot;</span>;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
-<div class="line"><a name="l00097"></a><span class="lineno"><a class="line" href="a01109.html#a3de32eff7fd2ae1c93d4095b57b3f2f7">   97</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a01109.html#a3de32eff7fd2ae1c93d4095b57b3f2f7">muted</a>;</div>
-<div class="line"><a name="l00098"></a><span class="lineno"><a class="line" href="a01109.html#a016abda2855c77dcc1630f9d2f9f8d18">   98</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a01109.html#a016abda2855c77dcc1630f9d2f9f8d18">volume</a>;</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    SystemSettings()</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    : <a class="code" href="a01109.html#a3de32eff7fd2ae1c93d4095b57b3f2f7">muted</a>(false)</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    , <a class="code" href="a01109.html#a016abda2855c77dcc1630f9d2f9f8d18">volume</a>(100.f) {}</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;} Settings;</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;std::atomic&lt;bool&gt; Runner::started = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="keyword">inline</span> <a class="code" href="a01945.html#a1976c9cbec3cb0348a2e6f0381ea9906">AudioSystem::Handle</a> makeHandle() {</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keyword">auto</span>&amp; s = Runner::get().soundSources;</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <a class="code" href="a01945.html#a1976c9cbec3cb0348a2e6f0381ea9906">AudioSystem::Handle</a> h;</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="keywordflow">do</span> {</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        h = util::Random::get&lt;AudioSystem::Handle&gt;(1,</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;                                                   std::numeric_limits&lt;AudioSystem::Handle&gt;::max());</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    } <span class="keywordflow">while</span> (s.find(h) != s.end());</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keywordflow">return</span> h;</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;}</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;} <span class="comment">// namespace</span></div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
-<div class="line"><a name="l00118"></a><span class="lineno"><a class="line" href="a01945.html#a8ba3173440d71b1051fa256a874a14f1">  118</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01945.html#a8ba3173440d71b1051fa256a874a14f1">AudioSystem::setUnloadTimeout</a>(<span class="keywordtype">float</span> t) { Runner::get().unloadTimeout = t; }</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
-<div class="line"><a name="l00120"></a><span class="lineno"><a class="line" href="a01945.html#a8fc89f6e62980c135a8253b0cba2f330">  120</a></span>&#160;<a class="code" href="a01945.html#a1976c9cbec3cb0348a2e6f0381ea9906">AudioSystem::Handle</a> <a class="code" href="a01945.html#a8fc89f6e62980c135a8253b0cba2f330">AudioSystem::getOrLoadSound</a>(<span class="keyword">const</span> std::string&amp; path) {</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    std::unique_lock lock(Runner::get().<a class="code" href="a01109.html#a1660a48091966cb4b9ae67a54c5d4b35">soundMutex</a>);</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    <span class="keyword">auto</span>&amp; r = Runner::get();</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    <span class="comment">// Create or find handle</span></div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <a class="code" href="a01945.html#a1976c9cbec3cb0348a2e6f0381ea9906">Handle</a> handle = <a class="code" href="a01945.html#aaba4e74c447f330c9cdd71e99508a15b">AudioSystem::InvalidHandle</a>;</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <span class="keyword">auto</span> it       = r.soundHandles.find(path);</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <span class="keywordflow">if</span> (it != r.soundHandles.end()) { handle = it-&gt;second; }</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        handle = makeHandle();</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;        r.soundHandles.emplace(path, handle);</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;        r.soundSources.emplace(handle, path);</div>
+<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="a01958.html#abd3470df7e38fcfc2291c55d6742f9a9">   45</a></span>&#160;<a class="code" href="a01958.html#abd3470df7e38fcfc2291c55d6742f9a9">Playlist::~Playlist</a>() {</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordflow">if</span> (!songs.empty() &amp;&amp; playing) {</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <a class="code" href="a01958.html#a342fef43f7c2e1fa4298d20d65b1b36c">stop</a>();</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <a class="code" href="a03494.html#af3dbef4e0cb06dc2ba43376ea408c79b">resource::FileSystem::purgePersistentData</a>(songfile(songs[currentIndex]));</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    }</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;}</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="a01958.html#a98fb8c3cef9f327b14c87ce718a2a4d0">   52</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a01958.html#a98fb8c3cef9f327b14c87ce718a2a4d0">Playlist::saveToFile</a>(<span class="keyword">const</span> std::string&amp; path)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    std::ofstream file(path.c_str());</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordflow">return</span> JsonSerializer::serializeStream(file, *<span class="keyword">this</span>, 4, 0);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;}</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="a01958.html#a5c14814b230ef7de45feee5c217cf54a">   57</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a01958.html#a5c14814b230ef7de45feee5c217cf54a">Playlist::saveToMemory</a>(<a class="code" href="a03626.html">serial::binary::OutputStream</a>&amp; os)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="a03630.html#a5f0be3d348bae8bf6823f4d2a3a98b9b">serial::binary::Serializer&lt;Playlist&gt;::serialize</a>(os, *<span class="keyword">this</span>);</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;}</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="a01958.html#a60cba1996b928968b8eb7c052c73d6ff">   61</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a01958.html#a60cba1996b928968b8eb7c052c73d6ff">Playlist::loadFromFile</a>(<span class="keyword">const</span> std::string&amp; path) {</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    std::ifstream file(path.c_str());</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordflow">if</span> (!JsonSerializer::deserializeStream(file, *<span class="keyword">this</span>)) {</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        <a class="code" href="a00491.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Failed to load playlist from file: &quot;</span> &lt;&lt; path;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    }</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    playing      = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    paused       = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    currentIndex = 0;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;}</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="a01958.html#a06fe97d87293ce054d604a3ec51e7029">   73</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a01958.html#a06fe97d87293ce054d604a3ec51e7029">Playlist::loadBinary</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code" href="a01106.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, std::size_t len) {</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <a class="code" href="a03738.html">serial::MemoryInputBuffer</a> buf(<a class="code" href="a01106.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, len);</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <a class="code" href="a03618.html">serial::binary::InputStream</a> in(buf);</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordflow">if</span> (!BinarySerializer::deserialize(in, *<span class="keyword">this</span>)) {</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <a class="code" href="a00491.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Failed to load playlist from memory&quot;</span>;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    }</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    playing      = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    paused       = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    currentIndex = 0;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;}</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
+<div class="line"><a name="l00086"></a><span class="lineno"><a class="line" href="a01958.html#a60c66c9f721c21d9f296df4939f9f2e7">   86</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a01958.html#a60c66c9f721c21d9f296df4939f9f2e7">Playlist::loadJson</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code" href="a01106.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, std::size_t len) {</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <a class="code" href="a03966.html">util::BufferIstreamBuf</a> buf(<span class="keyword">const_cast&lt;</span><span class="keywordtype">char</span>*<span class="keyword">&gt;</span>(<a class="code" href="a01106.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>), len);</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    std::istream is(&amp;buf);</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordflow">if</span> (!JsonSerializer::deserializeStream(is, *<span class="keyword">this</span>)) {</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        <a class="code" href="a00491.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Failed to load playlist from memory&quot;</span>;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    }</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    playing      = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    paused       = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    currentIndex = 0;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;}</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
+<div class="line"><a name="l00099"></a><span class="lineno"><a class="line" href="a01958.html#a31d4433df8ad6c369f572d84c8bfcaa3">   99</a></span>&#160;<a class="code" href="a01958.html">Playlist</a>&amp; <a class="code" href="a01958.html#a31d4433df8ad6c369f572d84c8bfcaa3">Playlist::operator=</a>(<span class="keyword">const</span> <a class="code" href="a01958.html">Playlist</a>&amp; copy) {</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    songs         = copy.songs;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    _shuffle      = copy._shuffle;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    shuffleOnLoop = copy.shuffleOnLoop;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;}</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
+<div class="line"><a name="l00106"></a><span class="lineno"><a class="line" href="a01958.html#a436545e4a11706a20b240f3662dd1b45">  106</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a01958.html#a436545e4a11706a20b240f3662dd1b45">Playlist::isPlaying</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> playing; }</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
+<div class="line"><a name="l00108"></a><span class="lineno"><a class="line" href="a01958.html#ac388d1ce7ec765ca2c7be5cee5736da1">  108</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01958.html#ac388d1ce7ec765ca2c7be5cee5736da1">Playlist::play</a>() {</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keywordflow">if</span> (!playing &amp;&amp; !songs.empty()) {</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        playing = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        <span class="keywordflow">if</span> (!paused) {</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;            <span class="keywordflow">if</span> (_shuffle) shuffle();</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;            currentIndex = 0;</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;            <span class="keywordflow">while</span> (!openMusic(currentIndex)) {</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;                currentIndex = (currentIndex + 1) % songs.size();</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;                <span class="keywordflow">if</span> (currentIndex == 0) {</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;                    playing = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;                    <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;                }</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;            }</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;            startIndex = currentIndex;</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        }</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        paused = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        <span class="keywordflow">if</span> (playing) current.play();</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    }</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;}</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;<span class="keywordtype">bool</span> Playlist::openMusic(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i) {</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <span class="keywordflow">if</span> (i != currentIndex) {</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;        current.stop();</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;        <a class="code" href="a03494.html#af3dbef4e0cb06dc2ba43376ea408c79b">resource::FileSystem::purgePersistentData</a>(songfile(songs[currentIndex]));</div>
 <div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    }</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160; </div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    <span class="comment">// Ensure sound loaded</span></div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    <span class="keyword">auto</span> sit = r.sounds.find(handle);</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    <span class="keywordflow">if</span> (sit == r.sounds.end()) {</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;        sit                = r.sounds.try_emplace(handle).first;</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;        sit-&gt;second.buffer = <a class="code" href="a03517.html#a35c615388beefafe126b6ca8481c976d">resource::ResourceManager&lt;sf::SoundBuffer&gt;::load</a>(path);</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;        <span class="keywordflow">if</span> (sit-&gt;second.buffer-&gt;getSampleCount() == 0) {</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;            r.sounds.erase(sit);</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;            <a class="code" href="a00494.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Failed to load sound: &quot;</span> &lt;&lt; path;</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="a01945.html#aaba4e74c447f330c9cdd71e99508a15b">InvalidHandle</a>;</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;        }</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;        sit-&gt;second.sound.setBuffer(*sit-&gt;second.buffer);</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    }</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160; </div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    <span class="keywordflow">return</span> handle;</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    <span class="keywordtype">char</span>* <a class="code" href="a01106.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>    = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    std::size_t len = 0;</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="a03494.html#a4333f7b4fcde422a5a9edccb8af201fb">resource::FileSystem::getData</a>(songfile(songs[i]), &amp;<a class="code" href="a01106.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, len)) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    <span class="keywordflow">return</span> current.openFromMemory(<a class="code" href="a01106.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, len);</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;}</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160; </div>
+<div class="line"><a name="l00139"></a><span class="lineno"><a class="line" href="a01958.html#a71892080133f509e4df5ce08f44c4887">  139</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01958.html#a71892080133f509e4df5ce08f44c4887">Playlist::pause</a>() {</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    playing = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    paused  = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    current.pause();</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;}</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160; </div>
+<div class="line"><a name="l00145"></a><span class="lineno"><a class="line" href="a01958.html#a342fef43f7c2e1fa4298d20d65b1b36c">  145</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01958.html#a342fef43f7c2e1fa4298d20d65b1b36c">Playlist::stop</a>() {</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    playing = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    current.stop();</div>
 <div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;}</div>
 <div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160; </div>
-<div class="line"><a name="l00150"></a><span class="lineno"><a class="line" href="a01945.html#a411a127a39b3840f1b7cf7095856df6c">  150</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a01945.html#a411a127a39b3840f1b7cf7095856df6c">AudioSystem::playSound</a>(<a class="code" href="a01945.html#a1976c9cbec3cb0348a2e6f0381ea9906">Handle</a> <a class="code" href="a01109.html#aec033227294b0120711fd356ed3801bc">sound</a>, <span class="keywordtype">float</span> <a class="code" href="a01109.html#afcd9606706aca5711d9607382d158a6a">fadeIn</a>, <span class="keywordtype">bool</span> loop) {</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    std::shared_lock slock(Runner::get().<a class="code" href="a01109.html#a1660a48091966cb4b9ae67a54c5d4b35">soundMutex</a>);</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    <span class="keyword">auto</span>&amp; r = Runner::get();</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    <span class="keywordflow">if</span> (r.paused) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160; </div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> it = r.validateAndLoadSound(<a class="code" href="a01109.html#aec033227294b0120711fd356ed3801bc">sound</a>);</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    <span class="keywordflow">if</span> (it == r.sounds.end()) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160; </div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    <span class="comment">// play the sound</span></div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    it-&gt;second.sound.setLoop(loop);</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    it-&gt;second.lastInteractTime = r.timer.getElapsedTime().asSeconds();</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    <span class="keywordflow">if</span> (it-&gt;second.sound.getStatus() == sf::Sound::Playing) <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160; </div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="a01109.html#afcd9606706aca5711d9607382d158a6a">fadeIn</a> &gt; 0.f) {</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;        it-&gt;second.sound.setVolume(0.f);</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;        r.fadingSounds.emplace_back(it-&gt;second.sound, 100.f / <a class="code" href="a01109.html#afcd9606706aca5711d9607382d158a6a">fadeIn</a>);</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;        r.fadingSounds.back().me = --r.fadingSounds.end();</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    }</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    <span class="keywordflow">else</span> { it-&gt;second.sound.setVolume(100.f); }</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160; </div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    it-&gt;second.sound.play();</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;}</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160; </div>
-<div class="line"><a name="l00174"></a><span class="lineno"><a class="line" href="a01945.html#a7a223635ce58d1dbe165f5bdc63f7d2d">  174</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a01945.html#a7a223635ce58d1dbe165f5bdc63f7d2d">AudioSystem::playOrRestartSound</a>(<a class="code" href="a01945.html#a1976c9cbec3cb0348a2e6f0381ea9906">Handle</a> <a class="code" href="a01109.html#aec033227294b0120711fd356ed3801bc">sound</a>) {</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    std::shared_lock slock(Runner::get().<a class="code" href="a01109.html#a1660a48091966cb4b9ae67a54c5d4b35">soundMutex</a>);</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    <span class="keyword">auto</span>&amp; r = Runner::get();</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    <span class="keywordflow">if</span> (r.paused) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160; </div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> it = r.validateAndLoadSound(<a class="code" href="a01109.html#aec033227294b0120711fd356ed3801bc">sound</a>);</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    <span class="keywordflow">if</span> (it == r.sounds.end()) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00150"></a><span class="lineno"><a class="line" href="a01958.html#a259488541d4dcfe925137c24ab990421">  150</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01958.html#a259488541d4dcfe925137c24ab990421">Playlist::setVolume</a>(<span class="keywordtype">float</span> <a class="code" href="a01106.html#a016abda2855c77dcc1630f9d2f9f8d18">volume</a>) { current.setVolume(<a class="code" href="a01106.html#a016abda2855c77dcc1630f9d2f9f8d18">volume</a>); }</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160; </div>
+<div class="line"><a name="l00152"></a><span class="lineno"><a class="line" href="a01958.html#a47b95fdccbf663c7b5ab22237ca6849b">  152</a></span>&#160;<span class="keywordtype">float</span> <a class="code" href="a01958.html#a47b95fdccbf663c7b5ab22237ca6849b">Playlist::getVolume</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> current.getVolume(); }</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160; </div>
+<div class="line"><a name="l00154"></a><span class="lineno"><a class="line" href="a01958.html#a4b5be3094112236d5542ff6ed041ec8d">  154</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01958.html#a4b5be3094112236d5542ff6ed041ec8d">Playlist::update</a>() {</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    <span class="keywordflow">if</span> (playing) {</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;        <span class="keywordflow">if</span> (current.getStatus() == sf::Music::Stopped) {</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;            <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> newI = (currentIndex + 1) % songs.size();</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;            <span class="keywordflow">if</span> (newI == startIndex &amp;&amp; shuffleOnLoop) shuffle();</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;            <span class="keywordflow">while</span> (!openMusic(newI)) {</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;                newI = (newI + 1) % songs.size();</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;                <span class="keywordflow">if</span> (newI == currentIndex) <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;            }</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;            currentIndex = newI;</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;            current.play();</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;        }</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    }</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;}</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160; </div>
+<div class="line"><a name="l00169"></a><span class="lineno"><a class="line" href="a01958.html#a11e389ab733d20b743f8fd6b649e5606">  169</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01958.html#a11e389ab733d20b743f8fd6b649e5606">Playlist::addSong</a>(<span class="keyword">const</span> std::string&amp; song) { songs.push_back(song); }</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160; </div>
+<div class="line"><a name="l00171"></a><span class="lineno"><a class="line" href="a01958.html#a5d9fc0ef520daf76b0f8f13d8e64303a">  171</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01958.html#a5d9fc0ef520daf76b0f8f13d8e64303a">Playlist::removeSong</a>(<span class="keyword">const</span> std::string&amp; song) {</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; songs.size(); ++i) {</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;        <span class="keywordflow">if</span> (songs[i] == song) {</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;            songs.erase(songs.begin() + i);</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;            --i;</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;        }</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    }</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;}</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160; </div>
+<div class="line"><a name="l00180"></a><span class="lineno"><a class="line" href="a01958.html#a4f15b9c1a0f4c5552127f6b446d482b5">  180</a></span>&#160;<span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; <a class="code" href="a01958.html#a4f15b9c1a0f4c5552127f6b446d482b5">Playlist::getSongList</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> songs; }</div>
 <div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160; </div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    <span class="comment">// play the sound</span></div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    it-&gt;second.sound.setLoop(<span class="keyword">false</span>);</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    it-&gt;second.sound.setVolume(100.f);</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    it-&gt;second.lastInteractTime = r.timer.getElapsedTime().asSeconds();</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    it-&gt;second.sound.play();</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;}</div>
+<div class="line"><a name="l00182"></a><span class="lineno"><a class="line" href="a01958.html#a7e1be0557240d6b5169aef446aa1065c">  182</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01958.html#a7e1be0557240d6b5169aef446aa1065c">Playlist::setShuffle</a>(<span class="keywordtype">bool</span> s) { _shuffle = s; }</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160; </div>
+<div class="line"><a name="l00184"></a><span class="lineno"><a class="line" href="a01958.html#ac94e8b45cb5fcf11031e438378b8f1eb">  184</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a01958.html#ac94e8b45cb5fcf11031e438378b8f1eb">Playlist::shuffling</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> _shuffle; }</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160; </div>
+<div class="line"><a name="l00186"></a><span class="lineno"><a class="line" href="a01958.html#a33aa23d4c855fabbd526ab373d300adb">  186</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01958.html#a33aa23d4c855fabbd526ab373d300adb">Playlist::setShuffleOnLoop</a>(<span class="keywordtype">bool</span> s) { shuffleOnLoop = s; }</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160; </div>
+<div class="line"><a name="l00188"></a><span class="lineno"><a class="line" href="a01958.html#a4bb5c8276a313c4aa082eba807295bb3">  188</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a01958.html#a4bb5c8276a313c4aa082eba807295bb3">Playlist::shufflingOnLoop</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> shuffleOnLoop; }</div>
 <div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160; </div>
-<div class="line"><a name="l00190"></a><span class="lineno"><a class="line" href="a01945.html#afc9d3aa7f98bf5e44c2dc136a9e33593">  190</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01945.html#afc9d3aa7f98bf5e44c2dc136a9e33593">AudioSystem::stopSound</a>(<a class="code" href="a01945.html#a1976c9cbec3cb0348a2e6f0381ea9906">Handle</a> <a class="code" href="a01109.html#aec033227294b0120711fd356ed3801bc">sound</a>, <span class="keywordtype">float</span> <a class="code" href="a01109.html#a369a0540d4dbe20f7c7177677c72dea8">fadeOut</a>) {</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    std::shared_lock slock(Runner::get().<a class="code" href="a01109.html#a1660a48091966cb4b9ae67a54c5d4b35">soundMutex</a>);</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160; </div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> it = Runner::get().sounds.find(<a class="code" href="a01109.html#aec033227294b0120711fd356ed3801bc">sound</a>);</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    <span class="keywordflow">if</span> (it != Runner::get().<a class="code" href="a01109.html#a9d6a875c171d350a3f15c0f56cd0a45a">sounds</a>.end()) {</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;        it-&gt;second.lastInteractTime = Runner::get().timer.getElapsedTime().asSeconds();</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;        <span class="keywordflow">if</span> (it-&gt;second.sound.getStatus() == sf::Sound::Playing) {</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;            <span class="keywordflow">if</span> (<a class="code" href="a01109.html#a369a0540d4dbe20f7c7177677c72dea8">fadeOut</a> &lt;= 0.f) { it-&gt;second.sound.stop(); }</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;            <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;                Runner::get().fadingSounds.emplace_back(it-&gt;second.sound,</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;                                                        -it-&gt;second.sound.getVolume() / <a class="code" href="a01109.html#a369a0540d4dbe20f7c7177677c72dea8">fadeOut</a>);</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;                Runner::get().fadingSounds.back().me = --Runner::get().fadingSounds.end();</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;            }</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;        }</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;    }</div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;}</div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160; </div>
-<div class="line"><a name="l00207"></a><span class="lineno"><a class="line" href="a01945.html#a08e6680475a10517f4c030c510f99224">  207</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01945.html#a08e6680475a10517f4c030c510f99224">AudioSystem::stopAllSounds</a>() {</div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;    std::unique_lock lock(Runner::get().<a class="code" href="a01109.html#a1660a48091966cb4b9ae67a54c5d4b35">soundMutex</a>);</div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160; </div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; <a class="code" href="a01109.html#aec033227294b0120711fd356ed3801bc">sound</a> : Runner::get().<a class="code" href="a01109.html#a9d6a875c171d350a3f15c0f56cd0a45a">sounds</a>) {</div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="a01109.html#aec033227294b0120711fd356ed3801bc">sound</a>.second.sound.getStatus() == sf::Sound::Playing) { <a class="code" href="a01109.html#aec033227294b0120711fd356ed3801bc">sound</a>.second.sound.stop(); }</div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    }</div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;}</div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160; </div>
-<div class="line"><a name="l00215"></a><span class="lineno"><a class="line" href="a01945.html#a31ef9d9f5c98a55d09e806219c31a796">  215</a></span>&#160;<a class="code" href="a01945.html#a1976c9cbec3cb0348a2e6f0381ea9906">AudioSystem::Handle</a> <a class="code" href="a01945.html#a31ef9d9f5c98a55d09e806219c31a796">AudioSystem::getOrLoadPlaylist</a>(<span class="keyword">const</span> std::string&amp; path) {</div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;    std::unique_lock lock(Runner::get().<a class="code" href="a01109.html#a3a8166a081fa86e6d733655337bab261">playlistMutex</a>);</div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160; </div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> it = Runner::get().playlistHandles.find(path);</div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;    <span class="keywordflow">if</span> (it != Runner::get().<a class="code" href="a01109.html#a0c470a51950ab07829f009fd4961a0c7">playlistHandles</a>.end()) <span class="keywordflow">return</span> it-&gt;second;</div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160; </div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;    <a class="code" href="a03521.html">resource::Ref&lt;Playlist&gt;</a> res = <a class="code" href="a03517.html#a35c615388beefafe126b6ca8481c976d">resource::ResourceManager&lt;Playlist&gt;::load</a>(path);</div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;    <span class="keywordflow">if</span> (res-&gt;getSongList().empty()) <span class="keywordflow">return</span> <a class="code" href="a01945.html#aaba4e74c447f330c9cdd71e99508a15b">AudioSystem::InvalidHandle</a>;</div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160; </div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;    <span class="keyword">const</span> <a class="code" href="a01945.html#a1976c9cbec3cb0348a2e6f0381ea9906">Handle</a> handle = makeHandle();</div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;    Runner::get().playlistHandles.emplace(path, handle);</div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    Runner::get().playlistSources.emplace(handle, path);</div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;    <span class="keywordflow">return</span> handle;</div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;}</div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160; </div>
-<div class="line"><a name="l00230"></a><span class="lineno"><a class="line" href="a01945.html#acaaf6dbedb9d6f13db2e7db065e06ae8">  230</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a01945.html#acaaf6dbedb9d6f13db2e7db065e06ae8">AudioSystem::pushPlaylist</a>(<a class="code" href="a01945.html#a1976c9cbec3cb0348a2e6f0381ea9906">Handle</a> <a class="code" href="a01109.html#a34cfaee126866c60bb82a2c96e47940d">playlist</a>, <span class="keywordtype">float</span> inTime, <span class="keywordtype">float</span> outTime) {</div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;    std::unique_lock lock(Runner::get().<a class="code" href="a01109.html#a3a8166a081fa86e6d733655337bab261">playlistMutex</a>);</div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160; </div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;    PlaylistHandle handle = Runner::get().validateAndLoadPlaylist(<a class="code" href="a01109.html#a34cfaee126866c60bb82a2c96e47940d">playlist</a>);</div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    <span class="keywordflow">if</span> (!handle) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160; </div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;    initiateCrossfade(</div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;        handle.get(),</div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;        Runner::get().playlistStack.empty() ? <span class="keyword">nullptr</span> : Runner::get().playlistStack.back().get(),</div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;        inTime,</div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;        outTime);</div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;    Runner::get().playlistStack.emplace_back(handle);</div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;}</div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160; </div>
-<div class="line"><a name="l00245"></a><span class="lineno"><a class="line" href="a01945.html#a743641105556c6f3f7ff961d42d25d7b">  245</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a01945.html#a743641105556c6f3f7ff961d42d25d7b">AudioSystem::replacePlaylist</a>(<a class="code" href="a01945.html#a1976c9cbec3cb0348a2e6f0381ea9906">Handle</a> <a class="code" href="a01109.html#a34cfaee126866c60bb82a2c96e47940d">playlist</a>, <span class="keywordtype">float</span> inTime, <span class="keywordtype">float</span> outTime) {</div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;    std::unique_lock lock(Runner::get().<a class="code" href="a01109.html#a3a8166a081fa86e6d733655337bab261">playlistMutex</a>);</div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160; </div>
-<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;    PlaylistHandle handle = Runner::get().validateAndLoadPlaylist(<a class="code" href="a01109.html#a34cfaee126866c60bb82a2c96e47940d">playlist</a>);</div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;    <span class="keywordflow">if</span> (!handle) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160; </div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;    <a class="code" href="a01949.html">Playlist</a>* out = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;    <span class="keywordflow">if</span> (!Runner::get().<a class="code" href="a01109.html#a01cdd6e23b69c26eff31de4b20ced7ee">playlistStack</a>.empty()) {</div>
-<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;        out = Runner::get().playlistStack.back().get();</div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;        <span class="comment">// NOTE: If crossfade length exceeds resource timeout this will cause a crash</span></div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;        Runner::get().playlistStack.pop_back();</div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;    }</div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;    initiateCrossfade(handle.get(), out, inTime, outTime);</div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;    Runner::get().playlistStack.emplace_back(handle);</div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;}</div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160; </div>
-<div class="line"><a name="l00262"></a><span class="lineno"><a class="line" href="a01945.html#a87fa1b9512ba0e687ce5c0bfea25d594">  262</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01945.html#a87fa1b9512ba0e687ce5c0bfea25d594">AudioSystem::popPlaylist</a>(<span class="keywordtype">float</span> inTime, <span class="keywordtype">float</span> outTime) {</div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;    std::unique_lock lock(Runner::get().<a class="code" href="a01109.html#a3a8166a081fa86e6d733655337bab261">playlistMutex</a>);</div>
-<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;    <span class="keywordflow">if</span> (Runner::get().<a class="code" href="a01109.html#a01cdd6e23b69c26eff31de4b20ced7ee">playlistStack</a>.empty()) <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160; </div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;    <a class="code" href="a01949.html">Playlist</a>* in  = Runner::get().playlistStack.size() &gt;= 2 ?</div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;                        Runner::get().playlistStack[Runner::get().playlistStack.size() - 2].get() :</div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;                        <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;    <a class="code" href="a01949.html">Playlist</a>* out = Runner::get().playlistStack.back().get();</div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;    <span class="comment">// NOTE: If crossfade length exceeds resource timeout this will cause a crash</span></div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;    Runner::get().playlistStack.pop_back();</div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;    initiateCrossfade(in, out, inTime, outTime);</div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;}</div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160; </div>
-<div class="line"><a name="l00275"></a><span class="lineno"><a class="line" href="a01945.html#a9f0bfd23b8de46ab0016f1bf438b18a4">  275</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a01945.html#a9f0bfd23b8de46ab0016f1bf438b18a4">AudioSystem::replaceAllPlaylists</a>(<a class="code" href="a01945.html#a1976c9cbec3cb0348a2e6f0381ea9906">Handle</a> <a class="code" href="a01109.html#a34cfaee126866c60bb82a2c96e47940d">playlist</a>, <span class="keywordtype">float</span> inTime, <span class="keywordtype">float</span> outTime) {</div>
-<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;    std::unique_lock lock(Runner::get().<a class="code" href="a01109.html#a3a8166a081fa86e6d733655337bab261">playlistMutex</a>);</div>
-<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160; </div>
-<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;    PlaylistHandle handle = Runner::get().validateAndLoadPlaylist(<a class="code" href="a01109.html#a34cfaee126866c60bb82a2c96e47940d">playlist</a>);</div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;    <span class="keywordflow">if</span> (!handle) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160; </div>
-<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;    initiateCrossfade(</div>
-<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;        handle.get(),</div>
-<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;        Runner::get().playlistStack.empty() ? <span class="keyword">nullptr</span> : Runner::get().playlistStack.back().get(),</div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;        inTime,</div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;        outTime);</div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;    <span class="comment">// NOTE: If crossfade length exceeds resource timeout this will cause a crash</span></div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;    Runner::get().playlistStack.clear();</div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;    Runner::get().playlistStack.emplace_back(handle);</div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;}</div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160; </div>
-<div class="line"><a name="l00292"></a><span class="lineno"><a class="line" href="a01945.html#a7ddbda3b93f954ee29e9b4503bb49fee">  292</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01945.html#a7ddbda3b93f954ee29e9b4503bb49fee">AudioSystem::stopAllPlaylists</a>(<span class="keywordtype">float</span> outTime) {</div>
-<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;    std::unique_lock lock(Runner::get().<a class="code" href="a01109.html#a3a8166a081fa86e6d733655337bab261">playlistMutex</a>);</div>
-<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160; </div>
-<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;    <span class="keywordflow">if</span> (!Runner::get().<a class="code" href="a01109.html#a01cdd6e23b69c26eff31de4b20ced7ee">playlistStack</a>.empty()) {</div>
-<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;        initiateCrossfade(<span class="keyword">nullptr</span>, Runner::get().<a class="code" href="a01109.html#a01cdd6e23b69c26eff31de4b20ced7ee">playlistStack</a>.back().get(), 0.f, outTime);</div>
-<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;        <span class="comment">// NOTE: If crossfade length exceeds resource timeout this will cause a crash</span></div>
-<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;        Runner::get().playlistStack.clear();</div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;    }</div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;}</div>
-<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160; </div>
-<div class="line"><a name="l00302"></a><span class="lineno"><a class="line" href="a01945.html#a93274a6e8a82bc1c0dc8b0a46b751c26">  302</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01945.html#a93274a6e8a82bc1c0dc8b0a46b751c26">AudioSystem::setVolume</a>(<span class="keywordtype">float</span> vol) {</div>
-<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;    Settings.volume = vol;</div>
-<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;    <span class="keywordflow">if</span> (!Settings.muted) { sf::Listener::setGlobalVolume(vol); }</div>
-<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;}</div>
-<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160; </div>
-<div class="line"><a name="l00307"></a><span class="lineno"><a class="line" href="a01945.html#a82543cf82aa923a6a5f5847da6bdf7ca">  307</a></span>&#160;<span class="keywordtype">float</span> <a class="code" href="a01945.html#a82543cf82aa923a6a5f5847da6bdf7ca">AudioSystem::getVolume</a>() { <span class="keywordflow">return</span> Settings.volume; }</div>
-<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160; </div>
-<div class="line"><a name="l00309"></a><span class="lineno"><a class="line" href="a01945.html#a86fd466894b260de1b2765ca7407cba4">  309</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01945.html#a86fd466894b260de1b2765ca7407cba4">AudioSystem::setMuted</a>(<span class="keywordtype">bool</span> m) {</div>
-<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;    Settings.muted = m;</div>
-<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;    sf::Listener::setGlobalVolume(m ? 0.f : Settings.volume);</div>
-<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;}</div>
-<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160; </div>
-<div class="line"><a name="l00314"></a><span class="lineno"><a class="line" href="a01945.html#aa19ac5a7fef032baaed6a2bd2fa1d126">  314</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a01945.html#aa19ac5a7fef032baaed6a2bd2fa1d126">AudioSystem::getMuted</a>() { <span class="keywordflow">return</span> Settings.muted; }</div>
-<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160; </div>
-<div class="line"><a name="l00316"></a><span class="lineno"><a class="line" href="a01945.html#a105d270062c812ac44f4c525c4d1d918">  316</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01945.html#a105d270062c812ac44f4c525c4d1d918">AudioSystem::loadFromConfig</a>() {</div>
-<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;    Settings.muted = engine::Configuration::getOrDefault&lt;bool&gt;(Settings.MuteKey, Settings.muted);</div>
-<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;    Settings.volume =</div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;        engine::Configuration::getOrDefault&lt;float&gt;(Settings.VolumeKey, Settings.volume);</div>
-<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;    sf::Listener::setGlobalVolume(Settings.muted ? 0.f : Settings.volume);</div>
-<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;}</div>
-<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160; </div>
-<div class="line"><a name="l00323"></a><span class="lineno"><a class="line" href="a01945.html#a9b22e1f5c7ea0c3490c3bd82a89bffad">  323</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01945.html#a9b22e1f5c7ea0c3490c3bd82a89bffad">AudioSystem::saveToConfig</a>() {</div>
-<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;    engine::Configuration::set&lt;bool&gt;(Settings.MuteKey, Settings.muted);</div>
-<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;    engine::Configuration::set&lt;float&gt;(Settings.VolumeKey, Settings.volume);</div>
-<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;}</div>
-<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160; </div>
-<div class="line"><a name="l00328"></a><span class="lineno"><a class="line" href="a01945.html#a892f00cbc45e915c30246a10834359c0">  328</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01945.html#a892f00cbc45e915c30246a10834359c0">AudioSystem::pause</a>() {</div>
-<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;    std::unique_lock lock(Runner::get().<a class="code" href="a01109.html#ab0b690c2f98a6e21215ad99725ade8d3">pauseMutex</a>);</div>
-<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;    <span class="keywordflow">if</span> (Runner::get().<a class="code" href="a01109.html#a1656129c4a4fd8809254194f08f0ac70">paused</a>) <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;    Runner::get().paused = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160; </div>
-<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; <a class="code" href="a01109.html#aec033227294b0120711fd356ed3801bc">sound</a> : Runner::get().<a class="code" href="a01109.html#a9d6a875c171d350a3f15c0f56cd0a45a">sounds</a>) {</div>
-<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="a01109.html#aec033227294b0120711fd356ed3801bc">sound</a>.second.sound.getStatus() == sf::Sound::Playing) { <a class="code" href="a01109.html#aec033227294b0120711fd356ed3801bc">sound</a>.second.sound.pause(); }</div>
-<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;    }</div>
-<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;    <span class="keywordflow">if</span> (!Runner::get().<a class="code" href="a01109.html#a01cdd6e23b69c26eff31de4b20ced7ee">playlistStack</a>.empty() &amp;&amp; Runner::get().playlistStack.front()-&gt;isPlaying()) {</div>
-<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;        Runner::get().playlistStack.front()-&gt;pause();</div>
-<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;    }</div>
-<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;    <span class="keywordflow">if</span> (Runner::get().<a class="code" href="a01109.html#afcd9606706aca5711d9607382d158a6a">fadeIn</a>.playlist &amp;&amp; Runner::get().fadeIn.playlist-&gt;isPlaying()) {</div>
-<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;        Runner::get().fadeIn.playlist-&gt;pause();</div>
-<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;    }</div>
-<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;    <span class="keywordflow">if</span> (Runner::get().<a class="code" href="a01109.html#a369a0540d4dbe20f7c7177677c72dea8">fadeOut</a>.playlist &amp;&amp; Runner::get().fadeOut.playlist-&gt;isPlaying()) {</div>
-<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;        Runner::get().fadeOut.playlist-&gt;pause();</div>
-<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;    }</div>
-<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;}</div>
-<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160; </div>
-<div class="line"><a name="l00347"></a><span class="lineno"><a class="line" href="a01945.html#aedacf534c5de4c76bb4cf222e174373c">  347</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01945.html#aedacf534c5de4c76bb4cf222e174373c">AudioSystem::resume</a>() {</div>
-<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;    std::unique_lock lock(Runner::get().<a class="code" href="a01109.html#ab0b690c2f98a6e21215ad99725ade8d3">pauseMutex</a>);</div>
-<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;    <span class="keywordflow">if</span> (!Runner::get().<a class="code" href="a01109.html#a1656129c4a4fd8809254194f08f0ac70">paused</a>) <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;    Runner::get().paused = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160; </div>
-<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; <a class="code" href="a01109.html#aec033227294b0120711fd356ed3801bc">sound</a> : Runner::get().<a class="code" href="a01109.html#a9d6a875c171d350a3f15c0f56cd0a45a">sounds</a>) {</div>
-<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="a01109.html#aec033227294b0120711fd356ed3801bc">sound</a>.second.sound.getStatus() == sf::Sound::Paused) { <a class="code" href="a01109.html#aec033227294b0120711fd356ed3801bc">sound</a>.second.sound.play(); }</div>
-<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;    }</div>
-<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;    <span class="keywordflow">if</span> (!Runner::get().<a class="code" href="a01109.html#a01cdd6e23b69c26eff31de4b20ced7ee">playlistStack</a>.empty()) { Runner::get().playlistStack.front()-&gt;play(); }</div>
-<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;    <span class="keywordflow">if</span> (Runner::get().<a class="code" href="a01109.html#afcd9606706aca5711d9607382d158a6a">fadeIn</a>.playlist) { Runner::get().fadeIn.playlist-&gt;play(); }</div>
-<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;    <span class="keywordflow">if</span> (Runner::get().<a class="code" href="a01109.html#a369a0540d4dbe20f7c7177677c72dea8">fadeOut</a>.playlist) { Runner::get().fadeOut.playlist-&gt;play(); }</div>
-<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160; </div>
-<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;    Runner::get().pauseCond.notify_all();</div>
-<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;}</div>
-<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160; </div>
-<div class="line"><a name="l00362"></a><span class="lineno"><a class="line" href="a01945.html#ac3291d9633dea552b43aeb7eada84fcf">  362</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01945.html#ac3291d9633dea552b43aeb7eada84fcf">AudioSystem::stop</a>() {</div>
-<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;    {</div>
-<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;        std::unique_lock lock(Runner::get().<a class="code" href="a01109.html#a1660a48091966cb4b9ae67a54c5d4b35">soundMutex</a>);</div>
-<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; <a class="code" href="a01109.html#aec033227294b0120711fd356ed3801bc">sound</a> : Runner::get().<a class="code" href="a01109.html#a9d6a875c171d350a3f15c0f56cd0a45a">sounds</a>) { <a class="code" href="a01109.html#aec033227294b0120711fd356ed3801bc">sound</a>.second.sound.stop(); }</div>
-<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;    }</div>
-<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160; </div>
-<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;    {</div>
-<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;        std::unique_lock lock(Runner::get().<a class="code" href="a01109.html#a3a8166a081fa86e6d733655337bab261">playlistMutex</a>);</div>
-<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">auto</span> p : Runner::get().<a class="code" href="a01109.html#a01cdd6e23b69c26eff31de4b20ced7ee">playlistStack</a>) { p-&gt;stop(); }</div>
-<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;        Runner::get().playlistStack.clear();</div>
-<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;        Runner::get().fadeIn.playlist  = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;        Runner::get().fadeOut.playlist = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;    }</div>
-<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;}</div>
-<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160; </div>
-<div class="line"><a name="l00377"></a><span class="lineno"><a class="line" href="a01945.html#a7bc78920a2a40e3a95d681058bab3f01">  377</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01945.html#a7bc78920a2a40e3a95d681058bab3f01">AudioSystem::shutdown</a>(<span class="keywordtype">bool</span> fade) {</div>
-<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;    <span class="keywordflow">if</span> (fade) {</div>
-<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;        sf::Clock <a class="code" href="a01109.html#ab105e62bb50794909d1a163cae4af596">timer</a>;</div>
-<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;        <span class="keywordflow">while</span> (sf::Listener::getGlobalVolume() &gt; 0.01f) {</div>
-<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;            sf::Listener::setGlobalVolume(</div>
-<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;                100.f * std::max(0.f, (0.5f - <a class="code" href="a01109.html#ab105e62bb50794909d1a163cae4af596">timer</a>.getElapsedTime().asSeconds()) / 0.5f));</div>
-<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;            sf::sleep(sf::milliseconds(13));</div>
-<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;        }</div>
-<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;        sf::Listener::setGlobalVolume(0.f);</div>
-<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;    }</div>
-<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;    Runner::stop();</div>
-<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;}</div>
-<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160; </div>
-<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;<span class="keyword">namespace</span></div>
-<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;{</div>
-<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;Sound::Sound()</div>
-<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;: <a class="code" href="a01109.html#a8d61e66142eeff806c70575b199f063d">lastInteractTime</a>(Runner::get().<a class="code" href="a01109.html#ab105e62bb50794909d1a163cae4af596">timer</a>.getElapsedTime().asSeconds()) {}</div>
-<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160; </div>
-<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;Runner::Runner()</div>
-<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;: <a class="code" href="a01109.html#a1656129c4a4fd8809254194f08f0ac70">paused</a>(false)</div>
-<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;, thread(&amp;Runner::run, this)</div>
-<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;, shouldStop(false) {</div>
-<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;    Runner::started = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;    <a class="code" href="a00494.html#a459f7ea96e34815206480bf681ee2a2f">BL_LOG_INFO</a> &lt;&lt; <span class="stringliteral">&quot;Started AudioSystem&quot;</span>;</div>
-<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;}</div>
-<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160; </div>
-<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;Runner::~Runner() {}</div>
-<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160; </div>
-<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;Runner&amp; Runner::get() {</div>
-<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;    <span class="keyword">static</span> Runner runner;</div>
-<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;    <span class="keywordflow">return</span> runner;</div>
-<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;}</div>
-<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160; </div>
-<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;<span class="keywordtype">void</span> Runner::stop() {</div>
-<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;    <span class="keywordflow">if</span> (started) {</div>
-<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;        <a class="code" href="a00494.html#a459f7ea96e34815206480bf681ee2a2f">BL_LOG_INFO</a> &lt;&lt; <span class="stringliteral">&quot;Shutting down AudioSystem&quot;</span>;</div>
-<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;        started = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;        get().shutdown();</div>
-<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;        <a class="code" href="a01945.html#ac3291d9633dea552b43aeb7eada84fcf">AudioSystem::stop</a>();</div>
-<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;        sf::sleep(sf::milliseconds(500)); <span class="comment">// for music threads to stop</span></div>
-<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;        <a class="code" href="a00494.html#a459f7ea96e34815206480bf681ee2a2f">BL_LOG_INFO</a> &lt;&lt; <span class="stringliteral">&quot;AudioSystem shutdown&quot;</span>;</div>
-<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;    }</div>
-<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;}</div>
-<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160; </div>
-<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;<span class="keywordtype">void</span> Runner::shutdown() {</div>
-<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;    shouldStop = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;    <a class="code" href="a01109.html#a3cc8bf9f913e668e50c15355bfe5e749">pauseCond</a>.notify_all();</div>
-<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;    thread.join();</div>
-<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;}</div>
-<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160; </div>
-<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;<span class="keywordtype">void</span> Runner::run() {</div>
-<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;    <span class="keywordflow">while</span> (!shouldStop) {</div>
-<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;        {</div>
-<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;            std::unique_lock plock(<a class="code" href="a01109.html#ab0b690c2f98a6e21215ad99725ade8d3">pauseMutex</a>);</div>
-<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;            <span class="keywordflow">if</span> (<a class="code" href="a01109.html#a1656129c4a4fd8809254194f08f0ac70">paused</a>) { <a class="code" href="a01109.html#a3cc8bf9f913e668e50c15355bfe5e749">pauseCond</a>.wait(plock); }</div>
-<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160; </div>
-<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;            <span class="comment">// sound cleanup and fadeouts</span></div>
-<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;            {</div>
-<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;                std::unique_lock slock(<a class="code" href="a01109.html#a1660a48091966cb4b9ae67a54c5d4b35">soundMutex</a>);</div>
-<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160; </div>
-<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;                <span class="keywordflow">for</span> (<span class="keyword">auto</span> i = <a class="code" href="a01109.html#a23630641768ab28f7cdd41ceb50ca816">soundHandles</a>.begin(); i != <a class="code" href="a01109.html#a23630641768ab28f7cdd41ceb50ca816">soundHandles</a>.end();) {</div>
-<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;                    <span class="keyword">auto</span> j  = i++;</div>
-<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;                    <span class="keyword">auto</span> it = <a class="code" href="a01109.html#a9d6a875c171d350a3f15c0f56cd0a45a">sounds</a>.find(j-&gt;second);</div>
-<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;                    <span class="keywordflow">if</span> (it != <a class="code" href="a01109.html#a9d6a875c171d350a3f15c0f56cd0a45a">sounds</a>.end()) {</div>
-<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;                        <span class="keywordflow">if</span> (<a class="code" href="a01109.html#ab105e62bb50794909d1a163cae4af596">timer</a>.getElapsedTime().asSeconds() - it-&gt;second.lastInteractTime &gt;=</div>
-<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;                                <a class="code" href="a01109.html#a546ad79b06e76d21ddd54920a1c47e37">unloadTimeout</a> + it-&gt;second.buffer-&gt;getDuration().asSeconds() &amp;&amp;</div>
-<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;                            it-&gt;second.sound.getStatus() != sf::Sound::Playing) {</div>
-<div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;                            <a class="code" href="a01109.html#a9d6a875c171d350a3f15c0f56cd0a45a">sounds</a>.erase(it);</div>
-<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;                            <a class="code" href="a01109.html#a23630641768ab28f7cdd41ceb50ca816">soundHandles</a>.erase(j);</div>
-<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;                        }</div>
-<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;                    }</div>
-<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;                }</div>
-<div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160; </div>
-<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;                <span class="keywordflow">for</span> (<span class="keyword">auto</span> i = <a class="code" href="a01109.html#aedda4637d6492436cc86f0b864d19c90">fadingSounds</a>.begin(); i != <a class="code" href="a01109.html#aedda4637d6492436cc86f0b864d19c90">fadingSounds</a>.end();) {</div>
-<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;                    <span class="keyword">auto</span> j = i++;</div>
-<div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;                    j-&gt;update();</div>
-<div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160;                }</div>
-<div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;                <a class="code" href="a01109.html#a97401eb9803ec7529694a79895c417de">soundTimer</a>.restart();</div>
-<div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160;            }</div>
-<div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160; </div>
-<div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160;            <span class="comment">// playlist crossfade update and song update</span></div>
-<div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160;            {</div>
-<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;                std::unique_lock plock(<a class="code" href="a01109.html#a3a8166a081fa86e6d733655337bab261">playlistMutex</a>);</div>
-<div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160; </div>
-<div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160;                <span class="keywordflow">if</span> (!<a class="code" href="a01109.html#a01cdd6e23b69c26eff31de4b20ced7ee">playlistStack</a>.empty() &amp;&amp; <a class="code" href="a01109.html#a01cdd6e23b69c26eff31de4b20ced7ee">playlistStack</a>.front()-&gt;isPlaying()) {</div>
-<div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160;                    <a class="code" href="a01109.html#a01cdd6e23b69c26eff31de4b20ced7ee">playlistStack</a>.front()-&gt;update();</div>
-<div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;                }</div>
-<div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160; </div>
-<div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160;                <a class="code" href="a01109.html#afcd9606706aca5711d9607382d158a6a">fadeIn</a>.update();</div>
-<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;                <a class="code" href="a01109.html#a369a0540d4dbe20f7c7177677c72dea8">fadeOut</a>.update();</div>
-<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;                <a class="code" href="a01109.html#a274c88687060ed01146159f619242fce">fadeTimer</a>.restart();</div>
-<div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;            }</div>
-<div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;        }</div>
-<div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160; </div>
-<div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160;        sf::sleep(sf::milliseconds(30));</div>
-<div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160;    }</div>
-<div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160; </div>
-<div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160;    <a class="code" href="a00494.html#a459f7ea96e34815206480bf681ee2a2f">BL_LOG_INFO</a> &lt;&lt; <span class="stringliteral">&quot;AudioSystem thread terminated&quot;</span>;</div>
-<div class="line"><a name="l00475"></a><span class="lineno">  475</span>&#160;}</div>
-<div class="line"><a name="l00476"></a><span class="lineno">  476</span>&#160; </div>
-<div class="line"><a name="l00477"></a><span class="lineno">  477</span>&#160;std::unordered_map&lt;AudioSystem::Handle, Sound&gt;::iterator Runner::validateAndLoadSound(</div>
-<div class="line"><a name="l00478"></a><span class="lineno">  478</span>&#160;    <a class="code" href="a01945.html#a1976c9cbec3cb0348a2e6f0381ea9906">AudioSystem::Handle</a> <a class="code" href="a01109.html#aec033227294b0120711fd356ed3801bc">sound</a>) {</div>
-<div class="line"><a name="l00479"></a><span class="lineno">  479</span>&#160;    <span class="comment">// load sound if we need to</span></div>
-<div class="line"><a name="l00480"></a><span class="lineno">  480</span>&#160;    <span class="keyword">auto</span> it = <a class="code" href="a01109.html#a9d6a875c171d350a3f15c0f56cd0a45a">sounds</a>.find(<a class="code" href="a01109.html#aec033227294b0120711fd356ed3801bc">sound</a>);</div>
-<div class="line"><a name="l00481"></a><span class="lineno">  481</span>&#160;    <span class="keywordflow">if</span> (it == <a class="code" href="a01109.html#a9d6a875c171d350a3f15c0f56cd0a45a">sounds</a>.end()) {</div>
-<div class="line"><a name="l00482"></a><span class="lineno">  482</span>&#160;        <span class="keyword">auto</span> hit = <a class="code" href="a01109.html#a38bde58fc288c1b0a063ea4b88b891de">soundSources</a>.find(<a class="code" href="a01109.html#aec033227294b0120711fd356ed3801bc">sound</a>);</div>
-<div class="line"><a name="l00483"></a><span class="lineno">  483</span>&#160;        <span class="keywordflow">if</span> (hit == <a class="code" href="a01109.html#a38bde58fc288c1b0a063ea4b88b891de">soundSources</a>.end()) <span class="keywordflow">return</span> <a class="code" href="a01109.html#a9d6a875c171d350a3f15c0f56cd0a45a">sounds</a>.end();</div>
-<div class="line"><a name="l00484"></a><span class="lineno">  484</span>&#160;        it                = <a class="code" href="a01109.html#a9d6a875c171d350a3f15c0f56cd0a45a">sounds</a>.try_emplace(<a class="code" href="a01109.html#aec033227294b0120711fd356ed3801bc">sound</a>).first;</div>
-<div class="line"><a name="l00485"></a><span class="lineno">  485</span>&#160;        it-&gt;second.buffer = <a class="code" href="a03517.html#a35c615388beefafe126b6ca8481c976d">resource::ResourceManager&lt;sf::SoundBuffer&gt;::load</a>(hit-&gt;second);</div>
-<div class="line"><a name="l00486"></a><span class="lineno">  486</span>&#160;        <span class="keywordflow">if</span> (it-&gt;second.buffer-&gt;getSampleCount() == 0) {</div>
-<div class="line"><a name="l00487"></a><span class="lineno">  487</span>&#160;            <a class="code" href="a01109.html#a9d6a875c171d350a3f15c0f56cd0a45a">sounds</a>.erase(it);</div>
-<div class="line"><a name="l00488"></a><span class="lineno">  488</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="a01109.html#a9d6a875c171d350a3f15c0f56cd0a45a">sounds</a>.end();</div>
-<div class="line"><a name="l00489"></a><span class="lineno">  489</span>&#160;        }</div>
-<div class="line"><a name="l00490"></a><span class="lineno">  490</span>&#160;        it-&gt;second.sound.setBuffer(*it-&gt;second.buffer);</div>
-<div class="line"><a name="l00491"></a><span class="lineno">  491</span>&#160;    }</div>
-<div class="line"><a name="l00492"></a><span class="lineno">  492</span>&#160;    <span class="keywordflow">return</span> it;</div>
-<div class="line"><a name="l00493"></a><span class="lineno">  493</span>&#160;}</div>
-<div class="line"><a name="l00494"></a><span class="lineno">  494</span>&#160; </div>
-<div class="line"><a name="l00495"></a><span class="lineno">  495</span>&#160;PlaylistHandle Runner::validateAndLoadPlaylist(<a class="code" href="a01945.html#a1976c9cbec3cb0348a2e6f0381ea9906">AudioSystem::Handle</a> handle) {</div>
-<div class="line"><a name="l00496"></a><span class="lineno">  496</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> sit = <a class="code" href="a01109.html#ac2fab8e6020f1344863b0dee7ce8878d">playlistSources</a>.find(handle);</div>
-<div class="line"><a name="l00497"></a><span class="lineno">  497</span>&#160;    <span class="keywordflow">if</span> (sit == <a class="code" href="a01109.html#ac2fab8e6020f1344863b0dee7ce8878d">playlistSources</a>.end()) <span class="keywordflow">return</span> {};</div>
-<div class="line"><a name="l00498"></a><span class="lineno">  498</span>&#160; </div>
-<div class="line"><a name="l00499"></a><span class="lineno">  499</span>&#160;    PlaylistHandle res = <a class="code" href="a03517.html#a35c615388beefafe126b6ca8481c976d">resource::ResourceManager&lt;Playlist&gt;::load</a>(sit-&gt;second);</div>
-<div class="line"><a name="l00500"></a><span class="lineno">  500</span>&#160;    <span class="keywordflow">if</span> (res-&gt;getSongList().empty()) <span class="keywordflow">return</span> {};</div>
-<div class="line"><a name="l00501"></a><span class="lineno">  501</span>&#160;    <span class="keywordflow">return</span> res;</div>
-<div class="line"><a name="l00502"></a><span class="lineno">  502</span>&#160;}</div>
-<div class="line"><a name="l00503"></a><span class="lineno">  503</span>&#160; </div>
-<div class="line"><a name="l00504"></a><span class="lineno">  504</span>&#160;<span class="keywordtype">void</span> initiateCrossfade(Playlist* in, Playlist* out, <span class="keywordtype">float</span> inTime, <span class="keywordtype">float</span> outTime) {</div>
-<div class="line"><a name="l00505"></a><span class="lineno">  505</span>&#160;    <span class="keywordflow">if</span> (Runner::get().<a class="code" href="a01109.html#afcd9606706aca5711d9607382d158a6a">fadeIn</a>.playlist) {</div>
-<div class="line"><a name="l00506"></a><span class="lineno">  506</span>&#160;        Runner::get().fadeIn.playlist-&gt;pause();</div>
-<div class="line"><a name="l00507"></a><span class="lineno">  507</span>&#160;        Runner::get().fadeIn.playlist = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00508"></a><span class="lineno">  508</span>&#160;    }</div>
-<div class="line"><a name="l00509"></a><span class="lineno">  509</span>&#160;    <span class="keywordflow">if</span> (in) {</div>
-<div class="line"><a name="l00510"></a><span class="lineno">  510</span>&#160;        <span class="keywordflow">if</span> (inTime &gt; 0.f) {</div>
-<div class="line"><a name="l00511"></a><span class="lineno">  511</span>&#160;            Runner::get().fadeIn.playlist = in;</div>
-<div class="line"><a name="l00512"></a><span class="lineno">  512</span>&#160;            Runner::get().fadeIn.fvel     = 100.f / inTime;</div>
-<div class="line"><a name="l00513"></a><span class="lineno">  513</span>&#160;            in-&gt;setVolume(0.f);</div>
-<div class="line"><a name="l00514"></a><span class="lineno">  514</span>&#160;        }</div>
-<div class="line"><a name="l00515"></a><span class="lineno">  515</span>&#160;        <span class="keywordflow">else</span> { in-&gt;setVolume(100.f); }</div>
-<div class="line"><a name="l00516"></a><span class="lineno">  516</span>&#160;        <span class="keywordflow">if</span> (!Runner::get().<a class="code" href="a01109.html#a1656129c4a4fd8809254194f08f0ac70">paused</a>) in-&gt;play();</div>
-<div class="line"><a name="l00517"></a><span class="lineno">  517</span>&#160;    }</div>
-<div class="line"><a name="l00518"></a><span class="lineno">  518</span>&#160; </div>
-<div class="line"><a name="l00519"></a><span class="lineno">  519</span>&#160;    <span class="keywordflow">if</span> (Runner::get().<a class="code" href="a01109.html#a369a0540d4dbe20f7c7177677c72dea8">fadeOut</a>.playlist) {</div>
-<div class="line"><a name="l00520"></a><span class="lineno">  520</span>&#160;        Runner::get().fadeOut.playlist-&gt;pause();</div>
-<div class="line"><a name="l00521"></a><span class="lineno">  521</span>&#160;        Runner::get().fadeOut.playlist = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00522"></a><span class="lineno">  522</span>&#160;    }</div>
-<div class="line"><a name="l00523"></a><span class="lineno">  523</span>&#160;    <span class="keywordflow">if</span> (out) {</div>
-<div class="line"><a name="l00524"></a><span class="lineno">  524</span>&#160;        <span class="keywordflow">if</span> (outTime &gt; 0.f) {</div>
-<div class="line"><a name="l00525"></a><span class="lineno">  525</span>&#160;            Runner::get().fadeOut.playlist = out;</div>
-<div class="line"><a name="l00526"></a><span class="lineno">  526</span>&#160;            Runner::get().fadeOut.fvel     = -out-&gt;getVolume() / outTime;</div>
-<div class="line"><a name="l00527"></a><span class="lineno">  527</span>&#160;        }</div>
-<div class="line"><a name="l00528"></a><span class="lineno">  528</span>&#160;        <span class="keywordflow">else</span> { out-&gt;pause(); }</div>
-<div class="line"><a name="l00529"></a><span class="lineno">  529</span>&#160;    }</div>
-<div class="line"><a name="l00530"></a><span class="lineno">  530</span>&#160;}</div>
-<div class="line"><a name="l00531"></a><span class="lineno">  531</span>&#160; </div>
-<div class="line"><a name="l00532"></a><span class="lineno">  532</span>&#160;<span class="keywordtype">void</span> PlaylistFader::update() {</div>
-<div class="line"><a name="l00533"></a><span class="lineno">  533</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="a01109.html#a34cfaee126866c60bb82a2c96e47940d">playlist</a>) {</div>
-<div class="line"><a name="l00534"></a><span class="lineno">  534</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> vol =</div>
-<div class="line"><a name="l00535"></a><span class="lineno">  535</span>&#160;            <a class="code" href="a01109.html#a34cfaee126866c60bb82a2c96e47940d">playlist</a>-&gt;<a class="code" href="a01949.html#a47b95fdccbf663c7b5ab22237ca6849b">getVolume</a>() + <a class="code" href="a01109.html#aa3a2f37abfabbbc036edc019ccb98af9">fvel</a> * Runner::get().fadeTimer.getElapsedTime().asSeconds();</div>
-<div class="line"><a name="l00536"></a><span class="lineno">  536</span>&#160;        <span class="keywordflow">if</span> (vol &lt;= 0.f) {</div>
-<div class="line"><a name="l00537"></a><span class="lineno">  537</span>&#160;            <a class="code" href="a01109.html#a34cfaee126866c60bb82a2c96e47940d">playlist</a>-&gt;<a class="code" href="a01949.html#a259488541d4dcfe925137c24ab990421">setVolume</a>(0.f);</div>
-<div class="line"><a name="l00538"></a><span class="lineno">  538</span>&#160;            <a class="code" href="a01109.html#a34cfaee126866c60bb82a2c96e47940d">playlist</a>-&gt;<a class="code" href="a01949.html#a71892080133f509e4df5ce08f44c4887">pause</a>();</div>
-<div class="line"><a name="l00539"></a><span class="lineno">  539</span>&#160;            <a class="code" href="a01109.html#a34cfaee126866c60bb82a2c96e47940d">playlist</a> = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00540"></a><span class="lineno">  540</span>&#160;        }</div>
-<div class="line"><a name="l00541"></a><span class="lineno">  541</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (vol &gt;= 100.f) {</div>
-<div class="line"><a name="l00542"></a><span class="lineno">  542</span>&#160;            <a class="code" href="a01109.html#a34cfaee126866c60bb82a2c96e47940d">playlist</a>-&gt;<a class="code" href="a01949.html#a259488541d4dcfe925137c24ab990421">setVolume</a>(100.f);</div>
-<div class="line"><a name="l00543"></a><span class="lineno">  543</span>&#160;            <a class="code" href="a01109.html#a34cfaee126866c60bb82a2c96e47940d">playlist</a> = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00544"></a><span class="lineno">  544</span>&#160;        }</div>
-<div class="line"><a name="l00545"></a><span class="lineno">  545</span>&#160;        <span class="keywordflow">else</span> { <a class="code" href="a01109.html#a34cfaee126866c60bb82a2c96e47940d">playlist</a>-&gt;<a class="code" href="a01949.html#a259488541d4dcfe925137c24ab990421">setVolume</a>(vol); }</div>
-<div class="line"><a name="l00546"></a><span class="lineno">  546</span>&#160;    }</div>
-<div class="line"><a name="l00547"></a><span class="lineno">  547</span>&#160;}</div>
-<div class="line"><a name="l00548"></a><span class="lineno">  548</span>&#160; </div>
-<div class="line"><a name="l00549"></a><span class="lineno">  549</span>&#160;SoundFader::SoundFader(sf::Sound&amp; s, <span class="keywordtype">float</span> v)</div>
-<div class="line"><a name="l00550"></a><span class="lineno">  550</span>&#160;: <a class="code" href="a01109.html#aec033227294b0120711fd356ed3801bc">sound</a>(s)</div>
-<div class="line"><a name="l00551"></a><span class="lineno">  551</span>&#160;, <a class="code" href="a01109.html#aa3a2f37abfabbbc036edc019ccb98af9">fvel</a>(v) {}</div>
-<div class="line"><a name="l00552"></a><span class="lineno">  552</span>&#160; </div>
-<div class="line"><a name="l00553"></a><span class="lineno">  553</span>&#160;<span class="keywordtype">void</span> SoundFader::update() {</div>
-<div class="line"><a name="l00554"></a><span class="lineno">  554</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> v =</div>
-<div class="line"><a name="l00555"></a><span class="lineno">  555</span>&#160;        <a class="code" href="a01109.html#aec033227294b0120711fd356ed3801bc">sound</a>.getVolume() + <a class="code" href="a01109.html#aa3a2f37abfabbbc036edc019ccb98af9">fvel</a> * Runner::get().soundTimer.getElapsedTime().asSeconds();</div>
-<div class="line"><a name="l00556"></a><span class="lineno">  556</span>&#160;    <span class="keywordflow">if</span> (v &lt;= 0.f) {</div>
-<div class="line"><a name="l00557"></a><span class="lineno">  557</span>&#160;        <a class="code" href="a01109.html#aec033227294b0120711fd356ed3801bc">sound</a>.stop();</div>
-<div class="line"><a name="l00558"></a><span class="lineno">  558</span>&#160;        Runner::get().fadingSounds.erase(<a class="code" href="a01109.html#a9c6d12ad0d044ddbc4992dec34d8e153">me</a>);</div>
-<div class="line"><a name="l00559"></a><span class="lineno">  559</span>&#160;    }</div>
-<div class="line"><a name="l00560"></a><span class="lineno">  560</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (v &gt;= 100.f) {</div>
-<div class="line"><a name="l00561"></a><span class="lineno">  561</span>&#160;        <a class="code" href="a01109.html#aec033227294b0120711fd356ed3801bc">sound</a>.setVolume(100.f);</div>
-<div class="line"><a name="l00562"></a><span class="lineno">  562</span>&#160;        Runner::get().fadingSounds.erase(<a class="code" href="a01109.html#a9c6d12ad0d044ddbc4992dec34d8e153">me</a>);</div>
-<div class="line"><a name="l00563"></a><span class="lineno">  563</span>&#160;    }</div>
-<div class="line"><a name="l00564"></a><span class="lineno">  564</span>&#160;    <span class="keywordflow">else</span> { <a class="code" href="a01109.html#aec033227294b0120711fd356ed3801bc">sound</a>.setVolume(v); }</div>
-<div class="line"><a name="l00565"></a><span class="lineno">  565</span>&#160;}</div>
-<div class="line"><a name="l00566"></a><span class="lineno">  566</span>&#160; </div>
-<div class="line"><a name="l00567"></a><span class="lineno">  567</span>&#160;} <span class="comment">// namespace</span></div>
-<div class="line"><a name="l00568"></a><span class="lineno">  568</span>&#160;} <span class="comment">// namespace audio</span></div>
-<div class="line"><a name="l00569"></a><span class="lineno">  569</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00011_html"><div class="ttname"><a href="a00011.html">AudioSystem.hpp</a></div></div>
-<div class="ttc" id="aa00194_html"><div class="ttname"><a href="a00194.html">Configuration.hpp</a></div></div>
-<div class="ttc" id="aa00494_html_a459f7ea96e34815206480bf681ee2a2f"><div class="ttname"><a href="a00494.html#a459f7ea96e34815206480bf681ee2a2f">BL_LOG_INFO</a></div><div class="ttdeci">#define BL_LOG_INFO</div><div class="ttdoc">Helper macro to log at info level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00494_source.html#l00107">Logger.hpp:107</a></div></div>
-<div class="ttc" id="aa00494_html_a927270d671e83a1c6b5382f30bfbf895"><div class="ttname"><a href="a00494.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a></div><div class="ttdeci">#define BL_LOG_ERROR</div><div class="ttdoc">Helper macro to log at error level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00494_source.html#l00101">Logger.hpp:101</a></div></div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;<span class="keywordtype">void</span> Playlist::shuffle() {</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    <span class="keyword">const</span> std::vector&lt;std::string&gt; order(std::move(songs));</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;    <a class="code" href="a02086.html">ctr::FastEraseVector&lt;std::size_t&gt;</a> indices;</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    indices.reserve(songs.size());</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    songs.reserve(order.size());</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    songs.clear();</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160; </div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    <span class="keywordflow">for</span> (std::size_t i = 0; i &lt; order.size(); ++i) { indices.push_back(i); }</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160; </div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;    <span class="keywordflow">while</span> (!indices.empty()) {</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;        <span class="keyword">const</span> std::size_t i = util::Random::get&lt;std::size_t&gt;(0, indices.size() - 1);</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;        songs.emplace_back(std::move(order[indices[i]]));</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;        indices.<a class="code" href="a02086.html#a2311c45c3a001bf19a0e1ba03d66413a">erase</a>(i);</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    }</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;}</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160; </div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;} <span class="comment">// namespace audio</span></div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00014_html"><div class="ttname"><a href="a00014.html">Playlist.hpp</a></div></div>
+<div class="ttc" id="aa00107_html"><div class="ttname"><a href="a00107.html">FastEraseVector.hpp</a></div></div>
+<div class="ttc" id="aa00197_html"><div class="ttname"><a href="a00197.html">Configuration.hpp</a></div></div>
+<div class="ttc" id="aa00491_html_a927270d671e83a1c6b5382f30bfbf895"><div class="ttname"><a href="a00491.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a></div><div class="ttdeci">#define BL_LOG_ERROR</div><div class="ttdoc">Helper macro to log at error level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00491_source.html#l00101">Logger.hpp:101</a></div></div>
+<div class="ttc" id="aa00497_html"><div class="ttname"><a href="a00497.html">Logging.hpp</a></div></div>
 <div class="ttc" id="aa00914_html"><div class="ttname"><a href="a00914.html">Resources.hpp</a></div></div>
-<div class="ttc" id="aa01067_html"><div class="ttname"><a href="a01067.html">Random.hpp</a></div></div>
-<div class="ttc" id="aa01109_html_a016abda2855c77dcc1630f9d2f9f8d18"><div class="ttname"><a href="a01109.html#a016abda2855c77dcc1630f9d2f9f8d18">volume</a></div><div class="ttdeci">float volume</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00098">AudioSystem.cpp:98</a></div></div>
-<div class="ttc" id="aa01109_html_a01cdd6e23b69c26eff31de4b20ced7ee"><div class="ttname"><a href="a01109.html#a01cdd6e23b69c26eff31de4b20ced7ee">playlistStack</a></div><div class="ttdeci">std::vector&lt; PlaylistHandle &gt; playlistStack</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00071">AudioSystem.cpp:71</a></div></div>
-<div class="ttc" id="aa01109_html_a0c470a51950ab07829f009fd4961a0c7"><div class="ttname"><a href="a01109.html#a0c470a51950ab07829f009fd4961a0c7">playlistHandles</a></div><div class="ttdeci">std::unordered_map&lt; std::string, AudioSystem::Handle &gt; playlistHandles</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00069">AudioSystem.cpp:69</a></div></div>
-<div class="ttc" id="aa01109_html_a1656129c4a4fd8809254194f08f0ac70"><div class="ttname"><a href="a01109.html#a1656129c4a4fd8809254194f08f0ac70">paused</a></div><div class="ttdeci">bool paused</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00079">AudioSystem.cpp:79</a></div></div>
-<div class="ttc" id="aa01109_html_a1660a48091966cb4b9ae67a54c5d4b35"><div class="ttname"><a href="a01109.html#a1660a48091966cb4b9ae67a54c5d4b35">soundMutex</a></div><div class="ttdeci">std::shared_mutex soundMutex</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00067">AudioSystem.cpp:67</a></div></div>
-<div class="ttc" id="aa01109_html_a23630641768ab28f7cdd41ceb50ca816"><div class="ttname"><a href="a01109.html#a23630641768ab28f7cdd41ceb50ca816">soundHandles</a></div><div class="ttdeci">std::unordered_map&lt; std::string, AudioSystem::Handle &gt; soundHandles</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00062">AudioSystem.cpp:62</a></div></div>
-<div class="ttc" id="aa01109_html_a274c88687060ed01146159f619242fce"><div class="ttname"><a href="a01109.html#a274c88687060ed01146159f619242fce">fadeTimer</a></div><div class="ttdeci">sf::Clock fadeTimer</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00072">AudioSystem.cpp:72</a></div></div>
-<div class="ttc" id="aa01109_html_a34cfaee126866c60bb82a2c96e47940d"><div class="ttname"><a href="a01109.html#a34cfaee126866c60bb82a2c96e47940d">playlist</a></div><div class="ttdeci">Playlist * playlist</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00042">AudioSystem.cpp:42</a></div></div>
-<div class="ttc" id="aa01109_html_a369a0540d4dbe20f7c7177677c72dea8"><div class="ttname"><a href="a01109.html#a369a0540d4dbe20f7c7177677c72dea8">fadeOut</a></div><div class="ttdeci">PlaylistFader fadeOut</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00074">AudioSystem.cpp:74</a></div></div>
-<div class="ttc" id="aa01109_html_a38bde58fc288c1b0a063ea4b88b891de"><div class="ttname"><a href="a01109.html#a38bde58fc288c1b0a063ea4b88b891de">soundSources</a></div><div class="ttdeci">std::unordered_map&lt; AudioSystem::Handle, std::string &gt; soundSources</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00063">AudioSystem.cpp:63</a></div></div>
-<div class="ttc" id="aa01109_html_a3a8166a081fa86e6d733655337bab261"><div class="ttname"><a href="a01109.html#a3a8166a081fa86e6d733655337bab261">playlistMutex</a></div><div class="ttdeci">std::mutex playlistMutex</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00075">AudioSystem.cpp:75</a></div></div>
-<div class="ttc" id="aa01109_html_a3b086c2c628c862147dbb1083feb2dca"><div class="ttname"><a href="a01109.html#a3b086c2c628c862147dbb1083feb2dca">VolumeKey</a></div><div class="ttdeci">const std::string VolumeKey</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00095">AudioSystem.cpp:95</a></div></div>
-<div class="ttc" id="aa01109_html_a3cc8bf9f913e668e50c15355bfe5e749"><div class="ttname"><a href="a01109.html#a3cc8bf9f913e668e50c15355bfe5e749">pauseCond</a></div><div class="ttdeci">std::condition_variable pauseCond</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00078">AudioSystem.cpp:78</a></div></div>
-<div class="ttc" id="aa01109_html_a3de32eff7fd2ae1c93d4095b57b3f2f7"><div class="ttname"><a href="a01109.html#a3de32eff7fd2ae1c93d4095b57b3f2f7">muted</a></div><div class="ttdeci">bool muted</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00097">AudioSystem.cpp:97</a></div></div>
-<div class="ttc" id="aa01109_html_a546ad79b06e76d21ddd54920a1c47e37"><div class="ttname"><a href="a01109.html#a546ad79b06e76d21ddd54920a1c47e37">unloadTimeout</a></div><div class="ttdeci">float unloadTimeout</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00060">AudioSystem.cpp:60</a></div></div>
-<div class="ttc" id="aa01109_html_a73e94bcc2ac5315656823b2f6b6d6d7f"><div class="ttname"><a href="a01109.html#a73e94bcc2ac5315656823b2f6b6d6d7f">MuteKey</a></div><div class="ttdeci">const std::string MuteKey</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00094">AudioSystem.cpp:94</a></div></div>
-<div class="ttc" id="aa01109_html_a8d61e66142eeff806c70575b199f063d"><div class="ttname"><a href="a01109.html#a8d61e66142eeff806c70575b199f063d">lastInteractTime</a></div><div class="ttdeci">float lastInteractTime</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00027">AudioSystem.cpp:27</a></div></div>
-<div class="ttc" id="aa01109_html_a97401eb9803ec7529694a79895c417de"><div class="ttname"><a href="a01109.html#a97401eb9803ec7529694a79895c417de">soundTimer</a></div><div class="ttdeci">sf::Clock soundTimer</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00066">AudioSystem.cpp:66</a></div></div>
-<div class="ttc" id="aa01109_html_a9c6d12ad0d044ddbc4992dec34d8e153"><div class="ttname"><a href="a01109.html#a9c6d12ad0d044ddbc4992dec34d8e153">me</a></div><div class="ttdeci">std::list&lt; SoundFader &gt;::iterator me</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00035">AudioSystem.cpp:35</a></div></div>
-<div class="ttc" id="aa01109_html_a9d6a875c171d350a3f15c0f56cd0a45a"><div class="ttname"><a href="a01109.html#a9d6a875c171d350a3f15c0f56cd0a45a">sounds</a></div><div class="ttdeci">std::unordered_map&lt; AudioSystem::Handle, Sound &gt; sounds</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00064">AudioSystem.cpp:64</a></div></div>
-<div class="ttc" id="aa01109_html_aa3a2f37abfabbbc036edc019ccb98af9"><div class="ttname"><a href="a01109.html#aa3a2f37abfabbbc036edc019ccb98af9">fvel</a></div><div class="ttdeci">const float fvel</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00034">AudioSystem.cpp:34</a></div></div>
-<div class="ttc" id="aa01109_html_ab0b690c2f98a6e21215ad99725ade8d3"><div class="ttname"><a href="a01109.html#ab0b690c2f98a6e21215ad99725ade8d3">pauseMutex</a></div><div class="ttdeci">std::mutex pauseMutex</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00077">AudioSystem.cpp:77</a></div></div>
-<div class="ttc" id="aa01109_html_ab105e62bb50794909d1a163cae4af596"><div class="ttname"><a href="a01109.html#ab105e62bb50794909d1a163cae4af596">timer</a></div><div class="ttdeci">sf::Clock timer</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00059">AudioSystem.cpp:59</a></div></div>
-<div class="ttc" id="aa01109_html_ac2fab8e6020f1344863b0dee7ce8878d"><div class="ttname"><a href="a01109.html#ac2fab8e6020f1344863b0dee7ce8878d">playlistSources</a></div><div class="ttdeci">std::unordered_map&lt; AudioSystem::Handle, std::string &gt; playlistSources</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00070">AudioSystem.cpp:70</a></div></div>
-<div class="ttc" id="aa01109_html_ad2ae6b0ac080ea0ac45f7a06ccc480ba"><div class="ttname"><a href="a01109.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a></div><div class="ttdeci">SoundHandle buffer</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00025">AudioSystem.cpp:25</a></div></div>
-<div class="ttc" id="aa01109_html_aec033227294b0120711fd356ed3801bc"><div class="ttname"><a href="a01109.html#aec033227294b0120711fd356ed3801bc">sound</a></div><div class="ttdeci">sf::Sound sound</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00026">AudioSystem.cpp:26</a></div></div>
-<div class="ttc" id="aa01109_html_aedda4637d6492436cc86f0b864d19c90"><div class="ttname"><a href="a01109.html#aedda4637d6492436cc86f0b864d19c90">fadingSounds</a></div><div class="ttdeci">std::list&lt; SoundFader &gt; fadingSounds</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00065">AudioSystem.cpp:65</a></div></div>
-<div class="ttc" id="aa01109_html_afcd9606706aca5711d9607382d158a6a"><div class="ttname"><a href="a01109.html#afcd9606706aca5711d9607382d158a6a">fadeIn</a></div><div class="ttdeci">PlaylistFader fadeIn</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00073">AudioSystem.cpp:73</a></div></div>
-<div class="ttc" id="aa01824_html"><div class="ttname"><a href="a01824.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa01945_html_a08e6680475a10517f4c030c510f99224"><div class="ttname"><a href="a01945.html#a08e6680475a10517f4c030c510f99224">bl::audio::AudioSystem::stopAllSounds</a></div><div class="ttdeci">static void stopAllSounds()</div><div class="ttdoc">Stops all sounds immediately.</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00207">AudioSystem.cpp:207</a></div></div>
-<div class="ttc" id="aa01945_html_a105d270062c812ac44f4c525c4d1d918"><div class="ttname"><a href="a01945.html#a105d270062c812ac44f4c525c4d1d918">bl::audio::AudioSystem::loadFromConfig</a></div><div class="ttdeci">static void loadFromConfig()</div><div class="ttdoc">Loads system settings from the engine config.</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00316">AudioSystem.cpp:316</a></div></div>
-<div class="ttc" id="aa01945_html_a1976c9cbec3cb0348a2e6f0381ea9906"><div class="ttname"><a href="a01945.html#a1976c9cbec3cb0348a2e6f0381ea9906">bl::audio::AudioSystem::Handle</a></div><div class="ttdeci">std::uint32_t Handle</div><div class="ttdoc">Identifier of a sound or playlist.</div><div class="ttdef"><b>Definition:</b> <a href="a00011_source.html#l00023">AudioSystem.hpp:23</a></div></div>
-<div class="ttc" id="aa01945_html_a31ef9d9f5c98a55d09e806219c31a796"><div class="ttname"><a href="a01945.html#a31ef9d9f5c98a55d09e806219c31a796">bl::audio::AudioSystem::getOrLoadPlaylist</a></div><div class="ttdeci">static Handle getOrLoadPlaylist(const std::string &amp;path)</div><div class="ttdoc">Loads a playlist and returns a handle for it. Playlists are loaded at most once.</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00215">AudioSystem.cpp:215</a></div></div>
-<div class="ttc" id="aa01945_html_a411a127a39b3840f1b7cf7095856df6c"><div class="ttname"><a href="a01945.html#a411a127a39b3840f1b7cf7095856df6c">bl::audio::AudioSystem::playSound</a></div><div class="ttdeci">static bool playSound(Handle sound, float fadeIn=-1.f, bool loop=false)</div><div class="ttdoc">Plays the sound with the given handle.</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00150">AudioSystem.cpp:150</a></div></div>
-<div class="ttc" id="aa01945_html_a743641105556c6f3f7ff961d42d25d7b"><div class="ttname"><a href="a01945.html#a743641105556c6f3f7ff961d42d25d7b">bl::audio::AudioSystem::replacePlaylist</a></div><div class="ttdeci">static bool replacePlaylist(Handle playlist, float fadeIn=2.f, float fadeOut=2.f)</div><div class="ttdoc">Replaces the currently playing playlist with the new playlist.</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00245">AudioSystem.cpp:245</a></div></div>
-<div class="ttc" id="aa01945_html_a7a223635ce58d1dbe165f5bdc63f7d2d"><div class="ttname"><a href="a01945.html#a7a223635ce58d1dbe165f5bdc63f7d2d">bl::audio::AudioSystem::playOrRestartSound</a></div><div class="ttdeci">static bool playOrRestartSound(Handle sound)</div><div class="ttdoc">Immediately plays or restarts the given sound, without fade-in and no looping.</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00174">AudioSystem.cpp:174</a></div></div>
-<div class="ttc" id="aa01945_html_a7bc78920a2a40e3a95d681058bab3f01"><div class="ttname"><a href="a01945.html#a7bc78920a2a40e3a95d681058bab3f01">bl::audio::AudioSystem::shutdown</a></div><div class="ttdeci">static void shutdown(bool fade=true)</div><div class="ttdoc">This should be called at the end of main() if the audiosystem is used. Note that this is called by En...</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00377">AudioSystem.cpp:377</a></div></div>
-<div class="ttc" id="aa01945_html_a7ddbda3b93f954ee29e9b4503bb49fee"><div class="ttname"><a href="a01945.html#a7ddbda3b93f954ee29e9b4503bb49fee">bl::audio::AudioSystem::stopAllPlaylists</a></div><div class="ttdeci">static void stopAllPlaylists(float fadeOut=-1.f)</div><div class="ttdoc">Stops all current and previous playlists.</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00292">AudioSystem.cpp:292</a></div></div>
-<div class="ttc" id="aa01945_html_a82543cf82aa923a6a5f5847da6bdf7ca"><div class="ttname"><a href="a01945.html#a82543cf82aa923a6a5f5847da6bdf7ca">bl::audio::AudioSystem::getVolume</a></div><div class="ttdeci">static float getVolume()</div><div class="ttdoc">Returns the global volume.</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00307">AudioSystem.cpp:307</a></div></div>
-<div class="ttc" id="aa01945_html_a86fd466894b260de1b2765ca7407cba4"><div class="ttname"><a href="a01945.html#a86fd466894b260de1b2765ca7407cba4">bl::audio::AudioSystem::setMuted</a></div><div class="ttdeci">static void setMuted(bool muted)</div><div class="ttdoc">Sets whether or not audio is muted.</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00309">AudioSystem.cpp:309</a></div></div>
-<div class="ttc" id="aa01945_html_a87fa1b9512ba0e687ce5c0bfea25d594"><div class="ttname"><a href="a01945.html#a87fa1b9512ba0e687ce5c0bfea25d594">bl::audio::AudioSystem::popPlaylist</a></div><div class="ttdeci">static void popPlaylist(float fadeIn=2.f, float fadeOut=2.f)</div><div class="ttdoc">Stops playing the current playlist and resumes the previous, if any.</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00262">AudioSystem.cpp:262</a></div></div>
-<div class="ttc" id="aa01945_html_a892f00cbc45e915c30246a10834359c0"><div class="ttname"><a href="a01945.html#a892f00cbc45e915c30246a10834359c0">bl::audio::AudioSystem::pause</a></div><div class="ttdeci">static void pause()</div><div class="ttdoc">Pauses all sounds and playlists.</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00328">AudioSystem.cpp:328</a></div></div>
-<div class="ttc" id="aa01945_html_a8ba3173440d71b1051fa256a874a14f1"><div class="ttname"><a href="a01945.html#a8ba3173440d71b1051fa256a874a14f1">bl::audio::AudioSystem::setUnloadTimeout</a></div><div class="ttdeci">static void setUnloadTimeout(float seconds)</div><div class="ttdoc">Sets the amount of time sounds should be in memory before being cleared.</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00118">AudioSystem.cpp:118</a></div></div>
-<div class="ttc" id="aa01945_html_a8fc89f6e62980c135a8253b0cba2f330"><div class="ttname"><a href="a01945.html#a8fc89f6e62980c135a8253b0cba2f330">bl::audio::AudioSystem::getOrLoadSound</a></div><div class="ttdeci">static Handle getOrLoadSound(const std::string &amp;path)</div><div class="ttdoc">Loads a sound and returns a handle for it. Sounds are loaded at most once.</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00120">AudioSystem.cpp:120</a></div></div>
-<div class="ttc" id="aa01945_html_a93274a6e8a82bc1c0dc8b0a46b751c26"><div class="ttname"><a href="a01945.html#a93274a6e8a82bc1c0dc8b0a46b751c26">bl::audio::AudioSystem::setVolume</a></div><div class="ttdeci">static void setVolume(float volume)</div><div class="ttdoc">Sets the global volume of all playlists and sounds.</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00302">AudioSystem.cpp:302</a></div></div>
-<div class="ttc" id="aa01945_html_a9b22e1f5c7ea0c3490c3bd82a89bffad"><div class="ttname"><a href="a01945.html#a9b22e1f5c7ea0c3490c3bd82a89bffad">bl::audio::AudioSystem::saveToConfig</a></div><div class="ttdeci">static void saveToConfig()</div><div class="ttdoc">Saves system settings to the engine config.</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00323">AudioSystem.cpp:323</a></div></div>
-<div class="ttc" id="aa01945_html_a9f0bfd23b8de46ab0016f1bf438b18a4"><div class="ttname"><a href="a01945.html#a9f0bfd23b8de46ab0016f1bf438b18a4">bl::audio::AudioSystem::replaceAllPlaylists</a></div><div class="ttdeci">static bool replaceAllPlaylists(Handle playlist, float fadeIn=2.f, float fadeOut=2.f)</div><div class="ttdoc">Replaces all previous and currently playing playlists with the new playlist.</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00275">AudioSystem.cpp:275</a></div></div>
-<div class="ttc" id="aa01945_html_aa19ac5a7fef032baaed6a2bd2fa1d126"><div class="ttname"><a href="a01945.html#aa19ac5a7fef032baaed6a2bd2fa1d126">bl::audio::AudioSystem::getMuted</a></div><div class="ttdeci">static bool getMuted()</div><div class="ttdoc">Returns whether or not audio is muted. Volume of 0 does not count as muted.</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00314">AudioSystem.cpp:314</a></div></div>
-<div class="ttc" id="aa01945_html_aaba4e74c447f330c9cdd71e99508a15b"><div class="ttname"><a href="a01945.html#aaba4e74c447f330c9cdd71e99508a15b">bl::audio::AudioSystem::InvalidHandle</a></div><div class="ttdeci">static constexpr Handle InvalidHandle</div><div class="ttdoc">Special value to indicate an error loading a sound or playlist.</div><div class="ttdef"><b>Definition:</b> <a href="a00011_source.html#l00026">AudioSystem.hpp:26</a></div></div>
-<div class="ttc" id="aa01945_html_ac3291d9633dea552b43aeb7eada84fcf"><div class="ttname"><a href="a01945.html#ac3291d9633dea552b43aeb7eada84fcf">bl::audio::AudioSystem::stop</a></div><div class="ttdeci">static void stop()</div><div class="ttdoc">Stops all sounds and playlists.</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00362">AudioSystem.cpp:362</a></div></div>
-<div class="ttc" id="aa01945_html_acaaf6dbedb9d6f13db2e7db065e06ae8"><div class="ttname"><a href="a01945.html#acaaf6dbedb9d6f13db2e7db065e06ae8">bl::audio::AudioSystem::pushPlaylist</a></div><div class="ttdeci">static bool pushPlaylist(Handle playlist, float fadeIn=2.f, float fadeOut=2.f)</div><div class="ttdoc">Begins playing the new playlist with the optional crossfade. Previously playing playlists are preverv...</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00230">AudioSystem.cpp:230</a></div></div>
-<div class="ttc" id="aa01945_html_aedacf534c5de4c76bb4cf222e174373c"><div class="ttname"><a href="a01945.html#aedacf534c5de4c76bb4cf222e174373c">bl::audio::AudioSystem::resume</a></div><div class="ttdeci">static void resume()</div><div class="ttdoc">Resumes all paused sounds and playlists.</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00347">AudioSystem.cpp:347</a></div></div>
-<div class="ttc" id="aa01945_html_afc9d3aa7f98bf5e44c2dc136a9e33593"><div class="ttname"><a href="a01945.html#afc9d3aa7f98bf5e44c2dc136a9e33593">bl::audio::AudioSystem::stopSound</a></div><div class="ttdeci">static void stopSound(Handle sound, float fade=-1.f)</div><div class="ttdoc">Stops the given sound if it is playing.</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00190">AudioSystem.cpp:190</a></div></div>
-<div class="ttc" id="aa01949_html"><div class="ttname"><a href="a01949.html">bl::audio::Playlist</a></div><div class="ttdoc">A playable, serializable music playlist. Can be manually manipulated or loaded from files.</div><div class="ttdef"><b>Definition:</b> <a href="a00014_source.html#l00020">Playlist.hpp:20</a></div></div>
-<div class="ttc" id="aa01949_html_a259488541d4dcfe925137c24ab990421"><div class="ttname"><a href="a01949.html#a259488541d4dcfe925137c24ab990421">bl::audio::Playlist::setVolume</a></div><div class="ttdeci">void setVolume(float volume)</div><div class="ttdoc">Set the volume.</div><div class="ttdef"><b>Definition:</b> <a href="a01112_source.html#l00150">Playlist.cpp:150</a></div></div>
-<div class="ttc" id="aa01949_html_a47b95fdccbf663c7b5ab22237ca6849b"><div class="ttname"><a href="a01949.html#a47b95fdccbf663c7b5ab22237ca6849b">bl::audio::Playlist::getVolume</a></div><div class="ttdeci">float getVolume() const</div><div class="ttdoc">Returns the current volume.</div><div class="ttdef"><b>Definition:</b> <a href="a01112_source.html#l00152">Playlist.cpp:152</a></div></div>
-<div class="ttc" id="aa01949_html_a71892080133f509e4df5ce08f44c4887"><div class="ttname"><a href="a01949.html#a71892080133f509e4df5ce08f44c4887">bl::audio::Playlist::pause</a></div><div class="ttdeci">void pause()</div><div class="ttdoc">Pauses the playlist at the current time and current song. play() will resume from the pause point.</div><div class="ttdef"><b>Definition:</b> <a href="a01112_source.html#l00139">Playlist.cpp:139</a></div></div>
-<div class="ttc" id="aa03517_html_a35c615388beefafe126b6ca8481c976d"><div class="ttname"><a href="a03517.html#a35c615388beefafe126b6ca8481c976d">bl::resource::ResourceManager::load</a></div><div class="ttdeci">static Ref&lt; TResourceType &gt; load(const std::string &amp;uri)</div><div class="ttdoc">Returns a pointer to the resource for modification (such as forcing it to stay in cache)....</div><div class="ttdef"><b>Definition:</b> <a href="a00911_source.html#l00142">ResourceManager.hpp:142</a></div></div>
-<div class="ttc" id="aa03521_html"><div class="ttname"><a href="a03521.html">bl::resource::Ref</a></div><div class="ttdoc">Represents a reference to a managed resource. Performs reference counting, but resources are never de...</div><div class="ttdef"><b>Definition:</b> <a href="a00905_source.html#l00025">Ref.hpp:25</a></div></div>
+<div class="ttc" id="aa01001_html"><div class="ttname"><a href="a01001.html">Serialization.hpp</a></div></div>
+<div class="ttc" id="aa01043_html"><div class="ttname"><a href="a01043.html">FileUtil.hpp</a></div></div>
+<div class="ttc" id="aa01064_html"><div class="ttname"><a href="a01064.html">Random.hpp</a></div></div>
+<div class="ttc" id="aa01106_html_a016abda2855c77dcc1630f9d2f9f8d18"><div class="ttname"><a href="a01106.html#a016abda2855c77dcc1630f9d2f9f8d18">volume</a></div><div class="ttdeci">float volume</div><div class="ttdef"><b>Definition:</b> <a href="a01106_source.html#l00098">AudioSystem.cpp:98</a></div></div>
+<div class="ttc" id="aa01106_html_a1656129c4a4fd8809254194f08f0ac70"><div class="ttname"><a href="a01106.html#a1656129c4a4fd8809254194f08f0ac70">paused</a></div><div class="ttdeci">bool paused</div><div class="ttdef"><b>Definition:</b> <a href="a01106_source.html#l00079">AudioSystem.cpp:79</a></div></div>
+<div class="ttc" id="aa01106_html_ad2ae6b0ac080ea0ac45f7a06ccc480ba"><div class="ttname"><a href="a01106.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a></div><div class="ttdeci">SoundHandle buffer</div><div class="ttdef"><b>Definition:</b> <a href="a01106_source.html#l00025">AudioSystem.cpp:25</a></div></div>
+<div class="ttc" id="aa01830_html"><div class="ttname"><a href="a01830.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa01958_html"><div class="ttname"><a href="a01958.html">bl::audio::Playlist</a></div><div class="ttdoc">A playable, serializable music playlist. Can be manually manipulated or loaded from files.</div><div class="ttdef"><b>Definition:</b> <a href="a00014_source.html#l00020">Playlist.hpp:20</a></div></div>
+<div class="ttc" id="aa01958_html_a06fe97d87293ce054d604a3ec51e7029"><div class="ttname"><a href="a01958.html#a06fe97d87293ce054d604a3ec51e7029">bl::audio::Playlist::loadBinary</a></div><div class="ttdeci">bool loadBinary(const char *buffer, std::size_t len)</div><div class="ttdoc">Loads the playlist from the given memory buffer. Expects the binary format.</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00073">Playlist.cpp:73</a></div></div>
+<div class="ttc" id="aa01958_html_a11e389ab733d20b743f8fd6b649e5606"><div class="ttname"><a href="a01958.html#a11e389ab733d20b743f8fd6b649e5606">bl::audio::Playlist::addSong</a></div><div class="ttdeci">void addSong(const std::string &amp;song)</div><div class="ttdoc">Add a song to the playlist to be played. Not threadsafe.</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00169">Playlist.cpp:169</a></div></div>
+<div class="ttc" id="aa01958_html_a259488541d4dcfe925137c24ab990421"><div class="ttname"><a href="a01958.html#a259488541d4dcfe925137c24ab990421">bl::audio::Playlist::setVolume</a></div><div class="ttdeci">void setVolume(float volume)</div><div class="ttdoc">Set the volume.</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00150">Playlist.cpp:150</a></div></div>
+<div class="ttc" id="aa01958_html_a31d4433df8ad6c369f572d84c8bfcaa3"><div class="ttname"><a href="a01958.html#a31d4433df8ad6c369f572d84c8bfcaa3">bl::audio::Playlist::operator=</a></div><div class="ttdeci">Playlist &amp; operator=(const Playlist &amp;copy)</div><div class="ttdoc">Copies the song list and shuffle setting from the given playlist, but not it's state.</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00099">Playlist.cpp:99</a></div></div>
+<div class="ttc" id="aa01958_html_a33aa23d4c855fabbd526ab373d300adb"><div class="ttname"><a href="a01958.html#a33aa23d4c855fabbd526ab373d300adb">bl::audio::Playlist::setShuffleOnLoop</a></div><div class="ttdeci">void setShuffleOnLoop(bool shuffleOnLoop)</div><div class="ttdoc">Set whether or not the Playlist reshuffles when it loops.</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00186">Playlist.cpp:186</a></div></div>
+<div class="ttc" id="aa01958_html_a342fef43f7c2e1fa4298d20d65b1b36c"><div class="ttname"><a href="a01958.html#a342fef43f7c2e1fa4298d20d65b1b36c">bl::audio::Playlist::stop</a></div><div class="ttdeci">void stop()</div><div class="ttdoc">Stops the playlist. play() will restart from the beginning.</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00145">Playlist.cpp:145</a></div></div>
+<div class="ttc" id="aa01958_html_a436545e4a11706a20b240f3662dd1b45"><div class="ttname"><a href="a01958.html#a436545e4a11706a20b240f3662dd1b45">bl::audio::Playlist::isPlaying</a></div><div class="ttdeci">bool isPlaying() const</div><div class="ttdoc">Returns whether or not the playlist is playing.</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00106">Playlist.cpp:106</a></div></div>
+<div class="ttc" id="aa01958_html_a47b95fdccbf663c7b5ab22237ca6849b"><div class="ttname"><a href="a01958.html#a47b95fdccbf663c7b5ab22237ca6849b">bl::audio::Playlist::getVolume</a></div><div class="ttdeci">float getVolume() const</div><div class="ttdoc">Returns the current volume.</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00152">Playlist.cpp:152</a></div></div>
+<div class="ttc" id="aa01958_html_a4b5be3094112236d5542ff6ed041ec8d"><div class="ttname"><a href="a01958.html#a4b5be3094112236d5542ff6ed041ec8d">bl::audio::Playlist::update</a></div><div class="ttdeci">void update()</div><div class="ttdoc">Updates the state of the playlist. This is called in the background if using AudioSystem....</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00154">Playlist.cpp:154</a></div></div>
+<div class="ttc" id="aa01958_html_a4bb5c8276a313c4aa082eba807295bb3"><div class="ttname"><a href="a01958.html#a4bb5c8276a313c4aa082eba807295bb3">bl::audio::Playlist::shufflingOnLoop</a></div><div class="ttdeci">bool shufflingOnLoop() const</div><div class="ttdoc">Returns whether or not the Playlist shuffles when it loops.</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00188">Playlist.cpp:188</a></div></div>
+<div class="ttc" id="aa01958_html_a4f15b9c1a0f4c5552127f6b446d482b5"><div class="ttname"><a href="a01958.html#a4f15b9c1a0f4c5552127f6b446d482b5">bl::audio::Playlist::getSongList</a></div><div class="ttdeci">const std::vector&lt; std::string &gt; &amp; getSongList() const</div><div class="ttdoc">Returns the immutable list of songs in the queue in their shuffled order.</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00180">Playlist.cpp:180</a></div></div>
+<div class="ttc" id="aa01958_html_a5c14814b230ef7de45feee5c217cf54a"><div class="ttname"><a href="a01958.html#a5c14814b230ef7de45feee5c217cf54a">bl::audio::Playlist::saveToMemory</a></div><div class="ttdeci">bool saveToMemory(serial::binary::OutputStream &amp;output) const</div><div class="ttdoc">Saves the playlist in binary format to the given stream.</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00057">Playlist.cpp:57</a></div></div>
+<div class="ttc" id="aa01958_html_a5d9fc0ef520daf76b0f8f13d8e64303a"><div class="ttname"><a href="a01958.html#a5d9fc0ef520daf76b0f8f13d8e64303a">bl::audio::Playlist::removeSong</a></div><div class="ttdeci">void removeSong(const std::string &amp;song)</div><div class="ttdoc">Removes the song from the queue.</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00171">Playlist.cpp:171</a></div></div>
+<div class="ttc" id="aa01958_html_a60c66c9f721c21d9f296df4939f9f2e7"><div class="ttname"><a href="a01958.html#a60c66c9f721c21d9f296df4939f9f2e7">bl::audio::Playlist::loadJson</a></div><div class="ttdeci">bool loadJson(const char *buffer, std::size_t len)</div><div class="ttdoc">Loads the playlist from the given memory buffer. Expects the json format.</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00086">Playlist.cpp:86</a></div></div>
+<div class="ttc" id="aa01958_html_a60cba1996b928968b8eb7c052c73d6ff"><div class="ttname"><a href="a01958.html#a60cba1996b928968b8eb7c052c73d6ff">bl::audio::Playlist::loadFromFile</a></div><div class="ttdeci">bool loadFromFile(const std::string &amp;path)</div><div class="ttdoc">Loads the playlist from the given JSON file.</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00061">Playlist.cpp:61</a></div></div>
+<div class="ttc" id="aa01958_html_a71892080133f509e4df5ce08f44c4887"><div class="ttname"><a href="a01958.html#a71892080133f509e4df5ce08f44c4887">bl::audio::Playlist::pause</a></div><div class="ttdeci">void pause()</div><div class="ttdoc">Pauses the playlist at the current time and current song. play() will resume from the pause point.</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00139">Playlist.cpp:139</a></div></div>
+<div class="ttc" id="aa01958_html_a7540a4439817e454b7829edc0093d21b"><div class="ttname"><a href="a01958.html#a7540a4439817e454b7829edc0093d21b">bl::audio::Playlist::Playlist</a></div><div class="ttdeci">Playlist()</div><div class="ttdoc">Creates an empty playlist.</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00026">Playlist.cpp:26</a></div></div>
+<div class="ttc" id="aa01958_html_a7e1be0557240d6b5169aef446aa1065c"><div class="ttname"><a href="a01958.html#a7e1be0557240d6b5169aef446aa1065c">bl::audio::Playlist::setShuffle</a></div><div class="ttdeci">void setShuffle(bool shuffle)</div><div class="ttdoc">Set whether or not the playlist should shuffle.</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00182">Playlist.cpp:182</a></div></div>
+<div class="ttc" id="aa01958_html_a98fb8c3cef9f327b14c87ce718a2a4d0"><div class="ttname"><a href="a01958.html#a98fb8c3cef9f327b14c87ce718a2a4d0">bl::audio::Playlist::saveToFile</a></div><div class="ttdeci">bool saveToFile(const std::string &amp;path) const</div><div class="ttdoc">Saves the conversation to the given JSON file.</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00052">Playlist.cpp:52</a></div></div>
+<div class="ttc" id="aa01958_html_abd3470df7e38fcfc2291c55d6742f9a9"><div class="ttname"><a href="a01958.html#abd3470df7e38fcfc2291c55d6742f9a9">bl::audio::Playlist::~Playlist</a></div><div class="ttdeci">~Playlist()</div><div class="ttdoc">Stops the music and cleans up resources.</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00045">Playlist.cpp:45</a></div></div>
+<div class="ttc" id="aa01958_html_ac388d1ce7ec765ca2c7be5cee5736da1"><div class="ttname"><a href="a01958.html#ac388d1ce7ec765ca2c7be5cee5736da1">bl::audio::Playlist::play</a></div><div class="ttdeci">void play()</div><div class="ttdoc">Plays or resumes the playlist. If set to shuffle and not resuming from pause, shuffles the songs befo...</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00108">Playlist.cpp:108</a></div></div>
+<div class="ttc" id="aa01958_html_ac94e8b45cb5fcf11031e438378b8f1eb"><div class="ttname"><a href="a01958.html#ac94e8b45cb5fcf11031e438378b8f1eb">bl::audio::Playlist::shuffling</a></div><div class="ttdeci">bool shuffling() const</div><div class="ttdoc">Returns whether or not the playlist shuffles on play()</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00184">Playlist.cpp:184</a></div></div>
+<div class="ttc" id="aa02086_html"><div class="ttname"><a href="a02086.html">bl::ctr::FastEraseVector</a></div><div class="ttdoc">A thin reskin of std::vector, this vector replaces the O(n) erase() methods of vector with a constant...</div><div class="ttdef"><b>Definition:</b> <a href="a00107_source.html#l00022">FastEraseVector.hpp:22</a></div></div>
+<div class="ttc" id="aa02086_html_a2311c45c3a001bf19a0e1ba03d66413a"><div class="ttname"><a href="a02086.html#a2311c45c3a001bf19a0e1ba03d66413a">bl::ctr::FastEraseVector::erase</a></div><div class="ttdeci">void erase(iterator position)</div><div class="ttdoc">Erase a single element using an iterator.</div><div class="ttdef"><b>Definition:</b> <a href="a00107_source.html#l00044">FastEraseVector.hpp:44</a></div></div>
+<div class="ttc" id="aa03494_html_a4333f7b4fcde422a5a9edccb8af201fb"><div class="ttname"><a href="a03494.html#a4333f7b4fcde422a5a9edccb8af201fb">bl::resource::FileSystem::getData</a></div><div class="ttdeci">static bool getData(const std::string &amp;path, char **buffer, std::size_t &amp;len)</div><div class="ttdoc">Loads the data for the given path. Either loads from the underlying file system or from the active bu...</div><div class="ttdef"><b>Definition:</b> <a href="a01685_source.html#l00023">FileSystem.cpp:23</a></div></div>
+<div class="ttc" id="aa03494_html_af3dbef4e0cb06dc2ba43376ea408c79b"><div class="ttname"><a href="a03494.html#af3dbef4e0cb06dc2ba43376ea408c79b">bl::resource::FileSystem::purgePersistentData</a></div><div class="ttdeci">static void purgePersistentData(const std::string &amp;path)</div><div class="ttdoc">Purges the persistent data buffer for the given resource. Noop if the resource did not have a persist...</div><div class="ttdef"><b>Definition:</b> <a href="a01685_source.html#l00038">FileSystem.cpp:38</a></div></div>
+<div class="ttc" id="aa03618_html"><div class="ttname"><a href="a03618.html">bl::serial::binary::InputStream</a></div><div class="ttdoc">A readable stream for binary deserialization.</div><div class="ttdef"><b>Definition:</b> <a href="a00950_source.html#l00028">InputStream.hpp:28</a></div></div>
+<div class="ttc" id="aa03626_html"><div class="ttname"><a href="a03626.html">bl::serial::binary::OutputStream</a></div><div class="ttdoc">A writable stream for binary serialization.</div><div class="ttdef"><b>Definition:</b> <a href="a00956_source.html#l00022">OutputStream.hpp:22</a></div></div>
+<div class="ttc" id="aa03630_html_a5f0be3d348bae8bf6823f4d2a3a98b9b"><div class="ttname"><a href="a03630.html#a5f0be3d348bae8bf6823f4d2a3a98b9b">bl::serial::binary::Serializer::serialize</a></div><div class="ttdeci">static bool serialize(OutputStream &amp;output, const T &amp;value)</div><div class="ttdoc">Serialize the given value to the given file.</div></div>
+<div class="ttc" id="aa03738_html"><div class="ttname"><a href="a03738.html">bl::serial::MemoryInputBuffer</a></div><div class="ttdoc">Input buffer that operates entirely on in-memory data.</div><div class="ttdef"><b>Definition:</b> <a href="a00971_source.html#l00018">MemoryInputBuffer.hpp:18</a></div></div>
+<div class="ttc" id="aa03966_html"><div class="ttname"><a href="a03966.html">bl::util::BufferIstreamBuf</a></div><div class="ttdoc">Helper class that represents a streambuf around a vector&lt;char&gt;. Use to create istream objects from ve...</div><div class="ttdef"><b>Definition:</b> <a href="a01040_source.html#l00018">BufferIstreamBuf.hpp:18</a></div></div>
+<div class="ttc" id="aa03970_html_a7b2da3c07d55afdf5faf689ac6503a4c"><div class="ttname"><a href="a03970.html#a7b2da3c07d55afdf5faf689ac6503a4c">bl::util::FileUtil::joinPath</a></div><div class="ttdeci">static std::string joinPath(const std::string &amp;leftPath, const std::string &amp;rightPath)</div><div class="ttdoc">Joins a file path with another path or filename. Takes care of slashes Example: &quot;path/&quot; + &quot;/file....</div><div class="ttdef"><b>Definition:</b> <a href="a01784_source.html#l00088">FileUtil.cpp:88</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 15 2023 19:53:39 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Oct 21 2023 00:16:51 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

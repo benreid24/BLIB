@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Components/OverlayScaler.hpp Source File</title>
+<title>BLIB: include/BLIB/Components/Orientation3D.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,132 +71,87 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">OverlayScaler.hpp</div>  </div>
+<div class="title">Orientation3D.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00068.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_COMPONENTS_OVERLAYSCALER_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_COMPONENTS_OVERLAYSCALER_HPP</span></div>
+<a href="a00068.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_COMPONENTS_ORIENTATION3D_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_COMPONENTS_ORIENTATION3D_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00176.html">BLIB/ECS/Traits/ParentAware.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;SFML/Graphics/Rect.hpp&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;glm/glm.hpp&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;optional&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01824.html">bl</a></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="a01833.html">   11</a></span>&#160;<span class="keyword">namespace </span>sys</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">class </span><a class="code" href="a03909.html">OverlayScalerSystem</a>;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;}</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a01834.html">   16</a></span>&#160;<span class="keyword">namespace </span>gfx</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a01835.html">   18</a></span>&#160;<span class="keyword">namespace </span>bcom</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;{</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">class </span><a class="code" href="a02445.html">OverlayScalable</a>;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;}</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;} <span class="comment">// namespace gfx</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a01836.html">   24</a></span>&#160;<span class="keyword">namespace </span>rc</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;{</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">class </span><a class="code" href="a03117.html">Overlay</a>;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;}</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">namespace </span>com</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;{</div>
-<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="a02021.html">   38</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02021.html">OverlayScaler</a> : <span class="keyword">public</span> <a class="code" href="a02277.html">ecs::trait::ParentAware</a>&lt;OverlayScaler&gt; {</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <a class="code" href="a02021.html#a94e798ff2c82e55677f2eee8b41f0bf1">OverlayScaler</a>();</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02021.html#a02e0dc86460e59ccd97e964078c44bbd">scaleToWidthPercent</a>(<span class="keywordtype">float</span> percent);</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02021.html#a6047cc62c0737324810c78355df8c117">scaleToHeightPercent</a>(<span class="keywordtype">float</span> percent);</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02021.html#a9e7fd2a5159d6cb12cb27baa1444993d">scaleToHeightRatio</a>(<span class="keywordtype">float</span> localLineHeight, <span class="keywordtype">float</span> overlayLineHeight);</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02021.html#ac550a946b3fca76bba8049cc588d1668">scaleToSizePercent</a>(<span class="keyword">const</span> glm::vec2&amp; percents);</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02021.html#ab5dc40a449f1ed3ec7343f34276a768e">mapToTargetPixels</a>(<span class="keywordtype">float</span> ratio = 1.f);</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;glm/glm.hpp&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01830.html">bl</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>com</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="a02030.html">   15</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02030.html">Orientation3D</a> {</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <a class="code" href="a02030.html#a65e09b4c73a47adb059a052274a3a0f0">Orientation3D</a>(<span class="keywordtype">float</span> yaw = 0.f, <span class="keywordtype">float</span> pitch = 0.f, <span class="keywordtype">float</span> roll = 0.f);</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <a class="code" href="a02030.html#a65e09b4c73a47adb059a052274a3a0f0">Orientation3D</a>(<span class="keyword">const</span> glm::vec3&amp; faceDir, <span class="keywordtype">float</span> roll);</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <a class="code" href="a02030.html#a65e09b4c73a47adb059a052274a3a0f0">Orientation3D</a>(<span class="keyword">const</span> glm::vec3&amp; <a class="code" href="a02030.html#afbb197f10284feaa07e55db73af7df07">lookAt</a>, <span class="keyword">const</span> glm::vec3&amp; from, <span class="keywordtype">float</span> roll = 0.f);</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02030.html#afbb197f10284feaa07e55db73af7df07">lookAt</a>(<span class="keyword">const</span> glm::vec3&amp; <a class="code" href="a02030.html#afbb197f10284feaa07e55db73af7df07">lookAt</a>, <span class="keyword">const</span> glm::vec3&amp; from);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02030.html#a55e316ef43064a70e7fa741556e5734a">setFaceDirection</a>(<span class="keyword">const</span> glm ::vec3&amp; faceDir);</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    constexpr <span class="keyword">const</span> glm::vec3&amp; <a class="code" href="a02030.html#a5f03e1a36bfde59000a175711a691a56">getFaceDirection</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02030.html#a935595e4769dbaeb584c5af72052fa1b">setPitch</a>(<span class="keywordtype">float</span> pitch);</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02030.html#a272c7bcb7b91ccab7d01fcbc1125ac7a">applyPitch</a>(<span class="keywordtype">float</span> offset);</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a02030.html#ac3b4fcaf367105dbbf5a8c188a2ea240">getPitch</a>() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02021.html#a6a3a68b9465589411d774639303968f4">stopScaling</a>();</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02021.html#a8c4215a77d105e774efd1104be9f8b6c">setEntitySize</a>(<span class="keyword">const</span> glm::vec2&amp; size);</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    constexpr <span class="keyword">const</span> glm::vec2&amp; <a class="code" href="a02021.html#a1c0ce88a1f9d4e243e0fba3144092b8b">getEntitySize</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02021.html#a572eb4bf28992462c0a7cd7bdc84bec5">setScissorToSelf</a>(<span class="keywordtype">bool</span> setToSelf);</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02021.html#adefce53c3dc29493a9d9b488fe6c603d">positionInParentSpace</a>(<span class="keyword">const</span> glm::vec2&amp; position);</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02021.html#af94bd6a6cb00b1684f282ab46487fd1b">stopPositioning</a>();</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    constexpr <span class="keywordtype">bool</span> <a class="code" href="a02021.html#af0a047b3895f20f594c6bce7650504c3">isDirty</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    <span class="keyword">enum</span> ScaleType { None, WidthPercent, HeightPercent, SizePercent, PixelRatio, LineHeight };</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <span class="keyword">enum</span> PositionType { NoPosition, ParentSpace };</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160; </div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    glm::vec2 cachedObjectSize;</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    sf::FloatRect cachedTargetRegion;</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    ScaleType scaleType;</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="keyword">union </span>{</div>
-<div class="line"><a name="l00131"></a><span class="lineno"><a class="line" href="a02021.html#a9ecde633935343a2467f36efb6a0825c">  131</a></span>&#160;        <span class="keywordtype">float</span> <a class="code" href="a02021.html#a9ecde633935343a2467f36efb6a0825c">pixelRatio</a>;</div>
-<div class="line"><a name="l00132"></a><span class="lineno"><a class="line" href="a02021.html#a356f8db1cab0a41fa56849b29473ec3a">  132</a></span>&#160;        <span class="keywordtype">float</span> <a class="code" href="a02021.html#a356f8db1cab0a41fa56849b29473ec3a">widthPercent</a>;</div>
-<div class="line"><a name="l00133"></a><span class="lineno"><a class="line" href="a02021.html#a5a5d620fd3b60bfaca28befa9c62eecf">  133</a></span>&#160;        <span class="keywordtype">float</span> <a class="code" href="a02021.html#a5a5d620fd3b60bfaca28befa9c62eecf">heightPercent</a>;</div>
-<div class="line"><a name="l00134"></a><span class="lineno"><a class="line" href="a02021.html#a8c2561468d36b2320f6d1580c95ba448">  134</a></span>&#160;        glm::vec2 <a class="code" href="a02021.html#a8c2561468d36b2320f6d1580c95ba448">sizePercent</a>;</div>
-<div class="line"><a name="l00135"></a><span class="lineno"><a class="line" href="a02021.html#a5a827c8435ba47a1dc4d5f50b544f40c">  135</a></span>&#160;        <span class="keywordtype">float</span> <a class="code" href="a02021.html#a5a827c8435ba47a1dc4d5f50b544f40c">overlayRatio</a>;</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    };</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    PositionType posType;</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    <span class="keyword">union </span>{</div>
-<div class="line"><a name="l00139"></a><span class="lineno"><a class="line" href="a02021.html#ae195619832cdffb0d02ae17ca6466dba">  139</a></span>&#160;        glm::vec2 <a class="code" href="a02021.html#ae195619832cdffb0d02ae17ca6466dba">parentPosition</a>;</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    };</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    <span class="keywordtype">bool</span> useScissor;</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    <span class="keywordtype">bool</span> dirty;</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160; </div>
-<div class="line"><a name="l00144"></a><span class="lineno"><a class="line" href="a02021.html#a4a6a3be2932b640ceb285770c5346ff3">  144</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a03909.html">sys::OverlayScalerSystem</a>;</div>
-<div class="line"><a name="l00145"></a><span class="lineno"><a class="line" href="a02021.html#ae965abe33c967f45ce73685301ae0d0e">  145</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a02445.html">gfx::bcom::OverlayScalable</a>;</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;};</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160; </div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160; </div>
-<div class="line"><a name="l00150"></a><span class="lineno"><a class="line" href="a02021.html#a1c0ce88a1f9d4e243e0fba3144092b8b">  150</a></span>&#160;<span class="keyword">inline</span> constexpr <span class="keyword">const</span> glm::vec2&amp; <a class="code" href="a02021.html#a1c0ce88a1f9d4e243e0fba3144092b8b">OverlayScaler::getEntitySize</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> cachedObjectSize; }</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160; </div>
-<div class="line"><a name="l00152"></a><span class="lineno"><a class="line" href="a02021.html#af0a047b3895f20f594c6bce7650504c3">  152</a></span>&#160;<span class="keyword">inline</span> constexpr <span class="keywordtype">bool</span> <a class="code" href="a02021.html#af0a047b3895f20f594c6bce7650504c3">OverlayScaler::isDirty</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> dirty &amp;&amp; scaleType != None; }</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160; </div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;} <span class="comment">// namespace com</span></div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160; </div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00176_html"><div class="ttname"><a href="a00176.html">ParentAware.hpp</a></div></div>
-<div class="ttc" id="aa01824_html"><div class="ttname"><a href="a01824.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02021_html"><div class="ttname"><a href="a02021.html">bl::com::OverlayScaler</a></div><div class="ttdoc">Component used to scale entities in overlays according to fixed rules. sys::Overlay scaler ensures th...</div><div class="ttdef"><b>Definition:</b> <a href="a00068_source.html#l00038">OverlayScaler.hpp:38</a></div></div>
-<div class="ttc" id="aa02021_html_a02e0dc86460e59ccd97e964078c44bbd"><div class="ttname"><a href="a02021.html#a02e0dc86460e59ccd97e964078c44bbd">bl::com::OverlayScaler::scaleToWidthPercent</a></div><div class="ttdeci">void scaleToWidthPercent(float percent)</div><div class="ttdoc">Scales the entity to take up a percentage of the overlay width. Maintains aspect ratio.</div><div class="ttdef"><b>Definition:</b> <a href="a01151_source.html#l00015">OverlayScaler.cpp:15</a></div></div>
-<div class="ttc" id="aa02021_html_a1c0ce88a1f9d4e243e0fba3144092b8b"><div class="ttname"><a href="a02021.html#a1c0ce88a1f9d4e243e0fba3144092b8b">bl::com::OverlayScaler::getEntitySize</a></div><div class="ttdeci">constexpr const glm::vec2 &amp; getEntitySize() const</div><div class="ttdoc">Returns the pre-transform size of the entity.</div><div class="ttdef"><b>Definition:</b> <a href="a00068_source.html#l00150">OverlayScaler.hpp:150</a></div></div>
-<div class="ttc" id="aa02021_html_a356f8db1cab0a41fa56849b29473ec3a"><div class="ttname"><a href="a02021.html#a356f8db1cab0a41fa56849b29473ec3a">bl::com::OverlayScaler::widthPercent</a></div><div class="ttdeci">float widthPercent</div><div class="ttdef"><b>Definition:</b> <a href="a00068_source.html#l00132">OverlayScaler.hpp:132</a></div></div>
-<div class="ttc" id="aa02021_html_a572eb4bf28992462c0a7cd7bdc84bec5"><div class="ttname"><a href="a02021.html#a572eb4bf28992462c0a7cd7bdc84bec5">bl::com::OverlayScaler::setScissorToSelf</a></div><div class="ttdeci">void setScissorToSelf(bool setToSelf)</div><div class="ttdoc">Helper method to set the viewport to the region the drawable is in.</div><div class="ttdef"><b>Definition:</b> <a href="a01151_source.html#l00055">OverlayScaler.cpp:55</a></div></div>
-<div class="ttc" id="aa02021_html_a5a5d620fd3b60bfaca28befa9c62eecf"><div class="ttname"><a href="a02021.html#a5a5d620fd3b60bfaca28befa9c62eecf">bl::com::OverlayScaler::heightPercent</a></div><div class="ttdeci">float heightPercent</div><div class="ttdef"><b>Definition:</b> <a href="a00068_source.html#l00133">OverlayScaler.hpp:133</a></div></div>
-<div class="ttc" id="aa02021_html_a5a827c8435ba47a1dc4d5f50b544f40c"><div class="ttname"><a href="a02021.html#a5a827c8435ba47a1dc4d5f50b544f40c">bl::com::OverlayScaler::overlayRatio</a></div><div class="ttdeci">float overlayRatio</div><div class="ttdef"><b>Definition:</b> <a href="a00068_source.html#l00135">OverlayScaler.hpp:135</a></div></div>
-<div class="ttc" id="aa02021_html_a6047cc62c0737324810c78355df8c117"><div class="ttname"><a href="a02021.html#a6047cc62c0737324810c78355df8c117">bl::com::OverlayScaler::scaleToHeightPercent</a></div><div class="ttdeci">void scaleToHeightPercent(float percent)</div><div class="ttdoc">Scales the entity to take up a percentage of the overlay height. Maintains AR.</div><div class="ttdef"><b>Definition:</b> <a href="a01151_source.html#l00021">OverlayScaler.cpp:21</a></div></div>
-<div class="ttc" id="aa02021_html_a6a3a68b9465589411d774639303968f4"><div class="ttname"><a href="a02021.html#a6a3a68b9465589411d774639303968f4">bl::com::OverlayScaler::stopScaling</a></div><div class="ttdeci">void stopScaling()</div><div class="ttdoc">Disables auto-scaling.</div><div class="ttdef"><b>Definition:</b> <a href="a01151_source.html#l00045">OverlayScaler.cpp:45</a></div></div>
-<div class="ttc" id="aa02021_html_a8c2561468d36b2320f6d1580c95ba448"><div class="ttname"><a href="a02021.html#a8c2561468d36b2320f6d1580c95ba448">bl::com::OverlayScaler::sizePercent</a></div><div class="ttdeci">glm::vec2 sizePercent</div><div class="ttdef"><b>Definition:</b> <a href="a00068_source.html#l00134">OverlayScaler.hpp:134</a></div></div>
-<div class="ttc" id="aa02021_html_a8c4215a77d105e774efd1104be9f8b6c"><div class="ttname"><a href="a02021.html#a8c4215a77d105e774efd1104be9f8b6c">bl::com::OverlayScaler::setEntitySize</a></div><div class="ttdeci">void setEntitySize(const glm::vec2 &amp;size)</div><div class="ttdoc">Sets the pre-transform size of the entity. Used in scaling calculations.</div><div class="ttdef"><b>Definition:</b> <a href="a01151_source.html#l00050">OverlayScaler.cpp:50</a></div></div>
-<div class="ttc" id="aa02021_html_a94e798ff2c82e55677f2eee8b41f0bf1"><div class="ttname"><a href="a02021.html#a94e798ff2c82e55677f2eee8b41f0bf1">bl::com::OverlayScaler::OverlayScaler</a></div><div class="ttdeci">OverlayScaler()</div><div class="ttdoc">Initializes the component to have no scaling effect.</div><div class="ttdef"><b>Definition:</b> <a href="a01151_source.html#l00007">OverlayScaler.cpp:7</a></div></div>
-<div class="ttc" id="aa02021_html_a9e7fd2a5159d6cb12cb27baa1444993d"><div class="ttname"><a href="a02021.html#a9e7fd2a5159d6cb12cb27baa1444993d">bl::com::OverlayScaler::scaleToHeightRatio</a></div><div class="ttdeci">void scaleToHeightRatio(float localLineHeight, float overlayLineHeight)</div><div class="ttdoc">Scales so that the given local height corresponds to the given overlay height. Used for Text scaling.</div><div class="ttdef"><b>Definition:</b> <a href="a01151_source.html#l00027">OverlayScaler.cpp:27</a></div></div>
-<div class="ttc" id="aa02021_html_a9ecde633935343a2467f36efb6a0825c"><div class="ttname"><a href="a02021.html#a9ecde633935343a2467f36efb6a0825c">bl::com::OverlayScaler::pixelRatio</a></div><div class="ttdeci">float pixelRatio</div><div class="ttdef"><b>Definition:</b> <a href="a00068_source.html#l00131">OverlayScaler.hpp:131</a></div></div>
-<div class="ttc" id="aa02021_html_ab5dc40a449f1ed3ec7343f34276a768e"><div class="ttname"><a href="a02021.html#ab5dc40a449f1ed3ec7343f34276a768e">bl::com::OverlayScaler::mapToTargetPixels</a></div><div class="ttdeci">void mapToTargetPixels(float ratio=1.f)</div><div class="ttdoc">Scales to the given ratio of entity-local texels to target screen-space pixels.</div><div class="ttdef"><b>Definition:</b> <a href="a01151_source.html#l00039">OverlayScaler.cpp:39</a></div></div>
-<div class="ttc" id="aa02021_html_ac550a946b3fca76bba8049cc588d1668"><div class="ttname"><a href="a02021.html#ac550a946b3fca76bba8049cc588d1668">bl::com::OverlayScaler::scaleToSizePercent</a></div><div class="ttdeci">void scaleToSizePercent(const glm::vec2 &amp;percents)</div><div class="ttdoc">Scales the entity to take up a percentage of the overlay size. Does not maintain AR.</div><div class="ttdef"><b>Definition:</b> <a href="a01151_source.html#l00033">OverlayScaler.cpp:33</a></div></div>
-<div class="ttc" id="aa02021_html_adefce53c3dc29493a9d9b488fe6c603d"><div class="ttname"><a href="a02021.html#adefce53c3dc29493a9d9b488fe6c603d">bl::com::OverlayScaler::positionInParentSpace</a></div><div class="ttdeci">void positionInParentSpace(const glm::vec2 &amp;position)</div><div class="ttdoc">Updates the entity position relative to the parent region.</div><div class="ttdef"><b>Definition:</b> <a href="a01151_source.html#l00060">OverlayScaler.cpp:60</a></div></div>
-<div class="ttc" id="aa02021_html_ae195619832cdffb0d02ae17ca6466dba"><div class="ttname"><a href="a02021.html#ae195619832cdffb0d02ae17ca6466dba">bl::com::OverlayScaler::parentPosition</a></div><div class="ttdeci">glm::vec2 parentPosition</div><div class="ttdef"><b>Definition:</b> <a href="a00068_source.html#l00139">OverlayScaler.hpp:139</a></div></div>
-<div class="ttc" id="aa02021_html_af0a047b3895f20f594c6bce7650504c3"><div class="ttname"><a href="a02021.html#af0a047b3895f20f594c6bce7650504c3">bl::com::OverlayScaler::isDirty</a></div><div class="ttdeci">constexpr bool isDirty() const</div><div class="ttdoc">Returns whether or not the scale needs to be re-computed.</div><div class="ttdef"><b>Definition:</b> <a href="a00068_source.html#l00152">OverlayScaler.hpp:152</a></div></div>
-<div class="ttc" id="aa02021_html_af94bd6a6cb00b1684f282ab46487fd1b"><div class="ttname"><a href="a02021.html#af94bd6a6cb00b1684f282ab46487fd1b">bl::com::OverlayScaler::stopPositioning</a></div><div class="ttdeci">void stopPositioning()</div><div class="ttdoc">Stops any positioning of the entity.</div><div class="ttdef"><b>Definition:</b> <a href="a01151_source.html#l00066">OverlayScaler.cpp:66</a></div></div>
-<div class="ttc" id="aa02277_html"><div class="ttname"><a href="a02277.html">bl::ecs::trait::ParentAware</a></div><div class="ttdoc">Component trait for components that are parent-able. Parent is set in the Registry as an entity-level...</div><div class="ttdef"><b>Definition:</b> <a href="a00176_source.html#l00025">ParentAware.hpp:25</a></div></div>
-<div class="ttc" id="aa02445_html"><div class="ttname"><a href="a02445.html">bl::gfx::bcom::OverlayScalable</a></div><div class="ttdoc">Base component that manages and provides a Transform2D, OverlayScaler, and Viewport.</div><div class="ttdef"><b>Definition:</b> <a href="a00272_source.html#l00030">OverlayScalable.hpp:30</a></div></div>
-<div class="ttc" id="aa03117_html"><div class="ttname"><a href="a03117.html">bl::rc::Overlay</a></div><div class="ttdoc">Special type of scene specialized for 2d overlays with fixed cameras. Objects are organized into a tr...</div><div class="ttdef"><b>Definition:</b> <a href="a00707_source.html#l00036">Overlay.hpp:38</a></div></div>
-<div class="ttc" id="aa03909_html"><div class="ttname"><a href="a03909.html">bl::sys::OverlayScalerSystem</a></div><div class="ttdoc">System that processes entities that are scaled for overlays. Keeps scales up-to-date as overlay size ...</div><div class="ttdef"><b>Definition:</b> <a href="a01019_source.html#l00027">OverlayScalerSystem.hpp:27</a></div></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02030.html#af3f17113b18e44bae8af536e8e4dafea">setYaw</a>(<span class="keywordtype">float</span> yaw);</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02030.html#a2863ca46af23ea5d7189324567c93757">applyYaw</a>(<span class="keywordtype">float</span> offset);</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a02030.html#a7caa149cc7a3799ef2ba5d06510a9540">getYaw</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02030.html#a7d4a859619d866c0bcccb83016d16ced">setYawAndPitch</a>(<span class="keywordtype">float</span> yaw, <span class="keywordtype">float</span> pitch);</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    constexpr <span class="keywordtype">float</span> <a class="code" href="a02030.html#ad1254dbe4b652931409c850475fc857d">getRoll</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02030.html#ae076f8a1b20405ca19e08e7825405376">setRoll</a>(<span class="keywordtype">float</span> roll);</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02030.html#a2f1c20894c65b552fd6293a829fb100a">applyRoll</a>(<span class="keywordtype">float</span> roll);</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160; </div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    glm::vec3 faceDir;</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    <span class="keywordtype">float</span> roll;</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;};</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160; </div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160; </div>
+<div class="line"><a name="l00136"></a><span class="lineno"><a class="line" href="a02030.html#ad1254dbe4b652931409c850475fc857d">  136</a></span>&#160;<span class="keyword">inline</span> constexpr <span class="keywordtype">float</span> <a class="code" href="a02030.html#ad1254dbe4b652931409c850475fc857d">Orientation3D::getRoll</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> roll; }</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; </div>
+<div class="line"><a name="l00138"></a><span class="lineno"><a class="line" href="a02030.html#a5f03e1a36bfde59000a175711a691a56">  138</a></span>&#160;<span class="keyword">inline</span> constexpr <span class="keyword">const</span> glm::vec3&amp; <a class="code" href="a02030.html#a5f03e1a36bfde59000a175711a691a56">Orientation3D::getFaceDirection</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> faceDir; }</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160; </div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;} <span class="comment">// namespace com</span></div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160; </div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01830_html"><div class="ttname"><a href="a01830.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02030_html"><div class="ttname"><a href="a02030.html">bl::com::Orientation3D</a></div><div class="ttdoc">Angle-axis representation of a 3d orientation.</div><div class="ttdef"><b>Definition:</b> <a href="a00068_source.html#l00015">Orientation3D.hpp:15</a></div></div>
+<div class="ttc" id="aa02030_html_a272c7bcb7b91ccab7d01fcbc1125ac7a"><div class="ttname"><a href="a02030.html#a272c7bcb7b91ccab7d01fcbc1125ac7a">bl::com::Orientation3D::applyPitch</a></div><div class="ttdeci">void applyPitch(float offset)</div><div class="ttdoc">Adds the given offset to the pitch of the orientation.</div><div class="ttdef"><b>Definition:</b> <a href="a01148_source.html#l00022">Orientation3D.cpp:22</a></div></div>
+<div class="ttc" id="aa02030_html_a2863ca46af23ea5d7189324567c93757"><div class="ttname"><a href="a02030.html#a2863ca46af23ea5d7189324567c93757">bl::com::Orientation3D::applyYaw</a></div><div class="ttdeci">void applyYaw(float offset)</div><div class="ttdoc">Adds the given offset to the yaw of the orientation.</div><div class="ttdef"><b>Definition:</b> <a href="a01148_source.html#l00028">Orientation3D.cpp:28</a></div></div>
+<div class="ttc" id="aa02030_html_a2f1c20894c65b552fd6293a829fb100a"><div class="ttname"><a href="a02030.html#a2f1c20894c65b552fd6293a829fb100a">bl::com::Orientation3D::applyRoll</a></div><div class="ttdeci">void applyRoll(float roll)</div><div class="ttdoc">Adds the given roll to the roll angle of the orientation.</div><div class="ttdef"><b>Definition:</b> <a href="a01148_source.html#l00034">Orientation3D.cpp:34</a></div></div>
+<div class="ttc" id="aa02030_html_a55e316ef43064a70e7fa741556e5734a"><div class="ttname"><a href="a02030.html#a55e316ef43064a70e7fa741556e5734a">bl::com::Orientation3D::setFaceDirection</a></div><div class="ttdeci">void setFaceDirection(const glm ::vec3 &amp;faceDir)</div><div class="ttdoc">Sets the direction the orientation is facing towards.</div><div class="ttdef"><b>Definition:</b> <a href="a01148_source.html#l00048">Orientation3D.cpp:48</a></div></div>
+<div class="ttc" id="aa02030_html_a5f03e1a36bfde59000a175711a691a56"><div class="ttname"><a href="a02030.html#a5f03e1a36bfde59000a175711a691a56">bl::com::Orientation3D::getFaceDirection</a></div><div class="ttdeci">constexpr const glm::vec3 &amp; getFaceDirection() const</div><div class="ttdoc">Returns a normalized direction vector that the orientation is facing.</div><div class="ttdef"><b>Definition:</b> <a href="a00068_source.html#l00138">Orientation3D.hpp:138</a></div></div>
+<div class="ttc" id="aa02030_html_a65e09b4c73a47adb059a052274a3a0f0"><div class="ttname"><a href="a02030.html#a65e09b4c73a47adb059a052274a3a0f0">bl::com::Orientation3D::Orientation3D</a></div><div class="ttdeci">Orientation3D(float yaw=0.f, float pitch=0.f, float roll=0.f)</div><div class="ttdoc">Creates a new orientation from the given Euler angles.</div><div class="ttdef"><b>Definition:</b> <a href="a01148_source.html#l00007">Orientation3D.cpp:7</a></div></div>
+<div class="ttc" id="aa02030_html_a7caa149cc7a3799ef2ba5d06510a9540"><div class="ttname"><a href="a02030.html#a7caa149cc7a3799ef2ba5d06510a9540">bl::com::Orientation3D::getYaw</a></div><div class="ttdeci">float getYaw() const</div><div class="ttdoc">Returns the yaw of the orientation in degrees.</div><div class="ttdef"><b>Definition:</b> <a href="a01148_source.html#l00030">Orientation3D.cpp:30</a></div></div>
+<div class="ttc" id="aa02030_html_a7d4a859619d866c0bcccb83016d16ced"><div class="ttname"><a href="a02030.html#a7d4a859619d866c0bcccb83016d16ced">bl::com::Orientation3D::setYawAndPitch</a></div><div class="ttdeci">void setYawAndPitch(float yaw, float pitch)</div><div class="ttdoc">Sets both the yaw and pitch of the orientation. Call this if both are changing as it's more efficient...</div><div class="ttdef"><b>Definition:</b> <a href="a01148_source.html#l00040">Orientation3D.cpp:40</a></div></div>
+<div class="ttc" id="aa02030_html_a935595e4769dbaeb584c5af72052fa1b"><div class="ttname"><a href="a02030.html#a935595e4769dbaeb584c5af72052fa1b">bl::com::Orientation3D::setPitch</a></div><div class="ttdeci">void setPitch(float pitch)</div><div class="ttdoc">Sets the pitch angle of the orientation.</div><div class="ttdef"><b>Definition:</b> <a href="a01148_source.html#l00020">Orientation3D.cpp:20</a></div></div>
+<div class="ttc" id="aa02030_html_ac3b4fcaf367105dbbf5a8c188a2ea240"><div class="ttname"><a href="a02030.html#ac3b4fcaf367105dbbf5a8c188a2ea240">bl::com::Orientation3D::getPitch</a></div><div class="ttdeci">float getPitch() const</div><div class="ttdoc">Returns the pitch of the orientation in degrees.</div><div class="ttdef"><b>Definition:</b> <a href="a01148_source.html#l00024">Orientation3D.cpp:24</a></div></div>
+<div class="ttc" id="aa02030_html_ad1254dbe4b652931409c850475fc857d"><div class="ttname"><a href="a02030.html#ad1254dbe4b652931409c850475fc857d">bl::com::Orientation3D::getRoll</a></div><div class="ttdeci">constexpr float getRoll() const</div><div class="ttdoc">Returns the roll of the orientation in degrees.</div><div class="ttdef"><b>Definition:</b> <a href="a00068_source.html#l00136">Orientation3D.hpp:136</a></div></div>
+<div class="ttc" id="aa02030_html_ae076f8a1b20405ca19e08e7825405376"><div class="ttname"><a href="a02030.html#ae076f8a1b20405ca19e08e7825405376">bl::com::Orientation3D::setRoll</a></div><div class="ttdeci">void setRoll(float roll)</div><div class="ttdoc">Sets the roll of the orientation.</div><div class="ttdef"><b>Definition:</b> <a href="a01148_source.html#l00032">Orientation3D.cpp:32</a></div></div>
+<div class="ttc" id="aa02030_html_af3f17113b18e44bae8af536e8e4dafea"><div class="ttname"><a href="a02030.html#af3f17113b18e44bae8af536e8e4dafea">bl::com::Orientation3D::setYaw</a></div><div class="ttdeci">void setYaw(float yaw)</div><div class="ttdoc">Sets the yaw angle of the orientation.</div><div class="ttdef"><b>Definition:</b> <a href="a01148_source.html#l00026">Orientation3D.cpp:26</a></div></div>
+<div class="ttc" id="aa02030_html_afbb197f10284feaa07e55db73af7df07"><div class="ttname"><a href="a02030.html#afbb197f10284feaa07e55db73af7df07">bl::com::Orientation3D::lookAt</a></div><div class="ttdeci">void lookAt(const glm::vec3 &amp;lookAt, const glm::vec3 &amp;from)</div><div class="ttdoc">Orients the orientation to look at the given position from its current position.</div><div class="ttdef"><b>Definition:</b> <a href="a01148_source.html#l00036">Orientation3D.cpp:36</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 15 2023 19:53:38 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Oct 21 2023 00:16:50 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

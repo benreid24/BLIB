@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Engine/Events.hpp Source File</title>
+<title>BLIB: include/BLIB/Components/Text.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,36 +66,50 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_21925c401d8b9381bdf61383d8a14cd0.html">Engine</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_03a2a625e67597eb4ae66cccf6894c5e.html">Components</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Events.hpp</div>  </div>
+<div class="title">Text.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a05070.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_ENGINE_EVENTS_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_ENGINE_EVENTS_HPP</span></div>
+<a href="a05070.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_COMPONENTS_TEXT_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_COMPONENTS_TEXT_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00200.html">BLIB/Engine/Events/Paused.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00203.html">BLIB/Engine/Events/Resumed.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00206.html">BLIB/Engine/Events/Shutdown.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00209.html">BLIB/Engine/Events/Startup.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00212.html">BLIB/Engine/Events/StateChange.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00215.html">BLIB/Engine/Events/WindowResize.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00200_html"><div class="ttname"><a href="a00200.html">Paused.hpp</a></div></div>
-<div class="ttc" id="aa00203_html"><div class="ttname"><a href="a00203.html">Resumed.hpp</a></div></div>
-<div class="ttc" id="aa00206_html"><div class="ttname"><a href="a00206.html">Shutdown.hpp</a></div></div>
-<div class="ttc" id="aa00209_html"><div class="ttname"><a href="a00209.html">Startup.hpp</a></div></div>
-<div class="ttc" id="aa00212_html"><div class="ttname"><a href="a00212.html">StateChange.hpp</a></div></div>
-<div class="ttc" id="aa00215_html"><div class="ttname"><a href="a00215.html">WindowResize.hpp</a></div></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00554.html">BLIB/Render/Buffers/VertexBuffer.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00560.html">BLIB/Render/Components/DrawableBase.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01830.html">bl</a></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>com</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a02058.html">   16</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a02058.html">Text</a> : <span class="keyword">public</span> <a class="code" href="a02910.html">rc::rcom::DrawableBase</a> {</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a02058.html#ad6a3d01672812d1ea8327cd5e1eb7cfc">   17</a></span>&#160;    <a class="code" href="a02902.html">rc::buf::VertexBuffer</a> <a class="code" href="a02058.html#ad6a3d01672812d1ea8327cd5e1eb7cfc">vertices</a>;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <a class="code" href="a02058.html#a98bab4815e16eb71515c8f9820b1b02a">Text</a>();</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02058.html#a1efeab21a62690fb9622a0f140a1a8f5">updateDrawParams</a>();</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;};</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;} <span class="comment">// namespace com</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00554_html"><div class="ttname"><a href="a00554.html">VertexBuffer.hpp</a></div></div>
+<div class="ttc" id="aa00560_html"><div class="ttname"><a href="a00560.html">DrawableBase.hpp</a></div></div>
+<div class="ttc" id="aa01830_html"><div class="ttname"><a href="a01830.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02058_html"><div class="ttname"><a href="a02058.html">bl::com::Text</a></div><div class="ttdoc">Component for rendered text.</div><div class="ttdef"><b>Definition:</b> <a href="a05070_source.html#l00016">Text.hpp:16</a></div></div>
+<div class="ttc" id="aa02058_html_a1efeab21a62690fb9622a0f140a1a8f5"><div class="ttname"><a href="a02058.html#a1efeab21a62690fb9622a0f140a1a8f5">bl::com::Text::updateDrawParams</a></div><div class="ttdeci">void updateDrawParams()</div><div class="ttdoc">Updates the draw parameters to render the entire vertex buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a05205_source.html#l00014">Text.cpp:14</a></div></div>
+<div class="ttc" id="aa02058_html_a98bab4815e16eb71515c8f9820b1b02a"><div class="ttname"><a href="a02058.html#a98bab4815e16eb71515c8f9820b1b02a">bl::com::Text::Text</a></div><div class="ttdeci">Text()</div><div class="ttdoc">Creates an empty component.</div><div class="ttdef"><b>Definition:</b> <a href="a05205_source.html#l00009">Text.cpp:9</a></div></div>
+<div class="ttc" id="aa02058_html_ad6a3d01672812d1ea8327cd5e1eb7cfc"><div class="ttname"><a href="a02058.html#ad6a3d01672812d1ea8327cd5e1eb7cfc">bl::com::Text::vertices</a></div><div class="ttdeci">rc::buf::VertexBuffer vertices</div><div class="ttdef"><b>Definition:</b> <a href="a05070_source.html#l00017">Text.hpp:17</a></div></div>
+<div class="ttc" id="aa02902_html"><div class="ttname"><a href="a02902.html">bl::rc::buf::VertexBufferT</a></div><div class="ttdoc">Basic vertex buffer class built on top of vk::Buffer. Intended for static mesh data.</div><div class="ttdef"><b>Definition:</b> <a href="a00554_source.html#l00025">VertexBuffer.hpp:25</a></div></div>
+<div class="ttc" id="aa02910_html"><div class="ttname"><a href="a02910.html">bl::rc::rcom::DrawableBase</a></div><div class="ttdoc">Base class for drawable scene components for the ECS. Provides common members.</div><div class="ttdef"><b>Definition:</b> <a href="a00560_source.html#l00020">DrawableBase.hpp:20</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 15 2023 19:53:39 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Oct 21 2023 00:16:51 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

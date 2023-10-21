@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Logging/Logger.hpp Source File</title>
+<title>BLIB: include/BLIB/Logging/Outputters.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,94 +71,62 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Logger.hpp</div>  </div>
+<div class="title">Outputters.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00494.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_LOGGING_LOGGER_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_LOGGING_LOGGER_HPP</span></div>
+<a href="a00494.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_LOGGING_OUTPUTTERS_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_LOGGING_OUTPUTTERS_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05136.html">BLIB/Logging/Config.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00497.html">BLIB/Logging/Outputters.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01064.html">BLIB/Util/NonCopyable.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;SFML/Graphics/Rect.hpp&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;SFML/System/Vector2.hpp&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;SFML/System/Vector3.hpp&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;cstring&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;sstream&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;type_traits&gt;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01824.html">bl</a></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">namespace </span>logging</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;{</div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="a02797.html">   27</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a02797.html">Logger</a> : <span class="keyword">public</span> <a class="code" href="a03981.html">util::NonCopyable</a> {</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <a class="code" href="a02797.html#afbe3b6969c9128f05076d5f79c5130bc">~Logger</a>();</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="a02797.html#aeda1e3946b96348e5078152616d4f16d">   41</a></span>&#160;    <span class="keyword">const</span> <a class="code" href="a02797.html">Logger</a>&amp; <a class="code" href="a02797.html#aeda1e3946b96348e5078152616d4f16d">operator&lt;&lt;</a>(<span class="keyword">const</span> T&amp; data)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        ss &lt;&lt; data;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    }</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keyword">static</span> <a class="code" href="a02797.html">Logger</a> <a class="code" href="a02797.html#a36d91bbd3134b0a9d49d8d77a88cb8b5">critical</a>();</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keyword">static</span> <a class="code" href="a02797.html">Logger</a> <a class="code" href="a02797.html#a6fa6adfe984a64fb906c37591be6caa6">error</a>();</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keyword">static</span> <a class="code" href="a02797.html">Logger</a> <a class="code" href="a02797.html#aceeb9b5121a77f94e4c52382ecca0b20">warn</a>();</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keyword">static</span> <a class="code" href="a02797.html">Logger</a> <a class="code" href="a02797.html#a9a2a3f45661caa993573918c1facda31">info</a>();</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keyword">static</span> <a class="code" href="a02797.html">Logger</a> <a class="code" href="a02797.html#aed4a225248fd95298110965be134530c">debug</a>();</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keyword">static</span> <a class="code" href="a02797.html">Logger</a> <a class="code" href="a02797.html#a7df75dafbd91fae955cfe5772963e786">trace</a>();</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <a class="code" href="a02797.html">Logger</a>(<span class="keywordtype">int</span> level);</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">int</span> level;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keyword">mutable</span> std::stringstream ss;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;};</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;} <span class="comment">// namespace logging</span></div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="comment">// clang-format off</span></div>
-<div class="line"><a name="l00095"></a><span class="lineno"><a class="line" href="a00494.html#a5fccb4fc71e44089a1b1a77fc76c0b68">   95</a></span>&#160;<span class="preprocessor">#define __FILENAME__ (std::strrchr(__FILE__, &#39;/&#39;) ? std::strrchr(__FILE__, &#39;/&#39;) + 1 : std::strrchr(__FILE__, &#39;\\&#39;) ? std::strrchr(__FILE__, &#39;\\&#39;) + 1 :  __FILE__)</span></div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
-<div class="line"><a name="l00098"></a><span class="lineno"><a class="line" href="a00494.html#aab250887595d9e02b1f0b670fe342683">   98</a></span>&#160;<span class="preprocessor">#define BL_LOG_CRITICAL bl::logging::Logger::critical() &lt;&lt; __FILENAME__ &lt;&lt; &quot;:&quot;</span> &lt;&lt; __LINE__ &lt;&lt;  &quot; &quot; &lt;&lt; __FUNCTION__ &lt;&lt; &quot;()&quot; &lt;&lt; &quot; - &quot;</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
-<div class="line"><a name="l00101"></a><span class="lineno"><a class="line" href="a00494.html#a927270d671e83a1c6b5382f30bfbf895">  101</a></span>&#160;<span class="preprocessor">#define BL_LOG_ERROR bl::logging::Logger::error() &lt;&lt; __FILENAME__ &lt;&lt; &quot;:&quot;</span> &lt;&lt; __LINE__ &lt;&lt;  &quot; &quot; &lt;&lt; __FUNCTION__ &lt;&lt; &quot;()&quot; &lt;&lt; &quot; - &quot;</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
-<div class="line"><a name="l00104"></a><span class="lineno"><a class="line" href="a00494.html#af954e63cd52a20dcd7087a8c569f373f">  104</a></span>&#160;<span class="preprocessor">#define BL_LOG_WARN bl::logging::Logger::warn() &lt;&lt; __FILENAME__ &lt;&lt;  &quot;:&quot;</span> &lt;&lt; __LINE__ &lt;&lt;  &quot; &quot; &lt;&lt; __FUNCTION__ &lt;&lt; &quot;()&quot; &lt;&lt; &quot; - &quot;</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
-<div class="line"><a name="l00107"></a><span class="lineno"><a class="line" href="a00494.html#a459f7ea96e34815206480bf681ee2a2f">  107</a></span>&#160;<span class="preprocessor">#define BL_LOG_INFO bl::logging::Logger::info() &lt;&lt; __FILENAME__ &lt;&lt; &quot;:&quot;</span> &lt;&lt; __LINE__ &lt;&lt;  &quot; &quot; &lt;&lt; __FUNCTION__ &lt;&lt; &quot;()&quot; &lt;&lt; &quot; - &quot;</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
-<div class="line"><a name="l00110"></a><span class="lineno"><a class="line" href="a00494.html#a6b4a6c9a77636c98a3c0821ae6a4c119">  110</a></span>&#160;<span class="preprocessor">#define BL_LOG_DEBUG bl::logging::Logger::debug() &lt;&lt; __FILENAME__ &lt;&lt; &quot;:&quot;</span> &lt;&lt; __LINE__ &lt;&lt;  &quot; &quot; &lt;&lt; __FUNCTION__ &lt;&lt; &quot;()&quot; &lt;&lt; &quot; - &quot;</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
-<div class="line"><a name="l00113"></a><span class="lineno"><a class="line" href="a00494.html#a16aada998c9d444cc2e38cbc9c15511f">  113</a></span>&#160;<span class="preprocessor">#define BL_LOG_TRACE bl::logging::Logger::trace() &lt;&lt; __FILENAME__ &lt;&lt; &quot;:&quot;</span> &lt;&lt; __LINE__ &lt;&lt;  &quot; &quot; &lt;&lt; __FUNCTION__ &lt;&lt; &quot;()&quot; &lt;&lt; &quot; - &quot;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="comment">// clang-format on</span></div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00497_html"><div class="ttname"><a href="a00497.html">Outputters.hpp</a></div></div>
-<div class="ttc" id="aa01064_html"><div class="ttname"><a href="a01064.html">NonCopyable.hpp</a></div></div>
-<div class="ttc" id="aa01824_html"><div class="ttname"><a href="a01824.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02797_html"><div class="ttname"><a href="a02797.html">bl::logging::Logger</a></div><div class="ttdoc">Actual logging class. Provides several static methods to begin log output. Instances of Logger only l...</div><div class="ttdef"><b>Definition:</b> <a href="a00494_source.html#l00027">Logger.hpp:27</a></div></div>
-<div class="ttc" id="aa02797_html_a36d91bbd3134b0a9d49d8d77a88cb8b5"><div class="ttname"><a href="a02797.html#a36d91bbd3134b0a9d49d8d77a88cb8b5">bl::logging::Logger::critical</a></div><div class="ttdeci">static Logger critical()</div><div class="ttdoc">Create a new Logger for logging a critical error.</div><div class="ttdef"><b>Definition:</b> <a href="a01394_source.html#l00009">Logger.cpp:9</a></div></div>
-<div class="ttc" id="aa02797_html_a6fa6adfe984a64fb906c37591be6caa6"><div class="ttname"><a href="a02797.html#a6fa6adfe984a64fb906c37591be6caa6">bl::logging::Logger::error</a></div><div class="ttdeci">static Logger error()</div><div class="ttdoc">Create a new Logger for logging an error.</div><div class="ttdef"><b>Definition:</b> <a href="a01394_source.html#l00011">Logger.cpp:11</a></div></div>
-<div class="ttc" id="aa02797_html_a7df75dafbd91fae955cfe5772963e786"><div class="ttname"><a href="a02797.html#a7df75dafbd91fae955cfe5772963e786">bl::logging::Logger::trace</a></div><div class="ttdeci">static Logger trace()</div><div class="ttdoc">Create a new Logger for logging high volume low level info.</div><div class="ttdef"><b>Definition:</b> <a href="a01394_source.html#l00019">Logger.cpp:19</a></div></div>
-<div class="ttc" id="aa02797_html_a9a2a3f45661caa993573918c1facda31"><div class="ttname"><a href="a02797.html#a9a2a3f45661caa993573918c1facda31">bl::logging::Logger::info</a></div><div class="ttdeci">static Logger info()</div><div class="ttdoc">Create a new Logger for logging a piece of info.</div><div class="ttdef"><b>Definition:</b> <a href="a01394_source.html#l00015">Logger.cpp:15</a></div></div>
-<div class="ttc" id="aa02797_html_aceeb9b5121a77f94e4c52382ecca0b20"><div class="ttname"><a href="a02797.html#aceeb9b5121a77f94e4c52382ecca0b20">bl::logging::Logger::warn</a></div><div class="ttdeci">static Logger warn()</div><div class="ttdoc">Create a new Logger for logging a warning.</div><div class="ttdef"><b>Definition:</b> <a href="a01394_source.html#l00013">Logger.cpp:13</a></div></div>
-<div class="ttc" id="aa02797_html_aed4a225248fd95298110965be134530c"><div class="ttname"><a href="a02797.html#aed4a225248fd95298110965be134530c">bl::logging::Logger::debug</a></div><div class="ttdeci">static Logger debug()</div><div class="ttdoc">Create a new Logger for logging low level debug info.</div><div class="ttdef"><b>Definition:</b> <a href="a01394_source.html#l00017">Logger.cpp:17</a></div></div>
-<div class="ttc" id="aa02797_html_aeda1e3946b96348e5078152616d4f16d"><div class="ttname"><a href="a02797.html#aeda1e3946b96348e5078152616d4f16d">bl::logging::Logger::operator&lt;&lt;</a></div><div class="ttdeci">const Logger &amp; operator&lt;&lt;(const T &amp;data) const</div><div class="ttdoc">Outputer for everything.</div><div class="ttdef"><b>Definition:</b> <a href="a00494_source.html#l00041">Logger.hpp:41</a></div></div>
-<div class="ttc" id="aa02797_html_afbe3b6969c9128f05076d5f79c5130bc"><div class="ttname"><a href="a02797.html#afbe3b6969c9128f05076d5f79c5130bc">bl::logging::Logger::~Logger</a></div><div class="ttdeci">~Logger()</div><div class="ttdoc">Flushes the generated log line.</div><div class="ttdef"><b>Definition:</b> <a href="a01394_source.html#l00026">Logger.cpp:26</a></div></div>
-<div class="ttc" id="aa03981_html"><div class="ttname"><a href="a03981.html">bl::util::NonCopyable</a></div><div class="ttdoc">Helper class to make derived classes impossible for user to copy directly.</div><div class="ttdef"><b>Definition:</b> <a href="a01064_source.html#l00013">NonCopyable.hpp:13</a></div></div>
-<div class="ttc" id="aa05136_html"><div class="ttname"><a href="a05136.html">Config.hpp</a></div></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;SFML/Graphics/Rect.hpp&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;SFML/System/Vector2.hpp&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;SFML/System/Vector3.hpp&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;ostream&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;type_traits&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> E&gt;</div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="a00494.html#a2adcfa2ba7f397c7f32ad911f7fb23d2">   11</a></span>&#160;<span class="keyword">typename</span> std::enable_if&lt;std::is_enum&lt;E&gt;::value, std::ostream&amp;&gt;::type <a class="code" href="a00494.html#a2adcfa2ba7f397c7f32ad911f7fb23d2">operator&lt;&lt;</a>(std::ostream&amp; os,</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;                                                                                E v) {</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keyword">using</span> T = std::underlying_type_t&lt;E&gt;;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="keywordflow">if</span> constexpr (std::is_same&lt;T, std::uint8_t&gt;::value) { os &lt;&lt; static_cast&lt;unsigned int&gt;(v); }</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> constexpr (std::is_same&lt;T, std::int8_t&gt;::value) {</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        os &lt;&lt; static_cast&lt;int&gt;(v);</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    }</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        os &lt;&lt; static_cast&lt;T&gt;(v);</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    }</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keywordflow">return</span> os;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;}</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01858.html">sf</a></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;{</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="a01858.html#a7bd0aac136b4741a477aba50870e6d24">   27</a></span>&#160;std::ostream&amp; <a class="code" href="a01858.html#a7bd0aac136b4741a477aba50870e6d24">operator&lt;&lt;</a>(std::ostream&amp; os, <span class="keyword">const</span> sf::Vector2&lt;T&gt;&amp; v) {</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    os &lt;&lt; <span class="stringliteral">&quot;(&quot;</span> &lt;&lt; v.x &lt;&lt; <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; v.y &lt;&lt; <span class="stringliteral">&quot;)&quot;</span>;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordflow">return</span> os;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;}</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="a01858.html#abd5593f4ae9c5b851622052d25e2dee7">   33</a></span>&#160;std::ostream&amp; <a class="code" href="a01858.html#a7bd0aac136b4741a477aba50870e6d24">operator&lt;&lt;</a>(std::ostream&amp; os, <span class="keyword">const</span> sf::Vector3&lt;T&gt;&amp; v) {</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    os &lt;&lt; <span class="stringliteral">&quot;(&quot;</span> &lt;&lt; v.x &lt;&lt; <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; v.y &lt;&lt; <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; v.z &lt;&lt; <span class="stringliteral">&quot;)&quot;</span>;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordflow">return</span> os;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;}</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="a01858.html#a062778ddccb47297e3f5e71c93d9e512">   39</a></span>&#160;std::ostream&amp; <a class="code" href="a01858.html#a7bd0aac136b4741a477aba50870e6d24">operator&lt;&lt;</a>(std::ostream&amp; os, <span class="keyword">const</span> sf::Rect&lt;T&gt;&amp; r) {</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    os &lt;&lt; <span class="stringliteral">&quot;(&quot;</span> &lt;&lt; r.left &lt;&lt; <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; r.top &lt;&lt; <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; r.width &lt;&lt; <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; r.height &lt;&lt; <span class="stringliteral">&quot;)&quot;</span>;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordflow">return</span> os;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;}</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;} <span class="comment">// namespace sf</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00494_html_a2adcfa2ba7f397c7f32ad911f7fb23d2"><div class="ttname"><a href="a00494.html#a2adcfa2ba7f397c7f32ad911f7fb23d2">operator&lt;&lt;</a></div><div class="ttdeci">std::enable_if&lt; std::is_enum&lt; E &gt;::value, std::ostream &amp; &gt;::type operator&lt;&lt;(std::ostream &amp;os, E v)</div><div class="ttdef"><b>Definition:</b> <a href="a00494_source.html#l00011">Outputters.hpp:11</a></div></div>
+<div class="ttc" id="aa01858_html"><div class="ttname"><a href="a01858.html">sf</a></div><div class="ttdef"><b>Definition:</b> <a href="a00290_source.html#l00054">VulkanFont.hpp:55</a></div></div>
+<div class="ttc" id="aa01858_html_a7bd0aac136b4741a477aba50870e6d24"><div class="ttname"><a href="a01858.html#a7bd0aac136b4741a477aba50870e6d24">sf::operator&lt;&lt;</a></div><div class="ttdeci">std::ostream &amp; operator&lt;&lt;(std::ostream &amp;os, const sf::Vector2&lt; T &gt; &amp;v)</div><div class="ttdef"><b>Definition:</b> <a href="a00494_source.html#l00027">Outputters.hpp:27</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 15 2023 19:53:39 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Oct 21 2023 00:16:51 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>
