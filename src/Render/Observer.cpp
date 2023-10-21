@@ -258,5 +258,28 @@ void Observer::setClearColor(const glm::vec4& color) {
     clearColors[0].color = {{color.x, color.y, color.z, color.w}};
 }
 
+glm::vec2 Observer::transformToWorldSpace(const glm::vec2& sp) const {
+    const glm::vec2 ndc((sp.x - viewport.x) / viewport.width,
+                        (sp.y - viewport.y) / viewport.height);
+    glm::mat4 tform(1.f);
+    if (hasScene() && scenes.back().camera) {
+        tform = scenes.back().camera->getProjectionMatrix(viewport) *
+                scenes.back().camera->getViewMatrix();
+    }
+    tform                  = glm::inverse(tform);
+    const glm::vec4 result = tform * glm::vec4(sp, 0.f, 1.f);
+    return {result.x, result.y};
+}
+
+glm::vec2 Observer::transformToOverlaySpace(const glm::vec2& sp) const {
+    const glm::vec2 ndc((sp.x - viewport.x) / viewport.width,
+                        (sp.y - viewport.y) / viewport.height);
+    cam::OverlayCamera& cam = const_cast<cam::OverlayCamera&>(overlayCamera);
+    glm::mat4 tform = tform = cam.getProjectionMatrix(viewport) * cam.getViewMatrix();
+    tform                   = glm::inverse(tform);
+    const glm::vec4 result  = tform * glm::vec4(sp, 0.f, 1.f);
+    return {result.x, result.y};
+}
+
 } // namespace rc
 } // namespace bl

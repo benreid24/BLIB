@@ -139,6 +139,24 @@ public:
      */
     constexpr glm::u32vec2 getRegionSize() const;
 
+    /**
+     * @brief Transforms the given coordinate from screen space to world space using the current
+     *        viewport and camera
+     *
+     * @param screenPoint The screen space coordinate to transform
+     * @return The corresponding world space coordinate
+     */
+    glm::vec2 transformToWorldSpace(const glm::vec2& screenPoint) const;
+
+    /**
+     * @brief Transforms the given coordinate from screen space to overlay space using the current
+     *        viewport and camera
+     *
+     * @param screenPoint The screen space coordinate to transform
+     * @return The corresponding overlay space coordinate
+     */
+    glm::vec2 transformToOverlaySpace(const glm::vec2& screenPoint) const;
+
 private:
     struct SceneInstance {
         SceneRef scene;

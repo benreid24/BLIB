@@ -87,8 +87,7 @@ void OverlayScalerSystem::refreshEntity(Result& cset) {
         parentSize.y = scaler.getParent().cachedObjectSize.y * transform.getParent().getScale().y;
     }
 
-    scaler.dirty              = false;
-    scaler.cachedTargetRegion = {viewport.x, viewport.y, viewport.width, viewport.height};
+    scaler.dirty = false;
 
     float xScale = 1.f;
     float yScale = 1.f;
@@ -121,7 +120,7 @@ void OverlayScalerSystem::refreshEntity(Result& cset) {
 
     case com::OverlayScaler::None:
     default:
-        return;
+        break;
     }
 
     if (transform.getScale().x != xScale || transform.getScale().y != yScale) {
@@ -139,8 +138,8 @@ void OverlayScalerSystem::refreshEntity(Result& cset) {
         break;
     }
 
+    const glm::vec2 pos = transform.getGlobalPosition();
     if (scaler.useScissor) {
-        const glm::vec2 pos     = transform.getGlobalPosition();
         const glm::vec2& origin = transform.getOrigin();
         const glm::vec2 offset(origin.x * xScale, origin.y * yScale);
         const glm::vec2 corner = (pos - offset) / parentSize;
@@ -163,6 +162,13 @@ void OverlayScalerSystem::refreshEntity(Result& cset) {
             obj.cachedScissor = obj.getParent().cachedScissor;
         }
     }
+
+    const glm::vec2& overlaySize = cam::OverlayCamera::getOverlayCoordinateSpace();
+    scaler.cachedTargetRegion    = {
+        viewport.x + viewport.width * pos.x / overlaySize.x,
+        viewport.y + viewport.height * pos.y / overlaySize.y,
+        viewport.width * (scaler.cachedObjectSize.x * xScale) / overlaySize.x,
+        viewport.height * (scaler.cachedObjectSize.y * yScale) / overlaySize.y};
 }
 
 } // namespace sys
