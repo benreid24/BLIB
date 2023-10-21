@@ -67,6 +67,13 @@ public:
      * @param player The other animation to share player state with
      */
     void createWithSharedPlayer(engine::Engine& engine, const Animation2D& player);
+
+    /**
+     * @brief Helper method to set the scale so that the entity is a certain size
+     *
+     * @param size The size to scale to
+     */
+    virtual void scaleToSize(const glm::vec2& size) override;
 };
 
 } // namespace gfx

@@ -36,7 +36,6 @@
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstanceCache.hpp>
 #include <BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp>
-#include <BLIB/Render/Events/OverlayEntityScaled.hpp>
 #include <BLIB/Render/Events/SceneDestroyed.hpp>
 #include <BLIB/Render/Graph/Asset.hpp>
 #include <BLIB/Render/Graph/AssetFactory.hpp>
@@ -63,7 +62,6 @@
 #include <BLIB/Render/Graph/Tasks/ForwardRenderTask.hpp>
 #include <BLIB/Render/Observer.hpp>
 #include <BLIB/Render/Overlays/Overlay.hpp>
-#include <BLIB/Render/Overlays/OverlayCamera.hpp>
 #include <BLIB/Render/Overlays/OverlayObject.hpp>
 #include <BLIB/Render/Primitives/DrawParameters.hpp>
 #include <BLIB/Render/Primitives/Vertex.hpp>
@@ -81,6 +79,8 @@
 #include <BLIB/Render/Scenes/BatchedScene.hpp>
 #include <BLIB/Render/Scenes/Key.hpp>
 #include <BLIB/Render/Scenes/Scene.hpp>
+#include <BLIB/Render/Scenes/Scene2D.hpp>
+#include <BLIB/Render/Scenes/Scene3D.hpp>
 #include <BLIB/Render/Scenes/SceneObject.hpp>
 #include <BLIB/Render/Scenes/SceneObjectStorage.hpp>
 #include <BLIB/Render/Scenes/SceneRenderContext.hpp>

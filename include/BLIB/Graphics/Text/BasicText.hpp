@@ -29,9 +29,11 @@ namespace txt
 class BasicText {
 public:
     /**
-     * @brief Creates empty text with sane defaults
+     * @brief Creates a basic text object with sane defaults
+     *
+     * @param owner The owning Text object
      */
-    BasicText();
+    BasicText(bl::gfx::Text& owner);
 
     /**
      * @brief Sets the content of this text
@@ -152,6 +154,7 @@ public:
     const sf::Glyph& getGlyph(const sf::VulkanFont& font, std::uint32_t code) const;
 
 private:
+    bl::gfx::Text& owner;
     sf::String content;
     sf::String wordWrappedContent;
     std::uint32_t style;
@@ -163,7 +166,6 @@ private:
     float lineSpacingFactor;
     float cachedLineHeight;
 
-    bool refreshNeeded;
     sf::FloatRect cachedBounds;
 
     std::uint32_t refreshVertices(const sf::VulkanFont& font, rc::prim::Vertex* vertices,
@@ -193,12 +195,7 @@ inline constexpr unsigned int BasicText::getCharacterSize() const { return fontS
 
 inline constexpr unsigned int BasicText::getOutlineThickness() const { return outlineThickness; }
 
-inline const sf::FloatRect& BasicText::getBounds() const {
-#ifdef BLIB_DEBUG
-    if (refreshNeeded) { BL_LOG_ERROR << "Querying bounds of stale text"; }
-#endif
-    return cachedBounds;
-}
+inline const sf::FloatRect& BasicText::getBounds() const { return cachedBounds; }
 
 inline float BasicText::computeGlyphWidth(const sf::VulkanFont& font) const {
     return font.getGlyph(L' ', fontSize, (style & sf::Text::Bold) != 0).advance;

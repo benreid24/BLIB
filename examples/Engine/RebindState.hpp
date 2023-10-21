@@ -8,7 +8,7 @@
 
 class RebindState : public bl::engine::State {
 public:
-    static Ptr create(bl::engine::Engine& engine, unsigned int ctrl);
+    static Ptr create(unsigned int ctrl);
 
     virtual ~RebindState() = default;
     virtual const char* name() const override;
@@ -26,7 +26,7 @@ private:
     const unsigned int ctrl;
     bool inited;
 
-    RebindState(bl::engine::Engine& engine, unsigned int ctrl);
+    RebindState(unsigned int ctrl);
 };
 
 #endif

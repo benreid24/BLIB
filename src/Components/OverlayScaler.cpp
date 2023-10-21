@@ -68,5 +68,7 @@ void OverlayScaler::stopPositioning() {
     posType = NoPosition;
 }
 
+void OverlayScaler::setScaleCallback(OnScale&& cb) { onScale = std::forward<OnScale>(cb); }
+
 } // namespace com
 } // namespace bl

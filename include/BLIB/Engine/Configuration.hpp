@@ -50,7 +50,7 @@ public:
 
     /**
      * @brief Sets the value for the given type and key in the config store. Keys may be duplicated
-     *        across types. Values may not be overwritten by default
+     *        across types. Values may be overwritten by default
      *
      * @tparam T The type of item to set
      * @param key The key to set the value for

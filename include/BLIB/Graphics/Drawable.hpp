@@ -116,6 +116,13 @@ public:
      */
     void stopFlashing();
 
+    /**
+     * @brief Helper method to set the scale so that the entity is a certain size
+     *
+     * @param size The size to scale to
+     */
+    virtual void scaleToSize(const glm::vec2& size) = 0;
+
 protected:
     /**
      * @brief Initializes the drawable
@@ -189,10 +196,7 @@ Drawable<TCom, TSys>::Drawable()
 
 template<typename TCom, typename TSys>
 Drawable<TCom, TSys>::~Drawable() {
-    if (enginePtr && ecsId != ecs::InvalidEntity) {
-        onRemove();
-        enginePtr->ecs().destroyEntity(ecsId);
-    }
+    if (enginePtr && ecsId != ecs::InvalidEntity) { enginePtr->ecs().destroyEntity(ecsId); }
 }
 
 template<typename TCom, typename TSys>

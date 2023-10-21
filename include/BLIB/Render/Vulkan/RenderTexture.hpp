@@ -2,6 +2,7 @@
 #define BLIB_RENDER_RESOURCES_RENDERTEXTURE_HPP
 
 #include <BLIB/Cameras/Camera.hpp>
+#include <BLIB/Render/Resources/SceneRef.hpp>
 #include <BLIB/Render/Resources/TextureRef.hpp>
 #include <BLIB/Render/Scenes/Scene.hpp>
 #include <BLIB/Render/Vulkan/AttachmentBuffer.hpp>
@@ -53,7 +54,7 @@ public:
     /**
      * @brief Returns the texture in the texture pool that are being rendered to
      */
-    constexpr const res::TextureRef& getTexture() const;
+    const res::TextureRef& getTexture() const;
 
     /**
      * @brief Sets the color to clear the texture to prior to rendering
@@ -65,7 +66,7 @@ public:
     /**
      * @brief Returns whether or not a scene has been set
      */
-    constexpr bool hasScene() const;
+    bool hasScene() const;
 
     /**
      * @brief Replaces the camera to render the current scene with
@@ -87,14 +88,14 @@ public:
      * @return The newly created, now active, scene
      */
     template<typename TScene, typename... TArgs>
-    TScene* setScene(TArgs&&... args);
+    SceneRef setScene(TArgs&&... args);
 
     /**
      * @brief Sets the current scene to render
      *
      * @param scene The scene to make active
      */
-    void setScene(Scene* scene);
+    void setScene(SceneRef scene);
 
     /**
      * @brief Removes the current scene. Textures are still cleared each frame
@@ -119,13 +120,11 @@ private:
     VkRect2D scissor;
     VkViewport viewport;
     VkClearValue clearColors[2];
-    float defaultNear, defaultFar;
 
-    Scene* scene;
+    SceneRef scene;
     std::unique_ptr<cam::Camera> camera;
     std::uint32_t observerIndex;
 
-    void ensureCamera();
     void onSceneSet();
 
     // called by renderer
@@ -138,9 +137,9 @@ private:
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline constexpr const res::TextureRef& RenderTexture::getTexture() const { return texture; }
+inline const res::TextureRef& RenderTexture::getTexture() const { return texture; }
 
-inline constexpr bool RenderTexture::hasScene() const { return scene != nullptr; }
+inline bool RenderTexture::hasScene() const { return scene.isValid(); }
 
 inline constexpr glm::u32vec2 RenderTexture::getSize() const {
     return {scissor.extent.width, scissor.extent.height};
@@ -149,7 +148,7 @@ inline constexpr glm::u32vec2 RenderTexture::getSize() const {
 template<typename TCamera, typename... TArgs>
 TCamera* RenderTexture::setCamera(TArgs&&... args) {
     TCamera* cam = new TCamera(std::forward<TArgs>(args)...);
-    static_cast<cam::Camera*>(cam)->setNearAndFarPlanes(defaultNear, defaultFar);
+    if (hasScene()) { scene->setDefaultNearAndFarPlanes(*cam); }
     camera.reset(cam);
     return cam;
 }

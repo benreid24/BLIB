@@ -2,31 +2,32 @@
 
 #include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Render/Overlays/Overlay.hpp>
-#include <BLIB/Systems/TextSyncSystem.hpp>
 
 namespace bl
 {
 namespace gfx
 {
 Text::Text()
-: textSystem(nullptr)
-, font(nullptr)
+: font(nullptr)
 , wrapType(WrapType::None)
 , wordWrapWidth(-1.f) {
     sections.reserve(4);
 }
 
-Text::~Text() { onRemove(); }
+Text::~Text() {}
 
 void Text::create(engine::Engine& engine, const sf::VulkanFont& f, const sf::String& content,
                   unsigned int fontSize, const glm::vec4& color, std::uint32_t style) {
-    textSystem  = &engine.systems().getSystem<sys::TextSyncSystem>();
-    font        = &f;
-    needsCommit = true;
+    systems = &engine.systems();
+    font    = &f;
+    queueCommit();
 
     Drawable::create(engine);
     Textured::create(engine.ecs(), entity(), font->syncTexture(engine.renderer()));
     OverlayScalable::create(engine, entity());
+    OverlayScalable::getOverlayScaler().setScaleCallback([this]() {
+        if (wordWrapWidth > 0.f) { queueCommit(); }
+    });
 
     const std::uint32_t vc = std::max(content.getSize(), static_cast<std::size_t>(20)) * 6;
     component().vertices.create(engine.renderer().vulkanState(), vc);
@@ -36,76 +37,59 @@ void Text::create(engine::Engine& engine, const sf::VulkanFont& f, const sf::Str
 
 txt::BasicText& Text::addSection(const sf::String& content, unsigned int fontSize,
                                  const glm::vec4& color, std::uint32_t style) {
-    txt::BasicText& t = sections.emplace_back();
+    txt::BasicText& t = sections.emplace_back(*this);
     t.setString(content);
     t.setFillColor(color);
     t.setCharacterSize(fontSize);
     t.setStyle(style);
-    needsCommit = true;
+    queueCommit();
     return t;
 }
 
 void Text::setFont(const sf::VulkanFont& f) {
-    font        = &f;
-    needsCommit = true;
+    font = &f;
+    queueCommit();
 }
 
-bool Text::refreshRequired() const {
-    if (needsCommit) return true;
+void Text::onAdd(const rc::rcom::SceneObjectRef&) {}
 
-    for (const auto& section : sections) {
-        if (section.refreshNeeded) return true;
-    }
-
-    return false;
-}
-
-void Text::onAdd(const rc::rcom::SceneObjectRef&) {
-    textSystem->registerText(this);
-    commit();
-}
-
-void Text::onRemove() {
-    if (textSystem) { textSystem->removeText(this); }
-}
+void Text::onRemove() {}
 
 void Text::commit() {
-    if (refreshRequired()) {
-        needsCommit = false;
+    commitTask = {};
 
-        // word wrap
-        computeWordWrap();
+    // word wrap
+    computeWordWrap();
 
-        // count required vertex amount
-        std::uint32_t vertexCount = 0;
-        glm::vec2 trash;
-        for (auto& section : sections) {
-            vertexCount += section.refreshVertices(*font, nullptr, trash);
-        }
-
-        // create larger buffer if required
-        if (component().vertices.vertexCount() < vertexCount) {
-            component().vertices.create(engine().renderer().vulkanState(), vertexCount * 2);
-        }
-
-        // assign vertices
-        std::uint32_t vi = 0;
-        glm::vec2 cornerPos(0.f, 0.f);
-        for (auto& section : sections) {
-            vi += section.refreshVertices(*font, &component().vertices.vertices()[vi], cornerPos);
-        }
-
-        // upload vertices
-        component().vertices.queueTransfer(rc::tfr::Transferable::SyncRequirement::Immediate);
-
-        const auto bounds = getLocalBounds();
-        OverlayScalable::setLocalSize({bounds.width + bounds.left, bounds.height + bounds.top});
-
-        // update draw parameters
-        component().drawParams             = component().vertices.getDrawParameters();
-        component().drawParams.vertexCount = vertexCount;
-        component().updateDrawParams();
+    // count required vertex amount
+    std::uint32_t vertexCount = 0;
+    glm::vec2 trash;
+    for (auto& section : sections) {
+        vertexCount += section.refreshVertices(*font, nullptr, trash);
     }
+
+    // create larger buffer if required
+    if (component().vertices.vertexCount() < vertexCount) {
+        component().vertices.create(engine().renderer().vulkanState(), vertexCount * 2);
+    }
+
+    // assign vertices
+    std::uint32_t vi = 0;
+    glm::vec2 cornerPos(0.f, 0.f);
+    for (auto& section : sections) {
+        vi += section.refreshVertices(*font, &component().vertices.vertices()[vi], cornerPos);
+    }
+
+    // upload vertices
+    component().vertices.queueTransfer(rc::tfr::Transferable::SyncRequirement::Immediate);
+
+    const auto bounds = getLocalBounds();
+    OverlayScalable::setLocalSize({bounds.width + bounds.left, bounds.height + bounds.top});
+
+    // update draw parameters
+    component().drawParams             = component().vertices.getDrawParameters();
+    component().drawParams.vertexCount = vertexCount;
+    component().updateDrawParams();
 
     // always upload new font atlas if required
     font->syncTexture(engine().renderer());
@@ -114,19 +98,19 @@ void Text::commit() {
 void Text::wordWrap(float w) {
     wrapType      = WrapType::Absolute;
     wordWrapWidth = w;
-    needsCommit   = true;
+    queueCommit();
 }
 
 void Text::wordWrapToParent(float w) {
     wrapType      = WrapType::Relative;
     wordWrapWidth = w;
-    needsCommit   = true;
+    queueCommit();
 }
 
 void Text::stopWordWrap() {
     wrapType      = WrapType::None;
     wordWrapWidth = -1.f;
-    needsCommit   = true;
+    queueCommit();
 }
 
 void Text::computeWordWrap() {
@@ -264,6 +248,17 @@ Text::CharSearchResult Text::findCharacterAtPosition(const glm::vec2& targetPos)
 
     BL_LOG_DEBUG << "Could not find character position";
     return {};
+}
+
+void Text::queueCommit() {
+    if (!commitTask.isQueued()) {
+        commitTask = systems->addFrameTask(engine::FrameStage::RenderIntermediateRefresh,
+                                           std::bind(&Text::commit, this));
+    }
+}
+
+void Text::scaleToSize(const glm::vec2& size) {
+    getTransform().setScale(size / OverlayScalable::getLocalSize());
 }
 
 } // namespace gfx

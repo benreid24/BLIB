@@ -16,8 +16,24 @@ void Sprite::create(engine::Engine& engine, rc::res::TextureRef texture,
     Drawable::create(engine, engine.renderer(), texture, region);
     Textured::create(engine.ecs(), entity(), texture);
     OverlayScalable::create(engine, entity());
-    OverlayScalable::setLocalSize(component().getSize()); // TODO - need to sync maybe
+    OverlayScalable::setLocalSize(component().getSize());
     component().containsTransparency = Textured::getTexture()->containsTransparency();
+}
+
+void Sprite::setTexture(rc::res::TextureRef texture) {
+    Textured::setTexture(texture);
+    component().setTexture(texture);
+    component().containsTransparency = Textured::getTexture()->containsTransparency();
+}
+
+void Sprite::setTexture(rc::res::TextureRef texture, const sf::FloatRect region) {
+    Textured::setTexture(texture);
+    component().create(nullptr, texture, region);
+    component().containsTransparency = Textured::getTexture()->containsTransparency();
+}
+
+void Sprite::scaleToSize(const glm::vec2& size) {
+    getTransform().setScale(size / OverlayScalable::getLocalSize());
 }
 
 } // namespace gfx

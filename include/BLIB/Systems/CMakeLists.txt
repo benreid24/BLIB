@@ -7,7 +7,6 @@ target_sources(BLIB PUBLIC
 	OverlayScalerSystem.hpp
 	RendererUpdateSystem.hpp
 	RenderSystem.hpp
-	TextSyncSystem.hpp
 	TogglerSystem.hpp
 	Transform2DDescriptorSystem.hpp
 	VelocitySystem.hpp

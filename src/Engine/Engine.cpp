@@ -233,9 +233,7 @@ bool Engine::run(State::Ptr initialState) {
                     return true;
                 }
                 BL_LOG_INFO << "New engine state (popped): " << states.top()->name();
-                engineFlags.clear();
-                states.top()->activate(*this);
-                bl::event::Dispatcher::dispatch<event::StateChange>({states.top(), prev});
+                postStateChange(prev);
             }
             else if (engineFlags.active(Flags::_priv_ReplaceState)) {
                 BL_LOG_INFO << "New engine state (replaced): " << newState->name();
@@ -243,20 +241,14 @@ bool Engine::run(State::Ptr initialState) {
                 prev->deactivate(*this);
                 states.pop();
                 states.push(newState);
-                engineFlags.clear();
-                newState.reset();
-                states.top()->activate(*this);
-                bl::event::Dispatcher::dispatch<event::StateChange>({states.top(), prev});
+                postStateChange(prev);
             }
             else if (engineFlags.active(Flags::_priv_PushState)) {
                 BL_LOG_INFO << "New engine state (pushed): " << newState->name();
                 auto prev = states.top();
                 prev->deactivate(*this);
                 states.push(newState);
-                engineFlags.clear();
-                newState.reset();
-                states.top()->activate(*this);
-                bl::event::Dispatcher::dispatch<event::StateChange>({states.top(), prev});
+                postStateChange(prev);
             }
 
             updateOuterTimer.restart();
@@ -377,6 +369,14 @@ void Engine::setTimeScale(float s) { timeScale = s; }
 float Engine::getTimeScale() const { return timeScale; }
 
 void Engine::resetTimeScale() { timeScale = 1.f; }
+
+void Engine::postStateChange(const State::Ptr& prev) {
+    states.top()->activate(*this);
+    bl::event::Dispatcher::dispatch<event::StateChange>({states.top(), prev});
+    if (renderingSystem.vulkanState().device) { renderingSystem.texturePool().releaseUnused(); }
+    engineFlags.clear();
+    newState.reset();
+}
 
 } // namespace engine
 } // namespace bl

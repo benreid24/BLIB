@@ -61,6 +61,13 @@ public:
      */
     const sf::FloatRect& getLocalBounds();
 
+    /**
+     * @brief Helper method to set the scale so that the entity is a certain size
+     *
+     * @param size The size to scale to
+     */
+    virtual void scaleToSize(const glm::vec2& size) override;
+
 protected:
     /**
      * @brief Initializes the shapes fields to sane defaults

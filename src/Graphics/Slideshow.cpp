@@ -47,5 +47,9 @@ void Slideshow::createWithSharedPlayer(engine::Engine& engine, const Slideshow& 
     component().containsTransparency = Textured::getTexture()->containsTransparency();
 }
 
+void Slideshow::scaleToSize(const glm::vec2& size) {
+    getTransform().setScale(size / OverlayScalable::getLocalSize());
+}
+
 } // namespace gfx
 } // namespace bl

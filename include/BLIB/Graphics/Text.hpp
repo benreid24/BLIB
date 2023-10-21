@@ -2,6 +2,7 @@
 #define BLIB_GRAPHICS_TEXT_HPP
 
 #include <BLIB/Components/Text.hpp>
+#include <BLIB/Engine/Systems.hpp>
 #include <BLIB/Graphics/Components/OverlayScalable.hpp>
 #include <BLIB/Graphics/Components/Textured.hpp>
 #include <BLIB/Graphics/Components/Transform2D.hpp>
@@ -13,10 +14,6 @@
 
 namespace bl
 {
-namespace sys
-{
-class TextSyncSystem;
-}
 namespace engine
 {
 class Engine;
@@ -160,6 +157,13 @@ public:
      */
     void commit();
 
+    /**
+     * @brief Helper method to set the scale so that the entity is a certain size
+     *
+     * @param size The size to scale to
+     */
+    virtual void scaleToSize(const glm::vec2& size) override;
+
 private:
     class Iter {
     public:
@@ -207,19 +211,19 @@ private:
 
     enum struct WrapType { None, Absolute, Relative };
 
-    sys::TextSyncSystem* textSystem;
+    engine::Systems* systems;
     const sf::VulkanFont* font;
     std::vector<txt::BasicText> sections;
     WrapType wrapType;
     float wordWrapWidth;
-    bool needsCommit;
+    engine::Systems::TaskHandle commitTask;
 
-    bool refreshRequired() const;
+    void queueCommit();
     void computeWordWrap();
     virtual void onAdd(const rc::rcom::SceneObjectRef& sceneRef) override;
     virtual void onRemove() override;
 
-    friend class sys::TextSyncSystem;
+    friend class txt::BasicText;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////

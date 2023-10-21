@@ -49,5 +49,9 @@ void Animation2D::createWithSharedPlayer(engine::Engine& engine, const Animation
     component().containsTransparency = Textured::getTexture()->containsTransparency();
 }
 
+void Animation2D::scaleToSize(const glm::vec2& size) {
+    getTransform().setScale(size / getLocalSize());
+}
+
 } // namespace gfx
 } // namespace bl

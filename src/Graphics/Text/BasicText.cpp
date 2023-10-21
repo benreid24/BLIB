@@ -1,5 +1,7 @@
 #include <BLIB/Graphics/Text/BasicText.hpp>
 
+#include <BLIB/Graphics/Text.hpp>
+
 namespace bl
 {
 namespace gfx
@@ -83,51 +85,48 @@ std::uint32_t addGlyphQuad(rc::prim::Vertex* vertices, std::uint32_t i, glm::vec
 }
 } // namespace
 
-BasicText::BasicText()
-: style(sf::Text::Style::Regular)
+BasicText::BasicText(bl::gfx::Text& owner)
+: owner(owner)
+, style(sf::Text::Style::Regular)
 , fillColor{0.f, 0.f, 0.f, 1.f}
 , outlineColor(fillColor)
 , fontSize(18)
 , outlineThickness(0)
 , letterSpacingFactor(1.f)
-, lineSpacingFactor(1.f)
-, refreshNeeded(true) {}
+, lineSpacingFactor(1.f) {}
 
 void BasicText::setString(const sf::String& s) {
-    content       = s;
-    refreshNeeded = true;
+    content = s;
+    owner.queueCommit();
 }
 
 void BasicText::setStyle(std::uint32_t s) {
-    style         = s;
-    refreshNeeded = true;
+    style = s;
+    owner.queueCommit();
 }
 
 void BasicText::setFillColor(const glm::vec4& c) {
-    fillColor     = c;
-    refreshNeeded = true;
+    fillColor = c;
+    owner.queueCommit();
 }
 
 void BasicText::setOutlineColor(const glm::vec4& c) {
-    outlineColor  = c;
-    refreshNeeded = true;
+    outlineColor = c;
+    owner.queueCommit();
 }
 
 void BasicText::setCharacterSize(unsigned int s) {
-    fontSize      = s;
-    refreshNeeded = true;
+    fontSize = s;
+    owner.queueCommit();
 }
 
 void BasicText::setOutlineThickness(unsigned int t) {
     outlineThickness = t;
-    refreshNeeded    = true;
+    owner.queueCommit();
 }
 
 std::uint32_t BasicText::refreshVertices(const sf::VulkanFont& font, rc::prim::Vertex* vertices,
                                          glm::vec2& cornerPos) {
-    // Mark geometry as updated
-    refreshNeeded = false;
-
     // Clear the previous geometry
     cachedBounds = sf::FloatRect();
 

@@ -8,10 +8,10 @@ namespace com
 {
 Sprite::Sprite(rc::Renderer& renderer, const rc::res::TextureRef& texture,
                const sf::FloatRect& region) {
-    create(renderer, texture, region);
+    create(&renderer, texture, region);
 }
 
-void Sprite::create(rc::Renderer& renderer, const rc::res::TextureRef& txtr, sf::FloatRect region) {
+void Sprite::create(rc::Renderer* renderer, const rc::res::TextureRef& txtr, sf::FloatRect region) {
     texture = txtr;
     if (region.width == 0.f || region.height == 0.f) {
         region.left   = 0.f;
@@ -23,7 +23,12 @@ void Sprite::create(rc::Renderer& renderer, const rc::res::TextureRef& txtr, sf:
     size.y = region.height;
 
     if (buffer.vertexCount() == 0) {
-        buffer.create(renderer.vulkanState(), 4, 6);
+#ifdef BLIB_DEBUG
+        if (!renderer) {
+            throw std::runtime_error("Renderer must be supplied to first call to create()");
+        }
+#endif
+        buffer.create(renderer->vulkanState(), 4, 6);
         buffer.indices() = {0, 1, 2, 0, 2, 3};
     }
 

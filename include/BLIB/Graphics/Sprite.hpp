@@ -49,6 +49,28 @@ public:
      */
     void create(engine::Engine& engine, rc::res::TextureRef texture,
                 const sf::FloatRect& region = {});
+
+    /**
+     * @brief Sets the texture for this sprite. Use on already created sprites
+     *
+     * @param texture The texture to use
+     */
+    void setTexture(rc::res::TextureRef texture);
+
+    /**
+     * @brief Sets the texture for this sprite. Use on already created sprites
+     *
+     * @param texture The texture to use
+     * @param region The region to render from the texture
+     */
+    void setTexture(rc::res::TextureRef texture, const sf::FloatRect region);
+
+    /**
+     * @brief Helper method to set the scale so that the entity is a certain size
+     *
+     * @param size The size to scale to
+     */
+    virtual void scaleToSize(const glm::vec2& size) override;
 };
 
 } // namespace gfx

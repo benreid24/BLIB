@@ -49,7 +49,7 @@ public:
         p1.setClearColor({0.f, 0.f, 1.f, 1.f});
 
         // create 2d scene and camera for observer 1
-        bl::rc::Scene* scene = p1.pushScene<bl::rc::scene::BatchedScene>();
+        bl::rc::SceneRef scene = p1.pushScene<bl::rc::scene::Scene2D>();
         auto* p1cam =
             p1.setCamera<bl::cam::Camera2D>(sf::FloatRect{0.f, 0.f, 1920.f, 1080.f * 0.5f});
         p1cam->setRotation(15.f);
@@ -69,13 +69,13 @@ public:
         // use SFML-like class to make another
         sprite.create(engine, texture);
         sprite.getTransform().setPosition({1920.f * 0.75f, 1080.f * 0.25f});
-        sprite.getTransform().setScale({150.f / texture->size().x, 150.f / texture->size().y});
+        sprite.scaleToSize({150.f, 150.f});
         sprite.getTransform().setOrigin(texture->size() * 0.5f);
         sprite.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
         // create 3d scene for observer 2
         bl::rc::Observer& p2 = engine.renderer().addObserver();
-        scene                = p2.pushScene<bl::rc::scene::BatchedScene>();
+        scene                = p2.pushScene<bl::rc::scene::Scene3D>();
 
         // create camera for observer 2
         p2.setClearColor({0.f, 1.f, 0.f, 1.f});
@@ -84,7 +84,6 @@ public:
         player2Cam->setController<bl::cam::c3d::OrbiterController>(
             glm::vec3{0.f, 0.f, 0.f}, 4.f, glm::vec3{0.3f, 1.f, 0.1f}, 2.f, 4.f);
         player2Cam->addAffector<bl::cam::c3d::CameraShake>(0.1f, 7.f);
-        player2Cam->setNearAndFarPlanes(0.1f, 100.f); // TODO - remove when defaulted
 
         // get handle to mesh system
         bl::sys::MeshSystem& meshSystem = engine.systems().getSystem<bl::sys::MeshSystem>();
@@ -103,9 +102,9 @@ public:
         // create overlay and add sprite for observer 2
         bl::rc::Overlay* overlay = p2.getOrCreateSceneOverlay();
         messageBox.create(engine, messageBoxTxtr);
-        messageBox.getTransform().setPosition({0.5f, 0.85f});
         messageBox.getTransform().setOrigin(messageBox.getTexture()->size() * 0.5f);
         messageBox.getOverlayScaler().scaleToHeightPercent(0.3f);
+        messageBox.getOverlayScaler().positionInParentSpace({0.5f, 0.85f});
         messageBox.setScissorToSelf();
         messageBox.addToScene(overlay, bl::rc::UpdateSpeed::Static);
 
@@ -129,19 +128,22 @@ public:
 
         // setup render texture
         renderTexture.create(engine.renderer(), {128, 128});
-        bl::rc::Overlay* rto = engine.renderer().scenePool().allocateScene<bl::rc::Overlay>();
+        bl::rc::SceneRef rto =
+            engine.renderer().scenePool().allocateScene<bl::rc::scene::Scene2D>();
         renderTexture.setScene(rto);
-        renderTexture.setCamera<bl::rc::ovy::OverlayCamera>();
+        renderTexture.setCamera<bl::cam::Camera2D>(sf::FloatRect{0.f, 0.f, 1.f, 1.f});
         renderTexture.setClearColor({0.f, 0.0f, 0.7f, 0.4f});
 
         renderTextureInnerSprite.create(engine, texture);
-        renderTextureInnerSprite.getOverlayScaler().scaleToWidthPercent(1.f);
+        renderTextureInnerSprite.getTransform().setScale(
+            {1.f / renderTextureInnerSprite.getLocalSize().x,
+             1.f / renderTextureInnerSprite.getLocalSize().y});
         renderTextureInnerSprite.getTransform().setPosition({0.f, 0.f});
         renderTextureInnerSprite.addToScene(rto, bl::rc::UpdateSpeed::Static);
 
         renderTextureOuterSprite.create(engine, renderTexture.getTexture());
-        renderTextureOuterSprite.getTransform().setPosition({0.05f, 0.1f});
         renderTextureOuterSprite.getOverlayScaler().scaleToHeightPercent(0.15f);
+        renderTextureOuterSprite.getOverlayScaler().positionInParentSpace({0.05f, 0.1f});
         renderTextureOuterSprite.addToScene(overlay, bl::rc::UpdateSpeed::Static);
 
         // subscribe to window events
@@ -242,6 +244,8 @@ private:
 };
 
 int main() {
+    bl::cam::OverlayCamera::setOverlayCoordinateSpace(1920.f * 0.5f, 1080.f * 0.5f * 0.5f);
+
     const bl::engine::Settings engineSettings = bl::engine::Settings().withWindowParameters(
         bl::engine::Settings::WindowParameters()
             .withVideoMode(sf::VideoMode(1920, 1080, 32))

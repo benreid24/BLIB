@@ -32,7 +32,7 @@ void MainState::activate(bl::engine::Engine& engine) {
         cover.setFillColor({1.f, 1.f, 1.f, 1.f});
     }
 
-    bl::rc::Scene* scene = engine.renderer().getObserver().pushScene<bl::rc::scene::BatchedScene>();
+    bl::rc::SceneRef scene = engine.renderer().getObserver().pushScene<bl::rc::scene::Scene2D>();
     kbmControls.addToScene(scene, bl::rc::UpdateSpeed::Static);
     jsControls.addToScene(scene, bl::rc::UpdateSpeed::Static);
     cover.addToScene(scene, bl::rc::UpdateSpeed::Static);
@@ -72,10 +72,8 @@ void MainState::update(bl::engine::Engine& engine, float, float) {
         "\n  Back: " + a.getJoystickTriggerControl(Control::Back).toString() +
         "\n  Close: " + a.getJoystickTriggerControl(Control::Close).toString());
 
-    if (listener.shouldRebindExample()) {
-        engine.pushState(RebindState::create(engine, Control::Example));
-    }
+    if (listener.shouldRebindExample()) { engine.pushState(RebindState::create(Control::Example)); }
     else if (listener.shouldRebindMovement()) {
-        engine.pushState(RebindState::create(engine, Control::Movement));
+        engine.pushState(RebindState::create(Control::Movement));
     }
 }

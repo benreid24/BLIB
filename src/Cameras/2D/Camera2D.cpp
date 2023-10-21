@@ -87,7 +87,6 @@ void Camera2D::removeAffector(const CameraAffector2D* a) {
 }
 
 void Camera2D::refreshProjMatrix(glm::mat4& proj, const VkViewport&) {
-    // TODO - letterbox here as well?
     glm::vec2 c = center;
     glm::vec2 s = size;
     for (auto& a : affectors) { a->applyOnProj(c, s); }
