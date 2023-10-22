@@ -1,9 +1,9 @@
 #ifndef BLIB_MENU_ITEMS_IMAGEITEM_HPP
 #define BLIB_MENU_ITEMS_IMAGEITEM_HPP
 
+#include <BLIB/Graphics/Sprite.hpp>
 #include <BLIB/Interfaces/Menu/Item.hpp>
-#include <BLIB/Resources.hpp>
-#include <SFML/Graphics/Sprite.hpp>
+#include <BLIB/Render/Resources/TextureRef.hpp>
 
 namespace bl
 {
@@ -22,46 +22,66 @@ public:
     /**
      * @brief Create the render item from a sprite
      *
+     * @param engine The game engine instance
+     * @param texture The texture to use
      */
-    static Ptr create(const resource::Ref<sf::Texture>& texture);
+    static Ptr create(const rc::res::TextureRef& texture);
 
     /**
      * @brief Destroy the Image Item object
-     *
      */
     virtual ~ImageItem() = default;
 
     /**
      * @brief Returns a modifiable reference to the contained sprite
-     *
      */
-    sf::Sprite& getSprite();
+    gfx::Sprite& getSprite();
 
     /**
      * @brief Changes the texture of this image. Does not trigger a menu refresh
      *
+     * @param texture The texture to use
      */
-    void setTexture(const resource::Ref<sf::Texture>& texture);
+    void setTexture(const rc::res::TextureRef& texture);
 
     /**
      * @see Item::getSize
-     *
      */
-    virtual sf::Vector2f getSize() const override;
+    virtual glm::vec2 getSize() const override;
 
 protected:
     /**
-     * @see Item::render
+     * @brief Called at least once when the item is added to a menu. Should create required graphics
+     *        primitives and return the transform to use
      *
+     * @param engine The game engine instance
+     * @param parent The parent entity that should be used
+     * @return The transform component to use
      */
-    virtual void render(sf::RenderTarget& target, sf::RenderStates states,
-                        const sf::Vector2f& position) const override;
+    virtual com::Transform2D& doCreate(engine::Engine& engine, ecs::Entity parent) override;
+
+    /**
+     * @brief Called when the item should be added to the overlay
+     *
+     * @param overlay The overlay to add to
+     */
+    virtual void doSceneAdd(rc::Overlay* overlay) override;
+
+    /**
+     * @brief Called when the item should be removed from the overlay
+     */
+    virtual void doSceneRemove() override;
+
+    /**
+     * @brief Returns the entity (or top level entity) of the item
+     */
+    virtual ecs::Entity getEntity() const override;
 
 private:
-    resource::Ref<sf::Texture> texture;
-    sf::Sprite sprite;
+    rc::res::TextureRef texture;
+    gfx::Sprite sprite;
 
-    ImageItem(const resource::Ref<sf::Texture>& texture);
+    ImageItem(const rc::res::TextureRef& texture);
 };
 
 } // namespace menu

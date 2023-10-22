@@ -28,21 +28,47 @@ public:
     static Ptr create(float width, const sf::Color& fill = sf::Color::White);
 
     /**
+     * @brief Destroys the arrow selector
+     */
+    virtual ~ArrowSelector() = default;
+
+    /**
      * @brief Exposes the underlying triangle
-     *
      */
     gfx::Triangle& getArrow();
 
     /**
-     * @see Selector::render
+     * @brief Called when the selector is added to a menu
      *
+     * @param engine The game engine instance
+     * @param parent The parent entity id
      */
-    virtual void render(sf::RenderTarget& target, sf::RenderStates states,
-                        sf::FloatRect itemArea) const override;
+    virtual void doCreate(engine::Engine& engine, ecs::Entity parent) override;
+
+    /**
+     * @brief Called when the selector should select an item
+     *
+     * @param item The ECS id of the selected item
+     * @param itemArea The overlay space area of the selected item
+     */
+    virtual void notifySelection(ecs::Entity item, sf::FloatRect itemArea) override;
+
+    /**
+     * @brief Called when the selector should be added to the overlay
+     *
+     * @param overlay The overlay to add to
+     */
+    virtual void doSceneAdd(rc::Overlay* overlay) override;
+
+    /**
+     * @brief Called when the selector should be removed from the overlay
+     */
+    virtual void doSceneRemove() override;
 
 private:
     const float width;
-    mutable gfx::Triangle triangle;
+    const sf::Color fillColor;
+    gfx::Triangle triangle;
 
     ArrowSelector(float width, const sf::Color& f);
 };

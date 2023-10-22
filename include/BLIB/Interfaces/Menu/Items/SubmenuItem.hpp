@@ -72,10 +72,8 @@ public:
 
     /**
      * @brief Returns the size of the underlying item as the size of this item
-     *
-     * @return sf::Vector2f The size of the underlying item as the size of this item
      */
-    virtual sf::Vector2f getSize() const override;
+    virtual glm::vec2 getSize() const override;
 
 protected:
     /**
@@ -91,21 +89,37 @@ protected:
                 AttachPoint submenuDirection);
 
     /**
-     * @brief Calls render on the base item. Submenu items are added to the menu directly and are
-     *        not rendered by this method
+     * @brief Called at least once when the item is added to a menu. Should create required graphics
+     *        primitives and return the transform to use
      *
-     * @param target The target to render to
-     * @param states Render states to use
-     * @param position The position to render at
+     * @param engine The game engine instance
+     * @param parent The parent entity that should be used
+     * @return The transform component to use
      */
-    virtual void render(sf::RenderTarget& target, sf::RenderStates states,
-                        const sf::Vector2f& position) const override;
+    virtual com::Transform2D& doCreate(engine::Engine& engine, ecs::Entity parent) override;
+
+    /**
+     * @brief Called when the item should be added to the overlay
+     *
+     * @param overlay The overlay to add to
+     */
+    virtual void doSceneAdd(rc::Overlay* overlay) override;
+
+    /**
+     * @brief Called when the item should be removed from the overlay
+     */
+    virtual void doSceneRemove() override;
+
+    /**
+     * @brief Returns the entity (or top level entity) of the item
+     */
+    virtual ecs::Entity getEntity() const override;
 
 private:
     const AttachPoint openDir;
     const AttachPoint menuDir;
     Menu& parent;
-    const Item::Ptr self;
+    Item::Ptr self;
     std::vector<Item::Ptr> options;
     bool open;
 };

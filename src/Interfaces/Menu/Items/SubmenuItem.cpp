@@ -18,6 +18,17 @@ SubmenuItem::SubmenuItem(Menu& parent, const Item::Ptr& i, AttachPoint sp, Attac
     getSignal(Activated).willAlwaysCall([this]() { openMenu(); });
 }
 
+com::Transform2D& SubmenuItem::doCreate(engine::Engine& engine, ecs::Entity parent) {
+    self->create(engine, parent);
+    return *self->transform;
+}
+
+void SubmenuItem::doSceneAdd(rc::Overlay* overlay) { self->doSceneAdd(overlay); }
+
+void SubmenuItem::doSceneRemove() { self->doSceneRemove(); }
+
+ecs::Entity SubmenuItem::getEntity() const { return self->getEntity(); }
+
 void SubmenuItem::addOption(const Item::Ptr& opt, bool isBack) {
     options.emplace_back(opt);
     if (isBack) {
@@ -49,12 +60,7 @@ void SubmenuItem::closeMenu() {
 
 constexpr bool SubmenuItem::isOpen() const { return open; }
 
-sf::Vector2f SubmenuItem::getSize() const { return self->getSize(); }
-
-void SubmenuItem::render(sf::RenderTarget& target, sf::RenderStates states,
-                         const sf::Vector2f& position) const {
-    self->render(target, states, position);
-}
+glm::vec2 SubmenuItem::getSize() const { return self->getSize(); }
 
 } // namespace menu
 } // namespace bl

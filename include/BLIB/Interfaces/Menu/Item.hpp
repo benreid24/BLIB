@@ -1,14 +1,22 @@
 #ifndef BLIB_MENU_ITEM_HPP
 #define BLIB_MENU_ITEM_HPP
 
+#include <BLIB/Components/Transform2D.hpp>
+#include <BLIB/Render/Overlays/Overlay.hpp>
 #include <BLIB/Util/Signal.hpp>
 #include <SFML/Graphics.hpp>
 #include <functional>
+#include <glm/glm.hpp>
 #include <list>
 #include <memory>
 
 namespace bl
 {
+namespace engine
+{
+class Engine;
+}
+
 namespace menu
 {
 class Menu;
@@ -71,7 +79,7 @@ public:
      * @brief Set an explicit position for this item. Default behavior is to grid items
      *
      */
-    void overridePosition(const sf::Vector2f& position);
+    void overridePosition(const glm::vec2& position);
 
     /**
      * @brief Returns a modifiable reference to the Signal object for the corresponding
@@ -86,14 +94,14 @@ public:
      * @brief Returns the position of the button relative to it's menu
      *
      */
-    const sf::Vector2f& getPosition() const;
+    const glm::vec2& getPosition() const;
 
     /**
      * @brief Return the untransformed size of the object
      *
-     * @return sf::Vector2f Size the object will take
+     * @return Size the item will take up
      */
-    virtual sf::Vector2f getSize() const = 0;
+    virtual glm::vec2 getSize() const = 0;
 
 protected:
     /**
@@ -103,23 +111,47 @@ protected:
     Item();
 
     /**
-     * @brief Render the item to the given target
+     * @brief Called at least once when the item is added to a menu. Should create required graphics
+     *        primitives and return the transform to use
      *
-     * @param target The target to render to
-     * @param states RenderStates to apply
-     * @param position Position to render at
+     * @param engine The game engine instance
+     * @param parent The parent entity that should be used
+     * @return The transform component to use
      */
-    virtual void render(sf::RenderTarget& target, sf::RenderStates states,
-                        const sf::Vector2f& position) const = 0;
+    virtual com::Transform2D& doCreate(engine::Engine& engine, ecs::Entity parent) = 0;
+
+    /**
+     * @brief Called when the item should be added to the overlay
+     *
+     * @param overlay The overlay to add to
+     */
+    virtual void doSceneAdd(rc::Overlay* overlay) = 0;
+
+    /**
+     * @brief Called when the item should be removed from the overlay
+     */
+    virtual void doSceneRemove() = 0;
+
+    /**
+     * @brief Returns the entity (or top level entity) of the item
+     */
+    virtual ecs::Entity getEntity() const = 0;
 
 private:
-    sf::Vector2f position;
+    com::Transform2D* transform;
+    glm::vec2 position;
+    glm::vec2 offset;
     Item* attachments[_NUM_ATTACHPOINTS];
     AttachPoint parent;
     util::Signal<> signals[_NUM_EVENTS];
     bool canBeSelected;
     bool allowSelectionCross;
     bool positionOverridden;
+
+    void create(engine::Engine& engine, ecs::Entity parent);
+    void notifyPosition(const glm::vec2& position);
+    void notifyOffset(const glm::vec2& offset);
+    void updatePosition();
 
     friend class Menu;
     friend class SubmenuItem;

@@ -1,3 +1,7 @@
+#ifndef BLIB_INTERFACES_MENU_ITEMS_TOGGLETEXTITEM_HPP
+#define BLIB_INTERFACES_MENU_ITEMS_TOGGLETEXTITEM_HPP
+
+#include <BLIB/Graphics/Rectangle.hpp>
 #include <BLIB/Interfaces/Menu/Items/TextItem.hpp>
 
 namespace bl
@@ -23,12 +27,11 @@ public:
      * @param fontSize The size of the text
      * @return Ptr The new menu item
      */
-    static Ptr create(const std::string& text, const sf::Font& font,
+    static Ptr create(const std::string& text, const sf::VulkanFont& font,
                       const sf::Color& color = sf::Color::Black, unsigned int fontSize = 30);
 
     /**
      * @brief Destroy the Toggle Text Item object
-     *
      */
     virtual ~ToggleTextItem() = default;
 
@@ -52,7 +55,7 @@ public:
      *
      * @param fillColor Color of the inside of the box. Defaults to the negative of the text color
      * @param borderColor Color of the box border. Defaults to the text color
-     * @param width Width and height of the square. Defaults to fontSize
+     * @param width Size of the square. Defaults to fontSize
      * @param borderThickness Thickness of the box outline. Defaults to 2.f
      * @param padding Space between text and box. Defaults to fontSize / 2.f
      * @param showOnLeft True for box on left of the text, false for right. Default is right side
@@ -62,10 +65,8 @@ public:
 
     /**
      * @brief Returns the size of the text plus the box and padding
-     *
-     * @return sf::Vector2f The size the menu item takes up
      */
-    virtual sf::Vector2f getSize() const override;
+    virtual glm::vec2 getSize() const override;
 
 protected:
     /**
@@ -76,27 +77,53 @@ protected:
      * @param color The color to make the text
      * @param fontSize The size of the text
      */
-    ToggleTextItem(const std::string& text, const sf::Font& font, const sf::Color& color,
+    ToggleTextItem(const std::string& text, const sf::VulkanFont& font, const sf::Color& color,
                    unsigned int fontSize);
 
     /**
-     * @brief Renders the text and checkbox
+     * @brief Called at least once when the item is added to a menu. Should create required graphics
+     *        primitives and return the transform to use
      *
-     * @param target The target to render to
-     * @param states Render states to use
-     * @param position The position to render at
+     * @param engine The game engine instance
+     * @param parent The parent entity that should be used
+     * @return The transform component to use
      */
-    virtual void render(sf::RenderTarget& target, sf::RenderStates states,
-                        const sf::Vector2f& position) const override;
+    virtual com::Transform2D& doCreate(engine::Engine& engine, ecs::Entity parent) override;
+
+    /**
+     * @brief Called when the item should be added to the overlay
+     *
+     * @param overlay The overlay to add to
+     */
+    virtual void doSceneAdd(rc::Overlay* overlay) override;
+
+    /**
+     * @brief Called when the item should be removed from the overlay
+     */
+    virtual void doSceneRemove() override;
+
+    /**
+     * @brief Returns the entity (or top level entity) of the item
+     */
+    virtual ecs::Entity getEntity() const override;
 
 private:
     bool checked;
     bool leftSide;
     float padding;
-    sf::RectangleShape box;
-    sf::RectangleShape innerBox;
-    float textOffset;
+    gfx::Rectangle box;
+    gfx::Rectangle innerBox;
+
+    // box props
+    sf::Color fillColor;
+    sf::Color borderColor;
+    float width;
+    float borderThickness;
+
+    void update();
 };
 
 } // namespace menu
 } // namespace bl
+
+#endif

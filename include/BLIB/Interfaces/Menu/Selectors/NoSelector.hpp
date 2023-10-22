@@ -26,9 +26,23 @@ public:
 
     /**
      * @brief Does nothing
-     *
      */
-    virtual void render(sf::RenderTarget&, sf::RenderStates, sf::FloatRect) const override {}
+    virtual void doCreate(engine::Engine&, ecs::Entity) override{};
+
+    /**
+     * @brief Does nothing
+     */
+    virtual void notifySelection(ecs::Entity, sf::FloatRect) override{};
+
+    /**
+     * @brief Does nothing
+     */
+    virtual void doSceneAdd(rc::Overlay*) override{};
+
+    /**
+     * @brief Does nothing
+     */
+    virtual void doSceneRemove() override{};
 
 private:
     NoSelector() = default;

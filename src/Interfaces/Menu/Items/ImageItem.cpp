@@ -4,30 +4,42 @@ namespace bl
 {
 namespace menu
 {
-ImageItem::Ptr ImageItem::create(const resource::Ref<sf::Texture>& texture) {
+ImageItem::Ptr ImageItem::create(const rc::res::TextureRef& texture) {
     return Ptr(new ImageItem(texture));
 }
 
-ImageItem::ImageItem(const resource::Ref<sf::Texture>& texture)
-: texture(texture)
-, sprite(*texture) {}
+ImageItem::ImageItem(const rc::res::TextureRef& texture)
+: texture(texture) {}
 
-sf::Sprite& ImageItem::getSprite() { return sprite; }
+gfx::Sprite& ImageItem::getSprite() { return sprite; }
 
-void ImageItem::setTexture(const resource::Ref<sf::Texture>& t) {
+void ImageItem::setTexture(const rc::res::TextureRef& t) {
     texture = t;
-    sprite.setTexture(*texture, true);
+    if (sprite.entity() != ecs::InvalidEntity) { sprite.setTexture(texture); }
 }
 
-sf::Vector2f ImageItem::getSize() const {
-    return {sprite.getGlobalBounds().width, sprite.getGlobalBounds().height};
+glm::vec2 ImageItem::getSize() const {
+    if (sprite.entity() != ecs::InvalidEntity) {
+        const glm::vec2& size  = sprite.getLocalSize();
+        const glm::vec2& scale = sprite.getTransform().getScale();
+        return size * scale;
+    }
+    return texture->size();
 }
 
-void ImageItem::render(sf::RenderTarget& target, sf::RenderStates states,
-                       const sf::Vector2f& pos) const {
-    states.transform.translate(pos);
-    target.draw(sprite, states);
+com::Transform2D& ImageItem::doCreate(engine::Engine& engine, ecs::Entity parent) {
+    sprite.create(engine, texture);
+    sprite.setParent(parent);
+    return sprite.getTransform();
 }
+
+void ImageItem::doSceneAdd(rc::Overlay* overlay) {
+    sprite.addToScene(overlay, rc::UpdateSpeed::Static);
+}
+
+void ImageItem::doSceneRemove() { sprite.removeFromScene(); }
+
+ecs::Entity ImageItem::getEntity() const { return sprite.entity(); }
 
 } // namespace menu
 } // namespace bl

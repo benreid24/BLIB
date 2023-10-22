@@ -99,6 +99,13 @@ public:
     void setParent(const Drawable<U>& parent);
 
     /**
+     * @brief Helper method to parent this drawable
+     *
+     * @param parent The parent entity of this drawable
+     */
+    void setParent(ecs::Entity parent);
+
+    /**
      * @brief Helper method to remove the parent of this drawable, if any
      */
     void removeParent();
@@ -270,6 +277,15 @@ void Drawable<TCom, TSys>::setParent(const Drawable<U>& parent) {
 #endif
 
     enginePtr->ecs().setEntityParent(entity(), parent.entity());
+}
+
+template<typename TCom, typename TSys>
+void Drawable<TCom, TSys>::setParent(ecs::Entity parent) {
+#ifdef BLIB_DEBUG
+    if (!enginePtr) { throw std::runtime_error("Drawable must be created before parenting"); }
+#endif
+
+    enginePtr->ecs().setEntityParent(entity(), parent);
 }
 
 template<typename TCom, typename TSys>
