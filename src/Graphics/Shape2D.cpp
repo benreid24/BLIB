@@ -65,6 +65,8 @@ void Shape2D::create(engine::Engine& engine) {
     markDirty();
 }
 
+void Shape2D::ensureLocalSizeUpdated() { update(); }
+
 void Shape2D::update() {
     if (entity() == ecs::InvalidEntity || !dirty) { return; }
     dirty        = false;

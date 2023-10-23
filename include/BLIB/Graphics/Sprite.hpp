@@ -71,6 +71,12 @@ public:
      * @param size The size to scale to
      */
     virtual void scaleToSize(const glm::vec2& size) override;
+
+protected:
+    /**
+     * @brief Called when the local size is queried
+     */
+    virtual void ensureLocalSizeUpdated() override;
 };
 
 } // namespace gfx

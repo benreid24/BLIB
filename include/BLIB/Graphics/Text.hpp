@@ -59,7 +59,7 @@ public:
     /**
      * @brief Cleans up
      */
-    ~Text();
+    virtual ~Text();
 
     /**
      * @brief Creates the text entity and components in the ECS and creates a section using the
@@ -222,6 +222,7 @@ private:
     void computeWordWrap();
     virtual void onAdd(const rc::rcom::SceneObjectRef& sceneRef) override;
     virtual void onRemove() override;
+    virtual void ensureLocalSizeUpdated() override;
 
     friend class txt::BasicText;
 };

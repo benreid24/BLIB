@@ -19,8 +19,10 @@ Menu::Menu()
 , observer(nullptr)
 , overlay(nullptr)
 , maxSize(-1.f, -1.f)
+, offset{}
 , selector()
 , selectedItem(nullptr)
+, position{}
 , padding(10.f, 10.f)
 , minSize(0.f, 0.f)
 , bgndPadding(padding.x * 2.f, padding.y * 2.f, padding.x * 2.f, padding.y * 2.f)
@@ -35,7 +37,7 @@ void Menu::create(engine::Engine& e, rc::Observer& o, const Selector::Ptr& sel) 
     background.create(*engine, {100.f, 100.f});
     background.setFillColor({1.f, 1.f, 1.f, 0.f});
     background.setOutlineColor({1.f, 1.f, 1.f, 0.f});
-    background.getOverlayScaler().setScissorToSelf(true);
+    // background.getOverlayScaler().setScissorToSelf(true);
     selector->doCreate(*engine, background.entity());
     event::Dispatcher::subscribe(this);
 }
@@ -48,6 +50,7 @@ void Menu::addToOverlay() {
 
 void Menu::removeFromOverlay() {
     overlay = nullptr;
+    background.removeFromScene();
     for (auto& item : items) { item->doSceneRemove(); }
 }
 
@@ -89,10 +92,10 @@ void Menu::configureBackground(sf::Color fill, sf::Color outline, float t, const
     background.setFillColor(sfcol(fill));
     background.setOutlineColor(sfcol(outline));
     background.setOutlineThickness(t);
-    bgndPadding =
-        p.left >= 0.f ?
-            p :
-            sf::FloatRect(padding.x * 2.f, padding.y * 2.f, padding.x * 2.f, padding.y * 2.f);
+    if (p.left >= 0.f) {
+        bgndPadding = p;
+        refreshPositions();
+    }
 }
 
 sf::FloatRect Menu::getBounds() const {

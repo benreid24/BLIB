@@ -62,6 +62,8 @@ public:
         menu.setPosition({320.f, 100.f});
         menu.setPadding({30.f, 8.f});
 
+        menu.configureBackground(sf::Color::Black, sf::Color::White, 3.f, {15.f, 15.f, 15.f, 15.f});
+
         menu.addToOverlay();
         bl::event::Dispatcher::subscribe(&keyboardEventGenerator);
         bl::event::Dispatcher::subscribe(&mouseEventGenerator);

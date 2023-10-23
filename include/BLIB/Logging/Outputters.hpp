@@ -4,6 +4,7 @@
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/System/Vector2.hpp>
 #include <SFML/System/Vector3.hpp>
+#include <glm/glm.hpp>
 #include <ostream>
 #include <type_traits>
 
@@ -12,12 +13,8 @@ typename std::enable_if<std::is_enum<E>::value, std::ostream&>::type operator<<(
                                                                                 E v) {
     using T = std::underlying_type_t<E>;
     if constexpr (std::is_same<T, std::uint8_t>::value) { os << static_cast<unsigned int>(v); }
-    else if constexpr (std::is_same<T, std::int8_t>::value) {
-        os << static_cast<int>(v);
-    }
-    else {
-        os << static_cast<T>(v);
-    }
+    else if constexpr (std::is_same<T, std::int8_t>::value) { os << static_cast<int>(v); }
+    else { os << static_cast<T>(v); }
     return os;
 }
 
@@ -40,6 +37,31 @@ std::ostream& operator<<(std::ostream& os, const sf::Rect<T>& r) {
     os << "(" << r.left << ", " << r.top << ", " << r.width << ", " << r.height << ")";
     return os;
 }
+
 } // namespace sf
+
+template<typename T, glm::qualifier Q>
+std::ostream& operator<<(std::ostream& os, const glm::vec<1, T, Q>& v) {
+    os << "(" << v.x << ")";
+    return os;
+}
+
+template<typename T, glm::qualifier Q>
+std::ostream& operator<<(std::ostream& os, const glm::vec<2, T, Q>& v) {
+    os << "(" << v.x << ", " << v.y << ")";
+    return os;
+}
+
+template<typename T, glm::qualifier Q>
+std::ostream& operator<<(std::ostream& os, const glm::vec<3, T, Q>& v) {
+    os << "(" << v.x << ", " << v.y << ", " << v.z << ")";
+    return os;
+}
+
+template<typename T, glm::qualifier Q>
+std::ostream& operator<<(std::ostream& os, const glm::vec<4, T, Q>& v) {
+    os << "(" << v.x << ", " << v.y << ", " << v.z << ", " << v.w << ")";
+    return os;
+}
 
 #endif

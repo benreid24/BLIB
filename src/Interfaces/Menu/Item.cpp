@@ -7,7 +7,10 @@ namespace bl
 namespace menu
 {
 Item::Item()
-: canBeSelected(true)
+: transform(nullptr)
+, position{}
+, offset{}
+, canBeSelected(true)
 , allowSelectionCross(true)
 , positionOverridden(false) {
     for (unsigned int i = 0; i < AttachPoint::_NUM_ATTACHPOINTS; ++i) { attachments[i] = nullptr; }

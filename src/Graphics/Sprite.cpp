@@ -36,5 +36,7 @@ void Sprite::scaleToSize(const glm::vec2& size) {
     getTransform().setScale(size / OverlayScalable::getLocalSize());
 }
 
+void Sprite::ensureLocalSizeUpdated() {}
+
 } // namespace gfx
 } // namespace bl

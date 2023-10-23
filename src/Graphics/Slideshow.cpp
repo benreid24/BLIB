@@ -51,5 +51,7 @@ void Slideshow::scaleToSize(const glm::vec2& size) {
     getTransform().setScale(size / OverlayScalable::getLocalSize());
 }
 
+void Slideshow::ensureLocalSizeUpdated() {}
+
 } // namespace gfx
 } // namespace bl

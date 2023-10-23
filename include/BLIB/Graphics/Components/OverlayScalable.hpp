@@ -82,6 +82,11 @@ protected:
      */
     void setLocalSize(const glm::vec2& size);
 
+    /**
+     * @brief Called when the local size is queried
+     */
+    virtual void ensureLocalSizeUpdated() = 0;
+
 private:
     sys::OverlayScalerSystem* scalerSystem;
     ecs::Registry* registry;
@@ -106,8 +111,6 @@ void OverlayScalable::create(engine::Engine& engine, ecs::Entity entity, TArgs&&
 }
 
 inline void OverlayScalable::setLocalSize(const glm::vec2& size) { handle->setEntitySize(size); }
-
-inline const glm::vec2& OverlayScalable::getLocalSize() const { return handle->getEntitySize(); }
 
 inline const sf::FloatRect& OverlayScalable::getTargetRegion() const {
     return handle->cachedTargetRegion;

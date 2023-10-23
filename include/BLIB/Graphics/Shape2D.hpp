@@ -111,6 +111,11 @@ protected:
      */
     void create(engine::Engine& engine);
 
+    /**
+     * @brief Called when the local size is queried
+     */
+    virtual void ensureLocalSizeUpdated() override;
+
 private:
     glm::vec4 fillColor;
     glm::vec4 outlineColor;

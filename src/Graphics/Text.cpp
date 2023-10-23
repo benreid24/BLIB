@@ -55,6 +55,8 @@ void Text::onAdd(const rc::rcom::SceneObjectRef&) {}
 
 void Text::onRemove() {}
 
+void Text::ensureLocalSizeUpdated() { commit(); }
+
 void Text::commit() {
     commitTask = {};
 

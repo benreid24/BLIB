@@ -18,6 +18,11 @@ OverlayScalable::OverlayScalable()
 
 void OverlayScalable::setScissorToSelf(bool setToSelf) { handle->setScissorToSelf(setToSelf); }
 
+const glm::vec2& OverlayScalable::getLocalSize() const {
+    const_cast<OverlayScalable*>(this)->ensureLocalSizeUpdated();
+    return handle->getEntitySize();
+}
+
 glm::vec2 OverlayScalable::getOverlaySize() const {
     const glm::vec2& ls    = getLocalSize();
     const glm::vec2& scale = Transform2D::getTransform().getScale();
