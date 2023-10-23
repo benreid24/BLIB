@@ -118,7 +118,6 @@ void Shape2D::update() {
     localBounds.height -= localBounds.top;
     ib.vertices()[0].pos.x = localBounds.left + localBounds.width * 0.5f;
     ib.vertices()[0].pos.y = localBounds.top + localBounds.height * 0.5f;
-    OverlayScalable::setLocalSize({localBounds.width, localBounds.height});
 
     // populate indices for shape vertices
     for (unsigned int i = 1; i < outlineStartIndex; ++i) {
@@ -175,8 +174,20 @@ void Shape2D::update() {
 
             ii += 6;
         }
+
+        // re-determine local bounds with outline accounted for
+        localBounds = {FL::max(), FL::max(), FL::min(), FL::min()};
+        for (const auto& v : ib.vertices()) {
+            localBounds.left   = std::min(localBounds.left, v.pos.x);
+            localBounds.top    = std::min(localBounds.top, v.pos.y);
+            localBounds.width  = std::max(localBounds.width, v.pos.x);
+            localBounds.height = std::max(localBounds.height, v.pos.y);
+        }
+        localBounds.width -= localBounds.left;
+        localBounds.height -= localBounds.top;
     }
 
+    OverlayScalable::setLocalBounds(localBounds);
     component().commit();
 }
 

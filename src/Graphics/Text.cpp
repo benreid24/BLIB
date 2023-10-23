@@ -129,7 +129,7 @@ void Text::computeWordWrap() {
             engine().ecs().getComponentSet<ecs::Require<com::OverlayScaler, com::Transform2D>>(
                 parent);
         if (cset.isValid()) {
-            pw = cset.get<com::OverlayScaler>()->getEntitySize().x *
+            pw = cset.get<com::OverlayScaler>()->getEntityBounds().width *
                  cset.get<com::Transform2D>()->getScale().x;
         }
     }

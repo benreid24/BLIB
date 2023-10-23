@@ -18,9 +18,10 @@ OverlayScalable::OverlayScalable()
 
 void OverlayScalable::setScissorToSelf(bool setToSelf) { handle->setScissorToSelf(setToSelf); }
 
-const glm::vec2& OverlayScalable::getLocalSize() const {
+glm::vec2 OverlayScalable::getLocalSize() const {
     const_cast<OverlayScalable*>(this)->ensureLocalSizeUpdated();
-    return handle->getEntitySize();
+    const sf::FloatRect& bounds = handle->getEntityBounds();
+    return {bounds.width, bounds.height};
 }
 
 glm::vec2 OverlayScalable::getOverlaySize() const {
