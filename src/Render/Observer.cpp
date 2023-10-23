@@ -73,11 +73,7 @@ Overlay* Observer::getOrCreateSceneOverlay() {
 
     // if the current scene is an overlay then return that
     Overlay* overlay = dynamic_cast<Overlay*>(scenes.back().scene.get());
-    if (overlay) {
-        scenes.back().overlay    = overlay;
-        scenes.back().overlayRef = scenes.back().scene;
-        return overlay;
-    }
+    if (overlay) { return overlay; }
 
     return scenes.back().overlay ? scenes.back().overlay : createSceneOverlay();
 }

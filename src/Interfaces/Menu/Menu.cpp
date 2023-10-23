@@ -42,6 +42,7 @@ void Menu::create(engine::Engine& e, rc::Observer& o, const Selector::Ptr& sel) 
 
 void Menu::addToOverlay() {
     overlay = observer->getOrCreateSceneOverlay();
+    background.addToScene(overlay, rc::UpdateSpeed::Static);
     for (auto& item : items) { item->doSceneAdd(overlay); }
 }
 
