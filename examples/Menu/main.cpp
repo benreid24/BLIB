@@ -17,6 +17,8 @@ public:
     virtual const char* name() const override { return "DemoState"; }
 
     virtual void activate(bl::engine::Engine& engine) override {
+        engine.renderer().getObserver().pushScene<bl::rc::Overlay>();
+
         font.loadFromFile("font.ttf");
         auto texture = engine.renderer().texturePool().getOrLoadTexture("title.png");
 
@@ -65,9 +67,10 @@ public:
         bl::event::Dispatcher::subscribe(&mouseEventGenerator);
     }
 
-    virtual void deactivate(bl::engine::Engine&) override {
+    virtual void deactivate(bl::engine::Engine& engine) override {
         bl::event::Dispatcher::unsubscribe(&keyboardEventGenerator);
         bl::event::Dispatcher::unsubscribe(&mouseEventGenerator);
+        engine.renderer().getObserver().popScene();
     }
 
     virtual void update(bl::engine::Engine&, float, float) override {

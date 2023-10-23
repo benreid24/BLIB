@@ -39,10 +39,16 @@ public:
      */
     static const glm::vec2& getOverlayCoordinateSpace();
 
+    /**
+     * @brief Ensures that the overlay coordinate space is current
+     *
+     * @param dt Ignored
+     */
+    virtual void update(float dt) override;
+
 private:
     unsigned int settingVersion;
 
-    virtual void update(float dt) override;
     virtual void refreshViewMatrix(glm::mat4& view) override;
     virtual void refreshProjMatrix(glm::mat4& proj, const VkViewport& viewport) override;
 };

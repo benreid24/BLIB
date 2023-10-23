@@ -121,9 +121,11 @@ void DescriptorComponentBase<TCom, TPayload>::refresh() {
     static_assert(std::is_invocable<decltype(&TCom::refreshDescriptor), TCom&, TPayload&>::value,
                   "Descriptor components must provide a method void refreshDescriptor(TPayload&)");
 
-    descriptorSet->markObjectDirty(sceneKey);
-    static_cast<TCom*>(this)->refreshDescriptor(*payload);
-    dirty = false;
+    if (descriptorSet != nullptr) {
+        descriptorSet->markObjectDirty(sceneKey);
+        static_cast<TCom*>(this)->refreshDescriptor(*payload);
+        dirty = false;
+    }
 }
 
 template<typename TCom, typename TPayload>

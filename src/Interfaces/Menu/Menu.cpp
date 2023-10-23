@@ -52,7 +52,7 @@ void Menu::removeFromOverlay() {
 
 void Menu::setSelectedItem(Item* s) {
     if (s != selectedItem) {
-        selectedItem->getSignal(Item::Deselected)();
+        if (selectedItem) { selectedItem->getSignal(Item::Deselected)(); }
         selectedItem = s;
         selectedItem->getSignal(Item::Selected)();
         const auto pos = selectedItem->transform->getGlobalPosition();
@@ -149,9 +149,9 @@ void Menu::setRootItem(const Item::Ptr& root) {
     for (auto& item : items) { item->doSceneRemove(); }
     items.clear();
     items.emplace_back(root);
-    setSelectedItem(root.get());
     root->create(*engine, background.entity());
     if (overlay) { root->doSceneAdd(overlay); }
+    setSelectedItem(root.get());
     refreshPositions();
 }
 

@@ -4,6 +4,7 @@
 #include <BLIB/Cameras/3D/Camera3D.hpp>
 #include <BLIB/Render/Graph/Assets/SceneAsset.hpp>
 #include <BLIB/Render/Renderer.hpp>
+#include <BLIB/Render/Scenes/Scene2D.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
 namespace bl
@@ -41,8 +42,9 @@ void Observer::cleanup() {
 
 void Observer::update(float dt) {
     if (!scenes.empty()) {
-        scenes.back().camera->update(dt);
+        if (scenes.back().camera) { scenes.back().camera->update(dt); }
         scenes.back().graph.update(dt);
+        overlayCamera.update(dt);
     }
 }
 
@@ -67,6 +69,14 @@ Overlay* Observer::getOrCreateSceneOverlay() {
     if (scenes.empty()) {
         BL_LOG_ERROR << "Tried to create Overlay with no current scene";
         throw std::runtime_error("Tried to create Overlay with no current scene");
+    }
+
+    // if the current scene is an overlay then return that
+    Overlay* overlay = dynamic_cast<Overlay*>(scenes.back().scene.get());
+    if (overlay) {
+        scenes.back().overlay    = overlay;
+        scenes.back().overlayRef = scenes.back().scene;
+        return overlay;
     }
 
     return scenes.back().overlay ? scenes.back().overlay : createSceneOverlay();
