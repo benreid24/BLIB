@@ -63,7 +63,7 @@ void Scene::createAndAddObject(ecs::Entity entity, rcom::DrawableBase& object,
         object.sceneRef.object = sobj;
         object.sceneRef.scene  = this;
 
-        sobj->hidden     = false;
+        sobj->hidden     = object.hidden;
         sobj->drawParams = object.drawParams;
 
         auto& objectPipelines =

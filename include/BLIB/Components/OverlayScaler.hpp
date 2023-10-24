@@ -162,7 +162,7 @@ inline constexpr const sf::FloatRect& OverlayScaler::getEntityBounds() const {
     return cachedObjectBounds;
 }
 
-inline constexpr bool OverlayScaler::isDirty() const { return dirty && scaleType != None; }
+inline constexpr bool OverlayScaler::isDirty() const { return dirty; }
 
 } // namespace com
 } // namespace bl

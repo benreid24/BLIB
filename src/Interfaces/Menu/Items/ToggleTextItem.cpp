@@ -39,6 +39,7 @@ void ToggleTextItem::doSceneAdd(rc::Overlay* overlay) {
     TextItem::doSceneAdd(overlay);
     box.addToScene(overlay, rc::UpdateSpeed::Static);
     innerBox.addToScene(overlay, rc::UpdateSpeed::Static);
+    innerBox.setHidden(!checked);
 }
 
 void ToggleTextItem::doSceneRemove() {
@@ -65,10 +66,12 @@ void ToggleTextItem::update() {
         const glm::vec2 ns = getSize();
         const glm::vec2 ts = TextItem::getSize();
         box.getTransform().setPosition({leftSide ? 0.f : ts.x + padding, ns.y * 0.6f});
-        innerBox.getOverlayScaler().positionInParentSpace({0.5f, 0.5f});
+        innerBox.getTransform().setPosition({hw, 0.f});
 
         // use origin to offset text without moving children
         getTextObject().getTransform().setOrigin({leftSide ? width + padding : 0.f, 0.f});
+
+        innerBox.setHidden(!checked);
     }
 }
 

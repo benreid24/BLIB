@@ -32,6 +32,7 @@ void Text::create(engine::Engine& engine, const sf::VulkanFont& f, const sf::Str
     const std::uint32_t vc = std::max(content.getSize(), static_cast<std::size_t>(20)) * 6;
     component().vertices.create(engine.renderer().vulkanState(), vc);
 
+    sections.clear();
     addSection(content, fontSize, color, style);
 }
 

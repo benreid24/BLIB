@@ -357,15 +357,17 @@ void Registry::removeComponent(Entity ent) {
     ComponentMask::SimpleMask& mask = entityMasks[i];
     if (!ComponentMask::contains(mask, pool.ComponentIndex)) { return; }
 
-    // notify pools of parent remove on children
+    // notify pools of parent remove
     for (Entity child : parentGraph.getChildren(ent)) {
         const std::uint32_t ic = child.getIndex();
         const ComponentMask mask{.required = entityMasks[ic]};
-        if (mask.contains(pool.ComponentIndex)) {
-            const Entity parent = parentGraph.getParent(child);
-            if (parent == InvalidEntity) { continue; }
-            pool.onParentRemove(parent, child);
-        }
+        if (mask.contains(pool.ComponentIndex)) { pool.onParentRemove(ent, child); }
+    }
+    const Entity parent = parentGraph.getParent(ent);
+    if (parent != InvalidEntity) {
+        const std::uint32_t ip = parent.getIndex();
+        const ComponentMask mask{.required = entityMasks[ip]};
+        if (mask.contains(pool.ComponentIndex)) { pool.onParentRemove(parent, ent); }
     }
 
     // do remove

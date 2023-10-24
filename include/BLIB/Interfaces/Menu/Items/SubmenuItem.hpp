@@ -116,9 +116,6 @@ protected:
     virtual ecs::Entity getEntity() const override;
 
 private:
-    engine::Engine* engine;
-    ecs::Entity parentEntity;
-    rc::Overlay* overlay;
     const AttachPoint openDir;
     const AttachPoint menuDir;
     Menu& parent;

@@ -10,10 +10,7 @@ SubmenuItem::Ptr SubmenuItem::create(Menu& parent, const Item::Ptr& i, AttachPoi
 }
 
 SubmenuItem::SubmenuItem(Menu& parent, const Item::Ptr& i, AttachPoint sp, AttachPoint md)
-: engine(nullptr)
-, parentEntity(ecs::InvalidEntity)
-, overlay(nullptr)
-, openDir(sp)
+: openDir(sp)
 , menuDir(md)
 , parent(parent)
 , self(i)
@@ -23,10 +20,7 @@ SubmenuItem::SubmenuItem(Menu& parent, const Item::Ptr& i, AttachPoint sp, Attac
 }
 
 com::Transform2D& SubmenuItem::doCreate(engine::Engine& e, ecs::Entity p) {
-    engine       = &e;
-    parentEntity = p;
     self->create(e, p);
-    // for (auto& item : options) { item->create(e, p); }
     return *self->transform;
 }
 
@@ -41,7 +35,6 @@ void SubmenuItem::addOption(const Item::Ptr& opt, bool isBack) {
     if (isBack) {
         opt->getSignal(Activated).willAlwaysCall([this]() { closeMenu(); });
     }
-    // if (engine != nullptr) { opt->create(*engine, parentEntity); }
 }
 
 void SubmenuItem::openMenu() {
