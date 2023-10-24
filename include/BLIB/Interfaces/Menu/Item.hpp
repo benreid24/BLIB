@@ -38,25 +38,21 @@ public:
 
     /**
      * @brief Calculates the opposite side of the given attach point
-     *
      */
     static AttachPoint oppositeSide(AttachPoint point);
 
     /**
      * @brief Returns true if the item has been attached to another
-     *
      */
     bool isAttached() const;
 
     /**
      * @brief Set whether or not the Item may be selected
-     *
      */
     void setSelectable(bool selectable);
 
     /**
      * @brief Returns whether or not the Item may be selected
-     *
      */
     bool isSelectable() const;
 
@@ -71,13 +67,11 @@ public:
     /**
      * @brief Returns whether or not the selection may move through this item is it is not
      *        selectable itself
-     *
      */
     bool allowsSelectionCrossing() const;
 
     /**
      * @brief Set an explicit position for this item. Default behavior is to grid items
-     *
      */
     void overridePosition(const glm::vec2& position);
 
@@ -92,7 +86,6 @@ public:
 
     /**
      * @brief Returns the position of the button relative to it's menu
-     *
      */
     const glm::vec2& getPosition() const;
 
@@ -147,6 +140,7 @@ private:
     bool canBeSelected;
     bool allowSelectionCross;
     bool positionOverridden;
+    glm::vec2 posOverride;
 
     void create(engine::Engine& engine, ecs::Entity parent);
     void notifyPosition(const glm::vec2& position);

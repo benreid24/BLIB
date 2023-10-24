@@ -50,6 +50,7 @@ util::Signal<>& Item::getSignal(EventType e) { return signals[e]; }
 
 void Item::overridePosition(const glm::vec2& pos) {
     position           = pos;
+    posOverride        = pos;
     positionOverridden = true;
     updatePosition();
 }

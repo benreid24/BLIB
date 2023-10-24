@@ -279,6 +279,7 @@ void Menu::refreshPositions() {
                 if (!v->positionOverridden) {
                     v->position = move(item->position, size, v->getSize(), ap);
                 }
+                else { v->position = v->posOverride; }
                 toVisit.emplace(v);
                 visited.insert(v);
             }
