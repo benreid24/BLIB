@@ -19,8 +19,11 @@ Shape2D::Shape2D()
 , fillColor(1.f, 0.f, 0.f, 1.f)
 , outlineColor(0.f, 0.f, 0.f, 1.f)
 , outlineThickness(0.f)
-, dirty(true)
-, updateQueued(false) {}
+, dirty(true) {}
+
+Shape2D::~Shape2D() {
+    if (updateHandle.isQueued()) { updateHandle.cancel(); }
+}
 
 void Shape2D::setFillColor(const glm::vec4& fc) {
     fillColor = fc;
@@ -52,10 +55,9 @@ glm::vec4 Shape2D::getCenterColor(const glm::vec4& avgColor) const { return avgC
 
 void Shape2D::markDirty() {
     dirty = true;
-    if (!updateQueued && entity() != ecs::InvalidEntity) {
-        updateQueued = true;
-        engine().systems().addFrameTask(engine::FrameStage::RenderObjectSync,
-                                        std::bind(&Shape2D::update, this));
+    if (!updateHandle.isQueued() && entity() != ecs::InvalidEntity) {
+        updateHandle = engine().systems().addFrameTask(engine::FrameStage::RenderObjectSync,
+                                                       std::bind(&Shape2D::update, this));
     }
 }
 
@@ -69,8 +71,7 @@ void Shape2D::ensureLocalSizeUpdated() { update(); }
 
 void Shape2D::update() {
     if (entity() == ecs::InvalidEntity || !dirty) { return; }
-    dirty        = false;
-    updateQueued = false;
+    dirty = false;
 
     // determine required vertex and index counts
     const bool hasOutline           = outlineThickness != 0.f;

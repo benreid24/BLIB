@@ -2,6 +2,7 @@
 #define BLIB_GRAPHICS_SHAPE_HPP
 
 #include <BLIB/Components/Shape2D.hpp>
+#include <BLIB/Engine/Systems.hpp>
 #include <BLIB/Graphics/Components/OverlayScalable.hpp>
 #include <BLIB/Graphics/Components/Transform2D.hpp>
 #include <BLIB/Graphics/Drawable.hpp>
@@ -19,6 +20,11 @@ class Shape2D
 : public Drawable<com::Shape2D>
 , public bcom::OverlayScalable {
 public:
+    /**
+     * @brief Destroys the shape
+     */
+    virtual ~Shape2D();
+
     /**
      * @brief Sets the color to fill the shape with
      *
@@ -122,7 +128,7 @@ private:
     float outlineThickness;
     sf::FloatRect localBounds;
     bool dirty;
-    bool updateQueued;
+    engine::Systems::TaskHandle updateHandle;
 
     void update();
 };
