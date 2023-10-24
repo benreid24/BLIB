@@ -265,25 +265,25 @@ void Observer::setClearColor(const glm::vec4& color) {
 }
 
 glm::vec2 Observer::transformToWorldSpace(const glm::vec2& sp) const {
-    const glm::vec2 ndc((sp.x - viewport.x) / viewport.width,
-                        (sp.y - viewport.y) / viewport.height);
+    const glm::vec2 ndc((sp.x - viewport.x) / viewport.width * 2.f - 1.f,
+                        (sp.y - viewport.y) / viewport.height * 2.f - 1.f);
     glm::mat4 tform(1.f);
     if (hasScene() && scenes.back().camera) {
         tform = scenes.back().camera->getProjectionMatrix(viewport) *
                 scenes.back().camera->getViewMatrix();
     }
     tform                  = glm::inverse(tform);
-    const glm::vec4 result = tform * glm::vec4(sp, 0.f, 1.f);
+    const glm::vec4 result = tform * glm::vec4(ndc, 0.f, 1.f);
     return {result.x, result.y};
 }
 
 glm::vec2 Observer::transformToOverlaySpace(const glm::vec2& sp) const {
-    const glm::vec2 ndc((sp.x - viewport.x) / viewport.width,
-                        (sp.y - viewport.y) / viewport.height);
+    const glm::vec2 ndc((sp.x - viewport.x) / viewport.width * 2.f - 1.f,
+                        (sp.y - viewport.y) / viewport.height * 2.f - 1.f);
     cam::OverlayCamera& cam = const_cast<cam::OverlayCamera&>(overlayCamera);
     glm::mat4 tform = tform = cam.getProjectionMatrix(viewport) * cam.getViewMatrix();
     tform                   = glm::inverse(tform);
-    const glm::vec4 result  = tform * glm::vec4(sp, 0.f, 1.f);
+    const glm::vec4 result  = tform * glm::vec4(ndc, 0.f, 1.f);
     return {result.x, result.y};
 }
 

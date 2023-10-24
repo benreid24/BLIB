@@ -233,7 +233,7 @@ void Menu::processEvent(const Event& event) {
         const glm::vec2 os = observer->transformToOverlaySpace(
             {event.locationEvent.position.x, event.locationEvent.position.y});
         const glm::vec2 pos = os - position - offset;
-        const sf::Vector2f sfpos(os.x, os.y);
+        const sf::Vector2f sfpos(pos.x, pos.y);
         for (const auto& item : items) {
             const sf::FloatRect rect(
                 item->position.x, item->position.y, item->getSize().x, item->getSize().y);
