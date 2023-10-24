@@ -45,12 +45,14 @@ void Menu::create(engine::Engine& e, rc::Observer& o, const Selector::Ptr& sel) 
 void Menu::addToOverlay() {
     overlay = observer->getOrCreateSceneOverlay();
     background.addToScene(overlay, rc::UpdateSpeed::Static);
+    selector->doSceneAdd(overlay);
     for (auto& item : items) { item->doSceneAdd(overlay); }
 }
 
 void Menu::removeFromOverlay() {
     overlay = nullptr;
     background.removeFromScene();
+    selector->doSceneRemove();
     for (auto& item : items) { item->doSceneRemove(); }
 }
 
@@ -59,7 +61,7 @@ void Menu::setSelectedItem(Item* s) {
         if (selectedItem) { selectedItem->getSignal(Item::Deselected)(); }
         selectedItem = s;
         selectedItem->getSignal(Item::Selected)();
-        const auto pos = selectedItem->transform->getGlobalPosition();
+        const glm::vec2& pos = selectedItem->transform->getLocalPosition();
         selector->notifySelection(
             selectedItem->getEntity(),
             {pos.x, pos.y, selectedItem->getSize().x, selectedItem->getSize().y});
@@ -292,6 +294,13 @@ void Menu::refreshPositions() {
     const glm::vec2 thick(background.getOutlineThickness(), background.getOutlineThickness());
     background.setSize(visibleSize() - thick * 2.f);
     background.getTransform().setPosition(position + thick);
+
+    if (selectedItem != nullptr) {
+        const glm::vec2& pos = selectedItem->transform->getLocalPosition();
+        selector->notifySelection(
+            selectedItem->getEntity(),
+            {pos.x, pos.y, selectedItem->getSize().x, selectedItem->getSize().y});
+    }
 
     refreshScroll();
 }

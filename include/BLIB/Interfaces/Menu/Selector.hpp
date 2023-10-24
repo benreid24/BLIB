@@ -42,7 +42,7 @@ public:
      * @brief Called when the selector should select an item
      *
      * @param item The ECS id of the selected item
-     * @param itemArea The overlay space area of the selected item
+     * @param itemArea The menu local area of the selected item
      */
     virtual void notifySelection(ecs::Entity item, sf::FloatRect itemArea) = 0;
 

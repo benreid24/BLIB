@@ -22,7 +22,7 @@ public:
         font.loadFromFile("font.ttf");
         auto texture = engine.renderer().texturePool().getOrLoadTexture("title.png");
 
-        ArrowSelector::Ptr selector = ArrowSelector::create(12);
+        ArrowSelector::Ptr selector = ArrowSelector::create(12, sf::Color::White);
         menu.create(engine, engine.renderer().getObserver(), selector);
 
         Item::Ptr title = ImageItem::create(texture);

@@ -11,8 +11,9 @@ namespace
 const float HeightRatio = 0.5f;
 
 std::array<glm::vec2, 3> makeTriangle(float w) {
-    return std::array<glm::vec2, 3>(
-        {glm::vec2{0.f, 0.f}, glm::vec2{w, w * HeightRatio}, glm::vec2{0, 2.f * w * HeightRatio}});
+    return std::array<glm::vec2, 3>({glm::vec2{0.f, 0.f},
+                                     glm::vec2{w, w * HeightRatio},
+                                     glm::vec2{0.f, 2.f * w * HeightRatio}});
 }
 } // namespace
 
@@ -23,7 +24,7 @@ ArrowSelector::Ptr ArrowSelector::create(float w, const sf::Color& f) {
 void ArrowSelector::notifySelection(ecs::Entity, sf::FloatRect itemArea) {
     triangle.getTransform().setPosition(
         {itemArea.left - width - 2.f,
-         itemArea.top + itemArea.height / 2.f + width * HeightRatio / 2.f});
+         itemArea.top + itemArea.height * 0.5f - width * HeightRatio * 0.5f});
 }
 
 void ArrowSelector::doSceneAdd(rc::Overlay* overlay) {
