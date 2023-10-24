@@ -49,12 +49,12 @@ void OverlayScaler::stopScaling() {
 
 void OverlayScaler::setEntityBounds(const sf::FloatRect& s) {
     cachedObjectBounds = s;
-    dirty              = scaleType != None;
+    dirty              = true;
 }
 
 void OverlayScaler::setScissorToSelf(bool s) {
     useScissor = s;
-    dirty      = scaleType != None;
+    dirty      = true;
 }
 
 void OverlayScaler::positionInParentSpace(const glm::vec2& pos) {

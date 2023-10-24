@@ -351,7 +351,11 @@ template<typename T>
 void Registry::removeComponent(Entity ent) {
     std::lock_guard lock(entityLock);
 
-    auto& pool = getPool<T>();
+    auto& pool   = getPool<T>();
+    const auto i = ent.getIndex();
+    if (i >= entityMasks.size()) { return; }
+    ComponentMask::SimpleMask& mask = entityMasks[i];
+    if (!ComponentMask::contains(mask, pool.ComponentIndex)) { return; }
 
     // notify pools of parent remove on children
     for (Entity child : parentGraph.getChildren(ent)) {
@@ -366,7 +370,6 @@ void Registry::removeComponent(Entity ent) {
 
     // do remove
     pool.remove(ent);
-    ComponentMask::SimpleMask& mask = entityMasks[ent.getIndex()];
     for (auto& view : views) {
         if (view->mask.passes(mask)) { view->removeEntity(ent); }
     }

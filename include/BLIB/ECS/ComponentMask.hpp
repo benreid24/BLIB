@@ -51,6 +51,17 @@ struct ComponentMask {
     }
 
     /**
+     * @brief Returns whether or not this mask contains the given index
+     *
+     * @param mask The mask to test
+     * @param index The index to check for
+     * @return True if the given index is contained, false otherwise
+     */
+    static bool contains(SimpleMask mask, unsigned int index) {
+        return (mask & (static_cast<SimpleMask>(0x1) << index)) != 0;
+    }
+
+    /**
      * @brief Adds the given component index to the existing mask
      *
      * @param mask The mask to add to

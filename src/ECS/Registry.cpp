@@ -46,6 +46,8 @@ bool Registry::entityExistsLocked(Entity ent) const {
 bool Registry::destroyEntity(Entity start) {
     std::lock_guard lock(entityLock);
 
+    if (!entityExistsLocked(start)) { return false; }
+
     // check if we can remove due to dependencies
     if (dependencyGraph.hasDependencies(start)) {
         markEntityForRemoval(start);

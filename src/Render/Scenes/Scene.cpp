@@ -9,6 +9,11 @@ namespace bl
 {
 namespace rc
 {
+namespace
+{
+constexpr std::uint32_t NoPipeline = std::numeric_limits<std::uint32_t>::max();
+}
+
 Scene::Scene(engine::Engine& engine,
              const ds::DescriptorComponentStorageBase::EntityCallback& entityCb)
 : renderer(engine.renderer())
@@ -16,8 +21,8 @@ Scene::Scene(engine::Engine& engine,
 , descriptorSets(descriptorComponents)
 , descriptorComponents(engine.ecs(), renderer.vulkanState(), entityCb)
 , nextObserverIndex(0)
-, staticPipelines(DefaultSceneObjectCapacity)
-, dynamicPipelines(DefaultSceneObjectCapacity) {
+, staticPipelines(DefaultSceneObjectCapacity, NoPipeline)
+, dynamicPipelines(DefaultSceneObjectCapacity, NoPipeline) {
     batchChanges.reserve(32);
 }
 
@@ -63,6 +68,9 @@ void Scene::createAndAddObject(ecs::Entity entity, rcom::DrawableBase& object,
 
         auto& objectPipelines =
             sobj->sceneKey.updateFreq == UpdateSpeed::Static ? staticPipelines : dynamicPipelines;
+        if (sobj->sceneKey.sceneId >= objectPipelines.size()) {
+            objectPipelines.resize(sobj->sceneKey.sceneId + 1, NoPipeline);
+        }
         objectPipelines[sobj->sceneKey.sceneId] = object.pipeline;
     }
     else { BL_LOG_ERROR << "Failed to add " << entity << " to scene " << this; }
@@ -71,8 +79,13 @@ void Scene::createAndAddObject(ecs::Entity entity, rcom::DrawableBase& object,
 void Scene::removeObject(scene::SceneObject* obj) {
     auto& objectPipelines =
         obj->sceneKey.updateFreq == UpdateSpeed::Static ? staticPipelines : dynamicPipelines;
-    std::uint32_t pipeline = objectPipelines[obj->sceneKey.sceneId];
-    doRemove(obj, pipeline);
+    std::uint32_t pipeline = obj->sceneKey.sceneId < objectPipelines.size() ?
+                                 objectPipelines[obj->sceneKey.sceneId] :
+                                 NoPipeline;
+    if (pipeline != NoPipeline) {
+        doRemove(obj, pipeline);
+        objectPipelines[obj->sceneKey.sceneId] = NoPipeline;
+    }
 }
 
 void Scene::rebucketObject(rcom::DrawableBase& obj) {
