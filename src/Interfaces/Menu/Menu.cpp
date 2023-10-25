@@ -2,6 +2,7 @@
 
 #include <BLIB/Interfaces/Utilities/ViewUtil.hpp>
 #include <BLIB/Logging.hpp>
+#include <BLIB/Render/Primitives/Color.hpp>
 #include <queue>
 #include <unordered_set>
 
@@ -13,30 +14,68 @@ audio::AudioSystem::Handle Menu::defaultMoveSound   = audio::AudioSystem::Invali
 audio::AudioSystem::Handle Menu::defaultFailSound   = audio::AudioSystem::InvalidHandle;
 audio::AudioSystem::Handle Menu::defaultSelectSound = audio::AudioSystem::InvalidHandle;
 
-Menu::Menu(const Selector::Ptr& selector)
-: maxSize(-1.f, -1.f)
-, selector(selector)
+Menu::Menu()
+: engine(nullptr)
+, observer(nullptr)
+, overlay(nullptr)
+, maxSize(-1.f, -1.f)
+, offset{}
+, selector()
 , selectedItem(nullptr)
+, position{}
 , padding(10.f, 10.f)
 , minSize(0.f, 0.f)
-, bgndPadding(padding * 2.f, padding * 2.f)
+, bgndPadding(padding.x * 2.f, padding.y * 2.f, padding.x * 2.f, padding.y * 2.f)
 , moveSound(defaultMoveSound)
 , failSound(defaultFailSound)
-, selectSound(defaultSelectSound) {
-    background.setFillColor(sf::Color::Transparent);
-    background.setOutlineColor(sf::Color::Transparent);
+, selectSound(defaultSelectSound) {}
+
+void Menu::create(engine::Engine& e, rc::Observer& o, const Selector::Ptr& sel) {
+    engine   = &e;
+    observer = &o;
+    selector = sel;
+    background.create(*engine, {100.f, 100.f});
+    background.setFillColor({1.f, 1.f, 1.f, 0.f});
+    background.setOutlineColor({1.f, 1.f, 1.f, 0.f});
+    background.getOverlayScaler().setScissorToSelf(true);
+    selector->doCreate(*engine, background.entity());
+    event::Dispatcher::subscribe(this);
+}
+
+void Menu::addToOverlay() {
+    overlay = observer->getOrCreateSceneOverlay();
+    background.addToScene(overlay, rc::UpdateSpeed::Static);
+    selector->doSceneAdd(overlay);
+    for (auto& item : items) { item->doSceneAdd(overlay); }
+}
+
+void Menu::removeFromOverlay() {
+    overlay = nullptr;
+    background.removeFromScene();
+    selector->doSceneRemove();
+    for (auto& item : items) { item->doSceneRemove(); }
 }
 
 void Menu::setSelectedItem(Item* s) {
-    if (selectedItem) selectedItem->getSignal(Item::Deselected)();
-    selectedItem = s;
-    selectedItem->getSignal(Item::Selected)();
-    refreshScroll();
+    if (s != selectedItem) {
+        if (selectedItem) { selectedItem->getSignal(Item::Deselected)(); }
+        selectedItem = s;
+        selectedItem->getSignal(Item::Selected)();
+        const glm::vec2& pos = selectedItem->transform->getLocalPosition();
+        selector->notifySelection(
+            selectedItem->getEntity(),
+            {pos.x, pos.y, selectedItem->getSize().x, selectedItem->getSize().y});
+        refreshScroll();
+    }
 }
 
-void Menu::setPosition(const sf::Vector2f& pos) { position = pos; }
+void Menu::setPosition(const glm::vec2& pos) {
+    position = pos;
+    const glm::vec2 thick(background.getOutlineThickness(), background.getOutlineThickness());
+    background.getTransform().setPosition(position + thick);
+}
 
-void Menu::setPadding(const sf::Vector2f& p) {
+void Menu::setPadding(const glm::vec2& p) {
     padding = p;
     refreshPositions();
 }
@@ -52,27 +91,33 @@ void Menu::setMinWidth(float w) {
 }
 
 void Menu::configureBackground(sf::Color fill, sf::Color outline, float t, const sf::FloatRect& p) {
-    background.setFillColor(fill);
-    background.setOutlineColor(outline);
+    background.setFillColor(sfcol(fill));
+    background.setOutlineColor(sfcol(outline));
     background.setOutlineThickness(t);
-    bgndPadding = p.left >= 0.f ? p : sf::FloatRect(padding * 2.f, padding * 2.f);
+    if (p.left >= 0.f) {
+        bgndPadding = p;
+        refreshPositions();
+    }
 }
 
-sf::FloatRect Menu::getBounds() const { return {position, totalSize}; }
+sf::FloatRect Menu::getBounds() const {
+    const auto& pos = background.getTransform().getLocalPosition();
+    return {pos.x, pos.y, totalSize.x, totalSize.y};
+}
 
-sf::Vector2f Menu::visibleSize() const {
-    const sf::Vector2f s(maxSize.x > 0.f ? std::min(maxSize.x, totalSize.x) : totalSize.x,
-                         maxSize.y > 0.f ? std::min(maxSize.y, totalSize.y) : totalSize.y);
+glm::vec2 Menu::visibleSize() const {
+    const glm::vec2 s(maxSize.x > 0.f ? std::min(maxSize.x, totalSize.x) : totalSize.x,
+                      maxSize.y > 0.f ? std::min(maxSize.y, totalSize.y) : totalSize.y);
     const float b = background.getOutlineThickness() * 2.f;
-    return s + sf::Vector2f(bgndPadding.left + bgndPadding.width + b,
-                            bgndPadding.top + bgndPadding.height + b);
+    return s + glm::vec2(bgndPadding.left + bgndPadding.width + b,
+                         bgndPadding.top + bgndPadding.height + b);
 }
 
-const sf::Vector2f& Menu::maximumSize() const { return maxSize; }
+const glm::vec2& Menu::maximumSize() const { return maxSize; }
 
-const sf::Vector2f& Menu::currentOffset() const { return offset; }
+const glm::vec2& Menu::currentOffset() const { return offset; }
 
-void Menu::setMaximumSize(const sf::Vector2f& m) {
+void Menu::setMaximumSize(const glm::vec2& m) {
     maxSize = m;
     refreshScroll();
 }
@@ -102,12 +147,17 @@ void Menu::refreshScroll() {
                        maxSize.y;
         }
     }
+
+    for (auto& item : items) { item->notifyOffset(offset); }
 }
 
 void Menu::setRootItem(const Item::Ptr& root) {
+    for (auto& item : items) { item->doSceneRemove(); }
     items.clear();
     items.emplace_back(root);
-    selectedItem = root.get();
+    root->create(*engine, background.entity());
+    if (overlay) { root->doSceneAdd(overlay); }
+    setSelectedItem(root.get());
     refreshPositions();
 }
 
@@ -116,6 +166,8 @@ void Menu::addItem(const Item::Ptr& item, Item* parent, Item::AttachPoint ap, bo
     parent->attachments[ap] = item.get();
     if (r) { item->attachments[Item::oppositeSide(ap)] = parent; }
     item->parent = ap;
+    item->create(*engine, background.entity());
+    if (overlay) { item->doSceneAdd(overlay); }
     refreshPositions();
 }
 
@@ -138,37 +190,21 @@ void Menu::removeItem(Item* item, bool c) {
         }
     }
     if (i == items.size()) return;
+    items[i]->doSceneRemove();
     items.erase(items.begin() + i);
     if (selectedItem == item) {
         selectedItem = nullptr;
         if (!items.empty()) {
             for (unsigned int k = 0; k < Item::AttachPoint::_NUM_ATTACHPOINTS; ++k) {
-                if (item->attachments[k]) selectedItem = item->attachments[k];
+                if (item->attachments[k]) {
+                    setSelectedItem(item->attachments[k]);
+                    break;
+                }
             }
         }
-        if (!selectedItem) { selectedItem = items.front().get(); }
+        if (!selectedItem) { setSelectedItem(items.front().get()); }
     }
-    selectedItem->getSignal(Item::Selected)();
     refreshPositions();
-}
-
-void Menu::render(sf::RenderTarget& target, sf::RenderStates states) const {
-    const sf::View oldView = target.getView();
-    if (maxSize.x > 0.f || maxSize.y > 0.f) {
-        target.setView(interface::ViewUtil::computeSubView({position, visibleSize()}, oldView));
-    }
-    states.transform.translate(position);
-    target.draw(background, states);
-    states.transform.translate(
-        sf::Vector2f(bgndPadding.left, bgndPadding.top) - offset +
-        sf::Vector2f(background.getOutlineThickness(), background.getOutlineThickness()));
-    for (const auto& item : items) {
-        item->render(target, states, item->position);
-        if (item.get() == selectedItem) {
-            selector->render(target, states, {item->position, item->getSize()});
-        }
-    }
-    target.setView(oldView);
 }
 
 void Menu::processEvent(const Event& event) {
@@ -179,10 +215,7 @@ void Menu::processEvent(const Event& event) {
             Item* item        = selectedItem->attachments[event.moveEvent.direction];
             while (item) {
                 if (item->isSelectable()) {
-                    selectedItem->getSignal(Item::Deselected)();
-                    selectedItem = item;
-                    selectedItem->getSignal(Item::Selected)();
-                    refreshScroll();
+                    setSelectedItem(item);
                     break;
                 }
                 if (!item->allowsSelectionCrossing()) break;
@@ -197,15 +230,17 @@ void Menu::processEvent(const Event& event) {
         playSound(selectSound);
         break;
     case Event::SelectorLocation: {
-        const sf::Vector2f pos = event.locationEvent.position - position - offset;
+        const glm::vec2 os = observer->transformToOverlaySpace(
+            {event.locationEvent.position.x, event.locationEvent.position.y});
+        const glm::vec2 pos = os - position - offset;
+        const sf::Vector2f sfpos(pos.x, pos.y);
         for (const auto& item : items) {
-            if (sf::FloatRect(item->position, item->getSize()).contains(pos)) {
-                if (item->isSelectable()) {
-                    selectedItem->getSignal(Item::Deselected)();
-                    if (selectedItem != item.get()) { playSound(selectSound); }
-                    selectedItem = item.get();
-                    selectedItem->getSignal(Item::Selected)();
-                    refreshScroll();
+            const sf::FloatRect rect(
+                item->position.x, item->position.y, item->getSize().x, item->getSize().y);
+            if (rect.contains(sfpos)) {
+                if (item->isSelectable() && selectedItem != item.get()) {
+                    setSelectedItem(item.get());
+                    playSound(moveSound);
                 }
             }
         }
@@ -230,7 +265,7 @@ void Menu::refreshPositions() {
         Item* item = toVisit.front();
         toVisit.pop();
 
-        const sf::Vector2f size = item->getSize();
+        const glm::vec2 size = item->getSize();
         if (item->position.x < bounds.left) bounds.left = item->position.x;
         if (item->position.x + size.x > bounds.width) bounds.width = item->position.x + size.x;
         if (item->position.y < bounds.top) bounds.top = item->position.y;
@@ -244,6 +279,7 @@ void Menu::refreshPositions() {
                 if (!v->positionOverridden) {
                     v->position = move(item->position, size, v->getSize(), ap);
                 }
+                else { v->position = v->posOverride; }
                 toVisit.emplace(v);
                 visited.insert(v);
             }
@@ -252,19 +288,26 @@ void Menu::refreshPositions() {
 
     totalSize = {bounds.width - bounds.left, bounds.height - bounds.top};
     for (auto& item : items) {
-        item->position.x -= bounds.left;
-        item->position.y -= bounds.top;
+        item->notifyPosition(item->position - glm::vec2{bounds.left, bounds.top} +
+                             glm::vec2{bgndPadding.left, bgndPadding.top});
     }
 
-    const sf::Vector2f thick(background.getOutlineThickness(), background.getOutlineThickness());
+    const glm::vec2 thick(background.getOutlineThickness(), background.getOutlineThickness());
     background.setSize(visibleSize() - thick * 2.f);
-    background.setPosition(thick);
+    background.getTransform().setPosition(position + thick);
+
+    if (selectedItem != nullptr) {
+        const glm::vec2& pos = selectedItem->transform->getLocalPosition();
+        selector->notifySelection(
+            selectedItem->getEntity(),
+            {pos.x, pos.y, selectedItem->getSize().x, selectedItem->getSize().y});
+    }
 
     refreshScroll();
 }
 
-sf::Vector2f Menu::move(const sf::Vector2f& pos, const sf::Vector2f& psize,
-                        const sf::Vector2f& esize, Item::AttachPoint ap) {
+glm::vec2 Menu::move(const glm::vec2& pos, const glm::vec2& psize, const glm::vec2& esize,
+                     Item::AttachPoint ap) {
     switch (ap) {
     case Item::AttachPoint::Top:
         return {pos.x, pos.y - std::max(minSize.y, esize.y) - padding.y};
@@ -296,6 +339,10 @@ void Menu::setMoveSound(audio::AudioSystem::Handle s) { moveSound = s; }
 void Menu::setMoveFailSound(audio::AudioSystem::Handle s) { failSound = s; }
 
 void Menu::setSelectSound(audio::AudioSystem::Handle s) { selectSound = s; }
+
+void Menu::observe(const rc::event::SceneDestroyed& event) {
+    if (event.scene == static_cast<rc::Scene*>(overlay)) { overlay = nullptr; }
+}
 
 } // namespace menu
 } // namespace bl

@@ -22,7 +22,6 @@ Engine::Engine(const Settings& settings)
     systems().registerSystem<sys::TogglerSystem>(FrameStage::Update0, StateMask::All);
     systems().registerSystem<sys::VelocitySystem>(FrameStage::Animate, StateMask::Running);
     bl::event::Dispatcher::subscribe(&input);
-    workers.start();
 }
 
 Engine::~Engine() {
@@ -102,6 +101,7 @@ bool Engine::run(State::Ptr initialState) {
     sf::Clock fpsTimer;
     float frameCount = 0.f;
 
+    workers.start();
     states.top()->activate(*this);
     bl::event::Dispatcher::dispatch<event::Startup>({states.top()});
 
@@ -223,7 +223,7 @@ bool Engine::run(State::Ptr initialState) {
             }
             else if (engineFlags.active(Flags::PopState)) {
                 BL_LOG_INFO << "Popping state: " << states.top()->name();
-                auto prev = states.top();
+                State::Ptr prev = states.top();
                 prev->deactivate(*this);
                 states.pop();
                 if (states.empty()) { // exit if no states left
@@ -237,7 +237,7 @@ bool Engine::run(State::Ptr initialState) {
             }
             else if (engineFlags.active(Flags::_priv_ReplaceState)) {
                 BL_LOG_INFO << "New engine state (replaced): " << newState->name();
-                auto prev = states.top();
+                State::Ptr prev = states.top();
                 prev->deactivate(*this);
                 states.pop();
                 states.push(newState);
@@ -245,7 +245,7 @@ bool Engine::run(State::Ptr initialState) {
             }
             else if (engineFlags.active(Flags::_priv_PushState)) {
                 BL_LOG_INFO << "New engine state (pushed): " << newState->name();
-                auto prev = states.top();
+                State::Ptr& prev = states.top();
                 prev->deactivate(*this);
                 states.push(newState);
                 postStateChange(prev);
@@ -314,7 +314,7 @@ void Engine::updateExistingWindow(const Settings::WindowParameters& params) {
     params.syncToConfig();
 
     if (params.letterBox()) {
-        sf::Event::SizeEvent e;
+        sf::Event::SizeEvent e{};
         e.width  = renderWindow.getSfWindow().getSize().x;
         e.height = renderWindow.getSfWindow().getSize().y;
         handleResize(e, false);

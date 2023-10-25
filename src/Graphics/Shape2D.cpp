@@ -19,8 +19,11 @@ Shape2D::Shape2D()
 , fillColor(1.f, 0.f, 0.f, 1.f)
 , outlineColor(0.f, 0.f, 0.f, 1.f)
 , outlineThickness(0.f)
-, dirty(true)
-, updateQueued(false) {}
+, dirty(true) {}
+
+Shape2D::~Shape2D() {
+    if (updateHandle.isQueued()) { updateHandle.cancel(); }
+}
 
 void Shape2D::setFillColor(const glm::vec4& fc) {
     fillColor = fc;
@@ -52,10 +55,9 @@ glm::vec4 Shape2D::getCenterColor(const glm::vec4& avgColor) const { return avgC
 
 void Shape2D::markDirty() {
     dirty = true;
-    if (!updateQueued && entity() != ecs::InvalidEntity) {
-        updateQueued = true;
-        engine().systems().addFrameTask(engine::FrameStage::RenderObjectSync,
-                                        std::bind(&Shape2D::update, this));
+    if (!updateHandle.isQueued() && entity() != ecs::InvalidEntity) {
+        updateHandle = engine().systems().addFrameTask(engine::FrameStage::RenderObjectSync,
+                                                       std::bind(&Shape2D::update, this));
     }
 }
 
@@ -65,10 +67,11 @@ void Shape2D::create(engine::Engine& engine) {
     markDirty();
 }
 
+void Shape2D::ensureLocalSizeUpdated() { update(); }
+
 void Shape2D::update() {
     if (entity() == ecs::InvalidEntity || !dirty) { return; }
-    dirty        = false;
-    updateQueued = false;
+    dirty = false;
 
     // determine required vertex and index counts
     const bool hasOutline           = outlineThickness != 0.f;
@@ -116,7 +119,6 @@ void Shape2D::update() {
     localBounds.height -= localBounds.top;
     ib.vertices()[0].pos.x = localBounds.left + localBounds.width * 0.5f;
     ib.vertices()[0].pos.y = localBounds.top + localBounds.height * 0.5f;
-    OverlayScalable::setLocalSize({localBounds.width, localBounds.height});
 
     // populate indices for shape vertices
     for (unsigned int i = 1; i < outlineStartIndex; ++i) {
@@ -173,8 +175,20 @@ void Shape2D::update() {
 
             ii += 6;
         }
+
+        // re-determine local bounds with outline accounted for
+        localBounds = {FL::max(), FL::max(), FL::min(), FL::min()};
+        for (const auto& v : ib.vertices()) {
+            localBounds.left   = std::min(localBounds.left, v.pos.x);
+            localBounds.top    = std::min(localBounds.top, v.pos.y);
+            localBounds.width  = std::max(localBounds.width, v.pos.x);
+            localBounds.height = std::max(localBounds.height, v.pos.y);
+        }
+        localBounds.width -= localBounds.left;
+        localBounds.height -= localBounds.top;
     }
 
+    OverlayScalable::setLocalBounds(localBounds);
     component().commit();
 }
 

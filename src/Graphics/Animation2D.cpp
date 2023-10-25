@@ -53,5 +53,7 @@ void Animation2D::scaleToSize(const glm::vec2& size) {
     getTransform().setScale(size / getLocalSize());
 }
 
+void Animation2D::ensureLocalSizeUpdated() {}
+
 } // namespace gfx
 } // namespace bl

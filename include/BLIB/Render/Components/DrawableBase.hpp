@@ -53,6 +53,11 @@ struct DrawableBase {
      * @brief Triggers the owning scene to re-bucket this object. Call when transparency changes
      */
     void rebucket();
+
+private:
+    bool hidden;
+
+    friend class rc::Scene;
 };
 
 } // namespace rcom

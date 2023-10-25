@@ -1,34 +1,40 @@
 #include <BLIB/Interfaces/Menu/Items/TextItem.hpp>
 
+#include <BLIB/Render/Primitives/Color.hpp>
+
 namespace bl
 {
 namespace menu
 {
-TextItem::Ptr TextItem::create(const std::string& text, const sf::Font& font,
+TextItem::Ptr TextItem::create(const std::string& text, const sf::VulkanFont& font,
                                const sf::Color& color, unsigned int fontSize) {
     return Ptr(new TextItem(text, font, color, fontSize));
 }
 
-TextItem::TextItem(const std::string& t, const sf::Font& font, const sf::Color& color,
-                   unsigned int fontSize) {
-    text.setString(t);
-    text.setFont(font);
-    text.setFillColor(color);
-    text.setCharacterSize(fontSize);
+TextItem::TextItem(const std::string& t, const sf::VulkanFont& font, const sf::Color& color,
+                   unsigned int fontSize)
+: string(t)
+, font(font)
+, color(color)
+, fontSize(fontSize) {}
+
+com::Transform2D& TextItem::doCreate(engine::Engine& engine, ecs::Entity parent) {
+    text.create(engine, font, string, fontSize, sfcol(color));
+    text.setParent(parent);
+    return text.getTransform();
 }
 
-sf::Text& TextItem::getTextObject() { return text; }
-
-sf::Vector2f TextItem::getSize() const {
-    const sf::FloatRect gb = text.getGlobalBounds();
-    return {gb.left + gb.width, gb.top + gb.height};
+void TextItem::doSceneAdd(rc::Overlay* overlay) {
+    text.addToScene(overlay, rc::UpdateSpeed::Static);
 }
 
-void TextItem::render(sf::RenderTarget& target, sf::RenderStates states,
-                      const sf::Vector2f& pos) const {
-    states.transform.translate(pos);
-    target.draw(text, states);
-}
+void TextItem::doSceneRemove() { text.removeFromScene(); }
+
+ecs::Entity TextItem::getEntity() const { return text.entity(); }
+
+gfx::Text& TextItem::getTextObject() { return text; }
+
+glm::vec2 TextItem::getSize() const { return text.getOverlaySize(); }
 
 } // namespace menu
 } // namespace bl

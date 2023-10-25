@@ -1,8 +1,8 @@
 #ifndef BLIB_MENU_RENDERITEMS_TEXTITEM_HPP
 #define BLIB_MENU_RENDERITEMS_TEXTITEM_HPP
 
+#include <BLIB/Graphics/Text.hpp>
 #include <BLIB/Interfaces/Menu/Item.hpp>
-#include <SFML/Graphics/Text.hpp>
 
 namespace bl
 {
@@ -27,26 +27,23 @@ public:
      * @param fontSize The font size
      * @return Ptr The created text menu item
      */
-    static Ptr create(const std::string& text, const sf::Font& font,
+    static Ptr create(const std::string& text, const sf::VulkanFont& font,
                       const sf::Color& color = sf::Color::Black, unsigned int fontSize = 30);
 
     /**
      * @brief Destroy the Text Item object
-     *
      */
     virtual ~TextItem() = default;
 
     /**
      * @brief Returns a modifiable reference to the Text object
-     *
      */
-    sf::Text& getTextObject();
+    gfx::Text& getTextObject();
 
     /**
      * @see Item::getSize
-     *
      */
-    virtual sf::Vector2f getSize() const override;
+    virtual glm::vec2 getSize() const override;
 
 protected:
     /**
@@ -57,18 +54,42 @@ protected:
      * @param color The color of the text
      * @param fontSize The font size
      */
-    TextItem(const std::string& text, const sf::Font& font, const sf::Color& color,
+    TextItem(const std::string& text, const sf::VulkanFont& font, const sf::Color& color,
              unsigned int fontSize);
 
     /**
-     * @see Item::render
+     * @brief Called at least once when the item is added to a menu. Should create required graphics
+     *        primitives and return the transform to use
      *
+     * @param engine The game engine instance
+     * @param parent The parent entity that should be used
+     * @return The transform component to use
      */
-    virtual void render(sf::RenderTarget& target, sf::RenderStates states,
-                        const sf::Vector2f& position) const override;
+    virtual com::Transform2D& doCreate(engine::Engine& engine, ecs::Entity parent) override;
+
+    /**
+     * @brief Called when the item should be added to the overlay
+     *
+     * @param overlay The overlay to add to
+     */
+    virtual void doSceneAdd(rc::Overlay* overlay) override;
+
+    /**
+     * @brief Called when the item should be removed from the overlay
+     */
+    virtual void doSceneRemove() override;
+
+    /**
+     * @brief Returns the entity (or top level entity) of the item
+     */
+    virtual ecs::Entity getEntity() const override;
 
 private:
-    sf::Text text;
+    const std::string string;
+    const sf::VulkanFont& font;
+    const sf::Color color;
+    const unsigned int fontSize;
+    gfx::Text text;
 };
 
 } // namespace menu

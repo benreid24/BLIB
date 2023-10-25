@@ -32,6 +32,7 @@ void Text::create(engine::Engine& engine, const sf::VulkanFont& f, const sf::Str
     const std::uint32_t vc = std::max(content.getSize(), static_cast<std::size_t>(20)) * 6;
     component().vertices.create(engine.renderer().vulkanState(), vc);
 
+    sections.clear();
     addSection(content, fontSize, color, style);
 }
 
@@ -54,6 +55,8 @@ void Text::setFont(const sf::VulkanFont& f) {
 void Text::onAdd(const rc::rcom::SceneObjectRef&) {}
 
 void Text::onRemove() {}
+
+void Text::ensureLocalSizeUpdated() { commit(); }
 
 void Text::commit() {
     commitTask = {};
@@ -127,7 +130,7 @@ void Text::computeWordWrap() {
             engine().ecs().getComponentSet<ecs::Require<com::OverlayScaler, com::Transform2D>>(
                 parent);
         if (cset.isValid()) {
-            pw = cset.get<com::OverlayScaler>()->getEntitySize().x *
+            pw = cset.get<com::OverlayScaler>()->getEntityBounds().width *
                  cset.get<com::Transform2D>()->getScale().x;
         }
     }
@@ -208,13 +211,9 @@ Text::CharSearchResult Text::findCharacterAtPosition(const glm::vec2& targetPos)
     const sf::FloatRect& targetBounds = getTargetRegion();
     if (!targetBounds.contains({targetPos.x, targetPos.y})) { return {}; }
 
-    const glm::vec4 overlayPos((targetPos.x - targetBounds.left) / targetBounds.width,
-                               (targetPos.y - targetBounds.top) / targetBounds.height,
-                               0.f,
-                               1.f);
-    auto& tform                 = const_cast<com::Transform2D&>(getTransform());
-    const glm::vec2 localPosGlm = glm::inverse(tform.getGlobalTransform()) * overlayPos;
-    const sf::Vector2f localPos(localPosGlm.x, localPosGlm.y);
+    const sf::Vector2f localPos(
+        (targetPos.x - targetBounds.left) / targetBounds.width * OverlayScalable::getLocalSize().x,
+        (targetPos.y - targetBounds.top) / targetBounds.height * OverlayScalable::getLocalSize().y);
 
     glm::vec2 nextPos(0.f, 0.f);
     std::uint32_t prevChar = 0;

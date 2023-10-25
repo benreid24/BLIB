@@ -10,7 +10,8 @@ namespace rcom
 {
 DrawableBase::DrawableBase()
 : pipeline(PipelineNotSet)
-, containsTransparency(false) {}
+, containsTransparency(false)
+, hidden(false) {}
 
 void DrawableBase::syncDrawParamsToScene() {
 #ifdef BLIB_DEBUG
@@ -21,17 +22,12 @@ void DrawableBase::syncDrawParamsToScene() {
 #endif
 
     sceneRef.object->drawParams = drawParams;
+    sceneRef.object->hidden     = hidden;
 }
 
 void DrawableBase::setHidden(bool hide) {
-#ifdef BLIB_DEBUG
-    if (!sceneRef.object) {
-        BL_LOG_ERROR << "Called setHidden on object not in scene";
-        return;
-    }
-#endif
-
-    sceneRef.object->hidden = hide;
+    if (sceneRef.object) { sceneRef.object->hidden = hide; }
+    hidden = hide;
 }
 
 void DrawableBase::setPipeline(std::uint32_t pid) {

@@ -5,7 +5,7 @@ namespace bl
 namespace com
 {
 OverlayScaler::OverlayScaler()
-: cachedObjectSize(50.f, 50.f)
+: cachedObjectBounds(0.f, 0.f, 50.f, 50.f)
 , scaleType(None)
 , sizePercent(0.1f, 0.1f)
 , posType(NoPosition)
@@ -47,14 +47,14 @@ void OverlayScaler::stopScaling() {
     dirty     = false;
 }
 
-void OverlayScaler::setEntitySize(const glm::vec2& s) {
-    cachedObjectSize = s;
-    dirty            = scaleType != None;
+void OverlayScaler::setEntityBounds(const sf::FloatRect& s) {
+    cachedObjectBounds = s;
+    dirty              = true;
 }
 
 void OverlayScaler::setScissorToSelf(bool s) {
     useScissor = s;
-    dirty      = scaleType != None;
+    dirty      = true;
 }
 
 void OverlayScaler::positionInParentSpace(const glm::vec2& pos) {

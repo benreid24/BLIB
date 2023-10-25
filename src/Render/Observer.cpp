@@ -4,6 +4,7 @@
 #include <BLIB/Cameras/3D/Camera3D.hpp>
 #include <BLIB/Render/Graph/Assets/SceneAsset.hpp>
 #include <BLIB/Render/Renderer.hpp>
+#include <BLIB/Render/Scenes/Scene2D.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
 namespace bl
@@ -41,8 +42,9 @@ void Observer::cleanup() {
 
 void Observer::update(float dt) {
     if (!scenes.empty()) {
-        scenes.back().camera->update(dt);
+        if (scenes.back().camera) { scenes.back().camera->update(dt); }
         scenes.back().graph.update(dt);
+        overlayCamera.update(dt);
     }
 }
 
@@ -68,6 +70,10 @@ Overlay* Observer::getOrCreateSceneOverlay() {
         BL_LOG_ERROR << "Tried to create Overlay with no current scene";
         throw std::runtime_error("Tried to create Overlay with no current scene");
     }
+
+    // if the current scene is an overlay then return that
+    Overlay* overlay = dynamic_cast<Overlay*>(scenes.back().scene.get());
+    if (overlay) { return overlay; }
 
     return scenes.back().overlay ? scenes.back().overlay : createSceneOverlay();
 }
@@ -256,6 +262,29 @@ void Observer::assignRegion(const sf::Vector2u& windowSize,
 
 void Observer::setClearColor(const glm::vec4& color) {
     clearColors[0].color = {{color.x, color.y, color.z, color.w}};
+}
+
+glm::vec2 Observer::transformToWorldSpace(const glm::vec2& sp) const {
+    const glm::vec2 ndc((sp.x - viewport.x) / viewport.width * 2.f - 1.f,
+                        (sp.y - viewport.y) / viewport.height * 2.f - 1.f);
+    glm::mat4 tform(1.f);
+    if (hasScene() && scenes.back().camera) {
+        tform = scenes.back().camera->getProjectionMatrix(viewport) *
+                scenes.back().camera->getViewMatrix();
+    }
+    tform                  = glm::inverse(tform);
+    const glm::vec4 result = tform * glm::vec4(ndc, 0.f, 1.f);
+    return {result.x, result.y};
+}
+
+glm::vec2 Observer::transformToOverlaySpace(const glm::vec2& sp) const {
+    const glm::vec2 ndc((sp.x - viewport.x) / viewport.width * 2.f - 1.f,
+                        (sp.y - viewport.y) / viewport.height * 2.f - 1.f);
+    cam::OverlayCamera& cam = const_cast<cam::OverlayCamera&>(overlayCamera);
+    glm::mat4 tform = tform = cam.getProjectionMatrix(viewport) * cam.getViewMatrix();
+    tform                   = glm::inverse(tform);
+    const glm::vec4 result  = tform * glm::vec4(ndc, 0.f, 1.f);
+    return {result.x, result.y};
 }
 
 } // namespace rc

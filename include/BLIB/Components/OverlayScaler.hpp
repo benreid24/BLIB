@@ -88,16 +88,16 @@ public:
     void stopScaling();
 
     /**
-     * @brief Sets the pre-transform size of the entity. Used in scaling calculations
+     * @brief Sets the pre-transform bounds of the entity. Used in scaling calculations
      *
-     * @param size The pre-transform size of the entity
+     * @param bounds The pre-transform bounds of the entity
      */
-    void setEntitySize(const glm::vec2& size);
+    void setEntityBounds(const sf::FloatRect& bounds);
 
     /**
      * @brief Returns the pre-transform size of the entity
      */
-    constexpr const glm::vec2& getEntitySize() const;
+    constexpr const sf::FloatRect& getEntityBounds() const;
 
     /**
      * @brief Helper method to set the viewport to the region the drawable is in
@@ -135,7 +135,7 @@ private:
     enum PositionType { NoPosition, ParentSpace };
 
     OnScale onScale;
-    glm::vec2 cachedObjectSize;
+    sf::FloatRect cachedObjectBounds;
     sf::FloatRect cachedTargetRegion;
     ScaleType scaleType;
     union {
@@ -158,9 +158,11 @@ private:
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline constexpr const glm::vec2& OverlayScaler::getEntitySize() const { return cachedObjectSize; }
+inline constexpr const sf::FloatRect& OverlayScaler::getEntityBounds() const {
+    return cachedObjectBounds;
+}
 
-inline constexpr bool OverlayScaler::isDirty() const { return dirty && scaleType != None; }
+inline constexpr bool OverlayScaler::isDirty() const { return dirty; }
 
 } // namespace com
 } // namespace bl

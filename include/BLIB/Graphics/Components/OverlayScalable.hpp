@@ -42,7 +42,7 @@ public:
     /**
      * @brief Returns the pre-transform size of this entity
      */
-    const glm::vec2& getLocalSize() const;
+    glm::vec2 getLocalSize() const;
 
     /**
      * @brief Returns the post-transform size in Overlay space
@@ -82,6 +82,18 @@ protected:
      */
     void setLocalSize(const glm::vec2& size);
 
+    /**
+     * @brief Sets the pre-transform bounds of the entity. Use if bound corner is not (0, 0)
+     *
+     * @param bounds The local bounds of the entity
+     */
+    void setLocalBounds(const sf::FloatRect& bounds);
+
+    /**
+     * @brief Called when the local size is queried
+     */
+    virtual void ensureLocalSizeUpdated() = 0;
+
 private:
     sys::OverlayScalerSystem* scalerSystem;
     ecs::Registry* registry;
@@ -105,9 +117,13 @@ void OverlayScalable::create(engine::Engine& engine, ecs::Entity entity, TArgs&&
     handle = registry->emplaceComponent<com::OverlayScaler>(entity);
 }
 
-inline void OverlayScalable::setLocalSize(const glm::vec2& size) { handle->setEntitySize(size); }
+inline void OverlayScalable::setLocalSize(const glm::vec2& size) {
+    handle->setEntityBounds({0.f, 0.f, size.x, size.y});
+}
 
-inline const glm::vec2& OverlayScalable::getLocalSize() const { return handle->getEntitySize(); }
+inline void OverlayScalable::setLocalBounds(const sf::FloatRect& bounds) {
+    handle->setEntityBounds(bounds);
+}
 
 inline const sf::FloatRect& OverlayScalable::getTargetRegion() const {
     return handle->cachedTargetRegion;

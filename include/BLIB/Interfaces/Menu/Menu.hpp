@@ -1,17 +1,26 @@
 #ifndef BLIB_MENU_MENU_HPP
 #define BLIB_MENU_MENU_HPP
 
+#include <BLIB/Audio/AudioSystem.hpp>
+#include <BLIB/Events.hpp>
+#include <BLIB/Graphics/Rectangle.hpp>
 #include <BLIB/Interfaces/Menu/Event.hpp>
 #include <BLIB/Interfaces/Menu/Item.hpp>
 #include <BLIB/Interfaces/Menu/Selector.hpp>
-#include <BLIB/Audio/AudioSystem.hpp>
+#include <BLIB/Render/Events/SceneDestroyed.hpp>
+#include <BLIB/Render/Observer.hpp>
+#include <BLIB/Render/Overlays/Overlay.hpp>
 #include <BLIB/Util/Hashes.hpp>
-
 #include <list>
 #include <unordered_map>
 
 namespace bl
 {
+namespace engine
+{
+class Engine;
+}
+
 /// Collection of classes to create mouseless menus
 namespace menu
 {
@@ -21,28 +30,39 @@ namespace menu
  * @ingroup Menu
  *
  */
-class Menu {
+class Menu : public event::Listener<rc::event::SceneDestroyed> {
 public:
+    /**
+     * @brief Initializes the Menu. create() must be called before the menu can be used
+     */
+    Menu();
+
     /**
      * @brief Create a new Menu with the base Item and selection indicator
      *
+     * @param engine The game engine instance
+     * @param observer The observer that the menu will be used by
+     * @param selector The selector to use
      */
-    Menu(const Selector::Ptr& selector);
+    void create(engine::Engine& engine, rc::Observer& observer, const Selector::Ptr& selector);
+
+    /**
+     * @brief Adds the menu and all items to the observer's current overlay. New items will be
+     *        added automatically
+     */
+    void addToOverlay();
+
+    /**
+     * @brief Removes the menu and all components from its current overlay
+     */
+    void removeFromOverlay();
 
     /**
      * @brief Set the position to render the menu at
      *
+     * @param position The position of the menu itself
      */
-    void setPosition(const sf::Vector2f& position);
-
-    /**
-     * @brief Render the menu to the given target using the given renderer at the given
-     *        position with the given states.
-     *
-     * @param target The target to render to
-     * @param renderStates Render states to use
-     */
-    void render(sf::RenderTarget& target, sf::RenderStates renderStates = {}) const;
+    void setPosition(const glm::vec2& position);
 
     /**
      * @brief Processes the event and updates the Menu state
@@ -101,7 +121,7 @@ public:
      * @brief Sets the padding to place between elements
      *
      */
-    void setPadding(const sf::Vector2f& padding);
+    void setPadding(const glm::vec2& padding);
 
     /**
      * @brief Sets the minimum height an item should take
@@ -116,12 +136,12 @@ public:
     void setMinWidth(float mw);
 
     /**
-     * @brief Sets the background parameters for simple backgrouns. Default is no background
+     * @brief Sets the background parameters for simple background. Default is no background
      *
      * @param fill The background color
      * @param outline The outline color around the background and menu
      * @param outlineThickness The thickness of the outline
-     * @param padding Padding between menu elements and the edge of the background on each side
+     * @param padding The padding between menu elements and the edge of the background on each side
      */
     void configureBackground(sf::Color fill, sf::Color outline, float outlineThickness,
                              const sf::FloatRect& padding = {-1.f, -1.f, -1.f, -1.f});
@@ -143,25 +163,25 @@ public:
      *        prevent scrolling in that dimension. Default is no max size
      *
      */
-    void setMaximumSize(const sf::Vector2f& maxSize);
+    void setMaximumSize(const glm::vec2& maxSize);
 
     /**
      * @brief Returns the maximum size of the menu
      *
      */
-    const sf::Vector2f& maximumSize() const;
+    const glm::vec2& maximumSize() const;
 
     /**
      * @brief Returns the currently visible size of the menu
      *
      */
-    sf::Vector2f visibleSize() const;
+    glm::vec2 visibleSize() const;
 
     /**
      * @brief Returns the current scroll offset of the menu
      *
      */
-    const sf::Vector2f& currentOffset() const;
+    const glm::vec2& currentOffset() const;
 
     /**
      * @brief Returns the currently selected item
@@ -212,25 +232,29 @@ public:
     static void setDefaultSelectSound(audio::AudioSystem::Handle sound);
 
 private:
-    sf::Vector2f maxSize;
-    sf::Vector2f position;
-    sf::Vector2f offset;
+    engine::Engine* engine;
+    rc::Observer* observer;
+    rc::Overlay* overlay;
+    glm::vec2 maxSize;
+    glm::vec2 offset;
     std::vector<Item::Ptr> items;
     Selector::Ptr selector;
     Item* selectedItem;
-    sf::Vector2f padding;
-    sf::Vector2f minSize;
-    sf::RectangleShape background;
-    sf::Vector2f totalSize;
+    glm::vec2 position;
+    glm::vec2 padding;
+    glm::vec2 minSize;
+    gfx::Rectangle background;
+    glm::vec2 totalSize;
     sf::FloatRect bgndPadding;
     audio::AudioSystem::Handle moveSound;
     audio::AudioSystem::Handle failSound;
     audio::AudioSystem::Handle selectSound;
 
-    sf::Vector2f move(const sf::Vector2f& pos, const sf::Vector2f& psize, const sf::Vector2f& esize,
-                      Item::AttachPoint ap);
+    glm::vec2 move(const glm::vec2& pos, const glm::vec2& psize, const glm::vec2& esize,
+                   Item::AttachPoint ap);
     void refreshScroll();
     void playSound(audio::AudioSystem::Handle sound) const;
+    virtual void observe(const rc::event::SceneDestroyed& event) override;
 
     static audio::AudioSystem::Handle defaultMoveSound;
     static audio::AudioSystem::Handle defaultFailSound;
