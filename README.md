@@ -3,6 +3,7 @@
 BLIB started as a collection of code from various projects over the years suited for reuse. Since then it has been expanded into a large collection
 of code, both new and reused, that I intend to use as a small game engine for personal projects. Some of the key features include:
 - Engine interface with state management and a configurable main game loop
+- Framework for implementing game systems that are parallelized by default
 - Entity Component System with entity parenting and dependencies supported out of the box
 - A Vulkan-based renderer backed by the ECS
 - Classical GUI framework and a Menu system suitable for controllers

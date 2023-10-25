@@ -10,16 +10,14 @@ namespace bl
 namespace gui
 {
 /**
- * @brief GUI analog of sf::Event. Represents user actions that can propogate through the
+ * @brief GUI analog of sf::Event. Represents user actions that can propagate through the
  *        Element tree
  *
  * @ingroup GUI
- *
  */
 struct Event {
     /**
      * @brief The type of Event that occurred
-     *
      */
     enum Type {
         MouseEntered = 0,      /// Mouse moved over Element
@@ -50,7 +48,6 @@ struct Event {
 
     /**
      * @brief Helper method to construct an Event from an SFML event
-     *
      */
     static Event fromSFML(const sf::Event& event, const sf::Vector2f& position = {});
 

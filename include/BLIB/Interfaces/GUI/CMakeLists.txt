@@ -7,4 +7,4 @@ target_sources(BLIB PUBLIC
 add_subdirectory(Dialogs)
 add_subdirectory(Elements)
 add_subdirectory(Packers)
-add_subdirectory(Renderers)
+add_subdirectory(Renderer)
