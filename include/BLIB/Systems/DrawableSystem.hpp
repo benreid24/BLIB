@@ -172,7 +172,7 @@ void DrawableSystem<T>::removeFromScene(ecs::Entity entity) {
     T* c = registry->getComponent<T>(entity);
     if (!c) {
 #ifdef BLIB_DEBUG
-        BL_LOG_WARN << "Entity " << entity << " is missing component: " << typeid(T).name();
+        BL_LOG_DEBUG << "Entity " << entity << " is missing component: " << typeid(T).name();
 #endif
         return;
     }
