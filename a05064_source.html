@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Components/Sprite.hpp Source File</title>
+<title>BLIB: include/BLIB/Graphics/Shape2D.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,97 +66,113 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_03a2a625e67597eb4ae66cccf6894c5e.html">Components</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_8af985930208ac2752e8061e22535a56.html">Graphics</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Sprite.hpp</div>  </div>
+<div class="title">Shape2D.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a05064.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_COMPONENTS_SPRITE_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_COMPONENTS_SPRITE_HPP</span></div>
+<a href="a05064.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_GRAPHICS_SHAPE_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_GRAPHICS_SHAPE_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00545.html">BLIB/Render/Buffers/IndexBuffer.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00560.html">BLIB/Render/Components/DrawableBase.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00746.html">BLIB/Render/Resources/TextureRef.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;SFML/Graphics/Rect.hpp&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01830.html">bl</a></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>engine</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">class </span>Engine;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;}</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span>rc</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">class </span>Renderer;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;}</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">namespace </span>com</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;{</div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a02054.html">   28</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02054.html">Sprite</a> : <span class="keyword">public</span> <a class="code" href="a02910.html">rc::rcom::DrawableBase</a> {</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="a02054.html#a4b9f58d5a5a2b2c56eb98f246c53e0ee">   33</a></span>&#160;    <a class="code" href="a02054.html#a4b9f58d5a5a2b2c56eb98f246c53e0ee">Sprite</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05061.html">BLIB/Components/Shape2D.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05112.html">BLIB/Engine/Systems.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00275.html">BLIB/Graphics/Components/OverlayScalable.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05094.html">BLIB/Graphics/Components/Transform2D.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00281.html">BLIB/Graphics/Drawable.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01833.html">bl</a></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>gfx</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a02491.html">   19</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02491.html">Shape2D</a></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;: <span class="keyword">public</span> <a class="code" href="a02483.html">Drawable</a>&lt;com::Shape2D&gt;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;, <span class="keyword">public</span> <a class="code" href="a02471.html">bcom::OverlayScalable</a> {</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02491.html#afec0ff61a9f6c1e904bcd39e8ac9ce4e">~Shape2D</a>();</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02491.html#a7b5cb964e7df5b6a699b404682abe7e2">setFillColor</a>(<span class="keyword">const</span> glm::vec4&amp; color);</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <a class="code" href="a02054.html#a4b9f58d5a5a2b2c56eb98f246c53e0ee">Sprite</a>(<a class="code" href="a03158.html">rc::Renderer</a>&amp; renderer, <span class="keyword">const</span> <a class="code" href="a03206.html">rc::res::TextureRef</a>&amp; texture,</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;           <span class="keyword">const</span> sf::FloatRect&amp; region = {});</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02054.html#adc358b0b3b8e768251f02bfa37b44d4b">create</a>(<a class="code" href="a03158.html">rc::Renderer</a>* renderer, <span class="keyword">const</span> <a class="code" href="a03206.html">rc::res::TextureRef</a>&amp; texture,</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                sf::FloatRect region = {});</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02054.html#ad51939a0aa1c09285b38c6c19ae2f794">setTexture</a>(<span class="keyword">const</span> <a class="code" href="a03206.html">rc::res::TextureRef</a>&amp; texture);</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    constexpr <span class="keyword">const</span> <a class="code" href="a03206.html">rc::res::TextureRef</a>&amp; <a class="code" href="a02054.html#a3ef8ebb5b41bad092cb1a004f237266c">getTexture</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02054.html#ab11a95fd869f73da4095232cddd61c92">setColor</a>(<span class="keyword">const</span> glm::vec4&amp; color);</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keyword">const</span> glm::vec4&amp; <a class="code" href="a02054.html#a7f1fd66a0ae3dc781b4570a982810252">getColor</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    constexpr <span class="keyword">const</span> glm::vec2&amp; <a class="code" href="a02054.html#abc0caff38dde3bac0c10e808466a43ee">getSize</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <a class="code" href="a02890.html">rc::buf::IndexBuffer</a> buffer;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <a class="code" href="a03206.html">rc::res::TextureRef</a> texture;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    glm::vec2 size;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keyword">const</span> glm::vec4&amp; <a class="code" href="a02491.html#ae20b0e226040739f1723f42242c067e7">getFillColor</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02491.html#aaa356f517fbaabd70c692f77a9d96ea1">setOutlineColor</a>(<span class="keyword">const</span> glm::vec4&amp; color);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keyword">const</span> glm::vec4&amp; <a class="code" href="a02491.html#a5dfb480c6a018f03271652113899284c">getOutlineColor</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02491.html#a8801a8c0e56b19ca6e285d0143d90102">setOutlineThickness</a>(<span class="keywordtype">float</span> thickness);</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a02491.html#a4ee0abdda874fe721eadbab6737c9fb6">getOutlineThickness</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keyword">const</span> sf::FloatRect&amp; <a class="code" href="a02491.html#aeaf6dd8603c876fe0341cfa27048b4b9">getLocalBounds</a>();</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02491.html#a695ac11058df7ed1237904d2088df56d">scaleToSize</a>(<span class="keyword">const</span> glm::vec2&amp; size) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <a class="code" href="a02491.html#a7b31d1bdabd8cbea6d7128e830245ad5">Shape2D</a>();</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00088"></a><span class="lineno"><a class="line" href="a02491.html#a8e80bba65b71ad118135025336937053">   88</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="a02491.html#a8e80bba65b71ad118135025336937053">getVertexCount</a>() <span class="keyword">const</span> = 0;</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keywordtype">void</span> refreshTrans();</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;};</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
-<div class="line"><a name="l00095"></a><span class="lineno"><a class="line" href="a02054.html#a3ef8ebb5b41bad092cb1a004f237266c">   95</a></span>&#160;<span class="keyword">inline</span> constexpr <span class="keyword">const</span> <a class="code" href="a03206.html">rc::res::TextureRef</a>&amp; <a class="code" href="a02054.html#a3ef8ebb5b41bad092cb1a004f237266c">Sprite::getTexture</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> texture; }</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
-<div class="line"><a name="l00097"></a><span class="lineno"><a class="line" href="a02054.html#abc0caff38dde3bac0c10e808466a43ee">   97</a></span>&#160;<span class="keyword">inline</span> constexpr <span class="keyword">const</span> glm::vec2&amp; <a class="code" href="a02054.html#abc0caff38dde3bac0c10e808466a43ee">Sprite::getSize</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> size; }</div>
+<div class="line"><a name="l00097"></a><span class="lineno"><a class="line" href="a02491.html#a5fef5369bbcf657a54125fe6baf718fd">   97</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02491.html#a5fef5369bbcf657a54125fe6baf718fd">populateVertex</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> index, <a class="code" href="a03159.html">rc::prim::Vertex</a>&amp; vertex) = 0;</div>
 <div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
-<div class="line"><a name="l00099"></a><span class="lineno"><a class="line" href="a02054.html#a7f1fd66a0ae3dc781b4570a982810252">   99</a></span>&#160;<span class="keyword">inline</span> <span class="keyword">const</span> glm::vec4&amp; <a class="code" href="a02054.html#a7f1fd66a0ae3dc781b4570a982810252">Sprite::getColor</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> buffer.<a class="code" href="a02890.html#a8ab311d1edf2121ba1b570b9f61fd145">vertices</a>()[0].color; }</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;} <span class="comment">// namespace com</span></div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00545_html"><div class="ttname"><a href="a00545.html">IndexBuffer.hpp</a></div></div>
-<div class="ttc" id="aa00560_html"><div class="ttname"><a href="a00560.html">DrawableBase.hpp</a></div></div>
-<div class="ttc" id="aa00746_html"><div class="ttname"><a href="a00746.html">TextureRef.hpp</a></div></div>
-<div class="ttc" id="aa01830_html"><div class="ttname"><a href="a01830.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02054_html"><div class="ttname"><a href="a02054.html">bl::com::Sprite</a></div><div class="ttdoc">Sprite component repersenting a 2d image for an entity.</div><div class="ttdef"><b>Definition:</b> <a href="a05064_source.html#l00028">Sprite.hpp:28</a></div></div>
-<div class="ttc" id="aa02054_html_a3ef8ebb5b41bad092cb1a004f237266c"><div class="ttname"><a href="a02054.html#a3ef8ebb5b41bad092cb1a004f237266c">bl::com::Sprite::getTexture</a></div><div class="ttdeci">constexpr const rc::res::TextureRef &amp; getTexture() const</div><div class="ttdoc">Returns the texture that is rendered by the sprite.</div><div class="ttdef"><b>Definition:</b> <a href="a05064_source.html#l00095">Sprite.hpp:95</a></div></div>
-<div class="ttc" id="aa02054_html_a4b9f58d5a5a2b2c56eb98f246c53e0ee"><div class="ttname"><a href="a02054.html#a4b9f58d5a5a2b2c56eb98f246c53e0ee">bl::com::Sprite::Sprite</a></div><div class="ttdeci">Sprite()=default</div><div class="ttdoc">Creates an empty sprite.</div></div>
-<div class="ttc" id="aa02054_html_a7f1fd66a0ae3dc781b4570a982810252"><div class="ttname"><a href="a02054.html#a7f1fd66a0ae3dc781b4570a982810252">bl::com::Sprite::getColor</a></div><div class="ttdeci">const glm::vec4 &amp; getColor() const</div><div class="ttdoc">Returns the color that is being applied.</div><div class="ttdef"><b>Definition:</b> <a href="a05064_source.html#l00099">Sprite.hpp:99</a></div></div>
-<div class="ttc" id="aa02054_html_ab11a95fd869f73da4095232cddd61c92"><div class="ttname"><a href="a02054.html#ab11a95fd869f73da4095232cddd61c92">bl::com::Sprite::setColor</a></div><div class="ttdeci">void setColor(const glm::vec4 &amp;color)</div><div class="ttdoc">Sets the color to multiply the texture color by.</div><div class="ttdef"><b>Definition:</b> <a href="a05199_source.html#l00067">Sprite.cpp:67</a></div></div>
-<div class="ttc" id="aa02054_html_abc0caff38dde3bac0c10e808466a43ee"><div class="ttname"><a href="a02054.html#abc0caff38dde3bac0c10e808466a43ee">bl::com::Sprite::getSize</a></div><div class="ttdeci">constexpr const glm::vec2 &amp; getSize() const</div><div class="ttdoc">Returns the pre-transform size of the Sprite.</div><div class="ttdef"><b>Definition:</b> <a href="a05064_source.html#l00097">Sprite.hpp:97</a></div></div>
-<div class="ttc" id="aa02054_html_ad51939a0aa1c09285b38c6c19ae2f794"><div class="ttname"><a href="a02054.html#ad51939a0aa1c09285b38c6c19ae2f794">bl::com::Sprite::setTexture</a></div><div class="ttdeci">void setTexture(const rc::res::TextureRef &amp;texture)</div><div class="ttdoc">Swap out the texture to use. Does not reset texture region. Call create() to reset region texture.</div><div class="ttdef"><b>Definition:</b> <a href="a05199_source.html#l00062">Sprite.cpp:62</a></div></div>
-<div class="ttc" id="aa02054_html_adc358b0b3b8e768251f02bfa37b44d4b"><div class="ttname"><a href="a02054.html#adc358b0b3b8e768251f02bfa37b44d4b">bl::com::Sprite::create</a></div><div class="ttdeci">void create(rc::Renderer *renderer, const rc::res::TextureRef &amp;texture, sf::FloatRect region={})</div><div class="ttdoc">Creates the sprite so that it may be added to a scene.</div><div class="ttdef"><b>Definition:</b> <a href="a05199_source.html#l00014">Sprite.cpp:14</a></div></div>
-<div class="ttc" id="aa02890_html"><div class="ttname"><a href="a02890.html">bl::rc::buf::IndexBufferT</a></div><div class="ttdoc">Basic index buffer class built on top of vk::Buffer. Intended for static mesh data.</div><div class="ttdef"><b>Definition:</b> <a href="a00545_source.html#l00025">IndexBuffer.hpp:25</a></div></div>
-<div class="ttc" id="aa02890_html_a8ab311d1edf2121ba1b570b9f61fd145"><div class="ttname"><a href="a02890.html#a8ab311d1edf2121ba1b570b9f61fd145">bl::rc::buf::IndexBufferT::vertices</a></div><div class="ttdeci">constexpr std::vector&lt; T &gt; &amp; vertices()</div><div class="ttdoc">Returns the vertex buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a00545_source.html#l00155">IndexBuffer.hpp:155</a></div></div>
-<div class="ttc" id="aa02910_html"><div class="ttname"><a href="a02910.html">bl::rc::rcom::DrawableBase</a></div><div class="ttdoc">Base class for drawable scene components for the ECS. Provides common members.</div><div class="ttdef"><b>Definition:</b> <a href="a00560_source.html#l00020">DrawableBase.hpp:20</a></div></div>
-<div class="ttc" id="aa03158_html"><div class="ttname"><a href="a03158.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition:</b> <a href="a05130_source.html#l00039">Renderer.hpp:39</a></div></div>
-<div class="ttc" id="aa03206_html"><div class="ttname"><a href="a03206.html">bl::rc::res::TextureRef</a></div><div class="ttdoc">Lightweight reference to a texture inside of a TexturePool. Once all references to a texture are dest...</div><div class="ttdef"><b>Definition:</b> <a href="a00746_source.html#l00025">TextureRef.hpp:25</a></div></div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="keyword">virtual</span> glm::vec4 <a class="code" href="a02491.html#ae52ca3444158b848f1ce03c71191280a">getCenterColor</a>(<span class="keyword">const</span> glm::vec4&amp; avgColor) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02491.html#a9b714e84569ab1a72067d97108f92911">markDirty</a>();</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02491.html#ae78fa689805524d596c7f1a04d2ee88a">create</a>(<a class="code" href="a02319.html">engine::Engine</a>&amp; <a class="code" href="a02483.html#adef5d2a123c05b5b6f6be50c2ffe1454">engine</a>);</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02491.html#a01c0e65bf208b70da36335f5ad781074">ensureLocalSizeUpdated</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160; </div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    glm::vec4 fillColor;</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    glm::vec4 outlineColor;</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="keywordtype">float</span> outlineThickness;</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    sf::FloatRect localBounds;</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="keywordtype">bool</span> dirty;</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    <a class="code" href="a02379.html">engine::Systems::TaskHandle</a> updateHandle;</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160; </div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    <span class="keywordtype">void</span> update();</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;};</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160; </div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;} <span class="comment">// namespace gfx</span></div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160; </div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00275_html"><div class="ttname"><a href="a00275.html">OverlayScalable.hpp</a></div></div>
+<div class="ttc" id="aa00281_html"><div class="ttname"><a href="a00281.html">Drawable.hpp</a></div></div>
+<div class="ttc" id="aa01833_html"><div class="ttname"><a href="a01833.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02319_html"><div class="ttname"><a href="a02319.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a05103_source.html#l00032">Engine.hpp:32</a></div></div>
+<div class="ttc" id="aa02379_html"><div class="ttname"><a href="a02379.html">bl::engine::Systems::TaskHandle</a></div><div class="ttdoc">Handle to a task submitted to Systems.</div><div class="ttdef"><b>Definition:</b> <a href="a05112_source.html#l00042">Systems.hpp:42</a></div></div>
+<div class="ttc" id="aa02471_html"><div class="ttname"><a href="a02471.html">bl::gfx::bcom::OverlayScalable</a></div><div class="ttdoc">Base component that manages and provides a Transform2D, OverlayScaler, and Viewport.</div><div class="ttdef"><b>Definition:</b> <a href="a00275_source.html#l00030">OverlayScalable.hpp:30</a></div></div>
+<div class="ttc" id="aa02483_html"><div class="ttname"><a href="a02483.html">bl::gfx::Drawable</a></div><div class="ttdoc">Base class for Drawable objects. A Drawable object should inherit this class for the drawable compone...</div><div class="ttdef"><b>Definition:</b> <a href="a00281_source.html#l00032">Drawable.hpp:32</a></div></div>
+<div class="ttc" id="aa02483_html_adef5d2a123c05b5b6f6be50c2ffe1454"><div class="ttname"><a href="a02483.html#adef5d2a123c05b5b6f6be50c2ffe1454">bl::gfx::Drawable&lt; com::Shape2D &gt;::engine</a></div><div class="ttdeci">constexpr engine::Engine &amp; engine()</div><div class="ttdoc">Returns the game engine instance. Only call after create()</div><div class="ttdef"><b>Definition:</b> <a href="a00281_source.html#l00142">Drawable.hpp:325</a></div></div>
+<div class="ttc" id="aa02491_html"><div class="ttname"><a href="a02491.html">bl::gfx::Shape2D</a></div><div class="ttdoc">Base class for 2d shapes. Provides index buffer creation and management.</div><div class="ttdef"><b>Definition:</b> <a href="a05064_source.html#l00019">Shape2D.hpp:21</a></div></div>
+<div class="ttc" id="aa02491_html_a01c0e65bf208b70da36335f5ad781074"><div class="ttname"><a href="a02491.html#a01c0e65bf208b70da36335f5ad781074">bl::gfx::Shape2D::ensureLocalSizeUpdated</a></div><div class="ttdeci">virtual void ensureLocalSizeUpdated() override</div><div class="ttdoc">Called when the local size is queried.</div><div class="ttdef"><b>Definition:</b> <a href="a05199_source.html#l00070">Shape2D.cpp:70</a></div></div>
+<div class="ttc" id="aa02491_html_a4ee0abdda874fe721eadbab6737c9fb6"><div class="ttname"><a href="a02491.html#a4ee0abdda874fe721eadbab6737c9fb6">bl::gfx::Shape2D::getOutlineThickness</a></div><div class="ttdeci">float getOutlineThickness() const</div><div class="ttdoc">Returns the thickness of the outline.</div><div class="ttdef"><b>Definition:</b> <a href="a05199_source.html#l00047">Shape2D.cpp:47</a></div></div>
+<div class="ttc" id="aa02491_html_a5dfb480c6a018f03271652113899284c"><div class="ttname"><a href="a02491.html#a5dfb480c6a018f03271652113899284c">bl::gfx::Shape2D::getOutlineColor</a></div><div class="ttdeci">const glm::vec4 &amp; getOutlineColor() const</div><div class="ttdoc">Returns the color of the outline.</div><div class="ttdef"><b>Definition:</b> <a href="a05199_source.html#l00040">Shape2D.cpp:40</a></div></div>
+<div class="ttc" id="aa02491_html_a5fef5369bbcf657a54125fe6baf718fd"><div class="ttname"><a href="a02491.html#a5fef5369bbcf657a54125fe6baf718fd">bl::gfx::Shape2D::populateVertex</a></div><div class="ttdeci">virtual void populateVertex(unsigned int index, rc::prim::Vertex &amp;vertex)=0</div><div class="ttdoc">Derived classes should set the position (and may override the color) in this method....</div></div>
+<div class="ttc" id="aa02491_html_a695ac11058df7ed1237904d2088df56d"><div class="ttname"><a href="a02491.html#a695ac11058df7ed1237904d2088df56d">bl::gfx::Shape2D::scaleToSize</a></div><div class="ttdeci">virtual void scaleToSize(const glm::vec2 &amp;size) override</div><div class="ttdoc">Helper method to set the scale so that the entity is a certain size.</div><div class="ttdef"><b>Definition:</b> <a href="a05199_source.html#l00195">Shape2D.cpp:195</a></div></div>
+<div class="ttc" id="aa02491_html_a7b31d1bdabd8cbea6d7128e830245ad5"><div class="ttname"><a href="a02491.html#a7b31d1bdabd8cbea6d7128e830245ad5">bl::gfx::Shape2D::Shape2D</a></div><div class="ttdeci">Shape2D()</div><div class="ttdoc">Initializes the shapes fields to sane defaults.</div><div class="ttdef"><b>Definition:</b> <a href="a05199_source.html#l00016">Shape2D.cpp:16</a></div></div>
+<div class="ttc" id="aa02491_html_a7b5cb964e7df5b6a699b404682abe7e2"><div class="ttname"><a href="a02491.html#a7b5cb964e7df5b6a699b404682abe7e2">bl::gfx::Shape2D::setFillColor</a></div><div class="ttdeci">void setFillColor(const glm::vec4 &amp;color)</div><div class="ttdoc">Sets the color to fill the shape with.</div><div class="ttdef"><b>Definition:</b> <a href="a05199_source.html#l00028">Shape2D.cpp:28</a></div></div>
+<div class="ttc" id="aa02491_html_a8801a8c0e56b19ca6e285d0143d90102"><div class="ttname"><a href="a02491.html#a8801a8c0e56b19ca6e285d0143d90102">bl::gfx::Shape2D::setOutlineThickness</a></div><div class="ttdeci">void setOutlineThickness(float thickness)</div><div class="ttdoc">Sets the thickness of the outline. Negative outline will render inside the bounds of the shape....</div><div class="ttdef"><b>Definition:</b> <a href="a05199_source.html#l00042">Shape2D.cpp:42</a></div></div>
+<div class="ttc" id="aa02491_html_a8e80bba65b71ad118135025336937053"><div class="ttname"><a href="a02491.html#a8e80bba65b71ad118135025336937053">bl::gfx::Shape2D::getVertexCount</a></div><div class="ttdeci">virtual unsigned int getVertexCount() const =0</div><div class="ttdoc">Derived classes should return the number of points their shape requires.</div></div>
+<div class="ttc" id="aa02491_html_a9b714e84569ab1a72067d97108f92911"><div class="ttname"><a href="a02491.html#a9b714e84569ab1a72067d97108f92911">bl::gfx::Shape2D::markDirty</a></div><div class="ttdeci">void markDirty()</div><div class="ttdoc">Call whenever the vertices need to be refreshed.</div><div class="ttdef"><b>Definition:</b> <a href="a05199_source.html#l00056">Shape2D.cpp:56</a></div></div>
+<div class="ttc" id="aa02491_html_aaa356f517fbaabd70c692f77a9d96ea1"><div class="ttname"><a href="a02491.html#aaa356f517fbaabd70c692f77a9d96ea1">bl::gfx::Shape2D::setOutlineColor</a></div><div class="ttdeci">void setOutlineColor(const glm::vec4 &amp;color)</div><div class="ttdoc">Sets the color the outline will be filled with.</div><div class="ttdef"><b>Definition:</b> <a href="a05199_source.html#l00035">Shape2D.cpp:35</a></div></div>
+<div class="ttc" id="aa02491_html_ae20b0e226040739f1723f42242c067e7"><div class="ttname"><a href="a02491.html#ae20b0e226040739f1723f42242c067e7">bl::gfx::Shape2D::getFillColor</a></div><div class="ttdeci">const glm::vec4 &amp; getFillColor() const</div><div class="ttdoc">Returns the color the shape is filled with.</div><div class="ttdef"><b>Definition:</b> <a href="a05199_source.html#l00033">Shape2D.cpp:33</a></div></div>
+<div class="ttc" id="aa02491_html_ae52ca3444158b848f1ce03c71191280a"><div class="ttname"><a href="a02491.html#ae52ca3444158b848f1ce03c71191280a">bl::gfx::Shape2D::getCenterColor</a></div><div class="ttdeci">virtual glm::vec4 getCenterColor(const glm::vec4 &amp;avgColor) const</div><div class="ttdoc">Allows derived classes to set the color of the center vertex. Simply return the computed average colo...</div><div class="ttdef"><b>Definition:</b> <a href="a05199_source.html#l00054">Shape2D.cpp:54</a></div></div>
+<div class="ttc" id="aa02491_html_ae78fa689805524d596c7f1a04d2ee88a"><div class="ttname"><a href="a02491.html#ae78fa689805524d596c7f1a04d2ee88a">bl::gfx::Shape2D::create</a></div><div class="ttdeci">void create(engine::Engine &amp;engine)</div><div class="ttdoc">Creates the ECS entity and required components.</div><div class="ttdef"><b>Definition:</b> <a href="a05199_source.html#l00064">Shape2D.cpp:64</a></div></div>
+<div class="ttc" id="aa02491_html_aeaf6dd8603c876fe0341cfa27048b4b9"><div class="ttname"><a href="a02491.html#aeaf6dd8603c876fe0341cfa27048b4b9">bl::gfx::Shape2D::getLocalBounds</a></div><div class="ttdeci">const sf::FloatRect &amp; getLocalBounds()</div><div class="ttdoc">Returns the bounds of the shape. Bounds only computed if the shape is created first.</div><div class="ttdef"><b>Definition:</b> <a href="a05199_source.html#l00049">Shape2D.cpp:49</a></div></div>
+<div class="ttc" id="aa02491_html_afec0ff61a9f6c1e904bcd39e8ac9ce4e"><div class="ttname"><a href="a02491.html#afec0ff61a9f6c1e904bcd39e8ac9ce4e">bl::gfx::Shape2D::~Shape2D</a></div><div class="ttdeci">virtual ~Shape2D()</div><div class="ttdoc">Destroys the shape.</div><div class="ttdef"><b>Definition:</b> <a href="a05199_source.html#l00024">Shape2D.cpp:24</a></div></div>
+<div class="ttc" id="aa03159_html"><div class="ttname"><a href="a03159.html">bl::rc::prim::Vertex</a></div><div class="ttdoc">Base Vertex primitive for the renderer.</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00022">Vertex.hpp:22</a></div></div>
+<div class="ttc" id="aa05061_html"><div class="ttname"><a href="a05061.html">Shape2D.hpp</a></div></div>
+<div class="ttc" id="aa05094_html"><div class="ttname"><a href="a05094.html">Transform2D.hpp</a></div></div>
+<div class="ttc" id="aa05112_html"><div class="ttname"><a href="a05112.html">Systems.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Oct 21 2023 00:16:51 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Oct 25 2023 00:24:19 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

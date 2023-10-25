@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Primitives/SlideshowVertex.cpp Source File</title>
+<title>BLIB: src/Render/Overlays/OverlayObject.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,97 +66,38 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_e8dba1c5a4c510c16da20e13828a9aa1.html">Primitives</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_8c8c1712aed2a59ae47f7d5ea800798b.html">Overlays</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">SlideshowVertex.cpp</div>  </div>
+<div class="title">OverlayObject.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01532.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00710.html">BLIB/Render/Primitives/SlideshowVertex.hpp</a>&gt;</span></div>
+<a href="a01532.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00704.html">BLIB/Render/Overlays/OverlayObject.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01830.html">bl</a></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01833.html">bl</a></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>rc</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>prim</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>ovy</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a03150.html#a121498a5fa54786376ff7c0831a9ce09">    9</a></span>&#160;<a class="code" href="a03150.html#a121498a5fa54786376ff7c0831a9ce09">SlideshowVertex::SlideshowVertex</a>()</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;: pos(0.f, 0.f, 0.f)</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;, color(1.f, 1.f, 1.f, 1.f)</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;, slideshowIndex(0) {}</div>
+<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a03143.html#acfac16c3170845244d5bf29e69ac1cb0">    9</a></span>&#160;<a class="code" href="a03143.html#acfac16c3170845244d5bf29e69ac1cb0">OverlayObject::OverlayObject</a>()</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;: SceneObject()</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;, overlay(nullptr)</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;, descriptorCount(0) {}</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="a03150.html#af4508cdf4184ee25e0114c3eb3ce4f4a">   14</a></span>&#160;<a class="code" href="a03150.html#a121498a5fa54786376ff7c0831a9ce09">SlideshowVertex::SlideshowVertex</a>(<span class="keyword">const</span> glm::vec3&amp; pos)</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;: pos(pos)</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;, color(1.f, 1.f, 1.f, 1.f)</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;, slideshowIndex(0) {}</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a03150.html#a9133269ec196901121e1c164e7d76c49">   19</a></span>&#160;<a class="code" href="a03150.html#a121498a5fa54786376ff7c0831a9ce09">SlideshowVertex::SlideshowVertex</a>(<span class="keyword">const</span> glm::vec3&amp; pos, <span class="keyword">const</span> glm::vec4&amp; color)</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;: pos(pos)</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;, color(color)</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;, slideshowIndex(0) {}</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a03150.html#a58af7eb7e2faca1e6c44960a9d48f181">   24</a></span>&#160;<a class="code" href="a03150.html#a121498a5fa54786376ff7c0831a9ce09">SlideshowVertex::SlideshowVertex</a>(<span class="keyword">const</span> glm::vec3&amp; pos, std::uint32_t index)</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;: pos(pos)</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;, color(1.f, 1.f, 1.f, 1.f)</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;, slideshowIndex(index) {}</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a03150.html#ac85a968a5f3d98ace14cee3bc81f81b9">   29</a></span>&#160;<a class="code" href="a03150.html#a121498a5fa54786376ff7c0831a9ce09">SlideshowVertex::SlideshowVertex</a>(<span class="keyword">const</span> glm::vec3&amp; pos, <span class="keyword">const</span> glm::vec4&amp; color,</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;                                 std::uint32_t slideshowIndex)</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;: pos(pos)</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;, color(color)</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;, slideshowIndex(slideshowIndex) {}</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="a03150.html#a57e7e23524bdecf24684db8a29482df6">   35</a></span>&#160;VkVertexInputBindingDescription <a class="code" href="a03150.html#a57e7e23524bdecf24684db8a29482df6">SlideshowVertex::bindingDescription</a>() {</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    VkVertexInputBindingDescription <a class="code" href="a03150.html#a57e7e23524bdecf24684db8a29482df6">bindingDescription</a>{};</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <a class="code" href="a03150.html#a57e7e23524bdecf24684db8a29482df6">bindingDescription</a>.binding   = 0;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <a class="code" href="a03150.html#a57e7e23524bdecf24684db8a29482df6">bindingDescription</a>.stride    = <span class="keyword">sizeof</span>(<a class="code" href="a03150.html#a121498a5fa54786376ff7c0831a9ce09">SlideshowVertex</a>);</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <a class="code" href="a03150.html#a57e7e23524bdecf24684db8a29482df6">bindingDescription</a>.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="a03150.html#a57e7e23524bdecf24684db8a29482df6">bindingDescription</a>;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;}</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="a03150.html#a39ce870fd005672ebcecb0eaec0de796">   43</a></span>&#160;std::array&lt;VkVertexInputAttributeDescription, 3&gt; <a class="code" href="a03150.html#a39ce870fd005672ebcecb0eaec0de796">SlideshowVertex::attributeDescriptions</a>() {</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    std::array&lt;VkVertexInputAttributeDescription, 3&gt; <a class="code" href="a03150.html#a39ce870fd005672ebcecb0eaec0de796">attributeDescriptions</a>{};</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="comment">// pos attribute</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <a class="code" href="a03150.html#a39ce870fd005672ebcecb0eaec0de796">attributeDescriptions</a>[0].binding  = 0;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <a class="code" href="a03150.html#a39ce870fd005672ebcecb0eaec0de796">attributeDescriptions</a>[0].location = 0;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <a class="code" href="a03150.html#a39ce870fd005672ebcecb0eaec0de796">attributeDescriptions</a>[0].format   = VK_FORMAT_R32G32B32_SFLOAT;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <a class="code" href="a03150.html#a39ce870fd005672ebcecb0eaec0de796">attributeDescriptions</a>[0].offset   = offsetof(<a class="code" href="a03150.html">SlideshowVertex</a>, <a class="code" href="a03150.html#a9fa9607bba2f9074d3dc04c26238fb15">pos</a>);</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="comment">// color attribute</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <a class="code" href="a03150.html#a39ce870fd005672ebcecb0eaec0de796">attributeDescriptions</a>[1].binding  = 0;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <a class="code" href="a03150.html#a39ce870fd005672ebcecb0eaec0de796">attributeDescriptions</a>[1].location = 1;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <a class="code" href="a03150.html#a39ce870fd005672ebcecb0eaec0de796">attributeDescriptions</a>[1].format   = VK_FORMAT_R32G32B32A32_SFLOAT;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <a class="code" href="a03150.html#a39ce870fd005672ebcecb0eaec0de796">attributeDescriptions</a>[1].offset   = offsetof(<a class="code" href="a03150.html">SlideshowVertex</a>, <a class="code" href="a03150.html#adb10a179cc86f188853725a3f37edc1b">color</a>);</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="comment">// player attribute</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <a class="code" href="a03150.html#a39ce870fd005672ebcecb0eaec0de796">attributeDescriptions</a>[2].binding  = 0;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <a class="code" href="a03150.html#a39ce870fd005672ebcecb0eaec0de796">attributeDescriptions</a>[2].location = 2;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <a class="code" href="a03150.html#a39ce870fd005672ebcecb0eaec0de796">attributeDescriptions</a>[2].format   = VK_FORMAT_R32_UINT;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <a class="code" href="a03150.html#a39ce870fd005672ebcecb0eaec0de796">attributeDescriptions</a>[2].offset   = offsetof(<a class="code" href="a03150.html">SlideshowVertex</a>, <a class="code" href="a03150.html#a0e8d1e28479aefac2b4398830a349bc5">slideshowIndex</a>);</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="a03150.html#a39ce870fd005672ebcecb0eaec0de796">attributeDescriptions</a>;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;}</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;} <span class="comment">// namespace prim</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00710_html"><div class="ttname"><a href="a00710.html">SlideshowVertex.hpp</a></div></div>
-<div class="ttc" id="aa01830_html"><div class="ttname"><a href="a01830.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03150_html"><div class="ttname"><a href="a03150.html">bl::rc::prim::SlideshowVertex</a></div><div class="ttdoc">Vertex type used by slideshows.</div><div class="ttdef"><b>Definition:</b> <a href="a00710_source.html#l00019">SlideshowVertex.hpp:19</a></div></div>
-<div class="ttc" id="aa03150_html_a0e8d1e28479aefac2b4398830a349bc5"><div class="ttname"><a href="a03150.html#a0e8d1e28479aefac2b4398830a349bc5">bl::rc::prim::SlideshowVertex::slideshowIndex</a></div><div class="ttdeci">std::uint32_t slideshowIndex</div><div class="ttdef"><b>Definition:</b> <a href="a00710_source.html#l00022">SlideshowVertex.hpp:22</a></div></div>
-<div class="ttc" id="aa03150_html_a121498a5fa54786376ff7c0831a9ce09"><div class="ttname"><a href="a03150.html#a121498a5fa54786376ff7c0831a9ce09">bl::rc::prim::SlideshowVertex::SlideshowVertex</a></div><div class="ttdeci">SlideshowVertex()</div><div class="ttdoc">Creates a 0-initialized vertex.</div><div class="ttdef"><b>Definition:</b> <a href="a01532_source.html#l00009">SlideshowVertex.cpp:9</a></div></div>
-<div class="ttc" id="aa03150_html_a39ce870fd005672ebcecb0eaec0de796"><div class="ttname"><a href="a03150.html#a39ce870fd005672ebcecb0eaec0de796">bl::rc::prim::SlideshowVertex::attributeDescriptions</a></div><div class="ttdeci">static std::array&lt; VkVertexInputAttributeDescription, 3 &gt; attributeDescriptions()</div><div class="ttdoc">Returns the attribute descriptions for each vertex attribute.</div><div class="ttdef"><b>Definition:</b> <a href="a01532_source.html#l00043">SlideshowVertex.cpp:43</a></div></div>
-<div class="ttc" id="aa03150_html_a57e7e23524bdecf24684db8a29482df6"><div class="ttname"><a href="a03150.html#a57e7e23524bdecf24684db8a29482df6">bl::rc::prim::SlideshowVertex::bindingDescription</a></div><div class="ttdeci">static VkVertexInputBindingDescription bindingDescription()</div><div class="ttdoc">Returns the vertex binding description for the renderer.</div><div class="ttdef"><b>Definition:</b> <a href="a01532_source.html#l00035">SlideshowVertex.cpp:35</a></div></div>
-<div class="ttc" id="aa03150_html_a9fa9607bba2f9074d3dc04c26238fb15"><div class="ttname"><a href="a03150.html#a9fa9607bba2f9074d3dc04c26238fb15">bl::rc::prim::SlideshowVertex::pos</a></div><div class="ttdeci">glm::vec3 pos</div><div class="ttdef"><b>Definition:</b> <a href="a00710_source.html#l00020">SlideshowVertex.hpp:20</a></div></div>
-<div class="ttc" id="aa03150_html_adb10a179cc86f188853725a3f37edc1b"><div class="ttname"><a href="a03150.html#adb10a179cc86f188853725a3f37edc1b">bl::rc::prim::SlideshowVertex::color</a></div><div class="ttdeci">glm::vec4 color</div><div class="ttdef"><b>Definition:</b> <a href="a00710_source.html#l00021">SlideshowVertex.hpp:21</a></div></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;} <span class="comment">// namespace ovy</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00704_html"><div class="ttname"><a href="a00704.html">OverlayObject.hpp</a></div></div>
+<div class="ttc" id="aa01833_html"><div class="ttname"><a href="a01833.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03143_html_acfac16c3170845244d5bf29e69ac1cb0"><div class="ttname"><a href="a03143.html#acfac16c3170845244d5bf29e69ac1cb0">bl::rc::ovy::OverlayObject::OverlayObject</a></div><div class="ttdeci">OverlayObject()</div><div class="ttdoc">Construct a new OverlayObject.</div><div class="ttdef"><b>Definition:</b> <a href="a01532_source.html#l00009">OverlayObject.cpp:9</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Oct 21 2023 00:16:51 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Oct 25 2023 00:24:21 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

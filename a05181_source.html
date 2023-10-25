@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Components/Animation2DPlayer.cpp Source File</title>
+<title>BLIB: src/Cameras/3D/Affectors/CameraShake.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,98 +66,67 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_c610c8504d46288da7634b3c0b18263f.html">Components</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_ff0ce48e5847898e72a0a6a39233e415.html">Cameras</a></li><li class="navelem"><a class="el" href="dir_3ff25e5f64b17697c1b0fb6333ff3832.html">3D</a></li><li class="navelem"><a class="el" href="dir_89c5173aa2e4948d3b514718005eafed.html">Affectors</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Animation2DPlayer.cpp</div>  </div>
+<div class="title">CameraShake.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a05181.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05046.html">BLIB/Components/Animation2DPlayer.hpp</a>&gt;</span></div>
+<a href="a05181.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05046.html">BLIB/Cameras/3D/Affectors/CameraShake.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01830.html">bl</a></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>com</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="a02018.html#adbfa07f0b38a09bc7e386304c427e630">    7</a></span>&#160;<a class="code" href="a02018.html#a8d77d2a0fc58b364e50f4e0d62f594e3">Animation2DPlayer::Animation2DPlayer</a>(<span class="keyword">const</span> <a class="code" href="a03550.html">resource::Ref&lt;gfx::a2d::AnimationData&gt;</a>&amp; a, <span class="keywordtype">bool</span> p,</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;                                     <span class="keywordtype">bool</span> l)</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;: animation(a)</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;, currentState(0)</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;, currentFrame(0)</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;, isPlaying(p)</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;, forceLoop(l)</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;, frameTime(0.f)</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;, framePayload() {}</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a02018.html#ab1fa7cf7d99447b3521a1e28121e1f0e">   17</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02018.html#ab1fa7cf7d99447b3521a1e28121e1f0e">Animation2DPlayer::play</a>(<span class="keywordtype">bool</span> restart) {</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keywordflow">if</span> (restart) { <a class="code" href="a02018.html#aaf8d27f21e2c021e5645664cd2f9a7d3">stop</a>(); }</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <a class="code" href="a02018.html#a97476dddc71bfd7a6450e321e7b55d9d">isPlaying</a> = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;}</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00512.html">BLIB/Math.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;cmath&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01833.html">bl</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>cam</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>c3d</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="a01991.html#a9c3874005a1878368f309a072326f3ba">   12</a></span>&#160;<a class="code" href="a01991.html#a9c3874005a1878368f309a072326f3ba">CameraShake::CameraShake</a>(<span class="keywordtype">float</span> m, <span class="keywordtype">float</span> s)</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;: time(0.f)</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;, mag(m) {</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <a class="code" href="a01991.html#a58d0c9b8a78e106706c3a6d794767bbe">setShakesPerSecond</a>(s);</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;}</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a01991.html#ab39045ef5e11962aa94863b9649ada2d">   18</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01991.html#ab39045ef5e11962aa94863b9649ada2d">CameraShake::setMagnitude</a>(<span class="keywordtype">float</span> m) { mag = m; }</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a01991.html#a58d0c9b8a78e106706c3a6d794767bbe">   20</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01991.html#a58d0c9b8a78e106706c3a6d794767bbe">CameraShake::setShakesPerSecond</a>(<span class="keywordtype">float</span> s) { speed = 2.f * <a class="code" href="a01869.html#a5d956eb5741fd61ccb4d7a18bd6fd431">math::Pi</a> * s; }</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a02018.html#a5297d194d810bf7a505c61324738e872">   22</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02018.html#a5297d194d810bf7a505c61324738e872">Animation2DPlayer::playLooping</a>() {</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <a class="code" href="a02018.html#aaf8d27f21e2c021e5645664cd2f9a7d3">stop</a>();</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <a class="code" href="a02018.html#a8f96634291e40ad42466029e858769bd">forceLoop</a> = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <a class="code" href="a02018.html#a97476dddc71bfd7a6450e321e7b55d9d">isPlaying</a> = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;}</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a02018.html#a68054652bd2dbe6284114eb4b49bd466">   28</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02018.html#a68054652bd2dbe6284114eb4b49bd466">Animation2DPlayer::pause</a>() { <a class="code" href="a02018.html#a97476dddc71bfd7a6450e321e7b55d9d">isPlaying</a> = <span class="keyword">false</span>; }</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a01991.html#a383c2a89e278a6521d7707654c17d109">   22</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01991.html#a383c2a89e278a6521d7707654c17d109">CameraShake::applyOnView</a>(glm::vec3&amp; pos, <a class="code" href="a02035.html">com::Orientation3D</a>&amp;) {</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> t = time * speed;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    pos.x += mag * <a class="code" href="a01817.html#gae8e482156412ed87dc2d91572ee817ab">std::cos</a>(t);</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    pos.y += mag * <a class="code" href="a01817.html#gae8e482156412ed87dc2d91572ee817ab">std::cos</a>(t);</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    pos.z += mag * <a class="code" href="a01817.html#gae8e482156412ed87dc2d91572ee817ab">std::cos</a>(-t);</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;}</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a02018.html#aaf8d27f21e2c021e5645664cd2f9a7d3">   30</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02018.html#aaf8d27f21e2c021e5645664cd2f9a7d3">Animation2DPlayer::stop</a>() {</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <a class="code" href="a02018.html#a97476dddc71bfd7a6450e321e7b55d9d">isPlaying</a>    = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <a class="code" href="a02018.html#a673d221a762f6112012aa12a4bc0430e">frameTime</a>    = 0.f;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <a class="code" href="a02018.html#a8221b17ba58ec1e7dfa3f020cf6c486e">currentFrame</a> = <a class="code" href="a02018.html#a0b85cb1bba887093b0a5f50354c0bbd5">animation</a>-&gt;getFrameForState(<a class="code" href="a02018.html#a5d3185747683e231afe99325a6d40fce">currentState</a>);</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="a02018.html#a02b1acc73aebdb2a1c64778a3cf11573">framePayload</a>.valid()) { *<a class="code" href="a02018.html#a02b1acc73aebdb2a1c64778a3cf11573">framePayload</a> = <a class="code" href="a02018.html#a8221b17ba58ec1e7dfa3f020cf6c486e">currentFrame</a>; }</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;}</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="a02018.html#a01720f5b0fa719acdd66b5cd20479250">   37</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02018.html#a01720f5b0fa719acdd66b5cd20479250">Animation2DPlayer::setState</a>(std::size_t state, <span class="keywordtype">bool</span> p) {</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <a class="code" href="a02018.html#a5d3185747683e231afe99325a6d40fce">currentState</a> = state;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <a class="code" href="a02018.html#aaf8d27f21e2c021e5645664cd2f9a7d3">stop</a>();</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordflow">if</span> (p) { <a class="code" href="a02018.html#ab1fa7cf7d99447b3521a1e28121e1f0e">play</a>(); }</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;}</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="a02018.html#a0893e088ed9f35502d208093905edbbd">   43</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02018.html#a0893e088ed9f35502d208093905edbbd">Animation2DPlayer::update</a>(<span class="keywordtype">float</span> dt) {</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="a02018.html#a97476dddc71bfd7a6450e321e7b55d9d">isPlaying</a> &amp;&amp; <a class="code" href="a02018.html#a0b85cb1bba887093b0a5f50354c0bbd5">animation</a>) {</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <a class="code" href="a02018.html#a673d221a762f6112012aa12a4bc0430e">frameTime</a> += dt;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keywordflow">while</span> (<a class="code" href="a02018.html#a673d221a762f6112012aa12a4bc0430e">frameTime</a> &gt;= <a class="code" href="a02018.html#a0b85cb1bba887093b0a5f50354c0bbd5">animation</a>-&gt;getFrameLength(<a class="code" href="a02018.html#a8221b17ba58ec1e7dfa3f020cf6c486e">currentFrame</a>)) {</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;            <span class="keyword">const</span> std::size_t ogFrame = <a class="code" href="a02018.html#a8221b17ba58ec1e7dfa3f020cf6c486e">currentFrame</a>;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            <a class="code" href="a02018.html#a673d221a762f6112012aa12a4bc0430e">frameTime</a> -= <a class="code" href="a02018.html#a0b85cb1bba887093b0a5f50354c0bbd5">animation</a>-&gt;getFrameLength(<a class="code" href="a02018.html#a8221b17ba58ec1e7dfa3f020cf6c486e">currentFrame</a>);</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            <a class="code" href="a02018.html#a8221b17ba58ec1e7dfa3f020cf6c486e">currentFrame</a> = <a class="code" href="a02018.html#a0b85cb1bba887093b0a5f50354c0bbd5">animation</a>-&gt;getNextFrame(<a class="code" href="a02018.html#a8221b17ba58ec1e7dfa3f020cf6c486e">currentFrame</a>);</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            <span class="comment">// we restarted, stop if we shouldn&#39;t loop</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            <span class="keywordflow">if</span> (ogFrame &gt; <a class="code" href="a02018.html#a8221b17ba58ec1e7dfa3f020cf6c486e">currentFrame</a>) {</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                <span class="keywordflow">if</span> (!<a class="code" href="a02018.html#a8f96634291e40ad42466029e858769bd">forceLoop</a> &amp;&amp; !<a class="code" href="a02018.html#a0b85cb1bba887093b0a5f50354c0bbd5">animation</a>-&gt;isLooping()) { <a class="code" href="a02018.html#aaf8d27f21e2c021e5645664cd2f9a7d3">stop</a>(); }</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            }</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;            <span class="keywordflow">if</span> (<a class="code" href="a02018.html#a02b1acc73aebdb2a1c64778a3cf11573">framePayload</a>.valid()) { *<a class="code" href="a02018.html#a02b1acc73aebdb2a1c64778a3cf11573">framePayload</a> = <a class="code" href="a02018.html#a8221b17ba58ec1e7dfa3f020cf6c486e">currentFrame</a>; }</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        }</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    }</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;}</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;} <span class="comment">// namespace com</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa01830_html"><div class="ttname"><a href="a01830.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02018_html_a01720f5b0fa719acdd66b5cd20479250"><div class="ttname"><a href="a02018.html#a01720f5b0fa719acdd66b5cd20479250">bl::com::Animation2DPlayer::setState</a></div><div class="ttdeci">void setState(std::size_t state, bool play=true)</div><div class="ttdoc">Sets the state to play within the underlying animation.</div><div class="ttdef"><b>Definition:</b> <a href="a05181_source.html#l00037">Animation2DPlayer.cpp:37</a></div></div>
-<div class="ttc" id="aa02018_html_a02b1acc73aebdb2a1c64778a3cf11573"><div class="ttname"><a href="a02018.html#a02b1acc73aebdb2a1c64778a3cf11573">bl::com::Animation2DPlayer::framePayload</a></div><div class="ttdeci">util::VectorRef&lt; std::uint32_t, rc::vk::AlignedBuffer&lt; std::uint32_t &gt; &gt; framePayload</div><div class="ttdef"><b>Definition:</b> <a href="a05046_source.html#l00082">Animation2DPlayer.hpp:82</a></div></div>
-<div class="ttc" id="aa02018_html_a0893e088ed9f35502d208093905edbbd"><div class="ttname"><a href="a02018.html#a0893e088ed9f35502d208093905edbbd">bl::com::Animation2DPlayer::update</a></div><div class="ttdeci">void update(float dt)</div><div class="ttdoc">Advances the animation forward by the given amount of time.</div><div class="ttdef"><b>Definition:</b> <a href="a05181_source.html#l00043">Animation2DPlayer.cpp:43</a></div></div>
-<div class="ttc" id="aa02018_html_a0b85cb1bba887093b0a5f50354c0bbd5"><div class="ttname"><a href="a02018.html#a0b85cb1bba887093b0a5f50354c0bbd5">bl::com::Animation2DPlayer::animation</a></div><div class="ttdeci">resource::Ref&lt; gfx::a2d::AnimationData &gt; animation</div><div class="ttdef"><b>Definition:</b> <a href="a05046_source.html#l00073">Animation2DPlayer.hpp:73</a></div></div>
-<div class="ttc" id="aa02018_html_a5297d194d810bf7a505c61324738e872"><div class="ttname"><a href="a02018.html#a5297d194d810bf7a505c61324738e872">bl::com::Animation2DPlayer::playLooping</a></div><div class="ttdeci">void playLooping()</div><div class="ttdoc">Starts playing the animation from the beginning and loops it, regardless of the underlying loop setti...</div><div class="ttdef"><b>Definition:</b> <a href="a05181_source.html#l00022">Animation2DPlayer.cpp:22</a></div></div>
-<div class="ttc" id="aa02018_html_a5d3185747683e231afe99325a6d40fce"><div class="ttname"><a href="a02018.html#a5d3185747683e231afe99325a6d40fce">bl::com::Animation2DPlayer::currentState</a></div><div class="ttdeci">std::size_t currentState</div><div class="ttdef"><b>Definition:</b> <a href="a05046_source.html#l00076">Animation2DPlayer.hpp:76</a></div></div>
-<div class="ttc" id="aa02018_html_a673d221a762f6112012aa12a4bc0430e"><div class="ttname"><a href="a02018.html#a673d221a762f6112012aa12a4bc0430e">bl::com::Animation2DPlayer::frameTime</a></div><div class="ttdeci">float frameTime</div><div class="ttdef"><b>Definition:</b> <a href="a05046_source.html#l00078">Animation2DPlayer.hpp:78</a></div></div>
-<div class="ttc" id="aa02018_html_a68054652bd2dbe6284114eb4b49bd466"><div class="ttname"><a href="a02018.html#a68054652bd2dbe6284114eb4b49bd466">bl::com::Animation2DPlayer::pause</a></div><div class="ttdeci">void pause()</div><div class="ttdoc">Pauses the animation from playing.</div><div class="ttdef"><b>Definition:</b> <a href="a05181_source.html#l00028">Animation2DPlayer.cpp:28</a></div></div>
-<div class="ttc" id="aa02018_html_a8221b17ba58ec1e7dfa3f020cf6c486e"><div class="ttname"><a href="a02018.html#a8221b17ba58ec1e7dfa3f020cf6c486e">bl::com::Animation2DPlayer::currentFrame</a></div><div class="ttdeci">std::size_t currentFrame</div><div class="ttdef"><b>Definition:</b> <a href="a05046_source.html#l00077">Animation2DPlayer.hpp:77</a></div></div>
-<div class="ttc" id="aa02018_html_a8d77d2a0fc58b364e50f4e0d62f594e3"><div class="ttname"><a href="a02018.html#a8d77d2a0fc58b364e50f4e0d62f594e3">bl::com::Animation2DPlayer::Animation2DPlayer</a></div><div class="ttdeci">Animation2DPlayer()=delete</div><div class="ttdoc">Deleted.</div></div>
-<div class="ttc" id="aa02018_html_a8f96634291e40ad42466029e858769bd"><div class="ttname"><a href="a02018.html#a8f96634291e40ad42466029e858769bd">bl::com::Animation2DPlayer::forceLoop</a></div><div class="ttdeci">bool forceLoop</div><div class="ttdef"><b>Definition:</b> <a href="a05046_source.html#l00075">Animation2DPlayer.hpp:75</a></div></div>
-<div class="ttc" id="aa02018_html_a97476dddc71bfd7a6450e321e7b55d9d"><div class="ttname"><a href="a02018.html#a97476dddc71bfd7a6450e321e7b55d9d">bl::com::Animation2DPlayer::isPlaying</a></div><div class="ttdeci">bool isPlaying</div><div class="ttdef"><b>Definition:</b> <a href="a05046_source.html#l00074">Animation2DPlayer.hpp:74</a></div></div>
-<div class="ttc" id="aa02018_html_aaf8d27f21e2c021e5645664cd2f9a7d3"><div class="ttname"><a href="a02018.html#aaf8d27f21e2c021e5645664cd2f9a7d3">bl::com::Animation2DPlayer::stop</a></div><div class="ttdeci">void stop()</div><div class="ttdoc">Stops and resets the animation.</div><div class="ttdef"><b>Definition:</b> <a href="a05181_source.html#l00030">Animation2DPlayer.cpp:30</a></div></div>
-<div class="ttc" id="aa02018_html_ab1fa7cf7d99447b3521a1e28121e1f0e"><div class="ttname"><a href="a02018.html#ab1fa7cf7d99447b3521a1e28121e1f0e">bl::com::Animation2DPlayer::play</a></div><div class="ttdeci">void play(bool restart=false)</div><div class="ttdoc">Starts playing the animation, optionally restarting it.</div><div class="ttdef"><b>Definition:</b> <a href="a05181_source.html#l00017">Animation2DPlayer.cpp:17</a></div></div>
-<div class="ttc" id="aa03550_html"><div class="ttname"><a href="a03550.html">bl::resource::Ref</a></div><div class="ttdoc">Represents a reference to a managed resource. Performs reference counting, but resources are never de...</div><div class="ttdef"><b>Definition:</b> <a href="a00905_source.html#l00025">Ref.hpp:25</a></div></div>
-<div class="ttc" id="aa05046_html"><div class="ttname"><a href="a05046.html">Animation2DPlayer.hpp</a></div></div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a01991.html#abf58291e26b4d73d55cd1737be007ce0">   30</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01991.html#abf58291e26b4d73d55cd1737be007ce0">CameraShake::update</a>(<span class="keywordtype">float</span> dt, <span class="keywordtype">bool</span>&amp; view, <span class="keywordtype">bool</span>&amp;) {</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    time += dt;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    view = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;}</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;} <span class="comment">// namespace c3d</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;} <span class="comment">// namespace cam</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00512_html"><div class="ttname"><a href="a00512.html">Math.hpp</a></div></div>
+<div class="ttc" id="aa01817_html_gae8e482156412ed87dc2d91572ee817ab"><div class="ttname"><a href="a01817.html#gae8e482156412ed87dc2d91572ee817ab">bl::math::cos</a></div><div class="ttdeci">float cos(float degrees)</div><div class="ttdoc">Computes the cosine of the given angle using cached values. Values are cached in quarter degree incre...</div><div class="ttdef"><b>Definition:</b> <a href="a01406_source.html#l00031">Trig.cpp:31</a></div></div>
+<div class="ttc" id="aa01833_html"><div class="ttname"><a href="a01833.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa01869_html_a5d956eb5741fd61ccb4d7a18bd6fd431"><div class="ttname"><a href="a01869.html#a5d956eb5741fd61ccb4d7a18bd6fd431">bl::math::Pi</a></div><div class="ttdeci">constexpr float Pi</div><div class="ttdoc">It's pi.</div><div class="ttdef"><b>Definition:</b> <a href="a00500_source.html#l00010">Constants.hpp:10</a></div></div>
+<div class="ttc" id="aa01991_html_a383c2a89e278a6521d7707654c17d109"><div class="ttname"><a href="a01991.html#a383c2a89e278a6521d7707654c17d109">bl::cam::c3d::CameraShake::applyOnView</a></div><div class="ttdeci">virtual void applyOnView(glm::vec3 &amp;position, com::Orientation3D &amp;orientation) override</div><div class="ttdoc">Modifies the camera view matrix with the shake.</div><div class="ttdef"><b>Definition:</b> <a href="a05181_source.html#l00022">CameraShake.cpp:22</a></div></div>
+<div class="ttc" id="aa01991_html_a58d0c9b8a78e106706c3a6d794767bbe"><div class="ttname"><a href="a01991.html#a58d0c9b8a78e106706c3a6d794767bbe">bl::cam::c3d::CameraShake::setShakesPerSecond</a></div><div class="ttdeci">void setShakesPerSecond(float shakesPerSecond)</div><div class="ttdoc">Sets the speed of the camera shake.</div><div class="ttdef"><b>Definition:</b> <a href="a05181_source.html#l00020">CameraShake.cpp:20</a></div></div>
+<div class="ttc" id="aa01991_html_a9c3874005a1878368f309a072326f3ba"><div class="ttname"><a href="a01991.html#a9c3874005a1878368f309a072326f3ba">bl::cam::c3d::CameraShake::CameraShake</a></div><div class="ttdeci">CameraShake(float magnitude, float shakesPerSecond)</div><div class="ttdoc">Creates a new camera shake affector.</div><div class="ttdef"><b>Definition:</b> <a href="a05181_source.html#l00012">CameraShake.cpp:12</a></div></div>
+<div class="ttc" id="aa01991_html_ab39045ef5e11962aa94863b9649ada2d"><div class="ttname"><a href="a01991.html#ab39045ef5e11962aa94863b9649ada2d">bl::cam::c3d::CameraShake::setMagnitude</a></div><div class="ttdeci">void setMagnitude(float magnitude)</div><div class="ttdoc">Sets the magnitude of the camera shake.</div><div class="ttdef"><b>Definition:</b> <a href="a05181_source.html#l00018">CameraShake.cpp:18</a></div></div>
+<div class="ttc" id="aa01991_html_abf58291e26b4d73d55cd1737be007ce0"><div class="ttname"><a href="a01991.html#abf58291e26b4d73d55cd1737be007ce0">bl::cam::c3d::CameraShake::update</a></div><div class="ttdeci">virtual void update(float dt, bool &amp;view, bool &amp;proj) override</div><div class="ttdoc">Updates the camera shaking.</div><div class="ttdef"><b>Definition:</b> <a href="a05181_source.html#l00030">CameraShake.cpp:30</a></div></div>
+<div class="ttc" id="aa02035_html"><div class="ttname"><a href="a02035.html">bl::com::Orientation3D</a></div><div class="ttdoc">Angle-axis representation of a 3d orientation.</div><div class="ttdef"><b>Definition:</b> <a href="a00068_source.html#l00015">Orientation3D.hpp:15</a></div></div>
+<div class="ttc" id="aa05046_html"><div class="ttname"><a href="a05046.html">CameraShake.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Oct 21 2023 00:16:51 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Oct 25 2023 00:24:20 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

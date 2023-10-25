@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Vulkan/DescriptorPool.cpp Source File</title>
+<title>BLIB: src/Render/Vulkan/CommonSamplers.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,263 +71,101 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">DescriptorPool.cpp</div>  </div>
+<div class="title">CommonSamplers.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01604.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00806.html">BLIB/Render/Vulkan/DescriptorPool.hpp</a>&gt;</span></div>
+<a href="a01604.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00806.html">BLIB/Render/Vulkan/CommonSamplers.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00854.html">BLIB/Render/Vulkan/VulkanState.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00857.html">BLIB/Render/Vulkan/VulkanState.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;stdexcept&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01830.html">bl</a></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01833.html">bl</a></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>rc</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>vk</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;constexpr std::array&lt;unsigned int, DescriptorPool::BindingTypeCount&gt; PoolSizes = {</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    20,  <span class="comment">// VK_DESCRIPTOR_TYPE_SAMPLER</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    20,  <span class="comment">// VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    20,  <span class="comment">// VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    20,  <span class="comment">// VK_DESCRIPTOR_TYPE_STORAGE_IMAGE</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    20,  <span class="comment">// VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    20,  <span class="comment">// VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    50,  <span class="comment">// VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    200, <span class="comment">// VK_DESCRIPTOR_TYPE_STORAGE_BUFFER</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    50,  <span class="comment">// VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    50,  <span class="comment">// VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    50   <span class="comment">// VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;};</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;constexpr <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> MaxSets = 500;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;} <span class="comment">// namespace</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a03326.html#a037e4c431ff1ae1591eb12cdf79d1d06">   30</a></span>&#160;<a class="code" href="a03326.html#a037e4c431ff1ae1591eb12cdf79d1d06">DescriptorPool::SetBindingInfo::SetBindingInfo</a>()</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;: bindingCount(0) {}</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;DescriptorPool::DescriptorPool(<a class="code" href="a03426.html">VulkanState</a>&amp; vs)</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;: vulkanState(vs) {}</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keywordtype">void</span> DescriptorPool::init() { pools.emplace_back(vulkanState); }</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keywordtype">void</span> DescriptorPool::cleanup() {</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    pools.clear();</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; pair : layoutMap) {</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        vkDestroyDescriptorSetLayout(vulkanState.<a class="code" href="a03426.html#a6ad0249d08d9ffb87af35b42f11a1db5">device</a>, pair.first, <span class="keyword">nullptr</span>);</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    }</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;}</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="a03322.html#a5a206bab1969632a78bca5e79532eb70">   45</a></span>&#160;VkDescriptorSetLayout <a class="code" href="a03322.html#a5a206bab1969632a78bca5e79532eb70">DescriptorPool::createLayout</a>(<span class="keyword">const</span> <a class="code" href="a03326.html">SetBindingInfo</a>&amp; allocInfo) {</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    std::unique_lock lock(mutex);</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    VkDescriptorSetLayout layout;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    VkDescriptorSetLayoutCreateInfo descriptorCreateInfo{};</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    descriptorCreateInfo.sType        = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    descriptorCreateInfo.bindingCount = allocInfo.<a class="code" href="a03326.html#ad44b120901116ab5216ddfdc35d30d95">bindingCount</a>;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    descriptorCreateInfo.pBindings    = allocInfo.<a class="code" href="a03326.html#ab972da11e25938a0637ebf832a6b9bd7">bindings</a>.data();</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordflow">if</span> (VK_SUCCESS !=</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        vkCreateDescriptorSetLayout(vulkanState.<a class="code" href="a03426.html#a6ad0249d08d9ffb87af35b42f11a1db5">device</a>, &amp;descriptorCreateInfo, <span class="keyword">nullptr</span>, &amp;layout)) {</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Failed to create descriptor set layout&quot;</span>);</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    }</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    layoutMap.try_emplace(layout, allocInfo);</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordflow">return</span> layout;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;}</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="a03322.html#aa1e76e7083828e104e5014691e688a28">   62</a></span>&#160;<a class="code" href="a03322.html#a7bb5a0efe4177857484ecb6ae66c75dd">DescriptorPool::AllocationHandle</a> <a class="code" href="a03322.html#aa1e76e7083828e104e5014691e688a28">DescriptorPool::allocate</a>(VkDescriptorSetLayout layout,</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                                                          VkDescriptorSet* sets,</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                                                          std::size_t setCount, <span class="keywordtype">bool</span> dedicated) {</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    std::unique_lock lock(mutex);</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="comment">// find layout info</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> lit = layoutMap.find(layout);</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordflow">if</span> (lit == layoutMap.end()) {</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <span class="keywordflow">throw</span> std::runtime_error(</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;            <span class="stringliteral">&quot;Failed to find descriptor set layout. Create the layout with the pool&quot;</span>);</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    }</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keyword">const</span> <a class="code" href="a03326.html">SetBindingInfo</a>&amp; allocInfo = lit-&gt;second;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="comment">// test if requires dedicated pool</span></div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordflow">if</span> (!dedicated) {</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <span class="comment">// TODO - check sets and binding counts</span></div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    }</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="comment">// create allocation record</span></div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <a class="code" href="a03322.html#a7bb5a0efe4177857484ecb6ae66c75dd">AllocationHandle</a> handle =</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        allocations.emplace(allocations.begin(), dedicated, layout, setCount, sets);</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="comment">// create dedicated pool if required</span></div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordflow">if</span> (dedicated) {</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        handle-&gt;pool = pools.emplace(pools.end(), vulkanState, allocInfo, setCount);</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        handle-&gt;pool-&gt;allocate(allocInfo, layout, sets, setCount);</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        <span class="keywordflow">return</span> handle;</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    }</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="comment">// see if existing pool can allocate</span></div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = pools.begin(); it != pools.end(); ++it) {</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        <span class="keywordflow">if</span> (it-&gt;canAllocate(allocInfo, setCount)) {</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;            handle-&gt;pool = it;</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;            <span class="keywordflow">goto</span> newPoolNotNeeded;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        }</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    }</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="comment">// create new pool to allocate from</span></div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    handle-&gt;pool = pools.emplace(pools.end(), vulkanState);</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;newPoolNotNeeded:</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    handle-&gt;pool-&gt;allocate(allocInfo, layout, sets, setCount);</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="keywordflow">return</span> handle;</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;}</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
-<div class="line"><a name="l00107"></a><span class="lineno"><a class="line" href="a03322.html#ac2810fc740edbfef995ff375e1b5a14e">  107</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03322.html#ac2810fc740edbfef995ff375e1b5a14e">DescriptorPool::release</a>(<a class="code" href="a03322.html#a7bb5a0efe4177857484ecb6ae66c75dd">AllocationHandle</a> handle, <span class="keyword">const</span> VkDescriptorSet* sets) {</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    std::unique_lock lock(mutex);</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="comment">// find layout info</span></div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> lit = layoutMap.find(handle-&gt;layout);</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keywordflow">if</span> (lit == layoutMap.end()) {</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        <span class="keywordflow">throw</span> std::runtime_error(</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;            <span class="stringliteral">&quot;Failed to find descriptor set layout. Create the layout with the pool&quot;</span>);</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    }</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <span class="keyword">const</span> <a class="code" href="a03326.html">SetBindingInfo</a>&amp; allocInfo = lit-&gt;second;</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <span class="comment">// free sets</span></div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <span class="keywordflow">if</span> (handle-&gt;dedicated) { pools.erase(handle-&gt;pool); }</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        handle-&gt;pool-&gt;release(allocInfo, sets != <span class="keyword">nullptr</span> ? sets : handle-&gt;sets, handle-&gt;setCount);</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    }</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    allocations.erase(handle);</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;}</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;DescriptorPool::Subpool::Subpool(<a class="code" href="a03426.html">VulkanState</a>&amp; vs)</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;: vulkanState(vs)</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;, freeSets(MaxSets)</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;, available(PoolSizes) {</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    std::array&lt;VkDescriptorPoolSize, PoolSizes.size()&gt; sizes;</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    <span class="keywordflow">for</span> (std::size_t i = 0; i &lt; PoolSizes.size(); ++i) {</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;        sizes[i].type            = <span class="keyword">static_cast&lt;</span>VkDescriptorType<span class="keyword">&gt;</span>(i);</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;        sizes[i].descriptorCount = PoolSizes[i];</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    }</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160; </div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    VkDescriptorPoolCreateInfo poolInfo{};</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    poolInfo.sType         = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    poolInfo.poolSizeCount = sizes.size();</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    poolInfo.pPoolSizes    = sizes.data();</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    poolInfo.maxSets       = MaxSets;</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    poolInfo.flags         = VK_DESCRIPTOR_POOL_CREATE_FREE_DESCRIPTOR_SET_BIT;</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    <span class="keywordflow">if</span> (vkCreateDescriptorPool(vs.<a class="code" href="a03426.html#a6ad0249d08d9ffb87af35b42f11a1db5">device</a>, &amp;poolInfo, <span class="keyword">nullptr</span>, &amp;pool) != VK_SUCCESS) {</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Failed to create descriptor pool&quot;</span>);</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    }</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;}</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160; </div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;DescriptorPool::Subpool::Subpool(VulkanState&amp; vs, <span class="keyword">const</span> SetBindingInfo&amp; allocInfo,</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;                                 std::size_t setCount)</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;: vulkanState(vs)</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;, freeSets(0) {</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    <span class="keyword">auto</span> bindings = allocInfo.bindings;</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; binding : bindings) { binding.descriptorCount *= setCount; }</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160; </div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    std::array&lt;VkDescriptorPoolSize, Config::MaxDescriptorSets&gt; poolSizes;</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; allocInfo.bindingCount; ++i) {</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;        poolSizes[i].type            = allocInfo.bindings[i].descriptorType;</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;        poolSizes[i].descriptorCount = allocInfo.bindings[i].descriptorCount;</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    }</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160; </div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    VkDescriptorPoolCreateInfo poolInfo{};</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    poolInfo.sType         = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    poolInfo.poolSizeCount = allocInfo.bindingCount;</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    poolInfo.pPoolSizes    = poolSizes.data();</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    poolInfo.maxSets       = setCount;</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    <span class="keywordflow">if</span> (vkCreateDescriptorPool(vs.device, &amp;poolInfo, <span class="keyword">nullptr</span>, &amp;pool) != VK_SUCCESS) {</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Failed to create descriptor pool&quot;</span>);</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    }</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;}</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160; </div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;DescriptorPool::Subpool::~Subpool() { vkDestroyDescriptorPool(vulkanState.device, pool, <span class="keyword">nullptr</span>); }</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160; </div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;<span class="keywordtype">bool</span> DescriptorPool::Subpool::canAllocate(<span class="keyword">const</span> SetBindingInfo&amp; allocInfo,</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;                                          std::size_t setCount)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    <span class="keywordflow">if</span> (freeSets &lt; setCount) { <span class="keywordflow">return</span> <span class="keyword">false</span>; }</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160; </div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    <span class="keywordflow">for</span> (std::size_t i = 0; i &lt; setCount; ++i) {</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;        <span class="keywordflow">for</span> (std::size_t j = 0; j &lt; allocInfo.bindingCount; ++j) {</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;            <span class="keyword">const</span> <span class="keyword">auto</span>&amp; binding = allocInfo.bindings[j];</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;            <span class="keywordflow">if</span> (available[binding.descriptorType] &lt; binding.descriptorCount) { <span class="keywordflow">return</span> <span class="keyword">false</span>; }</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;        }</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;    }</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160; </div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;}</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160; </div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;<span class="keywordtype">void</span> DescriptorPool::Subpool::allocate(<span class="keyword">const</span> SetBindingInfo&amp; allocInfo,</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;                                       VkDescriptorSetLayout layout, VkDescriptorSet* sets,</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;                                       std::size_t setCount) {</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    <span class="comment">// update metadata</span></div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    freeSets -= setCount;</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    <span class="keywordflow">for</span> (std::size_t j = 0; j &lt; allocInfo.bindingCount; ++j) {</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; binding = allocInfo.bindings[j];</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;        available[binding.descriptorType] -= binding.descriptorCount * setCount;</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    }</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160; </div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    <span class="comment">// duplicate layout for vulkan api</span></div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    std::array&lt;VkDescriptorSetLayout, 128&gt; layoutsArray;</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    std::vector&lt;VkDescriptorSetLayout&gt; layoutsVector;</div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;    VkDescriptorSetLayout* pLayouts;</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    <span class="keywordflow">if</span> (setCount &lt;= layoutsArray.size()) {</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; setCount; ++i) { layoutsArray[i] = layout; }</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;        pLayouts = layoutsArray.data();</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    }</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;    <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;        layoutsVector.resize(setCount, layout);</div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;        pLayouts = layoutsVector.data();</div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    }</div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160; </div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;    <span class="comment">// allocate sets</span></div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    VkDescriptorSetAllocateInfo setAllocInfo{};</div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;    setAllocInfo.sType              = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;</div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    setAllocInfo.descriptorPool     = pool;</div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;    setAllocInfo.descriptorSetCount = setCount;</div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;    setAllocInfo.pSetLayouts        = pLayouts;</div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;    <span class="keywordflow">if</span> (vkAllocateDescriptorSets(vulkanState.device, &amp;setAllocInfo, sets) != VK_SUCCESS) {</div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Failed to allocate descriptor sets&quot;</span>);</div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;    }</div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;}</div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160; </div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;<span class="keywordtype">void</span> DescriptorPool::Subpool::release(<span class="keyword">const</span> SetBindingInfo&amp; allocInfo, <span class="keyword">const</span> VkDescriptorSet* sets,</div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;                                      std::size_t setCount) {</div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;    <span class="comment">// update metadata</span></div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;    freeSets += setCount;</div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;    <span class="keywordflow">for</span> (std::size_t j = 0; j &lt; allocInfo.bindingCount; ++j) {</div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; binding = allocInfo.bindings[j];</div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;        available[binding.descriptorType] += binding.descriptorCount * setCount;</div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;    }</div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160; </div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    <span class="comment">// free sets</span></div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;    <a class="code" href="a00851.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a>(vkFreeDescriptorSets(vulkanState.device, pool, setCount, sets));</div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;}</div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160; </div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;} <span class="comment">// namespace vk</span></div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00806_html"><div class="ttname"><a href="a00806.html">DescriptorPool.hpp</a></div></div>
-<div class="ttc" id="aa00851_html_a95c2f7535355f5f3855410ab629f9310"><div class="ttname"><a href="a00851.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a></div><div class="ttdeci">#define vkCheck(expr)</div><div class="ttdef"><b>Definition:</b> <a href="a00851_source.html#l00015">VkCheck.hpp:15</a></div></div>
-<div class="ttc" id="aa00854_html"><div class="ttname"><a href="a00854.html">VulkanState.hpp</a></div></div>
-<div class="ttc" id="aa01830_html"><div class="ttname"><a href="a01830.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03322_html_a5a206bab1969632a78bca5e79532eb70"><div class="ttname"><a href="a03322.html#a5a206bab1969632a78bca5e79532eb70">bl::rc::vk::DescriptorPool::createLayout</a></div><div class="ttdeci">VkDescriptorSetLayout createLayout(const SetBindingInfo &amp;allocInfo)</div><div class="ttdoc">Creates a descriptor set layout from the set allocation info.</div><div class="ttdef"><b>Definition:</b> <a href="a01604_source.html#l00045">DescriptorPool.cpp:45</a></div></div>
-<div class="ttc" id="aa03322_html_a7bb5a0efe4177857484ecb6ae66c75dd"><div class="ttname"><a href="a03322.html#a7bb5a0efe4177857484ecb6ae66c75dd">bl::rc::vk::DescriptorPool::AllocationHandle</a></div><div class="ttdeci">std::list&lt; Allocation &gt;::iterator AllocationHandle</div><div class="ttdoc">Handle to an allocation from the pool.</div><div class="ttdef"><b>Definition:</b> <a href="a00806_source.html#l00044">DescriptorPool.hpp:44</a></div></div>
-<div class="ttc" id="aa03322_html_aa1e76e7083828e104e5014691e688a28"><div class="ttname"><a href="a03322.html#aa1e76e7083828e104e5014691e688a28">bl::rc::vk::DescriptorPool::allocate</a></div><div class="ttdeci">AllocationHandle allocate(VkDescriptorSetLayout layout, VkDescriptorSet *sets, std::size_t setCount, bool dedicatedPool=false)</div><div class="ttdoc">Allocates sets from the pool and returns a handle that can be used to release the allocated sets once...</div><div class="ttdef"><b>Definition:</b> <a href="a01604_source.html#l00062">DescriptorPool.cpp:62</a></div></div>
-<div class="ttc" id="aa03322_html_ac2810fc740edbfef995ff375e1b5a14e"><div class="ttname"><a href="a03322.html#ac2810fc740edbfef995ff375e1b5a14e">bl::rc::vk::DescriptorPool::release</a></div><div class="ttdeci">void release(AllocationHandle handle, const VkDescriptorSet *sets=nullptr)</div><div class="ttdoc">Releases descriptor sets allocated from this pool.</div><div class="ttdef"><b>Definition:</b> <a href="a01604_source.html#l00107">DescriptorPool.cpp:107</a></div></div>
-<div class="ttc" id="aa03326_html"><div class="ttname"><a href="a03326.html">bl::rc::vk::DescriptorPool::SetBindingInfo</a></div><div class="ttdoc">Struct containing the data required to create descriptor sets and layouts.</div><div class="ttdef"><b>Definition:</b> <a href="a00806_source.html#l00036">DescriptorPool.hpp:36</a></div></div>
-<div class="ttc" id="aa03326_html_a037e4c431ff1ae1591eb12cdf79d1d06"><div class="ttname"><a href="a03326.html#a037e4c431ff1ae1591eb12cdf79d1d06">bl::rc::vk::DescriptorPool::SetBindingInfo::SetBindingInfo</a></div><div class="ttdeci">SetBindingInfo()</div><div class="ttdef"><b>Definition:</b> <a href="a01604_source.html#l00030">DescriptorPool.cpp:30</a></div></div>
-<div class="ttc" id="aa03326_html_ab972da11e25938a0637ebf832a6b9bd7"><div class="ttname"><a href="a03326.html#ab972da11e25938a0637ebf832a6b9bd7">bl::rc::vk::DescriptorPool::SetBindingInfo::bindings</a></div><div class="ttdeci">std::array&lt; VkDescriptorSetLayoutBinding, Config::MaxDescriptorSets &gt; bindings</div><div class="ttdef"><b>Definition:</b> <a href="a00806_source.html#l00039">DescriptorPool.hpp:39</a></div></div>
-<div class="ttc" id="aa03326_html_ad44b120901116ab5216ddfdc35d30d95"><div class="ttname"><a href="a03326.html#ad44b120901116ab5216ddfdc35d30d95">bl::rc::vk::DescriptorPool::SetBindingInfo::bindingCount</a></div><div class="ttdeci">std::uint32_t bindingCount</div><div class="ttdef"><b>Definition:</b> <a href="a00806_source.html#l00040">DescriptorPool.hpp:40</a></div></div>
-<div class="ttc" id="aa03426_html"><div class="ttname"><a href="a03426.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a00854_source.html#l00038">VulkanState.hpp:38</a></div></div>
-<div class="ttc" id="aa03426_html_a6ad0249d08d9ffb87af35b42f11a1db5"><div class="ttname"><a href="a03426.html#a6ad0249d08d9ffb87af35b42f11a1db5">bl::rc::vk::VulkanState::device</a></div><div class="ttdeci">VkDevice device</div><div class="ttdef"><b>Definition:</b> <a href="a00854_source.html#l00221">VulkanState.hpp:221</a></div></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;CommonSamplers::CommonSamplers(VulkanState&amp; vs)</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;: vulkanState(vs) {}</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keywordtype">void</span> CommonSamplers::init() {</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="comment">// common settings</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    VkSamplerCreateInfo create{};</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    create.sType            = VK_STRUCTURE_TYPE_SAMPLER_CREATE_INFO;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    create.anisotropyEnable = VK_TRUE;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    create.maxAnisotropy    = vulkanState.physicalDeviceProperties.limits.maxSamplerAnisotropy;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    create.addressModeU     = VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    create.addressModeV     = VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    create.addressModeW     = VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    create.unnormalizedCoordinates = VK_FALSE;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    create.borderColor             = VK_BORDER_COLOR_FLOAT_TRANSPARENT_BLACK;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="comment">// unused for now</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    create.compareEnable = VK_FALSE;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    create.compareOp     = VK_COMPARE_OP_ALWAYS;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    create.mipmapMode    = VK_SAMPLER_MIPMAP_MODE_LINEAR;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    create.mipLodBias    = 0.0f;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    create.minLod        = 0.0f;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    create.maxLod        = 0.0f;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="comment">// no filter sampler</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    create.minFilter = VK_FILTER_NEAREST;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    create.magFilter = VK_FILTER_NEAREST;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordflow">if</span> (VK_SUCCESS != vkCreateSampler(vulkanState.device, &amp;create, <span class="keyword">nullptr</span>, &amp;noFilterClamped)) {</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Failed to create sampler&quot;</span>);</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    }</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="comment">// min filter sampler</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    create.minFilter = VK_FILTER_LINEAR;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    create.magFilter = VK_FILTER_NEAREST;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordflow">if</span> (VK_SUCCESS != vkCreateSampler(vulkanState.device, &amp;create, <span class="keyword">nullptr</span>, &amp;minFilterClamped)) {</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Failed to create sampler&quot;</span>);</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    }</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="comment">// mag filter sampler</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    create.minFilter = VK_FILTER_NEAREST;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    create.magFilter = VK_FILTER_LINEAR;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordflow">if</span> (VK_SUCCESS != vkCreateSampler(vulkanState.device, &amp;create, <span class="keyword">nullptr</span>, &amp;magFilterClamped)) {</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Failed to create sampler&quot;</span>);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    }</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="comment">// all filter sampler</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    create.minFilter = VK_FILTER_LINEAR;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    create.magFilter = VK_FILTER_LINEAR;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordflow">if</span> (VK_SUCCESS != vkCreateSampler(vulkanState.device, &amp;create, <span class="keyword">nullptr</span>, &amp;filteredClamped)) {</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Failed to create sampler&quot;</span>);</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    }</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="comment">// filtered tiled sampler</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    create.minFilter    = VK_FILTER_LINEAR;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    create.magFilter    = VK_FILTER_LINEAR;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    create.addressModeU = VK_SAMPLER_ADDRESS_MODE_REPEAT;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    create.addressModeV = VK_SAMPLER_ADDRESS_MODE_REPEAT;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    create.addressModeW = VK_SAMPLER_ADDRESS_MODE_REPEAT;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordflow">if</span> (VK_SUCCESS != vkCreateSampler(vulkanState.device, &amp;create, <span class="keyword">nullptr</span>, &amp;filteredTiled)) {</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Failed to create sampler&quot;</span>);</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    }</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;}</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="keywordtype">void</span> CommonSamplers::cleanup() {</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    vkDestroySampler(vulkanState.device, noFilterClamped, <span class="keyword">nullptr</span>);</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    vkDestroySampler(vulkanState.device, minFilterClamped, <span class="keyword">nullptr</span>);</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    vkDestroySampler(vulkanState.device, magFilterClamped, <span class="keyword">nullptr</span>);</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    vkDestroySampler(vulkanState.device, filteredClamped, <span class="keyword">nullptr</span>);</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    vkDestroySampler(vulkanState.device, filteredTiled, <span class="keyword">nullptr</span>);</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;}</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;} <span class="comment">// namespace vk</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00806_html"><div class="ttname"><a href="a00806.html">CommonSamplers.hpp</a></div></div>
+<div class="ttc" id="aa00857_html"><div class="ttname"><a href="a00857.html">VulkanState.hpp</a></div></div>
+<div class="ttc" id="aa01833_html"><div class="ttname"><a href="a01833.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Oct 21 2023 00:16:51 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Oct 25 2023 00:24:21 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

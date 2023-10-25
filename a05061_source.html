@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Graphics/Slideshow.hpp Source File</title>
+<title>BLIB: include/BLIB/Components/Shape2D.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,76 +66,47 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_8af985930208ac2752e8061e22535a56.html">Graphics</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_03a2a625e67597eb4ae66cccf6894c5e.html">Components</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Slideshow.hpp</div>  </div>
+<div class="title">Shape2D.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a05061.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BILB_GRAPHICS_SLIDESHOW_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BILB_GRAPHICS_SLIDESHOW_HPP</span></div>
+<a href="a05061.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_COMPONENTS_SHAPE2D_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_COMPONENTS_SHAPE2D_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05058.html">BLIB/Components/Slideshow.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00269.html">BLIB/Graphics/Animation2D/AnimationData.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05049.html">BLIB/Graphics/Components/Animation2DPlayer.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00275.html">BLIB/Graphics/Components/OverlayScalable.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05085.html">BLIB/Graphics/Components/Transform2D.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00281.html">BLIB/Graphics/Drawable.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01830.html">bl</a></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span>gfx</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a02490.html">   20</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02490.html">Slideshow</a></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;: <span class="keyword">public</span> <a class="code" href="a02478.html">Drawable</a>&lt;com::Slideshow&gt;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;, <span class="keyword">public</span> <a class="code" href="a02466.html">bcom::OverlayScalable</a></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;, <span class="keyword">public</span> <a class="code" href="a02462.html">bcom::Animation2DPlayer</a> {</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a02490.html#a4e8dcbcb8ea5d107b99b199700c3a698">   28</a></span>&#160;    <a class="code" href="a02490.html#a4e8dcbcb8ea5d107b99b199700c3a698">Slideshow</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <a class="code" href="a02490.html#a4e8dcbcb8ea5d107b99b199700c3a698">Slideshow</a>(<a class="code" href="a02314.html">engine::Engine</a>&amp; <a class="code" href="a02478.html#adef5d2a123c05b5b6f6be50c2ffe1454">engine</a>, <span class="keyword">const</span> <a class="code" href="a03550.html">resource::Ref&lt;a2d::AnimationData&gt;</a>&amp; animation,</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;              <span class="keywordtype">bool</span> play = <span class="keyword">false</span>, <span class="keywordtype">bool</span> forceLoop = <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <a class="code" href="a02490.html#a4e8dcbcb8ea5d107b99b199700c3a698">Slideshow</a>(<a class="code" href="a02314.html">engine::Engine</a>&amp; <a class="code" href="a02478.html#adef5d2a123c05b5b6f6be50c2ffe1454">engine</a>, <span class="keyword">const</span> <a class="code" href="a02490.html">Slideshow</a>&amp; player);</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02490.html#aa878ef8d0def20b7f688fa3d750eb9f2">createWithUniquePlayer</a>(<a class="code" href="a02314.html">engine::Engine</a>&amp; <a class="code" href="a02478.html#adef5d2a123c05b5b6f6be50c2ffe1454">engine</a>,</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                                <span class="keyword">const</span> <a class="code" href="a03550.html">resource::Ref&lt;a2d::AnimationData&gt;</a>&amp; animation,</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;                                <span class="keywordtype">bool</span> play = <span class="keyword">false</span>, <span class="keywordtype">bool</span> forceLoop = <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02490.html#aaa9f819272949321bd9b106f9061657a">createWithSharedPlayer</a>(<a class="code" href="a02314.html">engine::Engine</a>&amp; <a class="code" href="a02478.html#adef5d2a123c05b5b6f6be50c2ffe1454">engine</a>, <span class="keyword">const</span> <a class="code" href="a02490.html">Slideshow</a>&amp; player);</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02490.html#a9514af61af28615463e050a09588645d">scaleToSize</a>(<span class="keyword">const</span> glm::vec2&amp; size) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;};</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;} <span class="comment">// namespace gfx</span></div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00269_html"><div class="ttname"><a href="a00269.html">AnimationData.hpp</a></div></div>
-<div class="ttc" id="aa00275_html"><div class="ttname"><a href="a00275.html">OverlayScalable.hpp</a></div></div>
-<div class="ttc" id="aa00281_html"><div class="ttname"><a href="a00281.html">Drawable.hpp</a></div></div>
-<div class="ttc" id="aa01830_html"><div class="ttname"><a href="a01830.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02314_html"><div class="ttname"><a href="a02314.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a05094_source.html#l00032">Engine.hpp:32</a></div></div>
-<div class="ttc" id="aa02462_html"><div class="ttname"><a href="a02462.html">bl::gfx::bcom::Animation2DPlayer</a></div><div class="ttdoc">Base class for 2d animation player components. Players are created on dedicated entities and dependen...</div><div class="ttdef"><b>Definition:</b> <a href="a05049_source.html#l00022">Animation2DPlayer.hpp:22</a></div></div>
-<div class="ttc" id="aa02466_html"><div class="ttname"><a href="a02466.html">bl::gfx::bcom::OverlayScalable</a></div><div class="ttdoc">Base component that manages and provides a Transform2D, OverlayScaler, and Viewport.</div><div class="ttdef"><b>Definition:</b> <a href="a00275_source.html#l00030">OverlayScalable.hpp:30</a></div></div>
-<div class="ttc" id="aa02478_html"><div class="ttname"><a href="a02478.html">bl::gfx::Drawable</a></div><div class="ttdoc">Base class for Drawable objects. A Drawable object should inherit this class for the drawable compone...</div><div class="ttdef"><b>Definition:</b> <a href="a00281_source.html#l00032">Drawable.hpp:32</a></div></div>
-<div class="ttc" id="aa02478_html_adef5d2a123c05b5b6f6be50c2ffe1454"><div class="ttname"><a href="a02478.html#adef5d2a123c05b5b6f6be50c2ffe1454">bl::gfx::Drawable&lt; com::Slideshow &gt;::engine</a></div><div class="ttdeci">constexpr engine::Engine &amp; engine()</div><div class="ttdoc">Returns the game engine instance. Only call after create()</div><div class="ttdef"><b>Definition:</b> <a href="a00281_source.html#l00135">Drawable.hpp:306</a></div></div>
-<div class="ttc" id="aa02490_html"><div class="ttname"><a href="a02490.html">bl::gfx::Slideshow</a></div><div class="ttdoc">Specific type of 2d animation where the texture coordinates change over time.</div><div class="ttdef"><b>Definition:</b> <a href="a05061_source.html#l00020">Slideshow.hpp:23</a></div></div>
-<div class="ttc" id="aa02490_html_a4e8dcbcb8ea5d107b99b199700c3a698"><div class="ttname"><a href="a02490.html#a4e8dcbcb8ea5d107b99b199700c3a698">bl::gfx::Slideshow::Slideshow</a></div><div class="ttdeci">Slideshow()=default</div><div class="ttdoc">Does nothing.</div></div>
-<div class="ttc" id="aa02490_html_a9514af61af28615463e050a09588645d"><div class="ttname"><a href="a02490.html#a9514af61af28615463e050a09588645d">bl::gfx::Slideshow::scaleToSize</a></div><div class="ttdeci">virtual void scaleToSize(const glm::vec2 &amp;size) override</div><div class="ttdoc">Helper method to set the scale so that the entity is a certain size.</div><div class="ttdef"><b>Definition:</b> <a href="a05196_source.html#l00050">Slideshow.cpp:50</a></div></div>
-<div class="ttc" id="aa02490_html_aa878ef8d0def20b7f688fa3d750eb9f2"><div class="ttname"><a href="a02490.html#aa878ef8d0def20b7f688fa3d750eb9f2">bl::gfx::Slideshow::createWithUniquePlayer</a></div><div class="ttdeci">void createWithUniquePlayer(engine::Engine &amp;engine, const resource::Ref&lt; a2d::AnimationData &gt; &amp;animation, bool play=false, bool forceLoop=false)</div><div class="ttdoc">Creates the slideshow with its own player.</div><div class="ttdef"><b>Definition:</b> <a href="a05196_source.html#l00029">Slideshow.cpp:29</a></div></div>
-<div class="ttc" id="aa02490_html_aaa9f819272949321bd9b106f9061657a"><div class="ttname"><a href="a02490.html#aaa9f819272949321bd9b106f9061657a">bl::gfx::Slideshow::createWithSharedPlayer</a></div><div class="ttdeci">void createWithSharedPlayer(engine::Engine &amp;engine, const Slideshow &amp;player)</div><div class="ttdoc">Creates the slideshow sharing animation state with the given slideshow.</div><div class="ttdef"><b>Definition:</b> <a href="a05196_source.html#l00041">Slideshow.cpp:41</a></div></div>
-<div class="ttc" id="aa03550_html"><div class="ttname"><a href="a03550.html">bl::resource::Ref</a></div><div class="ttdoc">Represents a reference to a managed resource. Performs reference counting, but resources are never de...</div><div class="ttdef"><b>Definition:</b> <a href="a00905_source.html#l00025">Ref.hpp:25</a></div></div>
-<div class="ttc" id="aa05049_html"><div class="ttname"><a href="a05049.html">Animation2DPlayer.hpp</a></div></div>
-<div class="ttc" id="aa05058_html"><div class="ttname"><a href="a05058.html">Slideshow.hpp</a></div></div>
-<div class="ttc" id="aa05085_html"><div class="ttname"><a href="a05085.html">Transform2D.hpp</a></div></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00545.html">BLIB/Render/Buffers/IndexBuffer.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00560.html">BLIB/Render/Components/DrawableBase.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01833.html">bl</a></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>com</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a02051.html">   17</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a02051.html">Shape2D</a> : <span class="keyword">public</span> <a class="code" href="a02915.html">rc::rcom::DrawableBase</a> {</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a02051.html#a63a225298268932d4e1799e37b2bf84d">   18</a></span>&#160;    <a class="code" href="a02895.html">rc::buf::IndexBuffer</a> <a class="code" href="a02051.html#a63a225298268932d4e1799e37b2bf84d">indexBuffer</a>;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02051.html#a7a8cb9a0336647802f8f3ba7072511a7">commit</a>();</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;};</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;} <span class="comment">// namespace com</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00545_html"><div class="ttname"><a href="a00545.html">IndexBuffer.hpp</a></div></div>
+<div class="ttc" id="aa00560_html"><div class="ttname"><a href="a00560.html">DrawableBase.hpp</a></div></div>
+<div class="ttc" id="aa01833_html"><div class="ttname"><a href="a01833.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02051_html"><div class="ttname"><a href="a02051.html">bl::com::Shape2D</a></div><div class="ttdoc">Component that allows the renderer to render a 2d shape, or any arbitrary index buffer,...</div><div class="ttdef"><b>Definition:</b> <a href="a05061_source.html#l00017">Shape2D.hpp:17</a></div></div>
+<div class="ttc" id="aa02051_html_a63a225298268932d4e1799e37b2bf84d"><div class="ttname"><a href="a02051.html#a63a225298268932d4e1799e37b2bf84d">bl::com::Shape2D::indexBuffer</a></div><div class="ttdeci">rc::buf::IndexBuffer indexBuffer</div><div class="ttdef"><b>Definition:</b> <a href="a05061_source.html#l00018">Shape2D.hpp:18</a></div></div>
+<div class="ttc" id="aa02051_html_a7a8cb9a0336647802f8f3ba7072511a7"><div class="ttname"><a href="a02051.html#a7a8cb9a0336647802f8f3ba7072511a7">bl::com::Shape2D::commit</a></div><div class="ttdeci">void commit()</div><div class="ttdoc">Updates the draw parameters, syncs with the scene, and uploads the new vertices.</div><div class="ttdef"><b>Definition:</b> <a href="a05196_source.html#l00007">Shape2D.cpp:7</a></div></div>
+<div class="ttc" id="aa02895_html"><div class="ttname"><a href="a02895.html">bl::rc::buf::IndexBufferT</a></div><div class="ttdoc">Basic index buffer class built on top of vk::Buffer. Intended for static mesh data.</div><div class="ttdef"><b>Definition:</b> <a href="a00545_source.html#l00025">IndexBuffer.hpp:25</a></div></div>
+<div class="ttc" id="aa02915_html"><div class="ttname"><a href="a02915.html">bl::rc::rcom::DrawableBase</a></div><div class="ttdoc">Base class for drawable scene components for the ECS. Provides common members.</div><div class="ttdef"><b>Definition:</b> <a href="a00560_source.html#l00020">DrawableBase.hpp:20</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Oct 21 2023 00:16:51 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Oct 25 2023 00:24:19 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -77,37 +77,57 @@ $(function() {
 <a href="a00464.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_MENU_SELECTOR_HPP</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_MENU_SELECTOR_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;SFML/Graphics/RenderTarget.hpp&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01830.html">bl</a></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>menu</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00158.html">BLIB/ECS/Entity.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00701.html">BLIB/Render/Overlays/Overlay.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;SFML/Graphics/RenderTarget.hpp&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01833.html">bl</a></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a02794.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02794.html">Selector</a> {</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a02794.html#afc2ee695075a4244d7962da15e64fea1">   19</a></span>&#160;    <span class="keyword">typedef</span> std::shared_ptr&lt;Selector&gt; <a class="code" href="a02794.html#afc2ee695075a4244d7962da15e64fea1">Ptr</a>;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a02794.html#aaa7eb324681c7f99cb4d6f16c168b105">   21</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02794.html#aaa7eb324681c7f99cb4d6f16c168b105">~Selector</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a02794.html#ac5988eac8934f7b07104a94de27a09eb">   30</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02794.html#ac5988eac8934f7b07104a94de27a09eb">render</a>(sf::RenderTarget&amp; target, sf::RenderStates states,</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;                        sf::FloatRect itemArea) <span class="keyword">const</span> = 0;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;};</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;} <span class="comment">// namespace menu</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01830_html"><div class="ttname"><a href="a01830.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02794_html"><div class="ttname"><a href="a02794.html">bl::menu::Selector</a></div><div class="ttdoc">Base class for selector items that indicate which Menu item is active.</div><div class="ttdef"><b>Definition:</b> <a href="a00464_source.html#l00017">Selector.hpp:17</a></div></div>
-<div class="ttc" id="aa02794_html_aaa7eb324681c7f99cb4d6f16c168b105"><div class="ttname"><a href="a02794.html#aaa7eb324681c7f99cb4d6f16c168b105">bl::menu::Selector::~Selector</a></div><div class="ttdeci">virtual ~Selector()=default</div></div>
-<div class="ttc" id="aa02794_html_ac5988eac8934f7b07104a94de27a09eb"><div class="ttname"><a href="a02794.html#ac5988eac8934f7b07104a94de27a09eb">bl::menu::Selector::render</a></div><div class="ttdeci">virtual void render(sf::RenderTarget &amp;target, sf::RenderStates states, sf::FloatRect itemArea) const =0</div><div class="ttdoc">Render the selection indicator to the item in the given screen region.</div></div>
-<div class="ttc" id="aa02794_html_afc2ee695075a4244d7962da15e64fea1"><div class="ttname"><a href="a02794.html#afc2ee695075a4244d7962da15e64fea1">bl::menu::Selector::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; Selector &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00464_source.html#l00019">Selector.hpp:19</a></div></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>engine</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">class </span>Engine;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;}</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span>menu</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a02799.html">   24</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02799.html">Selector</a> {</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a02799.html#afc2ee695075a4244d7962da15e64fea1">   26</a></span>&#160;    <span class="keyword">typedef</span> std::shared_ptr&lt;Selector&gt; <a class="code" href="a02799.html#afc2ee695075a4244d7962da15e64fea1">Ptr</a>;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="a02799.html#aaa7eb324681c7f99cb4d6f16c168b105">   31</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02799.html#aaa7eb324681c7f99cb4d6f16c168b105">~Selector</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="a02799.html#ae8623583994f4f420d6f78f063aa7b5f">   39</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02799.html#ae8623583994f4f420d6f78f063aa7b5f">doCreate</a>(<a class="code" href="a02319.html">engine::Engine</a>&amp; engine, <a class="code" href="a02223.html">ecs::Entity</a> parent) = 0;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="a02799.html#a43106a5cc47fcb5d4b6bcbbf857d68e2">   47</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02799.html#a43106a5cc47fcb5d4b6bcbbf857d68e2">notifySelection</a>(<a class="code" href="a02223.html">ecs::Entity</a> item, sf::FloatRect itemArea) = 0;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="a02799.html#a34307274777c8707709dce0b9e358137">   54</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02799.html#a34307274777c8707709dce0b9e358137">doSceneAdd</a>(<a class="code" href="a03139.html">rc::Overlay</a>* overlay) = 0;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="a02799.html#a576771798bbcdac04f22a7ce1ef60c1a">   59</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02799.html#a576771798bbcdac04f22a7ce1ef60c1a">doSceneRemove</a>() = 0;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;};</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;} <span class="comment">// namespace menu</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00158_html"><div class="ttname"><a href="a00158.html">Entity.hpp</a></div></div>
+<div class="ttc" id="aa00701_html"><div class="ttname"><a href="a00701.html">Overlay.hpp</a></div></div>
+<div class="ttc" id="aa01833_html"><div class="ttname"><a href="a01833.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02223_html"><div class="ttname"><a href="a02223.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition:</b> <a href="a00158_source.html#l00023">Entity.hpp:23</a></div></div>
+<div class="ttc" id="aa02319_html"><div class="ttname"><a href="a02319.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a05103_source.html#l00032">Engine.hpp:32</a></div></div>
+<div class="ttc" id="aa02799_html"><div class="ttname"><a href="a02799.html">bl::menu::Selector</a></div><div class="ttdoc">Base class for selector items that indicate which Menu item is active.</div><div class="ttdef"><b>Definition:</b> <a href="a00464_source.html#l00024">Selector.hpp:24</a></div></div>
+<div class="ttc" id="aa02799_html_a34307274777c8707709dce0b9e358137"><div class="ttname"><a href="a02799.html#a34307274777c8707709dce0b9e358137">bl::menu::Selector::doSceneAdd</a></div><div class="ttdeci">virtual void doSceneAdd(rc::Overlay *overlay)=0</div><div class="ttdoc">Called when the selector should be added to the overlay.</div></div>
+<div class="ttc" id="aa02799_html_a43106a5cc47fcb5d4b6bcbbf857d68e2"><div class="ttname"><a href="a02799.html#a43106a5cc47fcb5d4b6bcbbf857d68e2">bl::menu::Selector::notifySelection</a></div><div class="ttdeci">virtual void notifySelection(ecs::Entity item, sf::FloatRect itemArea)=0</div><div class="ttdoc">Called when the selector should select an item.</div></div>
+<div class="ttc" id="aa02799_html_a576771798bbcdac04f22a7ce1ef60c1a"><div class="ttname"><a href="a02799.html#a576771798bbcdac04f22a7ce1ef60c1a">bl::menu::Selector::doSceneRemove</a></div><div class="ttdeci">virtual void doSceneRemove()=0</div><div class="ttdoc">Called when the selector should be removed from the overlay.</div></div>
+<div class="ttc" id="aa02799_html_aaa7eb324681c7f99cb4d6f16c168b105"><div class="ttname"><a href="a02799.html#aaa7eb324681c7f99cb4d6f16c168b105">bl::menu::Selector::~Selector</a></div><div class="ttdeci">virtual ~Selector()=default</div><div class="ttdoc">Destroys the selector.</div></div>
+<div class="ttc" id="aa02799_html_ae8623583994f4f420d6f78f063aa7b5f"><div class="ttname"><a href="a02799.html#ae8623583994f4f420d6f78f063aa7b5f">bl::menu::Selector::doCreate</a></div><div class="ttdeci">virtual void doCreate(engine::Engine &amp;engine, ecs::Entity parent)=0</div><div class="ttdoc">Called when the selector is added to a menu.</div></div>
+<div class="ttc" id="aa02799_html_afc2ee695075a4244d7962da15e64fea1"><div class="ttname"><a href="a02799.html#afc2ee695075a4244d7962da15e64fea1">bl::menu::Selector::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; Selector &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00464_source.html#l00026">Selector.hpp:26</a></div></div>
+<div class="ttc" id="aa03139_html"><div class="ttname"><a href="a03139.html">bl::rc::Overlay</a></div><div class="ttdoc">Special type of scene specialized for 2d overlays with fixed cameras. Objects are organized into a tr...</div><div class="ttdef"><b>Definition:</b> <a href="a00701_source.html#l00036">Overlay.hpp:38</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Oct 21 2023 00:16:51 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Oct 25 2023 00:24:20 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::ecs::ComponentSet&lt; TRequire, TOptional &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,28 +66,41 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01830.html">bl</a></li><li class="navelem"><a class="el" href="a01845.html">ecs</a></li><li class="navelem"><a class="el" href="a02214.html">DependencyGraph</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01833.html">bl</a></li><li class="navelem"><a class="el" href="a01848.html">ecs</a></li><li class="navelem"><a class="el" href="a02211.html">ComponentSet</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">bl::ecs::DependencyGraph Member List</div>  </div>
+<div class="title">bl::ecs::ComponentSet&lt; TRequire, TOptional &gt; Class Template Reference<div class="ingroups"><a class="el" href="a01810.html">ECS</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a02214.html">bl::ecs::DependencyGraph</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a02214.html#a5be0aef92ec886c39769384811f02ccc">addDependency</a>(Entity parent, Entity child)</td><td class="entry"><a class="el" href="a02214.html">bl::ecs::DependencyGraph</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a02214.html#a46bb4369e09fcc49d21b3f8c07946f4c">clear</a>()</td><td class="entry"><a class="el" href="a02214.html">bl::ecs::DependencyGraph</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02214.html#a42ca2d87dfe5867e1e48b7cd927e8998">DependencyGraph</a>(std::size_t capacityHint)</td><td class="entry"><a class="el" href="a02214.html">bl::ecs::DependencyGraph</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a02214.html#a334277ed7244554257b87ee0530b6d3a">getResources</a>(Entity child)</td><td class="entry"><a class="el" href="a02214.html">bl::ecs::DependencyGraph</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02214.html#a306e898c7fab38052be04f243e154f8c">hasDependencies</a>(Entity parent) const</td><td class="entry"><a class="el" href="a02214.html">bl::ecs::DependencyGraph</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a02214.html#a578885f410b0ca7aa8551962258bb59f">removeDependency</a>(Entity parent, Entity child)</td><td class="entry"><a class="el" href="a02214.html">bl::ecs::DependencyGraph</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Contains a set of components for a single entity. May not always be valid. Does not update if components are added or removed from the entity. Sets from views are always valid.  
+ <a href="a02211.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00149_source.html">ComponentSet.hpp</a>&gt;</code></p>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><h3>template&lt;typename TRequire, typename TOptional = Optional&lt;&gt;&gt;<br />
+class bl::ecs::ComponentSet&lt; TRequire, TOptional &gt;</h3>
+
+<p>Contains a set of components for a single entity. May not always be valid. Does not update if components are added or removed from the entity. Sets from views are always valid. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">TRequire</td><td>Required tagged components. ie Require&lt;int, char&gt; </td></tr>
+    <tr><td class="paramname">TOptional</td><td><a class="el" href="a02275.html">Optional</a> tagged components. ie Optional&lt;bool&gt; </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00149_source.html#l00039">39</a> of file <a class="el" href="a00149_source.html">ComponentSet.hpp</a>.</p>
+</div><hr/>The documentation for this class was generated from the following file:<ul>
+<li>include/BLIB/ECS/<a class="el" href="a00149_source.html">ComponentSet.hpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Oct 21 2023 00:16:52 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Oct 25 2023 00:24:22 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

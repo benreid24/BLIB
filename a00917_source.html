@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Scripts/Context.hpp Source File</title>
+<title>BLIB: include/BLIB/Resources.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,54 +66,59 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_9fb35b166bb00afcaa31ece623ebed60.html">Scripts</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Context.hpp</div>  </div>
+<div class="title">Resources.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00917.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_SCRIPTS_CONTEXT_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_SCRIPTS_CONTEXT_HPP</span></div>
+<a href="a00917.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RESOURCES_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RESOURCES_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00938.html">BLIB/Scripts/SymbolTable.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01830.html">bl</a></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="a01882.html">    8</a></span>&#160;<span class="keyword">namespace </span>script</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">class </span><a class="code" href="a03598.html">Script</a>;</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a03566.html">   20</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03566.html">Context</a> {</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a03566.html#ac6c0c419217aa8ac5c649b2384c94da8">   26</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03566.html#ac6c0c419217aa8ac5c649b2384c94da8">~Context</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03566.html#a60d6dc826b2e1dbd3d54ef4a58d1816a">addCustomSymbols</a>(<a class="code" href="a03606.html">SymbolTable</a>&amp; table) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordtype">void</span> initializeTable(<a class="code" href="a03606.html">SymbolTable</a>&amp; table) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="a03566.html#ae98eaa96d1b24e087f3c3e372fb09dce">   39</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a03598.html">Script</a>;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;};</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;} <span class="comment">// namespace script</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00938_html"><div class="ttname"><a href="a00938.html">SymbolTable.hpp</a></div></div>
-<div class="ttc" id="aa01830_html"><div class="ttname"><a href="a01830.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03566_html"><div class="ttname"><a href="a03566.html">bl::script::Context</a></div><div class="ttdoc">A context to run a script with. Custom context classes may be created to have different types of scri...</div><div class="ttdef"><b>Definition:</b> <a href="a00917_source.html#l00020">Context.hpp:20</a></div></div>
-<div class="ttc" id="aa03566_html_a60d6dc826b2e1dbd3d54ef4a58d1816a"><div class="ttname"><a href="a03566.html#a60d6dc826b2e1dbd3d54ef4a58d1816a">bl::script::Context::addCustomSymbols</a></div><div class="ttdeci">virtual void addCustomSymbols(SymbolTable &amp;table) const</div><div class="ttdoc">Add your custom functions and variables to the symbol table here.</div><div class="ttdef"><b>Definition:</b> <a href="a01694_source.html#l00013">Context.cpp:13</a></div></div>
-<div class="ttc" id="aa03566_html_ac6c0c419217aa8ac5c649b2384c94da8"><div class="ttname"><a href="a03566.html#ac6c0c419217aa8ac5c649b2384c94da8">bl::script::Context::~Context</a></div><div class="ttdeci">virtual ~Context()=default</div><div class="ttdoc">Destroy the Context object.</div></div>
-<div class="ttc" id="aa03598_html"><div class="ttname"><a href="a03598.html">bl::script::Script</a></div><div class="ttdoc">Loads scripts. Can run scripts directly or in the background. Is threadsafe.</div><div class="ttdef"><b>Definition:</b> <a href="a00935_source.html#l00030">Script.hpp:30</a></div></div>
-<div class="ttc" id="aa03606_html"><div class="ttname"><a href="a03606.html">bl::script::SymbolTable</a></div><div class="ttdoc">Stack aware symbol table for managing functions and variables Each Script holds a single instance.</div><div class="ttdef"><b>Definition:</b> <a href="a00938_source.html#l00026">SymbolTable.hpp:26</a></div></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00899.html">BLIB/Resources/FileSystem.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00902.html">BLIB/Resources/GarbageCollector.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00905.html">BLIB/Resources/Loader.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00908.html">BLIB/Resources/Ref.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00911.html">BLIB/Resources/Resource.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00914.html">BLIB/Resources/ResourceManager.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00863.html">BLIB/Resources/Bundler.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00872.html">BLIB/Resources/Bundling/BundleMetadata.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00878.html">BLIB/Resources/Bundling/BundleSource.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00869.html">BLIB/Resources/Bundling/BundledFileMetadata.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05157.html">BLIB/Resources/Bundling/Config.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00881.html">BLIB/Resources/Bundling/FileHandler.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00884.html">BLIB/Resources/Bundling/FileHandlerContext.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00887.html">BLIB/Resources/Bundling/FileHandlers/AnimationHandler.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00890.html">BLIB/Resources/Bundling/FileHandlers/DefaultHandler.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00893.html">BLIB/Resources/Bundling/FileHandlers/PlaylistHandler.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00896.html">BLIB/Resources/Bundling/Manifest.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00863_html"><div class="ttname"><a href="a00863.html">Bundler.hpp</a></div></div>
+<div class="ttc" id="aa00869_html"><div class="ttname"><a href="a00869.html">BundledFileMetadata.hpp</a></div></div>
+<div class="ttc" id="aa00872_html"><div class="ttname"><a href="a00872.html">BundleMetadata.hpp</a></div></div>
+<div class="ttc" id="aa00878_html"><div class="ttname"><a href="a00878.html">BundleSource.hpp</a></div></div>
+<div class="ttc" id="aa00881_html"><div class="ttname"><a href="a00881.html">FileHandler.hpp</a></div></div>
+<div class="ttc" id="aa00884_html"><div class="ttname"><a href="a00884.html">FileHandlerContext.hpp</a></div></div>
+<div class="ttc" id="aa00887_html"><div class="ttname"><a href="a00887.html">AnimationHandler.hpp</a></div></div>
+<div class="ttc" id="aa00890_html"><div class="ttname"><a href="a00890.html">DefaultHandler.hpp</a></div></div>
+<div class="ttc" id="aa00893_html"><div class="ttname"><a href="a00893.html">PlaylistHandler.hpp</a></div></div>
+<div class="ttc" id="aa00896_html"><div class="ttname"><a href="a00896.html">Manifest.hpp</a></div></div>
+<div class="ttc" id="aa00899_html"><div class="ttname"><a href="a00899.html">FileSystem.hpp</a></div></div>
+<div class="ttc" id="aa00902_html"><div class="ttname"><a href="a00902.html">GarbageCollector.hpp</a></div></div>
+<div class="ttc" id="aa00905_html"><div class="ttname"><a href="a00905.html">Loader.hpp</a></div></div>
+<div class="ttc" id="aa00908_html"><div class="ttname"><a href="a00908.html">Ref.hpp</a></div></div>
+<div class="ttc" id="aa00911_html"><div class="ttname"><a href="a00911.html">Resource.hpp</a></div></div>
+<div class="ttc" id="aa00914_html"><div class="ttname"><a href="a00914.html">ResourceManager.hpp</a></div></div>
+<div class="ttc" id="aa05157_html"><div class="ttname"><a href="a05157.html">Config.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Oct 21 2023 00:16:51 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Oct 25 2023 00:24:20 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

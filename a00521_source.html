@@ -80,17 +80,17 @@ $(function() {
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00530.html">BLIB/Parser/Stream.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01830.html">bl</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01833.html">bl</a></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>parser</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a02842.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02842.html">ISkipper</a> {</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a02847.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02847.html">ISkipper</a> {</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a02842.html#ac94262dbc4b796277c22a958aa727323">   19</a></span>&#160;    <span class="keyword">typedef</span> std::shared_ptr&lt;ISkipper&gt; <a class="code" href="a02842.html#ac94262dbc4b796277c22a958aa727323">Ptr</a>;</div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a02847.html#ac94262dbc4b796277c22a958aa727323">   19</a></span>&#160;    <span class="keyword">typedef</span> std::shared_ptr&lt;ISkipper&gt; <a class="code" href="a02847.html#ac94262dbc4b796277c22a958aa727323">Ptr</a>;</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a02842.html#a8afaad7778d34f6f3f86198ebdd4a86b">   25</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02842.html#a8afaad7778d34f6f3f86198ebdd4a86b">~ISkipper</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a02847.html#a8afaad7778d34f6f3f86198ebdd4a86b">   25</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02847.html#a8afaad7778d34f6f3f86198ebdd4a86b">~ISkipper</a>() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="a02842.html#a044cd5fba80d2ab990c25d9b92bbc5b4">   32</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02842.html#a044cd5fba80d2ab990c25d9b92bbc5b4">skip</a>(<a class="code" href="a02866.html">Stream</a>&amp; stream) <span class="keyword">const</span> = 0;</div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="a02847.html#a044cd5fba80d2ab990c25d9b92bbc5b4">   32</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02847.html#a044cd5fba80d2ab990c25d9b92bbc5b4">skip</a>(<a class="code" href="a02871.html">Stream</a>&amp; stream) <span class="keyword">const</span> = 0;</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;};</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;} <span class="comment">// namespace parser</span></div>
@@ -98,17 +98,17 @@ $(function() {
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aa00530_html"><div class="ttname"><a href="a00530.html">Stream.hpp</a></div></div>
-<div class="ttc" id="aa01830_html"><div class="ttname"><a href="a01830.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02842_html"><div class="ttname"><a href="a02842.html">bl::parser::ISkipper</a></div><div class="ttdoc">Interface for custom parsers to skip past unwanted characters such as whitespace or comments.</div><div class="ttdef"><b>Definition:</b> <a href="a00521_source.html#l00017">ISkipper.hpp:17</a></div></div>
-<div class="ttc" id="aa02842_html_a044cd5fba80d2ab990c25d9b92bbc5b4"><div class="ttname"><a href="a02842.html#a044cd5fba80d2ab990c25d9b92bbc5b4">bl::parser::ISkipper::skip</a></div><div class="ttdeci">virtual void skip(Stream &amp;stream) const =0</div><div class="ttdoc">Skip past unwanted characters in the stream.</div></div>
-<div class="ttc" id="aa02842_html_a8afaad7778d34f6f3f86198ebdd4a86b"><div class="ttname"><a href="a02842.html#a8afaad7778d34f6f3f86198ebdd4a86b">bl::parser::ISkipper::~ISkipper</a></div><div class="ttdeci">virtual ~ISkipper()=default</div><div class="ttdoc">Destroy the ISkipper object.</div></div>
-<div class="ttc" id="aa02842_html_ac94262dbc4b796277c22a958aa727323"><div class="ttname"><a href="a02842.html#ac94262dbc4b796277c22a958aa727323">bl::parser::ISkipper::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; ISkipper &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00521_source.html#l00019">ISkipper.hpp:19</a></div></div>
-<div class="ttc" id="aa02866_html"><div class="ttname"><a href="a02866.html">bl::parser::Stream</a></div><div class="ttdoc">Wrapper class around std::ostream. Used for keeping track of current line and column numbers.</div><div class="ttdef"><b>Definition:</b> <a href="a00530_source.html#l00017">Stream.hpp:17</a></div></div>
+<div class="ttc" id="aa01833_html"><div class="ttname"><a href="a01833.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02847_html"><div class="ttname"><a href="a02847.html">bl::parser::ISkipper</a></div><div class="ttdoc">Interface for custom parsers to skip past unwanted characters such as whitespace or comments.</div><div class="ttdef"><b>Definition:</b> <a href="a00521_source.html#l00017">ISkipper.hpp:17</a></div></div>
+<div class="ttc" id="aa02847_html_a044cd5fba80d2ab990c25d9b92bbc5b4"><div class="ttname"><a href="a02847.html#a044cd5fba80d2ab990c25d9b92bbc5b4">bl::parser::ISkipper::skip</a></div><div class="ttdeci">virtual void skip(Stream &amp;stream) const =0</div><div class="ttdoc">Skip past unwanted characters in the stream.</div></div>
+<div class="ttc" id="aa02847_html_a8afaad7778d34f6f3f86198ebdd4a86b"><div class="ttname"><a href="a02847.html#a8afaad7778d34f6f3f86198ebdd4a86b">bl::parser::ISkipper::~ISkipper</a></div><div class="ttdeci">virtual ~ISkipper()=default</div><div class="ttdoc">Destroy the ISkipper object.</div></div>
+<div class="ttc" id="aa02847_html_ac94262dbc4b796277c22a958aa727323"><div class="ttname"><a href="a02847.html#ac94262dbc4b796277c22a958aa727323">bl::parser::ISkipper::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; ISkipper &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00521_source.html#l00019">ISkipper.hpp:19</a></div></div>
+<div class="ttc" id="aa02871_html"><div class="ttname"><a href="a02871.html">bl::parser::Stream</a></div><div class="ttdoc">Wrapper class around std::ostream. Used for keeping track of current line and column numbers.</div><div class="ttdef"><b>Definition:</b> <a href="a00530_source.html#l00017">Stream.hpp:17</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Oct 21 2023 00:16:51 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Oct 25 2023 00:24:20 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

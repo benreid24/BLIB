@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Util/UnderlyingType.hpp Source File</title>
+<title>BLIB: include/BLIB/Util/TupleLoop.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,48 +71,41 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">UnderlyingType.hpp</div>  </div>
+<div class="title">TupleLoop.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01088.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_UTIL_UNDERLYINGTYPE_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_UTIL_UNDERLYINGTYPE_HPP</span></div>
+<a href="a01088.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_UTIL_TUPLELOOP_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_UTIL_TUPLELOOP_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;type_traits&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01830.html">bl</a></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>util</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keywordtype">bool</span> = std::is_enum_v&lt;T&gt;&gt;</div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a04082.html">   18</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a04082.html">UnderlyingType</a> {};</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a04086.html">   21</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a04082.html">UnderlyingType</a>&lt;U, false&gt; {</div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a04086.html#a5f74c7105c35498fe4eeea79c781ac6a">   22</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a04086.html#a5f74c7105c35498fe4eeea79c781ac6a">type</a> = U;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;};</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;tuple&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;utility&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01833.html">bl</a></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>util</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">template</span>&lt;std::size_t I = 0, <span class="keyword">typename</span> FuncT, <span class="keyword">typename</span>... Tp&gt;</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a01825.html#ga5d5816901da87f0dd35b765c5ab2639e">   22</a></span>&#160;<span class="keyword">inline</span> <span class="keyword">typename</span> std::enable_if&lt;I == <span class="keyword">sizeof</span>...(Tp), <span class="keywordtype">void</span>&gt;::type <a class="code" href="a01825.html#ga5d5816901da87f0dd35b765c5ab2639e">TupleLoop</a>(std::tuple&lt;Tp...&gt;&amp;,</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;                                                                         FuncT) {}</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a04090.html">   26</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a04082.html">UnderlyingType</a>&lt;U, true&gt; {</div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="a04090.html#a00abb8857d89214f8bae80045528003b">   27</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a04090.html#a00abb8857d89214f8bae80045528003b">type</a> = std::underlying_type_t&lt;U&gt;;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;};</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="a01888.html#aa8853668ec5ed0e2e9cc964b2e38334d">   31</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a01888.html#aa8853668ec5ed0e2e9cc964b2e38334d">UnderlyingTypeT</a> = <span class="keyword">typename</span> <a class="code" href="a04082.html">UnderlyingType&lt;T&gt;::type</a>;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;} <span class="comment">// namespace util</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01830_html"><div class="ttname"><a href="a01830.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa01888_html_aa8853668ec5ed0e2e9cc964b2e38334d"><div class="ttname"><a href="a01888.html#aa8853668ec5ed0e2e9cc964b2e38334d">bl::util::UnderlyingTypeT</a></div><div class="ttdeci">typename UnderlyingType&lt; T &gt;::type UnderlyingTypeT</div><div class="ttdef"><b>Definition:</b> <a href="a01088_source.html#l00031">UnderlyingType.hpp:31</a></div></div>
-<div class="ttc" id="aa04082_html"><div class="ttname"><a href="a04082.html">bl::util::UnderlyingType</a></div><div class="ttdoc">Provides the underlying type of an enum with the added benefit of allow integral types to pass-throug...</div><div class="ttdef"><b>Definition:</b> <a href="a01088_source.html#l00018">UnderlyingType.hpp:18</a></div></div>
-<div class="ttc" id="aa04086_html_a5f74c7105c35498fe4eeea79c781ac6a"><div class="ttname"><a href="a04086.html#a5f74c7105c35498fe4eeea79c781ac6a">bl::util::UnderlyingType&lt; U, false &gt;::type</a></div><div class="ttdeci">U type</div><div class="ttdef"><b>Definition:</b> <a href="a01088_source.html#l00022">UnderlyingType.hpp:22</a></div></div>
-<div class="ttc" id="aa04090_html_a00abb8857d89214f8bae80045528003b"><div class="ttname"><a href="a04090.html#a00abb8857d89214f8bae80045528003b">bl::util::UnderlyingType&lt; U, true &gt;::type</a></div><div class="ttdeci">std::underlying_type_t&lt; U &gt; type</div><div class="ttdef"><b>Definition:</b> <a href="a01088_source.html#l00027">UnderlyingType.hpp:27</a></div></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keyword">template</span>&lt;std::size_t I = 0, <span class="keyword">typename</span> FuncT, <span class="keyword">typename</span>... Tp&gt;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keyword">inline</span> <span class="keyword">typename</span> std::enable_if &lt;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    I&lt;<span class="keyword">sizeof</span>...(Tp), <span class="keywordtype">void</span>&gt;::type <a class="code" href="a01825.html#ga5d5816901da87f0dd35b765c5ab2639e">TupleLoop</a>(std::tuple&lt;Tp...&gt;&amp; t, FuncT f) {</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    f(I, std::get&lt;I&gt;(t));</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <a class="code" href="a01825.html#ga5d5816901da87f0dd35b765c5ab2639e">TupleLoop</a>&lt;I + 1, FuncT, Tp...&gt;(t, f);</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;}</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;} <span class="comment">// namespace util</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01825_html_ga5d5816901da87f0dd35b765c5ab2639e"><div class="ttname"><a href="a01825.html#ga5d5816901da87f0dd35b765c5ab2639e">bl::util::TupleLoop</a></div><div class="ttdeci">std::enable_if&lt; I==sizeof...(Tp), void &gt;::type TupleLoop(std::tuple&lt; Tp... &gt; &amp;, FuncT)</div><div class="ttdoc">Base case for TupleLoop utility.</div><div class="ttdef"><b>Definition:</b> <a href="a01088_source.html#l00022">TupleLoop.hpp:22</a></div></div>
+<div class="ttc" id="aa01833_html"><div class="ttname"><a href="a01833.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Oct 21 2023 00:16:51 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Oct 25 2023 00:24:20 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

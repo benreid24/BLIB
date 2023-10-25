@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Resources/TexturePool.cpp Source File</title>
+<title>BLIB: src/Render/Resources/ShaderModuleCache.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,252 +71,135 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">TexturePool.cpp</div>  </div>
+<div class="title">ShaderModuleCache.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01559.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00743.html">BLIB/Render/Resources/TexturePool.hpp</a>&gt;</span></div>
+<a href="a01559.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00743.html">BLIB/Render/Resources/ShaderModuleCache.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00842.html">BLIB/Render/Vulkan/StandardAttachmentBuffers.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01830.html">bl</a></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>rc</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>res</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;TexturePool::TexturePool(vk::VulkanState&amp; vs)</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;: vulkanState(vs)</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;, textures(vs, MaxTextureCount, TextureArrayBindIndex)</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;, refCounts(MaxTextureCount)</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;, freeSlots(MaxTextureCount - BindlessTextureArray::MaxRenderTextures - 1)</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;, freeRtSlots(BindlessTextureArray::MaxRenderTextures)</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;, reverseFileMap(MaxTextureCount - BindlessTextureArray::MaxRenderTextures) {</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    toRelease.reserve(64);</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;}</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keywordtype">void</span> TexturePool::init() {</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="comment">// create descriptor layout</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    VkDescriptorSetLayoutBinding setBindings[] = {textures.getLayoutBinding()};</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    VkDescriptorSetLayoutCreateInfo descriptorCreateInfo{};</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    descriptorCreateInfo.sType        = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    descriptorCreateInfo.bindingCount = std::size(setBindings);</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    descriptorCreateInfo.pBindings    = setBindings;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordflow">if</span> (VK_SUCCESS !=</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        vkCreateDescriptorSetLayout(</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;            vulkanState.device, &amp;descriptorCreateInfo, <span class="keyword">nullptr</span>, &amp;descriptorSetLayout)) {</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Failed to create texture pool descriptor set layout&quot;</span>);</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    }</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="comment">// create descriptor pool</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    VkDescriptorPoolSize poolSize{};</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    poolSize.type            = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    poolSize.descriptorCount = MaxTextureCount * 2;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    VkDescriptorPoolCreateInfo poolCreate{};</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    poolCreate.sType         = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    poolCreate.maxSets       = 2;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    poolCreate.poolSizeCount = 1;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    poolCreate.pPoolSizes    = &amp;poolSize;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordflow">if</span> (VK_SUCCESS !=</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        vkCreateDescriptorPool(vulkanState.device, &amp;poolCreate, <span class="keyword">nullptr</span>, &amp;descriptorPool)) {</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Failed to create texture descriptor pool&quot;</span>);</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    }</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="comment">// allocate descriptor set</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    VkDescriptorSet allocatedSets[2];</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    VkDescriptorSetLayout setLayouts[2] = {descriptorSetLayout, descriptorSetLayout};</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    VkDescriptorSetAllocateInfo setAlloc{};</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    setAlloc.sType              = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    setAlloc.descriptorPool     = descriptorPool;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    setAlloc.descriptorSetCount = 2;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    setAlloc.pSetLayouts        = setLayouts;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordflow">if</span> (VK_SUCCESS != vkAllocateDescriptorSets(vulkanState.device, &amp;setAlloc, allocatedSets)) {</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Failed to allocate texture descriptor set&quot;</span>);</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    }</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    descriptorSet   = allocatedSets[0];</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    rtDescriptorSet = allocatedSets[1];</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="comment">// create error texture pattern and init texture array</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    constexpr <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> ErrorSize    = 1024;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    constexpr <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> ErrorBoxSize = 64;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    textures.getErrorPattern().create(ErrorSize, ErrorSize);</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> x = 0; x &lt; ErrorSize; ++x) {</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> y = 0; y &lt; ErrorSize; ++y) {</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> xi = x / ErrorBoxSize;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> yi = y / ErrorBoxSize;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;            <span class="keywordflow">if</span> ((xi % 2) == (yi % 2)) {</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                textures.getErrorPattern().setPixel(x, y, sf::Color(230, 66, 245));</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;            }</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;            <span class="keywordflow">else</span> { textures.getErrorPattern().setPixel(x, y, sf::Color(255, 254, 196)); }</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        }</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    }</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    textures.init(descriptorSet, rtDescriptorSet);</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;}</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="keywordtype">void</span> TexturePool::cleanup() {</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    textures.cleanup();</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    vkDestroyDescriptorPool(vulkanState.device, descriptorPool, <span class="keyword">nullptr</span>);</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    vkDestroyDescriptorSetLayout(vulkanState.device, descriptorSetLayout, <span class="keyword">nullptr</span>);</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;}</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
-<div class="line"><a name="l00086"></a><span class="lineno"><a class="line" href="a03202.html#ab4587cdd86583d78513c9a58afa4e54b">   86</a></span>&#160;<span class="keywordtype">void</span> TexturePool::releaseUnused() {</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    std::unique_lock lock(mutex);</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    vkDeviceWaitIdle(vulkanState.device);</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    releaseUnusedLocked();</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;}</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
-<div class="line"><a name="l00092"></a><span class="lineno"><a class="line" href="a03202.html#af1020765fa50d7e635d6f68c6536d39a">   92</a></span>&#160;<span class="keywordtype">void</span> TexturePool::releaseTexture(<span class="keyword">const</span> <a class="code" href="a03206.html">TextureRef</a>&amp; ref) {</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keywordflow">if</span> (ref.<a class="code" href="a03206.html#a38724c98a4c59986b1423e1b5a5aef1c">id</a>() == ErrorTextureId) <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05154.html">BLIB/Render/Config.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00917.html">BLIB/Resources.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno"><a class="line" href="a01559.html#a2ae9b72bb13abaabfcf2ee0ba7d3fa1d">    6</a></span>&#160;<span class="preprocessor">#define STRINGIFY_HELPER(X) #X</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="a01559.html#a6df1d22fb5f09eccc23b9f399670cfd7">    7</a></span>&#160;<span class="preprocessor">#define STRINGIFY(x) STRINGIFY_HELPER(x)</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="a01559.html#a31fed9a126657d15744fb02db496648e">    8</a></span>&#160;<span class="preprocessor">#define BUILTIN_SHADER(path) STRINGIFY(SHADER_PATH) &quot;/&quot;</span> path</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01833.html">bl</a></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span>res</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a03203.html#ad10d56d22b2735a5c105b46130ca3bad">   16</a></span>&#160;VkShaderModule <a class="code" href="a03203.html#ad10d56d22b2735a5c105b46130ca3bad">ShaderModuleCache::loadShader</a>(<span class="keyword">const</span> std::string&amp; path) {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> it = cache.find(path);</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keywordflow">if</span> (it != cache.end()) { <span class="keywordflow">return</span> it-&gt;second; }</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keywordtype">char</span>* data      = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    std::size_t len = 0;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordflow">if</span> (path[0] &lt;= <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(<a class="code" href="a02927.html#a1b069be40cbfeceb628dd1ebd1e0bb09">Config::ShaderIds::MaxId</a>)) {</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        <span class="keywordflow">switch</span> (path[0]) {</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="a02927.html#a5497870ba209875d3667c290de16a38a">Config::ShaderIds::EmptyVertex</a>[0]:</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="a03203.html#ad10d56d22b2735a5c105b46130ca3bad">loadShader</a>(<a class="code" href="a01559.html#a31fed9a126657d15744fb02db496648e">BUILTIN_SHADER</a>(<span class="stringliteral">&quot;empty.vert.spv&quot;</span>));</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="a02927.html#abc5c89873c3838175ece335a4564dd76">Config::ShaderIds::MeshVertex</a>[0]:</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="a03203.html#ad10d56d22b2735a5c105b46130ca3bad">loadShader</a>(<a class="code" href="a01559.html#a31fed9a126657d15744fb02db496648e">BUILTIN_SHADER</a>(<span class="stringliteral">&quot;3D/mesh.vert.spv&quot;</span>));</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="a02927.html#a2f87f530efbb3a13395faabe8735039e">Config::ShaderIds::MeshFragment</a>[0]:</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="a03203.html#ad10d56d22b2735a5c105b46130ca3bad">loadShader</a>(<a class="code" href="a01559.html#a31fed9a126657d15744fb02db496648e">BUILTIN_SHADER</a>(<span class="stringliteral">&quot;3D/mesh.frag.spv&quot;</span>));</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="a02927.html#a4823a750e18846e49b8282f20ced1e08">Config::ShaderIds::SkinnedMeshVertex</a>[0]:</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="a03203.html#ad10d56d22b2735a5c105b46130ca3bad">loadShader</a>(<a class="code" href="a01559.html#a31fed9a126657d15744fb02db496648e">BUILTIN_SHADER</a>(<span class="stringliteral">&quot;3D/skinnedMesh.vert.spv&quot;</span>));</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="a02927.html#a0257323b465e4887a204917c21d5f1ba">Config::ShaderIds::SkinnedMeshFragment</a>[0]:</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="a03203.html#ad10d56d22b2735a5c105b46130ca3bad">loadShader</a>(<a class="code" href="a01559.html#a31fed9a126657d15744fb02db496648e">BUILTIN_SHADER</a>(<span class="stringliteral">&quot;3D/skinnedMesh.frag.spv&quot;</span>));</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="a02927.html#a3c4ed6dc1da09dc4c0cb32b6bd3288a8">Config::ShaderIds::Vertex2D</a>[0]:</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="a03203.html#ad10d56d22b2735a5c105b46130ca3bad">loadShader</a>(<a class="code" href="a01559.html#a31fed9a126657d15744fb02db496648e">BUILTIN_SHADER</a>(<span class="stringliteral">&quot;2D/2d.vert.spv&quot;</span>));</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="a02927.html#a11efb5524da4ba06aef5155339b10844">Config::ShaderIds::Fragment2DLit</a>[0]:</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="a03203.html#ad10d56d22b2735a5c105b46130ca3bad">loadShader</a>(<a class="code" href="a01559.html#a31fed9a126657d15744fb02db496648e">BUILTIN_SHADER</a>(<span class="stringliteral">&quot;2D/2dlit.frag.spv&quot;</span>));</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="a02927.html#a15a5e0e314519b05ffc92254668e52f6">Config::ShaderIds::Fragment2DUnlit</a>[0]:</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="a03203.html#ad10d56d22b2735a5c105b46130ca3bad">loadShader</a>(<a class="code" href="a01559.html#a31fed9a126657d15744fb02db496648e">BUILTIN_SHADER</a>(<span class="stringliteral">&quot;2D/2d.frag.spv&quot;</span>));</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="a02927.html#a791606546e24b9710a727e8902d00581">Config::ShaderIds::Vertex2DSkinned</a>[0]:</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="a03203.html#ad10d56d22b2735a5c105b46130ca3bad">loadShader</a>(<a class="code" href="a01559.html#a31fed9a126657d15744fb02db496648e">BUILTIN_SHADER</a>(<span class="stringliteral">&quot;2D/skinned2d.vert.spv&quot;</span>));</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="a02927.html#a046a9fecbfe6fb286db53b6eb66a9922">Config::ShaderIds::Fragment2DSkinnedLit</a>[0]:</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="a03203.html#ad10d56d22b2735a5c105b46130ca3bad">loadShader</a>(<a class="code" href="a01559.html#a31fed9a126657d15744fb02db496648e">BUILTIN_SHADER</a>(<span class="stringliteral">&quot;2D/skinned2dlit.frag.spv&quot;</span>));</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="a02927.html#a04b0cca7c2bc0a882692939d0374c28e">Config::ShaderIds::Fragment2DSkinnedUnlit</a>[0]:</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="a03203.html#ad10d56d22b2735a5c105b46130ca3bad">loadShader</a>(<a class="code" href="a01559.html#a31fed9a126657d15744fb02db496648e">BUILTIN_SHADER</a>(<span class="stringliteral">&quot;2D/skinned2d.frag.spv&quot;</span>));</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="a02927.html#ae1732dd211e99f67681bdd9df9de514b">Config::ShaderIds::TextFragment</a>[0]:</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="a03203.html#ad10d56d22b2735a5c105b46130ca3bad">loadShader</a>(<a class="code" href="a01559.html#a31fed9a126657d15744fb02db496648e">BUILTIN_SHADER</a>(<span class="stringliteral">&quot;2D/text.frag.spv&quot;</span>));</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="a02927.html#a5be4cced25c344cf616d1b55593efc47">Config::ShaderIds::SlideshowVert</a>[0]:</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="a03203.html#ad10d56d22b2735a5c105b46130ca3bad">loadShader</a>(<a class="code" href="a01559.html#a31fed9a126657d15744fb02db496648e">BUILTIN_SHADER</a>(<span class="stringliteral">&quot;2D/slideshow.vert.spv&quot;</span>));</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="a02927.html#a73915552629d0c0ced8a00134e866935">Config::ShaderIds::FadeEffectFragment</a>[0]:</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="a03203.html#ad10d56d22b2735a5c105b46130ca3bad">loadShader</a>(<a class="code" href="a01559.html#a31fed9a126657d15744fb02db496648e">BUILTIN_SHADER</a>(<span class="stringliteral">&quot;PostFX/fadeEffect.frag.spv&quot;</span>));</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="keywordflow">default</span>:</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            <a class="code" href="a00491.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Invalid built-in shader id: &quot;</span> &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(path[0]);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Invalid built-in shader id&quot;</span>);</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        }</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    }</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        <span class="keywordflow">if</span> (!<a class="code" href="a03499.html#a4333f7b4fcde422a5a9edccb8af201fb">resource::FileSystem::getData</a>(path, &amp;data, len) || len &lt; 4) {</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            <a class="code" href="a00491.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Failed to load shader: &quot;</span> &lt;&lt; path;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;            <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Failed to load shader&quot;</span>);</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        }</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    }</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keyword">const</span> std::uint32_t* u32data = <span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span>std::uint32_t*<span class="keyword">&gt;</span>(data);</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordflow">if</span> (u32data[0] != <a class="code" href="a02923.html#a52e222854379ac2c3da4d4efe14d9cd4">Config::SPIRVMagicNumber</a>) {</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <a class="code" href="a00491.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Shader &#39;&quot;</span> &lt;&lt; path &lt;&lt; <span class="stringliteral">&quot;&#39; is not compiled&quot;</span>;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Shader compilation is not supported&quot;</span>);</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    }</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    VkShaderModuleCreateInfo createInfo{};</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    createInfo.sType    = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    createInfo.codeSize = len;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    createInfo.pCode    = u32data;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    VkShaderModule shaderModule;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keywordflow">if</span> (vkCreateShaderModule(device, &amp;createInfo, <span class="keyword">nullptr</span>, &amp;shaderModule) != VK_SUCCESS) {</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Failed to create shader module&quot;</span>);</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    }</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    cache.try_emplace(path, shaderModule);</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordflow">return</span> shaderModule;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;}</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="keywordtype">void</span> ShaderModuleCache::init(VkDevice d) { device = d; }</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="keywordtype">void</span> ShaderModuleCache::cleanup() {</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; pair : cache) { vkDestroyShaderModule(device, pair.second, <span class="keyword">nullptr</span>); }</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    cache.clear();</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;}</div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    std::unique_lock lock(mutex);</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keywordflow">if</span> (refCounts[ref.<a class="code" href="a03206.html#a38724c98a4c59986b1423e1b5a5aef1c">id</a>()] &gt; 1) {</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <a class="code" href="a00491.html#af954e63cd52a20dcd7087a8c569f373f">BL_LOG_WARN</a> &lt;&lt; <span class="stringliteral">&quot;Releasing texture &quot;</span> &lt;&lt; ref.<a class="code" href="a03206.html#a38724c98a4c59986b1423e1b5a5aef1c">id</a>() &lt;&lt; <span class="stringliteral">&quot; which still has &quot;</span></div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;                    &lt;&lt; refCounts[ref.<a class="code" href="a03206.html#a38724c98a4c59986b1423e1b5a5aef1c">id</a>()] &lt;&lt; <span class="stringliteral">&quot; references&quot;</span>;</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    }</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    doRelease(ref.<a class="code" href="a03206.html#a38724c98a4c59986b1423e1b5a5aef1c">id</a>());</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;}</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="keywordtype">void</span> TexturePool::releaseUnusedLocked() {</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="keywordflow">for</span> (std::uint32_t i : toRelease) { doRelease(i); }</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    toRelease.clear();</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;}</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="keywordtype">void</span> TexturePool::doRelease(std::uint32_t i) {</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    refCounts[i] = 0;</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keywordflow">if</span> (i &lt; reverseFileMap.size()) {</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        freeSlots.release(i);</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        <span class="keywordflow">if</span> (reverseFileMap[i]) {</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;            fileMap.erase(*reverseFileMap[i]);</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;            reverseFileMap[i] = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        }</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    }</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="keywordflow">else</span> { freeRtSlots.release(i - reverseFileMap.size()); }</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    std::array&lt;BindlessTextureArray*, 1&gt; arrays = {&amp;textures};</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    BindlessTextureArray::resetTexture(descriptorSet, rtDescriptorSet, arrays, i);</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;}</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
-<div class="line"><a name="l00126"></a><span class="lineno"><a class="line" href="a03202.html#a44f86f7c5c05af9fe35baabb7f021436">  126</a></span>&#160;<span class="keywordtype">void</span> TexturePool::bindDescriptors(VkCommandBuffer cb, VkPipelineLayout pipelineLayout,</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;                                  std::uint32_t setIndex, <span class="keywordtype">bool</span> forRt) {</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="keyword">const</span> VkDescriptorSet ds = forRt ? rtDescriptorSet : descriptorSet;</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    vkCmdBindDescriptorSets(</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;        cb, VK_PIPELINE_BIND_POINT_GRAPHICS, pipelineLayout, setIndex, 1, &amp;ds, 0, <span class="keyword">nullptr</span>);</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;}</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160; </div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;<span class="keywordtype">void</span> TexturePool::queueForRelease(std::uint32_t i) {</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    std::unique_lock lock(mutex);</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    toRelease.emplace_back(i);</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;}</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; </div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;TextureRef TexturePool::allocateTexture() {</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    <span class="keywordflow">if</span> (!freeSlots.available()) {</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;        releaseUnusedLocked();</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;        <span class="keywordflow">if</span> (!freeSlots.available()) { <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;All texture slots in use!&quot;</span>); }</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    }</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160; </div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    <span class="keyword">const</span> std::uint32_t i = freeSlots.allocate();</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    refCounts[i].store(0);</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    reverseFileMap[i] = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160; </div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    <span class="keywordflow">return</span> TextureRef{*<span class="keyword">this</span>, textures.getTexture(i)};</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;}</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160; </div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;<span class="keywordtype">void</span> TexturePool::finalizeNewTexture(std::uint32_t i, VkSampler sampler) {</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    std::array&lt;BindlessTextureArray*, 1&gt; arrays = {&amp;textures};</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    textures.getTexture(i).sampler              = sampler;</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    textures.getTexture(i).createFromContentsAndQueue();</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    BindlessTextureArray::commitTexture(descriptorSet, rtDescriptorSet, arrays, i);</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;}</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160; </div>
-<div class="line"><a name="l00158"></a><span class="lineno"><a class="line" href="a03202.html#aeae87ba7c43943366e1537b79fe8c156">  158</a></span>&#160;<a class="code" href="a03206.html">TextureRef</a> TexturePool::createTexture(<span class="keyword">const</span> sf::Image&amp; src, VkSampler sampler) {</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    <span class="keywordflow">if</span> (!sampler) { sampler = vulkanState.samplerCache.filteredEdgeClamped(); }</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160; </div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    std::unique_lock lock(mutex);</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160; </div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    <a class="code" href="a03206.html">TextureRef</a> txtr      = allocateTexture();</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    txtr.texture-&gt;altImg = &amp;src;</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    finalizeNewTexture(txtr.<a class="code" href="a03206.html#a38724c98a4c59986b1423e1b5a5aef1c">id</a>(), sampler);</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160; </div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    <span class="keywordflow">return</span> txtr;</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;}</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160; </div>
-<div class="line"><a name="l00170"></a><span class="lineno"><a class="line" href="a03202.html#ab6d52b2213374f46e77bf5eb0905c2cd">  170</a></span>&#160;<a class="code" href="a03206.html">TextureRef</a> TexturePool::createTexture(<span class="keyword">const</span> glm::u32vec2&amp; size, VkSampler sampler) {</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    <span class="keywordflow">if</span> (!sampler) { sampler = vulkanState.samplerCache.filteredEdgeClamped(); }</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160; </div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    std::unique_lock lock(mutex);</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160; </div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    <a class="code" href="a03206.html">TextureRef</a> txtr = allocateTexture();</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    txtr-&gt;create(size, vk::Texture::DefaultFormat, 0);</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    txtr-&gt;sampler = sampler;</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    textures.updateTexture(txtr.<a class="code" href="a03206.html#adedaa22d7e62ab46aea8c579586c9b84">get</a>());</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160; </div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    <span class="keywordflow">return</span> txtr;</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;}</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160; </div>
-<div class="line"><a name="l00183"></a><span class="lineno"><a class="line" href="a03202.html#af58ec8701b5cdfaf566651f6f11c40c8">  183</a></span>&#160;<a class="code" href="a03206.html">TextureRef</a> TexturePool::createRenderTexture(<span class="keyword">const</span> glm::u32vec2&amp; size, VkSampler sampler) {</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    <span class="keywordflow">if</span> (!sampler) { sampler = vulkanState.samplerCache.filteredEdgeClamped(); }</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160; </div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    std::unique_lock lock(mutex);</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160; </div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;    <span class="comment">// allocate id</span></div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    <span class="keywordflow">if</span> (!freeRtSlots.available()) {</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;        releaseUnusedLocked();</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;        <span class="keywordflow">if</span> (!freeRtSlots.available()) {</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;            <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;All render texture slots in use!&quot;</span>);</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;        }</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    }</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160; </div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    <span class="keyword">const</span> std::uint32_t i = freeRtSlots.allocate() + reverseFileMap.size();</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    refCounts[i].store(0);</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160; </div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;    <span class="comment">// init texture</span></div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    <a class="code" href="a03206.html">TextureRef</a> txtr{*<span class="keyword">this</span>, textures.getTexture(i)};</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    txtr-&gt;create(size,</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;                 vk::StandardAttachmentBuffers::DefaultColorFormat,</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;                 VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT);</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;    txtr-&gt;sampler = sampler;</div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;    textures.updateTexture(txtr.get());</div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160; </div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    <span class="keywordflow">return</span> txtr;</div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;}</div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160; </div>
-<div class="line"><a name="l00210"></a><span class="lineno"><a class="line" href="a03202.html#a93736ce4025f91f210cd244fe16d842d">  210</a></span>&#160;<a class="code" href="a03206.html">TextureRef</a> TexturePool::getOrLoadTexture(<span class="keyword">const</span> std::string&amp; path, VkSampler sampler) {</div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;    <span class="keywordflow">if</span> (!sampler) { sampler = vulkanState.samplerCache.filteredEdgeClamped(); }</div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160; </div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;    std::unique_lock lock(mutex);</div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160; </div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;    <span class="keyword">auto</span> it = fileMap.find(path);</div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;    <span class="keywordflow">if</span> (it != fileMap.end()) { <span class="keywordflow">return</span> <a class="code" href="a03206.html">TextureRef</a>{*<span class="keyword">this</span>, textures.getTexture(it-&gt;second)}; }</div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160; </div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;    <a class="code" href="a03206.html">TextureRef</a> txtr = allocateTexture();</div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;    textures.prepareTextureUpdate(txtr.<a class="code" href="a03206.html#a38724c98a4c59986b1423e1b5a5aef1c">id</a>(), path);</div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;    it                        = fileMap.try_emplace(path, txtr.<a class="code" href="a03206.html#a38724c98a4c59986b1423e1b5a5aef1c">id</a>()).first;</div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;    reverseFileMap[txtr.<a class="code" href="a03206.html#a38724c98a4c59986b1423e1b5a5aef1c">id</a>()] = &amp;it-&gt;first;</div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;    finalizeNewTexture(txtr.<a class="code" href="a03206.html#a38724c98a4c59986b1423e1b5a5aef1c">id</a>(), sampler);</div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160; </div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;    <span class="keywordflow">return</span> txtr;</div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;}</div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160; </div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;<span class="keywordtype">void</span> TexturePool::onFrameStart() { textures.commitDescriptorUpdates(); }</div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160; </div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;} <span class="comment">// namespace res</span></div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00491_html_af954e63cd52a20dcd7087a8c569f373f"><div class="ttname"><a href="a00491.html#af954e63cd52a20dcd7087a8c569f373f">BL_LOG_WARN</a></div><div class="ttdeci">#define BL_LOG_WARN</div><div class="ttdoc">Helper macro to log at warn level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00491_source.html#l00104">Logger.hpp:104</a></div></div>
-<div class="ttc" id="aa00743_html"><div class="ttname"><a href="a00743.html">TexturePool.hpp</a></div></div>
-<div class="ttc" id="aa00842_html"><div class="ttname"><a href="a00842.html">StandardAttachmentBuffers.hpp</a></div></div>
-<div class="ttc" id="aa01830_html"><div class="ttname"><a href="a01830.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03206_html"><div class="ttname"><a href="a03206.html">bl::rc::res::TextureRef</a></div><div class="ttdoc">Lightweight reference to a texture inside of a TexturePool. Once all references to a texture are dest...</div><div class="ttdef"><b>Definition:</b> <a href="a00746_source.html#l00025">TextureRef.hpp:25</a></div></div>
-<div class="ttc" id="aa03206_html_a38724c98a4c59986b1423e1b5a5aef1c"><div class="ttname"><a href="a03206.html#a38724c98a4c59986b1423e1b5a5aef1c">bl::rc::res::TextureRef::id</a></div><div class="ttdeci">std::uint32_t id() const</div><div class="ttdoc">Returns the internal id of this texture.</div><div class="ttdef"><b>Definition:</b> <a href="a01562_source.html#l00068">TextureRef.cpp:68</a></div></div>
-<div class="ttc" id="aa03206_html_adedaa22d7e62ab46aea8c579586c9b84"><div class="ttname"><a href="a03206.html#adedaa22d7e62ab46aea8c579586c9b84">bl::rc::res::TextureRef::get</a></div><div class="ttdeci">constexpr vk::Texture * get()</div><div class="ttdoc">Access the underlying texture.</div><div class="ttdef"><b>Definition:</b> <a href="a00746_source.html#l00135">TextureRef.hpp:135</a></div></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;} <span class="comment">// namespace res</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00491_html_a927270d671e83a1c6b5382f30bfbf895"><div class="ttname"><a href="a00491.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a></div><div class="ttdeci">#define BL_LOG_ERROR</div><div class="ttdoc">Helper macro to log at error level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00491_source.html#l00101">Logger.hpp:101</a></div></div>
+<div class="ttc" id="aa00743_html"><div class="ttname"><a href="a00743.html">ShaderModuleCache.hpp</a></div></div>
+<div class="ttc" id="aa00917_html"><div class="ttname"><a href="a00917.html">Resources.hpp</a></div></div>
+<div class="ttc" id="aa01559_html_a31fed9a126657d15744fb02db496648e"><div class="ttname"><a href="a01559.html#a31fed9a126657d15744fb02db496648e">BUILTIN_SHADER</a></div><div class="ttdeci">#define BUILTIN_SHADER(path)</div><div class="ttdef"><b>Definition:</b> <a href="a01559_source.html#l00008">ShaderModuleCache.cpp:8</a></div></div>
+<div class="ttc" id="aa01833_html"><div class="ttname"><a href="a01833.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02923_html_a52e222854379ac2c3da4d4efe14d9cd4"><div class="ttname"><a href="a02923.html#a52e222854379ac2c3da4d4efe14d9cd4">bl::rc::Config::SPIRVMagicNumber</a></div><div class="ttdeci">static constexpr std::uint32_t SPIRVMagicNumber</div><div class="ttdef"><b>Definition:</b> <a href="a05154_source.html#l00089">Config.hpp:89</a></div></div>
+<div class="ttc" id="aa02927_html_a0257323b465e4887a204917c21d5f1ba"><div class="ttname"><a href="a02927.html#a0257323b465e4887a204917c21d5f1ba">bl::rc::Config::ShaderIds::SkinnedMeshFragment</a></div><div class="ttdeci">static constexpr char SkinnedMeshFragment[]</div><div class="ttdef"><b>Definition:</b> <a href="a05154_source.html#l00040">Config.hpp:40</a></div></div>
+<div class="ttc" id="aa02927_html_a046a9fecbfe6fb286db53b6eb66a9922"><div class="ttname"><a href="a02927.html#a046a9fecbfe6fb286db53b6eb66a9922">bl::rc::Config::ShaderIds::Fragment2DSkinnedLit</a></div><div class="ttdeci">static constexpr char Fragment2DSkinnedLit[]</div><div class="ttdef"><b>Definition:</b> <a href="a05154_source.html#l00048">Config.hpp:48</a></div></div>
+<div class="ttc" id="aa02927_html_a04b0cca7c2bc0a882692939d0374c28e"><div class="ttname"><a href="a02927.html#a04b0cca7c2bc0a882692939d0374c28e">bl::rc::Config::ShaderIds::Fragment2DSkinnedUnlit</a></div><div class="ttdeci">static constexpr char Fragment2DSkinnedUnlit[]</div><div class="ttdef"><b>Definition:</b> <a href="a05154_source.html#l00047">Config.hpp:47</a></div></div>
+<div class="ttc" id="aa02927_html_a11efb5524da4ba06aef5155339b10844"><div class="ttname"><a href="a02927.html#a11efb5524da4ba06aef5155339b10844">bl::rc::Config::ShaderIds::Fragment2DLit</a></div><div class="ttdeci">static constexpr char Fragment2DLit[]</div><div class="ttdef"><b>Definition:</b> <a href="a05154_source.html#l00043">Config.hpp:43</a></div></div>
+<div class="ttc" id="aa02927_html_a15a5e0e314519b05ffc92254668e52f6"><div class="ttname"><a href="a02927.html#a15a5e0e314519b05ffc92254668e52f6">bl::rc::Config::ShaderIds::Fragment2DUnlit</a></div><div class="ttdeci">static constexpr char Fragment2DUnlit[]</div><div class="ttdef"><b>Definition:</b> <a href="a05154_source.html#l00044">Config.hpp:44</a></div></div>
+<div class="ttc" id="aa02927_html_a1b069be40cbfeceb628dd1ebd1e0bb09"><div class="ttname"><a href="a02927.html#a1b069be40cbfeceb628dd1ebd1e0bb09">bl::rc::Config::ShaderIds::MaxId</a></div><div class="ttdeci">static constexpr std::uint32_t MaxId</div><div class="ttdef"><b>Definition:</b> <a href="a05154_source.html#l00055">Config.hpp:55</a></div></div>
+<div class="ttc" id="aa02927_html_a2f87f530efbb3a13395faabe8735039e"><div class="ttname"><a href="a02927.html#a2f87f530efbb3a13395faabe8735039e">bl::rc::Config::ShaderIds::MeshFragment</a></div><div class="ttdeci">static constexpr char MeshFragment[]</div><div class="ttdef"><b>Definition:</b> <a href="a05154_source.html#l00038">Config.hpp:38</a></div></div>
+<div class="ttc" id="aa02927_html_a3c4ed6dc1da09dc4c0cb32b6bd3288a8"><div class="ttname"><a href="a02927.html#a3c4ed6dc1da09dc4c0cb32b6bd3288a8">bl::rc::Config::ShaderIds::Vertex2D</a></div><div class="ttdeci">static constexpr char Vertex2D[]</div><div class="ttdef"><b>Definition:</b> <a href="a05154_source.html#l00042">Config.hpp:42</a></div></div>
+<div class="ttc" id="aa02927_html_a4823a750e18846e49b8282f20ced1e08"><div class="ttname"><a href="a02927.html#a4823a750e18846e49b8282f20ced1e08">bl::rc::Config::ShaderIds::SkinnedMeshVertex</a></div><div class="ttdeci">static constexpr char SkinnedMeshVertex[]</div><div class="ttdef"><b>Definition:</b> <a href="a05154_source.html#l00039">Config.hpp:39</a></div></div>
+<div class="ttc" id="aa02927_html_a5497870ba209875d3667c290de16a38a"><div class="ttname"><a href="a02927.html#a5497870ba209875d3667c290de16a38a">bl::rc::Config::ShaderIds::EmptyVertex</a></div><div class="ttdeci">static constexpr char EmptyVertex[]</div><div class="ttdef"><b>Definition:</b> <a href="a05154_source.html#l00035">Config.hpp:35</a></div></div>
+<div class="ttc" id="aa02927_html_a5be4cced25c344cf616d1b55593efc47"><div class="ttname"><a href="a02927.html#a5be4cced25c344cf616d1b55593efc47">bl::rc::Config::ShaderIds::SlideshowVert</a></div><div class="ttdeci">static constexpr char SlideshowVert[]</div><div class="ttdef"><b>Definition:</b> <a href="a05154_source.html#l00051">Config.hpp:51</a></div></div>
+<div class="ttc" id="aa02927_html_a73915552629d0c0ced8a00134e866935"><div class="ttname"><a href="a02927.html#a73915552629d0c0ced8a00134e866935">bl::rc::Config::ShaderIds::FadeEffectFragment</a></div><div class="ttdeci">static constexpr char FadeEffectFragment[]</div><div class="ttdef"><b>Definition:</b> <a href="a05154_source.html#l00053">Config.hpp:53</a></div></div>
+<div class="ttc" id="aa02927_html_a791606546e24b9710a727e8902d00581"><div class="ttname"><a href="a02927.html#a791606546e24b9710a727e8902d00581">bl::rc::Config::ShaderIds::Vertex2DSkinned</a></div><div class="ttdeci">static constexpr char Vertex2DSkinned[]</div><div class="ttdef"><b>Definition:</b> <a href="a05154_source.html#l00046">Config.hpp:46</a></div></div>
+<div class="ttc" id="aa02927_html_abc5c89873c3838175ece335a4564dd76"><div class="ttname"><a href="a02927.html#abc5c89873c3838175ece335a4564dd76">bl::rc::Config::ShaderIds::MeshVertex</a></div><div class="ttdeci">static constexpr char MeshVertex[]</div><div class="ttdef"><b>Definition:</b> <a href="a05154_source.html#l00037">Config.hpp:37</a></div></div>
+<div class="ttc" id="aa02927_html_ae1732dd211e99f67681bdd9df9de514b"><div class="ttname"><a href="a02927.html#ae1732dd211e99f67681bdd9df9de514b">bl::rc::Config::ShaderIds::TextFragment</a></div><div class="ttdeci">static constexpr char TextFragment[]</div><div class="ttdef"><b>Definition:</b> <a href="a05154_source.html#l00050">Config.hpp:50</a></div></div>
+<div class="ttc" id="aa03203_html_ad10d56d22b2735a5c105b46130ca3bad"><div class="ttname"><a href="a03203.html#ad10d56d22b2735a5c105b46130ca3bad">bl::rc::res::ShaderModuleCache::loadShader</a></div><div class="ttdeci">VkShaderModule loadShader(const std::string &amp;path)</div><div class="ttdoc">Loads a new shader.</div><div class="ttdef"><b>Definition:</b> <a href="a01559_source.html#l00016">ShaderModuleCache.cpp:16</a></div></div>
+<div class="ttc" id="aa03499_html_a4333f7b4fcde422a5a9edccb8af201fb"><div class="ttname"><a href="a03499.html#a4333f7b4fcde422a5a9edccb8af201fb">bl::resource::FileSystem::getData</a></div><div class="ttdeci">static bool getData(const std::string &amp;path, char **buffer, std::size_t &amp;len)</div><div class="ttdoc">Loads the data for the given path. Either loads from the underlying file system or from the active bu...</div><div class="ttdef"><b>Definition:</b> <a href="a01688_source.html#l00023">FileSystem.cpp:23</a></div></div>
+<div class="ttc" id="aa05154_html"><div class="ttname"><a href="a05154.html">Config.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Oct 21 2023 00:16:51 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Oct 25 2023 00:24:21 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

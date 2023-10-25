@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Scenes/SceneObject.cpp Source File</title>
+<title>BLIB: src/Render/Scenes/Scene3D.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,32 +71,56 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">SceneObject.cpp</div>  </div>
+<div class="title">Scene3D.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01577.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00764.html">BLIB/Render/Scenes/SceneObject.hpp</a>&gt;</span></div>
+<a href="a01577.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00764.html">BLIB/Render/Scenes/Scene3D.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01830.html">bl</a></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00035.html">BLIB/Cameras/3D/Camera3D.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01833.html">bl</a></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>scene</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>rc</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a03254.html#ae9ccabc5eaa5c7a787d525d9796cd234">    9</a></span>&#160;<a class="code" href="a03254.html#ae9ccabc5eaa5c7a787d525d9796cd234">SceneObject::SceneObject</a>()</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;: hidden(false)</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;, drawParams{} {}</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;} <span class="comment">// namespace scene</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00764_html"><div class="ttname"><a href="a00764.html">SceneObject.hpp</a></div></div>
-<div class="ttc" id="aa01830_html"><div class="ttname"><a href="a01830.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03254_html_ae9ccabc5eaa5c7a787d525d9796cd234"><div class="ttname"><a href="a03254.html#ae9ccabc5eaa5c7a787d525d9796cd234">bl::rc::scene::SceneObject::SceneObject</a></div><div class="ttdeci">SceneObject()</div><div class="ttdoc">Construct a new SceneObject.</div><div class="ttdef"><b>Definition:</b> <a href="a01577_source.html#l00009">SceneObject.cpp:9</a></div></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>scene</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;constexpr <span class="keywordtype">float</span> DefaultNear = 0.1f;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;constexpr <span class="keywordtype">float</span> DefaultFar  = 100.f;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;} <span class="comment">// namespace</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a03255.html#ab1b8fcf847d7cbe9493b0ecfbebedad4">   17</a></span>&#160;<a class="code" href="a03255.html#ab1b8fcf847d7cbe9493b0ecfbebedad4">Scene3D::Scene3D</a>(<a class="code" href="a02319.html">engine::Engine</a>&amp; e)</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;: <a class="code" href="a03219.html">BatchedScene</a>(e) {}</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a03255.html#a0dcf3ebaa6fac1ff72e2264fd57ab435">   20</a></span>&#160;std::unique_ptr&lt;cam::Camera&gt; <a class="code" href="a03255.html#a0dcf3ebaa6fac1ff72e2264fd57ab435">Scene3D::createDefaultCamera</a>() {</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keyword">auto</span> cam = std::make_unique&lt;cam::Camera3D&gt;();</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    cam-&gt;setNearAndFarPlanes(DefaultNear, DefaultFar);</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordflow">return</span> cam;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;}</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a03255.html#ad3722c0cc57b7d59306f68fcdddfe15d">   26</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03255.html#ad3722c0cc57b7d59306f68fcdddfe15d">Scene3D::setDefaultNearAndFarPlanes</a>(<a class="code" href="a02011.html">cam::Camera</a>&amp; cam)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    cam.<a class="code" href="a02011.html#a60e436aa6a89793a9e3fd8c3b0378fbf">setNearAndFarPlanes</a>(DefaultNear, -DefaultFar);</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;}</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;} <span class="comment">// namespace scene</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00035_html"><div class="ttname"><a href="a00035.html">Camera3D.hpp</a></div></div>
+<div class="ttc" id="aa00764_html"><div class="ttname"><a href="a00764.html">Scene3D.hpp</a></div></div>
+<div class="ttc" id="aa01833_html"><div class="ttname"><a href="a01833.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02011_html"><div class="ttname"><a href="a02011.html">bl::cam::Camera</a></div><div class="ttdoc">Base class for all cameras.</div><div class="ttdef"><b>Definition:</b> <a href="a00047_source.html#l00017">Camera.hpp:17</a></div></div>
+<div class="ttc" id="aa02011_html_a60e436aa6a89793a9e3fd8c3b0378fbf"><div class="ttname"><a href="a02011.html#a60e436aa6a89793a9e3fd8c3b0378fbf">bl::cam::Camera::setNearAndFarPlanes</a></div><div class="ttdeci">void setNearAndFarPlanes(float nearValue, float farValue)</div><div class="ttdoc">Sets the distance to the near and far planes.</div><div class="ttdef"><b>Definition:</b> <a href="a01136_source.html#l00029">Camera.cpp:29</a></div></div>
+<div class="ttc" id="aa02319_html"><div class="ttname"><a href="a02319.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a05103_source.html#l00032">Engine.hpp:32</a></div></div>
+<div class="ttc" id="aa03219_html"><div class="ttname"><a href="a03219.html">bl::rc::scene::BatchedScene</a></div><div class="ttdoc">Primary scene class for the renderer. Provides batched rendering of objects by pipeline....</div><div class="ttdef"><b>Definition:</b> <a href="a00752_source.html#l00029">BatchedScene.hpp:29</a></div></div>
+<div class="ttc" id="aa03255_html_a0dcf3ebaa6fac1ff72e2264fd57ab435"><div class="ttname"><a href="a03255.html#a0dcf3ebaa6fac1ff72e2264fd57ab435">bl::rc::scene::Scene3D::createDefaultCamera</a></div><div class="ttdeci">virtual std::unique_ptr&lt; cam::Camera &gt; createDefaultCamera() override</div><div class="ttdoc">Creates a 3d camera.</div><div class="ttdef"><b>Definition:</b> <a href="a01577_source.html#l00020">Scene3D.cpp:20</a></div></div>
+<div class="ttc" id="aa03255_html_ab1b8fcf847d7cbe9493b0ecfbebedad4"><div class="ttname"><a href="a03255.html#ab1b8fcf847d7cbe9493b0ecfbebedad4">bl::rc::scene::Scene3D::Scene3D</a></div><div class="ttdeci">Scene3D(engine::Engine &amp;engine)</div><div class="ttdoc">Creates the scene.</div><div class="ttdef"><b>Definition:</b> <a href="a01577_source.html#l00017">Scene3D.cpp:17</a></div></div>
+<div class="ttc" id="aa03255_html_ad3722c0cc57b7d59306f68fcdddfe15d"><div class="ttname"><a href="a03255.html#ad3722c0cc57b7d59306f68fcdddfe15d">bl::rc::scene::Scene3D::setDefaultNearAndFarPlanes</a></div><div class="ttdeci">virtual void setDefaultNearAndFarPlanes(cam::Camera &amp;camera) const override</div><div class="ttdoc">Sets the default near and far planes on the given camera.</div><div class="ttdef"><b>Definition:</b> <a href="a01577_source.html#l00026">Scene3D.cpp:26</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Oct 21 2023 00:16:51 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Oct 25 2023 00:24:21 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

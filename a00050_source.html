@@ -79,45 +79,47 @@ $(function() {
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00047.html">BLIB/Cameras/Camera.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01830.html">bl</a></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01833.html">bl</a></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>cam</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="a02010.html">   15</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02010.html">OverlayCamera</a> : <span class="keyword">public</span> <a class="code" href="a02006.html">Camera</a> {</div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="a02015.html">   15</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02015.html">OverlayCamera</a> : <span class="keyword">public</span> <a class="code" href="a02011.html">Camera</a> {</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <a class="code" href="a02010.html#a257430f4cf38422901a9c6ad5afffa99">OverlayCamera</a>();</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <a class="code" href="a02015.html#a257430f4cf38422901a9c6ad5afffa99">OverlayCamera</a>();</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a02010.html#a4ddb10f140bafc712a8a574a077213fb">   25</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02010.html#a4ddb10f140bafc712a8a574a077213fb">~OverlayCamera</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a02015.html#a4ddb10f140bafc712a8a574a077213fb">   25</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02015.html#a4ddb10f140bafc712a8a574a077213fb">~OverlayCamera</a>() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="a02010.html#ab81d94e0294992a912b117e476ea9594">setOverlayCoordinateSpace</a>(<span class="keywordtype">float</span> width, <span class="keywordtype">float</span> height);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="a02015.html#ab81d94e0294992a912b117e476ea9594">setOverlayCoordinateSpace</a>(<span class="keywordtype">float</span> width, <span class="keywordtype">float</span> height);</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> glm::vec2&amp; <a class="code" href="a02010.html#a3a328ddad01a4245357debbf7398fc20">getOverlayCoordinateSpace</a>();</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> glm::vec2&amp; <a class="code" href="a02015.html#a3a328ddad01a4245357debbf7398fc20">getOverlayCoordinateSpace</a>();</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> settingVersion;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> update(<span class="keywordtype">float</span> dt) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> refreshViewMatrix(glm::mat4&amp; view) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> refreshProjMatrix(glm::mat4&amp; proj, <span class="keyword">const</span> VkViewport&amp; viewport) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;};</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;} <span class="comment">// namespace cam</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02015.html#a402baa1503640cbf7478cda6bb232a19">update</a>(<span class="keywordtype">float</span> dt) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> settingVersion;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> refreshViewMatrix(glm::mat4&amp; view) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> refreshProjMatrix(glm::mat4&amp; proj, <span class="keyword">const</span> VkViewport&amp; viewport) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;};</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;} <span class="comment">// namespace cam</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aa00047_html"><div class="ttname"><a href="a00047.html">Camera.hpp</a></div></div>
-<div class="ttc" id="aa01830_html"><div class="ttname"><a href="a01830.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02006_html"><div class="ttname"><a href="a02006.html">bl::cam::Camera</a></div><div class="ttdoc">Base class for all cameras.</div><div class="ttdef"><b>Definition:</b> <a href="a00047_source.html#l00017">Camera.hpp:17</a></div></div>
-<div class="ttc" id="aa02010_html"><div class="ttname"><a href="a02010.html">bl::cam::OverlayCamera</a></div><div class="ttdoc">Special camera that provides a fixed view for overlays.</div><div class="ttdef"><b>Definition:</b> <a href="a00050_source.html#l00015">OverlayCamera.hpp:15</a></div></div>
-<div class="ttc" id="aa02010_html_a257430f4cf38422901a9c6ad5afffa99"><div class="ttname"><a href="a02010.html#a257430f4cf38422901a9c6ad5afffa99">bl::cam::OverlayCamera::OverlayCamera</a></div><div class="ttdeci">OverlayCamera()</div><div class="ttdoc">Creates the overlay camera.</div><div class="ttdef"><b>Definition:</b> <a href="a01136_source.html#l00029">OverlayCamera.cpp:29</a></div></div>
-<div class="ttc" id="aa02010_html_a3a328ddad01a4245357debbf7398fc20"><div class="ttname"><a href="a02010.html#a3a328ddad01a4245357debbf7398fc20">bl::cam::OverlayCamera::getOverlayCoordinateSpace</a></div><div class="ttdeci">static const glm::vec2 &amp; getOverlayCoordinateSpace()</div><div class="ttdoc">Returns the size of the Overlay coordinate space.</div><div class="ttdef"><b>Definition:</b> <a href="a01136_source.html#l00057">OverlayCamera.cpp:57</a></div></div>
-<div class="ttc" id="aa02010_html_a4ddb10f140bafc712a8a574a077213fb"><div class="ttname"><a href="a02010.html#a4ddb10f140bafc712a8a574a077213fb">bl::cam::OverlayCamera::~OverlayCamera</a></div><div class="ttdeci">virtual ~OverlayCamera()=default</div><div class="ttdoc">Destroys the overlay camera.</div></div>
-<div class="ttc" id="aa02010_html_ab81d94e0294992a912b117e476ea9594"><div class="ttname"><a href="a02010.html#ab81d94e0294992a912b117e476ea9594">bl::cam::OverlayCamera::setOverlayCoordinateSpace</a></div><div class="ttdeci">static void setOverlayCoordinateSpace(float width, float height)</div><div class="ttdoc">Configures the width and height of the virtual coordinate space for all overlays. The engine configs ...</div><div class="ttdef"><b>Definition:</b> <a href="a01136_source.html#l00050">OverlayCamera.cpp:50</a></div></div>
+<div class="ttc" id="aa01833_html"><div class="ttname"><a href="a01833.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02011_html"><div class="ttname"><a href="a02011.html">bl::cam::Camera</a></div><div class="ttdoc">Base class for all cameras.</div><div class="ttdef"><b>Definition:</b> <a href="a00047_source.html#l00017">Camera.hpp:17</a></div></div>
+<div class="ttc" id="aa02015_html"><div class="ttname"><a href="a02015.html">bl::cam::OverlayCamera</a></div><div class="ttdoc">Special camera that provides a fixed view for overlays.</div><div class="ttdef"><b>Definition:</b> <a href="a00050_source.html#l00015">OverlayCamera.hpp:15</a></div></div>
+<div class="ttc" id="aa02015_html_a257430f4cf38422901a9c6ad5afffa99"><div class="ttname"><a href="a02015.html#a257430f4cf38422901a9c6ad5afffa99">bl::cam::OverlayCamera::OverlayCamera</a></div><div class="ttdeci">OverlayCamera()</div><div class="ttdoc">Creates the overlay camera.</div><div class="ttdef"><b>Definition:</b> <a href="a01139_source.html#l00029">OverlayCamera.cpp:29</a></div></div>
+<div class="ttc" id="aa02015_html_a3a328ddad01a4245357debbf7398fc20"><div class="ttname"><a href="a02015.html#a3a328ddad01a4245357debbf7398fc20">bl::cam::OverlayCamera::getOverlayCoordinateSpace</a></div><div class="ttdeci">static const glm::vec2 &amp; getOverlayCoordinateSpace()</div><div class="ttdoc">Returns the size of the Overlay coordinate space.</div><div class="ttdef"><b>Definition:</b> <a href="a01139_source.html#l00057">OverlayCamera.cpp:57</a></div></div>
+<div class="ttc" id="aa02015_html_a402baa1503640cbf7478cda6bb232a19"><div class="ttname"><a href="a02015.html#a402baa1503640cbf7478cda6bb232a19">bl::cam::OverlayCamera::update</a></div><div class="ttdeci">virtual void update(float dt) override</div><div class="ttdoc">Ensures that the overlay coordinate space is current.</div><div class="ttdef"><b>Definition:</b> <a href="a01139_source.html#l00036">OverlayCamera.cpp:36</a></div></div>
+<div class="ttc" id="aa02015_html_a4ddb10f140bafc712a8a574a077213fb"><div class="ttname"><a href="a02015.html#a4ddb10f140bafc712a8a574a077213fb">bl::cam::OverlayCamera::~OverlayCamera</a></div><div class="ttdeci">virtual ~OverlayCamera()=default</div><div class="ttdoc">Destroys the overlay camera.</div></div>
+<div class="ttc" id="aa02015_html_ab81d94e0294992a912b117e476ea9594"><div class="ttname"><a href="a02015.html#ab81d94e0294992a912b117e476ea9594">bl::cam::OverlayCamera::setOverlayCoordinateSpace</a></div><div class="ttdeci">static void setOverlayCoordinateSpace(float width, float height)</div><div class="ttdoc">Configures the width and height of the virtual coordinate space for all overlays. The engine configs ...</div><div class="ttdef"><b>Definition:</b> <a href="a01139_source.html#l00050">OverlayCamera.cpp:50</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Oct 21 2023 00:16:50 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Oct 25 2023 00:24:19 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

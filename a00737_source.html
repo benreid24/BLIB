@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Resources/SceneRef.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Resources/ScenePool.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,106 +71,139 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">SceneRef.hpp</div>  </div>
+<div class="title">ScenePool.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00737.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_RESOURCES_SCENEREF_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_RESOURCES_SCENEREF_HPP</span></div>
+<a href="a00737.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_RESOURCES_SCENEPOOL_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_RESOURCES_SCENEPOOL_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01830.html">bl</a></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;{</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>rc</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">class </span>Scene;</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>res</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">class </span>ScenePool;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;}</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a03194.html">   20</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03194.html">SceneRef</a> {</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a03194.html#aa043297c96db3bc940ea95c68ce960c5">   25</a></span>&#160;    <a class="code" href="a03194.html#aa043297c96db3bc940ea95c68ce960c5">SceneRef</a>()</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    : scene(nullptr)</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    , handle(nullptr) {}</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <a class="code" href="a03194.html#aa043297c96db3bc940ea95c68ce960c5">SceneRef</a>(<span class="keyword">const</span> <a class="code" href="a03194.html">SceneRef</a>&amp; copy);</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="a03194.html#a049f50746715d091bdcf4e9ae46f9a1b">   41</a></span>&#160;    <a class="code" href="a03194.html#a049f50746715d091bdcf4e9ae46f9a1b">SceneRef</a>(<a class="code" href="a03194.html">SceneRef</a>&amp;&amp; move)</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    : scene(move.scene)</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    , handle(move.handle) {</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        move.scene = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    }</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <a class="code" href="a03194.html">SceneRef</a>&amp; <a class="code" href="a03194.html#a6d6b90024ac1ad1b51d8093b4ca17971">operator=</a>(<span class="keyword">const</span> <a class="code" href="a03194.html">SceneRef</a>&amp; copy);</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="a03194.html#aa09f0eae12327cbf865077d4a20cab08">   61</a></span>&#160;    <a class="code" href="a03194.html">SceneRef</a>&amp; <a class="code" href="a03194.html#aa09f0eae12327cbf865077d4a20cab08">operator=</a>(<a class="code" href="a03194.html">SceneRef</a>&amp;&amp; move) {</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        decrementRefCount();</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        scene      = move.scene;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        handle     = move.handle;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        move.scene = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    }</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="a03194.html#a4576fbc36cf88a099204393ce36900d6">   72</a></span>&#160;    <a class="code" href="a03194.html#a4576fbc36cf88a099204393ce36900d6">~SceneRef</a>() { decrementRefCount(); }</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00122.html">BLIB/Containers/ObjectWrapper.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00740.html">BLIB/Render/Resources/SceneRef.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00752.html">BLIB/Render/Scenes/BatchedScene.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01055.html">BLIB/Util/IdAllocator.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;atomic&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;cstdint&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;list&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;mutex&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;type_traits&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01833.html">bl</a></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span>engine</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">class </span>Engine;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;}</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;{</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">namespace </span>res</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;{</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="a03191.html">   31</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03191.html">ScenePool</a> {</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <a class="code" href="a03191.html#aca923e993cf4122f317b08d3ea35614c">ScenePool</a>(<a class="code" href="a02319.html">engine::Engine</a>&amp; engine);</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03191.html#af95a257c30a09327e366c659ced32611">cleanup</a>();</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> TScene, <span class="keyword">typename</span>... TArgs&gt;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <a class="code" href="a03199.html">SceneRef</a> <a class="code" href="a03191.html#a233208dd2d35854594d5e322e1089e3c">allocateScene</a>(TArgs&amp;&amp;... args);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keyword">struct </span>Entry {</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <a class="code" href="a03191.html">ScenePool</a>* owner;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        std::unique_ptr&lt;Scene&gt; scene;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        std::atomic_uint refCount;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        Entry(<a class="code" href="a03191.html">ScenePool</a>* owner, <a class="code" href="a03243.html">Scene</a>* s)</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        : owner(owner)</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        , scene(s)</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        , refCount(0) {}</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    };</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <a class="code" href="a02319.html">engine::Engine</a>&amp; engine;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    std::list&lt;Entry&gt; scenes;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    std::mutex mutex;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordtype">void</span> release(Entry* entry);</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="a03194.html#aebc430cf0e6a262c1dc978f7620ee026">   77</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a03194.html#aebc430cf0e6a262c1dc978f7620ee026">isValid</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> scene != <span class="keyword">nullptr</span>; }</div>
+<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="a03191.html#aa1cb831203a7b2b510015264ae621b60">   74</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a03199.html">bl::rc::SceneRef</a>;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;};</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
-<div class="line"><a name="l00082"></a><span class="lineno"><a class="line" href="a03194.html#acc25726cfd472a87a8dd3d79c4a158d2">   82</a></span>&#160;    <a class="code" href="a03238.html">Scene</a>* <a class="code" href="a03194.html#acc25726cfd472a87a8dd3d79c4a158d2">operator-&gt;</a>() { <span class="keywordflow">return</span> scene; }</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
-<div class="line"><a name="l00087"></a><span class="lineno"><a class="line" href="a03194.html#a164fbc190811cbba1c945ba16ea9d444">   87</a></span>&#160;    <span class="keyword">const</span> <a class="code" href="a03238.html">Scene</a>* <a class="code" href="a03194.html#a164fbc190811cbba1c945ba16ea9d444">operator-&gt;</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> scene; }</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
-<div class="line"><a name="l00092"></a><span class="lineno"><a class="line" href="a03194.html#ab12c06cc2b6c48f415fc4bdb1de78ca7">   92</a></span>&#160;    <a class="code" href="a03238.html">Scene</a>&amp; <a class="code" href="a03194.html#ab12c06cc2b6c48f415fc4bdb1de78ca7">operator*</a>() { <span class="keywordflow">return</span> *scene; }</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
-<div class="line"><a name="l00097"></a><span class="lineno"><a class="line" href="a03194.html#a6d9b0880d34815fcecfcabf08c8cbe5e">   97</a></span>&#160;    <span class="keyword">const</span> <a class="code" href="a03238.html">Scene</a>&amp; <a class="code" href="a03194.html#a6d9b0880d34815fcecfcabf08c8cbe5e">operator*</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> *scene; }</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
-<div class="line"><a name="l00102"></a><span class="lineno"><a class="line" href="a03194.html#a8d9a43ba61747869ce08dc46ebb31a4f">  102</a></span>&#160;    <a class="code" href="a03238.html">Scene</a>* <a class="code" href="a03194.html#a8d9a43ba61747869ce08dc46ebb31a4f">get</a>() { <span class="keywordflow">return</span> scene; }</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
-<div class="line"><a name="l00107"></a><span class="lineno"><a class="line" href="a03194.html#afba1d45ba3ddaefdd7d32d91612b5f6c">  107</a></span>&#160;    <span class="keyword">const</span> <a class="code" href="a03238.html">Scene</a>* <a class="code" href="a03194.html#afba1d45ba3ddaefdd7d32d91612b5f6c">get</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> scene; }</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
-<div class="line"><a name="l00112"></a><span class="lineno"><a class="line" href="a03194.html#a4a6983982fbf4f6abb6bc8032956ea32">  112</a></span>&#160;    <span class="keyword">operator</span> <a class="code" href="a03238.html">Scene</a>*() { <span class="keywordflow">return</span> scene; }</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> TScene, <span class="keyword">typename</span>... TArgs&gt;</div>
+<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="a03191.html#a233208dd2d35854594d5e322e1089e3c">   80</a></span>&#160;<a class="code" href="a03199.html">SceneRef</a> <a class="code" href="a03191.html#a233208dd2d35854594d5e322e1089e3c">ScenePool::allocateScene</a>(TArgs&amp;&amp;... args) {</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    static_assert(std::is_base_of_v&lt;Scene, TScene&gt;, <span class="stringliteral">&quot;TScene must derive from Scene&quot;</span>);</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    static_assert(std::is_constructible_v&lt;TScene, engine::Engine&amp;, TArgs...&gt;,</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;                  <span class="stringliteral">&quot;TScene constructor must accept an Engine&amp; as the first parameter&quot;</span>);</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    std::unique_lock lock(mutex);</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keyword">auto</span>&amp; entry = scenes.emplace_back(<span class="keyword">this</span>, <span class="keyword">new</span> TScene(engine, std::forward&lt;TArgs&gt;(args)...));</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="a03199.html#aa043297c96db3bc940ea95c68ce960c5">SceneRef</a>(&amp;entry);</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;}</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;} <span class="comment">// namespace res</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="keyword">inline</span> <a class="code" href="a03199.html#aa043297c96db3bc940ea95c68ce960c5">SceneRef::SceneRef</a>(<span class="keywordtype">void</span>* handle)</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;: handle(handle) {</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    res::ScenePool::Entry* entry = <span class="keyword">static_cast&lt;</span>res::ScenePool::Entry*<span class="keyword">&gt;</span>(handle);</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    scene                        = entry-&gt;scene.get();</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    incrementRefCount();</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;}</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
+<div class="line"><a name="l00100"></a><span class="lineno"><a class="line" href="a03199.html#a0567b75f942700c5e1ace2d07651e1da">  100</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="a03199.html#aa043297c96db3bc940ea95c68ce960c5">SceneRef::SceneRef</a>(<span class="keyword">const</span> <a class="code" href="a03199.html">SceneRef</a>&amp; copy)</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;: scene(copy.scene)</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;, handle(copy.handle) {</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    incrementRefCount();</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;}</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
+<div class="line"><a name="l00106"></a><span class="lineno"><a class="line" href="a03199.html#a6d6b90024ac1ad1b51d8093b4ca17971">  106</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="a03199.html">SceneRef</a>&amp; <a class="code" href="a03199.html#a6d6b90024ac1ad1b51d8093b4ca17971">SceneRef::operator=</a>(<span class="keyword">const</span> <a class="code" href="a03199.html">SceneRef</a>&amp; c) {</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    decrementRefCount();</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    scene  = c.scene;</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    handle = c.handle;</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    incrementRefCount();</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;}</div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
-<div class="line"><a name="l00117"></a><span class="lineno"><a class="line" href="a03194.html#a64ff807733abe8c44851f13ac0e0dbb8">  117</a></span>&#160;    <span class="keyword">operator</span> <span class="keyword">const</span> <a class="code" href="a03238.html">Scene</a>*() <span class="keyword">const</span> { <span class="keywordflow">return</span> scene; }</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03194.html#a80cbb9ea0b44d9b92d4a5fedab2143ab">release</a>();</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <a class="code" href="a03238.html">Scene</a>* scene;</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <span class="keywordtype">void</span>* handle;</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <a class="code" href="a03194.html#aa043297c96db3bc940ea95c68ce960c5">SceneRef</a>(<span class="keywordtype">void</span>* handle);</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <span class="keywordtype">void</span> incrementRefCount();</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="keywordtype">void</span> decrementRefCount();</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160; </div>
-<div class="line"><a name="l00132"></a><span class="lineno"><a class="line" href="a03194.html#a5e3e776e6321b85dc4def653bc028051">  132</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a03186.html">res::ScenePool</a>;</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;};</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160; </div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; </div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01830_html"><div class="ttname"><a href="a01830.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03186_html"><div class="ttname"><a href="a03186.html">bl::rc::res::ScenePool</a></div><div class="ttdoc">Utility class that manages a fixed size pool of scenes that can be allocated from....</div><div class="ttdef"><b>Definition:</b> <a href="a00734_source.html#l00031">ScenePool.hpp:31</a></div></div>
-<div class="ttc" id="aa03194_html"><div class="ttname"><a href="a03194.html">bl::rc::SceneRef</a></div><div class="ttdoc">Handle to a scene allocated from ScenePool. Performs reference counting.</div><div class="ttdef"><b>Definition:</b> <a href="a00737_source.html#l00020">SceneRef.hpp:20</a></div></div>
-<div class="ttc" id="aa03194_html_a049f50746715d091bdcf4e9ae46f9a1b"><div class="ttname"><a href="a03194.html#a049f50746715d091bdcf4e9ae46f9a1b">bl::rc::SceneRef::SceneRef</a></div><div class="ttdeci">SceneRef(SceneRef &amp;&amp;move)</div><div class="ttdoc">Assumes ownership from the given handle.</div><div class="ttdef"><b>Definition:</b> <a href="a00737_source.html#l00041">SceneRef.hpp:41</a></div></div>
-<div class="ttc" id="aa03194_html_a164fbc190811cbba1c945ba16ea9d444"><div class="ttname"><a href="a03194.html#a164fbc190811cbba1c945ba16ea9d444">bl::rc::SceneRef::operator-&gt;</a></div><div class="ttdeci">const Scene * operator-&gt;() const</div><div class="ttdoc">Returns the underlying scene.</div><div class="ttdef"><b>Definition:</b> <a href="a00737_source.html#l00087">SceneRef.hpp:87</a></div></div>
-<div class="ttc" id="aa03194_html_a4576fbc36cf88a099204393ce36900d6"><div class="ttname"><a href="a03194.html#a4576fbc36cf88a099204393ce36900d6">bl::rc::SceneRef::~SceneRef</a></div><div class="ttdeci">~SceneRef()</div><div class="ttdoc">Destroys the handle. If this was the last handle then the scene is also destroyed.</div><div class="ttdef"><b>Definition:</b> <a href="a00737_source.html#l00072">SceneRef.hpp:72</a></div></div>
-<div class="ttc" id="aa03194_html_a6d6b90024ac1ad1b51d8093b4ca17971"><div class="ttname"><a href="a03194.html#a6d6b90024ac1ad1b51d8093b4ca17971">bl::rc::SceneRef::operator=</a></div><div class="ttdeci">SceneRef &amp; operator=(const SceneRef &amp;copy)</div><div class="ttdoc">Copies from the given ref.</div><div class="ttdef"><b>Definition:</b> <a href="a00734_source.html#l00106">ScenePool.hpp:106</a></div></div>
-<div class="ttc" id="aa03194_html_a6d9b0880d34815fcecfcabf08c8cbe5e"><div class="ttname"><a href="a03194.html#a6d9b0880d34815fcecfcabf08c8cbe5e">bl::rc::SceneRef::operator*</a></div><div class="ttdeci">const Scene &amp; operator*() const</div><div class="ttdoc">Returns the underlying scene.</div><div class="ttdef"><b>Definition:</b> <a href="a00737_source.html#l00097">SceneRef.hpp:97</a></div></div>
-<div class="ttc" id="aa03194_html_a80cbb9ea0b44d9b92d4a5fedab2143ab"><div class="ttname"><a href="a03194.html#a80cbb9ea0b44d9b92d4a5fedab2143ab">bl::rc::SceneRef::release</a></div><div class="ttdeci">void release()</div><div class="ttdoc">Releases the handle to the scene.</div><div class="ttdef"><b>Definition:</b> <a href="a00734_source.html#l00125">ScenePool.hpp:125</a></div></div>
-<div class="ttc" id="aa03194_html_a8d9a43ba61747869ce08dc46ebb31a4f"><div class="ttname"><a href="a03194.html#a8d9a43ba61747869ce08dc46ebb31a4f">bl::rc::SceneRef::get</a></div><div class="ttdeci">Scene * get()</div><div class="ttdoc">Returns the underlying scene.</div><div class="ttdef"><b>Definition:</b> <a href="a00737_source.html#l00102">SceneRef.hpp:102</a></div></div>
-<div class="ttc" id="aa03194_html_aa043297c96db3bc940ea95c68ce960c5"><div class="ttname"><a href="a03194.html#aa043297c96db3bc940ea95c68ce960c5">bl::rc::SceneRef::SceneRef</a></div><div class="ttdeci">SceneRef()</div><div class="ttdoc">Creates an empty handle.</div><div class="ttdef"><b>Definition:</b> <a href="a00737_source.html#l00025">SceneRef.hpp:25</a></div></div>
-<div class="ttc" id="aa03194_html_aa09f0eae12327cbf865077d4a20cab08"><div class="ttname"><a href="a03194.html#aa09f0eae12327cbf865077d4a20cab08">bl::rc::SceneRef::operator=</a></div><div class="ttdeci">SceneRef &amp; operator=(SceneRef &amp;&amp;move)</div><div class="ttdoc">Assumes ownership from the given handle.</div><div class="ttdef"><b>Definition:</b> <a href="a00737_source.html#l00061">SceneRef.hpp:61</a></div></div>
-<div class="ttc" id="aa03194_html_ab12c06cc2b6c48f415fc4bdb1de78ca7"><div class="ttname"><a href="a03194.html#ab12c06cc2b6c48f415fc4bdb1de78ca7">bl::rc::SceneRef::operator*</a></div><div class="ttdeci">Scene &amp; operator*()</div><div class="ttdoc">Returns the underlying scene.</div><div class="ttdef"><b>Definition:</b> <a href="a00737_source.html#l00092">SceneRef.hpp:92</a></div></div>
-<div class="ttc" id="aa03194_html_acc25726cfd472a87a8dd3d79c4a158d2"><div class="ttname"><a href="a03194.html#acc25726cfd472a87a8dd3d79c4a158d2">bl::rc::SceneRef::operator-&gt;</a></div><div class="ttdeci">Scene * operator-&gt;()</div><div class="ttdoc">Returns the underlying scene.</div><div class="ttdef"><b>Definition:</b> <a href="a00737_source.html#l00082">SceneRef.hpp:82</a></div></div>
-<div class="ttc" id="aa03194_html_aebc430cf0e6a262c1dc978f7620ee026"><div class="ttname"><a href="a03194.html#aebc430cf0e6a262c1dc978f7620ee026">bl::rc::SceneRef::isValid</a></div><div class="ttdeci">bool isValid() const</div><div class="ttdoc">Returns whether or not the handle refers to a scene.</div><div class="ttdef"><b>Definition:</b> <a href="a00737_source.html#l00077">SceneRef.hpp:77</a></div></div>
-<div class="ttc" id="aa03194_html_afba1d45ba3ddaefdd7d32d91612b5f6c"><div class="ttname"><a href="a03194.html#afba1d45ba3ddaefdd7d32d91612b5f6c">bl::rc::SceneRef::get</a></div><div class="ttdeci">const Scene * get() const</div><div class="ttdoc">Returns the underlying scene.</div><div class="ttdef"><b>Definition:</b> <a href="a00737_source.html#l00107">SceneRef.hpp:107</a></div></div>
-<div class="ttc" id="aa03238_html"><div class="ttname"><a href="a03238.html">bl::rc::Scene</a></div><div class="ttdoc">Base class for all scene types and overlays. Provides common scene logic and object management....</div><div class="ttdef"><b>Definition:</b> <a href="a00755_source.html#l00051">Scene.hpp:51</a></div></div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> SceneRef::incrementRefCount() {</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <span class="keywordflow">if</span> (scene) { ++<span class="keyword">static_cast&lt;</span>res::ScenePool::Entry*<span class="keyword">&gt;</span>(handle)-&gt;refCount; }</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;}</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> SceneRef::decrementRefCount() {</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <span class="keywordflow">if</span> (scene) {</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        res::ScenePool::Entry* entry = <span class="keyword">static_cast&lt;</span>res::ScenePool::Entry*<span class="keyword">&gt;</span>(handle);</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        <span class="keywordflow">if</span> (--entry-&gt;refCount == 0) { entry-&gt;owner-&gt;release(entry); }</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    }</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;}</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160; </div>
+<div class="line"><a name="l00125"></a><span class="lineno"><a class="line" href="a03199.html#a80cbb9ea0b44d9b92d4a5fedab2143ab">  125</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="a03199.html#a80cbb9ea0b44d9b92d4a5fedab2143ab">SceneRef::release</a>() {</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    decrementRefCount();</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    scene = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;}</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160; </div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160; </div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00122_html"><div class="ttname"><a href="a00122.html">ObjectWrapper.hpp</a></div></div>
+<div class="ttc" id="aa00740_html"><div class="ttname"><a href="a00740.html">SceneRef.hpp</a></div></div>
+<div class="ttc" id="aa00752_html"><div class="ttname"><a href="a00752.html">BatchedScene.hpp</a></div></div>
+<div class="ttc" id="aa01055_html"><div class="ttname"><a href="a01055.html">IdAllocator.hpp</a></div></div>
+<div class="ttc" id="aa01833_html"><div class="ttname"><a href="a01833.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02319_html"><div class="ttname"><a href="a02319.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a05103_source.html#l00032">Engine.hpp:32</a></div></div>
+<div class="ttc" id="aa03191_html"><div class="ttname"><a href="a03191.html">bl::rc::res::ScenePool</a></div><div class="ttdoc">Utility class that manages a fixed size pool of scenes that can be allocated from....</div><div class="ttdef"><b>Definition:</b> <a href="a00737_source.html#l00031">ScenePool.hpp:31</a></div></div>
+<div class="ttc" id="aa03191_html_a233208dd2d35854594d5e322e1089e3c"><div class="ttname"><a href="a03191.html#a233208dd2d35854594d5e322e1089e3c">bl::rc::res::ScenePool::allocateScene</a></div><div class="ttdeci">SceneRef allocateScene(TArgs &amp;&amp;... args)</div><div class="ttdoc">Allocates a new scene from the pool and returns it.</div><div class="ttdef"><b>Definition:</b> <a href="a00737_source.html#l00080">ScenePool.hpp:80</a></div></div>
+<div class="ttc" id="aa03191_html_aca923e993cf4122f317b08d3ea35614c"><div class="ttname"><a href="a03191.html#aca923e993cf4122f317b08d3ea35614c">bl::rc::res::ScenePool::ScenePool</a></div><div class="ttdeci">ScenePool(engine::Engine &amp;engine)</div><div class="ttdoc">Creates a new scene pool.</div><div class="ttdef"><b>Definition:</b> <a href="a01556_source.html#l00013">ScenePool.cpp:13</a></div></div>
+<div class="ttc" id="aa03191_html_af95a257c30a09327e366c659ced32611"><div class="ttname"><a href="a03191.html#af95a257c30a09327e366c659ced32611">bl::rc::res::ScenePool::cleanup</a></div><div class="ttdeci">void cleanup()</div><div class="ttdoc">Destroys all scenes.</div><div class="ttdef"><b>Definition:</b> <a href="a01556_source.html#l00016">ScenePool.cpp:16</a></div></div>
+<div class="ttc" id="aa03199_html"><div class="ttname"><a href="a03199.html">bl::rc::SceneRef</a></div><div class="ttdoc">Handle to a scene allocated from ScenePool. Performs reference counting.</div><div class="ttdef"><b>Definition:</b> <a href="a00740_source.html#l00020">SceneRef.hpp:20</a></div></div>
+<div class="ttc" id="aa03199_html_a6d6b90024ac1ad1b51d8093b4ca17971"><div class="ttname"><a href="a03199.html#a6d6b90024ac1ad1b51d8093b4ca17971">bl::rc::SceneRef::operator=</a></div><div class="ttdeci">SceneRef &amp; operator=(const SceneRef &amp;copy)</div><div class="ttdoc">Copies from the given ref.</div><div class="ttdef"><b>Definition:</b> <a href="a00737_source.html#l00106">ScenePool.hpp:106</a></div></div>
+<div class="ttc" id="aa03199_html_a80cbb9ea0b44d9b92d4a5fedab2143ab"><div class="ttname"><a href="a03199.html#a80cbb9ea0b44d9b92d4a5fedab2143ab">bl::rc::SceneRef::release</a></div><div class="ttdeci">void release()</div><div class="ttdoc">Releases the handle to the scene.</div><div class="ttdef"><b>Definition:</b> <a href="a00737_source.html#l00125">ScenePool.hpp:125</a></div></div>
+<div class="ttc" id="aa03199_html_aa043297c96db3bc940ea95c68ce960c5"><div class="ttname"><a href="a03199.html#aa043297c96db3bc940ea95c68ce960c5">bl::rc::SceneRef::SceneRef</a></div><div class="ttdeci">SceneRef()</div><div class="ttdoc">Creates an empty handle.</div><div class="ttdef"><b>Definition:</b> <a href="a00740_source.html#l00025">SceneRef.hpp:25</a></div></div>
+<div class="ttc" id="aa03243_html"><div class="ttname"><a href="a03243.html">bl::rc::Scene</a></div><div class="ttdoc">Base class for all scene types and overlays. Provides common scene logic and object management....</div><div class="ttdef"><b>Definition:</b> <a href="a00758_source.html#l00051">Scene.hpp:51</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Oct 21 2023 00:16:51 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Oct 25 2023 00:24:20 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -78,28 +78,28 @@ $(function() {
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_DESCRIPTORS_SCENEDESCRIPTORSETINSTANCE_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00551.html">BLIB/Render/Buffers/UniformBuffer.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05145.html">BLIB/Render/Config.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05154.html">BLIB/Render/Config.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00617.html">BLIB/Render/Descriptors/DescriptorSetInstance.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00815.html">BLIB/Render/Vulkan/PerFrame.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00818.html">BLIB/Render/Vulkan/PerFrame.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;array&gt;</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;glm/glm.hpp&gt;</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01830.html">bl</a></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01833.html">bl</a></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span>rc</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span>ds</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a03018.html">   22</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03018.html">SceneDescriptorSetInstance</a> : <span class="keyword">public</span> <a class="code" href="a03010.html">DescriptorSetInstance</a> {</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a03023.html">   22</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03023.html">SceneDescriptorSetInstance</a> : <span class="keyword">public</span> <a class="code" href="a03015.html">DescriptorSetInstance</a> {</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <a class="code" href="a03018.html#a4e4d85081fc95e511efd38849f047eb5">SceneDescriptorSetInstance</a>();</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <a class="code" href="a03023.html#a4e4d85081fc95e511efd38849f047eb5">SceneDescriptorSetInstance</a>();</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="a03018.html#a099b83d37a581b1ab8572ee17c2269c4">   32</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03018.html#a099b83d37a581b1ab8572ee17c2269c4">~SceneDescriptorSetInstance</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="a03023.html#a099b83d37a581b1ab8572ee17c2269c4">   32</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03023.html#a099b83d37a581b1ab8572ee17c2269c4">~SceneDescriptorSetInstance</a>() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03018.html#ad0135cab959d2ab6c8c454054e1c23d4">updateObserverCamera</a>(std::uint32_t observerIndex, <span class="keyword">const</span> glm::mat4&amp; projView);</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03023.html#ad0135cab959d2ab6c8c454054e1c23d4">updateObserverCamera</a>(std::uint32_t observerIndex, <span class="keyword">const</span> glm::mat4&amp; projView);</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="a03018.html#a0a145382ab1e64d8c85dd63939bb0aca">   43</a></span>&#160;    <a class="code" href="a02898.html">buf::UniformBuffer&lt;glm::mat4&gt;</a> <a class="code" href="a03018.html#a0a145382ab1e64d8c85dd63939bb0aca">cameraBuffer</a>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="a03023.html#a0a145382ab1e64d8c85dd63939bb0aca">   43</a></span>&#160;    <a class="code" href="a02903.html">buf::UniformBuffer&lt;glm::mat4&gt;</a> <a class="code" href="a03023.html#a0a145382ab1e64d8c85dd63939bb0aca">cameraBuffer</a>;</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;};</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;} <span class="comment">// namespace ds</span></div>
@@ -109,21 +109,21 @@ $(function() {
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aa00551_html"><div class="ttname"><a href="a00551.html">UniformBuffer.hpp</a></div></div>
 <div class="ttc" id="aa00617_html"><div class="ttname"><a href="a00617.html">DescriptorSetInstance.hpp</a></div></div>
-<div class="ttc" id="aa00815_html"><div class="ttname"><a href="a00815.html">PerFrame.hpp</a></div></div>
-<div class="ttc" id="aa01830_html"><div class="ttname"><a href="a01830.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02898_html"><div class="ttname"><a href="a02898.html">bl::rc::buf::UniformBuffer&lt; glm::mat4 &gt;</a></div></div>
-<div class="ttc" id="aa03010_html"><div class="ttname"><a href="a03010.html">bl::rc::ds::DescriptorSetInstance</a></div><div class="ttdoc">Base class for descriptor sets that exist for each scene. Derived classes are created by DescriptorSe...</div><div class="ttdef"><b>Definition:</b> <a href="a00617_source.html#l00030">DescriptorSetInstance.hpp:30</a></div></div>
-<div class="ttc" id="aa03018_html"><div class="ttname"><a href="a03018.html">bl::rc::ds::SceneDescriptorSetInstance</a></div><div class="ttdoc">Base class for descriptor sets for scene data (cameras, lighting, etc)</div><div class="ttdef"><b>Definition:</b> <a href="a00623_source.html#l00022">SceneDescriptorSetInstance.hpp:22</a></div></div>
-<div class="ttc" id="aa03018_html_a099b83d37a581b1ab8572ee17c2269c4"><div class="ttname"><a href="a03018.html#a099b83d37a581b1ab8572ee17c2269c4">bl::rc::ds::SceneDescriptorSetInstance::~SceneDescriptorSetInstance</a></div><div class="ttdeci">virtual ~SceneDescriptorSetInstance()=default</div><div class="ttdoc">Destroys the descriptor set.</div></div>
-<div class="ttc" id="aa03018_html_a0a145382ab1e64d8c85dd63939bb0aca"><div class="ttname"><a href="a03018.html#a0a145382ab1e64d8c85dd63939bb0aca">bl::rc::ds::SceneDescriptorSetInstance::cameraBuffer</a></div><div class="ttdeci">buf::UniformBuffer&lt; glm::mat4 &gt; cameraBuffer</div><div class="ttdef"><b>Definition:</b> <a href="a00623_source.html#l00043">SceneDescriptorSetInstance.hpp:43</a></div></div>
-<div class="ttc" id="aa03018_html_a4e4d85081fc95e511efd38849f047eb5"><div class="ttname"><a href="a03018.html#a4e4d85081fc95e511efd38849f047eb5">bl::rc::ds::SceneDescriptorSetInstance::SceneDescriptorSetInstance</a></div><div class="ttdeci">SceneDescriptorSetInstance()</div><div class="ttdoc">Creates the descriptor set instance.</div><div class="ttdef"><b>Definition:</b> <a href="a01475_source.html#l00011">SceneDescriptorSetInstance.cpp:11</a></div></div>
-<div class="ttc" id="aa03018_html_ad0135cab959d2ab6c8c454054e1c23d4"><div class="ttname"><a href="a03018.html#ad0135cab959d2ab6c8c454054e1c23d4">bl::rc::ds::SceneDescriptorSetInstance::updateObserverCamera</a></div><div class="ttdeci">void updateObserverCamera(std::uint32_t observerIndex, const glm::mat4 &amp;projView)</div><div class="ttdoc">Updates the camera value for the given observer.</div><div class="ttdef"><b>Definition:</b> <a href="a01475_source.html#l00014">SceneDescriptorSetInstance.cpp:14</a></div></div>
-<div class="ttc" id="aa05145_html"><div class="ttname"><a href="a05145.html">Config.hpp</a></div></div>
+<div class="ttc" id="aa00818_html"><div class="ttname"><a href="a00818.html">PerFrame.hpp</a></div></div>
+<div class="ttc" id="aa01833_html"><div class="ttname"><a href="a01833.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02903_html"><div class="ttname"><a href="a02903.html">bl::rc::buf::UniformBuffer&lt; glm::mat4 &gt;</a></div></div>
+<div class="ttc" id="aa03015_html"><div class="ttname"><a href="a03015.html">bl::rc::ds::DescriptorSetInstance</a></div><div class="ttdoc">Base class for descriptor sets that exist for each scene. Derived classes are created by DescriptorSe...</div><div class="ttdef"><b>Definition:</b> <a href="a00617_source.html#l00030">DescriptorSetInstance.hpp:30</a></div></div>
+<div class="ttc" id="aa03023_html"><div class="ttname"><a href="a03023.html">bl::rc::ds::SceneDescriptorSetInstance</a></div><div class="ttdoc">Base class for descriptor sets for scene data (cameras, lighting, etc)</div><div class="ttdef"><b>Definition:</b> <a href="a00623_source.html#l00022">SceneDescriptorSetInstance.hpp:22</a></div></div>
+<div class="ttc" id="aa03023_html_a099b83d37a581b1ab8572ee17c2269c4"><div class="ttname"><a href="a03023.html#a099b83d37a581b1ab8572ee17c2269c4">bl::rc::ds::SceneDescriptorSetInstance::~SceneDescriptorSetInstance</a></div><div class="ttdeci">virtual ~SceneDescriptorSetInstance()=default</div><div class="ttdoc">Destroys the descriptor set.</div></div>
+<div class="ttc" id="aa03023_html_a0a145382ab1e64d8c85dd63939bb0aca"><div class="ttname"><a href="a03023.html#a0a145382ab1e64d8c85dd63939bb0aca">bl::rc::ds::SceneDescriptorSetInstance::cameraBuffer</a></div><div class="ttdeci">buf::UniformBuffer&lt; glm::mat4 &gt; cameraBuffer</div><div class="ttdef"><b>Definition:</b> <a href="a00623_source.html#l00043">SceneDescriptorSetInstance.hpp:43</a></div></div>
+<div class="ttc" id="aa03023_html_a4e4d85081fc95e511efd38849f047eb5"><div class="ttname"><a href="a03023.html#a4e4d85081fc95e511efd38849f047eb5">bl::rc::ds::SceneDescriptorSetInstance::SceneDescriptorSetInstance</a></div><div class="ttdeci">SceneDescriptorSetInstance()</div><div class="ttdoc">Creates the descriptor set instance.</div><div class="ttdef"><b>Definition:</b> <a href="a01478_source.html#l00011">SceneDescriptorSetInstance.cpp:11</a></div></div>
+<div class="ttc" id="aa03023_html_ad0135cab959d2ab6c8c454054e1c23d4"><div class="ttname"><a href="a03023.html#ad0135cab959d2ab6c8c454054e1c23d4">bl::rc::ds::SceneDescriptorSetInstance::updateObserverCamera</a></div><div class="ttdeci">void updateObserverCamera(std::uint32_t observerIndex, const glm::mat4 &amp;projView)</div><div class="ttdoc">Updates the camera value for the given observer.</div><div class="ttdef"><b>Definition:</b> <a href="a01478_source.html#l00014">SceneDescriptorSetInstance.cpp:14</a></div></div>
+<div class="ttc" id="aa05154_html"><div class="ttname"><a href="a05154.html">Config.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Oct 21 2023 00:16:51 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Oct 25 2023 00:24:20 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

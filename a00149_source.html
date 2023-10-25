@@ -80,24 +80,24 @@ $(function() {
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00158.html">BLIB/ECS/Entity.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00170.html">BLIB/ECS/Tags.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01830.html">bl</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01833.html">bl</a></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>ecs</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">class </span>Registry;</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="a01846.html">   13</a></span>&#160;<span class="keyword">namespace </span>priv</div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="a01849.html">   13</a></span>&#160;<span class="keyword">namespace </span>priv</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a02202.html">   23</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a02202.html">ComponentSetMember</a> {</div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a02202.html#a819b0aa66bf6e3ca7c4564b158a5ccda">   24</a></span>&#160;    T* <a class="code" href="a02202.html#a819b0aa66bf6e3ca7c4564b158a5ccda">component</a>;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <a class="code" href="a02202.html#aa7a132531191378299e6c54bdfbaa07c">ComponentSetMember</a>();</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a02202.html#add5fa405b967feb2fb54a4756b8f2d09">populate</a>(<a class="code" href="a02262.html">Registry</a>&amp; registry, <a class="code" href="a02218.html">Entity</a> owner);</div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a02207.html">   23</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a02207.html">ComponentSetMember</a> {</div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a02207.html#a819b0aa66bf6e3ca7c4564b158a5ccda">   24</a></span>&#160;    T* <a class="code" href="a02207.html#a819b0aa66bf6e3ca7c4564b158a5ccda">component</a>;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <a class="code" href="a02207.html#aa7a132531191378299e6c54bdfbaa07c">ComponentSetMember</a>();</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a02207.html#add5fa405b967feb2fb54a4756b8f2d09">populate</a>(<a class="code" href="a02267.html">Registry</a>&amp; registry, <a class="code" href="a02223.html">Entity</a> owner);</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;};</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;} <span class="comment">// namespace priv</span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> TRequire, <span class="keyword">typename</span> TOptional = Optional&lt;&gt;&gt;</div>
-<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="a02206.html">   39</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02206.html">ComponentSet</a> {</div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="a02211.html">   39</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02211.html">ComponentSet</a> {</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    static_assert(std::is_same_v&lt;TRequire, void&gt;,</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;                  <span class="stringliteral">&quot;ComponentSet requires tagged types: ComponentSet&lt;Require&lt;int, char&gt;, &quot;</span></div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;                  <span class="stringliteral">&quot;Optional&lt;std::string&gt;&gt;&quot;</span>);</div>
@@ -109,19 +109,19 @@ $(function() {
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aa00158_html"><div class="ttname"><a href="a00158.html">Entity.hpp</a></div></div>
 <div class="ttc" id="aa00170_html"><div class="ttname"><a href="a00170.html">Tags.hpp</a></div></div>
-<div class="ttc" id="aa01830_html"><div class="ttname"><a href="a01830.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02202_html"><div class="ttname"><a href="a02202.html">bl::ecs::priv::ComponentSetMember</a></div><div class="ttdoc">Helper class to compose component sets.</div><div class="ttdef"><b>Definition:</b> <a href="a00149_source.html#l00023">ComponentSet.hpp:23</a></div></div>
-<div class="ttc" id="aa02202_html_a819b0aa66bf6e3ca7c4564b158a5ccda"><div class="ttname"><a href="a02202.html#a819b0aa66bf6e3ca7c4564b158a5ccda">bl::ecs::priv::ComponentSetMember::component</a></div><div class="ttdeci">T * component</div><div class="ttdef"><b>Definition:</b> <a href="a00149_source.html#l00024">ComponentSet.hpp:24</a></div></div>
-<div class="ttc" id="aa02202_html_aa7a132531191378299e6c54bdfbaa07c"><div class="ttname"><a href="a02202.html#aa7a132531191378299e6c54bdfbaa07c">bl::ecs::priv::ComponentSetMember::ComponentSetMember</a></div><div class="ttdeci">ComponentSetMember()</div><div class="ttdef"><b>Definition:</b> <a href="a00152_source.html#l00015">ComponentSetImpl.hpp:15</a></div></div>
-<div class="ttc" id="aa02202_html_add5fa405b967feb2fb54a4756b8f2d09"><div class="ttname"><a href="a02202.html#add5fa405b967feb2fb54a4756b8f2d09">bl::ecs::priv::ComponentSetMember::populate</a></div><div class="ttdeci">bool populate(Registry &amp;registry, Entity owner)</div><div class="ttdef"><b>Definition:</b> <a href="a00152_source.html#l00019">ComponentSetImpl.hpp:19</a></div></div>
-<div class="ttc" id="aa02206_html"><div class="ttname"><a href="a02206.html">bl::ecs::ComponentSet</a></div><div class="ttdoc">Contains a set of components for a single entity. May not always be valid. Does not update if compone...</div><div class="ttdef"><b>Definition:</b> <a href="a00149_source.html#l00039">ComponentSet.hpp:39</a></div></div>
-<div class="ttc" id="aa02218_html"><div class="ttname"><a href="a02218.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition:</b> <a href="a00158_source.html#l00023">Entity.hpp:23</a></div></div>
-<div class="ttc" id="aa02262_html"><div class="ttname"><a href="a02262.html">bl::ecs::Registry</a></div><div class="ttdoc">This is the main interface of the ECS. This class manages all entities and components and views and s...</div><div class="ttdef"><b>Definition:</b> <a href="a00167_source.html#l00031">Registry.hpp:31</a></div></div>
+<div class="ttc" id="aa01833_html"><div class="ttname"><a href="a01833.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02207_html"><div class="ttname"><a href="a02207.html">bl::ecs::priv::ComponentSetMember</a></div><div class="ttdoc">Helper class to compose component sets.</div><div class="ttdef"><b>Definition:</b> <a href="a00149_source.html#l00023">ComponentSet.hpp:23</a></div></div>
+<div class="ttc" id="aa02207_html_a819b0aa66bf6e3ca7c4564b158a5ccda"><div class="ttname"><a href="a02207.html#a819b0aa66bf6e3ca7c4564b158a5ccda">bl::ecs::priv::ComponentSetMember::component</a></div><div class="ttdeci">T * component</div><div class="ttdef"><b>Definition:</b> <a href="a00149_source.html#l00024">ComponentSet.hpp:24</a></div></div>
+<div class="ttc" id="aa02207_html_aa7a132531191378299e6c54bdfbaa07c"><div class="ttname"><a href="a02207.html#aa7a132531191378299e6c54bdfbaa07c">bl::ecs::priv::ComponentSetMember::ComponentSetMember</a></div><div class="ttdeci">ComponentSetMember()</div><div class="ttdef"><b>Definition:</b> <a href="a00152_source.html#l00015">ComponentSetImpl.hpp:15</a></div></div>
+<div class="ttc" id="aa02207_html_add5fa405b967feb2fb54a4756b8f2d09"><div class="ttname"><a href="a02207.html#add5fa405b967feb2fb54a4756b8f2d09">bl::ecs::priv::ComponentSetMember::populate</a></div><div class="ttdeci">bool populate(Registry &amp;registry, Entity owner)</div><div class="ttdef"><b>Definition:</b> <a href="a00152_source.html#l00019">ComponentSetImpl.hpp:19</a></div></div>
+<div class="ttc" id="aa02211_html"><div class="ttname"><a href="a02211.html">bl::ecs::ComponentSet</a></div><div class="ttdoc">Contains a set of components for a single entity. May not always be valid. Does not update if compone...</div><div class="ttdef"><b>Definition:</b> <a href="a00149_source.html#l00039">ComponentSet.hpp:39</a></div></div>
+<div class="ttc" id="aa02223_html"><div class="ttname"><a href="a02223.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition:</b> <a href="a00158_source.html#l00023">Entity.hpp:23</a></div></div>
+<div class="ttc" id="aa02267_html"><div class="ttname"><a href="a02267.html">bl::ecs::Registry</a></div><div class="ttdoc">This is the main interface of the ECS. This class manages all entities and components and views and s...</div><div class="ttdef"><b>Definition:</b> <a href="a00167_source.html#l00031">Registry.hpp:31</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Oct 21 2023 00:16:51 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Oct 25 2023 00:24:20 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>
