@@ -37,7 +37,7 @@ struct ComponentFactory {
  * @ingroup GUI
  */
 template<typename T>
-struct GenericFactory {
+struct GenericFactory : public ComponentFactory {
     static_assert(std::is_base_of_v<Component, T>, "T must derive from Component");
 
     /**
