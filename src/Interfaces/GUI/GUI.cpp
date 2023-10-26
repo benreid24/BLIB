@@ -1,60 +1,41 @@
 #include <BLIB/Interfaces/GUI.hpp>
 
-#include <BLIB/Interfaces/GUI/Renderers/DefaultRenderer.hpp>
-
 namespace bl
 {
 namespace gui
 {
-GUI::Ptr GUI::create(const gui::Packer::Ptr& packer, const sf::FloatRect& region) {
-    return Ptr(new GUI(packer, region));
+GUI::Ptr GUI::create(engine::Engine& engine, rc::Observer& observer, const gui::Packer::Ptr& packer,
+                     const sf::FloatRect& region, rdr::FactoryTable* factory) {
+    return Ptr(new GUI(engine, observer, packer, region, factory));
 }
 
-GUI::Ptr GUI::create(const gui::Packer::Ptr& packer, const sf::RenderWindow& window) {
-    return Ptr(new GUI(packer, window));
-}
-
-GUI::GUI(const gui::Packer::Ptr& packer)
+GUI::GUI(engine::Engine& engine, rc::Observer& observer, const gui::Packer::Ptr& packer,
+         const sf::FloatRect& region, rdr::FactoryTable* factory)
 : Box(packer)
-, renderer(gui::DefaultRenderer::create()) {
+, observer(observer)
+, renderer(engine, factory ? *factory : rdr::FactoryTable::getDefaultTable()) {
     setOutlineThickness(0.f);
     queuedActions.reserve(4);
-}
-
-GUI::GUI(const gui::Packer::Ptr& packer, const sf::FloatRect& region)
-: GUI(packer) {
-    assignAcquisition(region);
-}
-
-GUI::GUI(const gui::Packer::Ptr& packer, const sf::RenderWindow& window)
-: GUI(packer) {
-    assignAcquisition(sf::FloatRect(0, 0, window.getSize().x, window.getSize().y));
+    assignAcquisition(region.width > 0.f ?
+                          region :
+                          sf::FloatRect(0.f,
+                                        0.f,
+                                        cam::OverlayCamera::getOverlayCoordinateSpace().x,
+                                        cam::OverlayCamera::getOverlayCoordinateSpace().y));
 }
 
 void GUI::setRegion(const sf::FloatRect& area) { assignAcquisition(area); }
-
-void GUI::subscribe() { bl::event::Dispatcher::subscribe(this); }
 
 void GUI::observe(const sf::Event& event) {
     if (event.type == sf::Event::MouseEntered) return;
     if (event.type == sf::Event::MouseMoved) {
         mousePos.x = event.mouseMove.x;
         mousePos.y = event.mouseMove.y;
+        mousePos   = observer.transformToOverlaySpace(mousePos);
     }
-    sf::Transform tform = getInverseTransform();
-    tform *= renderTransform.getInverse();
-    const Event guiEvent = Event::fromSFML(event, tform.transformPoint(mousePos));
+
+    const Event guiEvent = Event::fromSFML(event, sf::Vector2f(mousePos.x, mousePos.y));
     if (guiEvent.type() != Event::Unknown) { Container::processEvent(guiEvent); }
-}
-
-void GUI::setRenderer(const gui::Renderer::Ptr& r) { renderer = r; }
-
-void GUI::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-    renderTransform = states.transform;
-    states.transform.combine(getTransform());
-    renderer->setOriginalView(target.getView());
-    Container::render(target, states, *renderer);
-    renderer->renderTooltip(target, states, mousePos);
 }
 
 void GUI::update(float dt) {
@@ -65,6 +46,17 @@ void GUI::update(float dt) {
 }
 
 void GUI::queueAction(const Element::QueuedAction& a) { queuedActions.emplace_back(a); }
+
+void GUI::addToOverlay(rc::Overlay* overlay) {
+    if (!overlay) { overlay = observer.getOrCreateSceneOverlay(); }
+    renderer.addToOverlay(overlay);
+    bl::event::Dispatcher::subscribe(this);
+}
+
+void GUI::removeFromOverlay() {
+    renderer.removeFromOverlay();
+    bl::event::Dispatcher::unsubscribe(this);
+}
 
 } // namespace gui
 } // namespace bl
