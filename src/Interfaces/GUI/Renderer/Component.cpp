@@ -9,14 +9,17 @@ namespace gui
 {
 namespace rdr
 {
-Component::Component()
-: renderer(nullptr)
+Component::Component(HighlightState hs)
+: highlightState(hs)
+, renderer(nullptr)
 , owner(nullptr)
 , state(UIState::Regular) {}
 
 void Component::setUIState(UIState state) {
-    renderer->handleComponentState(owner, state);
-    notifyUIState(state);
+    if (highlightState == HighlightState::HighlightedByMouse) {
+        renderer->handleComponentState(owner, state);
+        notifyUIState(state);
+    }
 }
 
 void Component::showTooltip() { renderer->displayTooltip(owner); }

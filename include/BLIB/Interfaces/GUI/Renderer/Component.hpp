@@ -1,6 +1,7 @@
 #ifndef BLIB_GUI_RENDERER_COMPONENT_HPP
 #define BLIB_GUI_RENDERER_COMPONENT_HPP
 
+#include <BLIB/ECS/Entity.hpp>
 #include <BLIB/Logging.hpp>
 #include <BLIB/Render/Overlays/Overlay.hpp>
 #include <memory>
@@ -68,11 +69,38 @@ public:
      */
     void flash();
 
+    /**
+     * @brief Called when the element gets its acquisition (re)assigned
+     *
+     * @param acquisition The acquisition of the element in overlay space
+     */
+    virtual void onAcquisition(const sf::FloatRect& acquisition) = 0;
+
+    /**
+     * @brief Called when element state changes. This is element specific, but can mean toggle
+     *        state, contents, etc.
+     */
+    virtual void onElementUpdated() = 0;
+
+    /**
+     * @brief Called when the owning elements render settings are changed
+     */
+    virtual void onRenderSettingChange() = 0;
+
+    /**
+     * @brief Derived classes should return the ECS entity that children should parent themselves to
+     */
+    virtual ecs::Entity getEntity() const = 0;
+
 protected:
+    enum struct HighlightState { IgnoresMouse, HighlightedByMouse };
+
     /**
      * @brief Initializes the component
+     *
+     * @param highlightState How the component should respond to mouse events
      */
-    Component();
+    Component(HighlightState highlightState);
 
     /**
      * @brief Called once before use. Derived classes should create resources here
@@ -120,6 +148,7 @@ protected:
     }
 
 private:
+    const HighlightState highlightState;
     Renderer* renderer;
     Element* owner;
     UIState state;

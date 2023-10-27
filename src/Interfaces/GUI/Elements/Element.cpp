@@ -292,6 +292,7 @@ void Element::assignAcquisition(const sf::FloatRect& acq) {
         position = sf::Vector2f(cachedArea.left, cachedArea.top) - parent->getPosition();
     }
     fireSignal(Event(Event::AcquisitionChanged));
+    if (component) { component->onAcquisition(acq); }
 }
 
 void Element::setPosition(const sf::Vector2f& pos) {
@@ -326,49 +327,49 @@ const RenderSettings& Element::renderSettings() const { return settings; }
 
 void Element::setFont(bl::resource::Ref<sf::Font> f) {
     settings.font = f;
-    fireSignal(Event(Event::RenderSettingsChanged));
+    onRenderChange();
 }
 
 void Element::setCharacterSize(unsigned int s) {
     settings.characterSize = s;
-    fireSignal(Event(Event::RenderSettingsChanged));
+    onRenderChange();
 }
 
 void Element::setColor(sf::Color fill, sf::Color outline) {
     settings.fillColor    = fill;
     settings.outlineColor = outline;
-    fireSignal(Event(Event::RenderSettingsChanged));
+    onRenderChange();
 }
 
 void Element::setOutlineThickness(float t) {
     settings.outlineThickness = t;
-    fireSignal(Event(Event::RenderSettingsChanged));
+    onRenderChange();
 }
 
 void Element::setSecondaryColor(sf::Color fill, sf::Color outline) {
     settings.secondaryFillColor    = fill;
     settings.secondaryOutlineColor = outline;
-    fireSignal(Event(Event::RenderSettingsChanged));
+    onRenderChange();
 }
 
 void Element::setSecondaryOutlineThickness(float t) {
     settings.secondaryOutlineThickness = t;
-    fireSignal(Event(Event::RenderSettingsChanged));
+    onRenderChange();
 }
 
 void Element::setStyle(sf::Uint32 style) {
     settings.style = style;
-    fireSignal(Event(Event::RenderSettingsChanged));
+    onRenderChange();
 }
 
 void Element::setHorizontalAlignment(RenderSettings::Alignment align) {
     settings.horizontalAlignment = align;
-    fireSignal(Event(Event::RenderSettingsChanged));
+    onRenderChange();
 }
 
 void Element::setVerticalAlignment(RenderSettings::Alignment align) {
     settings.verticalAlignment = align;
-    fireSignal(Event(Event::RenderSettingsChanged));
+    onRenderChange();
 }
 
 Element::Ptr Element::me() { return shared_from_this(); }
@@ -435,6 +436,11 @@ rdr::Component* Element::getWindowOrGuiParent() {
     }
 
     return e->component;
+}
+
+void Element::onRenderChange() {
+    fireSignal(Event(Event::RenderSettingsChanged));
+    if (component) { component->onRenderSettingChange(); }
 }
 
 } // namespace gui

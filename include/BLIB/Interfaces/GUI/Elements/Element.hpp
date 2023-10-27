@@ -530,6 +530,7 @@ private:
     GUI* getTopParent();
     const GUI* getTopParent() const;
     void updateUiState();
+    void onRenderChange();
 
     friend class Packer;
     friend class Renderer;
