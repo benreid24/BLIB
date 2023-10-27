@@ -1,4 +1,4 @@
-#include <BLIB/Interfaces/GUI/Renderers/RenderSettings.hpp>
+#include <BLIB/Interfaces/GUI/RenderSettings.hpp>
 
 namespace bl
 {

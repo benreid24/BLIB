@@ -1,6 +1,7 @@
 #include <BLIB/Interfaces/GUI/Renderer/Component.hpp>
 
 #include <BLIB/Interfaces/GUI/Elements/Element.hpp>
+#include <BLIB/Interfaces/GUI/Renderer/Renderer.hpp>
 
 namespace bl
 {
@@ -13,14 +14,21 @@ Component::Component()
 , owner(nullptr)
 , state(UIState::Regular) {}
 
-void Component::showTooltip(const std::string& text, const glm::vec2& pos) {
-    // TODO - call into renderer?
+void Component::setUIState(UIState state) {
+    renderer->handleComponentState(owner, state);
+    notifyUIState(state);
 }
 
-void Component::create(engine::Engine& engine, Renderer& r, Element& o, Component& windowOrGui) {
+void Component::showTooltip() { renderer->displayTooltip(owner); }
+
+void Component::dismissTooltip() { renderer->dismissTooltip(owner); }
+
+void Component::notifyUIState(UIState) {}
+
+void Component::create(engine::Engine& engine, Renderer& r, Element& o, Component* windowOrGui) {
     renderer = &r;
     owner    = &o;
-    doCreate(engine, r, windowOrGui);
+    doCreate(engine, r, windowOrGui ? *windowOrGui : *this);
     if (o.active()) {
         if (o.rightPressed() || o.leftPressed()) { setUIState(UIState::Pressed); }
         else if (o.mouseOver()) { setUIState(UIState::Highlighted); }
@@ -28,6 +36,8 @@ void Component::create(engine::Engine& engine, Renderer& r, Element& o, Componen
     }
     else { setUIState(UIState::Disabled); }
 }
+
+void Component::flash() { renderer->flash(owner); }
 
 } // namespace rdr
 } // namespace gui

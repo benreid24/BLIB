@@ -1,6 +1,7 @@
 #include <BLIB/Interfaces/GUI/Elements/Window.hpp>
 
 #include <BLIB/Interfaces/GUI/Packers/LinePacker.hpp>
+#include <BLIB/Interfaces/GUI/Renderer/Renderer.hpp>
 #include <BLIB/Interfaces/Utilities/ViewUtil.hpp>
 
 namespace bl
@@ -122,15 +123,9 @@ sf::Vector2f Window::minimumRequisition() const {
 
 void Window::closed() { fireSignal(Event(Event::Closed)); }
 
-void Window::doRender(sf::RenderTarget& target, sf::RenderStates states,
-                      const Renderer& renderer) const {
-    const sf::View oldView = target.getView();
-    target.setView(interface::ViewUtil::computeSubView(sf::FloatRect(getAcquisition()),
-                                                       renderer.getOriginalView()));
-    renderer.renderWindow(target, states, titlebar.get(), *this);
-    if (titlebar) { titlebar->render(target, states, renderer); }
-    elementArea->render(target, states, renderer);
-    target.setView(oldView);
+rdr::Component* Window::doPrepareRender(rdr::Renderer& renderer) {
+    prepareRenderChildren(renderer);
+    return renderer.createComponent<Window>(*this, getWindowOrGuiParent());
 }
 
 void Window::update(float dt) {

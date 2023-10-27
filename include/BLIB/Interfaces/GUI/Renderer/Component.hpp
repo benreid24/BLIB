@@ -44,15 +44,29 @@ public:
      *
      * @param state The visual state of the element
      */
-    virtual void setUIState(UIState state) = 0;
+    void setUIState(UIState state);
+
+    /**
+     * @brief Toggle the visibility of the UI component
+     *
+     * @param visible True to be rendered, false to hide
+     */
+    virtual void setVisible(bool visible) = 0;
 
     /**
      * @brief Call to display a tooltip for this component
-     *
-     * @param text The tooltip text
-     * @param position The triggering mouse position in overlay coordinates
      */
-    void showTooltip(const std::string& text, const glm::vec2& position);
+    void showTooltip();
+
+    /**
+     * @brief Call to dismiss the tooltip for this component
+     */
+    void dismissTooltip();
+
+    /**
+     * @brief Triggers this component to flash briefly
+     */
+    void flash();
 
 protected:
     /**
@@ -82,6 +96,14 @@ protected:
     virtual void doSceneRemove() = 0;
 
     /**
+     * @brief Called when the UI state changes. Derived classes may implement custom handlers here
+     *
+     * @param src The element changing state
+     * @param state The new UI state
+     */
+    virtual void notifyUIState(UIState state);
+
+    /**
      * @brief Type safe method to get the owning GUI Element. Throws if the type is incorrect
      *
      * @tparam T The derived Element type to cast to
@@ -102,7 +124,7 @@ private:
     Element* owner;
     UIState state;
 
-    void create(engine::Engine& engine, Renderer& renderer, Element& owner, Component& windowOrGui);
+    void create(engine::Engine& engine, Renderer& renderer, Element& owner, Component* windowOrGui);
 
     friend class Renderer;
 };

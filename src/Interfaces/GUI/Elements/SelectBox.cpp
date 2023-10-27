@@ -1,6 +1,7 @@
 #include <BLIB/Interfaces/GUI/Elements/SelectBox.hpp>
 
 #include <BLIB/Interfaces/GUI/Packers/LinePacker.hpp>
+#include <BLIB/Interfaces/GUI/Renderer/Renderer.hpp>
 #include <limits>
 
 namespace bl
@@ -56,9 +57,7 @@ void SelectBox::removeOption(unsigned int i) {
         values[i].first->remove();
         values.erase(values.begin() + i);
         if (selected > i) { selected -= 1; }
-        else if (selected == i) {
-            removeSelection();
-        }
+        else if (selected == i) { removeSelection(); }
     }
 }
 
@@ -103,9 +102,8 @@ void SelectBox::onAcquisition() { Packer::manuallyPackElement(content, getAcquis
 
 sf::Vector2f SelectBox::minimumRequisition() const { return content->getRequisition(); }
 
-void SelectBox::doRender(sf::RenderTarget& target, sf::RenderStates states,
-                         const Renderer& r) const {
-    content->render(target, states, r);
+rdr::Component* SelectBox::doPrepareRender(rdr::Renderer& renderer) {
+    return renderer.createComponent<SelectBox>(*this, getWindowOrGuiParent());
 }
 
 void SelectBox::onLabelClick(const Event&, Element* l) {

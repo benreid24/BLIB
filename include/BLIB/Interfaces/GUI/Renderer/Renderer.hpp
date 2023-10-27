@@ -13,6 +13,7 @@ class Engine;
 }
 namespace gui
 {
+class GUI;
 class Element;
 
 namespace rdr
@@ -29,9 +30,10 @@ public:
      * @brief Creates the GUI renderer
      *
      * @param engine The game engine instance
+     * @param gui The GUI instance
      * @param factory The component factory to use
      */
-    Renderer(engine::Engine& engine, FactoryTable& factory);
+    Renderer(engine::Engine& engine, GUI& gui, FactoryTable& factory);
 
     /**
      * @brief Creates a component for the given GUI element. Adds it to the current scene if any
@@ -42,7 +44,7 @@ public:
      * @return A pointer to the new component
      */
     template<typename TElem>
-    Component* createComponent(TElem& element, Element& windowOrGui) {
+    Component* createComponent(TElem& element, Component* windowOrGui) {
         const auto it = components.try_emplace(&element, factory.createComponent<TElem>()).first;
         it->second->create(engine, *this, element, windowOrGui);
         if (overlay) { it->second->doSceneAdd(overlay); }
@@ -68,11 +70,46 @@ public:
      */
     void removeFromOverlay();
 
+    /**
+     * @brief Displays the tooltip for the given element
+     *
+     * @param src The element to display the tooltip for
+     */
+    void displayTooltip(Element* src);
+
+    /**
+     * @brief Dismisses the tooltip for the given element
+     *
+     * @param src The element to dismiss the tooltip for
+     */
+    void dismissTooltip(Element* src);
+
+    /**
+     * @brief Flashes the given element
+     *
+     * @param src The element to flash
+     */
+    void flash(Element* src);
+
+    /**
+     * @brief Called when an element changes UI state
+     *
+     * @param src The element changing state
+     * @param state The new UI state of the element
+     */
+    void handleComponentState(Element* src, Component::UIState state);
+
 private:
     engine::Engine& engine;
+    GUI& gui;
     FactoryTable& factory;
     rc::Overlay* overlay;
     std::unordered_map<const Element*, Component::Ptr> components;
+
+    FlashProvider::Ptr flashProvider;
+    HighlightProvider::Ptr highlightProvider;
+    TooltipProvider::Ptr tooltipProvider;
+    Element* currentTooltip;
 };
 
 } // namespace rdr

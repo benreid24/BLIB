@@ -1,6 +1,7 @@
 #include <BLIB/Interfaces/GUI/Elements/Notebook.hpp>
 
 #include <BLIB/Interfaces/GUI/Packers/LinePacker.hpp>
+#include <BLIB/Interfaces/GUI/Renderer/Renderer.hpp>
 #include <BLIB/Interfaces/Utilities/ViewUtil.hpp>
 
 namespace bl
@@ -102,14 +103,10 @@ void Notebook::removePageByIndex(unsigned int i) {
         if (pages.size() > 1) {
             auto ni = it;
             if (i > 0) { --ni; }
-            else {
-                ++ni;
-            }
+            else { ++ni; }
             makePageActiveDirect(&*ni);
         }
-        else {
-            activePage = nullptr;
-        }
+        else { activePage = nullptr; }
         pages.erase(it);
     }
 }
@@ -124,14 +121,10 @@ void Notebook::removePageByName(const std::string& name) {
         if (pages.size() > 1) {
             auto ni = pit;
             if (ni != pages.begin()) { --ni; }
-            else {
-                ++ni;
-            }
+            else { ++ni; }
             makePageActiveDirect(&*ni);
         }
-        else {
-            activePage = nullptr;
-        }
+        else { activePage = nullptr; }
         pages.erase(pit);
     }
 }
@@ -172,14 +165,9 @@ void Notebook::onAcquisition() {
     constrainScroll();
 }
 
-void Notebook::doRender(sf::RenderTarget& target, sf::RenderStates states,
-                        const Renderer& renderer) const {
-    const sf::View oldView = target.getView();
-    target.setView(
-        interface::ViewUtil::computeSubView(getAcquisition(), renderer.getOriginalView()));
-    renderer.renderNotebookTabs(target, states, *this, scroll);
-    if (activePage) activePage->content->render(target, states, renderer);
-    target.setView(oldView);
+rdr::Component* Notebook::doPrepareRender(rdr::Renderer& renderer) {
+    Container::doPrepareRender(renderer);
+    return renderer.createComponent<Notebook>(*this, getWindowOrGuiParent());
 }
 
 void Notebook::makePageActiveDirect(Page* page) {
@@ -226,9 +214,7 @@ std::list<Notebook::Page>::iterator Notebook::getIterator(unsigned int i) {
     auto it = pages.begin();
     for (unsigned int j = 0; j < i; ++j) {
         if (it != pages.end()) { ++it; }
-        else {
-            break;
-        }
+        else { break; }
     }
     return it;
 }

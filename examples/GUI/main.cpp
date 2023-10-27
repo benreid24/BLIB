@@ -61,13 +61,11 @@ public:
     virtual void activate(engine::Engine& engine) override {
         engine.renderer().getObserver().pushScene<rc::Overlay>();
 
-        // TODO - refactor this
         gui = gui::GUI::create(
             engine,
             engine.renderer().getObserver(),
             gui::LinePacker::create(gui::LinePacker::Vertical, 4, gui::LinePacker::Compact),
             {200, 100, 400, 400});
-        gui::DebugRenderer::Ptr renderer = gui::DebugRenderer::create();
 
         gui->setOutlineThickness(1);
         gui->setColor(sf::Color::Transparent, sf::Color::Red);
@@ -199,6 +197,8 @@ public:
         nb->addPage("page4", "Radio buttons", box);
         testWindow->pack(nb, true, true);
         gui->pack(testWindow);
+
+        gui->addToOverlay();
     }
 
     virtual void deactivate(engine::Engine& engine) override {

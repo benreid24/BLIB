@@ -1,5 +1,7 @@
 #include <BLIB/Interfaces/GUI/Elements/ProgressBar.hpp>
 
+#include <BLIB/Interfaces/GUI/Renderer/Renderer.hpp>
+
 namespace bl
 {
 namespace gui
@@ -23,9 +25,8 @@ ProgressBar::FillDirection ProgressBar::getFillDirection() const { return direct
 
 sf::Vector2f ProgressBar::minimumRequisition() const { return {5.f, 5.f}; }
 
-void ProgressBar::doRender(sf::RenderTarget& target, sf::RenderStates states,
-                           const Renderer& renderer) const {
-    renderer.renderProgressBar(target, states, *this);
+rdr::Component* ProgressBar::doPrepareRender(rdr::Renderer& renderer) {
+    return renderer.createComponent<ProgressBar>(*this, getWindowOrGuiParent());
 }
 
 } // namespace gui

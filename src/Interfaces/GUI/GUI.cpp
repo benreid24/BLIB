@@ -13,7 +13,7 @@ GUI::GUI(engine::Engine& engine, rc::Observer& observer, const gui::Packer::Ptr&
          const sf::FloatRect& region, rdr::FactoryTable* factory)
 : Box(packer)
 , observer(observer)
-, renderer(engine, factory ? *factory : rdr::FactoryTable::getDefaultTable()) {
+, renderer(engine, *this, factory ? *factory : rdr::FactoryTable::getDefaultTable()) {
     setOutlineThickness(0.f);
     queuedActions.reserve(4);
     assignAcquisition(region.width > 0.f ?
@@ -49,6 +49,7 @@ void GUI::queueAction(const Element::QueuedAction& a) { queuedActions.emplace_ba
 
 void GUI::addToOverlay(rc::Overlay* overlay) {
     if (!overlay) { overlay = observer.getOrCreateSceneOverlay(); }
+    prepareRender(renderer);
     renderer.addToOverlay(overlay);
     bl::event::Dispatcher::subscribe(this);
 }

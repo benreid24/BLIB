@@ -3,6 +3,9 @@
 
 #include <BLIB/Interfaces/GUI/Elements/Element.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/ComponentFactory.hpp>
+#include <BLIB/Interfaces/GUI/Renderer/FlashProvider.hpp>
+#include <BLIB/Interfaces/GUI/Renderer/HighlightProvider.hpp>
+#include <BLIB/Interfaces/GUI/Renderer/TooltipProvider.hpp>
 #include <typeindex>
 #include <unordered_map>
 
@@ -31,6 +34,27 @@ public:
      * @brief Returns the global default table. GUI's use this table unless overridden
      */
     static FactoryTable& getDefaultTable();
+
+    /**
+     * @brief Sets the callback to use to create flash providers
+     *
+     * @param factory The factory callback
+     */
+    void setFlashProviderFactory(FlashProvider::Factory&& factory);
+
+    /**
+     * @brief Sets the callback to use to create highlight providers
+     *
+     * @param factory The factory callback
+     */
+    void setHighlightProviderFactory(HighlightProvider::Factory&& factory);
+
+    /**
+     * @brief Sets the callback to use to create tooltip providers
+     *
+     * @param factory The factory callback
+     */
+    void setTooltipProviderFactory(TooltipProvider::Factory&& factory);
 
     /**
      * @brief Adds a factory to the table
@@ -73,8 +97,26 @@ public:
         return it->second->create();
     }
 
+    /**
+     * @brief Creates a flash provider
+     */
+    FlashProvider::Ptr createFlashProvider() const;
+
+    /**
+     * @brief Creates a highlight provider
+     */
+    HighlightProvider::Ptr createHighlightProvider() const;
+
+    /**
+     * @brief Creates a tooltip provider
+     */
+    TooltipProvider::Ptr createTooltipProvider() const;
+
 private:
     std::unordered_map<std::type_index, ComponentFactory::Ptr> table;
+    FlashProvider::Factory flashFactory;
+    HighlightProvider::Factory highlightFactory;
+    TooltipProvider::Factory tooltipFactory;
 };
 
 } // namespace rdr

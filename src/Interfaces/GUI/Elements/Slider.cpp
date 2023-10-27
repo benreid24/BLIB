@@ -1,6 +1,7 @@
 #include <BLIB/Interfaces/GUI/Elements/Slider.hpp>
 
 #include <BLIB/Interfaces/GUI/Packers/Packer.hpp>
+#include <BLIB/Interfaces/GUI/Renderer/Renderer.hpp>
 #include <cmath>
 
 namespace bl
@@ -84,17 +85,9 @@ sf::Vector2f Slider::minimumRequisition() const {
     return {max.x, sum.y};
 }
 
-void Slider::doRender(sf::RenderTarget& target, sf::RenderStates states,
-                      const Renderer& renderer) const {
-    if (!renderedButs) {
-        renderedButs = true;
-        renderer.renderSliderButton(increaseImg->getTexture(), dir == Horizontal, true);
-        renderer.renderSliderButton(decreaseImg->getTexture(), dir == Horizontal, false);
-    }
-    renderer.renderSlider(target, states, *this);
-    slider->render(target, states, renderer);
-    increaseBut->render(target, states, renderer);
-    decreaseBut->render(target, states, renderer);
+rdr::Component* Slider::doPrepareRender(rdr::Renderer& renderer) {
+    prepareRenderChildren(renderer);
+    return renderer.createComponent<Slider>(*this, getWindowOrGuiParent());
 }
 
 void Slider::fireChanged() { fireSignal(Event(Event::ValueChanged, value)); }

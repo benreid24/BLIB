@@ -1,5 +1,6 @@
 #include <BLIB/Interfaces/GUI/Elements/ScrollArea.hpp>
 
+#include <BLIB/Interfaces/GUI/Renderer/Renderer.hpp>
 #include <BLIB/Interfaces/Utilities.hpp>
 
 namespace bl
@@ -215,25 +216,9 @@ bool ScrollArea::propagateEvent(const Event& event) {
     return false;
 }
 
-void ScrollArea::doRender(sf::RenderTarget& target, sf::RenderStates states,
-                          const Renderer& renderer) const {
-    // Render background
-    renderer.renderBox(target, states, *this);
-
-    // Render scrollbars
-    horScrollbar->render(target, states, renderer);
-    vertScrollbar->render(target, states, renderer);
-
-    // Preserve old view and compute new
-    const sf::View oldView = target.getView();
-    target.setView(interface::ViewUtil::computeSubView(sf::FloatRect{getPosition(), availableSize},
-                                                       renderer.getOriginalView()));
-
-    // Render content
-    content->render(target, states, renderer);
-
-    // Restore old view
-    target.setView(oldView);
+rdr::Component* ScrollArea::doPrepareRender(rdr::Renderer& renderer) {
+    prepareRenderChildren(renderer);
+    return renderer.createComponent<ScrollArea>(*this, getWindowOrGuiParent());
 }
 
 void ScrollArea::updateContentPos() { content->setPosition(getPosition() + offset); }

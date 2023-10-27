@@ -2,6 +2,7 @@
 
 #include <BLIB/Interfaces/GUI/Elements/Label.hpp>
 #include <BLIB/Interfaces/GUI/Packers/Packer.hpp>
+#include <BLIB/Interfaces/GUI/Renderer/Renderer.hpp>
 #include <Interfaces/GUI/Data/Font.hpp>
 
 namespace bl
@@ -47,11 +48,9 @@ bool Button::propagateEvent(const Event& event) {
     return false; // so the button can have proper mouseover and click events
 }
 
-void Button::doRender(sf::RenderTarget& target, sf::RenderStates states,
-                      const Renderer& renderer) const {
-    renderer.renderButton(target, states, *this);
-    child->render(target, states, renderer);
-    renderer.renderMouseoverOverlay(target, states, this);
+rdr::Component* Button::doPrepareRender(rdr::Renderer& renderer) {
+    child->prepareRender(renderer);
+    return renderer.createComponent<Button>(*this, getWindowOrGuiParent());
 }
 
 } // namespace gui

@@ -1,5 +1,7 @@
 #include <BLIB/Interfaces/GUI/Elements/Canvas.hpp>
 
+#include <BLIB/Interfaces/GUI/Renderer/Renderer.hpp>
+
 namespace bl
 {
 namespace gui
@@ -45,9 +47,8 @@ sf::Vector2f Canvas::minimumRequisition() const {
     return size.value_or(sf::Vector2f(texture.getSize().x, texture.getSize().y));
 }
 
-void Canvas::doRender(sf::RenderTarget& target, sf::RenderStates states,
-                      const Renderer& renderer) const {
-    renderer.renderImage(target, states, this, sprite);
+rdr::Component* Canvas::doPrepareRender(rdr::Renderer& renderer) {
+    return renderer.createComponent<Canvas>(*this, getWindowOrGuiParent());
 }
 
 void Canvas::setScale() {

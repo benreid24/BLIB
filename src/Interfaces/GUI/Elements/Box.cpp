@@ -1,5 +1,7 @@
 #include <BLIB/Interfaces/GUI/Elements/Box.hpp>
 
+#include <BLIB/Interfaces/GUI/Renderer/Renderer.hpp>
+
 namespace bl
 {
 namespace gui
@@ -48,10 +50,9 @@ void Box::pack(Element::Ptr e, bool fx, bool fy) {
     add(e);
 }
 
-void Box::doRender(sf::RenderTarget& target, sf::RenderStates states,
-                   const Renderer& renderer) const {
-    renderer.renderBox(target, states, *this);
-    renderChildren(target, states, renderer, computeView);
+rdr::Component* Box::doPrepareRender(rdr::Renderer& renderer) {
+    Container::doPrepareRender(renderer);
+    return renderer.createComponent<Box>(*this, getWindowOrGuiParent());
 }
 
 } // namespace gui

@@ -1,6 +1,7 @@
 #include <BLIB/Interfaces/GUI/Elements/ComboBox.hpp>
 
 #include <BLIB/Interfaces/GUI/Packers/LinePacker.hpp>
+#include <BLIB/Interfaces/GUI/Renderer/Renderer.hpp>
 #include <BLIB/Interfaces/Utilities/ViewUtil.hpp>
 
 namespace bl
@@ -149,37 +150,8 @@ bool ComboBox::handleScroll(const Event& event) {
     return false;
 }
 
-void ComboBox::doRender(sf::RenderTarget& target, sf::RenderStates states,
-                        const Renderer& renderer) const {
-    unsigned int moused = options.size();
-    for (unsigned int i = 0; i < labels.size(); ++i) {
-        if (labels[i]->mouseOver()) {
-            moused = i;
-            break;
-        }
-    }
-
-    if (!arrowRendered) {
-        arrowRendered = true;
-        renderer.renderComboBoxDropdownArrow(arrow->getTexture());
-    }
-
-    renderer.renderComboBox(target, states, *this);
-    arrow->render(target, states, renderer);
-
-    if (opened) {
-        const sf::View oldView = target.getView();
-        target.setView(
-            interface::ViewUtil::computeSubView(labelRegion, renderer.getOriginalView()));
-        states.transform.translate(0, -scroll);
-        renderer.renderComboBoxDropdownBoxes(
-            target, states, *this, labelSize, opened ? options.size() : 0, moused);
-        for (const Label::Ptr& option : labels) { option->render(target, states, renderer); }
-        target.setView(oldView);
-    }
-    else if (selected >= 0) {
-        labels[selected]->render(target, states, renderer);
-    }
+rdr::Component* ComboBox::doPrepareRender(rdr::Renderer& renderer) {
+    return renderer.createComponent<ComboBox>(*this, getWindowOrGuiParent());
 }
 
 void ComboBox::onSettings() {

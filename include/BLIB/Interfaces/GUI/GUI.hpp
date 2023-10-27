@@ -90,6 +90,11 @@ public:
      */
     void removeFromOverlay();
 
+    /**
+     * @brief Returns the last known mouse position in overlay space
+     */
+    const glm::vec2& getMousePosition() const { return mousePos; }
+
 private:
     rc::Observer& observer;
     std::vector<Element::QueuedAction> queuedActions;

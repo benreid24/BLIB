@@ -1,6 +1,6 @@
 #include <BLIB/Interfaces/GUI/Elements/TextEntry.hpp>
 
-#include <BLIB/Interfaces/GUI/Renderers/RendererUtil.hpp>
+#include <BLIB/Interfaces/GUI/Renderer/Renderer.hpp>
 #include <Interfaces/GUI/Data/Font.hpp>
 #include <cmath>
 #include <type_traits>
@@ -89,13 +89,12 @@ sf::Vector2f TextEntry::minimumRequisition() const {
     return {10.f, csize + paddedSpacing * static_cast<float>(lineCount)};
 }
 
-void TextEntry::doRender(sf::RenderTarget& target, sf::RenderStates states,
-                         const Renderer& renderer) const {
-    renderer.renderTextEntry(target, states, *this);
+rdr::Component* TextEntry::doPrepareRender(rdr::Renderer& renderer) {
+    return renderer.createComponent<TextEntry>(*this, getWindowOrGuiParent());
 }
 
 void TextEntry::recalcText() {
-    renderText = RendererUtil::buildRenderText(input, getAcquisition(), renderSettings());
+    // TODO - update
     renderText.setPosition(getPosition() - textOffset);
 }
 

@@ -69,6 +69,7 @@ void Container::add(const Element::Ptr& e) {
     children.emplace_back(e);
     zorder.insert(zorder.begin(), e.get());
     setChildParent(e.get());
+    if (renderer) { e->prepareRender(*renderer); }
     makeDirty();
 }
 
@@ -97,7 +98,7 @@ bool Container::propagateEvent(const Event& event) {
 
 bool Container::handleScroll(const Event& event) {
     if (!getAcquisition().contains(event.mousePosition())) return false;
-    
+
     for (Element* e : zorder) {
         if (e->handleScroll(event)) { return true; }
     }
@@ -111,11 +112,15 @@ void Container::update(float dt) {
     const bool soiled = clearFlag || !toRemove.empty();
     if (clearFlag) {
         clearFlag = false;
+        if (renderer) {
+            for (const auto& e : children) { renderer->destroyComponent(*e); }
+        }
         children.clear();
         zorder.clear();
     }
     else {
         for (const Element* e : toRemove) {
+            if (renderer) { renderer->destroyComponent(*e); }
             deleteElement(children, e);
             deleteElement(zorder, e);
         }
@@ -128,33 +133,17 @@ void Container::update(float dt) {
     for (Element* e : zorder) { e->update(dt); }
 }
 
-void Container::renderChildren(sf::RenderTarget& target, sf::RenderStates states,
-                               const Renderer& renderer, bool changeView) const {
-    // Save old view
-    const sf::View oldView = target.getView();
-
-    // Compute new view
-    if (changeView) {
-        sf::View view = interface::ViewUtil::computeSubView(sf::FloatRect{getAcquisition()},
-                                                            renderer.getOriginalView());
-        interface::ViewUtil::constrainView(view, oldView);
-        target.setView(view);
-    }
-
-    // Draw children
-    for (auto it = zorder.rbegin(); it != zorder.rend(); ++it) {
-        (*it)->render(target, states, renderer);
-    }
-
-    // Restore view
-    target.setView(oldView);
-}
-
 bool Container::receivesOutOfBoundsEvents() const {
     for (const auto& c : children) {
         if (c->receivesOutOfBoundsEvents()) return true;
     }
     return false;
+}
+
+rdr::Component* Container::doPrepareRender(rdr::Renderer& r) {
+    renderer = &r;
+    for (auto& child : children) { child->prepareRender(r); }
+    return nullptr;
 }
 
 } // namespace gui

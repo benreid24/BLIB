@@ -2,8 +2,8 @@
 #define BLIB_GUI_ELEMENTS_ELEMENT_HPP
 
 #include <BLIB/Interfaces/GUI/Event.hpp>
-#include <BLIB/Interfaces/GUI/Renderers/RenderSettings.hpp>
-#include <BLIB/Interfaces/GUI/Renderers/Renderer.hpp>
+#include <BLIB/Interfaces/GUI/RenderSettings.hpp>
+#include <BLIB/Interfaces/GUI/Renderer/Component.hpp>
 #include <BLIB/Interfaces/GUI/Signal.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 #include <SFML/Graphics.hpp>
@@ -15,6 +15,7 @@ namespace bl
 {
 namespace gui
 {
+class Container;
 class Packer;
 class Slider;
 class GUI;
@@ -25,7 +26,6 @@ class GUI;
  *        of the parent element
  *
  * @ingroup GUI
- *
  */
 class Element
 : public bl::util::NonCopyable
@@ -228,20 +228,11 @@ public:
     virtual bool handleScroll(const Event& scroll);
 
     /**
-     * @brief Performs any custom logic of the Element
+     * @brief Updates this element
      *
      * @param dt Time elapsed, in seconds, since last update
      */
     virtual void update(float dt);
-
-    /**
-     * @brief Renders the element using the given renderer
-     *
-     * @param target The target to render to
-     * @param states Render states to apply
-     * @param renderer The renderer to use
-     */
-    void render(sf::RenderTarget& target, sf::RenderStates states, const Renderer& renderer) const;
 
     /**
      * @brief Set the character size. Default is 12. Doesn't apply to all Element types
@@ -379,12 +370,19 @@ public:
     void queueUpdateAction(const QueuedAction& action);
 
     /**
-     * @brief Returns whether or not this element should receive events that occured outside the
+     * @brief Returns whether or not this element should receive events that occurred outside the
      *        acquisition of its parent
      *
      * @return True if it should take outside events, false for contained only
      */
     virtual bool receivesOutOfBoundsEvents() const;
+
+    /**
+     * @brief Creates the visual components for this element
+     *
+     * @param renderer The GUI renderer instance
+     */
+    void prepareRender(rdr::Renderer& renderer);
 
 protected:
     /**
@@ -452,16 +450,13 @@ protected:
     void fireSignal(const Event& action);
 
     /**
-     * @brief Actually performs the rendering. This is only called if the element is visible.
-     *        Child classes may call specialized methods in the renderer, or implement their
-     *        own rendering
+     * @brief Called when the element is added to the tree. Derived classes should call into the
+     *        renderer to create their visual components in this method
      *
-     * @param target The target to render to
-     * @param states Render states to apply
-     * @param renderer The renderer to use
+     * @param renderer The renderer to use to create visual Components
+     * @return The visual component for this element
      */
-    virtual void doRender(sf::RenderTarget& target, sf::RenderStates states,
-                          const Renderer& renderer) const = 0;
+    virtual rdr::Component* doPrepareRender(rdr::Renderer& renderer) = 0;
 
     /**
      * @brief Set the acquisition of this element. Meant to be called by a Packer
@@ -495,6 +490,12 @@ protected:
     virtual void requestMakeDirty(const Element* childRequester);
 
     /**
+     * @brief Traverses the parent tree and returns the first window parent, or the GUI if none.
+     *        Will return this element if this element is one of those two types
+     */
+    rdr::Component* getWindowOrGuiParent();
+
+    /**
      * @brief Returns the Ptr to this Element
      *
      * @return Element::Ptr Ptr to this Element
@@ -502,6 +503,7 @@ protected:
     Ptr me();
 
 private:
+    rdr::Component* component;
     RenderSettings settings;
     std::optional<sf::Vector2f> requisition;
     sf::Vector2f position;    // relative to parent
@@ -522,16 +524,17 @@ private:
     bool isLeftPressed;
     bool isRightPressed;
     sf::Vector2f dragStart;
-    float flashTime;
     float hoverTime;
 
     bool processAction(const Event& action);
     GUI* getTopParent();
     const GUI* getTopParent() const;
+    void updateUiState();
 
     friend class Packer;
     friend class Renderer;
     friend class Slider;
+    friend class Container;
 };
 
 } // namespace gui

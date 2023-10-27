@@ -140,14 +140,12 @@ protected:
     virtual bool shouldPack() const override;
 
     /**
-     * @brief Renders the window and children elements to the given target
+     * @brief Creates the visual component for this element
      *
-     * @param target The target to render to
-     * @param states Render states to use
-     * @param renderer The renderer to use
+     * @param renderer The renderer to use to create visual Components
+     * @return The visual component for this element
      */
-    virtual void doRender(sf::RenderTarget& target, sf::RenderStates states,
-                          const Renderer& renderer) const override;
+    virtual rdr::Component* doPrepareRender(rdr::Renderer& renderer) override;
 
     /**
      * @brief Propagates the event to the window's children and returns true if the event was

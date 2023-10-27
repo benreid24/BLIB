@@ -1,5 +1,7 @@
 #include <BLIB/Interfaces/GUI/Elements/Image.hpp>
 
+#include <BLIB/Interfaces/GUI/Renderer/Renderer.hpp>
+
 namespace bl
 {
 namespace gui
@@ -67,9 +69,8 @@ sf::Vector2f Image::minimumRequisition() const {
     return size.value_or(sf::Vector2f(texture->getSize().x, texture->getSize().y));
 }
 
-void Image::doRender(sf::RenderTarget& target, sf::RenderStates states,
-                     const Renderer& renderer) const {
-    renderer.renderImage(target, states, this, sprite);
+rdr::Component* Image::doPrepareRender(rdr::Renderer& renderer) {
+    return renderer.createComponent<Image>(*this, getWindowOrGuiParent());
 }
 
 void Image::setScale() {

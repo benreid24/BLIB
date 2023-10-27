@@ -1,5 +1,6 @@
 #include <BLIB/Interfaces/GUI/Elements/Label.hpp>
 
+#include <BLIB/Interfaces/GUI/Renderer/Renderer.hpp>
 #include <Interfaces/GUI/Data/Font.hpp>
 
 namespace bl
@@ -23,9 +24,8 @@ void Label::setText(const std::string& t) {
 
 const std::string& Label::getText() const { return text; }
 
-void Label::doRender(sf::RenderTarget& target, sf::RenderStates states,
-                     const Renderer& renderer) const {
-    renderer.renderLabel(target, states, *this);
+rdr::Component* Label::doPrepareRender(rdr::Renderer& renderer) {
+    return renderer.createComponent<Label>(*this, getWindowOrGuiParent());
 }
 
 sf::Vector2f Label::minimumRequisition() const {

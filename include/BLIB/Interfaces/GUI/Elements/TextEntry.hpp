@@ -113,14 +113,12 @@ protected:
     virtual sf::Vector2f minimumRequisition() const override;
 
     /**
-     * @brief Renders the text entry
+     * @brief Creates the visual component for this element
      *
-     * @param target Target to render to
-     * @param states RenderStates to apply
-     * @param renderer Renderer to use
+     * @param renderer The renderer to use to create visual Components
+     * @return The visual component for this element
      */
-    virtual void doRender(sf::RenderTarget& target, sf::RenderStates states,
-                          const Renderer& renderer) const override;
+    virtual rdr::Component* doPrepareRender(rdr::Renderer& renderer) override;
 
 private:
     const unsigned lineCount;

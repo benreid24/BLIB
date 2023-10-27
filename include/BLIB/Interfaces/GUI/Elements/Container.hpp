@@ -50,7 +50,7 @@ public:
     void clearChildren(bool immediate = false);
 
     /**
-     * @brief Returns whether or not this element should receive events that occured outside the
+     * @brief Returns whether or not this element should receive events that occurred outside the
      *        acquisition of its parent
      *
      * @return True if it should take outside events, false for contained only
@@ -75,7 +75,7 @@ protected:
     /**
      * @brief Returns a non mutable list of the child elements. Each element is mutable
      *
-     * @return const std::vector<Element::Ptr>& A creference to the list of packable elements
+     * @return const std::vector<Element::Ptr>& A reference to the list of packable elements
      */
     const std::vector<Element::Ptr>& getChildren() const;
 
@@ -104,7 +104,7 @@ protected:
     /**
      * @brief Passes the event to all child elements, in Z order, and returns true on the first
      *        Element that consumes the event, or false if none consume. Note that if derived
-     *        elements override this they should still call it to propogate the event down
+     *        elements override this they should still call it to propagate the event down
      *
      * @param event The event that fired
      * @return True if the event was consumed, false otherwise
@@ -120,17 +120,15 @@ protected:
     virtual bool handleScroll(const Event& scroll) override;
 
     /**
-     * @brief Renders all child elements
+     * @brief Calls prepareRender for all children. This method should be called by derived classes
      *
-     * @param target The target to render to
-     * @param states Render states to apply
-     * @param renderer The renderer to use
-     * @param changeView True to compute a new view, false to use the existing
+     * @param renderer The renderer instance
+     * @return nullptr
      */
-    void renderChildren(sf::RenderTarget& target, sf::RenderStates states, const Renderer& renderer,
-                        bool changeView = true) const;
+    virtual rdr::Component* doPrepareRender(rdr::Renderer& renderer) override;
 
 private:
+    rdr::Renderer* renderer;
     std::vector<Element::Ptr> children;
     std::vector<Element*> zorder;
     std::list<const Element*> toRemove;
