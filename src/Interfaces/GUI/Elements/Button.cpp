@@ -50,7 +50,7 @@ bool Button::propagateEvent(const Event& event) {
 
 rdr::Component* Button::doPrepareRender(rdr::Renderer& renderer) {
     child->prepareRender(renderer);
-    return renderer.createComponent<Button>(*this, getWindowOrGuiParent());
+    return renderer.createComponent<Button>(*this, getWindowOrGuiParentComponent());
 }
 
 } // namespace gui

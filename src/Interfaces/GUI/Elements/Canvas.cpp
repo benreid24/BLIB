@@ -48,7 +48,7 @@ sf::Vector2f Canvas::minimumRequisition() const {
 }
 
 rdr::Component* Canvas::doPrepareRender(rdr::Renderer& renderer) {
-    return renderer.createComponent<Canvas>(*this, getWindowOrGuiParent());
+    return renderer.createComponent<Canvas>(*this, getWindowOrGuiParentComponent());
 }
 
 void Canvas::setScale() {

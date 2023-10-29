@@ -151,7 +151,7 @@ bool ComboBox::handleScroll(const Event& event) {
 }
 
 rdr::Component* ComboBox::doPrepareRender(rdr::Renderer& renderer) {
-    return renderer.createComponent<ComboBox>(*this, getWindowOrGuiParent());
+    return renderer.createComponent<ComboBox>(*this, getWindowOrGuiParentComponent());
 }
 
 void ComboBox::onSettings() {

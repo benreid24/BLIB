@@ -90,7 +90,7 @@ sf::Vector2f TextEntry::minimumRequisition() const {
 }
 
 rdr::Component* TextEntry::doPrepareRender(rdr::Renderer& renderer) {
-    return renderer.createComponent<TextEntry>(*this, getWindowOrGuiParent());
+    return renderer.createComponent<TextEntry>(*this, getWindowOrGuiParentComponent());
 }
 
 void TextEntry::recalcText() {

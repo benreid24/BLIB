@@ -19,7 +19,7 @@ CheckButton::CheckButton(const Element::Ptr& child)
 : ToggleButton(child) {}
 
 rdr::Component* CheckButton::doPrepareRender(rdr::Renderer& renderer) {
-    return renderer.createComponent<CheckButton>(*this, getWindowOrGuiParent());
+    return renderer.createComponent<CheckButton>(*this, getWindowOrGuiParentComponent());
 }
 
 } // namespace gui

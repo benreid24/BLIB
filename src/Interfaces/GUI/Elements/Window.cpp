@@ -125,7 +125,7 @@ void Window::closed() { fireSignal(Event(Event::Closed)); }
 
 rdr::Component* Window::doPrepareRender(rdr::Renderer& renderer) {
     prepareRenderChildren(renderer);
-    return renderer.createComponent<Window>(*this, getWindowOrGuiParent());
+    return renderer.createComponent<Window>(*this, getWindowOrGuiParentComponent());
 }
 
 void Window::update(float dt) {

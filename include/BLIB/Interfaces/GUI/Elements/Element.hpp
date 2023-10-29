@@ -493,7 +493,13 @@ protected:
      * @brief Traverses the parent tree and returns the first window parent, or the GUI if none.
      *        Will return this element if this element is one of those two types
      */
-    rdr::Component* getWindowOrGuiParent();
+    rdr::Component* getWindowOrGuiParentComponent();
+
+    /**
+     * @brief Traverses the parent tree and returns the first window parent, or the GUI if none.
+     *        Will return this element if this element is one of those two types
+     */
+    Element& getWindowOrGuiParent();
 
     /**
      * @brief Returns the Ptr to this Element

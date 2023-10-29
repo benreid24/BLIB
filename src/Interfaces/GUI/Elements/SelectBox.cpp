@@ -103,7 +103,7 @@ void SelectBox::onAcquisition() { Packer::manuallyPackElement(content, getAcquis
 sf::Vector2f SelectBox::minimumRequisition() const { return content->getRequisition(); }
 
 rdr::Component* SelectBox::doPrepareRender(rdr::Renderer& renderer) {
-    return renderer.createComponent<SelectBox>(*this, getWindowOrGuiParent());
+    return renderer.createComponent<SelectBox>(*this, getWindowOrGuiParentComponent());
 }
 
 void SelectBox::onLabelClick(const Event&, Element* l) {

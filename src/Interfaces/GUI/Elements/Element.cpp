@@ -288,11 +288,15 @@ bool Element::expandsHeight() const { return fillY; }
 void Element::assignAcquisition(const sf::FloatRect& acq) {
     markClean();
     cachedArea = acq;
-    if (parent) {
-        position = sf::Vector2f(cachedArea.left, cachedArea.top) - parent->getPosition();
-    }
+    const sf::Vector2f globalPos(cachedArea.left, cachedArea.top);
+    if (parent) { position = globalPos - parent->getPosition(); }
+    else { position = globalPos; }
     fireSignal(Event(Event::AcquisitionChanged));
-    if (component) { component->onAcquisition(acq); }
+    if (component) {
+        component->onAcquisition(position,
+                                 globalPos - getWindowOrGuiParent().getPosition(),
+                                 sf::Vector2f(cachedArea.width, cachedArea.height));
+    }
 }
 
 void Element::setPosition(const sf::Vector2f& pos) {
@@ -300,10 +304,10 @@ void Element::setPosition(const sf::Vector2f& pos) {
     dragStart += diff;
     cachedArea.left = pos.x;
     cachedArea.top  = pos.y;
-    if (parent) {
-        position = sf::Vector2f(cachedArea.left, cachedArea.top) - parent->getPosition();
-    }
+    if (parent) { position = pos - parent->getPosition(); }
+    else { position = pos; }
     fireSignal(Event(Event::Moved));
+    if (component) { component->onMove(position, pos - getWindowOrGuiParent().getPosition()); }
 }
 
 void Element::recalculatePosition() {
@@ -424,7 +428,7 @@ void Element::prepareRender(rdr::Renderer& r) {
     updateUiState();
 }
 
-rdr::Component* Element::getWindowOrGuiParent() {
+Element& Element::getWindowOrGuiParent() {
     const auto passes = [](Element* e) -> bool {
         return dynamic_cast<Window*>(e) != nullptr || dynamic_cast<GUI*>(e) != nullptr;
     };
@@ -435,7 +439,11 @@ rdr::Component* Element::getWindowOrGuiParent() {
         if (!e) { throw std::runtime_error("Failed to find suitable Element parent"); }
     }
 
-    return e->component;
+    return *e;
+}
+
+rdr::Component* Element::getWindowOrGuiParentComponent() {
+    return getWindowOrGuiParent().component;
 }
 
 void Element::onRenderChange() {

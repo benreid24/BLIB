@@ -33,7 +33,7 @@ RadioButton::~RadioButton() { rgroup->removeButton(this); }
 RadioButton::Group* RadioButton::getRadioGroup() { return rgroup; }
 
 rdr::Component* RadioButton::doPrepareRender(rdr::Renderer& renderer) {
-    return renderer.createComponent<RadioButton>(*this, getWindowOrGuiParent());
+    return renderer.createComponent<RadioButton>(*this, getWindowOrGuiParentComponent());
 }
 
 void RadioButton::onClick() {

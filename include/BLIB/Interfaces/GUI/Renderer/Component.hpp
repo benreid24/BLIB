@@ -72,9 +72,20 @@ public:
     /**
      * @brief Called when the element gets its acquisition (re)assigned
      *
-     * @param acquisition The acquisition of the element in overlay space
+     * @param posFromParent The position relative to the immediate parent
+     * @param posFromWindow The position relative to the window (or gui) ancestor
+     * @param size The size of this element
      */
-    virtual void onAcquisition(const sf::FloatRect& acquisition) = 0;
+    void onAcquisition(const sf::Vector2f& posFromParent, const sf::Vector2f& posFromWindow,
+                       const sf::Vector2f& size);
+
+    /**
+     * @brief Called when the element is moved
+     *
+     * @param posFromParent The position relative to the immediate parent
+     * @param posFromWindow The position relative to the window (or gui) ancestor
+     */
+    void onMove(const sf::Vector2f& posFromParent, const sf::Vector2f& posFromWindow);
 
     /**
      * @brief Called when element state changes. This is element specific, but can mean toggle
@@ -132,6 +143,25 @@ protected:
     virtual void notifyUIState(UIState state);
 
     /**
+     * @brief Called when the relative position or size of this component changes
+     *
+     * @param posFromParent The position relative to the immediate parent
+     * @param posFromWindow The position relative to the window (or gui) ancestor
+     * @param size The size of this element
+     */
+    virtual void handleAcquisition(const sf::Vector2f& posFromParent,
+                                   const sf::Vector2f& posFromWindow, const sf::Vector2f& size) = 0;
+
+    /**
+     * @brief Called when the element is moved
+     *
+     * @param posFromParent The position relative to the immediate parent
+     * @param posFromWindow The position relative to the window (or gui) ancestor
+     */
+    virtual void handleMove(const sf::Vector2f& posFromParent,
+                            const sf::Vector2f& posFromWindow) = 0;
+
+    /**
      * @brief Type safe method to get the owning GUI Element. Throws if the type is incorrect
      *
      * @tparam T The derived Element type to cast to
@@ -152,6 +182,9 @@ private:
     Renderer* renderer;
     Element* owner;
     UIState state;
+    sf::Vector2f priorPos;
+    sf::Vector2f priorWindowPos;
+    sf::Vector2f priorSize;
 
     void create(engine::Engine& engine, Renderer& renderer, Element& owner, Component* windowOrGui);
 

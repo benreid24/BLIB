@@ -25,7 +25,7 @@ void Label::setText(const std::string& t) {
 const std::string& Label::getText() const { return text; }
 
 rdr::Component* Label::doPrepareRender(rdr::Renderer& renderer) {
-    return renderer.createComponent<Label>(*this, getWindowOrGuiParent());
+    return renderer.createComponent<Label>(*this, getWindowOrGuiParentComponent());
 }
 
 sf::Vector2f Label::minimumRequisition() const {

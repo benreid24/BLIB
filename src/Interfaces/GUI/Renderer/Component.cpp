@@ -13,7 +13,10 @@ Component::Component(HighlightState hs)
 : highlightState(hs)
 , renderer(nullptr)
 , owner(nullptr)
-, state(UIState::Regular) {}
+, state(UIState::Regular)
+, priorPos(-1.f, -1.f)
+, priorWindowPos(-1.f, -1.f)
+, priorSize(-1.f, -1.f) {}
 
 void Component::setUIState(UIState state) {
     if (highlightState == HighlightState::HighlightedByMouse) {
@@ -41,6 +44,24 @@ void Component::create(engine::Engine& engine, Renderer& r, Element& o, Componen
 }
 
 void Component::flash() { renderer->flash(owner); }
+
+void Component::onAcquisition(const sf::Vector2f& posFromParent, const sf::Vector2f& posFromWindow,
+                              const sf::Vector2f& size) {
+    if (posFromParent != priorPos || posFromWindow != priorWindowPos || size != priorSize) {
+        priorPos       = posFromParent;
+        priorWindowPos = posFromWindow;
+        priorSize      = size;
+        handleAcquisition(priorPos, priorWindowPos, priorSize);
+    }
+}
+
+void Component::onMove(const sf::Vector2f& posFromParent, const sf::Vector2f& posFromWindow) {
+    if (priorPos != posFromParent || priorWindowPos != posFromWindow) {
+        priorPos       = posFromParent;
+        priorWindowPos = posFromWindow;
+        handleMove(priorPos, priorWindowPos);
+    }
+}
 
 } // namespace rdr
 } // namespace gui
