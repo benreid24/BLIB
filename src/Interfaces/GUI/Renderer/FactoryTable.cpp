@@ -1,5 +1,8 @@
 #include <BLIB/Interfaces/GUI/Renderer/FactoryTable.hpp>
 
+#include <BLIB/Interfaces/GUI.hpp>
+#include <BLIB/Interfaces/GUI/Renderer/NullComponent.hpp>
+
 namespace bl
 {
 namespace gui
@@ -8,7 +11,25 @@ namespace rdr
 {
 FactoryTable::FactoryTable(bool populate) {
     if (populate) {
-        // TODO - create default factories
+        registerFactoryForElement<Animation, NullComponent>();
+        registerFactoryForElement<Box, NullComponent>();
+        registerFactoryForElement<Button, NullComponent>();
+        registerFactoryForElement<Canvas, NullComponent>();
+        registerFactoryForElement<CheckButton, NullComponent>();
+        registerFactoryForElement<ComboBox, NullComponent>();
+        registerFactoryForElement<GUI, NullComponent>();
+        registerFactoryForElement<Image, NullComponent>();
+        registerFactoryForElement<Label, NullComponent>();
+        registerFactoryForElement<Notebook, NullComponent>();
+        registerFactoryForElement<ProgressBar, NullComponent>();
+        registerFactoryForElement<RadioButton, NullComponent>();
+        registerFactoryForElement<ScrollArea, NullComponent>();
+        registerFactoryForElement<SelectBox, NullComponent>();
+        registerFactoryForElement<Separator, NullComponent>();
+        registerFactoryForElement<Slider, NullComponent>();
+        registerFactoryForElement<TextEntry, NullComponent>();
+        registerFactoryForElement<ToggleButton, NullComponent>();
+        registerFactoryForElement<Window, NullComponent>();
     }
 }
 
