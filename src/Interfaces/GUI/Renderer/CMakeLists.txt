@@ -3,3 +3,5 @@ target_sources(BLIB PRIVATE
     FactoryTable.cpp
     Renderer.cpp
 )
+
+add_subdirectory(Components)

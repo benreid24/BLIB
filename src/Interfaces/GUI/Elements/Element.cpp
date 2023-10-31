@@ -388,7 +388,7 @@ void Element::update(float dt) {
     if (component && mouseOver() && hoverTime > 1.f && !tooltip.empty()) {
         component->showTooltip();
     }
-    else { component->dismissTooltip(); }
+    else if (component) { component->dismissTooltip(); }
 }
 
 void Element::setTooltip(const std::string& tt) { tooltip = tt; }

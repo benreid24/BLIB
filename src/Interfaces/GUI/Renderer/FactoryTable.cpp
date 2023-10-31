@@ -2,6 +2,9 @@
 
 #include <BLIB/Interfaces/GUI.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/NullComponent.hpp>
+#include <BLIB/Interfaces/GUI/Renderer/NullFlashProvider.hpp>
+#include <BLIB/Interfaces/GUI/Renderer/NullHighlightProvider.hpp>
+#include <BLIB/Interfaces/GUI/Renderer/NullTooltipProvider.hpp>
 
 namespace bl
 {
@@ -30,6 +33,10 @@ FactoryTable::FactoryTable(bool populate) {
         registerFactoryForElement<TextEntry, NullComponent>();
         registerFactoryForElement<ToggleButton, NullComponent>();
         registerFactoryForElement<Window, NullComponent>();
+
+        setFlashProviderFactory([]() { return std::make_unique<NullFlashProvider>(); });
+        setHighlightProviderFactory([]() { return std::make_unique<NullHighlightProvider>(); });
+        setTooltipProviderFactory([]() { return std::make_unique<NullTooltipProvider>(); });
     }
 }
 

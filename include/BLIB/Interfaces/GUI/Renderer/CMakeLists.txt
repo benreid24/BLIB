@@ -4,6 +4,12 @@ target_sources(BLIB PUBLIC
     FactoryTable.hpp
     FlashProvider.hpp
     HighlightProvider.hpp
+    NullComponent.hpp
+    NullFlashProvider.hpp
+    NullHighlightProvider.hpp
+    NullTooltipProvider.hpp
     Renderer.hpp
     TooltipProvider.hpp
 )
+
+add_subdirectory(Components)

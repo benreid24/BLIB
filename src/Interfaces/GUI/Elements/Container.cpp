@@ -32,6 +32,7 @@ void deleteElement(std::vector<Element*>& list, const Element* e) {
 
 Container::Container()
 : Element()
+, renderer(nullptr)
 , clearFlag(false) {
     getSignal(Event::AcquisitionChanged).willAlwaysCall(std::bind(&Container::acquisitionCb, this));
     getSignal(Event::Moved).willAlwaysCall(std::bind(&Container::moveCb, this));

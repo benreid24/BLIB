@@ -27,7 +27,7 @@ void ToggleButton::setValue(bool v) {
 }
 
 sf::Vector2f ToggleButton::minimumRequisition() const {
-    const sf::Vector2f butReq = Button::getRequisition();
+    const sf::Vector2f butReq = Button::minimumRequisition();
     const float s             = getToggleSize();
     return {butReq.x + s * 1.2f, std::max(butReq.y, s)};
 }
@@ -43,7 +43,7 @@ void ToggleButton::setToggleSize(float s) {
 }
 
 float ToggleButton::getToggleSize() const {
-    if (toggleSize < 0.f) { toggleSize = Button::getRequisition().y * 0.8f; }
+    if (toggleSize < 0.f) { toggleSize = Button::minimumRequisition().y * 0.8f; }
     return toggleSize;
 }
 
