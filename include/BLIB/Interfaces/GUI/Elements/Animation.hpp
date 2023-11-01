@@ -43,13 +43,6 @@ public:
      */
     void scaleToSize(const sf::Vector2f& size);
 
-    /**
-     * @brief Updates the animation
-     *
-     * @param dt Time elapsed in seconds
-     */
-    virtual void update(float dt) override;
-
 protected:
     /**
      * @brief Create a new Animation element
@@ -75,8 +68,6 @@ protected:
 private:
     bool centered;
     resource::Ref<gfx::a2d::AnimationData> source;
-    // gfx::Animation animation;
-    //  TODO - use new animations
     std::optional<sf::Vector2f> size;
 };
 

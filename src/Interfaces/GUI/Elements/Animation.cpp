@@ -1,58 +1,50 @@
 #include <BLIB/Interfaces/GUI/Elements/Animation.hpp>
 
+#include <BLIB/Interfaces/GUI/Renderer/Renderer.hpp>
+
 namespace bl
 {
 namespace gui
 {
-// TODO - use new animation
-/*
-Animation::Ptr Animation::create(resource::Ref<rc::AnimationData> anim) {
+
+Animation::Ptr Animation::create(resource::Ref<gfx::a2d::AnimationData> anim) {
     return Ptr(new Animation(anim));
 }
 
-Animation::Animation(resource::Ref<rc::AnimationData> anim)
+Animation::Animation(resource::Ref<gfx::a2d::AnimationData> anim)
 : Element()
 , centered(false)
-, source(anim)
-, animation(*anim) {
-    animation.setIsLoop(true);
-    animation.play();
-
+, source(anim) {
     const auto updatePos = [this](const Event&, Element*) {
         const sf::Vector2f offset =
             centered ? sf::Vector2f{getAcquisition().width * 0.5f, getAcquisition().height * 0.5f} :
                        sf::Vector2f{0.f, 0.f};
-        animation.setPosition(getPosition() + offset);
+        if (getComponent()) {
+            getComponent()->onMove(getPosition() + offset,
+                                   getPosition() - getWindowOrGuiParent().getPosition());
+        }
     };
     getSignal(Event::AcquisitionChanged).willAlwaysCall(updatePos);
     getSignal(Event::Moved).willAlwaysCall(updatePos);
 }
 
-void Animation::setAnimation(resource::Ref<rc::AnimationData> src) {
+void Animation::setAnimation(resource::Ref<gfx::a2d::AnimationData> src) {
     source = src;
-    animation.setData(*source);
-    animation.setIsLoop(true);
-    animation.play();
     makeDirty();
+    if (getComponent()) { getComponent()->onElementUpdated(); }
 }
 
 void Animation::scaleToSize(const sf::Vector2f& s) {
     size = s;
-    animation.setScale({s.x / source->getMaxSize().x, s.y / source->getMaxSize().y});
+    if (getComponent()) { getComponent()->onElementUpdated(); }
     makeDirty();
-}
-
-void Animation::update(float dt) {
-    Element::update(dt);
-    animation.update(dt);
 }
 
 sf::Vector2f Animation::minimumRequisition() const { return size.value_or(source->getMaxSize()); }
 
-void Animation::doRender(sf::RenderTarget& target, sf::RenderStates states, const Renderer&) const {
-    target.draw(animation, states);
+rdr::Component* Animation::doPrepareRender(rdr::Renderer& renderer) {
+    return renderer.createComponent<Animation>(*this, getWindowOrGuiParentComponent());
 }
-*/
 
 } // namespace gui
 } // namespace bl

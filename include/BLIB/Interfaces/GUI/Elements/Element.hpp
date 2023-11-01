@@ -502,6 +502,11 @@ protected:
     Element& getWindowOrGuiParent();
 
     /**
+     * @brief Returns the renderer component for this element. May be nullptr
+     */
+    rdr::Component* getComponent() { return component; }
+
+    /**
      * @brief Returns the Ptr to this Element
      *
      * @return Element::Ptr Ptr to this Element
