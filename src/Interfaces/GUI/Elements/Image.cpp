@@ -70,7 +70,8 @@ sf::Vector2f Image::minimumRequisition() const {
 }
 
 rdr::Component* Image::doPrepareRender(rdr::Renderer& renderer) {
-    return renderer.createComponent<Image>(*this, getWindowOrGuiParentComponent());
+    return renderer.createComponent<Image>(
+        *this, getParentComponent(), getWindowOrGuiParentComponent());
 }
 
 void Image::setScale() {

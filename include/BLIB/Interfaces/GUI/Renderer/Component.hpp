@@ -89,12 +89,12 @@ public:
 
     /**
      * @brief Called when element state changes. This is element specific, but can mean toggle
-     *        state, contents, etc.
+     *        state, contents, etc. Also called following create()
      */
     virtual void onElementUpdated() = 0;
 
     /**
-     * @brief Called when the owning elements render settings are changed
+     * @brief Called when the owning elements render settings are changed and after creation
      */
     virtual void onRenderSettingChange() = 0;
 
@@ -118,9 +118,11 @@ protected:
      *
      * @param engine The game engine instance
      * @param renderer The GUI renderer instance
+     * @param parent The component of the parent element, if this component has a parent
      * @param windowOrGui The Component for the Window or GUI element that is the closest parent
      */
-    virtual void doCreate(engine::Engine& engine, Renderer& renderer, Component& windowOrGui) = 0;
+    virtual void doCreate(engine::Engine& engine, Renderer& renderer, Component* parent,
+                          Component& windowOrGui) = 0;
 
     /**
      * @brief Called when the Component should be added to a scene
@@ -143,7 +145,7 @@ protected:
     virtual void notifyUIState(UIState state);
 
     /**
-     * @brief Called when the relative position or size of this component changes
+     * @brief Called when the relative position or size of this component changes and after creation
      *
      * @param posFromParent The position relative to the immediate parent
      * @param posFromWindow The position relative to the window (or gui) ancestor
@@ -169,7 +171,7 @@ protected:
      */
     template<typename T>
     T& getOwnerAs() {
-        T* o = dynamic_cast<T>(owner);
+        T* o = dynamic_cast<T*>(owner);
         if (!o) {
             BL_LOG_ERROR << "Expected owner of type " << typeid(T).name();
             throw std::runtime_error("Bad owner cast");
@@ -186,7 +188,8 @@ private:
     sf::Vector2f priorWindowPos;
     sf::Vector2f priorSize;
 
-    void create(engine::Engine& engine, Renderer& renderer, Element& owner, Component* windowOrGui);
+    void create(engine::Engine& engine, Renderer& renderer, Element& owner, Component* parent,
+                Component* windowOrGui);
 
     friend class Renderer;
 };

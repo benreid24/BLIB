@@ -6,6 +6,8 @@
 #include <BLIB/Interfaces/GUI/Renderer/NullHighlightProvider.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/NullTooltipProvider.hpp>
 
+#include <BLIB/Interfaces/GUI/Renderer/Components/BoxComponent.hpp>
+
 namespace bl
 {
 namespace gui
@@ -15,7 +17,7 @@ namespace rdr
 FactoryTable::FactoryTable(bool populate) {
     if (populate) {
         registerFactoryForElement<Animation, NullComponent>();
-        registerFactoryForElement<Box, NullComponent>();
+        registerFactoryForElement<Box, defcoms::BoxComponent>();
         registerFactoryForElement<Button, NullComponent>();
         registerFactoryForElement<Canvas, NullComponent>();
         registerFactoryForElement<CheckButton, NullComponent>();

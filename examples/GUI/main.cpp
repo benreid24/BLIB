@@ -1,8 +1,8 @@
 #include <BLIB/Engine.hpp>
 #include <BLIB/Events.hpp>
 #include <BLIB/Interfaces/GUI.hpp>
+#include <BLIB/Render.hpp>
 #include <BLIB/Resources.hpp>
-
 #include <SFML/Graphics.hpp>
 #include <cmath>
 #include <iostream>
@@ -60,6 +60,7 @@ public:
 
     virtual void activate(engine::Engine& engine) override {
         engine.renderer().getObserver().pushScene<rc::Overlay>();
+        engine.renderer().getObserver().setClearColor(bl::sfcol({90, 90, 90}));
 
         gui = gui::GUI::create(
             engine,

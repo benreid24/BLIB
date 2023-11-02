@@ -43,7 +43,8 @@ void Animation::scaleToSize(const sf::Vector2f& s) {
 sf::Vector2f Animation::minimumRequisition() const { return size.value_or(source->getMaxSize()); }
 
 rdr::Component* Animation::doPrepareRender(rdr::Renderer& renderer) {
-    return renderer.createComponent<Animation>(*this, getWindowOrGuiParentComponent());
+    return renderer.createComponent<Animation>(
+        *this, getParentComponent(), getWindowOrGuiParentComponent());
 }
 
 } // namespace gui

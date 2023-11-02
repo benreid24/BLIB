@@ -218,7 +218,8 @@ bool ScrollArea::propagateEvent(const Event& event) {
 
 rdr::Component* ScrollArea::doPrepareRender(rdr::Renderer& renderer) {
     prepareRenderChildren(renderer);
-    return renderer.createComponent<ScrollArea>(*this, getWindowOrGuiParentComponent());
+    return renderer.createComponent<ScrollArea>(
+        *this, getParentComponent(), getWindowOrGuiParentComponent());
 }
 
 void ScrollArea::updateContentPos() { content->setPosition(getPosition() + offset); }

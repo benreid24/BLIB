@@ -32,7 +32,7 @@ private:
     virtual void onElementUpdated() override {}
     virtual void onRenderSettingChange() {}
     virtual ecs::Entity getEntity() const override { return ecs::InvalidEntity; }
-    virtual void doCreate(engine::Engine&, Renderer&, Component&) override {}
+    virtual void doCreate(engine::Engine&, Renderer&, Component*, Component&) override {}
     virtual void doSceneAdd(rc::Overlay*) override {}
     virtual void doSceneRemove() override {}
     virtual void notifyUIState(UIState) override {}

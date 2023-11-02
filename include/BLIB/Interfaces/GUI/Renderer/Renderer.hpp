@@ -40,13 +40,14 @@ public:
      *
      * @tparam TElem The type of element to create the component for
      * @param element The element to create the component for
+     * @param parent The parent component of the component to create
      * @param windowOrGui The element's parent window, or the GUI's element if not in a window
      * @return A pointer to the new component
      */
     template<typename TElem>
-    Component* createComponent(TElem& element, Component* windowOrGui) {
+    Component* createComponent(TElem& element, Component* parent, Component* windowOrGui) {
         const auto it = components.try_emplace(&element, factory.createComponent<TElem>()).first;
-        it->second->create(engine, *this, element, windowOrGui);
+        it->second->create(engine, *this, element, parent, windowOrGui);
         if (overlay) { it->second->doSceneAdd(overlay); }
         return it->second.get();
     }

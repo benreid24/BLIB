@@ -384,6 +384,11 @@ public:
      */
     void prepareRender(rdr::Renderer& renderer);
 
+    /**
+     * @brief Returns the render settings for this element
+     */
+    const RenderSettings& getRenderSettings() const { return settings; }
+
 protected:
     /**
      * @brief Builds a new Element
@@ -505,6 +510,11 @@ protected:
      * @brief Returns the renderer component for this element. May be nullptr
      */
     rdr::Component* getComponent() { return component; }
+
+    /**
+     * @brief Returns the component of the parent of this element
+     */
+    rdr::Component* getParentComponent() const { return parent ? parent->component : nullptr; }
 
     /**
      * @brief Returns the Ptr to this Element

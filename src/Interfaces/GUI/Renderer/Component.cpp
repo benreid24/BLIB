@@ -1,5 +1,6 @@
 #include <BLIB/Interfaces/GUI/Renderer/Component.hpp>
 
+#include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Interfaces/GUI/Elements/Element.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Renderer.hpp>
 
@@ -31,16 +32,31 @@ void Component::dismissTooltip() { renderer->dismissTooltip(owner); }
 
 void Component::notifyUIState(UIState) {}
 
-void Component::create(engine::Engine& engine, Renderer& r, Element& o, Component* windowOrGui) {
+void Component::create(engine::Engine& engine, Renderer& r, Element& o, Component* parent,
+                       Component* windowOrGui) {
     renderer = &r;
     owner    = &o;
-    doCreate(engine, r, windowOrGui ? *windowOrGui : *this);
+
+    doCreate(engine, r, parent, windowOrGui ? *windowOrGui : *this);
+
     if (o.active()) {
         if (o.rightPressed() || o.leftPressed()) { setUIState(UIState::Pressed); }
         else if (o.mouseOver()) { setUIState(UIState::Highlighted); }
         else { setUIState(UIState::Regular); }
     }
     else { setUIState(UIState::Disabled); }
+
+    if (parent && parent != this) {
+        const ecs::Entity me    = getEntity();
+        const ecs::Entity daddy = parent->getEntity();
+        engine.ecs().setEntityParent(me, daddy);
+    }
+
+    onElementUpdated();
+    onRenderSettingChange();
+    onAcquisition(o.getPosition(),
+                  {o.getAcquisition().left, o.getAcquisition().top},
+                  {o.getAcquisition().width, o.getAcquisition().height});
 }
 
 void Component::flash() { renderer->flash(owner); }

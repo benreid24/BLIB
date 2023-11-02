@@ -25,7 +25,8 @@ sf::Vector2f Separator::minimumRequisition() const {
 }
 
 rdr::Component* Separator::doPrepareRender(rdr::Renderer& renderer) {
-    return renderer.createComponent<Separator>(*this, getWindowOrGuiParentComponent());
+    return renderer.createComponent<Separator>(
+        *this, getParentComponent(), getWindowOrGuiParentComponent());
 }
 
 } // namespace gui

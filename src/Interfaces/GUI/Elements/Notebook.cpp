@@ -167,7 +167,8 @@ void Notebook::onAcquisition() {
 
 rdr::Component* Notebook::doPrepareRender(rdr::Renderer& renderer) {
     Container::doPrepareRender(renderer);
-    return renderer.createComponent<Notebook>(*this, getWindowOrGuiParentComponent());
+    return renderer.createComponent<Notebook>(
+        *this, getParentComponent(), getWindowOrGuiParentComponent());
 }
 
 void Notebook::makePageActiveDirect(Page* page) {
