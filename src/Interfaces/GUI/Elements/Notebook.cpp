@@ -166,7 +166,6 @@ void Notebook::onAcquisition() {
 }
 
 rdr::Component* Notebook::doPrepareRender(rdr::Renderer& renderer) {
-    Container::doPrepareRender(renderer);
     return renderer.createComponent<Notebook>(
         *this, getParentComponent(), getWindowOrGuiParentComponent());
 }

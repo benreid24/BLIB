@@ -14,11 +14,11 @@ Label::Label(const std::string& text)
 , text(text) {
     getSignal(Event::RenderSettingsChanged)
         .willAlwaysCall(std::bind(&Label::settingsChanged, this));
-    settingsChanged();
 }
 
 void Label::setText(const std::string& t) {
     text = t;
+    if (getComponent()) { getComponent()->onElementUpdated(); }
     settingsChanged();
 }
 
@@ -30,19 +30,14 @@ rdr::Component* Label::doPrepareRender(rdr::Renderer& renderer) {
 }
 
 sf::Vector2f Label::minimumRequisition() const {
-    return {renderText.getGlobalBounds().width + renderText.getGlobalBounds().left,
-            renderText.getGlobalBounds().height + renderText.getGlobalBounds().top};
+    if (getComponent()) { return getComponent()->getRequisition(); }
+    return {60.f, 15.f};
 }
 
 void Label::settingsChanged() {
-    bl::resource::Ref<sf::Font> font = renderSettings().font.value_or(Font::get());
-    if (font) renderText.setFont(*font);
-    renderText.setString(text);
-    renderText.setCharacterSize(renderSettings().characterSize.value_or(DefaultFontSize));
-    renderText.setStyle(renderSettings().style.value_or(sf::Text::Regular));
-    if (renderText.getGlobalBounds().width > getAcquisition().width ||
-        renderText.getGlobalBounds().height > getAcquisition().height)
-        makeDirty();
+    const sf::Vector2f req   = getRequisition();
+    const sf::FloatRect& acq = getAcquisition();
+    if (req.x > acq.width || req.y > acq.height) { makeDirty(); }
 }
 
 } // namespace gui

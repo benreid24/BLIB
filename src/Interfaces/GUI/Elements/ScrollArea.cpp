@@ -217,7 +217,6 @@ bool ScrollArea::propagateEvent(const Event& event) {
 }
 
 rdr::Component* ScrollArea::doPrepareRender(rdr::Renderer& renderer) {
-    prepareRenderChildren(renderer);
     return renderer.createComponent<ScrollArea>(
         *this, getParentComponent(), getWindowOrGuiParentComponent());
 }

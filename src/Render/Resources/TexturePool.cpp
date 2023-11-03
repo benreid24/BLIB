@@ -78,6 +78,7 @@ void TexturePool::init() {
 }
 
 void TexturePool::cleanup() {
+    TextureRef::disableCleanup();
     textures.cleanup();
     vkDestroyDescriptorPool(vulkanState.device, descriptorPool, nullptr);
     vkDestroyDescriptorSetLayout(vulkanState.device, descriptorSetLayout, nullptr);

@@ -4,6 +4,11 @@ namespace bl
 {
 namespace gui
 {
+namespace
+{
+constexpr float Padding = 3.f;
+}
+
 void RenderSettings::merge(const RenderSettings& settings) {
     if (settings.horizontalAlignment.has_value())
         horizontalAlignment = settings.horizontalAlignment;
@@ -24,6 +29,40 @@ void RenderSettings::promoteSecondaries() {
     fillColor        = secondaryFillColor;
     outlineColor     = secondaryOutlineColor;
     outlineThickness = secondaryOutlineThickness;
+}
+
+sf::Vector2f RenderSettings::calculatePosition(Alignment horizontalAlignment,
+                                               Alignment verticalAlignment,
+                                               const sf::FloatRect& region,
+                                               const sf::Vector2f& size) {
+    sf::Vector2f position;
+    switch (horizontalAlignment) {
+    case RenderSettings::Left:
+        position.x = Padding;
+        break;
+    case RenderSettings::Right:
+        position.x = region.width - size.x - Padding;
+        break;
+    case RenderSettings::Center:
+    default:
+        position.x = region.width / 2.f - size.x / 2.f;
+        break;
+    }
+
+    switch (verticalAlignment) {
+    case RenderSettings::Top:
+        position.y = Padding;
+        break;
+    case RenderSettings::Bottom:
+        position.y = region.height - size.y - Padding;
+        break;
+    case RenderSettings::Center:
+    default:
+        position.y = region.height / 2.f - size.y / 2.f;
+        break;
+    }
+
+    return position;
 }
 
 } // namespace gui

@@ -103,6 +103,11 @@ public:
      */
     virtual ecs::Entity getEntity() const = 0;
 
+    /**
+     * @brief Allows GUI elements to query the size required for the visual component
+     */
+    virtual sf::Vector2f getRequisition() const;
+
 protected:
     enum struct HighlightState { IgnoresMouse, HighlightedByMouse };
 

@@ -68,7 +68,7 @@ protected:
 
     /**
      * @brief Sends the given event to each child (in order of registerChildren) and returns the
-     *        reuslt. Optionally sends the event to all children or terminates once one consumes
+     *        result. Optionally sends the event to all children or terminates once one consumes
      *
      * @param event The event to send
      * @param stopWhenConsumed True to stop sending when consumed, false to send to all
@@ -81,7 +81,7 @@ protected:
      *
      * @param renderer The GUI renderer instance
      */
-    void prepareRenderChildren(rdr::Renderer& renderer);
+    virtual void prepareChildrenRender(rdr::Renderer& renderer) override;
 
     /**
      * @brief Returns whether or not this element should receive events that occurred outside the
@@ -141,7 +141,7 @@ void CompositeElement<N>::bringToTop(const Element*) {
 }
 
 template<std::size_t N>
-void CompositeElement<N>::prepareRenderChildren(rdr::Renderer& renderer) {
+void CompositeElement<N>::prepareChildrenRender(rdr::Renderer& renderer) {
     for (std::size_t i = 0; i < N; ++i) { children[i]->prepareRender(renderer); }
 }
 

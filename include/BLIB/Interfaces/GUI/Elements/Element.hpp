@@ -1,6 +1,7 @@
 #ifndef BLIB_GUI_ELEMENTS_ELEMENT_HPP
 #define BLIB_GUI_ELEMENTS_ELEMENT_HPP
 
+#include <BLIB/Graphics/Text/VulkanFont.hpp>
 #include <BLIB/Interfaces/GUI/Event.hpp>
 #include <BLIB/Interfaces/GUI/RenderSettings.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Component.hpp>
@@ -69,6 +70,11 @@ public:
      *
      */
     sf::Vector2f getPosition() const;
+
+    /**
+     * @brief Returns the position of this element relative to its parent
+     */
+    const sf::Vector2f& getLocalPosition() const;
 
     /**
      * @brief Returns a modifiable reference to the signal for the given trigger. Undefined
@@ -289,7 +295,7 @@ public:
      *
      * @param font Resource managed font to use
      */
-    void setFont(bl::resource::Ref<sf::Font> font);
+    void setFont(bl::resource::Ref<sf::VulkanFont> font);
 
     /**
      * @brief Set the horizontal alignment. Doesn't apply to all Element types
@@ -464,6 +470,13 @@ protected:
     virtual rdr::Component* doPrepareRender(rdr::Renderer& renderer) = 0;
 
     /**
+     * @brief Container elements should call prepareRender on their children in this method
+     *
+     * @param renderer The GUI renderer instance
+     */
+    virtual void prepareChildrenRender(rdr::Renderer& renderer);
+
+    /**
      * @brief Set the acquisition of this element. Meant to be called by a Packer
      *
      * @param acquisition The area to occupy, in absolute coordinates
@@ -510,6 +523,11 @@ protected:
      * @brief Returns the renderer component for this element. May be nullptr
      */
     rdr::Component* getComponent() { return component; }
+
+    /**
+     * @brief Returns the renderer component for this element. May be nullptr
+     */
+    const rdr::Component* getComponent() const { return component; }
 
     /**
      * @brief Returns the component of the parent of this element

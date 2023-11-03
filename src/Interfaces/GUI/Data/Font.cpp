@@ -4073,8 +4073,8 @@ const uint8_t[] font = {};
 
 constexpr std::size_t fontSize = sizeof(font);
 
-resource::Resource<sf::Font>* load() {
-    static resource::Resource<sf::Font> sf;
+resource::Resource<sf::VulkanFont>* load() {
+    static resource::Resource<sf::VulkanFont> sf;
     if constexpr (fontSize > 0) {
         if (sf.data.loadFromMemory(font, fontSize)) return &sf;
     }
@@ -4082,8 +4082,8 @@ resource::Resource<sf::Font>* load() {
 }
 } // namespace
 
-resource::Ref<sf::Font> Font::get() {
-    static resource::Ref<sf::Font> f(load());
+resource::Ref<sf::VulkanFont> Font::get() {
+    static resource::Ref<sf::VulkanFont> f(load());
     return f;
 }
 

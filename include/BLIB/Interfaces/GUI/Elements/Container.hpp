@@ -120,12 +120,12 @@ protected:
     virtual bool handleScroll(const Event& scroll) override;
 
     /**
-     * @brief Calls prepareRender for all children. This method should be called by derived classes
+     * @brief Calls prepareRender for all children. This method should not be called by derived
+     *        classes as Element will call it
      *
      * @param renderer The renderer instance
-     * @return nullptr
      */
-    virtual rdr::Component* doPrepareRender(rdr::Renderer& renderer) override;
+    virtual void prepareChildrenRender(rdr::Renderer& renderer) override;
 
 private:
     rdr::Renderer* renderer;

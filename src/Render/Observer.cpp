@@ -112,8 +112,10 @@ void Observer::onSceneChange() {
 void Observer::handleDescriptorSync() {
     if (hasScene()) {
         if (!scenes.back().camera) {
-            BL_LOG_WARN
-                << "Scene being rendered before having a camera set. Creating default camera";
+            if (!dynamic_cast<Overlay*>(scenes.back().scene.get())) {
+                BL_LOG_WARN
+                    << "Scene being rendered before having a camera set. Creating default camera";
+            }
             scenes.back().camera = scenes.back().scene->createDefaultCamera();
         }
 

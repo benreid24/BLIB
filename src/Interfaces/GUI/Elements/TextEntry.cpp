@@ -82,7 +82,7 @@ void TextEntry::update(float dt) {
 }
 
 sf::Vector2f TextEntry::minimumRequisition() const {
-    resource::Ref<sf::Font> font = renderSettings().font.value_or(Font::get());
+    resource::Ref<sf::VulkanFont> font = renderSettings().font.value_or(Font::get());
     const int csize     = renderSettings().characterSize.value_or(TextEntry::DefaultCharacterSize);
     const float spacing = font ? std::ceil(font->getLineSpacing(csize)) : csize;
     const float paddedSpacing = spacing * 1.2f;

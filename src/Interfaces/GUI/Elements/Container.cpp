@@ -141,10 +141,9 @@ bool Container::receivesOutOfBoundsEvents() const {
     return false;
 }
 
-rdr::Component* Container::doPrepareRender(rdr::Renderer& r) {
+void Container::prepareChildrenRender(rdr::Renderer& r) {
     renderer = &r;
     for (auto& child : children) { child->prepareRender(r); }
-    return nullptr;
 }
 
 } // namespace gui

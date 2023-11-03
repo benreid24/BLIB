@@ -317,6 +317,9 @@ void Element::recalculatePosition() {
             cachedArea.left = npos.x;
             cachedArea.top  = npos.y;
             fireSignal(Event(Event::Moved));
+            if (component) {
+                component->onMove(position, npos - getWindowOrGuiParent().getPosition());
+            }
         }
     }
 }
@@ -325,11 +328,13 @@ const sf::FloatRect& Element::getAcquisition() const { return cachedArea; }
 
 sf::Vector2f Element::getPosition() const { return {cachedArea.left, cachedArea.top}; }
 
+const sf::Vector2f& Element::getLocalPosition() const { return position; }
+
 void Element::setChildParent(Element* p) { p->parent = this; }
 
 const RenderSettings& Element::renderSettings() const { return settings; }
 
-void Element::setFont(bl::resource::Ref<sf::Font> f) {
+void Element::setFont(bl::resource::Ref<sf::VulkanFont> f) {
     settings.font = f;
     onRenderChange();
 }
@@ -426,6 +431,7 @@ void Element::updateUiState() {
 void Element::prepareRender(rdr::Renderer& r) {
     component = doPrepareRender(r);
     updateUiState();
+    prepareChildrenRender(r);
 }
 
 Element& Element::getWindowOrGuiParent() {
@@ -450,6 +456,8 @@ void Element::onRenderChange() {
     fireSignal(Event(Event::RenderSettingsChanged));
     if (component) { component->onRenderSettingChange(); }
 }
+
+void Element::prepareChildrenRender(rdr::Renderer&) {}
 
 } // namespace gui
 } // namespace bl

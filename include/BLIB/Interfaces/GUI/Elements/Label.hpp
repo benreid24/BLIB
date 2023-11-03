@@ -10,7 +10,7 @@ namespace gui
 {
 /**
  * @brief Display only text element. Used to display text in a GUI. Note that any render
- *        settings changed here will take precedance over any overrides the Renderer has set,
+ *        settings changed here will take precedence over any overrides the Renderer has set,
  *        even id level overrides
  *
  * @ingroup GUI
@@ -72,7 +72,6 @@ protected:
 
 private:
     std::string text;
-    sf::Text renderText;
 
     void settingsChanged();
 };

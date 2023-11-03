@@ -1,6 +1,7 @@
 #ifndef BLIB_GUI_RENDERERS_RENDERSETTINGS_HPP
 #define BLIB_GUI_RENDERERS_RENDERSETTINGS_HPP
 
+#include <BLIB/Graphics/Text/VulkanFont.hpp>
 #include <BLIB/Resources/Loader.hpp>
 #include <BLIB/Resources/Ref.hpp>
 #include <SFML/Graphics.hpp>
@@ -42,7 +43,7 @@ struct RenderSettings {
     std::optional<sf::Color> secondaryOutlineColor;
     std::optional<float> secondaryOutlineThickness;
 
-    std::optional<bl::resource::Ref<sf::Font>> font;
+    std::optional<bl::resource::Ref<sf::VulkanFont>> font;
     std::optional<sf::Uint32> style;
     std::optional<unsigned int> characterSize;
 
@@ -58,6 +59,19 @@ struct RenderSettings {
      *
      */
     void promoteSecondaries();
+
+    /**
+     * @brief Calculates the position of an element within its acquisition for the given alignment
+     *
+     * @param horizontalAlign The horizontal alignment rule
+     * @param verticalAlign The vertical alignment rule
+     * @param acquisition The acquisition of the element
+     * @param elementSize The size of the element
+     * @return The position the element should be at, in local space
+     */
+    static sf::Vector2f calculatePosition(Alignment horizontalAlign, Alignment verticalAlign,
+                                          const sf::FloatRect& acquisition,
+                                          const sf::Vector2f& elementSize);
 };
 
 } // namespace gui

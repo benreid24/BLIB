@@ -118,6 +118,7 @@ private:
     TextureRef(TexturePool& owner, vk::Texture& texture);
 
     void addRef();
+    static void disableCleanup();
 
     friend class TexturePool;
 };

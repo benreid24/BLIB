@@ -117,7 +117,7 @@ void IdAllocatorUnbounded<T>::releaseAll() {
 
 template<typename T>
 constexpr bool IdAllocatorUnbounded<T>::isAllocated(T id) const {
-    return allocMap[id];
+    return id < allocMap.size() && allocMap[id];
 }
 
 template<typename T>

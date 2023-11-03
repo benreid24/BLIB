@@ -7,6 +7,7 @@
 #include <BLIB/Interfaces/GUI/Renderer/NullTooltipProvider.hpp>
 
 #include <BLIB/Interfaces/GUI/Renderer/Components/BoxComponent.hpp>
+#include <BLIB/Interfaces/GUI/Renderer/Components/LabelComponent.hpp>
 
 namespace bl
 {
@@ -24,7 +25,7 @@ FactoryTable::FactoryTable(bool populate) {
         registerFactoryForElement<ComboBox, NullComponent>();
         registerFactoryForElement<GUI, NullComponent>();
         registerFactoryForElement<Image, NullComponent>();
-        registerFactoryForElement<Label, NullComponent>();
+        registerFactoryForElement<Label, defcoms::LabelComponent>();
         registerFactoryForElement<Notebook, NullComponent>();
         registerFactoryForElement<ProgressBar, NullComponent>();
         registerFactoryForElement<RadioButton, NullComponent>();

@@ -54,8 +54,8 @@ void Component::create(engine::Engine& engine, Renderer& r, Element& o, Componen
 
     onElementUpdated();
     onRenderSettingChange();
-    onAcquisition(o.getPosition(),
-                  {o.getAcquisition().left, o.getAcquisition().top},
+    onAcquisition(o.getLocalPosition(),
+                  {o.getAcquisition().left, o.getAcquisition().top}, // TODO - wrong
                   {o.getAcquisition().width, o.getAcquisition().height});
 }
 
@@ -77,6 +77,11 @@ void Component::onMove(const sf::Vector2f& posFromParent, const sf::Vector2f& po
         priorWindowPos = posFromWindow;
         handleMove(priorPos, priorWindowPos);
     }
+}
+
+sf::Vector2f Component::getRequisition() const {
+    BL_LOG_ERROR << "Default getRequisition() is being used for element sizing";
+    return {60.f, 15.f};
 }
 
 } // namespace rdr
