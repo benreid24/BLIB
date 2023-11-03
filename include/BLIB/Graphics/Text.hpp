@@ -217,6 +217,7 @@ private:
     WrapType wrapType;
     float wordWrapWidth;
     engine::Systems::TaskHandle commitTask;
+    mutable bool boundsComputedWhileDirty;
 
     void queueCommit();
     void computeWordWrap();

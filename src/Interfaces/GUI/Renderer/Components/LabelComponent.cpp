@@ -59,7 +59,7 @@ void LabelComponent::handleMove(const sf::Vector2f& posFromParent, const sf::Vec
 
 sf::Vector2f LabelComponent::getRequisition() const {
     const sf::FloatRect bounds = text.getLocalBounds();
-    return {bounds.left * 2.f + bounds.width, bounds.top * 2.f + bounds.height};
+    return {bounds.left + bounds.width, bounds.top + bounds.height};
 }
 
 void LabelComponent::reposition() {
@@ -72,7 +72,6 @@ void LabelComponent::reposition() {
         getRequisition());
     const sf::Vector2f pos = localPos + owner.getLocalPosition();
     text.getTransform().setPosition({pos.x, pos.y});
-    // TODO - some kind of race condition with owner local pos
 }
 
 } // namespace defcoms

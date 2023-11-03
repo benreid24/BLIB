@@ -10,7 +10,8 @@ namespace gfx
 Text::Text()
 : font(nullptr)
 , wrapType(WrapType::None)
-, wordWrapWidth(-1.f) {
+, wordWrapWidth(-1.f)
+, boundsComputedWhileDirty(false) {
     sections.reserve(4);
 }
 
@@ -96,6 +97,8 @@ void Text::commit() {
 
     // always upload new font atlas if required
     font->syncTexture(engine().renderer());
+
+    boundsComputedWhileDirty = false;
 }
 
 void Text::wordWrap(float w) {
@@ -195,6 +198,17 @@ sf::FloatRect Text::getLocalBounds() const {
     float maxX = 0.f;
     float minY = 0.f;
     float maxY = 0.f;
+
+    if (commitTask.isQueued() && !boundsComputedWhileDirty) {
+        boundsComputedWhileDirty = true;
+
+        // call commit in each section to update bounds
+        glm::vec2 cornerPos(0.f, 0.f);
+        for (const auto& section : sections) {
+            txt::BasicText& sec = const_cast<txt::BasicText&>(section);
+            sec.refreshVertices(*font, nullptr, cornerPos);
+        }
+    }
 
     for (const auto& section : sections) {
         const sf::FloatRect& bounds = section.getBounds();
