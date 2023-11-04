@@ -36,7 +36,7 @@ void SeparatorComponent::doSceneAdd(rc::Overlay* overlay) {
 void SeparatorComponent::doSceneRemove() { sep.removeFromScene(); }
 
 void SeparatorComponent::handleAcquisition(const sf::Vector2f& posFromParent, const sf::Vector2f&,
-                                           const sf::Vector2f& size) {
+                                           const sf::Vector2f&) {
     sep.setSize(computeSize());
     sep.getTransform().setPosition(computePos(posFromParent));
 }

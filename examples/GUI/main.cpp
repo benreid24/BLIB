@@ -72,7 +72,7 @@ public:
         gui->setColor(sf::Color::Transparent, sf::Color::Red);
 
         gui::Image::Ptr image =
-            gui::Image::create(resource::ResourceManager<sf::Texture>::load("image.png"));
+            gui::Image::create(resource::ResourceManager<sf::Image>::load("image.png"));
         image->setFillAcquisition(true, true);
         gui->pack(image, true, true);
 

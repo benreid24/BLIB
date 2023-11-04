@@ -7,6 +7,7 @@
 #include <BLIB/Interfaces/GUI/Renderer/NullTooltipProvider.hpp>
 
 #include <BLIB/Interfaces/GUI/Renderer/Components/BoxComponent.hpp>
+#include <BLIB/Interfaces/GUI/Renderer/Components/ImageComponent.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Components/LabelComponent.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Components/SeparatorComponent.hpp>
 
@@ -25,7 +26,7 @@ FactoryTable::FactoryTable(bool populate) {
         registerFactoryForElement<CheckButton, NullComponent>();
         registerFactoryForElement<ComboBox, NullComponent>();
         registerFactoryForElement<GUI, NullComponent>();
-        registerFactoryForElement<Image, NullComponent>();
+        registerFactoryForElement<Image, defcoms::ImageComponent>();
         registerFactoryForElement<Label, defcoms::LabelComponent>();
         registerFactoryForElement<Notebook, NullComponent>();
         registerFactoryForElement<ProgressBar, NullComponent>();

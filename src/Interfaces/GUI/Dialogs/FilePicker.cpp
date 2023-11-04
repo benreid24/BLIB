@@ -267,9 +267,13 @@ void FilePicker::populateFiles() {
 
         Box::Ptr row = Box::create(LinePacker::create(LinePacker::Horizontal, 6));
         row->getSignal(Event::LeftClicked).willAlwaysCall(onClick);
-        Image::Ptr icon = Image::create(folderTexture.getTexture());
+
+        // TODO - update to new renderer
+        /* Image::Ptr icon = Image::create(folderTexture.getTexture());
         icon->getSignal(Event::LeftClicked).willAlwaysCall(onClick);
         row->pack(icon, false, true);
+        */
+
         Label::Ptr label = Label::create(f);
         label->setHorizontalAlignment(RenderSettings::Left);
         label->getSignal(Event::LeftClicked).willAlwaysCall(onClick);
