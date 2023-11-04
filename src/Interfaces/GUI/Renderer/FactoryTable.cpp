@@ -8,6 +8,7 @@
 
 #include <BLIB/Interfaces/GUI/Renderer/Components/BoxComponent.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Components/LabelComponent.hpp>
+#include <BLIB/Interfaces/GUI/Renderer/Components/SeparatorComponent.hpp>
 
 namespace bl
 {
@@ -31,7 +32,7 @@ FactoryTable::FactoryTable(bool populate) {
         registerFactoryForElement<RadioButton, NullComponent>();
         registerFactoryForElement<ScrollArea, NullComponent>();
         registerFactoryForElement<SelectBox, NullComponent>();
-        registerFactoryForElement<Separator, NullComponent>();
+        registerFactoryForElement<Separator, defcoms::SeparatorComponent>();
         registerFactoryForElement<Slider, NullComponent>();
         registerFactoryForElement<TextEntry, NullComponent>();
         registerFactoryForElement<ToggleButton, NullComponent>();

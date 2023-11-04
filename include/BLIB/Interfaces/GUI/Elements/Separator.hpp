@@ -38,6 +38,13 @@ public:
      */
     Direction getDirection() const;
 
+    /**
+     * @brief Convenience method to get the thickness of the separator
+     */
+    float getThickness() const {
+        return renderSettings().outlineThickness.value_or(DefaultThickness);
+    }
+
 protected:
     /**
      * @brief Create a new separator in the given direction

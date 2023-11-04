@@ -85,6 +85,8 @@ public:
         gui->pack(gui::Separator::create(gui::Separator::Horizontal));
 
         gui::Box::Ptr row = gui::Box::create(gui::LinePacker::create(gui::LinePacker::Horizontal));
+        row->setOutlineThickness(2.f);
+        row->setColor(sf::Color::Transparent, sf::Color::Black);
         row->pack(gui::Label::create("Combobox:"));
         gui::ComboBox::Ptr combo = gui::ComboBox::create();
         combo->addOption("Option 1");
