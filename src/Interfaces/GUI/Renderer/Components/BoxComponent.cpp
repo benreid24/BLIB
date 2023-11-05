@@ -1,6 +1,6 @@
 #include <BLIB/Interfaces/GUI/Renderer/Components/BoxComponent.hpp>
 
-#include <BLIB/Interfaces/GUI/Elements/Box.hpp>
+#include <BLIB/Interfaces/GUI/Elements/Element.hpp>
 #include <BLIB/Render/Primitives/Color.hpp>
 
 namespace bl
@@ -19,7 +19,7 @@ void BoxComponent::onElementUpdated() {
 }
 
 void BoxComponent::onRenderSettingChange() {
-    const RenderSettings& settings = getOwnerAs<Box>().getRenderSettings();
+    const RenderSettings& settings = getOwnerAs<Element>().getRenderSettings();
     box.setFillColor(bl::sfcol(settings.fillColor.value_or(sf::Color::Transparent)));
     box.setOutlineColor(bl::sfcol(settings.outlineColor.value_or(sf::Color::Transparent)));
     box.setOutlineThickness(-settings.outlineThickness.value_or(0.f));
@@ -28,7 +28,7 @@ void BoxComponent::onRenderSettingChange() {
 ecs::Entity BoxComponent::getEntity() const { return box.entity(); }
 
 void BoxComponent::doCreate(engine::Engine& engine, rdr::Renderer&, Component*, Component&) {
-    Box& owner = getOwnerAs<Box>();
+    Element& owner = getOwnerAs<Element>();
     box.create(engine, {owner.getAcquisition().width, owner.getAcquisition().height});
 }
 

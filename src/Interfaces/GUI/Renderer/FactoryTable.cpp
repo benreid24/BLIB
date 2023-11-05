@@ -7,6 +7,7 @@
 #include <BLIB/Interfaces/GUI/Renderer/NullTooltipProvider.hpp>
 
 #include <BLIB/Interfaces/GUI/Renderer/Components/BoxComponent.hpp>
+#include <BLIB/Interfaces/GUI/Renderer/Components/ButtonComponent.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Components/ImageComponent.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Components/LabelComponent.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Components/ProgressBarComponent.hpp>
@@ -22,7 +23,7 @@ FactoryTable::FactoryTable(bool populate) {
     if (populate) {
         registerFactoryForElement<Animation, NullComponent>();
         registerFactoryForElement<Box, defcoms::BoxComponent>();
-        registerFactoryForElement<Button, NullComponent>();
+        registerFactoryForElement<Button, defcoms::ButtonComponent>();
         registerFactoryForElement<Canvas, NullComponent>();
         registerFactoryForElement<CheckButton, NullComponent>();
         registerFactoryForElement<ComboBox, NullComponent>();
