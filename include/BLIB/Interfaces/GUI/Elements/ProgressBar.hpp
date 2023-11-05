@@ -59,7 +59,6 @@ protected:
 
     /**
      * @brief Returns (5,5)
-     *
      */
     virtual sf::Vector2f minimumRequisition() const override;
 

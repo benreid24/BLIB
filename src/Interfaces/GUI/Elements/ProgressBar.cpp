@@ -11,12 +11,13 @@ ProgressBar::Ptr ProgressBar::create(FillDirection dir) { return Ptr(new Progres
 ProgressBar::ProgressBar(FillDirection dir)
 : Element()
 , direction(dir)
-, progress(0) {}
+, progress(0.f) {}
 
 void ProgressBar::setProgress(float p) {
     progress = p;
-    if (progress < 0) progress = 0;
-    if (progress > 1) progress = 1;
+    if (progress < 0.f) progress = 0.f;
+    if (progress > 1.f) progress = 1.f;
+    if (getComponent()) { getComponent()->onElementUpdated(); }
 }
 
 float ProgressBar::getProgress() const { return progress; }

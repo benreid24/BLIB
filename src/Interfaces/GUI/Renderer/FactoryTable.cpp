@@ -9,6 +9,7 @@
 #include <BLIB/Interfaces/GUI/Renderer/Components/BoxComponent.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Components/ImageComponent.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Components/LabelComponent.hpp>
+#include <BLIB/Interfaces/GUI/Renderer/Components/ProgressBarComponent.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Components/SeparatorComponent.hpp>
 
 namespace bl
@@ -29,7 +30,7 @@ FactoryTable::FactoryTable(bool populate) {
         registerFactoryForElement<Image, defcoms::ImageComponent>();
         registerFactoryForElement<Label, defcoms::LabelComponent>();
         registerFactoryForElement<Notebook, NullComponent>();
-        registerFactoryForElement<ProgressBar, NullComponent>();
+        registerFactoryForElement<ProgressBar, defcoms::ProgressBarComponent>();
         registerFactoryForElement<RadioButton, NullComponent>();
         registerFactoryForElement<ScrollArea, NullComponent>();
         registerFactoryForElement<SelectBox, NullComponent>();
