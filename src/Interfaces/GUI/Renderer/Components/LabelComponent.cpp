@@ -65,11 +65,15 @@ sf::Vector2f LabelComponent::getRequisition() const {
 void LabelComponent::reposition() {
     Label& owner                   = getOwnerAs<Label>();
     const RenderSettings& settings = owner.renderSettings();
-    const sf::Vector2f localPos    = RenderSettings::calculatePosition(
+
+    const sf::FloatRect bounds = text.getLocalBounds();
+    const sf::Vector2f size(bounds.left * 2.f + bounds.width, bounds.top * 2.f + bounds.height);
+
+    const sf::Vector2f localPos = RenderSettings::calculatePosition(
         settings.horizontalAlignment.value_or(RenderSettings::Center),
         settings.verticalAlignment.value_or(RenderSettings::Center),
         owner.getAcquisition(),
-        getRequisition());
+        size);
     const sf::Vector2f pos = localPos + owner.getLocalPosition();
     text.getTransform().setPosition({pos.x, pos.y});
 }
