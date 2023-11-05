@@ -125,9 +125,11 @@ void OverlayScalerSystem::refreshEntity(Result& cset) {
         break;
     }
 
-    if (transform.getScale().x != xScale || transform.getScale().y != yScale) {
-        transform.setScale({xScale, yScale});
-        if (scaler.onScale) { scaler.onScale(); }
+    if (scaler.scaleType != com::OverlayScaler::None) {
+        if (transform.getScale().x != xScale || transform.getScale().y != yScale) {
+            transform.setScale({xScale, yScale});
+            if (scaler.onScale) { scaler.onScale(); }
+        }
     }
 
     switch (scaler.posType) {
