@@ -20,10 +20,8 @@ void OverlayHighlightProvider::notifyUIState(Element* element, rdr::Component::U
             currentElement = element;
             currentState   = state;
 
-            cover.scaleToSize({element->getAcquisition().width, element->getAcquisition().height});
             cover.setParent(element->getComponent()->getEntity());
             cover.setHidden(false);
-            // TODO - issue with transform on parent change
 
             switch (state) {
             case rdr::Component::UIState::Highlighted:
@@ -45,7 +43,8 @@ void OverlayHighlightProvider::doCreate(engine::Engine& engine) {
 }
 
 void OverlayHighlightProvider::doSceneAdd(rc::Overlay* scene) {
-    cover.addToScene(scene, rc::UpdateSpeed::Dynamic);
+    cover.addToScene(scene, rc::UpdateSpeed::Static);
+    cover.getOverlayScaler().scaleToSizePercent({1.f, 1.f});
     cover.setHidden(true);
 }
 
