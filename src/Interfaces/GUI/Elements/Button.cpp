@@ -11,7 +11,7 @@ namespace gui
 {
 namespace
 {
-constexpr int ChildPadding = 2;
+constexpr float ChildPadding = 4.f;
 }
 
 Button::Ptr Button::create(const std::string& text) { return Ptr(new Button(Label::create(text))); }
@@ -29,18 +29,21 @@ const Element::Ptr& Button::getChild() const { return child; }
 
 sf::Vector2f Button::minimumRequisition() const {
     sf::Vector2f area = child->getRequisition();
-    const int buffer  = renderSettings().outlineThickness.value_or(DefaultOutlineThickness) + 2;
-    area.x += (buffer + ChildPadding) * 2;
-    area.y += (buffer + ChildPadding) * 2;
+    const float buffer =
+        renderSettings().outlineThickness.value_or(DefaultOutlineThickness) + ChildPadding;
+    area.x += buffer * 2.f;
+    area.y += buffer * 2.f;
     return area;
 }
 
 void Button::onAcquisition() {
+    const float buffer =
+        renderSettings().outlineThickness.value_or(DefaultOutlineThickness) + ChildPadding;
     Packer::manuallyPackElement(child,
-                                {getAcquisition().left + ChildPadding,
-                                 getAcquisition().top + ChildPadding,
-                                 getAcquisition().width - ChildPadding * 2,
-                                 getAcquisition().height - ChildPadding * 2});
+                                {getAcquisition().left + buffer,
+                                 getAcquisition().top + buffer,
+                                 getAcquisition().width - buffer * 2.f,
+                                 getAcquisition().height - buffer * 2.f});
 }
 
 bool Button::propagateEvent(const Event& event) {

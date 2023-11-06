@@ -45,7 +45,7 @@ sf::Vector2f RenderSettings::calculatePosition(Alignment horizontalAlignment,
         break;
     case RenderSettings::Center:
     default:
-        position.x = region.width / 2.f - size.x / 2.f;
+        position.x = region.width * 0.5f - size.x * 0.5f;
         break;
     }
 
@@ -58,7 +58,7 @@ sf::Vector2f RenderSettings::calculatePosition(Alignment horizontalAlignment,
         break;
     case RenderSettings::Center:
     default:
-        position.y = region.height / 2.f - size.y / 2.f;
+        position.y = region.height * 0.5f - size.y * 0.5f;
         break;
     }
 

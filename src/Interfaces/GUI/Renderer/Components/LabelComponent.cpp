@@ -67,15 +67,15 @@ void LabelComponent::reposition() {
     const RenderSettings& settings = owner.renderSettings();
 
     const sf::FloatRect bounds = text.getLocalBounds();
-    const sf::Vector2f size(bounds.left * 2.f + bounds.width, bounds.top * 2.f + bounds.height);
+    const sf::Vector2f size(bounds.width + bounds.left * 2.f, bounds.height + bounds.top * 2.f);
 
     const sf::Vector2f localPos = RenderSettings::calculatePosition(
         settings.horizontalAlignment.value_or(RenderSettings::Center),
         settings.verticalAlignment.value_or(RenderSettings::Center),
         owner.getAcquisition(),
         size);
-    const sf::Vector2f pos = localPos + owner.getLocalPosition();
-    text.getTransform().setPosition({pos.x, pos.y});
+    const sf::Vector2f pos = localPos + parentOffset;
+    text.getTransform().setPosition({pos.x - 3.f, pos.y - 3.f}); // TODO - why -3.f?
 }
 
 } // namespace defcoms
