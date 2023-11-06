@@ -1,4 +1,4 @@
-#include <BLIB/Interfaces/GUI/Renderer/Components/SeparatorComponent.hpp>
+#include <BLIB/Interfaces/GUI/Renderer/Basic/SeparatorComponent.hpp>
 
 #include <BLIB/Interfaces/GUI/Elements/Separator.hpp>
 #include <BLIB/Render/Primitives/Color.hpp>

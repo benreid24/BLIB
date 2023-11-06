@@ -12,4 +12,4 @@ target_sources(BLIB PUBLIC
     TooltipProvider.hpp
 )
 
-add_subdirectory(Components)
+add_subdirectory(Basic)

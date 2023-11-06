@@ -1,4 +1,4 @@
-#include <BLIB/Interfaces/GUI/Renderer/Components/ButtonComponent.hpp>
+#include <BLIB/Interfaces/GUI/Renderer/Basic/ButtonComponent.hpp>
 
 #include <BLIB/Interfaces/GUI/Elements/Button.hpp>
 #include <BLIB/Render/Primitives/Color.hpp>

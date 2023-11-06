@@ -1,4 +1,4 @@
-#include <BLIB/Interfaces/GUI/Renderer/Components/ProgressBarComponent.hpp>
+#include <BLIB/Interfaces/GUI/Renderer/Basic/ProgressBarComponent.hpp>
 
 #include <BLIB/Interfaces/GUI/Elements/ProgressBar.hpp>
 #include <BLIB/Render/Primitives/Color.hpp>

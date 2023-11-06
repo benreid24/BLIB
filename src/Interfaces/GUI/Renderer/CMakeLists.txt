@@ -4,4 +4,4 @@ target_sources(BLIB PRIVATE
     Renderer.cpp
 )
 
-add_subdirectory(Components)
+add_subdirectory(Basic)

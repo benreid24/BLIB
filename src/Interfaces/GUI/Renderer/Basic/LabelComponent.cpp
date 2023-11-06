@@ -1,4 +1,4 @@
-#include <BLIB/Interfaces/GUI/Renderer/Components/LabelComponent.hpp>
+#include <BLIB/Interfaces/GUI/Renderer/Basic/LabelComponent.hpp>
 
 #include <BLIB/Interfaces/GUI/Elements/Label.hpp>
 #include <BLIB/Render/Primitives/Color.hpp>

@@ -1,4 +1,4 @@
-#include <BLIB/Interfaces/GUI/Renderer/Components/BoxComponent.hpp>
+#include <BLIB/Interfaces/GUI/Renderer/Basic/BoxComponent.hpp>
 
 #include <BLIB/Interfaces/GUI/Elements/Element.hpp>
 #include <BLIB/Render/Primitives/Color.hpp>

@@ -6,12 +6,12 @@
 #include <BLIB/Interfaces/GUI/Renderer/NullHighlightProvider.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/NullTooltipProvider.hpp>
 
-#include <BLIB/Interfaces/GUI/Renderer/Components/BoxComponent.hpp>
-#include <BLIB/Interfaces/GUI/Renderer/Components/ButtonComponent.hpp>
-#include <BLIB/Interfaces/GUI/Renderer/Components/ImageComponent.hpp>
-#include <BLIB/Interfaces/GUI/Renderer/Components/LabelComponent.hpp>
-#include <BLIB/Interfaces/GUI/Renderer/Components/ProgressBarComponent.hpp>
-#include <BLIB/Interfaces/GUI/Renderer/Components/SeparatorComponent.hpp>
+#include <BLIB/Interfaces/GUI/Renderer/Basic/BoxComponent.hpp>
+#include <BLIB/Interfaces/GUI/Renderer/Basic/ButtonComponent.hpp>
+#include <BLIB/Interfaces/GUI/Renderer/Basic/ImageComponent.hpp>
+#include <BLIB/Interfaces/GUI/Renderer/Basic/LabelComponent.hpp>
+#include <BLIB/Interfaces/GUI/Renderer/Basic/ProgressBarComponent.hpp>
+#include <BLIB/Interfaces/GUI/Renderer/Basic/SeparatorComponent.hpp>
 
 namespace bl
 {

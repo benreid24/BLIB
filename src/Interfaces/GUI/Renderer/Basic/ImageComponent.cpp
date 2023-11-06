@@ -1,4 +1,4 @@
-#include <BLIB/Interfaces/GUI/Renderer/Components/ImageComponent.hpp>
+#include <BLIB/Interfaces/GUI/Renderer/Basic/ImageComponent.hpp>
 
 #include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Interfaces/GUI/Elements/Image.hpp>
