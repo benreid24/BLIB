@@ -74,7 +74,7 @@ public:
         gui::Image::Ptr image =
             gui::Image::create(resource::ResourceManager<sf::Image>::load("image.png"));
         image->setFillAcquisition(true, true);
-        gui->pack(image, true, true);
+        // gui->pack(image, true, true);
 
         gui->pack(gui::Separator::create(gui::Separator::Horizontal));
 
@@ -109,7 +109,7 @@ public:
         button->getSignal(gui::Event::LeftClicked).willCall(b1click);
         gui->pack(button, true, true);
 
-        /* gui::Window::Ptr testWindow =
+        gui::Window::Ptr testWindow =
             gui::Window::create(gui::LinePacker::create(gui::LinePacker::Vertical),
                                 "Test Window",
                                 gui::Window::Default,
@@ -200,7 +200,6 @@ public:
         nb->addPage("page4", "Radio buttons", box);
         testWindow->pack(nb, true, true);
         gui->pack(testWindow);
-        */
 
         gui->addToOverlay();
     }

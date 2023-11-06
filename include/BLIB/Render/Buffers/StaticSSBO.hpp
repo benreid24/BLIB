@@ -211,9 +211,11 @@ bool StaticSSBO<T>::ensureSize(std::uint32_t desiredSize) {
 
 template<typename T>
 void StaticSSBO<T>::transferRange(std::uint32_t start, std::uint32_t numElements) {
-    copyStart = start;
-    copyCount = numElements;
-    queueTransfer(SyncRequirement::Immediate);
+    if (numElements > 0) {
+        copyStart = start;
+        copyCount = numElements;
+        queueTransfer(SyncRequirement::Immediate);
+    }
 }
 
 template<typename T>

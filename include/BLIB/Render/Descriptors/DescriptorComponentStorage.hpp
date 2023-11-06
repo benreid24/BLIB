@@ -237,6 +237,7 @@ void DescriptorComponentStorage<TCom, TPayload, TDynamicStorage, TStaticStorage>
         dynamicBuffer.transferRange(dirtyDynamic.start, dirtyDynamic.end - dirtyDynamic.start + 1);
         dirtyDynamic = DirtyRange();
     }
+    else { dynamicBuffer.transferRange(0, 0); }
     dynamicRefresh = dynamicRefresh >> 1;
     staticRefresh  = staticRefresh >> 1;
 }

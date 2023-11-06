@@ -227,7 +227,7 @@ void DynamicSSBO<T>::transferRange(std::uint32_t start, std::uint32_t numElement
         std::memcpy(
             gpuBuffers.current().getMappedMemory(), cpuBuffer.data(), cpuBuffer.alignedSize());
     }
-    else {
+    else if (totalSize > 0) {
         // consolidate ranges before copy
         std::uint32_t start = std::numeric_limits<std::uint32_t>::max();
         std::uint32_t end   = 0;

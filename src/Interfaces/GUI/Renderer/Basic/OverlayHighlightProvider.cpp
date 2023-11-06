@@ -43,7 +43,7 @@ void OverlayHighlightProvider::doCreate(engine::Engine& engine) {
 }
 
 void OverlayHighlightProvider::doSceneAdd(rc::Overlay* scene) {
-    cover.addToScene(scene, rc::UpdateSpeed::Static);
+    cover.addToScene(scene, rc::UpdateSpeed::Dynamic);
     cover.getOverlayScaler().scaleToSizePercent({1.f, 1.f});
     cover.setHidden(true);
 }
