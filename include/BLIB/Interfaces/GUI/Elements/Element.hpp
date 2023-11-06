@@ -395,6 +395,16 @@ public:
      */
     const RenderSettings& getRenderSettings() const { return settings; }
 
+    /**
+     * @brief Returns the renderer component for this element. May be nullptr
+     */
+    rdr::Component* getComponent() { return component; }
+
+    /**
+     * @brief Returns the renderer component for this element. May be nullptr
+     */
+    const rdr::Component* getComponent() const { return component; }
+
 protected:
     /**
      * @brief Builds a new Element
@@ -518,16 +528,6 @@ protected:
      *        Will return this element if this element is one of those two types
      */
     Element& getWindowOrGuiParent();
-
-    /**
-     * @brief Returns the renderer component for this element. May be nullptr
-     */
-    rdr::Component* getComponent() { return component; }
-
-    /**
-     * @brief Returns the renderer component for this element. May be nullptr
-     */
-    const rdr::Component* getComponent() const { return component; }
 
     /**
      * @brief Returns the component of the parent of this element

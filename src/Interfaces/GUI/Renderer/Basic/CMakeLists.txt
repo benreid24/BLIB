@@ -3,6 +3,7 @@ target_sources(BLIB PRIVATE
     ButtonComponent.cpp
     ImageComponent.cpp
     LabelComponent.cpp
+    OverlayHighlightProvider.cpp
     ProgressBarComponent.cpp
     SeparatorComponent.cpp
 )

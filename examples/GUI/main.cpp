@@ -109,7 +109,7 @@ public:
         button->getSignal(gui::Event::LeftClicked).willCall(b1click);
         gui->pack(button, true, true);
 
-        gui::Window::Ptr testWindow =
+        /* gui::Window::Ptr testWindow =
             gui::Window::create(gui::LinePacker::create(gui::LinePacker::Vertical),
                                 "Test Window",
                                 gui::Window::Default,
@@ -200,6 +200,7 @@ public:
         nb->addPage("page4", "Radio buttons", box);
         testWindow->pack(nb, true, true);
         gui->pack(testWindow);
+        */
 
         gui->addToOverlay();
     }

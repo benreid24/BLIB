@@ -261,6 +261,8 @@ private:
     template<typename T>
     void finishComponentAdd(Entity ent, unsigned int cindex, T* component);
 
+    void removeEntityParentLocked(Entity child);
+
     template<typename TRequire, typename TOptional, typename TExclude>
     friend class View;
     friend class engine::Engine;

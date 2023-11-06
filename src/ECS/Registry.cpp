@@ -140,6 +140,11 @@ void Registry::destroyAllEntities() {
 
 void Registry::setEntityParent(Entity child, Entity parent) {
     std::lock_guard lock(entityLock);
+
+    // remove parent first
+    removeEntityParentLocked(child);
+
+    // check both valid
     const std::uint32_t ic = child.getIndex();
     const std::uint32_t ip = parent.getIndex();
     if (!entityAllocator.isAllocated(ic) || !entityAllocator.isAllocated(ip)) {
@@ -147,6 +152,7 @@ void Registry::setEntityParent(Entity child, Entity parent) {
         return;
     }
 
+    // assign parent and update components
     const ComponentMask mask{.required = entityMasks[ic]};
     parentGraph.setParent(child, parent);
     for (ComponentPoolBase* pool : componentPools) {
@@ -158,6 +164,10 @@ void Registry::setEntityParent(Entity child, Entity parent) {
 
 void Registry::removeEntityParent(Entity child) {
     std::lock_guard lock(entityLock);
+    removeEntityParentLocked(child);
+}
+
+void Registry::removeEntityParentLocked(Entity child) {
     const Entity parent = parentGraph.getParent(child);
     if (parent == InvalidEntity) { return; }
     const std::uint32_t ic = child.getIndex();

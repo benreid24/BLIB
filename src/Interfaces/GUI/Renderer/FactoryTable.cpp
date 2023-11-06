@@ -10,6 +10,7 @@
 #include <BLIB/Interfaces/GUI/Renderer/Basic/ButtonComponent.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Basic/ImageComponent.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Basic/LabelComponent.hpp>
+#include <BLIB/Interfaces/GUI/Renderer/Basic/OverlayHighlightProvider.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Basic/ProgressBarComponent.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Basic/SeparatorComponent.hpp>
 
@@ -42,7 +43,8 @@ FactoryTable::FactoryTable(bool populate) {
         registerFactoryForElement<Window, NullComponent>();
 
         setFlashProviderFactory([]() { return std::make_unique<NullFlashProvider>(); });
-        setHighlightProviderFactory([]() { return std::make_unique<NullHighlightProvider>(); });
+        setHighlightProviderFactory(
+            []() { return std::make_unique<defcoms::OverlayHighlightProvider>(); });
         setTooltipProviderFactory([]() { return std::make_unique<NullTooltipProvider>(); });
     }
 }

@@ -16,7 +16,11 @@ Renderer::Renderer(engine::Engine& engine, GUI& gui, FactoryTable& factory)
 , flashProvider(factory.createFlashProvider())
 , highlightProvider(factory.createHighlightProvider())
 , tooltipProvider(factory.createTooltipProvider())
-, currentTooltip(nullptr) {}
+, currentTooltip(nullptr) {
+    flashProvider->doCreate(engine);
+    highlightProvider->doCreate(engine);
+    tooltipProvider->doCreate(engine);
+}
 
 void Renderer::destroyComponent(const Element& owner) {
     const auto it = components.find(&owner);
@@ -30,6 +34,9 @@ void Renderer::addToOverlay(rc::Overlay* o) {
     removeFromOverlay();
     overlay = o;
     for (auto& pair : components) { pair.second->doSceneAdd(overlay); }
+    flashProvider->doSceneAdd(o);
+    highlightProvider->doSceneAdd(o);
+    tooltipProvider->doSceneAdd(o);
 }
 
 void Renderer::removeFromOverlay() {
@@ -37,6 +44,9 @@ void Renderer::removeFromOverlay() {
         for (auto& pair : components) { pair.second->doSceneRemove(); }
         overlay = nullptr;
     }
+    flashProvider->doSceneRemove();
+    highlightProvider->doSceneRemove();
+    tooltipProvider->doSceneRemove();
 }
 
 void Renderer::displayTooltip(Element* src) {
