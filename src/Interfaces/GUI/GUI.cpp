@@ -39,6 +39,7 @@ void GUI::observe(const sf::Event& event) {
 }
 
 void GUI::update(float dt) {
+    renderer.update(dt);
     Box::update(dt);
 
     for (const auto& action : queuedActions) { action(); }

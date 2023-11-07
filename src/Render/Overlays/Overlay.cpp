@@ -38,7 +38,8 @@ void Overlay::renderScene(scene::SceneRenderContext& ctx) {
         refreshAll();
     }
 
-    VkPipeline currentPipeline = nullptr;
+    VkPipelineLayout currentPipelineLayout = nullptr;
+    UpdateSpeed currentSpeed{};
     while (!renderStack.empty()) {
         ovy::OverlayObject& obj = *renderStack.back();
         renderStack.pop_back();
@@ -47,9 +48,11 @@ void Overlay::renderScene(scene::SceneRenderContext& ctx) {
 
         vkCmdSetScissor(ctx.getCommandBuffer(), 0, 1, &obj.cachedScissor);
 
-        const VkPipeline np = obj.pipeline->rawPipeline(ctx.currentRenderPass());
-        if (np != currentPipeline) {
-            currentPipeline = np;
+        const vk::PipelineLayout& layout = obj.pipeline->pipelineLayout();
+        const VkPipelineLayout vkl       = layout.rawLayout();
+        if (vkl != currentPipelineLayout || currentSpeed != obj.sceneKey.updateFreq) {
+            currentSpeed          = obj.sceneKey.updateFreq;
+            currentPipelineLayout = vkl;
             ctx.bindPipeline(*obj.pipeline);
             ctx.bindDescriptors(obj.pipeline->pipelineLayout().rawLayout(),
                                 obj.sceneKey.updateFreq,

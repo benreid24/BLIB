@@ -100,6 +100,13 @@ public:
      */
     void handleComponentState(Element* src, Component::UIState state);
 
+    /**
+     * @brief Updates visual components
+     *
+     * @param dt Elapsed time in seconds
+     */
+    void update(float dt);
+
 private:
     engine::Engine& engine;
     GUI& gui;

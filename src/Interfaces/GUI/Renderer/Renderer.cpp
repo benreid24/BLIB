@@ -69,6 +69,12 @@ void Renderer::handleComponentState(Element* src, Component::UIState state) {
     highlightProvider->notifyUIState(src, state);
 }
 
+void Renderer::update(float dt) {
+    flashProvider->update(dt);
+    highlightProvider->update(dt);
+    tooltipProvider->update(dt);
+}
+
 } // namespace rdr
 } // namespace gui
 } // namespace bl
