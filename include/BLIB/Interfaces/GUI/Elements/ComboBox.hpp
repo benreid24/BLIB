@@ -124,6 +124,11 @@ public:
      */
     float getScroll() const { return scroll; }
 
+    /**
+     * @brief Returns the list of all options
+     */
+    const std::vector<std::string>& getAllOptions() const { return options; }
+
 protected:
     /**
      * @brief Create a new ComboBox

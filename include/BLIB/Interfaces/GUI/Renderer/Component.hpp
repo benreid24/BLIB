@@ -184,6 +184,22 @@ protected:
         return *o;
     }
 
+    /**
+     * @brief Type safe method to get the owning GUI Element. Throws if the type is incorrect
+     *
+     * @tparam T The derived Element type to cast to
+     * @return A reference to the owning Element
+     */
+    template<typename T>
+    const T& getOwnerAs() const {
+        const T* o = dynamic_cast<const T*>(owner);
+        if (!o) {
+            BL_LOG_ERROR << "Expected owner of type " << typeid(T).name();
+            throw std::runtime_error("Bad owner cast");
+        }
+        return *o;
+    }
+
 private:
     const HighlightState highlightState;
     Renderer* renderer;

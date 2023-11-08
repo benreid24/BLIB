@@ -14,6 +14,12 @@ namespace cam
  */
 class OverlayCamera : public Camera {
 public:
+    /// The minimum depth for objects rendered in overlays
+    static constexpr float MinDepth = 1000.f;
+
+    /// The maximum depth for objects rendered in overlays
+    static constexpr float MaxDepth = -1000.f;
+
     /**
      * @brief Creates the overlay camera
      */

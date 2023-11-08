@@ -221,6 +221,11 @@ sf::FloatRect Text::getLocalBounds() const {
     return sf::FloatRect(minX, minY, maxX - minX, maxY - minY);
 }
 
+glm::vec2 Text::getLocalSize() const {
+    const sf::FloatRect bounds = getLocalBounds();
+    return {bounds.left + bounds.width, bounds.top + bounds.height};
+}
+
 Text::CharSearchResult Text::findCharacterAtPosition(const glm::vec2& targetPos) const {
     const sf::FloatRect& targetBounds = getTargetRegion();
     if (!targetBounds.contains({targetPos.x, targetPos.y})) { return {}; }

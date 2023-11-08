@@ -39,6 +39,7 @@ void Overlay::renderScene(scene::SceneRenderContext& ctx) {
     }
 
     VkPipelineLayout currentPipelineLayout = nullptr;
+    VkPipeline currentPipeline             = nullptr;
     UpdateSpeed currentSpeed{};
     while (!renderStack.empty()) {
         ovy::OverlayObject& obj = *renderStack.back();
@@ -50,6 +51,7 @@ void Overlay::renderScene(scene::SceneRenderContext& ctx) {
 
         const vk::PipelineLayout& layout = obj.pipeline->pipelineLayout();
         const VkPipelineLayout vkl       = layout.rawLayout();
+        const VkPipeline vkp             = obj.pipeline->rawPipeline(ctx.currentRenderPass());
         if (vkl != currentPipelineLayout || currentSpeed != obj.sceneKey.updateFreq) {
             currentSpeed          = obj.sceneKey.updateFreq;
             currentPipelineLayout = vkl;
@@ -58,6 +60,10 @@ void Overlay::renderScene(scene::SceneRenderContext& ctx) {
                                 obj.sceneKey.updateFreq,
                                 obj.descriptors.data(),
                                 obj.descriptorCount);
+        }
+        else if (currentPipeline != vkp) {
+            currentPipeline = vkp;
+            ctx.bindPipeline(*obj.pipeline);
         }
         for (std::uint8_t i = obj.perObjStart; i < obj.descriptorCount; ++i) {
             obj.descriptors[i]->bindForObject(

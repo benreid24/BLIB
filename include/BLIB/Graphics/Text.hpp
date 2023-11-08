@@ -125,6 +125,11 @@ public:
     sf::FloatRect getLocalBounds() const;
 
     /**
+     * @brief Returns localBounds size plus position to give total size
+     */
+    glm::vec2 getLocalSize() const;
+
+    /**
      * @brief Searches for the character that contains the given position
      *
      * @param targetPos Position to search for. In window space
