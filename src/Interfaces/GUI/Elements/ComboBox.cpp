@@ -12,39 +12,24 @@ ComboBox::Ptr ComboBox::create() { return Ptr(new ComboBox()); }
 
 ComboBox::ComboBox()
 : Element()
-, arrow(Canvas::create(32, 32))
 , maxHeight(0.f)
 , scroll(0.f)
 , selected(-1)
-, opened(false)
-, arrowRendered(false) {
-    getSignal(Event::RenderSettingsChanged).willAlwaysCall(std::bind(&ComboBox::onSettings, this));
+, moused(-1)
+, opened(false) {
     getSignal(Event::LeftClicked).willAlwaysCall(std::bind(&ComboBox::clicked, this));
     getSignal(Event::AcquisitionChanged).willAlwaysCall(std::bind(&ComboBox::onAcquisition, this));
     getSignal(Event::Moved).willAlwaysCall(std::bind(&ComboBox::onAcquisition, this));
 }
 
-void ComboBox::setLabelColor(const sf::Color& c) {
-    labelColor = c;
-    onSettings();
-}
-
 void ComboBox::addOption(const std::string& text) {
     options.push_back(text);
-    labels.push_back(Label::create(text));
-    labels.back()->setExpandsWidth(true);
-    labels.back()->setHorizontalAlignment(RenderSettings::Left);
-    labels.back()
-        ->getSignal(Event::LeftClicked)
-        .willAlwaysCall(std::bind(&ComboBox::optionClicked, this, text));
-    onSettings();
+    if (getComponent()) { getComponent()->onElementUpdated(); }
     refreshLabelRegion();
 }
 
 void ComboBox::clearOptions() {
-    for (Label::Ptr label : labels) { label->remove(); }
     options.clear();
-    labels.clear();
     selected = -1;
     opened   = false;
     refreshLabelRegion();
@@ -63,8 +48,8 @@ void ComboBox::setSelectedOption(int i, bool f) {
     selected = i;
     if (selected >= static_cast<int>(options.size())) selected = options.size() - 1;
     opened = false;
-    packClosed();
     if (f) fireSignal(Event(Event::ValueChanged, static_cast<float>(i)));
+    if (getComponent()) { getComponent()->onElementUpdated(); }
 }
 
 void ComboBox::setSelectedOption(const std::string& t, bool f) {
@@ -79,29 +64,12 @@ void ComboBox::setSelectedOption(const std::string& t, bool f) {
 bool ComboBox::isOpened() const { return opened; }
 
 sf::Vector2f ComboBox::minimumRequisition() const {
-    sf::Vector2f lreq(0.f, 0.f);
-    for (const Label::Ptr& label : labels) {
-        const sf::Vector2f req = label->getRequisition();
-        lreq.x                 = std::max(req.x + OptionPadding * 2.f, lreq.x);
-        lreq.y                 = std::max(req.y + OptionPadding * 2.f, lreq.y);
-    }
+    sf::Vector2f lreq(80.f, 20.f);
+    if (getComponent()) { lreq = getComponent()->getRequisition(); }
     return {lreq.x + lreq.y + OptionPadding * 4.f, lreq.y};
 }
 
-void ComboBox::onAcquisition() {
-    refreshLabelRegion();
-
-    arrow->scaleToSize({getAcquisition().height, getAcquisition().height}, false);
-    Packer::manuallyPackElement(arrow,
-                                {getAcquisition().left + labelSize.x,
-                                 getAcquisition().top,
-                                 getAcquisition().height,
-                                 getAcquisition().height});
-    if (opened)
-        packOpened();
-    else
-        packClosed();
-}
+void ComboBox::onAcquisition() { refreshLabelRegion(); }
 
 void ComboBox::refreshLabelRegion() {
     labelSize = {getAcquisition().width - getAcquisition().height + OptionPadding,
@@ -114,29 +82,32 @@ void ComboBox::refreshLabelRegion() {
                    totalHeight};
 
     labelRegion.height =
-        maxHeight > 0 ? std::min(maxHeight, labelRegion.height) : labelRegion.height;
+        maxHeight > 0.f ? std::min(maxHeight, labelRegion.height) : labelRegion.height;
 }
 
 bool ComboBox::propagateEvent(const Event& event) {
     const bool contained = labelRegion.contains(event.mousePosition());
     if (contained && opened) {
-        if (event.type() == Event::Scrolled) {
-            scrolled(event);
-            const Event fakeMove(
-                Event::MouseMoved,
-                sf::Vector2f(event.mousePosition().x, event.mousePosition().y + scroll));
-            for (Label::Ptr& option : labels) { option->processEvent(fakeMove); }
-            return true;
+        if (event.type() == Event::Scrolled) { scrolled(event); }
+        else if (event.type() == Event::MouseMoved || event.type() == Event::LeftMousePressed) {
+            const sf::Vector2f translated(event.mousePosition().x,
+                                          event.mousePosition().y + scroll);
+            sf::FloatRect test(labelRegion.left, labelRegion.top, labelSize.x, labelSize.y);
+            for (unsigned int i = 0; i < options.size(); ++i) {
+                if (test.contains(translated)) {
+                    moused = i;
+                    if (event.type() == Event::LeftMousePressed) { setSelectedOption(i); }
+                    break;
+                }
+            }
         }
-        else {
-            const Event translated(
-                event, sf::Vector2f(event.mousePosition().x, event.mousePosition().y + scroll));
-            for (Label::Ptr& option : labels) { option->processEvent(translated); }
-        }
+
+        if (getComponent()) { getComponent()->onElementUpdated(); }
+        return true;
     }
     if (opened && !contained && event.type() == Event::LeftMousePressed) {
         opened = false;
-        packClosed();
+        if (getComponent()) { getComponent()->onElementUpdated(); }
         return true; // eat it
     }
     return contained && opened;
@@ -145,6 +116,7 @@ bool ComboBox::propagateEvent(const Event& event) {
 bool ComboBox::handleScroll(const Event& event) {
     if (opened && labelRegion.contains(event.mousePosition())) {
         scrolled(event);
+        if (getComponent()) { getComponent()->onElementUpdated(); }
         return true;
     }
     return false;
@@ -155,21 +127,10 @@ rdr::Component* ComboBox::doPrepareRender(rdr::Renderer& renderer) {
         *this, getParentComponent(), getWindowOrGuiParentComponent());
 }
 
-void ComboBox::onSettings() {
-    for (Label::Ptr label : labels) {
-        if (labelColor.has_value()) label->setColor(labelColor.value(), sf::Color::Transparent);
-        if (renderSettings().font.has_value()) label->setFont(renderSettings().font.value());
-        if (renderSettings().style.has_value()) label->setStyle(renderSettings().style.value());
-        if (renderSettings().characterSize.has_value())
-            label->setCharacterSize(renderSettings().characterSize.value());
-    }
-}
-
 void ComboBox::optionClicked(const std::string& text) {
     if (opened) {
-        setSelectedOption(text);
         opened = false;
-        packClosed();
+        setSelectedOption(text);
     }
 }
 
@@ -177,56 +138,21 @@ void ComboBox::clicked() {
     takeFocus();
     moveToTop();
     opened = !opened;
-    if (opened)
-        packOpened();
-    else
-        packClosed();
-}
-
-void ComboBox::packOpened() {
-    sf::Vector2f pos(labelRegion.left, labelRegion.top);
-    for (Label::Ptr label : labels) {
-        label->setVisible(true, false);
-        Packer::manuallyPackElement(label, {pos, labelSize});
-        pos.y += labelSize.y;
-    }
-}
-
-void ComboBox::packClosed() {
-    const unsigned sel = selected >= 0 ? selected : options.size();
-    for (unsigned int i = 0; i < labels.size(); ++i) {
-        if (i == sel) {
-            Packer::manuallyPackElement(labels[i],
-                                        {getAcquisition().left + OptionPadding,
-                                         getAcquisition().top + OptionPadding,
-                                         labelSize.x,
-                                         labelSize.y});
-            labels[i]->setVisible(true, false);
-        }
-        else
-            labels[i]->setVisible(false, false);
-    }
+    if (getComponent()) { getComponent()->onElementUpdated(); }
 }
 
 void ComboBox::setMaxHeight(float m) { maxHeight = m; }
 
 void ComboBox::scrolled(const Event& a) {
-    if (maxHeight > 0 && totalHeight > maxHeight) {
+    if (maxHeight > 0.f && totalHeight > maxHeight) {
         const float maxScroll = totalHeight - maxHeight;
-        const float f         = maxScroll / 140.f;
+        const float f         = maxScroll / 140.f * 6.f;
 
-        scroll -= a.scrollDelta() * 6.f * f;
+        scroll -= a.scrollDelta() * f;
         if (scroll < 0.f)
             scroll = 0.f;
         else if (scroll > maxScroll)
             scroll = maxScroll;
-    }
-}
-
-void ComboBox::update(float dt) {
-    Element::update(dt);
-    if (opened) {
-        for (Label::Ptr& option : labels) { option->update(dt); }
     }
 }
 
