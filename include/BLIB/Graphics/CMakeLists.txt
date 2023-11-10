@@ -12,4 +12,5 @@ target_sources(BLIB PUBLIC
 
 add_subdirectory(Animation2D)
 add_subdirectory(Components)
+add_subdirectory(Shapes2D)
 add_subdirectory(Text)
