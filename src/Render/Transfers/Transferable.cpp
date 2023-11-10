@@ -9,11 +9,13 @@ namespace tfr
 {
 Transferable::Transferable()
 : vulkanState(nullptr)
-, perFrame(NotPerFrame) {}
+, perFrame(NotPerFrame)
+, queued(false) {}
 
 Transferable::Transferable(vk::VulkanState& vs)
 : vulkanState(&vs)
-, perFrame(NotPerFrame) {}
+, perFrame(NotPerFrame)
+, queued(false) {}
 
 Transferable::~Transferable() {
     if (perFrame != NotPerFrame) { stopTransferringEveryFrame(); }
@@ -26,7 +28,10 @@ void Transferable::queueTransfer(SyncRequirement syncReq) {
     }
 #endif
 
-    vulkanState->transferEngine.queueOneTimeTransfer(this, syncReq);
+    if (!queued) {
+        queued = true;
+        vulkanState->transferEngine.queueOneTimeTransfer(this, syncReq);
+    }
 }
 
 void Transferable::transferEveryFrame(SyncRequirement syncReq) {
