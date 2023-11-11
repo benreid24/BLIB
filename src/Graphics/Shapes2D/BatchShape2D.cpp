@@ -46,8 +46,9 @@ void BatchShape2D::ensureUpdated() {
         update(alloc.getVertices(), alloc.getIndices());
         alloc.commit();
 
-        // refresh owner bounds
+        // refresh owner bounds and draw call
         owner->ensureLocalSizeUpdated();
+        owner->component().commit();
     }
 }
 

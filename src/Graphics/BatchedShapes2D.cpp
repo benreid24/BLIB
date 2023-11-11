@@ -9,6 +9,7 @@ namespace gfx
 void BatchedShapes2D::create(engine::Engine& engine, std::uint32_t vc) {
     Drawable::create(engine, engine.renderer().vulkanState(), vc, vc * 3);
     OverlayScalable::create(engine, entity());
+    component().commit();
 }
 
 void BatchedShapes2D::scaleToSize(const glm::vec2& size) {

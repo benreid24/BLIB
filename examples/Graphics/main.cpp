@@ -22,6 +22,9 @@ private:
     bl::gfx::Circle circle;
     bl::gfx::Triangle triangle;
 
+    bl::gfx::BatchedShapes2D batched;
+    bl::gfx::BatchRectangle batchRect;
+
     virtual const char* name() const override { return "DemoState"; }
 
     virtual void activate(bl::engine::Engine& engine) override {
@@ -74,6 +77,16 @@ private:
         triangle.setOutlineThickness(3.f);
         triangle.getTransform().setPosition({1500.f, 250.f});
         triangle.addToScene(scene, bl::rc::UpdateSpeed::Static);
+
+        // add a set of batched shapes to the scene
+        batched.create(engine, 128);
+        batched.getTransform().setPosition({100.f, 800.f});
+        batched.addToScene(scene, bl::rc::UpdateSpeed::Static);
+
+        batchRect.create(engine, batched, {120.f, 25.f});
+        batchRect.setFillColor({0.f, 1.f, 0.f, 1.f});
+        batchRect.setOutlineColor({0.f, 0.f, 0.f, 1.f});
+        batchRect.setOutlineThickness(3.f);
     }
 
     virtual void deactivate(bl::engine::Engine& engine) override {
