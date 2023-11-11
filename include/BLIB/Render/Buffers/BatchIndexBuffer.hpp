@@ -110,7 +110,7 @@ public:
 
     private:
         BatchIndexBufferT* owner;
-        std::list<AllocInfo>::iterator alloc;
+        typename std::list<AllocInfo>::iterator alloc;
 
         AllocHandle(BatchIndexBufferT& owner, typename std::list<AllocInfo>::iterator alloc);
         void incRef();
