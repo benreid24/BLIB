@@ -49,7 +49,11 @@ void BatchShape2D::ensureUpdated() {
 
         // populate vertices
         update(alloc.getVertices(), alloc.getIndices());
-        alloc.commit();
+
+        // offset indices
+        for (std::uint32_t i = 0; i < indexCount; ++i) {
+            alloc.getIndices()[i] += alloc.getInfo().vertexStart;
+        }
 
         // apply transform to vertices
         for (std::uint32_t i = 0; i < vertexCount; ++i) {
@@ -58,6 +62,7 @@ void BatchShape2D::ensureUpdated() {
         }
 
         // refresh owner bounds and draw call
+        alloc.commit();
         owner->ensureLocalSizeUpdated();
         owner->component().commit();
     }

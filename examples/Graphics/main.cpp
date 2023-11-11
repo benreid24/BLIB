@@ -24,6 +24,7 @@ private:
 
     bl::gfx::BatchedShapes2D batched;
     bl::gfx::BatchRectangle batchRect;
+    bl::gfx::BatchRectangle batchRect2;
 
     virtual const char* name() const override { return "DemoState"; }
 
@@ -87,6 +88,12 @@ private:
         batchRect.setFillColor({0.f, 1.f, 0.f, 1.f});
         batchRect.setOutlineColor({0.f, 0.f, 0.f, 1.f});
         batchRect.setOutlineThickness(3.f);
+
+        batchRect2.create(engine, batched, {120.f, 25.f});
+        batchRect2.setFillColor({0.f, 0.f, 1.f, 1.f});
+        batchRect2.setOutlineColor({0.f, 0.f, 0.f, 1.f});
+        batchRect2.setOutlineThickness(3.f);
+        batchRect2.getLocalTransform().setPosition({0.f, batchRect.getLocalBounds().height});
     }
 
     virtual void deactivate(bl::engine::Engine& engine) override {
