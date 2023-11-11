@@ -112,7 +112,7 @@ public:
         BatchIndexBufferT* owner;
         std::list<AllocInfo>::iterator alloc;
 
-        AllocHandle(BatchIndexBufferT& owner, std::list<AllocInfo>::iterator alloc);
+        AllocHandle(BatchIndexBufferT& owner, typename std::list<AllocInfo>::iterator alloc);
         void incRef();
 
         friend class BatchIndexBufferT;
@@ -204,7 +204,7 @@ private:
     std::uint32_t usedIndices;
     std::list<AllocInfo> allocations;
 
-    void release(std::list<AllocInfo>::iterator alloc);
+    void release(typename std::list<AllocInfo>::iterator alloc);
     void commit();
 };
 
@@ -315,7 +315,7 @@ const typename IndexBufferT<T>& BatchIndexBufferT<T>::getIndexBuffer() const {
 }
 
 template<typename T>
-void BatchIndexBufferT<T>::release(std::list<AllocInfo>::iterator it) {
+void BatchIndexBufferT<T>::release(typename std::list<AllocInfo>::iterator it) {
     const AllocInfo alloc = *it;
     allocations.erase(it);
 
