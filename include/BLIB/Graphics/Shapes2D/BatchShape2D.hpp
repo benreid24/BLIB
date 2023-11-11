@@ -1,6 +1,7 @@
 #ifndef BLIB_GRAPHICS_SHAPES2D_BATCHSHAPE2D_HPP
 #define BLIB_GRAPHICS_SHAPES2D_BATCHSHAPE2D_HPP
 
+#include <BLIB/Components/Transform2D.hpp>
 #include <BLIB/Engine/Systems.hpp>
 #include <BLIB/Graphics/Shapes2D/Shape2D.hpp>
 #include <BLIB/Render/Buffers/BatchIndexBuffer.hpp>
@@ -25,6 +26,18 @@ public:
      */
     virtual ~BatchShape2D() = default;
 
+    /**
+     * @brief Returns the local transform of the shape. Determines the positions of the vertices
+     *        within the batch
+     */
+    const com::Transform2D& getLocalTransform() const { return transform; }
+
+    /**
+     * @brief Returns the local transform of the shape. Determines the positions of the vertices
+     *        within the batch. This override assumes the transform is modified and marks dirty
+     */
+    com::Transform2D& getLocalTransform();
+
 protected:
     /**
      * @brief Initializes the shape
@@ -47,10 +60,10 @@ protected:
 private:
     engine::Engine* engine;
     BatchedShapes2D* owner;
+    com::Transform2D transform;
     rc::buf::BatchIndexBuffer::AllocHandle alloc;
     bool dirty;
     engine::Systems::TaskHandle updateHandle;
-    // TODO - transform + hook to apply
 
     virtual void ensureUpdated() override;
 };

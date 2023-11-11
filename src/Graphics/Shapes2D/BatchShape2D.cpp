@@ -28,6 +28,11 @@ void BatchShape2D::notifyDirty() {
     }
 }
 
+com::Transform2D& BatchShape2D::getLocalTransform() {
+    notifyDirty();
+    return transform;
+}
+
 void BatchShape2D::ensureUpdated() {
     if (dirty && owner) {
         dirty = false;
@@ -45,6 +50,12 @@ void BatchShape2D::ensureUpdated() {
         // populate vertices
         update(alloc.getVertices(), alloc.getIndices());
         alloc.commit();
+
+        // apply transform to vertices
+        for (std::uint32_t i = 0; i < vertexCount; ++i) {
+            auto& v = alloc.getVertices()[i];
+            v.pos   = transform.transformPoint(v.pos);
+        }
 
         // refresh owner bounds and draw call
         owner->ensureLocalSizeUpdated();

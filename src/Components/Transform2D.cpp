@@ -37,9 +37,9 @@ void Transform2D::move(const glm::vec2& delta) {
     makeDirty();
 }
 
-glm::vec2 Transform2D::getGlobalPosition() {
-    glm::vec2 result = position;
-    Transform2D* t   = this;
+glm::vec2 Transform2D::getGlobalPosition() const {
+    glm::vec2 result     = position;
+    const Transform2D* t = this;
     while (t->hasParent()) {
         t = &t->getParent();
         result += t->getLocalPosition();
@@ -109,8 +109,7 @@ glm::mat4 Transform2D::createTransformMatrix(const glm::vec2& origin, const glm:
 }
 
 glm::mat4 Transform2D::getLocalTransform() const {
-    return createTransformMatrix(
-        origin, glm::vec3(position, getGlobalDepth()), scaleFactors, rotation);
+    return createTransformMatrix(origin, glm::vec3(position, depth), scaleFactors, rotation);
 }
 
 const glm::mat4& Transform2D::getGlobalTransform() {
@@ -136,6 +135,19 @@ void Transform2D::ensureUpdated() {
         }
         else { cachedGlobalTransform = getLocalTransform(); }
     }
+}
+
+glm::vec3 Transform2D::transformPoint(const glm::vec3& src) const {
+    glm::mat4 localMat(1.f);
+    const glm::mat4* mat = &localMat;
+    if (requiresRefresh()) {
+        localMat = createTransformMatrix(
+            origin, glm::vec3(getGlobalPosition(), getGlobalDepth()), scaleFactors, rotation);
+    }
+    else { mat = &cachedGlobalTransform; }
+
+    const glm::vec4 np = (*mat) * glm::vec4(src, 1.f);
+    return {np.x, np.y, np.z};
 }
 
 } // namespace com

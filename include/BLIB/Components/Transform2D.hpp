@@ -65,7 +65,7 @@ public:
     /**
      * @brief Returns the position in global space
      */
-    glm::vec2 getGlobalPosition();
+    glm::vec2 getGlobalPosition() const;
 
     /**
      * @brief Sets the depth of the transform on the z-axis. Affects render order only. Default is 0
@@ -180,6 +180,14 @@ public:
     bool requiresRefresh() const {
         return ParentAwareVersioned::refreshRequired() || DescriptorComponentBase::isDirty();
     }
+
+    /**
+     * @brief Transforms the given point by this transform
+     *
+     * @param src The point to transform
+     * @return The transformed point
+     */
+    glm::vec3 transformPoint(const glm::vec3& src) const;
 
 private:
     glm::vec2 origin;
