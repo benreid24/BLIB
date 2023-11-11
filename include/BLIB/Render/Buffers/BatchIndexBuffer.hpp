@@ -193,6 +193,11 @@ public:
      */
     constexpr VkBuffer indexBufferHandle() const;
 
+    /**
+     * @brief Provides const access to the underlying index buffer
+     */
+    const IndexBufferT<T>& getIndexBuffer() const;
+
 private:
     IndexBufferT<T> storage;
     std::uint32_t usedVertices;
@@ -302,6 +307,11 @@ constexpr VkBuffer BatchIndexBufferT<T>::vertexBufferHandle() const {
 template<typename T>
 constexpr VkBuffer BatchIndexBufferT<T>::indexBufferHandle() const {
     return storage.indexBufferHandle();
+}
+
+template<typename T>
+const typename IndexBufferT<T>& BatchIndexBufferT<T>::getIndexBuffer() const {
+    return storage;
 }
 
 template<typename T>
