@@ -310,7 +310,7 @@ constexpr VkBuffer BatchIndexBufferT<T>::indexBufferHandle() const {
 }
 
 template<typename T>
-const typename IndexBufferT<T>& BatchIndexBufferT<T>::getIndexBuffer() const {
+const IndexBufferT<T>& BatchIndexBufferT<T>::getIndexBuffer() const {
     return storage;
 }
 
@@ -350,7 +350,7 @@ void BatchIndexBufferT<T>::commit() {
 
 template<typename T>
 BatchIndexBufferT<T>::AllocHandle::AllocHandle(BatchIndexBufferT& owner,
-                                               std::list<AllocInfo>::iterator alloc)
+                                               typename std::list<AllocInfo>::iterator alloc)
 : owner(&owner)
 , alloc(alloc) {
     incRef();
