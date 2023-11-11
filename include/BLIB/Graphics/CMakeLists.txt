@@ -3,7 +3,6 @@ target_sources(BLIB PUBLIC
 	Circle.hpp
 	Drawable.hpp
 	Rectangle.hpp
-	Shape2D.hpp
 	Slideshow.hpp
 	Sprite.hpp
 	Text.hpp

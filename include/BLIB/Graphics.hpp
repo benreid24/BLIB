@@ -15,7 +15,6 @@
 #include <BLIB/Graphics/Components/Transform2D.hpp>
 #include <BLIB/Graphics/Drawable.hpp>
 #include <BLIB/Graphics/Rectangle.hpp>
-#include <BLIB/Graphics/Shape2D.hpp>
 #include <BLIB/Graphics/Slideshow.hpp>
 #include <BLIB/Graphics/Sprite.hpp>
 #include <BLIB/Graphics/Text.hpp>
