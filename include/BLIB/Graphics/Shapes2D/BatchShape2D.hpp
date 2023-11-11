@@ -24,7 +24,7 @@ public:
     /**
      * @brief Destroys the shape
      */
-    virtual ~BatchShape2D() = default;
+    virtual ~BatchShape2D();
 
     /**
      * @brief Returns the local transform of the shape. Determines the positions of the vertices
@@ -37,6 +37,11 @@ public:
      *        within the batch. This override assumes the transform is modified and marks dirty
      */
     com::Transform2D& getLocalTransform();
+
+    /**
+     * @brief Removes the shape from the batch
+     */
+    void remove();
 
 protected:
     /**

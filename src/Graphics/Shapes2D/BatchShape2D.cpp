@@ -14,6 +14,8 @@ BatchShape2D::BatchShape2D()
 , owner(nullptr)
 , dirty(false) {}
 
+BatchShape2D::~BatchShape2D() { remove(); }
+
 void BatchShape2D::create(engine::Engine& e, BatchedShapes2D& o) {
     engine = &e;
     owner  = &o;
@@ -65,6 +67,16 @@ void BatchShape2D::ensureUpdated() {
         alloc.commit();
         owner->ensureLocalSizeUpdated();
         owner->component().commit();
+    }
+}
+
+void BatchShape2D::remove() {
+    if (alloc.isValid()) {
+        if (alloc.release() && owner) {
+            owner->ensureLocalSizeUpdated();
+            owner->component().commit();
+            owner = nullptr;
+        }
     }
 }
 

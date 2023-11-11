@@ -4,10 +4,10 @@ namespace bl
 {
 namespace gfx
 {
-gfx::Circle::Circle(unsigned int pointCount)
+Circle::Circle(unsigned int pointCount)
 : CircleBase(pointCount) {}
 
-void gfx::Circle::create(engine::Engine& engine, float r) {
+void Circle::create(engine::Engine& engine, float r) {
     setRadius(r);
     SingleShape2D::create(engine);
 }

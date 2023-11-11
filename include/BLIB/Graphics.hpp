@@ -9,7 +9,9 @@
 #include <BLIB/Render.hpp>
 
 #include <BLIB/Graphics/Animation2D.hpp>
+#include <BLIB/Graphics/BatchCircle.hpp>
 #include <BLIB/Graphics/BatchRectangle.hpp>
+#include <BLIB/Graphics/BatchTriangle.hpp>
 #include <BLIB/Graphics/BatchedShapes2D.hpp>
 #include <BLIB/Graphics/Circle.hpp>
 #include <BLIB/Graphics/Components/OverlayScalable.hpp>

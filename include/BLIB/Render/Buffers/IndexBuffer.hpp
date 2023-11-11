@@ -152,12 +152,14 @@ void IndexBufferT<T>::create(vk::VulkanState& vs, std::uint32_t vc, std::uint32_
     gpuVertexBuffer.create(vs,
                            vc * sizeof(T),
                            VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
-                           VK_BUFFER_USAGE_VERTEX_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT,
+                           VK_BUFFER_USAGE_VERTEX_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT |
+                               VK_BUFFER_USAGE_TRANSFER_SRC_BIT,
                            0);
     gpuIndexBuffer.create(vs,
                           ic * sizeof(std::uint32_t),
                           VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
-                          VK_BUFFER_USAGE_INDEX_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT,
+                          VK_BUFFER_USAGE_INDEX_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT |
+                              VK_BUFFER_USAGE_TRANSFER_SRC_BIT,
                           0);
     vertexWriteStart = 0;
     vertexWriteCount = vc;

@@ -85,8 +85,10 @@ public:
 
         /**
          * @brief Releases this handle. Frees the allocation if this is the last handle
+         *
+         * @return True if the allocation was freed, false if there are other handles
          */
-        void release();
+        bool release();
 
         /**
          * @brief Returns the vertices for writing. Do not store pointers as they may be invalidated
@@ -412,13 +414,18 @@ void BatchIndexBufferT<T>::AllocHandle::commit() {
 }
 
 template<typename T>
-void BatchIndexBufferT<T>::AllocHandle::release() {
+bool BatchIndexBufferT<T>::AllocHandle::release() {
+    bool r = false;
     if (isValid()) {
         --alloc->refCount;
-        if (alloc->refCount == 0) { owner->release(alloc); }
+        if (alloc->refCount == 0) {
+            owner->release(alloc);
+            r = true;
+        }
         alloc = owner->allocations.end();
         owner = nullptr;
     }
+    return r;
 }
 
 template<typename T>
