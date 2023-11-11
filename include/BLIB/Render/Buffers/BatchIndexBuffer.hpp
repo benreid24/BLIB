@@ -39,9 +39,9 @@ public:
     class AllocHandle {
     public:
         /**
-         * @brief Deleted
+         * @brief Creates an invalid handle
          */
-        AllocHandle() = delete;
+        AllocHandle();
 
         /**
          * @brief Copies the allocation handle
@@ -360,6 +360,10 @@ template<typename T>
 void BatchIndexBufferT<T>::AllocHandle::incRef() {
     if (isValid()) { alloc->refCount += 1; }
 }
+
+template<typename T>
+BatchIndexBufferT<T>::AllocHandle::AllocHandle()
+: owner(nullptr) {}
 
 template<typename T>
 BatchIndexBufferT<T>::AllocHandle::AllocHandle(const AllocHandle& copy)

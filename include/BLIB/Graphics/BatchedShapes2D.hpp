@@ -4,6 +4,7 @@
 #include <BLIB/Components/BatchedShapes2D.hpp>
 #include <BLIB/Graphics/Components/OverlayScalable.hpp>
 #include <BLIB/Graphics/Drawable.hpp>
+#include <BLIB/Graphics/Shapes2D/BatchShape2D.hpp>
 #include <BLIB/Graphics/Shapes2D/Shape2D.hpp>
 
 namespace bl
@@ -52,6 +53,8 @@ public:
 
 private:
     virtual void ensureLocalSizeUpdated() override;
+
+    friend class s2d::BatchShape2D;
 };
 
 } // namespace gfx
