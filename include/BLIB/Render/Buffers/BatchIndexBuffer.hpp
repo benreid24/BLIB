@@ -203,6 +203,13 @@ private:
     void commit();
 };
 
+/**
+ * @brief Convenience typedef for the standard vertex type
+ *
+ * @ingroup Renderer
+ */
+using BatchIndexBuffer = BatchIndexBufferT<prim::Vertex>;
+
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 template<typename T>

@@ -9,6 +9,7 @@
 #include <BLIB/Components/Animation2D.hpp>
 #include <BLIB/Components/Animation2DPlayer.hpp>
 #include <BLIB/Components/BatchSceneLink.hpp>
+#include <BLIB/Components/BatchedShapes2D.hpp>
 #include <BLIB/Components/Mesh.hpp>
 #include <BLIB/Components/Orientation3D.hpp>
 #include <BLIB/Components/OverlayScaler.hpp>
