@@ -3,6 +3,7 @@
 
 #include <BLIB/Render/Buffers/IndexBuffer.hpp>
 #include <list>
+#include <memory>
 
 namespace bl
 {
