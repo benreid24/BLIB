@@ -9,7 +9,7 @@ OverlayScaler::OverlayScaler()
 , scaleType(None)
 , sizePercent(0.1f, 0.1f)
 , posType(NoPosition)
-, useScissor(false)
+, scissorMode(ScissorInherit)
 , dirty(true) {}
 
 void OverlayScaler::scaleToWidthPercent(float p) {
@@ -52,9 +52,9 @@ void OverlayScaler::setEntityBounds(const sf::FloatRect& s) {
     dirty              = true;
 }
 
-void OverlayScaler::setScissorToSelf(bool s) {
-    useScissor = s;
-    dirty      = true;
+void OverlayScaler::setScissorMode(ScissorMode m) {
+    scissorMode = m;
+    dirty       = true;
 }
 
 void OverlayScaler::positionInParentSpace(const glm::vec2& pos) {

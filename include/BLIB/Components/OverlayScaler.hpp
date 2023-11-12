@@ -41,6 +41,23 @@ public:
     using OnScale = std::function<void()>;
 
     /**
+     * @brief Represents the scissor behavior for an entity controlled by an overlay scaler
+     */
+    enum ScissorMode {
+        /// Default setting. Uses same scissor as parent, or Observer scissor for root elements
+        ScissorInherit,
+
+        /// Sets the scissor to the bounds of the object
+        ScissorSelf,
+
+        /// Sets the scissor to the bounds of the object and constrains against the parent scissor
+        ScissorSelfConstrained,
+
+        /// Sets the scissor to the top-level observer scissor
+        ScissorObserver
+    };
+
+    /**
      * @brief Initializes the component to have no scaling effect
      */
     OverlayScaler();
@@ -100,11 +117,11 @@ public:
     constexpr const sf::FloatRect& getEntityBounds() const;
 
     /**
-     * @brief Helper method to set the viewport to the region the drawable is in
+     * @brief Sets the behavior of the scissor when rendering this entity
      *
-     * @param setToSelf True to create and use a viewport, false to render normally
+     * @param mode The scissor mode
      */
-    void setScissorToSelf(bool setToSelf);
+    void setScissorMode(ScissorMode mode);
 
     /**
      * @brief Updates the entity position relative to the parent region
@@ -149,7 +166,7 @@ private:
     union {
         glm::vec2 parentPosition;
     };
-    bool useScissor;
+    ScissorMode scissorMode;
     bool dirty;
 
     friend class sys::OverlayScalerSystem;

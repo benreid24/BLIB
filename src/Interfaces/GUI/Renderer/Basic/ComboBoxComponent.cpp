@@ -88,7 +88,7 @@ void ComboBoxComponent::doCreate(engine::Engine& engine, rdr::Renderer&, Compone
     openBackground.create(engine, {100.f, 100.f});
     openBackground.setFillColor(sfcol(sf::Color(90, 90, 90)));
     openBackground.getTransform().setDepth(-1.f);
-    openBackground.getOverlayScaler().setScissorToSelf(true);
+    openBackground.getOverlayScaler().setScissorMode(com::OverlayScaler::ScissorSelf);
     openBackground.setParent(box);
 
     openOptionBoxes.create(engine, 256);
