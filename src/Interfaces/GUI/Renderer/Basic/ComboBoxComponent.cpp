@@ -205,7 +205,7 @@ void ComboBoxComponent::updateOptions() {
             o.background.setFillColor(sfcol(settings.fillColor.value_or(sf::Color(100, 100, 100))));
         }
         o.background.setOutlineColor(sfcol(settings.outlineColor.value_or(sf::Color::Black)));
-        o.background.setOutlineThickness(settings.outlineThickness.value_or(1.f));
+        o.background.setOutlineThickness(-settings.outlineThickness.value_or(1.f));
         o.background.getLocalTransform().setPosition({0.f, y});
     }
 }
