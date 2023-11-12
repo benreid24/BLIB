@@ -113,8 +113,10 @@ public:
     private:
         BatchIndexBufferT* owner;
         typename std::list<AllocInfo>::iterator alloc;
+        std::shared_ptr<bool> parentAlive;
 
-        AllocHandle(BatchIndexBufferT& owner, typename std::list<AllocInfo>::iterator alloc);
+        AllocHandle(BatchIndexBufferT& owner, const std::shared_ptr<bool>& pflag,
+                    typename std::list<AllocInfo>::iterator alloc);
         void incRef();
 
         friend class BatchIndexBufferT;
@@ -205,6 +207,7 @@ private:
     std::uint32_t usedVertices;
     std::uint32_t usedIndices;
     std::list<AllocInfo> allocations;
+    std::shared_ptr<bool> alive;
 
     void release(typename std::list<AllocInfo>::iterator alloc);
     void commit();
@@ -222,7 +225,8 @@ using BatchIndexBuffer = BatchIndexBufferT<prim::Vertex>;
 template<typename T>
 BatchIndexBufferT<T>::BatchIndexBufferT()
 : usedVertices(0)
-, usedIndices(0) {}
+, usedIndices(0)
+, alive(std::make_shared<bool>(true)) {}
 
 template<typename T>
 void BatchIndexBufferT<T>::create(vk::VulkanState& vulkanState, std::uint32_t initialVertexCount,
@@ -255,7 +259,7 @@ typename BatchIndexBufferT<T>::AllocHandle BatchIndexBufferT<T>::allocate(std::u
     usedIndices += reqi;
     storage.configureWriteRange(0, usedVertices, 0, usedIndices);
 
-    return {*this, it};
+    return {*this, alive, it};
 }
 
 template<typename T>
@@ -352,9 +356,11 @@ void BatchIndexBufferT<T>::commit() {
 
 template<typename T>
 BatchIndexBufferT<T>::AllocHandle::AllocHandle(BatchIndexBufferT& owner,
+                                               const std::shared_ptr<bool>& pflag,
                                                typename std::list<AllocInfo>::iterator alloc)
 : owner(&owner)
-, alloc(alloc) {
+, alloc(alloc)
+, parentAlive(pflag) {
     incRef();
 }
 
@@ -410,7 +416,7 @@ typename BatchIndexBufferT<T>::AllocHandle& BatchIndexBufferT<T>::AllocHandle::o
 
 template<typename T>
 void BatchIndexBufferT<T>::AllocHandle::commit() {
-    if (owner) { owner->commit(); }
+    if (isValid()) { owner->commit(); }
 }
 
 template<typename T>
@@ -445,7 +451,7 @@ const typename BatchIndexBufferT<T>::AllocInfo& BatchIndexBufferT<T>::AllocHandl
 
 template<typename T>
 bool BatchIndexBufferT<T>::AllocHandle::isValid() const {
-    return owner != nullptr && alloc != owner->allocations.end();
+    return owner != nullptr && parentAlive && *parentAlive && alloc != owner->allocations.end();
 }
 
 } // namespace buf
