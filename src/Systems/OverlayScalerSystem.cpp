@@ -131,6 +131,10 @@ void OverlayScalerSystem::refreshEntity(Result& cset) {
             if (scaler.onScale) { scaler.onScale(); }
         }
     }
+    else {
+        xScale = transform.getScale().x;
+        yScale = transform.getScale().y;
+    }
 
     switch (scaler.posType) {
     case com::OverlayScaler::ParentSpace:
@@ -147,16 +151,17 @@ void OverlayScalerSystem::refreshEntity(Result& cset) {
         const glm::vec2& origin = transform.getOrigin();
         const glm::vec2 offset((origin.x - scaler.cachedObjectBounds.left) * xScale,
                                (origin.y - scaler.cachedObjectBounds.top) * yScale);
-        const glm::vec2 corner = (pos - offset) / parentSize;
+        const glm::vec2 corner = (pos - offset) / cam::OverlayCamera::getOverlayCoordinateSpace();
 
-        VkRect2D& scissor = cset.get<rc::ovy::OverlayObject>()->cachedScissor;
-        scissor.offset.x  = viewport.x + viewport.width * corner.x;
-        scissor.offset.y  = viewport.y + viewport.height * corner.y;
-        scissor.extent.width =
-            viewport.width * (scaler.cachedObjectBounds.width * xScale) / parentSize.x;
-        scissor.extent.height =
-            viewport.height * (scaler.cachedObjectBounds.height * yScale) / parentSize.y;
+        VkRect2D& scissor    = cset.get<rc::ovy::OverlayObject>()->cachedScissor;
+        scissor.offset.x     = viewport.x + viewport.width * corner.x;
+        scissor.offset.y     = viewport.y + viewport.height * corner.y;
+        scissor.extent.width = viewport.width * (scaler.cachedObjectBounds.width * xScale) /
+                               cam::OverlayCamera::getOverlayCoordinateSpace().x;
+        scissor.extent.height = viewport.height * (scaler.cachedObjectBounds.height * yScale) /
+                                cam::OverlayCamera::getOverlayCoordinateSpace().y;
         constrainScissor(scissor, makeScissor(viewport));
+
         // TODO - constrain child scissors to parent? make option? (selection extend past window)
     }
     else {

@@ -35,9 +35,23 @@ class Drawable {
 
 public:
     /**
+     * @brief Assumes ownership of the underlying entity from the given drawable
+     *
+     * @param move The drawable to move from
+     */
+    Drawable(Drawable&& move);
+
+    /**
      * @brief Destroys the entity
      */
     virtual ~Drawable();
+    /**
+     * @brief Assumes ownership of the underlying entity from the given drawable
+     *
+     * @param move The drawable to move from
+     * @return A reference to this object
+     */
+    Drawable& operator=(Drawable&& move);
 
     /**
      * @brief Adds this entity to the given scene
@@ -202,11 +216,35 @@ Drawable<TCom, TSys>::Drawable()
 , handle(nullptr) {}
 
 template<typename TCom, typename TSys>
+Drawable<TCom, TSys>::Drawable(Drawable&& move)
+: enginePtr(move.enginePtr)
+, ecsId(move.ecsId)
+, handle(move.handle) {
+    move.enginePtr = nullptr;
+    move.ecsId     = ecs::InvalidEntity;
+    move.handle    = nullptr;
+}
+
+template<typename TCom, typename TSys>
 Drawable<TCom, TSys>::~Drawable() {
     if (enginePtr && ecsId != ecs::InvalidEntity) {
         removeFromScene();
         enginePtr->ecs().destroyEntity(ecsId);
     }
+}
+
+template<typename TCom, typename TSys>
+Drawable<TCom, TSys>& Drawable<TCom, TSys>::operator=(Drawable&& move) {
+    destroy();
+
+    enginePtr = move.enginePtr;
+    ecsId     = move.ecsId;
+    handle    = move.handle;
+
+    move.enginePtr = nullptr;
+    move.ecsId     = ecs::InvalidEntity;
+    move.handle    = nullptr;
+    return *this;
 }
 
 template<typename TCom, typename TSys>
@@ -339,13 +377,11 @@ TSys& Drawable<TCom, TSys>::system() {
 
 template<typename TCom, typename TSys>
 void Drawable<TCom, TSys>::destroy() {
-#ifdef BLIB_DEBUG
-    if (!enginePtr) { throw std::runtime_error("Drawable must be created before being destroyed"); }
-#endif
-
-    enginePtr->ecs().destroyEntity(ecsId);
-    ecsId  = ecs::InvalidEntity;
-    handle = nullptr;
+    if (enginePtr) {
+        enginePtr->ecs().destroyEntity(ecsId);
+        ecsId  = ecs::InvalidEntity;
+        handle = nullptr;
+    }
 }
 
 template<typename TCom, typename TSys>

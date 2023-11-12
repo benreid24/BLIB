@@ -1,11 +1,14 @@
 #ifndef BLIB_GUI_RENDERER_COMPONENTS_COMBOBOXCOMPONENT_HPP
 #define BLIB_GUI_RENDERER_COMPONENTS_COMBOBOXCOMPONENT_HPP
 
+#include <BLIB/Graphics/BatchRectangle.hpp>
+#include <BLIB/Graphics/BatchedShapes2D.hpp>
 #include <BLIB/Graphics/Rectangle.hpp>
 #include <BLIB/Graphics/Text.hpp>
 #include <BLIB/Graphics/Triangle.hpp>
 #include <BLIB/Interfaces/GUI/RenderSettings.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Component.hpp>
+#include <list>
 
 namespace bl
 {
@@ -103,6 +106,17 @@ protected:
                             const sf::Vector2f& posFromWindow) override;
 
 private:
+    struct Option {
+        gfx::BatchRectangle background;
+        gfx::Text text;
+        bool created;
+
+        Option()
+        : created(false) {}
+    };
+
+    engine::Engine* enginePtr;
+    rc::Overlay* currentOverlay;
     gfx::Rectangle box;
     gfx::Rectangle arrowBox;
     gfx::Triangle arrow;
@@ -111,9 +125,15 @@ private:
     gfx::Text selectedOption;
 
     // open elements
-    // TODO
+    gfx::Rectangle openBackground;
+    gfx::BatchedShapes2D openOptionBoxes;
+    std::list<Option> openOptions;
 
     void configureText(gfx::Text& text, const RenderSettings& settings);
+    void updateOptions();
+    bool optionsOutdated() const;
+    void positionSelectedText();
+    void highlightMoused();
 };
 
 } // namespace defcoms

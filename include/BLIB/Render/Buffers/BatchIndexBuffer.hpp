@@ -131,7 +131,7 @@ public:
     /**
      * @brief Destroys the buffer using deferDestroy()
      */
-    virtual ~BatchIndexBufferT() = default;
+    virtual ~BatchIndexBufferT();
 
     /**
      * @brief Creates the batched index buffer with the given initial capacities
@@ -230,6 +230,12 @@ BatchIndexBufferT<T>::BatchIndexBufferT()
 , alive(std::make_shared<bool>(true)) {}
 
 template<typename T>
+BatchIndexBufferT<T>::~BatchIndexBufferT() {
+    *alive = false;
+    storage.deferDestruction();
+}
+
+template<typename T>
 void BatchIndexBufferT<T>::create(vk::VulkanState& vulkanState, std::uint32_t initialVertexCount,
                                   std::uint32_t initialIndexCount) {
     deferDestruction();
@@ -265,6 +271,8 @@ typename BatchIndexBufferT<T>::AllocHandle BatchIndexBufferT<T>::allocate(std::u
 
 template<typename T>
 void BatchIndexBufferT<T>::destroy() {
+    *alive       = false;
+    alive        = std::make_shared<bool>(true);
     usedIndices  = 0;
     usedVertices = 0;
     allocations.clear();
@@ -273,6 +281,8 @@ void BatchIndexBufferT<T>::destroy() {
 
 template<typename T>
 void BatchIndexBufferT<T>::deferDestruction() {
+    *alive       = false;
+    alive        = std::make_shared<bool>(true);
     usedIndices  = 0;
     usedVertices = 0;
     allocations.clear();
@@ -377,14 +387,16 @@ BatchIndexBufferT<T>::AllocHandle::AllocHandle()
 template<typename T>
 BatchIndexBufferT<T>::AllocHandle::AllocHandle(const AllocHandle& copy)
 : owner(copy.owner)
-, alloc(copy.alloc) {
+, alloc(copy.alloc)
+, parentAlive(copy.parentAlive) {
     incRef();
 }
 
 template<typename T>
 BatchIndexBufferT<T>::AllocHandle::AllocHandle(AllocHandle&& move)
 : owner(move.owner)
-, alloc(move.alloc) {
+, alloc(move.alloc)
+, parentAlive(std::move(move.parentAlive)) {
     move.owner = nullptr;
     move.alloc = owner->allocations.end();
 }
@@ -398,8 +410,9 @@ template<typename T>
 typename BatchIndexBufferT<T>::AllocHandle& BatchIndexBufferT<T>::AllocHandle::operator=(
     const AllocHandle& copy) {
     release();
-    owner = copy.owner;
-    alloc = copy.alloc;
+    owner       = copy.owner;
+    alloc       = copy.alloc;
+    parentAlive = copy.parentAlive;
     incRef();
     return *this;
 }
@@ -408,10 +421,11 @@ template<typename T>
 typename BatchIndexBufferT<T>::AllocHandle& BatchIndexBufferT<T>::AllocHandle::operator=(
     AllocHandle&& move) {
     release();
-    owner      = move.owner;
-    alloc      = move.alloc;
-    move.owner = nullptr;
-    move.alloc = owner->allocations.end();
+    owner       = move.owner;
+    alloc       = move.alloc;
+    parentAlive = std::move(move.parentAlive);
+    move.owner  = nullptr;
+    move.alloc  = owner->allocations.end();
     return *this;
 }
 
@@ -424,6 +438,7 @@ template<typename T>
 bool BatchIndexBufferT<T>::AllocHandle::release() {
     bool r = false;
     if (isValid()) {
+        parentAlive.reset();
         --alloc->refCount;
         if (alloc->refCount == 0) {
             owner->release(alloc);

@@ -17,41 +17,51 @@ constexpr float BoxPad = ComboBox::OptionPadding * 2.f;
 }
 
 ComboBoxComponent::ComboBoxComponent()
-: Component(HighlightState::IgnoresMouse) {}
+: Component(HighlightState::IgnoresMouse)
+, enginePtr(nullptr)
+, currentOverlay(nullptr) {}
 
 void ComboBoxComponent::setVisible(bool v) { box.setHidden(!v); }
 
 void ComboBoxComponent::onElementUpdated() {
     ComboBox& owner = getOwnerAs<ComboBox>();
 
+    openBackground.scaleToSize({owner.getOptionRegion().width, owner.getOptionRegion().height});
     if (owner.isOpened()) {
         selectedOption.setHidden(true);
-        // TODO - show open items
-        // TODO - update highlight color for moused item, if any
-        // TODO - update scroll for open items
+        openBackground.setHidden(false);
+        if (optionsOutdated()) { updateOptions(); }
+        openOptionBoxes.getTransform().setPosition({0.f, -owner.getScroll()});
+        highlightMoused();
     }
     else {
-        // TODO - hide open items
+        openBackground.setHidden(true);
         if (owner.getSelectedOption() >= 0) {
             selectedOption.setHidden(false);
             selectedOption.getSection().setString(owner.getSelectedOptionText());
+            positionSelectedText();
         }
     }
 }
 
 void ComboBoxComponent::onRenderSettingChange() {
-    const RenderSettings& settings = getOwnerAs<ComboBox>().getRenderSettings();
+    ComboBox& owner                = getOwnerAs<ComboBox>();
+    const RenderSettings& settings = owner.getRenderSettings();
     box.setFillColor(bl::sfcol(settings.fillColor.value_or(sf::Color(100, 100, 100))));
     box.setOutlineColor(bl::sfcol(settings.outlineColor.value_or(sf::Color::Black)));
     box.setOutlineThickness(-settings.outlineThickness.value_or(1.f));
 
     configureText(selectedOption, settings);
-    // TODO - open items
+
+    updateOptions();
+    openBackground.scaleToSize({owner.getOptionRegion().width, owner.getOptionRegion().height});
+    openBackground.getTransform().setPosition({0.f, box.getLocalBounds().height});
 }
 
 ecs::Entity ComboBoxComponent::getEntity() const { return box.entity(); }
 
 void ComboBoxComponent::doCreate(engine::Engine& engine, rdr::Renderer&, Component*, Component&) {
+    enginePtr                      = &engine;
     ComboBox& owner                = getOwnerAs<ComboBox>();
     const RenderSettings& settings = owner.renderSettings();
     box.create(engine, {owner.getAcquisition().width, owner.getAcquisition().height});
@@ -74,22 +84,40 @@ void ComboBoxComponent::doCreate(engine::Engine& engine, rdr::Renderer&, Compone
     selectedOption.create(engine, *settings.font.value_or(Font::get()));
     selectedOption.setParent(box);
 
-    // TODO - open items
+    // open state items
+    openBackground.create(engine, {100.f, 100.f});
+    openBackground.setFillColor(sfcol(sf::Color(90, 90, 90)));
+    openBackground.getTransform().setDepth(-1.f);
+    openBackground.getOverlayScaler().setScissorToSelf(true);
+    openBackground.setParent(box);
+
+    openOptionBoxes.create(engine, 256);
+    openOptionBoxes.setParent(openBackground);
 }
 
 void ComboBoxComponent::doSceneAdd(rc::Overlay* overlay) {
+    currentOverlay = overlay;
+
     box.addToScene(overlay, rc::UpdateSpeed::Static);
     arrowBox.addToScene(overlay, rc::UpdateSpeed::Static);
     arrow.addToScene(overlay, rc::UpdateSpeed::Static);
     selectedOption.addToScene(overlay, rc::UpdateSpeed::Static);
 
-    // TODO - add open items
+    openBackground.addToScene(overlay, rc::UpdateSpeed::Static);
+    openOptionBoxes.addToScene(overlay, rc::UpdateSpeed::Static);
+    if (optionsOutdated()) { updateOptions(); }
+    for (auto& option : openOptions) { option.text.addToScene(overlay, rc::UpdateSpeed::Static); }
 }
 
-void ComboBoxComponent::doSceneRemove() { box.removeFromScene(); }
+void ComboBoxComponent::doSceneRemove() {
+    currentOverlay = nullptr;
+    box.removeFromScene();
+}
 
 void ComboBoxComponent::handleAcquisition(const sf::Vector2f& posFromParent, const sf::Vector2f&,
                                           const sf::Vector2f& size) {
+    ComboBox& owner = getOwnerAs<ComboBox>();
+
     // background and arrow button
     box.setSize({size.x, size.y});
     arrowBox.setSize({size.y - BoxPad, size.y - BoxPad});
@@ -98,16 +126,17 @@ void ComboBoxComponent::handleAcquisition(const sf::Vector2f& posFromParent, con
         {size.x - ComboBox::OptionPadding - arrowBox.getSize().x, ComboBox::OptionPadding});
 
     // closed text
-    const glm::vec2 textSize = selectedOption.getLocalSize();
-    const sf::Vector2f pos =
-        RenderSettings::calculatePosition(RenderSettings::Left,
-                                          RenderSettings::Center,
-                                          getOwnerAs<ComboBox>().getAcquisition(),
-                                          {textSize.x, textSize.y});
-    selectedOption.getTransform().setPosition({pos.x, pos.y});
+    positionSelectedText();
 
     // open box and texts
-    // TODO
+    openBackground.scaleToSize({owner.getOptionRegion().width, owner.getOptionRegion().height});
+    openBackground.getTransform().setPosition({0.f, size.y});
+    if (optionsOutdated() ||
+        (!openOptions.empty() &&
+         (openOptions.front().background.getSize().x != owner.getOptionSize().x ||
+          openOptions.front().background.getSize().y != owner.getOptionSize().y))) {
+        updateOptions();
+    }
 }
 
 void ComboBoxComponent::handleMove(const sf::Vector2f& posFromParent, const sf::Vector2f&) {
@@ -125,20 +154,100 @@ void ComboBoxComponent::configureText(gfx::Text& text, const RenderSettings& set
 }
 
 sf::Vector2f ComboBoxComponent::getRequisition() const {
-    const ComboBox& owner          = getOwnerAs<ComboBox>();
-    const RenderSettings& settings = owner.renderSettings();
-    const float fontSize =
-        static_cast<float>(settings.characterSize.value_or(Label::DefaultFontSize));
+    if (optionsOutdated()) { const_cast<ComboBoxComponent*>(this)->updateOptions(); }
 
-    sf::Vector2f req(0.f, fontSize);
-
-    // TODO - actually go through options
-    for (const auto& option : owner.getAllOptions()) {
-        const float w = option.size() * fontSize + BoxPad;
-        req.x         = std::max(req.x, w);
+    sf::Vector2f req(0.f, 0.f);
+    for (const auto& option : openOptions) {
+        const sf::FloatRect bounds = option.text.getLocalBounds();
+        const float w              = bounds.left + bounds.width + BoxPad;
+        const float h              = bounds.top + bounds.height + BoxPad;
+        req.x                      = std::max(req.x, w);
+        req.y                      = std::max(req.y, h);
     }
 
     return req;
+}
+
+void ComboBoxComponent::updateOptions() {
+    ComboBox& owner                = getOwnerAs<ComboBox>();
+    const RenderSettings& settings = owner.renderSettings();
+    const glm::vec2 boxSize(owner.getOptionSize().x, owner.getOptionSize().y);
+
+    openOptions.resize(owner.getAllOptions().size());
+    auto it = openOptions.begin();
+    for (unsigned int i = 0; i < owner.getAllOptions().size(); ++i) {
+        Option& o     = *(it++);
+        const float y = static_cast<float>(i) * boxSize.y;
+
+        if (!o.created) {
+            o.created = true;
+            o.background.create(*enginePtr, openOptionBoxes, boxSize);
+            o.text.create(*enginePtr, *settings.font.value_or(Font::get()));
+            o.text.setParent(openOptionBoxes);
+            if (currentOverlay) { o.text.addToScene(currentOverlay, rc::UpdateSpeed::Static); }
+        }
+
+        o.text.getSection().setString(owner.getAllOptions()[i]);
+        configureText(o.text, settings);
+        const sf::Vector2f tpos = RenderSettings::calculatePosition(
+            RenderSettings::Left,
+            RenderSettings::Center,
+            sf::FloatRect{sf::Vector2f{0.f, y}, owner.getOptionSize()},
+            {o.text.getLocalSize().x, o.text.getLocalSize().y});
+        o.text.getTransform().setPosition({tpos.x, tpos.y + y});
+
+        o.background.setSize(boxSize);
+        if (i == owner.getMousedOption()) {
+            o.background.setFillColor(
+                sfcol(settings.secondaryFillColor.value_or(sf::Color(80, 80, 250))));
+        }
+        else {
+            o.background.setFillColor(sfcol(settings.fillColor.value_or(sf::Color(100, 100, 100))));
+        }
+        o.background.setOutlineColor(sfcol(settings.outlineColor.value_or(sf::Color::Black)));
+        o.background.setOutlineThickness(settings.outlineThickness.value_or(1.f));
+        o.background.getLocalTransform().setPosition({0.f, y});
+    }
+}
+
+void ComboBoxComponent::highlightMoused() {
+    ComboBox& owner                = getOwnerAs<ComboBox>();
+    const RenderSettings& settings = owner.renderSettings();
+
+    auto it = openOptions.begin();
+    for (unsigned int i = 0; i < owner.getAllOptions().size(); ++i) {
+        Option& o = *(it++);
+
+        if (i == owner.getMousedOption()) {
+            o.background.setFillColor(
+                sfcol(settings.secondaryFillColor.value_or(sf::Color(80, 80, 250))));
+        }
+        else {
+            o.background.setFillColor(sfcol(settings.fillColor.value_or(sf::Color(100, 100, 100))));
+        }
+    }
+}
+
+bool ComboBoxComponent::optionsOutdated() const {
+    const ComboBox& owner = getOwnerAs<ComboBox>();
+    if (owner.getAllOptions().size() != openOptions.size()) { return true; }
+    auto it = openOptions.begin();
+    for (unsigned int i = 0; i < openOptions.size(); ++i) {
+        const auto& option      = *(it++);
+        const std::string& text = owner.getAllOptions()[i];
+        if (!option.created || option.text.getSection().getString() != text) { return true; }
+    }
+    return false;
+}
+
+void ComboBoxComponent::positionSelectedText() {
+    ComboBox& owner          = getOwnerAs<ComboBox>();
+    const glm::vec2 textSize = selectedOption.getLocalSize();
+    const sf::Vector2f pos   = RenderSettings::calculatePosition(RenderSettings::Left,
+                                                               RenderSettings::Center,
+                                                               owner.getAcquisition(),
+                                                                 {textSize.x, textSize.y});
+    selectedOption.getTransform().setPosition({pos.x, pos.y});
 }
 
 } // namespace defcoms

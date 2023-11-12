@@ -88,21 +88,41 @@ void ComboBox::refreshLabelRegion() {
 bool ComboBox::propagateEvent(const Event& event) {
     const bool contained = labelRegion.contains(event.mousePosition());
     if (contained && opened) {
-        if (event.type() == Event::Scrolled) { scrolled(event); }
-        else if (event.type() == Event::MouseMoved || event.type() == Event::LeftMousePressed) {
+        bool updated = false;
+
+        // determine which option the event was on
+        const auto findEventOption = [this, &event]() -> int {
             const sf::Vector2f translated(event.mousePosition().x,
                                           event.mousePosition().y + scroll);
             sf::FloatRect test(labelRegion.left, labelRegion.top, labelSize.x, labelSize.y);
+
             for (unsigned int i = 0; i < options.size(); ++i) {
-                if (test.contains(translated)) {
-                    moused = i;
-                    if (event.type() == Event::LeftMousePressed) { setSelectedOption(i); }
-                    break;
-                }
+                if (test.contains(translated)) { return i; }
+                test.top += labelSize.y;
             }
+        };
+
+        // handle event
+        switch (event.type()) {
+        case Event::Scrolled:
+            scrolled(event);
+            moused  = findEventOption();
+            updated = true;
+            break;
+
+        case Event::LeftMousePressed:
+            setSelectedOption(findEventOption());
+            updated = false;
+            break;
+
+        case Event::MouseMoved: {
+            const int priorMoused = moused;
+            moused                = findEventOption();
+            updated               = moused != priorMoused;
+        } break;
         }
 
-        if (getComponent()) { getComponent()->onElementUpdated(); }
+        if (updated && getComponent()) { getComponent()->onElementUpdated(); }
         return true;
     }
     if (opened && !contained && event.type() == Event::LeftMousePressed) {
@@ -110,7 +130,8 @@ bool ComboBox::propagateEvent(const Event& event) {
         if (getComponent()) { getComponent()->onElementUpdated(); }
         return true; // eat it
     }
-    return contained && opened;
+
+    return false;
 }
 
 bool ComboBox::handleScroll(const Event& event) {

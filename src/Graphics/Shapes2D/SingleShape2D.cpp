@@ -57,6 +57,7 @@ void SingleShape2D::ensureUpdated() {
 void SingleShape2D::scaleToSize(const glm::vec2& size) {
     const sf::FloatRect& localBounds = getLocalBounds();
     getTransform().setScale({size.x / localBounds.width, size.y / localBounds.height});
+    OverlayScalable::setLocalBounds(getLocalBounds());
 }
 
 } // namespace s2d
