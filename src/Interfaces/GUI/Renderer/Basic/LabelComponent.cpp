@@ -11,8 +11,7 @@ namespace gui
 namespace defcoms
 {
 LabelComponent::LabelComponent()
-: Component(HighlightState::IgnoresMouse)
-, parentOffset{} {}
+: Component(HighlightState::IgnoresMouse) {}
 
 void LabelComponent::setVisible(bool v) { text.setHidden(!v); }
 
@@ -46,28 +45,26 @@ void LabelComponent::doSceneAdd(rc::Overlay* overlay) {
 
 void LabelComponent::doSceneRemove() { text.removeFromScene(); }
 
-void LabelComponent::handleAcquisition(const sf::Vector2f& posFromParent, const sf::Vector2f&,
+void LabelComponent::handleAcquisition(const sf::Vector2f&, const sf::Vector2f&,
                                        const sf::Vector2f&) {
-    parentOffset = posFromParent;
     reposition();
 }
 
-void LabelComponent::handleMove(const sf::Vector2f& posFromParent, const sf::Vector2f&) {
-    parentOffset = posFromParent;
-    reposition();
-}
+void LabelComponent::handleMove(const sf::Vector2f&, const sf::Vector2f&) { reposition(); }
 
 sf::Vector2f LabelComponent::getRequisition() const {
     const sf::FloatRect bounds = text.getLocalBounds();
+    const Label& owner         = getOwnerAs<Label>();
     return {bounds.left + bounds.width, bounds.top + bounds.height};
 }
 
 void LabelComponent::reposition() {
-    Label& owner                   = getOwnerAs<Label>();
-    const RenderSettings& settings = owner.renderSettings();
+    Label& owner                     = getOwnerAs<Label>();
+    const RenderSettings& settings   = owner.renderSettings();
+    const sf::Vector2f& parentOffset = owner.getLocalPosition();
 
     const sf::FloatRect bounds = text.getLocalBounds();
-    const sf::Vector2f size(bounds.width + bounds.left * 2.f, bounds.height + bounds.top * 2.f);
+    const sf::Vector2f size    = getRequisition();
 
     const sf::Vector2f localPos = RenderSettings::calculatePosition(
         settings.horizontalAlignment.value_or(RenderSettings::Center),
@@ -75,7 +72,8 @@ void LabelComponent::reposition() {
         owner.getAcquisition(),
         size);
     const sf::Vector2f pos = localPos + parentOffset;
-    text.getTransform().setPosition({pos.x - 3.f, pos.y - 3.f}); // TODO - why -3.f?
+
+    text.getTransform().setPosition({pos.x, pos.y});
 }
 
 } // namespace defcoms

@@ -194,9 +194,9 @@ void Text::computeWordWrap() {
 }
 
 sf::FloatRect Text::getLocalBounds() const {
-    float minX = 0.f;
+    float minX = 100.f;
     float maxX = 0.f;
-    float minY = 0.f;
+    float minY = 100.f;
     float maxY = 0.f;
 
     if (commitTask.isQueued() && !boundsComputedWhileDirty) {
@@ -269,6 +269,7 @@ Text::CharSearchResult Text::findCharacterAtPosition(const glm::vec2& targetPos)
 }
 
 void Text::queueCommit() {
+    boundsComputedWhileDirty = false;
     if (!commitTask.isQueued()) {
         commitTask = systems->addFrameTask(engine::FrameStage::RenderIntermediateRefresh,
                                            std::bind(&Text::commit, this));

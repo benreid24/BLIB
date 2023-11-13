@@ -101,7 +101,6 @@ protected:
 
 private:
     gfx::Text text;
-    sf::Vector2f parentOffset;
 
     void reposition();
 };

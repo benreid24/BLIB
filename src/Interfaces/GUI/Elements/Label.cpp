@@ -37,7 +37,7 @@ sf::Vector2f Label::minimumRequisition() const {
 void Label::settingsChanged() {
     const sf::Vector2f req   = getRequisition();
     const sf::FloatRect& acq = getAcquisition();
-    if (req.x > acq.width || req.y > acq.height) { makeDirty(); }
+    if (req.x != acq.width || req.y != acq.height) { makeDirty(); }
 }
 
 } // namespace gui

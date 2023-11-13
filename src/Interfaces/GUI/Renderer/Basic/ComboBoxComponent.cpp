@@ -172,6 +172,8 @@ void ComboBoxComponent::updateOptions() {
     ComboBox& owner                = getOwnerAs<ComboBox>();
     const RenderSettings& settings = owner.renderSettings();
     const glm::vec2 boxSize(owner.getOptionSize().x, owner.getOptionSize().y);
+    const float outline = settings.outlineThickness.value_or(1.f);
+    const sf::Vector2f innerSize(boxSize.x - outline * 2.f, boxSize.y - outline * 2.f);
 
     openOptions.resize(owner.getAllOptions().size());
     auto it = openOptions.begin();
@@ -189,11 +191,11 @@ void ComboBoxComponent::updateOptions() {
 
         o.text.getSection().setString(owner.getAllOptions()[i]);
         configureText(o.text, settings);
-        const sf::Vector2f tpos = RenderSettings::calculatePosition(
-            RenderSettings::Left,
-            RenderSettings::Center,
-            sf::FloatRect{sf::Vector2f{0.f, y}, owner.getOptionSize()},
-            {o.text.getLocalSize().x, o.text.getLocalSize().y});
+        const sf::Vector2f tpos =
+            RenderSettings::calculatePosition(RenderSettings::Left,
+                                              RenderSettings::Center,
+                                              sf::FloatRect{sf::Vector2f{0.f, y}, innerSize},
+                                              {o.text.getLocalSize().x, o.text.getLocalSize().y});
         o.text.getTransform().setPosition({tpos.x, tpos.y + y});
 
         o.background.setSize(boxSize);
@@ -205,7 +207,7 @@ void ComboBoxComponent::updateOptions() {
             o.background.setFillColor(sfcol(settings.fillColor.value_or(sf::Color(100, 100, 100))));
         }
         o.background.setOutlineColor(sfcol(settings.outlineColor.value_or(sf::Color::Black)));
-        o.background.setOutlineThickness(-settings.outlineThickness.value_or(1.f));
+        o.background.setOutlineThickness(-outline);
         o.background.getLocalTransform().setPosition({0.f, y});
     }
 }
