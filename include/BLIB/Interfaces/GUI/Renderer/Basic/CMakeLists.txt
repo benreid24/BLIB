@@ -7,4 +7,5 @@ target_sources(BLIB PUBLIC
     OverlayHighlightProvider.hpp
     ProgressBarComponent.hpp
     SeparatorComponent.hpp
+    WindowComponent.hpp
 )

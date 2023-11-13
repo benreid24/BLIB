@@ -136,6 +136,7 @@ private:
 
     void acquisitionCb();
     void moveCb();
+    void assignDepths();
 };
 
 } // namespace gui

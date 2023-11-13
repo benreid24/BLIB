@@ -108,6 +108,14 @@ public:
      */
     virtual sf::Vector2f getRequisition() const;
 
+    /**
+     * @brief Called when the depth of the component is modified. Default implementation fetches the
+     *        com::Transform2D for the entity returned by getEntity() and sets it there
+     *
+     * @param depth The depth to set to
+     */
+    virtual void assignDepth(float depth);
+
 protected:
     enum struct HighlightState { IgnoresMouse, HighlightedByMouse };
 
@@ -202,6 +210,7 @@ protected:
 
 private:
     const HighlightState highlightState;
+    engine::Engine* enginePtr;
     Renderer* renderer;
     Element* owner;
     UIState state;

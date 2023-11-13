@@ -12,6 +12,7 @@ namespace rdr
 {
 Component::Component(HighlightState hs)
 : highlightState(hs)
+, enginePtr(nullptr)
 , renderer(nullptr)
 , owner(nullptr)
 , state(UIState::Regular)
@@ -34,8 +35,9 @@ void Component::notifyUIState(UIState) {}
 
 void Component::create(engine::Engine& engine, Renderer& r, Element& o, Component* parent,
                        Component* windowOrGui) {
-    renderer = &r;
-    owner    = &o;
+    enginePtr = &engine;
+    renderer  = &r;
+    owner     = &o;
 
     doCreate(engine, r, parent, windowOrGui ? *windowOrGui : *this);
 
@@ -57,6 +59,7 @@ void Component::create(engine::Engine& engine, Renderer& r, Element& o, Componen
     onAcquisition(o.getLocalPosition(),
                   {o.getAcquisition().left, o.getAcquisition().top}, // TODO - wrong
                   {o.getAcquisition().width, o.getAcquisition().height});
+    assignDepth(0.f);
 }
 
 void Component::flash() { renderer->flash(owner); }
@@ -82,6 +85,12 @@ void Component::onMove(const sf::Vector2f& posFromParent, const sf::Vector2f& po
 sf::Vector2f Component::getRequisition() const {
     BL_LOG_ERROR << "Default getRequisition() is being used for element sizing";
     return {60.f, 15.f};
+}
+
+void Component::assignDepth(float d) {
+    com::Transform2D* transform = enginePtr->ecs().getComponent<com::Transform2D>(getEntity());
+    if (transform) { transform->setDepth(d + owner->getDepthBias()); }
+    else { BL_LOG_ERROR << "Could not set depth for entity missing transform: " << getEntity(); }
 }
 
 } // namespace rdr

@@ -170,6 +170,7 @@ private:
     float computeTitleHeight() const;
     float computeTitleWidth() const;
     virtual void onAcquisition() override;
+    virtual float getDepthBias() const override;
 };
 
 } // namespace gui

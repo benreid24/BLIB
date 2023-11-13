@@ -405,6 +405,13 @@ public:
      */
     const rdr::Component* getComponent() const { return component; }
 
+    /**
+     * @brief Allows elements to give themselves a depth bias in the renderer
+     *
+     * @return The default method returns 0.f
+     */
+    virtual float getDepthBias() const;
+
 protected:
     /**
      * @brief Builds a new Element

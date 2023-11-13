@@ -14,6 +14,7 @@
 #include <BLIB/Interfaces/GUI/Renderer/Basic/OverlayHighlightProvider.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Basic/ProgressBarComponent.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Basic/SeparatorComponent.hpp>
+#include <BLIB/Interfaces/GUI/Renderer/Basic/WindowComponent.hpp>
 
 namespace bl
 {
@@ -41,7 +42,7 @@ FactoryTable::FactoryTable(bool populate) {
         registerFactoryForElement<Slider, NullComponent>();
         registerFactoryForElement<TextEntry, NullComponent>();
         registerFactoryForElement<ToggleButton, NullComponent>();
-        registerFactoryForElement<Window, NullComponent>();
+        registerFactoryForElement<Window, defcoms::WindowComponent>();
 
         setFlashProviderFactory([]() { return std::make_unique<NullFlashProvider>(); });
         setHighlightProviderFactory(

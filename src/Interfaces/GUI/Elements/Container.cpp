@@ -59,6 +59,7 @@ void Container::bringToTop(const Element* child) {
             Element* c = zorder[i];
             zorder.erase(zorder.begin() + i);
             zorder.insert(zorder.begin(), c);
+            assignDepths();
             return;
         }
     }
@@ -72,6 +73,7 @@ void Container::add(const Element::Ptr& e) {
     setChildParent(e.get());
     if (renderer) { e->prepareRender(*renderer); }
     makeDirty();
+    assignDepths();
 }
 
 const std::vector<Element::Ptr>& Container::getChildren() const { return children; }
@@ -119,14 +121,15 @@ void Container::update(float dt) {
         children.clear();
         zorder.clear();
     }
-    else {
+    else if (!toRemove.empty()) {
         for (const Element* e : toRemove) {
             if (renderer) { renderer->destroyComponent(*e); }
             deleteElement(children, e);
             deleteElement(zorder, e);
         }
+        assignDepths();
+        toRemove.clear();
     }
-    toRemove.clear();
 
     if (dirty()) { assignAcquisition(getAcquisition()); }
     if (soiled) { makeDirty(); }
@@ -144,6 +147,14 @@ bool Container::receivesOutOfBoundsEvents() const {
 void Container::prepareChildrenRender(rdr::Renderer& r) {
     renderer = &r;
     for (auto& child : children) { child->prepareRender(r); }
+}
+
+void Container::assignDepths() {
+    float d = 1.f;
+    for (Element* child : zorder) {
+        if (child->getComponent()) { child->getComponent()->assignDepth(d); }
+        d += 1.f;
+    }
 }
 
 } // namespace gui

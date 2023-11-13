@@ -459,5 +459,7 @@ void Element::onRenderChange() {
 
 void Element::prepareChildrenRender(rdr::Renderer&) {}
 
+float Element::getDepthBias() const { return 0.f; }
+
 } // namespace gui
 } // namespace bl

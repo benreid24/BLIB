@@ -100,6 +100,7 @@ bool ComboBox::propagateEvent(const Event& event) {
                 if (test.contains(translated)) { return i; }
                 test.top += labelSize.y;
             }
+            return -1;
         };
 
         // handle event

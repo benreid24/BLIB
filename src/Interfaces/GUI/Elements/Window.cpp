@@ -30,6 +30,8 @@ Window::Window(const Packer::Ptr& packer, const std::string& titleText, Style st
 
     titlebar = Box::create(
         LinePacker::create(LinePacker::Horizontal, 2, LinePacker::Compact, LinePacker::LeftAlign));
+    titlebar->setColor(sf::Color(95, 95, 95), sf::Color(20, 20, 20));
+    titlebar->setOutlineThickness(1.f);
     if (hasStyle(style, Titlebar)) {
         // Create titlebar containers
         leftTitleSide  = Box::create(LinePacker::create(LinePacker::Horizontal));
@@ -162,6 +164,8 @@ bool Window::propagateEvent(const Event& event) {
     if (elementArea->processEvent(event)) return true;
     return getAcquisition().contains(event.mousePosition());
 }
+
+float Window::getDepthBias() const { return -400.f; }
 
 } // namespace gui
 } // namespace bl
