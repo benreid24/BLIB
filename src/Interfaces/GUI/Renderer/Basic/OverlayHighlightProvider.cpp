@@ -40,6 +40,8 @@ void OverlayHighlightProvider::notifyUIState(Element* element, rdr::Component::U
 
 void OverlayHighlightProvider::doCreate(engine::Engine& engine) {
     cover.create(engine, {100.f, 100.f});
+    engine.ecs().setEntityParentDestructionBehavior(
+        cover.entity(), ecs::ParentDestructionBehavior::OrphanedByParent);
 }
 
 void OverlayHighlightProvider::doSceneAdd(rc::Overlay* scene) {
@@ -49,6 +51,13 @@ void OverlayHighlightProvider::doSceneAdd(rc::Overlay* scene) {
 }
 
 void OverlayHighlightProvider::doSceneRemove() { cover.removeFromScene(); }
+
+void OverlayHighlightProvider::notifyDestroyed(const Element* destroyed) {
+    if (currentElement == destroyed) {
+        cover.setHidden(true);
+        currentElement = nullptr;
+    }
+}
 
 } // namespace defcoms
 } // namespace gui

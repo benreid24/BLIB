@@ -10,7 +10,8 @@ namespace bl
 namespace gui
 {
 Element::Element()
-: component(nullptr)
+: renderer(nullptr)
+, component(nullptr)
 , parent(nullptr)
 , _dirty(true)
 , _active(true)
@@ -24,6 +25,12 @@ Element::Element()
 , isLeftPressed(false)
 , isRightPressed(false)
 , hoverTime(0.f) {}
+
+Element::~Element() {
+    if (component && renderer && rendererAlive && *rendererAlive) {
+        renderer->destroyComponent(*this);
+    }
+}
 
 void Element::setRequisition(const sf::Vector2f& size) {
     requisition.reset();
@@ -429,7 +436,9 @@ void Element::updateUiState() {
 }
 
 void Element::prepareRender(rdr::Renderer& r) {
-    component = doPrepareRender(r);
+    renderer      = &r;
+    rendererAlive = r.getAliveFlag();
+    component     = doPrepareRender(r);
     updateUiState();
     prepareChildrenRender(r);
 }

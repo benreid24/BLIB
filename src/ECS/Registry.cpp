@@ -9,6 +9,7 @@ Registry::Registry()
 , entityMasks(DefaultCapacity, ComponentMask::EmptyMask)
 , entityVersions(DefaultCapacity, 0)
 , parentGraph(DefaultCapacity)
+, parentDestructionBehaviors(DefaultCapacity, ParentDestructionBehavior::DestroyedWithParent)
 , dependencyGraph(DefaultCapacity) {
     componentPools.reserve(ComponentMask::MaxComponentTypeCount);
     views.reserve(32);
@@ -22,10 +23,13 @@ Entity Registry::createEntity() {
     if (index + 1 > entityMasks.size()) {
         entityMasks.resize(index + 1, ComponentMask::EmptyMask);
         entityVersions.resize(index + 1, 1);
+        parentDestructionBehaviors.resize(index + 1,
+                                          ParentDestructionBehavior::DestroyedWithParent);
     }
     else {
-        entityMasks[index] = ComponentMask::EmptyMask;
-        version            = ++entityVersions[index];
+        entityMasks[index]                = ComponentMask::EmptyMask;
+        version                           = ++entityVersions[index];
+        parentDestructionBehaviors[index] = ParentDestructionBehavior::DestroyedWithParent;
     }
 
     const Entity ent(index, version);
@@ -78,8 +82,22 @@ bool Registry::destroyEntity(Entity start) {
         }
 
         // add children
-        for (Entity child : parentGraph.getChildren(ent)) { toVisit.emplace_back(child); }
+        for (Entity child : parentGraph.getChildren(ent)) {
+            const std::uint32_t j = child.getIndex();
+            switch (parentDestructionBehaviors[j]) {
+            case ParentDestructionBehavior::DestroyedWithParent:
+                toVisit.emplace_back(child);
+                break;
+            case ParentDestructionBehavior::OrphanedByParent:
+                removeEntityParentLocked(child);
+                break;
+            }
+        }
     }
+    // unparent top entity if there is a parent
+    const Entity parent = parentGraph.getParent(start);
+    if (parent != InvalidEntity) { removeEntityParentLocked(start); }
+
 
     // remove all discovered entities
     for (const Entity ent : toRemove) {
@@ -94,7 +112,9 @@ bool Registry::destroyEntity(Entity start) {
 
         // destroy components
         for (ComponentPoolBase* pool : componentPools) {
-            if (ComponentMask::has(mask, pool->ComponentIndex)) { pool->remove(ent); }
+            if (ComponentMask::has(mask, pool->ComponentIndex)) {
+                pool->remove(ent);
+            }
         }
 
         // reset metadata
@@ -240,6 +260,13 @@ void Registry::markEntityForRemoval(Entity ent) {
     const std::uint64_t i = ent.getIndex();
     if (markedForRemoval.size() <= i) { markedForRemoval.resize(i + 1, false); }
     markedForRemoval[i] = true;
+}
+
+void Registry::setEntityParentDestructionBehavior(Entity entity,
+                                                  ParentDestructionBehavior behavior) {
+    const std::uint32_t i = entity.getIndex();
+    if (i < parentDestructionBehaviors.size()) { parentDestructionBehaviors[i] = behavior; }
+    else { BL_LOG_ERROR << "Cannot set behavior on invalid entity: " << entity; }
 }
 
 } // namespace ecs

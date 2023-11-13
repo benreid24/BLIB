@@ -177,6 +177,13 @@ void TransferEngine::queueOneTimeTransfer(Transferable* item,
     }
 }
 
+void TransferEngine::cancelTransfer(Transferable* item) {
+    std::unique_lock lock(mutex);
+
+    std::erase(frameBucket.oneTimeItems, item);
+    std::erase(immediateBucket.oneTimeItems, item);
+}
+
 void TransferEngine::registerPerFrameTransfer(Transferable* item,
                                               Transferable::SyncRequirement syncReq) {
     std::unique_lock lock(mutex);

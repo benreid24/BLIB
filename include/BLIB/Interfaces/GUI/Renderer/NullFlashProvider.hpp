@@ -27,6 +27,7 @@ private:
     virtual void doCreate(engine::Engine&) override {}
     virtual void doSceneAdd(rc::Overlay*) override {}
     virtual void doSceneRemove() override {}
+    virtual void notifyDestroyed(const Element* element) override {}
 };
 
 } // namespace rdr

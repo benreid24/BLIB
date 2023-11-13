@@ -86,6 +86,7 @@ private:
 
     // for use by Transferable
     void queueOneTimeTransfer(Transferable* item, Transferable::SyncRequirement syncReq);
+    void cancelTransfer(Transferable* item);
     void registerPerFrameTransfer(Transferable* item, Transferable::SyncRequirement syncReq);
     void unregisterPerFrameTransfer(Transferable* item, Transferable::SyncRequirement syncReq);
 

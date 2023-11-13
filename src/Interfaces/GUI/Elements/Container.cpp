@@ -115,15 +115,11 @@ void Container::update(float dt) {
     const bool soiled = clearFlag || !toRemove.empty();
     if (clearFlag) {
         clearFlag = false;
-        if (renderer) {
-            for (const auto& e : children) { renderer->destroyComponent(*e); }
-        }
         children.clear();
         zorder.clear();
     }
     else if (!toRemove.empty()) {
         for (const Element* e : toRemove) {
-            if (renderer) { renderer->destroyComponent(*e); }
             deleteElement(children, e);
             deleteElement(zorder, e);
         }
@@ -145,7 +141,6 @@ bool Container::receivesOutOfBoundsEvents() const {
 }
 
 void Container::prepareChildrenRender(rdr::Renderer& r) {
-    renderer = &r;
     for (auto& child : children) { child->prepareRender(r); }
 }
 

@@ -19,6 +19,7 @@ Transferable::Transferable(vk::VulkanState& vs)
 
 Transferable::~Transferable() {
     if (perFrame != NotPerFrame) { stopTransferringEveryFrame(); }
+    else if (queued) { vulkanState->transferEngine.cancelTransfer(this); }
 }
 
 void Transferable::queueTransfer(SyncRequirement syncReq) {

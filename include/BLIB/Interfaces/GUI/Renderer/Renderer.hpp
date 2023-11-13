@@ -36,6 +36,11 @@ public:
     Renderer(engine::Engine& engine, GUI& gui, FactoryTable& factory);
 
     /**
+     * @brief Marks the renderer as destroyed and frees all components
+    */
+    ~Renderer();
+
+    /**
      * @brief Creates a component for the given GUI element. Adds it to the current scene if any
      *
      * @tparam TElem The type of element to create the component for
@@ -107,12 +112,18 @@ public:
      */
     void update(float dt);
 
+    /**
+     * @brief Returns the alive flag
+    */
+    std::shared_ptr<bool> getAliveFlag();
+
 private:
     engine::Engine& engine;
     GUI& gui;
     FactoryTable& factory;
     rc::Overlay* overlay;
     std::unordered_map<const Element*, Component::Ptr> components;
+    std::shared_ptr<bool> alive;
 
     FlashProvider::Ptr flashProvider;
     HighlightProvider::Ptr highlightProvider;

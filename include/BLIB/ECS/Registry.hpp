@@ -8,6 +8,7 @@
 #include <BLIB/ECS/View.hpp>
 #include <BLIB/Events/Dispatcher.hpp>
 #include <BLIB/Util/IdAllocatorUnbounded.hpp>
+#include <BLIB/ECS/ParentDestructionBehavior.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 #include <cstdlib>
 #include <memory>
@@ -98,6 +99,14 @@ public:
      * @return The parent entity or InvalidEntity if no parent
      */
     Entity getEntityParent(Entity child) const;
+
+    /**
+     * @brief Sets what to do for the given entity when any of its parents are destroyed
+     * 
+     * @param entity The entity to set the behavior for
+     * @param behavior What to do when a parent is destroyed
+    */
+    void setEntityParentDestructionBehavior(Entity entity, ParentDestructionBehavior behavior);
 
     /**
      * @brief Adds a dependency on resource from user. Controls whether or not an entity may be
@@ -237,6 +246,7 @@ private:
 
     // entity relationships
     ParentGraph parentGraph;
+    std::vector<ParentDestructionBehavior> parentDestructionBehaviors;
     DependencyGraph dependencyGraph;
     std::vector<bool> markedForRemoval;
 

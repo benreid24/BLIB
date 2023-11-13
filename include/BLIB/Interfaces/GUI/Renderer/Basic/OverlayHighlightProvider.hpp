@@ -61,6 +61,13 @@ public:
      */
     virtual void doSceneRemove() override;
 
+    /**
+     * @brief Called when an element is destryoed or removed
+     *
+     * @param element The element being destroyed or removed
+     */
+    virtual void notifyDestroyed(const Element* element) override;
+
 private:
     gfx::Rectangle cover;
     Element* currentElement;

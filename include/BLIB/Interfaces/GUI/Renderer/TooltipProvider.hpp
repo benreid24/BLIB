@@ -65,6 +65,13 @@ public:
      * @brief Called when the provider should be removed from the scene
      */
     virtual void doSceneRemove() = 0;
+
+    /**
+     * @brief Called when an element is destryoed or removed
+     *
+     * @param element The element being destroyed or removed
+     */
+    virtual void notifyDestroyed(const Element* element) = 0;
 };
 
 } // namespace rdr

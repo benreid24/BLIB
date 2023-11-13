@@ -42,7 +42,7 @@ public:
      * @brief Destroy the Element object
      *
      */
-    virtual ~Element() = default;
+    virtual ~Element();
 
     /**
      * @brief Sets the requisition of the Element. This is the minimum amount of space it
@@ -549,6 +549,8 @@ protected:
     Ptr me();
 
 private:
+    rdr::Renderer* renderer;
+    std::shared_ptr<bool> rendererAlive;
     rdr::Component* component;
     RenderSettings settings;
     std::optional<sf::Vector2f> requisition;

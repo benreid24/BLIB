@@ -13,6 +13,7 @@ Renderer::Renderer(engine::Engine& engine, GUI& gui, FactoryTable& factory)
 , gui(gui)
 , factory(factory)
 , overlay(nullptr)
+, alive(std::make_shared<bool>(true))
 , flashProvider(factory.createFlashProvider())
 , highlightProvider(factory.createHighlightProvider())
 , tooltipProvider(factory.createTooltipProvider())
@@ -22,9 +23,14 @@ Renderer::Renderer(engine::Engine& engine, GUI& gui, FactoryTable& factory)
     tooltipProvider->doCreate(engine);
 }
 
+Renderer::~Renderer() { *alive = false; }
+
 void Renderer::destroyComponent(const Element& owner) {
     const auto it = components.find(&owner);
     if (it != components.end()) {
+        flashProvider->notifyDestroyed(&owner);
+        highlightProvider->notifyDestroyed(&owner);
+        tooltipProvider->notifyDestroyed(&owner);
         it->second->doSceneRemove();
         components.erase(it);
     }
@@ -74,6 +80,8 @@ void Renderer::update(float dt) {
     highlightProvider->update(dt);
     tooltipProvider->update(dt);
 }
+
+std::shared_ptr<bool> Renderer::getAliveFlag() { return alive; }
 
 } // namespace rdr
 } // namespace gui
