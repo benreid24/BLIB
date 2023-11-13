@@ -150,10 +150,15 @@ void Container::prepareChildrenRender(rdr::Renderer& r) {
 }
 
 void Container::assignDepths() {
-    float d = 1.f;
-    for (Element* child : zorder) {
+    constexpr float WindowBias = 40.f;
+
+    float d = 0.f;
+    for (auto rit = zorder.rbegin(); rit != zorder.rend(); ++rit) {
+        Element* child      = *rit;
+        const bool isWindow = dynamic_cast<Window*>(child) != nullptr;
+
+        d -= isWindow ? WindowBias : 0.5f;
         if (child->getComponent()) { child->getComponent()->assignDepth(d); }
-        d += 1.f;
     }
 }
 

@@ -9,6 +9,8 @@ namespace bl
 {
 namespace gui
 {
+class GUI;
+
 /**
  * @brief Base class for Elements that have child elements. Provides coordinate transformation
  *        for rendering and events, as well as event propagation
@@ -137,6 +139,8 @@ private:
     void acquisitionCb();
     void moveCb();
     void assignDepths();
+
+    friend class GUI;
 };
 
 } // namespace gui
