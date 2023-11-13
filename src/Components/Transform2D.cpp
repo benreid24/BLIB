@@ -124,6 +124,7 @@ void Transform2D::makeDirty() {
 
 void Transform2D::ensureUpdated() {
     if (ParentAwareVersioned::refreshRequired()) {
+        incrementVersion(); // for children to pick up change
         DescriptorComponentBase::markDirty();
         markRefreshed();
 
