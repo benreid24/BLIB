@@ -69,6 +69,7 @@ public:
     virtual void notifyDestroyed(const Element* element) override;
 
 private:
+    engine::Engine* enginePtr;
     gfx::Rectangle cover;
     Element* currentElement;
     rdr::Component::UIState currentState;

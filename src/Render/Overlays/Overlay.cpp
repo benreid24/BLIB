@@ -94,7 +94,10 @@ scene::SceneObject* Overlay::doAdd(ecs::Entity entity, rcom::DrawableBase& objec
         }
     }
 
-    if (!engine.ecs().entityHasParent(entity)) { roots.emplace_back(&obj); }
+    if (!engine.ecs().entityHasParent(entity)) {
+        roots.emplace_back(&obj);
+        sortRoots();
+    }
 
     return &obj;
 }
@@ -112,7 +115,10 @@ void Overlay::doRemove(scene::SceneObject* object, std::uint32_t) {
 
     if (!obj->hasParent()) {
         const auto it = std::find(roots.begin(), roots.end(), obj);
-        if (it != roots.end()) { roots.erase(it); }
+        if (it != roots.end()) {
+            roots.erase(it);
+            sortRoots();
+        }
     }
 
     engine.ecs().removeComponent<ovy::OverlayObject>(entity);
@@ -144,6 +150,7 @@ void Overlay::observe(const ecs::event::EntityParentSet& event) {
     for (auto it = roots.begin(); it != roots.end(); ++it) {
         if (*it == obj) {
             roots.erase(it);
+            sortRoots();
             needRefreshAll = true;
             break;
         }
@@ -156,11 +163,22 @@ void Overlay::observe(const ecs::event::EntityParentRemoved& event) {
 
     if (std::find(roots.begin(), roots.end(), obj) != roots.end()) { return; }
     roots.emplace_back(obj);
+    sortRoots();
     needRefreshAll = true;
 }
 
 std::unique_ptr<cam::Camera> Overlay::createDefaultCamera() {
     return std::make_unique<cam::OverlayCamera>();
+}
+
+void Overlay::sortRoots() {
+    std::sort(
+        roots.begin(), roots.end(), [this](ovy::OverlayObject* left, ovy::OverlayObject* right) {
+            com::Transform2D* lpos = engine.ecs().getComponent<com::Transform2D>(left->entity);
+            com::Transform2D* rpos = engine.ecs().getComponent<com::Transform2D>(right->entity);
+            if (!lpos || !rpos) { return left < right; }
+            return lpos->getGlobalDepth() < rpos->getGlobalDepth();
+        });
 }
 
 } // namespace rc

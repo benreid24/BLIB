@@ -112,6 +112,7 @@ private:
     glm::u32vec2 cachedTargetSize;
 
     void refreshAll();
+    void sortRoots();
 
     virtual void observe(const ecs::event::EntityParentSet& event) override;
     virtual void observe(const ecs::event::EntityParentRemoved& event) override;

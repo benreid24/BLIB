@@ -1,7 +1,7 @@
 #ifndef BLIB_GUI_ELEMENTS_TOGGLEBUTTON_HPP
 #define BLIB_GUI_ELEMENTS_TOGGLEBUTTON_HPP
 
-#include <BLIB/Interfaces/GUI/Elements/Button.hpp>
+#include <BLIB/Interfaces/GUI/Elements/CompositeElement.hpp>
 
 namespace bl
 {
@@ -13,8 +13,11 @@ namespace gui
  *
  * @ingroup GUI
  */
-class ToggleButton : public Button {
+class ToggleButton : public CompositeElement<1> {
 public:
+    /**
+     * @brief Destroys the toggle button
+     */
     virtual ~ToggleButton() = default;
 
     /**
@@ -57,7 +60,21 @@ protected:
      */
     virtual void onClick();
 
+    /**
+     * @brief Passes the event to the child then returns false always
+     *
+     * @param event The event that fired
+     * @return False so that the button always generates events
+     */
+    virtual bool propagateEvent(const Event& event) override;
+
+    /**
+     * @brief Called when a new acquisition is assigned
+     */
+    virtual void onAcquisition() override;
+
 private:
+    Element::Ptr child;
     bool value;
     mutable float toggleSize;
 };

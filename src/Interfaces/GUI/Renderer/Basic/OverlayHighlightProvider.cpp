@@ -1,5 +1,6 @@
 #include <BLIB/Interfaces/GUI/Renderer/Basic/OverlayHighlightProvider.hpp>
 
+#include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Interfaces/GUI/Elements/Element.hpp>
 #include <BLIB/Render/Primitives/Color.hpp>
 
@@ -20,7 +21,13 @@ void OverlayHighlightProvider::notifyUIState(Element* element, rdr::Component::U
             currentElement = element;
             currentState   = state;
 
-            cover.setParent(element->getComponent()->getEntity());
+            com::Transform2D* pos = enginePtr->ecs().getComponent<com::Transform2D>(
+                element->getComponent()->getEntity());
+            cover.getTransform().setDepth(pos ? pos->getGlobalDepth() - 0.4f :
+                                                cam::OverlayCamera::MinDepth);
+            cover.getTransform().setPosition(
+                {element->getAcquisition().left, element->getAcquisition().top});
+            cover.scaleToSize({element->getAcquisition().width, element->getAcquisition().height});
             cover.setHidden(false);
 
             switch (state) {
@@ -39,14 +46,13 @@ void OverlayHighlightProvider::notifyUIState(Element* element, rdr::Component::U
 }
 
 void OverlayHighlightProvider::doCreate(engine::Engine& engine) {
+    enginePtr = &engine;
     cover.create(engine, {100.f, 100.f});
-    engine.ecs().setEntityParentDestructionBehavior(
-        cover.entity(), ecs::ParentDestructionBehavior::OrphanedByParent);
+    cover.getTransform().setDepth(cam::OverlayCamera::MinDepth);
 }
 
 void OverlayHighlightProvider::doSceneAdd(rc::Overlay* scene) {
     cover.addToScene(scene, rc::UpdateSpeed::Dynamic);
-    cover.getOverlayScaler().scaleToSizePercent({1.f, 1.f});
     cover.setHidden(true);
 }
 

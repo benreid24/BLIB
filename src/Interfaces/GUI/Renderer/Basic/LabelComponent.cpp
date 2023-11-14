@@ -54,7 +54,6 @@ void LabelComponent::handleMove(const sf::Vector2f&, const sf::Vector2f&) { repo
 
 sf::Vector2f LabelComponent::getRequisition() const {
     const sf::FloatRect bounds = text.getLocalBounds();
-    const Label& owner         = getOwnerAs<Label>();
     return {bounds.left + bounds.width, bounds.top + bounds.height};
 }
 

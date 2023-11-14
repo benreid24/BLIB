@@ -207,7 +207,7 @@ public:
     }
 
     virtual void update(engine::Engine&, float dt, float) override {
-        //progressBar->setProgress(progressBar->getProgress() + dt * ProgressPerSecond);
+        progressBar->setProgress(progressBar->getProgress() + dt * ProgressPerSecond);
         gui->update(dt);
     }
 
