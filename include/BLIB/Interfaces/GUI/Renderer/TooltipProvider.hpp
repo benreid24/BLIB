@@ -67,7 +67,7 @@ public:
     virtual void doSceneRemove() = 0;
 
     /**
-     * @brief Called when an element is destryoed or removed
+     * @brief Called when an element is destroyed or removed
      *
      * @param element The element being destroyed or removed
      */
