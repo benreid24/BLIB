@@ -486,6 +486,52 @@ TEST(ECS, ParentAwareVersionedTrait) {
     EXPECT_FALSE(childCom.refreshRequired());
 }
 
+namespace
+{
+struct ParentChildComponent
+: public trait::IgnoresDummy
+, public trait::ParentAware<ParentChildComponent>
+, public trait::ChildAware<ParentChildComponent> {
+    int payload;
+
+    ParentChildComponent()
+    : payload(0) {}
+
+    ParentChildComponent(int payload)
+    : payload(payload) {}
+};
+
+} // namespace
+
+TEST(ECS, IgnoreDummyTrait) {
+    Registry testRegistry;
+
+    Entity top    = testRegistry.createEntity();
+    Entity middle = testRegistry.createEntity(Flags::Dummy);
+    Entity bottom = testRegistry.createEntity();
+
+    ASSERT_FALSE(top.flagSet(Flags::Dummy));
+    ASSERT_TRUE(middle.flagSet(Flags::Dummy));
+    ASSERT_FALSE(bottom.flagSet(Flags::Dummy));
+
+    auto* topCom = testRegistry.emplaceComponent<ParentChildComponent>(top, 0);
+    testRegistry.emplaceComponent<ParentChildComponent>(middle, 1);
+    auto* bottomCom = testRegistry.emplaceComponent<ParentChildComponent>(bottom, 2);
+
+    testRegistry.setEntityParent(bottom, middle);
+    testRegistry.setEntityParent(middle, top);
+
+    ASSERT_TRUE(bottomCom->hasParent());
+    EXPECT_EQ(&bottomCom->getParent(), topCom);
+    ASSERT_EQ(topCom->getChildren().size(), 1);
+    EXPECT_EQ(topCom->getChildren()[0], bottomCom);
+
+    testRegistry.removeComponent<ParentChildComponent>(middle);
+
+    EXPECT_FALSE(bottomCom->hasParent());
+    EXPECT_EQ(topCom->getChildren().size(), 0);
+}
+
 } // namespace unittest
 } // namespace ecs
 } // namespace bl

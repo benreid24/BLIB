@@ -15,7 +15,7 @@ Registry::Registry()
     views.reserve(32);
 }
 
-Entity Registry::createEntity() {
+Entity Registry::createEntity(Flags flags) {
     std::lock_guard lock(entityLock);
 
     const std::uint64_t index = entityAllocator.allocate();
@@ -32,7 +32,7 @@ Entity Registry::createEntity() {
         parentDestructionBehaviors[index] = ParentDestructionBehavior::DestroyedWithParent;
     }
 
-    const Entity ent(index, version);
+    const Entity ent(index, version, flags);
     bl::event::Dispatcher::dispatch<event::EntityCreated>({ent});
     return ent;
 }
@@ -98,7 +98,6 @@ bool Registry::destroyEntity(Entity start) {
     const Entity parent = parentGraph.getParent(start);
     if (parent != InvalidEntity) { removeEntityParentLocked(start); }
 
-
     // remove all discovered entities
     for (const Entity ent : toRemove) {
         const std::uint32_t index            = ent.getIndex();
@@ -112,9 +111,7 @@ bool Registry::destroyEntity(Entity start) {
 
         // destroy components
         for (ComponentPoolBase* pool : componentPools) {
-            if (ComponentMask::has(mask, pool->ComponentIndex)) {
-                pool->remove(ent);
-            }
+            if (ComponentMask::has(mask, pool->ComponentIndex)) { pool->remove(ent); }
         }
 
         // reset metadata

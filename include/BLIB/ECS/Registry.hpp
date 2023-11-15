@@ -4,11 +4,11 @@
 #include <BLIB/ECS/ComponentPool.hpp>
 #include <BLIB/ECS/DependencyGraph.hpp>
 #include <BLIB/ECS/Entity.hpp>
+#include <BLIB/ECS/ParentDestructionBehavior.hpp>
 #include <BLIB/ECS/ParentGraph.hpp>
 #include <BLIB/ECS/View.hpp>
 #include <BLIB/Events/Dispatcher.hpp>
 #include <BLIB/Util/IdAllocatorUnbounded.hpp>
-#include <BLIB/ECS/ParentDestructionBehavior.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 #include <cstdlib>
 #include <memory>
@@ -41,9 +41,10 @@ public:
     /**
      * @brief Creates a new entity and returns its id
      *
+     * @param flags Optional flags to set on the newly created entity. May not be modified later
      * @return Entity The new entity id
      */
-    Entity createEntity();
+    Entity createEntity(Flags flags = Flags::None);
 
     /**
      * @brief Returns whether or not the given entity exists
@@ -101,11 +102,19 @@ public:
     Entity getEntityParent(Entity child) const;
 
     /**
+     * @brief Returns an iterable set of child entities for the given entity
+     *
+     * @param parent The entity to get the children of
+     * @return An iterable range of child entities
+     */
+    ctr::IndexMappedList<std::uint32_t, Entity>::Range getEntityChildren(Entity parent);
+
+    /**
      * @brief Sets what to do for the given entity when any of its parents are destroyed
-     * 
+     *
      * @param entity The entity to set the behavior for
      * @param behavior What to do when a parent is destroyed
-    */
+     */
     void setEntityParentDestructionBehavior(Entity entity, ParentDestructionBehavior behavior);
 
     /**
@@ -281,6 +290,7 @@ private:
 } // namespace ecs
 } // namespace bl
 
+#include <BLIB/ECS/ComponentPoolImpl.hpp>
 #include <BLIB/ECS/ComponentSetImpl.hpp>
 #include <BLIB/ECS/TagsImpl.hpp>
 #include <BLIB/ECS/ViewImpl.hpp>
@@ -427,7 +437,7 @@ ComponentPool<T>& Registry::getPool() {
             std::exit(1);
         }
 #endif
-        it = poolMap.try_emplace(tid, new ComponentPool<T>(poolMap.size())).first;
+        it = poolMap.try_emplace(tid, new ComponentPool<T>(*this, poolMap.size())).first;
         componentPools.emplace_back(it->second.get());
     }
 
@@ -456,6 +466,11 @@ inline bool Registry::entityHasParent(Entity child) const {
 }
 
 inline Entity Registry::getEntityParent(Entity child) const { return parentGraph.getParent(child); }
+
+inline ctr::IndexMappedList<std::uint32_t, Entity>::Range Registry::getEntityChildren(
+    Entity parent) {
+    return parentGraph.getChildren(parent);
+}
 
 } // namespace ecs
 } // namespace bl
