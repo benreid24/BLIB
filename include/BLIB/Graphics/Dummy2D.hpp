@@ -53,7 +53,11 @@ public:
      * @param size The size in overlay units
      */
     void setSize(const glm::vec2& size);
+
+private:
+    virtual void ensureLocalSizeUpdated() override {}
 };
+
 } // namespace gfx
 } // namespace bl
 

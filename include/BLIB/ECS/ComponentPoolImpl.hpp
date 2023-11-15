@@ -37,10 +37,12 @@ void ComponentPool<T>::setParent(Entity child, Entity parent) {
     T* childCom  = get(child);
     T* parentCom = get(parent);
 
-    if (child && parent) { childCom->parent = parentCom; }
+    if (childCom && parentCom) { childCom->parent = parentCom; }
     else {
-        if (!child) { BL_LOG_ERROR << "Invalid child entity: " << child; }
-        else { BL_LOG_ERROR << "Invalid parent entity: " << parent; }
+        if constexpr (!std::is_base_of_v<trait::IgnoresDummy, T>) {
+            if (!childCom) { BL_LOG_ERROR << "Invalid child entity: " << child; }
+            else { BL_LOG_ERROR << "Invalid parent entity: " << parent; }
+        }
     }
 }
 
@@ -55,16 +57,12 @@ void ComponentPool<T>::addChild(Entity child, Entity parent) {
     }
 
     T* parentCom = get(parent);
-    if (!parentCom) {
-        BL_LOG_ERROR << "Invalid parent entity: " << parent;
-        return;
-    }
+    if (!parentCom) { return; }
 
     const auto addSingleChild = [this, parentCom](Entity child) {
         T* childCom = get(child);
 
-        if (child) { parentCom->children.emplace_back(childCom); }
-        else { BL_LOG_ERROR << "Invalid child entity: " << child; }
+        if (childCom) { parentCom->children.emplace_back(childCom); }
     };
 
     if constexpr (std::is_base_of_v<trait::IgnoresDummy, T>) {
@@ -110,7 +108,6 @@ void ComponentPool<T>::removeParent(Entity orphan) {
                     else {
                         T* com = get(grandchild);
                         if (com) { com->parent = nullptr; }
-                        else { BL_LOG_WARN << "Invalid orphan entity: " << grandchild; }
                     }
                 }
             }
@@ -142,7 +139,6 @@ void ComponentPool<T>::removeChild(Entity parent, Entity orphan) {
             auto it = std::find(c.begin(), c.end(), com);
             if (it != c.end()) { c.erase(it); }
         }
-        else { BL_LOG_WARN << "Invalid orphan entity: " << orphan; }
     };
 
     // if child is a dummy then we need to get to first non-dummy children and remove those
@@ -161,7 +157,6 @@ void ComponentPool<T>::removeChild(Entity parent, Entity orphan) {
                     else {
                         T* com = get(grandchild);
                         if (com) { com->parent = nullptr; }
-                        else { BL_LOG_WARN << "Invalid orphan entity: " << grandchild; }
                     }
                 }
             }

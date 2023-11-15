@@ -234,19 +234,19 @@ const TCom& Drawable<TCom, TSys>::component() const {
 template<typename TCom, typename TSys>
 void Drawable<TCom, TSys>::flash(float onPeriod, float offPeriod) {
     // swap off/on period because we have hidden toggle instead of visible toggle
-    engine().ecs().emplaceComponent<com::Toggler>(
+    engine().ecs().template emplaceComponent<com::Toggler>(
         entity(), offPeriod, onPeriod, &component().sceneRef.object->hidden);
 }
 
 template<typename TCom, typename TSys>
 void Drawable<TCom, TSys>::stopFlashing() {
-    engine().ecs().removeComponent<com::Toggler>(entity());
+    engine().ecs().template removeComponent<com::Toggler>(entity());
     component().sceneRef.object->hidden = false;
 }
 
 template<typename TCom, typename TSys>
 TSys& Drawable<TCom, TSys>::system() {
-    return engine().systems().getSystem<TSys>();
+    return engine().systems().template getSystem<TSys>();
 }
 
 template<typename TCom, typename TSys>
@@ -258,7 +258,7 @@ void Drawable<TCom, TSys>::onRemove() {}
 template<typename TCom, typename TSys>
 template<typename... TArgs>
 void Drawable<TCom, TSys>::createComponentOnly(TArgs&&... args) {
-    handle = engine().ecs().emplaceComponent<TCom>(entity(), std::forward<TArgs>(args)...);
+    handle = engine().ecs().template emplaceComponent<TCom>(entity(), std::forward<TArgs>(args)...);
 }
 
 template<typename TCom, typename TSys>

@@ -29,12 +29,14 @@ void CheckButtonComponent::onRenderSettingChange() {
     fill.setFillColor(bl::sfcol(settings.outlineColor.value_or(sf::Color::Black)));
 }
 
-ecs::Entity CheckButtonComponent::getEntity() const { return box.entity(); }
+ecs::Entity CheckButtonComponent::getEntity() const { return dummy.entity(); }
 
 void CheckButtonComponent::doCreate(engine::Engine& engine, rdr::Renderer&, Component*,
                                     Component&) {
     CheckButton& owner = getOwnerAs<CheckButton>();
+    dummy.create(engine);
     box.create(engine, {owner.getToggleSize(), owner.getToggleSize()});
+    box.setParent(dummy);
     fill.create(engine, {10.f, 10.f});
     fill.getTransform().setOrigin({5.f, 5.f});
     fill.getOverlayScaler().positionInParentSpace({0.5f, 0.5f});
@@ -49,17 +51,16 @@ void CheckButtonComponent::doSceneAdd(rc::Overlay* overlay) {
 
 void CheckButtonComponent::doSceneRemove() { box.removeFromScene(); }
 
-void CheckButtonComponent::handleAcquisition(const sf::Vector2f& posFromParent,
-                                             const sf::Vector2f& posFromWindow,
-                                             const sf::Vector2f&) {
-    handleMove(posFromParent, posFromWindow);
+void CheckButtonComponent::handleAcquisition(const sf::Vector2f& posFromParent, const sf::Vector2f&,
+                                             const sf::Vector2f& size) {
+    const CheckButton& owner = getOwnerAs<CheckButton>();
+    dummy.setSize({size.x, size.y});
+    box.getTransform().setPosition({0.f, size.y * 0.5f - owner.getToggleSize() * 0.5f});
+    dummy.getTransform().setPosition({posFromParent.x, posFromParent.y});
 }
 
 void CheckButtonComponent::handleMove(const sf::Vector2f& posFromParent, const sf::Vector2f&) {
-    const CheckButton& owner = getOwnerAs<CheckButton>();
-    box.getTransform().setPosition(
-        {posFromParent.x,
-         posFromParent.y + owner.getAcquisition().height * 0.5f - owner.getToggleSize() * 0.5f});
+    dummy.getTransform().setPosition({posFromParent.x, posFromParent.y});
 }
 
 } // namespace defcoms

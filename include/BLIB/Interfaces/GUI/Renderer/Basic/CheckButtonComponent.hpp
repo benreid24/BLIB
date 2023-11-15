@@ -1,6 +1,7 @@
 #ifndef BLIB_GUI_RENDERER_COMPONENTS_CHECKBUTTONCOMPONENT_HPP
 #define BLIB_GUI_RENDERER_COMPONENTS_CHECKBUTTONCOMPONENT_HPP
 
+#include <BLIB/Graphics/Dummy2D.hpp>
 #include <BLIB/Graphics/Rectangle.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Component.hpp>
 
@@ -95,6 +96,7 @@ protected:
                             const sf::Vector2f& posFromWindow) override;
 
 private:
+    gfx::Dummy2D dummy;
     gfx::Rectangle box;
     gfx::Rectangle fill;
 };

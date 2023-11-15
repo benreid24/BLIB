@@ -65,7 +65,7 @@ void OverlayScalerSystem::update(std::mutex&, float, float, float, float) {
 }
 
 void OverlayScalerSystem::refreshObjectAndChildren(Result& row) {
-    refreshEntity(row);
+    if (!row.entity().flagSet(ecs::Flags::Dummy)) { refreshEntity(row); }
     for (rc::ovy::OverlayObject* child : row.get<rc::ovy::OverlayObject>()->getChildren()) {
         refreshObjectAndChildren(*child);
     }
