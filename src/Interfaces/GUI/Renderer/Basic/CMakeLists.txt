@@ -5,6 +5,7 @@ target_sources(BLIB PRIVATE
     ComboBoxComponent.cpp
     ImageComponent.cpp
     LabelComponent.cpp
+    OverlayFlashProvider.cpp
     OverlayHighlightProvider.cpp
     ProgressBarComponent.cpp
     SeparatorComponent.cpp

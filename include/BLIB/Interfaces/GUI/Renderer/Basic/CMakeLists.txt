@@ -5,6 +5,7 @@ target_sources(BLIB PUBLIC
     ComboBoxComponent.hpp
     ImageComponent.hpp
     LabelComponent.hpp
+    OverlayFlashProvider.hpp
     OverlayHighlightProvider.hpp
     ProgressBarComponent.hpp
     SeparatorComponent.hpp

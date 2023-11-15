@@ -12,6 +12,7 @@
 #include <BLIB/Interfaces/GUI/Renderer/Basic/ComboBoxComponent.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Basic/ImageComponent.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Basic/LabelComponent.hpp>
+#include <BLIB/Interfaces/GUI/Renderer/Basic/OverlayFlashProvider.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Basic/OverlayHighlightProvider.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Basic/ProgressBarComponent.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Basic/SeparatorComponent.hpp>
@@ -45,7 +46,7 @@ FactoryTable::FactoryTable(bool populate) {
         registerFactoryForElement<ToggleButton, NullComponent>();
         registerFactoryForElement<Window, defcoms::WindowComponent>();
 
-        setFlashProviderFactory([]() { return std::make_unique<NullFlashProvider>(); });
+        setFlashProviderFactory([]() { return std::make_unique<defcoms::OverlayFlashProvider>(); });
         setHighlightProviderFactory(
             []() { return std::make_unique<defcoms::OverlayHighlightProvider>(); });
         setTooltipProviderFactory([]() { return std::make_unique<NullTooltipProvider>(); });
