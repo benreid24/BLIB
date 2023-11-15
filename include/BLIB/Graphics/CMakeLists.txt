@@ -6,6 +6,7 @@ target_sources(BLIB PUBLIC
 	BatchTriangle.hpp
 	Circle.hpp
 	Drawable.hpp
+	Dummy2D.hpp
 	Rectangle.hpp
 	Slideshow.hpp
 	Sprite.hpp

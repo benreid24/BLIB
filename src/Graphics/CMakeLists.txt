@@ -5,6 +5,7 @@ target_sources(BLIB PRIVATE
 	BatchRectangle.cpp
 	BatchTriangle.cpp
 	Circle.cpp
+	Dummy2D.cpp
 	Rectangle.cpp
 	Slideshow.cpp
 	Sprite.cpp

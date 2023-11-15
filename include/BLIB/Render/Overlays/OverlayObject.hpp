@@ -3,6 +3,7 @@
 
 #include <BLIB/Components/OverlayScaler.hpp>
 #include <BLIB/ECS.hpp>
+#include <BLIB/ECS/Traits/IgnoresDummy.hpp>
 #include <BLIB/ECS/Traits/ParentAware.hpp>
 #include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
@@ -27,7 +28,8 @@ namespace ovy
 struct OverlayObject
 : public scene::SceneObject
 , public ecs::trait::ParentAware<OverlayObject>
-, public ecs::trait::ChildAware<OverlayObject> {
+, public ecs::trait::ChildAware<OverlayObject>
+, public ecs::trait::IgnoresDummy {
     /**
      * @brief Construct a new OverlayObject
      */
