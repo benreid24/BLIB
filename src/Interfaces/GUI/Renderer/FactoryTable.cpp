@@ -16,6 +16,7 @@
 #include <BLIB/Interfaces/GUI/Renderer/Basic/OverlayHighlightProvider.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Basic/ProgressBarComponent.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Basic/SeparatorComponent.hpp>
+#include <BLIB/Interfaces/GUI/Renderer/Basic/TextEntryComponent.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Basic/WindowComponent.hpp>
 
 namespace bl
@@ -42,8 +43,7 @@ FactoryTable::FactoryTable(bool populate) {
         registerFactoryForElement<SelectBox, NullComponent>();
         registerFactoryForElement<Separator, defcoms::SeparatorComponent>();
         registerFactoryForElement<Slider, NullComponent>();
-        registerFactoryForElement<TextEntry, NullComponent>();
-        registerFactoryForElement<ToggleButton, NullComponent>();
+        registerFactoryForElement<TextEntry, defcoms::TextEntryComponent>();
         registerFactoryForElement<Window, defcoms::WindowComponent>();
 
         setFlashProviderFactory([]() { return std::make_unique<defcoms::OverlayFlashProvider>(); });

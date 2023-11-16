@@ -174,6 +174,11 @@ public:
     const glm::mat4& getGlobalTransform();
 
     /**
+     * @brief Returns the global transform matrix for this transform
+     */
+    glm::mat4 computeGlobalTransform() const;
+
+    /**
      * @brief Returns whether or not the transform requires a refresh. Prefer this to inherited
      *        methods from ecs traits or descriptor component base
      */

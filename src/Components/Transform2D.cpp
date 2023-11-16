@@ -131,8 +131,7 @@ void Transform2D::ensureUpdated() {
         if (hasParent()) {
             // TODO - only parent position? how to anchor in case of scaled/rotated parent?
             //      - use parentTform*pos to compute anchor point?
-            cachedGlobalTransform = createTransformMatrix(
-                origin, glm::vec3(getGlobalPosition(), getGlobalDepth()), scaleFactors, rotation);
+            cachedGlobalTransform = computeGlobalTransform();
         }
         else { cachedGlobalTransform = getLocalTransform(); }
     }
@@ -141,14 +140,16 @@ void Transform2D::ensureUpdated() {
 glm::vec3 Transform2D::transformPoint(const glm::vec3& src) const {
     glm::mat4 localMat(1.f);
     const glm::mat4* mat = &localMat;
-    if (requiresRefresh()) {
-        localMat = createTransformMatrix(
-            origin, glm::vec3(getGlobalPosition(), getGlobalDepth()), scaleFactors, rotation);
-    }
+    if (requiresRefresh()) { localMat = computeGlobalTransform(); }
     else { mat = &cachedGlobalTransform; }
 
     const glm::vec4 np = (*mat) * glm::vec4(src, 1.f);
     return {np.x, np.y, np.z};
+}
+
+glm::mat4 Transform2D::computeGlobalTransform() const {
+    return createTransformMatrix(
+        origin, glm::vec3(getGlobalPosition(), getGlobalDepth()), scaleFactors, rotation);
 }
 
 } // namespace com

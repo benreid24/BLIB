@@ -28,25 +28,25 @@ TextEntry::TextEntry(unsigned int lc, bool am)
 , mode(Mode::Any)
 , cursorPos(0)
 , cursorShowing(false)
-, cursorTime(0)
 , currentLine(0) {
     using namespace std::placeholders;
     getSignal(Event::TextEntered).willAlwaysCall(std::bind(&TextEntry::onInput, this, _1));
     getSignal(Event::KeyPressed).willAlwaysCall(std::bind(&TextEntry::onKeypress, this, _1));
     getSignal(Event::LeftClicked).willAlwaysCall(std::bind(&TextEntry::onClicked, this, _1));
-    getSignal(Event::RenderSettingsChanged).willAlwaysCall(std::bind(&TextEntry::refresh, this));
-    getSignal(Event::AcquisitionChanged).willAlwaysCall(std::bind(&TextEntry::refresh, this));
-    getSignal(Event::Moved).willAlwaysCall([this](const Event&, Element*) {
-        renderText.setPosition(getPosition());
-    });
+    getSignal(Event::GainedFocus).willAlwaysCall(std::bind(&TextEntry::updateCursorState, this));
+    getSignal(Event::LostFocus).willAlwaysCall(std::bind(&TextEntry::updateCursorState, this));
 
     newlines.reserve(lineCount + 2);
-    recalcText();
+}
+
+void TextEntry::refreshComponent() {
+    if (getComponent()) { getComponent()->onElementUpdated(); }
 }
 
 void TextEntry::setMode(Mode m) {
     mode = m;
     filter();
+    refreshComponent();
 }
 
 void TextEntry::setMaxInputLength(unsigned int ml) { maxInputLen = ml; }
@@ -58,26 +58,17 @@ void TextEntry::setInput(const std::string& s) {
     filter();
     if (cursorPos > input.size()) cursorPos = input.size();
     recalcNewlines();
-    recalcOffset();
+    refreshComponent();
 }
 
 bool TextEntry::cursorVisible() const { return cursorShowing && visible() && hasFocus(); }
 
 unsigned int TextEntry::getCursorPosition() const { return cursorPos; }
 
-void TextEntry::update(float dt) {
-    Element::update(dt);
-
-    if (hasFocus()) {
-        cursorTime += dt;
-        while (cursorTime > CursorFlashPeriod) {
-            cursorTime -= CursorFlashPeriod;
-            cursorShowing = !cursorShowing;
-        }
-    }
-    else {
-        cursorTime    = 0.f;
-        cursorShowing = false;
+void TextEntry::updateCursorState() {
+    if (hasFocus() != cursorShowing) {
+        cursorShowing = hasFocus();
+        if (component) { component->onCaratStateUpdate(); }
     }
 }
 
@@ -90,13 +81,13 @@ sf::Vector2f TextEntry::minimumRequisition() const {
 }
 
 rdr::Component* TextEntry::doPrepareRender(rdr::Renderer& renderer) {
-    return renderer.createComponent<TextEntry>(
+    rdr::Component* com = renderer.createComponent<TextEntry>(
         *this, getParentComponent(), getWindowOrGuiParentComponent());
-}
-
-void TextEntry::recalcText() {
-    // TODO - update
-    renderText.setPosition(getPosition() - textOffset);
+    component = dynamic_cast<rdr::TextEntryComponentBase*>(com);
+    if (!component) {
+        BL_LOG_ERROR << "TextEntry component must derive from TextEntryComponentBase";
+    }
+    return com;
 }
 
 void TextEntry::recalcNewlines() {
@@ -131,10 +122,17 @@ void TextEntry::onInput(const Event& action) {
     }
 
     filter();
-    renderText.setString(input);
     recalcNewlines();
-    recalcOffset();
+    refreshComponent();
     fireChanged();
+}
+
+void TextEntry::showAndResetCursor() {
+    cursorShowing = true;
+    if (component) {
+        component->onCaratStateUpdate();
+        component->resetCaratFlash();
+    }
 }
 
 void TextEntry::onKeypress(const Event& action) {
@@ -142,38 +140,33 @@ void TextEntry::onKeypress(const Event& action) {
 
     if (action.key().code == sf::Keyboard::Right) {
         if (cursorPos < input.size()) ++cursorPos;
-        cursorShowing = true;
-        cursorTime    = 0.f;
+        showAndResetCursor();
     }
     else if (action.key().code == sf::Keyboard::Left) {
         if (cursorPos > 0) --cursorPos;
-        cursorShowing = true;
-        cursorTime    = 0.f;
+        showAndResetCursor();
     }
     else if (action.key().code == sf::Keyboard::Up) {
         if (currentLine > 0) cursorUp();
-        cursorShowing = true;
-        cursorTime    = 0.f;
+        showAndResetCursor();
     }
     else if (action.key().code == sf::Keyboard::Down) {
         if (currentLine < newlines.size() - 2) cursorDown();
-        cursorShowing = true;
-        cursorTime    = 0.f;
+        showAndResetCursor();
     }
     else if (action.key().code == sf::Keyboard::Home) {
-        cursorPos     = newlines[currentLine] + 1;
-        cursorShowing = true;
-        cursorTime    = 0.f;
+        cursorPos = newlines[currentLine] + 1;
+        showAndResetCursor();
     }
     else if (action.key().code == sf::Keyboard::End) {
-        cursorPos     = newlines[currentLine + 1];
-        cursorShowing = true;
-        cursorTime    = 0.f;
+        cursorPos = newlines[currentLine + 1];
+        showAndResetCursor();
     }
     else if (action.key().code == sf::Keyboard::Delete) {
         if (cursorPos < input.size()) input.erase(cursorPos, 1);
         filter();
         fireChanged();
+        refreshComponent();
     }
     else if (action.key().code == sf::Keyboard::Return) {
         if (newlines.size() - 1 < lineCount || allowMoreLines) {
@@ -185,6 +178,7 @@ void TextEntry::onKeypress(const Event& action) {
         }
         filter();
         fireChanged();
+        refreshComponent();
     }
     else if (action.key().control && action.key().code == sf::Keyboard::V) {
         const std::string c = sf::Clipboard::getString().toAnsiString();
@@ -195,58 +189,22 @@ void TextEntry::onKeypress(const Event& action) {
         cursorPos += c.size();
         filter();
         fireChanged();
+        refreshComponent();
     }
 
     recalcNewlines();
-    recalcOffset();
 }
 
 void TextEntry::onClicked(const Event& action) {
     if (action.type() != Event::LeftClicked) return;
-
-    recalcText();
-    const auto selectIndex = [this](unsigned int i) {
-        cursorPos = i;
-        recalcNewlines();
-        recalcOffset();
-    };
-
-    // Determine which line we're on
-    const float y = action.mousePosition().y - renderText.getGlobalBounds().top;
-    if (y < 0.f) {
-        selectIndex(0);
-        return;
-    }
-    if (y > renderText.getGlobalBounds().top + renderText.getGlobalBounds().height) {
-        selectIndex(input.size());
+    if (!component) {
+        BL_LOG_WARN << "Received click event without valid component";
         return;
     }
 
-    const float lineHeight = renderText.getFont()->getLineSpacing(renderText.getCharacterSize()) *
-                             renderText.getLineSpacing();
-    const unsigned int line =
-        std::min(static_cast<std::size_t>(std::floor(y / lineHeight)) + 1, newlines.size() - 1);
-
-    const float x = action.mousePosition().x - renderText.getGlobalBounds().left;
-    if (x < 0.f) {
-        selectIndex(newlines[line - 1] + 1);
-        return;
-    }
-    for (int i = newlines[line - 1] + 1; i < newlines[line]; ++i) {
-        const sf::Glyph& g = renderText.getFont()->getGlyph(
-            renderText.getString()[i],
-            renderText.getCharacterSize(),
-            (renderText.getStyle() & sf::Text::Style::Bold) == sf::Text::Style::Bold,
-            renderText.getOutlineThickness());
-        const sf::Vector2f cpos = renderText.findCharacterPos(i);
-        const sf::FloatRect bounds(cpos.x, cpos.y, g.bounds.left + g.bounds.width, lineHeight);
-        if (bounds.contains(action.mousePosition())) {
-            selectIndex(i);
-            return;
-        }
-    }
-
-    selectIndex(newlines[line]);
+    cursorPos = component->findCursorPosition(action.mousePosition());
+    recalcNewlines();
+    component->onCaratStateUpdate();
 }
 
 void TextEntry::cursorUp() {
@@ -255,7 +213,6 @@ void TextEntry::cursorUp() {
     const int npos    = std::min(cpos, lineLen);
     cursorPos         = newlines[currentLine - 1] + npos;
     currentLine -= 1;
-    recalcOffset();
 }
 
 void TextEntry::cursorDown() {
@@ -264,48 +221,9 @@ void TextEntry::cursorDown() {
     const int npos    = std::min(cpos, lineLen);
     cursorPos         = newlines[currentLine + 1] + npos;
     currentLine += 1;
-    recalcOffset();
 }
 
 void TextEntry::fireChanged() { fireSignal(Event(Event::ValueChanged, input)); }
-
-const sf::Vector2f& TextEntry::getTextOffset() const { return textOffset; }
-
-void TextEntry::recalcOffset() {
-    recalcText();
-    if (renderText.getGlobalBounds().width <= getAcquisition().width &&
-        renderText.getGlobalBounds().height <= getAcquisition().height) {
-        textOffset = {0.f, 0.f};
-        recalcText();
-        return;
-    }
-
-    const sf::Vector2f cpos = renderText.findCharacterPos(cursorPos);
-    const sf::Glyph& g      = renderText.getFont()->getGlyph(
-        renderText.getString()[cursorPos],
-        renderText.getCharacterSize(),
-        (renderText.getStyle() & sf::Text::Style::Bold) == sf::Text::Style::Bold,
-        renderText.getOutlineThickness());
-
-    const float right = getAcquisition().left + getAcquisition().width;
-    if (cpos.x < getAcquisition().left) { textOffset.x = cpos.x - renderText.getPosition().x; }
-    else if (cpos.x > right) { textOffset.x += cpos.x - right + g.bounds.width + g.advance + 1.5f; }
-
-    const float lineHeight = renderText.getFont()->getLineSpacing(renderText.getCharacterSize()) *
-                             renderText.getLineSpacing();
-    const float y      = static_cast<float>(currentLine) * lineHeight + renderText.getPosition().y;
-    const float by     = y + lineHeight;
-    const float bottom = getAcquisition().top + getAcquisition().height;
-    if (y < getAcquisition().top) { textOffset.y = y - renderText.getPosition().y; }
-    else if (by > bottom) {
-        textOffset.y = static_cast<float>(currentLine - lineCount + 1) * lineHeight;
-    }
-}
-
-void TextEntry::refresh() {
-    recalcText();
-    recalcOffset();
-}
 
 void TextEntry::filter() {
     if (mode == Mode::Any) return;
@@ -327,6 +245,24 @@ void TextEntry::filter() {
         if (input.empty()) { input = "0"; }
         if (cursorPos > input.size()) cursorPos = input.size();
     }
+}
+
+unsigned int TextEntry::getCurrentLine() const { return currentLine; }
+
+unsigned int TextEntry::getLineCount() const { return lineCount; }
+
+unsigned int TextEntry::getLineStartIndex(unsigned int line) const {
+    if (newlines.size() <= 1) { return 0; }
+
+    line = line >= newlines.size() ? newlines.size() - 1 : line;
+    return newlines[line - 1] + 1;
+}
+
+unsigned int TextEntry::getLineEndIndex(unsigned int line) const {
+    if (newlines.size() <= 1) { return input.size(); }
+
+    line = line >= newlines.size() ? newlines.size() - 1 : line;
+    return newlines[line];
 }
 
 } // namespace gui

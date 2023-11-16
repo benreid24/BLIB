@@ -1,6 +1,7 @@
 #ifndef BLIB_COMPONENTS_OVERLAYSCALER_HPP
 #define BLIB_COMPONENTS_OVERLAYSCALER_HPP
 
+#include <BLIB/Components/Transform2D.hpp>
 #include <BLIB/ECS/Traits/IgnoresDummy.hpp>
 #include <BLIB/ECS/Traits/ParentAware.hpp>
 #include <SFML/Graphics/Rect.hpp>
@@ -140,8 +141,10 @@ public:
 
     /**
      * @brief Returns whether or not the scale needs to be re-computed
+     *
+     * @param transform Optional transform to take into account for dirty state
      */
-    constexpr bool isDirty() const;
+    bool isDirty(const com::Transform2D* transform = nullptr) const;
 
     /**
      * @brief Sets the callback to call when the entity is scaled
@@ -171,6 +174,7 @@ private:
     };
     ScissorMode scissorMode;
     bool dirty;
+    std::uint16_t transformVersion;
 
     friend class sys::OverlayScalerSystem;
     friend class gfx::bcom::OverlayScalable;
@@ -181,8 +185,6 @@ private:
 inline constexpr const sf::FloatRect& OverlayScaler::getEntityBounds() const {
     return cachedObjectBounds;
 }
-
-inline constexpr bool OverlayScaler::isDirty() const { return dirty; }
 
 } // namespace com
 } // namespace bl

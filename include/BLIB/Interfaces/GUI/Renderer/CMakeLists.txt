@@ -9,6 +9,7 @@ target_sources(BLIB PUBLIC
     NullHighlightProvider.hpp
     NullTooltipProvider.hpp
     Renderer.hpp
+    TextEntryComponentBase.hpp
     TooltipProvider.hpp
 )
 

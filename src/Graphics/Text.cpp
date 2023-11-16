@@ -15,7 +15,9 @@ Text::Text()
     sections.reserve(4);
 }
 
-Text::~Text() {}
+Text::~Text() {
+    if (commitTask.isQueued()) { commitTask.cancel(); }
+}
 
 void Text::create(engine::Engine& engine, const sf::VulkanFont& f, const sf::String& content,
                   unsigned int fontSize, const glm::vec4& color, std::uint32_t style) {
@@ -57,7 +59,23 @@ void Text::onAdd(const rc::rcom::SceneObjectRef&) {}
 
 void Text::onRemove() {}
 
-void Text::ensureLocalSizeUpdated() { commit(); }
+void Text::ensureLocalSizeUpdated() {
+    const auto bounds = getLocalBounds();
+    OverlayScalable::setLocalSize({bounds.width + bounds.left, bounds.height + bounds.top});
+}
+
+void Text::computeBoundsIfNeeded() const {
+    if (commitTask.isQueued() && !boundsComputedWhileDirty) {
+        boundsComputedWhileDirty = true;
+
+        // call commit in each section to update bounds
+        glm::vec2 cornerPos(0.f, 0.f);
+        for (const auto& section : sections) {
+            txt::BasicText& sec = const_cast<txt::BasicText&>(section);
+            sec.refreshVertices(*font, nullptr, cornerPos);
+        }
+    }
+}
 
 void Text::commit() {
     commitTask = {};
@@ -99,6 +117,11 @@ void Text::commit() {
     font->syncTexture(engine().renderer());
 
     boundsComputedWhileDirty = false;
+}
+
+glm::vec2 Text::findCharacterPosition(unsigned int section, unsigned int index) const {
+    computeBoundsIfNeeded();
+    return sections[section].findCharacterPos(*font, index);
 }
 
 void Text::wordWrap(float w) {
@@ -199,16 +222,7 @@ sf::FloatRect Text::getLocalBounds() const {
     float minY = 100.f;
     float maxY = 0.f;
 
-    if (commitTask.isQueued() && !boundsComputedWhileDirty) {
-        boundsComputedWhileDirty = true;
-
-        // call commit in each section to update bounds
-        glm::vec2 cornerPos(0.f, 0.f);
-        for (const auto& section : sections) {
-            txt::BasicText& sec = const_cast<txt::BasicText&>(section);
-            sec.refreshVertices(*font, nullptr, cornerPos);
-        }
-    }
+    computeBoundsIfNeeded();
 
     for (const auto& section : sections) {
         const sf::FloatRect& bounds = section.getBounds();
@@ -226,13 +240,24 @@ glm::vec2 Text::getLocalSize() const {
     return {bounds.left + bounds.width, bounds.top + bounds.height};
 }
 
-Text::CharSearchResult Text::findCharacterAtPosition(const glm::vec2& targetPos) const {
+Text::CharSearchResult Text::findCharacterAtWindowPosition(const glm::vec2& targetPos) const {
     const sf::FloatRect& targetBounds = getTargetRegion();
     if (!targetBounds.contains({targetPos.x, targetPos.y})) { return {}; }
 
-    const sf::Vector2f localPos(
-        (targetPos.x - targetBounds.left) / targetBounds.width * OverlayScalable::getLocalSize().x,
-        (targetPos.y - targetBounds.top) / targetBounds.height * OverlayScalable::getLocalSize().y);
+    return findCharacterAtLocalPosition(
+        {(targetPos.x - targetBounds.left) / targetBounds.width * OverlayScalable::getLocalSize().x,
+         (targetPos.y - targetBounds.top) / targetBounds.height *
+             OverlayScalable::getLocalSize().y});
+}
+
+Text::CharSearchResult Text::findCharacterAtPosition(const glm::vec2& position) const {
+    const glm::mat4 inv = glm::inverse(getTransform().computeGlobalTransform());
+    const glm::vec4 rev = inv * glm::vec4(position, 0.f, 1.f);
+    return findCharacterAtLocalPosition({rev.x, rev.y});
+}
+
+Text::CharSearchResult Text::findCharacterAtLocalPosition(const glm::vec2& position) const {
+    const sf::Vector2f localPos(position.x, position.y);
 
     glm::vec2 nextPos(0.f, 0.f);
     std::uint32_t prevChar = 0;

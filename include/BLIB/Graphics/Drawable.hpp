@@ -103,6 +103,11 @@ public:
     void flash(float onPeriod, float offPeriod);
 
     /**
+     * @brief If actively flashing: Resets state to visible and restarts flash timer
+     */
+    void resetFlash();
+
+    /**
      * @brief Stops the component from flashing
      */
     void stopFlashing();
@@ -236,6 +241,15 @@ void Drawable<TCom, TSys>::flash(float onPeriod, float offPeriod) {
     // swap off/on period because we have hidden toggle instead of visible toggle
     engine().ecs().template emplaceComponent<com::Toggler>(
         entity(), offPeriod, onPeriod, &component().sceneRef.object->hidden);
+}
+
+template<typename TCom, typename TSys>
+void Drawable<TCom, TSys>::resetFlash() {
+    com::Toggler* tog = engine().ecs().template getComponent<com::Toggler>(entity());
+    if (tog) {
+        tog->time   = 0.f;
+        *tog->value = false;
+    }
 }
 
 template<typename TCom, typename TSys>

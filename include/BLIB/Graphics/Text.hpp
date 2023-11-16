@@ -130,12 +130,37 @@ public:
     glm::vec2 getLocalSize() const;
 
     /**
-     * @brief Searches for the character that contains the given position
+     * @brief Searches for the character that contains the given window position
      *
      * @param targetPos Position to search for. In window space
      * @return The found character index and section index
      */
-    CharSearchResult findCharacterAtPosition(const glm::vec2& targetPos) const;
+    CharSearchResult findCharacterAtWindowPosition(const glm::vec2& targetPos) const;
+
+    /**
+     * @brief Searches for the character that contains the given position
+     *
+     * @param targetPos Position to search for. In world space
+     * @return The found character index and section index
+     */
+    CharSearchResult findCharacterAtPosition(const glm::vec2& position) const;
+
+    /**
+     * @brief Searches for the character that contains the given position
+     *
+     * @param targetPos Position to search for. In text local space
+     * @return The found character index and section index
+     */
+    CharSearchResult findCharacterAtLocalPosition(const glm::vec2& position) const;
+
+    /**
+     * @brief Returns the text-local position of the character at the given section and index
+     *
+     * @param section The index of the section to search in
+     * @param index The index of the character to get the position of
+     * @return The text-local position of the given character
+     */
+    glm::vec2 findCharacterPosition(unsigned int section, unsigned int index) const;
 
     /**
      * @brief Adds newlines as required to limit the text width. Adjusts as scale and contents
@@ -229,6 +254,7 @@ private:
     virtual void onAdd(const rc::rcom::SceneObjectRef& sceneRef) override;
     virtual void onRemove() override;
     virtual void ensureLocalSizeUpdated() override;
+    void computeBoundsIfNeeded() const;
 
     friend class txt::BasicText;
 };

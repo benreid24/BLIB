@@ -129,6 +129,7 @@ std::uint32_t BasicText::refreshVertices(const sf::VulkanFont& font, rc::prim::V
                                          glm::vec2& cornerPos) {
     // Clear the previous geometry
     cachedBounds = sf::FloatRect();
+    cachedPos    = cornerPos;
 
     // No text: nothing to draw
     if (content.isEmpty()) return 0;
@@ -359,6 +360,44 @@ glm::vec2 BasicText::advanceCharacterPos(const sf::VulkanFont& font, glm::vec2 p
 const sf::Glyph& BasicText::getGlyph(const sf::VulkanFont& font, std::uint32_t code) const {
     return font.getGlyph(
         code, fontSize, (style & sf::Text::Bold) != 0, static_cast<float>(outlineThickness));
+}
+
+glm::vec2 BasicText::findCharacterPos(const sf::VulkanFont& font, unsigned int index) const {
+    index = index > content.getSize() ? content.getSize() : index;
+
+    const bool isBold           = style & sf::Text::Bold;
+    const float letterSpacing   = computeLetterSpacing(font);
+    const float whitespaceWidth = computeWhitespaceWidth(font);
+    const float lineSpacing     = cachedLineHeight;
+
+    glm::vec2 position{};
+    std::uint32_t prevChar = 0;
+    for (unsigned int i = 0; i < index; ++i) {
+        const std::uint32_t curChar = content[i];
+
+        // Apply the kerning offset
+        position.x += font.getKerning(prevChar, curChar, fontSize, isBold);
+        prevChar = curChar;
+
+        // Handle special characters
+        switch (curChar) {
+        case U' ':
+            position.x += whitespaceWidth;
+            continue;
+        case U'\t':
+            position.x += whitespaceWidth * 4;
+            continue;
+        case U'\n':
+            position.y += lineSpacing;
+            position.x = 0;
+            continue;
+        }
+
+        // For regular characters, add the advance offset of the glyph
+        position.x += font.getGlyph(curChar, fontSize, isBold).advance + letterSpacing;
+    }
+
+    return position;
 }
 
 } // namespace txt

@@ -223,7 +223,7 @@ private:
         }
         else if (event.type == sf::Event::MouseButtonPressed) {
             const glm::vec2 mpos(event.mouseButton.x, event.mouseButton.y);
-            const auto ir = text.findCharacterAtPosition(mpos);
+            const auto ir = text.findCharacterAtWindowPosition(mpos);
             if (ir.found) {
                 BL_LOG_INFO << "Clicked: (" << ir.sectionIndex << ", " << ir.characterIndex
                             << ") => '"

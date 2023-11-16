@@ -10,7 +10,8 @@ OverlayScaler::OverlayScaler()
 , sizePercent(0.1f, 0.1f)
 , posType(NoPosition)
 , scissorMode(ScissorInherit)
-, dirty(true) {}
+, dirty(true)
+, transformVersion(0) {}
 
 void OverlayScaler::scaleToWidthPercent(float p) {
     scaleType    = WidthPercent;
@@ -69,6 +70,10 @@ void OverlayScaler::stopPositioning() {
 }
 
 void OverlayScaler::setScaleCallback(OnScale&& cb) { onScale = std::forward<OnScale>(cb); }
+
+bool OverlayScaler::isDirty(const com::Transform2D* t) const {
+    return dirty || (t && t->getVersion() != transformVersion);
+}
 
 } // namespace com
 } // namespace bl

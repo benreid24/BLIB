@@ -12,10 +12,11 @@ namespace sys
 {
 namespace
 {
-bool parentsAllClean(com::OverlayScaler* scaler) {
+bool parentsAllClean(com::OverlayScaler* scaler, com::Transform2D* transform) {
     while (scaler->hasParent()) {
-        scaler = &scaler->getParent();
-        if (scaler->isDirty()) { return false; }
+        scaler    = &scaler->getParent();
+        transform = (transform && transform->hasParent()) ? &transform->getParent() : nullptr;
+        if (scaler->isDirty(transform)) { return false; }
     }
     return true;
 }
@@ -55,10 +56,11 @@ void OverlayScalerSystem::init(engine::Engine& engine) {
 
 void OverlayScalerSystem::update(std::mutex&, float, float, float, float) {
     view->forEach([this](Result& row) {
-        com::OverlayScaler* scaler = row.get<com::OverlayScaler>();
-        if (scaler && scaler->isDirty()) {
+        com::OverlayScaler* scaler  = row.get<com::OverlayScaler>();
+        com::Transform2D* transform = row.get<com::Transform2D>();
+        if (scaler && scaler->isDirty(transform)) {
             // skip if parent dirty, will be refreshed when parent is
-            if (!parentsAllClean(scaler)) { return; }
+            if (!parentsAllClean(scaler, transform)) { return; }
             refreshObjectAndChildren(row);
         }
     });
@@ -89,7 +91,8 @@ void OverlayScalerSystem::refreshEntity(Result& cset) {
             scaler.getParent().cachedObjectBounds.height * transform.getParent().getScale().y;
     }
 
-    scaler.dirty = false;
+    scaler.dirty            = false;
+    scaler.transformVersion = transform.getVersion();
 
     float xScale = 1.f;
     float yScale = 1.f;

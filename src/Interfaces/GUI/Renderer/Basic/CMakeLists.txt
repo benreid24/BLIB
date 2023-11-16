@@ -9,5 +9,6 @@ target_sources(BLIB PRIVATE
     OverlayHighlightProvider.cpp
     ProgressBarComponent.cpp
     SeparatorComponent.cpp
+    TextEntryComponent.cpp
     WindowComponent.cpp
 )
