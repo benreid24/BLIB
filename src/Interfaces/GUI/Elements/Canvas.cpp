@@ -6,23 +6,24 @@ namespace bl
 {
 namespace gui
 {
-Canvas::Ptr Canvas::create(unsigned int w, unsigned int h) { return Ptr(new Canvas(w, h)); }
+Canvas::Ptr Canvas::create(unsigned int w, unsigned int h, rc::SceneRef scene) {
+    return Ptr(new Canvas(w, h, scene));
+}
 
-Canvas::Canvas(unsigned int w, unsigned int h)
+Canvas::Canvas(unsigned int w, unsigned int h, rc::SceneRef scene)
 : Element()
+, textureSize(w, h)
+, scene(scene)
 , fillAcq(false)
-, maintainAR(true) {
-    texture.create(w, h);
-    texture.clear(sf::Color::Transparent);
-    sprite.setTexture(texture.getTexture());
+, maintainAR(true)
+, scale(1.f, 1.f)
+, offset(0.f, 0.f) {
     getSignal(Event::AcquisitionChanged).willAlwaysCall(std::bind(&Canvas::setScale, this));
-    getSignal(Event::Moved).willAlwaysCall(std::bind(&Canvas::moveCb, this));
 }
 
 void Canvas::resize(unsigned int w, unsigned int h, bool resetScale) {
-    texture.create(w, h);
-    texture.clear(sf::Color::Transparent);
-    sprite.setTexture(texture.getTexture());
+    textureSize.x = w;
+    textureSize.y = h;
     if (resetScale) size.reset();
     setScale();
     makeDirty();
@@ -41,11 +42,7 @@ void Canvas::setFillAcquisition(bool fill, bool mar) {
     makeDirty();
 }
 
-sf::RenderTexture& Canvas::getTexture() { return texture; }
-
-sf::Vector2f Canvas::minimumRequisition() const {
-    return size.value_or(sf::Vector2f(texture.getSize().x, texture.getSize().y));
-}
+sf::Vector2f Canvas::minimumRequisition() const { return size.value_or(sf::Vector2f(textureSize)); }
 
 rdr::Component* Canvas::doPrepareRender(rdr::Renderer& renderer) {
     return renderer.createComponent<Canvas>(
@@ -53,23 +50,39 @@ rdr::Component* Canvas::doPrepareRender(rdr::Renderer& renderer) {
 }
 
 void Canvas::setScale() {
-    const sf::Vector2f origSize(texture.getSize().x, texture.getSize().y);
+    const sf::Vector2f origSize(textureSize);
     sf::Vector2f area = size.value_or(origSize);
     if (fillAcq) {
         area.x = getAcquisition().width;
         area.y = getAcquisition().height;
     }
-    float sx = area.x / origSize.x;
-    float sy = area.y / origSize.y;
+    scale.x = area.x / origSize.x;
+    scale.y = area.y / origSize.y;
     if (fillAcq && maintainAR) {
-        sx = std::min(sx, sy);
-        sy = sx;
+        scale.x = std::min(scale.x, scale.y);
+        scale.y = scale.x;
     }
-    sprite.setScale(sx, sy);
-    sprite.setPosition(getAcquisition().left, getAcquisition().top);
+    offset = RenderSettings::calculatePosition(
+        getRenderSettings().horizontalAlignment.value_or(RenderSettings::Center),
+        getRenderSettings().horizontalAlignment.value_or(RenderSettings::Center),
+        getAcquisition(),
+        {origSize.x * scale.x, origSize.y * scale.y});
+
+    if (getComponent()) { getComponent()->onElementUpdated(); }
 }
 
-void Canvas::moveCb() { sprite.setPosition(getPosition()); }
+void Canvas::setScene(rc::SceneRef s) {
+    if (s.get() != scene.get()) {
+        scene = s;
+        if (getComponent()) { getComponent()->onElementUpdated(); }
+    }
+}
+
+const sf::Vector2u& Canvas::getTextureSize() const { return textureSize; }
+
+const sf::Vector2f& Canvas::getOffset() const { return offset; }
+
+const sf::Vector2f& Canvas::getScale() const { return scale; }
 
 } // namespace gui
 } // namespace bl

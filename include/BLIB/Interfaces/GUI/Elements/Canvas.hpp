@@ -2,6 +2,7 @@
 #define BLIB_GUI_ELEMENTS_CANVAS_HPP
 
 #include <BLIB/Interfaces/GUI/Elements/Element.hpp>
+#include <BLIB/Render/Resources/SceneRef.hpp>
 
 namespace bl
 {
@@ -25,9 +26,10 @@ public:
      *
      * @param w Width of the renderable area in pixels
      * @param h Height of the renderable area in pixels
+     * @param scene The scene to render to the canvas
      * @return Ptr The new canvas
      */
-    static Ptr create(unsigned int w, unsigned int h);
+    static Ptr create(unsigned int w, unsigned int h, rc::SceneRef scene = {});
 
     /**
      * @brief Resize the underlying texture of the Canvas
@@ -60,12 +62,26 @@ public:
     void setFillAcquisition(bool fill, bool maintainAR = true);
 
     /**
-     * @brief Returns a mutable reference to the underlying texture. This may be rendered to
-     *        Note that display() must be called on this object after rendering is complete
+     * @brief Sets the scene to render in the texture
      *
-     * @return sf::RenderTexture& Reference to the underlying texture
+     * @param scene The scene to render
      */
-    sf::RenderTexture& getTexture();
+    void setScene(rc::SceneRef scene);
+
+    /**
+     * @brief Returns the size of the texture being rendered to
+     */
+    const sf::Vector2u& getTextureSize() const;
+
+    /**
+     * @brief Returns the offset of the texture from the position of the element
+     */
+    const sf::Vector2f& getOffset() const;
+
+    /**
+     * @brief Returns the scale that the texture should be rendered with
+     */
+    const sf::Vector2f& getScale() const;
 
 protected:
     /**
@@ -73,8 +89,9 @@ protected:
      *
      * @param w Width of the renderable area in pixels
      * @param h Height of the renderable area in pixels
+     * @param scene The scene to render to the canvas
      */
-    Canvas(unsigned int w, unsigned int h);
+    Canvas(unsigned int w, unsigned int h, rc::SceneRef scene);
 
     /**
      * @brief Returns the size the canvas is set to render to. Default is the canvas size
@@ -91,14 +108,15 @@ protected:
     virtual rdr::Component* doPrepareRender(rdr::Renderer& renderer) override;
 
 private:
-    sf::RenderTexture texture;
-    sf::Sprite sprite;
+    sf::Vector2u textureSize;
     std::optional<sf::Vector2f> size;
+    rc::SceneRef scene;
     bool fillAcq;
     bool maintainAR;
+    sf::Vector2f scale;
+    sf::Vector2f offset;
 
     void setScale();
-    void moveCb();
 };
 
 } // namespace gui
