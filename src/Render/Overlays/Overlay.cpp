@@ -71,8 +71,8 @@ void Overlay::renderScene(scene::SceneRenderContext& ctx) {
         }
         ctx.renderObject(obj);
 
-        std::copy(obj.getChildren().begin(),
-                  obj.getChildren().end(),
+        std::copy(obj.getChildren().rbegin(),
+                  obj.getChildren().rend(),
                   std::inserter(renderStack, renderStack.end()));
     }
 }

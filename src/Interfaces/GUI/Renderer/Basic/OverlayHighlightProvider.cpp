@@ -21,13 +21,14 @@ void OverlayHighlightProvider::notifyUIState(Element* element, rdr::Component::U
             currentElement = element;
             currentState   = state;
 
-            com::Transform2D* pos = enginePtr->ecs().getComponent<com::Transform2D>(
-                element->getComponent()->getEntity());
-            cover.getTransform().setDepth(pos ? pos->getGlobalDepth() - 0.4f :
-                                                cam::OverlayCamera::MinDepth);
-            cover.getTransform().setPosition(
-                {element->getAcquisition().left, element->getAcquisition().top});
+            const ecs::Entity parent = element->getComponent()->getEntity();
+
+            com::Transform2D* pos = enginePtr->ecs().getComponent<com::Transform2D>(parent);
+            cover.getTransform().setDepth(pos ?
+                                              cam::OverlayCamera::MinDepth - pos->getGlobalDepth() :
+                                              cam::OverlayCamera::MinDepth);
             cover.scaleToSize({element->getAcquisition().width, element->getAcquisition().height});
+            cover.setParent(parent);
             cover.setHidden(false);
 
             switch (state) {
@@ -52,7 +53,8 @@ void OverlayHighlightProvider::doCreate(engine::Engine& engine) {
 }
 
 void OverlayHighlightProvider::doSceneAdd(rc::Overlay* scene) {
-    cover.addToScene(scene, rc::UpdateSpeed::Dynamic);
+    cover.addToSceneWithCustomPipeline(
+        scene, rc::UpdateSpeed::Dynamic, rc::Config::PipelineIds::Unlit2DGeometryNoDepthWrite);
     cover.setHidden(true);
 }
 

@@ -441,6 +441,9 @@ void Element::prepareRender(rdr::Renderer& r) {
     component     = doPrepareRender(r);
     updateUiState();
     prepareChildrenRender(r);
+    if (highlightBehvaiorOverride.has_value()) {
+        component->overrideHighlightBehavior(highlightBehvaiorOverride.value());
+    }
 }
 
 Element& Element::getWindowOrGuiParent() {
@@ -469,6 +472,11 @@ void Element::onRenderChange() {
 void Element::prepareChildrenRender(rdr::Renderer&) {}
 
 float Element::getDepthBias() const { return 0.f; }
+
+void Element::overrideHighlightBehavior(rdr::Component::HighlightState behavior) {
+    highlightBehvaiorOverride = behavior;
+    if (component) { component->overrideHighlightBehavior(behavior); }
+}
 
 } // namespace gui
 } // namespace bl

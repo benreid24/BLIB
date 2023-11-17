@@ -58,6 +58,10 @@ void PipelineCache::createBuiltins() {
     depthStencilDepthDisabled.depthTestEnable                       = VK_FALSE;
     depthStencilDepthDisabled.depthWriteEnable                      = VK_FALSE;
 
+    VkPipelineDepthStencilStateCreateInfo depthStencilDepthWriteDisabled = depthStencilDepthEnabled;
+    depthStencilDepthWriteDisabled.depthTestEnable                       = VK_TRUE;
+    depthStencilDepthWriteDisabled.depthWriteEnable                      = VK_FALSE;
+
     VkPipelineRasterizationStateCreateInfo rasterizer{};
     rasterizer.sType                   = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
     rasterizer.depthClampEnable        = VK_FALSE;
@@ -128,6 +132,17 @@ void PipelineCache::createBuiltins() {
                       .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
                       .withRasterizer(rasterizer)
                       .withDepthStencilState(&depthStencilDepthEnabled)
+                      .addDescriptorSet<ds::Scene2DFactory>()
+                      .addDescriptorSet<ds::Object2DFactory>()
+                      .build());
+
+    createPipline(Config::PipelineIds::Unlit2DGeometryNoDepthWrite,
+                  vk::PipelineParameters({Config::RenderPassIds::StandardAttachmentDefault,
+                                          Config::RenderPassIds::SwapchainDefault})
+                      .withShaders(Config::ShaderIds::Vertex2D, Config::ShaderIds::Fragment2DUnlit)
+                      .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
+                      .withRasterizer(rasterizer)
+                      .withDepthStencilState(&depthStencilDepthWriteDisabled)
                       .addDescriptorSet<ds::Scene2DFactory>()
                       .addDescriptorSet<ds::Object2DFactory>()
                       .build());

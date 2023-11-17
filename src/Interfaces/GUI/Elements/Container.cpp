@@ -142,6 +142,7 @@ bool Container::receivesOutOfBoundsEvents() const {
 
 void Container::prepareChildrenRender(rdr::Renderer& r) {
     for (auto& child : children) { child->prepareRender(r); }
+    assignDepths();
 }
 
 void Container::assignDepths() {

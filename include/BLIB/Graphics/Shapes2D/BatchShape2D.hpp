@@ -43,6 +43,11 @@ public:
      */
     void remove();
 
+    /**
+     * @brief Returns whether or not the shape has been created
+     */
+    bool isCreated() const;
+
 protected:
     /**
      * @brief Initializes the shape

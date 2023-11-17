@@ -33,6 +33,8 @@ void Component::dismissTooltip() { renderer->dismissTooltip(owner); }
 
 void Component::notifyUIState(UIState) {}
 
+void Component::overrideHighlightBehavior(HighlightState behavior) { highlightState = behavior; }
+
 void Component::create(engine::Engine& engine, Renderer& r, Element& o, Component* parent,
                        Component* windowOrGui) {
     enginePtr = &engine;
@@ -60,6 +62,7 @@ void Component::create(engine::Engine& engine, Renderer& r, Element& o, Componen
                   {o.getAcquisition().left, o.getAcquisition().top}, // TODO - wrong
                   {o.getAcquisition().width, o.getAcquisition().height});
     assignDepth(0.f);
+    setVisible(o.visible());
 }
 
 void Component::flash() { renderer->flash(owner); }

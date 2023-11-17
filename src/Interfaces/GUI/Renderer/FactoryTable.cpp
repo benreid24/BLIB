@@ -12,6 +12,7 @@
 #include <BLIB/Interfaces/GUI/Renderer/Basic/ComboBoxComponent.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Basic/ImageComponent.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Basic/LabelComponent.hpp>
+#include <BLIB/Interfaces/GUI/Renderer/Basic/NotebookComponent.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Basic/OverlayFlashProvider.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Basic/OverlayHighlightProvider.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Basic/ProgressBarComponent.hpp>
@@ -36,7 +37,7 @@ FactoryTable::FactoryTable(bool populate) {
         registerFactoryForElement<GUI, NullComponent>();
         registerFactoryForElement<Image, defcoms::ImageComponent>();
         registerFactoryForElement<Label, defcoms::LabelComponent>();
-        registerFactoryForElement<Notebook, NullComponent>();
+        registerFactoryForElement<Notebook, defcoms::NotebookComponent>();
         registerFactoryForElement<ProgressBar, defcoms::ProgressBarComponent>();
         registerFactoryForElement<RadioButton, NullComponent>();
         registerFactoryForElement<ScrollArea, NullComponent>();

@@ -66,14 +66,15 @@ struct Config {
 
         static constexpr std::uint32_t SkinnedMeshes = 3;
 
-        static constexpr std::uint32_t Lit2DGeometry          = 4;
-        static constexpr std::uint32_t Unlit2DGeometry        = 5;
-        static constexpr std::uint32_t LitSkinned2DGeometry   = 6;
-        static constexpr std::uint32_t UnlitSkinned2DGeometry = 7;
+        static constexpr std::uint32_t Lit2DGeometry               = 4;
+        static constexpr std::uint32_t Unlit2DGeometry             = 5;
+        static constexpr std::uint32_t Unlit2DGeometryNoDepthWrite = 6;
+        static constexpr std::uint32_t LitSkinned2DGeometry        = 7;
+        static constexpr std::uint32_t UnlitSkinned2DGeometry      = 8;
 
-        static constexpr std::uint32_t Text           = 8;
-        static constexpr std::uint32_t SlideshowLit   = 9;
-        static constexpr std::uint32_t SlideshowUnlit = 10;
+        static constexpr std::uint32_t Text           = 9;
+        static constexpr std::uint32_t SlideshowLit   = 10;
+        static constexpr std::uint32_t SlideshowUnlit = 11;
 
         static constexpr std::uint32_t FadeEffect = 100;
     };

@@ -35,6 +35,9 @@ public:
     /// Visible state of the element
     enum struct UIState { Regular, Highlighted, Pressed, Disabled };
 
+    /// How the component responds to mouse over state
+    enum struct HighlightState { IgnoresMouse, HighlightedByMouse };
+
     /**
      * @brief Destroys the component
      */
@@ -46,6 +49,13 @@ public:
      * @param state The visual state of the element
      */
     void setUIState(UIState state);
+
+    /**
+     * @brief Overrides the default highlight behavior for this specific component
+     *
+     * @param behavior How to behave when moused over
+     */
+    void overrideHighlightBehavior(HighlightState behavior);
 
     /**
      * @brief Toggle the visibility of the UI component
@@ -117,8 +127,6 @@ public:
     virtual void assignDepth(float depth);
 
 protected:
-    enum struct HighlightState { IgnoresMouse, HighlightedByMouse };
-
     /**
      * @brief Initializes the component
      *
@@ -209,7 +217,7 @@ protected:
     }
 
 private:
-    const HighlightState highlightState;
+    HighlightState highlightState;
     engine::Engine* enginePtr;
     Renderer* renderer;
     Element* owner;

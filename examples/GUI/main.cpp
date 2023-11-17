@@ -178,6 +178,7 @@ public:
                                          gui::Window::Default,
                                          {10, 200});
         gui::Notebook::Ptr nb = gui::Notebook::create();
+        nb->setMaxTabWidth(150.f);
         nb->addPage("page1", "Page 1", gui::Label::create("Content goes here"));
         gui::Box::Ptr box = gui::Box::create(gui::LinePacker::create(gui::LinePacker::Vertical));
         button            = gui::Button::create("Content");

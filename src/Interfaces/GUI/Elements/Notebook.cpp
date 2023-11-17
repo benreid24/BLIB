@@ -37,7 +37,7 @@ void Notebook::setMaxTabWidth(float mw) {
     makeDirty();
 }
 
-Notebook::Page::Page(const std::string& name, const Label::Ptr& label, const Element::Ptr& content,
+Notebook::Page::Page(const std::string& name, const Button::Ptr& label, const Element::Ptr& content,
                      const Notebook::PageChangedCb& op, const Notebook::PageChangedCb& oc)
 : name(name)
 , label(label)
@@ -49,8 +49,8 @@ void Notebook::addPage(const std::string& name, const std::string& title,
                        const Element::Ptr& content, const PageChangedCb& onOpen,
                        const PageChangedCb& onClose) {
     if (pageMap.find(name) == pageMap.end()) {
-        Label::Ptr label = Label::create(title);
-        label->setRequisition(label->getRequisition() + sf::Vector2f(6.f, 6.f));
+        Button::Ptr label = Button::create(title);
+        label->setOutlineThickness(1.f);
         const auto it = pages.emplace(pages.end(), name, label, content, onOpen, onClose);
         Page& p       = *it;
         p.content->setVisible(false);
@@ -62,6 +62,8 @@ void Notebook::addPage(const std::string& name, const std::string& title,
             .willAlwaysCall(std::bind(&Notebook::makePageActiveDirect, this, &p));
 
         if (pages.size() == 1) makePageActiveDirect(&*pages.begin());
+
+        updateTabBoxes();
     }
 }
 
@@ -108,6 +110,8 @@ void Notebook::removePageByIndex(unsigned int i) {
         }
         else { activePage = nullptr; }
         pages.erase(it);
+
+        updateTabBoxes();
     }
 }
 
@@ -126,6 +130,8 @@ void Notebook::removePageByName(const std::string& name) {
         }
         else { activePage = nullptr; }
         pages.erase(pit);
+
+        updateTabBoxes();
     }
 }
 
@@ -178,21 +184,24 @@ void Notebook::makePageActiveDirect(Page* page) {
     page->content->setVisible(true, false);
     page->content->moveToTop();
     Packer::manuallyPackElement(page->content, contentArea(), true);
-    if (page != activePage) page->onOpen();
+    if (page != activePage) { page->onOpen(); }
     activePage = page;
 
     if (maxWidth > 0.f) {
-        const float x = page->label->getPosition().x - scroll;
-        if (x < getPosition().x) { scroll = page->label->getPosition().x - getPosition().x; }
+        const float labelX =
+            (page->label->getPosition().x - tabArea->getPosition().x) + tabAcquisition.left;
+        const float x = labelX - scroll;
+        if (x < getPosition().x) { scroll = labelX - getPosition().x; }
         else {
             const float right = getAcquisition().left + getAcquisition().width;
             const float xr    = x + page->label->getAcquisition().width;
             if (xr > right) {
-                scroll = (page->label->getPosition().x - getPosition().x) - getAcquisition().width +
+                scroll = (labelX - getPosition().x) - getAcquisition().width +
                          page->label->getAcquisition().width;
             }
         }
         constrainScroll();
+        updateTabBoxes();
     }
 }
 
@@ -235,13 +244,13 @@ bool Notebook::propagateEvent(const Event& e) {
         scroll += e.scrollDelta() * -4.f;
         constrainScroll();
         const Event fakeMove(Event::MouseMoved,
-                             sf::Vector2f(e.mousePosition().x + scroll, e.mousePosition().y));
+                             sf::Vector2f(e.mousePosition().x, e.mousePosition().y));
         tabArea->processEvent(fakeMove);
         return true;
     }
 
     const Event translated(e, sf::Vector2f(e.mousePosition().x + scroll, e.mousePosition().y));
-    if (tabArea->processEvent(translated)) return true;
+    if (tabArea->processEvent(e)) return true;
     if (activePage) return activePage->content->processEvent(e);
     return false;
 }
@@ -253,7 +262,24 @@ void Notebook::constrainScroll() {
         if (scroll > ms) { scroll = ms; }
     }
 
-    if (maxWidth < 0.f) scroll = 0.f;
+    if (maxWidth < 0.f) { scroll = 0.f; }
+
+    tabArea->setPosition({tabAcquisition.left - scroll, tabAcquisition.top});
+}
+
+float Notebook::getTabScroll() const { return scroll; }
+
+void Notebook::updateTabBoxes() {
+    for (Page& page : pages) {
+        if (&page == activePage) {
+            page.label->setColor(sf::Color::Transparent, sf::Color::Transparent);
+        }
+        else {
+            page.label->setColor(
+                getRenderSettings().secondaryFillColor.value_or(sf::Color(95, 95, 95)),
+                getRenderSettings().secondaryOutlineColor.value_or(sf::Color::Black));
+        }
+    }
 }
 
 } // namespace gui

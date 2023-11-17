@@ -7,6 +7,7 @@ target_sources(BLIB PRIVATE
     LabelComponent.cpp
     OverlayFlashProvider.cpp
     OverlayHighlightProvider.cpp
+    NotebookComponent.cpp
     ProgressBarComponent.cpp
     SeparatorComponent.cpp
     TextEntryComponent.cpp

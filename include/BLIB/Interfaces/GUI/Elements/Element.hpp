@@ -412,6 +412,21 @@ public:
      */
     virtual float getDepthBias() const;
 
+    /**
+     * @brief Manually set the position of the element. This modifies the acquisition but does
+     *        not trigger any signals or repacking
+     *
+     * @param pos The new position of the element. Relative to the parent element
+     */
+    void setPosition(const sf::Vector2f& pos);
+
+    /**
+     * @brief Overrides the default highlight behavior for this specific element
+     *
+     * @param behavior How to behave when moused over
+     */
+    void overrideHighlightBehavior(rdr::Component::HighlightState behavior);
+
 protected:
     /**
      * @brief Builds a new Element
@@ -501,14 +516,6 @@ protected:
     void assignAcquisition(const sf::FloatRect& acquisition);
 
     /**
-     * @brief Manually set the position of the element. This modifies the acquisition but does
-     *        not trigger any signals or repacking
-     *
-     * @param pos The new position of the element. Relative to the parent element
-     */
-    void setPosition(const sf::Vector2f& pos);
-
-    /**
      * @brief Returns whether or not an element is a child of this one
      *
      * @param element The element to check
@@ -559,6 +566,7 @@ private:
     Element* parent;
     Signal signals[Event::NUM_ACTIONS];
     std::string tooltip;
+    std::optional<rdr::Component::HighlightState> highlightBehvaiorOverride;
 
     bool _dirty;
     bool _active;

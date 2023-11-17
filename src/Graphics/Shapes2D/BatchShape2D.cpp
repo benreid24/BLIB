@@ -80,6 +80,8 @@ void BatchShape2D::remove() {
     }
 }
 
+bool BatchShape2D::isCreated() const { return alloc.isValid(); }
+
 } // namespace s2d
 } // namespace gfx
 } // namespace bl
