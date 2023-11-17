@@ -16,6 +16,7 @@
 #include <BLIB/Interfaces/GUI/Renderer/Basic/OverlayFlashProvider.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Basic/OverlayHighlightProvider.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Basic/ProgressBarComponent.hpp>
+#include <BLIB/Interfaces/GUI/Renderer/Basic/RadioButtonComponent.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Basic/SeparatorComponent.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Basic/TextEntryComponent.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Basic/WindowComponent.hpp>
@@ -34,12 +35,12 @@ FactoryTable::FactoryTable(bool populate) {
         registerFactoryForElement<Canvas, NullComponent>();
         registerFactoryForElement<CheckButton, defcoms::CheckButtonComponent>();
         registerFactoryForElement<ComboBox, defcoms::ComboBoxComponent>();
-        registerFactoryForElement<GUI, NullComponent>();
+        registerFactoryForElement<GUI, defcoms::BoxComponent>();
         registerFactoryForElement<Image, defcoms::ImageComponent>();
         registerFactoryForElement<Label, defcoms::LabelComponent>();
         registerFactoryForElement<Notebook, defcoms::NotebookComponent>();
         registerFactoryForElement<ProgressBar, defcoms::ProgressBarComponent>();
-        registerFactoryForElement<RadioButton, NullComponent>();
+        registerFactoryForElement<RadioButton, defcoms::RadioButtonComponent>();
         registerFactoryForElement<ScrollArea, NullComponent>();
         registerFactoryForElement<SelectBox, NullComponent>();
         registerFactoryForElement<Separator, defcoms::SeparatorComponent>();

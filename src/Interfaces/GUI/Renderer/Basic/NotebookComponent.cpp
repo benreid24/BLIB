@@ -41,10 +41,6 @@ void NotebookComponent::doSceneRemove() { box.removeFromScene(); }
 
 void NotebookComponent::handleAcquisition(const sf::Vector2f& posFromParent, const sf::Vector2f&,
                                           const sf::Vector2f& size) {
-    Notebook& owner            = getOwnerAs<Notebook>();
-    const sf::FloatRect& acq   = owner.getAcquisition();
-    const sf::FloatRect tabAcq = owner.getTabAcquisition();
-
     box.setSize({size.x, size.y});
     box.getTransform().setPosition({posFromParent.x, posFromParent.y});
 }

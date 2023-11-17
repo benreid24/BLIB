@@ -127,7 +127,8 @@ T* SceneObjectECSAdaptor<T>::allocate(UpdateSpeed updateFreq, ecs::Entity entity
 template<typename T>
 ecs::Entity SceneObjectECSAdaptor<T>::getObjectEntity(Key key) const {
     const Mapping& bucket = key.updateFreq == UpdateSpeed::Static ? mapStatic : mapDynamic;
-    return bucket.entityMap[key.sceneId];
+    return key.sceneId < bucket.entityMap.size() ? bucket.entityMap[key.sceneId] :
+                                                   ecs::InvalidEntity;
 }
 
 template<typename T>

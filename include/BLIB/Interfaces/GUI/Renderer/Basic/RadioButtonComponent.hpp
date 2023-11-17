@@ -1,8 +1,8 @@
-#ifndef BLIB_GUI_RENDERER_COMPONENTS_CHECKBUTTONCOMPONENT_HPP
-#define BLIB_GUI_RENDERER_COMPONENTS_CHECKBUTTONCOMPONENT_HPP
+#ifndef BLIB_GUI_RENDERER_COMPONENTS_RADIOBUTTONCOMPONENT_HPP
+#define BLIB_GUI_RENDERER_COMPONENTS_RADIOBUTTONCOMPONENT_HPP
 
+#include <BLIB/Graphics/Circle.hpp>
 #include <BLIB/Graphics/Dummy2D.hpp>
-#include <BLIB/Graphics/Rectangle.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Component.hpp>
 
 namespace bl
@@ -12,21 +12,21 @@ namespace gui
 namespace defcoms
 {
 /**
- * @brief Default component type for CheckButton elements
+ * @brief Default component type for RadioButton elements
  *
  * @ingroup GUI
  */
-class CheckButtonComponent : public rdr::Component {
+class RadioButtonComponent : public rdr::Component {
 public:
     /**
      * @brief Creates the component
      */
-    CheckButtonComponent();
+    RadioButtonComponent();
 
     /**
      * @brief Destroys the component
      */
-    virtual ~CheckButtonComponent() = default;
+    virtual ~RadioButtonComponent() = default;
 
     /**
      * @brief Toggle the visibility of the UI component
@@ -97,8 +97,8 @@ protected:
 
 private:
     gfx::Dummy2D dummy;
-    gfx::Rectangle box;
-    gfx::Rectangle fill;
+    gfx::Circle circle;
+    gfx::Circle fill;
 };
 
 } // namespace defcoms

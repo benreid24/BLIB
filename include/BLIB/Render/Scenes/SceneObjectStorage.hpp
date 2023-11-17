@@ -148,7 +148,8 @@ typename SceneObjectStorage<T>::AllocateResult SceneObjectStorage<T>::allocate(
 template<typename T>
 ecs::Entity SceneObjectStorage<T>::getObjectEntity(Key key) const {
     const Bucket& bucket = key.updateFreq == UpdateSpeed::Static ? staticBucket : dynamicBucket;
-    return bucket.entityMap[key.sceneId];
+    return key.sceneId < bucket.entityMap.size() ? bucket.entityMap[key.sceneId] :
+                                                   ecs::InvalidEntity;
 }
 
 template<typename T>
