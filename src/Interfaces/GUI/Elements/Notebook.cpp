@@ -240,7 +240,8 @@ void Notebook::requestMakeDirty(const Element* child) {
 }
 
 bool Notebook::propagateEvent(const Event& e) {
-    if (e.type() == Event::Scrolled && tabAcquisition.contains(e.mousePosition())) {
+    const bool inTabArea = tabAcquisition.contains(e.mousePosition());
+    if (e.type() == Event::Scrolled && inTabArea) {
         scroll += e.scrollDelta() * -4.f;
         constrainScroll();
         const Event fakeMove(Event::MouseMoved,
@@ -249,8 +250,7 @@ bool Notebook::propagateEvent(const Event& e) {
         return true;
     }
 
-    const Event translated(e, sf::Vector2f(e.mousePosition().x + scroll, e.mousePosition().y));
-    if (tabArea->processEvent(e)) return true;
+    if (inTabArea && tabArea->processEvent(e)) return true;
     if (activePage) return activePage->content->processEvent(e);
     return false;
 }
