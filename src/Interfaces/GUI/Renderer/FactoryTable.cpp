@@ -20,6 +20,7 @@
 #include <BLIB/Interfaces/GUI/Renderer/Basic/OverlayHighlightProvider.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Basic/ProgressBarComponent.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Basic/RadioButtonComponent.hpp>
+#include <BLIB/Interfaces/GUI/Renderer/Basic/ScrollAreaComponent.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Basic/SeparatorComponent.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Basic/SliderComponent.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Basic/TextEntryComponent.hpp>
@@ -46,7 +47,7 @@ FactoryTable::FactoryTable(bool populate) {
         registerFactoryForElement<Notebook, defcoms::NotebookComponent>();
         registerFactoryForElement<ProgressBar, defcoms::ProgressBarComponent>();
         registerFactoryForElement<RadioButton, defcoms::RadioButtonComponent>();
-        registerFactoryForElement<ScrollArea, NullComponent>();
+        registerFactoryForElement<ScrollArea, defcoms::ScrollAreaComponent>();
         registerFactoryForElement<SelectBox, NullComponent>();
         registerFactoryForElement<Separator, defcoms::SeparatorComponent>();
         registerFactoryForElement<Slider, defcoms::SliderComponent>();

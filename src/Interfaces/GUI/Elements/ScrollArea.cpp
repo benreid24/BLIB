@@ -50,12 +50,15 @@ ScrollArea::ScrollArea(const Packer::Ptr& packer)
     horScrollbar->skipPacking(true);
     horScrollbar->setExpandsHeight(true);
     horScrollbar->setExpandsWidth(true);
+    horScrollbar->setDepthBias(-0.4f);
     vertScrollbar->skipPacking(true);
     vertScrollbar->setExpandsHeight(true);
     vertScrollbar->setExpandsWidth(true);
+    vertScrollbar->setDepthBias(-0.4f);
 
     content->computeView = false;
     content->setOutlineThickness(0.f);
+    content->setDepthBias(0.4f);
 
     Element* childs[3] = {content.get(), horScrollbar.get(), vertScrollbar.get()};
     registerChildren(childs);

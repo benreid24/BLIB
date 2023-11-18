@@ -14,6 +14,7 @@ Element::Element()
 , component(nullptr)
 , parent(nullptr)
 , showingTooltip(false)
+, depthBias(0.f)
 , _dirty(true)
 , _active(true)
 , _visible(true)
@@ -482,6 +483,10 @@ void Element::overrideHighlightBehavior(rdr::Component::HighlightState behavior)
     highlightBehvaiorOverride = behavior;
     if (component) { component->overrideHighlightBehavior(behavior); }
 }
+
+void Element::setDepthBias(float bias) { depthBias = bias; }
+
+float Element::getTotalDepthBias() const { return getDepthBias() + depthBias; }
 
 } // namespace gui
 } // namespace bl

@@ -13,6 +13,7 @@ target_sources(BLIB PUBLIC
     OverlayHighlightProvider.hpp
     ProgressBarComponent.hpp
     RadioButtonComponent.hpp
+    ScrollAreaComponent.hpp
     SeparatorComponent.hpp
     SliderComponent.hpp
     TextEntryComponent.hpp

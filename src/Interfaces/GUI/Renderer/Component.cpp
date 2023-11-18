@@ -92,7 +92,7 @@ sf::Vector2f Component::getRequisition() const {
 
 void Component::assignDepth(float d) {
     com::Transform2D* transform = enginePtr->ecs().getComponent<com::Transform2D>(getEntity());
-    if (transform) { transform->setDepth(d + owner->getDepthBias()); }
+    if (transform) { transform->setDepth(d + owner->getTotalDepthBias()); }
     else { BL_LOG_ERROR << "Could not set depth for entity missing transform: " << getEntity(); }
 }
 

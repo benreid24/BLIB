@@ -13,6 +13,7 @@ target_sources(BLIB PRIVATE
     NotebookComponent.cpp
     ProgressBarComponent.cpp
     RadioButtonComponent.cpp
+    ScrollAreaComponent.cpp
     SeparatorComponent.cpp
     SliderComponent.cpp
     TextEntryComponent.cpp
