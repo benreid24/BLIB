@@ -68,6 +68,8 @@ void Text::computeBoundsIfNeeded() const {
     if (commitTask.isQueued() && !boundsComputedWhileDirty) {
         boundsComputedWhileDirty = true;
 
+        const_cast<Text&>(*this).computeWordWrap();
+
         // call commit in each section to update bounds
         glm::vec2 cornerPos(0.f, 0.f);
         for (const auto& section : sections) {

@@ -567,6 +567,7 @@ private:
     Signal signals[Event::NUM_ACTIONS];
     std::string tooltip;
     std::optional<rdr::Component::HighlightState> highlightBehvaiorOverride;
+    bool showingTooltip;
 
     bool _dirty;
     bool _active;

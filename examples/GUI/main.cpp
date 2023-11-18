@@ -58,6 +58,7 @@ public:
         gui::Box::Ptr row = gui::Box::create(gui::LinePacker::create(gui::LinePacker::Horizontal));
         row->pack(gui::Label::create("Combobox:"));
         gui::ComboBox::Ptr combo = gui::ComboBox::create();
+        combo->setTooltip("ComboBoxes allow users to select one of several options");
         combo->addOption("Option 1");
         combo->addOption("Option 2");
         combo->addOption("Option 3");
@@ -113,6 +114,7 @@ public:
         rc::SceneRef scene      = engine.renderer().scenePool().allocateScene<rc::scene::Scene2D>();
         canvas->setScene(scene);
         canvas->setClearColor(sf::Color(20, 150, 230));
+        canvas->setTooltip("Entire scenes can be rendered to GUI elements!");
         testWindow->pack(canvas);
         spinRect.create(engine, {60.f, 25.f});
         spinRect.getTransform().setOrigin(spinRect.getSize() * 0.5f);
@@ -160,6 +162,7 @@ public:
                                          gui::Window::Default,
                                          {10, 200});
         gui::Notebook::Ptr nb = gui::Notebook::create();
+        nb->setTooltip("Notebooks allow re-using the same space for lots of content");
         nb->setMaxTabWidth(150.f);
         nb->addPage("page1", "Page 1", gui::Label::create("Content goes here"));
         gui::Box::Ptr box = gui::Box::create(gui::LinePacker::create(gui::LinePacker::Vertical));

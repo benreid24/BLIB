@@ -6,6 +6,7 @@
 #include <BLIB/Interfaces/GUI/Renderer/NullHighlightProvider.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/NullTooltipProvider.hpp>
 
+#include <BLIB/Interfaces/GUI/Renderer/Basic/BasicTooltipProvider.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Basic/BoxComponent.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Basic/ButtonComponent.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Basic/CanvasComponent.hpp>
@@ -52,7 +53,8 @@ FactoryTable::FactoryTable(bool populate) {
         setFlashProviderFactory([]() { return std::make_unique<defcoms::OverlayFlashProvider>(); });
         setHighlightProviderFactory(
             []() { return std::make_unique<defcoms::OverlayHighlightProvider>(); });
-        setTooltipProviderFactory([]() { return std::make_unique<NullTooltipProvider>(); });
+        setTooltipProviderFactory(
+            []() { return std::make_unique<defcoms::BasicTooltipProvider>(); });
     }
 }
 

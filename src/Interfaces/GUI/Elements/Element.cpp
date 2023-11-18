@@ -13,6 +13,7 @@ Element::Element()
 : renderer(nullptr)
 , component(nullptr)
 , parent(nullptr)
+, showingTooltip(false)
 , _dirty(true)
 , _active(true)
 , _visible(true)
@@ -181,6 +182,10 @@ bool Element::processEvent(const Event& event) {
 
     case Event::MouseMoved:
         if (!active()) { return eventOnMe; }
+        if (showingTooltip && component) {
+            showingTooltip = false;
+            component->dismissTooltip();
+        }
         if (eventOnMe) { fireSignal(event); }
         if (isLeftPressed) {
             isMouseOver  = eventOnMe;
@@ -397,10 +402,10 @@ void Element::removeChild(const Element*) {}
 void Element::update(float dt) {
     hoverTime += dt;
 
-    if (component && mouseOver() && hoverTime > 1.f && !tooltip.empty()) {
+    if (component && mouseOver() && hoverTime > 1.f && !tooltip.empty() && !showingTooltip) {
+        showingTooltip = true;
         component->showTooltip();
     }
-    else if (component) { component->dismissTooltip(); }
 }
 
 void Element::setTooltip(const std::string& tt) { tooltip = tt; }

@@ -1,4 +1,5 @@
 target_sources(BLIB PRIVATE
+    BasicTooltipProvider.cpp
     BoxComponent.cpp
     ButtonComponent.cpp
     CanvasComponent.cpp
