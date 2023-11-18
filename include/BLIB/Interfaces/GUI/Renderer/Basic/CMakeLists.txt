@@ -5,6 +5,7 @@ target_sources(BLIB PUBLIC
     CanvasComponent.hpp
     CheckButtonComponent.hpp
     ComboBoxComponent.hpp
+    IconComponent.hpp
     ImageComponent.hpp
     LabelComponent.hpp
     NotebookComponent.hpp

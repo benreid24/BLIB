@@ -5,6 +5,7 @@ target_sources(BLIB PRIVATE
     CanvasComponent.cpp
     CheckButtonComponent.cpp
     ComboBoxComponent.cpp
+    IconComponent.cpp
     ImageComponent.cpp
     LabelComponent.cpp
     OverlayFlashProvider.cpp
