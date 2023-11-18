@@ -29,6 +29,8 @@ void BasicTooltipProvider::update(float) {
 void BasicTooltipProvider::displayTooltip(Element* element, const glm::vec2& mousePos) {
     currentElement = element;
 
+    text.getSection().setCharacterSize(cam::OverlayCamera::getOverlayCoordinateSpace().y * 0.035f);
+    text.wordWrap(cam::OverlayCamera::getOverlayCoordinateSpace().x * 0.3f);
     text.getSection().setString(element->getTooltip());
     const sf::FloatRect tb = text.getLocalBounds();
     const glm::vec2 size(tb.left + tb.width + Padding * 2.f, tb.top + tb.height + Padding * 2.f);
