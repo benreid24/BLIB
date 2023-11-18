@@ -38,6 +38,7 @@ FactoryTable::FactoryTable(bool populate) {
         registerFactoryForElement<CheckButton, defcoms::CheckButtonComponent>();
         registerFactoryForElement<ComboBox, defcoms::ComboBoxComponent>();
         registerFactoryForElement<GUI, defcoms::BoxComponent>();
+        registerFactoryForElement<Icon, NullComponent>();
         registerFactoryForElement<Image, defcoms::ImageComponent>();
         registerFactoryForElement<Label, defcoms::LabelComponent>();
         registerFactoryForElement<Notebook, defcoms::NotebookComponent>();

@@ -8,6 +8,7 @@ target_sources(BLIB PUBLIC
     CompositeElement.hpp
     Container.hpp
     Element.hpp
+    Icon.hpp
     Image.hpp
     Label.hpp
     Notebook.hpp

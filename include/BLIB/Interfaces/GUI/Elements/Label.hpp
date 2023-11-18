@@ -14,7 +14,6 @@ namespace gui
  *        even id level overrides
  *
  * @ingroup GUI
- *
  */
 class Label : public Element {
 public:
