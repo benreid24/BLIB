@@ -1,6 +1,7 @@
 target_sources(BLIB PUBLIC
     BoxComponent.hpp
     ButtonComponent.hpp
+    CanvasComponent.hpp
     CheckButtonComponent.hpp
     ComboBoxComponent.hpp
     ImageComponent.hpp

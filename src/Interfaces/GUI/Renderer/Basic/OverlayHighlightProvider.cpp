@@ -49,6 +49,8 @@ void OverlayHighlightProvider::notifyUIState(Element* element, rdr::Component::U
 void OverlayHighlightProvider::doCreate(engine::Engine& engine) {
     enginePtr = &engine;
     cover.create(engine, {100.f, 100.f});
+    engine.ecs().setEntityParentDestructionBehavior(
+        cover.entity(), ecs::ParentDestructionBehavior::OrphanedByParent);
     cover.getTransform().setDepth(cam::OverlayCamera::MinDepth);
 }
 

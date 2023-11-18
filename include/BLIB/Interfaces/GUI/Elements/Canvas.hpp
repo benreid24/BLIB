@@ -2,6 +2,7 @@
 #define BLIB_GUI_ELEMENTS_CANVAS_HPP
 
 #include <BLIB/Interfaces/GUI/Elements/Element.hpp>
+#include <BLIB/Interfaces/GUI/Renderer/CanvasComponentBase.hpp>
 #include <BLIB/Render/Resources/SceneRef.hpp>
 
 namespace bl
@@ -69,6 +70,11 @@ public:
     void setScene(rc::SceneRef scene);
 
     /**
+     * @brief Returns the scene that is rendering to the canvas
+     */
+    rc::SceneRef getScene() const;
+
+    /**
      * @brief Returns the size of the texture being rendered to
      */
     const sf::Vector2u& getTextureSize() const;
@@ -82,6 +88,29 @@ public:
      * @brief Returns the scale that the texture should be rendered with
      */
     const sf::Vector2f& getScale() const;
+
+    /**
+     * @brief Replaces the camera to render the current scene with
+     *
+     * @tparam TCamera The type of camera to install
+     * @tparam ...TArgs Argument types to the camera's constructor
+     * @param ...args Arguments to the camera's constructor
+     * @return A pointer to the new camera
+     */
+    template<typename TCamera, typename... TArgs>
+    TCamera* setCamera(TArgs&&... args);
+
+    /**
+     * @brief Sets the color to clear the canvas with each frame. Default is black
+     *
+     * @param color The color to reset the canvas with
+     */
+    void setClearColor(const sf::Color& color);
+
+    /**
+     * @brief Returns the color that the canvas will be cleared with each frame
+     */
+    const sf::Color& getClearColor() const;
 
 protected:
     /**
@@ -115,9 +144,23 @@ private:
     bool maintainAR;
     sf::Vector2f scale;
     sf::Vector2f offset;
+    std::unique_ptr<cam::Camera> camera;
+    sf::Color clearColor;
 
     void setScale();
 };
+
+//////////////////////////// INLINE FUNCTIONS /////////////////////////////////
+
+template<typename TCamera, typename... TArgs>
+TCamera* Canvas::setCamera(TArgs&&... args) {
+    rdr::CanvasComponentBase* com = dynamic_cast<rdr::CanvasComponentBase*>(getComponent());
+    if (com) { return com->getRenderTexture().setCamera<TCamera>(std::forward<TArgs>(args)...); }
+    else {
+        camera = std::make_unique<TCamera>(std::forward<TArgs>(args)...);
+        return static_cast<TCamera*>(camera.get());
+    }
+}
 
 } // namespace gui
 } // namespace bl

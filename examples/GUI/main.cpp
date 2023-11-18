@@ -1,5 +1,8 @@
+#include <BLIB/Cameras.hpp>
+#include <BLIB/Components.hpp>
 #include <BLIB/Engine.hpp>
 #include <BLIB/Events.hpp>
+#include <BLIB/Graphics.hpp>
 #include <BLIB/Interfaces/GUI.hpp>
 #include <BLIB/Render.hpp>
 #include <BLIB/Resources.hpp>
@@ -107,8 +110,19 @@ public:
         gui->pack(testWindow);
 
         gui::Canvas::Ptr canvas = gui::Canvas::create(100, 75);
-        // TODO - create scene to render
+        rc::SceneRef scene      = engine.renderer().scenePool().allocateScene<rc::scene::Scene2D>();
+        canvas->setScene(scene);
+        canvas->setClearColor(sf::Color(20, 150, 230));
         testWindow->pack(canvas);
+        spinRect.create(engine, {60.f, 25.f});
+        spinRect.getTransform().setOrigin(spinRect.getSize() * 0.5f);
+        spinRect.getTransform().setPosition({50.f, 37.5f});
+        canvas->setCamera<cam::Camera2D>(glm::vec2{50.f, 37.5f}, glm::vec2{100.f, 75.f});
+        engine.ecs().emplaceComponent<com::Velocity2D>(
+            spinRect.entity(), glm::vec2{0.f, 0.f}, 180.f);
+        spinRect.setHorizontalColorGradient(bl::sfcol(sf::Color::Red), bl::sfcol(sf::Color::Green));
+        spinRect.setOutlineColor(bl::sfcol(sf::Color::Black));
+        spinRect.addToScene(scene.get(), bl::rc::UpdateSpeed::Dynamic);
 
         testWindow = gui::Window::create(gui::LinePacker::create(gui::LinePacker::Vertical),
                                          "Scroll Window",
@@ -183,6 +197,7 @@ public:
 private:
     gui::GUI::Ptr gui;
     gui::ProgressBar::Ptr progressBar;
+    gfx::Rectangle spinRect;
 };
 
 int main() {

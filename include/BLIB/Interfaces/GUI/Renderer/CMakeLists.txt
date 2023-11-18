@@ -1,4 +1,5 @@
 target_sources(BLIB PUBLIC
+    CanvasComponentBase.hpp
     Component.hpp
     ComponentFactory.hpp
     FactoryTable.hpp

@@ -1,12 +1,19 @@
 #include <BLIB/Render/Transfers/Transferable.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
 
+#include <unordered_set>
+
 namespace bl
 {
 namespace rc
 {
 namespace tfr
 {
+namespace
+{
+std::unordered_set<Transferable*> destroyed;
+}
+
 Transferable::Transferable()
 : vulkanState(nullptr)
 , perFrame(NotPerFrame)
@@ -20,6 +27,7 @@ Transferable::Transferable(vk::VulkanState& vs)
 Transferable::~Transferable() {
     if (perFrame != NotPerFrame) { stopTransferringEveryFrame(); }
     else if (queued) { vulkanState->transferEngine.cancelTransfer(this); }
+    destroyed.insert(this);
 }
 
 void Transferable::queueTransfer(SyncRequirement syncReq) {
@@ -28,6 +36,11 @@ void Transferable::queueTransfer(SyncRequirement syncReq) {
         BL_LOG_CRITICAL << "Tried to queue transfer with nullptr Vulkan state";
     }
 #endif
+
+    if (destroyed.find(this) != destroyed.end()) {
+        BL_LOG_ERROR << "wtf";
+        //
+    }
 
     if (!queued) {
         queued = true;

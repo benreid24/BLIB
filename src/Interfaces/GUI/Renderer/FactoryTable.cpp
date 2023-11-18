@@ -8,6 +8,7 @@
 
 #include <BLIB/Interfaces/GUI/Renderer/Basic/BoxComponent.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Basic/ButtonComponent.hpp>
+#include <BLIB/Interfaces/GUI/Renderer/Basic/CanvasComponent.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Basic/CheckButtonComponent.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Basic/ComboBoxComponent.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Basic/ImageComponent.hpp>
@@ -32,7 +33,7 @@ FactoryTable::FactoryTable(bool populate) {
         registerFactoryForElement<Animation, NullComponent>();
         registerFactoryForElement<Box, defcoms::BoxComponent>();
         registerFactoryForElement<Button, defcoms::ButtonComponent>();
-        registerFactoryForElement<Canvas, NullComponent>();
+        registerFactoryForElement<Canvas, defcoms::CanvasComponent>();
         registerFactoryForElement<CheckButton, defcoms::CheckButtonComponent>();
         registerFactoryForElement<ComboBox, defcoms::ComboBoxComponent>();
         registerFactoryForElement<GUI, defcoms::BoxComponent>();

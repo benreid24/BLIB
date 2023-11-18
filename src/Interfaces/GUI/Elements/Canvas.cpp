@@ -17,8 +17,10 @@ Canvas::Canvas(unsigned int w, unsigned int h, rc::SceneRef scene)
 , fillAcq(false)
 , maintainAR(true)
 , scale(1.f, 1.f)
-, offset(0.f, 0.f) {
+, offset(0.f, 0.f)
+, clearColor(sf::Color::Black) {
     getSignal(Event::AcquisitionChanged).willAlwaysCall(std::bind(&Canvas::setScale, this));
+    getSignal(Event::RenderSettingsChanged).willAlwaysCall(std::bind(&Canvas::setScale, this));
 }
 
 void Canvas::resize(unsigned int w, unsigned int h, bool resetScale) {
@@ -45,8 +47,14 @@ void Canvas::setFillAcquisition(bool fill, bool mar) {
 sf::Vector2f Canvas::minimumRequisition() const { return size.value_or(sf::Vector2f(textureSize)); }
 
 rdr::Component* Canvas::doPrepareRender(rdr::Renderer& renderer) {
-    return renderer.createComponent<Canvas>(
+    rdr::Component* com = renderer.createComponent<Canvas>(
         *this, getParentComponent(), getWindowOrGuiParentComponent());
+    if (camera) {
+        rdr::CanvasComponentBase* cb = dynamic_cast<rdr::CanvasComponentBase*>(com);
+        if (cb) { cb->getRenderTexture().setCamera(std::move(camera)); }
+        else { BL_LOG_ERROR << "Canvas component must derive from CanvasComponentBase"; }
+    }
+    return com;
 }
 
 void Canvas::setScale() {
@@ -83,6 +91,15 @@ const sf::Vector2u& Canvas::getTextureSize() const { return textureSize; }
 const sf::Vector2f& Canvas::getOffset() const { return offset; }
 
 const sf::Vector2f& Canvas::getScale() const { return scale; }
+
+rc::SceneRef Canvas::getScene() const { return scene; }
+
+void Canvas::setClearColor(const sf::Color& cc) {
+    clearColor = cc;
+    if (getComponent()) { getComponent()->onRenderSettingChange(); }
+}
+
+const sf::Color& Canvas::getClearColor() const { return clearColor; }
 
 } // namespace gui
 } // namespace bl

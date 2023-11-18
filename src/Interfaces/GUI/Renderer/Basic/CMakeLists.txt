@@ -1,6 +1,7 @@
 target_sources(BLIB PRIVATE
     BoxComponent.cpp
     ButtonComponent.cpp
+    CanvasComponent.cpp
     CheckButtonComponent.cpp
     ComboBoxComponent.cpp
     ImageComponent.cpp
