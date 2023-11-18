@@ -36,9 +36,9 @@ Slider::Slider(Direction d)
     getSignal(Event::LeftClicked).willAlwaysCall(std::bind(&Slider::clicked, this, _1));
     slider->getSignal(Event::Dragged).willAlwaysCall(std::bind(&Slider::sliderMoved, this, _1));
     increaseBut->getSignal(Event::LeftClicked)
-        .willAlwaysCall(std::bind(&Slider::incrementValue, this, 1));
+        .willAlwaysCall(std::bind(&Slider::incrementValue, this, 1.f));
     decreaseBut->getSignal(Event::LeftClicked)
-        .willAlwaysCall(std::bind(&Slider::incrementValue, this, -1));
+        .willAlwaysCall(std::bind(&Slider::incrementValue, this, -1.f));
 
     Element* childs[3] = {increaseBut.get(), decreaseBut.get(), slider.get()};
     registerChildren(childs);
