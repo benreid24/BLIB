@@ -47,6 +47,14 @@ public:
      */
     const Element::Ptr& getChild() const;
 
+    /**
+     * @brief Sets the padding between the child content and button border. Default is 4
+     *
+     * @param padding The amount of space between the child element and button border
+     * @param markDirty True to mark the button for repacking, false to skip
+     */
+    void setChildPadding(float padding, bool markDirty = true);
+
 protected:
     /**
      * @brief Create a new Button
@@ -79,6 +87,7 @@ protected:
 
 private:
     Element::Ptr child;
+    float childPadding;
 
     virtual void onAcquisition() override;
 };

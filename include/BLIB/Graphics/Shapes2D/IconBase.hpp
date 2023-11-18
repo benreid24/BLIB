@@ -66,7 +66,8 @@ private:
 
 template<typename B>
 IconBase<B>::IconBase(Type type, const glm::vec2& size)
-: iconType(type)
+: B()
+, iconType(type)
 , size(size) {}
 
 template<typename B>
@@ -96,7 +97,7 @@ unsigned int IconBase<B>::getVertexCount() const {
 
 template<typename B>
 void IconBase<B>::populateVertex(unsigned int index, rc::prim::Vertex& vertex) {
-    constexpr float ArrowHeadHeight = 0.4f;
+    constexpr float ArrowHeadHeight = 0.6f;
     constexpr float ArrowBodyWidth  = 0.3f;
 
     switch (iconType) {

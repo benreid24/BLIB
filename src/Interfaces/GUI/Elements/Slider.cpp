@@ -1,5 +1,6 @@
 #include <BLIB/Interfaces/GUI/Elements/Slider.hpp>
 
+#include <BLIB/Interfaces/GUI/Elements/Icon.hpp>
 #include <BLIB/Interfaces/GUI/Packers/Packer.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Renderer.hpp>
 #include <cmath>
@@ -8,6 +9,12 @@ namespace bl
 {
 namespace gui
 {
+namespace
+{
+constexpr float ArrowWidth  = 32.f;
+constexpr float ArrowHeight = 32.f;
+} // namespace
+
 Slider::Ptr Slider::create(Direction dir) { return Ptr(new Slider(dir)); }
 
 Slider::Slider(Direction d)
@@ -16,21 +23,23 @@ Slider::Slider(Direction d)
 , sliderSizeRatio(0.2f)
 , value(0.f)
 , increment(0.1f)
-, increaseImg(Canvas::create(64, 64))
-, increaseBut(Button::create(increaseImg))
-, decreaseImg(Canvas::create(64, 64))
-, decreaseBut(Button::create(decreaseImg))
-, slider(Button::create(""))
-, renderedButs(false) {
+, slider(Button::create("")) {
+    Icon::Ptr incIcon = Icon::create(Icon::Type::Arrow, {ArrowWidth, ArrowHeight});
+    incIcon->setRotation(d == Direction::Horizontal ? 90.f : 180.f);
+    incIcon->setFillAcquisition(true, false);
+    increaseBut = Button::create(incIcon);
+
+    Icon::Ptr decIcon = Icon::create(Icon::Type::Arrow, {ArrowWidth, ArrowHeight});
+    decIcon->setRotation(d == Direction::Horizontal ? 270.f : 0.f);
+    decIcon->setFillAcquisition(true, false);
+    decreaseBut = Button::create(decIcon);
+
     increaseBut->setExpandsHeight(true);
     increaseBut->setExpandsWidth(true);
     decreaseBut->setExpandsHeight(true);
     decreaseBut->setExpandsWidth(true);
     slider->setExpandsHeight(true);
     slider->setExpandsWidth(true);
-
-    increaseImg->setFillAcquisition(true, false);
-    decreaseImg->setFillAcquisition(true, false);
 
     using namespace std::placeholders;
     getSignal(Event::LeftClicked).willAlwaysCall(std::bind(&Slider::clicked, this, _1));
@@ -151,16 +160,19 @@ void Slider::onAcquisition() {
     if (value < 0) value = 0;
     if (value > 1) value = 1;
 
-    const float butSize = std::min(getAcquisition().width, getAcquisition().height);
-    freeSpace           = (dir == Horizontal) ? getAcquisition().width : getAcquisition().height;
-    float offset        = 0;
+    constexpr float ButPadding = 0.15f;
+    const float butSize        = std::min(getAcquisition().width, getAcquisition().height);
+    freeSpace    = (dir == Horizontal) ? getAcquisition().width : getAcquisition().height;
+    float offset = 0;
     if (decreaseBut->visible()) {
+        decreaseBut->setChildPadding(butSize * ButPadding, false);
         Packer::manuallyPackElement(
             decreaseBut, {getAcquisition().left, getAcquisition().top, butSize, butSize});
         offset += butSize;
         freeSpace -= butSize;
     }
     if (increaseBut->visible()) {
+        increaseBut->setChildPadding(butSize * ButPadding, false);
         const float x = (dir == Horizontal) ? (getAcquisition().width - butSize) : (0);
         const float y = (dir == Vertical) ? (getAcquisition().height - butSize) : (0);
 

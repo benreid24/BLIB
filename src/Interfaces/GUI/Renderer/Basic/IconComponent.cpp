@@ -60,7 +60,7 @@ void IconComponent::setPosition() {
                                  settings.verticalAlignment.value_or(RenderSettings::Center),
                                  owner.getAcquisition(),
                                  owner.getIconSize()) +
-                             owner.getLocalPosition() - owner.getIconSize() * 0.5f;
+                             owner.getLocalPosition() + owner.getIconSize() * 0.5f;
 
     icon.value().getTransform().setPosition({pos.x, pos.y});
 }

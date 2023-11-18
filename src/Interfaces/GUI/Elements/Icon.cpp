@@ -12,11 +12,15 @@ Icon::Ptr Icon::create(Type type, const sf::Vector2f& size, float rotation) {
 
 Icon::Icon(Type type, const sf::Vector2f& size, float rotation)
 : type(type)
+, ogSize(size)
 , size(size)
-, rotation(rotation) {}
+, rotation(rotation) {
+    getSignal(Event::AcquisitionChanged).willAlwaysCall(std::bind(&Icon::onAcquisition, this));
+}
 
 void Icon::setIconSize(const sf::Vector2f& s) {
-    size = s;
+    ogSize = s;
+    size   = s;
     if (getComponent()) { getComponent()->onElementUpdated(); }
 }
 
@@ -31,11 +35,32 @@ void Icon::setRotation(float r) {
 
 float Icon::getRotation() const { return rotation; }
 
-sf::Vector2f Icon::minimumRequisition() const { return size; }
+sf::Vector2f Icon::minimumRequisition() const { return ogSize; }
 
 rdr::Component* Icon::doPrepareRender(rdr::Renderer& renderer) {
     return renderer.createComponent<Icon>(
         *this, getParentComponent(), getWindowOrGuiParentComponent());
+}
+
+void Icon::setFillAcquisition(bool f, bool m) {
+    fillAcq    = f;
+    maintainAR = m;
+    onAcquisition();
+}
+
+void Icon::onAcquisition() {
+    if (fillAcq) {
+        size.x = getAcquisition().width;
+        size.y = getAcquisition().height;
+
+        if (maintainAR) {
+            const float ar = ogSize.x / ogSize.y;
+            if (ar >= 1.f) { size.y /= ar; }
+            else { size.x /= ar; }
+        }
+
+        if (getComponent()) { getComponent()->onElementUpdated(); }
+    }
 }
 
 } // namespace gui

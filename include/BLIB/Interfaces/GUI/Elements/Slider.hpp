@@ -113,7 +113,7 @@ protected:
      * @brief Handles the scroll and returns true
      *
      * @param scroll The scroll event
-     * @return True
+     * @return True always
      */
     virtual bool handleScroll(const Event& scroll) override;
 
@@ -138,12 +138,9 @@ private:
     float increment;
     float sliderSize;
     float freeSpace;
-    Canvas::Ptr increaseImg;
     Button::Ptr increaseBut;
-    Canvas::Ptr decreaseImg;
     Button::Ptr decreaseBut;
     Button::Ptr slider;
-    mutable bool renderedButs;
 
     int calculateFreeSize() const;
 

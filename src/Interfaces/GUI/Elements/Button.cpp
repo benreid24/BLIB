@@ -5,6 +5,8 @@
 #include <BLIB/Interfaces/GUI/Renderer/Renderer.hpp>
 #include <Interfaces/GUI/Data/Font.hpp>
 
+#include <BLIB/Interfaces/GUI/Elements/Icon.hpp>
+
 namespace bl
 {
 namespace gui
@@ -20,7 +22,8 @@ Button::Ptr Button::create(const Element::Ptr& e) { return Ptr(new Button(e)); }
 
 Button::Button(const Element::Ptr& child)
 : CompositeElement<1>()
-, child(child) {
+, child(child)
+, childPadding(ChildPadding) {
     Element* tmp[1] = {child.get()};
     registerChildren(tmp);
 }
@@ -30,7 +33,7 @@ const Element::Ptr& Button::getChild() const { return child; }
 sf::Vector2f Button::minimumRequisition() const {
     sf::Vector2f area = child->getRequisition();
     const float buffer =
-        renderSettings().outlineThickness.value_or(DefaultOutlineThickness) + ChildPadding;
+        renderSettings().outlineThickness.value_or(DefaultOutlineThickness) + childPadding;
     area.x += buffer * 2.f;
     area.y += buffer * 2.f;
     return area;
@@ -38,7 +41,7 @@ sf::Vector2f Button::minimumRequisition() const {
 
 void Button::onAcquisition() {
     const float buffer =
-        renderSettings().outlineThickness.value_or(DefaultOutlineThickness) + ChildPadding;
+        renderSettings().outlineThickness.value_or(DefaultOutlineThickness) + childPadding;
     Packer::manuallyPackElement(child,
                                 {getAcquisition().left + buffer,
                                  getAcquisition().top + buffer,
@@ -54,6 +57,11 @@ bool Button::propagateEvent(const Event& event) {
 rdr::Component* Button::doPrepareRender(rdr::Renderer& renderer) {
     return renderer.createComponent<Button>(
         *this, getParentComponent(), getWindowOrGuiParentComponent());
+}
+
+void Button::setChildPadding(float p, bool d) {
+    childPadding = p;
+    if (d) { makeDirty(); }
 }
 
 } // namespace gui

@@ -62,6 +62,18 @@ public:
      */
     float getRotation() const;
 
+    /**
+     * @brief Set whether or not the icon should fill the assigned acquisition. This will
+     *        scale the icon to fill the full acquisition if it is larger than the icon
+     *        size or the size set in create(). If the rendered area is smaller than the
+     *        acquisition then the position will depend on the alignment set in
+     *        setHorizontalAlignment() and setVerticalAlignment(). Default is centered
+     *
+     * @param fill True to render to the full acquisition, false to render to the fixed size
+     * @param maintainAR Whether the icon should keep its aspect ratio or be stretched
+     */
+    void setFillAcquisition(bool fill, bool maintainAR = true);
+
 protected:
     /**
      * @brief Creates a new Icon element
@@ -89,8 +101,13 @@ protected:
 
 private:
     const Type type;
+    sf::Vector2f ogSize;
     sf::Vector2f size;
     float rotation;
+    bool fillAcq;
+    bool maintainAR;
+
+    void onAcquisition();
 };
 
 } // namespace gui

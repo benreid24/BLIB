@@ -14,6 +14,7 @@ target_sources(BLIB PUBLIC
     ProgressBarComponent.hpp
     RadioButtonComponent.hpp
     SeparatorComponent.hpp
+    SliderComponent.hpp
     TextEntryComponent.hpp
     WindowComponent.hpp
 )
