@@ -22,6 +22,7 @@
 #include <BLIB/Interfaces/GUI/Renderer/Basic/ProgressBarComponent.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Basic/RadioButtonComponent.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Basic/ScrollAreaComponent.hpp>
+#include <BLIB/Interfaces/GUI/Renderer/Basic/SelectBoxComponent.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Basic/SeparatorComponent.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Basic/SliderComponent.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Basic/TextEntryComponent.hpp>
@@ -49,7 +50,7 @@ FactoryTable::FactoryTable(bool populate) {
         registerFactoryForElement<ProgressBar, defcoms::ProgressBarComponent>();
         registerFactoryForElement<RadioButton, defcoms::RadioButtonComponent>();
         registerFactoryForElement<ScrollArea, defcoms::ScrollAreaComponent>();
-        registerFactoryForElement<SelectBox, NullComponent>();
+        registerFactoryForElement<SelectBox, defcoms::SelectBoxComponent>();
         registerFactoryForElement<Separator, defcoms::SeparatorComponent>();
         registerFactoryForElement<Slider, defcoms::SliderComponent>();
         registerFactoryForElement<TextEntry, defcoms::TextEntryComponent>();

@@ -158,6 +158,17 @@ public:
         gui->pack(testWindow);
 
         testWindow = gui::Window::create(gui::LinePacker::create(gui::LinePacker::Vertical),
+                                         "SelectBox Window",
+                                         gui::Window::Default,
+                                         {450, 200});
+        gui::SelectBox::Ptr selectBox = gui::SelectBox::create();
+        selectBox->addOption("Select me");
+        selectBox->addOption("Or me");
+        selectBox->addOption("Could even be me");
+        testWindow->pack(selectBox);
+        gui->pack(testWindow);
+
+        testWindow = gui::Window::create(gui::LinePacker::create(gui::LinePacker::Vertical),
                                          "Notebook Window",
                                          gui::Window::Default,
                                          {10, 200});

@@ -15,6 +15,7 @@ target_sources(BLIB PRIVATE
     ProgressBarComponent.cpp
     RadioButtonComponent.cpp
     ScrollAreaComponent.cpp
+    SelectBoxComponent.cpp
     SeparatorComponent.cpp
     SliderComponent.cpp
     TextEntryComponent.cpp

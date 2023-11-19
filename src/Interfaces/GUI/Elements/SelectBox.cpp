@@ -112,7 +112,7 @@ void SelectBox::onLabelClick(const Event&, Element* l) {
     for (unsigned int i = 0; i < values.size(); ++i) {
         if (values[i].first.get() == l || values[i].second.get() == l) {
             selected = i;
-            values[i].first->setColor(sf::Color(30, 50, 245), sf::Color::Blue);
+            values[i].first->setColor(sf::Color(40, 80, 255), sf::Color::Blue);
             break;
         }
     }
