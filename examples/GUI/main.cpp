@@ -43,7 +43,7 @@ public:
         gui->setColor(sf::Color::Transparent, sf::Color::Red);
 
         gui::Image::Ptr image =
-            gui::Image::create(resource::ResourceManager<sf::Image>::load("image.png"));
+            gui::Image::create(resource::ResourceManager<sf::Image>::load("Resources/image.png"));
         image->setFillAcquisition(true, true);
         gui->pack(image, true, true);
 
@@ -170,6 +170,10 @@ public:
         button->getSignal(gui::Event::LeftClicked).willCall(std::bind(&notebookCb));
         box->pack(button);
         box->pack(gui::Label::create("This is a notebook"));
+        nb->addPage("page2.0",
+                    "Animation",
+                    gui::Animation::create(resource::ResourceManager<gfx::a2d::AnimationData>::load(
+                        "Resources/water.anim")));
         nb->addPage("page2", "More Stuff", box);
         box = gui::Box::create(gui::LinePacker::create(gui::LinePacker::Vertical));
         box->pack(gui::CheckButton::create("Check me"));

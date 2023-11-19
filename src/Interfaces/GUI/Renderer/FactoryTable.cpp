@@ -6,6 +6,7 @@
 #include <BLIB/Interfaces/GUI/Renderer/NullHighlightProvider.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/NullTooltipProvider.hpp>
 
+#include <BLIB/Interfaces/GUI/Renderer/Basic/AnimationComponent.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Basic/BasicTooltipProvider.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Basic/BoxComponent.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Basic/ButtonComponent.hpp>
@@ -34,7 +35,7 @@ namespace rdr
 {
 FactoryTable::FactoryTable(bool populate) {
     if (populate) {
-        registerFactoryForElement<Animation, NullComponent>();
+        registerFactoryForElement<Animation, defcoms::AnimationComponent>();
         registerFactoryForElement<Box, defcoms::BoxComponent>();
         registerFactoryForElement<Button, defcoms::ButtonComponent>();
         registerFactoryForElement<Canvas, defcoms::CanvasComponent>();

@@ -1,4 +1,5 @@
 target_sources(BLIB PUBLIC
+    AnimationComponent.hpp
     BasicTooltipProvider.hpp
     BoxComponent.hpp
     ButtonComponent.hpp

@@ -13,7 +13,6 @@ namespace gui
  * @brief Simple element that displays a constantly playing animation. Similar to Image
  *
  * @ingroup GUI
- *
  */
 class Animation : public Element {
 public:
@@ -39,9 +38,19 @@ public:
     /**
      * @brief Scales the rendered animation to the given size
      *
-     * @param size The size to render to, in pixels
+     * @param size The size to render to, in overlay space
      */
     void scaleToSize(const sf::Vector2f& size);
+
+    /**
+     * @brief Returns the animation being rendered by this element
+     */
+    resource::Ref<gfx::a2d::AnimationData>& getAnimation();
+
+    /**
+     * @brief Returns the size being scaled to, if any
+     */
+    const std::optional<sf::Vector2f>& getSize() const;
 
 protected:
     /**
@@ -53,7 +62,6 @@ protected:
 
     /**
      * @brief Returns the size required to render the animation
-     *
      */
     virtual sf::Vector2f minimumRequisition() const override;
 
@@ -66,7 +74,6 @@ protected:
     virtual rdr::Component* doPrepareRender(rdr::Renderer& renderer) override;
 
 private:
-    bool centered;
     resource::Ref<gfx::a2d::AnimationData> source;
     std::optional<sf::Vector2f> size;
 };

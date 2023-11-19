@@ -13,26 +13,17 @@ Animation::Ptr Animation::create(resource::Ref<gfx::a2d::AnimationData> anim) {
 
 Animation::Animation(resource::Ref<gfx::a2d::AnimationData> anim)
 : Element()
-, centered(false)
-, source(anim) {
-    const auto updatePos = [this](const Event&, Element*) {
-        const sf::Vector2f offset =
-            centered ? sf::Vector2f{getAcquisition().width * 0.5f, getAcquisition().height * 0.5f} :
-                       sf::Vector2f{0.f, 0.f};
-        if (getComponent()) {
-            getComponent()->onMove(getPosition() + offset,
-                                   getPosition() - getWindowOrGuiParent().getPosition());
-        }
-    };
-    getSignal(Event::AcquisitionChanged).willAlwaysCall(updatePos);
-    getSignal(Event::Moved).willAlwaysCall(updatePos);
-}
+, source(anim) {}
 
 void Animation::setAnimation(resource::Ref<gfx::a2d::AnimationData> src) {
     source = src;
     makeDirty();
     if (getComponent()) { getComponent()->onElementUpdated(); }
 }
+
+resource::Ref<gfx::a2d::AnimationData>& Animation::getAnimation() { return source; }
+
+const std::optional<sf::Vector2f>& Animation::getSize() const { return size; }
 
 void Animation::scaleToSize(const sf::Vector2f& s) {
     size = s;
