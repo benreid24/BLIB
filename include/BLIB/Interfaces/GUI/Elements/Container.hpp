@@ -129,8 +129,14 @@ protected:
      */
     virtual void prepareChildrenRender(rdr::Renderer& renderer) override;
 
+    /**
+     * @brief Adds all children to the current scene
+     *
+     * @param renderer The GUI renderer instance
+     */
+    virtual void addChildrenToScene(rdr::Renderer& renderer);
+
 private:
-    rdr::Renderer* renderer;
     std::vector<Element::Ptr> children;
     std::vector<Element*> zorder;
     std::list<const Element*> toRemove;

@@ -14,8 +14,6 @@ using namespace bl;
 
 constexpr float ProgressPerSecond = 0.1f;
 
-void b1click(const gui::Event&, gui::Element*) { std::cout << "Button b1 was clicked\n"; }
-
 void b2click(const gui::Event&, gui::Element*) { std::cout << "Button b2 was clicked\n"; }
 
 void b3click(const gui::Event&, gui::Element*) { std::cout << "Button b3 was clicked\n"; }
@@ -25,7 +23,10 @@ void notebookCb() { std::cout << "Button inside of notebook was clicked\n"; }
 class DemoState : public engine::State {
 public:
     DemoState()
-    : State(bl::engine::StateMask::All) {}
+    : State(bl::engine::StateMask::All)
+    , filePicker("Resources", {"png"},
+                 std::bind(&DemoState::onFilePick, this, std::placeholders::_1),
+                 [this]() { filePicker.close(); }) {}
 
     virtual const char* name() const override { return "DemoState"; }
 
@@ -76,7 +77,8 @@ public:
         gui->pack(label);
 
         gui::Button::Ptr button = gui::Button::create("Press Me");
-        button->getSignal(gui::Event::LeftClicked).willCall(b1click);
+        button->getSignal(gui::Event::LeftClicked)
+            .willCall(std::bind(&DemoState::openFilePicker, this));
         gui->pack(button, true, true);
 
         gui::Window::Ptr testWindow =
@@ -216,6 +218,16 @@ private:
     gui::GUI::Ptr gui;
     gui::ProgressBar::Ptr progressBar;
     gfx::Rectangle spinRect;
+    gui::FilePicker filePicker;
+
+    void openFilePicker() {
+        filePicker.open(gui::FilePicker::PickExisting, "Select an image", gui);
+    }
+
+    void onFilePick(const std::string& file) {
+        std::cout << "Selected file '" << file << "'";
+        filePicker.close();
+    }
 };
 
 int main() {

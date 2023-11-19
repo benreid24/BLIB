@@ -443,13 +443,21 @@ void Element::updateUiState() {
 void Element::prepareRender(rdr::Renderer& r) {
     renderer      = &r;
     rendererAlive = r.getAliveFlag();
-    component     = doPrepareRender(r);
+    if (!component) { component = doPrepareRender(r); }
+    else { addToScene(r); }
     updateUiState();
     prepareChildrenRender(r);
     if (highlightBehvaiorOverride.has_value()) {
         component->overrideHighlightBehavior(highlightBehvaiorOverride.value());
     }
 }
+
+void Element::addToScene(rdr::Renderer& r) {
+    r.addComponentToOverlayIfRequired(component);
+    addChildrenToScene(r);
+}
+
+void Element::addChildrenToScene(rdr::Renderer&) {}
 
 Element& Element::getWindowOrGuiParent() {
     const auto passes = [](Element* e) -> bool {

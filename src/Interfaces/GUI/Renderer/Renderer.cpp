@@ -37,7 +37,7 @@ void Renderer::destroyComponent(const Element& owner) {
 }
 
 void Renderer::addToOverlay(rc::Overlay* o) {
-    removeFromOverlay();
+    if (overlay) { removeFromOverlay(); }
     overlay = o;
     for (auto& pair : components) { pair.second->doSceneAdd(overlay); }
     flashProvider->doSceneAdd(o);
@@ -82,6 +82,14 @@ void Renderer::update(float dt) {
 }
 
 std::shared_ptr<bool> Renderer::getAliveFlag() { return alive; }
+
+void Renderer::addComponentToOverlayIfRequired(Component* com) {
+    if (overlay) { com->doSceneAdd(overlay); }
+}
+
+void Renderer::removeComponentFromOverlay(Component* com) {
+    if (overlay) { com->doSceneRemove(); }
+}
 
 } // namespace rdr
 } // namespace gui

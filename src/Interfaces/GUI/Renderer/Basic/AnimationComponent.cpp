@@ -50,9 +50,7 @@ void AnimationComponent::handleAcquisition(const sf::Vector2f&, const sf::Vector
     setPosition();
 }
 
-void AnimationComponent::handleMove(const sf::Vector2f& posFromParent, const sf::Vector2f&) {
-    setPosition();
-}
+void AnimationComponent::handleMove(const sf::Vector2f&, const sf::Vector2f&) { setPosition(); }
 
 void AnimationComponent::setPosition() {
     Animation& owner               = getOwnerAs<Animation>();

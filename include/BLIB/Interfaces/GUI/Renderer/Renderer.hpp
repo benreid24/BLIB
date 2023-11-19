@@ -37,7 +37,7 @@ public:
 
     /**
      * @brief Marks the renderer as destroyed and frees all components
-    */
+     */
     ~Renderer();
 
     /**
@@ -70,6 +70,20 @@ public:
      * @param overlay The overlay to add to
      */
     void addToOverlay(rc::Overlay* overlay);
+
+    /**
+     * @brief Ensures that the given component is in the overlay if there is one
+     *
+     * @param component The component to add to the current overlay, if any
+     */
+    void addComponentToOverlayIfRequired(Component* component);
+
+    /**
+     * @brief Removes the given component from the overlay if there is one
+     *
+     * @param component The component to remove from the overlay
+     */
+    void removeComponentFromOverlay(Component* component);
 
     /**
      * @brief Removes all components from the current overlay, if any
@@ -114,7 +128,7 @@ public:
 
     /**
      * @brief Returns the alive flag
-    */
+     */
     std::shared_ptr<bool> getAliveFlag();
 
 private:

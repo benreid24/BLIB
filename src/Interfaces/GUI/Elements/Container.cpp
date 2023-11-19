@@ -32,7 +32,6 @@ void deleteElement(std::vector<Element*>& list, const Element* e) {
 
 Container::Container()
 : Element()
-, renderer(nullptr)
 , clearFlag(false) {
     getSignal(Event::AcquisitionChanged).willAlwaysCall(std::bind(&Container::acquisitionCb, this));
     getSignal(Event::Moved).willAlwaysCall(std::bind(&Container::moveCb, this));
@@ -71,7 +70,7 @@ void Container::add(const Element::Ptr& e) {
     children.emplace_back(e);
     zorder.insert(zorder.begin(), e.get());
     setChildParent(e.get());
-    if (renderer) { e->prepareRender(*renderer); }
+    if (getRenderer()) { e->prepareRender(*getRenderer()); }
     makeDirty();
     assignDepths();
 }
@@ -120,6 +119,7 @@ void Container::update(float dt) {
     }
     else if (!toRemove.empty()) {
         for (const Element* e : toRemove) {
+            if (renderer && e->component) { renderer->removeComponentFromOverlay(e->component); }
             deleteElement(children, e);
             deleteElement(zorder, e);
         }
@@ -142,6 +142,11 @@ bool Container::receivesOutOfBoundsEvents() const {
 
 void Container::prepareChildrenRender(rdr::Renderer& r) {
     for (auto& child : children) { child->prepareRender(r); }
+    assignDepths();
+}
+
+void Container::addChildrenToScene(rdr::Renderer& r) {
+    for (auto& child : children) { child->addToScene(r); }
     assignDepths();
 }
 

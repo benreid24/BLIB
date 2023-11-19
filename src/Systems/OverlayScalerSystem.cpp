@@ -34,14 +34,20 @@ void constrainScissor(VkRect2D& scissor, const VkRect2D& limits) {
     scissor.offset.x = std::max(scissor.offset.x, limits.offset.x);
     scissor.offset.y = std::max(scissor.offset.y, limits.offset.y);
 
-    const auto limitRight = limits.offset.x + limits.extent.width;
+    const unsigned int limitRight = limits.offset.x + limits.extent.width;
     if (scissor.offset.x + scissor.extent.width > limitRight) {
-        scissor.extent.width = limitRight - scissor.offset.x;
+        if (limitRight >= scissor.offset.x) {
+            scissor.extent.width = limitRight - scissor.offset.x;
+        }
+        else { scissor.extent.width = 0; }
     }
 
-    const auto limitBottom = limits.offset.y + limits.extent.height;
+    const unsigned int limitBottom = limits.offset.y + limits.extent.height;
     if (scissor.offset.y + scissor.extent.height > limitBottom) {
-        scissor.extent.height = limitBottom - scissor.offset.y;
+        if (limitBottom >= scissor.offset.y) {
+            scissor.extent.height = limitBottom - scissor.offset.y;
+        }
+        else { scissor.extent.height = 0; }
     }
 }
 

@@ -21,16 +21,6 @@ void OverlayHighlightProvider::notifyUIState(Element* element, rdr::Component::U
             currentElement = element;
             currentState   = state;
 
-            const ecs::Entity parent = element->getComponent()->getEntity();
-
-            com::Transform2D* pos = enginePtr->ecs().getComponent<com::Transform2D>(parent);
-            cover.getTransform().setDepth(pos ?
-                                              cam::OverlayCamera::MinDepth - pos->getGlobalDepth() :
-                                              cam::OverlayCamera::MinDepth);
-            cover.scaleToSize({element->getAcquisition().width, element->getAcquisition().height});
-            cover.setParent(parent);
-            cover.setHidden(false);
-
             switch (state) {
             case rdr::Component::UIState::Highlighted:
                 cover.setFillColor(sfcol(sf::Color(255, 255, 255, 100)));
@@ -40,8 +30,23 @@ void OverlayHighlightProvider::notifyUIState(Element* element, rdr::Component::U
                 break;
             default:
                 cover.setHidden(true);
-                break;
+                return;
             }
+
+            const ecs::Entity parent = element->getComponent()->getEntity();
+
+            com::Transform2D* pos = enginePtr->ecs().getComponent<com::Transform2D>(parent);
+            if (pos) {
+                cover.getTransform().setDepth(
+                    std::max(-10.f, cam::OverlayCamera::MinDepth - pos->getGlobalDepth()));
+            }
+            else { cover.getTransform().setDepth(cam::OverlayCamera::MinDepth); }
+            cover.scaleToSize({element->getAcquisition().width, element->getAcquisition().height});
+            cover.setParent(parent);
+            cover.setHidden(false);
+
+            BL_LOG_INFO << "Overlay pos=" << cover.getTransform().getGlobalPosition()
+                        << " depth=" << cover.getTransform().getGlobalDepth();
         }
     }
 }
@@ -60,7 +65,10 @@ void OverlayHighlightProvider::doSceneAdd(rc::Overlay* scene) {
     cover.setHidden(true);
 }
 
-void OverlayHighlightProvider::doSceneRemove() { cover.removeFromScene(); }
+void OverlayHighlightProvider::doSceneRemove() {
+    //
+    cover.removeFromScene();
+}
 
 void OverlayHighlightProvider::notifyDestroyed(const Element* destroyed) {
     if (currentElement == destroyed) {

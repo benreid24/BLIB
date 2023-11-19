@@ -87,8 +87,7 @@ unsigned int IconBase<B>::getVertexCount() const {
     case Type::Arrow:
         return 7;
     case Type::Folder:
-        // TODO - folder icon
-        return 0;
+        return 6;
     default:
         BL_LOG_ERROR << "Unknown icon type: " << iconType;
         return 0;
@@ -99,6 +98,10 @@ template<typename B>
 void IconBase<B>::populateVertex(unsigned int index, rc::prim::Vertex& vertex) {
     constexpr float ArrowHeadHeight = 0.6f;
     constexpr float ArrowBodyWidth  = 0.3f;
+
+    constexpr float FolderIndentX    = 0.4f;
+    constexpr float FolderIndentY    = 0.07f;
+    constexpr float FolderSlopeWidth = 0.16f;
 
     switch (iconType) {
     case Type::Arrow:
@@ -135,7 +138,32 @@ void IconBase<B>::populateVertex(unsigned int index, rc::prim::Vertex& vertex) {
         break;
 
     case Type::Folder:
-        // TODO - folder icon
+        switch (index) {
+        case 0:
+            vertex.pos.x = 0.f;
+            vertex.pos.y = 0.f;
+            break;
+        case 1:
+            vertex.pos.x = size.x * FolderIndentX;
+            vertex.pos.y = 0.f;
+            break;
+        case 2:
+            vertex.pos.x = size.x * FolderIndentX + size.x * FolderSlopeWidth;
+            vertex.pos.y = size.y * FolderIndentY;
+            break;
+        case 3:
+            vertex.pos.x = size.x;
+            vertex.pos.y = size.y * FolderIndentY;
+            break;
+        case 4:
+            vertex.pos.x = size.x;
+            vertex.pos.y = size.y;
+            break;
+        case 5:
+            vertex.pos.x = 0.f;
+            vertex.pos.y = size.y;
+            break;
+        }
         break;
     }
 }

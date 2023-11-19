@@ -427,6 +427,13 @@ public:
      */
     void overrideHighlightBehavior(rdr::Component::HighlightState behavior);
 
+    /**
+     * @brief Not intended for external use. Called by derived elements to add children to scene
+     *
+     * @param renderer The GUI renderer instance
+     */
+    void addToScene(rdr::Renderer& renderer);
+
 protected:
     /**
      * @brief Builds a new Element
@@ -554,6 +561,18 @@ protected:
      * @return Element::Ptr Ptr to this Element
      */
     Ptr me();
+
+    /**
+     * @brief Returns the current renderer, if any
+     */
+    rdr::Renderer* getRenderer() { return renderer; }
+
+    /**
+     * @brief Derived classes with children should call addToScene here for all children recursively
+     *
+     * @param renderer The GUI renderer instance
+     */
+    virtual void addChildrenToScene(rdr::Renderer& renderer);
 
 private:
     rdr::Renderer* renderer;
