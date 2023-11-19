@@ -75,11 +75,10 @@ void Animation2DSystem::update(std::mutex&, float dt, float, float, float) {
     // sync vertex animation draw parameters
     vertexPool->forEach([](ecs::Entity, com::Animation2D& anim) {
         if (anim.player && anim.sceneRef.object) {
-            const VertexAnimation& data  = *static_cast<VertexAnimation*>(anim.systemHandle);
-            const auto& frame            = data.frameToIndices[anim.player->currentFrame];
-            anim.drawParams.vertexOffset = frame.vertexStart;
-            anim.drawParams.indexOffset  = frame.indexStart;
-            anim.drawParams.indexCount   = frame.indexCount;
+            const VertexAnimation& data = *static_cast<VertexAnimation*>(anim.systemHandle);
+            const auto& frame           = data.frameToIndices[anim.player->currentFrame];
+            anim.drawParams.indexOffset = frame.indexStart;
+            anim.drawParams.indexCount  = frame.indexCount;
             anim.syncDrawParamsToScene();
         }
     });
