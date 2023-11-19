@@ -36,6 +36,7 @@ ScrollArea::ScrollArea(const Packer::Ptr& packer)
 : CompositeElement<3>()
 , horScrollbar(Slider::create(Slider::Horizontal))
 , vertScrollbar(Slider::create(Slider::Vertical))
+, contentWrapper(Box::create(packer))
 , content(Box::create(packer))
 , alwaysShowH(false)
 , alwaysShowV(false)
@@ -54,10 +55,14 @@ ScrollArea::ScrollArea(const Packer::Ptr& packer)
     vertScrollbar->setExpandsHeight(true);
     vertScrollbar->setExpandsWidth(true);
 
-    content->computeView = false;
+    content->setConstrainView(false);
     content->setOutlineThickness(0.f);
 
-    Element* childs[3] = {content.get(), horScrollbar.get(), vertScrollbar.get()};
+    contentWrapper->setConstrainView(true);
+    contentWrapper->setOutlineThickness(0.f);
+    contentWrapper->pack(content);
+
+    Element* childs[3] = {contentWrapper.get(), horScrollbar.get(), vertScrollbar.get()};
     registerChildren(childs);
 }
 
@@ -163,6 +168,7 @@ void ScrollArea::onAcquisition() {
     else
         vertScrollbar->setVisible(false);
 
+    Packer::manuallyPackElement(contentWrapper, {getPosition(), availableSize}, true);
     const sf::Vector2f contentArea(std::max(totalSize.x, availableSize.x),
                                    std::max(totalSize.y, availableSize.y));
     Packer::manuallyPackElement(content, {getPosition(), contentArea}, true);

@@ -168,6 +168,7 @@ protected:
 private:
     Slider::Ptr horScrollbar;
     Slider::Ptr vertScrollbar;
+    Box::Ptr contentWrapper;
     Box::Ptr content;
     std::optional<sf::Vector2f> maxSize;
     mutable sf::Vector2f totalSize;
@@ -180,7 +181,6 @@ private:
     bool neverShowV;
     bool includeBars;
 
-    void addBars();
     void refreshSize() const;
     void scrolled();
     void updateContentPos();
