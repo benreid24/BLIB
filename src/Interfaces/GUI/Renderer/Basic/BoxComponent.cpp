@@ -1,6 +1,6 @@
 #include <BLIB/Interfaces/GUI/Renderer/Basic/BoxComponent.hpp>
 
-#include <BLIB/Interfaces/GUI/Elements/Element.hpp>
+#include <BLIB/Interfaces/GUI/Elements/Box.hpp>
 #include <BLIB/Render/Primitives/Color.hpp>
 
 namespace bl
@@ -15,7 +15,10 @@ BoxComponent::BoxComponent()
 void BoxComponent::setVisible(bool v) { box.setHidden(!v); }
 
 void BoxComponent::onElementUpdated() {
-    // noop
+    Box& owner = getOwnerAs<Box>();
+    box.getOverlayScaler().setScissorMode(owner.isViewConstrained() ?
+                                              com::OverlayScaler::ScissorSelfConstrained :
+                                              com::OverlayScaler::ScissorInherit);
 }
 
 void BoxComponent::onRenderSettingChange() {

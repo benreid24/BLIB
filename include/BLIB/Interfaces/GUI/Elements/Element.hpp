@@ -427,18 +427,6 @@ public:
      */
     void overrideHighlightBehavior(rdr::Component::HighlightState behavior);
 
-    /**
-     * @brief Sets an additional bias in the depth. This bias is added to the bias returned by getDepthBias
-     * 
-     * @param bias Extra depth bias to add
-    */
-    void setDepthBias(float bias);
-
-    /**
-     * @brief Returns the total depth bias that should be added to the element's position
-    */
-    float getTotalDepthBias() const;
-
 protected:
     /**
      * @brief Builds a new Element
@@ -580,7 +568,6 @@ private:
     std::string tooltip;
     std::optional<rdr::Component::HighlightState> highlightBehvaiorOverride;
     bool showingTooltip;
-    float depthBias;
 
     bool _dirty;
     bool _active;

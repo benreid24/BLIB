@@ -43,6 +43,11 @@ public:
     void setConstrainView(bool constrain);
 
     /**
+     * @brief Returns whether or not the view is constrained to the bounds of the box
+     */
+    bool isViewConstrained() const;
+
+    /**
      * @brief Update the Packer used. Marks the Element as dirty
      *
      */

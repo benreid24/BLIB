@@ -51,6 +51,7 @@ void OverlayFlashProvider::flashElement(Element* element) {
 void OverlayFlashProvider::doCreate(engine::Engine& engine) {
     enginePtr = &engine;
     cover.create(engine, {100.f, 100.f});
+    cover.setHidden(true);
 }
 
 void OverlayFlashProvider::doSceneAdd(rc::Overlay* scene) {

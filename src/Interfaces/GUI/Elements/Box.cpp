@@ -21,7 +21,12 @@ Box::Box(Packer::Ptr packer)
 , packer(packer)
 , computeView(true) {}
 
-void Box::setConstrainView(bool c) { computeView = c; }
+void Box::setConstrainView(bool c) {
+    computeView = c;
+    if (getComponent()) { getComponent()->onElementUpdated(); }
+}
+
+bool Box::isViewConstrained() const { return computeView; }
 
 void Box::setPacker(Packer::Ptr p) {
     packer = p;

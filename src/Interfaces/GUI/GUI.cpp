@@ -14,6 +14,7 @@ GUI::GUI(engine::Engine& engine, rc::Observer& observer, const gui::Packer::Ptr&
 : Box(packer)
 , observer(observer)
 , renderer(engine, *this, factory ? *factory : rdr::FactoryTable::getDefaultTable()) {
+    setConstrainView(false);
     setOutlineThickness(0.f);
     queuedActions.reserve(4);
     assignAcquisition(region.width > 0.f ?
