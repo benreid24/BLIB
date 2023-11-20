@@ -88,7 +88,12 @@ void Renderer::addComponentToOverlayIfRequired(Component* com) {
 }
 
 void Renderer::removeComponentFromOverlay(Component* com) {
-    if (overlay) { com->doSceneRemove(); }
+    if (overlay) {
+        flashProvider->notifyDestroyed(com->owner);
+        highlightProvider->notifyDestroyed(com->owner);
+        tooltipProvider->notifyDestroyed(com->owner);
+        com->doSceneRemove();
+    }
 }
 
 } // namespace rdr

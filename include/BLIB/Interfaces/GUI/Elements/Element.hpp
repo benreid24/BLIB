@@ -434,6 +434,14 @@ public:
      */
     void addToScene(rdr::Renderer& renderer);
 
+    /**
+     * @brief Tests whether or not this element is descended from the given element
+     *
+     * @param element The element to test
+     * @return True if element is a parent of this element, false otherwise
+     */
+    bool isInParentTree(const Element* element) const;
+
 protected:
     /**
      * @brief Builds a new Element

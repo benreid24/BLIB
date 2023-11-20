@@ -443,10 +443,13 @@ void Element::updateUiState() {
 void Element::prepareRender(rdr::Renderer& r) {
     renderer      = &r;
     rendererAlive = r.getAliveFlag();
-    if (!component) { component = doPrepareRender(r); }
+    if (!component) {
+        component = doPrepareRender(r);
+        prepareChildrenRender(r);
+    }
     else { addToScene(r); }
     updateUiState();
-    prepareChildrenRender(r);
+
     if (highlightBehvaiorOverride.has_value()) {
         component->overrideHighlightBehavior(highlightBehvaiorOverride.value());
     }
@@ -489,6 +492,15 @@ float Element::getDepthBias() const { return 0.f; }
 void Element::overrideHighlightBehavior(rdr::Component::HighlightState behavior) {
     highlightBehvaiorOverride = behavior;
     if (component) { component->overrideHighlightBehavior(behavior); }
+}
+
+bool Element::isInParentTree(const Element* p) const {
+    Element* cp = parent;
+    while (cp != nullptr) {
+        if (p == cp) { return true; }
+        cp = cp->parent;
+    }
+    return false;
 }
 
 } // namespace gui

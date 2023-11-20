@@ -33,8 +33,7 @@ void OverlayHighlightProvider::notifyUIState(Element* element, rdr::Component::U
                 return;
             }
 
-            const ecs::Entity parent = element->getComponent()->getEntity();
-
+            ecs::Entity parent    = element->getComponent()->getEntity();
             com::Transform2D* pos = enginePtr->ecs().getComponent<com::Transform2D>(parent);
             if (pos) {
                 cover.getTransform().setDepth(
@@ -44,9 +43,6 @@ void OverlayHighlightProvider::notifyUIState(Element* element, rdr::Component::U
             cover.scaleToSize({element->getAcquisition().width, element->getAcquisition().height});
             cover.setParent(parent);
             cover.setHidden(false);
-
-            BL_LOG_INFO << "Overlay pos=" << cover.getTransform().getGlobalPosition()
-                        << " depth=" << cover.getTransform().getGlobalDepth();
         }
     }
 }
@@ -65,13 +61,12 @@ void OverlayHighlightProvider::doSceneAdd(rc::Overlay* scene) {
     cover.setHidden(true);
 }
 
-void OverlayHighlightProvider::doSceneRemove() {
-    //
-    cover.removeFromScene();
-}
+void OverlayHighlightProvider::doSceneRemove() { cover.removeFromScene(); }
 
 void OverlayHighlightProvider::notifyDestroyed(const Element* destroyed) {
-    if (currentElement == destroyed) {
+    if (currentElement == destroyed ||
+        (currentElement && currentElement->isInParentTree(destroyed))) {
+        cover.removeParent();
         cover.setHidden(true);
         currentElement = nullptr;
     }

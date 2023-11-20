@@ -25,7 +25,8 @@ struct DestroyTestComponent {
 
 struct ParentTestComponent
 : public trait::ParentAware<ParentTestComponent>
-, public trait::ChildAware<ParentTestComponent> {
+, public trait::ChildAware<ParentTestComponent>
+, public trait::IgnoresDummy {
     int payload;
 
     ParentTestComponent(int p)
