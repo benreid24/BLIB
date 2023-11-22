@@ -126,8 +126,7 @@ sf::Vector2f Window::minimumRequisition() const {
 void Window::closed() { fireSignal(Event(Event::Closed)); }
 
 rdr::Component* Window::doPrepareRender(rdr::Renderer& renderer) {
-    return renderer.createComponent<Window>(
-        *this, getParentComponent(), getWindowOrGuiParentComponent());
+    return renderer.createComponent<Window>(*this);
 }
 
 void Window::update(float dt) {

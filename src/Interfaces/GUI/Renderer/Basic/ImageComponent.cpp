@@ -33,7 +33,7 @@ void ImageComponent::onRenderSettingChange() {
 
 ecs::Entity ImageComponent::getEntity() const { return image.entity(); }
 
-void ImageComponent::doCreate(engine::Engine& e, rdr::Renderer&, Component*, Component&) {
+void ImageComponent::doCreate(engine::Engine& e, rdr::Renderer&) {
     engine       = &e;
     Image& owner = getOwnerAs<Image>();
     image.create(e, e.renderer().texturePool().getOrLoadTexture(owner.getTexture()));
@@ -46,14 +46,11 @@ void ImageComponent::doSceneAdd(rc::Overlay* overlay) {
 
 void ImageComponent::doSceneRemove() { image.removeFromScene(); }
 
-void ImageComponent::handleAcquisition(const sf::Vector2f& posFromParent, const sf::Vector2f&,
-                                       const sf::Vector2f&) {
-    handleMove(posFromParent, {});
-}
+void ImageComponent::handleAcquisition() { handleMove(); }
 
-void ImageComponent::handleMove(const sf::Vector2f& posFromParent, const sf::Vector2f&) {
+void ImageComponent::handleMove() {
     Image& owner           = getOwnerAs<Image>();
-    localPos               = posFromParent;
+    localPos               = owner.getLocalPosition();
     const sf::Vector2f pos = localPos + owner.getOffset();
     image.getTransform().setPosition({pos.x, pos.y});
 }

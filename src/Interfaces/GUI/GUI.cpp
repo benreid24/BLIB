@@ -55,6 +55,7 @@ void GUI::addToOverlay(rc::Overlay* overlay) {
     getComponent()->assignDepth(800.f); // most things bias negative
     assignDepths();
     renderer.addToOverlay(overlay);
+    addToScene(renderer);
     bl::event::Dispatcher::subscribe(this);
 }
 

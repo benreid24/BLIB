@@ -63,11 +63,8 @@ protected:
      *
      * @param engine The game engine instance
      * @param renderer The GUI renderer instance
-     * @param parent The component of the parent element, if this component has a parent
-     * @param windowOrGui The Component for the Window or GUI element that is the closest parent
      */
-    virtual void doCreate(engine::Engine& engine, rdr::Renderer& renderer, Component* parent,
-                          Component& windowOrGui) override;
+    virtual void doCreate(engine::Engine& engine, rdr::Renderer& renderer) override;
 
     /**
      * @brief Adds the component to the scene
@@ -83,23 +80,13 @@ protected:
 
     /**
      * @brief Configures the component for the new acquisition
-     *
-     * @param posFromParent The position relative to the immediate parent
-     * @param posFromWindow The position relative to the window (or gui) ancestor
-     * @param size The size of this element
      */
-    virtual void handleAcquisition(const sf::Vector2f& posFromParent,
-                                   const sf::Vector2f& posFromWindow,
-                                   const sf::Vector2f& size) override;
+    virtual void handleAcquisition() override;
 
     /**
      * @brief Positions the component when it should move
-     *
-     * @param posFromParent The position relative to the immediate parent
-     * @param posFromWindow The position relative to the window (or gui) ancestor
      */
-    virtual void handleMove(const sf::Vector2f& posFromParent,
-                            const sf::Vector2f& posFromWindow) override;
+    virtual void handleMove() override;
 
 private:
     engine::Engine* enginePtr;

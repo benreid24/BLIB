@@ -30,7 +30,7 @@ void BoxComponent::onRenderSettingChange() {
 
 ecs::Entity BoxComponent::getEntity() const { return box.entity(); }
 
-void BoxComponent::doCreate(engine::Engine& engine, rdr::Renderer&, Component*, Component&) {
+void BoxComponent::doCreate(engine::Engine& engine, rdr::Renderer&) {
     Element& owner = getOwnerAs<Element>();
     box.create(engine, {owner.getAcquisition().width, owner.getAcquisition().height});
 }
@@ -41,14 +41,15 @@ void BoxComponent::doSceneAdd(rc::Overlay* overlay) {
 
 void BoxComponent::doSceneRemove() { box.removeFromScene(); }
 
-void BoxComponent::handleAcquisition(const sf::Vector2f& posFromParent, const sf::Vector2f&,
-                                     const sf::Vector2f& size) {
-    box.setSize({size.x, size.y});
-    box.getTransform().setPosition({posFromParent.x, posFromParent.y});
+void BoxComponent::handleAcquisition() {
+    Element& owner = getOwnerAs<Element>();
+    box.setSize({owner.getAcquisition().width, owner.getAcquisition().height});
+    box.getTransform().setPosition({owner.getLocalPosition().x, owner.getLocalPosition().y});
 }
 
-void BoxComponent::handleMove(const sf::Vector2f& posFromParent, const sf::Vector2f&) {
-    box.getTransform().setPosition({posFromParent.x, posFromParent.y});
+void BoxComponent::handleMove() {
+    Element& owner = getOwnerAs<Element>();
+    box.getTransform().setPosition({owner.getLocalPosition().x, owner.getLocalPosition().y});
 }
 
 } // namespace defcoms

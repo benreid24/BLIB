@@ -56,8 +56,7 @@ void Box::pack(Element::Ptr e, bool fx, bool fy) {
 }
 
 rdr::Component* Box::doPrepareRender(rdr::Renderer& renderer) {
-    return renderer.createComponent<Box>(
-        *this, getParentComponent(), getWindowOrGuiParentComponent());
+    return renderer.createComponent<Box>(*this);
 }
 
 } // namespace gui

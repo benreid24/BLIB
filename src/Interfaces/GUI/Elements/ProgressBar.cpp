@@ -27,8 +27,7 @@ ProgressBar::FillDirection ProgressBar::getFillDirection() const { return direct
 sf::Vector2f ProgressBar::minimumRequisition() const { return {5.f, 5.f}; }
 
 rdr::Component* ProgressBar::doPrepareRender(rdr::Renderer& renderer) {
-    return renderer.createComponent<ProgressBar>(
-        *this, getParentComponent(), getWindowOrGuiParentComponent());
+    return renderer.createComponent<ProgressBar>(*this);
 }
 
 } // namespace gui

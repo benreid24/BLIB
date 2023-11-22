@@ -57,8 +57,7 @@ void ProgressBarComponent::onRenderSettingChange() {
 
 ecs::Entity ProgressBarComponent::getEntity() const { return background.entity(); }
 
-void ProgressBarComponent::doCreate(engine::Engine& engine, rdr::Renderer&, Component*,
-                                    Component&) {
+void ProgressBarComponent::doCreate(engine::Engine& engine, rdr::Renderer&) {
     ProgressBar& owner = getOwnerAs<ProgressBar>();
     background.create(engine, {owner.getAcquisition().width, owner.getAcquisition().height});
     bar.create(engine, {100.f, 100.f});
@@ -75,18 +74,22 @@ void ProgressBarComponent::doSceneRemove() {
     bar.removeFromScene();
 }
 
-void ProgressBarComponent::handleAcquisition(const sf::Vector2f& posFromParent, const sf::Vector2f&,
-                                             const sf::Vector2f& size) {
-    const RenderSettings& settings = getOwnerAs<ProgressBar>().getRenderSettings();
+void ProgressBarComponent::handleAcquisition() {
+    ProgressBar& owner             = getOwnerAs<ProgressBar>();
+    const RenderSettings& settings = owner.getRenderSettings();
     const float ot                 = settings.outlineThickness.value_or(1.f);
-    background.setSize({size.x - ot * 2.f, size.y - ot * 2.f});
-    background.getTransform().setPosition({posFromParent.x + ot, posFromParent.y + ot});
+    background.setSize(
+        {owner.getAcquisition().width - ot * 2.f, owner.getAcquisition().height - ot * 2.f});
+    background.getTransform().setPosition(
+        {owner.getLocalPosition().x + ot, owner.getLocalPosition().y + ot});
 }
 
-void ProgressBarComponent::handleMove(const sf::Vector2f& posFromParent, const sf::Vector2f&) {
-    const RenderSettings& settings = getOwnerAs<ProgressBar>().getRenderSettings();
+void ProgressBarComponent::handleMove() {
+    ProgressBar& owner             = getOwnerAs<ProgressBar>();
+    const RenderSettings& settings = owner.getRenderSettings();
     const float ot                 = settings.outlineThickness.value_or(1.f);
-    background.getTransform().setPosition({posFromParent.x + ot, posFromParent.y + ot});
+    background.getTransform().setPosition(
+        {owner.getLocalPosition().x + ot, owner.getLocalPosition().y + ot});
 }
 
 } // namespace defcoms

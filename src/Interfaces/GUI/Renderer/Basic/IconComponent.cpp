@@ -32,7 +32,7 @@ void IconComponent::onRenderSettingChange() {
 
 ecs::Entity IconComponent::getEntity() const { return icon.value().entity(); }
 
-void IconComponent::doCreate(engine::Engine& engine, rdr::Renderer&, Component*, Component&) {
+void IconComponent::doCreate(engine::Engine& engine, rdr::Renderer&) {
     Icon& owner = getOwnerAs<Icon>();
     icon.emplace(owner.getType(), glm::vec2{owner.getIconSize().x, owner.getIconSize().y});
     icon.value().create(engine);
@@ -44,12 +44,9 @@ void IconComponent::doSceneAdd(rc::Overlay* overlay) {
 
 void IconComponent::doSceneRemove() { icon.value().removeFromScene(); }
 
-void IconComponent::handleAcquisition(const sf::Vector2f&, const sf::Vector2f&,
-                                      const sf::Vector2f&) {
-    setPosition();
-}
+void IconComponent::handleAcquisition() { setPosition(); }
 
-void IconComponent::handleMove(const sf::Vector2f&, const sf::Vector2f&) { setPosition(); }
+void IconComponent::handleMove() { setPosition(); }
 
 void IconComponent::setPosition() {
     Icon& owner                    = getOwnerAs<Icon>();

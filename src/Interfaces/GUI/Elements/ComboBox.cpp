@@ -145,8 +145,7 @@ bool ComboBox::handleScroll(const Event& event) {
 }
 
 rdr::Component* ComboBox::doPrepareRender(rdr::Renderer& renderer) {
-    return renderer.createComponent<ComboBox>(
-        *this, getParentComponent(), getWindowOrGuiParentComponent());
+    return renderer.createComponent<ComboBox>(*this);
 }
 
 void ComboBox::optionClicked(const std::string& text) {

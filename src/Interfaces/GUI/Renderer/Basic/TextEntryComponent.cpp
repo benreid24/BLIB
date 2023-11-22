@@ -92,7 +92,7 @@ void TextEntryComponent::resetCaratFlash() {
     if (owner.cursorVisible()) { carat.resetFlash(); }
 }
 
-void TextEntryComponent::doCreate(engine::Engine& engine, rdr::Renderer&, Component*, Component&) {
+void TextEntryComponent::doCreate(engine::Engine& engine, rdr::Renderer&) {
     Element& owner = getOwnerAs<Element>();
     box.create(engine, {owner.getAcquisition().width, owner.getAcquisition().height});
     box.getOverlayScaler().setScissorMode(com::OverlayScaler::ScissorSelfConstrained);
@@ -114,15 +114,16 @@ void TextEntryComponent::doSceneAdd(rc::Overlay* overlay) {
 
 void TextEntryComponent::doSceneRemove() { box.removeFromScene(); }
 
-void TextEntryComponent::handleAcquisition(const sf::Vector2f& posFromParent, const sf::Vector2f&,
-                                           const sf::Vector2f& size) {
-    box.setSize({size.x, size.y});
-    box.getTransform().setPosition({posFromParent.x, posFromParent.y});
+void TextEntryComponent::handleAcquisition() {
+    Element& owner = getOwnerAs<Element>();
+    box.setSize({owner.getAcquisition().width, owner.getAcquisition().height});
+    box.getTransform().setPosition({owner.getLocalPosition().x, owner.getLocalPosition().y});
     positionItems();
 }
 
-void TextEntryComponent::handleMove(const sf::Vector2f& posFromParent, const sf::Vector2f&) {
-    box.getTransform().setPosition({posFromParent.x, posFromParent.y});
+void TextEntryComponent::handleMove() {
+    Element& owner = getOwnerAs<Element>();
+    box.getTransform().setPosition({owner.getLocalPosition().x, owner.getLocalPosition().y});
 }
 
 void TextEntryComponent::positionItems() {

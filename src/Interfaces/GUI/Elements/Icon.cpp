@@ -38,8 +38,7 @@ float Icon::getRotation() const { return rotation; }
 sf::Vector2f Icon::minimumRequisition() const { return ogSize; }
 
 rdr::Component* Icon::doPrepareRender(rdr::Renderer& renderer) {
-    return renderer.createComponent<Icon>(
-        *this, getParentComponent(), getWindowOrGuiParentComponent());
+    return renderer.createComponent<Icon>(*this);
 }
 
 void Icon::setFillAcquisition(bool f, bool m) {

@@ -47,8 +47,7 @@ void Canvas::setFillAcquisition(bool fill, bool mar) {
 sf::Vector2f Canvas::minimumRequisition() const { return size.value_or(sf::Vector2f(textureSize)); }
 
 rdr::Component* Canvas::doPrepareRender(rdr::Renderer& renderer) {
-    rdr::Component* com = renderer.createComponent<Canvas>(
-        *this, getParentComponent(), getWindowOrGuiParentComponent());
+    rdr::Component* com = renderer.createComponent<Canvas>(*this);
     if (camera) {
         rdr::CanvasComponentBase* cb = dynamic_cast<rdr::CanvasComponentBase*>(com);
         if (cb) { cb->getRenderTexture().setCamera(std::move(camera)); }

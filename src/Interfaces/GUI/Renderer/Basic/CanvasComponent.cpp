@@ -32,7 +32,7 @@ ecs::Entity CanvasComponent::getEntity() const { return img.entity(); }
 
 rc::vk::RenderTexture& CanvasComponent::getRenderTexture() { return texture; }
 
-void CanvasComponent::doCreate(engine::Engine& engine, rdr::Renderer&, Component*, Component&) {
+void CanvasComponent::doCreate(engine::Engine& engine, rdr::Renderer&) {
     Canvas& owner = getOwnerAs<Canvas>();
 
     texture.create(engine.renderer(), {owner.getTextureSize().x, owner.getTextureSize().y});
@@ -48,14 +48,13 @@ void CanvasComponent::doSceneAdd(rc::Overlay* overlay) {
 
 void CanvasComponent::doSceneRemove() { img.removeFromScene(); }
 
-void CanvasComponent::handleAcquisition(const sf::Vector2f& posFromParent, const sf::Vector2f&,
-                                        const sf::Vector2f&) {
-    pos = posFromParent;
+void CanvasComponent::handleAcquisition() {
+    pos = getOwnerAs<Element>().getLocalPosition();
     onElementUpdated();
 }
 
-void CanvasComponent::handleMove(const sf::Vector2f& posFromParent, const sf::Vector2f&) {
-    pos = posFromParent;
+void CanvasComponent::handleMove() {
+    pos = getOwnerAs<Element>().getLocalPosition();
     onElementUpdated();
 }
 

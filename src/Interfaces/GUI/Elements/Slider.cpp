@@ -95,8 +95,7 @@ sf::Vector2f Slider::minimumRequisition() const {
 }
 
 rdr::Component* Slider::doPrepareRender(rdr::Renderer& renderer) {
-    return renderer.createComponent<Slider>(
-        *this, getParentComponent(), getWindowOrGuiParentComponent());
+    return renderer.createComponent<Slider>(*this);
 }
 
 void Slider::fireChanged() { fireSignal(Event(Event::ValueChanged, value)); }

@@ -25,7 +25,7 @@ void SeparatorComponent::onRenderSettingChange() {
 
 ecs::Entity SeparatorComponent::getEntity() const { return sep.entity(); }
 
-void SeparatorComponent::doCreate(engine::Engine& engine, rdr::Renderer&, Component*, Component&) {
+void SeparatorComponent::doCreate(engine::Engine& engine, rdr::Renderer&) {
     sep.create(engine, computeSize());
 }
 
@@ -35,15 +35,12 @@ void SeparatorComponent::doSceneAdd(rc::Overlay* overlay) {
 
 void SeparatorComponent::doSceneRemove() { sep.removeFromScene(); }
 
-void SeparatorComponent::handleAcquisition(const sf::Vector2f& posFromParent, const sf::Vector2f&,
-                                           const sf::Vector2f&) {
+void SeparatorComponent::handleAcquisition() {
     sep.setSize(computeSize());
-    sep.getTransform().setPosition(computePos(posFromParent));
+    sep.getTransform().setPosition(computePos());
 }
 
-void SeparatorComponent::handleMove(const sf::Vector2f& posFromParent, const sf::Vector2f&) {
-    sep.getTransform().setPosition(computePos(posFromParent));
-}
+void SeparatorComponent::handleMove() { sep.getTransform().setPosition(computePos()); }
 
 glm::vec2 SeparatorComponent::computeSize() {
     Separator& owner = getOwnerAs<Separator>();
@@ -53,16 +50,16 @@ glm::vec2 SeparatorComponent::computeSize() {
                                                           owner.getThickness()};
 }
 
-glm::vec2 SeparatorComponent::computePos(const sf::Vector2f& posFromParent) {
+glm::vec2 SeparatorComponent::computePos() {
     Separator& owner               = getOwnerAs<Separator>();
     const RenderSettings& settings = owner.getRenderSettings();
     const glm::vec2 size           = computeSize();
-    const sf::Vector2f pos =
-        posFromParent + RenderSettings::calculatePosition(
-                            settings.horizontalAlignment.value_or(RenderSettings::Center),
-                            settings.verticalAlignment.value_or(RenderSettings::Center),
-                            owner.getAcquisition(),
-                            {size.x, size.y});
+    const sf::Vector2f pos         = owner.getLocalPosition() +
+                             RenderSettings::calculatePosition(
+                                 settings.horizontalAlignment.value_or(RenderSettings::Center),
+                                 settings.verticalAlignment.value_or(RenderSettings::Center),
+                                 owner.getAcquisition(),
+                                 {size.x, size.y});
     return {pos.x, pos.y};
 }
 

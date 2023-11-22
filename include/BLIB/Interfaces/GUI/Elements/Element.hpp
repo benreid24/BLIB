@@ -442,6 +442,16 @@ public:
      */
     bool isInParentTree(const Element* element) const;
 
+    /**
+     * @brief Returns a pointer to the parent element, if there is one
+     */
+    Element* getParent() const;
+
+    /**
+     * @brief Returns the component of the parent of this element
+     */
+    rdr::Component* getParentComponent() const { return parent ? parent->component : nullptr; }
+
 protected:
     /**
      * @brief Builds a new Element
@@ -557,11 +567,6 @@ protected:
      *        Will return this element if this element is one of those two types
      */
     Element& getWindowOrGuiParent();
-
-    /**
-     * @brief Returns the component of the parent of this element
-     */
-    rdr::Component* getParentComponent() const { return parent ? parent->component : nullptr; }
 
     /**
      * @brief Returns the Ptr to this Element

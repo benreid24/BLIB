@@ -81,21 +81,13 @@ public:
 
     /**
      * @brief Called when the element gets its acquisition (re)assigned
-     *
-     * @param posFromParent The position relative to the immediate parent
-     * @param posFromWindow The position relative to the window (or gui) ancestor
-     * @param size The size of this element
      */
-    void onAcquisition(const sf::Vector2f& posFromParent, const sf::Vector2f& posFromWindow,
-                       const sf::Vector2f& size);
+    void onAcquisition();
 
     /**
      * @brief Called when the element is moved
-     *
-     * @param posFromParent The position relative to the immediate parent
-     * @param posFromWindow The position relative to the window (or gui) ancestor
      */
-    void onMove(const sf::Vector2f& posFromParent, const sf::Vector2f& posFromWindow);
+    void onMove();
 
     /**
      * @brief Called when element state changes. This is element specific, but can mean toggle
@@ -139,11 +131,8 @@ protected:
      *
      * @param engine The game engine instance
      * @param renderer The GUI renderer instance
-     * @param parent The component of the parent element, if this component has a parent
-     * @param windowOrGui The Component for the Window or GUI element that is the closest parent
      */
-    virtual void doCreate(engine::Engine& engine, Renderer& renderer, Component* parent,
-                          Component& windowOrGui) = 0;
+    virtual void doCreate(engine::Engine& engine, Renderer& renderer) = 0;
 
     /**
      * @brief Called when the Component should be added to a scene
@@ -167,22 +156,13 @@ protected:
 
     /**
      * @brief Called when the relative position or size of this component changes and after creation
-     *
-     * @param posFromParent The position relative to the immediate parent
-     * @param posFromWindow The position relative to the window (or gui) ancestor
-     * @param size The size of this element
      */
-    virtual void handleAcquisition(const sf::Vector2f& posFromParent,
-                                   const sf::Vector2f& posFromWindow, const sf::Vector2f& size) = 0;
+    virtual void handleAcquisition() = 0;
 
     /**
      * @brief Called when the element is moved
-     *
-     * @param posFromParent The position relative to the immediate parent
-     * @param posFromWindow The position relative to the window (or gui) ancestor
      */
-    virtual void handleMove(const sf::Vector2f& posFromParent,
-                            const sf::Vector2f& posFromWindow) = 0;
+    virtual void handleMove() = 0;
 
     /**
      * @brief Type safe method to get the owning GUI Element. Throws if the type is incorrect
@@ -216,18 +196,22 @@ protected:
         return *o;
     }
 
+    /**
+     * @brief Returns the parent component of this component. May be nullptr
+     */
+    Component* getParent() const { return parent; }
+
 private:
     HighlightState highlightState;
     engine::Engine* enginePtr;
     Renderer* renderer;
     Element* owner;
+    Component* parent;
     UIState state;
-    sf::Vector2f priorPos;
-    sf::Vector2f priorWindowPos;
-    sf::Vector2f priorSize;
+    sf::FloatRect priorAcq;
 
-    void create(engine::Engine& engine, Renderer& renderer, Element& owner, Component* parent,
-                Component* windowOrGui);
+    void create(engine::Engine& engine, Renderer& renderer, Element& owner);
+    void addToScene(rc::Overlay* overlay);
 
     friend class Renderer;
 };

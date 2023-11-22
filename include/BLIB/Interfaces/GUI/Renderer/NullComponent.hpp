@@ -32,13 +32,12 @@ private:
     virtual void onElementUpdated() override {}
     virtual void onRenderSettingChange() {}
     virtual ecs::Entity getEntity() const override { return ecs::InvalidEntity; }
-    virtual void doCreate(engine::Engine&, Renderer&, Component*, Component&) override {}
+    virtual void doCreate(engine::Engine&, Renderer&) override {}
     virtual void doSceneAdd(rc::Overlay*) override {}
     virtual void doSceneRemove() override {}
     virtual void notifyUIState(UIState) override {}
-    virtual void handleAcquisition(const sf::Vector2f&, const sf::Vector2f&,
-                                   const sf::Vector2f&) override {}
-    virtual void handleMove(const sf::Vector2f&, const sf::Vector2f&) override {}
+    virtual void handleAcquisition() override {}
+    virtual void handleMove() override {}
 };
 
 } // namespace rdr

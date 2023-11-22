@@ -304,11 +304,7 @@ void Element::assignAcquisition(const sf::FloatRect& acq) {
     if (parent) { position = globalPos - parent->getPosition(); }
     else { position = globalPos; }
     fireSignal(Event(Event::AcquisitionChanged));
-    if (component) {
-        component->onAcquisition(position,
-                                 globalPos - getWindowOrGuiParent().getPosition(),
-                                 sf::Vector2f(cachedArea.width, cachedArea.height));
-    }
+    if (component) { component->onAcquisition(); }
 }
 
 void Element::setPosition(const sf::Vector2f& pos) {
@@ -319,7 +315,7 @@ void Element::setPosition(const sf::Vector2f& pos) {
     if (parent) { position = pos - parent->getPosition(); }
     else { position = pos; }
     fireSignal(Event(Event::Moved));
-    if (component) { component->onMove(position, pos - getWindowOrGuiParent().getPosition()); }
+    if (component) { component->onMove(); }
 }
 
 void Element::recalculatePosition() {
@@ -329,9 +325,7 @@ void Element::recalculatePosition() {
             cachedArea.left = npos.x;
             cachedArea.top  = npos.y;
             fireSignal(Event(Event::Moved));
-            if (component) {
-                component->onMove(position, npos - getWindowOrGuiParent().getPosition());
-            }
+            if (component) { component->onMove(); }
         }
     }
 }
@@ -502,6 +496,8 @@ bool Element::isInParentTree(const Element* p) const {
     }
     return false;
 }
+
+Element* Element::getParent() const { return parent; }
 
 } // namespace gui
 } // namespace bl

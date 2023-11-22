@@ -27,7 +27,7 @@ void ScrollAreaComponent::onRenderSettingChange() {
 
 ecs::Entity ScrollAreaComponent::getEntity() const { return box.entity(); }
 
-void ScrollAreaComponent::doCreate(engine::Engine& engine, rdr::Renderer&, Component*, Component&) {
+void ScrollAreaComponent::doCreate(engine::Engine& engine, rdr::Renderer&) {
     Element& owner = getOwnerAs<Element>();
     box.create(engine, {owner.getAcquisition().width, owner.getAcquisition().height});
     box.getOverlayScaler().setScissorMode(com::OverlayScaler::ScissorSelfConstrained);
@@ -39,14 +39,15 @@ void ScrollAreaComponent::doSceneAdd(rc::Overlay* overlay) {
 
 void ScrollAreaComponent::doSceneRemove() { box.removeFromScene(); }
 
-void ScrollAreaComponent::handleAcquisition(const sf::Vector2f& posFromParent, const sf::Vector2f&,
-                                            const sf::Vector2f& size) {
-    box.setSize({size.x, size.y});
-    box.getTransform().setPosition({posFromParent.x, posFromParent.y});
+void ScrollAreaComponent::handleAcquisition() {
+    Element& owner = getOwnerAs<Element>();
+    box.setSize({owner.getAcquisition().width, owner.getAcquisition().height});
+    box.getTransform().setPosition({owner.getLocalPosition().x, owner.getLocalPosition().y});
 }
 
-void ScrollAreaComponent::handleMove(const sf::Vector2f& posFromParent, const sf::Vector2f&) {
-    box.getTransform().setPosition({posFromParent.x, posFromParent.y});
+void ScrollAreaComponent::handleMove() {
+    Element& owner = getOwnerAs<Element>();
+    box.getTransform().setPosition({owner.getLocalPosition().x, owner.getLocalPosition().y});
 }
 
 } // namespace defcoms

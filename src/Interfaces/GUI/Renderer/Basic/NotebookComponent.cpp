@@ -27,7 +27,7 @@ void NotebookComponent::onRenderSettingChange() {
 
 ecs::Entity NotebookComponent::getEntity() const { return box.entity(); }
 
-void NotebookComponent::doCreate(engine::Engine& engine, rdr::Renderer&, Component*, Component&) {
+void NotebookComponent::doCreate(engine::Engine& engine, rdr::Renderer&) {
     Element& owner = getOwnerAs<Element>();
     box.create(engine, {owner.getAcquisition().width, owner.getAcquisition().height});
     box.getOverlayScaler().setScissorMode(com::OverlayScaler::ScissorSelfConstrained);
@@ -39,14 +39,15 @@ void NotebookComponent::doSceneAdd(rc::Overlay* overlay) {
 
 void NotebookComponent::doSceneRemove() { box.removeFromScene(); }
 
-void NotebookComponent::handleAcquisition(const sf::Vector2f& posFromParent, const sf::Vector2f&,
-                                          const sf::Vector2f& size) {
-    box.setSize({size.x, size.y});
-    box.getTransform().setPosition({posFromParent.x, posFromParent.y});
+void NotebookComponent::handleAcquisition() {
+    Element& owner = getOwnerAs<Element>();
+    box.setSize({owner.getAcquisition().width, owner.getAcquisition().height});
+    box.getTransform().setPosition({owner.getLocalPosition().x, owner.getLocalPosition().y});
 }
 
-void NotebookComponent::handleMove(const sf::Vector2f& posFromParent, const sf::Vector2f&) {
-    box.getTransform().setPosition({posFromParent.x, posFromParent.y});
+void NotebookComponent::handleMove() {
+    Element& owner = getOwnerAs<Element>();
+    box.getTransform().setPosition({owner.getLocalPosition().x, owner.getLocalPosition().y});
 }
 
 } // namespace defcoms

@@ -31,8 +31,7 @@ void RadioButtonComponent::onRenderSettingChange() {
 
 ecs::Entity RadioButtonComponent::getEntity() const { return dummy.entity(); }
 
-void RadioButtonComponent::doCreate(engine::Engine& engine, rdr::Renderer&, Component*,
-                                    Component&) {
+void RadioButtonComponent::doCreate(engine::Engine& engine, rdr::Renderer&) {
     RadioButton& owner = getOwnerAs<RadioButton>();
     dummy.create(engine);
     circle.create(engine, owner.getToggleSize() * 0.5f);
@@ -51,16 +50,17 @@ void RadioButtonComponent::doSceneAdd(rc::Overlay* overlay) {
 
 void RadioButtonComponent::doSceneRemove() { circle.removeFromScene(); }
 
-void RadioButtonComponent::handleAcquisition(const sf::Vector2f& posFromParent, const sf::Vector2f&,
-                                             const sf::Vector2f& size) {
+void RadioButtonComponent::handleAcquisition() {
     const RadioButton& owner = getOwnerAs<RadioButton>();
-    dummy.setSize({size.x, size.y});
-    circle.getTransform().setPosition({0.f, size.y * 0.5f - owner.getToggleSize() * 0.5f});
-    dummy.getTransform().setPosition({posFromParent.x, posFromParent.y});
+    dummy.setSize({owner.getAcquisition().width, owner.getAcquisition().height});
+    circle.getTransform().setPosition(
+        {0.f, owner.getAcquisition().height * 0.5f - owner.getToggleSize() * 0.5f});
+    dummy.getTransform().setPosition({owner.getLocalPosition().x, owner.getLocalPosition().y});
 }
 
-void RadioButtonComponent::handleMove(const sf::Vector2f& posFromParent, const sf::Vector2f&) {
-    dummy.getTransform().setPosition({posFromParent.x, posFromParent.y});
+void RadioButtonComponent::handleMove() {
+    const RadioButton& owner = getOwnerAs<RadioButton>();
+    dummy.getTransform().setPosition({owner.getLocalPosition().x, owner.getLocalPosition().y});
 }
 
 } // namespace defcoms

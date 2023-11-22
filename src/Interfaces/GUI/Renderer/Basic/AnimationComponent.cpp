@@ -33,7 +33,7 @@ void AnimationComponent::onRenderSettingChange() { setPosition(); }
 
 ecs::Entity AnimationComponent::getEntity() const { return anim.entity(); }
 
-void AnimationComponent::doCreate(engine::Engine& engine, rdr::Renderer&, Component*, Component&) {
+void AnimationComponent::doCreate(engine::Engine& engine, rdr::Renderer&) {
     Animation& owner = getOwnerAs<Animation>();
     source           = owner.getAnimation();
     anim.createWithUniquePlayer(engine, owner.getAnimation(), true, true);
@@ -45,12 +45,9 @@ void AnimationComponent::doSceneAdd(rc::Overlay* overlay) {
 
 void AnimationComponent::doSceneRemove() { anim.removeFromScene(); }
 
-void AnimationComponent::handleAcquisition(const sf::Vector2f&, const sf::Vector2f&,
-                                           const sf::Vector2f&) {
-    setPosition();
-}
+void AnimationComponent::handleAcquisition() { setPosition(); }
 
-void AnimationComponent::handleMove(const sf::Vector2f&, const sf::Vector2f&) { setPosition(); }
+void AnimationComponent::handleMove() { setPosition(); }
 
 void AnimationComponent::setPosition() {
     Animation& owner               = getOwnerAs<Animation>();

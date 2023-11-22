@@ -81,9 +81,8 @@ sf::Vector2f TextEntry::minimumRequisition() const {
 }
 
 rdr::Component* TextEntry::doPrepareRender(rdr::Renderer& renderer) {
-    rdr::Component* com = renderer.createComponent<TextEntry>(
-        *this, getParentComponent(), getWindowOrGuiParentComponent());
-    component = dynamic_cast<rdr::TextEntryComponentBase*>(com);
+    rdr::Component* com = renderer.createComponent<TextEntry>(*this);
+    component           = dynamic_cast<rdr::TextEntryComponentBase*>(com);
     if (!component) {
         BL_LOG_ERROR << "TextEntry component must derive from TextEntryComponentBase";
     }

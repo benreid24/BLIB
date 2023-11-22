@@ -16,9 +16,7 @@ Component::Component(HighlightState hs)
 , renderer(nullptr)
 , owner(nullptr)
 , state(UIState::Regular)
-, priorPos(-1.f, -1.f)
-, priorWindowPos(-1.f, -1.f)
-, priorSize(-1.f, -1.f) {}
+, priorAcq{} {}
 
 void Component::setUIState(UIState state) {
     if (highlightState == HighlightState::HighlightedByMouse) {
@@ -35,13 +33,13 @@ void Component::notifyUIState(UIState) {}
 
 void Component::overrideHighlightBehavior(HighlightState behavior) { highlightState = behavior; }
 
-void Component::create(engine::Engine& engine, Renderer& r, Element& o, Component* parent,
-                       Component* windowOrGui) {
+void Component::create(engine::Engine& engine, Renderer& r, Element& o) {
     enginePtr = &engine;
     renderer  = &r;
     owner     = &o;
+    parent    = o.getParent() ? o.getParent()->getComponent() : nullptr;
 
-    doCreate(engine, r, parent, windowOrGui ? *windowOrGui : *this);
+    doCreate(engine, r);
 
     if (o.active()) {
         if (o.rightPressed() || o.leftPressed()) { setUIState(UIState::Pressed); }
@@ -58,30 +56,25 @@ void Component::create(engine::Engine& engine, Renderer& r, Element& o, Componen
 
     onElementUpdated();
     onRenderSettingChange();
-    onAcquisition(o.getLocalPosition(),
-                  {o.getAcquisition().left, o.getAcquisition().top}, // TODO - wrong
-                  {o.getAcquisition().width, o.getAcquisition().height});
+    onAcquisition();
     assignDepth(0.f);
     setVisible(o.visible());
 }
 
 void Component::flash() { renderer->flash(owner); }
 
-void Component::onAcquisition(const sf::Vector2f& posFromParent, const sf::Vector2f& posFromWindow,
-                              const sf::Vector2f& size) {
-    if (posFromParent != priorPos || posFromWindow != priorWindowPos || size != priorSize) {
-        priorPos       = posFromParent;
-        priorWindowPos = posFromWindow;
-        priorSize      = size;
-        handleAcquisition(priorPos, priorWindowPos, priorSize);
+void Component::onAcquisition() {
+    if (owner->getAcquisition() != priorAcq) {
+        priorAcq = owner->getAcquisition();
+        handleAcquisition();
     }
 }
 
-void Component::onMove(const sf::Vector2f& posFromParent, const sf::Vector2f& posFromWindow) {
-    if (priorPos != posFromParent || priorWindowPos != posFromWindow) {
-        priorPos       = posFromParent;
-        priorWindowPos = posFromWindow;
-        handleMove(priorPos, priorWindowPos);
+void Component::onMove() {
+    const sf::Vector2f priorPos(priorAcq.left, priorAcq.top);
+    if (priorPos != owner->getPosition()) {
+        priorAcq = owner->getAcquisition();
+        handleMove();
     }
 }
 
@@ -94,6 +87,32 @@ void Component::assignDepth(float d) {
     com::Transform2D* transform = enginePtr->ecs().getComponent<com::Transform2D>(getEntity());
     if (transform) { transform->setDepth(d + owner->getDepthBias()); }
     else { BL_LOG_ERROR << "Could not set depth for entity missing transform: " << getEntity(); }
+}
+
+void Component::addToScene(rc::Overlay* overlay) {
+    Component* parent = owner->getParentComponent();
+    // doCreate(*enginePtr, *renderer, parent, *this);
+
+    if (owner->active()) {
+        if (owner->rightPressed() || owner->leftPressed()) { setUIState(UIState::Pressed); }
+        else if (owner->mouseOver()) { setUIState(UIState::Highlighted); }
+        else { setUIState(UIState::Regular); }
+    }
+    else { setUIState(UIState::Disabled); }
+
+    if (parent && parent != this) {
+        const ecs::Entity me    = getEntity();
+        const ecs::Entity daddy = parent->getEntity();
+        enginePtr->ecs().setEntityParent(me, daddy);
+    }
+
+    onElementUpdated();
+    onRenderSettingChange();
+    onAcquisition();
+    assignDepth(0.f);
+    setVisible(owner->visible());
+
+    doSceneAdd(overlay);
 }
 
 } // namespace rdr

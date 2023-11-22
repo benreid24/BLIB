@@ -60,7 +60,7 @@ void ComboBoxComponent::onRenderSettingChange() {
 
 ecs::Entity ComboBoxComponent::getEntity() const { return box.entity(); }
 
-void ComboBoxComponent::doCreate(engine::Engine& engine, rdr::Renderer&, Component*, Component&) {
+void ComboBoxComponent::doCreate(engine::Engine& engine, rdr::Renderer&) {
     enginePtr                      = &engine;
     ComboBox& owner                = getOwnerAs<ComboBox>();
     const RenderSettings& settings = owner.renderSettings();
@@ -114,23 +114,24 @@ void ComboBoxComponent::doSceneRemove() {
     box.removeFromScene();
 }
 
-void ComboBoxComponent::handleAcquisition(const sf::Vector2f& posFromParent, const sf::Vector2f&,
-                                          const sf::Vector2f& size) {
+void ComboBoxComponent::handleAcquisition() {
     ComboBox& owner = getOwnerAs<ComboBox>();
 
     // background and arrow button
-    box.setSize({size.x, size.y});
-    arrowBox.setSize({size.y - BoxPad, size.y - BoxPad});
-    box.getTransform().setPosition({posFromParent.x, posFromParent.y});
+    box.setSize({owner.getAcquisition().width, owner.getAcquisition().height});
+    arrowBox.setSize(
+        {owner.getAcquisition().height - BoxPad, owner.getAcquisition().height - BoxPad});
+    box.getTransform().setPosition({owner.getLocalPosition().x, owner.getLocalPosition().y});
     arrowBox.getTransform().setPosition(
-        {size.x - ComboBox::OptionPadding - arrowBox.getSize().x, ComboBox::OptionPadding});
+        {owner.getAcquisition().width - ComboBox::OptionPadding - arrowBox.getSize().x,
+         ComboBox::OptionPadding});
 
     // closed text
     positionSelectedText();
 
     // open box and texts
     openBackground.scaleToSize({owner.getOptionRegion().width, owner.getOptionRegion().height});
-    openBackground.getTransform().setPosition({0.f, size.y});
+    openBackground.getTransform().setPosition({0.f, owner.getAcquisition().height});
     if (optionsOutdated() ||
         (!openOptions.empty() &&
          (openOptions.front().background.getSize().x != owner.getOptionSize().x ||
@@ -139,8 +140,9 @@ void ComboBoxComponent::handleAcquisition(const sf::Vector2f& posFromParent, con
     }
 }
 
-void ComboBoxComponent::handleMove(const sf::Vector2f& posFromParent, const sf::Vector2f&) {
-    box.getTransform().setPosition({posFromParent.x, posFromParent.y});
+void ComboBoxComponent::handleMove() {
+    ComboBox& owner = getOwnerAs<ComboBox>();
+    box.getTransform().setPosition({owner.getLocalPosition().x, owner.getLocalPosition().y});
 }
 
 void ComboBoxComponent::configureText(gfx::Text& text, const RenderSettings& settings) {

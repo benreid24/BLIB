@@ -39,7 +39,7 @@ void Renderer::destroyComponent(const Element& owner) {
 void Renderer::addToOverlay(rc::Overlay* o) {
     if (overlay) { removeFromOverlay(); }
     overlay = o;
-    for (auto& pair : components) { pair.second->doSceneAdd(overlay); }
+    // for (auto& pair : components) { pair.second->addToScene(overlay); }
     flashProvider->doSceneAdd(o);
     highlightProvider->doSceneAdd(o);
     tooltipProvider->doSceneAdd(o);
@@ -84,7 +84,7 @@ void Renderer::update(float dt) {
 std::shared_ptr<bool> Renderer::getAliveFlag() { return alive; }
 
 void Renderer::addComponentToOverlayIfRequired(Component* com) {
-    if (overlay) { com->doSceneAdd(overlay); }
+    if (overlay) { com->addToScene(overlay); }
 }
 
 void Renderer::removeComponentFromOverlay(Component* com) {
