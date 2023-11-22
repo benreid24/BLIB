@@ -456,24 +456,6 @@ void Element::addToScene(rdr::Renderer& r) {
 
 void Element::addChildrenToScene(rdr::Renderer&) {}
 
-Element& Element::getWindowOrGuiParent() {
-    const auto passes = [](Element* e) -> bool {
-        return dynamic_cast<Window*>(e) != nullptr || dynamic_cast<GUI*>(e) != nullptr;
-    };
-
-    Element* e = this;
-    while (!passes(e)) {
-        e = e->parent;
-        if (!e) { throw std::runtime_error("Failed to find suitable Element parent"); }
-    }
-
-    return *e;
-}
-
-rdr::Component* Element::getWindowOrGuiParentComponent() {
-    return getWindowOrGuiParent().component;
-}
-
 void Element::onRenderChange() {
     fireSignal(Event(Event::RenderSettingsChanged));
     if (component) { component->onRenderSettingChange(); }

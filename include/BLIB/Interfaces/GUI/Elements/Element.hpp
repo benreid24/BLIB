@@ -447,11 +447,6 @@ public:
      */
     Element* getParent() const;
 
-    /**
-     * @brief Returns the component of the parent of this element
-     */
-    rdr::Component* getParentComponent() const { return parent ? parent->component : nullptr; }
-
 protected:
     /**
      * @brief Builds a new Element
@@ -555,18 +550,6 @@ protected:
      * @param childRequester The child requesting to dirty this parent
      */
     virtual void requestMakeDirty(const Element* childRequester);
-
-    /**
-     * @brief Traverses the parent tree and returns the first window parent, or the GUI if none.
-     *        Will return this element if this element is one of those two types
-     */
-    rdr::Component* getWindowOrGuiParentComponent();
-
-    /**
-     * @brief Traverses the parent tree and returns the first window parent, or the GUI if none.
-     *        Will return this element if this element is one of those two types
-     */
-    Element& getWindowOrGuiParent();
 
     /**
      * @brief Returns the Ptr to this Element

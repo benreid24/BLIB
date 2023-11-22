@@ -90,7 +90,7 @@ void Component::assignDepth(float d) {
 }
 
 void Component::addToScene(rc::Overlay* overlay) {
-    Component* parent = owner->getParentComponent();
+    parent = owner->getParent() ? owner->getParent()->getComponent() : nullptr;
     // doCreate(*enginePtr, *renderer, parent, *this);
 
     if (owner->active()) {
