@@ -137,6 +137,10 @@ private:
             rectangle.stopFlashing();
             slideshow.stopFlashing();
         }
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) { rectangle.removeFromScene(); }
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+            rectangle.addToScene(scene, bl::rc::UpdateSpeed::Static);
+        }
     }
 };
 

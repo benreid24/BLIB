@@ -176,7 +176,10 @@ void DrawableSystem<T>::removeFromScene(ecs::Entity entity) {
 #endif
         return;
     }
-    if (c->sceneRef.scene) { erased.emplace_back(c->sceneRef); }
+    if (c->sceneRef.scene) {
+        erased.emplace_back(c->sceneRef);
+        c->sceneRef.scene = nullptr;
+    }
 }
 
 template<typename T>
