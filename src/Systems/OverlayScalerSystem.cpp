@@ -73,7 +73,7 @@ void OverlayScalerSystem::update(std::mutex&, float, float, float, float) {
 }
 
 void OverlayScalerSystem::refreshObjectAndChildren(Result& row) {
-    if (!row.entity().flagSet(ecs::Flags::Dummy)) { refreshEntity(row); }
+    refreshEntity(row);
     for (rc::ovy::OverlayObject* child : row.get<rc::ovy::OverlayObject>()->getChildren()) {
         refreshObjectAndChildren(*child);
     }
@@ -88,8 +88,19 @@ void OverlayScalerSystem::refreshObjectAndChildren(rc::ovy::OverlayObject& obj) 
 void OverlayScalerSystem::refreshEntity(Result& cset) {
     com::OverlayScaler& scaler  = *cset.get<com::OverlayScaler>();
     com::Transform2D& transform = *cset.get<com::Transform2D>();
-    const VkViewport& viewport  = *cset.get<rc::ovy::OverlayObject>()->overlayViewport;
-    glm::vec2 parentSize        = cam::OverlayCamera::getOverlayCoordinateSpace();
+    rc::ovy::OverlayObject& obj = *cset.get<rc::ovy::OverlayObject>();
+
+    // dummy entities only inherit scissor, all else is skipped
+    if (cset.entity().flagSet(ecs::Flags::Dummy)) {
+        if (!obj.hasParent()) {
+            BL_LOG_ERROR << "Root level dummy entities are not supported by OverlayScaler";
+        }
+        else { obj.cachedScissor = obj.getParent().cachedScissor; }
+        return;
+    }
+
+    const VkViewport& viewport = *obj.overlayViewport;
+    glm::vec2 parentSize       = cam::OverlayCamera::getOverlayCoordinateSpace();
     if (scaler.hasParent()) {
         parentSize.x =
             scaler.getParent().cachedObjectBounds.width * transform.getParent().getScale().x;
@@ -158,9 +169,8 @@ void OverlayScalerSystem::refreshEntity(Result& cset) {
     }
 
     // scissor
-    rc::ovy::OverlayObject& obj = *cset.get<rc::ovy::OverlayObject>();
-    VkRect2D& scissor           = cset.get<rc::ovy::OverlayObject>()->cachedScissor;
-    const glm::vec2 pos         = transform.getGlobalPosition();
+    VkRect2D& scissor   = cset.get<rc::ovy::OverlayObject>()->cachedScissor;
+    const glm::vec2 pos = transform.getGlobalPosition();
     switch (scaler.scissorMode) {
     case com::OverlayScaler::ScissorSelf:
     case com::OverlayScaler::ScissorSelfConstrained: {

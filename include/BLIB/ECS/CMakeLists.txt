@@ -2,7 +2,6 @@ target_sources(BLIB PUBLIC
     Cleaner.hpp
     ComponentMask.hpp
     ComponentPool.hpp
-    ComponentPoolImpl.hpp
     ComponentSet.hpp
     ComponentSetImpl.hpp
     DependencyGraph.hpp

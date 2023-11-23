@@ -47,29 +47,31 @@ void Overlay::renderScene(scene::SceneRenderContext& ctx) {
 
         if (obj.hidden) { continue; }
 
-        vkCmdSetScissor(ctx.getCommandBuffer(), 0, 1, &obj.cachedScissor);
+        if (!obj.entity.flagSet(ecs::Flags::Dummy)) {
+            vkCmdSetScissor(ctx.getCommandBuffer(), 0, 1, &obj.cachedScissor);
 
-        const vk::PipelineLayout& layout = obj.pipeline->pipelineLayout();
-        const VkPipelineLayout vkl       = layout.rawLayout();
-        const VkPipeline vkp             = obj.pipeline->rawPipeline(ctx.currentRenderPass());
-        if (vkl != currentPipelineLayout || currentSpeed != obj.sceneKey.updateFreq) {
-            currentSpeed          = obj.sceneKey.updateFreq;
-            currentPipelineLayout = vkl;
-            ctx.bindPipeline(*obj.pipeline);
-            ctx.bindDescriptors(obj.pipeline->pipelineLayout().rawLayout(),
-                                obj.sceneKey.updateFreq,
-                                obj.descriptors.data(),
-                                obj.descriptorCount);
+            const vk::PipelineLayout& layout = obj.pipeline->pipelineLayout();
+            const VkPipelineLayout vkl       = layout.rawLayout();
+            const VkPipeline vkp             = obj.pipeline->rawPipeline(ctx.currentRenderPass());
+            if (vkl != currentPipelineLayout || currentSpeed != obj.sceneKey.updateFreq) {
+                currentSpeed          = obj.sceneKey.updateFreq;
+                currentPipelineLayout = vkl;
+                ctx.bindPipeline(*obj.pipeline);
+                ctx.bindDescriptors(obj.pipeline->pipelineLayout().rawLayout(),
+                                    obj.sceneKey.updateFreq,
+                                    obj.descriptors.data(),
+                                    obj.descriptorCount);
+            }
+            else if (currentPipeline != vkp) {
+                currentPipeline = vkp;
+                ctx.bindPipeline(*obj.pipeline);
+            }
+            for (std::uint8_t i = obj.perObjStart; i < obj.descriptorCount; ++i) {
+                obj.descriptors[i]->bindForObject(
+                    ctx, obj.pipeline->pipelineLayout().rawLayout(), i, obj.sceneKey);
+            }
+            ctx.renderObject(obj);
         }
-        else if (currentPipeline != vkp) {
-            currentPipeline = vkp;
-            ctx.bindPipeline(*obj.pipeline);
-        }
-        for (std::uint8_t i = obj.perObjStart; i < obj.descriptorCount; ++i) {
-            obj.descriptors[i]->bindForObject(
-                ctx, obj.pipeline->pipelineLayout().rawLayout(), i, obj.sceneKey);
-        }
-        ctx.renderObject(obj);
 
         std::copy(obj.getChildren().rbegin(),
                   obj.getChildren().rend(),

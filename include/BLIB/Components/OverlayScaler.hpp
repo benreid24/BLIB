@@ -2,7 +2,6 @@
 #define BLIB_COMPONENTS_OVERLAYSCALER_HPP
 
 #include <BLIB/Components/Transform2D.hpp>
-#include <BLIB/ECS/Traits/IgnoresDummy.hpp>
 #include <BLIB/ECS/Traits/ParentAware.hpp>
 #include <SFML/Graphics/Rect.hpp>
 #include <functional>
@@ -38,9 +37,7 @@ namespace com
  *
  * @ingroup Components
  */
-class OverlayScaler
-: public ecs::trait::ParentAware<OverlayScaler>
-, public ecs::trait::IgnoresDummy {
+class OverlayScaler : public ecs::trait::ParentAware<OverlayScaler> {
 public:
     using OnScale = std::function<void()>;
 

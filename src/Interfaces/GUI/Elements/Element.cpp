@@ -441,7 +441,10 @@ void Element::prepareRender(rdr::Renderer& r) {
         component = doPrepareRender(r);
         prepareChildrenRender(r);
     }
-    else { addToScene(r); }
+    else {
+        r.addComponentToOverlayIfRequired(component);
+        prepareChildrenRender(r);
+    }
     updateUiState();
 
     if (highlightBehvaiorOverride.has_value()) {

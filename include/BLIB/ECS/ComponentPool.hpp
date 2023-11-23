@@ -135,16 +135,50 @@ private:
         if constexpr (std::is_base_of_v<trait::ChildAware<T>, T>) { addChild(child, parent); }
     }
 
-    void setParent(Entity child, Entity parent);
-    void addChild(Entity child, Entity parent);
+    void setParent(Entity child, Entity parent) {
+        T* childCom  = get(child);
+        T* parentCom = get(parent);
+
+        if (childCom && parentCom) { childCom->parent = parentCom; }
+        else {
+            // only child is checked before this is called so no log for bad parent
+            if (!childCom) { BL_LOG_ERROR << "Invalid child entity: " << child; }
+        }
+    }
+
+    void addChild(Entity child, Entity parent) {
+        T* parentCom = get(parent);
+        if (!parentCom) { return; }
+        T* childCom = get(child);
+        if (childCom) { parentCom->children.emplace_back(childCom); }
+        else { BL_LOG_ERROR << "Invalid child entity " << child << " for parent " << parent; }
+    }
 
     virtual void onParentRemove(Entity parent, Entity orphan) override {
         if constexpr (std::is_base_of_v<trait::ParentAware<T>, T>) { removeParent(orphan); }
         if constexpr (std::is_base_of_v<trait::ChildAware<T>, T>) { removeChild(parent, orphan); }
     }
 
-    void removeParent(Entity orphan);
-    void removeChild(Entity parent, Entity orphan);
+    void removeParent(Entity orphan) {
+        T* com = get(orphan);
+        if (com) { com->parent = nullptr; }
+        else { BL_LOG_WARN << "Invalid orphan entity: " << orphan; }
+    }
+
+    void removeChild(Entity parent, Entity orphan) {
+        T* pcom = get(parent);
+        if (!pcom) {
+            // only child is checked before this is called so no log for bad parent
+            return;
+        }
+        T* com = get(orphan);
+        if (com) {
+            auto& c = pcom->children;
+            auto it = std::find(c.begin(), c.end(), com);
+            if (it != c.end()) { c.erase(it); }
+        }
+        else { BL_LOG_ERROR << "Invalid orphan entity: " << parent; }
+    }
 
     friend class Registry;
 };

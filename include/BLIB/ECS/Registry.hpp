@@ -290,7 +290,6 @@ private:
 } // namespace ecs
 } // namespace bl
 
-#include <BLIB/ECS/ComponentPoolImpl.hpp>
 #include <BLIB/ECS/ComponentSetImpl.hpp>
 #include <BLIB/ECS/TagsImpl.hpp>
 #include <BLIB/ECS/ViewImpl.hpp>

@@ -96,7 +96,7 @@ protected:
      *
      * @param renderer The GUI renderer instance
      */
-    virtual void addChildrenToScene(rdr::Renderer& renderer);
+    virtual void addChildrenToScene(rdr::Renderer& renderer) override;
 
 private:
     Element* children[N];
