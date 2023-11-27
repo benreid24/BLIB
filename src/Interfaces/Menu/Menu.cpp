@@ -1,6 +1,5 @@
 #include <BLIB/Interfaces/Menu/Menu.hpp>
 
-#include <BLIB/Interfaces/Utilities/ViewUtil.hpp>
 #include <BLIB/Logging.hpp>
 #include <BLIB/Render/Primitives/Color.hpp>
 #include <queue>

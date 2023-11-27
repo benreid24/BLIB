@@ -2,7 +2,6 @@
 #define BLIB_INTERFACES_GUI_ELEMENTS_COMPOSITEELEMENT_HPP
 
 #include <BLIB/Interfaces/GUI/Elements/Element.hpp>
-#include <BLIB/Interfaces/Utilities/ViewUtil.hpp>
 
 namespace bl
 {

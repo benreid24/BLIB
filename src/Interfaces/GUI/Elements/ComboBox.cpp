@@ -2,7 +2,6 @@
 
 #include <BLIB/Interfaces/GUI/Packers/LinePacker.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Renderer.hpp>
-#include <BLIB/Interfaces/Utilities/ViewUtil.hpp>
 
 namespace bl
 {
