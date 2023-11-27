@@ -150,7 +150,11 @@ private:
         T* parentCom = get(parent);
         if (!parentCom) { return; }
         T* childCom = get(child);
-        if (childCom) { parentCom->children.emplace_back(childCom); }
+        if (childCom) {
+            auto& c       = parentCom->children;
+            const auto it = std::find(c.begin(), c.end(), childCom);
+            if (it == c.end()) { parentCom->children.emplace_back(childCom); }
+        }
         else { BL_LOG_ERROR << "Invalid child entity " << child << " for parent " << parent; }
     }
 
@@ -173,11 +177,11 @@ private:
         }
         T* com = get(orphan);
         if (com) {
-            auto& c = pcom->children;
-            auto it = std::find(c.begin(), c.end(), com);
+            auto& c       = pcom->children;
+            const auto it = std::find(c.begin(), c.end(), com);
             if (it != c.end()) { c.erase(it); }
         }
-        else { BL_LOG_ERROR << "Invalid orphan entity: " << parent; }
+        else { BL_LOG_ERROR << "Invalid orphan entity: " << orphan; }
     }
 
     friend class Registry;

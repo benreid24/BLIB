@@ -82,6 +82,8 @@ bool Registry::destroyEntity(Entity start) {
         }
 
         // add children
+        std::vector<Entity> toUnparent;
+        toUnparent.reserve(16);
         for (Entity child : parentGraph.getChildren(ent)) {
             const std::uint32_t j = child.getIndex();
             switch (parentDestructionBehaviors[j]) {
@@ -89,14 +91,18 @@ bool Registry::destroyEntity(Entity start) {
                 toVisit.emplace_back(child);
                 break;
             case ParentDestructionBehavior::OrphanedByParent:
-                removeEntityParentLocked(child);
+                toUnparent.emplace_back(child);
                 break;
             }
         }
+
+        // unparent outside of loop to avoid modifying child list
+        for (Entity child : toUnparent) { removeEntityParentLocked(child); }
     }
+
     // unparent top entity if there is a parent
-    const Entity parent = parentGraph.getParent(start);
-    if (parent != InvalidEntity) { removeEntityParentLocked(start); }
+    const std::uint32_t sindex = start.getIndex();
+    removeEntityParentLocked(start);
 
     // remove all discovered entities
     for (const Entity ent : toRemove) {

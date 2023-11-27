@@ -229,7 +229,7 @@ void DrawableSystem<T>::update(std::mutex& frameMutex, float dt, float, float, f
             T* c = registry->getComponent<T>(add.entity);
             if (!c) {
 #ifdef BLIB_DEBUG
-                BL_LOG_WARN << "Entity erased before it could be added to scene";
+                BL_LOG_DEBUG << "Entity erased before it could be added to scene: " << add.entity;
 #endif
                 continue;
             }

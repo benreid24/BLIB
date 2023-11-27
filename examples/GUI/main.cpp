@@ -225,7 +225,7 @@ private:
     }
 
     void onFilePick(const std::string& file) {
-        std::cout << "Selected file '" << file << "'";
+        std::cout << "Selected file '" << file << "'\n";
         filePicker.close();
     }
 };
