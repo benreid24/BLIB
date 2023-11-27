@@ -19,7 +19,7 @@ Box::Ptr Box::create(Packer::Ptr packer) {
 Box::Box(Packer::Ptr packer)
 : Container()
 , packer(packer)
-, computeView(true) {}
+, computeView(false) {}
 
 void Box::setConstrainView(bool c) {
     computeView = c;
