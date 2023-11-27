@@ -3,6 +3,7 @@
 #include <BLIB/Cameras/OverlayCamera.hpp>
 #include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Render/Config.hpp>
+#include <BLIB/Render/Events/SceneObjectRemoved.hpp>
 #include <BLIB/Render/Renderer.hpp>
 
 namespace bl
@@ -106,8 +107,10 @@ scene::SceneObject* Overlay::doAdd(ecs::Entity entity, rcom::DrawableBase& objec
 
 void Overlay::queueObjectRemoval(scene::SceneObject* object, std::uint32_t) {
     ovy::OverlayObject* obj = static_cast<ovy::OverlayObject*>(object);
+
     removalQueue.emplace_back(obj->entity, obj->sceneKey, obj->descriptors, obj->descriptorCount);
-    for (ovy::OverlayObject* child : obj->getChildren()) {
+    auto childCopy = obj->getChildren();
+    for (ovy::OverlayObject* child : childCopy) {
         if (engine.ecs().getEntityParentDestructionBehavior(child->entity) !=
             ecs::ParentDestructionBehavior::OrphanedByParent) {
             removeObject(child);
@@ -121,14 +124,13 @@ void Overlay::queueObjectRemoval(scene::SceneObject* object, std::uint32_t) {
     }
 
     engine.ecs().removeComponent<ovy::OverlayObject>(obj->entity);
+    bl::event::Dispatcher::dispatch<rc::event::SceneObjectRemoved>({this, obj->entity});
 }
 
 void Overlay::removeQueuedObjects() {
     for (auto& obj : removalQueue) {
-        const ecs::Entity entity = obj.entity;
-
         for (unsigned int i = 0; i < obj.descriptorCount; ++i) {
-            obj.descriptors[i]->releaseObject(entity, obj.sceneKey);
+            obj.descriptors[i]->releaseObject(obj.entity, obj.sceneKey);
         }
         objects.release(obj.sceneKey);
     }

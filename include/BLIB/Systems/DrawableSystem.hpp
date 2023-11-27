@@ -9,6 +9,7 @@
 #include <BLIB/Render/Components/DrawableBase.hpp>
 #include <BLIB/Render/Components/SceneObjectRef.hpp>
 #include <BLIB/Render/Events/SceneDestroyed.hpp>
+#include <BLIB/Render/Events/SceneObjectRemoved.hpp>
 #include <BLIB/Render/Overlays/Overlay.hpp>
 #include <BLIB/Render/Scenes/Scene.hpp>
 #include <BLIB/Render/Scenes/SceneObject.hpp>
@@ -31,7 +32,8 @@ namespace sys
 template<typename T>
 class DrawableSystem
 : public engine::System
-, public bl::event::Listener<ecs::event::ComponentRemoved<T>, rc::event::SceneDestroyed> {
+, public bl::event::Listener<ecs::event::ComponentRemoved<T>, rc::event::SceneDestroyed,
+                             rc::event::SceneObjectRemoved> {
 public:
     /**
      * @brief Initializes the system internals
@@ -113,6 +115,7 @@ private:
 
     virtual void observe(const ecs::event::ComponentRemoved<T>& rm) override;
     virtual void observe(const rc::event::SceneDestroyed& rm) override;
+    virtual void observe(const rc::event::SceneObjectRemoved& rm) override;
     virtual void init(engine::Engine& engine) override;
     virtual void update(std::mutex& mutex, float dt, float, float, float) override;
 };
@@ -200,6 +203,12 @@ void DrawableSystem<T>::observe(const rc::event::SceneDestroyed& rm) {
     registry->getAllComponents<T>().forEach([&rm](ecs::Entity, T& c) {
         if (c.sceneRef.scene == rm.scene) { c.sceneRef.scene = nullptr; }
     });
+}
+
+template<typename T>
+void DrawableSystem<T>::observe(const rc::event::SceneObjectRemoved& rm) {
+    T* c = registry->getComponent<T>(rm.entity);
+    if (c) { c->sceneRef.scene = nullptr; }
 }
 
 template<typename T>

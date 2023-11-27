@@ -90,8 +90,6 @@ void Component::assignDepth(float d) {
 }
 
 void Component::addToScene(rc::Overlay* overlay) {
-    BL_LOG_INFO << "Adding component to scene: " << getEntity();
-
     parent = owner->getParent() ? owner->getParent()->getComponent() : nullptr;
 
     if (owner->active()) {

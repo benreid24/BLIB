@@ -2,7 +2,9 @@
 
 #include <BLIB/Components/BatchSceneLink.hpp>
 #include <BLIB/Engine/Engine.hpp>
+#include <BLIB/Events.hpp>
 #include <BLIB/Logging.hpp>
+#include <BLIB/Render/Events/SceneObjectRemoved.hpp>
 #include <BLIB/Render/Renderer.hpp>
 
 namespace bl
@@ -102,6 +104,9 @@ void BatchedScene::queueObjectRemoval(scene::SceneObject* object, std::uint32_t 
     for (com::BatchSceneLink* child : link->getChildren()) {
         removeObject(&objects.getObject(child->key));
     }
+
+    // fire event
+    bl::event::Dispatcher::dispatch<rc::event::SceneObjectRemoved>({this, entity});
 }
 
 void BatchedScene::removeQueuedObjects() {
