@@ -66,28 +66,30 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01833.html">bl</a></li><li class="navelem"><a class="el" href="a01836.html">serial</a></li><li class="navelem"><a class="el" href="a01888.html">json</a></li><li class="navelem"><a class="el" href="a03791.html">Serializer&lt; T, false &gt;</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02058.html">bl</a></li><li class="navelem"><a class="el" href="a02070.html">rc</a></li><li class="navelem"><a class="el" href="a02071.html">vk</a></li><li class="navelem"><a class="el" href="a03791.html">Framebuffer</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">bl::serial::json::Serializer&lt; T, false &gt; Member List</div>  </div>
+<div class="title">bl::rc::vk::Framebuffer Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a03791.html">bl::serial::json::Serializer&lt; T, false &gt;</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a03791.html">bl::rc::vk::Framebuffer</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a03791.html#a571c5af769988265bf042a009c10c5c2">deserialize</a>(T &amp;result, const Value &amp;value)</td><td class="entry"><a class="el" href="a03791.html">bl::serial::json::Serializer&lt; T, false &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a03791.html#a8214dcfd168a8902892cd7c51cb830a8">deserializeFrom</a>(const Value &amp;val, const std::string &amp;name, T &amp;result)</td><td class="entry"><a class="el" href="a03791.html">bl::serial::json::Serializer&lt; T, false &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a03791.html#a5ca12aa3a0ea22ba1c3c7dc6817e7ca8">deserializeStream</a>(std::istream &amp;stream, T &amp;result)</td><td class="entry"><a class="el" href="a03791.html">bl::serial::json::Serializer&lt; T, false &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a03791.html#a1878c915a6b898918277b7da2e47653e">serialize</a>(const T &amp;value)</td><td class="entry"><a class="el" href="a03791.html">bl::serial::json::Serializer&lt; T, false &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a03791.html#a4378989448101ca3e182edc3ac49343a">serializeInto</a>(Group &amp;result, const std::string &amp;name, const T &amp;val)</td><td class="entry"><a class="el" href="a03791.html">bl::serial::json::Serializer&lt; T, false &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a03791.html#ac2b8d5a82d2b63ea12b6bf9c93c7c736">serializeStream</a>(std::ostream &amp;stream, const T &amp;value, unsigned int tabSize, unsigned int currentIndent)</td><td class="entry"><a class="el" href="a03791.html">bl::serial::json::Serializer&lt; T, false &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a03791.html#ad293c2a38590323eaad5eb1db8a8cab9">beginRender</a>(VkCommandBuffer commandBuffer, const VkRect2D &amp;region, const VkClearValue *clearColors, std::uint32_t clearColorCount, bool setViewport=true, VkRenderPass renderPass=nullptr) const</td><td class="entry"><a class="el" href="a03791.html">bl::rc::vk::Framebuffer</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a03791.html#a78b12eff614ce0a570bd72ed3c20ed6d">cleanup</a>()</td><td class="entry"><a class="el" href="a03791.html">bl::rc::vk::Framebuffer</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a03791.html#a87b11f36b2c275c83ad0d07302eb3ae6">create</a>(VulkanState &amp;vulkanState, VkRenderPass renderPass, const vk::AttachmentSet &amp;target)</td><td class="entry"><a class="el" href="a03791.html">bl::rc::vk::Framebuffer</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a03791.html#ab37b7f6a5cf70cbfad202b58b83a7f3a">deferCleanup</a>()</td><td class="entry"><a class="el" href="a03791.html">bl::rc::vk::Framebuffer</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a03791.html#a89578f57aa18fa98319129860fb930ca">finishRender</a>(VkCommandBuffer commandBuffer) const</td><td class="entry"><a class="el" href="a03791.html">bl::rc::vk::Framebuffer</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a03791.html#aad02c212251c31f9524dbe1dbe1448a7">Framebuffer</a>()</td><td class="entry"><a class="el" href="a03791.html">bl::rc::vk::Framebuffer</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a03791.html#acfaf7d553d0d09a4fdaa0df2677495a9">recreateIfChanged</a>(const vk::AttachmentSet &amp;target)</td><td class="entry"><a class="el" href="a03791.html">bl::rc::vk::Framebuffer</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a03791.html#a70c511ea95f29b9e581c1d88797d0923">~Framebuffer</a>()</td><td class="entry"><a class="el" href="a03791.html">bl::rc::vk::Framebuffer</a></td><td class="entry"></td></tr>
 </table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 25 2023 00:24:24 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 27 2023 23:34:43 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Math/Interpolate.hpp Source File</title>
+<title>BLIB: include/BLIB/Interfaces/GUI/Renderer/Basic/RadioButtonComponent.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,52 +66,91 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_e9abbcd9e0c082db5b09973bee2e6f6b.html">Math</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4a89db2e42278000e6aac6ace9db278e.html">Interfaces</a></li><li class="navelem"><a class="el" href="dir_488290d74f9e6b3540591d02cc875229.html">GUI</a></li><li class="navelem"><a class="el" href="dir_d5cd77a65f52f9a63455a724bc15c589.html">Renderer</a></li><li class="navelem"><a class="el" href="dir_c6abb0a9a0ffd97b434d53646f50bd53.html">Basic</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Interpolate.hpp</div>  </div>
+<div class="title">RadioButtonComponent.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00503.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_MATH_INTERPOLATE_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_MATH_INTERPOLATE_HPP</span></div>
+<a href="a00503.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_GUI_RENDERER_COMPONENTS_RADIOBUTTONCOMPONENT_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_GUI_RENDERER_COMPONENTS_RADIOBUTTONCOMPONENT_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01833.html">bl</a></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;{</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>math</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a01817.html#ga8753daa77ceb8a99501d08876804bd00">   22</a></span>&#160;T <a class="code" href="a01817.html#ga8753daa77ceb8a99501d08876804bd00">interpolate</a>(T originStart, T originEnd, T destStart, T destEnd, T value) {</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keyword">const</span> T fr = originEnd - originStart;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keyword">const</span> T dr = destEnd - destStart;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordflow">return</span> (value - originStart) / fr * dr + destStart;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;}</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="a01817.html#ga6830e4fa6ad4c4737f34c0ea10cfa12e">   44</a></span>&#160;T <a class="code" href="a01817.html#ga8753daa77ceb8a99501d08876804bd00">interpolate</a>(T originStart, T originMid, T originEnd, T destStart, T destEnd, T value) {</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keyword">const</span> T destMid = (destEnd + destStart) / <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(2);</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordflow">return</span> value &lt;= originMid ? <a class="code" href="a01817.html#ga8753daa77ceb8a99501d08876804bd00">interpolate</a>(originStart, originMid, destStart, destMid, value) :</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;                                <a class="code" href="a01817.html#ga8753daa77ceb8a99501d08876804bd00">interpolate</a>(originMid, originEnd, destMid, destEnd, value);</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;}</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="a01817.html#ga51b3900901959abab6d527e6f849fab5">   67</a></span>&#160;T <a class="code" href="a01817.html#ga8753daa77ceb8a99501d08876804bd00">interpolate</a>(T originStart, T originMid, T originEnd, T destStart, T destMid, T destEnd, T value) {</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordflow">return</span> value &lt;= originMid ? <a class="code" href="a01817.html#ga8753daa77ceb8a99501d08876804bd00">interpolate</a>(originStart, originMid, destStart, destMid, value) :</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;                                <a class="code" href="a01817.html#ga8753daa77ceb8a99501d08876804bd00">interpolate</a>(originMid, originEnd, destMid, destEnd, value);</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;}</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;} <span class="comment">// namespace math</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00290.html">BLIB/Graphics/Circle.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00305.html">BLIB/Graphics/Dummy2D.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00527.html">BLIB/Interfaces/GUI/Renderer/Component.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02058.html">bl</a></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>gui</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>defcoms</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a03075.html">   19</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03075.html">RadioButtonComponent</a> : <span class="keyword">public</span> <a class="code" href="a03107.html">rdr::Component</a> {</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <a class="code" href="a03075.html#ac7b7af83e5ae9f34e8906af3c6a2d182">RadioButtonComponent</a>();</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a03075.html#ad258e562ee9152bbc7d3361d1faab7e1">   29</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03075.html#ad258e562ee9152bbc7d3361d1faab7e1">~RadioButtonComponent</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03075.html#af807686ff1e19fa196ae44924ebb977b">setVisible</a>(<span class="keywordtype">bool</span> visible) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03075.html#ace046ad2b015399e24bdc55aa4a184f6">onElementUpdated</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03075.html#a8c0bd06191e87364368b72991ea5d131">onRenderSettingChange</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02459.html">ecs::Entity</a> <a class="code" href="a03075.html#a7b239f314c5172808e710e316cea967f">getEntity</a>() <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03075.html#a6c0f7358636c38c70f318974e1e7d9b4">doCreate</a>(<a class="code" href="a02555.html">engine::Engine</a>&amp; engine, <a class="code" href="a03147.html">rdr::Renderer</a>&amp; renderer) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03075.html#ae1e39401fb2daec0553cc84cd136deec">doSceneAdd</a>(<a class="code" href="a03575.html">rc::Overlay</a>* overlay) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03075.html#a814629286fd2d98ca147697584820fbe">doSceneRemove</a>() <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01817_html_ga8753daa77ceb8a99501d08876804bd00"><div class="ttname"><a href="a01817.html#ga8753daa77ceb8a99501d08876804bd00">bl::math::interpolate</a></div><div class="ttdeci">T interpolate(T originStart, T originEnd, T destStart, T destEnd, T value)</div><div class="ttdoc">Linearly interpolate a value from one range to another.</div><div class="ttdef"><b>Definition:</b> <a href="a00503_source.html#l00022">Interpolate.hpp:22</a></div></div>
-<div class="ttc" id="aa01833_html"><div class="ttname"><a href="a01833.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03075.html#a9bdd4c15ba1f63e63685a483c1923f53">handleAcquisition</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03075.html#a979bb049a77ccf93f1f3f4896eb50d06">handleMove</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <a class="code" href="a02747.html">gfx::Dummy2D</a> dummy;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <a class="code" href="a02719.html">gfx::Circle</a> circle;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <a class="code" href="a02719.html">gfx::Circle</a> fill;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;};</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;} <span class="comment">// namespace defcoms</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;} <span class="comment">// namespace gui</span></div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00290_html"><div class="ttname"><a href="a00290.html">Circle.hpp</a></div></div>
+<div class="ttc" id="aa00305_html"><div class="ttname"><a href="a00305.html">Dummy2D.hpp</a></div></div>
+<div class="ttc" id="aa00527_html"><div class="ttname"><a href="a00527.html">Component.hpp</a></div></div>
+<div class="ttc" id="aa02058_html"><div class="ttname"><a href="a02058.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02459_html"><div class="ttname"><a href="a02459.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition:</b> <a href="a00161_source.html#l00024">Entity.hpp:24</a></div></div>
+<div class="ttc" id="aa02555_html"><div class="ttname"><a href="a02555.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a05599_source.html#l00032">Engine.hpp:32</a></div></div>
+<div class="ttc" id="aa02719_html"><div class="ttname"><a href="a02719.html">bl::gfx::Circle</a></div><div class="ttdoc">Basic circle that can be rendered in scenes.</div><div class="ttdef"><b>Definition:</b> <a href="a00290_source.html#l00016">Circle.hpp:16</a></div></div>
+<div class="ttc" id="aa02747_html"><div class="ttname"><a href="a02747.html">bl::gfx::Dummy2D</a></div><div class="ttdoc">Dummy graphical entity that is not actually drawn. Useful for anchoring in parent trees.</div><div class="ttdef"><b>Definition:</b> <a href="a00305_source.html#l00022">Dummy2D.hpp:24</a></div></div>
+<div class="ttc" id="aa03075_html"><div class="ttname"><a href="a03075.html">bl::gui::defcoms::RadioButtonComponent</a></div><div class="ttdoc">Default component type for RadioButton elements.</div><div class="ttdef"><b>Definition:</b> <a href="a00503_source.html#l00019">RadioButtonComponent.hpp:19</a></div></div>
+<div class="ttc" id="aa03075_html_a6c0f7358636c38c70f318974e1e7d9b4"><div class="ttname"><a href="a03075.html#a6c0f7358636c38c70f318974e1e7d9b4">bl::gui::defcoms::RadioButtonComponent::doCreate</a></div><div class="ttdeci">virtual void doCreate(engine::Engine &amp;engine, rdr::Renderer &amp;renderer) override</div><div class="ttdoc">Creates the component.</div><div class="ttdef"><b>Definition:</b> <a href="a01559_source.html#l00034">RadioButtonComponent.cpp:34</a></div></div>
+<div class="ttc" id="aa03075_html_a7b239f314c5172808e710e316cea967f"><div class="ttname"><a href="a03075.html#a7b239f314c5172808e710e316cea967f">bl::gui::defcoms::RadioButtonComponent::getEntity</a></div><div class="ttdeci">virtual ecs::Entity getEntity() const override</div><div class="ttdoc">Derived classes should return the ECS entity that children should parent themselves to.</div><div class="ttdef"><b>Definition:</b> <a href="a01559_source.html#l00032">RadioButtonComponent.cpp:32</a></div></div>
+<div class="ttc" id="aa03075_html_a814629286fd2d98ca147697584820fbe"><div class="ttname"><a href="a03075.html#a814629286fd2d98ca147697584820fbe">bl::gui::defcoms::RadioButtonComponent::doSceneRemove</a></div><div class="ttdeci">virtual void doSceneRemove() override</div><div class="ttdoc">Removes the component from the scene.</div><div class="ttdef"><b>Definition:</b> <a href="a01559_source.html#l00051">RadioButtonComponent.cpp:51</a></div></div>
+<div class="ttc" id="aa03075_html_a8c0bd06191e87364368b72991ea5d131"><div class="ttname"><a href="a03075.html#a8c0bd06191e87364368b72991ea5d131">bl::gui::defcoms::RadioButtonComponent::onRenderSettingChange</a></div><div class="ttdeci">virtual void onRenderSettingChange() override</div><div class="ttdoc">Called when the owning elements render settings are changed.</div><div class="ttdef"><b>Definition:</b> <a href="a01559_source.html#l00022">RadioButtonComponent.cpp:22</a></div></div>
+<div class="ttc" id="aa03075_html_a979bb049a77ccf93f1f3f4896eb50d06"><div class="ttname"><a href="a03075.html#a979bb049a77ccf93f1f3f4896eb50d06">bl::gui::defcoms::RadioButtonComponent::handleMove</a></div><div class="ttdeci">virtual void handleMove() override</div><div class="ttdoc">Positions the component when it should move.</div><div class="ttdef"><b>Definition:</b> <a href="a01559_source.html#l00061">RadioButtonComponent.cpp:61</a></div></div>
+<div class="ttc" id="aa03075_html_a9bdd4c15ba1f63e63685a483c1923f53"><div class="ttname"><a href="a03075.html#a9bdd4c15ba1f63e63685a483c1923f53">bl::gui::defcoms::RadioButtonComponent::handleAcquisition</a></div><div class="ttdeci">virtual void handleAcquisition() override</div><div class="ttdoc">Configures the component for the new acquisition.</div><div class="ttdef"><b>Definition:</b> <a href="a01559_source.html#l00053">RadioButtonComponent.cpp:53</a></div></div>
+<div class="ttc" id="aa03075_html_ac7b7af83e5ae9f34e8906af3c6a2d182"><div class="ttname"><a href="a03075.html#ac7b7af83e5ae9f34e8906af3c6a2d182">bl::gui::defcoms::RadioButtonComponent::RadioButtonComponent</a></div><div class="ttdeci">RadioButtonComponent()</div><div class="ttdoc">Creates the component.</div><div class="ttdef"><b>Definition:</b> <a href="a01559_source.html#l00012">RadioButtonComponent.cpp:12</a></div></div>
+<div class="ttc" id="aa03075_html_ace046ad2b015399e24bdc55aa4a184f6"><div class="ttname"><a href="a03075.html#ace046ad2b015399e24bdc55aa4a184f6">bl::gui::defcoms::RadioButtonComponent::onElementUpdated</a></div><div class="ttdeci">virtual void onElementUpdated() override</div><div class="ttdoc">Called when element state changes. This is element specific, but can mean toggle state,...</div><div class="ttdef"><b>Definition:</b> <a href="a01559_source.html#l00017">RadioButtonComponent.cpp:17</a></div></div>
+<div class="ttc" id="aa03075_html_ad258e562ee9152bbc7d3361d1faab7e1"><div class="ttname"><a href="a03075.html#ad258e562ee9152bbc7d3361d1faab7e1">bl::gui::defcoms::RadioButtonComponent::~RadioButtonComponent</a></div><div class="ttdeci">virtual ~RadioButtonComponent()=default</div><div class="ttdoc">Destroys the component.</div></div>
+<div class="ttc" id="aa03075_html_ae1e39401fb2daec0553cc84cd136deec"><div class="ttname"><a href="a03075.html#ae1e39401fb2daec0553cc84cd136deec">bl::gui::defcoms::RadioButtonComponent::doSceneAdd</a></div><div class="ttdeci">virtual void doSceneAdd(rc::Overlay *overlay) override</div><div class="ttdoc">Adds the component to the scene.</div><div class="ttdef"><b>Definition:</b> <a href="a01559_source.html#l00046">RadioButtonComponent.cpp:46</a></div></div>
+<div class="ttc" id="aa03075_html_af807686ff1e19fa196ae44924ebb977b"><div class="ttname"><a href="a03075.html#af807686ff1e19fa196ae44924ebb977b">bl::gui::defcoms::RadioButtonComponent::setVisible</a></div><div class="ttdeci">virtual void setVisible(bool visible) override</div><div class="ttdoc">Toggle the visibility of the UI component.</div><div class="ttdef"><b>Definition:</b> <a href="a01559_source.html#l00015">RadioButtonComponent.cpp:15</a></div></div>
+<div class="ttc" id="aa03107_html"><div class="ttname"><a href="a03107.html">bl::gui::rdr::Component</a></div><div class="ttdoc">Base class for renderer components. Each GUI element owns a handle to a component owned by the render...</div><div class="ttdef"><b>Definition:</b> <a href="a00527_source.html#l00031">Component.hpp:31</a></div></div>
+<div class="ttc" id="aa03147_html"><div class="ttname"><a href="a03147.html">bl::gui::rdr::Renderer</a></div><div class="ttdoc">Top level GUI renderer. Manages components for elements. Behavior can be controlled by providing a di...</div><div class="ttdef"><b>Definition:</b> <a href="a05638_source.html#l00027">Renderer.hpp:27</a></div></div>
+<div class="ttc" id="aa03575_html"><div class="ttname"><a href="a03575.html">bl::rc::Overlay</a></div><div class="ttdoc">Special type of scene specialized for 2d overlays with fixed cameras. Objects are organized into a tr...</div><div class="ttdef"><b>Definition:</b> <a href="a00836_source.html#l00036">Overlay.hpp:38</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 25 2023 00:24:20 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 27 2023 23:34:40 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

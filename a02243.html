@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::ecs::event::ComponentRemoved&lt; T &gt; Struct Template Reference</title>
+<title>BLIB: bl::cam::Camera Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,75 +66,333 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01833.html">bl</a></li><li class="navelem"><a class="el" href="a01848.html">ecs</a></li><li class="navelem"><a class="el" href="a01851.html">event</a></li><li class="navelem"><a class="el" href="a02243.html">ComponentRemoved</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02058.html">bl</a></li><li class="navelem"><a class="el" href="a02062.html">cam</a></li><li class="navelem"><a class="el" href="a02243.html">Camera</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="a02240.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::ecs::event::ComponentRemoved&lt; T &gt; Struct Template Reference<div class="ingroups"><a class="el" href="a01810.html">ECS</a></div></div>  </div>
+<div class="title">bl::cam::Camera Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span><div class="ingroups"><a class="el" href="a02032.html">Cameras</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Fired right before a component is removed from an entity.  
+<p>Base class for all cameras.  
  <a href="a02243.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a05097_source.html">Events.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00047_source.html">Camera.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::cam::Camera:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a02243.png" usemap="#bl::cam::Camera_map" alt=""/>
+  <map id="bl::cam::Camera_map" name="bl::cam::Camera_map">
+<area href="a02207.html" title="Camera for 2d scenes." alt="bl::cam::Camera2D" shape="rect" coords="0,56,147,80"/>
+<area href="a02227.html" title="Camera for 3d scenes." alt="bl::cam::Camera3D" shape="rect" coords="157,56,304,80"/>
+<area href="a02247.html" title="Special camera that provides a fixed view for overlays." alt="bl::cam::OverlayCamera" shape="rect" coords="314,56,461,80"/>
+  </map>
+</div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a55e5181c2b2351103a380bd07a575051"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02243.html#a55e5181c2b2351103a380bd07a575051">ComponentRemoved</a> (<a class="el" href="a02223.html">Entity</a> e, const T &amp;<a class="el" href="a02243.html#a57d018ac7fd101b5ae87980bbe54d9b4">component</a>)</td></tr>
-<tr class="memdesc:a55e5181c2b2351103a380bd07a575051"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a02243.html" title="Fired right before a component is removed from an entity.">ComponentRemoved</a> event.  <a href="a02243.html#a55e5181c2b2351103a380bd07a575051">More...</a><br /></td></tr>
-<tr class="separator:a55e5181c2b2351103a380bd07a575051"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a434913b782c5325363c947a70959f3c9"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02243.html#a434913b782c5325363c947a70959f3c9">~Camera</a> ()=default</td></tr>
+<tr class="memdesc:a434913b782c5325363c947a70959f3c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the <a class="el" href="a02243.html" title="Base class for all cameras.">Camera</a> object.  <a href="a02243.html#a434913b782c5325363c947a70959f3c9">More...</a><br /></td></tr>
+<tr class="separator:a434913b782c5325363c947a70959f3c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afcc126b9a6540652fe62605674fcd190"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02243.html#afcc126b9a6540652fe62605674fcd190">update</a> (float dt)=0</td></tr>
+<tr class="memdesc:afcc126b9a6540652fe62605674fcd190"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the camera.  <a href="a02243.html#afcc126b9a6540652fe62605674fcd190">More...</a><br /></td></tr>
+<tr class="separator:afcc126b9a6540652fe62605674fcd190"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa7d175dedf0a83d5acb4abdd7931109f"><td class="memItemLeft" align="right" valign="top">const glm::mat4 &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02243.html#aa7d175dedf0a83d5acb4abdd7931109f">getViewMatrix</a> ()</td></tr>
+<tr class="memdesc:aa7d175dedf0a83d5acb4abdd7931109f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the view matrix of this camera.  <a href="a02243.html#aa7d175dedf0a83d5acb4abdd7931109f">More...</a><br /></td></tr>
+<tr class="separator:aa7d175dedf0a83d5acb4abdd7931109f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf354685b1d274c379fe085076fa4051"><td class="memItemLeft" align="right" valign="top">const glm::mat4 &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02243.html#acf354685b1d274c379fe085076fa4051">getProjectionMatrix</a> (const VkViewport &amp;viewport)</td></tr>
+<tr class="memdesc:acf354685b1d274c379fe085076fa4051"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the projection matrix of this camera for the given viewport.  <a href="a02243.html#acf354685b1d274c379fe085076fa4051">More...</a><br /></td></tr>
+<tr class="separator:acf354685b1d274c379fe085076fa4051"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a395d70678534a5f5b6495bbb5c832598"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02243.html#a395d70678534a5f5b6495bbb5c832598">setNearPlane</a> (float nearValue)</td></tr>
+<tr class="memdesc:a395d70678534a5f5b6495bbb5c832598"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the near plane distance.  <a href="a02243.html#a395d70678534a5f5b6495bbb5c832598">More...</a><br /></td></tr>
+<tr class="separator:a395d70678534a5f5b6495bbb5c832598"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a5b4868ae35b77f52c2f878b18bcc59"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02243.html#a5a5b4868ae35b77f52c2f878b18bcc59">setFarPlane</a> (float farValue)</td></tr>
+<tr class="memdesc:a5a5b4868ae35b77f52c2f878b18bcc59"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the far plane distance.  <a href="a02243.html#a5a5b4868ae35b77f52c2f878b18bcc59">More...</a><br /></td></tr>
+<tr class="separator:a5a5b4868ae35b77f52c2f878b18bcc59"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60e436aa6a89793a9e3fd8c3b0378fbf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02243.html#a60e436aa6a89793a9e3fd8c3b0378fbf">setNearAndFarPlanes</a> (float nearValue, float farValue)</td></tr>
+<tr class="memdesc:a60e436aa6a89793a9e3fd8c3b0378fbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the distance to the near and far planes.  <a href="a02243.html#a60e436aa6a89793a9e3fd8c3b0378fbf">More...</a><br /></td></tr>
+<tr class="separator:a60e436aa6a89793a9e3fd8c3b0378fbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a201cfc76b1c51906b1d11ce8da5191e2"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a02223.html">Entity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02243.html#a201cfc76b1c51906b1d11ce8da5191e2">entity</a></td></tr>
-<tr class="memdesc:a201cfc76b1c51906b1d11ce8da5191e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">The entity the component belongs to.  <a href="a02243.html#a201cfc76b1c51906b1d11ce8da5191e2">More...</a><br /></td></tr>
-<tr class="separator:a201cfc76b1c51906b1d11ce8da5191e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a57d018ac7fd101b5ae87980bbe54d9b4"><td class="memItemLeft" align="right" valign="top">const T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02243.html#a57d018ac7fd101b5ae87980bbe54d9b4">component</a></td></tr>
-<tr class="memdesc:a57d018ac7fd101b5ae87980bbe54d9b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">The component that is about to be removed.  <a href="a02243.html#a57d018ac7fd101b5ae87980bbe54d9b4">More...</a><br /></td></tr>
-<tr class="separator:a57d018ac7fd101b5ae87980bbe54d9b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a371f8cb60ba6a690287f556a91163fa8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02243.html#a371f8cb60ba6a690287f556a91163fa8">Camera</a> ()</td></tr>
+<tr class="memdesc:a371f8cb60ba6a690287f556a91163fa8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a02243.html" title="Base class for all cameras.">Camera</a>.  <a href="a02243.html#a371f8cb60ba6a690287f556a91163fa8">More...</a><br /></td></tr>
+<tr class="separator:a371f8cb60ba6a690287f556a91163fa8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a194c42e28c9bc4558095265ca862e761"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02243.html#a194c42e28c9bc4558095265ca862e761">markViewDirty</a> ()</td></tr>
+<tr class="memdesc:a194c42e28c9bc4558095265ca862e761"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mark the view matrix as needing to be refreshed on next use.  <a href="a02243.html#a194c42e28c9bc4558095265ca862e761">More...</a><br /></td></tr>
+<tr class="separator:a194c42e28c9bc4558095265ca862e761"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8db0b22739ed85a8dc29ec7082d04640"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02243.html#a8db0b22739ed85a8dc29ec7082d04640">markProjDirty</a> ()</td></tr>
+<tr class="memdesc:a8db0b22739ed85a8dc29ec7082d04640"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marks the projection matrix as needing to be refreshed on next use.  <a href="a02243.html#a8db0b22739ed85a8dc29ec7082d04640">More...</a><br /></td></tr>
+<tr class="separator:a8db0b22739ed85a8dc29ec7082d04640"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad997afe84942385e1fc059ad44d59782"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02243.html#ad997afe84942385e1fc059ad44d59782">refreshViewMatrix</a> (glm::mat4 &amp;view)=0</td></tr>
+<tr class="memdesc:ad997afe84942385e1fc059ad44d59782"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the view matrix needs to be refreshed.  <a href="a02243.html#ad997afe84942385e1fc059ad44d59782">More...</a><br /></td></tr>
+<tr class="separator:ad997afe84942385e1fc059ad44d59782"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad84589ac3d7c29b7ef31ba89729c4860"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02243.html#ad84589ac3d7c29b7ef31ba89729c4860">refreshProjMatrix</a> (glm::mat4 &amp;proj, const VkViewport &amp;viewport)=0</td></tr>
+<tr class="memdesc:ad84589ac3d7c29b7ef31ba89729c4860"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the projection matrix needs to be refreshed.  <a href="a02243.html#ad84589ac3d7c29b7ef31ba89729c4860">More...</a><br /></td></tr>
+<tr class="separator:ad84589ac3d7c29b7ef31ba89729c4860"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c66151fa1d297f82526d18b38836c2f"><td class="memItemLeft" align="right" valign="top">constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02243.html#a9c66151fa1d297f82526d18b38836c2f">nearPlane</a> () const</td></tr>
+<tr class="memdesc:a9c66151fa1d297f82526d18b38836c2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the distance to the near plane.  <a href="a02243.html#a9c66151fa1d297f82526d18b38836c2f">More...</a><br /></td></tr>
+<tr class="separator:a9c66151fa1d297f82526d18b38836c2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e2441211f24e3d0c682ea3ecfe1b168"><td class="memItemLeft" align="right" valign="top">constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02243.html#a8e2441211f24e3d0c682ea3ecfe1b168">farPlane</a> () const</td></tr>
+<tr class="memdesc:a8e2441211f24e3d0c682ea3ecfe1b168"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the distance to the far plane.  <a href="a02243.html#a8e2441211f24e3d0c682ea3ecfe1b168">More...</a><br /></td></tr>
+<tr class="separator:a8e2441211f24e3d0c682ea3ecfe1b168"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename T&gt;<br />
-struct bl::ecs::event::ComponentRemoved&lt; T &gt;</h3>
+<div class="textblock"><p>Base class for all cameras. </p>
 
-<p>Fired right before a component is removed from an entity. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">T</td><td>The type of component that is about to be removed </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a05097_source.html#l00070">70</a> of file <a class="el" href="a05097_source.html">Events.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00047_source.html#l00017">17</a> of file <a class="el" href="a00047_source.html">Camera.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a55e5181c2b2351103a380bd07a575051"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a55e5181c2b2351103a380bd07a575051">&#9670;&nbsp;</a></span>ComponentRemoved()</h2>
+<a id="a434913b782c5325363c947a70959f3c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a434913b782c5325363c947a70959f3c9">&#9670;&nbsp;</a></span>~Camera()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a02243.html">bl::ecs::event::ComponentRemoved</a>&lt; T &gt;::<a class="el" href="a02243.html">ComponentRemoved</a> </td>
+          <td class="memname">virtual bl::cam::Camera::~Camera </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a02223.html">Entity</a>&#160;</td>
-          <td class="paramname"><em>e</em>, </td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Destroy the <a class="el" href="a02243.html" title="Base class for all cameras.">Camera</a> object. </p>
+
+</div>
+</div>
+<a id="a371f8cb60ba6a690287f556a91163fa8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a371f8cb60ba6a690287f556a91163fa8">&#9670;&nbsp;</a></span>Camera()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::cam::Camera::Camera </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Construct a new <a class="el" href="a02243.html" title="Base class for all cameras.">Camera</a>. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01274_source.html#l00009">9</a> of file <a class="el" href="a01274_source.html">Camera.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a8e2441211f24e3d0c682ea3ecfe1b168"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e2441211f24e3d0c682ea3ecfe1b168">&#9670;&nbsp;</a></span>farPlane()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr float bl::cam::Camera::farPlane </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the distance to the far plane. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00047_source.html#l00121">121</a> of file <a class="el" href="a00047_source.html">Camera.hpp</a>.</p>
+
+</div>
+</div>
+<a id="acf354685b1d274c379fe085076fa4051"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf354685b1d274c379fe085076fa4051">&#9670;&nbsp;</a></span>getProjectionMatrix()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const glm::mat4 &amp; bl::cam::Camera::getProjectionMatrix </td>
+          <td>(</td>
+          <td class="paramtype">const VkViewport &amp;&#160;</td>
+          <td class="paramname"><em>viewport</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the projection matrix of this camera for the given viewport. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">viewport</td><td>The viewport to project to </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The projection matrix to use </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a01274_source.html#l00043">43</a> of file <a class="el" href="a01274_source.html">Camera.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aa7d175dedf0a83d5acb4abdd7931109f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa7d175dedf0a83d5acb4abdd7931109f">&#9670;&nbsp;</a></span>getViewMatrix()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const glm::mat4 &amp; bl::cam::Camera::getViewMatrix </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the view matrix of this camera. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01274_source.html#l00035">35</a> of file <a class="el" href="a01274_source.html">Camera.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a8db0b22739ed85a8dc29ec7082d04640"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8db0b22739ed85a8dc29ec7082d04640">&#9670;&nbsp;</a></span>markProjDirty()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::cam::Camera::markProjDirty </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Marks the projection matrix as needing to be refreshed on next use. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01274_source.html#l00055">55</a> of file <a class="el" href="a01274_source.html">Camera.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a194c42e28c9bc4558095265ca862e761"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a194c42e28c9bc4558095265ca862e761">&#9670;&nbsp;</a></span>markViewDirty()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::cam::Camera::markViewDirty </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Mark the view matrix as needing to be refreshed on next use. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01274_source.html#l00053">53</a> of file <a class="el" href="a01274_source.html">Camera.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a9c66151fa1d297f82526d18b38836c2f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c66151fa1d297f82526d18b38836c2f">&#9670;&nbsp;</a></span>nearPlane()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr float bl::cam::Camera::nearPlane </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the distance to the near plane. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00047_source.html#l00119">119</a> of file <a class="el" href="a00047_source.html">Camera.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ad84589ac3d7c29b7ef31ba89729c4860"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad84589ac3d7c29b7ef31ba89729c4860">&#9670;&nbsp;</a></span>refreshProjMatrix()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void bl::cam::Camera::refreshProjMatrix </td>
+          <td>(</td>
+          <td class="paramtype">glm::mat4 &amp;&#160;</td>
+          <td class="paramname"><em>proj</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const T &amp;&#160;</td>
-          <td class="paramname"><em>component</em>&#160;</td>
+          <td class="paramtype">const VkViewport &amp;&#160;</td>
+          <td class="paramname"><em>viewport</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -144,73 +402,196 @@ template&lt;typename T &gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Construct a new <a class="el" href="a02243.html" title="Fired right before a component is removed from an entity.">ComponentRemoved</a> event. </p>
+<p>Called when the projection matrix needs to be refreshed. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">e</td><td>The entity the component belongs to </td></tr>
-    <tr><td class="paramname">component</td><td>The component that was removed </td></tr>
+    <tr><td class="paramname">proj</td><td>Reference to the matrix to populate </td></tr>
+    <tr><td class="paramname">viewport</td><td>The viewport to project to </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a05097_source.html#l00083">83</a> of file <a class="el" href="a05097_source.html">Events.hpp</a>.</p>
-
 </div>
 </div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="a57d018ac7fd101b5ae87980bbe54d9b4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a57d018ac7fd101b5ae87980bbe54d9b4">&#9670;&nbsp;</a></span>component</h2>
+<a id="ad997afe84942385e1fc059ad44d59782"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad997afe84942385e1fc059ad44d59782">&#9670;&nbsp;</a></span>refreshViewMatrix()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const T&amp; <a class="el" href="a02243.html">bl::ecs::event::ComponentRemoved</a>&lt; T &gt;::component</td>
+          <td class="memname">virtual void bl::cam::Camera::refreshViewMatrix </td>
+          <td>(</td>
+          <td class="paramtype">glm::mat4 &amp;&#160;</td>
+          <td class="paramname"><em>view</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called when the view matrix needs to be refreshed. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">view</td><td>Reference to the matrix to populate </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a5a5b4868ae35b77f52c2f878b18bcc59"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a5b4868ae35b77f52c2f878b18bcc59">&#9670;&nbsp;</a></span>setFarPlane()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::cam::Camera::setFarPlane </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>farValue</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>The component that is about to be removed. </p>
+<p>Sets the far plane distance. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">far</td><td>The far plane distance </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="a05097_source.html#l00075">75</a> of file <a class="el" href="a05097_source.html">Events.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01274_source.html#l00024">24</a> of file <a class="el" href="a01274_source.html">Camera.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a201cfc76b1c51906b1d11ce8da5191e2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a201cfc76b1c51906b1d11ce8da5191e2">&#9670;&nbsp;</a></span>entity</h2>
+<a id="a60e436aa6a89793a9e3fd8c3b0378fbf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60e436aa6a89793a9e3fd8c3b0378fbf">&#9670;&nbsp;</a></span>setNearAndFarPlanes()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="a02223.html">Entity</a> <a class="el" href="a02243.html">bl::ecs::event::ComponentRemoved</a>&lt; T &gt;::entity</td>
+          <td class="memname">void bl::cam::Camera::setNearAndFarPlanes </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>nearValue</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>farValue</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>The entity the component belongs to. </p>
+<p>Sets the distance to the near and far planes. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">near</td><td>Distance to the near plane </td></tr>
+    <tr><td class="paramname">far</td><td>Distance to the far plane </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="a05097_source.html#l00072">72</a> of file <a class="el" href="a05097_source.html">Events.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01274_source.html#l00029">29</a> of file <a class="el" href="a01274_source.html">Camera.cpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/BLIB/ECS/<a class="el" href="a05097_source.html">Events.hpp</a></li>
+<a id="a395d70678534a5f5b6495bbb5c832598"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a395d70678534a5f5b6495bbb5c832598">&#9670;&nbsp;</a></span>setNearPlane()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::cam::Camera::setNearPlane </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>nearValue</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the near plane distance. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">near</td><td>The near plane distance </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01274_source.html#l00019">19</a> of file <a class="el" href="a01274_source.html">Camera.cpp</a>.</p>
+
+</div>
+</div>
+<a id="afcc126b9a6540652fe62605674fcd190"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afcc126b9a6540652fe62605674fcd190">&#9670;&nbsp;</a></span>update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void bl::cam::Camera::update </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>dt</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Updates the camera. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dt</td><td>Time elapsed since last call to update </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="a02247.html#a402baa1503640cbf7478cda6bb232a19">bl::cam::OverlayCamera</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/BLIB/Cameras/<a class="el" href="a00047_source.html">Camera.hpp</a></li>
+<li>src/Cameras/<a class="el" href="a01274_source.html">Camera.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 25 2023 00:24:22 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 27 2023 23:34:42 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

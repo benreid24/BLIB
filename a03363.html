@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::rc::vk::Pipeline Class Reference</title>
+<title>BLIB: bl::rc::Config::PipelineIds Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,154 +66,59 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01833.html">bl</a></li><li class="navelem"><a class="el" href="a01845.html">rc</a></li><li class="navelem"><a class="el" href="a01846.html">vk</a></li><li class="navelem"><a class="el" href="a03363.html">Pipeline</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02058.html">bl</a></li><li class="navelem"><a class="el" href="a02070.html">rc</a></li><li class="navelem"><a class="el" href="a03355.html">Config</a></li><li class="navelem"><a class="el" href="a03363.html">PipelineIds</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#friends">Friends</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="a03360.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::rc::vk::Pipeline Class Reference<div class="ingroups"><a class="el" href="a01820.html">Renderer</a></div></div>  </div>
+<div class="title">bl::rc::Config::PipelineIds Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Core renderer class representing a pipeline that is a part of a <a class="el" href="a03395.html" title="Represents a render pass in the renderer. A scene is comprised of a sequence of render passes and eac...">RenderPass</a>. Pipelines are managed by the <a class="el" href="a03163.html" title="Top level rendering system of the game engine.">Renderer</a>'s PipelineCache and should not be created directly.  
+<p>Built-in pipelines.  
  <a href="a03363.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00827_source.html">Pipeline.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a05656_source.html">Config.hpp</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a03224c8b83adbe3ff812ce8a7df427fc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03363.html#a03224c8b83adbe3ff812ce8a7df427fc">Pipeline</a> (<a class="el" href="a03163.html">Renderer</a> &amp;renderer, <a class="el" href="a03383.html">PipelineParameters</a> &amp;&amp;params)</td></tr>
-<tr class="memdesc:a03224c8b83adbe3ff812ce8a7df427fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a03363.html" title="Core renderer class representing a pipeline that is a part of a RenderPass. Pipelines are managed by ...">Pipeline</a>.  <a href="a03363.html#a03224c8b83adbe3ff812ce8a7df427fc">More...</a><br /></td></tr>
-<tr class="separator:a03224c8b83adbe3ff812ce8a7df427fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1d57975a718d565a44e8c07c95332326"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03363.html#a1d57975a718d565a44e8c07c95332326">~Pipeline</a> ()</td></tr>
-<tr class="memdesc:a1d57975a718d565a44e8c07c95332326"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the <a class="el" href="a03363.html" title="Core renderer class representing a pipeline that is a part of a RenderPass. Pipelines are managed by ...">Pipeline</a> and frees Vulkan resources.  <a href="a03363.html#a1d57975a718d565a44e8c07c95332326">More...</a><br /></td></tr>
-<tr class="separator:a1d57975a718d565a44e8c07c95332326"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8a9980440a4260616ae1597e7c09dd44"><td class="memItemLeft" align="right" valign="top">constexpr const <a class="el" href="a03367.html">PipelineLayout</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03363.html#a8a9980440a4260616ae1597e7c09dd44">pipelineLayout</a> () const</td></tr>
-<tr class="memdesc:a8a9980440a4260616ae1597e7c09dd44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the layout of this pipeline.  <a href="a03363.html#a8a9980440a4260616ae1597e7c09dd44">More...</a><br /></td></tr>
-<tr class="separator:a8a9980440a4260616ae1597e7c09dd44"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1e4a1d5a83d4391cb2f92917d1bdb9b6"><td class="memItemLeft" align="right" valign="top">VkPipeline&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03363.html#a1e4a1d5a83d4391cb2f92917d1bdb9b6">rawPipeline</a> (std::uint32_t renderPassId) const</td></tr>
-<tr class="memdesc:a1e4a1d5a83d4391cb2f92917d1bdb9b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the underlying Vulkan pipeline handle.  <a href="a03363.html#a1e4a1d5a83d4391cb2f92917d1bdb9b6">More...</a><br /></td></tr>
-<tr class="separator:a1e4a1d5a83d4391cb2f92917d1bdb9b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4dbf56eca4795bb6bae91f2c7fb4e330"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03363.html#a4dbf56eca4795bb6bae91f2c7fb4e330">bind</a> (VkCommandBuffer commandBuffer, std::uint32_t renderPassId)</td></tr>
-<tr class="memdesc:a4dbf56eca4795bb6bae91f2c7fb4e330"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issues the command to bind the pipeline.  <a href="a03363.html#a4dbf56eca4795bb6bae91f2c7fb4e330">More...</a><br /></td></tr>
-<tr class="separator:a4dbf56eca4795bb6bae91f2c7fb4e330"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
-Friends</h2></td></tr>
-<tr class="memitem:a3c6e79faddcf860d9ddab95307145e2f"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03363.html#a3c6e79faddcf860d9ddab95307145e2f">PipelineCache</a></td></tr>
-<tr class="separator:a3c6e79faddcf860d9ddab95307145e2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a381ae19f992142c81ecf4f6f9a10f61f"><td class="memItemLeft" align="right" valign="top">static constexpr std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03363.html#a381ae19f992142c81ecf4f6f9a10f61f">None</a> = 0</td></tr>
+<tr class="separator:a381ae19f992142c81ecf4f6f9a10f61f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb64edb6722b029d505923dfba790451"><td class="memItemLeft" align="right" valign="top">static constexpr std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03363.html#adb64edb6722b029d505923dfba790451">ShadowPassMeshes</a> = 1</td></tr>
+<tr class="separator:adb64edb6722b029d505923dfba790451"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aefec0e0a80fb47621b170b1f3e3382f1"><td class="memItemLeft" align="right" valign="top">static constexpr std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03363.html#aefec0e0a80fb47621b170b1f3e3382f1">ShadowPassSkinnedMeshes</a> = 2</td></tr>
+<tr class="separator:aefec0e0a80fb47621b170b1f3e3382f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab44ad6fc3152f7fe0891204863dcd78f"><td class="memItemLeft" align="right" valign="top">static constexpr std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03363.html#ab44ad6fc3152f7fe0891204863dcd78f">SkinnedMeshes</a> = 3</td></tr>
+<tr class="separator:ab44ad6fc3152f7fe0891204863dcd78f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76577d8895c05562a7816b15bba1f0b3"><td class="memItemLeft" align="right" valign="top">static constexpr std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03363.html#a76577d8895c05562a7816b15bba1f0b3">Lit2DGeometry</a> = 4</td></tr>
+<tr class="separator:a76577d8895c05562a7816b15bba1f0b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9b43ad8cd9926af6436a21cbef3435b"><td class="memItemLeft" align="right" valign="top">static constexpr std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03363.html#ab9b43ad8cd9926af6436a21cbef3435b">Unlit2DGeometry</a> = 5</td></tr>
+<tr class="separator:ab9b43ad8cd9926af6436a21cbef3435b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33ded13d5a1753d6fca00073adc2364a"><td class="memItemLeft" align="right" valign="top">static constexpr std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03363.html#a33ded13d5a1753d6fca00073adc2364a">Unlit2DGeometryNoDepthWrite</a> = 6</td></tr>
+<tr class="separator:a33ded13d5a1753d6fca00073adc2364a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ccc16b73b1db62d8b2c46623c535d07"><td class="memItemLeft" align="right" valign="top">static constexpr std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03363.html#a2ccc16b73b1db62d8b2c46623c535d07">LitSkinned2DGeometry</a> = 7</td></tr>
+<tr class="separator:a2ccc16b73b1db62d8b2c46623c535d07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4131ca38091e484846b6d3f2be851f77"><td class="memItemLeft" align="right" valign="top">static constexpr std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03363.html#a4131ca38091e484846b6d3f2be851f77">UnlitSkinned2DGeometry</a> = 8</td></tr>
+<tr class="separator:a4131ca38091e484846b6d3f2be851f77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0627a0b14a0b2b60dc5e0cbaf7c19b3"><td class="memItemLeft" align="right" valign="top">static constexpr std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03363.html#ad0627a0b14a0b2b60dc5e0cbaf7c19b3">Text</a> = 9</td></tr>
+<tr class="separator:ad0627a0b14a0b2b60dc5e0cbaf7c19b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a93113ea9f76b3558baa465bcc265f56a"><td class="memItemLeft" align="right" valign="top">static constexpr std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03363.html#a93113ea9f76b3558baa465bcc265f56a">SlideshowLit</a> = 10</td></tr>
+<tr class="separator:a93113ea9f76b3558baa465bcc265f56a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ce370915da32579eced8d8824888f56"><td class="memItemLeft" align="right" valign="top">static constexpr std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03363.html#a1ce370915da32579eced8d8824888f56">SlideshowUnlit</a> = 11</td></tr>
+<tr class="separator:a1ce370915da32579eced8d8824888f56"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8305182cbaeb2529f3e5b18141a0695d"><td class="memItemLeft" align="right" valign="top">static constexpr std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03363.html#a8305182cbaeb2529f3e5b18141a0695d">FadeEffect</a> = 100</td></tr>
+<tr class="separator:a8305182cbaeb2529f3e5b18141a0695d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Core renderer class representing a pipeline that is a part of a <a class="el" href="a03395.html" title="Represents a render pass in the renderer. A scene is comprised of a sequence of render passes and eac...">RenderPass</a>. Pipelines are managed by the <a class="el" href="a03163.html" title="Top level rendering system of the game engine.">Renderer</a>'s PipelineCache and should not be created directly. </p>
+<div class="textblock"><p>Built-in pipelines. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00827_source.html#l00030">30</a> of file <a class="el" href="a00827_source.html">Pipeline.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a03224c8b83adbe3ff812ce8a7df427fc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a03224c8b83adbe3ff812ce8a7df427fc">&#9670;&nbsp;</a></span>Pipeline()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::rc::vk::Pipeline::Pipeline </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a03163.html">Renderer</a> &amp;&#160;</td>
-          <td class="paramname"><em>renderer</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a03383.html">PipelineParameters</a> &amp;&amp;&#160;</td>
-          <td class="paramname"><em>params</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Construct a new <a class="el" href="a03363.html" title="Core renderer class representing a pipeline that is a part of a RenderPass. Pipelines are managed by ...">Pipeline</a>. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">renderer</td><td>The renderer the pipeline will belong to </td></tr>
-    <tr><td class="paramname">params</td><td>The parameters to create the pipeline with </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01616_source.html#l00011">11</a> of file <a class="el" href="a01616_source.html">Pipeline.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a1d57975a718d565a44e8c07c95332326"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1d57975a718d565a44e8c07c95332326">&#9670;&nbsp;</a></span>~Pipeline()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::rc::vk::Pipeline::~Pipeline </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Destroy the <a class="el" href="a03363.html" title="Core renderer class representing a pipeline that is a part of a RenderPass. Pipelines are managed by ...">Pipeline</a> and frees Vulkan resources. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01616_source.html#l00089">89</a> of file <a class="el" href="a01616_source.html">Pipeline.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a4dbf56eca4795bb6bae91f2c7fb4e330"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4dbf56eca4795bb6bae91f2c7fb4e330">&#9670;&nbsp;</a></span>bind()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::rc::vk::Pipeline::bind </td>
-          <td>(</td>
-          <td class="paramtype">VkCommandBuffer&#160;</td>
-          <td class="paramname"><em>commandBuffer</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::uint32_t&#160;</td>
-          <td class="paramname"><em>renderPassId</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Issues the command to bind the pipeline. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">commandBuffer</td><td>The command buffer to record into </td></tr>
-    <tr><td class="paramname">renderPassId</td><td>The current render pass </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01616_source.html#l00097">97</a> of file <a class="el" href="a01616_source.html">Pipeline.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a8a9980440a4260616ae1597e7c09dd44"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8a9980440a4260616ae1597e7c09dd44">&#9670;&nbsp;</a></span>pipelineLayout()</h2>
+<p class="definition">Definition at line <a class="el" href="a05656_source.html#l00061">61</a> of file <a class="el" href="a05656_source.html">Config.hpp</a>.</p>
+</div><h2 class="groupheader">Member Data Documentation</h2>
+<a id="a8305182cbaeb2529f3e5b18141a0695d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8305182cbaeb2529f3e5b18141a0695d">&#9670;&nbsp;</a></span>FadeEffect</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -222,28 +127,22 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr const <a class="el" href="a03367.html">PipelineLayout</a> &amp; bl::rc::vk::Pipeline::pipelineLayout </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td class="memname">constexpr std::uint32_t bl::rc::Config::PipelineIds::FadeEffect = 100</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the layout of this pipeline. </p>
-<dl class="section return"><dt>Returns</dt><dd>constexpr VkPipelineLayout The layout of this pipeline </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00827_source.html#l00078">78</a> of file <a class="el" href="a00827_source.html">Pipeline.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a05656_source.html#l00079">79</a> of file <a class="el" href="a05656_source.html">Config.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a1e4a1d5a83d4391cb2f92917d1bdb9b6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1e4a1d5a83d4391cb2f92917d1bdb9b6">&#9670;&nbsp;</a></span>rawPipeline()</h2>
+<a id="a76577d8895c05562a7816b15bba1f0b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76577d8895c05562a7816b15bba1f0b3">&#9670;&nbsp;</a></span>Lit2DGeometry</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -252,35 +151,22 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">VkPipeline bl::rc::vk::Pipeline::rawPipeline </td>
-          <td>(</td>
-          <td class="paramtype">std::uint32_t&#160;</td>
-          <td class="paramname"><em>renderPassId</em></td><td>)</td>
-          <td> const</td>
+          <td class="memname">constexpr std::uint32_t bl::rc::Config::PipelineIds::Lit2DGeometry = 4</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the underlying Vulkan pipeline handle. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">renderPassId</td><td>The render pass to use to get the specific pipeline </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00827_source.html#l00080">80</a> of file <a class="el" href="a00827_source.html">Pipeline.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a05656_source.html#l00069">69</a> of file <a class="el" href="a05656_source.html">Config.hpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Friends And Related Function Documentation</h2>
-<a id="a3c6e79faddcf860d9ddab95307145e2f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3c6e79faddcf860d9ddab95307145e2f">&#9670;&nbsp;</a></span>PipelineCache</h2>
+<a id="a2ccc16b73b1db62d8b2c46623c535d07"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ccc16b73b1db62d8b2c46623c535d07">&#9670;&nbsp;</a></span>LitSkinned2DGeometry</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -289,29 +175,268 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">friend class PipelineCache</td>
+          <td class="memname">constexpr std::uint32_t bl::rc::Config::PipelineIds::LitSkinned2DGeometry = 7</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00827_source.html#l00073">73</a> of file <a class="el" href="a00827_source.html">Pipeline.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a05656_source.html#l00072">72</a> of file <a class="el" href="a05656_source.html">Config.hpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Render/Vulkan/<a class="el" href="a00827_source.html">Pipeline.hpp</a></li>
-<li>src/Render/Vulkan/<a class="el" href="a01616_source.html">Pipeline.cpp</a></li>
+<a id="a381ae19f992142c81ecf4f6f9a10f61f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a381ae19f992142c81ecf4f6f9a10f61f">&#9670;&nbsp;</a></span>None</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::uint32_t bl::rc::Config::PipelineIds::None = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a05656_source.html#l00062">62</a> of file <a class="el" href="a05656_source.html">Config.hpp</a>.</p>
+
+</div>
+</div>
+<a id="adb64edb6722b029d505923dfba790451"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb64edb6722b029d505923dfba790451">&#9670;&nbsp;</a></span>ShadowPassMeshes</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::uint32_t bl::rc::Config::PipelineIds::ShadowPassMeshes = 1</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a05656_source.html#l00064">64</a> of file <a class="el" href="a05656_source.html">Config.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aefec0e0a80fb47621b170b1f3e3382f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aefec0e0a80fb47621b170b1f3e3382f1">&#9670;&nbsp;</a></span>ShadowPassSkinnedMeshes</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::uint32_t bl::rc::Config::PipelineIds::ShadowPassSkinnedMeshes = 2</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a05656_source.html#l00065">65</a> of file <a class="el" href="a05656_source.html">Config.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ab44ad6fc3152f7fe0891204863dcd78f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab44ad6fc3152f7fe0891204863dcd78f">&#9670;&nbsp;</a></span>SkinnedMeshes</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::uint32_t bl::rc::Config::PipelineIds::SkinnedMeshes = 3</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a05656_source.html#l00067">67</a> of file <a class="el" href="a05656_source.html">Config.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a93113ea9f76b3558baa465bcc265f56a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93113ea9f76b3558baa465bcc265f56a">&#9670;&nbsp;</a></span>SlideshowLit</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::uint32_t bl::rc::Config::PipelineIds::SlideshowLit = 10</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a05656_source.html#l00076">76</a> of file <a class="el" href="a05656_source.html">Config.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a1ce370915da32579eced8d8824888f56"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ce370915da32579eced8d8824888f56">&#9670;&nbsp;</a></span>SlideshowUnlit</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::uint32_t bl::rc::Config::PipelineIds::SlideshowUnlit = 11</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a05656_source.html#l00077">77</a> of file <a class="el" href="a05656_source.html">Config.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ad0627a0b14a0b2b60dc5e0cbaf7c19b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad0627a0b14a0b2b60dc5e0cbaf7c19b3">&#9670;&nbsp;</a></span>Text</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::uint32_t bl::rc::Config::PipelineIds::Text = 9</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a05656_source.html#l00075">75</a> of file <a class="el" href="a05656_source.html">Config.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ab9b43ad8cd9926af6436a21cbef3435b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9b43ad8cd9926af6436a21cbef3435b">&#9670;&nbsp;</a></span>Unlit2DGeometry</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::uint32_t bl::rc::Config::PipelineIds::Unlit2DGeometry = 5</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a05656_source.html#l00070">70</a> of file <a class="el" href="a05656_source.html">Config.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a33ded13d5a1753d6fca00073adc2364a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a33ded13d5a1753d6fca00073adc2364a">&#9670;&nbsp;</a></span>Unlit2DGeometryNoDepthWrite</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::uint32_t bl::rc::Config::PipelineIds::Unlit2DGeometryNoDepthWrite = 6</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a05656_source.html#l00071">71</a> of file <a class="el" href="a05656_source.html">Config.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a4131ca38091e484846b6d3f2be851f77"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4131ca38091e484846b6d3f2be851f77">&#9670;&nbsp;</a></span>UnlitSkinned2DGeometry</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::uint32_t bl::rc::Config::PipelineIds::UnlitSkinned2DGeometry = 8</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a05656_source.html#l00073">73</a> of file <a class="el" href="a05656_source.html">Config.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>include/BLIB/Render/<a class="el" href="a05656_source.html">Config.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 25 2023 00:24:23 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 27 2023 23:34:43 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

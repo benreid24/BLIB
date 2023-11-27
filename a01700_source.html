@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Scripts/Error.cpp Source File</title>
+<title>BLIB: src/Render/Descriptors/SceneDescriptorSetInstance.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,60 +66,47 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3ac9928fc2e7e2cbc53db7c1a11acda2.html">Scripts</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_c46d59b26ba1c7a895704386ecf9511b.html">Descriptors</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Error.cpp</div>  </div>
+<div class="title">SceneDescriptorSetInstance.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01700.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00923.html">BLIB/Scripts/Error.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;sstream&gt;</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01833.html">bl</a></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;{</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>script</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;std::string buildMsg(<span class="keyword">const</span> std::string&amp; err, <span class="keyword">const</span> <a class="code" href="a02851.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&amp; src) {</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    std::stringstream ss;</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    ss &lt;&lt; <span class="stringliteral">&quot;Line &quot;</span> &lt;&lt; src-&gt;sourceLine &lt;&lt; <span class="stringliteral">&quot; position &quot;</span> &lt;&lt; src-&gt;sourceColumn &lt;&lt; <span class="stringliteral">&quot;: &quot;</span> &lt;&lt; err;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keywordflow">return</span> ss.str();</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;}</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;} <span class="comment">// namespace</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a03575.html#aff6398a2a255bf7a3ad554af2761bc98">   17</a></span>&#160;<a class="code" href="a03575.html#aff6398a2a255bf7a3ad554af2761bc98">Error::Error</a>(<span class="keyword">const</span> std::string&amp; msg)</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;: error(msg)</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;, stack(msg) {}</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a03575.html#adb15b3075a9c7aeebaa80bf997ea5214">   21</a></span>&#160;<a class="code" href="a03575.html#aff6398a2a255bf7a3ad554af2761bc98">Error::Error</a>(<span class="keyword">const</span> std::string&amp; msg, <span class="keyword">const</span> <a class="code" href="a02851.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&amp; src)</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;: error(buildMsg(msg, src))</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;, stack(error) {}</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a03575.html#ac99cb5f39c84b2f623ea6f4c49810f3d">   25</a></span>&#160;<a class="code" href="a03575.html#aff6398a2a255bf7a3ad554af2761bc98">Error::Error</a>(<span class="keyword">const</span> std::string&amp; msg, <span class="keyword">const</span> <a class="code" href="a02851.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&amp; src, <span class="keyword">const</span> <a class="code" href="a03575.html">Error</a>&amp; prev)</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;: error(buildMsg(msg, src))</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;, stack(error + <span class="stringliteral">&quot;\n    &quot;</span> + prev.stack) {}</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a03575.html#a95abc9d3c1314074a22834fa7e6a2dfd">   29</a></span>&#160;<span class="keyword">const</span> std::string&amp; <a class="code" href="a03575.html#a95abc9d3c1314074a22834fa7e6a2dfd">Error::message</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> error; }</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="a03575.html#ab1e1a09a7f8dfda9edcac4bd6d1df391">   31</a></span>&#160;<span class="keyword">const</span> std::string&amp; <a class="code" href="a03575.html#ab1e1a09a7f8dfda9edcac4bd6d1df391">Error::stacktrace</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> stack; }</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;} <span class="comment">// namespace script</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00923_html"><div class="ttname"><a href="a00923.html">Error.hpp</a></div></div>
-<div class="ttc" id="aa01833_html"><div class="ttname"><a href="a01833.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02851_html_a3f49fe9da8742463aa757f89f67a8827"><div class="ttname"><a href="a02851.html#a3f49fe9da8742463aa757f89f67a8827">bl::parser::Node::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; Node &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00524_source.html#l00024">Node.hpp:24</a></div></div>
-<div class="ttc" id="aa03575_html"><div class="ttname"><a href="a03575.html">bl::script::Error</a></div><div class="ttdoc">Script utility class to represent an error. Can be used to build a call stack for script errors.</div><div class="ttdef"><b>Definition:</b> <a href="a00923_source.html#l00017">Error.hpp:17</a></div></div>
-<div class="ttc" id="aa03575_html_a95abc9d3c1314074a22834fa7e6a2dfd"><div class="ttname"><a href="a03575.html#a95abc9d3c1314074a22834fa7e6a2dfd">bl::script::Error::message</a></div><div class="ttdeci">const std::string &amp; message() const</div><div class="ttdoc">Returns the contained error message.</div><div class="ttdef"><b>Definition:</b> <a href="a01700_source.html#l00029">Error.cpp:29</a></div></div>
-<div class="ttc" id="aa03575_html_ab1e1a09a7f8dfda9edcac4bd6d1df391"><div class="ttname"><a href="a03575.html#ab1e1a09a7f8dfda9edcac4bd6d1df391">bl::script::Error::stacktrace</a></div><div class="ttdeci">const std::string &amp; stacktrace() const</div><div class="ttdoc">Returns the full stack trace, formatted.</div><div class="ttdef"><b>Definition:</b> <a href="a01700_source.html#l00031">Error.cpp:31</a></div></div>
-<div class="ttc" id="aa03575_html_aff6398a2a255bf7a3ad554af2761bc98"><div class="ttname"><a href="a03575.html#aff6398a2a255bf7a3ad554af2761bc98">bl::script::Error::Error</a></div><div class="ttdeci">Error(const std::string &amp;error)</div><div class="ttdoc">Constructs a root Error with an empty call stack.</div><div class="ttdef"><b>Definition:</b> <a href="a01700_source.html#l00017">Error.cpp:17</a></div></div>
+<a href="a01700.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00755.html">BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05656.html">BLIB/Render/Config.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02058.html">bl</a></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>ds</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="a03455.html#a4e4d85081fc95e511efd38849f047eb5">   11</a></span>&#160;<a class="code" href="a03455.html#a4e4d85081fc95e511efd38849f047eb5">SceneDescriptorSetInstance::SceneDescriptorSetInstance</a>()</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;: <a class="code" href="a03447.html">DescriptorSetInstance</a>(Bindless, SpeedAgnostic) {}</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="a03455.html#ad0135cab959d2ab6c8c454054e1c23d4">   14</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03455.html#ad0135cab959d2ab6c8c454054e1c23d4">SceneDescriptorSetInstance::updateObserverCamera</a>(std::uint32_t observerIndex,</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;                                                      <span class="keyword">const</span> glm::mat4&amp; cam) {</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <a class="code" href="a03455.html#a0a145382ab1e64d8c85dd63939bb0aca">cameraBuffer</a>[observerIndex] = cam;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;}</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;} <span class="comment">// namespace ds</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00755_html"><div class="ttname"><a href="a00755.html">SceneDescriptorSetInstance.hpp</a></div></div>
+<div class="ttc" id="aa02058_html"><div class="ttname"><a href="a02058.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03447_html"><div class="ttname"><a href="a03447.html">bl::rc::ds::DescriptorSetInstance</a></div><div class="ttdoc">Base class for descriptor sets that exist for each scene. Derived classes are created by DescriptorSe...</div><div class="ttdef"><b>Definition:</b> <a href="a00749_source.html#l00030">DescriptorSetInstance.hpp:30</a></div></div>
+<div class="ttc" id="aa03455_html_a0a145382ab1e64d8c85dd63939bb0aca"><div class="ttname"><a href="a03455.html#a0a145382ab1e64d8c85dd63939bb0aca">bl::rc::ds::SceneDescriptorSetInstance::cameraBuffer</a></div><div class="ttdeci">buf::UniformBuffer&lt; glm::mat4 &gt; cameraBuffer</div><div class="ttdef"><b>Definition:</b> <a href="a00755_source.html#l00043">SceneDescriptorSetInstance.hpp:43</a></div></div>
+<div class="ttc" id="aa03455_html_a4e4d85081fc95e511efd38849f047eb5"><div class="ttname"><a href="a03455.html#a4e4d85081fc95e511efd38849f047eb5">bl::rc::ds::SceneDescriptorSetInstance::SceneDescriptorSetInstance</a></div><div class="ttdeci">SceneDescriptorSetInstance()</div><div class="ttdoc">Creates the descriptor set instance.</div><div class="ttdef"><b>Definition:</b> <a href="a01700_source.html#l00011">SceneDescriptorSetInstance.cpp:11</a></div></div>
+<div class="ttc" id="aa03455_html_ad0135cab959d2ab6c8c454054e1c23d4"><div class="ttname"><a href="a03455.html#ad0135cab959d2ab6c8c454054e1c23d4">bl::rc::ds::SceneDescriptorSetInstance::updateObserverCamera</a></div><div class="ttdeci">void updateObserverCamera(std::uint32_t observerIndex, const glm::mat4 &amp;projView)</div><div class="ttdoc">Updates the camera value for the given observer.</div><div class="ttdef"><b>Definition:</b> <a href="a01700_source.html#l00014">SceneDescriptorSetInstance.cpp:14</a></div></div>
+<div class="ttc" id="aa05656_html"><div class="ttname"><a href="a05656.html">Config.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 25 2023 00:24:21 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 27 2023 23:34:41 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

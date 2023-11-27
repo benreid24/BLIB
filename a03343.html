@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::rc::vk::DescriptorSet Class Reference</title>
+<title>BLIB: bl::rc::rcom::DescriptorComponentBase&lt; TCom, TPayload &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,233 +66,140 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01833.html">bl</a></li><li class="navelem"><a class="el" href="a01845.html">rc</a></li><li class="navelem"><a class="el" href="a01846.html">vk</a></li><li class="navelem"><a class="el" href="a03343.html">DescriptorSet</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02058.html">bl</a></li><li class="navelem"><a class="el" href="a02070.html">rc</a></li><li class="navelem"><a class="el" href="a02102.html">rcom</a></li><li class="navelem"><a class="el" href="a03343.html">DescriptorComponentBase</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="a03340.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::rc::vk::DescriptorSet Class Reference<div class="ingroups"><a class="el" href="a01820.html">Renderer</a></div></div>  </div>
+<div class="title">bl::rc::rcom::DescriptorComponentBase&lt; TCom, TPayload &gt; Class Template Reference<div class="ingroups"><a class="el" href="a02045.html">Renderer</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Wrapper around a single allocated descriptor set from the <a class="el" href="a03327.html" title="Utility class to manage descriptor set allocation. Maintains a list of descriptor pools and automatic...">DescriptorPool</a>.  
+<p>Base class for ECS components that map into descriptor sets.  
  <a href="a03343.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00812_source.html">DescriptorSet.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00689_source.html">DescriptorComponentBase.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a8f194eda22254c760637377a84bb7c9b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03343.html#a8f194eda22254c760637377a84bb7c9b">DescriptorSet</a> (<a class="el" href="a03431.html">VulkanState</a> &amp;vulkanState)</td></tr>
-<tr class="memdesc:a8f194eda22254c760637377a84bb7c9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an un-allocated descriptor set.  <a href="a03343.html#a8f194eda22254c760637377a84bb7c9b">More...</a><br /></td></tr>
-<tr class="separator:a8f194eda22254c760637377a84bb7c9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4188235e62ffe691c6d2717246e2428f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03343.html#a4188235e62ffe691c6d2717246e2428f">DescriptorSet</a> (<a class="el" href="a03431.html">VulkanState</a> &amp;vulkanState, VkDescriptorSetLayout layout, bool dedicatedPool=false)</td></tr>
-<tr class="memdesc:a4188235e62ffe691c6d2717246e2428f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates and allocates the descriptor set.  <a href="a03343.html#a4188235e62ffe691c6d2717246e2428f">More...</a><br /></td></tr>
-<tr class="separator:a4188235e62ffe691c6d2717246e2428f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab6ed0bc70752febc342036bc270d5dd9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03343.html#ab6ed0bc70752febc342036bc270d5dd9">DescriptorSet</a> (const <a class="el" href="a03343.html">DescriptorSet</a> &amp;)=delete</td></tr>
-<tr class="memdesc:ab6ed0bc70752febc342036bc270d5dd9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deleted.  <a href="a03343.html#ab6ed0bc70752febc342036bc270d5dd9">More...</a><br /></td></tr>
-<tr class="separator:ab6ed0bc70752febc342036bc270d5dd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a751625200d6da3a6c87198702c834997"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03343.html#a751625200d6da3a6c87198702c834997">DescriptorSet</a> (<a class="el" href="a03343.html">DescriptorSet</a> &amp;&amp;ds)</td></tr>
-<tr class="memdesc:a751625200d6da3a6c87198702c834997"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assumes ownership from the given descriptor set.  <a href="a03343.html#a751625200d6da3a6c87198702c834997">More...</a><br /></td></tr>
-<tr class="separator:a751625200d6da3a6c87198702c834997"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a799707e8dfa2b1993b61607fe8a1dd1d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03343.html#a799707e8dfa2b1993b61607fe8a1dd1d">~DescriptorSet</a> ()</td></tr>
-<tr class="memdesc:a799707e8dfa2b1993b61607fe8a1dd1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defers release of the set if allocated.  <a href="a03343.html#a799707e8dfa2b1993b61607fe8a1dd1d">More...</a><br /></td></tr>
-<tr class="separator:a799707e8dfa2b1993b61607fe8a1dd1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4435b071e9cebdda93a8676f79be795c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03343.html">DescriptorSet</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03343.html#a4435b071e9cebdda93a8676f79be795c">operator=</a> (const <a class="el" href="a03343.html">DescriptorSet</a> &amp;)=delete</td></tr>
-<tr class="memdesc:a4435b071e9cebdda93a8676f79be795c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deleted.  <a href="a03343.html#a4435b071e9cebdda93a8676f79be795c">More...</a><br /></td></tr>
-<tr class="separator:a4435b071e9cebdda93a8676f79be795c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a012e03bc0e13567b074cd6a8c4fb181e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03343.html">DescriptorSet</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03343.html#a012e03bc0e13567b074cd6a8c4fb181e">operator=</a> (<a class="el" href="a03343.html">DescriptorSet</a> &amp;&amp;ds)</td></tr>
-<tr class="memdesc:a012e03bc0e13567b074cd6a8c4fb181e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates and allocates the descriptor set.  <a href="a03343.html#a012e03bc0e13567b074cd6a8c4fb181e">More...</a><br /></td></tr>
-<tr class="separator:a012e03bc0e13567b074cd6a8c4fb181e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab4688b60580626c3a49ae1dc37a8b64a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03343.html#ab4688b60580626c3a49ae1dc37a8b64a">allocate</a> (VkDescriptorSetLayout layout, bool dedicatedPool=false)</td></tr>
-<tr class="memdesc:ab4688b60580626c3a49ae1dc37a8b64a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates and allocates the descriptor set. Defers release of the prior set if any.  <a href="a03343.html#ab4688b60580626c3a49ae1dc37a8b64a">More...</a><br /></td></tr>
-<tr class="separator:ab4688b60580626c3a49ae1dc37a8b64a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a76d00935670fc4f545dbfbf4e995b51e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03343.html#a76d00935670fc4f545dbfbf4e995b51e">release</a> ()</td></tr>
-<tr class="memdesc:a76d00935670fc4f545dbfbf4e995b51e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Immediately releases the descriptor set if any.  <a href="a03343.html#a76d00935670fc4f545dbfbf4e995b51e">More...</a><br /></td></tr>
-<tr class="separator:a76d00935670fc4f545dbfbf4e995b51e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a13eec443ddabd8645770709f0e0e5fe7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03343.html#a13eec443ddabd8645770709f0e0e5fe7">deferRelease</a> ()</td></tr>
-<tr class="memdesc:a13eec443ddabd8645770709f0e0e5fe7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defers release of the descriptor set if any.  <a href="a03343.html#a13eec443ddabd8645770709f0e0e5fe7">More...</a><br /></td></tr>
-<tr class="separator:a13eec443ddabd8645770709f0e0e5fe7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2f1a683b42ec64d4d17c7994245a2dce"><td class="memItemLeft" align="right" valign="top">constexpr VkDescriptorSet&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03343.html#a2f1a683b42ec64d4d17c7994245a2dce">getSet</a> () const</td></tr>
-<tr class="memdesc:a2f1a683b42ec64d4d17c7994245a2dce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the allocated descriptor set.  <a href="a03343.html#a2f1a683b42ec64d4d17c7994245a2dce">More...</a><br /></td></tr>
-<tr class="separator:a2f1a683b42ec64d4d17c7994245a2dce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f4badd64c53c862b777c8e7fcb97ee9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03343.html#a0f4badd64c53c862b777c8e7fcb97ee9">DescriptorComponentBase</a> ()</td></tr>
+<tr class="memdesc:a0f4badd64c53c862b777c8e7fcb97ee9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs basic setup.  <a href="a03343.html#a0f4badd64c53c862b777c8e7fcb97ee9">More...</a><br /></td></tr>
+<tr class="separator:a0f4badd64c53c862b777c8e7fcb97ee9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4029f4fcf38c82fe5fca7d5e8e49bfa7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03343.html#a4029f4fcf38c82fe5fca7d5e8e49bfa7">link</a> (<a class="el" href="a03423.html">ds::DescriptorComponentStorageBase</a> *descriptorSet, <a class="el" href="a03679.html">scene::Key</a> sceneKey, TPayload *payload)</td></tr>
+<tr class="memdesc:a4029f4fcf38c82fe5fca7d5e8e49bfa7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Links this component to an object in a scene.  <a href="a03343.html#a4029f4fcf38c82fe5fca7d5e8e49bfa7">More...</a><br /></td></tr>
+<tr class="separator:a4029f4fcf38c82fe5fca7d5e8e49bfa7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a016860c801b0e0dce0c30769cf3ef6fd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03343.html#a016860c801b0e0dce0c30769cf3ef6fd">unlink</a> ()</td></tr>
+<tr class="memdesc:a016860c801b0e0dce0c30769cf3ef6fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unlinks the component from a scene object.  <a href="a03343.html#a016860c801b0e0dce0c30769cf3ef6fd">More...</a><br /></td></tr>
+<tr class="separator:a016860c801b0e0dce0c30769cf3ef6fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28d5c2119ca3abbb19af93c1197f1413"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03343.html#a28d5c2119ca3abbb19af93c1197f1413">isDirty</a> () const</td></tr>
+<tr class="memdesc:a28d5c2119ca3abbb19af93c1197f1413"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not this component is dirty and needs to be synced.  <a href="a03343.html#a28d5c2119ca3abbb19af93c1197f1413">More...</a><br /></td></tr>
+<tr class="separator:a28d5c2119ca3abbb19af93c1197f1413"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0913d5b5ac715000106df37c04f5dee7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03343.html#a0913d5b5ac715000106df37c04f5dee7">refresh</a> ()</td></tr>
+<tr class="memdesc:a0913d5b5ac715000106df37c04f5dee7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Refreshes and syncs the descriptor value and marks as clean.  <a href="a03343.html#a0913d5b5ac715000106df37c04f5dee7">More...</a><br /></td></tr>
+<tr class="separator:a0913d5b5ac715000106df37c04f5dee7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a285b92a8da73d33a41a29540761d68bf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03343.html#a285b92a8da73d33a41a29540761d68bf">markDirty</a> ()</td></tr>
+<tr class="memdesc:a285b92a8da73d33a41a29540761d68bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call this when the component is modified.  <a href="a03343.html#a285b92a8da73d33a41a29540761d68bf">More...</a><br /></td></tr>
+<tr class="separator:a285b92a8da73d33a41a29540761d68bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14eed8e73b047132c35fced4961df3fe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03343.html#a14eed8e73b047132c35fced4961df3fe">refreshDescriptor</a> (TPayload &amp;payload)</td></tr>
+<tr class="memdesc:a14eed8e73b047132c35fced4961df3fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Undefined. Derived classes should implement this to perform refresh+sync logic.  <a href="a03343.html#a14eed8e73b047132c35fced4961df3fe">More...</a><br /></td></tr>
+<tr class="separator:a14eed8e73b047132c35fced4961df3fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Wrapper around a single allocated descriptor set from the <a class="el" href="a03327.html" title="Utility class to manage descriptor set allocation. Maintains a list of descriptor pools and automatic...">DescriptorPool</a>. </p>
+<div class="textblock"><h3>template&lt;typename TCom, typename TPayload = TCom&gt;<br />
+class bl::rc::rcom::DescriptorComponentBase&lt; TCom, TPayload &gt;</h3>
 
-<p class="definition">Definition at line <a class="el" href="a00812_source.html#l00020">20</a> of file <a class="el" href="a00812_source.html">DescriptorSet.hpp</a>.</p>
+<p>Base class for ECS components that map into descriptor sets. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">TCom</td><td>The type of the derived class </td></tr>
+    <tr><td class="paramname">TPayload</td><td>The type that exists inside of the descriptor set buffer </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00689_source.html#l00031">31</a> of file <a class="el" href="a00689_source.html">DescriptorComponentBase.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a8f194eda22254c760637377a84bb7c9b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8f194eda22254c760637377a84bb7c9b">&#9670;&nbsp;</a></span>DescriptorSet() <span class="overload">[1/4]</span></h2>
+<a id="a0f4badd64c53c862b777c8e7fcb97ee9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f4badd64c53c862b777c8e7fcb97ee9">&#9670;&nbsp;</a></span>DescriptorComponentBase()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename TCom , typename TPayload &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">bl::rc::vk::DescriptorSet::DescriptorSet </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a03431.html">VulkanState</a> &amp;&#160;</td>
-          <td class="paramname"><em>vulkanState</em></td><td>)</td>
-          <td></td>
+          <td class="memname"><a class="el" href="a03343.html">bl::rc::rcom::DescriptorComponentBase</a>&lt; TCom, TPayload &gt;::<a class="el" href="a03343.html">DescriptorComponentBase</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates an un-allocated descriptor set. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">vulkanState</td><td><a class="el" href="a03163.html" title="Top level rendering system of the game engine.">Renderer</a> Vulkan state </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Performs basic setup. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01610_source.html#l00011">11</a> of file <a class="el" href="a01610_source.html">DescriptorSet.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a4188235e62ffe691c6d2717246e2428f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4188235e62ffe691c6d2717246e2428f">&#9670;&nbsp;</a></span>DescriptorSet() <span class="overload">[2/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::rc::vk::DescriptorSet::DescriptorSet </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a03431.html">VulkanState</a> &amp;&#160;</td>
-          <td class="paramname"><em>vulkanState</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">VkDescriptorSetLayout&#160;</td>
-          <td class="paramname"><em>layout</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>dedicatedPool</em> = <code>false</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Creates and allocates the descriptor set. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">vulkanState</td><td><a class="el" href="a03163.html" title="Top level rendering system of the game engine.">Renderer</a> Vulkan state </td></tr>
-    <tr><td class="paramname">layout</td><td>The layout to allocate </td></tr>
-    <tr><td class="paramname">dedicatedPool</td><td>True to use a dedicated descriptor pool, false to use shared pools </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01610_source.html#l00015">15</a> of file <a class="el" href="a01610_source.html">DescriptorSet.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ab6ed0bc70752febc342036bc270d5dd9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab6ed0bc70752febc342036bc270d5dd9">&#9670;&nbsp;</a></span>DescriptorSet() <span class="overload">[3/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::rc::vk::DescriptorSet::DescriptorSet </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a03343.html">DescriptorSet</a> &amp;&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Deleted. </p>
-
-</div>
-</div>
-<a id="a751625200d6da3a6c87198702c834997"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a751625200d6da3a6c87198702c834997">&#9670;&nbsp;</a></span>DescriptorSet() <span class="overload">[4/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::rc::vk::DescriptorSet::DescriptorSet </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a03343.html">DescriptorSet</a> &amp;&amp;&#160;</td>
-          <td class="paramname"><em>ds</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Assumes ownership from the given descriptor set. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">ds</td><td>The set to take over. Is invalidated </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01610_source.html#l00020">20</a> of file <a class="el" href="a01610_source.html">DescriptorSet.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a799707e8dfa2b1993b61607fe8a1dd1d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a799707e8dfa2b1993b61607fe8a1dd1d">&#9670;&nbsp;</a></span>~DescriptorSet()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::rc::vk::DescriptorSet::~DescriptorSet </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Defers release of the set if allocated. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01610_source.html#l00027">27</a> of file <a class="el" href="a01610_source.html">DescriptorSet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00689_source.html#l00086">86</a> of file <a class="el" href="a00689_source.html">DescriptorComponentBase.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ab4688b60580626c3a49ae1dc37a8b64a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab4688b60580626c3a49ae1dc37a8b64a">&#9670;&nbsp;</a></span>allocate()</h2>
+<a id="a28d5c2119ca3abbb19af93c1197f1413"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28d5c2119ca3abbb19af93c1197f1413">&#9670;&nbsp;</a></span>isDirty()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename TCom , typename TPayload &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::rc::vk::DescriptorSet::allocate </td>
+          <td class="memname">constexpr bool <a class="el" href="a03343.html">bl::rc::rcom::DescriptorComponentBase</a>&lt; TCom, TPayload &gt;::isDirty</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns whether or not this component is dirty and needs to be synced. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00689_source.html#l00115">115</a> of file <a class="el" href="a00689_source.html">DescriptorComponentBase.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a4029f4fcf38c82fe5fca7d5e8e49bfa7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4029f4fcf38c82fe5fca7d5e8e49bfa7">&#9670;&nbsp;</a></span>link()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename TCom , typename TPayload &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a03343.html">bl::rc::rcom::DescriptorComponentBase</a>&lt; TCom, TPayload &gt;::link </td>
           <td>(</td>
-          <td class="paramtype">VkDescriptorSetLayout&#160;</td>
-          <td class="paramname"><em>layout</em>, </td>
+          <td class="paramtype"><a class="el" href="a03423.html">ds::DescriptorComponentStorageBase</a> *&#160;</td>
+          <td class="paramname"><em>descriptorSet</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>dedicatedPool</em> = <code>false</code>&#160;</td>
+          <td class="paramtype"><a class="el" href="a03679.html">scene::Key</a>&#160;</td>
+          <td class="paramname"><em>sceneKey</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TPayload *&#160;</td>
+          <td class="paramname"><em>payload</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -302,158 +209,140 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates and allocates the descriptor set. Defers release of the prior set if any. </p>
+<p>Links this component to an object in a scene. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">vulkanState</td><td><a class="el" href="a03163.html" title="Top level rendering system of the game engine.">Renderer</a> Vulkan state </td></tr>
-    <tr><td class="paramname">layout</td><td>The layout to allocate </td></tr>
-    <tr><td class="paramname">dedicatedPool</td><td>True to use a dedicated descriptor pool, false to use shared pools </td></tr>
+    <tr><td class="paramname">descriptorSet</td><td>The descriptor set module to link to </td></tr>
+    <tr><td class="paramname">sceneKeyh</td><td>The key of the object in the scene </td></tr>
+    <tr><td class="paramname">payload</td><td>Pointer to the data to manage in the descriptor set buffer </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a01610_source.html#l00036">36</a> of file <a class="el" href="a01610_source.html">DescriptorSet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00689_source.html#l00094">94</a> of file <a class="el" href="a00689_source.html">DescriptorComponentBase.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a13eec443ddabd8645770709f0e0e5fe7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a13eec443ddabd8645770709f0e0e5fe7">&#9670;&nbsp;</a></span>deferRelease()</h2>
+<a id="a285b92a8da73d33a41a29540761d68bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a285b92a8da73d33a41a29540761d68bf">&#9670;&nbsp;</a></span>markDirty()</h2>
 
 <div class="memitem">
 <div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::rc::vk::DescriptorSet::deferRelease </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Defers release of the descriptor set if any. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01610_source.html#l00048">48</a> of file <a class="el" href="a01610_source.html">DescriptorSet.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a2f1a683b42ec64d4d17c7994245a2dce"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2f1a683b42ec64d4d17c7994245a2dce">&#9670;&nbsp;</a></span>getSet()</h2>
-
-<div class="memitem">
-<div class="memproto">
+<div class="memtemplate">
+template&lt;typename TCom , typename TPayload &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr VkDescriptorSet bl::rc::vk::DescriptorSet::getSet </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td class="memname">void <a class="el" href="a03343.html">bl::rc::rcom::DescriptorComponentBase</a>&lt; TCom, TPayload &gt;::markDirty</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the allocated descriptor set. </p>
+<p>Call this when the component is modified. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00812_source.html#l00092">92</a> of file <a class="el" href="a00812_source.html">DescriptorSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00689_source.html#l00132">132</a> of file <a class="el" href="a00689_source.html">DescriptorComponentBase.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a4435b071e9cebdda93a8676f79be795c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4435b071e9cebdda93a8676f79be795c">&#9670;&nbsp;</a></span>operator=() <span class="overload">[1/2]</span></h2>
+<a id="a0913d5b5ac715000106df37c04f5dee7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0913d5b5ac715000106df37c04f5dee7">&#9670;&nbsp;</a></span>refresh()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename TCom , typename TPayload &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a03343.html">bl::rc::rcom::DescriptorComponentBase</a>&lt; TCom, TPayload &gt;::refresh</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Refreshes and syncs the descriptor value and marks as clean. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00689_source.html#l00120">120</a> of file <a class="el" href="a00689_source.html">DescriptorComponentBase.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a14eed8e73b047132c35fced4961df3fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14eed8e73b047132c35fced4961df3fe">&#9670;&nbsp;</a></span>refreshDescriptor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename TCom , typename TPayload  = TCom&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a03343.html">DescriptorSet</a>&amp; bl::rc::vk::DescriptorSet::operator= </td>
+          <td class="memname">void <a class="el" href="a03343.html">bl::rc::rcom::DescriptorComponentBase</a>&lt; TCom, TPayload &gt;::refreshDescriptor </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="a03343.html">DescriptorSet</a> &amp;&#160;</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">TPayload &amp;&#160;</td>
+          <td class="paramname"><em>payload</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Deleted. </p>
-
-</div>
-</div>
-<a id="a012e03bc0e13567b074cd6a8c4fb181e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a012e03bc0e13567b074cd6a8c4fb181e">&#9670;&nbsp;</a></span>operator=() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a03343.html">DescriptorSet</a> &amp; bl::rc::vk::DescriptorSet::operator= </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a03343.html">DescriptorSet</a> &amp;&amp;&#160;</td>
-          <td class="paramname"><em>ds</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Creates and allocates the descriptor set. </p>
+<p>Undefined. Derived classes should implement this to perform refresh+sync logic. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">vulkanState</td><td><a class="el" href="a03163.html" title="Top level rendering system of the game engine.">Renderer</a> Vulkan state </td></tr>
-    <tr><td class="paramname">layout</td><td>The layout to allocate </td></tr>
+    <tr><td class="paramname">payload</td><td>The payload in the descriptor set buffer to update </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A reference to this object </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a01610_source.html#l00029">29</a> of file <a class="el" href="a01610_source.html">DescriptorSet.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a76d00935670fc4f545dbfbf4e995b51e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a76d00935670fc4f545dbfbf4e995b51e">&#9670;&nbsp;</a></span>release()</h2>
+<a id="a016860c801b0e0dce0c30769cf3ef6fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a016860c801b0e0dce0c30769cf3ef6fd">&#9670;&nbsp;</a></span>unlink()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename TCom , typename TPayload &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::rc::vk::DescriptorSet::release </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td class="memname">void <a class="el" href="a03343.html">bl::rc::rcom::DescriptorComponentBase</a>&lt; TCom, TPayload &gt;::unlink</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Immediately releases the descriptor set if any. </p>
+<p>Unlinks the component from a scene object. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01610_source.html#l00041">41</a> of file <a class="el" href="a01610_source.html">DescriptorSet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00689_source.html#l00110">110</a> of file <a class="el" href="a00689_source.html">DescriptorComponentBase.hpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Render/Vulkan/<a class="el" href="a00812_source.html">DescriptorSet.hpp</a></li>
-<li>src/Render/Vulkan/<a class="el" href="a01610_source.html">DescriptorSet.cpp</a></li>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>include/BLIB/Render/Components/<a class="el" href="a00689_source.html">DescriptorComponentBase.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 25 2023 00:24:23 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 27 2023 23:34:43 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

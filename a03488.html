@@ -66,29 +66,41 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01833.html">bl</a></li><li class="navelem"><a class="el" href="a01883.html">resource</a></li><li class="navelem"><a class="el" href="a01884.html">bundle</a></li><li class="navelem"><a class="el" href="a03491.html">Manifest</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02058.html">bl</a></li><li class="navelem"><a class="el" href="a02070.html">rc</a></li><li class="navelem"><a class="el" href="a02107.html">rgi</a></li><li class="navelem"><a class="el" href="a03491.html">FramebufferAsset</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">bl::resource::bundle::Manifest Member List</div>  </div>
+<div class="title">bl::rc::rgi::FramebufferAsset Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a03491.html">bl::resource::bundle::Manifest</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a03491.html">bl::rc::rgi::FramebufferAsset</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a03491.html#aee7a024f8a9c42b55fff3bb8e698067f">containsFile</a>(const std::string &amp;path) const</td><td class="entry"><a class="el" href="a03491.html">bl::resource::bundle::Manifest</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a03491.html#a08c1a66c93a9a3be6dfcfef542a36641">getBundleForFile</a>(const std::string &amp;path) const</td><td class="entry"><a class="el" href="a03491.html">bl::resource::bundle::Manifest</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a03491.html#a994b50ede5fce659271f4f7f69030349">load</a>()</td><td class="entry"><a class="el" href="a03491.html">bl::resource::bundle::Manifest</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a03491.html#af27678f22aee47b1600fa2b0297301ca">Manifest</a>(const std::string &amp;bundleDirectory)</td><td class="entry"><a class="el" href="a03491.html">bl::resource::bundle::Manifest</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a03491.html#aca7902260a13be82a88daf307a696f76">registerFileBundle</a>(const std::string &amp;path, const std::string &amp;bundleFile)</td><td class="entry"><a class="el" href="a03491.html">bl::resource::bundle::Manifest</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a03491.html#a47daef9aeca0e9a61462484a92129904">save</a>() const</td><td class="entry"><a class="el" href="a03491.html">bl::resource::bundle::Manifest</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a03491.html#ad134bde82677e5e32d6ee33a6e42c518">serial::SerializableObject&lt; Manifest &gt;</a></td><td class="entry"><a class="el" href="a03491.html">bl::resource::bundle::Manifest</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a03467.html#ab984db5a4ee19a0df80425a62a9917bb">Asset</a>(std::string_view tag)</td><td class="entry"><a class="el" href="a03467.html">bl::rc::rg::Asset</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a03491.html#a23d36691b92ad120b391d4709e7d01c0">clearColorCount</a></td><td class="entry"><a class="el" href="a03491.html">bl::rc::rgi::FramebufferAsset</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a03491.html#a65b9e38cba06e4d65e4d86da6d23ef6c">clearColors</a></td><td class="entry"><a class="el" href="a03491.html">bl::rc::rgi::FramebufferAsset</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a03491.html#a2a26c21947cd163a91e7172f7732e2ca">currentFramebuffer</a>()=0</td><td class="entry"><a class="el" href="a03491.html">bl::rc::rgi::FramebufferAsset</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a03467.html#a5c8499ec4bafae0119028310732e4f0b">doCreate</a>(engine::Engine &amp;engine, Renderer &amp;renderer, Observer *observer)=0</td><td class="entry"><a class="el" href="a03467.html">bl::rc::rg::Asset</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a03467.html#ab78fbbf18304eeb57015200c5e7b60b1">doPrepareForInput</a>(const ExecutionContext &amp;context)=0</td><td class="entry"><a class="el" href="a03467.html">bl::rc::rg::Asset</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a03467.html#ac4f55b304bd6b766189a129fdef93fec">doPrepareForOutput</a>(const ExecutionContext &amp;context)=0</td><td class="entry"><a class="el" href="a03467.html">bl::rc::rg::Asset</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a03491.html#a3fc28ba6c24994e7665d516409ba46a3">FramebufferAsset</a>(std::string_view tag, std::uint32_t renderPassId, const VkViewport &amp;viewport, const VkRect2D &amp;scissor, const VkClearValue *clearColors, const std::uint32_t clearColorCount)</td><td class="entry"><a class="el" href="a03491.html">bl::rc::rgi::FramebufferAsset</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a03491.html#afbb46da8b5bea760cdc1b67ee3b0b752">getRenderPass</a>() const</td><td class="entry"><a class="el" href="a03491.html">bl::rc::rgi::FramebufferAsset</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a03467.html#a3df08d0a98f5610cd407847d32b817c9">getTag</a>() const</td><td class="entry"><a class="el" href="a03467.html">bl::rc::rg::Asset</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a03467.html#ae8616549439d5f18e19a25f3a898a306">isExternal</a>() const</td><td class="entry"><a class="el" href="a03467.html">bl::rc::rg::Asset</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a03491.html#a409660b3905d16d4d3fb9208e674c99c">notifyResize</a>(glm::u32vec2 newSize)</td><td class="entry"><a class="el" href="a03491.html">bl::rc::rgi::FramebufferAsset</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a03491.html#ace30b9b5cedf18504dbc17fd21023afa">onResize</a>(glm::u32vec2 newSize)=0</td><td class="entry"><a class="el" href="a03491.html">bl::rc::rgi::FramebufferAsset</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a03491.html#a146954ae1351c2bfa089889af6a3ab60">renderPass</a></td><td class="entry"><a class="el" href="a03491.html">bl::rc::rgi::FramebufferAsset</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a03491.html#aa076fbdd14348dffd311d4db4e7f31ba">renderPassId</a></td><td class="entry"><a class="el" href="a03491.html">bl::rc::rgi::FramebufferAsset</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a03491.html#af79eff1acf691c3e36462cc58f102639">scissor</a></td><td class="entry"><a class="el" href="a03491.html">bl::rc::rgi::FramebufferAsset</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a03491.html#a6382f4fc54a3274be43097cd41accf9b">viewport</a></td><td class="entry"><a class="el" href="a03491.html">bl::rc::rgi::FramebufferAsset</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a03467.html#a364f0ec0f68e25d421423d023294bfbf">~Asset</a>()=default</td><td class="entry"><a class="el" href="a03467.html">bl::rc::rg::Asset</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a03491.html#a848768a7d8c51464f230d7a02ff10052">~FramebufferAsset</a>()=default</td><td class="entry"><a class="el" href="a03491.html">bl::rc::rgi::FramebufferAsset</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 25 2023 00:24:24 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 27 2023 23:34:43 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

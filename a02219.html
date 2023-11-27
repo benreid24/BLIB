@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::ecs::DependencyGraph Class Reference</title>
+<title>BLIB: bl::cam::c2d::ConstrainedFollower Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,95 +66,87 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01833.html">bl</a></li><li class="navelem"><a class="el" href="a01848.html">ecs</a></li><li class="navelem"><a class="el" href="a02219.html">DependencyGraph</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02058.html">bl</a></li><li class="navelem"><a class="el" href="a02062.html">cam</a></li><li class="navelem"><a class="el" href="a02063.html">c2d</a></li><li class="navelem"><a class="el" href="a02219.html">ConstrainedFollower</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="a02216.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::ecs::DependencyGraph Class Reference<div class="ingroups"><a class="el" href="a01810.html">ECS</a></div></div>  </div>
+<div class="title">bl::cam::c2d::ConstrainedFollower Class Reference<div class="ingroups"><a class="el" href="a02032.html">Cameras</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Helper to store and manage dependencies between components.  
+<p>2d camera controller that centers a camera on an entity while keeping the visible region constrained to a given region. If the camera view is too large it centers on the region  
  <a href="a02219.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00155_source.html">DependencyGraph.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00032_source.html">ConstrainedFollower.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::cam::c2d::ConstrainedFollower:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a02219.png" usemap="#bl::cam::c2d::ConstrainedFollower_map" alt=""/>
+  <map id="bl::cam::c2d::ConstrainedFollower_map" name="bl::cam::c2d::ConstrainedFollower_map">
+<area href="a02215.html" title="Base class for 2d camera controllers." alt="bl::cam::CameraController2D" shape="rect" coords="0,0,201,24"/>
+  </map>
+</div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a42ca2d87dfe5867e1e48b7cd927e8998"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02219.html#a42ca2d87dfe5867e1e48b7cd927e8998">DependencyGraph</a> (std::size_t capacityHint)</td></tr>
-<tr class="memdesc:a42ca2d87dfe5867e1e48b7cd927e8998"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the graph with the given capacity hint.  <a href="a02219.html#a42ca2d87dfe5867e1e48b7cd927e8998">More...</a><br /></td></tr>
-<tr class="separator:a42ca2d87dfe5867e1e48b7cd927e8998"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5be0aef92ec886c39769384811f02ccc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02219.html#a5be0aef92ec886c39769384811f02ccc">addDependency</a> (<a class="el" href="a02223.html">Entity</a> parent, <a class="el" href="a02223.html">Entity</a> child)</td></tr>
-<tr class="memdesc:a5be0aef92ec886c39769384811f02ccc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a dependency between two entities.  <a href="a02219.html#a5be0aef92ec886c39769384811f02ccc">More...</a><br /></td></tr>
-<tr class="separator:a5be0aef92ec886c39769384811f02ccc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a306e898c7fab38052be04f243e154f8c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02219.html#a306e898c7fab38052be04f243e154f8c">hasDependencies</a> (<a class="el" href="a02223.html">Entity</a> parent) const</td></tr>
-<tr class="memdesc:a306e898c7fab38052be04f243e154f8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the given entity has others depending on it.  <a href="a02219.html#a306e898c7fab38052be04f243e154f8c">More...</a><br /></td></tr>
-<tr class="separator:a306e898c7fab38052be04f243e154f8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a578885f410b0ca7aa8551962258bb59f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02219.html#a578885f410b0ca7aa8551962258bb59f">removeDependency</a> (<a class="el" href="a02223.html">Entity</a> parent, <a class="el" href="a02223.html">Entity</a> child)</td></tr>
-<tr class="memdesc:a578885f410b0ca7aa8551962258bb59f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the given dependency.  <a href="a02219.html#a578885f410b0ca7aa8551962258bb59f">More...</a><br /></td></tr>
-<tr class="separator:a578885f410b0ca7aa8551962258bb59f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a46bb4369e09fcc49d21b3f8c07946f4c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02219.html#a46bb4369e09fcc49d21b3f8c07946f4c">clear</a> ()</td></tr>
-<tr class="memdesc:a46bb4369e09fcc49d21b3f8c07946f4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears out all relationship data.  <a href="a02219.html#a46bb4369e09fcc49d21b3f8c07946f4c">More...</a><br /></td></tr>
-<tr class="separator:a46bb4369e09fcc49d21b3f8c07946f4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a334277ed7244554257b87ee0530b6d3a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02103.html">ctr::IndexMappedList</a>&lt; std::uint32_t, <a class="el" href="a02223.html">Entity</a> &gt;::Range&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02219.html#a334277ed7244554257b87ee0530b6d3a">getResources</a> (<a class="el" href="a02223.html">Entity</a> child)</td></tr>
-<tr class="memdesc:a334277ed7244554257b87ee0530b6d3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an iterable of dependencies for the given entity.  <a href="a02219.html#a334277ed7244554257b87ee0530b6d3a">More...</a><br /></td></tr>
-<tr class="separator:a334277ed7244554257b87ee0530b6d3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae53bd5d70fa3a9540aad24b724733e76"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02219.html#ae53bd5d70fa3a9540aad24b724733e76">ConstrainedFollower</a> (<a class="el" href="a02503.html">ecs::Registry</a> &amp;registry, <a class="el" href="a02459.html">ecs::Entity</a> follow, const sf::FloatRect &amp;area, bool followRotation=false)</td></tr>
+<tr class="memdesc:ae53bd5d70fa3a9540aad24b724733e76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new constrained follower controller.  <a href="a02219.html#ae53bd5d70fa3a9540aad24b724733e76">More...</a><br /></td></tr>
+<tr class="separator:ae53bd5d70fa3a9540aad24b724733e76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aabd1daba5bd87b141592bc605095bf53"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02219.html#aabd1daba5bd87b141592bc605095bf53">~ConstrainedFollower</a> ()=default</td></tr>
+<tr class="memdesc:aabd1daba5bd87b141592bc605095bf53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the controller.  <a href="a02219.html#aabd1daba5bd87b141592bc605095bf53">More...</a><br /></td></tr>
+<tr class="separator:aabd1daba5bd87b141592bc605095bf53"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c4a03acbe1f94fcdbeec19ced239756"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02219.html#a2c4a03acbe1f94fcdbeec19ced239756">update</a> (float dt) override</td></tr>
+<tr class="memdesc:a2c4a03acbe1f94fcdbeec19ced239756"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the controller to keep the camera centered.  <a href="a02219.html#a2c4a03acbe1f94fcdbeec19ced239756">More...</a><br /></td></tr>
+<tr class="separator:a2c4a03acbe1f94fcdbeec19ced239756"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:ab5cf0b6a2160e850a7e7f4dc6c06dd77"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="a02207.html">Camera2D</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02215.html#ab5cf0b6a2160e850a7e7f4dc6c06dd77">camera</a> ()</td></tr>
+<tr class="memdesc:ab5cf0b6a2160e850a7e7f4dc6c06dd77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the camera that owns this controller. Undefined behavior if not currently owned.  <a href="a02215.html#ab5cf0b6a2160e850a7e7f4dc6c06dd77">More...</a><br /></td></tr>
+<tr class="separator:ab5cf0b6a2160e850a7e7f4dc6c06dd77"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Helper to store and manage dependencies between components. </p>
+<div class="textblock"><p>2d camera controller that centers a camera on an entity while keeping the visible region constrained to a given region. If the camera view is too large it centers on the region </p>
 
-<p class="definition">Definition at line <a class="el" href="a00155_source.html#l00016">16</a> of file <a class="el" href="a00155_source.html">DependencyGraph.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00032_source.html#l00022">22</a> of file <a class="el" href="a00032_source.html">ConstrainedFollower.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a42ca2d87dfe5867e1e48b7cd927e8998"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a42ca2d87dfe5867e1e48b7cd927e8998">&#9670;&nbsp;</a></span>DependencyGraph()</h2>
+<a id="ae53bd5d70fa3a9540aad24b724733e76"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae53bd5d70fa3a9540aad24b724733e76">&#9670;&nbsp;</a></span>ConstrainedFollower()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bl::ecs::DependencyGraph::DependencyGraph </td>
+          <td class="memname">bl::cam::c2d::ConstrainedFollower::ConstrainedFollower </td>
           <td>(</td>
-          <td class="paramtype">std::size_t&#160;</td>
-          <td class="paramname"><em>capacityHint</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Creates the graph with the given capacity hint. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">capacityHint</td><td>The number of expected entities </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01175_source.html#l00007">7</a> of file <a class="el" href="a01175_source.html">DependencyGraph.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a5be0aef92ec886c39769384811f02ccc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5be0aef92ec886c39769384811f02ccc">&#9670;&nbsp;</a></span>addDependency()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::ecs::DependencyGraph::addDependency </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a02223.html">Entity</a>&#160;</td>
-          <td class="paramname"><em>parent</em>, </td>
+          <td class="paramtype"><a class="el" href="a02503.html">ecs::Registry</a> &amp;&#160;</td>
+          <td class="paramname"><em>registry</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="a02223.html">Entity</a>&#160;</td>
-          <td class="paramname"><em>child</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="a02459.html">ecs::Entity</a>&#160;</td>
+          <td class="paramname"><em>follow</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const sf::FloatRect &amp;&#160;</td>
+          <td class="paramname"><em>area</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>followRotation</em> = <code>false</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -164,146 +156,125 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Adds a dependency between two entities. </p>
+<p>Creates a new constrained follower controller. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">parent</td><td>The entity being depended on </td></tr>
-    <tr><td class="paramname">child</td><td>The entity depending on </td></tr>
+    <tr><td class="paramname">registry</td><td>The ECS registry </td></tr>
+    <tr><td class="paramname">follow</td><td>The entity to follow. Must have a Transform2D component </td></tr>
+    <tr><td class="paramname">area</td><td>The region to attempt to keep the visible area limited to </td></tr>
+    <tr><td class="paramname">followRotation</td><td>True to match the rotation of the entity, false to leave unchanged </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a01175_source.html#l00011">11</a> of file <a class="el" href="a01175_source.html">DependencyGraph.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01262_source.html#l00012">12</a> of file <a class="el" href="a01262_source.html">ConstrainedFollower.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a46bb4369e09fcc49d21b3f8c07946f4c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a46bb4369e09fcc49d21b3f8c07946f4c">&#9670;&nbsp;</a></span>clear()</h2>
+<a id="aabd1daba5bd87b141592bc605095bf53"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aabd1daba5bd87b141592bc605095bf53">&#9670;&nbsp;</a></span>~ConstrainedFollower()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::ecs::DependencyGraph::clear </td>
+          <td class="memname">virtual bl::cam::c2d::ConstrainedFollower::~ConstrainedFollower </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Clears out all relationship data. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01175_source.html#l00025">25</a> of file <a class="el" href="a01175_source.html">DependencyGraph.cpp</a>.</p>
+<p>Destroys the controller. </p>
 
 </div>
 </div>
-<a id="a334277ed7244554257b87ee0530b6d3a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a334277ed7244554257b87ee0530b6d3a">&#9670;&nbsp;</a></span>getResources()</h2>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ab5cf0b6a2160e850a7e7f4dc6c06dd77"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5cf0b6a2160e850a7e7f4dc6c06dd77">&#9670;&nbsp;</a></span>camera()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a02103.html">ctr::IndexMappedList</a>&lt; std::uint32_t, <a class="el" href="a02223.html">Entity</a> &gt;::Range bl::ecs::DependencyGraph::getResources </td>
+          <td class="memname">constexpr <a class="el" href="a02207.html">Camera2D</a> &amp; bl::cam::CameraController2D::camera </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a02223.html">Entity</a>&#160;</td>
-          <td class="paramname"><em>child</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Returns an iterable of dependencies for the given entity. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">child</td><td>The entity to get dependencies for </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>An iterable of entities that are depended on </dd></dl>
+<p>Returns the camera that owns this controller. Undefined behavior if not currently owned. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01175_source.html#l00030">30</a> of file <a class="el" href="a01175_source.html">DependencyGraph.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00029_source.html#l00045">45</a> of file <a class="el" href="a00029_source.html">CameraController2D.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a306e898c7fab38052be04f243e154f8c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a306e898c7fab38052be04f243e154f8c">&#9670;&nbsp;</a></span>hasDependencies()</h2>
+<a id="a2c4a03acbe1f94fcdbeec19ced239756"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c4a03acbe1f94fcdbeec19ced239756">&#9670;&nbsp;</a></span>update()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool bl::ecs::DependencyGraph::hasDependencies </td>
+          <td class="memname">void bl::cam::c2d::ConstrainedFollower::update </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a02223.html">Entity</a>&#160;</td>
-          <td class="paramname"><em>parent</em></td><td>)</td>
-          <td> const</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>dt</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Returns whether or not the given entity has others depending on it. </p>
+<p>Updates the controller to keep the camera centered. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">parent</td><td>The entity to check </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if dependencies are present, false otherwise </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a01175_source.html#l00016">16</a> of file <a class="el" href="a01175_source.html">DependencyGraph.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a578885f410b0ca7aa8551962258bb59f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a578885f410b0ca7aa8551962258bb59f">&#9670;&nbsp;</a></span>removeDependency()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::ecs::DependencyGraph::removeDependency </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a02223.html">Entity</a>&#160;</td>
-          <td class="paramname"><em>parent</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a02223.html">Entity</a>&#160;</td>
-          <td class="paramname"><em>child</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Removes the given dependency. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">parent</td><td>The entity being depended on </td></tr>
-    <tr><td class="paramname">child</td><td>The entity depending on </td></tr>
+    <tr><td class="paramname">dt</td><td>Unused </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a01175_source.html#l00020">20</a> of file <a class="el" href="a01175_source.html">DependencyGraph.cpp</a>.</p>
+<p>Implements <a class="el" href="a02215.html#a4e026e015a56bda5ec70fbd4bdfb80df">bl::cam::CameraController2D</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a01262_source.html#l00023">23</a> of file <a class="el" href="a01262_source.html">ConstrainedFollower.cpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/ECS/<a class="el" href="a00155_source.html">DependencyGraph.hpp</a></li>
-<li>src/ECS/<a class="el" href="a01175_source.html">DependencyGraph.cpp</a></li>
+<li>include/BLIB/Cameras/2D/Controllers/<a class="el" href="a00032_source.html">ConstrainedFollower.hpp</a></li>
+<li>src/Cameras/2D/Controllers/<a class="el" href="a01262_source.html">ConstrainedFollower.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 25 2023 00:24:22 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 27 2023 23:34:42 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

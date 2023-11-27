@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Resources/Bundling/BundleMetadata.cpp Source File</title>
+<title>BLIB: src/Render/Descriptors/Builtin/Scene2DFactory.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,69 +66,67 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_7a475d59e09b1ce69b1dfbc6b0817add.html">Resources</a></li><li class="navelem"><a class="el" href="dir_650c2bb72fa499737589ce0469633186.html">Bundling</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_c46d59b26ba1c7a895704386ecf9511b.html">Descriptors</a></li><li class="navelem"><a class="el" href="dir_1c9d8e1815e637956400971975ea0cfc.html">Builtin</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">BundleMetadata.cpp</div>  </div>
+<div class="title">Scene2DFactory.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01664.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00872.html">BLIB/Resources/Bundling/BundleMetadata.hpp</a>&gt;</span></div>
+<a href="a01664.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00713.html">BLIB/Render/Descriptors/Builtin/Scene2DFactory.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01833.html">bl</a></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>resource</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>bundle</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a01884.html#a8a2a9b32bbe1a4a8091826b7556796c1">    9</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a03635.html">Serializer</a> = <a class="code" href="a03635.html">serial::binary::Serializer&lt;BundleMetadata&gt;</a>;</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="a03451.html#a3703c69b35ae0f1f187e73ff5e8e3159">   11</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03451.html#a3703c69b35ae0f1f187e73ff5e8e3159">BundleMetadata::addFileInfo</a>(<span class="keyword">const</span> std::string&amp; path, <span class="keyword">const</span> <a class="code" href="a03443.html">BundledFileMetadata</a>&amp; info) {</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    manifest[path] = info;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;}</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="a03451.html#a5ee5ad07b7fe5b2d1e6f815810e059cd">   15</a></span>&#160;<a class="code" href="a03443.html">BundledFileMetadata</a> <a class="code" href="a03451.html#a5ee5ad07b7fe5b2d1e6f815810e059cd">BundleMetadata::getFileInfo</a>(<span class="keyword">const</span> std::string&amp; path)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> it = manifest.find(path);</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordflow">return</span> it != manifest.end() ? it-&gt;second : <a class="code" href="a03443.html">BundledFileMetadata</a>{-1, -1};</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;}</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00716.html">BLIB/Render/Descriptors/Builtin/Scene2DInstance.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05641.html">BLIB/Render/Renderer.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02058.html">bl</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>ds</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="a03391.html#a85c5806854b6dff4cf29be168119801c">   12</a></span>&#160;<a class="code" href="a03391.html#a85c5806854b6dff4cf29be168119801c">Scene2DFactory::~Scene2DFactory</a>() {}</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keywordtype">void</span> Scene2DFactory::init(<a class="code" href="a02555.html">engine::Engine</a>&amp;, <a class="code" href="a03603.html">Renderer</a>&amp; renderer) {</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    vulkanState = &amp;renderer.<a class="code" href="a03603.html#ac80c82fc9945bff8ee2311207fb53f3f">vulkanState</a>();</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <a class="code" href="a03775.html">vk::DescriptorPool::SetBindingInfo</a> bindingInfo;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    bindingInfo.<a class="code" href="a03775.html#ad44b120901116ab5216ddfdc35d30d95">bindingCount</a> = 1;</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a03451.html#a98ffb4582c0b6b07d39c5e43042fd1ae">   20</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a03451.html#a98ffb4582c0b6b07d39c5e43042fd1ae">BundleMetadata::save</a>(std::ostream&amp; stream)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <a class="code" href="a03759.html">serial::StreamOutputBuffer</a> wrapper(stream);</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <a class="code" href="a03631.html">serial::binary::OutputStream</a> bs(wrapper);</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="a03635.html#a5f0be3d348bae8bf6823f4d2a3a98b9b">Serializer::serialize</a>(bs, *<span class="keyword">this</span>);</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;}</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a03451.html#af644d928891785dc98ff4eb2a4dfecda">   26</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a03451.html#af644d928891785dc98ff4eb2a4dfecda">BundleMetadata::load</a>(std::istream&amp; stream) {</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    manifest.clear();</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <a class="code" href="a03755.html">serial::StreamInputBuffer</a> wrapper(stream);</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <a class="code" href="a03623.html">serial::binary::InputStream</a> bs(wrapper);</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="a03635.html#ae6050208537dd1364dd2779ffe36d057">Serializer::deserialize</a>(bs, *<span class="keyword">this</span>);</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;}</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;} <span class="comment">// namespace bundle</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;} <span class="comment">// namespace resource</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00872_html"><div class="ttname"><a href="a00872.html">BundleMetadata.hpp</a></div></div>
-<div class="ttc" id="aa01833_html"><div class="ttname"><a href="a01833.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03443_html"><div class="ttname"><a href="a03443.html">bl::resource::bundle::BundledFileMetadata</a></div><div class="ttdoc">Basic struct containing metadata about a file in a bundle.</div><div class="ttdef"><b>Definition:</b> <a href="a00869_source.html#l00019">BundledFileMetadata.hpp:19</a></div></div>
-<div class="ttc" id="aa03451_html_a3703c69b35ae0f1f187e73ff5e8e3159"><div class="ttname"><a href="a03451.html#a3703c69b35ae0f1f187e73ff5e8e3159">bl::resource::bundle::BundleMetadata::addFileInfo</a></div><div class="ttdeci">void addFileInfo(const std::string &amp;path, const BundledFileMetadata &amp;info)</div><div class="ttdoc">Adds information for the given file to the bundle manifest.</div><div class="ttdef"><b>Definition:</b> <a href="a01664_source.html#l00011">BundleMetadata.cpp:11</a></div></div>
-<div class="ttc" id="aa03451_html_a5ee5ad07b7fe5b2d1e6f815810e059cd"><div class="ttname"><a href="a03451.html#a5ee5ad07b7fe5b2d1e6f815810e059cd">bl::resource::bundle::BundleMetadata::getFileInfo</a></div><div class="ttdeci">BundledFileMetadata getFileInfo(const std::string &amp;path) const</div><div class="ttdoc">Get the information locating a specific file in the bundle.</div><div class="ttdef"><b>Definition:</b> <a href="a01664_source.html#l00015">BundleMetadata.cpp:15</a></div></div>
-<div class="ttc" id="aa03451_html_a98ffb4582c0b6b07d39c5e43042fd1ae"><div class="ttname"><a href="a03451.html#a98ffb4582c0b6b07d39c5e43042fd1ae">bl::resource::bundle::BundleMetadata::save</a></div><div class="ttdeci">bool save(std::ostream &amp;stream) const</div><div class="ttdoc">Saves the bundle metadata to the given stream.</div><div class="ttdef"><b>Definition:</b> <a href="a01664_source.html#l00020">BundleMetadata.cpp:20</a></div></div>
-<div class="ttc" id="aa03451_html_af644d928891785dc98ff4eb2a4dfecda"><div class="ttname"><a href="a03451.html#af644d928891785dc98ff4eb2a4dfecda">bl::resource::bundle::BundleMetadata::load</a></div><div class="ttdeci">bool load(std::istream &amp;stream)</div><div class="ttdoc">Loads the bundle metadata from the given stream.</div><div class="ttdef"><b>Definition:</b> <a href="a01664_source.html#l00026">BundleMetadata.cpp:26</a></div></div>
-<div class="ttc" id="aa03623_html"><div class="ttname"><a href="a03623.html">bl::serial::binary::InputStream</a></div><div class="ttdoc">A readable stream for binary deserialization.</div><div class="ttdef"><b>Definition:</b> <a href="a00953_source.html#l00028">InputStream.hpp:28</a></div></div>
-<div class="ttc" id="aa03631_html"><div class="ttname"><a href="a03631.html">bl::serial::binary::OutputStream</a></div><div class="ttdoc">A writable stream for binary serialization.</div><div class="ttdef"><b>Definition:</b> <a href="a00959_source.html#l00022">OutputStream.hpp:22</a></div></div>
-<div class="ttc" id="aa03635_html"><div class="ttname"><a href="a03635.html">bl::serial::binary::Serializer</a></div><div class="ttdoc">Helper struct for serializing types into binary streams. Integral types, strings, vector,...</div><div class="ttdef"><b>Definition:</b> <a href="a05169_source.html#l00034">Serializer.hpp:34</a></div></div>
-<div class="ttc" id="aa03635_html_a5f0be3d348bae8bf6823f4d2a3a98b9b"><div class="ttname"><a href="a03635.html#a5f0be3d348bae8bf6823f4d2a3a98b9b">bl::serial::binary::Serializer::serialize</a></div><div class="ttdeci">static bool serialize(OutputStream &amp;output, const T &amp;value)</div><div class="ttdoc">Serialize the given value to the given file.</div></div>
-<div class="ttc" id="aa03635_html_ae6050208537dd1364dd2779ffe36d057"><div class="ttname"><a href="a03635.html#ae6050208537dd1364dd2779ffe36d057">bl::serial::binary::Serializer::deserialize</a></div><div class="ttdeci">static bool deserialize(InputStream &amp;input, T &amp;result)</div><div class="ttdoc">Reads the value from input into result.</div></div>
-<div class="ttc" id="aa03755_html"><div class="ttname"><a href="a03755.html">bl::serial::StreamInputBuffer</a></div><div class="ttdoc">Input buffer that operates on C++ streams.</div><div class="ttdef"><b>Definition:</b> <a href="a00983_source.html#l00017">StreamInputBuffer.hpp:17</a></div></div>
-<div class="ttc" id="aa03759_html"><div class="ttname"><a href="a03759.html">bl::serial::StreamOutputBuffer</a></div><div class="ttdoc">Output buffer that allows writing to C++ streams.</div><div class="ttdef"><b>Definition:</b> <a href="a00986_source.html#l00017">StreamOutputBuffer.hpp:17</a></div></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    bindingInfo.<a class="code" href="a03775.html#ab972da11e25938a0637ebf832a6b9bd7">bindings</a>[0].binding         = 0;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    bindingInfo.<a class="code" href="a03775.html#ab972da11e25938a0637ebf832a6b9bd7">bindings</a>[0].descriptorCount = 1;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    bindingInfo.<a class="code" href="a03775.html#ab972da11e25938a0637ebf832a6b9bd7">bindings</a>[0].descriptorType  = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    bindingInfo.<a class="code" href="a03775.html#ab972da11e25938a0637ebf832a6b9bd7">bindings</a>[0].stageFlags      = VK_SHADER_STAGE_VERTEX_BIT;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <a class="code" href="a03439.html#a272948ed73908bcc35626a495366cba6">descriptorSetLayout</a> = vulkanState-&gt;<a class="code" href="a03875.html#ac6ea18991f2fd8391eb44229ae2ac8f7">descriptorPool</a>.<a class="code" href="a03771.html#a5a206bab1969632a78bca5e79532eb70">createLayout</a>(bindingInfo);</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;}</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;std::unique_ptr&lt;DescriptorSetInstance&gt; Scene2DFactory::createDescriptorSet()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordflow">return</span> std::make_unique&lt;Scene2DInstance&gt;(*vulkanState, <a class="code" href="a03439.html#a272948ed73908bcc35626a495366cba6">descriptorSetLayout</a>);</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;}</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;} <span class="comment">// namespace ds</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00713_html"><div class="ttname"><a href="a00713.html">Scene2DFactory.hpp</a></div></div>
+<div class="ttc" id="aa00716_html"><div class="ttname"><a href="a00716.html">Scene2DInstance.hpp</a></div></div>
+<div class="ttc" id="aa02058_html"><div class="ttname"><a href="a02058.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02555_html"><div class="ttname"><a href="a02555.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a05599_source.html#l00032">Engine.hpp:32</a></div></div>
+<div class="ttc" id="aa03391_html_a85c5806854b6dff4cf29be168119801c"><div class="ttname"><a href="a03391.html#a85c5806854b6dff4cf29be168119801c">bl::rc::ds::Scene2DFactory::~Scene2DFactory</a></div><div class="ttdeci">virtual ~Scene2DFactory()</div><div class="ttdoc">Destroys the factory.</div><div class="ttdef"><b>Definition:</b> <a href="a01664_source.html#l00012">Scene2DFactory.cpp:12</a></div></div>
+<div class="ttc" id="aa03439_html_a272948ed73908bcc35626a495366cba6"><div class="ttname"><a href="a03439.html#a272948ed73908bcc35626a495366cba6">bl::rc::ds::DescriptorSetFactory::descriptorSetLayout</a></div><div class="ttdeci">VkDescriptorSetLayout descriptorSetLayout</div><div class="ttdef"><b>Definition:</b> <a href="a00743_source.html#l00061">DescriptorSetFactory.hpp:61</a></div></div>
+<div class="ttc" id="aa03603_html"><div class="ttname"><a href="a03603.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition:</b> <a href="a05641_source.html#l00039">Renderer.hpp:39</a></div></div>
+<div class="ttc" id="aa03603_html_ac80c82fc9945bff8ee2311207fb53f3f"><div class="ttname"><a href="a03603.html#ac80c82fc9945bff8ee2311207fb53f3f">bl::rc::Renderer::vulkanState</a></div><div class="ttdeci">constexpr vk::VulkanState &amp; vulkanState()</div><div class="ttdoc">Returns the Vulkan state of the renderer.</div><div class="ttdef"><b>Definition:</b> <a href="a05641_source.html#l00223">Renderer.hpp:223</a></div></div>
+<div class="ttc" id="aa03771_html_a5a206bab1969632a78bca5e79532eb70"><div class="ttname"><a href="a03771.html#a5a206bab1969632a78bca5e79532eb70">bl::rc::vk::DescriptorPool::createLayout</a></div><div class="ttdeci">VkDescriptorSetLayout createLayout(const SetBindingInfo &amp;allocInfo)</div><div class="ttdoc">Creates a descriptor set layout from the set allocation info.</div><div class="ttdef"><b>Definition:</b> <a href="a01829_source.html#l00045">DescriptorPool.cpp:45</a></div></div>
+<div class="ttc" id="aa03775_html"><div class="ttname"><a href="a03775.html">bl::rc::vk::DescriptorPool::SetBindingInfo</a></div><div class="ttdoc">Struct containing the data required to create descriptor sets and layouts.</div><div class="ttdef"><b>Definition:</b> <a href="a00944_source.html#l00036">DescriptorPool.hpp:36</a></div></div>
+<div class="ttc" id="aa03775_html_ab972da11e25938a0637ebf832a6b9bd7"><div class="ttname"><a href="a03775.html#ab972da11e25938a0637ebf832a6b9bd7">bl::rc::vk::DescriptorPool::SetBindingInfo::bindings</a></div><div class="ttdeci">std::array&lt; VkDescriptorSetLayoutBinding, Config::MaxDescriptorSets &gt; bindings</div><div class="ttdef"><b>Definition:</b> <a href="a00944_source.html#l00039">DescriptorPool.hpp:39</a></div></div>
+<div class="ttc" id="aa03775_html_ad44b120901116ab5216ddfdc35d30d95"><div class="ttname"><a href="a03775.html#ad44b120901116ab5216ddfdc35d30d95">bl::rc::vk::DescriptorPool::SetBindingInfo::bindingCount</a></div><div class="ttdeci">std::uint32_t bindingCount</div><div class="ttdef"><b>Definition:</b> <a href="a00944_source.html#l00040">DescriptorPool.hpp:40</a></div></div>
+<div class="ttc" id="aa03875_html_ac6ea18991f2fd8391eb44229ae2ac8f7"><div class="ttname"><a href="a03875.html#ac6ea18991f2fd8391eb44229ae2ac8f7">bl::rc::vk::VulkanState::descriptorPool</a></div><div class="ttdeci">DescriptorPool descriptorPool</div><div class="ttdef"><b>Definition:</b> <a href="a00992_source.html#l00229">VulkanState.hpp:229</a></div></div>
+<div class="ttc" id="aa05641_html"><div class="ttname"><a href="a05641.html">Renderer.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 25 2023 00:24:21 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 27 2023 23:34:41 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

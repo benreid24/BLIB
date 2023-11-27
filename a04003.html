@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::util::LastVariadic&lt; Ts &gt; Class Template Reference</title>
+<title>BLIB: bl::resource::Resource&lt; TResourceType &gt; Struct Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,72 +66,176 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01833.html">bl</a></li><li class="navelem"><a class="el" href="a01891.html">util</a></li><li class="navelem"><a class="el" href="a04003.html">LastVariadic</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02058.html">bl</a></li><li class="navelem"><a class="el" href="a02111.html">resource</a></li><li class="navelem"><a class="el" href="a04003.html">Resource</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#pub-types">Public Types</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a04000.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::util::LastVariadic&lt; Ts &gt; Class Template Reference<div class="ingroups"><a class="el" href="a01825.html">Util</a></div></div>  </div>
+<div class="title">bl::resource::Resource&lt; TResourceType &gt; Struct Template Reference<div class="ingroups"><a class="el" href="a02046.html">Resources</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Provides a typedef for the last type in a variadic template parameter list.  
+<p>Internal struct used by <a class="el" href="a03995.html" title="Single template based resource management class. Meant for storing data exactly once,...">ResourceManager</a>. Use <a class="el" href="a03999.html" title="Represents a reference to a managed resource. Performs reference counting, but resources are never de...">Ref</a> externally.  
  <a href="a04003.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a01061_source.html">LastVariadic.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a01046_source.html">Resource.hpp</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:af272ecfc09083f9cec3776a769bd2509"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04003.html#af272ecfc09083f9cec3776a769bd2509">Last</a> = typename decltype((tag&lt; Ts &gt;{},...))::type</td></tr>
-<tr class="memdesc:af272ecfc09083f9cec3776a769bd2509"><td class="mdescLeft">&#160;</td><td class="mdescRight">The last type in the provided list of types.  <a href="a04003.html#af272ecfc09083f9cec3776a769bd2509">More...</a><br /></td></tr>
-<tr class="separator:af272ecfc09083f9cec3776a769bd2509"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a960cdfe33cc6864253ab5a752eca5849"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04003.html#a960cdfe33cc6864253ab5a752eca5849">Resource</a> ()</td></tr>
+<tr class="separator:a960cdfe33cc6864253ab5a752eca5849"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5a9cfb2bdf518dd16bdd3f0a20b083d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04003.html#ab5a9cfb2bdf518dd16bdd3f0a20b083d">readyForPurge</a> () const</td></tr>
+<tr class="separator:ab5a9cfb2bdf518dd16bdd3f0a20b083d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a52c71fdc94a138dbd91991e58cb17bf0"><td class="memItemLeft" align="right" valign="top">TResourceType&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04003.html#a52c71fdc94a138dbd91991e58cb17bf0">data</a></td></tr>
+<tr class="separator:a52c71fdc94a138dbd91991e58cb17bf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac04d4094da2e3e9fe8edae5d3b83eef"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04003.html#aac04d4094da2e3e9fe8edae5d3b83eef">forceInCache</a></td></tr>
+<tr class="separator:aac04d4094da2e3e9fe8edae5d3b83eef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f5478d3171934815ccfdf31c0728caf"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04003.html#a3f5478d3171934815ccfdf31c0728caf">refCount</a></td></tr>
+<tr class="separator:a3f5478d3171934815ccfdf31c0728caf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename... Ts&gt;<br />
-class bl::util::LastVariadic&lt; Ts &gt;</h3>
+<div class="textblock"><h3>template&lt;typename TResourceType&gt;<br />
+struct bl::resource::Resource&lt; TResourceType &gt;</h3>
 
-<p>Provides a typedef for the last type in a variadic template parameter list. </p>
+<p>Internal struct used by <a class="el" href="a03995.html" title="Single template based resource management class. Meant for storing data exactly once,...">ResourceManager</a>. Use <a class="el" href="a03999.html" title="Represents a reference to a managed resource. Performs reference counting, but resources are never de...">Ref</a> externally. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">Ts</td><td>List of types to select the last from </td></tr>
+    <tr><td class="paramname">TResourceType</td><td>the type </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a01061_source.html#l00015">15</a> of file <a class="el" href="a01061_source.html">LastVariadic.hpp</a>.</p>
-</div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="af272ecfc09083f9cec3776a769bd2509"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af272ecfc09083f9cec3776a769bd2509">&#9670;&nbsp;</a></span>Last</h2>
+<p class="definition">Definition at line <a class="el" href="a01046_source.html#l00019">19</a> of file <a class="el" href="a01046_source.html">Resource.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a960cdfe33cc6864253ab5a752eca5849"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a960cdfe33cc6864253ab5a752eca5849">&#9670;&nbsp;</a></span>Resource()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename... Ts&gt; </div>
+template&lt;typename TResourceType &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="a04003.html">bl::util::LastVariadic</a>&lt; Ts &gt;::<a class="el" href="a04003.html#af272ecfc09083f9cec3776a769bd2509">Last</a> =  typename decltype((tag&lt;Ts&gt;{}, ...))::type</td>
+          <td class="memname"><a class="el" href="a04003.html">bl::resource::Resource</a>&lt; TResourceType &gt;::<a class="el" href="a04003.html">Resource</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01046_source.html#l00024">24</a> of file <a class="el" href="a01046_source.html">Resource.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ab5a9cfb2bdf518dd16bdd3f0a20b083d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5a9cfb2bdf518dd16bdd3f0a20b083d">&#9670;&nbsp;</a></span>readyForPurge()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename TResourceType &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="a04003.html">bl::resource::Resource</a>&lt; TResourceType &gt;::readyForPurge </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01046_source.html#l00028">28</a> of file <a class="el" href="a01046_source.html">Resource.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a52c71fdc94a138dbd91991e58cb17bf0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52c71fdc94a138dbd91991e58cb17bf0">&#9670;&nbsp;</a></span>data</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename TResourceType &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">TResourceType <a class="el" href="a04003.html">bl::resource::Resource</a>&lt; TResourceType &gt;::data</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>The last type in the provided list of types. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01061_source.html#l00023">23</a> of file <a class="el" href="a01061_source.html">LastVariadic.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01046_source.html#l00020">20</a> of file <a class="el" href="a01046_source.html">Resource.hpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>include/BLIB/Util/<a class="el" href="a01061_source.html">LastVariadic.hpp</a></li>
+<a id="aac04d4094da2e3e9fe8edae5d3b83eef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac04d4094da2e3e9fe8edae5d3b83eef">&#9670;&nbsp;</a></span>forceInCache</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename TResourceType &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="a04003.html">bl::resource::Resource</a>&lt; TResourceType &gt;::forceInCache</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01046_source.html#l00021">21</a> of file <a class="el" href="a01046_source.html">Resource.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a3f5478d3171934815ccfdf31c0728caf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f5478d3171934815ccfdf31c0728caf">&#9670;&nbsp;</a></span>refCount</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename TResourceType &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int <a class="el" href="a04003.html">bl::resource::Resource</a>&lt; TResourceType &gt;::refCount</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01046_source.html#l00022">22</a> of file <a class="el" href="a01046_source.html">Resource.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>include/BLIB/Resources/<a class="el" href="a01046_source.html">Resource.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 25 2023 00:24:24 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 27 2023 23:34:43 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

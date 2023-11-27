@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::rc::Observer Class Reference</title>
+<title>BLIB: bl::gui::rdr::NullComponent Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,161 +66,255 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01833.html">bl</a></li><li class="navelem"><a class="el" href="a01845.html">rc</a></li><li class="navelem"><a class="el" href="a03131.html">Observer</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02058.html">bl</a></li><li class="navelem"><a class="el" href="a02090.html">gui</a></li><li class="navelem"><a class="el" href="a02093.html">rdr</a></li><li class="navelem"><a class="el" href="a03131.html">NullComponent</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#friends">Friends</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="a03128.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::rc::Observer Class Reference<div class="ingroups"><a class="el" href="a01820.html">Renderer</a></div></div>  </div>
+<div class="title">bl::gui::rdr::NullComponent Class Reference<div class="ingroups"><a class="el" href="a02040.html">Interface</a> &raquo; <a class="el" href="a02053.html">GUI</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Top level class for observers in the renderer. Corresponds to Engine Actors. Each observer may have it's own scene stack and overlay, but the <a class="el" href="a03163.html" title="Top level rendering system of the game engine.">Renderer</a> may also have a common scene and overlay for all observers. Observers may use the same scene amongst themselves and simply render it from different perspectives.  
+<p>Empty component that noops all operations and renders nothing.  
  <a href="a03131.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00698_source.html">Observer.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00542_source.html">NullComponent.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::gui::rdr::NullComponent:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a03131.png" usemap="#bl::gui::rdr::NullComponent_map" alt=""/>
+  <map id="bl::gui::rdr::NullComponent_map" name="bl::gui::rdr::NullComponent_map">
+<area href="a03107.html" title="Base class for renderer components. Each GUI element owns a handle to a component owned by the render..." alt="bl::gui::rdr::Component" shape="rect" coords="0,0,159,24"/>
+  </map>
+</div></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:ae8067b9f5370e7a570688e694a15f6ef"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03107.html#ae8067b9f5370e7a570688e694a15f6ef">UIState</a> { <a class="el" href="a03107.html#ae8067b9f5370e7a570688e694a15f6efad2203cb1237cb6460cbad94564e39345">Regular</a>
+, <a class="el" href="a03107.html#ae8067b9f5370e7a570688e694a15f6efa128f36ec46f7ca11bafb48cd2022a54c">Highlighted</a>
+, <a class="el" href="a03107.html#ae8067b9f5370e7a570688e694a15f6efad78a68f6a85421ae121c2cb5b73a1040">Pressed</a>
+, <a class="el" href="a03107.html#ae8067b9f5370e7a570688e694a15f6efab9f5c797ebbf55adccdd8539a65a0241">Disabled</a>
+ }</td></tr>
+<tr class="memdesc:ae8067b9f5370e7a570688e694a15f6ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Visible state of the element.  <a href="a03107.html#ae8067b9f5370e7a570688e694a15f6ef">More...</a><br /></td></tr>
+<tr class="separator:ae8067b9f5370e7a570688e694a15f6ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad04144636950185c959ad6394f0c5c52"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03107.html#ad04144636950185c959ad6394f0c5c52">HighlightState</a> { <a class="el" href="a03107.html#ad04144636950185c959ad6394f0c5c52a8399b4280b2900bd2b7a6436017bce84">IgnoresMouse</a>
+, <a class="el" href="a03107.html#ad04144636950185c959ad6394f0c5c52a53f72bbb0757c48efde6e7109e3f8b98">HighlightedByMouse</a>
+ }</td></tr>
+<tr class="memdesc:ad04144636950185c959ad6394f0c5c52"><td class="mdescLeft">&#160;</td><td class="mdescRight">How the component responds to mouse over state.  <a href="a03107.html#ad04144636950185c959ad6394f0c5c52">More...</a><br /></td></tr>
+<tr class="separator:ad04144636950185c959ad6394f0c5c52"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a947a8f9a8831f3c495cb9aa7ca89a374"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03107.html#a947a8f9a8831f3c495cb9aa7ca89a374">Ptr</a> = std::unique_ptr&lt; <a class="el" href="a03107.html">Component</a> &gt;</td></tr>
+<tr class="separator:a947a8f9a8831f3c495cb9aa7ca89a374"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aab97846e8d0d3237f36ddf0909bdf4a5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03131.html#aab97846e8d0d3237f36ddf0909bdf4a5">~Observer</a> ()</td></tr>
-<tr class="memdesc:aab97846e8d0d3237f36ddf0909bdf4a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Releases resources.  <a href="a03131.html#aab97846e8d0d3237f36ddf0909bdf4a5">More...</a><br /></td></tr>
-<tr class="separator:aab97846e8d0d3237f36ddf0909bdf4a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aea11d1f1c0a01ac8371349ab8644d148"><td class="memTemplParams" colspan="2">template&lt;typename TScene , typename... TArgs&gt; </td></tr>
-<tr class="memitem:aea11d1f1c0a01ac8371349ab8644d148"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="a03199.html">SceneRef</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a03131.html#aea11d1f1c0a01ac8371349ab8644d148">pushScene</a> (TArgs &amp;&amp;... args)</td></tr>
-<tr class="memdesc:aea11d1f1c0a01ac8371349ab8644d148"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new scene on top the <a class="el" href="a03131.html" title="Top level class for observers in the renderer. Corresponds to Engine Actors. Each observer may have i...">Observer</a>'s scene stack and returns it.  <a href="a03131.html#aea11d1f1c0a01ac8371349ab8644d148">More...</a><br /></td></tr>
-<tr class="separator:aea11d1f1c0a01ac8371349ab8644d148"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aedbf177898c0223c98ac6e964ed66e72"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03131.html#aedbf177898c0223c98ac6e964ed66e72">pushScene</a> (<a class="el" href="a03199.html">SceneRef</a> scene)</td></tr>
-<tr class="memdesc:aedbf177898c0223c98ac6e964ed66e72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pushes an existing scene onto the <a class="el" href="a03131.html" title="Top level class for observers in the renderer. Corresponds to Engine Actors. Each observer may have i...">Observer</a>'s scene stack.  <a href="a03131.html#aedbf177898c0223c98ac6e964ed66e72">More...</a><br /></td></tr>
-<tr class="separator:aedbf177898c0223c98ac6e964ed66e72"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac8a0a81137a8f32f848ce6c4d41459dd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03139.html">Overlay</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03131.html#ac8a0a81137a8f32f848ce6c4d41459dd">createSceneOverlay</a> ()</td></tr>
-<tr class="memdesc:ac8a0a81137a8f32f848ce6c4d41459dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="a03139.html" title="Special type of scene specialized for 2d overlays with fixed cameras. Objects are organized into a tr...">Overlay</a> for the current scene for this <a class="el" href="a03131.html" title="Top level class for observers in the renderer. Corresponds to Engine Actors. Each observer may have i...">Observer</a>. Replaces the existing <a class="el" href="a03139.html" title="Special type of scene specialized for 2d overlays with fixed cameras. Objects are organized into a tr...">Overlay</a> if one was present.  <a href="a03131.html#ac8a0a81137a8f32f848ce6c4d41459dd">More...</a><br /></td></tr>
-<tr class="separator:ac8a0a81137a8f32f848ce6c4d41459dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1d5c0433b38eac1a059c951827dd803e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03139.html">Overlay</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03131.html#a1d5c0433b38eac1a059c951827dd803e">getOrCreateSceneOverlay</a> ()</td></tr>
-<tr class="memdesc:a1d5c0433b38eac1a059c951827dd803e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current overlay, creating a new one if necessary.  <a href="a03131.html#a1d5c0433b38eac1a059c951827dd803e">More...</a><br /></td></tr>
-<tr class="separator:a1d5c0433b38eac1a059c951827dd803e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a683f178f4530548a6ec6ea93aaba29dd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03139.html">Overlay</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03131.html#a683f178f4530548a6ec6ea93aaba29dd">getCurrentOverlay</a> ()</td></tr>
-<tr class="memdesc:a683f178f4530548a6ec6ea93aaba29dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current <a class="el" href="a03139.html" title="Special type of scene specialized for 2d overlays with fixed cameras. Objects are organized into a tr...">Overlay</a>. Will be nullptr if one has not been created.  <a href="a03131.html#a683f178f4530548a6ec6ea93aaba29dd">More...</a><br /></td></tr>
-<tr class="separator:a683f178f4530548a6ec6ea93aaba29dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af546153d03edc0a5c04372c5fb418f4e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03199.html">SceneRef</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03131.html#af546153d03edc0a5c04372c5fb418f4e">popSceneNoRelease</a> ()</td></tr>
-<tr class="memdesc:af546153d03edc0a5c04372c5fb418f4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the top scene from the observer's scene stack and returns it. Does not release the scene back into the scene pool.  <a href="a03131.html#af546153d03edc0a5c04372c5fb418f4e">More...</a><br /></td></tr>
-<tr class="separator:af546153d03edc0a5c04372c5fb418f4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a84e2231d442d9913070429313faa4918"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03131.html#a84e2231d442d9913070429313faa4918">popScene</a> ()</td></tr>
-<tr class="memdesc:a84e2231d442d9913070429313faa4918"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes and releases the current active scene to the scene pool.  <a href="a03131.html#a84e2231d442d9913070429313faa4918">More...</a><br /></td></tr>
-<tr class="separator:a84e2231d442d9913070429313faa4918"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a31b109f596ef0673ea81f47e0a8b29e9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03131.html#a31b109f596ef0673ea81f47e0a8b29e9">clearScenes</a> ()</td></tr>
-<tr class="memdesc:a31b109f596ef0673ea81f47e0a8b29e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes all scenes from the observer.  <a href="a03131.html#a31b109f596ef0673ea81f47e0a8b29e9">More...</a><br /></td></tr>
-<tr class="separator:a31b109f596ef0673ea81f47e0a8b29e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab652a9d7ef6bbccce4518147d7f5fb2d"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03131.html#ab652a9d7ef6bbccce4518147d7f5fb2d">sceneCount</a> () const</td></tr>
-<tr class="memdesc:ab652a9d7ef6bbccce4518147d7f5fb2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of scenes in this observer's scene stack.  <a href="a03131.html#ab652a9d7ef6bbccce4518147d7f5fb2d">More...</a><br /></td></tr>
-<tr class="separator:ab652a9d7ef6bbccce4518147d7f5fb2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0c8bb753497dcb5ac34053461f780f4b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03131.html#a0c8bb753497dcb5ac34053461f780f4b">hasScene</a> () const</td></tr>
-<tr class="memdesc:a0c8bb753497dcb5ac34053461f780f4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not this observer has an active scene.  <a href="a03131.html#a0c8bb753497dcb5ac34053461f780f4b">More...</a><br /></td></tr>
-<tr class="separator:a0c8bb753497dcb5ac34053461f780f4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a704aced897014f096d651b0b76c60892"><td class="memTemplParams" colspan="2">template&lt;typename TCamera , typename... TArgs&gt; </td></tr>
-<tr class="memitem:a704aced897014f096d651b0b76c60892"><td class="memTemplItemLeft" align="right" valign="top">TCamera *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a03131.html#a704aced897014f096d651b0b76c60892">setCamera</a> (TArgs &amp;&amp;... args)</td></tr>
-<tr class="memdesc:a704aced897014f096d651b0b76c60892"><td class="mdescLeft">&#160;</td><td class="mdescRight">Replaces the camera to render the current scene with.  <a href="a03131.html#a704aced897014f096d651b0b76c60892">More...</a><br /></td></tr>
-<tr class="separator:a704aced897014f096d651b0b76c60892"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afda9f1828ace901b35e5df72cacb705a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03131.html#afda9f1828ace901b35e5df72cacb705a">setClearColor</a> (const glm::vec4 &amp;color)</td></tr>
-<tr class="memdesc:afda9f1828ace901b35e5df72cacb705a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the color to clear the observer's render region to prior to rendering.  <a href="a03131.html#afda9f1828ace901b35e5df72cacb705a">More...</a><br /></td></tr>
-<tr class="separator:afda9f1828ace901b35e5df72cacb705a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af9e8e1ade882c52725d28a45e2ae6218"><td class="memItemLeft" align="right" valign="top">constexpr const VkClearValue *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03131.html#af9e8e1ade882c52725d28a45e2ae6218">getClearColors</a> () const</td></tr>
-<tr class="memdesc:af9e8e1ade882c52725d28a45e2ae6218"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a raw pointer to the clear values for the observer.  <a href="a03131.html#af9e8e1ade882c52725d28a45e2ae6218">More...</a><br /></td></tr>
-<tr class="separator:af9e8e1ade882c52725d28a45e2ae6218"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8a55dcd89959093f1aab427cb4105a51"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03087.html">rg::RenderGraph</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03131.html#a8a55dcd89959093f1aab427cb4105a51">getRenderGraph</a> ()</td></tr>
-<tr class="memdesc:a8a55dcd89959093f1aab427cb4105a51"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the render graph for the current scene. Can be used to add custom steps.  <a href="a03131.html#a8a55dcd89959093f1aab427cb4105a51">More...</a><br /></td></tr>
-<tr class="separator:a8a55dcd89959093f1aab427cb4105a51"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9f05da7d27538ab65ffd437936a70ae3"><td class="memItemLeft" align="right" valign="top">constexpr glm::u32vec2&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03131.html#a9f05da7d27538ab65ffd437936a70ae3">getRegionSize</a> () const</td></tr>
-<tr class="memdesc:a9f05da7d27538ab65ffd437936a70ae3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the size of the observers render region in pixels.  <a href="a03131.html#a9f05da7d27538ab65ffd437936a70ae3">More...</a><br /></td></tr>
-<tr class="separator:a9f05da7d27538ab65ffd437936a70ae3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3af6dac4becde4a37eb54e9c2adfdb51"><td class="memItemLeft" align="right" valign="top">glm::vec2&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03131.html#a3af6dac4becde4a37eb54e9c2adfdb51">transformToWorldSpace</a> (const glm::vec2 &amp;screenPoint) const</td></tr>
-<tr class="memdesc:a3af6dac4becde4a37eb54e9c2adfdb51"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transforms the given coordinate from screen space to world space using the current viewport and camera.  <a href="a03131.html#a3af6dac4becde4a37eb54e9c2adfdb51">More...</a><br /></td></tr>
-<tr class="separator:a3af6dac4becde4a37eb54e9c2adfdb51"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5c71ac626f9aa3bc52bb5e93bb727ef3"><td class="memItemLeft" align="right" valign="top">glm::vec2&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03131.html#a5c71ac626f9aa3bc52bb5e93bb727ef3">transformToOverlaySpace</a> (const glm::vec2 &amp;screenPoint) const</td></tr>
-<tr class="memdesc:a5c71ac626f9aa3bc52bb5e93bb727ef3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transforms the given coordinate from screen space to overlay space using the current viewport and camera.  <a href="a03131.html#a5c71ac626f9aa3bc52bb5e93bb727ef3">More...</a><br /></td></tr>
-<tr class="separator:a5c71ac626f9aa3bc52bb5e93bb727ef3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a99a96017121074d7fcd0466b86157c21"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03131.html#a99a96017121074d7fcd0466b86157c21">NullComponent</a> ()</td></tr>
+<tr class="memdesc:a99a96017121074d7fcd0466b86157c21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="a03131.html" title="Empty component that noops all operations and renders nothing.">NullComponent</a>.  <a href="a03131.html#a99a96017121074d7fcd0466b86157c21">More...</a><br /></td></tr>
+<tr class="separator:a99a96017121074d7fcd0466b86157c21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a065388da17ce96f9798d0b93d0b08e3b"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03131.html#a065388da17ce96f9798d0b93d0b08e3b">~NullComponent</a> ()=default</td></tr>
+<tr class="memdesc:a065388da17ce96f9798d0b93d0b08e3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the component.  <a href="a03131.html#a065388da17ce96f9798d0b93d0b08e3b">More...</a><br /></td></tr>
+<tr class="separator:a065388da17ce96f9798d0b93d0b08e3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a350d3389d5be8f1e8f6a5a874fc999b6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03107.html#a350d3389d5be8f1e8f6a5a874fc999b6">setUIState</a> (<a class="el" href="a03107.html#ae8067b9f5370e7a570688e694a15f6ef">UIState</a> state)</td></tr>
+<tr class="memdesc:a350d3389d5be8f1e8f6a5a874fc999b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the visual state changes and immediately following creation.  <a href="a03107.html#a350d3389d5be8f1e8f6a5a874fc999b6">More...</a><br /></td></tr>
+<tr class="separator:a350d3389d5be8f1e8f6a5a874fc999b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f914f312bf4700ece09298abf3d9a3a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03107.html#a9f914f312bf4700ece09298abf3d9a3a">overrideHighlightBehavior</a> (<a class="el" href="a03107.html#ad04144636950185c959ad6394f0c5c52">HighlightState</a> behavior)</td></tr>
+<tr class="memdesc:a9f914f312bf4700ece09298abf3d9a3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overrides the default highlight behavior for this specific component.  <a href="a03107.html#a9f914f312bf4700ece09298abf3d9a3a">More...</a><br /></td></tr>
+<tr class="separator:a9f914f312bf4700ece09298abf3d9a3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abdd6da199b0858a849eaa74a4857c8e3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03107.html#abdd6da199b0858a849eaa74a4857c8e3">showTooltip</a> ()</td></tr>
+<tr class="memdesc:abdd6da199b0858a849eaa74a4857c8e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call to display a tooltip for this component.  <a href="a03107.html#abdd6da199b0858a849eaa74a4857c8e3">More...</a><br /></td></tr>
+<tr class="separator:abdd6da199b0858a849eaa74a4857c8e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae3b7b2405ed796d1f9e3b3ebcbe12b1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03107.html#aae3b7b2405ed796d1f9e3b3ebcbe12b1">dismissTooltip</a> ()</td></tr>
+<tr class="memdesc:aae3b7b2405ed796d1f9e3b3ebcbe12b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call to dismiss the tooltip for this component.  <a href="a03107.html#aae3b7b2405ed796d1f9e3b3ebcbe12b1">More...</a><br /></td></tr>
+<tr class="separator:aae3b7b2405ed796d1f9e3b3ebcbe12b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51aa8a8f326fcbef2e5c8ec5b5d4e1d2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03107.html#a51aa8a8f326fcbef2e5c8ec5b5d4e1d2">flash</a> ()</td></tr>
+<tr class="memdesc:a51aa8a8f326fcbef2e5c8ec5b5d4e1d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triggers this component to flash briefly.  <a href="a03107.html#a51aa8a8f326fcbef2e5c8ec5b5d4e1d2">More...</a><br /></td></tr>
+<tr class="separator:a51aa8a8f326fcbef2e5c8ec5b5d4e1d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10c20d7bde9c7d1fc2829b4d984a052b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03107.html#a10c20d7bde9c7d1fc2829b4d984a052b">onAcquisition</a> ()</td></tr>
+<tr class="memdesc:a10c20d7bde9c7d1fc2829b4d984a052b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the element gets its acquisition (re)assigned.  <a href="a03107.html#a10c20d7bde9c7d1fc2829b4d984a052b">More...</a><br /></td></tr>
+<tr class="separator:a10c20d7bde9c7d1fc2829b4d984a052b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa17e61eb9db291663dc6dac5003b5e3f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03107.html#aa17e61eb9db291663dc6dac5003b5e3f">onMove</a> ()</td></tr>
+<tr class="memdesc:aa17e61eb9db291663dc6dac5003b5e3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the element is moved.  <a href="a03107.html#aa17e61eb9db291663dc6dac5003b5e3f">More...</a><br /></td></tr>
+<tr class="separator:aa17e61eb9db291663dc6dac5003b5e3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07b3ddf5e3d3426f60d751fe35c78b71"><td class="memItemLeft" align="right" valign="top">virtual sf::Vector2f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03107.html#a07b3ddf5e3d3426f60d751fe35c78b71">getRequisition</a> () const</td></tr>
+<tr class="memdesc:a07b3ddf5e3d3426f60d751fe35c78b71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allows <a class="el" href="a02999.html" title="Top level class for creating a graphical user interface.">GUI</a> elements to query the size required for the visual component.  <a href="a03107.html#a07b3ddf5e3d3426f60d751fe35c78b71">More...</a><br /></td></tr>
+<tr class="separator:a07b3ddf5e3d3426f60d751fe35c78b71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afbecf74e2fcab82f51d381190f26f110"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03107.html#afbecf74e2fcab82f51d381190f26f110">assignDepth</a> (float depth)</td></tr>
+<tr class="memdesc:afbecf74e2fcab82f51d381190f26f110"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the depth of the component is modified. Default implementation fetches the <a class="el" href="a02311.html" title="Representation of a 2d transform with a depth component to allow the depth buffer to be used when ren...">com::Transform2D</a> for the entity returned by <a class="el" href="a03107.html#a040132d760285e4f03d54dade1855e85" title="Derived classes should return the ECS entity that children should parent themselves to.">getEntity()</a> and sets it there.  <a href="a03107.html#afbecf74e2fcab82f51d381190f26f110">More...</a><br /></td></tr>
+<tr class="separator:afbecf74e2fcab82f51d381190f26f110"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
-Friends</h2></td></tr>
-<tr class="memitem:a1fc8c4ea65463b448e068f1287349540"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03131.html#a1fc8c4ea65463b448e068f1287349540">bl::rc::Renderer</a></td></tr>
-<tr class="separator:a1fc8c4ea65463b448e068f1287349540"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:ab2b0d1036b24659b1baff99aebf45cf7"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ab2b0d1036b24659b1baff99aebf45cf7"><td class="memTemplItemLeft" align="right" valign="top">T &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a03107.html#ab2b0d1036b24659b1baff99aebf45cf7">getOwnerAs</a> ()</td></tr>
+<tr class="memdesc:ab2b0d1036b24659b1baff99aebf45cf7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type safe method to get the owning <a class="el" href="a02999.html" title="Top level class for creating a graphical user interface.">GUI</a> <a class="el" href="a02931.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a>. Throws if the type is incorrect.  <a href="a03107.html#ab2b0d1036b24659b1baff99aebf45cf7">More...</a><br /></td></tr>
+<tr class="separator:ab2b0d1036b24659b1baff99aebf45cf7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a200067d552b9ad82d21ecfd2d28a56fd"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a200067d552b9ad82d21ecfd2d28a56fd"><td class="memTemplItemLeft" align="right" valign="top">const T &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a03107.html#a200067d552b9ad82d21ecfd2d28a56fd">getOwnerAs</a> () const</td></tr>
+<tr class="memdesc:a200067d552b9ad82d21ecfd2d28a56fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type safe method to get the owning <a class="el" href="a02999.html" title="Top level class for creating a graphical user interface.">GUI</a> <a class="el" href="a02931.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a>. Throws if the type is incorrect.  <a href="a03107.html#a200067d552b9ad82d21ecfd2d28a56fd">More...</a><br /></td></tr>
+<tr class="separator:a200067d552b9ad82d21ecfd2d28a56fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e97fef3cd7d7c11042517d6f987a2b6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03107.html">Component</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03107.html#a3e97fef3cd7d7c11042517d6f987a2b6">getParent</a> () const</td></tr>
+<tr class="memdesc:a3e97fef3cd7d7c11042517d6f987a2b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the parent component of this component. May be nullptr.  <a href="a03107.html#a3e97fef3cd7d7c11042517d6f987a2b6">More...</a><br /></td></tr>
+<tr class="separator:a3e97fef3cd7d7c11042517d6f987a2b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Top level class for observers in the renderer. Corresponds to Engine Actors. Each observer may have it's own scene stack and overlay, but the <a class="el" href="a03163.html" title="Top level rendering system of the game engine.">Renderer</a> may also have a common scene and overlay for all observers. Observers may use the same scene amongst themselves and simply render it from different perspectives. </p>
+<div class="textblock"><p>Empty component that noops all operations and renders nothing. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00698_source.html#l00036">36</a> of file <a class="el" href="a00698_source.html">Observer.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="aab97846e8d0d3237f36ddf0909bdf4a5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aab97846e8d0d3237f36ddf0909bdf4a5">&#9670;&nbsp;</a></span>~Observer()</h2>
+<p class="definition">Definition at line <a class="el" href="a00542_source.html#l00017">17</a> of file <a class="el" href="a00542_source.html">NullComponent.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a947a8f9a8831f3c495cb9aa7ca89a374"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a947a8f9a8831f3c495cb9aa7ca89a374">&#9670;&nbsp;</a></span>Ptr</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bl::rc::Observer::~Observer </td>
+          <td class="memname">using <a class="el" href="a03107.html#a947a8f9a8831f3c495cb9aa7ca89a374">bl::gui::rdr::Component::Ptr</a> =  std::unique_ptr&lt;<a class="el" href="a03107.html">Component</a>&gt;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00527_source.html#l00033">33</a> of file <a class="el" href="a00527_source.html">Component.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Enumeration Documentation</h2>
+<a id="ad04144636950185c959ad6394f0c5c52"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad04144636950185c959ad6394f0c5c52">&#9670;&nbsp;</a></span>HighlightState</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="a03107.html#ad04144636950185c959ad6394f0c5c52">bl::gui::rdr::Component::HighlightState</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>How the component responds to mouse over state. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ad04144636950185c959ad6394f0c5c52a8399b4280b2900bd2b7a6436017bce84"></a>IgnoresMouse&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ad04144636950185c959ad6394f0c5c52a53f72bbb0757c48efde6e7109e3f8b98"></a>HighlightedByMouse&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="a00527_source.html#l00039">39</a> of file <a class="el" href="a00527_source.html">Component.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ae8067b9f5370e7a570688e694a15f6ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8067b9f5370e7a570688e694a15f6ef">&#9670;&nbsp;</a></span>UIState</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="a03107.html#ae8067b9f5370e7a570688e694a15f6ef">bl::gui::rdr::Component::UIState</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Visible state of the element. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ae8067b9f5370e7a570688e694a15f6efad2203cb1237cb6460cbad94564e39345"></a>Regular&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ae8067b9f5370e7a570688e694a15f6efa128f36ec46f7ca11bafb48cd2022a54c"></a>Highlighted&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ae8067b9f5370e7a570688e694a15f6efad78a68f6a85421ae121c2cb5b73a1040"></a>Pressed&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ae8067b9f5370e7a570688e694a15f6efab9f5c797ebbf55adccdd8539a65a0241"></a>Disabled&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="a00527_source.html#l00036">36</a> of file <a class="el" href="a00527_source.html">Component.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a99a96017121074d7fcd0466b86157c21"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99a96017121074d7fcd0466b86157c21">&#9670;&nbsp;</a></span>NullComponent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::gui::rdr::NullComponent::NullComponent </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Releases resources. </p>
+<p>Creates a new <a class="el" href="a03131.html" title="Empty component that noops all operations and renders nothing.">NullComponent</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01526_source.html#l00032">32</a> of file <a class="el" href="a01526_source.html">Observer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00542_source.html#l00022">22</a> of file <a class="el" href="a00542_source.html">NullComponent.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a065388da17ce96f9798d0b93d0b08e3b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a065388da17ce96f9798d0b93d0b08e3b">&#9670;&nbsp;</a></span>~NullComponent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bl::gui::rdr::NullComponent::~NullComponent </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Destroys the component. </p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a31b109f596ef0673ea81f47e0a8b29e9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a31b109f596ef0673ea81f47e0a8b29e9">&#9670;&nbsp;</a></span>clearScenes()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::rc::Observer::clearScenes </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Removes all scenes from the observer. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01526_source.html#l00095">95</a> of file <a class="el" href="a01526_source.html">Observer.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ac8a0a81137a8f32f848ce6c4d41459dd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac8a0a81137a8f32f848ce6c4d41459dd">&#9670;&nbsp;</a></span>createSceneOverlay()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a03139.html">Overlay</a> * bl::rc::Observer::createSceneOverlay </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Creates a new <a class="el" href="a03139.html" title="Special type of scene specialized for 2d overlays with fixed cameras. Objects are organized into a tr...">Overlay</a> for the current scene for this <a class="el" href="a03131.html" title="Top level class for observers in the renderer. Corresponds to Engine Actors. Each observer may have i...">Observer</a>. Replaces the existing <a class="el" href="a03139.html" title="Special type of scene specialized for 2d overlays with fixed cameras. Objects are organized into a tr...">Overlay</a> if one was present. </p>
-<dl class="section return"><dt>Returns</dt><dd>A pointer to the new <a class="el" href="a03139.html" title="Special type of scene specialized for 2d overlays with fixed cameras. Objects are organized into a tr...">Overlay</a> </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a01526_source.html#l00056">56</a> of file <a class="el" href="a01526_source.html">Observer.cpp</a>.</p>
-
-</div>
-</div>
-<a id="af9e8e1ade882c52725d28a45e2ae6218"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af9e8e1ade882c52725d28a45e2ae6218">&#9670;&nbsp;</a></span>getClearColors()</h2>
+<a id="afbecf74e2fcab82f51d381190f26f110"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afbecf74e2fcab82f51d381190f26f110">&#9670;&nbsp;</a></span>assignDepth()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -229,275 +323,141 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr const VkClearValue * bl::rc::Observer::getClearColors </td>
+          <td class="memname">void bl::gui::rdr::Component::assignDepth </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns a raw pointer to the clear values for the observer. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00698_source.html#l00229">229</a> of file <a class="el" href="a00698_source.html">Observer.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a683f178f4530548a6ec6ea93aaba29dd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a683f178f4530548a6ec6ea93aaba29dd">&#9670;&nbsp;</a></span>getCurrentOverlay()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a03139.html">Overlay</a> * bl::rc::Observer::getCurrentOverlay </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the current <a class="el" href="a03139.html" title="Special type of scene specialized for 2d overlays with fixed cameras. Objects are organized into a tr...">Overlay</a>. Will be nullptr if one has not been created. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01526_source.html#l00081">81</a> of file <a class="el" href="a01526_source.html">Observer.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a1d5c0433b38eac1a059c951827dd803e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1d5c0433b38eac1a059c951827dd803e">&#9670;&nbsp;</a></span>getOrCreateSceneOverlay()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a03139.html">Overlay</a> * bl::rc::Observer::getOrCreateSceneOverlay </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the current overlay, creating a new one if necessary. </p>
-<dl class="section return"><dt>Returns</dt><dd>A pointer to the new <a class="el" href="a03139.html" title="Special type of scene specialized for 2d overlays with fixed cameras. Objects are organized into a tr...">Overlay</a> </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a01526_source.html#l00068">68</a> of file <a class="el" href="a01526_source.html">Observer.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a9f05da7d27538ab65ffd437936a70ae3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9f05da7d27538ab65ffd437936a70ae3">&#9670;&nbsp;</a></span>getRegionSize()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr glm::u32vec2 bl::rc::Observer::getRegionSize </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the size of the observers render region in pixels. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00698_source.html#l00231">231</a> of file <a class="el" href="a00698_source.html">Observer.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a8a55dcd89959093f1aab427cb4105a51"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8a55dcd89959093f1aab427cb4105a51">&#9670;&nbsp;</a></span>getRenderGraph()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a03087.html">rg::RenderGraph</a> &amp; bl::rc::Observer::getRenderGraph </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>depth</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the render graph for the current scene. Can be used to add custom steps. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00698_source.html#l00227">227</a> of file <a class="el" href="a00698_source.html">Observer.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a0c8bb753497dcb5ac34053461f780f4b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0c8bb753497dcb5ac34053461f780f4b">&#9670;&nbsp;</a></span>hasScene()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::rc::Observer::hasScene </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns whether or not this observer has an active scene. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00698_source.html#l00212">212</a> of file <a class="el" href="a00698_source.html">Observer.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a84e2231d442d9913070429313faa4918"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a84e2231d442d9913070429313faa4918">&#9670;&nbsp;</a></span>popScene()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::rc::Observer::popScene </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Removes and releases the current active scene to the scene pool. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01526_source.html#l00090">90</a> of file <a class="el" href="a01526_source.html">Observer.cpp</a>.</p>
-
-</div>
-</div>
-<a id="af546153d03edc0a5c04372c5fb418f4e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af546153d03edc0a5c04372c5fb418f4e">&#9670;&nbsp;</a></span>popSceneNoRelease()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a03199.html">SceneRef</a> bl::rc::Observer::popSceneNoRelease </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Removes the top scene from the observer's scene stack and returns it. Does not release the scene back into the scene pool. </p>
-<dl class="section return"><dt>Returns</dt><dd>The scene that was removed </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a01526_source.html#l00083">83</a> of file <a class="el" href="a01526_source.html">Observer.cpp</a>.</p>
-
-</div>
-</div>
-<a id="aedbf177898c0223c98ac6e964ed66e72"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aedbf177898c0223c98ac6e964ed66e72">&#9670;&nbsp;</a></span>pushScene() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::rc::Observer::pushScene </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a03199.html">SceneRef</a>&#160;</td>
-          <td class="paramname"><em>scene</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Pushes an existing scene onto the <a class="el" href="a03131.html" title="Top level class for observers in the renderer. Corresponds to Engine Actors. Each observer may have i...">Observer</a>'s scene stack. </p>
+<p>Called when the depth of the component is modified. Default implementation fetches the <a class="el" href="a02311.html" title="Representation of a 2d transform with a depth component to allow the depth buffer to be used when ren...">com::Transform2D</a> for the entity returned by getEntity() and sets it there. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">scene</td><td>The scene to make active </td></tr>
+    <tr><td class="paramname">depth</td><td>The depth to set to </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a01526_source.html#l00051">51</a> of file <a class="el" href="a01526_source.html">Observer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01580_source.html#l00086">86</a> of file <a class="el" href="a01580_source.html">Component.cpp</a>.</p>
 
 </div>
 </div>
-<a id="aea11d1f1c0a01ac8371349ab8644d148"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aea11d1f1c0a01ac8371349ab8644d148">&#9670;&nbsp;</a></span>pushScene() <span class="overload">[2/2]</span></h2>
+<a id="aae3b7b2405ed796d1f9e3b3ebcbe12b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae3b7b2405ed796d1f9e3b3ebcbe12b1">&#9670;&nbsp;</a></span>dismissTooltip()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::rdr::Component::dismissTooltip </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Call to dismiss the tooltip for this component. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01580_source.html#l00030">30</a> of file <a class="el" href="a01580_source.html">Component.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a51aa8a8f326fcbef2e5c8ec5b5d4e1d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51aa8a8f326fcbef2e5c8ec5b5d4e1d2">&#9670;&nbsp;</a></span>flash()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::rdr::Component::flash </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Triggers this component to flash briefly. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01580_source.html#l00064">64</a> of file <a class="el" href="a01580_source.html">Component.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ab2b0d1036b24659b1baff99aebf45cf7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2b0d1036b24659b1baff99aebf45cf7">&#9670;&nbsp;</a></span>getOwnerAs() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename TScene , typename... TArgs&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a03199.html">SceneRef</a> bl::rc::Observer::pushScene </td>
-          <td>(</td>
-          <td class="paramtype">TArgs &amp;&amp;...&#160;</td>
-          <td class="paramname"><em>args</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Creates a new scene on top the <a class="el" href="a03131.html" title="Top level class for observers in the renderer. Corresponds to Engine Actors. Each observer may have i...">Observer</a>'s scene stack and returns it. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">TScene</td><td>The type of scene to create </td></tr>
-    <tr><td class="paramname">TArgs</td><td>Argument types to the scene's constructor </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">args</td><td>Arguments to the scene's constructor </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The newly created, now active, scene </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a05139_source.html#l00255">255</a> of file <a class="el" href="a05139_source.html">Renderer.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ab652a9d7ef6bbccce4518147d7f5fb2d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab652a9d7ef6bbccce4518147d7f5fb2d">&#9670;&nbsp;</a></span>sceneCount()</h2>
-
-<div class="memitem">
-<div class="memproto">
+template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::size_t bl::rc::Observer::sceneCount </td>
+          <td class="memname">T&amp; bl::gui::rdr::Component::getOwnerAs </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Type safe method to get the owning <a class="el" href="a02999.html" title="Top level class for creating a graphical user interface.">GUI</a> <a class="el" href="a02931.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a>. Throws if the type is incorrect. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The derived <a class="el" href="a02931.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a> type to cast to </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to the owning <a class="el" href="a02931.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a> </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00527_source.html#l00174">174</a> of file <a class="el" href="a00527_source.html">Component.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a200067d552b9ad82d21ecfd2d28a56fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a200067d552b9ad82d21ecfd2d28a56fd">&#9670;&nbsp;</a></span>getOwnerAs() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const T&amp; bl::gui::rdr::Component::getOwnerAs </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -505,144 +465,26 @@ template&lt;typename TScene , typename... TArgs&gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the number of scenes in this observer's scene stack. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00698_source.html#l00210">210</a> of file <a class="el" href="a00698_source.html">Observer.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a704aced897014f096d651b0b76c60892"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a704aced897014f096d651b0b76c60892">&#9670;&nbsp;</a></span>setCamera()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename TCamera , typename... TArgs&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">TCamera * bl::rc::Observer::setCamera </td>
-          <td>(</td>
-          <td class="paramtype">TArgs &amp;&amp;...&#160;</td>
-          <td class="paramname"><em>args</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Replaces the camera to render the current scene with. </p>
+<p>Type safe method to get the owning <a class="el" href="a02999.html" title="Top level class for creating a graphical user interface.">GUI</a> <a class="el" href="a02931.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a>. Throws if the type is incorrect. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">TCamera</td><td>The type of camera to install </td></tr>
-    <tr><td class="paramname">...TArgs</td><td>Argument types to the camera's constructor </td></tr>
+    <tr><td class="paramname">T</td><td>The derived <a class="el" href="a02931.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a> type to cast to </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">...args</td><td>Arguments to the camera's constructor </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A pointer to the new camera </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to the owning <a class="el" href="a02931.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a00698_source.html#l00215">215</a> of file <a class="el" href="a00698_source.html">Observer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00527_source.html#l00190">190</a> of file <a class="el" href="a00527_source.html">Component.hpp</a>.</p>
 
 </div>
 </div>
-<a id="afda9f1828ace901b35e5df72cacb705a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afda9f1828ace901b35e5df72cacb705a">&#9670;&nbsp;</a></span>setClearColor()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::rc::Observer::setClearColor </td>
-          <td>(</td>
-          <td class="paramtype">const glm::vec4 &amp;&#160;</td>
-          <td class="paramname"><em>color</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Sets the color to clear the observer's render region to prior to rendering. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">color</td><td>The color to clear with </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01526_source.html#l00263">263</a> of file <a class="el" href="a01526_source.html">Observer.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a5c71ac626f9aa3bc52bb5e93bb727ef3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5c71ac626f9aa3bc52bb5e93bb727ef3">&#9670;&nbsp;</a></span>transformToOverlaySpace()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">glm::vec2 bl::rc::Observer::transformToOverlaySpace </td>
-          <td>(</td>
-          <td class="paramtype">const glm::vec2 &amp;&#160;</td>
-          <td class="paramname"><em>screenPoint</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Transforms the given coordinate from screen space to overlay space using the current viewport and camera. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">screenPoint</td><td>The screen space coordinate to transform </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The corresponding overlay space coordinate </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a01526_source.html#l00280">280</a> of file <a class="el" href="a01526_source.html">Observer.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a3af6dac4becde4a37eb54e9c2adfdb51"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3af6dac4becde4a37eb54e9c2adfdb51">&#9670;&nbsp;</a></span>transformToWorldSpace()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">glm::vec2 bl::rc::Observer::transformToWorldSpace </td>
-          <td>(</td>
-          <td class="paramtype">const glm::vec2 &amp;&#160;</td>
-          <td class="paramname"><em>screenPoint</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Transforms the given coordinate from screen space to world space using the current viewport and camera. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">screenPoint</td><td>The screen space coordinate to transform </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The corresponding world space coordinate </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a01526_source.html#l00267">267</a> of file <a class="el" href="a01526_source.html">Observer.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Friends And Related Function Documentation</h2>
-<a id="a1fc8c4ea65463b448e068f1287349540"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1fc8c4ea65463b448e068f1287349540">&#9670;&nbsp;</a></span>bl::rc::Renderer</h2>
+<a id="a3e97fef3cd7d7c11042517d6f987a2b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e97fef3cd7d7c11042517d6f987a2b6">&#9670;&nbsp;</a></span>getParent()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -651,30 +493,223 @@ template&lt;typename TCamera , typename... TArgs&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">friend class <a class="el" href="a03163.html">bl::rc::Renderer</a></td>
+          <td class="memname"><a class="el" href="a03107.html">Component</a>* bl::gui::rdr::Component::getParent </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00698_source.html#l00205">205</a> of file <a class="el" href="a00698_source.html">Observer.hpp</a>.</p>
+<p>Returns the parent component of this component. May be nullptr. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00527_source.html#l00202">202</a> of file <a class="el" href="a00527_source.html">Component.hpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Render/<a class="el" href="a00698_source.html">Observer.hpp</a></li>
-<li>include/BLIB/Render/<a class="el" href="a05139_source.html">Renderer.hpp</a></li>
-<li>src/Render/<a class="el" href="a01526_source.html">Observer.cpp</a></li>
+<a id="a07b3ddf5e3d3426f60d751fe35c78b71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07b3ddf5e3d3426f60d751fe35c78b71">&#9670;&nbsp;</a></span>getRequisition()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">sf::Vector2f bl::gui::rdr::Component::getRequisition </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Allows <a class="el" href="a02999.html" title="Top level class for creating a graphical user interface.">GUI</a> elements to query the size required for the visual component. </p>
+
+<p>Reimplemented in <a class="el" href="a03055.html#a78835263d79dc7a64ea5ccc6b3d77126">bl::gui::defcoms::LabelComponent</a>, and <a class="el" href="a03039.html#a7e5465bfc08f42e5b5176f9c029dd1c8">bl::gui::defcoms::ComboBoxComponent</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a01580_source.html#l00081">81</a> of file <a class="el" href="a01580_source.html">Component.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a10c20d7bde9c7d1fc2829b4d984a052b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10c20d7bde9c7d1fc2829b4d984a052b">&#9670;&nbsp;</a></span>onAcquisition()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::rdr::Component::onAcquisition </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called when the element gets its acquisition (re)assigned. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01580_source.html#l00066">66</a> of file <a class="el" href="a01580_source.html">Component.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aa17e61eb9db291663dc6dac5003b5e3f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa17e61eb9db291663dc6dac5003b5e3f">&#9670;&nbsp;</a></span>onMove()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::rdr::Component::onMove </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called when the element is moved. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01580_source.html#l00073">73</a> of file <a class="el" href="a01580_source.html">Component.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a9f914f312bf4700ece09298abf3d9a3a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f914f312bf4700ece09298abf3d9a3a">&#9670;&nbsp;</a></span>overrideHighlightBehavior()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::rdr::Component::overrideHighlightBehavior </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a03107.html#ad04144636950185c959ad6394f0c5c52">HighlightState</a>&#160;</td>
+          <td class="paramname"><em>behavior</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Overrides the default highlight behavior for this specific component. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">behavior</td><td>How to behave when moused over </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01580_source.html#l00034">34</a> of file <a class="el" href="a01580_source.html">Component.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a350d3389d5be8f1e8f6a5a874fc999b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a350d3389d5be8f1e8f6a5a874fc999b6">&#9670;&nbsp;</a></span>setUIState()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::rdr::Component::setUIState </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a03107.html#ae8067b9f5370e7a570688e694a15f6ef">UIState</a>&#160;</td>
+          <td class="paramname"><em>state</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called when the visual state changes and immediately following creation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">state</td><td>The visual state of the element </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01580_source.html#l00021">21</a> of file <a class="el" href="a01580_source.html">Component.cpp</a>.</p>
+
+</div>
+</div>
+<a id="abdd6da199b0858a849eaa74a4857c8e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abdd6da199b0858a849eaa74a4857c8e3">&#9670;&nbsp;</a></span>showTooltip()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::rdr::Component::showTooltip </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Call to display a tooltip for this component. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01580_source.html#l00028">28</a> of file <a class="el" href="a01580_source.html">Component.cpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>include/BLIB/Interfaces/GUI/Renderer/<a class="el" href="a00542_source.html">NullComponent.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 25 2023 00:24:23 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 27 2023 23:34:42 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

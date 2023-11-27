@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::event::priv::UnSubscriberHelper&lt; Ts &gt; Struct Template Reference</title>
+<title>BLIB: bl::ecs::priv::ComponentSetMember&lt; T &gt; Struct Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,77 +66,89 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01833.html">bl</a></li><li class="navelem"><a class="el" href="a01856.html">event</a></li><li class="navelem"><a class="el" href="a01857.html">priv</a></li><li class="navelem"><a class="el" href="a02443.html">UnSubscriberHelper</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02058.html">bl</a></li><li class="navelem"><a class="el" href="a02073.html">ecs</a></li><li class="navelem"><a class="el" href="a02074.html">priv</a></li><li class="navelem"><a class="el" href="a02443.html">ComponentSetMember</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a02440.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::event::priv::UnSubscriberHelper&lt; Ts &gt; Struct Template Reference</div>  </div>
+<div class="title">bl::ecs::priv::ComponentSetMember&lt; T &gt; Struct Template Reference<div class="ingroups"><a class="el" href="a02035.html">ECS</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="a00266_source.html">SubscribeHelpers.hpp</a>&gt;</code></p>
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::event::priv::UnSubscriberHelper&lt; Ts &gt;:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
- <div class="center">
-  <img src="a02443.png" usemap="#bl::event::priv::UnSubscriberHelper_3C_20Ts_20_3E_map" alt=""/>
-  <map id="bl::event::priv::UnSubscriberHelper_3C_20Ts_20_3E_map" name="bl::event::priv::UnSubscriberHelper_3C_20Ts_20_3E_map">
-<area href="a02439.html" alt="bl::event::priv::UnSubscriberBase&lt; Ts &gt;" shape="rect" coords="0,0,245,24"/>
-  </map>
-</div></div>
+<p>Helper class to compose component sets.  
+ <a href="a02443.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00152_source.html">ComponentSet.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ade81a19be11c6aa7f79154f1d0b79b17"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02443.html#ade81a19be11c6aa7f79154f1d0b79b17">UnSubscriberHelper</a> (std::vector&lt; <a class="el" href="a02423.html">SingleDispatcherBase</a> * &gt; &amp;dlist, std::mutex &amp;dlock, <a class="el" href="a02415.html">Listener</a>&lt; Ts... &gt; *l, bool defer)</td></tr>
-<tr class="separator:ade81a19be11c6aa7f79154f1d0b79b17"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa7a132531191378299e6c54bdfbaa07c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02443.html#aa7a132531191378299e6c54bdfbaa07c">ComponentSetMember</a> ()</td></tr>
+<tr class="separator:aa7a132531191378299e6c54bdfbaa07c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add5fa405b967feb2fb54a4756b8f2d09"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02443.html#add5fa405b967feb2fb54a4756b8f2d09">populate</a> (<a class="el" href="a02503.html">Registry</a> &amp;registry, <a class="el" href="a02459.html">Entity</a> owner)</td></tr>
+<tr class="separator:add5fa405b967feb2fb54a4756b8f2d09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a819b0aa66bf6e3ca7c4564b158a5ccda"><td class="memItemLeft" align="right" valign="top">T *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02443.html#a819b0aa66bf6e3ca7c4564b158a5ccda">component</a></td></tr>
+<tr class="separator:a819b0aa66bf6e3ca7c4564b158a5ccda"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename... Ts&gt;<br />
-struct bl::event::priv::UnSubscriberHelper&lt; Ts &gt;</h3>
+<div class="textblock"><h3>template&lt;typename T&gt;<br />
+struct bl::ecs::priv::ComponentSetMember&lt; T &gt;</h3>
 
+<p>Helper class to compose component sets. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The single component type to make a member </td></tr>
+    <tr><td class="paramname"><a class="el" href="a02511.html">Optional</a></td><td>Whether or not this component is optional </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="a00266_source.html#l00035">35</a> of file <a class="el" href="a00266_source.html">SubscribeHelpers.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00152_source.html#l00023">23</a> of file <a class="el" href="a00152_source.html">ComponentSet.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ade81a19be11c6aa7f79154f1d0b79b17"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ade81a19be11c6aa7f79154f1d0b79b17">&#9670;&nbsp;</a></span>UnSubscriberHelper()</h2>
+<a id="aa7a132531191378299e6c54bdfbaa07c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa7a132531191378299e6c54bdfbaa07c">&#9670;&nbsp;</a></span>ComponentSetMember()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename... Ts&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
+template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a02443.html">bl::event::priv::UnSubscriberHelper</a>&lt; Ts &gt;::<a class="el" href="a02443.html">UnSubscriberHelper</a> </td>
+          <td class="memname"><a class="el" href="a02443.html">bl::ecs::priv::ComponentSetMember</a>&lt; T &gt;::<a class="el" href="a02443.html">ComponentSetMember</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00155_source.html#l00015">15</a> of file <a class="el" href="a00155_source.html">ComponentSetImpl.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="add5fa405b967feb2fb54a4756b8f2d09"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add5fa405b967feb2fb54a4756b8f2d09">&#9670;&nbsp;</a></span>populate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="a02443.html">bl::ecs::priv::ComponentSetMember</a>&lt; T &gt;::populate </td>
           <td>(</td>
-          <td class="paramtype">std::vector&lt; <a class="el" href="a02423.html">SingleDispatcherBase</a> * &gt; &amp;&#160;</td>
-          <td class="paramname"><em>dlist</em>, </td>
+          <td class="paramtype"><a class="el" href="a02503.html">Registry</a> &amp;&#160;</td>
+          <td class="paramname"><em>registry</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::mutex &amp;&#160;</td>
-          <td class="paramname"><em>dlock</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a02415.html">Listener</a>&lt; Ts... &gt; *&#160;</td>
-          <td class="paramname"><em>l</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>defer</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="a02459.html">Entity</a>&#160;</td>
+          <td class="paramname"><em>owner</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -144,25 +156,40 @@ template&lt;typename... Ts&gt; </div>
           <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00266_source.html#l00036">36</a> of file <a class="el" href="a00266_source.html">SubscribeHelpers.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00155_source.html#l00019">19</a> of file <a class="el" href="a00155_source.html">ComponentSetImpl.hpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/BLIB/Events/<a class="el" href="a00266_source.html">SubscribeHelpers.hpp</a></li>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a819b0aa66bf6e3ca7c4564b158a5ccda"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a819b0aa66bf6e3ca7c4564b158a5ccda">&#9670;&nbsp;</a></span>component</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">T* <a class="el" href="a02443.html">bl::ecs::priv::ComponentSetMember</a>&lt; T &gt;::component</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00152_source.html#l00024">24</a> of file <a class="el" href="a00152_source.html">ComponentSet.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following files:<ul>
+<li>include/BLIB/ECS/<a class="el" href="a00152_source.html">ComponentSet.hpp</a></li>
+<li>include/BLIB/ECS/<a class="el" href="a00155_source.html">ComponentSetImpl.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 25 2023 00:24:22 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 27 2023 23:34:42 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

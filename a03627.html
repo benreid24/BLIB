@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::serial::binary::OutputFile Class Reference</title>
+<title>BLIB: bl::rc::res::RenderPassCache Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,110 +66,115 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01833.html">bl</a></li><li class="navelem"><a class="el" href="a01836.html">serial</a></li><li class="navelem"><a class="el" href="a01886.html">binary</a></li><li class="navelem"><a class="el" href="a03627.html">OutputFile</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02058.html">bl</a></li><li class="navelem"><a class="el" href="a02070.html">rc</a></li><li class="navelem"><a class="el" href="a02086.html">res</a></li><li class="navelem"><a class="el" href="a03627.html">RenderPassCache</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="a03624.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::serial::binary::OutputFile Class Reference<div class="ingroups"><a class="el" href="a01823.html">Serialization</a> &raquo; <a class="el" href="a01832.html">Binary</a></div></div>  </div>
+<div class="title">bl::rc::res::RenderPassCache Class Reference<div class="ingroups"><a class="el" href="a02045.html">Renderer</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Helper wrapper class that encapsulates a file, a buffer, and a stream.  
+<p>Basic cache to manage render passes. Stores them and provides access. Owned by the renderer.  
  <a href="a03627.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00956_source.html">OutputFile.hpp</a>&gt;</code></p>
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::serial::binary::OutputFile:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
- <div class="center">
-  <img src="a03627.png" usemap="#bl::serial::binary::OutputFile_map" alt=""/>
-  <map id="bl::serial::binary::OutputFile_map" name="bl::serial::binary::OutputFile_map">
-<area href="a03631.html" title="A writable stream for binary serialization." alt="bl::serial::binary::OutputStream" shape="rect" coords="0,0,183,24"/>
-  </map>
-</div></div>
+<p><code>#include &lt;<a class="el" href="a00869_source.html">RenderPassCache.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a532927eeaa88aa29512a6be438ef85f9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03627.html#a532927eeaa88aa29512a6be438ef85f9">OutputFile</a> (const std::string &amp;path)</td></tr>
-<tr class="memdesc:a532927eeaa88aa29512a6be438ef85f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Output File.  <a href="a03627.html#a532927eeaa88aa29512a6be438ef85f9">More...</a><br /></td></tr>
-<tr class="separator:a532927eeaa88aa29512a6be438ef85f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a90ed8fff6d1c1ce1e3f5ad0ccb66d23b"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03627.html#a90ed8fff6d1c1ce1e3f5ad0ccb66d23b">filename</a> () const</td></tr>
-<tr class="memdesc:a90ed8fff6d1c1ce1e3f5ad0ccb66d23b"><td class="mdescLeft">&#160;</td><td class="mdescRight">The filename used to open the file.  <a href="a03627.html#a90ed8fff6d1c1ce1e3f5ad0ccb66d23b">More...</a><br /></td></tr>
-<tr class="separator:a90ed8fff6d1c1ce1e3f5ad0ccb66d23b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac4410d9f4e7f1bd5efd08dc7a01ec3f3"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ac4410d9f4e7f1bd5efd08dc7a01ec3f3"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if&lt; std::is_integral_v&lt; T &gt;, bool &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a03631.html#ac4410d9f4e7f1bd5efd08dc7a01ec3f3">write</a> (const T &amp;data)</td></tr>
-<tr class="memdesc:ac4410d9f4e7f1bd5efd08dc7a01ec3f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes an integral type to the stream in it's binary representation.  <a href="a03631.html#ac4410d9f4e7f1bd5efd08dc7a01ec3f3">More...</a><br /></td></tr>
-<tr class="separator:ac4410d9f4e7f1bd5efd08dc7a01ec3f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a21f37530f8f42f779c58cd8fea566afe"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03631.html#a21f37530f8f42f779c58cd8fea566afe">write</a> (const std::string &amp;data)</td></tr>
-<tr class="memdesc:a21f37530f8f42f779c58cd8fea566afe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the string to the stream. Stores 4 bytes for the length, then the content of the string.  <a href="a03631.html#a21f37530f8f42f779c58cd8fea566afe">More...</a><br /></td></tr>
-<tr class="separator:a21f37530f8f42f779c58cd8fea566afe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a80d05e18a69fc45887a82f643c7a4cdd"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03631.html#a80d05e18a69fc45887a82f643c7a4cdd">good</a> () const</td></tr>
-<tr class="memdesc:a80d05e18a69fc45887a82f643c7a4cdd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the status of the stream.  <a href="a03631.html#a80d05e18a69fc45887a82f643c7a4cdd">More...</a><br /></td></tr>
-<tr class="separator:a80d05e18a69fc45887a82f643c7a4cdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3df69182959af8b8fa569a69805a2efe"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03839.html">vk::RenderPass</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03627.html#a3df69182959af8b8fa569a69805a2efe">createRenderPass</a> (std::uint32_t renderPassId, <a class="el" href="a03843.html">vk::RenderPassParameters</a> &amp;&amp;params)</td></tr>
+<tr class="memdesc:a3df69182959af8b8fa569a69805a2efe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates and returns a render pass with the given id and parameters.  <a href="a03627.html#a3df69182959af8b8fa569a69805a2efe">More...</a><br /></td></tr>
+<tr class="separator:a3df69182959af8b8fa569a69805a2efe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad075fee264f0adfeb7c93a8133cf877f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03839.html">vk::RenderPass</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03627.html#ad075fee264f0adfeb7c93a8133cf877f">getRenderPass</a> (std::uint32_t renderPassId)</td></tr>
+<tr class="memdesc:ad075fee264f0adfeb7c93a8133cf877f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetches the render pass with the given id. Throws an exception if the id does not exist yet. Render passes should be created on application startup.  <a href="a03627.html#ad075fee264f0adfeb7c93a8133cf877f">More...</a><br /></td></tr>
+<tr class="separator:ad075fee264f0adfeb7c93a8133cf877f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a1fc8c4ea65463b448e068f1287349540"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03627.html#a1fc8c4ea65463b448e068f1287349540">bl::rc::Renderer</a></td></tr>
+<tr class="separator:a1fc8c4ea65463b448e068f1287349540"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Helper wrapper class that encapsulates a file, a buffer, and a stream. </p>
+<div class="textblock"><p>Basic cache to manage render passes. Stores them and provides access. Owned by the renderer. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00956_source.html#l00020">20</a> of file <a class="el" href="a00956_source.html">OutputFile.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a532927eeaa88aa29512a6be438ef85f9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a532927eeaa88aa29512a6be438ef85f9">&#9670;&nbsp;</a></span>OutputFile()</h2>
+<p class="definition">Definition at line <a class="el" href="a00869_source.html#l00022">22</a> of file <a class="el" href="a00869_source.html">RenderPassCache.hpp</a>.</p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a3df69182959af8b8fa569a69805a2efe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3df69182959af8b8fa569a69805a2efe">&#9670;&nbsp;</a></span>createRenderPass()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bl::serial::binary::OutputFile::OutputFile </td>
+          <td class="memname"><a class="el" href="a03839.html">vk::RenderPass</a> &amp; bl::rc::res::RenderPassCache::createRenderPass </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>path</em></td><td>)</td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>renderPassId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a03843.html">vk::RenderPassParameters</a> &amp;&amp;&#160;</td>
+          <td class="paramname"><em>params</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates and returns a render pass with the given id and parameters. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">renderPassId</td><td>The id of the new pass to create. Should be unique </td></tr>
+    <tr><td class="paramname">params</td><td>The parameters to create the pass with </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>RenderPass&amp; The new render pass </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a01775_source.html#l00018">18</a> of file <a class="el" href="a01775_source.html">RenderPassCache.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ad075fee264f0adfeb7c93a8133cf877f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad075fee264f0adfeb7c93a8133cf877f">&#9670;&nbsp;</a></span>getRenderPass()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a03839.html">vk::RenderPass</a> &amp; bl::rc::res::RenderPassCache::getRenderPass </td>
+          <td>(</td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>renderPassId</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Construct a new Output File. </p>
+<p>Fetches the render pass with the given id. Throws an exception if the id does not exist yet. Render passes should be created on application startup. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">path</td><td>The file to write to </td></tr>
+    <tr><td class="paramname">renderPassId</td><td>The id of the render pass to fetch </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>RenderPass&amp; The render pass with the given id </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a01739_source.html#l00009">9</a> of file <a class="el" href="a01739_source.html">OutputFile.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a90ed8fff6d1c1ce1e3f5ad0ccb66d23b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a90ed8fff6d1c1ce1e3f5ad0ccb66d23b">&#9670;&nbsp;</a></span>filename()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const std::string &amp; bl::serial::binary::OutputFile::filename </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>The filename used to open the file. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01739_source.html#l00015">15</a> of file <a class="el" href="a01739_source.html">OutputFile.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01775_source.html#l00028">28</a> of file <a class="el" href="a01775_source.html">RenderPassCache.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a80d05e18a69fc45887a82f643c7a4cdd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a80d05e18a69fc45887a82f643c7a4cdd">&#9670;&nbsp;</a></span>good()</h2>
+<h2 class="groupheader">Friends And Related Function Documentation</h2>
+<a id="a1fc8c4ea65463b448e068f1287349540"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1fc8c4ea65463b448e068f1287349540">&#9670;&nbsp;</a></span>bl::rc::Renderer</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -178,116 +183,29 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool bl::serial::binary::OutputStream::good </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td class="memname">friend class <a class="el" href="a03603.html">bl::rc::Renderer</a></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the status of the stream. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00959_source.html#l00088">88</a> of file <a class="el" href="a00959_source.html">OutputStream.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a21f37530f8f42f779c58cd8fea566afe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a21f37530f8f42f779c58cd8fea566afe">&#9670;&nbsp;</a></span>write() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::serial::binary::OutputStream::write </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>data</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Writes the string to the stream. Stores 4 bytes for the length, then the content of the string. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">data</td><td>The string to write </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>bool True if the value could be written </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00959_source.html#l00082">82</a> of file <a class="el" href="a00959_source.html">OutputStream.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ac4410d9f4e7f1bd5efd08dc7a01ec3f3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac4410d9f4e7f1bd5efd08dc7a01ec3f3">&#9670;&nbsp;</a></span>write() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::enable_if&lt; std::is_integral_v&lt; T &gt;, bool &gt;::type bl::serial::binary::OutputStream::write </td>
-          <td>(</td>
-          <td class="paramtype">const T &amp;&#160;</td>
-          <td class="paramname"><em>data</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Writes an integral type to the stream in it's binary representation. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">T</td><td>The type to write. It is better to be explicit for code to be cross platform </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">data</td><td>The value to write </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>bool True if the value could be written </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00959_source.html#l00066">66</a> of file <a class="el" href="a00959_source.html">OutputStream.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00869_source.html#l00050">50</a> of file <a class="el" href="a00869_source.html">RenderPassCache.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Serialization/Binary/<a class="el" href="a00956_source.html">OutputFile.hpp</a></li>
-<li>src/Serialization/Binary/<a class="el" href="a01739_source.html">OutputFile.cpp</a></li>
+<li>include/BLIB/Render/Resources/<a class="el" href="a00869_source.html">RenderPassCache.hpp</a></li>
+<li>src/Render/Resources/<a class="el" href="a01775_source.html">RenderPassCache.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 25 2023 00:24:24 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 27 2023 23:34:43 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

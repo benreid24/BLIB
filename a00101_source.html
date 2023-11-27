@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Components.hpp Source File</title>
+<title>BLIB: include/BLIB/Components/Velocity2D.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,52 +66,69 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_03a2a625e67597eb4ae66cccf6894c5e.html">Components</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Components.hpp</div>  </div>
+<div class="title">Velocity2D.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00101.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_COMPONENTS_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_COMPONENTS_HPP</span></div>
+<a href="a00101.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_COMPONENTS_VELOCITY2D_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_COMPONENTS_VELOCITY2D_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05049.html">BLIB/Components/Animation2D.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05055.html">BLIB/Components/Animation2DPlayer.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00062.html">BLIB/Components/BatchSceneLink.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00065.html">BLIB/Components/Mesh.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00068.html">BLIB/Components/Orientation3D.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00071.html">BLIB/Components/OverlayScaler.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05061.html">BLIB/Components/Shape2D.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05067.html">BLIB/Components/Slideshow.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05073.html">BLIB/Components/Sprite.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05085.html">BLIB/Components/Texture.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00089.html">BLIB/Components/Toggler.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05091.html">BLIB/Components/Transform2D.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00095.html">BLIB/Components/Transform3D.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00098.html">BLIB/Components/Velocity2D.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05581.html">BLIB/Components/Transform2D.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;glm/glm.hpp&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02058.html">bl</a></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>com</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a02319.html">   16</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a02319.html">Velocity2D</a> {</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a02319.html#afbfaaf62aba224a4f5cbfed26e078276">   20</a></span>&#160;    <a class="code" href="a02319.html#afbfaaf62aba224a4f5cbfed26e078276">Velocity2D</a>()</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    : <a class="code" href="a02319.html#af25023946aa4290e42eecc4a9a02b524">velocity</a>(0.f, 0.f)</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    , <a class="code" href="a02319.html#a1e51d26262966e00a2bf54324c92d526">angularVelocity</a>(0.f) {}</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00062_html"><div class="ttname"><a href="a00062.html">BatchSceneLink.hpp</a></div></div>
-<div class="ttc" id="aa00065_html"><div class="ttname"><a href="a00065.html">Mesh.hpp</a></div></div>
-<div class="ttc" id="aa00068_html"><div class="ttname"><a href="a00068.html">Orientation3D.hpp</a></div></div>
-<div class="ttc" id="aa00071_html"><div class="ttname"><a href="a00071.html">OverlayScaler.hpp</a></div></div>
-<div class="ttc" id="aa00089_html"><div class="ttname"><a href="a00089.html">Toggler.hpp</a></div></div>
-<div class="ttc" id="aa00095_html"><div class="ttname"><a href="a00095.html">Transform3D.hpp</a></div></div>
-<div class="ttc" id="aa00098_html"><div class="ttname"><a href="a00098.html">Velocity2D.hpp</a></div></div>
-<div class="ttc" id="aa05049_html"><div class="ttname"><a href="a05049.html">Animation2D.hpp</a></div></div>
-<div class="ttc" id="aa05055_html"><div class="ttname"><a href="a05055.html">Animation2DPlayer.hpp</a></div></div>
-<div class="ttc" id="aa05061_html"><div class="ttname"><a href="a05061.html">Shape2D.hpp</a></div></div>
-<div class="ttc" id="aa05067_html"><div class="ttname"><a href="a05067.html">Slideshow.hpp</a></div></div>
-<div class="ttc" id="aa05073_html"><div class="ttname"><a href="a05073.html">Sprite.hpp</a></div></div>
-<div class="ttc" id="aa05085_html"><div class="ttname"><a href="a05085.html">Texture.hpp</a></div></div>
-<div class="ttc" id="aa05091_html"><div class="ttname"><a href="a05091.html">Transform2D.hpp</a></div></div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a02319.html#addac98d48a3e305ddd28a13816476baf">   29</a></span>&#160;    <a class="code" href="a02319.html#addac98d48a3e305ddd28a13816476baf">Velocity2D</a>(<span class="keyword">const</span> glm::vec2&amp; <a class="code" href="a02319.html#af25023946aa4290e42eecc4a9a02b524">velocity</a>)</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    : <a class="code" href="a02319.html#af25023946aa4290e42eecc4a9a02b524">velocity</a>(<a class="code" href="a02319.html#af25023946aa4290e42eecc4a9a02b524">velocity</a>)</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    , <a class="code" href="a02319.html#a1e51d26262966e00a2bf54324c92d526">angularVelocity</a>(0.f) {}</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="a02319.html#a86394648fb7c2d0373ddc1b827c92441">   39</a></span>&#160;    <a class="code" href="a02319.html#a86394648fb7c2d0373ddc1b827c92441">Velocity2D</a>(<span class="keyword">const</span> glm::vec2&amp; <a class="code" href="a02319.html#af25023946aa4290e42eecc4a9a02b524">velocity</a>, <span class="keywordtype">float</span> <a class="code" href="a02319.html#a1e51d26262966e00a2bf54324c92d526">angularVelocity</a>)</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    : <a class="code" href="a02319.html#af25023946aa4290e42eecc4a9a02b524">velocity</a>(<a class="code" href="a02319.html#af25023946aa4290e42eecc4a9a02b524">velocity</a>)</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    , <a class="code" href="a02319.html#a1e51d26262966e00a2bf54324c92d526">angularVelocity</a>(<a class="code" href="a02319.html#a1e51d26262966e00a2bf54324c92d526">angularVelocity</a>) {}</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="a02319.html#a29116a1148979cb2b65ddc06da7245d6">   49</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02319.html#a29116a1148979cb2b65ddc06da7245d6">apply</a>(<a class="code" href="a02311.html">com::Transform2D</a>&amp; transform, <span class="keywordtype">float</span> dt) {</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        transform.<a class="code" href="a02311.html#a0f05c98962f8acfe46a7820f2858e55b">move</a>(<a class="code" href="a02319.html#af25023946aa4290e42eecc4a9a02b524">velocity</a> * dt);</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        transform.<a class="code" href="a02311.html#a3eb1b7be8e4f864a3d1257a1c5345879">rotate</a>(<a class="code" href="a02319.html#a1e51d26262966e00a2bf54324c92d526">angularVelocity</a> * dt);</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    }</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="a02319.html#af25023946aa4290e42eecc4a9a02b524">   55</a></span>&#160;    glm::vec2 <a class="code" href="a02319.html#af25023946aa4290e42eecc4a9a02b524">velocity</a>;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="comment">// Angular speed in degrees per second</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="a02319.html#a1e51d26262966e00a2bf54324c92d526">   58</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a02319.html#a1e51d26262966e00a2bf54324c92d526">angularVelocity</a>;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;};</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;} <span class="comment">// namespace com</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa02058_html"><div class="ttname"><a href="a02058.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02311_html"><div class="ttname"><a href="a02311.html">bl::com::Transform2D</a></div><div class="ttdoc">Representation of a 2d transform with a depth component to allow the depth buffer to be used when ren...</div><div class="ttdef"><b>Definition:</b> <a href="a05581_source.html#l00018">Transform2D.hpp:20</a></div></div>
+<div class="ttc" id="aa02311_html_a0f05c98962f8acfe46a7820f2858e55b"><div class="ttname"><a href="a02311.html#a0f05c98962f8acfe46a7820f2858e55b">bl::com::Transform2D::move</a></div><div class="ttdeci">void move(const glm::vec2 &amp;delta)</div><div class="ttdoc">Applies an offset to the current position.</div><div class="ttdef"><b>Definition:</b> <a href="a01310_source.html#l00035">Transform2D.cpp:35</a></div></div>
+<div class="ttc" id="aa02311_html_a3eb1b7be8e4f864a3d1257a1c5345879"><div class="ttname"><a href="a02311.html#a3eb1b7be8e4f864a3d1257a1c5345879">bl::com::Transform2D::rotate</a></div><div class="ttdeci">void rotate(float delta)</div><div class="ttdoc">Applies the given rotation to the current rotation.</div><div class="ttdef"><b>Definition:</b> <a href="a01310_source.html#l00095">Transform2D.cpp:95</a></div></div>
+<div class="ttc" id="aa02319_html"><div class="ttname"><a href="a02319.html">bl::com::Velocity2D</a></div><div class="ttdoc">Represents a translational and rotational velocity in 2d space.</div><div class="ttdef"><b>Definition:</b> <a href="a00101_source.html#l00016">Velocity2D.hpp:16</a></div></div>
+<div class="ttc" id="aa02319_html_a1e51d26262966e00a2bf54324c92d526"><div class="ttname"><a href="a02319.html#a1e51d26262966e00a2bf54324c92d526">bl::com::Velocity2D::angularVelocity</a></div><div class="ttdeci">float angularVelocity</div><div class="ttdef"><b>Definition:</b> <a href="a00101_source.html#l00058">Velocity2D.hpp:58</a></div></div>
+<div class="ttc" id="aa02319_html_a29116a1148979cb2b65ddc06da7245d6"><div class="ttname"><a href="a02319.html#a29116a1148979cb2b65ddc06da7245d6">bl::com::Velocity2D::apply</a></div><div class="ttdeci">void apply(com::Transform2D &amp;transform, float dt)</div><div class="ttdoc">Helper method to apply the velocity to the given transform.</div><div class="ttdef"><b>Definition:</b> <a href="a00101_source.html#l00049">Velocity2D.hpp:49</a></div></div>
+<div class="ttc" id="aa02319_html_a86394648fb7c2d0373ddc1b827c92441"><div class="ttname"><a href="a02319.html#a86394648fb7c2d0373ddc1b827c92441">bl::com::Velocity2D::Velocity2D</a></div><div class="ttdeci">Velocity2D(const glm::vec2 &amp;velocity, float angularVelocity)</div><div class="ttdoc">Initializes with the given velocity and angular velocity.</div><div class="ttdef"><b>Definition:</b> <a href="a00101_source.html#l00039">Velocity2D.hpp:39</a></div></div>
+<div class="ttc" id="aa02319_html_addac98d48a3e305ddd28a13816476baf"><div class="ttname"><a href="a02319.html#addac98d48a3e305ddd28a13816476baf">bl::com::Velocity2D::Velocity2D</a></div><div class="ttdeci">Velocity2D(const glm::vec2 &amp;velocity)</div><div class="ttdoc">Initializes with the given velocity and zero angular velocity.</div><div class="ttdef"><b>Definition:</b> <a href="a00101_source.html#l00029">Velocity2D.hpp:29</a></div></div>
+<div class="ttc" id="aa02319_html_af25023946aa4290e42eecc4a9a02b524"><div class="ttname"><a href="a02319.html#af25023946aa4290e42eecc4a9a02b524">bl::com::Velocity2D::velocity</a></div><div class="ttdeci">glm::vec2 velocity</div><div class="ttdoc">Velocity to apply to the position in units per second.</div><div class="ttdef"><b>Definition:</b> <a href="a00101_source.html#l00055">Velocity2D.hpp:55</a></div></div>
+<div class="ttc" id="aa02319_html_afbfaaf62aba224a4f5cbfed26e078276"><div class="ttname"><a href="a02319.html#afbfaaf62aba224a4f5cbfed26e078276">bl::com::Velocity2D::Velocity2D</a></div><div class="ttdeci">Velocity2D()</div><div class="ttdoc">Initializes the velocity to 0.</div><div class="ttdef"><b>Definition:</b> <a href="a00101_source.html#l00020">Velocity2D.hpp:20</a></div></div>
+<div class="ttc" id="aa05581_html"><div class="ttname"><a href="a05581.html">Transform2D.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 25 2023 00:24:19 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 27 2023 23:34:40 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

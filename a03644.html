@@ -66,25 +66,38 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01833.html">bl</a></li><li class="navelem"><a class="el" href="a01836.html">serial</a></li><li class="navelem"><a class="el" href="a01886.html">binary</a></li><li class="navelem"><a class="el" href="a03647.html">Serializer&lt; bool, false &gt;</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02058.html">bl</a></li><li class="navelem"><a class="el" href="a02070.html">rc</a></li><li class="navelem"><a class="el" href="a02086.html">res</a></li><li class="navelem"><a class="el" href="a03647.html">TexturePool</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">bl::serial::binary::Serializer&lt; bool, false &gt; Member List</div>  </div>
+<div class="title">bl::rc::res::TexturePool Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a03647.html">bl::serial::binary::Serializer&lt; bool, false &gt;</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a03647.html">bl::rc::res::TexturePool</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a03647.html#ad6d17b43f2a9a9173c33fb572be606c5">deserialize</a>(InputStream &amp;input, bool &amp;value)</td><td class="entry"><a class="el" href="a03647.html">bl::serial::binary::Serializer&lt; bool, false &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a03647.html#a64b33f8cb24ce9b30f8726fb19971a5e">serialize</a>(OutputStream &amp;output, const bool &amp;value)</td><td class="entry"><a class="el" href="a03647.html">bl::serial::binary::Serializer&lt; bool, false &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a03647.html#a3529bafcad0ea25a9e2717fd0c0d69d0">size</a>(const bool &amp;)</td><td class="entry"><a class="el" href="a03647.html">bl::serial::binary::Serializer&lt; bool, false &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a03647.html#a44f86f7c5c05af9fe35baabb7f021436">bindDescriptors</a>(VkCommandBuffer commandBuffer, VkPipelineLayout pipelineLayout, std::uint32_t setIndex, bool forRenderTexture)</td><td class="entry"><a class="el" href="a03647.html">bl::rc::res::TexturePool</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a03647.html#a1fc8c4ea65463b448e068f1287349540">bl::rc::Renderer</a> class</td><td class="entry"><a class="el" href="a03647.html">bl::rc::res::TexturePool</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a03647.html#af58ec8701b5cdfaf566651f6f11c40c8">createRenderTexture</a>(const glm::u32vec2 &amp;size, VkSampler sampler=nullptr)</td><td class="entry"><a class="el" href="a03647.html">bl::rc::res::TexturePool</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a03647.html#ab6d52b2213374f46e77bf5eb0905c2cd">createTexture</a>(const glm::u32vec2 &amp;size, VkSampler sampler=nullptr)</td><td class="entry"><a class="el" href="a03647.html">bl::rc::res::TexturePool</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a03647.html#aeae87ba7c43943366e1537b79fe8c156">createTexture</a>(const sf::Image &amp;image, VkSampler sampler=nullptr)</td><td class="entry"><a class="el" href="a03647.html">bl::rc::res::TexturePool</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a03647.html#a852cdbb2c842db16bca67fa7324cbe18">ErrorTextureId</a></td><td class="entry"><a class="el" href="a03647.html">bl::rc::res::TexturePool</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a03647.html#a6ef48ea93b64d903bc1b3c1c7fc00983">getDescriptorLayout</a>() const</td><td class="entry"><a class="el" href="a03647.html">bl::rc::res::TexturePool</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a03647.html#aec8024ec87c077d8649f0da43daa7e0f">getDescriptorSet</a>() const</td><td class="entry"><a class="el" href="a03647.html">bl::rc::res::TexturePool</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a03647.html#a93736ce4025f91f210cd244fe16d842d">getOrLoadTexture</a>(const std::string &amp;filePath, VkSampler sampler=nullptr)</td><td class="entry"><a class="el" href="a03647.html">bl::rc::res::TexturePool</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a03647.html#ab8934b3131d85b56d57acaeb9461c6ca">getOrLoadTexture</a>(const sf::Image &amp;src, VkSampler sampler=nullptr)</td><td class="entry"><a class="el" href="a03647.html">bl::rc::res::TexturePool</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a03647.html#a5f2ac12a7f4e55978d787ea8f61cbe42">getRenderTextureDescriptorSet</a>() const</td><td class="entry"><a class="el" href="a03647.html">bl::rc::res::TexturePool</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a03647.html#abd03bf271cbfb7431925c20b3f983292">MaxTextureCount</a></td><td class="entry"><a class="el" href="a03647.html">bl::rc::res::TexturePool</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a03647.html#af1020765fa50d7e635d6f68c6536d39a">releaseTexture</a>(const TextureRef &amp;ref)</td><td class="entry"><a class="el" href="a03647.html">bl::rc::res::TexturePool</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a03647.html#ab4587cdd86583d78513c9a58afa4e54b">releaseUnused</a>()</td><td class="entry"><a class="el" href="a03647.html">bl::rc::res::TexturePool</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a03647.html#a3acc18d2df8a5fe1a64dcc54adc95a55">TextureArrayBindIndex</a></td><td class="entry"><a class="el" href="a03647.html">bl::rc::res::TexturePool</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a03647.html#af528440c1789370da607ba538c13b5a8">TextureRef</a> class</td><td class="entry"><a class="el" href="a03647.html">bl::rc::res::TexturePool</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
 </table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 25 2023 00:24:24 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 27 2023 23:34:43 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

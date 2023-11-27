@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::serial::binary::priv::ReadWriteExistChecker&lt; T &gt; Class Template Reference</title>
+<title>BLIB: bl::rc::scene::SceneObjectStorage&lt; T &gt;::AllocateResult Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,95 +66,122 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01833.html">bl</a></li><li class="navelem"><a class="el" href="a01836.html">serial</a></li><li class="navelem"><a class="el" href="a01886.html">binary</a></li><li class="navelem"><a class="el" href="a01887.html">priv</a></li><li class="navelem"><a class="el" href="a03719.html">ReadWriteExistChecker</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02058.html">bl</a></li><li class="navelem"><a class="el" href="a02070.html">rc</a></li><li class="navelem"><a class="el" href="a02103.html">scene</a></li><li class="navelem"><a class="el" href="a03715.html">SceneObjectStorage</a></li><li class="navelem"><a class="el" href="a03719.html">AllocateResult</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a03716.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::serial::binary::priv::ReadWriteExistChecker&lt; T &gt; Class Template Reference</div>  </div>
+<div class="title">bl::rc::scene::SceneObjectStorage&lt; T &gt;::AllocateResult Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="a00965_source.html">VersionedSerializer.hpp</a>&gt;</code></p>
+<p>Represents the result of an allocation of an object.  
+ <a href="a03719.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00908_source.html">SceneObjectStorage.hpp</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
-Static Public Attributes</h2></td></tr>
-<tr class="memitem:a47e6dd63e4338cb86b60fe1b8c79cd33"><td class="memItemLeft" align="right" valign="top">static constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03719.html#a47e6dd63e4338cb86b60fe1b8c79cd33">HasRead</a> = sizeof(testRead&lt;T&gt;(0)) == sizeof(Pass)</td></tr>
-<tr class="separator:a47e6dd63e4338cb86b60fe1b8c79cd33"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a56f55bebd51525f49a89b44b6e5a2ce0"><td class="memItemLeft" align="right" valign="top">static constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03719.html#a56f55bebd51525f49a89b44b6e5a2ce0">HasWrite</a> = sizeof(testWrite&lt;T&gt;(0)) == sizeof(Pass)</td></tr>
-<tr class="separator:a56f55bebd51525f49a89b44b6e5a2ce0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a0a616f0e2fb7f4373f40ff65676552cc"><td class="memItemLeft" align="right" valign="top">T *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03719.html#a0a616f0e2fb7f4373f40ff65676552cc">newObject</a></td></tr>
+<tr class="separator:a0a616f0e2fb7f4373f40ff65676552cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af13f3dfc5cdecccb82271e903b12464b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03719.html#af13f3dfc5cdecccb82271e903b12464b">addressesChanged</a></td></tr>
+<tr class="separator:af13f3dfc5cdecccb82271e903b12464b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b7b517434d3f4ea90f293e033de0f11"><td class="memItemLeft" align="right" valign="top">T *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03719.html#a5b7b517434d3f4ea90f293e033de0f11">originalBaseAddress</a></td></tr>
+<tr class="separator:a5b7b517434d3f4ea90f293e033de0f11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a53baddaf897a8ccdac9ae107013d5992"><td class="memItemLeft" align="right" valign="top">std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03719.html#a53baddaf897a8ccdac9ae107013d5992">newCapacity</a></td></tr>
+<tr class="separator:a53baddaf897a8ccdac9ae107013d5992"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;typename T&gt;<br />
-class bl::serial::binary::priv::ReadWriteExistChecker&lt; T &gt;</h3>
+struct bl::rc::scene::SceneObjectStorage&lt; T &gt;::AllocateResult</h3>
 
+<p>Represents the result of an allocation of an object. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00965_source.html#l00028">28</a> of file <a class="el" href="a00965_source.html">VersionedSerializer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00908_source.html#l00034">34</a> of file <a class="el" href="a00908_source.html">SceneObjectStorage.hpp</a>.</p>
 </div><h2 class="groupheader">Member Data Documentation</h2>
-<a id="a47e6dd63e4338cb86b60fe1b8c79cd33"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a47e6dd63e4338cb86b60fe1b8c79cd33">&#9670;&nbsp;</a></span>HasRead</h2>
+<a id="af13f3dfc5cdecccb82271e903b12464b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af13f3dfc5cdecccb82271e903b12464b">&#9670;&nbsp;</a></span>addressesChanged</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr bool <a class="el" href="a03719.html">bl::serial::binary::priv::ReadWriteExistChecker</a>&lt; T &gt;::HasRead = sizeof(testRead&lt;T&gt;(0)) == sizeof(Pass)</td>
+          <td class="memname">bool <a class="el" href="a03715.html">bl::rc::scene::SceneObjectStorage</a>&lt; T &gt;::AllocateResult::addressesChanged</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00965_source.html#l00047">47</a> of file <a class="el" href="a00965_source.html">VersionedSerializer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00908_source.html#l00036">36</a> of file <a class="el" href="a00908_source.html">SceneObjectStorage.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a56f55bebd51525f49a89b44b6e5a2ce0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a56f55bebd51525f49a89b44b6e5a2ce0">&#9670;&nbsp;</a></span>HasWrite</h2>
+<a id="a53baddaf897a8ccdac9ae107013d5992"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a53baddaf897a8ccdac9ae107013d5992">&#9670;&nbsp;</a></span>newCapacity</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr bool <a class="el" href="a03719.html">bl::serial::binary::priv::ReadWriteExistChecker</a>&lt; T &gt;::HasWrite = sizeof(testWrite&lt;T&gt;(0)) == sizeof(Pass)</td>
+          <td class="memname">std::uint32_t <a class="el" href="a03715.html">bl::rc::scene::SceneObjectStorage</a>&lt; T &gt;::AllocateResult::newCapacity</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00965_source.html#l00048">48</a> of file <a class="el" href="a00965_source.html">VersionedSerializer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00908_source.html#l00038">38</a> of file <a class="el" href="a00908_source.html">SceneObjectStorage.hpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>include/BLIB/Serialization/Binary/<a class="el" href="a00965_source.html">VersionedSerializer.hpp</a></li>
+<a id="a0a616f0e2fb7f4373f40ff65676552cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a616f0e2fb7f4373f40ff65676552cc">&#9670;&nbsp;</a></span>newObject</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">T* <a class="el" href="a03715.html">bl::rc::scene::SceneObjectStorage</a>&lt; T &gt;::AllocateResult::newObject</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00908_source.html#l00035">35</a> of file <a class="el" href="a00908_source.html">SceneObjectStorage.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a5b7b517434d3f4ea90f293e033de0f11"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b7b517434d3f4ea90f293e033de0f11">&#9670;&nbsp;</a></span>originalBaseAddress</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">T* <a class="el" href="a03715.html">bl::rc::scene::SceneObjectStorage</a>&lt; T &gt;::AllocateResult::originalBaseAddress</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00908_source.html#l00037">37</a> of file <a class="el" href="a00908_source.html">SceneObjectStorage.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>include/BLIB/Render/Scenes/<a class="el" href="a00908_source.html">SceneObjectStorage.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 25 2023 00:24:24 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 27 2023 23:34:43 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

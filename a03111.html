@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::rc::rg::TaskAssets Struct Reference</title>
+<title>BLIB: bl::gui::rdr::ComponentFactory Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,155 +66,136 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01833.html">bl</a></li><li class="navelem"><a class="el" href="a01845.html">rc</a></li><li class="navelem"><a class="el" href="a01878.html">rg</a></li><li class="navelem"><a class="el" href="a03111.html">TaskAssets</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02058.html">bl</a></li><li class="navelem"><a class="el" href="a02090.html">gui</a></li><li class="navelem"><a class="el" href="a02093.html">rdr</a></li><li class="navelem"><a class="el" href="a03111.html">ComponentFactory</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a03108.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::rc::rg::TaskAssets Struct Reference<div class="ingroups"><a class="el" href="a01820.html">Renderer</a></div></div>  </div>
+<div class="title">bl::gui::rdr::ComponentFactory Struct Reference<span class="mlabels"><span class="mlabel">abstract</span></span><div class="ingroups"><a class="el" href="a02040.html">Interface</a> &raquo; <a class="el" href="a02053.html">GUI</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Basic struct containing the assets for a task. Corresponds to <a class="el" href="a03115.html" title="Basic struct containing the tags for a task for linking within a graph.">TaskAssetTags</a>. Indices are consistent with tag indices to make finding assets simpler.  
+<p>Base class for component factories. <a class="el" href="a03107.html" title="Base class for renderer components. Each GUI element owns a handle to a component owned by the render...">Component</a> factories are owned by FactoryTables, which are used by <a class="el" href="a02999.html" title="Top level class for creating a graphical user interface.">GUI</a> to create Components to render Elements.  
  <a href="a03111.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00683_source.html">TaskAssets.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00530_source.html">ComponentFactory.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::gui::rdr::ComponentFactory:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a03111.png" usemap="#bl::gui::rdr::ComponentFactory_map" alt=""/>
+  <map id="bl::gui::rdr::ComponentFactory_map" name="bl::gui::rdr::ComponentFactory_map">
+<area href="a03115.html" title="Generic factory for components with simple constructors. Provided for convenience." alt="bl::gui::rdr::GenericFactory&lt; T &gt;" shape="rect" coords="0,56,194,80"/>
+  </map>
+</div></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a93c04bfc46919ebdb430f1951d3c011c"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03111.html#a93c04bfc46919ebdb430f1951d3c011c">Ptr</a> = std::unique_ptr&lt; <a class="el" href="a03111.html">ComponentFactory</a> &gt;</td></tr>
+<tr class="separator:a93c04bfc46919ebdb430f1951d3c011c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aff149b2e77e78be28685552a116ceb8d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03111.html#aff149b2e77e78be28685552a116ceb8d">TaskAssets</a> ()</td></tr>
-<tr class="memdesc:aff149b2e77e78be28685552a116ceb8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an empty asset set.  <a href="a03111.html#aff149b2e77e78be28685552a116ceb8d">More...</a><br /></td></tr>
-<tr class="separator:aff149b2e77e78be28685552a116ceb8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0df9b2131b064f2d488c02fd9a3cbc7d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03111.html#a0df9b2131b064f2d488c02fd9a3cbc7d">init</a> (const <a class="el" href="a03115.html">TaskAssetTags</a> &amp;tags)</td></tr>
-<tr class="memdesc:a0df9b2131b064f2d488c02fd9a3cbc7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sizes the inputs and sets all pointers to nullptr.  <a href="a03111.html#a0df9b2131b064f2d488c02fd9a3cbc7d">More...</a><br /></td></tr>
-<tr class="separator:a0df9b2131b064f2d488c02fd9a3cbc7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a721b54079c2c3517cabda5a851154b52"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03075.html">GraphAsset</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03111.html#a721b54079c2c3517cabda5a851154b52">output</a></td></tr>
-<tr class="separator:a721b54079c2c3517cabda5a851154b52"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5c54cf96c3a6980a60264cd77b57ea0d"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="a03075.html">GraphAsset</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03111.html#a5c54cf96c3a6980a60264cd77b57ea0d">requiredInputs</a></td></tr>
-<tr class="separator:a5c54cf96c3a6980a60264cd77b57ea0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac323e645d78eef3de573a933b6c04eea"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="a03075.html">GraphAsset</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03111.html#ac323e645d78eef3de573a933b6c04eea">optionalInputs</a></td></tr>
-<tr class="separator:ac323e645d78eef3de573a933b6c04eea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abeba91c27bdfaa6660e103803d67760d"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03111.html#abeba91c27bdfaa6660e103803d67760d">~ComponentFactory</a> ()=default</td></tr>
+<tr class="memdesc:abeba91c27bdfaa6660e103803d67760d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the factory.  <a href="a03111.html#abeba91c27bdfaa6660e103803d67760d">More...</a><br /></td></tr>
+<tr class="separator:abeba91c27bdfaa6660e103803d67760d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af66919470aff11cda1a0853418c3e2b2"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="a03107.html#a947a8f9a8831f3c495cb9aa7ca89a374">Component::Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03111.html#af66919470aff11cda1a0853418c3e2b2">create</a> ()=0</td></tr>
+<tr class="memdesc:af66919470aff11cda1a0853418c3e2b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when a <a class="el" href="a03107.html" title="Base class for renderer components. Each GUI element owns a handle to a component owned by the render...">Component</a> needs to be created.  <a href="a03111.html#af66919470aff11cda1a0853418c3e2b2">More...</a><br /></td></tr>
+<tr class="separator:af66919470aff11cda1a0853418c3e2b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Basic struct containing the assets for a task. Corresponds to <a class="el" href="a03115.html" title="Basic struct containing the tags for a task for linking within a graph.">TaskAssetTags</a>. Indices are consistent with tag indices to make finding assets simpler. </p>
+<div class="textblock"><p>Base class for component factories. <a class="el" href="a03107.html" title="Base class for renderer components. Each GUI element owns a handle to a component owned by the render...">Component</a> factories are owned by FactoryTables, which are used by <a class="el" href="a02999.html" title="Top level class for creating a graphical user interface.">GUI</a> to create Components to render Elements. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00683_source.html#l00022">22</a> of file <a class="el" href="a00683_source.html">TaskAssets.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="aff149b2e77e78be28685552a116ceb8d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aff149b2e77e78be28685552a116ceb8d">&#9670;&nbsp;</a></span>TaskAssets()</h2>
+<p class="definition">Definition at line <a class="el" href="a00530_source.html#l00019">19</a> of file <a class="el" href="a00530_source.html">ComponentFactory.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a93c04bfc46919ebdb430f1951d3c011c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93c04bfc46919ebdb430f1951d3c011c">&#9670;&nbsp;</a></span>Ptr</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bl::rc::rg::TaskAssets::TaskAssets </td>
+          <td class="memname">using <a class="el" href="a03111.html#a93c04bfc46919ebdb430f1951d3c011c">bl::gui::rdr::ComponentFactory::Ptr</a> =  std::unique_ptr&lt;<a class="el" href="a03111.html">ComponentFactory</a>&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00530_source.html#l00020">20</a> of file <a class="el" href="a00530_source.html">ComponentFactory.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="abeba91c27bdfaa6660e103803d67760d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abeba91c27bdfaa6660e103803d67760d">&#9670;&nbsp;</a></span>~ComponentFactory()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bl::gui::rdr::ComponentFactory::~ComponentFactory </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Creates an empty asset set. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01517_source.html#l00009">9</a> of file <a class="el" href="a01517_source.html">TaskAssets.cpp</a>.</p>
+<p>Destroys the factory. </p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a0df9b2131b064f2d488c02fd9a3cbc7d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0df9b2131b064f2d488c02fd9a3cbc7d">&#9670;&nbsp;</a></span>init()</h2>
+<a id="af66919470aff11cda1a0853418c3e2b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af66919470aff11cda1a0853418c3e2b2">&#9670;&nbsp;</a></span>create()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::rc::rg::TaskAssets::init </td>
+          <td class="memname">virtual <a class="el" href="a03107.html#a947a8f9a8831f3c495cb9aa7ca89a374">Component::Ptr</a> bl::gui::rdr::ComponentFactory::create </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="a03115.html">TaskAssetTags</a> &amp;&#160;</td>
-          <td class="paramname"><em>tags</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Sizes the inputs and sets all pointers to nullptr. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">tags</td><td>The tags for the task this belongs to </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Called when a <a class="el" href="a03107.html" title="Base class for renderer components. Each GUI element owns a handle to a component owned by the render...">Component</a> needs to be created. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01517_source.html#l00012">12</a> of file <a class="el" href="a01517_source.html">TaskAssets.cpp</a>.</p>
+<p>Implemented in <a class="el" href="a03115.html#ae74553d8839fa9e63947dcdc8735fbf4">bl::gui::rdr::GenericFactory&lt; T &gt;</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="ac323e645d78eef3de573a933b6c04eea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac323e645d78eef3de573a933b6c04eea">&#9670;&nbsp;</a></span>optionalInputs</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt;<a class="el" href="a03075.html">GraphAsset</a>*&gt; bl::rc::rg::TaskAssets::optionalInputs</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00683_source.html#l00025">25</a> of file <a class="el" href="a00683_source.html">TaskAssets.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a721b54079c2c3517cabda5a851154b52"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a721b54079c2c3517cabda5a851154b52">&#9670;&nbsp;</a></span>output</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a03075.html">GraphAsset</a>* bl::rc::rg::TaskAssets::output</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00683_source.html#l00023">23</a> of file <a class="el" href="a00683_source.html">TaskAssets.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a5c54cf96c3a6980a60264cd77b57ea0d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5c54cf96c3a6980a60264cd77b57ea0d">&#9670;&nbsp;</a></span>requiredInputs</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt;<a class="el" href="a03075.html">GraphAsset</a>*&gt; bl::rc::rg::TaskAssets::requiredInputs</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00683_source.html#l00024">24</a> of file <a class="el" href="a00683_source.html">TaskAssets.hpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this struct was generated from the following files:<ul>
-<li>include/BLIB/Render/Graph/<a class="el" href="a00683_source.html">TaskAssets.hpp</a></li>
-<li>src/Render/Graph/<a class="el" href="a01517_source.html">TaskAssets.cpp</a></li>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>include/BLIB/Interfaces/GUI/Renderer/<a class="el" href="a00530_source.html">ComponentFactory.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 25 2023 00:24:23 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 27 2023 23:34:42 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

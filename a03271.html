@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::rc::scene::SceneObjectStorage&lt; T &gt; Class Template Reference</title>
+<title>BLIB: bl::parser::Node Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,350 +66,262 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01833.html">bl</a></li><li class="navelem"><a class="el" href="a01845.html">rc</a></li><li class="navelem"><a class="el" href="a01875.html">scene</a></li><li class="navelem"><a class="el" href="a03271.html">SceneObjectStorage</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02058.html">bl</a></li><li class="navelem"><a class="el" href="a02098.html">parser</a></li><li class="navelem"><a class="el" href="a03271.html">Node</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-types">Public Types</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="a03268.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::rc::scene::SceneObjectStorage&lt; T &gt; Class Template Reference<div class="ingroups"><a class="el" href="a01820.html">Renderer</a></div></div>  </div>
+<div class="title">bl::parser::Node Struct Reference<div class="ingroups"><a class="el" href="a02043.html">Parser</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Storage for scene objects. Splits objects by update frequency.  
+<p>Represents a basic parse node. Can be both tokens (terminals) or non terminal grammar elements.  
  <a href="a03271.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00773_source.html">SceneObjectStorage.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00653_source.html">Node.hpp</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03275.html">AllocateResult</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents the result of an allocation of an object.  <a href="a03275.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a7aead111e234327c018e49a75c20f702"><td class="memItemLeft" align="right" valign="top">typedef int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03271.html#a7aead111e234327c018e49a75c20f702">Type</a></td></tr>
+<tr class="separator:a7aead111e234327c018e49a75c20f702"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa29f085be0b57c51abc6f33d9619af2"><td class="memItemLeft" align="right" valign="top">typedef std::vector&lt; <a class="el" href="a03271.html#a7aead111e234327c018e49a75c20f702">Type</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03271.html#afa29f085be0b57c51abc6f33d9619af2">Sequence</a></td></tr>
+<tr class="separator:afa29f085be0b57c51abc6f33d9619af2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f49fe9da8742463aa757f89f67a8827"><td class="memItemLeft" align="right" valign="top">typedef std::shared_ptr&lt; <a class="el" href="a03271.html">Node</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03271.html#a3f49fe9da8742463aa757f89f67a8827">Ptr</a></td></tr>
+<tr class="separator:a3f49fe9da8742463aa757f89f67a8827"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a656999d3cdd98497b84027135e04b71a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03271.html#a656999d3cdd98497b84027135e04b71a">SceneObjectStorage</a> ()=default</td></tr>
-<tr class="memdesc:a656999d3cdd98497b84027135e04b71a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reserves some memory.  <a href="a03271.html#a656999d3cdd98497b84027135e04b71a">More...</a><br /></td></tr>
-<tr class="separator:a656999d3cdd98497b84027135e04b71a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a41e88abbf23a97b7771ed69ab7e44acc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03275.html">AllocateResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03271.html#a41e88abbf23a97b7771ed69ab7e44acc">allocate</a> (<a class="el" href="a01820.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a> updateFreq, <a class="el" href="a02223.html">ecs::Entity</a> entity)</td></tr>
-<tr class="memdesc:a41e88abbf23a97b7771ed69ab7e44acc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates a new scene object, growing the buffer if required.  <a href="a03271.html#a41e88abbf23a97b7771ed69ab7e44acc">More...</a><br /></td></tr>
-<tr class="separator:a41e88abbf23a97b7771ed69ab7e44acc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad5df0b1113eba4409be01afefaefcad8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02223.html">ecs::Entity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03271.html#ad5df0b1113eba4409be01afefaefcad8">getObjectEntity</a> (<a class="el" href="a03235.html">Key</a> key) const</td></tr>
-<tr class="memdesc:ad5df0b1113eba4409be01afefaefcad8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the ECS id for the given object key.  <a href="a03271.html#ad5df0b1113eba4409be01afefaefcad8">More...</a><br /></td></tr>
-<tr class="separator:ad5df0b1113eba4409be01afefaefcad8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa79226fb16a0145d3f361c24ebb2e08d"><td class="memItemLeft" align="right" valign="top">T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03271.html#aa79226fb16a0145d3f361c24ebb2e08d">getObject</a> (<a class="el" href="a03235.html">Key</a> key)</td></tr>
-<tr class="memdesc:aa79226fb16a0145d3f361c24ebb2e08d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetches the object with the given key.  <a href="a03271.html#aa79226fb16a0145d3f361c24ebb2e08d">More...</a><br /></td></tr>
-<tr class="separator:aa79226fb16a0145d3f361c24ebb2e08d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a932d5c9bf825c06730670784ea6a44c5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03271.html#a932d5c9bf825c06730670784ea6a44c5">release</a> (<a class="el" href="a03235.html">Key</a> key)</td></tr>
-<tr class="memdesc:a932d5c9bf825c06730670784ea6a44c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marks the given key as being free. Allows future allocation to reuse it.  <a href="a03271.html#a932d5c9bf825c06730670784ea6a44c5">More...</a><br /></td></tr>
-<tr class="separator:a932d5c9bf825c06730670784ea6a44c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a56d7cbf2d1e0d92c7af249665631a371"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03271.html#a56d7cbf2d1e0d92c7af249665631a371">unlinkAll</a> (<a class="el" href="a03019.html">ds::DescriptorSetInstanceCache</a> &amp;descriptors)</td></tr>
-<tr class="memdesc:a56d7cbf2d1e0d92c7af249665631a371"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unlinks created objects.  <a href="a03271.html#a56d7cbf2d1e0d92c7af249665631a371">More...</a><br /></td></tr>
-<tr class="separator:a56d7cbf2d1e0d92c7af249665631a371"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a41138440b729ec718231cbab376db495"><td class="memItemLeft" align="right" valign="top">T *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03271.html#a41138440b729ec718231cbab376db495">rebase</a> (<a class="el" href="a01820.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a> speed, T *original, T *oldBase)</td></tr>
-<tr class="memdesc:a41138440b729ec718231cbab376db495"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets a new pointer from an old pointer. Call after a pool grows.  <a href="a03271.html#a41138440b729ec718231cbab376db495">More...</a><br /></td></tr>
-<tr class="separator:a41138440b729ec718231cbab376db495"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:affa0e3174aef8b7a90bdfd4dd83d4448"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02991.html#a80984df19e4cbb663aa059d56784cf6e">ds::DescriptorComponentStorageBase::EntityCallback</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03271.html#affa0e3174aef8b7a90bdfd4dd83d4448">makeEntityCallback</a> () const</td></tr>
-<tr class="memdesc:affa0e3174aef8b7a90bdfd4dd83d4448"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a usable callback to map scene key to ECS id.  <a href="a03271.html#affa0e3174aef8b7a90bdfd4dd83d4448">More...</a><br /></td></tr>
-<tr class="separator:affa0e3174aef8b7a90bdfd4dd83d4448"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:aef8e0b4138b7e6a645fea5049565c78a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03271.html#a7aead111e234327c018e49a75c20f702">Type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03271.html#aef8e0b4138b7e6a645fea5049565c78a">type</a></td></tr>
+<tr class="separator:aef8e0b4138b7e6a645fea5049565c78a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f656c377a68ef48d13abfe7fa7f43b2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03271.html">Node</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03271.html#a1f656c377a68ef48d13abfe7fa7f43b2">parent</a></td></tr>
+<tr class="separator:a1f656c377a68ef48d13abfe7fa7f43b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc7a3b704270aed00f97302e698cb67e"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="a03271.html#a3f49fe9da8742463aa757f89f67a8827">Ptr</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03271.html#abc7a3b704270aed00f97302e698cb67e">children</a></td></tr>
+<tr class="separator:abc7a3b704270aed00f97302e698cb67e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa80197fd64232776f14ed64176adf1e3"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03271.html#aa80197fd64232776f14ed64176adf1e3">data</a></td></tr>
+<tr class="separator:aa80197fd64232776f14ed64176adf1e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aedefe68f7194aeccd75aad71dfd8ca7d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03271.html#aedefe68f7194aeccd75aad71dfd8ca7d">sourceLine</a></td></tr>
+<tr class="separator:aedefe68f7194aeccd75aad71dfd8ca7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2aefdf0aa8a0c54c4ea10899895b4baa"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03271.html#a2aefdf0aa8a0c54c4ea10899895b4baa">sourceColumn</a></td></tr>
+<tr class="separator:a2aefdf0aa8a0c54c4ea10899895b4baa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a4bbdfc3239a1e6b8781433b8e2f46c6b"><td class="memItemLeft" align="right" valign="top">static constexpr <a class="el" href="a03271.html#a7aead111e234327c018e49a75c20f702">Type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03271.html#a4bbdfc3239a1e6b8781433b8e2f46c6b">None</a> = -1</td></tr>
+<tr class="separator:a4bbdfc3239a1e6b8781433b8e2f46c6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6bb58cc837da6706b7aa5b4da9a9baa1"><td class="memItemLeft" align="right" valign="top">static constexpr <a class="el" href="a03271.html#a7aead111e234327c018e49a75c20f702">Type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03271.html#a6bb58cc837da6706b7aa5b4da9a9baa1">EOI</a> = -2</td></tr>
+<tr class="separator:a6bb58cc837da6706b7aa5b4da9a9baa1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename T&gt;<br />
-class bl::rc::scene::SceneObjectStorage&lt; T &gt;</h3>
+<div class="textblock"><p>Represents a basic parse node. Can be both tokens (terminals) or non terminal grammar elements. </p>
 
-<p>Storage for scene objects. Splits objects by update frequency. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">T</td><td>The type of <a class="el" href="a03259.html" title="Base renderable object. Everything that is rendered will reference an instance of this....">SceneObject</a> to provide storage for </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00773_source.html#l00026">26</a> of file <a class="el" href="a00773_source.html">SceneObjectStorage.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a656999d3cdd98497b84027135e04b71a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a656999d3cdd98497b84027135e04b71a">&#9670;&nbsp;</a></span>SceneObjectStorage()</h2>
+<p class="definition">Definition at line <a class="el" href="a00653_source.html#l00018">18</a> of file <a class="el" href="a00653_source.html">Node.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a3f49fe9da8742463aa757f89f67a8827"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f49fe9da8742463aa757f89f67a8827">&#9670;&nbsp;</a></span>Ptr</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef std::shared_ptr&lt;<a class="el" href="a03271.html">Node</a>&gt; <a class="el" href="a03271.html#a3f49fe9da8742463aa757f89f67a8827">bl::parser::Node::Ptr</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00653_source.html#l00024">24</a> of file <a class="el" href="a00653_source.html">Node.hpp</a>.</p>
+
+</div>
+</div>
+<a id="afa29f085be0b57c51abc6f33d9619af2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afa29f085be0b57c51abc6f33d9619af2">&#9670;&nbsp;</a></span>Sequence</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef std::vector&lt;<a class="el" href="a03271.html#a7aead111e234327c018e49a75c20f702">Type</a>&gt; <a class="el" href="a03271.html#afa29f085be0b57c51abc6f33d9619af2">bl::parser::Node::Sequence</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00653_source.html#l00022">22</a> of file <a class="el" href="a00653_source.html">Node.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a7aead111e234327c018e49a75c20f702"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7aead111e234327c018e49a75c20f702">&#9670;&nbsp;</a></span>Type</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef int <a class="el" href="a03271.html#a7aead111e234327c018e49a75c20f702">bl::parser::Node::Type</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00653_source.html#l00019">19</a> of file <a class="el" href="a00653_source.html">Node.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="abc7a3b704270aed00f97302e698cb67e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc7a3b704270aed00f97302e698cb67e">&#9670;&nbsp;</a></span>children</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="a03271.html#a3f49fe9da8742463aa757f89f67a8827">Ptr</a>&gt; bl::parser::Node::children</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00653_source.html#l00028">28</a> of file <a class="el" href="a00653_source.html">Node.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aa80197fd64232776f14ed64176adf1e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa80197fd64232776f14ed64176adf1e3">&#9670;&nbsp;</a></span>data</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string bl::parser::Node::data</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00653_source.html#l00029">29</a> of file <a class="el" href="a00653_source.html">Node.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a6bb58cc837da6706b7aa5b4da9a9baa1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6bb58cc837da6706b7aa5b4da9a9baa1">&#9670;&nbsp;</a></span>EOI</h2>
+
+<div class="memitem">
+<div class="memproto">
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a03271.html">bl::rc::scene::SceneObjectStorage</a>&lt; T &gt;::<a class="el" href="a03271.html">SceneObjectStorage</a> </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td class="memname">constexpr <a class="el" href="a03271.html#a7aead111e234327c018e49a75c20f702">Type</a> bl::parser::Node::EOI = -2</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Reserves some memory. </p>
+<p class="definition">Definition at line <a class="el" href="a00653_source.html#l00021">21</a> of file <a class="el" href="a00653_source.html">Node.hpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a41e88abbf23a97b7771ed69ab7e44acc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a41e88abbf23a97b7771ed69ab7e44acc">&#9670;&nbsp;</a></span>allocate()</h2>
+<a id="a4bbdfc3239a1e6b8781433b8e2f46c6b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4bbdfc3239a1e6b8781433b8e2f46c6b">&#9670;&nbsp;</a></span>None</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a03271.html">SceneObjectStorage</a>&lt; T &gt;::<a class="el" href="a03275.html">AllocateResult</a> <a class="el" href="a03271.html">bl::rc::scene::SceneObjectStorage</a>&lt; T &gt;::allocate </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a01820.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a>&#160;</td>
-          <td class="paramname"><em>updateFreq</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a02223.html">ecs::Entity</a>&#160;</td>
-          <td class="paramname"><em>entity</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Allocates a new scene object, growing the buffer if required. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">updateFreq</td><td>The update speed of the new object </td></tr>
-    <tr><td class="paramname">entity</td><td>The ECS id of the new object </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The result of the allocation </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00773_source.html#l00119">119</a> of file <a class="el" href="a00773_source.html">SceneObjectStorage.hpp</a>.</p>
-
-</div>
-</div>
-<a id="aa79226fb16a0145d3f361c24ebb2e08d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa79226fb16a0145d3f361c24ebb2e08d">&#9670;&nbsp;</a></span>getObject()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">T &amp; <a class="el" href="a03271.html">bl::rc::scene::SceneObjectStorage</a>&lt; T &gt;::getObject </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a03235.html">Key</a>&#160;</td>
-          <td class="paramname"><em>key</em></td><td>)</td>
-          <td></td>
+          <td class="memname">constexpr <a class="el" href="a03271.html#a7aead111e234327c018e49a75c20f702">Type</a> bl::parser::Node::None = -1</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Fetches the object with the given key. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">key</td><td>The key of the object to fetch </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A reference to the given object </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00773_source.html#l00155">155</a> of file <a class="el" href="a00773_source.html">SceneObjectStorage.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00653_source.html#l00020">20</a> of file <a class="el" href="a00653_source.html">Node.hpp</a>.</p>
 
 </div>
 </div>
-<a id="ad5df0b1113eba4409be01afefaefcad8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad5df0b1113eba4409be01afefaefcad8">&#9670;&nbsp;</a></span>getObjectEntity()</h2>
+<a id="a1f656c377a68ef48d13abfe7fa7f43b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f656c377a68ef48d13abfe7fa7f43b2">&#9670;&nbsp;</a></span>parent</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a02223.html">ecs::Entity</a> <a class="el" href="a03271.html">bl::rc::scene::SceneObjectStorage</a>&lt; T &gt;::getObjectEntity </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a03235.html">Key</a>&#160;</td>
-          <td class="paramname"><em>key</em></td><td>)</td>
-          <td> const</td>
+          <td class="memname"><a class="el" href="a03271.html">Node</a>* bl::parser::Node::parent</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the ECS id for the given object key. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">key</td><td>The key to lookup </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The ECS id for the given key </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00773_source.html#l00149">149</a> of file <a class="el" href="a00773_source.html">SceneObjectStorage.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00653_source.html#l00027">27</a> of file <a class="el" href="a00653_source.html">Node.hpp</a>.</p>
 
 </div>
 </div>
-<a id="affa0e3174aef8b7a90bdfd4dd83d4448"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#affa0e3174aef8b7a90bdfd4dd83d4448">&#9670;&nbsp;</a></span>makeEntityCallback()</h2>
+<a id="a2aefdf0aa8a0c54c4ea10899895b4baa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2aefdf0aa8a0c54c4ea10899895b4baa">&#9670;&nbsp;</a></span>sourceColumn</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a02991.html#a80984df19e4cbb663aa059d56784cf6e">ds::DescriptorComponentStorageBase::EntityCallback</a> <a class="el" href="a03271.html">bl::rc::scene::SceneObjectStorage</a>&lt; T &gt;::makeEntityCallback</td>
+          <td class="memname">int bl::parser::Node::sourceColumn</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns a usable callback to map scene key to ECS id. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00773_source.html#l00187">187</a> of file <a class="el" href="a00773_source.html">SceneObjectStorage.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00653_source.html#l00032">32</a> of file <a class="el" href="a00653_source.html">Node.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a41138440b729ec718231cbab376db495"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a41138440b729ec718231cbab376db495">&#9670;&nbsp;</a></span>rebase()</h2>
+<a id="aedefe68f7194aeccd75aad71dfd8ca7d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aedefe68f7194aeccd75aad71dfd8ca7d">&#9670;&nbsp;</a></span>sourceLine</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">T * <a class="el" href="a03271.html">bl::rc::scene::SceneObjectStorage</a>&lt; T &gt;::rebase </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a01820.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a>&#160;</td>
-          <td class="paramname"><em>speed</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">T *&#160;</td>
-          <td class="paramname"><em>original</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">T *&#160;</td>
-          <td class="paramname"><em>oldBase</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="memname">int bl::parser::Node::sourceLine</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Gets a new pointer from an old pointer. Call after a pool grows. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">speed</td><td>The object pool to rebase on </td></tr>
-    <tr><td class="paramname">original</td><td>The original pointer </td></tr>
-    <tr><td class="paramname">oldBase</td><td>The original pool base pointer </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The new object pointer </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00773_source.html#l00181">181</a> of file <a class="el" href="a00773_source.html">SceneObjectStorage.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00653_source.html#l00031">31</a> of file <a class="el" href="a00653_source.html">Node.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a932d5c9bf825c06730670784ea6a44c5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a932d5c9bf825c06730670784ea6a44c5">&#9670;&nbsp;</a></span>release()</h2>
+<a id="aef8e0b4138b7e6a645fea5049565c78a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef8e0b4138b7e6a645fea5049565c78a">&#9670;&nbsp;</a></span>type</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="a03271.html">bl::rc::scene::SceneObjectStorage</a>&lt; T &gt;::release </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a03235.html">Key</a>&#160;</td>
-          <td class="paramname"><em>key</em></td><td>)</td>
-          <td></td>
+          <td class="memname"><a class="el" href="a03271.html#a7aead111e234327c018e49a75c20f702">Type</a> bl::parser::Node::type</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Marks the given key as being free. Allows future allocation to reuse it. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">key</td><td>The key to release </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00773_source.html#l00161">161</a> of file <a class="el" href="a00773_source.html">SceneObjectStorage.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00653_source.html#l00026">26</a> of file <a class="el" href="a00653_source.html">Node.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a56d7cbf2d1e0d92c7af249665631a371"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a56d7cbf2d1e0d92c7af249665631a371">&#9670;&nbsp;</a></span>unlinkAll()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="a03271.html">bl::rc::scene::SceneObjectStorage</a>&lt; T &gt;::unlinkAll </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a03019.html">ds::DescriptorSetInstanceCache</a> &amp;&#160;</td>
-          <td class="paramname"><em>descriptors</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Unlinks created objects. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">descriptors</td><td>The descriptor sets to unbind </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00773_source.html#l00168">168</a> of file <a class="el" href="a00773_source.html">SceneObjectStorage.hpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>include/BLIB/Render/Scenes/<a class="el" href="a00773_source.html">SceneObjectStorage.hpp</a></li>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>include/BLIB/Parser/<a class="el" href="a00653_source.html">Node.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 25 2023 00:24:23 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 27 2023 23:34:43 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

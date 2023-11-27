@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::util::IdAllocator&lt; T &gt; Class Template Reference</title>
+<title>BLIB: bl::resource::ResourceManager&lt; TResourceType &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,66 +66,79 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01833.html">bl</a></li><li class="navelem"><a class="el" href="a01891.html">util</a></li><li class="navelem"><a class="el" href="a03995.html">IdAllocator</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02058.html">bl</a></li><li class="navelem"><a class="el" href="a02111.html">resource</a></li><li class="navelem"><a class="el" href="a03995.html">ResourceManager</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="a03992.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::util::IdAllocator&lt; T &gt; Class Template Reference<div class="ingroups"><a class="el" href="a01825.html">Util</a></div></div>  </div>
+<div class="title">bl::resource::ResourceManager&lt; TResourceType &gt; Class Template Reference<div class="ingroups"><a class="el" href="a02046.html">Resources</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Utility to allocate integral ids in some range [0, max). Allows ids to be reused as well as tracks the current highest id to allow for tighter iteration over the id range. Ids are allocated in linear order.  
+<p>Single template based resource management class. Meant for storing data exactly once, such as images.  
  <a href="a03995.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a01055_source.html">IdAllocator.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a01049_source.html">ResourceManager.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::resource::ResourceManager&lt; TResourceType &gt;:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a03995.png" usemap="#bl::resource::ResourceManager_3C_20TResourceType_20_3E_map" alt=""/>
+  <map id="bl::resource::ResourceManager_3C_20TResourceType_20_3E_map" name="bl::resource::ResourceManager_3C_20TResourceType_20_3E_map">
+<area href="a04459.html" title="Helper class to make derived classes impossible for user to copy directly." alt="bl::util::NonCopyable" shape="rect" coords="0,0,303,24"/>
+<area href="a04011.html" title="Base class for resource managers, do not use." alt="bl::resource::ResourceManagerBase" shape="rect" coords="313,0,616,24"/>
+  </map>
+</div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a84d27d7a1840b55554a33714467e68f9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03995.html#a84d27d7a1840b55554a33714467e68f9">IdAllocator</a> (std::size_t totalIdCount)</td></tr>
-<tr class="memdesc:a84d27d7a1840b55554a33714467e68f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Id Allocator. Ids will be in range [0, totalIdCount)  <a href="a03995.html#a84d27d7a1840b55554a33714467e68f9">More...</a><br /></td></tr>
-<tr class="separator:a84d27d7a1840b55554a33714467e68f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afae55550466c97d1fcc00e5c8c3691d9"><td class="memItemLeft" align="right" valign="top">constexpr T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03995.html#afae55550466c97d1fcc00e5c8c3691d9">highestId</a> () const</td></tr>
-<tr class="memdesc:afae55550466c97d1fcc00e5c8c3691d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current highest id that has been allocated.  <a href="a03995.html#afae55550466c97d1fcc00e5c8c3691d9">More...</a><br /></td></tr>
-<tr class="separator:afae55550466c97d1fcc00e5c8c3691d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7a2dece49fd8749c6c12f91c079fff66"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03995.html#a7a2dece49fd8749c6c12f91c079fff66">isAllocated</a> (T id) const</td></tr>
-<tr class="memdesc:a7a2dece49fd8749c6c12f91c079fff66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the given id is allocated.  <a href="a03995.html#a7a2dece49fd8749c6c12f91c079fff66">More...</a><br /></td></tr>
-<tr class="separator:a7a2dece49fd8749c6c12f91c079fff66"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0e4335decc172e313f218e337173021a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03995.html#a0e4335decc172e313f218e337173021a">available</a> () const</td></tr>
-<tr class="memdesc:a0e4335decc172e313f218e337173021a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not any ids are available to be allocated. It is undefined behavior to call <a class="el" href="a03995.html#af110687b026e2b4d9bcbf3cd557e2bc9" title="Allocates an id for use. Undefined behavior if available() returns false.">allocate()</a> if this returns false.  <a href="a03995.html#a0e4335decc172e313f218e337173021a">More...</a><br /></td></tr>
-<tr class="separator:a0e4335decc172e313f218e337173021a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af110687b026e2b4d9bcbf3cd557e2bc9"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03995.html#af110687b026e2b4d9bcbf3cd557e2bc9">allocate</a> ()</td></tr>
-<tr class="memdesc:af110687b026e2b4d9bcbf3cd557e2bc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates an id for use. Undefined behavior if <a class="el" href="a03995.html#a0e4335decc172e313f218e337173021a" title="Returns whether or not any ids are available to be allocated. It is undefined behavior to call alloca...">available()</a> returns false.  <a href="a03995.html#af110687b026e2b4d9bcbf3cd557e2bc9">More...</a><br /></td></tr>
-<tr class="separator:af110687b026e2b4d9bcbf3cd557e2bc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aacb7d0882aa9261efa1fbfb538f73a59"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03995.html#aacb7d0882aa9261efa1fbfb538f73a59">release</a> (T id)</td></tr>
-<tr class="memdesc:aacb7d0882aa9261efa1fbfb538f73a59"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marks the given id as being available for use again.  <a href="a03995.html#aacb7d0882aa9261efa1fbfb538f73a59">More...</a><br /></td></tr>
-<tr class="separator:aacb7d0882aa9261efa1fbfb538f73a59"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a88a336a850d9499e8f1378430558e88c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03995.html#a88a336a850d9499e8f1378430558e88c">releaseAll</a> ()</td></tr>
-<tr class="memdesc:a88a336a850d9499e8f1378430558e88c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the state of the entire allocator and marks all ids as free.  <a href="a03995.html#a88a336a850d9499e8f1378430558e88c">More...</a><br /></td></tr>
-<tr class="separator:a88a336a850d9499e8f1378430558e88c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a25944e7625d1729b9c3c94005812090e"><td class="memItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03995.html#a25944e7625d1729b9c3c94005812090e">totalIds</a> () const</td></tr>
-<tr class="memdesc:a25944e7625d1729b9c3c94005812090e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the total number of ids that can be allocated.  <a href="a03995.html#a25944e7625d1729b9c3c94005812090e">More...</a><br /></td></tr>
-<tr class="separator:a25944e7625d1729b9c3c94005812090e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a243efcdfc8b79955196173f2bd3d8313"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03995.html#a243efcdfc8b79955196173f2bd3d8313">~ResourceManager</a> ()</td></tr>
+<tr class="memdesc:a243efcdfc8b79955196173f2bd3d8313"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exits the garbage collection thread. Resources still held are not freed.  <a href="a03995.html#a243efcdfc8b79955196173f2bd3d8313">More...</a><br /></td></tr>
+<tr class="separator:a243efcdfc8b79955196173f2bd3d8313"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:af02621cfacc5df330a9d0caff0f80d2b"><td class="memTemplParams" colspan="2">template&lt;typename TLoader , typename... TArgs&gt; </td></tr>
+<tr class="memitem:af02621cfacc5df330a9d0caff0f80d2b"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a03995.html#af02621cfacc5df330a9d0caff0f80d2b">installLoader</a> (TArgs &amp;&amp;... loaderArgs)</td></tr>
+<tr class="memdesc:af02621cfacc5df330a9d0caff0f80d2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures the resource manager with the given loader. Call this before loading any resources.  <a href="a03995.html#af02621cfacc5df330a9d0caff0f80d2b">More...</a><br /></td></tr>
+<tr class="separator:af02621cfacc5df330a9d0caff0f80d2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67c75d43b319455c763f57c99e2b9e30"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03995.html#a67c75d43b319455c763f57c99e2b9e30">setGarbageCollectionPeriod</a> (unsigned int period)</td></tr>
+<tr class="memdesc:a67c75d43b319455c763f57c99e2b9e30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the time, in seconds, between resource cleanup runs.  <a href="a03995.html#a67c75d43b319455c763f57c99e2b9e30">More...</a><br /></td></tr>
+<tr class="separator:a67c75d43b319455c763f57c99e2b9e30"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35c615388beefafe126b6ca8481c976d"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a03999.html">Ref</a>&lt; TResourceType &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03995.html#a35c615388beefafe126b6ca8481c976d">load</a> (const std::string &amp;uri)</td></tr>
+<tr class="memdesc:a35c615388beefafe126b6ca8481c976d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a pointer to the resource for modification (such as forcing it to stay in cache). Will load the resource if it is not in cache.  <a href="a03995.html#a35c615388beefafe126b6ca8481c976d">More...</a><br /></td></tr>
+<tr class="separator:a35c615388beefafe126b6ca8481c976d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7fd748c4ae1dd7d7734050340b5c9432"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03995.html#a7fd748c4ae1dd7d7734050340b5c9432">initializeExisting</a> (const std::string &amp;uri, TResourceType &amp;resource)</td></tr>
+<tr class="memdesc:a7fd748c4ae1dd7d7734050340b5c9432"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uses the underlying <a class="el" href="a03943.html" title="File system wrapper which reads data from the underlying filesystem or from the configured bundle set...">FileSystem</a> and loader to initialize the existing resource. The resource will not be managed. This is useful when dynamic management is not necessary but you still want the resource loading to be bundle and loader aware.  <a href="a03995.html#a7fd748c4ae1dd7d7734050340b5c9432">More...</a><br /></td></tr>
+<tr class="separator:a7fd748c4ae1dd7d7734050340b5c9432"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adcaa9695896b853eec24a69393c85fc6"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03995.html#adcaa9695896b853eec24a69393c85fc6">freeAndDestroyAll</a> ()</td></tr>
+<tr class="memdesc:adcaa9695896b853eec24a69393c85fc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Explicitly frees and destroys all resources, regardless of ownership state. Be very careful with this.  <a href="a03995.html#adcaa9695896b853eec24a69393c85fc6">More...</a><br /></td></tr>
+<tr class="separator:adcaa9695896b853eec24a69393c85fc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a772009bb487d321e8bd0d6fef65cd701"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04011.html#a772009bb487d321e8bd0d6fef65cd701">unregister</a> ()</td></tr>
+<tr class="separator:a772009bb487d321e8bd0d6fef65cd701"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a86e73410fa6cf7c507341a09b1429b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04011.html#a3a86e73410fa6cf7c507341a09b1429b">getGCPeriod</a> (unsigned int period)</td></tr>
+<tr class="separator:a3a86e73410fa6cf7c507341a09b1429b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename T&gt;<br />
-class bl::util::IdAllocator&lt; T &gt;</h3>
+<div class="textblock"><h3>template&lt;typename TResourceType&gt;<br />
+class bl::resource::ResourceManager&lt; TResourceType &gt;</h3>
 
-<p>Utility to allocate integral ids in some range [0, max). Allows ids to be reused as well as tracks the current highest id to allow for tighter iteration over the id range. Ids are allocated in linear order. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">T</td><td>The integral type to use for ids </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Single template based resource management class. Meant for storing data exactly once, such as images. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01055_source.html#l00020">20</a> of file <a class="el" href="a01055_source.html">IdAllocator.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01049_source.html#l00053">53</a> of file <a class="el" href="a01049_source.html">ResourceManager.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a84d27d7a1840b55554a33714467e68f9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a84d27d7a1840b55554a33714467e68f9">&#9670;&nbsp;</a></span>IdAllocator()</h2>
+<a id="a243efcdfc8b79955196173f2bd3d8313"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a243efcdfc8b79955196173f2bd3d8313">&#9670;&nbsp;</a></span>~ResourceManager()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -133,72 +146,20 @@ class bl::util::IdAllocator&lt; T &gt;</h3>
 template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a03995.html">bl::util::IdAllocator</a>&lt; T &gt;::<a class="el" href="a03995.html">IdAllocator</a> </td>
-          <td>(</td>
-          <td class="paramtype">std::size_t&#160;</td>
-          <td class="paramname"><em>totalIdCount</em></td><td>)</td>
-          <td></td>
+          <td class="memname"><a class="el" href="a03995.html">bl::resource::ResourceManager</a>&lt; T &gt;::~<a class="el" href="a03995.html">ResourceManager</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Construct a new Id Allocator. Ids will be in range [0, totalIdCount) </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">totalIdCount</td><td>The total number of ids </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Exits the garbage collection thread. Resources still held are not freed. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01055_source.html#l00088">88</a> of file <a class="el" href="a01055_source.html">IdAllocator.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01049_source.html#l00131">131</a> of file <a class="el" href="a01049_source.html">ResourceManager.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="af110687b026e2b4d9bcbf3cd557e2bc9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af110687b026e2b4d9bcbf3cd557e2bc9">&#9670;&nbsp;</a></span>allocate()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">T <a class="el" href="a03995.html">bl::util::IdAllocator</a>&lt; T &gt;::allocate</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Allocates an id for use. Undefined behavior if <a class="el" href="a03995.html#a0e4335decc172e313f218e337173021a" title="Returns whether or not any ids are available to be allocated. It is undefined behavior to call alloca...">available()</a> returns false. </p>
-<dl class="section return"><dt>Returns</dt><dd>T The newly allocated id </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a01055_source.html#l00110">110</a> of file <a class="el" href="a01055_source.html">IdAllocator.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a0e4335decc172e313f218e337173021a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0e4335decc172e313f218e337173021a">&#9670;&nbsp;</a></span>available()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">bool <a class="el" href="a03995.html">bl::util::IdAllocator</a>&lt; T &gt;::available</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns whether or not any ids are available to be allocated. It is undefined behavior to call <a class="el" href="a03995.html#af110687b026e2b4d9bcbf3cd557e2bc9" title="Allocates an id for use. Undefined behavior if available() returns false.">allocate()</a> if this returns false. </p>
-<dl class="section return"><dt>Returns</dt><dd>True if at least one id can be allocated, false if all ids are in use </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a01055_source.html#l00105">105</a> of file <a class="el" href="a01055_source.html">IdAllocator.hpp</a>.</p>
-
-</div>
-</div>
-<a id="afae55550466c97d1fcc00e5c8c3691d9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afae55550466c97d1fcc00e5c8c3691d9">&#9670;&nbsp;</a></span>highestId()</h2>
+<a id="adcaa9695896b853eec24a69393c85fc6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adcaa9695896b853eec24a69393c85fc6">&#9670;&nbsp;</a></span>freeAndDestroyAll()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -209,100 +170,149 @@ template&lt;typename T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr T <a class="el" href="a03995.html">bl::util::IdAllocator</a>&lt; T &gt;::highestId</td>
+          <td class="memname">void <a class="el" href="a03995.html">bl::resource::ResourceManager</a>&lt; T &gt;::freeAndDestroyAll</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the current highest id that has been allocated. </p>
-<dl class="section return"><dt>Returns</dt><dd>constexpr T The highest id currently in use </dd></dl>
+<p>Explicitly frees and destroys all resources, regardless of ownership state. Be very careful with this. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01055_source.html#l00095">95</a> of file <a class="el" href="a01055_source.html">IdAllocator.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01049_source.html#l00226">226</a> of file <a class="el" href="a01049_source.html">ResourceManager.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a7a2dece49fd8749c6c12f91c079fff66"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7a2dece49fd8749c6c12f91c079fff66">&#9670;&nbsp;</a></span>isAllocated()</h2>
+<a id="a3a86e73410fa6cf7c507341a09b1429b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a86e73410fa6cf7c507341a09b1429b">&#9670;&nbsp;</a></span>getGCPeriod()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool <a class="el" href="a03995.html">bl::util::IdAllocator</a>&lt; T &gt;::isAllocated </td>
+          <td class="memname">void bl::resource::ResourceManagerBase::getGCPeriod </td>
           <td>(</td>
-          <td class="paramtype">T&#160;</td>
-          <td class="paramname"><em>id</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns whether or not the given id is allocated. </p>
-<dl class="section return"><dt>Returns</dt><dd>True if the id is in use, false if it is free </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a01055_source.html#l00100">100</a> of file <a class="el" href="a01055_source.html">IdAllocator.hpp</a>.</p>
-
-</div>
-</div>
-<a id="aacb7d0882aa9261efa1fbfb538f73a59"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aacb7d0882aa9261efa1fbfb538f73a59">&#9670;&nbsp;</a></span>release()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="a03995.html">bl::util::IdAllocator</a>&lt; T &gt;::release </td>
-          <td>(</td>
-          <td class="paramtype">T&#160;</td>
-          <td class="paramname"><em>id</em></td><td>)</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>period</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Marks the given id as being available for use again. </p>
+<p class="definition">Definition at line <a class="el" href="a01916_source.html#l00016">16</a> of file <a class="el" href="a01916_source.html">ResourceManager.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a7fd748c4ae1dd7d7734050340b5c9432"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7fd748c4ae1dd7d7734050340b5c9432">&#9670;&nbsp;</a></span>initializeExisting()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename TResourceType &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="a03995.html">bl::resource::ResourceManager</a>&lt; T &gt;::initializeExisting </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>uri</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TResourceType &amp;&#160;</td>
+          <td class="paramname"><em>resource</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Uses the underlying <a class="el" href="a03943.html" title="File system wrapper which reads data from the underlying filesystem or from the configured bundle set...">FileSystem</a> and loader to initialize the existing resource. The resource will not be managed. This is useful when dynamic management is not necessary but you still want the resource loading to be bundle and loader aware. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">id</td><td>The id to mark as free </td></tr>
+    <tr><td class="paramname">uri</td><td>The resource path to initialize from </td></tr>
+    <tr><td class="paramname">resource</td><td>The resource to initialize </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the resource could be initialized, false otherwise </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a01049_source.html#l00173">173</a> of file <a class="el" href="a01049_source.html">ResourceManager.hpp</a>.</p>
+
+</div>
+</div>
+<a id="af02621cfacc5df330a9d0caff0f80d2b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af02621cfacc5df330a9d0caff0f80d2b">&#9670;&nbsp;</a></span>installLoader()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<div class="memtemplate">
+template&lt;typename TLoader , typename... TArgs&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a03995.html">bl::resource::ResourceManager</a>&lt; T &gt;::installLoader </td>
+          <td>(</td>
+          <td class="paramtype">TArgs &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>loaderArgs</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Configures the resource manager with the given loader. Call this before loading any resources. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">TLoader</td><td>The type of loader to create. Must derive from Loader </td></tr>
+    <tr><td class="paramname">TArgs</td><td>Argument types to forward to loader constructor </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">loaderArgs</td><td>The arguments to forward to the loader constructor </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a01055_source.html#l00124">124</a> of file <a class="el" href="a01055_source.html">IdAllocator.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01049_source.html#l00197">197</a> of file <a class="el" href="a01049_source.html">ResourceManager.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a88a336a850d9499e8f1378430558e88c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a88a336a850d9499e8f1378430558e88c">&#9670;&nbsp;</a></span>releaseAll()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="a03995.html">bl::util::IdAllocator</a>&lt; T &gt;::releaseAll</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Clears the state of the entire allocator and marks all ids as free. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01055_source.html#l00131">131</a> of file <a class="el" href="a01055_source.html">IdAllocator.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a25944e7625d1729b9c3c94005812090e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a25944e7625d1729b9c3c94005812090e">&#9670;&nbsp;</a></span>totalIds()</h2>
+<a id="a35c615388beefafe126b6ca8481c976d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a35c615388beefafe126b6ca8481c976d">&#9670;&nbsp;</a></span>load()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -313,30 +323,107 @@ template&lt;typename T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr std::size_t <a class="el" href="a03995.html">bl::util::IdAllocator</a>&lt; T &gt;::totalIds</td>
+          <td class="memname"><a class="el" href="a03999.html">Ref</a>&lt; T &gt; <a class="el" href="a03995.html">bl::resource::ResourceManager</a>&lt; T &gt;::load </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>uri</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the total number of ids that can be allocated. </p>
+<p>Returns a pointer to the resource for modification (such as forcing it to stay in cache). Will load the resource if it is not in cache. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">uri</td><td>Some unique string that a Loader can load the resource with </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the requested resource </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a01055_source.html#l00140">140</a> of file <a class="el" href="a01055_source.html">IdAllocator.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01049_source.html#l00142">142</a> of file <a class="el" href="a01049_source.html">ResourceManager.hpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>include/BLIB/Util/<a class="el" href="a01055_source.html">IdAllocator.hpp</a></li>
+<a id="a67c75d43b319455c763f57c99e2b9e30"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67c75d43b319455c763f57c99e2b9e30">&#9670;&nbsp;</a></span>setGarbageCollectionPeriod()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a03995.html">bl::resource::ResourceManager</a>&lt; T &gt;::setGarbageCollectionPeriod </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>period</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set the time, in seconds, between resource cleanup runs. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">period</td><td>Time between runs will never be less than this </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01049_source.html#l00137">137</a> of file <a class="el" href="a01049_source.html">ResourceManager.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a772009bb487d321e8bd0d6fef65cd701"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a772009bb487d321e8bd0d6fef65cd701">&#9670;&nbsp;</a></span>unregister()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::resource::ResourceManagerBase::unregister </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01916_source.html#l00014">14</a> of file <a class="el" href="a01916_source.html">ResourceManager.cpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/BLIB/Resources/<a class="el" href="a01043_source.html">Ref.hpp</a></li>
+<li>include/BLIB/Resources/<a class="el" href="a01049_source.html">ResourceManager.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 25 2023 00:24:24 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 27 2023 23:34:43 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

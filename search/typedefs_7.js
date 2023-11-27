@@ -1,8 +1,4 @@
 var searchData=
 [
-  ['idtype_6972',['IdType',['../a02223.html#a6f20d4f5035759797eb767204c24ddf8',1,'bl::ecs::Entity']]],
-  ['indexbuffer_6973',['IndexBuffer',['../a01820.html#gaefb3729dcc560378d43cc72e50f7d438',1,'bl::rc::buf']]],
-  ['item_6974',['Item',['../a02087.html#aa28858b622353170b0df73c9f1f21809',1,'bl::ctr::Cache']]],
-  ['iterator_6975',['Iterator',['../a02119.html#a9a583355cc2d019f686ca2011c069f87',1,'bl::ctr::ObjectPool']]],
-  ['iterator_6976',['iterator',['../a02091.html#a8ecb676ceae1d63d038aeaf1027fc3ea',1,'bl::ctr::FastEraseVector']]]
+  ['g_7501',['G',['../a02113.html#af98b10434d6862ecf69f33b6b5b25f27',1,'bl::script']]]
 ];

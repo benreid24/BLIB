@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Serialization/JSON/JSONLoader.hpp File Reference</title>
+<title>BLIB: include/BLIB/Render.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,46 +66,127 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_0603dcfd3f324f38b3f10f913306f40f.html">Serialization</a></li><li class="navelem"><a class="el" href="dir_df8d21eabdb65a3ab23aec3cddd09ad9.html">JSON</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">JSONLoader.hpp File Reference</div>  </div>
+<div class="title">Render.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a05175_source.html">BLIB/Serialization/JSON/JSON.hpp</a>&gt;</code><br />
-<code>#include &lt;fstream&gt;</code><br />
-<code>#include &lt;sstream&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a05599_source.html">BLIB/Engine/Engine.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00674_source.html">BLIB/Render/Buffers/DynamicSSBO.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00677_source.html">BLIB/Render/Buffers/IndexBuffer.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00680_source.html">BLIB/Render/Buffers/StaticSSBO.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00683_source.html">BLIB/Render/Buffers/UniformBuffer.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00689_source.html">BLIB/Render/Components/DescriptorComponentBase.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00692_source.html">BLIB/Render/Components/DrawableBase.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00695_source.html">BLIB/Render/Components/SceneObjectRef.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a05656_source.html">BLIB/Render/Config.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00698_source.html">BLIB/Render/Descriptors/Builtin/FadeEffectFactory.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00701_source.html">BLIB/Render/Descriptors/Builtin/Object2DFactory.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00704_source.html">BLIB/Render/Descriptors/Builtin/Object2DInstance.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00707_source.html">BLIB/Render/Descriptors/Builtin/Object3DFactory.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00710_source.html">BLIB/Render/Descriptors/Builtin/Object3DInstance.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00713_source.html">BLIB/Render/Descriptors/Builtin/Scene2DFactory.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00716_source.html">BLIB/Render/Descriptors/Builtin/Scene2DInstance.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00719_source.html">BLIB/Render/Descriptors/Builtin/Scene3DFactory.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00722_source.html">BLIB/Render/Descriptors/Builtin/Scene3DInstance.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00725_source.html">BLIB/Render/Descriptors/Builtin/SlideshowFactory.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00728_source.html">BLIB/Render/Descriptors/Builtin/SlideshowInstance.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00731_source.html">BLIB/Render/Descriptors/Builtin/TexturePoolFactory.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00734_source.html">BLIB/Render/Descriptors/Builtin/TexturePoolInstance.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00737_source.html">BLIB/Render/Descriptors/DescriptorComponentStorage.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00740_source.html">BLIB/Render/Descriptors/DescriptorComponentStorageCache.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00743_source.html">BLIB/Render/Descriptors/DescriptorSetFactory.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00746_source.html">BLIB/Render/Descriptors/DescriptorSetFactoryCache.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00749_source.html">BLIB/Render/Descriptors/DescriptorSetInstance.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00752_source.html">BLIB/Render/Descriptors/DescriptorSetInstanceCache.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00755_source.html">BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00758_source.html">BLIB/Render/Events/SceneDestroyed.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00761_source.html">BLIB/Render/Events/SceneObjectRemoved.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00764_source.html">BLIB/Render/Graph/Asset.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00767_source.html">BLIB/Render/Graph/AssetFactory.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00770_source.html">BLIB/Render/Graph/AssetPool.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00773_source.html">BLIB/Render/Graph/AssetProvider.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00776_source.html">BLIB/Render/Graph/AssetRef.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00791_source.html">BLIB/Render/Graph/AssetTags.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00779_source.html">BLIB/Render/Graph/Assets/FinalSwapframeAsset.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00782_source.html">BLIB/Render/Graph/Assets/FramebufferAsset.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00785_source.html">BLIB/Render/Graph/Assets/SceneAsset.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00788_source.html">BLIB/Render/Graph/Assets/StandardTargetAsset.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00794_source.html">BLIB/Render/Graph/ExecutionContext.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00797_source.html">BLIB/Render/Graph/GraphAsset.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00800_source.html">BLIB/Render/Graph/GraphAssetPool.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00803_source.html">BLIB/Render/Graph/Providers/StandardTargetProvider.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00806_source.html">BLIB/Render/Graph/RenderGraph.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00809_source.html">BLIB/Render/Graph/Strategies/ForwardRenderStrategy.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00812_source.html">BLIB/Render/Graph/Strategy.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00815_source.html">BLIB/Render/Graph/Task.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00821_source.html">BLIB/Render/Graph/TaskAssetTags.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00818_source.html">BLIB/Render/Graph/TaskAssets.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00824_source.html">BLIB/Render/Graph/TaskInput.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00827_source.html">BLIB/Render/Graph/Tasks/FadeEffectTask.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00830_source.html">BLIB/Render/Graph/Tasks/ForwardRenderTask.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00833_source.html">BLIB/Render/Observer.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00836_source.html">BLIB/Render/Overlays/Overlay.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00839_source.html">BLIB/Render/Overlays/OverlayObject.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00842_source.html">BLIB/Render/Primitives/Color.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00845_source.html">BLIB/Render/Primitives/DrawParameters.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00851_source.html">BLIB/Render/Primitives/Vertex.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a05641_source.html">BLIB/Render/Renderer.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00854_source.html">BLIB/Render/Resources/BindlessTextureArray.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00857_source.html">BLIB/Render/Resources/Material.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00860_source.html">BLIB/Render/Resources/MaterialPool.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00863_source.html">BLIB/Render/Resources/PipelineCache.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00866_source.html">BLIB/Render/Resources/PipelineLayoutCache.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00869_source.html">BLIB/Render/Resources/RenderPassCache.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00872_source.html">BLIB/Render/Resources/ScenePool.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00878_source.html">BLIB/Render/Resources/ShaderModuleCache.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00881_source.html">BLIB/Render/Resources/TexturePool.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00884_source.html">BLIB/Render/Resources/TextureRef.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00887_source.html">BLIB/Render/Scenes/BatchedScene.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00890_source.html">BLIB/Render/Scenes/Key.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00893_source.html">BLIB/Render/Scenes/Scene.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00896_source.html">BLIB/Render/Scenes/Scene2D.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00899_source.html">BLIB/Render/Scenes/Scene3D.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00902_source.html">BLIB/Render/Scenes/SceneObject.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00908_source.html">BLIB/Render/Scenes/SceneObjectStorage.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00911_source.html">BLIB/Render/Scenes/SceneRenderContext.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00917_source.html">BLIB/Render/Transfers/TransferContext.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00920_source.html">BLIB/Render/Transfers/TransferEngine.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00914_source.html">BLIB/Render/Transfers/Transferable.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00923_source.html">BLIB/Render/UpdateSpeed.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00926_source.html">BLIB/Render/Vulkan/AlignedBuffer.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00929_source.html">BLIB/Render/Vulkan/AttachmentBuffer.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00932_source.html">BLIB/Render/Vulkan/AttachmentSet.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00935_source.html">BLIB/Render/Vulkan/Buffer.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00938_source.html">BLIB/Render/Vulkan/CleanupManager.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00941_source.html">BLIB/Render/Vulkan/CommonSamplers.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00944_source.html">BLIB/Render/Vulkan/DescriptorPool.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00950_source.html">BLIB/Render/Vulkan/Framebuffer.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00953_source.html">BLIB/Render/Vulkan/PerFrame.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00956_source.html">BLIB/Render/Vulkan/PerFrameVector.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00959_source.html">BLIB/Render/Vulkan/PerSwapFrame.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00962_source.html">BLIB/Render/Vulkan/Pipeline.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00965_source.html">BLIB/Render/Vulkan/PipelineLayout.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00968_source.html">BLIB/Render/Vulkan/PipelineParameters.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00971_source.html">BLIB/Render/Vulkan/RenderPass.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00974_source.html">BLIB/Render/Vulkan/RenderPassParameters.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00977_source.html">BLIB/Render/Vulkan/RenderTexture.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00980_source.html">BLIB/Render/Vulkan/StandardAttachmentBuffers.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00983_source.html">BLIB/Render/Vulkan/StandardAttachmentSet.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00986_source.html">BLIB/Render/Vulkan/Swapchain.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a05578_source.html">BLIB/Render/Vulkan/Texture.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00989_source.html">BLIB/Render/Vulkan/VkCheck.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00992_source.html">BLIB/Render/Vulkan/VulkanState.hpp</a>&gt;</code><br />
 </div>
 <p><a href="a00995_source.html">Go to the source code of this file.</a></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03779.html">bl::serial::json::Loader</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility class to load JSON objects from input streams or files. Each call consumes from the given file or stream, so only call if you know that content will be present. Prefer the global read/write methods or <a class="el" href="a03783.html" title="Helper class for SerializableField. Specializations are provided for json native types,...">Serializer</a>, this is mainly for internal use.  <a href="a03779.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:a01833"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01833.html">bl</a></td></tr>
-<tr class="memdesc:a01833"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01836"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01836.html">bl::serial</a></td></tr>
-<tr class="memdesc:a01836"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes and utilities for serializing and deserializing data. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01888"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01888.html">bl::serial::json</a></td></tr>
-<tr class="memdesc:a01888"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes and utilities for interacting with JSON files. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 25 2023 00:24:21 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 27 2023 23:34:41 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

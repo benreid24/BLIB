@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Vulkan/AttachmentSet.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Graph/GraphAsset.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,90 +66,58 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_49b99cfd015d92f767de1d8dec868906.html">Vulkan</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_70f08ea54355502249f886f7ca541c6e.html">Graph</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">AttachmentSet.hpp</div>  </div>
+<div class="title">GraphAsset.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00797.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_VULKAN_ATTACHMENTSET_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_VULKAN_ATTACHMENTSET_HPP</span></div>
+<a href="a00797.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_GRAPH_GRAPHASSET_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_GRAPH_GRAPHASSET_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01106.html">BLIB/Vulkan.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;array&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;cstdint&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01833.html">bl</a></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00776.html">BLIB/Render/Graph/AssetRef.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02058.html">bl</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>rc</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>rg</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>vk</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a03311.html">   20</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03311.html">AttachmentSet</a> {</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keyword">template</span>&lt;std::<span class="keywordtype">size_t</span> N&gt;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <a class="code" href="a03311.html">AttachmentSet</a>(std::array&lt;VkImage, N&gt;&amp; <a class="code" href="a03311.html#a405d6db47c42436b238bba926a21871a">images</a>, std::array&lt;VkImageView, N&gt;&amp; views);</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    constexpr <span class="keyword">const</span> VkImage* <a class="code" href="a03311.html#a405d6db47c42436b238bba926a21871a">images</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    constexpr <span class="keyword">const</span> VkImageView* <a class="code" href="a03311.html#a0aa8d94c94096392ddf189dabb24acd1">imageViews</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    constexpr std::uint32_t <a class="code" href="a03311.html#ac53e2eb45e02a4d69446f20fdb6a27bb">size</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    constexpr <span class="keyword">const</span> VkExtent2D&amp; <a class="code" href="a03311.html#a3b2d23677dd641f2c0e0dda9444662b7">renderExtent</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03311.html#a5f7aaaa7edf6d66939fffcb84b1b23cd">setRenderExtent</a>(<span class="keyword">const</span> VkExtent2D&amp; <a class="code" href="a03311.html#ada8d627479153db31a1cf42d14499cc8">extent</a>);</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="a03311.html#ada8d627479153db31a1cf42d14499cc8">   62</a></span>&#160;    VkExtent2D <a class="code" href="a03311.html#ada8d627479153db31a1cf42d14499cc8">extent</a>;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    VkImage* imagesPointer;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    VkImageView* viewsPointer;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    std::uint32_t n;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <a class="code" href="a03311.html">AttachmentSet</a>() = <span class="keyword">delete</span>;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;};</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
-<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="a03311.html#a405d6db47c42436b238bba926a21871a">   74</a></span>&#160;<span class="keyword">inline</span> constexpr <span class="keyword">const</span> VkImage* <a class="code" href="a03311.html#a405d6db47c42436b238bba926a21871a">AttachmentSet::images</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> imagesPointer; }</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="a03311.html#a0aa8d94c94096392ddf189dabb24acd1">   76</a></span>&#160;<span class="keyword">inline</span> constexpr <span class="keyword">const</span> VkImageView* <a class="code" href="a03311.html#a0aa8d94c94096392ddf189dabb24acd1">AttachmentSet::imageViews</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> viewsPointer; }</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno"><a class="line" href="a03311.html#ac53e2eb45e02a4d69446f20fdb6a27bb">   78</a></span>&#160;<span class="keyword">inline</span> constexpr std::uint32_t <a class="code" href="a03311.html#ac53e2eb45e02a4d69446f20fdb6a27bb">AttachmentSet::size</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> n; }</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="a03311.html#a3b2d23677dd641f2c0e0dda9444662b7">   80</a></span>&#160;<span class="keyword">inline</span> constexpr <span class="keyword">const</span> VkExtent2D&amp; <a class="code" href="a03311.html#a3b2d23677dd641f2c0e0dda9444662b7">AttachmentSet::renderExtent</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="a03311.html#ada8d627479153db31a1cf42d14499cc8">extent</a>; }</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="keyword">template</span>&lt;std::<span class="keywordtype">size_t</span> N&gt;</div>
-<div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="a03311.html#a2277569d26459bf620e46b1c26a4b47e">   83</a></span>&#160;<span class="keyword">inline</span> AttachmentSet::AttachmentSet(std::array&lt;VkImage, N&gt;&amp; images,</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                                    std::array&lt;VkImageView, N&gt;&amp; views)</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;: imagesPointer(images.data())</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;, viewsPointer(views.data())</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;, n(N) {}</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
-<div class="line"><a name="l00089"></a><span class="lineno"><a class="line" href="a03311.html#a5f7aaaa7edf6d66939fffcb84b1b23cd">   89</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="a03311.html#a5f7aaaa7edf6d66939fffcb84b1b23cd">AttachmentSet::setRenderExtent</a>(<span class="keyword">const</span> VkExtent2D&amp; e) { <a class="code" href="a03311.html#ada8d627479153db31a1cf42d14499cc8">extent</a> = e; }</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;} <span class="comment">// namespace vk</span></div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01106_html"><div class="ttname"><a href="a01106.html">Vulkan.hpp</a></div></div>
-<div class="ttc" id="aa01833_html"><div class="ttname"><a href="a01833.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03311_html"><div class="ttname"><a href="a03311.html">bl::rc::vk::AttachmentSet</a></div><div class="ttdoc">Base class representing an attachment set that can be rendered to. Derived classes can provide additi...</div><div class="ttdef"><b>Definition:</b> <a href="a00797_source.html#l00020">AttachmentSet.hpp:20</a></div></div>
-<div class="ttc" id="aa03311_html_a0aa8d94c94096392ddf189dabb24acd1"><div class="ttname"><a href="a03311.html#a0aa8d94c94096392ddf189dabb24acd1">bl::rc::vk::AttachmentSet::imageViews</a></div><div class="ttdeci">constexpr const VkImageView * imageViews() const</div><div class="ttdoc">Returns a pointer to the start of the image views.</div><div class="ttdef"><b>Definition:</b> <a href="a00797_source.html#l00076">AttachmentSet.hpp:76</a></div></div>
-<div class="ttc" id="aa03311_html_a3b2d23677dd641f2c0e0dda9444662b7"><div class="ttname"><a href="a03311.html#a3b2d23677dd641f2c0e0dda9444662b7">bl::rc::vk::AttachmentSet::renderExtent</a></div><div class="ttdeci">constexpr const VkExtent2D &amp; renderExtent() const</div><div class="ttdoc">Returns the size of the renderable area.</div><div class="ttdef"><b>Definition:</b> <a href="a00797_source.html#l00080">AttachmentSet.hpp:80</a></div></div>
-<div class="ttc" id="aa03311_html_a405d6db47c42436b238bba926a21871a"><div class="ttname"><a href="a03311.html#a405d6db47c42436b238bba926a21871a">bl::rc::vk::AttachmentSet::images</a></div><div class="ttdeci">constexpr const VkImage * images() const</div><div class="ttdoc">Returns a pointer to the start of the images.</div><div class="ttdef"><b>Definition:</b> <a href="a00797_source.html#l00074">AttachmentSet.hpp:74</a></div></div>
-<div class="ttc" id="aa03311_html_a5f7aaaa7edf6d66939fffcb84b1b23cd"><div class="ttname"><a href="a03311.html#a5f7aaaa7edf6d66939fffcb84b1b23cd">bl::rc::vk::AttachmentSet::setRenderExtent</a></div><div class="ttdeci">void setRenderExtent(const VkExtent2D &amp;extent)</div><div class="ttdoc">Sets the render extent of this attachment set.</div><div class="ttdef"><b>Definition:</b> <a href="a00797_source.html#l00089">AttachmentSet.hpp:89</a></div></div>
-<div class="ttc" id="aa03311_html_ac53e2eb45e02a4d69446f20fdb6a27bb"><div class="ttname"><a href="a03311.html#ac53e2eb45e02a4d69446f20fdb6a27bb">bl::rc::vk::AttachmentSet::size</a></div><div class="ttdeci">constexpr std::uint32_t size() const</div><div class="ttdoc">Returns the number of attachments in the set.</div><div class="ttdef"><b>Definition:</b> <a href="a00797_source.html#l00078">AttachmentSet.hpp:78</a></div></div>
-<div class="ttc" id="aa03311_html_ada8d627479153db31a1cf42d14499cc8"><div class="ttname"><a href="a03311.html#ada8d627479153db31a1cf42d14499cc8">bl::rc::vk::AttachmentSet::extent</a></div><div class="ttdeci">VkExtent2D extent</div><div class="ttdef"><b>Definition:</b> <a href="a00797_source.html#l00062">AttachmentSet.hpp:62</a></div></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">class </span>Task;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a03511.html">   19</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a03511.html">GraphAsset</a> {</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a03511.html#a6215eb2ba33408469b3d677370b66c1c">   20</a></span>&#160;    <a class="code" href="a03483.html">AssetRef</a> <a class="code" href="a03511.html#a6215eb2ba33408469b3d677370b66c1c">asset</a>;</div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a03511.html#a2b2ef0e611f7d31a41a329d90272b52e">   21</a></span>&#160;    <a class="code" href="a03543.html">Task</a>* <a class="code" href="a03511.html#a2b2ef0e611f7d31a41a329d90272b52e">outputtedBy</a>;</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a03511.html#a4c84c9c08de0afb30a3e03df8a8ecff1">   22</a></span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="a03511.html#a4c84c9c08de0afb30a3e03df8a8ecff1">firstAvailableStep</a>;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a03511.html#aeb346b0d37370e4a771426f047c99d4e">   29</a></span>&#160;    <a class="code" href="a03511.html#aeb346b0d37370e4a771426f047c99d4e">GraphAsset</a>(<a class="code" href="a03467.html">Asset</a>* <a class="code" href="a03511.html#a6215eb2ba33408469b3d677370b66c1c">asset</a>)</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    : <a class="code" href="a03511.html#a6215eb2ba33408469b3d677370b66c1c">asset</a>(<a class="code" href="a03511.html#a6215eb2ba33408469b3d677370b66c1c">asset</a>)</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    , <a class="code" href="a03511.html#a2b2ef0e611f7d31a41a329d90272b52e">outputtedBy</a>(nullptr)</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    , <a class="code" href="a03511.html#a4c84c9c08de0afb30a3e03df8a8ecff1">firstAvailableStep</a>(0) {}</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;};</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;} <span class="comment">// namespace rg</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00776_html"><div class="ttname"><a href="a00776.html">AssetRef.hpp</a></div></div>
+<div class="ttc" id="aa02058_html"><div class="ttname"><a href="a02058.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03467_html"><div class="ttname"><a href="a03467.html">bl::rc::rg::Asset</a></div><div class="ttdoc">Base class for assets in render graphs.</div><div class="ttdef"><b>Definition:</b> <a href="a00764_source.html#l00032">Asset.hpp:32</a></div></div>
+<div class="ttc" id="aa03483_html"><div class="ttname"><a href="a03483.html">bl::rc::rg::AssetRef</a></div><div class="ttdoc">Handle to an asset in an AssetPool.</div><div class="ttdef"><b>Definition:</b> <a href="a00776_source.html#l00017">AssetRef.hpp:17</a></div></div>
+<div class="ttc" id="aa03511_html"><div class="ttname"><a href="a03511.html">bl::rc::rg::GraphAsset</a></div><div class="ttdoc">Wrapper around AssetRef for assets owned by a RenderGraph instance.</div><div class="ttdef"><b>Definition:</b> <a href="a00797_source.html#l00019">GraphAsset.hpp:19</a></div></div>
+<div class="ttc" id="aa03511_html_a2b2ef0e611f7d31a41a329d90272b52e"><div class="ttname"><a href="a03511.html#a2b2ef0e611f7d31a41a329d90272b52e">bl::rc::rg::GraphAsset::outputtedBy</a></div><div class="ttdeci">Task * outputtedBy</div><div class="ttdef"><b>Definition:</b> <a href="a00797_source.html#l00021">GraphAsset.hpp:21</a></div></div>
+<div class="ttc" id="aa03511_html_a4c84c9c08de0afb30a3e03df8a8ecff1"><div class="ttname"><a href="a03511.html#a4c84c9c08de0afb30a3e03df8a8ecff1">bl::rc::rg::GraphAsset::firstAvailableStep</a></div><div class="ttdeci">unsigned int firstAvailableStep</div><div class="ttdef"><b>Definition:</b> <a href="a00797_source.html#l00022">GraphAsset.hpp:22</a></div></div>
+<div class="ttc" id="aa03511_html_a6215eb2ba33408469b3d677370b66c1c"><div class="ttname"><a href="a03511.html#a6215eb2ba33408469b3d677370b66c1c">bl::rc::rg::GraphAsset::asset</a></div><div class="ttdeci">AssetRef asset</div><div class="ttdef"><b>Definition:</b> <a href="a00797_source.html#l00020">GraphAsset.hpp:20</a></div></div>
+<div class="ttc" id="aa03511_html_aeb346b0d37370e4a771426f047c99d4e"><div class="ttname"><a href="a03511.html#aeb346b0d37370e4a771426f047c99d4e">bl::rc::rg::GraphAsset::GraphAsset</a></div><div class="ttdeci">GraphAsset(Asset *asset)</div><div class="ttdoc">Creates a new graph asset.</div><div class="ttdef"><b>Definition:</b> <a href="a00797_source.html#l00029">GraphAsset.hpp:29</a></div></div>
+<div class="ttc" id="aa03543_html"><div class="ttname"><a href="a03543.html">bl::rc::rg::Task</a></div><div class="ttdoc">Base class for tasks within a RenderGraph.</div><div class="ttdef"><b>Definition:</b> <a href="a00815_source.html#l00025">Task.hpp:25</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 25 2023 00:24:20 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 27 2023 23:34:41 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -66,25 +66,34 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01833.html">bl</a></li><li class="navelem"><a class="el" href="a01836.html">serial</a></li><li class="navelem"><a class="el" href="a01886.html">binary</a></li><li class="navelem"><a class="el" href="a03655.html">Serializer&lt; float &gt;</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02058.html">bl</a></li><li class="navelem"><a class="el" href="a02067.html">sys</a></li><li class="navelem"><a class="el" href="a03655.html">DrawableSystem</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">bl::serial::binary::Serializer&lt; float &gt; Member List</div>  </div>
+<div class="title">bl::sys::DrawableSystem&lt; T &gt; Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a03655.html">bl::serial::binary::Serializer&lt; float &gt;</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a03655.html">bl::sys::DrawableSystem&lt; T &gt;</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a03655.html#a9922dcadeca36f351f2485614d3eec35">deserialize</a>(InputStream &amp;input, float &amp;result)</td><td class="entry"><a class="el" href="a03655.html">bl::serial::binary::Serializer&lt; float &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a03655.html#ad42752dc84dbc2f9a6e22ec32893c706">serialize</a>(OutputStream &amp;output, const float &amp;value)</td><td class="entry"><a class="el" href="a03655.html">bl::serial::binary::Serializer&lt; float &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a03655.html#a8c72530237b5e04d281805c351bd72ce">size</a>(const float &amp;s)</td><td class="entry"><a class="el" href="a03655.html">bl::serial::binary::Serializer&lt; float &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a03655.html#afd2324b981e5151a19589d4ab793ac18">addToScene</a>(ecs::Entity entity, rc::Scene *scene, rc::UpdateSpeed descriptorUpdateFreq)</td><td class="entry"><a class="el" href="a03655.html">bl::sys::DrawableSystem&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a03655.html#a100caa593554bb5605a77bcc886d2645">addToSceneWithCustomPipeline</a>(ecs::Entity entity, rc::Scene *scene, rc::UpdateSpeed descriptorUpdateFreq, std::uint32_t pipeline)</td><td class="entry"><a class="el" href="a03655.html">bl::sys::DrawableSystem&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a03655.html#ad19288ea85e14bc1882ea6825078fe23">doInit</a>(engine::Engine &amp;engine)</td><td class="entry"><a class="el" href="a03655.html">bl::sys::DrawableSystem&lt; T &gt;</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a03655.html#a3301481a1af1fae12b73aad1d2ce7dc2">doUpdate</a>(std::mutex &amp;mutex, float dt)</td><td class="entry"><a class="el" href="a03655.html">bl::sys::DrawableSystem&lt; T &gt;</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a03655.html#a46e51fe99fcff88a45ebacdc704fa71c">DrawableSystem</a>(std::uint32_t defaultPipeline, std::uint32_t overlayPipeline)</td><td class="entry"><a class="el" href="a03655.html">bl::sys::DrawableSystem&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a02651.html#ab97aa9e4eb4dcdb8f571309a90796447">Listener</a>()</td><td class="entry"><a class="el" href="a02651.html">bl::event::Listener&lt; ecs::event::ComponentRemoved&lt; T &gt;, rc::event::SceneDestroyed, rc::event::SceneObjectRemoved &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02647.html#ae5297276cfbb757ede3391eb9d525832">Listener&lt; ecs::event::ComponentRemoved&lt; T &gt;, rc::event::SceneDestroyed, rc::event::SceneObjectRemoved &gt;::observe</a>(const TEvents &amp;event)=0</td><td class="entry"><a class="el" href="a02647.html">bl::event::ListenerBase&lt; TEvents &gt;</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a03655.html#a217fdb1dc3b7830828935ca8ca25505f">removeFromScene</a>(ecs::Entity entity)</td><td class="entry"><a class="el" href="a03655.html">bl::sys::DrawableSystem&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a03655.html#ac6e5cfc63580a582d5e6919d52eea51c">~DrawableSystem</a>()=default</td><td class="entry"><a class="el" href="a03655.html">bl::sys::DrawableSystem&lt; T &gt;</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a02651.html#a86f9cc35c59d1a12d10d3798405bdd40">~Listener</a>()</td><td class="entry"><a class="el" href="a02651.html">bl::event::Listener&lt; ecs::event::ComponentRemoved&lt; T &gt;, rc::event::SceneDestroyed, rc::event::SceneObjectRemoved &gt;</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02647.html#a36c44a860cf98c5a39ca4a3064152585">~ListenerBase</a>()=default</td><td class="entry"><a class="el" href="a02647.html">bl::event::ListenerBase&lt; TEvents &gt;</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a02607.html#aa94c5ee9b05530eb29c7ad3e5b801225">~System</a>()=default</td><td class="entry"><a class="el" href="a02607.html">bl::engine::System</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 25 2023 00:24:24 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 27 2023 23:34:43 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

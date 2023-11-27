@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/ECS/Tags.hpp Source File</title>
+<title>BLIB: include/BLIB/ECS/ParentDestructionBehavior.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,50 +71,37 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Tags.hpp</div>  </div>
+<div class="title">ParentDestructionBehavior.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00170.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_ECS_TAGS_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_ECS_TAGS_HPP</span></div>
+<a href="a00170.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_ECS_DESTROYBEHAVIOR_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_ECS_DESTROYBEHAVIOR_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00143.html">BLIB/ECS/ComponentMask.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00149.html">BLIB/ECS/ComponentSet.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;type_traits&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01833.html">bl</a></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;cstdint&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02058.html">bl</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>ecs</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>ecs</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">class </span>Registry;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TComs&gt;</div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="a02271.html">   15</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a02271.html">Require</a> {};</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TComs&gt;</div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a02275.html">   18</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a02275.html">Optional</a> {};</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TComs&gt;</div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a02279.html">   21</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a02279.html">Exclude</a> {};</div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="a02035.html#ga8a26375b4229d8ec106886db32501969">   15</a></span>&#160;<span class="keyword">enum struct</span> <a class="code" href="a02035.html#ga8a26375b4229d8ec106886db32501969">ParentDestructionBehavior</a> : std::uint8_t {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <a class="code" href="a02035.html#gga8a26375b4229d8ec106886db32501969ac817e89a441e03ce62483611fd6ddeb1">DestroyedWithParent</a>,</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <a class="code" href="a02035.html#gga8a26375b4229d8ec106886db32501969a7e648f0f6f1f3177fc23eb64b4af8103">OrphanedByParent</a></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;};</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> TRequire, <span class="keyword">typename</span> TOptional = Optional&lt;&gt;, <span class="keyword">typename</span> TExclude = Exclude&lt;&gt;&gt;</div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a02283.html">   24</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a02283.html">Tags</a> {};</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;} <span class="comment">// namespace ecs</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;} <span class="comment">// namespace bl</span></div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;} <span class="comment">// namespace ecs</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00143_html"><div class="ttname"><a href="a00143.html">ComponentMask.hpp</a></div></div>
-<div class="ttc" id="aa00149_html"><div class="ttname"><a href="a00149.html">ComponentSet.hpp</a></div></div>
-<div class="ttc" id="aa01833_html"><div class="ttname"><a href="a01833.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02271_html"><div class="ttname"><a href="a02271.html">bl::ecs::Require</a></div><div class="ttdef"><b>Definition:</b> <a href="a00170_source.html#l00015">Tags.hpp:15</a></div></div>
-<div class="ttc" id="aa02275_html"><div class="ttname"><a href="a02275.html">bl::ecs::Optional</a></div><div class="ttdef"><b>Definition:</b> <a href="a00170_source.html#l00018">Tags.hpp:18</a></div></div>
-<div class="ttc" id="aa02279_html"><div class="ttname"><a href="a02279.html">bl::ecs::Exclude</a></div><div class="ttdef"><b>Definition:</b> <a href="a00170_source.html#l00021">Tags.hpp:21</a></div></div>
-<div class="ttc" id="aa02283_html"><div class="ttname"><a href="a02283.html">bl::ecs::Tags</a></div><div class="ttdef"><b>Definition:</b> <a href="a00170_source.html#l00024">Tags.hpp:24</a></div></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa02035_html_ga8a26375b4229d8ec106886db32501969"><div class="ttname"><a href="a02035.html#ga8a26375b4229d8ec106886db32501969">bl::ecs::ParentDestructionBehavior</a></div><div class="ttdeci">ParentDestructionBehavior</div><div class="ttdoc">Defines the behavior of an entity when any of its parents are destroyed.</div><div class="ttdef"><b>Definition:</b> <a href="a00170_source.html#l00015">ParentDestructionBehavior.hpp:15</a></div></div>
+<div class="ttc" id="aa02035_html_gga8a26375b4229d8ec106886db32501969a7e648f0f6f1f3177fc23eb64b4af8103"><div class="ttname"><a href="a02035.html#gga8a26375b4229d8ec106886db32501969a7e648f0f6f1f3177fc23eb64b4af8103">bl::ecs::ParentDestructionBehavior::OrphanedByParent</a></div><div class="ttdeci">@ OrphanedByParent</div><div class="ttdoc">The entity becomes parent-less instead of being destroyed.</div></div>
+<div class="ttc" id="aa02035_html_gga8a26375b4229d8ec106886db32501969ac817e89a441e03ce62483611fd6ddeb1"><div class="ttname"><a href="a02035.html#gga8a26375b4229d8ec106886db32501969ac817e89a441e03ce62483611fd6ddeb1">bl::ecs::ParentDestructionBehavior::DestroyedWithParent</a></div><div class="ttdeci">@ DestroyedWithParent</div><div class="ttdoc">Default behavior. The entity is erased with its parent.</div></div>
+<div class="ttc" id="aa02058_html"><div class="ttname"><a href="a02058.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 25 2023 00:24:20 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 27 2023 23:34:40 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

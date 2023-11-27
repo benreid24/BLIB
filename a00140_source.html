@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/ECS/Cleaner.hpp Source File</title>
+<title>BLIB: include/BLIB/Containers.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,67 +66,42 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ce575a5afd2ea0954c4dff0006796805.html">ECS</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Cleaner.hpp</div>  </div>
+<div class="title">Containers.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00140.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_ECS_CLEANER_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_ECS_CLEANER_HPP</span></div>
+<a href="a00140.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_CONTAINERS_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_CONTAINERS_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00167.html">BLIB/ECS/Registry.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01833.html">bl</a></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="a01848.html">    8</a></span>&#160;<span class="keyword">namespace </span>ecs</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a02183.html">   18</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02183.html">Cleaner</a> {</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <a class="code" href="a02183.html#ab6248b85fbd69834e0155f72a360651b">Cleaner</a>(<a class="code" href="a02267.html">Registry</a>&amp; registry, <a class="code" href="a02223.html">Entity</a> entity);</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <a class="code" href="a02183.html#a0644e801b619139c143a1c1b42a88209">~Cleaner</a>();</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02183.html#a38dbf3ffd4f0dc4e950886581fc9b15f">disarm</a>();</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <a class="code" href="a02267.html">Registry</a>&amp; registry;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">const</span> <a class="code" href="a02223.html">Entity</a> entity;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordtype">bool</span> armed;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;};</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="a02183.html#ab6248b85fbd69834e0155f72a360651b">   48</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="a02183.html#ab6248b85fbd69834e0155f72a360651b">Cleaner::Cleaner</a>(<a class="code" href="a02267.html">Registry</a>&amp; registry, <a class="code" href="a02223.html">Entity</a> entity)</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;: registry(registry)</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;, entity(entity)</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;, armed(true) {}</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="a02183.html#a0644e801b619139c143a1c1b42a88209">   53</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="a02183.html#a0644e801b619139c143a1c1b42a88209">Cleaner::~Cleaner</a>() {</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordflow">if</span> (armed) registry.<a class="code" href="a02267.html#afbbbe957b4c0cc0f85be34421cae9a53">destroyEntity</a>(entity);</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;}</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="a02183.html#a38dbf3ffd4f0dc4e950886581fc9b15f">   57</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="a02183.html#a38dbf3ffd4f0dc4e950886581fc9b15f">Cleaner::disarm</a>() { armed = <span class="keyword">false</span>; }</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;} <span class="comment">// namespace ecs</span></div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00167_html"><div class="ttname"><a href="a00167.html">Registry.hpp</a></div></div>
-<div class="ttc" id="aa01833_html"><div class="ttname"><a href="a01833.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02183_html"><div class="ttname"><a href="a02183.html">bl::ecs::Cleaner</a></div><div class="ttdoc">Helper class to automatically remove entities using RAII based cleanup. Useful for functions that bui...</div><div class="ttdef"><b>Definition:</b> <a href="a00140_source.html#l00018">Cleaner.hpp:18</a></div></div>
-<div class="ttc" id="aa02183_html_a0644e801b619139c143a1c1b42a88209"><div class="ttname"><a href="a02183.html#a0644e801b619139c143a1c1b42a88209">bl::ecs::Cleaner::~Cleaner</a></div><div class="ttdeci">~Cleaner()</div><div class="ttdoc">Destroys the entity unless disarmed.</div><div class="ttdef"><b>Definition:</b> <a href="a00140_source.html#l00053">Cleaner.hpp:53</a></div></div>
-<div class="ttc" id="aa02183_html_a38dbf3ffd4f0dc4e950886581fc9b15f"><div class="ttname"><a href="a02183.html#a38dbf3ffd4f0dc4e950886581fc9b15f">bl::ecs::Cleaner::disarm</a></div><div class="ttdeci">void disarm()</div><div class="ttdoc">Prevents destruction of the entity.</div><div class="ttdef"><b>Definition:</b> <a href="a00140_source.html#l00057">Cleaner.hpp:57</a></div></div>
-<div class="ttc" id="aa02183_html_ab6248b85fbd69834e0155f72a360651b"><div class="ttname"><a href="a02183.html#ab6248b85fbd69834e0155f72a360651b">bl::ecs::Cleaner::Cleaner</a></div><div class="ttdeci">Cleaner(Registry &amp;registry, Entity entity)</div><div class="ttdoc">Construct a new Cleaner object.</div><div class="ttdef"><b>Definition:</b> <a href="a00140_source.html#l00048">Cleaner.hpp:48</a></div></div>
-<div class="ttc" id="aa02223_html"><div class="ttname"><a href="a02223.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition:</b> <a href="a00158_source.html#l00023">Entity.hpp:23</a></div></div>
-<div class="ttc" id="aa02267_html"><div class="ttname"><a href="a02267.html">bl::ecs::Registry</a></div><div class="ttdoc">This is the main interface of the ECS. This class manages all entities and components and views and s...</div><div class="ttdef"><b>Definition:</b> <a href="a00167_source.html#l00031">Registry.hpp:31</a></div></div>
-<div class="ttc" id="aa02267_html_afbbbe957b4c0cc0f85be34421cae9a53"><div class="ttname"><a href="a02267.html#afbbbe957b4c0cc0f85be34421cae9a53">bl::ecs::Registry::destroyEntity</a></div><div class="ttdeci">bool destroyEntity(Entity entity)</div><div class="ttdoc">Removes the given entity and destroys all of its components. Destruction will not occur if the entity...</div><div class="ttdef"><b>Definition:</b> <a href="a01181_source.html#l00046">Registry.cpp:46</a></div></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00107.html">BLIB/Containers/Cache.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00113.html">BLIB/Containers/FastQueue.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00116.html">BLIB/Containers/Grid.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00122.html">BLIB/Containers/ObjectPool.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00125.html">BLIB/Containers/ObjectWrapper.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00128.html">BLIB/Containers/QuadTree.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00131.html">BLIB/Containers/RingBuffer.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00134.html">BLIB/Containers/RingQueue.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00137.html">BLIB/Containers/Vector2d.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00107_html"><div class="ttname"><a href="a00107.html">Cache.hpp</a></div></div>
+<div class="ttc" id="aa00113_html"><div class="ttname"><a href="a00113.html">FastQueue.hpp</a></div></div>
+<div class="ttc" id="aa00116_html"><div class="ttname"><a href="a00116.html">Grid.hpp</a></div></div>
+<div class="ttc" id="aa00122_html"><div class="ttname"><a href="a00122.html">ObjectPool.hpp</a></div></div>
+<div class="ttc" id="aa00125_html"><div class="ttname"><a href="a00125.html">ObjectWrapper.hpp</a></div></div>
+<div class="ttc" id="aa00128_html"><div class="ttname"><a href="a00128.html">QuadTree.hpp</a></div></div>
+<div class="ttc" id="aa00131_html"><div class="ttname"><a href="a00131.html">RingBuffer.hpp</a></div></div>
+<div class="ttc" id="aa00134_html"><div class="ttname"><a href="a00134.html">RingQueue.hpp</a></div></div>
+<div class="ttc" id="aa00137_html"><div class="ttname"><a href="a00137.html">Vector2d.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 25 2023 00:24:20 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 27 2023 23:34:40 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::input::controllers::Xbox360 Struct Reference</title>
+<title>BLIB: bl::engine::Engine Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,78 +66,154 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01833.html">bl</a></li><li class="navelem"><a class="el" href="a01862.html">input</a></li><li class="navelem"><a class="el" href="a01863.html">controllers</a></li><li class="navelem"><a class="el" href="a02555.html">Xbox360</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02058.html">bl</a></li><li class="navelem"><a class="el" href="a02065.html">engine</a></li><li class="navelem"><a class="el" href="a02555.html">Engine</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="a02552.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::input::controllers::Xbox360 Struct Reference<div class="ingroups"><a class="el" href="a01814.html">Input</a> &#124; <a class="el" href="a01814.html">Input</a> &raquo; <a class="el" href="a01827.html">Controllers</a></div></div>  </div>
+<div class="title">bl::engine::Engine Class Reference<div class="ingroups"><a class="el" href="a02036.html">Engine</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Some constansts for buttons and axes for an Xbox 360 controller. Tested on Windows. For the sticks left and up are negative. For the D-Pad left is negative but up is positive. For the triggers LT is positive and RT is negative.  
+<p>Core engine class that owns engine resources and the main game loop.  
  <a href="a02555.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00308_source.html">Xbox360.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a05599_source.html">Engine.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::engine::Engine:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a02555.png" usemap="#bl::engine::Engine_map" alt=""/>
+  <map id="bl::engine::Engine_map" name="bl::engine::Engine_map">
+<area href="a04459.html" title="Helper class to make derived classes impossible for user to copy directly." alt="bl::util::NonCopyable" shape="rect" coords="0,0,127,24"/>
+  </map>
+</div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a81f93d0d3d888dec3605ac0d6823caa6"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02555.html#a81f93d0d3d888dec3605ac0d6823caa6">is</a> (unsigned int joystickId)</td></tr>
-<tr class="memdesc:a81f93d0d3d888dec3605ac0d6823caa6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the given controller is an Xbox 360 one or not. Tested on Windows only.  <a href="a02555.html#a81f93d0d3d888dec3605ac0d6823caa6">More...</a><br /></td></tr>
-<tr class="separator:a81f93d0d3d888dec3605ac0d6823caa6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
-Static Public Attributes</h2></td></tr>
-<tr class="memitem:a81069586f4b40749983aa00fce22c433"><td class="memItemLeft" align="right" valign="top">static constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02555.html#a81069586f4b40749983aa00fce22c433">StickDeadZone</a> = 22.f</td></tr>
-<tr class="separator:a81069586f4b40749983aa00fce22c433"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6981b8d3032d3f5e757faaeeda729368"><td class="memItemLeft" align="right" valign="top">static constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02555.html#a6981b8d3032d3f5e757faaeeda729368">StickDeadZoneNormalized</a> = <a class="el" href="a02555.html#a81069586f4b40749983aa00fce22c433">StickDeadZone</a> / 100.f</td></tr>
-<tr class="separator:a6981b8d3032d3f5e757faaeeda729368"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a96f6ab194d723bb729fff71fef3cba5d"><td class="memItemLeft" align="right" valign="top">static constexpr unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02555.html#a96f6ab194d723bb729fff71fef3cba5d">A</a> = 0</td></tr>
-<tr class="separator:a96f6ab194d723bb729fff71fef3cba5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a863ebfdf40e427594250d1009ef8e4a3"><td class="memItemLeft" align="right" valign="top">static constexpr unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02555.html#a863ebfdf40e427594250d1009ef8e4a3">B</a> = 1</td></tr>
-<tr class="separator:a863ebfdf40e427594250d1009ef8e4a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0a3d2264df2101a7534148659b3b8734"><td class="memItemLeft" align="right" valign="top">static constexpr unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02555.html#a0a3d2264df2101a7534148659b3b8734">X</a> = 2</td></tr>
-<tr class="separator:a0a3d2264df2101a7534148659b3b8734"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0ad76dfeab6a857e006035aaea668bfd"><td class="memItemLeft" align="right" valign="top">static constexpr unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02555.html#a0ad76dfeab6a857e006035aaea668bfd">Y</a> = 3</td></tr>
-<tr class="separator:a0ad76dfeab6a857e006035aaea668bfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5c48a1875fa108486077b1ed9c0e248c"><td class="memItemLeft" align="right" valign="top">static constexpr unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02555.html#a5c48a1875fa108486077b1ed9c0e248c">RB</a> = 4</td></tr>
-<tr class="separator:a5c48a1875fa108486077b1ed9c0e248c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8230685a10c9565a2b34567986e9d344"><td class="memItemLeft" align="right" valign="top">static constexpr unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02555.html#a8230685a10c9565a2b34567986e9d344">LB</a> = 5</td></tr>
-<tr class="separator:a8230685a10c9565a2b34567986e9d344"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a349e2253da1d9e0c0b0885bc70c043b6"><td class="memItemLeft" align="right" valign="top">static constexpr unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02555.html#a349e2253da1d9e0c0b0885bc70c043b6">Back</a> = 6</td></tr>
-<tr class="separator:a349e2253da1d9e0c0b0885bc70c043b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a17e272ec55c99efca4eae14f81d6d296"><td class="memItemLeft" align="right" valign="top">static constexpr unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02555.html#a17e272ec55c99efca4eae14f81d6d296">Start</a> = 7</td></tr>
-<tr class="separator:a17e272ec55c99efca4eae14f81d6d296"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac8d889820deae3ac0dafaa9c810fd470"><td class="memItemLeft" align="right" valign="top">static constexpr unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02555.html#ac8d889820deae3ac0dafaa9c810fd470">LS</a> = 8</td></tr>
-<tr class="separator:ac8d889820deae3ac0dafaa9c810fd470"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6b3f1ebd708be6644f0d63f2e169ea8e"><td class="memItemLeft" align="right" valign="top">static constexpr unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02555.html#a6b3f1ebd708be6644f0d63f2e169ea8e">RS</a> = 9</td></tr>
-<tr class="separator:a6b3f1ebd708be6644f0d63f2e169ea8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a633d72e16c905c85b3a36dd098b1c9af"><td class="memItemLeft" align="right" valign="top">static constexpr sf::Joystick::Axis&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02555.html#a633d72e16c905c85b3a36dd098b1c9af">LSHorizontal</a> = sf::Joystick::Axis::X</td></tr>
-<tr class="separator:a633d72e16c905c85b3a36dd098b1c9af"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a31a8a8a64b9196cad1bdd54e38c9887c"><td class="memItemLeft" align="right" valign="top">static constexpr sf::Joystick::Axis&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02555.html#a31a8a8a64b9196cad1bdd54e38c9887c">LSVertical</a> = sf::Joystick::Axis::Y</td></tr>
-<tr class="separator:a31a8a8a64b9196cad1bdd54e38c9887c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2a89fe6201862e2b2b0bc13ffeb407c9"><td class="memItemLeft" align="right" valign="top">static constexpr sf::Joystick::Axis&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02555.html#a2a89fe6201862e2b2b0bc13ffeb407c9">RSHorizontal</a> = sf::Joystick::Axis::U</td></tr>
-<tr class="separator:a2a89fe6201862e2b2b0bc13ffeb407c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4e6ce7f3c21d9c2ec1969dc9163dc4b7"><td class="memItemLeft" align="right" valign="top">static constexpr sf::Joystick::Axis&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02555.html#a4e6ce7f3c21d9c2ec1969dc9163dc4b7">RSVertical</a> = sf::Joystick::Axis::V</td></tr>
-<tr class="separator:a4e6ce7f3c21d9c2ec1969dc9163dc4b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa0f49d33dcc8dc6a5ebf568c0d09d822"><td class="memItemLeft" align="right" valign="top">static constexpr sf::Joystick::Axis&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02555.html#aa0f49d33dcc8dc6a5ebf568c0d09d822">DPadHorizontal</a> = sf::Joystick::Axis::PovX</td></tr>
-<tr class="separator:aa0f49d33dcc8dc6a5ebf568c0d09d822"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6d448ff58c5a7ed2fe57678173edecab"><td class="memItemLeft" align="right" valign="top">static constexpr sf::Joystick::Axis&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02555.html#a6d448ff58c5a7ed2fe57678173edecab">DPadVertical</a> = sf::Joystick::Axis::PovY</td></tr>
-<tr class="separator:a6d448ff58c5a7ed2fe57678173edecab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ada4dd32270bea69536d559ec2bc33c6d"><td class="memItemLeft" align="right" valign="top">static constexpr sf::Joystick::Axis&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02555.html#ada4dd32270bea69536d559ec2bc33c6d">Triggers</a> = sf::Joystick::Axis::Z</td></tr>
-<tr class="separator:ada4dd32270bea69536d559ec2bc33c6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a6d8638fa37986934e8de4fa46a17dd9f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02555.html#a6d8638fa37986934e8de4fa46a17dd9f">Engine</a> (const <a class="el" href="a02591.html">Settings</a> &amp;<a class="el" href="a02555.html#ad305287ca113addc1b34ab818993be12">settings</a>)</td></tr>
+<tr class="memdesc:a6d8638fa37986934e8de4fa46a17dd9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the game engine from the given settings.  <a href="a02555.html#a6d8638fa37986934e8de4fa46a17dd9f">More...</a><br /></td></tr>
+<tr class="separator:a6d8638fa37986934e8de4fa46a17dd9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a654f27cbb34e4461c3ebd4bc676d5c0a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02555.html#a654f27cbb34e4461c3ebd4bc676d5c0a">~Engine</a> ()</td></tr>
+<tr class="memdesc:a654f27cbb34e4461c3ebd4bc676d5c0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the <a class="el" href="a02555.html" title="Core engine class that owns engine resources and the main game loop.">Engine</a> object.  <a href="a02555.html#a654f27cbb34e4461c3ebd4bc676d5c0a">More...</a><br /></td></tr>
+<tr class="separator:a654f27cbb34e4461c3ebd4bc676d5c0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25e3869bfc4a1fefd83bcd5773c7a5ef"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02503.html">ecs::Registry</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02555.html#a25e3869bfc4a1fefd83bcd5773c7a5ef">ecs</a> ()</td></tr>
+<tr class="memdesc:a25e3869bfc4a1fefd83bcd5773c7a5ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the engine wide entity registry.  <a href="a02555.html#a25e3869bfc4a1fefd83bcd5773c7a5ef">More...</a><br /></td></tr>
+<tr class="separator:a25e3869bfc4a1fefd83bcd5773c7a5ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6edd720ae9836cefbbd26d99de572ea"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02611.html">Systems</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02555.html#af6edd720ae9836cefbbd26d99de572ea">systems</a> ()</td></tr>
+<tr class="memdesc:af6edd720ae9836cefbbd26d99de572ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the systems registry of the engine.  <a href="a02555.html#af6edd720ae9836cefbbd26d99de572ea">More...</a><br /></td></tr>
+<tr class="separator:af6edd720ae9836cefbbd26d99de572ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af16f26ef6570e646dbab6a1d63c1fa83"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04031.html">script::Manager</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02555.html#af16f26ef6570e646dbab6a1d63c1fa83">scriptManager</a> ()</td></tr>
+<tr class="memdesc:af16f26ef6570e646dbab6a1d63c1fa83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the engine's script Manager.  <a href="a02555.html#af16f26ef6570e646dbab6a1d63c1fa83">More...</a><br /></td></tr>
+<tr class="separator:af16f26ef6570e646dbab6a1d63c1fa83"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04332dee562be55a73c43b5eed176837"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03603.html">rc::Renderer</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02555.html#a04332dee562be55a73c43b5eed176837">renderer</a> ()</td></tr>
+<tr class="memdesc:a04332dee562be55a73c43b5eed176837"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the rendering system of the engine.  <a href="a02555.html#a04332dee562be55a73c43b5eed176837">More...</a><br /></td></tr>
+<tr class="separator:a04332dee562be55a73c43b5eed176837"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e5d4553bf2a651e47239fec7553773c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02859.html">input::InputSystem</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02555.html#a4e5d4553bf2a651e47239fec7553773c">inputSystem</a> ()</td></tr>
+<tr class="memdesc:a4e5d4553bf2a651e47239fec7553773c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the user input system of the engine.  <a href="a02555.html#a4e5d4553bf2a651e47239fec7553773c">More...</a><br /></td></tr>
+<tr class="separator:a4e5d4553bf2a651e47239fec7553773c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aedfefce58fb93fbe6208ab381496a6ef"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04527.html">util::ThreadPool</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02555.html#aedfefce58fb93fbe6208ab381496a6ef">threadPool</a> ()</td></tr>
+<tr class="memdesc:aedfefce58fb93fbe6208ab381496a6ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the engine thread pool.  <a href="a02555.html#aedfefce58fb93fbe6208ab381496a6ef">More...</a><br /></td></tr>
+<tr class="separator:aedfefce58fb93fbe6208ab381496a6ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad305287ca113addc1b34ab818993be12"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a02591.html">Settings</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02555.html#ad305287ca113addc1b34ab818993be12">settings</a> () const</td></tr>
+<tr class="memdesc:ad305287ca113addc1b34ab818993be12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the settings the engine is using.  <a href="a02555.html#ad305287ca113addc1b34ab818993be12">More...</a><br /></td></tr>
+<tr class="separator:ad305287ca113addc1b34ab818993be12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1bd4d142022e838b74e81a82ac15d176"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02555.html#a1bd4d142022e838b74e81a82ac15d176">reCreateWindow</a> (const <a class="el" href="a02595.html">Settings::WindowParameters</a> &amp;parameters)</td></tr>
+<tr class="memdesc:a1bd4d142022e838b74e81a82ac15d176"><td class="mdescLeft">&#160;</td><td class="mdescRight">Re-creates the game window from the new settings.  <a href="a02555.html#a1bd4d142022e838b74e81a82ac15d176">More...</a><br /></td></tr>
+<tr class="separator:a1bd4d142022e838b74e81a82ac15d176"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad323770f0f207308e6b6de8146bbf5c7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02555.html#ad323770f0f207308e6b6de8146bbf5c7">updateExistingWindow</a> (const <a class="el" href="a02595.html">Settings::WindowParameters</a> &amp;parameters)</td></tr>
+<tr class="memdesc:ad323770f0f207308e6b6de8146bbf5c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates settings on the window without recreating it. <a class="el" href="a02591.html" title="Collection of settings to create an Engine with, organized as a builder.">Settings</a> that require a new window are not applied, but do get saved to the configuration store.  <a href="a02555.html#ad323770f0f207308e6b6de8146bbf5c7">More...</a><br /></td></tr>
+<tr class="separator:ad323770f0f207308e6b6de8146bbf5c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3eadddd1a0a2f23774baf0add80b607"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02583.html">Flags</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02555.html#ad3eadddd1a0a2f23774baf0add80b607">flags</a> ()</td></tr>
+<tr class="memdesc:ad3eadddd1a0a2f23774baf0add80b607"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the flags that can be set to control <a class="el" href="a02555.html" title="Core engine class that owns engine resources and the main game loop.">Engine</a> behavior.  <a href="a02555.html#ad3eadddd1a0a2f23774baf0add80b607">More...</a><br /></td></tr>
+<tr class="separator:ad3eadddd1a0a2f23774baf0add80b607"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7fddc49fdd4d46a671be63374aa189c9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02036.html#ga57d216bfcb86b8f4150d59bf58be39f0">EngineWindow</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02555.html#a7fddc49fdd4d46a671be63374aa189c9">window</a> ()</td></tr>
+<tr class="memdesc:a7fddc49fdd4d46a671be63374aa189c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the window the engine has created and is managing. The window is created when <a class="el" href="a02555.html#a101b5879f1f1b2164517da01b5df7e25" title="Runs the main game loop starting in the given initial state. This is the main application loop and ru...">run()</a> is called.  <a href="a02555.html#a7fddc49fdd4d46a671be63374aa189c9">More...</a><br /></td></tr>
+<tr class="separator:a7fddc49fdd4d46a671be63374aa189c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a101b5879f1f1b2164517da01b5df7e25"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02555.html#a101b5879f1f1b2164517da01b5df7e25">run</a> (<a class="el" href="a02599.html#af13f7b9dd4d6e317dbc378896ddcf6d5">State::Ptr</a> initialState)</td></tr>
+<tr class="memdesc:a101b5879f1f1b2164517da01b5df7e25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs the main game loop starting in the given initial state. This is the main application loop and runs for the duration of the program. All setup should be performed prior to calling this. The EngineWindow is created in here.  <a href="a02555.html#a101b5879f1f1b2164517da01b5df7e25">More...</a><br /></td></tr>
+<tr class="separator:a101b5879f1f1b2164517da01b5df7e25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4404d7016bd941a46128a233a38092b8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02555.html#a4404d7016bd941a46128a233a38092b8">pushState</a> (<a class="el" href="a02599.html#af13f7b9dd4d6e317dbc378896ddcf6d5">State::Ptr</a> next)</td></tr>
+<tr class="memdesc:a4404d7016bd941a46128a233a38092b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the next state for the following engine update loop. May be called at any time, the next state will not be transitioned to until the start of main loop. If the PopState flag is set, that will be evaluated before the new state is pushed.  <a href="a02555.html#a4404d7016bd941a46128a233a38092b8">More...</a><br /></td></tr>
+<tr class="separator:a4404d7016bd941a46128a233a38092b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88974b8f273f5bb20b37d19ff1b2bef0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02555.html#a88974b8f273f5bb20b37d19ff1b2bef0">replaceState</a> (<a class="el" href="a02599.html#af13f7b9dd4d6e317dbc378896ddcf6d5">State::Ptr</a> next)</td></tr>
+<tr class="memdesc:a88974b8f273f5bb20b37d19ff1b2bef0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the next state for the following engine update loop. May be called at any time, the next state will not be transitioned to until the start of main loop. This replaces the current state so that it will not be returned to when the next state is popped. Equivalent to setting PopState flag and pushing state together.  <a href="a02555.html#a88974b8f273f5bb20b37d19ff1b2bef0">More...</a><br /></td></tr>
+<tr class="separator:a88974b8f273f5bb20b37d19ff1b2bef0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9ed521c500ca16569b940eaa694bad0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02555.html#ad9ed521c500ca16569b940eaa694bad0">popState</a> ()</td></tr>
+<tr class="memdesc:ad9ed521c500ca16569b940eaa694bad0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience method to set the PopState flag.  <a href="a02555.html#ad9ed521c500ca16569b940eaa694bad0">More...</a><br /></td></tr>
+<tr class="separator:ad9ed521c500ca16569b940eaa694bad0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace8682750a40e8689bd8f078291d5704"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02555.html#ace8682750a40e8689bd8f078291d5704">setTimeScale</a> (float scaleFactor)</td></tr>
+<tr class="memdesc:ace8682750a40e8689bd8f078291d5704"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the scaling factor for simulated time. Essentially multiples real elapsed time by the given scaling factor. Real elapsed time is multiplied by the factor when the clock is queried, which may result in additional (or fewer) ticks in order to keep the time step consistent.  <a href="a02555.html#ace8682750a40e8689bd8f078291d5704">More...</a><br /></td></tr>
+<tr class="separator:ace8682750a40e8689bd8f078291d5704"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf97f2d153ffd9d47c2cb332a2c6ecf0"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02555.html#abf97f2d153ffd9d47c2cb332a2c6ecf0">getTimeScale</a> () const</td></tr>
+<tr class="memdesc:abf97f2d153ffd9d47c2cb332a2c6ecf0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the scaling factor used when determining simulation time from real time.  <a href="a02555.html#abf97f2d153ffd9d47c2cb332a2c6ecf0">More...</a><br /></td></tr>
+<tr class="separator:abf97f2d153ffd9d47c2cb332a2c6ecf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a727a0f182930ff33e49e40e85397c317"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02555.html#a727a0f182930ff33e49e40e85397c317">resetTimeScale</a> ()</td></tr>
+<tr class="memdesc:a727a0f182930ff33e49e40e85397c317"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets the time scale to 1 so that simulation time matches real time.  <a href="a02555.html#a727a0f182930ff33e49e40e85397c317">More...</a><br /></td></tr>
+<tr class="separator:a727a0f182930ff33e49e40e85397c317"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Some constansts for buttons and axes for an Xbox 360 controller. Tested on Windows. For the sticks left and up are negative. For the D-Pad left is negative but up is positive. For the triggers LT is positive and RT is negative. </p>
+<div class="textblock"><p>Core engine class that owns engine resources and the main game loop. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00308_source.html#l00029">29</a> of file <a class="el" href="a00308_source.html">Xbox360.hpp</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a81f93d0d3d888dec3605ac0d6823caa6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a81f93d0d3d888dec3605ac0d6823caa6">&#9670;&nbsp;</a></span>is()</h2>
+<p class="definition">Definition at line <a class="el" href="a05599_source.html#l00032">32</a> of file <a class="el" href="a05599_source.html">Engine.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a6d8638fa37986934e8de4fa46a17dd9f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d8638fa37986934e8de4fa46a17dd9f">&#9670;&nbsp;</a></span>Engine()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::engine::Engine::Engine </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a02591.html">Settings</a> &amp;&#160;</td>
+          <td class="paramname"><em>settings</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates the game engine from the given settings. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">settings</td><td><a class="el" href="a02591.html" title="Collection of settings to create an Engine with, organized as a builder.">Settings</a> for the engine to use </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01328_source.html#l00014">14</a> of file <a class="el" href="a01328_source.html">Engine.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a654f27cbb34e4461c3ebd4bc676d5c0a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a654f27cbb34e4461c3ebd4bc676d5c0a">&#9670;&nbsp;</a></span>~Engine()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::engine::Engine::~Engine </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Destroy the <a class="el" href="a02555.html" title="Core engine class that owns engine resources and the main game loop.">Engine</a> object. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01328_source.html#l00027">27</a> of file <a class="el" href="a01328_source.html">Engine.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a25e3869bfc4a1fefd83bcd5773c7a5ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25e3869bfc4a1fefd83bcd5773c7a5ef">&#9670;&nbsp;</a></span>ecs()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -146,36 +222,185 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static bool bl::input::controllers::Xbox360::is </td>
+          <td class="memname"><a class="el" href="a02503.html">ecs::Registry</a> &amp; bl::engine::Engine::ecs </td>
           <td>(</td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>joystickId</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns whether or not the given controller is an Xbox 360 one or not. Tested on Windows only. </p>
+<p>Returns a reference to the engine wide entity registry. </p>
+
+<p class="definition">Definition at line <a class="el" href="a05599_source.html#l00195">195</a> of file <a class="el" href="a05599_source.html">Engine.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ad3eadddd1a0a2f23774baf0add80b607"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3eadddd1a0a2f23774baf0add80b607">&#9670;&nbsp;</a></span>flags()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a02583.html">Flags</a> &amp; bl::engine::Engine::flags </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the flags that can be set to control <a class="el" href="a02555.html" title="Core engine class that owns engine resources and the main game loop.">Engine</a> behavior. </p>
+
+<p class="definition">Definition at line <a class="el" href="a05599_source.html#l00207">207</a> of file <a class="el" href="a05599_source.html">Engine.hpp</a>.</p>
+
+</div>
+</div>
+<a id="abf97f2d153ffd9d47c2cb332a2c6ecf0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf97f2d153ffd9d47c2cb332a2c6ecf0">&#9670;&nbsp;</a></span>getTimeScale()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float bl::engine::Engine::getTimeScale </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the scaling factor used when determining simulation time from real time. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01328_source.html#l00377">377</a> of file <a class="el" href="a01328_source.html">Engine.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a4e5d4553bf2a651e47239fec7553773c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e5d4553bf2a651e47239fec7553773c">&#9670;&nbsp;</a></span>inputSystem()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a02859.html">input::InputSystem</a> &amp; bl::engine::Engine::inputSystem </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the user input system of the engine. </p>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a02859.html" title="System for managing complex input workflows and maintaining a stack of subscribers to input based eve...">input::InputSystem</a>&amp; The user input system </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a05599_source.html#l00203">203</a> of file <a class="el" href="a05599_source.html">Engine.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ad9ed521c500ca16569b940eaa694bad0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad9ed521c500ca16569b940eaa694bad0">&#9670;&nbsp;</a></span>popState()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::engine::Engine::popState </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Convenience method to set the PopState flag. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01328_source.html#l00070">70</a> of file <a class="el" href="a01328_source.html">Engine.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a4404d7016bd941a46128a233a38092b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4404d7016bd941a46128a233a38092b8">&#9670;&nbsp;</a></span>pushState()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::engine::Engine::pushState </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a02599.html#af13f7b9dd4d6e317dbc378896ddcf6d5">State::Ptr</a>&#160;</td>
+          <td class="paramname"><em>next</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the next state for the following engine update loop. May be called at any time, the next state will not be transitioned to until the start of main loop. If the PopState flag is set, that will be evaluated before the new state is pushed. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">joystickId</td><td>The joystick to test </td></tr>
+    <tr><td class="paramname">next</td><td>Next state to enter on the following main loop run </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>True if it is an Xbox 360 controller, false otherwise </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a00308_source.html#l00061">61</a> of file <a class="el" href="a00308_source.html">Xbox360.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01328_source.html#l00052">52</a> of file <a class="el" href="a01328_source.html">Engine.cpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="a96f6ab194d723bb729fff71fef3cba5d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a96f6ab194d723bb729fff71fef3cba5d">&#9670;&nbsp;</a></span>A</h2>
+<a id="a1bd4d142022e838b74e81a82ac15d176"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1bd4d142022e838b74e81a82ac15d176">&#9670;&nbsp;</a></span>reCreateWindow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::engine::Engine::reCreateWindow </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a02595.html">Settings::WindowParameters</a> &amp;&#160;</td>
+          <td class="paramname"><em>parameters</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Re-creates the game window from the new settings. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">parameters</td><td>The new settings to create the window with </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>bool True on success, false on error </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a01328_source.html#l00294">294</a> of file <a class="el" href="a01328_source.html">Engine.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a04332dee562be55a73c43b5eed176837"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a04332dee562be55a73c43b5eed176837">&#9670;&nbsp;</a></span>renderer()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -184,22 +409,106 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr unsigned int bl::input::controllers::Xbox360::A = 0</td>
+          <td class="memname"><a class="el" href="a03603.html">rc::Renderer</a> &amp; bl::engine::Engine::renderer </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00308_source.html#l00033">33</a> of file <a class="el" href="a00308_source.html">Xbox360.hpp</a>.</p>
+<p>Returns the rendering system of the engine. </p>
+<dl class="section return"><dt>Returns</dt><dd>render::Renderer&amp; The rendering system </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a05599_source.html#l00201">201</a> of file <a class="el" href="a05599_source.html">Engine.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a863ebfdf40e427594250d1009ef8e4a3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a863ebfdf40e427594250d1009ef8e4a3">&#9670;&nbsp;</a></span>B</h2>
+<a id="a88974b8f273f5bb20b37d19ff1b2bef0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88974b8f273f5bb20b37d19ff1b2bef0">&#9670;&nbsp;</a></span>replaceState()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::engine::Engine::replaceState </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a02599.html#af13f7b9dd4d6e317dbc378896ddcf6d5">State::Ptr</a>&#160;</td>
+          <td class="paramname"><em>next</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the next state for the following engine update loop. May be called at any time, the next state will not be transitioned to until the start of main loop. This replaces the current state so that it will not be returned to when the next state is popped. Equivalent to setting PopState flag and pushing state together. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">next</td><td>Next state to enter on the following main loop run </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01328_source.html#l00061">61</a> of file <a class="el" href="a01328_source.html">Engine.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a727a0f182930ff33e49e40e85397c317"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a727a0f182930ff33e49e40e85397c317">&#9670;&nbsp;</a></span>resetTimeScale()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::engine::Engine::resetTimeScale </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Resets the time scale to 1 so that simulation time matches real time. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01328_source.html#l00379">379</a> of file <a class="el" href="a01328_source.html">Engine.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a101b5879f1f1b2164517da01b5df7e25"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a101b5879f1f1b2164517da01b5df7e25">&#9670;&nbsp;</a></span>run()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::engine::Engine::run </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a02599.html#af13f7b9dd4d6e317dbc378896ddcf6d5">State::Ptr</a>&#160;</td>
+          <td class="paramname"><em>initialState</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Runs the main game loop starting in the given initial state. This is the main application loop and runs for the duration of the program. All setup should be performed prior to calling this. The EngineWindow is created in here. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">initialState</td><td>The starting engine state </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>bool True if the engine exited cleanly, false if exiting due to error </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a01328_source.html#l00072">72</a> of file <a class="el" href="a01328_source.html">Engine.cpp</a>.</p>
+
+</div>
+</div>
+<a id="af16f26ef6570e646dbab6a1d63c1fa83"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af16f26ef6570e646dbab6a1d63c1fa83">&#9670;&nbsp;</a></span>scriptManager()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -208,22 +517,55 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr unsigned int bl::input::controllers::Xbox360::B = 1</td>
+          <td class="memname"><a class="el" href="a04031.html">script::Manager</a> &amp; bl::engine::Engine::scriptManager </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00308_source.html#l00034">34</a> of file <a class="el" href="a00308_source.html">Xbox360.hpp</a>.</p>
+<p>Returns a reference to the engine's script Manager. </p>
+
+<p class="definition">Definition at line <a class="el" href="a05599_source.html#l00199">199</a> of file <a class="el" href="a05599_source.html">Engine.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a349e2253da1d9e0c0b0885bc70c043b6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a349e2253da1d9e0c0b0885bc70c043b6">&#9670;&nbsp;</a></span>Back</h2>
+<a id="ace8682750a40e8689bd8f078291d5704"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace8682750a40e8689bd8f078291d5704">&#9670;&nbsp;</a></span>setTimeScale()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::engine::Engine::setTimeScale </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>scaleFactor</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the scaling factor for simulated time. Essentially multiples real elapsed time by the given scaling factor. Real elapsed time is multiplied by the factor when the clock is queried, which may result in additional (or fewer) ticks in order to keep the time step consistent. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">scaleFactor</td><td>Factor to multiple elapsed time by to determine simulated time </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01328_source.html#l00375">375</a> of file <a class="el" href="a01328_source.html">Engine.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ad305287ca113addc1b34ab818993be12"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad305287ca113addc1b34ab818993be12">&#9670;&nbsp;</a></span>settings()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -232,22 +574,27 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr unsigned int bl::input::controllers::Xbox360::Back = 6</td>
+          <td class="memname">const <a class="el" href="a02591.html">Settings</a> &amp; bl::engine::Engine::settings </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00308_source.html#l00039">39</a> of file <a class="el" href="a00308_source.html">Xbox360.hpp</a>.</p>
+<p>Returns the settings the engine is using. </p>
+
+<p class="definition">Definition at line <a class="el" href="a05599_source.html#l00205">205</a> of file <a class="el" href="a05599_source.html">Engine.hpp</a>.</p>
 
 </div>
 </div>
-<a id="aa0f49d33dcc8dc6a5ebf568c0d09d822"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa0f49d33dcc8dc6a5ebf568c0d09d822">&#9670;&nbsp;</a></span>DPadHorizontal</h2>
+<a id="af6edd720ae9836cefbbd26d99de572ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6edd720ae9836cefbbd26d99de572ea">&#9670;&nbsp;</a></span>systems()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -256,22 +603,27 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr sf::Joystick::Axis bl::input::controllers::Xbox360::DPadHorizontal = sf::Joystick::Axis::PovX</td>
+          <td class="memname"><a class="el" href="a02611.html">Systems</a> &amp; bl::engine::Engine::systems </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00308_source.html#l00049">49</a> of file <a class="el" href="a00308_source.html">Xbox360.hpp</a>.</p>
+<p>Returns the systems registry of the engine. </p>
+
+<p class="definition">Definition at line <a class="el" href="a05599_source.html#l00197">197</a> of file <a class="el" href="a05599_source.html">Engine.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a6d448ff58c5a7ed2fe57678173edecab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6d448ff58c5a7ed2fe57678173edecab">&#9670;&nbsp;</a></span>DPadVertical</h2>
+<a id="aedfefce58fb93fbe6208ab381496a6ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aedfefce58fb93fbe6208ab381496a6ef">&#9670;&nbsp;</a></span>threadPool()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -280,22 +632,55 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr sf::Joystick::Axis bl::input::controllers::Xbox360::DPadVertical = sf::Joystick::Axis::PovY</td>
+          <td class="memname"><a class="el" href="a04527.html">util::ThreadPool</a> &amp; bl::engine::Engine::threadPool </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00308_source.html#l00050">50</a> of file <a class="el" href="a00308_source.html">Xbox360.hpp</a>.</p>
+<p>Returns the engine thread pool. </p>
+
+<p class="definition">Definition at line <a class="el" href="a05599_source.html#l00211">211</a> of file <a class="el" href="a05599_source.html">Engine.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a8230685a10c9565a2b34567986e9d344"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8230685a10c9565a2b34567986e9d344">&#9670;&nbsp;</a></span>LB</h2>
+<a id="ad323770f0f207308e6b6de8146bbf5c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad323770f0f207308e6b6de8146bbf5c7">&#9670;&nbsp;</a></span>updateExistingWindow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::engine::Engine::updateExistingWindow </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a02595.html">Settings::WindowParameters</a> &amp;&#160;</td>
+          <td class="paramname"><em>parameters</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Updates settings on the window without recreating it. <a class="el" href="a02591.html" title="Collection of settings to create an Engine with, organized as a builder.">Settings</a> that require a new window are not applied, but do get saved to the configuration store. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">parameters</td><td>The settings to apply </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01328_source.html#l00315">315</a> of file <a class="el" href="a01328_source.html">Engine.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a7fddc49fdd4d46a671be63374aa189c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7fddc49fdd4d46a671be63374aa189c9">&#9670;&nbsp;</a></span>window()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -304,340 +689,34 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr unsigned int bl::input::controllers::Xbox360::LB = 5</td>
+          <td class="memname"><a class="el" href="a02036.html#ga57d216bfcb86b8f4150d59bf58be39f0">EngineWindow</a> &amp; bl::engine::Engine::window </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00308_source.html#l00038">38</a> of file <a class="el" href="a00308_source.html">Xbox360.hpp</a>.</p>
+<p>Returns a reference to the window the engine has created and is managing. The window is created when <a class="el" href="a02555.html#a101b5879f1f1b2164517da01b5df7e25" title="Runs the main game loop starting in the given initial state. This is the main application loop and ru...">run()</a> is called. </p>
+
+<p class="definition">Definition at line <a class="el" href="a05599_source.html#l00209">209</a> of file <a class="el" href="a05599_source.html">Engine.hpp</a>.</p>
 
 </div>
 </div>
-<a id="ac8d889820deae3ac0dafaa9c810fd470"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac8d889820deae3ac0dafaa9c810fd470">&#9670;&nbsp;</a></span>LS</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr unsigned int bl::input::controllers::Xbox360::LS = 8</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00308_source.html#l00041">41</a> of file <a class="el" href="a00308_source.html">Xbox360.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a633d72e16c905c85b3a36dd098b1c9af"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a633d72e16c905c85b3a36dd098b1c9af">&#9670;&nbsp;</a></span>LSHorizontal</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr sf::Joystick::Axis bl::input::controllers::Xbox360::LSHorizontal = sf::Joystick::Axis::X</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00308_source.html#l00044">44</a> of file <a class="el" href="a00308_source.html">Xbox360.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a31a8a8a64b9196cad1bdd54e38c9887c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a31a8a8a64b9196cad1bdd54e38c9887c">&#9670;&nbsp;</a></span>LSVertical</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr sf::Joystick::Axis bl::input::controllers::Xbox360::LSVertical = sf::Joystick::Axis::Y</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00308_source.html#l00045">45</a> of file <a class="el" href="a00308_source.html">Xbox360.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a5c48a1875fa108486077b1ed9c0e248c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5c48a1875fa108486077b1ed9c0e248c">&#9670;&nbsp;</a></span>RB</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr unsigned int bl::input::controllers::Xbox360::RB = 4</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00308_source.html#l00037">37</a> of file <a class="el" href="a00308_source.html">Xbox360.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a6b3f1ebd708be6644f0d63f2e169ea8e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6b3f1ebd708be6644f0d63f2e169ea8e">&#9670;&nbsp;</a></span>RS</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr unsigned int bl::input::controllers::Xbox360::RS = 9</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00308_source.html#l00042">42</a> of file <a class="el" href="a00308_source.html">Xbox360.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a2a89fe6201862e2b2b0bc13ffeb407c9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2a89fe6201862e2b2b0bc13ffeb407c9">&#9670;&nbsp;</a></span>RSHorizontal</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr sf::Joystick::Axis bl::input::controllers::Xbox360::RSHorizontal = sf::Joystick::Axis::U</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00308_source.html#l00046">46</a> of file <a class="el" href="a00308_source.html">Xbox360.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a4e6ce7f3c21d9c2ec1969dc9163dc4b7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4e6ce7f3c21d9c2ec1969dc9163dc4b7">&#9670;&nbsp;</a></span>RSVertical</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr sf::Joystick::Axis bl::input::controllers::Xbox360::RSVertical = sf::Joystick::Axis::V</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00308_source.html#l00047">47</a> of file <a class="el" href="a00308_source.html">Xbox360.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a17e272ec55c99efca4eae14f81d6d296"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a17e272ec55c99efca4eae14f81d6d296">&#9670;&nbsp;</a></span>Start</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr unsigned int bl::input::controllers::Xbox360::Start = 7</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00308_source.html#l00040">40</a> of file <a class="el" href="a00308_source.html">Xbox360.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a81069586f4b40749983aa00fce22c433"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a81069586f4b40749983aa00fce22c433">&#9670;&nbsp;</a></span>StickDeadZone</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr float bl::input::controllers::Xbox360::StickDeadZone = 22.f</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00308_source.html#l00030">30</a> of file <a class="el" href="a00308_source.html">Xbox360.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a6981b8d3032d3f5e757faaeeda729368"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6981b8d3032d3f5e757faaeeda729368">&#9670;&nbsp;</a></span>StickDeadZoneNormalized</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr float bl::input::controllers::Xbox360::StickDeadZoneNormalized = <a class="el" href="a02555.html#a81069586f4b40749983aa00fce22c433">StickDeadZone</a> / 100.f</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00308_source.html#l00031">31</a> of file <a class="el" href="a00308_source.html">Xbox360.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ada4dd32270bea69536d559ec2bc33c6d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ada4dd32270bea69536d559ec2bc33c6d">&#9670;&nbsp;</a></span>Triggers</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr sf::Joystick::Axis bl::input::controllers::Xbox360::Triggers = sf::Joystick::Axis::Z</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00308_source.html#l00052">52</a> of file <a class="el" href="a00308_source.html">Xbox360.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a0a3d2264df2101a7534148659b3b8734"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0a3d2264df2101a7534148659b3b8734">&#9670;&nbsp;</a></span>X</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr unsigned int bl::input::controllers::Xbox360::X = 2</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00308_source.html#l00035">35</a> of file <a class="el" href="a00308_source.html">Xbox360.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a0ad76dfeab6a857e006035aaea668bfd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0ad76dfeab6a857e006035aaea668bfd">&#9670;&nbsp;</a></span>Y</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr unsigned int bl::input::controllers::Xbox360::Y = 3</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00308_source.html#l00036">36</a> of file <a class="el" href="a00308_source.html">Xbox360.hpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/BLIB/Input/Controllers/<a class="el" href="a00308_source.html">Xbox360.hpp</a></li>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/BLIB/Engine/<a class="el" href="a05599_source.html">Engine.hpp</a></li>
+<li>src/Engine/<a class="el" href="a01328_source.html">Engine.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 25 2023 00:24:23 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 27 2023 23:34:42 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

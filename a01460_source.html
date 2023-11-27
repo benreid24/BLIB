@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Descriptors/Builtin/TexturePoolFactory.cpp Source File</title>
+<title>BLIB: src/Interfaces/GUI/Elements/Container.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,46 +66,224 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_c46d59b26ba1c7a895704386ecf9511b.html">Descriptors</a></li><li class="navelem"><a class="el" href="dir_1c9d8e1815e637956400971975ea0cfc.html">Builtin</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_ce6405ba0afce575b27b3b998c1d24f9.html">Interfaces</a></li><li class="navelem"><a class="el" href="dir_8031c595bb16908e26701cd6b5d8df53.html">GUI</a></li><li class="navelem"><a class="el" href="dir_2f8d53e1ba10fbf191c8865f2f20ae97.html">Elements</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">TexturePoolFactory.cpp</div>  </div>
+<div class="title">Container.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01460.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00599.html">BLIB/Render/Descriptors/Builtin/TexturePoolFactory.hpp</a>&gt;</span></div>
+<a href="a01460.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00407.html">BLIB/Interfaces/GUI/Elements/Container.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00602.html">BLIB/Render/Descriptors/Builtin/TexturePoolInstance.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05139.html">BLIB/Render/Renderer.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01833.html">bl</a></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>rc</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>ds</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keywordtype">void</span> ds::TexturePoolFactory::init(engine::Engine&amp;, Renderer&amp; renderer) {</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    texturePool         = &amp;renderer.texturePool();</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    descriptorSetLayout = renderer.texturePool().getDescriptorLayout();</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;}</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;std::unique_ptr&lt;DescriptorSetInstance&gt; TexturePoolFactory::createDescriptorSet()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keywordflow">return</span> std::make_unique&lt;TexturePoolInstance&gt;(*texturePool);</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;}</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;} <span class="comment">// namespace ds</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00599_html"><div class="ttname"><a href="a00599.html">TexturePoolFactory.hpp</a></div></div>
-<div class="ttc" id="aa00602_html"><div class="ttname"><a href="a00602.html">TexturePoolInstance.hpp</a></div></div>
-<div class="ttc" id="aa01833_html"><div class="ttname"><a href="a01833.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa05139_html"><div class="ttname"><a href="a05139.html">Renderer.hpp</a></div></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00614.html">BLIB/Interfaces.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00428.html">BLIB/Interfaces/GUI/Elements/ScrollArea.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00611.html">BLIB/Interfaces/Utilities.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02058.html">bl</a></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>gui</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keywordtype">void</span> deleteElement(std::vector&lt;Element::Ptr&gt;&amp; list, <span class="keyword">const</span> Element* e) {</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; list.size(); ++i) {</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        <span class="keywordflow">if</span> (list[i].get() == e) {</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;            list.erase(list.begin() + i);</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;            --i;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        }</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    }</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;}</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keywordtype">void</span> deleteElement(std::vector&lt;Element*&gt;&amp; list, <span class="keyword">const</span> Element* e) {</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; list.size(); ++i) {</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        <span class="keywordflow">if</span> (list[i] == e) {</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;            list.erase(list.begin() + i);</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;            --i;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        }</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    }</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;}</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;} <span class="comment">// namespace</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="a02927.html#a59a7d16a88dd6b7c6bfd55dea75c338b">   33</a></span>&#160;<a class="code" href="a02927.html#a59a7d16a88dd6b7c6bfd55dea75c338b">Container::Container</a>()</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;: <a class="code" href="a02931.html">Element</a>()</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;, clearFlag(false) {</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <a class="code" href="a02931.html#abc2879ece76f07e11c0878d692985fb9">getSignal</a>(<a class="code" href="a02995.html#a14b67eb968cc68b09a420e989b3a4a54a640a541b7e49339af9729bbd45b728e6">Event::AcquisitionChanged</a>).<a class="code" href="a04507.html#ac48c3cecfd78a12d2e7762b1f1df54d1">willAlwaysCall</a>(std::bind(&amp;Container::acquisitionCb, <span class="keyword">this</span>));</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <a class="code" href="a02931.html#abc2879ece76f07e11c0878d692985fb9">getSignal</a>(<a class="code" href="a02995.html#a14b67eb968cc68b09a420e989b3a4a54a5c7a797c6e665cc925c587a4352212e2">Event::Moved</a>).<a class="code" href="a04507.html#ac48c3cecfd78a12d2e7762b1f1df54d1">willAlwaysCall</a>(std::bind(&amp;Container::moveCb, <span class="keyword">this</span>));</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;}</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="a02927.html#a17accf8a3bf4c7ba8de2ecc0e0d0f056">   40</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a02927.html#a17accf8a3bf4c7ba8de2ecc0e0d0f056">Container::releaseFocus</a>(<span class="keyword">const</span> <a class="code" href="a02931.html">Element</a>* requester) {</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="a02931.html#ab5c567ea13f423a6b106becf3b9dd2ae">Element::releaseFocus</a>(requester)) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="a02931.html#a21b57f73febb9e1c62e8abcef64b1654">Element::Ptr</a>&amp; e : children) {</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <span class="keywordflow">if</span> (!e-&gt;releaseFocus(requester)) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    }</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;}</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="keywordtype">void</span> Container::acquisitionCb() { <a class="code" href="a02927.html#a4df166896ee37944f03c56f03124c046">onAcquisition</a>(); }</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="keywordtype">void</span> Container::moveCb() {</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="a02931.html#a1c99532e3fe4763510d2223fa5cc970a">Element</a>* c : zorder) { c-&gt;recalculatePosition(); }</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;}</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="a02927.html#ab66b030effcbc408715e6ced7961ce62">   55</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02927.html#ab66b030effcbc408715e6ced7961ce62">Container::bringToTop</a>(<span class="keyword">const</span> <a class="code" href="a02931.html">Element</a>* child) {</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 1; i &lt; zorder.size(); ++i) {</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keywordflow">if</span> (zorder[i] == child) {</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            <a class="code" href="a02931.html">Element</a>* c = zorder[i];</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            zorder.erase(zorder.begin() + i);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            zorder.insert(zorder.begin(), c);</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            assignDepths();</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        }</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    }</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <a class="code" href="a02931.html#abfba06297becce01d059dea8eeea90ba">moveToTop</a>();</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;}</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="a02927.html#a23ad5e0f3e336fcda9fe8ce76c77b2c1">   69</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02927.html#a23ad5e0f3e336fcda9fe8ce76c77b2c1">Container::add</a>(<span class="keyword">const</span> <a class="code" href="a02931.html#a21b57f73febb9e1c62e8abcef64b1654">Element::Ptr</a>&amp; e) {</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    children.emplace_back(e);</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    zorder.insert(zorder.begin(), e.get());</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <a class="code" href="a02931.html#a1d58a16e0ab4908418af27188d0ce11e">setChildParent</a>(e.get());</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="a02931.html#a20cef85c03caaaa2cb70b1be581c30ee">getRenderer</a>()) { e-&gt;prepareRender(*<a class="code" href="a02931.html#a20cef85c03caaaa2cb70b1be581c30ee">getRenderer</a>()); }</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <a class="code" href="a02931.html#a25f12a23ffb09b4a0fb6eb92f005d810">makeDirty</a>();</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    assignDepths();</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;}</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
+<div class="line"><a name="l00078"></a><span class="lineno"><a class="line" href="a02927.html#adbc88c26ae99dce3addf0d4fd5d128a5">   78</a></span>&#160;<span class="keyword">const</span> std::vector&lt;Element::Ptr&gt;&amp; <a class="code" href="a02927.html#adbc88c26ae99dce3addf0d4fd5d128a5">Container::getChildren</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> children; }</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="a02927.html#acdce7aa80bf5fef13736d9b34e47c311">   80</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02927.html#acdce7aa80bf5fef13736d9b34e47c311">Container::removeChild</a>(<span class="keyword">const</span> <a class="code" href="a02931.html">Element</a>* child) { toRemove.push_back(child); }</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno"><a class="line" href="a02927.html#a147a37fca25126ae93b9a3a95446c8c8">   82</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02927.html#a147a37fca25126ae93b9a3a95446c8c8">Container::clearChildren</a>(<span class="keywordtype">bool</span> immediate) {</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    clearFlag = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keywordflow">if</span> (immediate) <a class="code" href="a02927.html#a56d14061cc088fd75de7d2792021fac5">update</a>(0.f);</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;}</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
+<div class="line"><a name="l00087"></a><span class="lineno"><a class="line" href="a02927.html#a0e06751608c742b0a7a7470d0dd25b24">   87</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a02927.html#a0e06751608c742b0a7a7470d0dd25b24">Container::propagateEvent</a>(<span class="keyword">const</span> <a class="code" href="a02995.html">Event</a>&amp; event) {</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; zorder.size(); ++i) {</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        <span class="keywordflow">if</span> (zorder[i]-&gt;<a class="code" href="a02931.html#a5867f27d44f8ebaf42b86db81524278c">processEvent</a>(event)) {</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;            <span class="keywordflow">if</span> (event.<a class="code" href="a02995.html#a9647efed7e63b7c601386a9efe4df37d">type</a>() == <a class="code" href="a02995.html#a14b67eb968cc68b09a420e989b3a4a54a619ccad7d365c0e6069c058de40dfa30">Event::MouseMoved</a>) {</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;                <span class="keyword">const</span> <a class="code" href="a02995.html">Event</a> fakeMove(<a class="code" href="a02995.html#a14b67eb968cc68b09a420e989b3a4a54a619ccad7d365c0e6069c058de40dfa30">Event::MouseMoved</a>, sf::Vector2f(-100000.f, -100000.f));</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;                <span class="keywordflow">for</span> (++i; i &lt; zorder.size(); ++i) { zorder[i]-&gt;processEvent(fakeMove); }</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;            }</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        }</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    }</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;}</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
+<div class="line"><a name="l00101"></a><span class="lineno"><a class="line" href="a02927.html#a1ea169d386ec13b5dc15b9777088c72e">  101</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a02927.html#a1ea169d386ec13b5dc15b9777088c72e">Container::handleScroll</a>(<span class="keyword">const</span> <a class="code" href="a02995.html">Event</a>&amp; event) {</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="a02931.html#af0695b05e105ed699a612ed3a3c0c84f">getAcquisition</a>().contains(event.<a class="code" href="a02995.html#ab99184b9b9289eecbe01eeabda8b1fb0">mousePosition</a>())) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="a02931.html">Element</a>* e : zorder) {</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        <span class="keywordflow">if</span> (e-&gt;handleScroll(event)) { <span class="keywordflow">return</span> <span class="keyword">true</span>; }</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    }</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;}</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
+<div class="line"><a name="l00111"></a><span class="lineno"><a class="line" href="a02927.html#a56d14061cc088fd75de7d2792021fac5">  111</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02927.html#a56d14061cc088fd75de7d2792021fac5">Container::update</a>(<span class="keywordtype">float</span> dt) {</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <a class="code" href="a02931.html#ac4458e4f4a7dd0a552a1fdbb991244e7">Element::update</a>(dt);</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">bool</span> soiled = clearFlag || !toRemove.empty();</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <span class="keywordflow">if</span> (clearFlag) {</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        clearFlag = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        children.clear();</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        zorder.clear();</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    }</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (!toRemove.empty()) {</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code" href="a02931.html">Element</a>* e : toRemove) {</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;            <span class="keywordflow">if</span> (renderer &amp;&amp; e-&gt;component) { renderer-&gt;removeComponentFromOverlay(e-&gt;component); }</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;            deleteElement(children, e);</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;            deleteElement(zorder, e);</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        }</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        assignDepths();</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        toRemove.clear();</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    }</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160; </div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="a02931.html#a2fe9691022f41756de7f7c07008de6ee">dirty</a>()) { <a class="code" href="a02931.html#a9236487952f5fc68729a2b20f692a141">assignAcquisition</a>(<a class="code" href="a02931.html#af0695b05e105ed699a612ed3a3c0c84f">getAcquisition</a>()); }</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    <span class="keywordflow">if</span> (soiled) { <a class="code" href="a02931.html#a25f12a23ffb09b4a0fb6eb92f005d810">makeDirty</a>(); }</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160; </div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="a02931.html">Element</a>* e : zorder) { e-&gt;update(dt); }</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;}</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160; </div>
+<div class="line"><a name="l00136"></a><span class="lineno"><a class="line" href="a02927.html#a8fcb78fb0d456a57749905155c2a120a">  136</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a02927.html#a8fcb78fb0d456a57749905155c2a120a">Container::receivesOutOfBoundsEvents</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; c : children) {</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;        <span class="keywordflow">if</span> (c-&gt;receivesOutOfBoundsEvents()) <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    }</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;}</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160; </div>
+<div class="line"><a name="l00143"></a><span class="lineno"><a class="line" href="a02927.html#aab70628a08ee0edaaeaf0c6ace8c8f0b">  143</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02927.html#aab70628a08ee0edaaeaf0c6ace8c8f0b">Container::prepareChildrenRender</a>(<a class="code" href="a03147.html">rdr::Renderer</a>&amp; r) {</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; child : children) { child-&gt;prepareRender(r); }</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    assignDepths();</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;}</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160; </div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;<span class="keywordtype">void</span> Container::assignDepths() {</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    constexpr <span class="keywordtype">float</span> WindowBias = 40.f;</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160; </div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    <span class="keywordtype">float</span> d = 0.f;</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> rit = zorder.rbegin(); rit != zorder.rend(); ++rit) {</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;        <a class="code" href="a02931.html">Element</a>* child      = *rit;</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">bool</span> isWindow = <span class="keyword">dynamic_cast&lt;</span><a class="code" href="a02991.html">Window</a>*<span class="keyword">&gt;</span>(child) != <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160; </div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;        d -= isWindow ? WindowBias : 0.5f;</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;        <span class="keywordflow">if</span> (child-&gt;<a class="code" href="a02931.html#aef13e9880003f4f11fafa46cb0b6c5d1">getComponent</a>()) { child-&gt;<a class="code" href="a02931.html#aef13e9880003f4f11fafa46cb0b6c5d1">getComponent</a>()-&gt;<a class="code" href="a03107.html#afbecf74e2fcab82f51d381190f26f110">assignDepth</a>(d); }</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    }</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;}</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160; </div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;} <span class="comment">// namespace gui</span></div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00407_html"><div class="ttname"><a href="a00407.html">Container.hpp</a></div></div>
+<div class="ttc" id="aa00428_html"><div class="ttname"><a href="a00428.html">ScrollArea.hpp</a></div></div>
+<div class="ttc" id="aa00611_html"><div class="ttname"><a href="a00611.html">Utilities.hpp</a></div></div>
+<div class="ttc" id="aa00614_html"><div class="ttname"><a href="a00614.html">Interfaces.hpp</a></div></div>
+<div class="ttc" id="aa02058_html"><div class="ttname"><a href="a02058.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02927_html_a0e06751608c742b0a7a7470d0dd25b24"><div class="ttname"><a href="a02927.html#a0e06751608c742b0a7a7470d0dd25b24">bl::gui::Container::propagateEvent</a></div><div class="ttdeci">virtual bool propagateEvent(const Event &amp;event) override</div><div class="ttdoc">Passes the event to all child elements, in Z order, and returns true on the first Element that consum...</div><div class="ttdef"><b>Definition:</b> <a href="a01460_source.html#l00087">Container.cpp:87</a></div></div>
+<div class="ttc" id="aa02927_html_a147a37fca25126ae93b9a3a95446c8c8"><div class="ttname"><a href="a02927.html#a147a37fca25126ae93b9a3a95446c8c8">bl::gui::Container::clearChildren</a></div><div class="ttdeci">void clearChildren(bool immediate=false)</div><div class="ttdoc">Removes and unpacks all child elements.</div><div class="ttdef"><b>Definition:</b> <a href="a01460_source.html#l00082">Container.cpp:82</a></div></div>
+<div class="ttc" id="aa02927_html_a17accf8a3bf4c7ba8de2ecc0e0d0f056"><div class="ttname"><a href="a02927.html#a17accf8a3bf4c7ba8de2ecc0e0d0f056">bl::gui::Container::releaseFocus</a></div><div class="ttdeci">virtual bool releaseFocus(const Element *requester) override</div><div class="ttdoc">Releases the focus of this Element, parent, and children, if not forced to stay in focus.</div><div class="ttdef"><b>Definition:</b> <a href="a01460_source.html#l00040">Container.cpp:40</a></div></div>
+<div class="ttc" id="aa02927_html_a1ea169d386ec13b5dc15b9777088c72e"><div class="ttname"><a href="a02927.html#a1ea169d386ec13b5dc15b9777088c72e">bl::gui::Container::handleScroll</a></div><div class="ttdeci">virtual bool handleScroll(const Event &amp;scroll) override</div><div class="ttdoc">Dispatches the scroll to children and returns true if any child handles the scroll.</div><div class="ttdef"><b>Definition:</b> <a href="a01460_source.html#l00101">Container.cpp:101</a></div></div>
+<div class="ttc" id="aa02927_html_a23ad5e0f3e336fcda9fe8ce76c77b2c1"><div class="ttname"><a href="a02927.html#a23ad5e0f3e336fcda9fe8ce76c77b2c1">bl::gui::Container::add</a></div><div class="ttdeci">void add(const Element::Ptr &amp;child)</div><div class="ttdoc">Adds the Element as a new child. Marks dirty. Note that this cannot be called from within the constru...</div><div class="ttdef"><b>Definition:</b> <a href="a01460_source.html#l00069">Container.cpp:69</a></div></div>
+<div class="ttc" id="aa02927_html_a4df166896ee37944f03c56f03124c046"><div class="ttname"><a href="a02927.html#a4df166896ee37944f03c56f03124c046">bl::gui::Container::onAcquisition</a></div><div class="ttdeci">virtual void onAcquisition()=0</div><div class="ttdoc">Called when the acquisition changes. This method is identical to subscribing to the AcquisitionChange...</div></div>
+<div class="ttc" id="aa02927_html_a56d14061cc088fd75de7d2792021fac5"><div class="ttname"><a href="a02927.html#a56d14061cc088fd75de7d2792021fac5">bl::gui::Container::update</a></div><div class="ttdeci">virtual void update(float dt) override</div><div class="ttdoc">Performs the removal of Elements pending removal. Then updates all children. Class overriding this sh...</div><div class="ttdef"><b>Definition:</b> <a href="a01460_source.html#l00111">Container.cpp:111</a></div></div>
+<div class="ttc" id="aa02927_html_a59a7d16a88dd6b7c6bfd55dea75c338b"><div class="ttname"><a href="a02927.html#a59a7d16a88dd6b7c6bfd55dea75c338b">bl::gui::Container::Container</a></div><div class="ttdeci">Container()</div><div class="ttdoc">Construct a new Container.</div><div class="ttdef"><b>Definition:</b> <a href="a01460_source.html#l00033">Container.cpp:33</a></div></div>
+<div class="ttc" id="aa02927_html_a8fcb78fb0d456a57749905155c2a120a"><div class="ttname"><a href="a02927.html#a8fcb78fb0d456a57749905155c2a120a">bl::gui::Container::receivesOutOfBoundsEvents</a></div><div class="ttdeci">virtual bool receivesOutOfBoundsEvents() const override</div><div class="ttdoc">Returns whether or not this element should receive events that occurred outside the acquisition of it...</div><div class="ttdef"><b>Definition:</b> <a href="a01460_source.html#l00136">Container.cpp:136</a></div></div>
+<div class="ttc" id="aa02927_html_aab70628a08ee0edaaeaf0c6ace8c8f0b"><div class="ttname"><a href="a02927.html#aab70628a08ee0edaaeaf0c6ace8c8f0b">bl::gui::Container::prepareChildrenRender</a></div><div class="ttdeci">virtual void prepareChildrenRender(rdr::Renderer &amp;renderer) override</div><div class="ttdoc">Calls prepareRender for all children. This method should not be called by derived classes as Element ...</div><div class="ttdef"><b>Definition:</b> <a href="a01460_source.html#l00143">Container.cpp:143</a></div></div>
+<div class="ttc" id="aa02927_html_ab66b030effcbc408715e6ced7961ce62"><div class="ttname"><a href="a02927.html#ab66b030effcbc408715e6ced7961ce62">bl::gui::Container::bringToTop</a></div><div class="ttdeci">virtual void bringToTop(const Element *child) override</div><div class="ttdoc">Raises the child Element to the front of the rendering/update queue.</div><div class="ttdef"><b>Definition:</b> <a href="a01460_source.html#l00055">Container.cpp:55</a></div></div>
+<div class="ttc" id="aa02927_html_acdce7aa80bf5fef13736d9b34e47c311"><div class="ttname"><a href="a02927.html#acdce7aa80bf5fef13736d9b34e47c311">bl::gui::Container::removeChild</a></div><div class="ttdeci">virtual void removeChild(const Element *child) override</div><div class="ttdoc">Removes the given Element from the list of child Elements.</div><div class="ttdef"><b>Definition:</b> <a href="a01460_source.html#l00080">Container.cpp:80</a></div></div>
+<div class="ttc" id="aa02927_html_adbc88c26ae99dce3addf0d4fd5d128a5"><div class="ttname"><a href="a02927.html#adbc88c26ae99dce3addf0d4fd5d128a5">bl::gui::Container::getChildren</a></div><div class="ttdeci">const std::vector&lt; Element::Ptr &gt; &amp; getChildren() const</div><div class="ttdoc">Returns a non mutable list of the child elements. Each element is mutable.</div><div class="ttdef"><b>Definition:</b> <a href="a01460_source.html#l00078">Container.cpp:78</a></div></div>
+<div class="ttc" id="aa02931_html"><div class="ttname"><a href="a02931.html">bl::gui::Element</a></div><div class="ttdoc">Base class for all GUI elements. Provides the common interface used for positioning,...</div><div class="ttdef"><b>Definition:</b> <a href="a00410_source.html#l00031">Element.hpp:33</a></div></div>
+<div class="ttc" id="aa02931_html_a1c99532e3fe4763510d2223fa5cc970a"><div class="ttname"><a href="a02931.html#a1c99532e3fe4763510d2223fa5cc970a">bl::gui::Element::Element</a></div><div class="ttdeci">Element()</div><div class="ttdoc">Builds a new Element.</div><div class="ttdef"><b>Definition:</b> <a href="a01463_source.html#l00012">Element.cpp:12</a></div></div>
+<div class="ttc" id="aa02931_html_a1d58a16e0ab4908418af27188d0ce11e"><div class="ttname"><a href="a02931.html#a1d58a16e0ab4908418af27188d0ce11e">bl::gui::Element::setChildParent</a></div><div class="ttdeci">void setChildParent(Element *parent)</div><div class="ttdoc">Sets the parent of the given element to this.</div><div class="ttdef"><b>Definition:</b> <a href="a01463_source.html#l00339">Element.cpp:339</a></div></div>
+<div class="ttc" id="aa02931_html_a20cef85c03caaaa2cb70b1be581c30ee"><div class="ttname"><a href="a02931.html#a20cef85c03caaaa2cb70b1be581c30ee">bl::gui::Element::getRenderer</a></div><div class="ttdeci">rdr::Renderer * getRenderer()</div><div class="ttdoc">Returns the current renderer, if any.</div><div class="ttdef"><b>Definition:</b> <a href="a00410_source.html#l00557">Element.hpp:557</a></div></div>
+<div class="ttc" id="aa02931_html_a21b57f73febb9e1c62e8abcef64b1654"><div class="ttname"><a href="a02931.html#a21b57f73febb9e1c62e8abcef64b1654">bl::gui::Element::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; Element &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00410_source.html#l00035">Element.hpp:35</a></div></div>
+<div class="ttc" id="aa02931_html_a25f12a23ffb09b4a0fb6eb92f005d810"><div class="ttname"><a href="a02931.html#a25f12a23ffb09b4a0fb6eb92f005d810">bl::gui::Element::makeDirty</a></div><div class="ttdeci">void makeDirty()</div><div class="ttdoc">Marks this Element as requiring a recalculation of acquisition.</div><div class="ttdef"><b>Definition:</b> <a href="a01463_source.html#l00243">Element.cpp:243</a></div></div>
+<div class="ttc" id="aa02931_html_a2fe9691022f41756de7f7c07008de6ee"><div class="ttname"><a href="a02931.html#a2fe9691022f41756de7f7c07008de6ee">bl::gui::Element::dirty</a></div><div class="ttdeci">bool dirty() const</div><div class="ttdoc">Returns true if this Element requires a reacquisition.</div><div class="ttdef"><b>Definition:</b> <a href="a01463_source.html#l00284">Element.cpp:284</a></div></div>
+<div class="ttc" id="aa02931_html_a5867f27d44f8ebaf42b86db81524278c"><div class="ttname"><a href="a02931.html#a5867f27d44f8ebaf42b86db81524278c">bl::gui::Element::processEvent</a></div><div class="ttdeci">bool processEvent(const Event &amp;event)</div><div class="ttdoc">Handles a GUI event. Typically not called manually.</div><div class="ttdef"><b>Definition:</b> <a href="a01463_source.html#l00114">Element.cpp:114</a></div></div>
+<div class="ttc" id="aa02931_html_a9236487952f5fc68729a2b20f692a141"><div class="ttname"><a href="a02931.html#a9236487952f5fc68729a2b20f692a141">bl::gui::Element::assignAcquisition</a></div><div class="ttdeci">void assignAcquisition(const sf::FloatRect &amp;acquisition)</div><div class="ttdoc">Set the acquisition of this element. Meant to be called by a Packer.</div><div class="ttdef"><b>Definition:</b> <a href="a01463_source.html#l00300">Element.cpp:300</a></div></div>
+<div class="ttc" id="aa02931_html_ab5c567ea13f423a6b106becf3b9dd2ae"><div class="ttname"><a href="a02931.html#ab5c567ea13f423a6b106becf3b9dd2ae">bl::gui::Element::releaseFocus</a></div><div class="ttdeci">virtual bool releaseFocus(const Element *requester=nullptr)</div><div class="ttdoc">Releases the focus from this Element. Returns true if element not in focus or if the element is not f...</div><div class="ttdef"><b>Definition:</b> <a href="a01463_source.html#l00082">Element.cpp:82</a></div></div>
+<div class="ttc" id="aa02931_html_abc2879ece76f07e11c0878d692985fb9"><div class="ttname"><a href="a02931.html#abc2879ece76f07e11c0878d692985fb9">bl::gui::Element::getSignal</a></div><div class="ttdeci">Signal &amp; getSignal(Event::Type trigger)</div><div class="ttdoc">Returns a modifiable reference to the signal for the given trigger. Undefined behavior if trigger is ...</div><div class="ttdef"><b>Definition:</b> <a href="a01463_source.html#l00051">Element.cpp:51</a></div></div>
+<div class="ttc" id="aa02931_html_abfba06297becce01d059dea8eeea90ba"><div class="ttname"><a href="a02931.html#abfba06297becce01d059dea8eeea90ba">bl::gui::Element::moveToTop</a></div><div class="ttdeci">void moveToTop() const</div><div class="ttdoc">Brings this Element to the top.</div><div class="ttdef"><b>Definition:</b> <a href="a01463_source.html#l00104">Element.cpp:104</a></div></div>
+<div class="ttc" id="aa02931_html_ac4458e4f4a7dd0a552a1fdbb991244e7"><div class="ttname"><a href="a02931.html#ac4458e4f4a7dd0a552a1fdbb991244e7">bl::gui::Element::update</a></div><div class="ttdeci">virtual void update(float dt)</div><div class="ttdoc">Updates this element.</div><div class="ttdef"><b>Definition:</b> <a href="a01463_source.html#l00396">Element.cpp:396</a></div></div>
+<div class="ttc" id="aa02931_html_aef13e9880003f4f11fafa46cb0b6c5d1"><div class="ttname"><a href="a02931.html#aef13e9880003f4f11fafa46cb0b6c5d1">bl::gui::Element::getComponent</a></div><div class="ttdeci">rdr::Component * getComponent()</div><div class="ttdoc">Returns the renderer component for this element. May be nullptr.</div><div class="ttdef"><b>Definition:</b> <a href="a00410_source.html#l00401">Element.hpp:401</a></div></div>
+<div class="ttc" id="aa02931_html_af0695b05e105ed699a612ed3a3c0c84f"><div class="ttname"><a href="a02931.html#af0695b05e105ed699a612ed3a3c0c84f">bl::gui::Element::getAcquisition</a></div><div class="ttdeci">const sf::FloatRect &amp; getAcquisition() const</div><div class="ttdoc">Returns the acquisition of the Element. This is the size allocated to it, and mays be larger or equal...</div><div class="ttdef"><b>Definition:</b> <a href="a01463_source.html#l00333">Element.cpp:333</a></div></div>
+<div class="ttc" id="aa02991_html"><div class="ttname"><a href="a02991.html">bl::gui::Window</a></div><div class="ttdoc">Element that represents a window in a GUI. Window elements are the top level element of any GUI....</div><div class="ttdef"><b>Definition:</b> <a href="a05614_source.html#l00020">Window.hpp:20</a></div></div>
+<div class="ttc" id="aa02995_html"><div class="ttname"><a href="a02995.html">bl::gui::Event</a></div><div class="ttdoc">GUI analog of sf::Event. Represents user actions that can propagate through the Element tree.</div><div class="ttdef"><b>Definition:</b> <a href="a05629_source.html#l00018">Event.hpp:18</a></div></div>
+<div class="ttc" id="aa02995_html_a14b67eb968cc68b09a420e989b3a4a54a5c7a797c6e665cc925c587a4352212e2"><div class="ttname"><a href="a02995.html#a14b67eb968cc68b09a420e989b3a4a54a5c7a797c6e665cc925c587a4352212e2">bl::gui::Event::Moved</a></div><div class="ttdeci">@ Moved</div><div class="ttdoc">Generic action for non text inputs to fire on change.</div><div class="ttdef"><b>Definition:</b> <a href="a05629_source.html#l00038">Event.hpp:38</a></div></div>
+<div class="ttc" id="aa02995_html_a14b67eb968cc68b09a420e989b3a4a54a619ccad7d365c0e6069c058de40dfa30"><div class="ttname"><a href="a02995.html#a14b67eb968cc68b09a420e989b3a4a54a619ccad7d365c0e6069c058de40dfa30">bl::gui::Event::MouseMoved</a></div><div class="ttdeci">@ MouseMoved</div><div class="ttdoc">Mouse moved away from Element.</div><div class="ttdef"><b>Definition:</b> <a href="a05629_source.html#l00025">Event.hpp:25</a></div></div>
+<div class="ttc" id="aa02995_html_a14b67eb968cc68b09a420e989b3a4a54a640a541b7e49339af9729bbd45b728e6"><div class="ttname"><a href="a02995.html#a14b67eb968cc68b09a420e989b3a4a54a640a541b7e49339af9729bbd45b728e6">bl::gui::Event::AcquisitionChanged</a></div><div class="ttdeci">@ AcquisitionChanged</div><div class="ttdoc">Focus was removed from element.</div><div class="ttdef"><b>Definition:</b> <a href="a05629_source.html#l00042">Event.hpp:42</a></div></div>
+<div class="ttc" id="aa02995_html_a9647efed7e63b7c601386a9efe4df37d"><div class="ttname"><a href="a02995.html#a9647efed7e63b7c601386a9efe4df37d">bl::gui::Event::type</a></div><div class="ttdeci">Type type() const</div><div class="ttdoc">Returns the type of the event.</div><div class="ttdef"><b>Definition:</b> <a href="a05734_source.html#l00119">Event.cpp:119</a></div></div>
+<div class="ttc" id="aa02995_html_ab99184b9b9289eecbe01eeabda8b1fb0"><div class="ttname"><a href="a02995.html#ab99184b9b9289eecbe01eeabda8b1fb0">bl::gui::Event::mousePosition</a></div><div class="ttdeci">const sf::Vector2f &amp; mousePosition() const</div><div class="ttdoc">Returns the position of the mouse when the event was fired.</div><div class="ttdef"><b>Definition:</b> <a href="a05734_source.html#l00121">Event.cpp:121</a></div></div>
+<div class="ttc" id="aa03107_html_afbecf74e2fcab82f51d381190f26f110"><div class="ttname"><a href="a03107.html#afbecf74e2fcab82f51d381190f26f110">bl::gui::rdr::Component::assignDepth</a></div><div class="ttdeci">virtual void assignDepth(float depth)</div><div class="ttdoc">Called when the depth of the component is modified. Default implementation fetches the com::Transform...</div><div class="ttdef"><b>Definition:</b> <a href="a01580_source.html#l00086">Component.cpp:86</a></div></div>
+<div class="ttc" id="aa03147_html"><div class="ttname"><a href="a03147.html">bl::gui::rdr::Renderer</a></div><div class="ttdoc">Top level GUI renderer. Manages components for elements. Behavior can be controlled by providing a di...</div><div class="ttdef"><b>Definition:</b> <a href="a05638_source.html#l00027">Renderer.hpp:27</a></div></div>
+<div class="ttc" id="aa04507_html_ac48c3cecfd78a12d2e7762b1f1df54d1"><div class="ttname"><a href="a04507.html#ac48c3cecfd78a12d2e7762b1f1df54d1">bl::util::Signal::willAlwaysCall</a></div><div class="ttdeci">void willAlwaysCall(const Callback &amp;cb)</div><div class="ttdoc">Set up a callback for always being called. Intended to be used by derived classes Callbacks set by th...</div><div class="ttdef"><b>Definition:</b> <a href="a05647_source.html#l00087">Signal.hpp:87</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 25 2023 00:24:21 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 27 2023 23:34:41 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

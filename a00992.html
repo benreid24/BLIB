@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Serialization/JSON.hpp File Reference</title>
+<title>BLIB: include/BLIB/Render/Vulkan/VulkanState.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,24 +66,63 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_0603dcfd3f324f38b3f10f913306f40f.html">Serialization</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_49b99cfd015d92f767de1d8dec868906.html">Vulkan</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">JSON.hpp File Reference</div>  </div>
+<div class="title">VulkanState.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a05175_source.html">BLIB/Serialization/JSON/JSON.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00995_source.html">BLIB/Serialization/JSON/JSONLoader.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a05172_source.html">BLIB/Serialization/JSON/Serializer.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a05611_source.html">BLIB/Engine/Window.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a05656_source.html">BLIB/Render/Config.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00878_source.html">BLIB/Render/Resources/ShaderModuleCache.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00920_source.html">BLIB/Render/Transfers/TransferEngine.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00938_source.html">BLIB/Render/Vulkan/CleanupManager.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00941_source.html">BLIB/Render/Vulkan/CommonSamplers.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00944_source.html">BLIB/Render/Vulkan/DescriptorPool.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00950_source.html">BLIB/Render/Vulkan/Framebuffer.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00953_source.html">BLIB/Render/Vulkan/PerFrame.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00956_source.html">BLIB/Render/Vulkan/PerFrameVector.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00986_source.html">BLIB/Render/Vulkan/Swapchain.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00989_source.html">BLIB/Render/Vulkan/VkCheck.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01244_source.html">BLIB/Vulkan.hpp</a>&gt;</code><br />
+<code>#include &lt;array&gt;</code><br />
+<code>#include &lt;cstdint&gt;</code><br />
+<code>#include &lt;initializer_list&gt;</code><br />
+<code>#include &lt;mutex&gt;</code><br />
+<code>#include &lt;stdexcept&gt;</code><br />
+<code>#include &lt;utility&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
 </div>
 <p><a href="a00992_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03875.html">bl::rc::vk::VulkanState</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Primary owner and manager of the Vulkan renderer's state.  <a href="a03875.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:a02058"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02058.html">bl</a></td></tr>
+<tr class="memdesc:a02058"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02070"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02070.html">bl::rc</a></td></tr>
+<tr class="memdesc:a02070"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a03603.html" title="Top level rendering system of the game engine.">Renderer</a> core implementation classes and functionality. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02071"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02071.html">bl::rc::vk</a></td></tr>
+<tr class="memdesc:a02071"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of interfaces and utilities directly related to Vulkan. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 25 2023 00:24:21 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 27 2023 23:34:41 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

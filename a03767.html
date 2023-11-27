@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::serial::json::Base Class Reference</title>
+<title>BLIB: bl::rc::vk::CommonSamplers Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,95 +66,231 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01833.html">bl</a></li><li class="navelem"><a class="el" href="a01836.html">serial</a></li><li class="navelem"><a class="el" href="a01888.html">json</a></li><li class="navelem"><a class="el" href="a03767.html">Base</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02058.html">bl</a></li><li class="navelem"><a class="el" href="a02070.html">rc</a></li><li class="navelem"><a class="el" href="a02071.html">vk</a></li><li class="navelem"><a class="el" href="a03767.html">CommonSamplers</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="a03764.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::serial::json::Base Class Reference</div>  </div>
+<div class="title">bl::rc::vk::CommonSamplers Class Reference<div class="ingroups"><a class="el" href="a02045.html">Renderer</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="a03767.html" title="Base class for all json types.">Base</a> class for all json types.  
+<p>Helper class containing some common samplers to save on boilerplate.  
  <a href="a03767.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a05175_source.html">JSON.hpp</a>&gt;</code></p>
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::serial::json::Base:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
- <div class="center">
-  <img src="a03767.png" usemap="#bl::serial::json::Base_map" alt=""/>
-  <map id="bl::serial::json::Base_map" name="bl::serial::json::Base_map">
-<area href="a03771.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ..." alt="bl::serial::json::Group" shape="rect" coords="0,56,129,80"/>
-<area href="a03775.html" title="Represents any value type in JSON." alt="bl::serial::json::Value" shape="rect" coords="139,56,268,80"/>
-  </map>
-</div></div>
+<p><code>#include &lt;<a class="el" href="a00941_source.html">CommonSamplers.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a11c09a5670bfe42992ea3a228abe19c8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03767.html#a11c09a5670bfe42992ea3a228abe19c8">setSource</a> (const <a class="el" href="a03763.html">SourceInfo</a> &amp;<a class="el" href="a03767.html#a071b314d6053fa3d0905e1a098cb82e2">source</a>)</td></tr>
-<tr class="separator:a11c09a5670bfe42992ea3a228abe19c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a071b314d6053fa3d0905e1a098cb82e2"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a03763.html">SourceInfo</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03767.html#a071b314d6053fa3d0905e1a098cb82e2">source</a> () const</td></tr>
-<tr class="separator:a071b314d6053fa3d0905e1a098cb82e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a887d75e4a88c40f207e245a9de6d89b6"><td class="memItemLeft" align="right" valign="top">constexpr VkSampler&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03767.html#a887d75e4a88c40f207e245a9de6d89b6">noFilterEdgeClamped</a> () const</td></tr>
+<tr class="memdesc:a887d75e4a88c40f207e245a9de6d89b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a sampler with no filtering and clamped to border. Max anisotropy.  <a href="a03767.html#a887d75e4a88c40f207e245a9de6d89b6">More...</a><br /></td></tr>
+<tr class="separator:a887d75e4a88c40f207e245a9de6d89b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7bf3aa5b9992f8e35d819aa61f056f43"><td class="memItemLeft" align="right" valign="top">constexpr VkSampler&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03767.html#a7bf3aa5b9992f8e35d819aa61f056f43">minFilterEdgeClamped</a> () const</td></tr>
+<tr class="memdesc:a7bf3aa5b9992f8e35d819aa61f056f43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a sampler with min filtering and clamped to border. Max anisotropy.  <a href="a03767.html#a7bf3aa5b9992f8e35d819aa61f056f43">More...</a><br /></td></tr>
+<tr class="separator:a7bf3aa5b9992f8e35d819aa61f056f43"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32fb508e1ae1bddeac359eb39e0c2e96"><td class="memItemLeft" align="right" valign="top">constexpr VkSampler&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03767.html#a32fb508e1ae1bddeac359eb39e0c2e96">magFilterEdgeClamped</a> () const</td></tr>
+<tr class="memdesc:a32fb508e1ae1bddeac359eb39e0c2e96"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a sampler with mag filtering and clamped to border. Max anisotropy.  <a href="a03767.html#a32fb508e1ae1bddeac359eb39e0c2e96">More...</a><br /></td></tr>
+<tr class="separator:a32fb508e1ae1bddeac359eb39e0c2e96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa63932116372b2d81d93813f5e7edfd3"><td class="memItemLeft" align="right" valign="top">constexpr VkSampler&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03767.html#aa63932116372b2d81d93813f5e7edfd3">filteredEdgeClamped</a> () const</td></tr>
+<tr class="memdesc:aa63932116372b2d81d93813f5e7edfd3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a sampler with filtering and clamped to border. Max anisotropy.  <a href="a03767.html#aa63932116372b2d81d93813f5e7edfd3">More...</a><br /></td></tr>
+<tr class="separator:aa63932116372b2d81d93813f5e7edfd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0fefa66f327fd347699cca2f71509e7a"><td class="memItemLeft" align="right" valign="top">constexpr VkSampler&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03767.html#a0fefa66f327fd347699cca2f71509e7a">filteredRepeated</a> () const</td></tr>
+<tr class="memdesc:a0fefa66f327fd347699cca2f71509e7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a sampler with filtering and repeated addressing.  <a href="a03767.html#a0fefa66f327fd347699cca2f71509e7a">More...</a><br /></td></tr>
+<tr class="separator:a0fefa66f327fd347699cca2f71509e7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a88be4fe9fe4217b2dc1f69e6888906f6"><td class="memItemLeft" align="right" valign="top">struct&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03767.html#a88be4fe9fe4217b2dc1f69e6888906f6">VulkanState</a></td></tr>
+<tr class="separator:a88be4fe9fe4217b2dc1f69e6888906f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="a03767.html" title="Base class for all json types.">Base</a> class for all json types. </p>
+<div class="textblock"><p>Helper class containing some common samplers to save on boilerplate. </p>
 
-<p class="definition">Definition at line <a class="el" href="a05175_source.html#l00038">38</a> of file <a class="el" href="a05175_source.html">JSON.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00941_source.html#l00019">19</a> of file <a class="el" href="a00941_source.html">CommonSamplers.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a11c09a5670bfe42992ea3a228abe19c8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a11c09a5670bfe42992ea3a228abe19c8">&#9670;&nbsp;</a></span>setSource()</h2>
+<a id="aa63932116372b2d81d93813f5e7edfd3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa63932116372b2d81d93813f5e7edfd3">&#9670;&nbsp;</a></span>filteredEdgeClamped()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::serial::json::Base::setSource </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a03763.html">SourceInfo</a> &amp;&#160;</td>
-          <td class="paramname"><em>source</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01754_source.html#l00034">34</a> of file <a class="el" href="a01754_source.html">JSON.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a071b314d6053fa3d0905e1a098cb82e2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a071b314d6053fa3d0905e1a098cb82e2">&#9670;&nbsp;</a></span>source()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="a03763.html">SourceInfo</a> &amp; bl::serial::json::Base::source </td>
+          <td class="memname">constexpr VkSampler bl::rc::vk::CommonSamplers::filteredEdgeClamped </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a01754_source.html#l00036">36</a> of file <a class="el" href="a01754_source.html">JSON.cpp</a>.</p>
+<p>Returns a sampler with filtering and clamped to border. Max anisotropy. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00941_source.html#l00069">69</a> of file <a class="el" href="a00941_source.html">CommonSamplers.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a0fefa66f327fd347699cca2f71509e7a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0fefa66f327fd347699cca2f71509e7a">&#9670;&nbsp;</a></span>filteredRepeated()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr VkSampler bl::rc::vk::CommonSamplers::filteredRepeated </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns a sampler with filtering and repeated addressing. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00941_source.html#l00071">71</a> of file <a class="el" href="a00941_source.html">CommonSamplers.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a32fb508e1ae1bddeac359eb39e0c2e96"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a32fb508e1ae1bddeac359eb39e0c2e96">&#9670;&nbsp;</a></span>magFilterEdgeClamped()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr VkSampler bl::rc::vk::CommonSamplers::magFilterEdgeClamped </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns a sampler with mag filtering and clamped to border. Max anisotropy. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00941_source.html#l00067">67</a> of file <a class="el" href="a00941_source.html">CommonSamplers.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a7bf3aa5b9992f8e35d819aa61f056f43"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7bf3aa5b9992f8e35d819aa61f056f43">&#9670;&nbsp;</a></span>minFilterEdgeClamped()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr VkSampler bl::rc::vk::CommonSamplers::minFilterEdgeClamped </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns a sampler with min filtering and clamped to border. Max anisotropy. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00941_source.html#l00065">65</a> of file <a class="el" href="a00941_source.html">CommonSamplers.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a887d75e4a88c40f207e245a9de6d89b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a887d75e4a88c40f207e245a9de6d89b6">&#9670;&nbsp;</a></span>noFilterEdgeClamped()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr VkSampler bl::rc::vk::CommonSamplers::noFilterEdgeClamped </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns a sampler with no filtering and clamped to border. Max anisotropy. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00941_source.html#l00063">63</a> of file <a class="el" href="a00941_source.html">CommonSamplers.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Friends And Related Function Documentation</h2>
+<a id="a88be4fe9fe4217b2dc1f69e6888906f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88be4fe9fe4217b2dc1f69e6888906f6">&#9670;&nbsp;</a></span>VulkanState</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend struct <a class="el" href="a03875.html">VulkanState</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00941_source.html#l00058">58</a> of file <a class="el" href="a00941_source.html">CommonSamplers.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Serialization/JSON/<a class="el" href="a05175_source.html">JSON.hpp</a></li>
-<li>src/Serialization/JSON/<a class="el" href="a01754_source.html">JSON.cpp</a></li>
+<li>include/BLIB/Render/Vulkan/<a class="el" href="a00941_source.html">CommonSamplers.hpp</a></li>
+<li>src/Render/Vulkan/<a class="el" href="a01826_source.html">CommonSamplers.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 25 2023 00:24:24 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 27 2023 23:34:43 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

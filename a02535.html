@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::input::Actor Class Reference</title>
+<title>BLIB: bl::ecs::trait::ParentAwareVersioned&lt; T &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,858 +66,242 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01833.html">bl</a></li><li class="navelem"><a class="el" href="a01862.html">input</a></li><li class="navelem"><a class="el" href="a02535.html">Actor</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02058.html">bl</a></li><li class="navelem"><a class="el" href="a02073.html">ecs</a></li><li class="navelem"><a class="el" href="a02077.html">trait</a></li><li class="navelem"><a class="el" href="a02535.html">ParentAwareVersioned</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#friends">Friends</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="a02532.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::input::Actor Class Reference<div class="ingroups"><a class="el" href="a01814.html">Input</a></div></div>  </div>
+<div class="title">bl::ecs::trait::ParentAwareVersioned&lt; T &gt; Class Template Reference<div class="ingroups"><a class="el" href="a02035.html">ECS</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Represents a single actor (player) that can give input. Listeners subscribe to a single actor for their input. Each actor has it's own control set and scheme.  
+<p>Combined trait that is both parent aware and versioned. Maintains an internal dirty state that derived classes can use to determine if they need to refresh themselves. The dirty state is recursively defined with the entire parent tree.  
  <a href="a02535.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00299_source.html">Actor.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00191_source.html">ParentAwareVersioned.hpp</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::input::Actor:</div>
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::ecs::trait::ParentAwareVersioned&lt; T &gt;:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
  <div class="center">
-  <img src="a02535.png" usemap="#bl::input::Actor_map" alt=""/>
-  <map id="bl::input::Actor_map" name="bl::input::Actor_map">
-<area href="a04011.html" title="Helper class to make derived classes impossible for user to copy directly." alt="bl::util::NonCopyable" shape="rect" coords="0,0,127,24"/>
+  <img src="a02535.png" usemap="#bl::ecs::trait::ParentAwareVersioned_3C_20T_20_3E_map" alt=""/>
+  <map id="bl::ecs::trait::ParentAwareVersioned_3C_20T_20_3E_map" name="bl::ecs::trait::ParentAwareVersioned_3C_20T_20_3E_map">
+<area href="a02531.html" title="Component trait for components that are parent-able. Parent is set in the Registry as an entity-level..." alt="bl::ecs::trait::ParentAware&lt; T &gt;" shape="rect" coords="0,0,244,24"/>
+<area href="a02539.html" title="Component trait for versions. Versions are a more robust dirty state, allowing observers of the compo..." alt="bl::ecs::trait::Versioned" shape="rect" coords="254,0,498,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:afa3bc59cf6364ae07dcd81bc51777c8e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02535.html#afa3bc59cf6364ae07dcd81bc51777c8e">~Actor</a> ()</td></tr>
-<tr class="memdesc:afa3bc59cf6364ae07dcd81bc51777c8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the <a class="el" href="a02535.html" title="Represents a single actor (player) that can give input. Listeners subscribe to a single actor for the...">Actor</a> object.  <a href="a02535.html#afa3bc59cf6364ae07dcd81bc51777c8e">More...</a><br /></td></tr>
-<tr class="separator:afa3bc59cf6364ae07dcd81bc51777c8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad82575308d748c0798dd7ac640236654"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02535.html#ad82575308d748c0798dd7ac640236654">assignJoystick</a> (unsigned int joystickId)</td></tr>
-<tr class="memdesc:ad82575308d748c0798dd7ac640236654"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets which joystick this actor will receive input from. If this is not called then the <a class="el" href="a02535.html" title="Represents a single actor (player) that can give input. Listeners subscribe to a single actor for the...">Actor</a> will listen to all joysticks.  <a href="a02535.html#ad82575308d748c0798dd7ac640236654">More...</a><br /></td></tr>
-<tr class="separator:ad82575308d748c0798dd7ac640236654"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad1bf8aa5cad9314c021dce9286bfb2f0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02595.html">Trigger</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02535.html#ad1bf8aa5cad9314c021dce9286bfb2f0">getKBMTriggerControl</a> (unsigned int controlIndex)</td></tr>
-<tr class="memdesc:ad1bf8aa5cad9314c021dce9286bfb2f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the given trigger control.  <a href="a02535.html#ad1bf8aa5cad9314c021dce9286bfb2f0">More...</a><br /></td></tr>
-<tr class="separator:ad1bf8aa5cad9314c021dce9286bfb2f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af050860800a09ebb22e338ba6ac2aa7b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02595.html">Trigger</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02535.html#af050860800a09ebb22e338ba6ac2aa7b">getKBMMovementUpControl</a> (unsigned int controlIndex)</td></tr>
-<tr class="memdesc:af050860800a09ebb22e338ba6ac2aa7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the given movement up control for keyboard/mouse.  <a href="a02535.html#af050860800a09ebb22e338ba6ac2aa7b">More...</a><br /></td></tr>
-<tr class="separator:af050860800a09ebb22e338ba6ac2aa7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5fb300cd9d3007e2968eea0b6d31c067"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02595.html">Trigger</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02535.html#a5fb300cd9d3007e2968eea0b6d31c067">getKBMMovementRightControl</a> (unsigned int controlIndex)</td></tr>
-<tr class="memdesc:a5fb300cd9d3007e2968eea0b6d31c067"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the given movement right control for keyboard/mouse.  <a href="a02535.html#a5fb300cd9d3007e2968eea0b6d31c067">More...</a><br /></td></tr>
-<tr class="separator:a5fb300cd9d3007e2968eea0b6d31c067"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a099ece18f77ca1665a6f092b81e6d269"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02595.html">Trigger</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02535.html#a099ece18f77ca1665a6f092b81e6d269">getKBMMovementLeftControl</a> (unsigned int controlIndex)</td></tr>
-<tr class="memdesc:a099ece18f77ca1665a6f092b81e6d269"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the given movement left control for keyboard/mouse.  <a href="a02535.html#a099ece18f77ca1665a6f092b81e6d269">More...</a><br /></td></tr>
-<tr class="separator:a099ece18f77ca1665a6f092b81e6d269"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4522bd1799cb86b415719182ab3a3887"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02595.html">Trigger</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02535.html#a4522bd1799cb86b415719182ab3a3887">getKBMMovementDownControl</a> (unsigned int controlIndex)</td></tr>
-<tr class="memdesc:a4522bd1799cb86b415719182ab3a3887"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the given movement down control for keyboard/mouse.  <a href="a02535.html#a4522bd1799cb86b415719182ab3a3887">More...</a><br /></td></tr>
-<tr class="separator:a4522bd1799cb86b415719182ab3a3887"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a72a0b15e6e6783c96795828e61c569d6"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a02595.html">Trigger</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02535.html#a72a0b15e6e6783c96795828e61c569d6">getKBMTriggerControl</a> (unsigned int controlIndex) const</td></tr>
-<tr class="memdesc:a72a0b15e6e6783c96795828e61c569d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the given trigger control.  <a href="a02535.html#a72a0b15e6e6783c96795828e61c569d6">More...</a><br /></td></tr>
-<tr class="separator:a72a0b15e6e6783c96795828e61c569d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac2a451f42a07cd651b6cf1b064a44238"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a02595.html">Trigger</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02535.html#ac2a451f42a07cd651b6cf1b064a44238">getKBMMovementUpControl</a> (unsigned int controlIndex) const</td></tr>
-<tr class="memdesc:ac2a451f42a07cd651b6cf1b064a44238"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the given movement up control for keyboard/mouse.  <a href="a02535.html#ac2a451f42a07cd651b6cf1b064a44238">More...</a><br /></td></tr>
-<tr class="separator:ac2a451f42a07cd651b6cf1b064a44238"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7cc2703689456241d3fcf1fe2ce70ce4"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a02595.html">Trigger</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02535.html#a7cc2703689456241d3fcf1fe2ce70ce4">getKBMMovementRightControl</a> (unsigned int controlIndex) const</td></tr>
-<tr class="memdesc:a7cc2703689456241d3fcf1fe2ce70ce4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the given movement right control for keyboard/mouse.  <a href="a02535.html#a7cc2703689456241d3fcf1fe2ce70ce4">More...</a><br /></td></tr>
-<tr class="separator:a7cc2703689456241d3fcf1fe2ce70ce4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a242a867906287e49a0fe4ee3b74d5a32"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a02595.html">Trigger</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02535.html#a242a867906287e49a0fe4ee3b74d5a32">getKBMMovementLeftControl</a> (unsigned int controlIndex) const</td></tr>
-<tr class="memdesc:a242a867906287e49a0fe4ee3b74d5a32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the given movement left control for keyboard/mouse.  <a href="a02535.html#a242a867906287e49a0fe4ee3b74d5a32">More...</a><br /></td></tr>
-<tr class="separator:a242a867906287e49a0fe4ee3b74d5a32"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3f9ed73e9c740719d182516f08b42df8"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a02595.html">Trigger</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02535.html#a3f9ed73e9c740719d182516f08b42df8">getKBMMovementDownControl</a> (unsigned int controlIndex) const</td></tr>
-<tr class="memdesc:a3f9ed73e9c740719d182516f08b42df8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the given movement down control for keyboard/mouse.  <a href="a02535.html#a3f9ed73e9c740719d182516f08b42df8">More...</a><br /></td></tr>
-<tr class="separator:a3f9ed73e9c740719d182516f08b42df8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a13fef4d2f2af4418ac2f5ec085e096d2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02595.html">Trigger</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02535.html#a13fef4d2f2af4418ac2f5ec085e096d2">getJoystickTriggerControl</a> (unsigned int controlIndex)</td></tr>
-<tr class="memdesc:a13fef4d2f2af4418ac2f5ec085e096d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the given trigger control.  <a href="a02535.html#a13fef4d2f2af4418ac2f5ec085e096d2">More...</a><br /></td></tr>
-<tr class="separator:a13fef4d2f2af4418ac2f5ec085e096d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6adad9b1abddd26bed228d55dd36590c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02571.html">Joystick</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02535.html#a6adad9b1abddd26bed228d55dd36590c">getJoystickMovementControl</a> (unsigned int controlIndex)</td></tr>
-<tr class="memdesc:a6adad9b1abddd26bed228d55dd36590c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the given movement control.  <a href="a02535.html#a6adad9b1abddd26bed228d55dd36590c">More...</a><br /></td></tr>
-<tr class="separator:a6adad9b1abddd26bed228d55dd36590c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a72a542acd3481c2d75226a117c277e7f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02571.html">Joystick</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02535.html#a72a542acd3481c2d75226a117c277e7f">getJoystickDirectionalControl</a> (unsigned int controlIndex)</td></tr>
-<tr class="memdesc:a72a542acd3481c2d75226a117c277e7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the given directional control.  <a href="a02535.html#a72a542acd3481c2d75226a117c277e7f">More...</a><br /></td></tr>
-<tr class="separator:a72a542acd3481c2d75226a117c277e7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adbb8ac89e4de621fce96ea20bb898edb"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a02595.html">Trigger</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02535.html#adbb8ac89e4de621fce96ea20bb898edb">getJoystickTriggerControl</a> (unsigned int controlIndex) const</td></tr>
-<tr class="memdesc:adbb8ac89e4de621fce96ea20bb898edb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the given trigger control.  <a href="a02535.html#adbb8ac89e4de621fce96ea20bb898edb">More...</a><br /></td></tr>
-<tr class="separator:adbb8ac89e4de621fce96ea20bb898edb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a29b1c040475900254c0121b7898cb9fe"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a02571.html">Joystick</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02535.html#a29b1c040475900254c0121b7898cb9fe">getJoystickMovementControl</a> (unsigned int controlIndex) const</td></tr>
-<tr class="memdesc:a29b1c040475900254c0121b7898cb9fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the given movement control.  <a href="a02535.html#a29b1c040475900254c0121b7898cb9fe">More...</a><br /></td></tr>
-<tr class="separator:a29b1c040475900254c0121b7898cb9fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adaf52702f2e4f39b2d5889b24cff83f8"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a02571.html">Joystick</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02535.html#adaf52702f2e4f39b2d5889b24cff83f8">getJoystickDirectionalControl</a> (unsigned int controlIndex) const</td></tr>
-<tr class="memdesc:adaf52702f2e4f39b2d5889b24cff83f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the given directional control.  <a href="a02535.html#adaf52702f2e4f39b2d5889b24cff83f8">More...</a><br /></td></tr>
-<tr class="separator:adaf52702f2e4f39b2d5889b24cff83f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a075a5987e1ce671621c61a311e94e1fa"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02535.html#a075a5987e1ce671621c61a311e94e1fa">controlActive</a> (unsigned int controlIndex) const</td></tr>
-<tr class="memdesc:a075a5987e1ce671621c61a311e94e1fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the given control is active. Works only for trigger controls.  <a href="a02535.html#a075a5987e1ce671621c61a311e94e1fa">More...</a><br /></td></tr>
-<tr class="separator:a075a5987e1ce671621c61a311e94e1fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3307db46577cbf210aa69224ec6c0564"><td class="memItemLeft" align="right" valign="top">sf::Vector2f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02535.html#a3307db46577cbf210aa69224ec6c0564">readControl</a> (unsigned int controlIndex) const</td></tr>
-<tr class="memdesc:a3307db46577cbf210aa69224ec6c0564"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the given directional or movement control.  <a href="a02535.html#a3307db46577cbf210aa69224ec6c0564">More...</a><br /></td></tr>
-<tr class="separator:a3307db46577cbf210aa69224ec6c0564"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a65780f38c25bf87b4ed3982e4ff4910c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02535.html#a65780f38c25bf87b4ed3982e4ff4910c">joystickMode</a> () const</td></tr>
-<tr class="memdesc:a65780f38c25bf87b4ed3982e4ff4910c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not this actor is using a joystick (last valid input was joystick)  <a href="a02535.html#a65780f38c25bf87b4ed3982e4ff4910c">More...</a><br /></td></tr>
-<tr class="separator:a65780f38c25bf87b4ed3982e4ff4910c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab1d006120ac6c5fa6ac3d7a1fced7d6a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02535.html#ab1d006120ac6c5fa6ac3d7a1fced7d6a">addListener</a> (<a class="el" href="a02575.html">input::Listener</a> &amp;listener)</td></tr>
-<tr class="memdesc:ab1d006120ac6c5fa6ac3d7a1fced7d6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a new input listener.  <a href="a02535.html#ab1d006120ac6c5fa6ac3d7a1fced7d6a">More...</a><br /></td></tr>
-<tr class="separator:ab1d006120ac6c5fa6ac3d7a1fced7d6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a56283b2fa7496cb11af9ce65ea40a5d6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02535.html#a56283b2fa7496cb11af9ce65ea40a5d6">removeListener</a> (<a class="el" href="a02575.html">input::Listener</a> &amp;listener)</td></tr>
-<tr class="memdesc:a56283b2fa7496cb11af9ce65ea40a5d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the given listener. Does not have to be the active listener.  <a href="a02535.html#a56283b2fa7496cb11af9ce65ea40a5d6">More...</a><br /></td></tr>
-<tr class="separator:a56283b2fa7496cb11af9ce65ea40a5d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a863a02458bc5d034b2fdb33076ea58b3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02535.html#a863a02458bc5d034b2fdb33076ea58b3">replaceListener</a> (<a class="el" href="a02575.html">input::Listener</a> &amp;oldListener, <a class="el" href="a02575.html">input::Listener</a> &amp;newListener)</td></tr>
-<tr class="memdesc:a863a02458bc5d034b2fdb33076ea58b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Replaces the old listener with the new, keeping it at the same position in the queue.  <a href="a02535.html#a863a02458bc5d034b2fdb33076ea58b3">More...</a><br /></td></tr>
-<tr class="separator:a863a02458bc5d034b2fdb33076ea58b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a59ec1321ffcc99de4b4950c309868083"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02535.html#a59ec1321ffcc99de4b4950c309868083">saveToConfig</a> (const std::string &amp;prefix) const</td></tr>
-<tr class="memdesc:a59ec1321ffcc99de4b4950c309868083"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saves this control config to the engine configuration store.  <a href="a02535.html#a59ec1321ffcc99de4b4950c309868083">More...</a><br /></td></tr>
-<tr class="separator:a59ec1321ffcc99de4b4950c309868083"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a827a8b3f3b09d7fd2fd38b3fe7a25b54"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02535.html#a827a8b3f3b09d7fd2fd38b3fe7a25b54">loadFromConfig</a> (const std::string &amp;prefix)</td></tr>
-<tr class="memdesc:a827a8b3f3b09d7fd2fd38b3fe7a25b54"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads this control config from the engine configuration store.  <a href="a02535.html#a827a8b3f3b09d7fd2fd38b3fe7a25b54">More...</a><br /></td></tr>
-<tr class="separator:a827a8b3f3b09d7fd2fd38b3fe7a25b54"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25713b56a0155f6a27985c90c7028fbd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02535.html#a25713b56a0155f6a27985c90c7028fbd">ParentAwareVersioned</a> ()</td></tr>
+<tr class="memdesc:a25713b56a0155f6a27985c90c7028fbd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the trait and registers as dirty.  <a href="a02535.html#a25713b56a0155f6a27985c90c7028fbd">More...</a><br /></td></tr>
+<tr class="separator:a25713b56a0155f6a27985c90c7028fbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e718ab7c98a9f55df78b46933c07c8f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02535.html#a7e718ab7c98a9f55df78b46933c07c8f">ParentAwareVersioned</a> (const <a class="el" href="a02535.html">ParentAwareVersioned</a> &amp;)=default</td></tr>
+<tr class="memdesc:a7e718ab7c98a9f55df78b46933c07c8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default copy constructor.  <a href="a02535.html#a7e718ab7c98a9f55df78b46933c07c8f">More...</a><br /></td></tr>
+<tr class="separator:a7e718ab7c98a9f55df78b46933c07c8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0918e4fdb98af1efc77c5ad01a7606ab"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02535.html#a0918e4fdb98af1efc77c5ad01a7606ab">ParentAwareVersioned</a> (<a class="el" href="a02535.html">ParentAwareVersioned</a> &amp;&amp;)=default</td></tr>
+<tr class="memdesc:a0918e4fdb98af1efc77c5ad01a7606ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default move constructor.  <a href="a02535.html#a0918e4fdb98af1efc77c5ad01a7606ab">More...</a><br /></td></tr>
+<tr class="separator:a0918e4fdb98af1efc77c5ad01a7606ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adcf23c5e788b8996e14c9c04e2f7ac12"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02535.html">ParentAwareVersioned</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02535.html#adcf23c5e788b8996e14c9c04e2f7ac12">operator=</a> (const <a class="el" href="a02535.html">ParentAwareVersioned</a> &amp;)=default</td></tr>
+<tr class="memdesc:adcf23c5e788b8996e14c9c04e2f7ac12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default copy assignment.  <a href="a02535.html#adcf23c5e788b8996e14c9c04e2f7ac12">More...</a><br /></td></tr>
+<tr class="separator:adcf23c5e788b8996e14c9c04e2f7ac12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a987216f1e4582948cf76250687ebd4fe"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02535.html">ParentAwareVersioned</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02535.html#a987216f1e4582948cf76250687ebd4fe">operator=</a> (<a class="el" href="a02535.html">ParentAwareVersioned</a> &amp;&amp;)=default</td></tr>
+<tr class="memdesc:a987216f1e4582948cf76250687ebd4fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default move assignment.  <a href="a02535.html#a987216f1e4582948cf76250687ebd4fe">More...</a><br /></td></tr>
+<tr class="separator:a987216f1e4582948cf76250687ebd4fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a304a6ded9ccb6c48fa1e788e17887d90"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02535.html#a304a6ded9ccb6c48fa1e788e17887d90">refreshRequired</a> () const</td></tr>
+<tr class="memdesc:a304a6ded9ccb6c48fa1e788e17887d90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not this component needs to be refreshed. Takes into account parent state as well, including parent changes.  <a href="a02535.html#a304a6ded9ccb6c48fa1e788e17887d90">More...</a><br /></td></tr>
+<tr class="separator:a304a6ded9ccb6c48fa1e788e17887d90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab780c69836a6fda54b7bb9d14c536c7f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02531.html#ab780c69836a6fda54b7bb9d14c536c7f">hasParent</a> () const</td></tr>
+<tr class="memdesc:ab780c69836a6fda54b7bb9d14c536c7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not a parent has been set.  <a href="a02531.html#ab780c69836a6fda54b7bb9d14c536c7f">More...</a><br /></td></tr>
+<tr class="separator:ab780c69836a6fda54b7bb9d14c536c7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af956a8665be493c1af3a83e7b8b46b39"><td class="memItemLeft" align="right" valign="top">T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02531.html#af956a8665be493c1af3a83e7b8b46b39">getParent</a> ()</td></tr>
+<tr class="memdesc:af956a8665be493c1af3a83e7b8b46b39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the parent component.  <a href="a02531.html#af956a8665be493c1af3a83e7b8b46b39">More...</a><br /></td></tr>
+<tr class="separator:af956a8665be493c1af3a83e7b8b46b39"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b7753db78666c80beeec8d09d7f8727"><td class="memItemLeft" align="right" valign="top">const T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02531.html#a6b7753db78666c80beeec8d09d7f8727">getParent</a> () const</td></tr>
+<tr class="memdesc:a6b7753db78666c80beeec8d09d7f8727"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the parent component.  <a href="a02531.html#a6b7753db78666c80beeec8d09d7f8727">More...</a><br /></td></tr>
+<tr class="separator:a6b7753db78666c80beeec8d09d7f8727"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa588c79bb8fcd9436a0e57628859d41d"><td class="memItemLeft" align="right" valign="top">std::uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02539.html#aa588c79bb8fcd9436a0e57628859d41d">getVersion</a> () const</td></tr>
+<tr class="memdesc:aa588c79bb8fcd9436a0e57628859d41d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current version of the component. The value itself is not important, only changes in the value.  <a href="a02539.html#aa588c79bb8fcd9436a0e57628859d41d">More...</a><br /></td></tr>
+<tr class="separator:aa588c79bb8fcd9436a0e57628859d41d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a82719504b4bec76caa559aeedeb4d214"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02539.html#a82719504b4bec76caa559aeedeb4d214">incrementVersion</a> ()</td></tr>
+<tr class="memdesc:a82719504b4bec76caa559aeedeb4d214"><td class="mdescLeft">&#160;</td><td class="mdescRight">Increments the version. Call when the component changes.  <a href="a02539.html#a82719504b4bec76caa559aeedeb4d214">More...</a><br /></td></tr>
+<tr class="separator:a82719504b4bec76caa559aeedeb4d214"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
-Friends</h2></td></tr>
-<tr class="memitem:a6d6fb929d8afbbe0c165564e9b9ab596"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02535.html#a6d6fb929d8afbbe0c165564e9b9ab596">InputSystem</a></td></tr>
-<tr class="separator:a6d6fb929d8afbbe0c165564e9b9ab596"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a1318a18bf58404bb724762666ee8c971"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02535.html#a1318a18bf58404bb724762666ee8c971">markRefreshed</a> ()</td></tr>
+<tr class="memdesc:a1318a18bf58404bb724762666ee8c971"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marks the component as refreshed.  <a href="a02535.html#a1318a18bf58404bb724762666ee8c971">More...</a><br /></td></tr>
+<tr class="separator:a1318a18bf58404bb724762666ee8c971"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Represents a single actor (player) that can give input. Listeners subscribe to a single actor for their input. Each actor has it's own control set and scheme. </p>
+<div class="textblock"><h3>template&lt;typename T&gt;<br />
+class bl::ecs::trait::ParentAwareVersioned&lt; T &gt;</h3>
 
-<p class="definition">Definition at line <a class="el" href="a00299_source.html#l00023">23</a> of file <a class="el" href="a00299_source.html">Actor.hpp</a>.</p>
+<p>Combined trait that is both parent aware and versioned. Maintains an internal dirty state that derived classes can use to determine if they need to refresh themselves. The dirty state is recursively defined with the entire parent tree. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The derived component type </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00191_source.html#l00023">23</a> of file <a class="el" href="a00191_source.html">ParentAwareVersioned.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="afa3bc59cf6364ae07dcd81bc51777c8e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afa3bc59cf6364ae07dcd81bc51777c8e">&#9670;&nbsp;</a></span>~Actor()</h2>
+<a id="a25713b56a0155f6a27985c90c7028fbd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25713b56a0155f6a27985c90c7028fbd">&#9670;&nbsp;</a></span>ParentAwareVersioned() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bl::input::Actor::~Actor </td>
+          <td class="memname"><a class="el" href="a02535.html">bl::ecs::trait::ParentAwareVersioned</a>&lt; T &gt;::<a class="el" href="a02535.html">ParentAwareVersioned</a> </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Destroy the <a class="el" href="a02535.html" title="Represents a single actor (player) that can give input. Listeners subscribe to a single actor for the...">Actor</a> object. </p>
+<p>Creates the trait and registers as dirty. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01226_source.html#l00034">34</a> of file <a class="el" href="a01226_source.html">Actor.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00191_source.html#l00030">30</a> of file <a class="el" href="a00191_source.html">ParentAwareVersioned.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a7e718ab7c98a9f55df78b46933c07c8f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e718ab7c98a9f55df78b46933c07c8f">&#9670;&nbsp;</a></span>ParentAwareVersioned() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a02535.html">bl::ecs::trait::ParentAwareVersioned</a>&lt; T &gt;::<a class="el" href="a02535.html">ParentAwareVersioned</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a02535.html">ParentAwareVersioned</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Default copy constructor. </p>
+
+</div>
+</div>
+<a id="a0918e4fdb98af1efc77c5ad01a7606ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0918e4fdb98af1efc77c5ad01a7606ab">&#9670;&nbsp;</a></span>ParentAwareVersioned() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a02535.html">bl::ecs::trait::ParentAwareVersioned</a>&lt; T &gt;::<a class="el" href="a02535.html">ParentAwareVersioned</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a02535.html">ParentAwareVersioned</a>&lt; T &gt; &amp;&amp;&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Default move constructor. </p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ab1d006120ac6c5fa6ac3d7a1fced7d6a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab1d006120ac6c5fa6ac3d7a1fced7d6a">&#9670;&nbsp;</a></span>addListener()</h2>
+<a id="af956a8665be493c1af3a83e7b8b46b39"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af956a8665be493c1af3a83e7b8b46b39">&#9670;&nbsp;</a></span>getParent() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::input::Actor::addListener </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a02575.html">input::Listener</a> &amp;&#160;</td>
-          <td class="paramname"><em>listener</em></td><td>)</td>
-          <td></td>
+          <td class="memname">T &amp; <a class="el" href="a02531.html">bl::ecs::trait::ParentAware</a>&lt; T &gt;::getParent</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Adds a new input listener. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">listener</td><td>The listener to make active </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Returns the parent component. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01226_source.html#l00156">156</a> of file <a class="el" href="a01226_source.html">Actor.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00188_source.html#l00065">65</a> of file <a class="el" href="a00188_source.html">ParentAware.hpp</a>.</p>
 
 </div>
 </div>
-<a id="ad82575308d748c0798dd7ac640236654"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad82575308d748c0798dd7ac640236654">&#9670;&nbsp;</a></span>assignJoystick()</h2>
+<a id="a6b7753db78666c80beeec8d09d7f8727"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b7753db78666c80beeec8d09d7f8727">&#9670;&nbsp;</a></span>getParent() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::input::Actor::assignJoystick </td>
-          <td>(</td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>joystickId</em></td><td>)</td>
-          <td></td>
+          <td class="memname">const T &amp; <a class="el" href="a02531.html">bl::ecs::trait::ParentAware</a>&lt; T &gt;::getParent</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Sets which joystick this actor will receive input from. If this is not called then the <a class="el" href="a02535.html" title="Represents a single actor (player) that can give input. Listeners subscribe to a single actor for the...">Actor</a> will listen to all joysticks. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">joystickId</td><td>The joystick index from SFML </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Returns the parent component. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01226_source.html#l00038">38</a> of file <a class="el" href="a01226_source.html">Actor.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00188_source.html#l00070">70</a> of file <a class="el" href="a00188_source.html">ParentAware.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a075a5987e1ce671621c61a311e94e1fa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a075a5987e1ce671621c61a311e94e1fa">&#9670;&nbsp;</a></span>controlActive()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::input::Actor::controlActive </td>
-          <td>(</td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>controlIndex</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns whether or not the given control is active. Works only for trigger controls. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">controlIndex</td><td>The control to get. In range [0, controlCount) </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the control is active, false if inactive </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a01226_source.html#l00104">104</a> of file <a class="el" href="a01226_source.html">Actor.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a72a542acd3481c2d75226a117c277e7f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a72a542acd3481c2d75226a117c277e7f">&#9670;&nbsp;</a></span>getJoystickDirectionalControl() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a02571.html">Joystick</a> &amp; bl::input::Actor::getJoystickDirectionalControl </td>
-          <td>(</td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>controlIndex</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns a reference to the given directional control. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">controlIndex</td><td>The directional control to get. In range [0, controlCount) </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01226_source.html#l00094">94</a> of file <a class="el" href="a01226_source.html">Actor.cpp</a>.</p>
-
-</div>
-</div>
-<a id="adaf52702f2e4f39b2d5889b24cff83f8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adaf52702f2e4f39b2d5889b24cff83f8">&#9670;&nbsp;</a></span>getJoystickDirectionalControl() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="a02571.html">Joystick</a> &amp; bl::input::Actor::getJoystickDirectionalControl </td>
-          <td>(</td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>controlIndex</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns a reference to the given directional control. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">controlIndex</td><td>The directional control to get. In range [0, controlCount) </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01226_source.html#l00098">98</a> of file <a class="el" href="a01226_source.html">Actor.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a6adad9b1abddd26bed228d55dd36590c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6adad9b1abddd26bed228d55dd36590c">&#9670;&nbsp;</a></span>getJoystickMovementControl() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a02571.html">Joystick</a> &amp; bl::input::Actor::getJoystickMovementControl </td>
-          <td>(</td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>controlIndex</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns a reference to the given movement control. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">controlIndex</td><td>The movement control to get. In range [0, controlCount) </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01226_source.html#l00086">86</a> of file <a class="el" href="a01226_source.html">Actor.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a29b1c040475900254c0121b7898cb9fe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a29b1c040475900254c0121b7898cb9fe">&#9670;&nbsp;</a></span>getJoystickMovementControl() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="a02571.html">Joystick</a> &amp; bl::input::Actor::getJoystickMovementControl </td>
-          <td>(</td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>controlIndex</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns a reference to the given movement control. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">controlIndex</td><td>The movement control to get. In range [0, controlCount) </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01226_source.html#l00090">90</a> of file <a class="el" href="a01226_source.html">Actor.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a13fef4d2f2af4418ac2f5ec085e096d2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a13fef4d2f2af4418ac2f5ec085e096d2">&#9670;&nbsp;</a></span>getJoystickTriggerControl() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a02595.html">Trigger</a> &amp; bl::input::Actor::getJoystickTriggerControl </td>
-          <td>(</td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>controlIndex</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns a reference to the given trigger control. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">controlIndex</td><td>The trigger control to get. In range [0, controlCount) </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01226_source.html#l00078">78</a> of file <a class="el" href="a01226_source.html">Actor.cpp</a>.</p>
-
-</div>
-</div>
-<a id="adbb8ac89e4de621fce96ea20bb898edb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adbb8ac89e4de621fce96ea20bb898edb">&#9670;&nbsp;</a></span>getJoystickTriggerControl() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="a02595.html">Trigger</a> &amp; bl::input::Actor::getJoystickTriggerControl </td>
-          <td>(</td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>controlIndex</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns a reference to the given trigger control. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">controlIndex</td><td>The trigger control to get. In range [0, controlCount) </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01226_source.html#l00082">82</a> of file <a class="el" href="a01226_source.html">Actor.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a4522bd1799cb86b415719182ab3a3887"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4522bd1799cb86b415719182ab3a3887">&#9670;&nbsp;</a></span>getKBMMovementDownControl() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a02595.html">Trigger</a> &amp; bl::input::Actor::getKBMMovementDownControl </td>
-          <td>(</td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>controlIndex</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns a reference to the given movement down control for keyboard/mouse. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">controlIndex</td><td>The movement control to get. In range [0, controlCount) </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01226_source.html#l00054">54</a> of file <a class="el" href="a01226_source.html">Actor.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a3f9ed73e9c740719d182516f08b42df8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3f9ed73e9c740719d182516f08b42df8">&#9670;&nbsp;</a></span>getKBMMovementDownControl() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="a02595.html">Trigger</a> &amp; bl::input::Actor::getKBMMovementDownControl </td>
-          <td>(</td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>controlIndex</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns a reference to the given movement down control for keyboard/mouse. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">controlIndex</td><td>The movement control to get. In range [0, controlCount) </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01226_source.html#l00070">70</a> of file <a class="el" href="a01226_source.html">Actor.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a099ece18f77ca1665a6f092b81e6d269"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a099ece18f77ca1665a6f092b81e6d269">&#9670;&nbsp;</a></span>getKBMMovementLeftControl() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a02595.html">Trigger</a> &amp; bl::input::Actor::getKBMMovementLeftControl </td>
-          <td>(</td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>controlIndex</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns a reference to the given movement left control for keyboard/mouse. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">controlIndex</td><td>The movement control to get. In range [0, controlCount) </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01226_source.html#l00058">58</a> of file <a class="el" href="a01226_source.html">Actor.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a242a867906287e49a0fe4ee3b74d5a32"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a242a867906287e49a0fe4ee3b74d5a32">&#9670;&nbsp;</a></span>getKBMMovementLeftControl() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="a02595.html">Trigger</a> &amp; bl::input::Actor::getKBMMovementLeftControl </td>
-          <td>(</td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>controlIndex</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns a reference to the given movement left control for keyboard/mouse. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">controlIndex</td><td>The movement control to get. In range [0, controlCount) </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01226_source.html#l00074">74</a> of file <a class="el" href="a01226_source.html">Actor.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a5fb300cd9d3007e2968eea0b6d31c067"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5fb300cd9d3007e2968eea0b6d31c067">&#9670;&nbsp;</a></span>getKBMMovementRightControl() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a02595.html">Trigger</a> &amp; bl::input::Actor::getKBMMovementRightControl </td>
-          <td>(</td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>controlIndex</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns a reference to the given movement right control for keyboard/mouse. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">controlIndex</td><td>The movement control to get. In range [0, controlCount) </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01226_source.html#l00050">50</a> of file <a class="el" href="a01226_source.html">Actor.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a7cc2703689456241d3fcf1fe2ce70ce4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7cc2703689456241d3fcf1fe2ce70ce4">&#9670;&nbsp;</a></span>getKBMMovementRightControl() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="a02595.html">Trigger</a> &amp; bl::input::Actor::getKBMMovementRightControl </td>
-          <td>(</td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>controlIndex</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns a reference to the given movement right control for keyboard/mouse. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">controlIndex</td><td>The movement control to get. In range [0, controlCount) </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01226_source.html#l00066">66</a> of file <a class="el" href="a01226_source.html">Actor.cpp</a>.</p>
-
-</div>
-</div>
-<a id="af050860800a09ebb22e338ba6ac2aa7b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af050860800a09ebb22e338ba6ac2aa7b">&#9670;&nbsp;</a></span>getKBMMovementUpControl() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a02595.html">Trigger</a> &amp; bl::input::Actor::getKBMMovementUpControl </td>
-          <td>(</td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>controlIndex</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns a reference to the given movement up control for keyboard/mouse. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">controlIndex</td><td>The movement control to get. In range [0, controlCount) </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01226_source.html#l00046">46</a> of file <a class="el" href="a01226_source.html">Actor.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ac2a451f42a07cd651b6cf1b064a44238"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac2a451f42a07cd651b6cf1b064a44238">&#9670;&nbsp;</a></span>getKBMMovementUpControl() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="a02595.html">Trigger</a> &amp; bl::input::Actor::getKBMMovementUpControl </td>
-          <td>(</td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>controlIndex</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns a reference to the given movement up control for keyboard/mouse. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">controlIndex</td><td>The movement control to get. In range [0, controlCount) </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01226_source.html#l00062">62</a> of file <a class="el" href="a01226_source.html">Actor.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ad1bf8aa5cad9314c021dce9286bfb2f0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad1bf8aa5cad9314c021dce9286bfb2f0">&#9670;&nbsp;</a></span>getKBMTriggerControl() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a02595.html">Trigger</a> &amp; bl::input::Actor::getKBMTriggerControl </td>
-          <td>(</td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>controlIndex</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns a reference to the given trigger control. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">controlIndex</td><td>The trigger control to get. In range [0, controlCount) </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01226_source.html#l00040">40</a> of file <a class="el" href="a01226_source.html">Actor.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a72a0b15e6e6783c96795828e61c569d6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a72a0b15e6e6783c96795828e61c569d6">&#9670;&nbsp;</a></span>getKBMTriggerControl() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="a02595.html">Trigger</a> &amp; bl::input::Actor::getKBMTriggerControl </td>
-          <td>(</td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>controlIndex</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns a reference to the given trigger control. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">controlIndex</td><td>The trigger control to get. In range [0, controlCount) </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01226_source.html#l00042">42</a> of file <a class="el" href="a01226_source.html">Actor.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a65780f38c25bf87b4ed3982e4ff4910c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a65780f38c25bf87b4ed3982e4ff4910c">&#9670;&nbsp;</a></span>joystickMode()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::input::Actor::joystickMode </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns whether or not this actor is using a joystick (last valid input was joystick) </p>
-<dl class="section return"><dt>Returns</dt><dd>True if last input was controller, false otherwise </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a01226_source.html#l00102">102</a> of file <a class="el" href="a01226_source.html">Actor.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a827a8b3f3b09d7fd2fd38b3fe7a25b54"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a827a8b3f3b09d7fd2fd38b3fe7a25b54">&#9670;&nbsp;</a></span>loadFromConfig()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::input::Actor::loadFromConfig </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>prefix</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Loads this control config from the engine configuration store. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">prefix</td><td>The prefix to use for keys to laod from the config </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01226_source.html#l00246">246</a> of file <a class="el" href="a01226_source.html">Actor.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a3307db46577cbf210aa69224ec6c0564"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3307db46577cbf210aa69224ec6c0564">&#9670;&nbsp;</a></span>readControl()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">sf::Vector2f bl::input::Actor::readControl </td>
-          <td>(</td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>controlIndex</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Reads the given directional or movement control. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">controlIndex</td><td>The control to get. In range [0, controlCount) </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>sf::Vector2f The control value. Directional controls will be normalized </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a01226_source.html#l00112">112</a> of file <a class="el" href="a01226_source.html">Actor.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a56283b2fa7496cb11af9ce65ea40a5d6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a56283b2fa7496cb11af9ce65ea40a5d6">&#9670;&nbsp;</a></span>removeListener()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::input::Actor::removeListener </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a02575.html">input::Listener</a> &amp;&#160;</td>
-          <td class="paramname"><em>listener</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Removes the given listener. Does not have to be the active listener. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">listener</td><td>The input listener to remove </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01226_source.html#l00161">161</a> of file <a class="el" href="a01226_source.html">Actor.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a863a02458bc5d034b2fdb33076ea58b3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a863a02458bc5d034b2fdb33076ea58b3">&#9670;&nbsp;</a></span>replaceListener()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::input::Actor::replaceListener </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a02575.html">input::Listener</a> &amp;&#160;</td>
-          <td class="paramname"><em>oldListener</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a02575.html">input::Listener</a> &amp;&#160;</td>
-          <td class="paramname"><em>newListener</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Replaces the old listener with the new, keeping it at the same position in the queue. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">oldListener</td><td>The listener to replace </td></tr>
-    <tr><td class="paramname">newListener</td><td>The listener to take its place </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01226_source.html#l00171">171</a> of file <a class="el" href="a01226_source.html">Actor.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a59ec1321ffcc99de4b4950c309868083"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a59ec1321ffcc99de4b4950c309868083">&#9670;&nbsp;</a></span>saveToConfig()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::input::Actor::saveToConfig </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>prefix</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Saves this control config to the engine configuration store. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">prefix</td><td>The prefix to use for keys used to save the config </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01226_source.html#l00237">237</a> of file <a class="el" href="a01226_source.html">Actor.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Friends And Related Function Documentation</h2>
-<a id="a6d6fb929d8afbbe0c165564e9b9ab596"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6d6fb929d8afbbe0c165564e9b9ab596">&#9670;&nbsp;</a></span>InputSystem</h2>
+<a id="aa588c79bb8fcd9436a0e57628859d41d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa588c79bb8fcd9436a0e57628859d41d">&#9670;&nbsp;</a></span>getVersion()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -926,29 +310,212 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">friend class <a class="el" href="a02567.html">InputSystem</a></td>
+          <td class="memname">std::uint16_t bl::ecs::trait::Versioned::getVersion </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00299_source.html#l00225">225</a> of file <a class="el" href="a00299_source.html">Actor.hpp</a>.</p>
+<p>Returns the current version of the component. The value itself is not important, only changes in the value. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00194_source.html#l00050">50</a> of file <a class="el" href="a00194_source.html">Versioned.hpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Input/<a class="el" href="a00299_source.html">Actor.hpp</a></li>
-<li>src/Input/<a class="el" href="a01226_source.html">Actor.cpp</a></li>
+<a id="ab780c69836a6fda54b7bb9d14c536c7f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab780c69836a6fda54b7bb9d14c536c7f">&#9670;&nbsp;</a></span>hasParent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="a02531.html">bl::ecs::trait::ParentAware</a>&lt; T &gt;::hasParent</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns whether or not a parent has been set. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00188_source.html#l00060">60</a> of file <a class="el" href="a00188_source.html">ParentAware.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a82719504b4bec76caa559aeedeb4d214"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82719504b4bec76caa559aeedeb4d214">&#9670;&nbsp;</a></span>incrementVersion()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::ecs::trait::Versioned::incrementVersion </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Increments the version. Call when the component changes. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00194_source.html#l00055">55</a> of file <a class="el" href="a00194_source.html">Versioned.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a1318a18bf58404bb724762666ee8c971"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1318a18bf58404bb724762666ee8c971">&#9670;&nbsp;</a></span>markRefreshed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a02535.html">bl::ecs::trait::ParentAwareVersioned</a>&lt; T &gt;::markRefreshed </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Marks the component as refreshed. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00191_source.html#l00074">74</a> of file <a class="el" href="a00191_source.html">ParentAwareVersioned.hpp</a>.</p>
+
+</div>
+</div>
+<a id="adcf23c5e788b8996e14c9c04e2f7ac12"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adcf23c5e788b8996e14c9c04e2f7ac12">&#9670;&nbsp;</a></span>operator=() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a02535.html">ParentAwareVersioned</a>&amp; <a class="el" href="a02535.html">bl::ecs::trait::ParentAwareVersioned</a>&lt; T &gt;::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a02535.html">ParentAwareVersioned</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Default copy assignment. </p>
+
+</div>
+</div>
+<a id="a987216f1e4582948cf76250687ebd4fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a987216f1e4582948cf76250687ebd4fe">&#9670;&nbsp;</a></span>operator=() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a02535.html">ParentAwareVersioned</a>&amp; <a class="el" href="a02535.html">bl::ecs::trait::ParentAwareVersioned</a>&lt; T &gt;::operator= </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a02535.html">ParentAwareVersioned</a>&lt; T &gt; &amp;&amp;&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Default move assignment. </p>
+
+</div>
+</div>
+<a id="a304a6ded9ccb6c48fa1e788e17887d90"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a304a6ded9ccb6c48fa1e788e17887d90">&#9670;&nbsp;</a></span>refreshRequired()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="a02535.html">bl::ecs::trait::ParentAwareVersioned</a>&lt; T &gt;::refreshRequired </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns whether or not this component needs to be refreshed. Takes into account parent state as well, including parent changes. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00191_source.html#l00059">59</a> of file <a class="el" href="a00191_source.html">ParentAwareVersioned.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>include/BLIB/ECS/Traits/<a class="el" href="a00191_source.html">ParentAwareVersioned.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 25 2023 00:24:23 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 27 2023 23:34:42 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

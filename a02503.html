@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::gfx::txt::BasicText Class Reference</title>
+<title>BLIB: bl::ecs::Registry Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,371 +66,457 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01833.html">bl</a></li><li class="navelem"><a class="el" href="a01843.html">gfx</a></li><li class="navelem"><a class="el" href="a01859.html">txt</a></li><li class="navelem"><a class="el" href="a02503.html">BasicText</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02058.html">bl</a></li><li class="navelem"><a class="el" href="a02073.html">ecs</a></li><li class="navelem"><a class="el" href="a02503.html">Registry</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="a02500.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::gfx::txt::BasicText Class Reference<div class="ingroups"><a class="el" href="a01813.html">Graphics</a></div></div>  </div>
+<div class="title">bl::ecs::Registry Class Reference<div class="ingroups"><a class="el" href="a02035.html">ECS</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="a02483.html" title="Base class for Drawable objects. A Drawable object should inherit this class for the drawable compone...">Drawable</a> for a single section of text. Similar to sf::Text. Do not use directly, use <a class="el" href="a02519.html" title="Drawable component for format-able text. Similar to sf::Text except that multiple formatted sections ...">Text</a> class to create and manage <a class="el" href="a02503.html" title="Drawable for a single section of text. Similar to sf::Text. Do not use directly, use Text class to cr...">BasicText</a> segments.  
+<p>This is the main interface of the ECS. This class manages all entities and components and views and serves as the primary interface to be used.  
  <a href="a02503.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00287_source.html">BasicText.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00176_source.html">Registry.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::ecs::Registry:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a02503.png" usemap="#bl::ecs::Registry_map" alt=""/>
+  <map id="bl::ecs::Registry_map" name="bl::ecs::Registry_map">
+<area href="a04459.html" title="Helper class to make derived classes impossible for user to copy directly." alt="bl::util::NonCopyable" shape="rect" coords="0,0,127,24"/>
+  </map>
+</div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a90314edc755412fc745deeb4360957d9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02503.html#a90314edc755412fc745deeb4360957d9">BasicText</a> (<a class="el" href="a02519.html">bl::gfx::Text</a> &amp;owner)</td></tr>
-<tr class="memdesc:a90314edc755412fc745deeb4360957d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a basic text object with sane defaults.  <a href="a02503.html#a90314edc755412fc745deeb4360957d9">More...</a><br /></td></tr>
-<tr class="separator:a90314edc755412fc745deeb4360957d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:accd434943eeb28494c8d3964c28e7b22"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02503.html#accd434943eeb28494c8d3964c28e7b22">setString</a> (const sf::String &amp;content)</td></tr>
-<tr class="memdesc:accd434943eeb28494c8d3964c28e7b22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the content of this text.  <a href="a02503.html#accd434943eeb28494c8d3964c28e7b22">More...</a><br /></td></tr>
-<tr class="separator:accd434943eeb28494c8d3964c28e7b22"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1e9b31b8f5e44caf11fe1ab46a0fee02"><td class="memItemLeft" align="right" valign="top">constexpr const sf::String &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02503.html#a1e9b31b8f5e44caf11fe1ab46a0fee02">getString</a> () const</td></tr>
-<tr class="memdesc:a1e9b31b8f5e44caf11fe1ab46a0fee02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the string that will be rendered.  <a href="a02503.html#a1e9b31b8f5e44caf11fe1ab46a0fee02">More...</a><br /></td></tr>
-<tr class="separator:a1e9b31b8f5e44caf11fe1ab46a0fee02"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a52ef3dd8d677beb087d97d2494f13545"><td class="memItemLeft" align="right" valign="top">constexpr const sf::String &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02503.html#a52ef3dd8d677beb087d97d2494f13545">getWordWrappedString</a> () const</td></tr>
-<tr class="memdesc:a52ef3dd8d677beb087d97d2494f13545"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the string that will be rendered, including newlines added for wrapping.  <a href="a02503.html#a52ef3dd8d677beb087d97d2494f13545">More...</a><br /></td></tr>
-<tr class="separator:a52ef3dd8d677beb087d97d2494f13545"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9d3a6e449d7f4e383fa2673a8a40dc69"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02503.html#a9d3a6e449d7f4e383fa2673a8a40dc69">setStyle</a> (std::uint32_t style)</td></tr>
-<tr class="memdesc:a9d3a6e449d7f4e383fa2673a8a40dc69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the style of the text. See sf::Text::Style.  <a href="a02503.html#a9d3a6e449d7f4e383fa2673a8a40dc69">More...</a><br /></td></tr>
-<tr class="separator:a9d3a6e449d7f4e383fa2673a8a40dc69"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8f1f999fe5ba8677145507575eb190e8"><td class="memItemLeft" align="right" valign="top">constexpr std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02503.html#a8f1f999fe5ba8677145507575eb190e8">getStyle</a> () const</td></tr>
-<tr class="memdesc:a8f1f999fe5ba8677145507575eb190e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the style of the rendered text.  <a href="a02503.html#a8f1f999fe5ba8677145507575eb190e8">More...</a><br /></td></tr>
-<tr class="separator:a8f1f999fe5ba8677145507575eb190e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a36938d89d0ba240444e0c44bf78c1a82"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02503.html#a36938d89d0ba240444e0c44bf78c1a82">setFillColor</a> (const glm::vec4 &amp;color)</td></tr>
-<tr class="memdesc:a36938d89d0ba240444e0c44bf78c1a82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the color of the text.  <a href="a02503.html#a36938d89d0ba240444e0c44bf78c1a82">More...</a><br /></td></tr>
-<tr class="separator:a36938d89d0ba240444e0c44bf78c1a82"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a08ce8fa6c1bcd1b4c0460c389d3537ae"><td class="memItemLeft" align="right" valign="top">constexpr const glm::vec4 &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02503.html#a08ce8fa6c1bcd1b4c0460c389d3537ae">getFillColor</a> () const</td></tr>
-<tr class="memdesc:a08ce8fa6c1bcd1b4c0460c389d3537ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the color of the text.  <a href="a02503.html#a08ce8fa6c1bcd1b4c0460c389d3537ae">More...</a><br /></td></tr>
-<tr class="separator:a08ce8fa6c1bcd1b4c0460c389d3537ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1d1e02c886e9b0912a4b8cbda3872c6c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02503.html#a1d1e02c886e9b0912a4b8cbda3872c6c">setOutlineColor</a> (const glm::vec4 &amp;color)</td></tr>
-<tr class="memdesc:a1d1e02c886e9b0912a4b8cbda3872c6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the color of the outline around the text.  <a href="a02503.html#a1d1e02c886e9b0912a4b8cbda3872c6c">More...</a><br /></td></tr>
-<tr class="separator:a1d1e02c886e9b0912a4b8cbda3872c6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0c5bc41fa27bb8daf0feb09b0f10929d"><td class="memItemLeft" align="right" valign="top">constexpr const glm::vec4 &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02503.html#a0c5bc41fa27bb8daf0feb09b0f10929d">getOutlineColor</a> () const</td></tr>
-<tr class="memdesc:a0c5bc41fa27bb8daf0feb09b0f10929d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the color of the text outline.  <a href="a02503.html#a0c5bc41fa27bb8daf0feb09b0f10929d">More...</a><br /></td></tr>
-<tr class="separator:a0c5bc41fa27bb8daf0feb09b0f10929d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2d55bc39067290cf1f7d4041476b401d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02503.html#a2d55bc39067290cf1f7d4041476b401d">setCharacterSize</a> (unsigned int size)</td></tr>
-<tr class="memdesc:a2d55bc39067290cf1f7d4041476b401d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the character size of the text.  <a href="a02503.html#a2d55bc39067290cf1f7d4041476b401d">More...</a><br /></td></tr>
-<tr class="separator:a2d55bc39067290cf1f7d4041476b401d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a64a6608f57d2a481fb6d69b050c6dfcc"><td class="memItemLeft" align="right" valign="top">constexpr unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02503.html#a64a6608f57d2a481fb6d69b050c6dfcc">getCharacterSize</a> () const</td></tr>
-<tr class="memdesc:a64a6608f57d2a481fb6d69b050c6dfcc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the character size of the text.  <a href="a02503.html#a64a6608f57d2a481fb6d69b050c6dfcc">More...</a><br /></td></tr>
-<tr class="separator:a64a6608f57d2a481fb6d69b050c6dfcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7890d2bc12caa4388c69bc4af376fa52"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02503.html#a7890d2bc12caa4388c69bc4af376fa52">setOutlineThickness</a> (unsigned int thickness)</td></tr>
-<tr class="memdesc:a7890d2bc12caa4388c69bc4af376fa52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the outline thickness in pixels.  <a href="a02503.html#a7890d2bc12caa4388c69bc4af376fa52">More...</a><br /></td></tr>
-<tr class="separator:a7890d2bc12caa4388c69bc4af376fa52"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acad438985bb898ed9658f1e673082136"><td class="memItemLeft" align="right" valign="top">constexpr unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02503.html#acad438985bb898ed9658f1e673082136">getOutlineThickness</a> () const</td></tr>
-<tr class="memdesc:acad438985bb898ed9658f1e673082136"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the outline thickness of the text in pixels.  <a href="a02503.html#acad438985bb898ed9658f1e673082136">More...</a><br /></td></tr>
-<tr class="separator:acad438985bb898ed9658f1e673082136"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa14f0eb711a033542d14e6532b40724b"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02503.html#aa14f0eb711a033542d14e6532b40724b">computeGlyphWidth</a> (const <a class="el" href="a02507.html">sf::VulkanFont</a> &amp;font) const</td></tr>
-<tr class="memdesc:aa14f0eb711a033542d14e6532b40724b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the width of glyphs when using the given font.  <a href="a02503.html#aa14f0eb711a033542d14e6532b40724b">More...</a><br /></td></tr>
-<tr class="separator:aa14f0eb711a033542d14e6532b40724b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac1b71dd31196e70fa0f86b573fd218da"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02503.html#ac1b71dd31196e70fa0f86b573fd218da">computeLetterSpacing</a> (const <a class="el" href="a02507.html">sf::VulkanFont</a> &amp;font) const</td></tr>
-<tr class="memdesc:ac1b71dd31196e70fa0f86b573fd218da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the letter spacing when using the given font.  <a href="a02503.html#ac1b71dd31196e70fa0f86b573fd218da">More...</a><br /></td></tr>
-<tr class="separator:ac1b71dd31196e70fa0f86b573fd218da"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1beaa2f49436f74c05d160f0bd7f6c57"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02503.html#a1beaa2f49436f74c05d160f0bd7f6c57">computeWhitespaceWidth</a> (const <a class="el" href="a02507.html">sf::VulkanFont</a> &amp;font) const</td></tr>
-<tr class="memdesc:a1beaa2f49436f74c05d160f0bd7f6c57"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the width of whitespace when using the given font.  <a href="a02503.html#a1beaa2f49436f74c05d160f0bd7f6c57">More...</a><br /></td></tr>
-<tr class="separator:a1beaa2f49436f74c05d160f0bd7f6c57"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a95da0c61b66e406e416855d84fc647c9"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02503.html#a95da0c61b66e406e416855d84fc647c9">computeLineSpacing</a> (const <a class="el" href="a02507.html">sf::VulkanFont</a> &amp;font) const</td></tr>
-<tr class="memdesc:a95da0c61b66e406e416855d84fc647c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the line spacing when using the given font.  <a href="a02503.html#a95da0c61b66e406e416855d84fc647c9">More...</a><br /></td></tr>
-<tr class="separator:a95da0c61b66e406e416855d84fc647c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3ee4afe668f715aa2e2ba4e8e577737b"><td class="memItemLeft" align="right" valign="top">const sf::Glyph &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02503.html#a3ee4afe668f715aa2e2ba4e8e577737b">getGlyph</a> (const <a class="el" href="a02507.html">sf::VulkanFont</a> &amp;font, std::uint32_t code) const</td></tr>
-<tr class="memdesc:a3ee4afe668f715aa2e2ba4e8e577737b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the glyph for the given character using the settings from this text.  <a href="a02503.html#a3ee4afe668f715aa2e2ba4e8e577737b">More...</a><br /></td></tr>
-<tr class="separator:a3ee4afe668f715aa2e2ba4e8e577737b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8013e244778dc86d30405db8821fa5aa"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02503.html#a8013e244778dc86d30405db8821fa5aa">Registry</a> ()</td></tr>
+<tr class="memdesc:a8013e244778dc86d30405db8821fa5aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new entity registry.  <a href="a02503.html#a8013e244778dc86d30405db8821fa5aa">More...</a><br /></td></tr>
+<tr class="separator:a8013e244778dc86d30405db8821fa5aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5507d02ac64cf0f04a748a455e5b473"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02459.html">Entity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02503.html#af5507d02ac64cf0f04a748a455e5b473">createEntity</a> (<a class="el" href="a02035.html#gad22c7b1807fcff9c01b2082084716652">Flags</a> flags=<a class="el" href="a02035.html#ggad22c7b1807fcff9c01b2082084716652a6adf97f83acf6453d4a6a4b1070f3754">Flags::None</a>)</td></tr>
+<tr class="memdesc:af5507d02ac64cf0f04a748a455e5b473"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new entity and returns its id.  <a href="a02503.html#af5507d02ac64cf0f04a748a455e5b473">More...</a><br /></td></tr>
+<tr class="separator:af5507d02ac64cf0f04a748a455e5b473"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2514480e0949da0c89faafc561aa0882"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02503.html#a2514480e0949da0c89faafc561aa0882">entityExists</a> (<a class="el" href="a02459.html">Entity</a> entity) const</td></tr>
+<tr class="memdesc:a2514480e0949da0c89faafc561aa0882"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the given entity exists.  <a href="a02503.html#a2514480e0949da0c89faafc561aa0882">More...</a><br /></td></tr>
+<tr class="separator:a2514480e0949da0c89faafc561aa0882"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afbbbe957b4c0cc0f85be34421cae9a53"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02503.html#afbbbe957b4c0cc0f85be34421cae9a53">destroyEntity</a> (<a class="el" href="a02459.html">Entity</a> entity)</td></tr>
+<tr class="memdesc:afbbbe957b4c0cc0f85be34421cae9a53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the given entity and destroys all of its components. Destruction will not occur if the entity is depended on by others. In that case it will be marked for later removal once the dependencies are removed.  <a href="a02503.html#afbbbe957b4c0cc0f85be34421cae9a53">More...</a><br /></td></tr>
+<tr class="separator:afbbbe957b4c0cc0f85be34421cae9a53"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add0648ac525123cb7144b46790edbac9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02503.html#add0648ac525123cb7144b46790edbac9">destroyAllEntities</a> ()</td></tr>
+<tr class="memdesc:add0648ac525123cb7144b46790edbac9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys and removes all entities and components from the ECS.  <a href="a02503.html#add0648ac525123cb7144b46790edbac9">More...</a><br /></td></tr>
+<tr class="separator:add0648ac525123cb7144b46790edbac9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17ba35999948def55af592092e38a4ed"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02503.html#a17ba35999948def55af592092e38a4ed">setEntityParent</a> (<a class="el" href="a02459.html">Entity</a> child, <a class="el" href="a02459.html">Entity</a> parent)</td></tr>
+<tr class="memdesc:a17ba35999948def55af592092e38a4ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the parent entity of the given entity.  <a href="a02503.html#a17ba35999948def55af592092e38a4ed">More...</a><br /></td></tr>
+<tr class="separator:a17ba35999948def55af592092e38a4ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a16e5bc97d10fa3e0e843b61092088be8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02503.html#a16e5bc97d10fa3e0e843b61092088be8">removeEntityParent</a> (<a class="el" href="a02459.html">Entity</a> child)</td></tr>
+<tr class="memdesc:a16e5bc97d10fa3e0e843b61092088be8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the parent of the given entity, if any.  <a href="a02503.html#a16e5bc97d10fa3e0e843b61092088be8">More...</a><br /></td></tr>
+<tr class="separator:a16e5bc97d10fa3e0e843b61092088be8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae49b616bd1cc2339edcf02587fbc2a39"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02503.html#ae49b616bd1cc2339edcf02587fbc2a39">entityHasParent</a> (<a class="el" href="a02459.html">Entity</a> child) const</td></tr>
+<tr class="memdesc:ae49b616bd1cc2339edcf02587fbc2a39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the given entity has a parent.  <a href="a02503.html#ae49b616bd1cc2339edcf02587fbc2a39">More...</a><br /></td></tr>
+<tr class="separator:ae49b616bd1cc2339edcf02587fbc2a39"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8e4d256971e6d68f98672d377b95d03"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02459.html">Entity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02503.html#ad8e4d256971e6d68f98672d377b95d03">getEntityParent</a> (<a class="el" href="a02459.html">Entity</a> child) const</td></tr>
+<tr class="memdesc:ad8e4d256971e6d68f98672d377b95d03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the entity id of the parent of the given entity if one is set.  <a href="a02503.html#ad8e4d256971e6d68f98672d377b95d03">More...</a><br /></td></tr>
+<tr class="separator:ad8e4d256971e6d68f98672d377b95d03"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74317ef5e6e4eb6a00155d258c0613d3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02339.html">ctr::IndexMappedList</a>&lt; std::uint32_t, <a class="el" href="a02459.html">Entity</a> &gt;::Range&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02503.html#a74317ef5e6e4eb6a00155d258c0613d3">getEntityChildren</a> (<a class="el" href="a02459.html">Entity</a> parent)</td></tr>
+<tr class="memdesc:a74317ef5e6e4eb6a00155d258c0613d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an iterable set of child entities for the given entity.  <a href="a02503.html#a74317ef5e6e4eb6a00155d258c0613d3">More...</a><br /></td></tr>
+<tr class="separator:a74317ef5e6e4eb6a00155d258c0613d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52d17d591ee1f3a88b56c200f4debc2f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02503.html#a52d17d591ee1f3a88b56c200f4debc2f">setEntityParentDestructionBehavior</a> (<a class="el" href="a02459.html">Entity</a> entity, <a class="el" href="a02035.html#ga8a26375b4229d8ec106886db32501969">ParentDestructionBehavior</a> behavior)</td></tr>
+<tr class="memdesc:a52d17d591ee1f3a88b56c200f4debc2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets what to do for the given entity when any of its parents are destroyed.  <a href="a02503.html#a52d17d591ee1f3a88b56c200f4debc2f">More...</a><br /></td></tr>
+<tr class="separator:a52d17d591ee1f3a88b56c200f4debc2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae3c0998596394a405ff157f491d88f8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02035.html#ga8a26375b4229d8ec106886db32501969">ParentDestructionBehavior</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02503.html#aae3c0998596394a405ff157f491d88f8">getEntityParentDestructionBehavior</a> (<a class="el" href="a02459.html">Entity</a> entity) const</td></tr>
+<tr class="memdesc:aae3c0998596394a405ff157f491d88f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the behavior of the entity when its parent is destroyed.  <a href="a02503.html#aae3c0998596394a405ff157f491d88f8">More...</a><br /></td></tr>
+<tr class="separator:aae3c0998596394a405ff157f491d88f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f1be4eb808c6870b211e2fd5c6805ab"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02503.html#a8f1be4eb808c6870b211e2fd5c6805ab">addDependency</a> (<a class="el" href="a02459.html">Entity</a> resource, <a class="el" href="a02459.html">Entity</a> user)</td></tr>
+<tr class="memdesc:a8f1be4eb808c6870b211e2fd5c6805ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a dependency on resource from user. Controls whether or not an entity may be safely deleted.  <a href="a02503.html#a8f1be4eb808c6870b211e2fd5c6805ab">More...</a><br /></td></tr>
+<tr class="separator:a8f1be4eb808c6870b211e2fd5c6805ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec3a9d72c003fc0b6e509d984d53209c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02503.html#aec3a9d72c003fc0b6e509d984d53209c">removeDependency</a> (<a class="el" href="a02459.html">Entity</a> resource, <a class="el" href="a02459.html">Entity</a> user)</td></tr>
+<tr class="memdesc:aec3a9d72c003fc0b6e509d984d53209c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the given dependency. Will destroy the resource if a prior call to <a class="el" href="a02503.html#afbbbe957b4c0cc0f85be34421cae9a53" title="Removes the given entity and destroys all of its components. Destruction will not occur if the entity...">destroyEntity()</a> failed for it.  <a href="a02503.html#aec3a9d72c003fc0b6e509d984d53209c">More...</a><br /></td></tr>
+<tr class="separator:aec3a9d72c003fc0b6e509d984d53209c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c1e8862b0868a2c79b95d24dbd2e8c7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02503.html#a5c1e8862b0868a2c79b95d24dbd2e8c7">removeDependencyAndDestroyIfPossible</a> (<a class="el" href="a02459.html">Entity</a> resource, <a class="el" href="a02459.html">Entity</a> user)</td></tr>
+<tr class="memdesc:a5c1e8862b0868a2c79b95d24dbd2e8c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls <a class="el" href="a02503.html#aec3a9d72c003fc0b6e509d984d53209c" title="Removes the given dependency. Will destroy the resource if a prior call to destroyEntity() failed for...">removeDependency()</a> and then destroys the resource if nothing else depends on it. If it still has dependencies then it will be marked for removal once all dependencies are removed.  <a href="a02503.html#a5c1e8862b0868a2c79b95d24dbd2e8c7">More...</a><br /></td></tr>
+<tr class="separator:a5c1e8862b0868a2c79b95d24dbd2e8c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0718306a206eb2c7720fb92e06c6599"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02503.html#ac0718306a206eb2c7720fb92e06c6599">isDependedOn</a> (<a class="el" href="a02459.html">Entity</a> resource) const</td></tr>
+<tr class="memdesc:ac0718306a206eb2c7720fb92e06c6599"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the given entity is depended on by other entities.  <a href="a02503.html#ac0718306a206eb2c7720fb92e06c6599">More...</a><br /></td></tr>
+<tr class="separator:ac0718306a206eb2c7720fb92e06c6599"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a601e40fc673c8670e8bbe7e612cc1b49"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a601e40fc673c8670e8bbe7e612cc1b49"><td class="memTemplItemLeft" align="right" valign="top">T *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a02503.html#a601e40fc673c8670e8bbe7e612cc1b49">addComponent</a> (<a class="el" href="a02459.html">Entity</a> entity, const T &amp;value)</td></tr>
+<tr class="memdesc:a601e40fc673c8670e8bbe7e612cc1b49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a new component of the given type to the given entity.  <a href="a02503.html#a601e40fc673c8670e8bbe7e612cc1b49">More...</a><br /></td></tr>
+<tr class="separator:a601e40fc673c8670e8bbe7e612cc1b49"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a020a99af4e98c5fffd4d7cdc4830d3d7"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a020a99af4e98c5fffd4d7cdc4830d3d7"><td class="memTemplItemLeft" align="right" valign="top">T *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a02503.html#a020a99af4e98c5fffd4d7cdc4830d3d7">addComponent</a> (<a class="el" href="a02459.html">Entity</a> entity, T &amp;&amp;value)</td></tr>
+<tr class="memdesc:a020a99af4e98c5fffd4d7cdc4830d3d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a new component of the given type to the given entity.  <a href="a02503.html#a020a99af4e98c5fffd4d7cdc4830d3d7">More...</a><br /></td></tr>
+<tr class="separator:a020a99af4e98c5fffd4d7cdc4830d3d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b0edf4bc798fa2f67b442c4d130f8f8"><td class="memTemplParams" colspan="2">template&lt;typename T , typename... TArgs&gt; </td></tr>
+<tr class="memitem:a3b0edf4bc798fa2f67b442c4d130f8f8"><td class="memTemplItemLeft" align="right" valign="top">T *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a02503.html#a3b0edf4bc798fa2f67b442c4d130f8f8">emplaceComponent</a> (<a class="el" href="a02459.html">Entity</a> entity, TArgs &amp;&amp;... args)</td></tr>
+<tr class="memdesc:a3b0edf4bc798fa2f67b442c4d130f8f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs the given component in-place for the given entity.  <a href="a02503.html#a3b0edf4bc798fa2f67b442c4d130f8f8">More...</a><br /></td></tr>
+<tr class="separator:a3b0edf4bc798fa2f67b442c4d130f8f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ee48b76a742d33209c32962b8977c46"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a4ee48b76a742d33209c32962b8977c46"><td class="memTemplItemLeft" align="right" valign="top">T *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a02503.html#a4ee48b76a742d33209c32962b8977c46">getComponent</a> (<a class="el" href="a02459.html">Entity</a> entity)</td></tr>
+<tr class="memdesc:a4ee48b76a742d33209c32962b8977c46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the given component belonging to the given entity.  <a href="a02503.html#a4ee48b76a742d33209c32962b8977c46">More...</a><br /></td></tr>
+<tr class="separator:a4ee48b76a742d33209c32962b8977c46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09c871703bda6567c3a7f8e7bfca19ca"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a09c871703bda6567c3a7f8e7bfca19ca"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a02503.html#a09c871703bda6567c3a7f8e7bfca19ca">hasComponent</a> (<a class="el" href="a02459.html">Entity</a> entity)</td></tr>
+<tr class="memdesc:a09c871703bda6567c3a7f8e7bfca19ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the entity has the given component.  <a href="a02503.html#a09c871703bda6567c3a7f8e7bfca19ca">More...</a><br /></td></tr>
+<tr class="separator:a09c871703bda6567c3a7f8e7bfca19ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13aedbe896d70f77c9349c85ff22e7cc"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a13aedbe896d70f77c9349c85ff22e7cc"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a02503.html#a13aedbe896d70f77c9349c85ff22e7cc">removeComponent</a> (<a class="el" href="a02459.html">Entity</a> entity)</td></tr>
+<tr class="memdesc:a13aedbe896d70f77c9349c85ff22e7cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the given component from the given entity.  <a href="a02503.html#a13aedbe896d70f77c9349c85ff22e7cc">More...</a><br /></td></tr>
+<tr class="separator:a13aedbe896d70f77c9349c85ff22e7cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2433cd1f5616de65803be33b792657b"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ad2433cd1f5616de65803be33b792657b"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="a02435.html">ComponentPool</a>&lt; T &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a02503.html#ad2433cd1f5616de65803be33b792657b">getAllComponents</a> ()</td></tr>
+<tr class="memdesc:ad2433cd1f5616de65803be33b792657b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an iterable component pool for the given component type.  <a href="a02503.html#ad2433cd1f5616de65803be33b792657b">More...</a><br /></td></tr>
+<tr class="separator:ad2433cd1f5616de65803be33b792657b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a548ca862b54906cbd8a7a2cc70902fe2"><td class="memTemplParams" colspan="2">template&lt;typename TRequire , typename TOptional  = Optional&lt;&gt;&gt; </td></tr>
+<tr class="memitem:a548ca862b54906cbd8a7a2cc70902fe2"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="a02447.html">ComponentSet</a>&lt; TRequire, TOptional &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a02503.html#a548ca862b54906cbd8a7a2cc70902fe2">getComponentSet</a> (<a class="el" href="a02459.html">Entity</a> entity)</td></tr>
+<tr class="memdesc:a548ca862b54906cbd8a7a2cc70902fe2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets a set of components for the given entity.  <a href="a02503.html#a548ca862b54906cbd8a7a2cc70902fe2">More...</a><br /></td></tr>
+<tr class="separator:a548ca862b54906cbd8a7a2cc70902fe2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97e0e4d1d669d003711b6c8af6fbdf19"><td class="memTemplParams" colspan="2">template&lt;typename TRequire , typename TOptional  = Optional&lt;&gt;, typename TExclude  = Exclude&lt;&gt;&gt; </td></tr>
+<tr class="memitem:a97e0e4d1d669d003711b6c8af6fbdf19"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="a02427.html">View</a>&lt; TRequire, TOptional, TExclude &gt; *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a02503.html#a97e0e4d1d669d003711b6c8af6fbdf19">getOrCreateView</a> ()</td></tr>
+<tr class="memdesc:a97e0e4d1d669d003711b6c8af6fbdf19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetches or creates a view that returns an iterable set of entities that contain the given components.  <a href="a02503.html#a97e0e4d1d669d003711b6c8af6fbdf19">More...</a><br /></td></tr>
+<tr class="separator:a97e0e4d1d669d003711b6c8af6fbdf19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a3d0d05dee3fa3da66bca6fa5192f1b8c"><td class="memItemLeft" align="right" valign="top">static constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02503.html#a3d0d05dee3fa3da66bca6fa5192f1b8c">DefaultCapacity</a> = 512</td></tr>
+<tr class="separator:a3d0d05dee3fa3da66bca6fa5192f1b8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
-<tr class="memitem:a915e5439aa343a0406d686f7c281be00"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02503.html#a915e5439aa343a0406d686f7c281be00">bl::gfx::Text</a></td></tr>
-<tr class="separator:a915e5439aa343a0406d686f7c281be00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2658181be4befdf722462ab951ba8a67"><td class="memTemplParams" colspan="2">template&lt;typename TRequire , typename TOptional , typename TExclude &gt; </td></tr>
+<tr class="memitem:a2658181be4befdf722462ab951ba8a67"><td class="memTemplItemLeft" align="right" valign="top">class&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a02503.html#a2658181be4befdf722462ab951ba8a67">View</a></td></tr>
+<tr class="separator:a2658181be4befdf722462ab951ba8a67"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9129d0ec30349438c5a9e611fd5d232a"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02503.html#a9129d0ec30349438c5a9e611fd5d232a">engine::Engine</a></td></tr>
+<tr class="separator:a9129d0ec30349438c5a9e611fd5d232a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="a02483.html" title="Base class for Drawable objects. A Drawable object should inherit this class for the drawable compone...">Drawable</a> for a single section of text. Similar to sf::Text. Do not use directly, use <a class="el" href="a02519.html" title="Drawable component for format-able text. Similar to sf::Text except that multiple formatted sections ...">Text</a> class to create and manage <a class="el" href="a02503.html" title="Drawable for a single section of text. Similar to sf::Text. Do not use directly, use Text class to cr...">BasicText</a> segments. </p>
+<div class="textblock"><p>This is the main interface of the ECS. This class manages all entities and components and views and serves as the primary interface to be used. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00287_source.html#l00029">29</a> of file <a class="el" href="a00287_source.html">BasicText.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00176_source.html#l00032">32</a> of file <a class="el" href="a00176_source.html">Registry.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a90314edc755412fc745deeb4360957d9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a90314edc755412fc745deeb4360957d9">&#9670;&nbsp;</a></span>BasicText()</h2>
+<a id="a8013e244778dc86d30405db8821fa5aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8013e244778dc86d30405db8821fa5aa">&#9670;&nbsp;</a></span>Registry()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bl::gfx::txt::BasicText::BasicText </td>
+          <td class="memname">bl::ecs::Registry::Registry </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a02519.html">bl::gfx::Text</a> &amp;&#160;</td>
-          <td class="paramname"><em>owner</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates a basic text object with sane defaults. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">owner</td><td>The owning <a class="el" href="a02519.html" title="Drawable component for format-able text. Similar to sf::Text except that multiple formatted sections ...">Text</a> object </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Creates a new entity registry. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01217_source.html#l00088">88</a> of file <a class="el" href="a01217_source.html">BasicText.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01322_source.html#l00007">7</a> of file <a class="el" href="a01322_source.html">Registry.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="aa14f0eb711a033542d14e6532b40724b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa14f0eb711a033542d14e6532b40724b">&#9670;&nbsp;</a></span>computeGlyphWidth()</h2>
+<a id="a601e40fc673c8670e8bbe7e612cc1b49"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a601e40fc673c8670e8bbe7e612cc1b49">&#9670;&nbsp;</a></span>addComponent() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">float bl::gfx::txt::BasicText::computeGlyphWidth </td>
+          <td class="memname">T * bl::ecs::Registry::addComponent </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="a02507.html">sf::VulkanFont</a> &amp;&#160;</td>
-          <td class="paramname"><em>font</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the width of glyphs when using the given font. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">font</td><td>The font to get the glyph width for </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The glyph width in local units </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00287_source.html#l00200">200</a> of file <a class="el" href="a00287_source.html">BasicText.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ac1b71dd31196e70fa0f86b573fd218da"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac1b71dd31196e70fa0f86b573fd218da">&#9670;&nbsp;</a></span>computeLetterSpacing()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float bl::gfx::txt::BasicText::computeLetterSpacing </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a02507.html">sf::VulkanFont</a> &amp;&#160;</td>
-          <td class="paramname"><em>font</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the letter spacing when using the given font. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">font</td><td>The font to get the letter spacing for </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The letter spacing in local units </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00287_source.html#l00204">204</a> of file <a class="el" href="a00287_source.html">BasicText.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a95da0c61b66e406e416855d84fc647c9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a95da0c61b66e406e416855d84fc647c9">&#9670;&nbsp;</a></span>computeLineSpacing()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float bl::gfx::txt::BasicText::computeLineSpacing </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a02507.html">sf::VulkanFont</a> &amp;&#160;</td>
-          <td class="paramname"><em>font</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the line spacing when using the given font. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">font</td><td>The font to get the line spacing for </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The line spacing in local units </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00287_source.html#l00212">212</a> of file <a class="el" href="a00287_source.html">BasicText.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a1beaa2f49436f74c05d160f0bd7f6c57"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1beaa2f49436f74c05d160f0bd7f6c57">&#9670;&nbsp;</a></span>computeWhitespaceWidth()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float bl::gfx::txt::BasicText::computeWhitespaceWidth </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a02507.html">sf::VulkanFont</a> &amp;&#160;</td>
-          <td class="paramname"><em>font</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the width of whitespace when using the given font. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">font</td><td>The font to get the whitespace width for </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The whitespace width in local units </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00287_source.html#l00208">208</a> of file <a class="el" href="a00287_source.html">BasicText.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a64a6608f57d2a481fb6d69b050c6dfcc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a64a6608f57d2a481fb6d69b050c6dfcc">&#9670;&nbsp;</a></span>getCharacterSize()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr unsigned int bl::gfx::txt::BasicText::getCharacterSize </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the character size of the text. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00287_source.html#l00194">194</a> of file <a class="el" href="a00287_source.html">BasicText.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a08ce8fa6c1bcd1b4c0460c389d3537ae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a08ce8fa6c1bcd1b4c0460c389d3537ae">&#9670;&nbsp;</a></span>getFillColor()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr const glm::vec4 &amp; bl::gfx::txt::BasicText::getFillColor </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the color of the text. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00287_source.html#l00190">190</a> of file <a class="el" href="a00287_source.html">BasicText.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a3ee4afe668f715aa2e2ba4e8e577737b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3ee4afe668f715aa2e2ba4e8e577737b">&#9670;&nbsp;</a></span>getGlyph()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const sf::Glyph &amp; bl::gfx::txt::BasicText::getGlyph </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a02507.html">sf::VulkanFont</a> &amp;&#160;</td>
-          <td class="paramname"><em>font</em>, </td>
+          <td class="paramtype"><a class="el" href="a02459.html">Entity</a>&#160;</td>
+          <td class="paramname"><em>entity</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::uint32_t&#160;</td>
-          <td class="paramname"><em>code</em>&#160;</td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td> const</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the glyph for the given character using the settings from this text. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">font</td><td>The font to use </td></tr>
-    <tr><td class="paramname">code</td><td>The character to get the glyph for </td></tr>
+<p>Adds a new component of the given type to the given entity. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The type of component to add </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The glyph of the given character </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entity</td><td>The entity to add it to </td></tr>
+    <tr><td class="paramname">value</td><td>The initial component value </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>T* Pointer to the new component </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a01217_source.html#l00359">359</a> of file <a class="el" href="a01217_source.html">BasicText.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00176_source.html#l00312">312</a> of file <a class="el" href="a00176_source.html">Registry.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a0c5bc41fa27bb8daf0feb09b0f10929d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0c5bc41fa27bb8daf0feb09b0f10929d">&#9670;&nbsp;</a></span>getOutlineColor()</h2>
+<a id="a020a99af4e98c5fffd4d7cdc4830d3d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a020a99af4e98c5fffd4d7cdc4830d3d7">&#9670;&nbsp;</a></span>addComponent() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">T * bl::ecs::Registry::addComponent </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a02459.html">Entity</a>&#160;</td>
+          <td class="paramname"><em>entity</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T &amp;&amp;&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Adds a new component of the given type to the given entity. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The type of component to add </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entity</td><td>The entity to add it to </td></tr>
+    <tr><td class="paramname">value</td><td>The initial component value </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>T* Pointer to the new component </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00176_source.html#l00322">322</a> of file <a class="el" href="a00176_source.html">Registry.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a8f1be4eb808c6870b211e2fd5c6805ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f1be4eb808c6870b211e2fd5c6805ab">&#9670;&nbsp;</a></span>addDependency()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::ecs::Registry::addDependency </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a02459.html">Entity</a>&#160;</td>
+          <td class="paramname"><em>resource</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a02459.html">Entity</a>&#160;</td>
+          <td class="paramname"><em>user</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Adds a dependency on resource from user. Controls whether or not an entity may be safely deleted. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">resource</td><td>The entity being depended on </td></tr>
+    <tr><td class="paramname">user</td><td>The entity using the resource </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01322_source.html#l00212">212</a> of file <a class="el" href="a01322_source.html">Registry.cpp</a>.</p>
+
+</div>
+</div>
+<a id="af5507d02ac64cf0f04a748a455e5b473"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af5507d02ac64cf0f04a748a455e5b473">&#9670;&nbsp;</a></span>createEntity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a02459.html">Entity</a> bl::ecs::Registry::createEntity </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a02035.html#gad22c7b1807fcff9c01b2082084716652">Flags</a>&#160;</td>
+          <td class="paramname"><em>flags</em> = <code><a class="el" href="a02035.html#ggad22c7b1807fcff9c01b2082084716652a6adf97f83acf6453d4a6a4b1070f3754">Flags::None</a></code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates a new entity and returns its id. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">flags</td><td><a class="el" href="a02511.html">Optional</a> flags to set on the newly created entity. May not be modified later </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a02459.html" title="Entity is simply an id. Components are added via a Registry and they own all the relevant properties....">Entity</a> The new entity id </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a01322_source.html#l00018">18</a> of file <a class="el" href="a01322_source.html">Registry.cpp</a>.</p>
+
+</div>
+</div>
+<a id="add0648ac525123cb7144b46790edbac9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add0648ac525123cb7144b46790edbac9">&#9670;&nbsp;</a></span>destroyAllEntities()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::ecs::Registry::destroyAllEntities </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Destroys and removes all entities and components from the ECS. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01322_source.html#l00137">137</a> of file <a class="el" href="a01322_source.html">Registry.cpp</a>.</p>
+
+</div>
+</div>
+<a id="afbbbe957b4c0cc0f85be34421cae9a53"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afbbbe957b4c0cc0f85be34421cae9a53">&#9670;&nbsp;</a></span>destroyEntity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::ecs::Registry::destroyEntity </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a02459.html">Entity</a>&#160;</td>
+          <td class="paramname"><em>entity</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Removes the given entity and destroys all of its components. Destruction will not occur if the entity is depended on by others. In that case it will be marked for later removal once the dependencies are removed. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entity</td><td>The entity to remove from the ECS </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the entity was removed or was already destroyed, false if removal was blocked </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a01322_source.html#l00050">50</a> of file <a class="el" href="a01322_source.html">Registry.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a3b0edf4bc798fa2f67b442c4d130f8f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b0edf4bc798fa2f67b442c4d130f8f8">&#9670;&nbsp;</a></span>emplaceComponent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename... TArgs&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">T * bl::ecs::Registry::emplaceComponent </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a02459.html">Entity</a>&#160;</td>
+          <td class="paramname"><em>entity</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TArgs &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>args</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Constructs the given component in-place for the given entity. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The type of component to add </td></tr>
+    <tr><td class="paramname">TArgs</td><td>The constructor parameter types </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entity</td><td>The entity to add it to </td></tr>
+    <tr><td class="paramname">args</td><td>The arguments to the component's constructor </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>T* Pointer to the new component </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00176_source.html#l00332">332</a> of file <a class="el" href="a00176_source.html">Registry.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a2514480e0949da0c89faafc561aa0882"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2514480e0949da0c89faafc561aa0882">&#9670;&nbsp;</a></span>entityExists()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::ecs::Registry::entityExists </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a02459.html">Entity</a>&#160;</td>
+          <td class="paramname"><em>entity</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns whether or not the given entity exists. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entity</td><td>The entity to test for </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the entity is in the ECS, false otherwise </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a01322_source.html#l00040">40</a> of file <a class="el" href="a01322_source.html">Registry.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ae49b616bd1cc2339edcf02587fbc2a39"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae49b616bd1cc2339edcf02587fbc2a39">&#9670;&nbsp;</a></span>entityHasParent()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -439,27 +525,137 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr const glm::vec4 &amp; bl::gfx::txt::BasicText::getOutlineColor </td>
+          <td class="memname">bool bl::ecs::Registry::entityHasParent </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype"><a class="el" href="a02459.html">Entity</a>&#160;</td>
+          <td class="paramname"><em>child</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the color of the text outline. </p>
+<p>Returns whether or not the given entity has a parent. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">child</td><td>The entity to test for a parent </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if child has a parent, false otherwise </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a00287_source.html#l00192">192</a> of file <a class="el" href="a00287_source.html">BasicText.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00176_source.html#l00471">471</a> of file <a class="el" href="a00176_source.html">Registry.hpp</a>.</p>
 
 </div>
 </div>
-<a id="acad438985bb898ed9658f1e673082136"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acad438985bb898ed9658f1e673082136">&#9670;&nbsp;</a></span>getOutlineThickness()</h2>
+<a id="ad2433cd1f5616de65803be33b792657b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2433cd1f5616de65803be33b792657b">&#9670;&nbsp;</a></span>getAllComponents()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a02435.html">ComponentPool</a>&lt; T &gt; &amp; bl::ecs::Registry::getAllComponents</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns an iterable component pool for the given component type. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The component type </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>ComponentPool&lt;T&gt;&amp; A pool of all components of the given type that may be iterated </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00176_source.html#l00411">411</a> of file <a class="el" href="a00176_source.html">Registry.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a4ee48b76a742d33209c32962b8977c46"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ee48b76a742d33209c32962b8977c46">&#9670;&nbsp;</a></span>getComponent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">T * bl::ecs::Registry::getComponent </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a02459.html">Entity</a>&#160;</td>
+          <td class="paramname"><em>entity</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retrieves the given component belonging to the given entity. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The type of component to get </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entity</td><td>The entity to get the component for </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>T* Pointer to the entity's component or nullptr if not present </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00176_source.html#l00370">370</a> of file <a class="el" href="a00176_source.html">Registry.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a548ca862b54906cbd8a7a2cc70902fe2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a548ca862b54906cbd8a7a2cc70902fe2">&#9670;&nbsp;</a></span>getComponentSet()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename TRequire , typename TOptional &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a02447.html">ComponentSet</a>&lt; TRequire, TOptional &gt; bl::ecs::Registry::getComponentSet </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a02459.html">Entity</a>&#160;</td>
+          <td class="paramname"><em>entity</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets a set of components for the given entity. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">TRequire</td><td>Required tagged components. ie Require&lt;int, char&gt; </td></tr>
+    <tr><td class="paramname">TOptional</td><td><a class="el" href="a02511.html">Optional</a> tagged components. ie Optional&lt;bool&gt; </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entity</td><td>The entity to get the components from </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>ComponentSet&lt;TComponents...&gt; The set of fetched components. May be invalid </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00176_source.html#l00416">416</a> of file <a class="el" href="a00176_source.html">Registry.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a74317ef5e6e4eb6a00155d258c0613d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a74317ef5e6e4eb6a00155d258c0613d3">&#9670;&nbsp;</a></span>getEntityChildren()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -468,27 +664,35 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr unsigned int bl::gfx::txt::BasicText::getOutlineThickness </td>
+          <td class="memname"><a class="el" href="a02339.html">ctr::IndexMappedList</a>&lt; std::uint32_t, <a class="el" href="a02459.html">Entity</a> &gt;::Range bl::ecs::Registry::getEntityChildren </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td class="paramtype"><a class="el" href="a02459.html">Entity</a>&#160;</td>
+          <td class="paramname"><em>parent</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the outline thickness of the text in pixels. </p>
+<p>Returns an iterable set of child entities for the given entity. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">parent</td><td>The entity to get the children of </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>An iterable range of child entities </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a00287_source.html#l00196">196</a> of file <a class="el" href="a00287_source.html">BasicText.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00176_source.html#l00477">477</a> of file <a class="el" href="a00176_source.html">Registry.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a1e9b31b8f5e44caf11fe1ab46a0fee02"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1e9b31b8f5e44caf11fe1ab46a0fee02">&#9670;&nbsp;</a></span>getString()</h2>
+<a id="ad8e4d256971e6d68f98672d377b95d03"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad8e4d256971e6d68f98672d377b95d03">&#9670;&nbsp;</a></span>getEntityParent()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -497,27 +701,35 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr const sf::String &amp; bl::gfx::txt::BasicText::getString </td>
+          <td class="memname"><a class="el" href="a02459.html">Entity</a> bl::ecs::Registry::getEntityParent </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype"><a class="el" href="a02459.html">Entity</a>&#160;</td>
+          <td class="paramname"><em>child</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the string that will be rendered. </p>
+<p>Returns the entity id of the parent of the given entity if one is set. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">child</td><td>The entity to get the parent for </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The parent entity or InvalidEntity if no parent </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a00287_source.html#l00182">182</a> of file <a class="el" href="a00287_source.html">BasicText.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00176_source.html#l00475">475</a> of file <a class="el" href="a00176_source.html">Registry.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a8f1f999fe5ba8677145507575eb190e8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8f1f999fe5ba8677145507575eb190e8">&#9670;&nbsp;</a></span>getStyle()</h2>
+<a id="aae3c0998596394a405ff157f491d88f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae3c0998596394a405ff157f491d88f8">&#9670;&nbsp;</a></span>getEntityParentDestructionBehavior()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -526,225 +738,349 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr std::uint32_t bl::gfx::txt::BasicText::getStyle </td>
+          <td class="memname"><a class="el" href="a02035.html#ga8a26375b4229d8ec106886db32501969">ParentDestructionBehavior</a> bl::ecs::Registry::getEntityParentDestructionBehavior </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype"><a class="el" href="a02459.html">Entity</a>&#160;</td>
+          <td class="paramname"><em>entity</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the style of the rendered text. </p>
+<p>Returns the behavior of the entity when its parent is destroyed. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entity</td><td>The entity to get the behavior for </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>What the entity does when its parent is destroyed </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a00287_source.html#l00188">188</a> of file <a class="el" href="a00287_source.html">BasicText.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00176_source.html#l00482">482</a> of file <a class="el" href="a00176_source.html">Registry.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a52ef3dd8d677beb087d97d2494f13545"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a52ef3dd8d677beb087d97d2494f13545">&#9670;&nbsp;</a></span>getWordWrappedString()</h2>
+<a id="a97e0e4d1d669d003711b6c8af6fbdf19"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a97e0e4d1d669d003711b6c8af6fbdf19">&#9670;&nbsp;</a></span>getOrCreateView()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
+<div class="memtemplate">
+template&lt;typename TRequire , typename TOptional , typename TExclude &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">constexpr const sf::String &amp; bl::gfx::txt::BasicText::getWordWrappedString </td>
+          <td class="memname"><a class="el" href="a02427.html">View</a>&lt; TRequire, TOptional, TExclude &gt; * bl::ecs::Registry::getOrCreateView</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fetches or creates a view that returns an iterable set of entities that contain the given components. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">TComponents</td><td>The components to filter on </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>View&lt;TComponents...&gt;* A pointer to a view that returns all matching entities </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00176_source.html#l00421">421</a> of file <a class="el" href="a00176_source.html">Registry.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a09c871703bda6567c3a7f8e7bfca19ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09c871703bda6567c3a7f8e7bfca19ca">&#9670;&nbsp;</a></span>hasComponent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::ecs::Registry::hasComponent </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype"><a class="el" href="a02459.html">Entity</a>&#160;</td>
+          <td class="paramname"><em>entity</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns whether or not the entity has the given component. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The component type to check for </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entity</td><td>The entity to check on </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the entity has the component, false otherwise </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00176_source.html#l00375">375</a> of file <a class="el" href="a00176_source.html">Registry.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ac0718306a206eb2c7720fb92e06c6599"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0718306a206eb2c7720fb92e06c6599">&#9670;&nbsp;</a></span>isDependedOn()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::ecs::Registry::isDependedOn </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a02459.html">Entity</a>&#160;</td>
+          <td class="paramname"><em>resource</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Returns the string that will be rendered, including newlines added for wrapping. </p>
+<p>Returns whether or not the given entity is depended on by other entities. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">resource</td><td>The entity to check </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if other entities depend on it, false otherwise </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a00287_source.html#l00184">184</a> of file <a class="el" href="a00287_source.html">BasicText.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01322_source.html#l00257">257</a> of file <a class="el" href="a01322_source.html">Registry.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a2d55bc39067290cf1f7d4041476b401d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2d55bc39067290cf1f7d4041476b401d">&#9670;&nbsp;</a></span>setCharacterSize()</h2>
+<a id="a13aedbe896d70f77c9349c85ff22e7cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a13aedbe896d70f77c9349c85ff22e7cc">&#9670;&nbsp;</a></span>removeComponent()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">void bl::gfx::txt::BasicText::setCharacterSize </td>
+          <td class="memname">void bl::ecs::Registry::removeComponent </td>
           <td>(</td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>size</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="a02459.html">Entity</a>&#160;</td>
+          <td class="paramname"><em>entity</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Sets the character size of the text. </p>
+<p>Removes the given component from the given entity. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The type of component to remove </td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">size</td><td>Point size of the rendered text </td></tr>
+    <tr><td class="paramname">entity</td><td>The entity to remove the component from </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a01217_source.html#l00118">118</a> of file <a class="el" href="a01217_source.html">BasicText.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00176_source.html#l00380">380</a> of file <a class="el" href="a00176_source.html">Registry.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a36938d89d0ba240444e0c44bf78c1a82"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a36938d89d0ba240444e0c44bf78c1a82">&#9670;&nbsp;</a></span>setFillColor()</h2>
+<a id="aec3a9d72c003fc0b6e509d984d53209c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec3a9d72c003fc0b6e509d984d53209c">&#9670;&nbsp;</a></span>removeDependency()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::gfx::txt::BasicText::setFillColor </td>
+          <td class="memname">void bl::ecs::Registry::removeDependency </td>
           <td>(</td>
-          <td class="paramtype">const glm::vec4 &amp;&#160;</td>
-          <td class="paramname"><em>color</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="a02459.html">Entity</a>&#160;</td>
+          <td class="paramname"><em>resource</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="a02459.html">Entity</a>&#160;</td>
+          <td class="paramname"><em>user</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Sets the color of the text. </p>
+<p>Removes the given dependency. Will destroy the resource if a prior call to <a class="el" href="a02503.html#afbbbe957b4c0cc0f85be34421cae9a53" title="Removes the given entity and destroys all of its components. Destruction will not occur if the entity...">destroyEntity()</a> failed for it. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">color</td><td>The color of the rendered text </td></tr>
+    <tr><td class="paramname">resource</td><td>The entity being depended on </td></tr>
+    <tr><td class="paramname">user</td><td>The entity using the resource </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a01217_source.html#l00108">108</a> of file <a class="el" href="a01217_source.html">BasicText.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01322_source.html#l00226">226</a> of file <a class="el" href="a01322_source.html">Registry.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a1d1e02c886e9b0912a4b8cbda3872c6c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1d1e02c886e9b0912a4b8cbda3872c6c">&#9670;&nbsp;</a></span>setOutlineColor()</h2>
+<a id="a5c1e8862b0868a2c79b95d24dbd2e8c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c1e8862b0868a2c79b95d24dbd2e8c7">&#9670;&nbsp;</a></span>removeDependencyAndDestroyIfPossible()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::gfx::txt::BasicText::setOutlineColor </td>
+          <td class="memname">void bl::ecs::Registry::removeDependencyAndDestroyIfPossible </td>
           <td>(</td>
-          <td class="paramtype">const glm::vec4 &amp;&#160;</td>
-          <td class="paramname"><em>color</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="a02459.html">Entity</a>&#160;</td>
+          <td class="paramname"><em>resource</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="a02459.html">Entity</a>&#160;</td>
+          <td class="paramname"><em>user</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Sets the color of the outline around the text. </p>
+<p>Calls <a class="el" href="a02503.html#aec3a9d72c003fc0b6e509d984d53209c" title="Removes the given dependency. Will destroy the resource if a prior call to destroyEntity() failed for...">removeDependency()</a> and then destroys the resource if nothing else depends on it. If it still has dependencies then it will be marked for removal once all dependencies are removed. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">color</td><td>The color of the outline if the thickness is greater than 0 </td></tr>
+    <tr><td class="paramname">resource</td><td>The resource being used </td></tr>
+    <tr><td class="paramname">user</td><td>The entity using the resource </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a01217_source.html#l00113">113</a> of file <a class="el" href="a01217_source.html">BasicText.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01322_source.html#l00249">249</a> of file <a class="el" href="a01322_source.html">Registry.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a7890d2bc12caa4388c69bc4af376fa52"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7890d2bc12caa4388c69bc4af376fa52">&#9670;&nbsp;</a></span>setOutlineThickness()</h2>
+<a id="a16e5bc97d10fa3e0e843b61092088be8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a16e5bc97d10fa3e0e843b61092088be8">&#9670;&nbsp;</a></span>removeEntityParent()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::gfx::txt::BasicText::setOutlineThickness </td>
+          <td class="memname">void bl::ecs::Registry::removeEntityParent </td>
           <td>(</td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>thickness</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="a02459.html">Entity</a>&#160;</td>
+          <td class="paramname"><em>child</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Set the outline thickness in pixels. </p>
+<p>Removes the parent of the given entity, if any. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">thickness</td><td>The outline thickness in pixels </td></tr>
+    <tr><td class="paramname">child</td><td>The entity to orphan </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a01217_source.html#l00123">123</a> of file <a class="el" href="a01217_source.html">BasicText.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01322_source.html#l00188">188</a> of file <a class="el" href="a01322_source.html">Registry.cpp</a>.</p>
 
 </div>
 </div>
-<a id="accd434943eeb28494c8d3964c28e7b22"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#accd434943eeb28494c8d3964c28e7b22">&#9670;&nbsp;</a></span>setString()</h2>
+<a id="a17ba35999948def55af592092e38a4ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a17ba35999948def55af592092e38a4ed">&#9670;&nbsp;</a></span>setEntityParent()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::gfx::txt::BasicText::setString </td>
+          <td class="memname">void bl::ecs::Registry::setEntityParent </td>
           <td>(</td>
-          <td class="paramtype">const sf::String &amp;&#160;</td>
-          <td class="paramname"><em>content</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="a02459.html">Entity</a>&#160;</td>
+          <td class="paramname"><em>child</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="a02459.html">Entity</a>&#160;</td>
+          <td class="paramname"><em>parent</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Sets the content of this text. </p>
+<p>Sets the parent entity of the given entity. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">content</td><td>The content to render </td></tr>
+    <tr><td class="paramname">child</td><td>The entity to set the parent of </td></tr>
+    <tr><td class="paramname">parent</td><td>The parent of the given entity </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a01217_source.html#l00098">98</a> of file <a class="el" href="a01217_source.html">BasicText.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01322_source.html#l00164">164</a> of file <a class="el" href="a01322_source.html">Registry.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a9d3a6e449d7f4e383fa2673a8a40dc69"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9d3a6e449d7f4e383fa2673a8a40dc69">&#9670;&nbsp;</a></span>setStyle()</h2>
+<a id="a52d17d591ee1f3a88b56c200f4debc2f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52d17d591ee1f3a88b56c200f4debc2f">&#9670;&nbsp;</a></span>setEntityParentDestructionBehavior()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::gfx::txt::BasicText::setStyle </td>
+          <td class="memname">void bl::ecs::Registry::setEntityParentDestructionBehavior </td>
           <td>(</td>
-          <td class="paramtype">std::uint32_t&#160;</td>
-          <td class="paramname"><em>style</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="a02459.html">Entity</a>&#160;</td>
+          <td class="paramname"><em>entity</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="a02035.html#ga8a26375b4229d8ec106886db32501969">ParentDestructionBehavior</a>&#160;</td>
+          <td class="paramname"><em>behavior</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Sets the style of the text. See sf::Text::Style. </p>
+<p>Sets what to do for the given entity when any of its parents are destroyed. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">style</td><td>A combination of sf::Text::Style flags </td></tr>
+    <tr><td class="paramname">entity</td><td>The entity to set the behavior for </td></tr>
+    <tr><td class="paramname">behavior</td><td>What to do when a parent is destroyed </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a01217_source.html#l00103">103</a> of file <a class="el" href="a01217_source.html">BasicText.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01322_source.html#l00268">268</a> of file <a class="el" href="a01322_source.html">Registry.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Friends And Related Function Documentation</h2>
-<a id="a915e5439aa343a0406d686f7c281be00"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a915e5439aa343a0406d686f7c281be00">&#9670;&nbsp;</a></span>bl::gfx::Text</h2>
+<a id="a9129d0ec30349438c5a9e611fd5d232a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9129d0ec30349438c5a9e611fd5d232a">&#9670;&nbsp;</a></span>engine::Engine</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -753,7 +1089,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">friend class <a class="el" href="a02519.html">bl::gfx::Text</a></td>
+          <td class="memname">friend class <a class="el" href="a02555.html">engine::Engine</a></td>
         </tr>
       </table>
   </td>
@@ -763,19 +1099,70 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00287_source.html#l00177">177</a> of file <a class="el" href="a00287_source.html">BasicText.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00176_source.html#l00295">295</a> of file <a class="el" href="a00176_source.html">Registry.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a2658181be4befdf722462ab951ba8a67"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2658181be4befdf722462ab951ba8a67">&#9670;&nbsp;</a></span>View</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename TRequire , typename TOptional , typename TExclude &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="a02427.html">View</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00176_source.html#l00294">294</a> of file <a class="el" href="a00176_source.html">Registry.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a3d0d05dee3fa3da66bca6fa5192f1b8c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d0d05dee3fa3da66bca6fa5192f1b8c">&#9670;&nbsp;</a></span>DefaultCapacity</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::size_t bl::ecs::Registry::DefaultCapacity = 512</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00176_source.html#l00034">34</a> of file <a class="el" href="a00176_source.html">Registry.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Graphics/Text/<a class="el" href="a00287_source.html">BasicText.hpp</a></li>
-<li>src/Graphics/Text/<a class="el" href="a01217_source.html">BasicText.cpp</a></li>
+<li>include/BLIB/ECS/<a class="el" href="a00176_source.html">Registry.hpp</a></li>
+<li>src/ECS/<a class="el" href="a01322_source.html">Registry.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 25 2023 00:24:22 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 27 2023 23:34:42 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Descriptors/Builtin/TexturePoolInstance.hpp Source File</title>
+<title>BLIB: include/BLIB/Interfaces/Menu/Selectors/ArrowSelector.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,68 +66,77 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_154b49fde9d17c5da5d7cb000b858c0e.html">Descriptors</a></li><li class="navelem"><a class="el" href="dir_792f3e8afd589e1154463a1acff3bd49.html">Builtin</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4a89db2e42278000e6aac6ace9db278e.html">Interfaces</a></li><li class="navelem"><a class="el" href="dir_e645930b0d1a2310fc6bb1d1038eb64b.html">Menu</a></li><li class="navelem"><a class="el" href="dir_2459c1d931b5c1b1d7800e4956477b41.html">Selectors</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">TexturePoolInstance.hpp</div>  </div>
+<div class="title">ArrowSelector.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00602.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_DESCRIPTORS_BUILTIN_TEXTURESDESCRIPTORSETINSTANCE_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_DESCRIPTORS_BUILTIN_TEXTURESDESCRIPTORSETINSTANCE_HPP</span></div>
+<a href="a00602.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_MENU_SELECTORS_ARROWSELECTOR_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_MENU_SELECTORS_ARROWSELECTOR_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00617.html">BLIB/Render/Descriptors/DescriptorSetInstance.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00746.html">BLIB/Render/Resources/TexturePool.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00338.html">BLIB/Graphics/Triangle.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00599.html">BLIB/Interfaces/Menu/Selector.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01833.html">bl</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02058.html">bl</a></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>menu</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>ds</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a02987.html">   18</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02987.html">TexturePoolInstance</a> : <span class="keyword">public</span> <a class="code" href="a03015.html">DescriptorSetInstance</a> {</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <a class="code" href="a02987.html#a6fb14178747dc7abe113072d98970c95">TexturePoolInstance</a>(<a class="code" href="a03207.html">res::TexturePool</a>&amp; texturePool);</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a02987.html#af0ae3b1347d395b961995b890886d7ff">   30</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02987.html#af0ae3b1347d395b961995b890886d7ff">~TexturePoolInstance</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <a class="code" href="a03207.html">res::TexturePool</a>&amp; texturePool;</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a03227.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03227.html">ArrowSelector</a> : <span class="keyword">public</span> <a class="code" href="a03223.html">Selector</a> {</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a03227.html#a54f4f2dd91c4178ea87e6e89cd49ab07">   19</a></span>&#160;    <span class="keyword">typedef</span> std::shared_ptr&lt;ArrowSelector&gt; <a class="code" href="a03227.html#a54f4f2dd91c4178ea87e6e89cd49ab07">Ptr</a>;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keyword">static</span> <a class="code" href="a03223.html#afc2ee695075a4244d7962da15e64fea1">Ptr</a> <a class="code" href="a03227.html#ad752b8dacdcc28555b7cdaa84589a97c">create</a>(<span class="keywordtype">float</span> width, <span class="keyword">const</span> sf::Color&amp; fill = sf::Color::White);</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="a03227.html#af73c45e05a15c39412bd0a25b945089b">   33</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03227.html#af73c45e05a15c39412bd0a25b945089b">~ArrowSelector</a>() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> bindForPipeline(<a class="code" href="a03283.html">scene::SceneRenderContext</a>&amp; ctx, VkPipelineLayout layout,</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;                                 std::uint32_t setIndex, <a class="code" href="a01820.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a> updateFreq) <span class="keyword">const override</span>;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> bindForObject(<a class="code" href="a03283.html">scene::SceneRenderContext</a>&amp; ctx, VkPipelineLayout layout,</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;                               std::uint32_t setIndex, <a class="code" href="a03235.html">scene::Key</a> objectKey) <span class="keyword">const override</span>;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> releaseObject(<a class="code" href="a02223.html">ecs::Entity</a> entity, <a class="code" href="a03235.html">scene::Key</a> objectKey) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> init(<a class="code" href="a03003.html">DescriptorComponentStorageCache</a>&amp; storageCache) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> allocateObject(<a class="code" href="a02223.html">ecs::Entity</a> entity, <a class="code" href="a03235.html">scene::Key</a> key) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> handleFrameStart() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;};</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;} <span class="comment">// namespace ds</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00617_html"><div class="ttname"><a href="a00617.html">DescriptorSetInstance.hpp</a></div></div>
-<div class="ttc" id="aa00746_html"><div class="ttname"><a href="a00746.html">TexturePool.hpp</a></div></div>
-<div class="ttc" id="aa01820_html_ga305dcc5dda3e28bd193ab31444664848"><div class="ttname"><a href="a01820.html#ga305dcc5dda3e28bd193ab31444664848">bl::rc::UpdateSpeed</a></div><div class="ttdeci">UpdateSpeed</div><div class="ttdoc">Enum representing how frequently an object is expected to be updated.</div><div class="ttdef"><b>Definition:</b> <a href="a00788_source.html#l00015">UpdateSpeed.hpp:15</a></div></div>
-<div class="ttc" id="aa01833_html"><div class="ttname"><a href="a01833.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02223_html"><div class="ttname"><a href="a02223.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition:</b> <a href="a00158_source.html#l00023">Entity.hpp:23</a></div></div>
-<div class="ttc" id="aa02987_html"><div class="ttname"><a href="a02987.html">bl::rc::ds::TexturePoolInstance</a></div><div class="ttdoc">Descriptor set instance that binds the bindless texture pool descriptor set.</div><div class="ttdef"><b>Definition:</b> <a href="a00602_source.html#l00018">TexturePoolInstance.hpp:18</a></div></div>
-<div class="ttc" id="aa02987_html_a6fb14178747dc7abe113072d98970c95"><div class="ttname"><a href="a02987.html#a6fb14178747dc7abe113072d98970c95">bl::rc::ds::TexturePoolInstance::TexturePoolInstance</a></div><div class="ttdeci">TexturePoolInstance(res::TexturePool &amp;texturePool)</div><div class="ttdoc">Creates the descriptor set instance.</div><div class="ttdef"><b>Definition:</b> <a href="a01463_source.html#l00011">TexturePoolInstance.cpp:11</a></div></div>
-<div class="ttc" id="aa02987_html_af0ae3b1347d395b961995b890886d7ff"><div class="ttname"><a href="a02987.html#af0ae3b1347d395b961995b890886d7ff">bl::rc::ds::TexturePoolInstance::~TexturePoolInstance</a></div><div class="ttdeci">virtual ~TexturePoolInstance()=default</div><div class="ttdoc">Destroys the descriptor set instance.</div></div>
-<div class="ttc" id="aa03003_html"><div class="ttname"><a href="a03003.html">bl::rc::ds::DescriptorComponentStorageCache</a></div><div class="ttdoc">Cache for component storage modules for descriptor sets. Storage modules are instantiated once and sh...</div><div class="ttdef"><b>Definition:</b> <a href="a00608_source.html#l00021">DescriptorComponentStorageCache.hpp:21</a></div></div>
-<div class="ttc" id="aa03015_html"><div class="ttname"><a href="a03015.html">bl::rc::ds::DescriptorSetInstance</a></div><div class="ttdoc">Base class for descriptor sets that exist for each scene. Derived classes are created by DescriptorSe...</div><div class="ttdef"><b>Definition:</b> <a href="a00617_source.html#l00030">DescriptorSetInstance.hpp:30</a></div></div>
-<div class="ttc" id="aa03207_html"><div class="ttname"><a href="a03207.html">bl::rc::res::TexturePool</a></div><div class="ttdoc">Resource manager for textures on the GPU. Utilizes BindlessTextureArray to provide a large array,...</div><div class="ttdef"><b>Definition:</b> <a href="a00746_source.html#l00032">TexturePool.hpp:32</a></div></div>
-<div class="ttc" id="aa03235_html"><div class="ttname"><a href="a03235.html">bl::rc::scene::Key</a></div><div class="ttdoc">Key for objects in scenes. Contains update speed and scene id. Scene ids are not unique across update...</div><div class="ttdef"><b>Definition:</b> <a href="a00755_source.html#l00022">Key.hpp:22</a></div></div>
-<div class="ttc" id="aa03283_html"><div class="ttname"><a href="a03283.html">bl::rc::scene::SceneRenderContext</a></div><div class="ttdoc">Container class that holds the required parameters to render a scene and provides methods for descrip...</div><div class="ttdef"><b>Definition:</b> <a href="a00776_source.html#l00025">SceneRenderContext.hpp:25</a></div></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <a class="code" href="a02823.html">gfx::Triangle</a>&amp; <a class="code" href="a03227.html#aa22d2ed52cb0520273fddffa023cf0ac">getArrow</a>();</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03227.html#ab11b5f2635d90332497bfc9bb41c9184">doCreate</a>(<a class="code" href="a02555.html">engine::Engine</a>&amp; engine, <a class="code" href="a02459.html">ecs::Entity</a> parent) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03227.html#a514f3f408dc6276eaf64591de93903bc">notifySelection</a>(<a class="code" href="a02459.html">ecs::Entity</a> item, sf::FloatRect itemArea) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03227.html#a24211fc0a9d7e15430619a6602ba6075">doSceneAdd</a>(<a class="code" href="a03575.html">rc::Overlay</a>* overlay) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03227.html#a0c73af8178f717d49cfba1ae8273ef5c">doSceneRemove</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> width;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keyword">const</span> sf::Color fillColor;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <a class="code" href="a02823.html">gfx::Triangle</a> triangle;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <a class="code" href="a03227.html">ArrowSelector</a>(<span class="keywordtype">float</span> width, <span class="keyword">const</span> sf::Color&amp; f);</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;};</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;} <span class="comment">// namespace menu</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00338_html"><div class="ttname"><a href="a00338.html">Triangle.hpp</a></div></div>
+<div class="ttc" id="aa00599_html"><div class="ttname"><a href="a00599.html">Selector.hpp</a></div></div>
+<div class="ttc" id="aa02058_html"><div class="ttname"><a href="a02058.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02459_html"><div class="ttname"><a href="a02459.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition:</b> <a href="a00161_source.html#l00024">Entity.hpp:24</a></div></div>
+<div class="ttc" id="aa02555_html"><div class="ttname"><a href="a02555.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a05599_source.html#l00032">Engine.hpp:32</a></div></div>
+<div class="ttc" id="aa02823_html"><div class="ttname"><a href="a02823.html">bl::gfx::Triangle</a></div><div class="ttdoc">Basic renderable triangle that can be added to scenes.</div><div class="ttdef"><b>Definition:</b> <a href="a00338_source.html#l00016">Triangle.hpp:16</a></div></div>
+<div class="ttc" id="aa03223_html"><div class="ttname"><a href="a03223.html">bl::menu::Selector</a></div><div class="ttdoc">Base class for selector items that indicate which Menu item is active.</div><div class="ttdef"><b>Definition:</b> <a href="a00599_source.html#l00024">Selector.hpp:24</a></div></div>
+<div class="ttc" id="aa03223_html_afc2ee695075a4244d7962da15e64fea1"><div class="ttname"><a href="a03223.html#afc2ee695075a4244d7962da15e64fea1">bl::menu::Selector::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; Selector &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00599_source.html#l00026">Selector.hpp:26</a></div></div>
+<div class="ttc" id="aa03227_html"><div class="ttname"><a href="a03227.html">bl::menu::ArrowSelector</a></div><div class="ttdoc">Basic selection indicator, draws a triangle to the left of the selected item.</div><div class="ttdef"><b>Definition:</b> <a href="a00602_source.html#l00017">ArrowSelector.hpp:17</a></div></div>
+<div class="ttc" id="aa03227_html_a0c73af8178f717d49cfba1ae8273ef5c"><div class="ttname"><a href="a03227.html#a0c73af8178f717d49cfba1ae8273ef5c">bl::menu::ArrowSelector::doSceneRemove</a></div><div class="ttdeci">virtual void doSceneRemove() override</div><div class="ttdoc">Called when the selector should be removed from the overlay.</div><div class="ttdef"><b>Definition:</b> <a href="a01616_source.html#l00034">ArrowSelector.cpp:34</a></div></div>
+<div class="ttc" id="aa03227_html_a24211fc0a9d7e15430619a6602ba6075"><div class="ttname"><a href="a03227.html#a24211fc0a9d7e15430619a6602ba6075">bl::menu::ArrowSelector::doSceneAdd</a></div><div class="ttdeci">virtual void doSceneAdd(rc::Overlay *overlay) override</div><div class="ttdoc">Called when the selector should be added to the overlay.</div><div class="ttdef"><b>Definition:</b> <a href="a01616_source.html#l00030">ArrowSelector.cpp:30</a></div></div>
+<div class="ttc" id="aa03227_html_a514f3f408dc6276eaf64591de93903bc"><div class="ttname"><a href="a03227.html#a514f3f408dc6276eaf64591de93903bc">bl::menu::ArrowSelector::notifySelection</a></div><div class="ttdeci">virtual void notifySelection(ecs::Entity item, sf::FloatRect itemArea) override</div><div class="ttdoc">Called when the selector should select an item.</div><div class="ttdef"><b>Definition:</b> <a href="a01616_source.html#l00024">ArrowSelector.cpp:24</a></div></div>
+<div class="ttc" id="aa03227_html_a54f4f2dd91c4178ea87e6e89cd49ab07"><div class="ttname"><a href="a03227.html#a54f4f2dd91c4178ea87e6e89cd49ab07">bl::menu::ArrowSelector::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; ArrowSelector &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00602_source.html#l00019">ArrowSelector.hpp:19</a></div></div>
+<div class="ttc" id="aa03227_html_aa22d2ed52cb0520273fddffa023cf0ac"><div class="ttname"><a href="a03227.html#aa22d2ed52cb0520273fddffa023cf0ac">bl::menu::ArrowSelector::getArrow</a></div><div class="ttdeci">gfx::Triangle &amp; getArrow()</div><div class="ttdoc">Exposes the underlying triangle.</div><div class="ttdef"><b>Definition:</b> <a href="a01616_source.html#l00041">ArrowSelector.cpp:41</a></div></div>
+<div class="ttc" id="aa03227_html_ab11b5f2635d90332497bfc9bb41c9184"><div class="ttname"><a href="a03227.html#ab11b5f2635d90332497bfc9bb41c9184">bl::menu::ArrowSelector::doCreate</a></div><div class="ttdeci">virtual void doCreate(engine::Engine &amp;engine, ecs::Entity parent) override</div><div class="ttdoc">Called when the selector is added to a menu.</div><div class="ttdef"><b>Definition:</b> <a href="a01616_source.html#l00043">ArrowSelector.cpp:43</a></div></div>
+<div class="ttc" id="aa03227_html_ad752b8dacdcc28555b7cdaa84589a97c"><div class="ttname"><a href="a03227.html#ad752b8dacdcc28555b7cdaa84589a97c">bl::menu::ArrowSelector::create</a></div><div class="ttdeci">static Ptr create(float width, const sf::Color &amp;fill=sf::Color::White)</div><div class="ttdoc">Create a new ArrowSelector with the given width.</div><div class="ttdef"><b>Definition:</b> <a href="a01616_source.html#l00020">ArrowSelector.cpp:20</a></div></div>
+<div class="ttc" id="aa03227_html_af73c45e05a15c39412bd0a25b945089b"><div class="ttname"><a href="a03227.html#af73c45e05a15c39412bd0a25b945089b">bl::menu::ArrowSelector::~ArrowSelector</a></div><div class="ttdeci">virtual ~ArrowSelector()=default</div><div class="ttdoc">Destroys the arrow selector.</div></div>
+<div class="ttc" id="aa03575_html"><div class="ttname"><a href="a03575.html">bl::rc::Overlay</a></div><div class="ttdoc">Special type of scene specialized for 2d overlays with fixed cameras. Objects are organized into a tr...</div><div class="ttdef"><b>Definition:</b> <a href="a00836_source.html#l00036">Overlay.hpp:38</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 25 2023 00:24:20 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 27 2023 23:34:40 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

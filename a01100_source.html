@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Util/Waiter.hpp Source File</title>
+<title>BLIB: include/BLIB/Serialization/Binary/VersionedSerializer.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,89 +66,175 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4b3af2b25a05b4f12e892fbe45139fe9.html">Util</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_0603dcfd3f324f38b3f10f913306f40f.html">Serialization</a></li><li class="navelem"><a class="el" href="dir_16181c53270a1447d0a8c102e5a0532b.html">Binary</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Waiter.hpp</div>  </div>
+<div class="title">VersionedSerializer.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01100.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_UTIL_WAITER_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_UTIL_WAITER_HPP</span></div>
+<a href="a01100.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_FILES_BINARY_VERSIONEDBINARYFILE_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_FILES_BINARY_VERSIONEDBINARYFILE_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00497.html">BLIB/Logging.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;atomic&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;chrono&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;condition_variable&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;mutex&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01833.html">bl</a></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>util</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a04107.html">   20</a></span>&#160;<span class="keyword">class </span><a class="code" href="a04107.html">Waiter</a> {</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <a class="code" href="a04107.html#a757ce0749ea3754a0289c9344ccc8fad">Waiter</a>();</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <a class="code" href="a04107.html#ad4fd3e5e6d40d4e8165d9320ca038a3e">~Waiter</a>();</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00626.html">BLIB/Logging.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01088.html">BLIB/Serialization/Binary/InputStream.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01094.html">BLIB/Serialization/Binary/OutputStream.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01199.html">BLIB/Util/LastVariadic.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01202.html">BLIB/Util/NonCopyable.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01226.html">BLIB/Util/TupleLoop.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;array&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;cstdint&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;tuple&gt;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;type_traits&gt;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;utility&gt;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02058.html">bl</a></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;{</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">namespace </span>serial</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;{</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">namespace </span>binary</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;{</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a02115.html">   25</a></span>&#160;<span class="keyword">namespace </span>priv</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;{</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a04163.html">   28</a></span>&#160;<span class="keyword">class </span><a class="code" href="a04163.html">ReadWriteExistChecker</a> {</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keyword">using</span> Pass = char;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">struct </span>Fail {</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keywordtype">char</span> x[2];</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    };</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04107.html#ad318a99de375b3c8fce4f10d611f0841">unblock</a>();</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keyword">static</span> Pass testRead(decltype(&amp;U::read));</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keyword">static</span> Fail testRead(...);</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a04107.html#a1452bb16386e9f68434e415b4645b3f3">wasUnblocked</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keyword">static</span> Pass testWrite(decltype(&amp;U::write));</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">static</span> Fail testWrite(...);</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04107.html#a0d85b2b63b9a8826b37e14799b6b3f1b">reset</a>();</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04107.html#adb601206dd155032d5634c2504b3b6c3">wait</a>();</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">class</span> Rep, <span class="keyword">class</span> Period&gt;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04107.html#ab18842baad424ae363690f3f018836a3">waitFor</a>(<span class="keyword">const</span> std::chrono::duration&lt;Rep, Period&gt;&amp; timeout);</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="a04107.html#a8e35bb3db177d9587407b6baefcbaf1d">unblockAll</a>();</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="a04107.html#a0229d0595985f66dcbd9e5066a62cc49">allUnblocked</a>();</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="a04163.html#a47e6dd63e4338cb86b60fe1b8c79cd33">   47</a></span>&#160;    <span class="keyword">static</span> constexpr <span class="keywordtype">bool</span> <a class="code" href="a04163.html#a47e6dd63e4338cb86b60fe1b8c79cd33">HasRead</a>  = <span class="keyword">sizeof</span>(testRead&lt;T&gt;(0)) == <span class="keyword">sizeof</span>(Pass);</div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="a04163.html#a56f55bebd51525f49a89b44b6e5a2ce0">   48</a></span>&#160;    <span class="keyword">static</span> constexpr <span class="keywordtype">bool</span> <a class="code" href="a04163.html#a56f55bebd51525f49a89b44b6e5a2ce0">HasWrite</a> = <span class="keyword">sizeof</span>(testWrite&lt;T&gt;(0)) == <span class="keyword">sizeof</span>(Pass);</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;};</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> TPayload&gt;</div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="a04171.html">   52</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a04171.html">ReadSigChecker</a> {</div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="a04171.html#abf1a0be17218be19e020bac9718bacdb">   53</a></span>&#160;    <span class="keyword">static</span> constexpr <span class="keywordtype">bool</span> <a class="code" href="a04171.html#abf1a0be17218be19e020bac9718bacdb">Conforms</a> =</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        std::is_invocable_r_v&lt;bool, decltype(&amp;T::read), TPayload&amp;, <a class="code" href="a04067.html">InputStream</a>&amp;&gt;;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;};</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> TPayload&gt;</div>
+<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="a04175.html">   58</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a04175.html">WriteSigChecker</a> {</div>
+<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="a04175.html#a81b4011e43a9453d4a7dcfaed5adaf05">   59</a></span>&#160;    <span class="keyword">static</span> constexpr <span class="keywordtype">bool</span> <a class="code" href="a04175.html#a81b4011e43a9453d4a7dcfaed5adaf05">Conforms</a> =</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        std::is_invocable_r_v&lt;bool, decltype(&amp;T::write), <span class="keyword">const</span> TPayload&amp;, <a class="code" href="a04075.html">OutputStream</a>&amp;&gt;;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;};</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;} <span class="comment">// namespace priv</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> Payload, <span class="keyword">typename</span> DefaultLoader, <span class="keyword">typename</span>... Versions&gt;</div>
+<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="a04179.html">   77</a></span>&#160;<span class="keyword">class </span><a class="code" href="a04179.html">VersionedSerializer</a> : <span class="keyword">private</span> <a class="code" href="a04459.html">util::NonCopyable</a> {</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    static_assert(<span class="keyword">sizeof</span>...(Versions) &gt;= 1, <span class="stringliteral">&quot;Please provide at least one version&quot;</span>);</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keyword">using</span> LatestVersion                         = <span class="keyword">typename</span> <a class="code" href="a04451.html">util::LastVariadic</a>&lt;Versions...&gt;::Last;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keyword">static</span> constexpr std::uint32_t VersionCount = <span class="keyword">sizeof</span>...(Versions);</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keyword">static</span> constexpr std::uint32_t CurrentVersionNumber = VersionCount - 1;</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    std::atomic&lt;bool&gt; unblocked;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    std::mutex waitMutex;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    std::condition_variable waitVar;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;};</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">class</span> Rep, <span class="keyword">class</span> Period&gt;</div>
-<div class="line"><a name="l00093"></a><span class="lineno"><a class="line" href="a04107.html#ab18842baad424ae363690f3f018836a3">   93</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04107.html#ab18842baad424ae363690f3f018836a3">Waiter::waitFor</a>(<span class="keyword">const</span> std::chrono::duration&lt;Rep, Period&gt;&amp; timeout) {</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="a04107.html#a0229d0595985f66dcbd9e5066a62cc49">allUnblocked</a>()) {</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        <a class="code" href="a00491.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;waitFor() called during shutdown. Threads should be exiting&quot;</span>;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    }</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keywordflow">if</span> (!unblocked) {</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        std::unique_lock lock(waitMutex);</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        <span class="keywordflow">if</span> (!unblocked) { waitVar.wait_for(lock, timeout); }</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    }</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;}</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;} <span class="comment">// namespace util</span></div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    static_assert(</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        <a class="code" href="a04163.html">priv::ReadWriteExistChecker&lt;DefaultLoader&gt;::HasRead</a>,</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <span class="stringliteral">&quot;Each version must have a read() method of the form: bool read(Payload&amp;, InputStream&amp;)&quot;</span>);</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    static_assert(</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        (<a class="code" href="a04163.html">priv::ReadWriteExistChecker&lt;Versions&gt;::HasRead</a> &amp;&amp; ...),</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        <span class="stringliteral">&quot;Each version must have a read() method of the form: bool read(Payload&amp;, InputStream&amp;)&quot;</span>);</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    static_assert(</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        (<a class="code" href="a04171.html">priv::ReadSigChecker&lt;Versions, Payload&gt;::Conforms</a> &amp;&amp; ...),</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <span class="stringliteral">&quot;Each version must have a read() method of the form: bool read(Payload&amp;, InputStream&amp;)&quot;</span>);</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    static_assert(<a class="code" href="a04175.html">priv::WriteSigChecker&lt;LatestVersion, Payload&gt;::Conforms</a>,</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;                  <span class="stringliteral">&quot;Last version must have a write() method of the form: bool write(const Payload&amp;, &quot;</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;                  <span class="stringliteral">&quot;OutputStream&amp;)&quot;</span>);</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="a04179.html#a842bf52cbb3166ccfa83e95ef3df7aee">write</a>(<a class="code" href="a04075.html">OutputStream</a>&amp; output, <span class="keyword">const</span> Payload&amp; payload);</div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00491_html_a927270d671e83a1c6b5382f30bfbf895"><div class="ttname"><a href="a00491.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a></div><div class="ttdeci">#define BL_LOG_ERROR</div><div class="ttdoc">Helper macro to log at error level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00491_source.html#l00101">Logger.hpp:101</a></div></div>
-<div class="ttc" id="aa00497_html"><div class="ttname"><a href="a00497.html">Logging.hpp</a></div></div>
-<div class="ttc" id="aa01833_html"><div class="ttname"><a href="a01833.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04107_html"><div class="ttname"><a href="a04107.html">bl::util::Waiter</a></div><div class="ttdoc">Basic utility class to pause a thread while waiting for a specific event.</div><div class="ttdef"><b>Definition:</b> <a href="a01100_source.html#l00020">Waiter.hpp:20</a></div></div>
-<div class="ttc" id="aa04107_html_a0229d0595985f66dcbd9e5066a62cc49"><div class="ttname"><a href="a04107.html#a0229d0595985f66dcbd9e5066a62cc49">bl::util::Waiter::allUnblocked</a></div><div class="ttdeci">static bool allUnblocked()</div><div class="ttdoc">Returns whether or not unblockAll() has been called. This is to signal threads to avoid calling wait(...</div><div class="ttdef"><b>Definition:</b> <a href="a01802_source.html#l00072">Waiter.cpp:72</a></div></div>
-<div class="ttc" id="aa04107_html_a0d85b2b63b9a8826b37e14799b6b3f1b"><div class="ttname"><a href="a04107.html#a0d85b2b63b9a8826b37e14799b6b3f1b">bl::util::Waiter::reset</a></div><div class="ttdeci">void reset()</div><div class="ttdoc">Resets the waiter to allow it to be resued after unblock() is called.</div><div class="ttdef"><b>Definition:</b> <a href="a01802_source.html#l00048">Waiter.cpp:48</a></div></div>
-<div class="ttc" id="aa04107_html_a1452bb16386e9f68434e415b4645b3f3"><div class="ttname"><a href="a04107.html#a1452bb16386e9f68434e415b4645b3f3">bl::util::Waiter::wasUnblocked</a></div><div class="ttdeci">bool wasUnblocked() const</div><div class="ttdoc">Returns whether or not the Waiter has been unblocked.</div><div class="ttdef"><b>Definition:</b> <a href="a01802_source.html#l00035">Waiter.cpp:35</a></div></div>
-<div class="ttc" id="aa04107_html_a757ce0749ea3754a0289c9344ccc8fad"><div class="ttname"><a href="a04107.html#a757ce0749ea3754a0289c9344ccc8fad">bl::util::Waiter::Waiter</a></div><div class="ttdeci">Waiter()</div><div class="ttdoc">Construct a new Waiter object.</div><div class="ttdef"><b>Definition:</b> <a href="a01802_source.html#l00016">Waiter.cpp:16</a></div></div>
-<div class="ttc" id="aa04107_html_a8e35bb3db177d9587407b6baefcbaf1d"><div class="ttname"><a href="a04107.html#a8e35bb3db177d9587407b6baefcbaf1d">bl::util::Waiter::unblockAll</a></div><div class="ttdeci">static void unblockAll()</div><div class="ttdoc">Unblocks all waiting threads. A program leveraging the Waiter class should call this before exit....</div><div class="ttdef"><b>Definition:</b> <a href="a01802_source.html#l00050">Waiter.cpp:50</a></div></div>
-<div class="ttc" id="aa04107_html_ab18842baad424ae363690f3f018836a3"><div class="ttname"><a href="a04107.html#ab18842baad424ae363690f3f018836a3">bl::util::Waiter::waitFor</a></div><div class="ttdeci">void waitFor(const std::chrono::duration&lt; Rep, Period &gt; &amp;timeout)</div><div class="ttdoc">Waits for a given amount of time then returns, even if not unblocked.</div><div class="ttdef"><b>Definition:</b> <a href="a01100_source.html#l00093">Waiter.hpp:93</a></div></div>
-<div class="ttc" id="aa04107_html_ad318a99de375b3c8fce4f10d611f0841"><div class="ttname"><a href="a04107.html#ad318a99de375b3c8fce4f10d611f0841">bl::util::Waiter::unblock</a></div><div class="ttdeci">void unblock()</div><div class="ttdoc">Unblocks the waiting thread.</div><div class="ttdef"><b>Definition:</b> <a href="a01802_source.html#l00030">Waiter.cpp:30</a></div></div>
-<div class="ttc" id="aa04107_html_ad4fd3e5e6d40d4e8165d9320ca038a3e"><div class="ttname"><a href="a04107.html#ad4fd3e5e6d40d4e8165d9320ca038a3e">bl::util::Waiter::~Waiter</a></div><div class="ttdeci">~Waiter()</div><div class="ttdoc">Unblocks any waiting threads before destruction.</div><div class="ttdef"><b>Definition:</b> <a href="a01802_source.html#l00022">Waiter.cpp:22</a></div></div>
-<div class="ttc" id="aa04107_html_adb601206dd155032d5634c2504b3b6c3"><div class="ttname"><a href="a04107.html#adb601206dd155032d5634c2504b3b6c3">bl::util::Waiter::wait</a></div><div class="ttdeci">void wait()</div><div class="ttdoc">Blocks until unblock() is called. Immediately returns if unblock() was already called and reset() was...</div><div class="ttdef"><b>Definition:</b> <a href="a01802_source.html#l00037">Waiter.cpp:37</a></div></div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="a04179.html#a5b58eff6352bd09ed9f8cb6564af0191">read</a>(<a class="code" href="a04067.html">InputStream</a>&amp; input, Payload&amp; payload);</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="keyword">static</span> constexpr std::uint32_t Header = 3257628152;</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;};</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> Payload, <span class="keyword">typename</span> DefaultLoader, <span class="keyword">typename</span>... Versions&gt;</div>
+<div class="line"><a name="l00123"></a><span class="lineno"><a class="line" href="a04179.html#a842bf52cbb3166ccfa83e95ef3df7aee">  123</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a04179.html#a842bf52cbb3166ccfa83e95ef3df7aee">VersionedSerializer&lt;Payload, DefaultLoader, Versions...&gt;::write</a>(<a class="code" href="a04075.html">OutputStream</a>&amp; output,</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;                                                                     <span class="keyword">const</span> Payload&amp; value) {</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <span class="keywordflow">if</span> (!output.<a class="code" href="a04075.html#ac4410d9f4e7f1bd5efd08dc7a01ec3f3">write</a>&lt;std::uint32_t&gt;(Header)) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <span class="keywordflow">if</span> (!output.<a class="code" href="a04075.html#ac4410d9f4e7f1bd5efd08dc7a01ec3f3">write</a>&lt;std::uint32_t&gt;(CurrentVersionNumber)) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <span class="keywordflow">return</span> LatestVersion::write(value, output);</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;}</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160; </div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> Payload, <span class="keyword">typename</span> DefaultLoader, <span class="keyword">typename</span>... Versions&gt;</div>
+<div class="line"><a name="l00131"></a><span class="lineno"><a class="line" href="a04179.html#a5b58eff6352bd09ed9f8cb6564af0191">  131</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a04179.html#a5b58eff6352bd09ed9f8cb6564af0191">VersionedSerializer&lt;Payload, DefaultLoader, Versions...&gt;::read</a>(<a class="code" href="a04067.html">InputStream</a>&amp; input,</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;                                                                    Payload&amp; value) {</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    constexpr bool (*loaders[])(Payload&amp;, <a class="code" href="a04067.html">InputStream</a>&amp;) = {&amp;Versions::read...};</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160; </div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    std::uint32_t header = 0;</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    <span class="keywordflow">if</span> (!input.<a class="code" href="a04067.html#ad1f019caed52ee29e47d3735fc62d388">peek</a>&lt;uint32_t&gt;(header)) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; </div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    <span class="keywordflow">if</span> (header == Header) {</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;        input.<a class="code" href="a04067.html#a52c344d6b62df73e91238b6d5ec1477a">skip</a>(<span class="keyword">sizeof</span>(std::uint32_t)); <span class="comment">// skip header</span></div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160; </div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;        std::uint32_t version;</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;        <span class="keywordflow">if</span> (!input.<a class="code" href="a04067.html#a74c75cb1a560331f068aa003bbfd4efc">read</a>&lt;std::uint32_t&gt;(version)) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;        <span class="keywordflow">if</span> (version &gt;= VersionCount) {</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;            <a class="code" href="a00620.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Invalid file version for payload&quot;</span> &lt;&lt; <span class="keyword">typeid</span>(Payload).name() &lt;&lt; <span class="stringliteral">&quot;: &quot;</span></div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;                         &lt;&lt; <span class="stringliteral">&quot; version=&quot;</span> &lt;&lt; version &lt;&lt; <span class="stringliteral">&quot; max version=&quot;</span> &lt;&lt; CurrentVersionNumber;</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;        }</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;        <span class="keywordflow">return</span> loaders[version](value, input);</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    }</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    <span class="keywordflow">return</span> DefaultLoader::read(value, input);</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;}</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160; </div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;} <span class="comment">// namespace binary</span></div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;} <span class="comment">// namespace serial</span></div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160; </div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00620_html_a927270d671e83a1c6b5382f30bfbf895"><div class="ttname"><a href="a00620.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a></div><div class="ttdeci">#define BL_LOG_ERROR</div><div class="ttdoc">Helper macro to log at error level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00620_source.html#l00101">Logger.hpp:101</a></div></div>
+<div class="ttc" id="aa00626_html"><div class="ttname"><a href="a00626.html">Logging.hpp</a></div></div>
+<div class="ttc" id="aa01088_html"><div class="ttname"><a href="a01088.html">InputStream.hpp</a></div></div>
+<div class="ttc" id="aa01094_html"><div class="ttname"><a href="a01094.html">OutputStream.hpp</a></div></div>
+<div class="ttc" id="aa01199_html"><div class="ttname"><a href="a01199.html">LastVariadic.hpp</a></div></div>
+<div class="ttc" id="aa01202_html"><div class="ttname"><a href="a01202.html">NonCopyable.hpp</a></div></div>
+<div class="ttc" id="aa01226_html"><div class="ttname"><a href="a01226.html">TupleLoop.hpp</a></div></div>
+<div class="ttc" id="aa02058_html"><div class="ttname"><a href="a02058.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04067_html"><div class="ttname"><a href="a04067.html">bl::serial::binary::InputStream</a></div><div class="ttdoc">A readable stream for binary deserialization.</div><div class="ttdef"><b>Definition:</b> <a href="a01088_source.html#l00028">InputStream.hpp:28</a></div></div>
+<div class="ttc" id="aa04067_html_a52c344d6b62df73e91238b6d5ec1477a"><div class="ttname"><a href="a04067.html#a52c344d6b62df73e91238b6d5ec1477a">bl::serial::binary::InputStream::skip</a></div><div class="ttdeci">bool skip(std::size_t bytes)</div><div class="ttdoc">Skips the given number of bytes.</div><div class="ttdef"><b>Definition:</b> <a href="a01088_source.html#l00124">InputStream.hpp:124</a></div></div>
+<div class="ttc" id="aa04067_html_a74c75cb1a560331f068aa003bbfd4efc"><div class="ttname"><a href="a04067.html#a74c75cb1a560331f068aa003bbfd4efc">bl::serial::binary::InputStream::read</a></div><div class="ttdeci">std::enable_if&lt; std::is_integral_v&lt; T &gt;, bool &gt;::type read(T &amp;output)</div><div class="ttdoc">Reads the integral type from the underlying.</div><div class="ttdef"><b>Definition:</b> <a href="a01088_source.html#l00089">InputStream.hpp:89</a></div></div>
+<div class="ttc" id="aa04067_html_ad1f019caed52ee29e47d3735fc62d388"><div class="ttname"><a href="a04067.html#ad1f019caed52ee29e47d3735fc62d388">bl::serial::binary::InputStream::peek</a></div><div class="ttdeci">std::enable_if&lt; std::is_integral_v&lt; T &gt;, bool &gt;::type peek(T &amp;output)</div><div class="ttdoc">Peeks the integral type from the underlying without moving the cursor.</div><div class="ttdef"><b>Definition:</b> <a href="a01088_source.html#l00108">InputStream.hpp:108</a></div></div>
+<div class="ttc" id="aa04075_html"><div class="ttname"><a href="a04075.html">bl::serial::binary::OutputStream</a></div><div class="ttdoc">A writable stream for binary serialization.</div><div class="ttdef"><b>Definition:</b> <a href="a01094_source.html#l00022">OutputStream.hpp:22</a></div></div>
+<div class="ttc" id="aa04075_html_ac4410d9f4e7f1bd5efd08dc7a01ec3f3"><div class="ttname"><a href="a04075.html#ac4410d9f4e7f1bd5efd08dc7a01ec3f3">bl::serial::binary::OutputStream::write</a></div><div class="ttdeci">std::enable_if&lt; std::is_integral_v&lt; T &gt;, bool &gt;::type write(const T &amp;data)</div><div class="ttdoc">Writes an integral type to the stream in it's binary representation.</div><div class="ttdef"><b>Definition:</b> <a href="a01094_source.html#l00066">OutputStream.hpp:66</a></div></div>
+<div class="ttc" id="aa04163_html"><div class="ttname"><a href="a04163.html">bl::serial::binary::priv::ReadWriteExistChecker</a></div><div class="ttdef"><b>Definition:</b> <a href="a01100_source.html#l00028">VersionedSerializer.hpp:28</a></div></div>
+<div class="ttc" id="aa04163_html_a47e6dd63e4338cb86b60fe1b8c79cd33"><div class="ttname"><a href="a04163.html#a47e6dd63e4338cb86b60fe1b8c79cd33">bl::serial::binary::priv::ReadWriteExistChecker::HasRead</a></div><div class="ttdeci">static constexpr bool HasRead</div><div class="ttdef"><b>Definition:</b> <a href="a01100_source.html#l00047">VersionedSerializer.hpp:47</a></div></div>
+<div class="ttc" id="aa04163_html_a56f55bebd51525f49a89b44b6e5a2ce0"><div class="ttname"><a href="a04163.html#a56f55bebd51525f49a89b44b6e5a2ce0">bl::serial::binary::priv::ReadWriteExistChecker::HasWrite</a></div><div class="ttdeci">static constexpr bool HasWrite</div><div class="ttdef"><b>Definition:</b> <a href="a01100_source.html#l00048">VersionedSerializer.hpp:48</a></div></div>
+<div class="ttc" id="aa04171_html"><div class="ttname"><a href="a04171.html">bl::serial::binary::priv::ReadSigChecker</a></div><div class="ttdef"><b>Definition:</b> <a href="a01100_source.html#l00052">VersionedSerializer.hpp:52</a></div></div>
+<div class="ttc" id="aa04171_html_abf1a0be17218be19e020bac9718bacdb"><div class="ttname"><a href="a04171.html#abf1a0be17218be19e020bac9718bacdb">bl::serial::binary::priv::ReadSigChecker::Conforms</a></div><div class="ttdeci">static constexpr bool Conforms</div><div class="ttdef"><b>Definition:</b> <a href="a01100_source.html#l00053">VersionedSerializer.hpp:53</a></div></div>
+<div class="ttc" id="aa04175_html"><div class="ttname"><a href="a04175.html">bl::serial::binary::priv::WriteSigChecker</a></div><div class="ttdef"><b>Definition:</b> <a href="a01100_source.html#l00058">VersionedSerializer.hpp:58</a></div></div>
+<div class="ttc" id="aa04175_html_a81b4011e43a9453d4a7dcfaed5adaf05"><div class="ttname"><a href="a04175.html#a81b4011e43a9453d4a7dcfaed5adaf05">bl::serial::binary::priv::WriteSigChecker::Conforms</a></div><div class="ttdeci">static constexpr bool Conforms</div><div class="ttdef"><b>Definition:</b> <a href="a01100_source.html#l00059">VersionedSerializer.hpp:59</a></div></div>
+<div class="ttc" id="aa04179_html"><div class="ttname"><a href="a04179.html">bl::serial::binary::VersionedSerializer</a></div><div class="ttdoc">Helper class to facilitate the versioning of binary files. Versions are represented by the provided l...</div><div class="ttdef"><b>Definition:</b> <a href="a01100_source.html#l00077">VersionedSerializer.hpp:77</a></div></div>
+<div class="ttc" id="aa04179_html_a5b58eff6352bd09ed9f8cb6564af0191"><div class="ttname"><a href="a04179.html#a5b58eff6352bd09ed9f8cb6564af0191">bl::serial::binary::VersionedSerializer::read</a></div><div class="ttdeci">static bool read(InputStream &amp;input, Payload &amp;payload)</div><div class="ttdoc">Reads the given object from the given stream.</div><div class="ttdef"><b>Definition:</b> <a href="a01100_source.html#l00131">VersionedSerializer.hpp:131</a></div></div>
+<div class="ttc" id="aa04179_html_a842bf52cbb3166ccfa83e95ef3df7aee"><div class="ttname"><a href="a04179.html#a842bf52cbb3166ccfa83e95ef3df7aee">bl::serial::binary::VersionedSerializer::write</a></div><div class="ttdeci">static bool write(OutputStream &amp;output, const Payload &amp;payload)</div><div class="ttdoc">Writes the given object to the given stream.</div><div class="ttdef"><b>Definition:</b> <a href="a01100_source.html#l00123">VersionedSerializer.hpp:123</a></div></div>
+<div class="ttc" id="aa04451_html"><div class="ttname"><a href="a04451.html">bl::util::LastVariadic</a></div><div class="ttdoc">Provides a typedef for the last type in a variadic template parameter list.</div><div class="ttdef"><b>Definition:</b> <a href="a01199_source.html#l00015">LastVariadic.hpp:15</a></div></div>
+<div class="ttc" id="aa04459_html"><div class="ttname"><a href="a04459.html">bl::util::NonCopyable</a></div><div class="ttdoc">Helper class to make derived classes impossible for user to copy directly.</div><div class="ttdef"><b>Definition:</b> <a href="a01202_source.html#l00013">NonCopyable.hpp:13</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 25 2023 00:24:20 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 27 2023 23:34:41 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

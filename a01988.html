@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: src/Systems/OverlayScalerSystem.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,31 +66,39 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01833.html">bl</a></li><li class="navelem"><a class="el" href="a01837.html">cam</a></li><li class="navelem"><a class="el" href="a01839.html">c3d</a></li><li class="navelem"><a class="el" href="a01991.html">CameraShake</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_900c20bb70493231141df6997ccd6b87.html">Systems</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">bl::cam::c3d::CameraShake Member List</div>  </div>
+<div class="title">OverlayScalerSystem.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-
-<p>This is the complete list of members for <a class="el" href="a01991.html">bl::cam::c3d::CameraShake</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01999.html#a32abe2726d00383c98194af473ac5cd0">applyOnProjection</a>(float &amp;fov, float &amp;nearValue, float &amp;farValue)</td><td class="entry"><a class="el" href="a01999.html">bl::cam::CameraAffector3D</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01991.html#a383c2a89e278a6521d7707654c17d109">applyOnView</a>(glm::vec3 &amp;position, com::Orientation3D &amp;orientation) override</td><td class="entry"><a class="el" href="a01991.html">bl::cam::c3d::CameraShake</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01991.html#a9c3874005a1878368f309a072326f3ba">CameraShake</a>(float magnitude, float shakesPerSecond)</td><td class="entry"><a class="el" href="a01991.html">bl::cam::c3d::CameraShake</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01991.html#a469ef49b73af0f8875120a59e5c18129">getMagnitude</a>() const</td><td class="entry"><a class="el" href="a01991.html">bl::cam::c3d::CameraShake</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01991.html#ab39045ef5e11962aa94863b9649ada2d">setMagnitude</a>(float magnitude)</td><td class="entry"><a class="el" href="a01991.html">bl::cam::c3d::CameraShake</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01991.html#a58d0c9b8a78e106706c3a6d794767bbe">setShakesPerSecond</a>(float shakesPerSecond)</td><td class="entry"><a class="el" href="a01991.html">bl::cam::c3d::CameraShake</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01991.html#abf58291e26b4d73d55cd1737be007ce0">update</a>(float dt, bool &amp;view, bool &amp;proj) override</td><td class="entry"><a class="el" href="a01991.html">bl::cam::c3d::CameraShake</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01999.html#aff830eddfff0ae16e37ddfc50d12b248">~CameraAffector3D</a>()=default</td><td class="entry"><a class="el" href="a01999.html">bl::cam::CameraAffector3D</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01991.html#ab5c2828e0770e702d38413e37007dc12">~CameraShake</a>()=default</td><td class="entry"><a class="el" href="a01991.html">bl::cam::c3d::CameraShake</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-</table></div><!-- contents -->
+<div class="textblock"><code>#include &lt;<a class="el" href="a01157_source.html">BLIB/Systems/OverlayScalerSystem.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00050_source.html">BLIB/Cameras/OverlayCamera.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a05599_source.html">BLIB/Engine/Engine.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00164_source.html">BLIB/Events.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00296_source.html">BLIB/Graphics/Components/OverlayScalable.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00836_source.html">BLIB/Render/Overlays/Overlay.hpp</a>&gt;</code><br />
+</div>
+<p><a href="a01988_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:a02058"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02058.html">bl</a></td></tr>
+<tr class="memdesc:a02058"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02067"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02067.html">bl::sys</a></td></tr>
+<tr class="memdesc:a02067"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of built-in engine systems. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 25 2023 00:24:22 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 27 2023 23:34:42 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

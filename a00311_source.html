@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Input/DirectionalControl.hpp Source File</title>
+<title>BLIB: include/BLIB/Graphics/Rectangle.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,69 +66,49 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_c720f75c1eb5aaccd40e24fd6b592b41.html">Input</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_8af985930208ac2752e8061e22535a56.html">Graphics</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">DirectionalControl.hpp</div>  </div>
+<div class="title">Rectangle.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00311.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_INPUT_DIRECTIONALCONTROL_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_INPUT_DIRECTIONALCONTROL_HPP</span></div>
+<a href="a00311.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_GRAPHICS_RECTANGLE_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_GRAPHICS_RECTANGLE_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00320.html">BLIB/Input/Joystick.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01833.html">bl</a></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>input</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">class </span>InputSystem;</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a02559.html">   18</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a02559.html">DirectionalControl</a> {</div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a02559.html#ad11d8007c9ffce98cf9c6f5d2a9d13e8">   20</a></span>&#160;    <span class="keyword">enum struct</span> <a class="code" href="a02559.html#ad11d8007c9ffce98cf9c6f5d2a9d13e8">Type</a> { <a class="code" href="a02559.html#ad11d8007c9ffce98cf9c6f5d2a9d13e8af2a47c6809d88e175dade0ef7b16aa13">Mouse</a>, <a class="code" href="a02571.html">Joystick</a> };</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a02559.html#aabce71fe4698bbac485b6f6fe08220db">   22</a></span>&#160;    <a class="code" href="a02559.html#ad11d8007c9ffce98cf9c6f5d2a9d13e8">Type</a> <a class="code" href="a02559.html#aabce71fe4698bbac485b6f6fe08220db">type</a>;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keyword">union </span>{</div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a02559.html#a4fa867882847b1d4d33d9f51f281304f">   24</a></span>&#160;        <a class="code" href="a02571.html">Joystick</a> <a class="code" href="a02559.html#a4fa867882847b1d4d33d9f51f281304f">joystick</a>;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    };</div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a02559.html#a5b31cecc6dc70f1d5cdf64212583f5f8">   26</a></span>&#160;    sf::Vector2f <a class="code" href="a02559.html#a5b31cecc6dc70f1d5cdf64212583f5f8">normalizedDirection</a>;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <a class="code" href="a02559.html#ad630bc56babe07939fe19a2298d760f5">DirectionalControl</a>(<span class="keywordtype">bool</span> joystickMode);</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a02559.html#ab995388a3049a9ac9368ee171bc66436">process</a>(<span class="keyword">const</span> <a class="code" href="a02567.html">InputSystem</a>&amp; system, <span class="keyword">const</span> sf::Event&amp; event);</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02559.html#a1d6214a932ff7956a829cd357a8753e6">saveToConfig</a>(<span class="keyword">const</span> std::string&amp; prefix) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02559.html#a356aefe82c54204083ec3bdec3692ba5">loadFromConfig</a>(<span class="keyword">const</span> std::string&amp; prefix);</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    std::string <a class="code" href="a02559.html#aeb5c32964cb8cb5736da9d74d23a2687">toString</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;};</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;} <span class="comment">// namespace input</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00320_html"><div class="ttname"><a href="a00320.html">Joystick.hpp</a></div></div>
-<div class="ttc" id="aa01833_html"><div class="ttname"><a href="a01833.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02559_html"><div class="ttname"><a href="a02559.html">bl::input::DirectionalControl</a></div><div class="ttdoc">Control data for a directional input.</div><div class="ttdef"><b>Definition:</b> <a href="a00311_source.html#l00018">DirectionalControl.hpp:18</a></div></div>
-<div class="ttc" id="aa02559_html_a1d6214a932ff7956a829cd357a8753e6"><div class="ttname"><a href="a02559.html#a1d6214a932ff7956a829cd357a8753e6">bl::input::DirectionalControl::saveToConfig</a></div><div class="ttdeci">void saveToConfig(const std::string &amp;prefix) const</div><div class="ttdoc">Saves this control config to the engine configuration store.</div><div class="ttdef"><b>Definition:</b> <a href="a01238_source.html#l00036">DirectionalControl.cpp:36</a></div></div>
-<div class="ttc" id="aa02559_html_a356aefe82c54204083ec3bdec3692ba5"><div class="ttname"><a href="a02559.html#a356aefe82c54204083ec3bdec3692ba5">bl::input::DirectionalControl::loadFromConfig</a></div><div class="ttdeci">void loadFromConfig(const std::string &amp;prefix)</div><div class="ttdoc">Loads this control config from the engine configuration store.</div><div class="ttdef"><b>Definition:</b> <a href="a01238_source.html#l00042">DirectionalControl.cpp:42</a></div></div>
-<div class="ttc" id="aa02559_html_a4fa867882847b1d4d33d9f51f281304f"><div class="ttname"><a href="a02559.html#a4fa867882847b1d4d33d9f51f281304f">bl::input::DirectionalControl::joystick</a></div><div class="ttdeci">Joystick joystick</div><div class="ttdef"><b>Definition:</b> <a href="a00311_source.html#l00024">DirectionalControl.hpp:24</a></div></div>
-<div class="ttc" id="aa02559_html_a5b31cecc6dc70f1d5cdf64212583f5f8"><div class="ttname"><a href="a02559.html#a5b31cecc6dc70f1d5cdf64212583f5f8">bl::input::DirectionalControl::normalizedDirection</a></div><div class="ttdeci">sf::Vector2f normalizedDirection</div><div class="ttdef"><b>Definition:</b> <a href="a00311_source.html#l00026">DirectionalControl.hpp:26</a></div></div>
-<div class="ttc" id="aa02559_html_aabce71fe4698bbac485b6f6fe08220db"><div class="ttname"><a href="a02559.html#aabce71fe4698bbac485b6f6fe08220db">bl::input::DirectionalControl::type</a></div><div class="ttdeci">Type type</div><div class="ttdef"><b>Definition:</b> <a href="a00311_source.html#l00022">DirectionalControl.hpp:22</a></div></div>
-<div class="ttc" id="aa02559_html_ab995388a3049a9ac9368ee171bc66436"><div class="ttname"><a href="a02559.html#ab995388a3049a9ac9368ee171bc66436">bl::input::DirectionalControl::process</a></div><div class="ttdeci">bool process(const InputSystem &amp;system, const sf::Event &amp;event)</div><div class="ttdoc">Processes the given event to potentially update the direction being inputted.</div><div class="ttdef"><b>Definition:</b> <a href="a01238_source.html#l00024">DirectionalControl.cpp:24</a></div></div>
-<div class="ttc" id="aa02559_html_ad11d8007c9ffce98cf9c6f5d2a9d13e8"><div class="ttname"><a href="a02559.html#ad11d8007c9ffce98cf9c6f5d2a9d13e8">bl::input::DirectionalControl::Type</a></div><div class="ttdeci">Type</div><div class="ttdoc">The type of input that drives the control.</div><div class="ttdef"><b>Definition:</b> <a href="a00311_source.html#l00020">DirectionalControl.hpp:20</a></div></div>
-<div class="ttc" id="aa02559_html_ad11d8007c9ffce98cf9c6f5d2a9d13e8af2a47c6809d88e175dade0ef7b16aa13"><div class="ttname"><a href="a02559.html#ad11d8007c9ffce98cf9c6f5d2a9d13e8af2a47c6809d88e175dade0ef7b16aa13">bl::input::DirectionalControl::Type::Mouse</a></div><div class="ttdeci">@ Mouse</div></div>
-<div class="ttc" id="aa02559_html_ad630bc56babe07939fe19a2298d760f5"><div class="ttname"><a href="a02559.html#ad630bc56babe07939fe19a2298d760f5">bl::input::DirectionalControl::DirectionalControl</a></div><div class="ttdeci">DirectionalControl(bool joystickMode)</div><div class="ttdoc">Creates the directional control in either mouse or joystick mode.</div><div class="ttdef"><b>Definition:</b> <a href="a01238_source.html#l00021">DirectionalControl.cpp:21</a></div></div>
-<div class="ttc" id="aa02559_html_aeb5c32964cb8cb5736da9d74d23a2687"><div class="ttname"><a href="a02559.html#aeb5c32964cb8cb5736da9d74d23a2687">bl::input::DirectionalControl::toString</a></div><div class="ttdeci">std::string toString() const</div><div class="ttdoc">Returns a user-readable string signifying what this control is.</div><div class="ttdef"><b>Definition:</b> <a href="a01238_source.html#l00050">DirectionalControl.cpp:50</a></div></div>
-<div class="ttc" id="aa02567_html"><div class="ttname"><a href="a02567.html">bl::input::InputSystem</a></div><div class="ttdoc">System for managing complex input workflows and maintaining a stack of subscribers to input based eve...</div><div class="ttdef"><b>Definition:</b> <a href="a00317_source.html#l00023">InputSystem.hpp:23</a></div></div>
-<div class="ttc" id="aa02571_html"><div class="ttname"><a href="a02571.html">bl::input::Joystick</a></div><div class="ttdoc">Helper struct representing a full joystick for inputs.</div><div class="ttdef"><b>Definition:</b> <a href="a00320_source.html#l00018">Joystick.hpp:18</a></div></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00323.html">BLIB/Graphics/Shapes2D/RectangleBase.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00326.html">BLIB/Graphics/Shapes2D/SingleShape2D.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02058.html">bl</a></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>gfx</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a02755.html">   16</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02755.html">Rectangle</a> : <span class="keyword">public</span> <a class="code" href="a02771.html">s2d::RectangleBase</a>&lt;s2d::SingleShape2D&gt; {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <a class="code" href="a02755.html#afa055c8fb3d6ed1e54a87ac0db39c06f">Rectangle</a>();</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02755.html#a30f0c3275154cc47eb8684e2b21f16cc">create</a>(<a class="code" href="a02555.html">engine::Engine</a>&amp; <a class="code" href="a02727.html#aa120ac89c9e8e4a405404e5e66245458">engine</a>, <span class="keyword">const</span> glm::vec2&amp; size);</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;};</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;} <span class="comment">// namespace gfx</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00323_html"><div class="ttname"><a href="a00323.html">RectangleBase.hpp</a></div></div>
+<div class="ttc" id="aa00326_html"><div class="ttname"><a href="a00326.html">SingleShape2D.hpp</a></div></div>
+<div class="ttc" id="aa02058_html"><div class="ttname"><a href="a02058.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02555_html"><div class="ttname"><a href="a02555.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a05599_source.html#l00032">Engine.hpp:32</a></div></div>
+<div class="ttc" id="aa02727_html_aa120ac89c9e8e4a405404e5e66245458"><div class="ttname"><a href="a02727.html#aa120ac89c9e8e4a405404e5e66245458">bl::gfx::bcom::EntityBacked::engine</a></div><div class="ttdeci">engine::Engine &amp; engine()</div><div class="ttdoc">Returns the game engine instance. Only call after create()</div><div class="ttdef"><b>Definition:</b> <a href="a00293_source.html#l00106">EntityBacked.hpp:106</a></div></div>
+<div class="ttc" id="aa02755_html"><div class="ttname"><a href="a02755.html">bl::gfx::Rectangle</a></div><div class="ttdoc">Renderable 2d rectangle shape.</div><div class="ttdef"><b>Definition:</b> <a href="a00311_source.html#l00016">Rectangle.hpp:16</a></div></div>
+<div class="ttc" id="aa02755_html_a30f0c3275154cc47eb8684e2b21f16cc"><div class="ttname"><a href="a02755.html#a30f0c3275154cc47eb8684e2b21f16cc">bl::gfx::Rectangle::create</a></div><div class="ttdeci">void create(engine::Engine &amp;engine, const glm::vec2 &amp;size)</div><div class="ttdoc">Creates the rectangle entity and components.</div><div class="ttdef"><b>Definition:</b> <a href="a01376_source.html#l00010">Rectangle.cpp:10</a></div></div>
+<div class="ttc" id="aa02755_html_afa055c8fb3d6ed1e54a87ac0db39c06f"><div class="ttname"><a href="a02755.html#afa055c8fb3d6ed1e54a87ac0db39c06f">bl::gfx::Rectangle::Rectangle</a></div><div class="ttdeci">Rectangle()</div><div class="ttdoc">Initializes the object.</div><div class="ttdef"><b>Definition:</b> <a href="a01376_source.html#l00007">Rectangle.cpp:7</a></div></div>
+<div class="ttc" id="aa02771_html"><div class="ttname"><a href="a02771.html">bl::gfx::s2d::RectangleBase</a></div><div class="ttdoc">Intermediate base class for rectangles. Use gfx::Rectangle or BatchedRectangle.</div><div class="ttdef"><b>Definition:</b> <a href="a00323_source.html#l00020">RectangleBase.hpp:20</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 25 2023 00:24:20 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 27 2023 23:34:40 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

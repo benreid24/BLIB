@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::ecs::ComponentPool&lt; T &gt; Class Template Reference</title>
+<title>BLIB: bl::serial::SerializableObject&lt; audio::Playlist &gt; Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,220 +66,116 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01833.html">bl</a></li><li class="navelem"><a class="el" href="a01848.html">ecs</a></li><li class="navelem"><a class="el" href="a02199.html">ComponentPool</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02058.html">bl</a></li><li class="navelem"><a class="el" href="a02061.html">serial</a></li><li class="navelem"><a class="el" href="a02199.html">SerializableObject&lt; audio::Playlist &gt;</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
-<a href="#pro-attribs">Protected Attributes</a> &#124;
-<a href="#friends">Friends</a> &#124;
 <a href="a02196.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::ecs::ComponentPool&lt; T &gt; Class Template Reference<div class="ingroups"><a class="el" href="a01810.html">ECS</a></div></div>  </div>
+<div class="title">bl::serial::SerializableObject&lt; audio::Playlist &gt; Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Provides storage and management for components in the ECS. Used internally in the <a class="el" href="a02267.html" title="This is the main interface of the ECS. This class manages all entities and components and views and s...">Registry</a>.  
- <a href="a02199.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="a00146_source.html">ComponentPool.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00014_source.html">Playlist.hpp</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::ecs::ComponentPool&lt; T &gt;:</div>
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::serial::SerializableObject&lt; audio::Playlist &gt;:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
  <div class="center">
-  <img src="a02199.png" usemap="#bl::ecs::ComponentPool_3C_20T_20_3E_map" alt=""/>
-  <map id="bl::ecs::ComponentPool_3C_20T_20_3E_map" name="bl::ecs::ComponentPool_3C_20T_20_3E_map">
-<area href="a02195.html" title="Base class for component pools. Not intended to be used directly." alt="bl::ecs::ComponentPoolBase" shape="rect" coords="0,56,173,80"/>
-<area href="a04011.html" title="Helper class to make derived classes impossible for user to copy directly." alt="bl::util::NonCopyable" shape="rect" coords="0,0,173,24"/>
+  <img src="a02199.png" usemap="#bl::serial::SerializableObject_3C_20audio::Playlist_20_3E_map" alt=""/>
+  <map id="bl::serial::SerializableObject_3C_20audio::Playlist_20_3E_map" name="bl::serial::SerializableObject_3C_20audio::Playlist_20_3E_map">
+<area href="a04347.html" title="Base class for all serializable objects." alt="bl::serial::SerializableObjectBase" shape="rect" coords="0,56,269,80"/>
+<area href="a04459.html" title="Helper class to make derived classes impossible for user to copy directly." alt="bl::util::NonCopyable" shape="rect" coords="0,0,269,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a38c3153517119dae98fdeb12ddf112de"><td class="memItemLeft" align="right" valign="top">T *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02199.html#a38c3153517119dae98fdeb12ddf112de">get</a> (<a class="el" href="a02223.html">Entity</a> entity)</td></tr>
-<tr class="memdesc:a38c3153517119dae98fdeb12ddf112de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetches the component for the given entity if it exists.  <a href="a02199.html#a38c3153517119dae98fdeb12ddf112de">More...</a><br /></td></tr>
-<tr class="separator:a38c3153517119dae98fdeb12ddf112de"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a557e314ff3e797220cca51606d535aaf"><td class="memTemplParams" colspan="2">template&lt;typename TCallback &gt; </td></tr>
-<tr class="memitem:a557e314ff3e797220cca51606d535aaf"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a02199.html#a557e314ff3e797220cca51606d535aaf">forEach</a> (const TCallback &amp;cb)</td></tr>
-<tr class="memdesc:a557e314ff3e797220cca51606d535aaf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Iterates over all contained components and triggers the callback for each.  <a href="a02199.html#a557e314ff3e797220cca51606d535aaf">More...</a><br /></td></tr>
-<tr class="separator:a557e314ff3e797220cca51606d535aaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a31c431802172eead09ac8af1ec1f97d2"><td class="memTemplParams" colspan="2">template&lt;typename TCallback &gt; </td></tr>
-<tr class="memitem:a31c431802172eead09ac8af1ec1f97d2"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a02199.html#a31c431802172eead09ac8af1ec1f97d2">forEachWithWrites</a> (const TCallback &amp;cb)</td></tr>
-<tr class="memdesc:a31c431802172eead09ac8af1ec1f97d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Iterates over all contained components and triggers the callback for each. Acquires a write lock on the pool. Use this if the callback may remove components, otherwise prefer <a class="el" href="a02199.html#a557e314ff3e797220cca51606d535aaf" title="Iterates over all contained components and triggers the callback for each.">forEach()</a>  <a href="a02199.html#a31c431802172eead09ac8af1ec1f97d2">More...</a><br /></td></tr>
-<tr class="separator:a31c431802172eead09ac8af1ec1f97d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2cfefaebb963a24735e486622eda79b3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02199.html#a2cfefaebb963a24735e486622eda79b3">SerializableObject</a> ()</td></tr>
+<tr class="separator:a2cfefaebb963a24735e486622eda79b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17aeb69c9783dfecc1eeba5e407e534b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04347.html#a17aeb69c9783dfecc1eeba5e407e534b">deserializeJSON</a> (const <a class="el" href="a04215.html">json::Group</a> &amp;value, void *object) const</td></tr>
+<tr class="memdesc:a17aeb69c9783dfecc1eeba5e407e534b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deserializes the given json into the fields of this object.  <a href="a04347.html#a17aeb69c9783dfecc1eeba5e407e534b">More...</a><br /></td></tr>
+<tr class="separator:a17aeb69c9783dfecc1eeba5e407e534b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ea50247bce55d115ee96c83f5f00524"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04215.html">json::Group</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04347.html#a9ea50247bce55d115ee96c83f5f00524">serializeJSON</a> (const void *object) const</td></tr>
+<tr class="memdesc:a9ea50247bce55d115ee96c83f5f00524"><td class="mdescLeft">&#160;</td><td class="mdescRight">Serializes this object and its fields into the returned json data.  <a href="a04347.html#a9ea50247bce55d115ee96c83f5f00524">More...</a><br /></td></tr>
+<tr class="separator:a9ea50247bce55d115ee96c83f5f00524"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e4b2491e4fc0e4b292c0528bb5867f1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04347.html#a6e4b2491e4fc0e4b292c0528bb5867f1">serializeJsonStream</a> (std::ostream &amp;stream, const void *object, unsigned int tabSize, unsigned int currentIndent=0)</td></tr>
+<tr class="memdesc:a6e4b2491e4fc0e4b292c0528bb5867f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Serializes the given object directly into the given stream as json.  <a href="a04347.html#a6e4b2491e4fc0e4b292c0528bb5867f1">More...</a><br /></td></tr>
+<tr class="separator:a6e4b2491e4fc0e4b292c0528bb5867f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abab6b81436fea719270aded7fa3b9814"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04347.html#abab6b81436fea719270aded7fa3b9814">deserializeJsonStream</a> (std::istream &amp;stream, void *object)</td></tr>
+<tr class="memdesc:abab6b81436fea719270aded7fa3b9814"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deserializes the given object directly from the given stream as json.  <a href="a04347.html#abab6b81436fea719270aded7fa3b9814">More...</a><br /></td></tr>
+<tr class="separator:abab6b81436fea719270aded7fa3b9814"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01e9ab4c33606f741aac46c210fb8a56"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04347.html#a01e9ab4c33606f741aac46c210fb8a56">serializeBinary</a> (<a class="el" href="a04075.html">binary::OutputStream</a> &amp;stream, const void *object) const</td></tr>
+<tr class="memdesc:a01e9ab4c33606f741aac46c210fb8a56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Serializes the given object to the given stream.  <a href="a04347.html#a01e9ab4c33606f741aac46c210fb8a56">More...</a><br /></td></tr>
+<tr class="separator:a01e9ab4c33606f741aac46c210fb8a56"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada114cd12dcd921e0dd964a9a4d7585d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04347.html#ada114cd12dcd921e0dd964a9a4d7585d">deserializeBinary</a> (<a class="el" href="a04067.html">binary::InputStream</a> &amp;stream, void *object) const</td></tr>
+<tr class="memdesc:ada114cd12dcd921e0dd964a9a4d7585d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deserializes from the stream into the given object.  <a href="a04347.html#ada114cd12dcd921e0dd964a9a4d7585d">More...</a><br /></td></tr>
+<tr class="separator:ada114cd12dcd921e0dd964a9a4d7585d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acbd7146768fd2db6cbf36b6e8c4acf37"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04347.html#acbd7146768fd2db6cbf36b6e8c4acf37">serializePackedBinary</a> (<a class="el" href="a04075.html">binary::OutputStream</a> &amp;stream, const void *object) const</td></tr>
+<tr class="memdesc:acbd7146768fd2db6cbf36b6e8c4acf37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Serializes the given object to the given stream without writing any additional metadata. Use this when you for sure know the object format will not change and also need a smaller representation.  <a href="a04347.html#acbd7146768fd2db6cbf36b6e8c4acf37">More...</a><br /></td></tr>
+<tr class="separator:acbd7146768fd2db6cbf36b6e8c4acf37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9fc337af69bc870b6abfaef7caf82af"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04347.html#aa9fc337af69bc870b6abfaef7caf82af">deserializePackedBinary</a> (<a class="el" href="a04067.html">binary::InputStream</a> &amp;stream, void *object) const</td></tr>
+<tr class="memdesc:aa9fc337af69bc870b6abfaef7caf82af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deserializes from the packed binary data into the given object.  <a href="a04347.html#aa9fc337af69bc870b6abfaef7caf82af">More...</a><br /></td></tr>
+<tr class="separator:aa9fc337af69bc870b6abfaef7caf82af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f2cfad057c98e516e8696b4ca0a3514"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04347.html#a9f2cfad057c98e516e8696b4ca0a3514">binarySize</a> (const void *object) const</td></tr>
+<tr class="memdesc:a9f2cfad057c98e516e8696b4ca0a3514"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the size of the object when serialized, in bytes.  <a href="a04347.html#a9f2cfad057c98e516e8696b4ca0a3514">More...</a><br /></td></tr>
+<tr class="separator:a9f2cfad057c98e516e8696b4ca0a3514"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:ae56e840ae8ac727820de828d0da3f403"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ae56e840ae8ac727820de828d0da3f403"><td class="memTemplItemLeft" align="right" valign="top">static <a class="el" href="a04347.html">SerializableObjectBase</a> &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a04347.html#ae56e840ae8ac727820de828d0da3f403">get</a> ()</td></tr>
+<tr class="memdesc:ae56e840ae8ac727820de828d0da3f403"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the serializable object descriptor for the given type.  <a href="a04347.html#ae56e840ae8ac727820de828d0da3f403">More...</a><br /></td></tr>
+<tr class="separator:ae56e840ae8ac727820de828d0da3f403"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:ab026c9a642037ac2e809e2ce7735a517"><td class="memItemLeft" align="right" valign="top">const std::uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02195.html#ab026c9a642037ac2e809e2ce7735a517">ComponentIndex</a></td></tr>
-<tr class="memdesc:ab026c9a642037ac2e809e2ce7735a517"><td class="mdescLeft">&#160;</td><td class="mdescRight">The 0-based index of this component pool.  <a href="a02195.html#ab026c9a642037ac2e809e2ce7735a517">More...</a><br /></td></tr>
-<tr class="separator:ab026c9a642037ac2e809e2ce7735a517"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
-Protected Attributes</h2></td></tr>
-<tr class="memitem:af268b3204ff2d2d74b15ca8347bcb05f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04047.html">util::ReadWriteLock</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02195.html#af268b3204ff2d2d74b15ca8347bcb05f">poolLock</a></td></tr>
-<tr class="separator:af268b3204ff2d2d74b15ca8347bcb05f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
-Friends</h2></td></tr>
-<tr class="memitem:ac7b716e6d41ff508ad2d8e5dad655d72"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02199.html#ac7b716e6d41ff508ad2d8e5dad655d72">Registry</a></td></tr>
-<tr class="separator:ac7b716e6d41ff508ad2d8e5dad655d72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25f0f4e10027958372b02a5c5a53cccf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04331.html">SerializableField</a>&lt; 1, <a class="el" href="a02195.html">audio::Playlist</a>, std::vector&lt; std::string &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02199.html#a25f0f4e10027958372b02a5c5a53cccf">songs</a></td></tr>
+<tr class="separator:a25f0f4e10027958372b02a5c5a53cccf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55c777aa5b92ed4de29c954e9c5a1c72"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04331.html">SerializableField</a>&lt; 2, <a class="el" href="a02195.html">audio::Playlist</a>, bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02199.html#a55c777aa5b92ed4de29c954e9c5a1c72">shuffle</a></td></tr>
+<tr class="separator:a55c777aa5b92ed4de29c954e9c5a1c72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0b223d40e009ada690d2b1dd844bed2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04331.html">SerializableField</a>&lt; 3, <a class="el" href="a02195.html">audio::Playlist</a>, bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02199.html#ac0b223d40e009ada690d2b1dd844bed2">shuffleOnLoop</a></td></tr>
+<tr class="separator:ac0b223d40e009ada690d2b1dd844bed2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename T&gt;<br />
-class bl::ecs::ComponentPool&lt; T &gt;</h3>
-
-<p>Provides storage and management for components in the ECS. Used internally in the <a class="el" href="a02267.html" title="This is the main interface of the ECS. This class manages all entities and components and views and s...">Registry</a>. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">T</td><td>The type of component to store </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00146_source.html#l00069">69</a> of file <a class="el" href="a00146_source.html">ComponentPool.hpp</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a557e314ff3e797220cca51606d535aaf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a557e314ff3e797220cca51606d535aaf">&#9670;&nbsp;</a></span>forEach()</h2>
+<div class="textblock">
+<p class="definition">Definition at line <a class="el" href="a00014_source.html#l00217">217</a> of file <a class="el" href="a00014_source.html">Playlist.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a2cfefaebb963a24735e486622eda79b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2cfefaebb963a24735e486622eda79b3">&#9670;&nbsp;</a></span>SerializableObject()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<div class="memtemplate">
-template&lt;typename TCallback &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="a02199.html">bl::ecs::ComponentPool</a>&lt; T &gt;::forEach </td>
-          <td>(</td>
-          <td class="paramtype">const TCallback &amp;&#160;</td>
-          <td class="paramname"><em>cb</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Iterates over all contained components and triggers the callback for each. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">TCallback</td><td>The callback type to invoke </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">cb</td><td>The handler for each component. Takes the entity id and the component </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00146_source.html#l00289">289</a> of file <a class="el" href="a00146_source.html">ComponentPool.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a31c431802172eead09ac8af1ec1f97d2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a31c431802172eead09ac8af1ec1f97d2">&#9670;&nbsp;</a></span>forEachWithWrites()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<div class="memtemplate">
-template&lt;typename TCallback &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="a02199.html">bl::ecs::ComponentPool</a>&lt; T &gt;::forEachWithWrites </td>
-          <td>(</td>
-          <td class="paramtype">const TCallback &amp;&#160;</td>
-          <td class="paramname"><em>cb</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Iterates over all contained components and triggers the callback for each. Acquires a write lock on the pool. Use this if the callback may remove components, otherwise prefer <a class="el" href="a02199.html#a557e314ff3e797220cca51606d535aaf" title="Iterates over all contained components and triggers the callback for each.">forEach()</a> </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">TCallback</td><td>The callback type to invoke </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">cb</td><td>The handler for each component. Takes the entity id and the component </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00146_source.html#l00299">299</a> of file <a class="el" href="a00146_source.html">ComponentPool.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a38c3153517119dae98fdeb12ddf112de"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a38c3153517119dae98fdeb12ddf112de">&#9670;&nbsp;</a></span>get()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">T * <a class="el" href="a02199.html">bl::ecs::ComponentPool</a>&lt; T &gt;::get </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a02223.html">Entity</a>&#160;</td>
-          <td class="paramname"><em>entity</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Fetches the component for the given entity if it exists. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">entity</td><td>The entity to get the component for </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>T* Pointer to the component or nullptr if the entity does not have one </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00146_source.html#l00308">308</a> of file <a class="el" href="a00146_source.html">ComponentPool.hpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Friends And Related Function Documentation</h2>
-<a id="ac7b716e6d41ff508ad2d8e5dad655d72"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac7b716e6d41ff508ad2d8e5dad655d72">&#9670;&nbsp;</a></span>Registry</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">friend class <a class="el" href="a02267.html">Registry</a></td>
+          <td class="memname"><a class="el" href="a04351.html">bl::serial::SerializableObject</a>&lt; <a class="el" href="a02195.html">audio::Playlist</a> &gt;::<a class="el" href="a04351.html">SerializableObject</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00146_source.html#l00184">184</a> of file <a class="el" href="a00146_source.html">ComponentPool.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00014_source.html#l00222">222</a> of file <a class="el" href="a00014_source.html">Playlist.hpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="ab026c9a642037ac2e809e2ce7735a517"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab026c9a642037ac2e809e2ce7735a517">&#9670;&nbsp;</a></span>ComponentIndex</h2>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a9f2cfad057c98e516e8696b4ca0a3514"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f2cfad057c98e516e8696b4ca0a3514">&#9670;&nbsp;</a></span>binarySize()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -288,7 +184,11 @@ template&lt;typename T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const std::uint16_t bl::ecs::ComponentPoolBase::ComponentIndex</td>
+          <td class="memname">std::size_t bl::serial::SerializableObjectBase::binarySize </td>
+          <td>(</td>
+          <td class="paramtype">const void *&#160;</td>
+          <td class="paramname"><em>object</em></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
   </td>
@@ -298,14 +198,21 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>The 0-based index of this component pool. </p>
+<p>Returns the size of the object when serialized, in bytes. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">object</td><td>The object to serialize </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>std::size_t The serialized size of the object, in bytes </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a00146_source.html#l00037">37</a> of file <a class="el" href="a00146_source.html">ComponentPool.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01982_source.html#l00117">117</a> of file <a class="el" href="a01982_source.html">SerializableObject.cpp</a>.</p>
 
 </div>
 </div>
-<a id="af268b3204ff2d2d74b15ca8347bcb05f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af268b3204ff2d2d74b15ca8347bcb05f">&#9670;&nbsp;</a></span>poolLock</h2>
+<a id="ada114cd12dcd921e0dd964a9a4d7585d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada114cd12dcd921e0dd964a9a4d7585d">&#9670;&nbsp;</a></span>deserializeBinary()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -314,28 +221,475 @@ template&lt;typename T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a04047.html">util::ReadWriteLock</a> bl::ecs::ComponentPoolBase::poolLock</td>
+          <td class="memname">bool bl::serial::SerializableObjectBase::deserializeBinary </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a04067.html">binary::InputStream</a> &amp;&#160;</td>
+          <td class="paramname"><em>stream</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>object</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00146_source.html#l00046">46</a> of file <a class="el" href="a00146_source.html">ComponentPool.hpp</a>.</p>
+<p>Deserializes from the stream into the given object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">stream</td><td>The stream to read from </td></tr>
+    <tr><td class="paramname">object</td><td>The object to read into </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True on success, false on error </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a01982_source.html#l00059">59</a> of file <a class="el" href="a01982_source.html">SerializableObject.cpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>include/BLIB/ECS/<a class="el" href="a00146_source.html">ComponentPool.hpp</a></li>
+<a id="a17aeb69c9783dfecc1eeba5e407e534b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a17aeb69c9783dfecc1eeba5e407e534b">&#9670;&nbsp;</a></span>deserializeJSON()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::serial::SerializableObjectBase::deserializeJSON </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a04215.html">json::Group</a> &amp;&#160;</td>
+          <td class="paramname"><em>value</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>object</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Deserializes the given json into the fields of this object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>The json data to populate fields with </td></tr>
+    <tr><td class="paramname">object</td><td>The object to read into </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True on success, false on error </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a01982_source.html#l00020">20</a> of file <a class="el" href="a01982_source.html">SerializableObject.cpp</a>.</p>
+
+</div>
+</div>
+<a id="abab6b81436fea719270aded7fa3b9814"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abab6b81436fea719270aded7fa3b9814">&#9670;&nbsp;</a></span>deserializeJsonStream()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::serial::SerializableObjectBase::deserializeJsonStream </td>
+          <td>(</td>
+          <td class="paramtype">std::istream &amp;&#160;</td>
+          <td class="paramname"><em>stream</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>object</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Deserializes the given object directly from the given stream as json. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">stream</td><td>The stream to read json from </td></tr>
+    <tr><td class="paramname">object</td><td>The object to deserialize </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True on success, false on error </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a01982_source.html#l00163">163</a> of file <a class="el" href="a01982_source.html">SerializableObject.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aa9fc337af69bc870b6abfaef7caf82af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa9fc337af69bc870b6abfaef7caf82af">&#9670;&nbsp;</a></span>deserializePackedBinary()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::serial::SerializableObjectBase::deserializePackedBinary </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a04067.html">binary::InputStream</a> &amp;&#160;</td>
+          <td class="paramname"><em>stream</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>object</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Deserializes from the packed binary data into the given object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">stream</td><td>The stream to read from </td></tr>
+    <tr><td class="paramname">object</td><td>The object to read into </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True on success, false on error </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a01982_source.html#l00134">134</a> of file <a class="el" href="a01982_source.html">SerializableObject.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ae56e840ae8ac727820de828d0da3f403"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae56e840ae8ac727820de828d0da3f403">&#9670;&nbsp;</a></span>get()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a04347.html">SerializableObjectBase</a> &amp; bl::serial::SerializableObjectBase::get</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the serializable object descriptor for the given type. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The type to get the descriptor for </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a04347.html" title="Base class for all serializable objects.">SerializableObjectBase</a>&amp; The object descriptor </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a01136_source.html#l00154">154</a> of file <a class="el" href="a01136_source.html">SerializableObject.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a01e9ab4c33606f741aac46c210fb8a56"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a01e9ab4c33606f741aac46c210fb8a56">&#9670;&nbsp;</a></span>serializeBinary()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::serial::SerializableObjectBase::serializeBinary </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a04075.html">binary::OutputStream</a> &amp;&#160;</td>
+          <td class="paramname"><em>stream</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const void *&#160;</td>
+          <td class="paramname"><em>object</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Serializes the given object to the given stream. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">stream</td><td>The stream to serialize to </td></tr>
+    <tr><td class="paramname">object</td><td>The object to serialize </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True on success, false on error </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a01982_source.html#l00049">49</a> of file <a class="el" href="a01982_source.html">SerializableObject.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a9ea50247bce55d115ee96c83f5f00524"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ea50247bce55d115ee96c83f5f00524">&#9670;&nbsp;</a></span>serializeJSON()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a04215.html">json::Group</a> bl::serial::SerializableObjectBase::serializeJSON </td>
+          <td>(</td>
+          <td class="paramtype">const void *&#160;</td>
+          <td class="paramname"><em>object</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Serializes this object and its fields into the returned json data. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">object</td><td>The object to serialize </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Group json data containing this object and its fields </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a01982_source.html#l00041">41</a> of file <a class="el" href="a01982_source.html">SerializableObject.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a6e4b2491e4fc0e4b292c0528bb5867f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e4b2491e4fc0e4b292c0528bb5867f1">&#9670;&nbsp;</a></span>serializeJsonStream()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::serial::SerializableObjectBase::serializeJsonStream </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>stream</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const void *&#160;</td>
+          <td class="paramname"><em>object</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>tabSize</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>currentIndent</em> = <code>0</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Serializes the given object directly into the given stream as json. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">stream</td><td>The stream to serialize into </td></tr>
+    <tr><td class="paramname">object</td><td>The object to serialize </td></tr>
+    <tr><td class="paramname">tabSize</td><td>Spaces to indent per level </td></tr>
+    <tr><td class="paramname">currentIndent</td><td>Current level of indentation in spaces </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True on success, false on error </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a01982_source.html#l00141">141</a> of file <a class="el" href="a01982_source.html">SerializableObject.cpp</a>.</p>
+
+</div>
+</div>
+<a id="acbd7146768fd2db6cbf36b6e8c4acf37"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acbd7146768fd2db6cbf36b6e8c4acf37">&#9670;&nbsp;</a></span>serializePackedBinary()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::serial::SerializableObjectBase::serializePackedBinary </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a04075.html">binary::OutputStream</a> &amp;&#160;</td>
+          <td class="paramname"><em>stream</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const void *&#160;</td>
+          <td class="paramname"><em>object</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Serializes the given object to the given stream without writing any additional metadata. Use this when you for sure know the object format will not change and also need a smaller representation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">stream</td><td>The stream to serialize to </td></tr>
+    <tr><td class="paramname">object</td><td>The object to serialize </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True on success, false on error </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a01982_source.html#l00126">126</a> of file <a class="el" href="a01982_source.html">SerializableObject.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a55c777aa5b92ed4de29c954e9c5a1c72"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a55c777aa5b92ed4de29c954e9c5a1c72">&#9670;&nbsp;</a></span>shuffle</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a04331.html">SerializableField</a>&lt;2, <a class="el" href="a02195.html">audio::Playlist</a>, bool&gt; <a class="el" href="a04351.html">bl::serial::SerializableObject</a>&lt; <a class="el" href="a02195.html">audio::Playlist</a> &gt;::shuffle</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00014_source.html#l00219">219</a> of file <a class="el" href="a00014_source.html">Playlist.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ac0b223d40e009ada690d2b1dd844bed2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0b223d40e009ada690d2b1dd844bed2">&#9670;&nbsp;</a></span>shuffleOnLoop</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a04331.html">SerializableField</a>&lt;3, <a class="el" href="a02195.html">audio::Playlist</a>, bool&gt; <a class="el" href="a04351.html">bl::serial::SerializableObject</a>&lt; <a class="el" href="a02195.html">audio::Playlist</a> &gt;::shuffleOnLoop</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00014_source.html#l00220">220</a> of file <a class="el" href="a00014_source.html">Playlist.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a25f0f4e10027958372b02a5c5a53cccf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25f0f4e10027958372b02a5c5a53cccf">&#9670;&nbsp;</a></span>songs</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a04331.html">SerializableField</a>&lt;1, <a class="el" href="a02195.html">audio::Playlist</a>, std::vector&lt;std::string&gt; &gt; <a class="el" href="a04351.html">bl::serial::SerializableObject</a>&lt; <a class="el" href="a02195.html">audio::Playlist</a> &gt;::songs</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00014_source.html#l00218">218</a> of file <a class="el" href="a00014_source.html">Playlist.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>include/BLIB/Audio/<a class="el" href="a00014_source.html">Playlist.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 25 2023 00:24:22 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 27 2023 23:34:43 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

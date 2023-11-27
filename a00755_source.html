@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Scenes/Key.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,94 +66,64 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_1582fe53e8ca010e140dea1b69a5a9f3.html">Scenes</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_154b49fde9d17c5da5d7cb000b858c0e.html">Descriptors</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Key.hpp</div>  </div>
+<div class="title">SceneDescriptorSetInstance.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00755.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_SCENES_KEY_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_SCENES_KEY_HPP</span></div>
+<a href="a00755.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_DESCRIPTORS_SCENEDESCRIPTORSETINSTANCE_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_DESCRIPTORS_SCENEDESCRIPTORSETINSTANCE_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00788.html">BLIB/Render/UpdateSpeed.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01049.html">BLIB/Util/HashCombine.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;cstdint&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;functional&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;limits&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01833.html">bl</a></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>rc</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span>scene</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a03235.html">   22</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a03235.html">Key</a> {</div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a03235.html#a580d79a30be461bc410fefee59c32ac3">   23</a></span>&#160;    <span class="keyword">static</span> constexpr std::uint32_t <a class="code" href="a03235.html#a580d79a30be461bc410fefee59c32ac3">InvalidSceneId</a> = std::numeric_limits&lt;std::uint32_t&gt;::max();</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a03235.html#abc689f231a25b15808c61dde6fda1d08">   25</a></span>&#160;    <a class="code" href="a01820.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a> <a class="code" href="a03235.html#abc689f231a25b15808c61dde6fda1d08">updateFreq</a>;</div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a03235.html#a5fa4592fd53a220f89ac7814aebfa6d6">   26</a></span>&#160;    std::uint32_t <a class="code" href="a03235.html#a5fa4592fd53a220f89ac7814aebfa6d6">sceneId</a>;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="a03235.html#a5682da85e8239915341a400b492f0e80">   31</a></span>&#160;    <a class="code" href="a03235.html#a5682da85e8239915341a400b492f0e80">Key</a>()</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    : <a class="code" href="a03235.html#abc689f231a25b15808c61dde6fda1d08">updateFreq</a>(<a class="code" href="a01820.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a>::<a class="code" href="a01820.html#gga305dcc5dda3e28bd193ab31444664848a971fd8cc345d8bd9f92e9f7d88fdf20c">Dynamic</a>)</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    , <a class="code" href="a03235.html#a5fa4592fd53a220f89ac7814aebfa6d6">sceneId</a>(<a class="code" href="a03235.html#a580d79a30be461bc410fefee59c32ac3">InvalidSceneId</a>) {}</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="a03235.html#ab234289f8c76d1913d8d7e0a9d92a3c3">   41</a></span>&#160;    <a class="code" href="a03235.html#ab234289f8c76d1913d8d7e0a9d92a3c3">Key</a>(<a class="code" href="a01820.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a> <a class="code" href="a03235.html#abc689f231a25b15808c61dde6fda1d08">updateFreq</a>, std::uint32_t <a class="code" href="a03235.html#a5fa4592fd53a220f89ac7814aebfa6d6">sceneId</a>)</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    : <a class="code" href="a03235.html#abc689f231a25b15808c61dde6fda1d08">updateFreq</a>(<a class="code" href="a03235.html#abc689f231a25b15808c61dde6fda1d08">updateFreq</a>)</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    , <a class="code" href="a03235.html#a5fa4592fd53a220f89ac7814aebfa6d6">sceneId</a>(<a class="code" href="a03235.html#a5fa4592fd53a220f89ac7814aebfa6d6">sceneId</a>) {}</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="a03235.html#a0440da6d709497771c0a6de24f10ef43">   51</a></span>&#160;    constexpr <span class="keywordtype">bool</span> <a class="code" href="a03235.html#a0440da6d709497771c0a6de24f10ef43">operator==</a>(<span class="keyword">const</span> <a class="code" href="a03235.html">Key</a>&amp; right)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="a03235.html#a5fa4592fd53a220f89ac7814aebfa6d6">sceneId</a> == right.<a class="code" href="a03235.html#a5fa4592fd53a220f89ac7814aebfa6d6">sceneId</a> &amp;&amp; <a class="code" href="a03235.html#abc689f231a25b15808c61dde6fda1d08">updateFreq</a> == right.<a class="code" href="a03235.html#abc689f231a25b15808c61dde6fda1d08">updateFreq</a>;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    }</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="a03235.html#a75bd89485d9b720f14cf307e53d343c4">   61</a></span>&#160;    constexpr <span class="keywordtype">bool</span> <a class="code" href="a03235.html#a75bd89485d9b720f14cf307e53d343c4">operator!=</a>(<span class="keyword">const</span> <a class="code" href="a03235.html">Key</a>&amp; right)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="a03235.html#a5fa4592fd53a220f89ac7814aebfa6d6">sceneId</a> != right.<a class="code" href="a03235.html#a5fa4592fd53a220f89ac7814aebfa6d6">sceneId</a> || <a class="code" href="a03235.html#abc689f231a25b15808c61dde6fda1d08">updateFreq</a> != right.<a class="code" href="a03235.html#abc689f231a25b15808c61dde6fda1d08">updateFreq</a>;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    }</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="a03235.html#ab8c9e566aedcbe77326e97e4f6dfdb10">   71</a></span>&#160;    constexpr <span class="keywordtype">bool</span> <a class="code" href="a03235.html#ab8c9e566aedcbe77326e97e4f6dfdb10">operator&lt;</a>(<span class="keyword">const</span> <a class="code" href="a03235.html">Key</a>&amp; right)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="a03235.html#abc689f231a25b15808c61dde6fda1d08">updateFreq</a> &lt; right.<a class="code" href="a03235.html#abc689f231a25b15808c61dde6fda1d08">updateFreq</a> || <a class="code" href="a03235.html#a5fa4592fd53a220f89ac7814aebfa6d6">sceneId</a> &lt; right.<a class="code" href="a03235.html#a5fa4592fd53a220f89ac7814aebfa6d6">sceneId</a>;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    }</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;};</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;} <span class="comment">// namespace scene</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01850.html">std</a></div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;{</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="keyword">template</span>&lt;&gt;</div>
-<div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="a03239.html">   83</a></span>&#160;<span class="keyword">struct </span>hash&lt;<a class="code" href="a01833.html">bl</a>::rc::scene::Key&gt; {</div>
-<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="a03239.html#af99d9b960bca09aaf12f83091174a1ee">   84</a></span>&#160;    std::size_t <a class="code" href="a03239.html#af99d9b960bca09aaf12f83091174a1ee">operator()</a>(<span class="keyword">const</span> <a class="code" href="a03235.html">bl::rc::scene::Key</a>&amp; key)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="a01891.html#a867dbeaa40c3e27ca66b3217256cd351">bl::util::hashCombine</a>(hash&lt;uint32_t&gt;()(key.<a class="code" href="a03235.html#a5fa4592fd53a220f89ac7814aebfa6d6">sceneId</a>),</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;                                     hash&lt;bl::rc::UpdateSpeed&gt;()(key.<a class="code" href="a03235.html#abc689f231a25b15808c61dde6fda1d08">updateFreq</a>));</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    }</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;};</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;} <span class="comment">// namespace std</span></div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00788_html"><div class="ttname"><a href="a00788.html">UpdateSpeed.hpp</a></div></div>
-<div class="ttc" id="aa01049_html"><div class="ttname"><a href="a01049.html">HashCombine.hpp</a></div></div>
-<div class="ttc" id="aa01820_html_ga305dcc5dda3e28bd193ab31444664848"><div class="ttname"><a href="a01820.html#ga305dcc5dda3e28bd193ab31444664848">bl::rc::UpdateSpeed</a></div><div class="ttdeci">UpdateSpeed</div><div class="ttdoc">Enum representing how frequently an object is expected to be updated.</div><div class="ttdef"><b>Definition:</b> <a href="a00788_source.html#l00015">UpdateSpeed.hpp:15</a></div></div>
-<div class="ttc" id="aa01820_html_gga305dcc5dda3e28bd193ab31444664848a971fd8cc345d8bd9f92e9f7d88fdf20c"><div class="ttname"><a href="a01820.html#gga305dcc5dda3e28bd193ab31444664848a971fd8cc345d8bd9f92e9f7d88fdf20c">bl::rc::UpdateSpeed::Dynamic</a></div><div class="ttdeci">@ Dynamic</div><div class="ttdoc">Objects or data are expected to update once per frame or similar.</div></div>
-<div class="ttc" id="aa01833_html"><div class="ttname"><a href="a01833.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa01850_html"><div class="ttname"><a href="a01850.html">std</a></div><div class="ttdef"><b>Definition:</b> <a href="a00158_source.html#l00154">Entity.hpp:155</a></div></div>
-<div class="ttc" id="aa01891_html_a867dbeaa40c3e27ca66b3217256cd351"><div class="ttname"><a href="a01891.html#a867dbeaa40c3e27ca66b3217256cd351">bl::util::hashCombine</a></div><div class="ttdeci">std::size_t hashCombine(std::size_t right, std::size_t left)</div><div class="ttdef"><b>Definition:</b> <a href="a01049_source.html#l00011">HashCombine.hpp:11</a></div></div>
-<div class="ttc" id="aa03235_html"><div class="ttname"><a href="a03235.html">bl::rc::scene::Key</a></div><div class="ttdoc">Key for objects in scenes. Contains update speed and scene id. Scene ids are not unique across update...</div><div class="ttdef"><b>Definition:</b> <a href="a00755_source.html#l00022">Key.hpp:22</a></div></div>
-<div class="ttc" id="aa03235_html_a0440da6d709497771c0a6de24f10ef43"><div class="ttname"><a href="a03235.html#a0440da6d709497771c0a6de24f10ef43">bl::rc::scene::Key::operator==</a></div><div class="ttdeci">constexpr bool operator==(const Key &amp;right) const</div><div class="ttdoc">Tests for equality with the given key.</div><div class="ttdef"><b>Definition:</b> <a href="a00755_source.html#l00051">Key.hpp:51</a></div></div>
-<div class="ttc" id="aa03235_html_a5682da85e8239915341a400b492f0e80"><div class="ttname"><a href="a03235.html#a5682da85e8239915341a400b492f0e80">bl::rc::scene::Key::Key</a></div><div class="ttdeci">Key()</div><div class="ttdoc">Creates an invalid key.</div><div class="ttdef"><b>Definition:</b> <a href="a00755_source.html#l00031">Key.hpp:31</a></div></div>
-<div class="ttc" id="aa03235_html_a580d79a30be461bc410fefee59c32ac3"><div class="ttname"><a href="a03235.html#a580d79a30be461bc410fefee59c32ac3">bl::rc::scene::Key::InvalidSceneId</a></div><div class="ttdeci">static constexpr std::uint32_t InvalidSceneId</div><div class="ttdef"><b>Definition:</b> <a href="a00755_source.html#l00023">Key.hpp:23</a></div></div>
-<div class="ttc" id="aa03235_html_a5fa4592fd53a220f89ac7814aebfa6d6"><div class="ttname"><a href="a03235.html#a5fa4592fd53a220f89ac7814aebfa6d6">bl::rc::scene::Key::sceneId</a></div><div class="ttdeci">std::uint32_t sceneId</div><div class="ttdef"><b>Definition:</b> <a href="a00755_source.html#l00026">Key.hpp:26</a></div></div>
-<div class="ttc" id="aa03235_html_a75bd89485d9b720f14cf307e53d343c4"><div class="ttname"><a href="a03235.html#a75bd89485d9b720f14cf307e53d343c4">bl::rc::scene::Key::operator!=</a></div><div class="ttdeci">constexpr bool operator!=(const Key &amp;right) const</div><div class="ttdoc">Tests for inequality with the given key.</div><div class="ttdef"><b>Definition:</b> <a href="a00755_source.html#l00061">Key.hpp:61</a></div></div>
-<div class="ttc" id="aa03235_html_ab234289f8c76d1913d8d7e0a9d92a3c3"><div class="ttname"><a href="a03235.html#ab234289f8c76d1913d8d7e0a9d92a3c3">bl::rc::scene::Key::Key</a></div><div class="ttdeci">Key(UpdateSpeed updateFreq, std::uint32_t sceneId)</div><div class="ttdoc">Creates the key from the given components.</div><div class="ttdef"><b>Definition:</b> <a href="a00755_source.html#l00041">Key.hpp:41</a></div></div>
-<div class="ttc" id="aa03235_html_ab8c9e566aedcbe77326e97e4f6dfdb10"><div class="ttname"><a href="a03235.html#ab8c9e566aedcbe77326e97e4f6dfdb10">bl::rc::scene::Key::operator&lt;</a></div><div class="ttdeci">constexpr bool operator&lt;(const Key &amp;right) const</div><div class="ttdoc">Comparator for sorting keys.</div><div class="ttdef"><b>Definition:</b> <a href="a00755_source.html#l00071">Key.hpp:71</a></div></div>
-<div class="ttc" id="aa03235_html_abc689f231a25b15808c61dde6fda1d08"><div class="ttname"><a href="a03235.html#abc689f231a25b15808c61dde6fda1d08">bl::rc::scene::Key::updateFreq</a></div><div class="ttdeci">UpdateSpeed updateFreq</div><div class="ttdef"><b>Definition:</b> <a href="a00755_source.html#l00025">Key.hpp:25</a></div></div>
-<div class="ttc" id="aa03239_html_af99d9b960bca09aaf12f83091174a1ee"><div class="ttname"><a href="a03239.html#af99d9b960bca09aaf12f83091174a1ee">std::hash&lt; bl::rc::scene::Key &gt;::operator()</a></div><div class="ttdeci">std::size_t operator()(const bl::rc::scene::Key &amp;key) const</div><div class="ttdef"><b>Definition:</b> <a href="a00755_source.html#l00084">Key.hpp:84</a></div></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00683.html">BLIB/Render/Buffers/UniformBuffer.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05656.html">BLIB/Render/Config.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00749.html">BLIB/Render/Descriptors/DescriptorSetInstance.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00953.html">BLIB/Render/Vulkan/PerFrame.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;array&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;glm/glm.hpp&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02058.html">bl</a></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span>ds</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a03455.html">   22</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03455.html">SceneDescriptorSetInstance</a> : <span class="keyword">public</span> <a class="code" href="a03447.html">DescriptorSetInstance</a> {</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <a class="code" href="a03455.html#a4e4d85081fc95e511efd38849f047eb5">SceneDescriptorSetInstance</a>();</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="a03455.html#a099b83d37a581b1ab8572ee17c2269c4">   32</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03455.html#a099b83d37a581b1ab8572ee17c2269c4">~SceneDescriptorSetInstance</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03455.html#ad0135cab959d2ab6c8c454054e1c23d4">updateObserverCamera</a>(std::uint32_t observerIndex, <span class="keyword">const</span> glm::mat4&amp; projView);</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="a03455.html#a0a145382ab1e64d8c85dd63939bb0aca">   43</a></span>&#160;    <a class="code" href="a03335.html">buf::UniformBuffer&lt;glm::mat4&gt;</a> <a class="code" href="a03455.html#a0a145382ab1e64d8c85dd63939bb0aca">cameraBuffer</a>;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;};</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;} <span class="comment">// namespace ds</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00683_html"><div class="ttname"><a href="a00683.html">UniformBuffer.hpp</a></div></div>
+<div class="ttc" id="aa00749_html"><div class="ttname"><a href="a00749.html">DescriptorSetInstance.hpp</a></div></div>
+<div class="ttc" id="aa00953_html"><div class="ttname"><a href="a00953.html">PerFrame.hpp</a></div></div>
+<div class="ttc" id="aa02058_html"><div class="ttname"><a href="a02058.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03335_html"><div class="ttname"><a href="a03335.html">bl::rc::buf::UniformBuffer&lt; glm::mat4 &gt;</a></div></div>
+<div class="ttc" id="aa03447_html"><div class="ttname"><a href="a03447.html">bl::rc::ds::DescriptorSetInstance</a></div><div class="ttdoc">Base class for descriptor sets that exist for each scene. Derived classes are created by DescriptorSe...</div><div class="ttdef"><b>Definition:</b> <a href="a00749_source.html#l00030">DescriptorSetInstance.hpp:30</a></div></div>
+<div class="ttc" id="aa03455_html"><div class="ttname"><a href="a03455.html">bl::rc::ds::SceneDescriptorSetInstance</a></div><div class="ttdoc">Base class for descriptor sets for scene data (cameras, lighting, etc)</div><div class="ttdef"><b>Definition:</b> <a href="a00755_source.html#l00022">SceneDescriptorSetInstance.hpp:22</a></div></div>
+<div class="ttc" id="aa03455_html_a099b83d37a581b1ab8572ee17c2269c4"><div class="ttname"><a href="a03455.html#a099b83d37a581b1ab8572ee17c2269c4">bl::rc::ds::SceneDescriptorSetInstance::~SceneDescriptorSetInstance</a></div><div class="ttdeci">virtual ~SceneDescriptorSetInstance()=default</div><div class="ttdoc">Destroys the descriptor set.</div></div>
+<div class="ttc" id="aa03455_html_a0a145382ab1e64d8c85dd63939bb0aca"><div class="ttname"><a href="a03455.html#a0a145382ab1e64d8c85dd63939bb0aca">bl::rc::ds::SceneDescriptorSetInstance::cameraBuffer</a></div><div class="ttdeci">buf::UniformBuffer&lt; glm::mat4 &gt; cameraBuffer</div><div class="ttdef"><b>Definition:</b> <a href="a00755_source.html#l00043">SceneDescriptorSetInstance.hpp:43</a></div></div>
+<div class="ttc" id="aa03455_html_a4e4d85081fc95e511efd38849f047eb5"><div class="ttname"><a href="a03455.html#a4e4d85081fc95e511efd38849f047eb5">bl::rc::ds::SceneDescriptorSetInstance::SceneDescriptorSetInstance</a></div><div class="ttdeci">SceneDescriptorSetInstance()</div><div class="ttdoc">Creates the descriptor set instance.</div><div class="ttdef"><b>Definition:</b> <a href="a01700_source.html#l00011">SceneDescriptorSetInstance.cpp:11</a></div></div>
+<div class="ttc" id="aa03455_html_ad0135cab959d2ab6c8c454054e1c23d4"><div class="ttname"><a href="a03455.html#ad0135cab959d2ab6c8c454054e1c23d4">bl::rc::ds::SceneDescriptorSetInstance::updateObserverCamera</a></div><div class="ttdeci">void updateObserverCamera(std::uint32_t observerIndex, const glm::mat4 &amp;projView)</div><div class="ttdoc">Updates the camera value for the given observer.</div><div class="ttdef"><b>Definition:</b> <a href="a01700_source.html#l00014">SceneDescriptorSetInstance.cpp:14</a></div></div>
+<div class="ttc" id="aa05656_html"><div class="ttname"><a href="a05656.html">Config.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 25 2023 00:24:20 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 27 2023 23:34:40 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

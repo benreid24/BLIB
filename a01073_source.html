@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Util/ReadWriteLock.hpp Source File</title>
+<title>BLIB: include/BLIB/Scripts/Script.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,96 +66,112 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4b3af2b25a05b4f12e892fbe45139fe9.html">Util</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_9fb35b166bb00afcaa31ece623ebed60.html">Scripts</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">ReadWriteLock.hpp</div>  </div>
+<div class="title">Script.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01073.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_UTIL_MUTEX_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_UTIL_MUTEX_HPP</span></div>
+<a href="a01073.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_SCRIPTS_SCRIPT_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_SCRIPTS_SCRIPT_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01064.html">BLIB/Util/NonCopyable.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;mutex&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;shared_mutex&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00653.html">BLIB/Parser/Node.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01055.html">BLIB/Scripts/Context.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01076.html">BLIB/Scripts/SymbolTable.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01833.html">bl</a></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>util</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a04047.html">   20</a></span>&#160;<span class="keyword">class </span><a class="code" href="a04047.html">ReadWriteLock</a> : <span class="keyword">private</span> <a class="code" href="a04011.html">NonCopyable</a> {</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a04047.html#a3bcfe87dc7927f11d661f25f6908a600">   26</a></span>&#160;    <a class="code" href="a04047.html#a3bcfe87dc7927f11d661f25f6908a600">ReadWriteLock</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04047.html#a71234a7cb8b764c834c02fcdc097a728">lockRead</a>();</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04047.html#ad37b398dbe7861cd2763e20002069263">lockWrite</a>();</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04047.html#abcce04734931a45bdeeab0241135133b">unlockRead</a>();</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04047.html#a751259f66b9b1aece13bbf155cdd50c5">unlockWrite</a>();</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="a04051.html">   59</a></span>&#160;    <span class="keyword">class </span><a class="code" href="a04051.html">ReadScopeGuard</a> : <span class="keyword">private</span> <a class="code" href="a04011.html">NonCopyable</a> {</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        <a class="code" href="a04051.html#ab719cee3c0b58e1166b0cf43cb433005">ReadScopeGuard</a>(<a class="code" href="a04047.html">ReadWriteLock</a>&amp; lock);</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <a class="code" href="a04051.html#a58ede3553dd29824ecaa84a5df69c922">~ReadScopeGuard</a>();</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="a04051.html#a10c313a07d4ea8c2534651fb071feca1">unlock</a>();</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        <a class="code" href="a04047.html">ReadWriteLock</a>&amp; lock;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        <span class="keywordtype">bool</span> unlocked;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    };</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
-<div class="line"><a name="l00091"></a><span class="lineno"><a class="line" href="a04055.html">   91</a></span>&#160;    <span class="keyword">class </span><a class="code" href="a04055.html">WriteScopeGuard</a> : <span class="keyword">private</span> <a class="code" href="a04011.html">NonCopyable</a> {</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <a class="code" href="a04055.html#aa1c42e9d6b77fc0a8acb1e659ea1a01a">WriteScopeGuard</a>(<a class="code" href="a04047.html">ReadWriteLock</a>&amp; lock);</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        <a class="code" href="a04055.html#a571f6359834209775899f3507a549e40">~WriteScopeGuard</a>();</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="a04055.html#a0f80b4382191c0117105c121d0e29b96">unlock</a>();</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        <a class="code" href="a04047.html">ReadWriteLock</a>&amp; lock;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        <span class="keywordtype">bool</span> unlocked;</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    };</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;atomic&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;mutex&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;optional&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;thread&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02058.html">bl</a></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span>engine</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">class </span>Engine;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;}</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">namespace </span>script</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;{</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">class </span>Manager;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a04047.html">   30</a></span>&#160;<span class="keyword">class </span><a class="code" href="a04047.html">Script</a> {</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="a04047.html#a169a772d20de6bf5825ee587a32fc8e7">getFullScriptPath</a>(std::string&amp; path);</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <a class="code" href="a04047.html#a4aac30cd37f26b14b91a4e019b5232df">Script</a>(<span class="keyword">const</span> std::string&amp; data);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <a class="code" href="a04047.html#a4aac30cd37f26b14b91a4e019b5232df">Script</a>(<span class="keyword">const</span> std::string&amp; data, <span class="keyword">const</span> <a class="code" href="a04015.html">Context</a>&amp; ctx);</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <a class="code" href="a04047.html#a4aac30cd37f26b14b91a4e019b5232df">Script</a>(<span class="keyword">const</span> std::string&amp; script, <span class="keyword">const</span> <a class="code" href="a04055.html">SymbolTable</a>&amp; startingTable);</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a04047.html#a0ac39ed384b38fb7eb08f30be44fed34">valid</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keyword">const</span> std::string&amp; <a class="code" href="a04047.html#abc73a9e723f50f88920dae6f34b28a31">errorMessage</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04047.html#aef3618c17f3baef3331cd0128d899183">resetContext</a>(<span class="keyword">const</span> <a class="code" href="a04015.html">Context</a>&amp; context, <span class="keywordtype">bool</span> clear = <span class="keyword">false</span>);</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    std::optional&lt;script::Value&gt; <a class="code" href="a04047.html#aeae73e353105783f1e01364aff7f6bcc">run</a>(<a class="code" href="a04031.html">Manager</a>* manager = <span class="keyword">nullptr</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04047.html#a984f8ef988f91d6122def4cbd5f5bdf3">runBackground</a>(<a class="code" href="a04031.html">Manager</a>* manager = <span class="keyword">nullptr</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <a class="code" href="a03271.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a> root;</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keyword">const</span> std::string source;</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    std::string error;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <a class="code" href="a04055.html">SymbolTable</a> defaultTable;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keyword">struct </span>ExecutionContext : <span class="keyword">public</span> std::enable_shared_from_this&lt;ExecutionContext&gt; {</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        <span class="keyword">typedef</span> std::shared_ptr&lt;ExecutionContext&gt; Ptr;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        <span class="keyword">typedef</span> std::weak_ptr&lt;ExecutionContext&gt; WPtr;</div>
 <div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    std::shared_mutex mutex;</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="keywordtype">bool</span>&amp; readLockFlag();</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keywordtype">bool</span>&amp; writeLockFlag();</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;};</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;} <span class="comment">// namespace util</span></div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160; </div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01064_html"><div class="ttname"><a href="a01064.html">NonCopyable.hpp</a></div></div>
-<div class="ttc" id="aa01833_html"><div class="ttname"><a href="a01833.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04011_html"><div class="ttname"><a href="a04011.html">bl::util::NonCopyable</a></div><div class="ttdoc">Helper class to make derived classes impossible for user to copy directly.</div><div class="ttdef"><b>Definition:</b> <a href="a01064_source.html#l00013">NonCopyable.hpp:13</a></div></div>
-<div class="ttc" id="aa04047_html"><div class="ttname"><a href="a04047.html">bl::util::ReadWriteLock</a></div><div class="ttdoc">Reader-writer lock built on top of std::shared_mutex. The primary benefit of this class is that lockR...</div><div class="ttdef"><b>Definition:</b> <a href="a01073_source.html#l00020">ReadWriteLock.hpp:20</a></div></div>
-<div class="ttc" id="aa04047_html_a3bcfe87dc7927f11d661f25f6908a600"><div class="ttname"><a href="a04047.html#a3bcfe87dc7927f11d661f25f6908a600">bl::util::ReadWriteLock::ReadWriteLock</a></div><div class="ttdeci">ReadWriteLock()=default</div><div class="ttdoc">Construct a new Read Write Lock object.</div></div>
-<div class="ttc" id="aa04047_html_a71234a7cb8b764c834c02fcdc097a728"><div class="ttname"><a href="a04047.html#a71234a7cb8b764c834c02fcdc097a728">bl::util::ReadWriteLock::lockRead</a></div><div class="ttdeci">void lockRead()</div><div class="ttdoc">Acquires a lock for reading a shared resource. Multiple threads may acquire a read lock provided that...</div><div class="ttdef"><b>Definition:</b> <a href="a01790_source.html#l00017">ReadWriteLock.cpp:17</a></div></div>
-<div class="ttc" id="aa04047_html_a751259f66b9b1aece13bbf155cdd50c5"><div class="ttname"><a href="a04047.html#a751259f66b9b1aece13bbf155cdd50c5">bl::util::ReadWriteLock::unlockWrite</a></div><div class="ttdeci">void unlockWrite()</div><div class="ttdoc">Releases the write lock held by this thread.</div><div class="ttdef"><b>Definition:</b> <a href="a01790_source.html#l00035">ReadWriteLock.cpp:35</a></div></div>
-<div class="ttc" id="aa04047_html_abcce04734931a45bdeeab0241135133b"><div class="ttname"><a href="a04047.html#abcce04734931a45bdeeab0241135133b">bl::util::ReadWriteLock::unlockRead</a></div><div class="ttdeci">void unlockRead()</div><div class="ttdoc">Releases the read lock held by this thread.</div><div class="ttdef"><b>Definition:</b> <a href="a01790_source.html#l00023">ReadWriteLock.cpp:23</a></div></div>
-<div class="ttc" id="aa04047_html_ad37b398dbe7861cd2763e20002069263"><div class="ttname"><a href="a04047.html#ad37b398dbe7861cd2763e20002069263">bl::util::ReadWriteLock::lockWrite</a></div><div class="ttdeci">void lockWrite()</div><div class="ttdoc">Acquires a lock for writing a shared resource. Only one thread may hold this lock.</div><div class="ttdef"><b>Definition:</b> <a href="a01790_source.html#l00029">ReadWriteLock.cpp:29</a></div></div>
-<div class="ttc" id="aa04051_html"><div class="ttname"><a href="a04051.html">bl::util::ReadWriteLock::ReadScopeGuard</a></div><div class="ttdoc">RAII helper to acquire a read lock and release it when the scope is exited.</div><div class="ttdef"><b>Definition:</b> <a href="a01073_source.html#l00059">ReadWriteLock.hpp:59</a></div></div>
-<div class="ttc" id="aa04051_html_a10c313a07d4ea8c2534651fb071feca1"><div class="ttname"><a href="a04051.html#a10c313a07d4ea8c2534651fb071feca1">bl::util::ReadWriteLock::ReadScopeGuard::unlock</a></div><div class="ttdeci">void unlock()</div><div class="ttdoc">Prematurely unlocks the underlying lock.</div><div class="ttdef"><b>Definition:</b> <a href="a01790_source.html#l00053">ReadWriteLock.cpp:53</a></div></div>
-<div class="ttc" id="aa04051_html_a58ede3553dd29824ecaa84a5df69c922"><div class="ttname"><a href="a04051.html#a58ede3553dd29824ecaa84a5df69c922">bl::util::ReadWriteLock::ReadScopeGuard::~ReadScopeGuard</a></div><div class="ttdeci">~ReadScopeGuard()</div><div class="ttdoc">Unlocks the underlying lock.</div><div class="ttdef"><b>Definition:</b> <a href="a01790_source.html#l00051">ReadWriteLock.cpp:51</a></div></div>
-<div class="ttc" id="aa04051_html_ab719cee3c0b58e1166b0cf43cb433005"><div class="ttname"><a href="a04051.html#ab719cee3c0b58e1166b0cf43cb433005">bl::util::ReadWriteLock::ReadScopeGuard::ReadScopeGuard</a></div><div class="ttdeci">ReadScopeGuard(ReadWriteLock &amp;lock)</div><div class="ttdoc">Construct a new Read Scope Guard object.</div><div class="ttdef"><b>Definition:</b> <a href="a01790_source.html#l00045">ReadWriteLock.cpp:45</a></div></div>
-<div class="ttc" id="aa04055_html"><div class="ttname"><a href="a04055.html">bl::util::ReadWriteLock::WriteScopeGuard</a></div><div class="ttdoc">RAII helper to acquire a write lock and release it when the scope is exited.</div><div class="ttdef"><b>Definition:</b> <a href="a01073_source.html#l00091">ReadWriteLock.hpp:91</a></div></div>
-<div class="ttc" id="aa04055_html_a0f80b4382191c0117105c121d0e29b96"><div class="ttname"><a href="a04055.html#a0f80b4382191c0117105c121d0e29b96">bl::util::ReadWriteLock::WriteScopeGuard::unlock</a></div><div class="ttdeci">void unlock()</div><div class="ttdoc">Prematurely unlocks the underlying lock.</div><div class="ttdef"><b>Definition:</b> <a href="a01790_source.html#l00068">ReadWriteLock.cpp:68</a></div></div>
-<div class="ttc" id="aa04055_html_a571f6359834209775899f3507a549e40"><div class="ttname"><a href="a04055.html#a571f6359834209775899f3507a549e40">bl::util::ReadWriteLock::WriteScopeGuard::~WriteScopeGuard</a></div><div class="ttdeci">~WriteScopeGuard()</div><div class="ttdoc">Unlocks the underlying lock.</div><div class="ttdef"><b>Definition:</b> <a href="a01790_source.html#l00066">ReadWriteLock.cpp:66</a></div></div>
-<div class="ttc" id="aa04055_html_aa1c42e9d6b77fc0a8acb1e659ea1a01a"><div class="ttname"><a href="a04055.html#aa1c42e9d6b77fc0a8acb1e659ea1a01a">bl::util::ReadWriteLock::WriteScopeGuard::WriteScopeGuard</a></div><div class="ttdeci">WriteScopeGuard(ReadWriteLock &amp;lock)</div><div class="ttdoc">Construct a new Write Scope Guard object.</div><div class="ttdef"><b>Definition:</b> <a href="a01790_source.html#l00060">ReadWriteLock.cpp:60</a></div></div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        <a class="code" href="a03271.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a> root;</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        <span class="keyword">const</span> std::string source;</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        std::shared_ptr&lt;std::thread&gt; thread;</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        <a class="code" href="a04055.html">script::SymbolTable</a> table;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        std::atomic_bool running;</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        ExecutionContext(<a class="code" href="a03271.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a> root, <span class="keyword">const</span> <a class="code" href="a04055.html">SymbolTable</a>&amp; table,</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;                         <span class="keyword">const</span> std::string&amp; source)</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        : root(root)</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        , source(source)</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        , table(table)</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        , running(<span class="keyword">true</span>) {}</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    };</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    <a class="code" href="a04047.html#a4aac30cd37f26b14b91a4e019b5232df">Script</a>(<span class="keyword">const</span> std::string&amp; data, <span class="keywordtype">bool</span> addDefaults);</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <span class="keyword">static</span> std::optional&lt;script::Value&gt; execute(ExecutionContext::Ptr context);</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160; </div>
+<div class="line"><a name="l00134"></a><span class="lineno"><a class="line" href="a04047.html#adddd5c43ff870a047aa66db4edf82a7e">  134</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a04031.html">Manager</a>;</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;};</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160; </div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;} <span class="comment">// namespace script</span></div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160; </div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00653_html"><div class="ttname"><a href="a00653.html">Node.hpp</a></div></div>
+<div class="ttc" id="aa01055_html"><div class="ttname"><a href="a01055.html">Context.hpp</a></div></div>
+<div class="ttc" id="aa01076_html"><div class="ttname"><a href="a01076.html">SymbolTable.hpp</a></div></div>
+<div class="ttc" id="aa02058_html"><div class="ttname"><a href="a02058.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03271_html_a3f49fe9da8742463aa757f89f67a8827"><div class="ttname"><a href="a03271.html#a3f49fe9da8742463aa757f89f67a8827">bl::parser::Node::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; Node &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00653_source.html#l00024">Node.hpp:24</a></div></div>
+<div class="ttc" id="aa04015_html"><div class="ttname"><a href="a04015.html">bl::script::Context</a></div><div class="ttdoc">A context to run a script with. Custom context classes may be created to have different types of scri...</div><div class="ttdef"><b>Definition:</b> <a href="a01055_source.html#l00020">Context.hpp:20</a></div></div>
+<div class="ttc" id="aa04031_html"><div class="ttname"><a href="a04031.html">bl::script::Manager</a></div><div class="ttdoc">Utility class that can manage sets of concurrently running scripts.</div><div class="ttdef"><b>Definition:</b> <a href="a01064_source.html#l00018">Manager.hpp:18</a></div></div>
+<div class="ttc" id="aa04047_html"><div class="ttname"><a href="a04047.html">bl::script::Script</a></div><div class="ttdoc">Loads scripts. Can run scripts directly or in the background. Is threadsafe.</div><div class="ttdef"><b>Definition:</b> <a href="a01073_source.html#l00030">Script.hpp:30</a></div></div>
+<div class="ttc" id="aa04047_html_a0ac39ed384b38fb7eb08f30be44fed34"><div class="ttname"><a href="a04047.html#a0ac39ed384b38fb7eb08f30be44fed34">bl::script::Script::valid</a></div><div class="ttdeci">bool valid() const</div><div class="ttdoc">Returns if the Script is valid or not.</div><div class="ttdef"><b>Definition:</b> <a href="a01937_source.html#l00067">Script.cpp:67</a></div></div>
+<div class="ttc" id="aa04047_html_a169a772d20de6bf5825ee587a32fc8e7"><div class="ttname"><a href="a04047.html#a169a772d20de6bf5825ee587a32fc8e7">bl::script::Script::getFullScriptPath</a></div><div class="ttdeci">static bool getFullScriptPath(std::string &amp;path)</div><div class="ttdoc">Modifies the given script to its full file path and returns true if the script points to a file....</div><div class="ttdef"><b>Definition:</b> <a href="a01937_source.html#l00017">Script.cpp:17</a></div></div>
+<div class="ttc" id="aa04047_html_a4aac30cd37f26b14b91a4e019b5232df"><div class="ttname"><a href="a04047.html#a4aac30cd37f26b14b91a4e019b5232df">bl::script::Script::Script</a></div><div class="ttdeci">Script(const std::string &amp;data)</div><div class="ttdoc">Determines if the input is a file, then loads the script from the file or from the input directly.</div><div class="ttdef"><b>Definition:</b> <a href="a01937_source.html#l00054">Script.cpp:54</a></div></div>
+<div class="ttc" id="aa04047_html_a984f8ef988f91d6122def4cbd5f5bdf3"><div class="ttname"><a href="a04047.html#a984f8ef988f91d6122def4cbd5f5bdf3">bl::script::Script::runBackground</a></div><div class="ttdeci">void runBackground(Manager *manager=nullptr) const</div><div class="ttdoc">Runs the script in the background.</div><div class="ttdef"><b>Definition:</b> <a href="a01937_source.html#l00083">Script.cpp:83</a></div></div>
+<div class="ttc" id="aa04047_html_abc73a9e723f50f88920dae6f34b28a31"><div class="ttname"><a href="a04047.html#abc73a9e723f50f88920dae6f34b28a31">bl::script::Script::errorMessage</a></div><div class="ttdeci">const std::string &amp; errorMessage() const</div><div class="ttdoc">Returns an error message for the last parsing error that occurred.</div><div class="ttdef"><b>Definition:</b> <a href="a01937_source.html#l00069">Script.cpp:69</a></div></div>
+<div class="ttc" id="aa04047_html_aeae73e353105783f1e01364aff7f6bcc"><div class="ttname"><a href="a04047.html#aeae73e353105783f1e01364aff7f6bcc">bl::script::Script::run</a></div><div class="ttdeci">std::optional&lt; script::Value &gt; run(Manager *manager=nullptr) const</div><div class="ttdoc">Runs the script in the current thread.</div><div class="ttdef"><b>Definition:</b> <a href="a01937_source.html#l00076">Script.cpp:76</a></div></div>
+<div class="ttc" id="aa04047_html_aef3618c17f3baef3331cd0128d899183"><div class="ttname"><a href="a04047.html#aef3618c17f3baef3331cd0128d899183">bl::script::Script::resetContext</a></div><div class="ttdeci">void resetContext(const Context &amp;context, bool clear=false)</div><div class="ttdoc">Recreates the script's starting symbol table from a new context. Optionally clears the existing symbo...</div><div class="ttdef"><b>Definition:</b> <a href="a01937_source.html#l00071">Script.cpp:71</a></div></div>
+<div class="ttc" id="aa04055_html"><div class="ttname"><a href="a04055.html">bl::script::SymbolTable</a></div><div class="ttdoc">Stack aware symbol table for managing functions and variables Each Script holds a single instance.</div><div class="ttdef"><b>Definition:</b> <a href="a01076_source.html#l00026">SymbolTable.hpp:26</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 25 2023 00:24:20 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 27 2023 23:34:41 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

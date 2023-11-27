@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Serialization/Binary/OutputFile.cpp Source File</title>
+<title>BLIB: src/Render/Graph/TaskAssets.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,45 +66,49 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_e7c9606de6dc9534b0042ecacee5f21f.html">Serialization</a></li><li class="navelem"><a class="el" href="dir_0dbe044ffc6a709740d6a25d09c3d747.html">Binary</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_7ebf59129457ae24134db92256c2545a.html">Graph</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">OutputFile.cpp</div>  </div>
+<div class="title">TaskAssets.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01739.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00956.html">BLIB/Serialization/Binary/OutputFile.hpp</a>&gt;</span></div>
+<a href="a01739.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00818.html">BLIB/Render/Graph/TaskAssets.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01833.html">bl</a></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02058.html">bl</a></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>serial</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>rc</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>binary</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>rg</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a03627.html#a532927eeaa88aa29512a6be438ef85f9">    9</a></span>&#160;<a class="code" href="a03627.html#a532927eeaa88aa29512a6be438ef85f9">OutputFile::OutputFile</a>(<span class="keyword">const</span> std::string&amp; path)</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;: <a class="code" href="a03631.html">OutputStream</a>(<a class="code" href="a01109.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>)</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;, file(path)</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;, output(path.c_str(), <a class="code" href="a01850.html">std</a>::ios::out | <a class="code" href="a01850.html">std</a>::ios::binary)</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;, <a class="code" href="a01109.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>(output) {}</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="a03627.html#a90ed8fff6d1c1ce1e3f5ad0ccb66d23b">   15</a></span>&#160;<span class="keyword">const</span> std::string&amp; <a class="code" href="a03627.html#a90ed8fff6d1c1ce1e3f5ad0ccb66d23b">OutputFile::filename</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> file; }</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;} <span class="comment">// namespace binary</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;} <span class="comment">// namespace serial</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00956_html"><div class="ttname"><a href="a00956.html">OutputFile.hpp</a></div></div>
-<div class="ttc" id="aa01109_html_ad2ae6b0ac080ea0ac45f7a06ccc480ba"><div class="ttname"><a href="a01109.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a></div><div class="ttdeci">SoundHandle buffer</div><div class="ttdef"><b>Definition:</b> <a href="a01109_source.html#l00025">AudioSystem.cpp:25</a></div></div>
-<div class="ttc" id="aa01833_html"><div class="ttname"><a href="a01833.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa01850_html"><div class="ttname"><a href="a01850.html">std</a></div><div class="ttdef"><b>Definition:</b> <a href="a00158_source.html#l00154">Entity.hpp:155</a></div></div>
-<div class="ttc" id="aa03627_html_a532927eeaa88aa29512a6be438ef85f9"><div class="ttname"><a href="a03627.html#a532927eeaa88aa29512a6be438ef85f9">bl::serial::binary::OutputFile::OutputFile</a></div><div class="ttdeci">OutputFile(const std::string &amp;path)</div><div class="ttdoc">Construct a new Output File.</div><div class="ttdef"><b>Definition:</b> <a href="a01739_source.html#l00009">OutputFile.cpp:9</a></div></div>
-<div class="ttc" id="aa03627_html_a90ed8fff6d1c1ce1e3f5ad0ccb66d23b"><div class="ttname"><a href="a03627.html#a90ed8fff6d1c1ce1e3f5ad0ccb66d23b">bl::serial::binary::OutputFile::filename</a></div><div class="ttdeci">const std::string &amp; filename() const</div><div class="ttdoc">The filename used to open the file.</div><div class="ttdef"><b>Definition:</b> <a href="a01739_source.html#l00015">OutputFile.cpp:15</a></div></div>
-<div class="ttc" id="aa03631_html"><div class="ttname"><a href="a03631.html">bl::serial::binary::OutputStream</a></div><div class="ttdoc">A writable stream for binary serialization.</div><div class="ttdef"><b>Definition:</b> <a href="a00959_source.html#l00022">OutputStream.hpp:22</a></div></div>
+<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a03547.html#aff149b2e77e78be28685552a116ceb8d">    9</a></span>&#160;<a class="code" href="a03547.html#aff149b2e77e78be28685552a116ceb8d">TaskAssets::TaskAssets</a>()</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;: output(nullptr) {}</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="a03547.html#a0df9b2131b064f2d488c02fd9a3cbc7d">   12</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03547.html#a0df9b2131b064f2d488c02fd9a3cbc7d">TaskAssets::init</a>(<span class="keyword">const</span> <a class="code" href="a03551.html">TaskAssetTags</a>&amp; tags) {</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <a class="code" href="a03547.html#a721b54079c2c3517cabda5a851154b52">output</a> = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <a class="code" href="a03547.html#a5c54cf96c3a6980a60264cd77b57ea0d">requiredInputs</a>.resize(tags.<a class="code" href="a03551.html#af629a8d79e580fce30b340ddc7a18985">requiredInputs</a>.size(), <span class="keyword">nullptr</span>);</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <a class="code" href="a03547.html#ac323e645d78eef3de573a933b6c04eea">optionalInputs</a>.resize(tags.<a class="code" href="a03551.html#a643dfc7073ed1a88677ab7012e562b5d">optionalInputs</a>.size(), <span class="keyword">nullptr</span>);</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;}</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;} <span class="comment">// namespace rg</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00818_html"><div class="ttname"><a href="a00818.html">TaskAssets.hpp</a></div></div>
+<div class="ttc" id="aa02058_html"><div class="ttname"><a href="a02058.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03547_html_a0df9b2131b064f2d488c02fd9a3cbc7d"><div class="ttname"><a href="a03547.html#a0df9b2131b064f2d488c02fd9a3cbc7d">bl::rc::rg::TaskAssets::init</a></div><div class="ttdeci">void init(const TaskAssetTags &amp;tags)</div><div class="ttdoc">Sizes the inputs and sets all pointers to nullptr.</div><div class="ttdef"><b>Definition:</b> <a href="a01739_source.html#l00012">TaskAssets.cpp:12</a></div></div>
+<div class="ttc" id="aa03547_html_a5c54cf96c3a6980a60264cd77b57ea0d"><div class="ttname"><a href="a03547.html#a5c54cf96c3a6980a60264cd77b57ea0d">bl::rc::rg::TaskAssets::requiredInputs</a></div><div class="ttdeci">std::vector&lt; GraphAsset * &gt; requiredInputs</div><div class="ttdef"><b>Definition:</b> <a href="a00818_source.html#l00024">TaskAssets.hpp:24</a></div></div>
+<div class="ttc" id="aa03547_html_a721b54079c2c3517cabda5a851154b52"><div class="ttname"><a href="a03547.html#a721b54079c2c3517cabda5a851154b52">bl::rc::rg::TaskAssets::output</a></div><div class="ttdeci">GraphAsset * output</div><div class="ttdef"><b>Definition:</b> <a href="a00818_source.html#l00023">TaskAssets.hpp:23</a></div></div>
+<div class="ttc" id="aa03547_html_ac323e645d78eef3de573a933b6c04eea"><div class="ttname"><a href="a03547.html#ac323e645d78eef3de573a933b6c04eea">bl::rc::rg::TaskAssets::optionalInputs</a></div><div class="ttdeci">std::vector&lt; GraphAsset * &gt; optionalInputs</div><div class="ttdef"><b>Definition:</b> <a href="a00818_source.html#l00025">TaskAssets.hpp:25</a></div></div>
+<div class="ttc" id="aa03547_html_aff149b2e77e78be28685552a116ceb8d"><div class="ttname"><a href="a03547.html#aff149b2e77e78be28685552a116ceb8d">bl::rc::rg::TaskAssets::TaskAssets</a></div><div class="ttdeci">TaskAssets()</div><div class="ttdoc">Creates an empty asset set.</div><div class="ttdef"><b>Definition:</b> <a href="a01739_source.html#l00009">TaskAssets.cpp:9</a></div></div>
+<div class="ttc" id="aa03551_html"><div class="ttname"><a href="a03551.html">bl::rc::rg::TaskAssetTags</a></div><div class="ttdoc">Basic struct containing the tags for a task for linking within a graph.</div><div class="ttdef"><b>Definition:</b> <a href="a00821_source.html#l00019">TaskAssetTags.hpp:19</a></div></div>
+<div class="ttc" id="aa03551_html_a643dfc7073ed1a88677ab7012e562b5d"><div class="ttname"><a href="a03551.html#a643dfc7073ed1a88677ab7012e562b5d">bl::rc::rg::TaskAssetTags::optionalInputs</a></div><div class="ttdeci">std::vector&lt; TaskInput &gt; optionalInputs</div><div class="ttdoc">List of optional inputs.</div><div class="ttdef"><b>Definition:</b> <a href="a00821_source.html#l00030">TaskAssetTags.hpp:30</a></div></div>
+<div class="ttc" id="aa03551_html_af629a8d79e580fce30b340ddc7a18985"><div class="ttname"><a href="a03551.html#af629a8d79e580fce30b340ddc7a18985">bl::rc::rg::TaskAssetTags::requiredInputs</a></div><div class="ttdeci">std::vector&lt; TaskInput &gt; requiredInputs</div><div class="ttdoc">List of required inputs.</div><div class="ttdef"><b>Definition:</b> <a href="a00821_source.html#l00027">TaskAssetTags.hpp:27</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 25 2023 00:24:21 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 27 2023 23:34:41 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

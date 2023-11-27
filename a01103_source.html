@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Util.hpp Source File</title>
+<title>BLIB: include/BLIB/Serialization/Binary.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,56 +66,33 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_0603dcfd3f324f38b3f10f913306f40f.html">Serialization</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Util.hpp</div>  </div>
+<div class="title">Binary.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01103.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_UTIL_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_UTIL_HPP</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01043.html">BLIB/Util/BufferIstreamBuf.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01046.html">BLIB/Util/FileUtil.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01049.html">BLIB/Util/HashCombine.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01052.html">BLIB/Util/Hashes.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01055.html">BLIB/Util/IdAllocator.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01061.html">BLIB/Util/LastVariadic.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01064.html">BLIB/Util/NonCopyable.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01067.html">BLIB/Util/Random.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01073.html">BLIB/Util/ReadWriteLock.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05145.html">BLIB/Util/Signal.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01076.html">BLIB/Util/StreamUtil.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01082.html">BLIB/Util/ThreadPool.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01085.html">BLIB/Util/Timer.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01088.html">BLIB/Util/TupleLoop.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01091.html">BLIB/Util/UnderlyingType.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01100.html">BLIB/Util/Waiter.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01043_html"><div class="ttname"><a href="a01043.html">BufferIstreamBuf.hpp</a></div></div>
-<div class="ttc" id="aa01046_html"><div class="ttname"><a href="a01046.html">FileUtil.hpp</a></div></div>
-<div class="ttc" id="aa01049_html"><div class="ttname"><a href="a01049.html">HashCombine.hpp</a></div></div>
-<div class="ttc" id="aa01052_html"><div class="ttname"><a href="a01052.html">Hashes.hpp</a></div></div>
-<div class="ttc" id="aa01055_html"><div class="ttname"><a href="a01055.html">IdAllocator.hpp</a></div></div>
-<div class="ttc" id="aa01061_html"><div class="ttname"><a href="a01061.html">LastVariadic.hpp</a></div></div>
-<div class="ttc" id="aa01064_html"><div class="ttname"><a href="a01064.html">NonCopyable.hpp</a></div></div>
-<div class="ttc" id="aa01067_html"><div class="ttname"><a href="a01067.html">Random.hpp</a></div></div>
-<div class="ttc" id="aa01073_html"><div class="ttname"><a href="a01073.html">ReadWriteLock.hpp</a></div></div>
-<div class="ttc" id="aa01076_html"><div class="ttname"><a href="a01076.html">StreamUtil.hpp</a></div></div>
-<div class="ttc" id="aa01082_html"><div class="ttname"><a href="a01082.html">ThreadPool.hpp</a></div></div>
-<div class="ttc" id="aa01085_html"><div class="ttname"><a href="a01085.html">Timer.hpp</a></div></div>
-<div class="ttc" id="aa01088_html"><div class="ttname"><a href="a01088.html">TupleLoop.hpp</a></div></div>
-<div class="ttc" id="aa01091_html"><div class="ttname"><a href="a01091.html">UnderlyingType.hpp</a></div></div>
-<div class="ttc" id="aa01100_html"><div class="ttname"><a href="a01100.html">Waiter.hpp</a></div></div>
-<div class="ttc" id="aa05145_html"><div class="ttname"><a href="a05145.html">Signal.hpp</a></div></div>
+<a href="a01103.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01085.html">BLIB/Serialization/Binary/InputFile.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01088.html">BLIB/Serialization/Binary/InputStream.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01091.html">BLIB/Serialization/Binary/OutputFile.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01094.html">BLIB/Serialization/Binary/OutputStream.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05671.html">BLIB/Serialization/Binary/Serializer.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01100.html">BLIB/Serialization/Binary/VersionedSerializer.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01124.html">BLIB/Serialization/Buffers.hpp</a>&gt;</span></div>
+<div class="ttc" id="aa01085_html"><div class="ttname"><a href="a01085.html">InputFile.hpp</a></div></div>
+<div class="ttc" id="aa01088_html"><div class="ttname"><a href="a01088.html">InputStream.hpp</a></div></div>
+<div class="ttc" id="aa01091_html"><div class="ttname"><a href="a01091.html">OutputFile.hpp</a></div></div>
+<div class="ttc" id="aa01094_html"><div class="ttname"><a href="a01094.html">OutputStream.hpp</a></div></div>
+<div class="ttc" id="aa01100_html"><div class="ttname"><a href="a01100.html">VersionedSerializer.hpp</a></div></div>
+<div class="ttc" id="aa01124_html"><div class="ttname"><a href="a01124.html">Buffers.hpp</a></div></div>
+<div class="ttc" id="aa05671_html"><div class="ttname"><a href="a05671.html">Serializer.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 25 2023 00:24:20 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 27 2023 23:34:41 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

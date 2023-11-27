@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Vulkan/RenderPassParameters.cpp Source File</title>
+<title>BLIB: src/Math/Trig.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,102 +66,68 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_2a24e9216d188d12785cf0650df1274b.html">Vulkan</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3813464283bee2267f39dcf080a84d74.html">Math</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">RenderPassParameters.cpp</div>  </div>
+<div class="title">Trig.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01628.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00839.html">BLIB/Render/Vulkan/RenderPassParameters.hpp</a>&gt;</span></div>
+<a href="a01628.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00635.html">BLIB/Math/Trig.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;stdexcept&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;utility&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01833.html">bl</a></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>rc</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>vk</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="a03399.html#a16f52c825c72793c10ab1f356bf4c06c">   12</a></span>&#160;<a class="code" href="a03399.html#a16f52c825c72793c10ab1f356bf4c06c">RenderPassParameters::RenderPassParameters</a>() {</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    attachments.reserve(4);</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    subpasses.reserve(4);</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    dependencies.reserve(4);</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;}</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a03399.html#ab4a7ac7704ca1b4b6699088ccd8a5d00">   18</a></span>&#160;<a class="code" href="a03399.html">RenderPassParameters</a>&amp; <a class="code" href="a03399.html#ab4a7ac7704ca1b4b6699088ccd8a5d00">RenderPassParameters::addSubpass</a>(<a class="code" href="a03403.html">SubPass</a>&amp;&amp; subpass) {</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    subpasses.emplace_back(std::forward&lt;SubPass&gt;(subpass));</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;cmath&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02058.html">bl</a></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>math</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keywordtype">float</span> cachedCos[1440];</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keywordtype">bool</span> cosAvail = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keywordtype">float</span> cachedSin[1440];</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keywordtype">bool</span> sinAvail = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keywordtype">void</span> cacheCos() {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; 1440; ++i) {</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        cachedCos[i] = <a class="code" href="a02042.html#gae8e482156412ed87dc2d91572ee817ab">std::cos</a>(<a class="code" href="a02042.html#ga5ba29ca07fceceb0c2753dccbe5d50db">degreesToRadians</a>(<span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(i) / 4.f));</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    }</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    cosAvail = <span class="keyword">true</span>;</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;}</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a03399.html#abd6568d1fa4d137ac4f740c4a8392ae3">   23</a></span>&#160;<a class="code" href="a03399.html">RenderPassParameters</a>&amp; <a class="code" href="a03399.html#abd6568d1fa4d137ac4f740c4a8392ae3">RenderPassParameters::addSubpassDependency</a>(VkSubpassDependency dep) {</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    dependencies.emplace_back(dep);</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;}</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a03399.html#a13dc01b847adb714906ab5a2311d5be4">   28</a></span>&#160;<a class="code" href="a03399.html">RenderPassParameters</a>&amp; <a class="code" href="a03399.html#a13dc01b847adb714906ab5a2311d5be4">RenderPassParameters::addAttachment</a>(VkAttachmentDescription att) {</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    attachments.emplace_back(att);</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;}</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="a03399.html#a3e44e61fc730471f14e699f447f6cf84">   33</a></span>&#160;<a class="code" href="a03399.html">RenderPassParameters</a>&amp;&amp; <a class="code" href="a03399.html#a3e44e61fc730471f14e699f447f6cf84">RenderPassParameters::build</a>() {</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordflow">if</span> (subpasses.empty()) {</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;RenderPass must have at least one subpass&quot;</span>);</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    }</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordflow">if</span> (attachments.empty()) {</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;RenderPass must have at least one attachment&quot;</span>);</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    }</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordflow">return</span> std::move(*<span class="keyword">this</span>);</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keywordtype">void</span> cacheSin() {</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; 1440; ++i) {</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        cachedSin[i] = <a class="code" href="a02042.html#ga0379b8bbdfc3c74fecd12c93fdf0ca5b">std::sin</a>(<a class="code" href="a02042.html#ga5ba29ca07fceceb0c2753dccbe5d50db">degreesToRadians</a>(<span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(i) / 4.f));</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    }</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    sinAvail = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;}</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;} <span class="comment">// namespace</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="a02042.html#gae8e482156412ed87dc2d91572ee817ab">   31</a></span>&#160;<span class="keywordtype">float</span> <a class="code" href="a02042.html#gae8e482156412ed87dc2d91572ee817ab">cos</a>(<span class="keywordtype">float</span> a) {</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordflow">if</span> (!cosAvail) { cacheCos(); }</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordflow">if</span> (a &lt; 0.f) { a += std::ceil(-a / 360.f) * 360.f; }</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordflow">return</span> cachedCos[<span class="keyword">static_cast&lt;</span><span class="keywordtype">unsigned</span> <span class="keywordtype">int</span><span class="keyword">&gt;</span>(a * 4.f) % 1440];</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;}</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="a02042.html#ga0379b8bbdfc3c74fecd12c93fdf0ca5b">   37</a></span>&#160;<span class="keywordtype">float</span> <a class="code" href="a02042.html#ga0379b8bbdfc3c74fecd12c93fdf0ca5b">sin</a>(<span class="keywordtype">float</span> a) {</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordflow">if</span> (!sinAvail) { cacheSin(); }</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordflow">if</span> (a &lt; 0.f) { a += std::ceil(-a / 360.f) * 360.f; }</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordflow">return</span> cachedSin[<span class="keyword">static_cast&lt;</span><span class="keywordtype">unsigned</span> <span class="keywordtype">int</span><span class="keyword">&gt;</span>(a * 4.f) % 1440];</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;}</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="a03403.html#af59febea8d9397a3198fc61db360adf8">   43</a></span>&#160;<a class="code" href="a03403.html#af59febea8d9397a3198fc61db360adf8">RenderPassParameters::SubPass::SubPass</a>() { colorAttachments.reserve(4); }</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="a03403.html#aceae349a2d8eded2ae0db312d12e2454">   45</a></span>&#160;<a class="code" href="a03403.html">RenderPassParameters::SubPass</a>&amp; <a class="code" href="a03403.html#aceae349a2d8eded2ae0db312d12e2454">RenderPassParameters::SubPass::withAttachment</a>(std::uint32_t i,</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;                                                                             VkImageLayout layout) {</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    colorAttachments.emplace_back();</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    colorAttachments.back().attachment = i;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    colorAttachments.back().layout     = layout;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;}</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="a03403.html#ac686f180eece4c15a8b00e729e608ebb">   53</a></span>&#160;<a class="code" href="a03403.html">RenderPassParameters::SubPass</a>&amp; <a class="code" href="a03403.html#ac686f180eece4c15a8b00e729e608ebb">RenderPassParameters::SubPass::withDepthAttachment</a>(</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    std::uint32_t i, VkImageLayout layout) {</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    depthAttachment.emplace();</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    depthAttachment.value().layout     = layout;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    depthAttachment.value().attachment = i;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;}</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="a03403.html#af9dc875ebea2e5f896af0e08934bbfd2">   61</a></span>&#160;<a class="code" href="a03403.html">RenderPassParameters::SubPass</a>&amp;&amp; <a class="code" href="a03403.html#af9dc875ebea2e5f896af0e08934bbfd2">RenderPassParameters::SubPass::build</a>() {</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordflow">if</span> (colorAttachments.empty()) {</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;SubPass must have at least one color attachment&quot;</span>);</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    }</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordflow">return</span> std::move(*<span class="keyword">this</span>);</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;}</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;} <span class="comment">// namespace vk</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00839_html"><div class="ttname"><a href="a00839.html">RenderPassParameters.hpp</a></div></div>
-<div class="ttc" id="aa01833_html"><div class="ttname"><a href="a01833.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03399_html"><div class="ttname"><a href="a03399.html">bl::rc::vk::RenderPassParameters</a></div><div class="ttdoc">Parameter builder class used to construct RenderPass objects in the renderer.</div><div class="ttdef"><b>Definition:</b> <a href="a00839_source.html#l00022">RenderPassParameters.hpp:22</a></div></div>
-<div class="ttc" id="aa03399_html_a13dc01b847adb714906ab5a2311d5be4"><div class="ttname"><a href="a03399.html#a13dc01b847adb714906ab5a2311d5be4">bl::rc::vk::RenderPassParameters::addAttachment</a></div><div class="ttdeci">RenderPassParameters &amp; addAttachment(VkAttachmentDescription attachment)</div><div class="ttdoc">Adds an image attachment to this render pass.</div><div class="ttdef"><b>Definition:</b> <a href="a01628_source.html#l00028">RenderPassParameters.cpp:28</a></div></div>
-<div class="ttc" id="aa03399_html_a16f52c825c72793c10ab1f356bf4c06c"><div class="ttname"><a href="a03399.html#a16f52c825c72793c10ab1f356bf4c06c">bl::rc::vk::RenderPassParameters::RenderPassParameters</a></div><div class="ttdeci">RenderPassParameters()</div><div class="ttdoc">Construct a new Render Pass Parameters object.</div><div class="ttdef"><b>Definition:</b> <a href="a01628_source.html#l00012">RenderPassParameters.cpp:12</a></div></div>
-<div class="ttc" id="aa03399_html_a3e44e61fc730471f14e699f447f6cf84"><div class="ttname"><a href="a03399.html#a3e44e61fc730471f14e699f447f6cf84">bl::rc::vk::RenderPassParameters::build</a></div><div class="ttdeci">RenderPassParameters &amp;&amp; build()</div><div class="ttdoc">Performs validation and returns a usable rvalue reference to this object.</div><div class="ttdef"><b>Definition:</b> <a href="a01628_source.html#l00033">RenderPassParameters.cpp:33</a></div></div>
-<div class="ttc" id="aa03399_html_ab4a7ac7704ca1b4b6699088ccd8a5d00"><div class="ttname"><a href="a03399.html#ab4a7ac7704ca1b4b6699088ccd8a5d00">bl::rc::vk::RenderPassParameters::addSubpass</a></div><div class="ttdeci">RenderPassParameters &amp; addSubpass(SubPass &amp;&amp;subpass)</div><div class="ttdoc">Adds a subpass to the render pass to be created.</div><div class="ttdef"><b>Definition:</b> <a href="a01628_source.html#l00018">RenderPassParameters.cpp:18</a></div></div>
-<div class="ttc" id="aa03399_html_abd6568d1fa4d137ac4f740c4a8392ae3"><div class="ttname"><a href="a03399.html#abd6568d1fa4d137ac4f740c4a8392ae3">bl::rc::vk::RenderPassParameters::addSubpassDependency</a></div><div class="ttdeci">RenderPassParameters &amp; addSubpassDependency(VkSubpassDependency dependency)</div><div class="ttdoc">Adds a blocking dependency to block the renderer between subpasses.</div><div class="ttdef"><b>Definition:</b> <a href="a01628_source.html#l00023">RenderPassParameters.cpp:23</a></div></div>
-<div class="ttc" id="aa03403_html"><div class="ttname"><a href="a03403.html">bl::rc::vk::RenderPassParameters::SubPass</a></div><div class="ttdoc">Helper parameter class that represents a subpass within a render pass.</div><div class="ttdef"><b>Definition:</b> <a href="a00839_source.html#l00029">RenderPassParameters.hpp:29</a></div></div>
-<div class="ttc" id="aa03403_html_ac686f180eece4c15a8b00e729e608ebb"><div class="ttname"><a href="a03403.html#ac686f180eece4c15a8b00e729e608ebb">bl::rc::vk::RenderPassParameters::SubPass::withDepthAttachment</a></div><div class="ttdeci">SubPass &amp; withDepthAttachment(std::uint32_t index, VkImageLayout layout)</div><div class="ttdoc">Adds a depth attachment to this subpass.</div><div class="ttdef"><b>Definition:</b> <a href="a01628_source.html#l00053">RenderPassParameters.cpp:53</a></div></div>
-<div class="ttc" id="aa03403_html_aceae349a2d8eded2ae0db312d12e2454"><div class="ttname"><a href="a03403.html#aceae349a2d8eded2ae0db312d12e2454">bl::rc::vk::RenderPassParameters::SubPass::withAttachment</a></div><div class="ttdeci">SubPass &amp; withAttachment(std::uint32_t index, VkImageLayout layout)</div><div class="ttdoc">Adds an attachment reference to the subpass.</div><div class="ttdef"><b>Definition:</b> <a href="a01628_source.html#l00045">RenderPassParameters.cpp:45</a></div></div>
-<div class="ttc" id="aa03403_html_af59febea8d9397a3198fc61db360adf8"><div class="ttname"><a href="a03403.html#af59febea8d9397a3198fc61db360adf8">bl::rc::vk::RenderPassParameters::SubPass::SubPass</a></div><div class="ttdeci">SubPass()</div><div class="ttdoc">Construct a new Sub Pass object.</div><div class="ttdef"><b>Definition:</b> <a href="a01628_source.html#l00043">RenderPassParameters.cpp:43</a></div></div>
-<div class="ttc" id="aa03403_html_af9dc875ebea2e5f896af0e08934bbfd2"><div class="ttname"><a href="a03403.html#af9dc875ebea2e5f896af0e08934bbfd2">bl::rc::vk::RenderPassParameters::SubPass::build</a></div><div class="ttdeci">SubPass &amp;&amp; build()</div><div class="ttdoc">Performs validation and returns a usable rvalue reference to this object.</div><div class="ttdef"><b>Definition:</b> <a href="a01628_source.html#l00061">RenderPassParameters.cpp:61</a></div></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;} <span class="comment">// namespace math</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00635_html"><div class="ttname"><a href="a00635.html">Trig.hpp</a></div></div>
+<div class="ttc" id="aa02042_html_ga0379b8bbdfc3c74fecd12c93fdf0ca5b"><div class="ttname"><a href="a02042.html#ga0379b8bbdfc3c74fecd12c93fdf0ca5b">bl::math::sin</a></div><div class="ttdeci">float sin(float degrees)</div><div class="ttdoc">Computes the sine of the given angle using cached values. Values are cached in quarter degree increme...</div><div class="ttdef"><b>Definition:</b> <a href="a01628_source.html#l00037">Trig.cpp:37</a></div></div>
+<div class="ttc" id="aa02042_html_ga5ba29ca07fceceb0c2753dccbe5d50db"><div class="ttname"><a href="a02042.html#ga5ba29ca07fceceb0c2753dccbe5d50db">bl::math::degreesToRadians</a></div><div class="ttdeci">float degreesToRadians(float degrees)</div><div class="ttdoc">Converts an angle in degrees to radians.</div><div class="ttdef"><b>Definition:</b> <a href="a00635_source.html#l00050">Trig.hpp:50</a></div></div>
+<div class="ttc" id="aa02042_html_gae8e482156412ed87dc2d91572ee817ab"><div class="ttname"><a href="a02042.html#gae8e482156412ed87dc2d91572ee817ab">bl::math::cos</a></div><div class="ttdeci">float cos(float degrees)</div><div class="ttdoc">Computes the cosine of the given angle using cached values. Values are cached in quarter degree incre...</div><div class="ttdef"><b>Definition:</b> <a href="a01628_source.html#l00031">Trig.cpp:31</a></div></div>
+<div class="ttc" id="aa02058_html"><div class="ttname"><a href="a02058.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 25 2023 00:24:21 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 27 2023 23:34:41 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

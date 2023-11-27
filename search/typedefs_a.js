@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['notv_6981',['NotV',['../a01891.html#a70f1d000d3d0b57485b52b096d74d76f',1,'bl::util']]]
+  ['last_7508',['Last',['../a04451.html#af272ecfc09083f9cec3776a769bd2509',1,'bl::util::LastVariadic']]],
+  ['list_7509',['List',['../a02116.html#a1651c2f4db91ae08cdd9015e247eef67',1,'bl::serial::json']]]
 ];

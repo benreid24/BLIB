@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::gfx::Animation2D Class Reference</title>
+<title>BLIB: bl::ecs::Entity Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,199 +66,124 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01833.html">bl</a></li><li class="navelem"><a class="el" href="a01843.html">gfx</a></li><li class="navelem"><a class="el" href="a02459.html">Animation2D</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02058.html">bl</a></li><li class="navelem"><a class="el" href="a02073.html">ecs</a></li><li class="navelem"><a class="el" href="a02459.html">Entity</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="a02456.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::gfx::Animation2D Class Reference<div class="ingroups"><a class="el" href="a01813.html">Graphics</a></div></div>  </div>
+<div class="title">bl::ecs::Entity Struct Reference<div class="ingroups"><a class="el" href="a02035.html">ECS</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Basic 2d animation. Supports arbitrary animations. Prefer <a class="el" href="a02495.html" title="Specific type of 2d animation where the texture coordinates change over time.">Slideshow</a> for supported animations as more work is done on the GPU and slideshows can be batched into larger vertex arrays while each <a class="el" href="a02459.html" title="Basic 2d animation. Supports arbitrary animations. Prefer Slideshow for supported animations as more ...">Animation2D</a> always requires a dedicated draw call.  
+<p><a class="el" href="a02459.html" title="Entity is simply an id. Components are added via a Registry and they own all the relevant properties....">Entity</a> is simply an id. Components are added via a <a class="el" href="a02503.html" title="This is the main interface of the ECS. This class manages all entities and components and views and s...">Registry</a> and they own all the relevant properties. Systems can query lists of Entities with certain components and perform logic and updates.  
  <a href="a02459.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a05052_source.html">Animation2D.hpp</a>&gt;</code></p>
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::gfx::Animation2D:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
- <div class="center">
-  <img src="a02459.png" usemap="#bl::gfx::Animation2D_map" alt=""/>
-  <map id="bl::gfx::Animation2D_map" name="bl::gfx::Animation2D_map">
-<area href="a02483.html" alt="bl::gfx::Drawable&lt; com::Animation2D &gt;" shape="rect" coords="0,56,229,80"/>
-<area href="a02471.html" title="Base component that manages and provides a Transform2D, OverlayScaler, and Viewport." alt="bl::gfx::bcom::OverlayScalable" shape="rect" coords="239,56,468,80"/>
-<area href="a02467.html" title="Base class for 2d animation player components. Players are created on dedicated entities and dependen..." alt="bl::gfx::bcom::Animation2DPlayer" shape="rect" coords="478,56,707,80"/>
-<area href="a02479.html" title="Base component class for Drawables that require a 2d transform." alt="bl::gfx::bcom::Transform2D" shape="rect" coords="239,0,468,24"/>
-<area href="a02475.html" title="Base component class for textured Drawables." alt="bl::gfx::bcom::Textured" shape="rect" coords="478,0,707,24"/>
-  </map>
-</div></div>
+<p><code>#include &lt;<a class="el" href="a00161_source.html">Entity.hpp</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a6f20d4f5035759797eb767204c24ddf8"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02459.html#a6f20d4f5035759797eb767204c24ddf8">IdType</a> = std::uint64_t</td></tr>
+<tr class="separator:a6f20d4f5035759797eb767204c24ddf8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ac0db581e7a8d6ca16891834afb2e923f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02459.html#ac0db581e7a8d6ca16891834afb2e923f">Animation2D</a> ()=default</td></tr>
-<tr class="memdesc:ac0db581e7a8d6ca16891834afb2e923f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Does nothing.  <a href="a02459.html#ac0db581e7a8d6ca16891834afb2e923f">More...</a><br /></td></tr>
-<tr class="separator:ac0db581e7a8d6ca16891834afb2e923f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0636a8b12eea2014d7b55c102c6e0459"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02459.html#a0636a8b12eea2014d7b55c102c6e0459">Animation2D</a> (<a class="el" href="a02319.html">engine::Engine</a> &amp;<a class="el" href="a02483.html#adef5d2a123c05b5b6f6be50c2ffe1454">engine</a>, const <a class="el" href="a03555.html">resource::Ref</a>&lt; <a class="el" href="a02447.html">a2d::AnimationData</a> &gt; &amp;animation, bool play=false, bool forceLoop=false)</td></tr>
-<tr class="memdesc:a0636a8b12eea2014d7b55c102c6e0459"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the animation with its own player.  <a href="a02459.html#a0636a8b12eea2014d7b55c102c6e0459">More...</a><br /></td></tr>
-<tr class="separator:a0636a8b12eea2014d7b55c102c6e0459"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac3f3edd4118c4e260619ab956d3495e5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02459.html#ac3f3edd4118c4e260619ab956d3495e5">Animation2D</a> (<a class="el" href="a02319.html">engine::Engine</a> &amp;<a class="el" href="a02483.html#adef5d2a123c05b5b6f6be50c2ffe1454">engine</a>, const <a class="el" href="a02459.html">Animation2D</a> &amp;player)</td></tr>
-<tr class="memdesc:ac3f3edd4118c4e260619ab956d3495e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the animation sharing player state with the given animation.  <a href="a02459.html#ac3f3edd4118c4e260619ab956d3495e5">More...</a><br /></td></tr>
-<tr class="separator:ac3f3edd4118c4e260619ab956d3495e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0fa289fdba32605e5e475b9d79a5c158"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02459.html#a0fa289fdba32605e5e475b9d79a5c158">createWithUniquePlayer</a> (<a class="el" href="a02319.html">engine::Engine</a> &amp;<a class="el" href="a02483.html#adef5d2a123c05b5b6f6be50c2ffe1454">engine</a>, const <a class="el" href="a03555.html">resource::Ref</a>&lt; <a class="el" href="a02447.html">a2d::AnimationData</a> &gt; &amp;animation, bool play=false, bool forceLoop=false)</td></tr>
-<tr class="memdesc:a0fa289fdba32605e5e475b9d79a5c158"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the animation with its own player.  <a href="a02459.html#a0fa289fdba32605e5e475b9d79a5c158">More...</a><br /></td></tr>
-<tr class="separator:a0fa289fdba32605e5e475b9d79a5c158"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae5ee273e33865432b7111332147cb6f4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02459.html#ae5ee273e33865432b7111332147cb6f4">createWithSharedPlayer</a> (<a class="el" href="a02319.html">engine::Engine</a> &amp;<a class="el" href="a02483.html#adef5d2a123c05b5b6f6be50c2ffe1454">engine</a>, const <a class="el" href="a02459.html">Animation2D</a> &amp;player)</td></tr>
-<tr class="memdesc:ae5ee273e33865432b7111332147cb6f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the animation sharing player state with the given animation.  <a href="a02459.html#ae5ee273e33865432b7111332147cb6f4">More...</a><br /></td></tr>
-<tr class="separator:ae5ee273e33865432b7111332147cb6f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a679e33f01f988c3f43c4e8bed412ef0e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02459.html#a679e33f01f988c3f43c4e8bed412ef0e">scaleToSize</a> (const glm::vec2 &amp;size) override</td></tr>
-<tr class="memdesc:a679e33f01f988c3f43c4e8bed412ef0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper method to set the scale so that the entity is a certain size.  <a href="a02459.html#a679e33f01f988c3f43c4e8bed412ef0e">More...</a><br /></td></tr>
-<tr class="separator:a679e33f01f988c3f43c4e8bed412ef0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3f76b95f164baa89ce14a88b3b8621a4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02483.html#a3f76b95f164baa89ce14a88b3b8621a4">addToScene</a> (<a class="el" href="a03243.html">rc::Scene</a> *scene, <a class="el" href="a01820.html#ga305dcc5dda3e28bd193ab31444664848">rc::UpdateSpeed</a> updateFreq)</td></tr>
-<tr class="memdesc:a3f76b95f164baa89ce14a88b3b8621a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds this entity to the given scene.  <a href="a02483.html#a3f76b95f164baa89ce14a88b3b8621a4">More...</a><br /></td></tr>
-<tr class="separator:a3f76b95f164baa89ce14a88b3b8621a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a39ccca57aa44932311c99c5bcefb31a5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02483.html#a39ccca57aa44932311c99c5bcefb31a5">addToSceneWithCustomPipeline</a> (<a class="el" href="a03243.html">rc::Scene</a> *scene, <a class="el" href="a01820.html#ga305dcc5dda3e28bd193ab31444664848">rc::UpdateSpeed</a> updateFreq, std::uint32_t pipeline)</td></tr>
-<tr class="memdesc:a39ccca57aa44932311c99c5bcefb31a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds this entity to the given scene with custom pipelines.  <a href="a02483.html#a39ccca57aa44932311c99c5bcefb31a5">More...</a><br /></td></tr>
-<tr class="separator:a39ccca57aa44932311c99c5bcefb31a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae05b798768a5298455a27686a9e86292"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02483.html#ae05b798768a5298455a27686a9e86292">setHidden</a> (bool hide)</td></tr>
-<tr class="memdesc:ae05b798768a5298455a27686a9e86292"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set whether the entity is hidden or not. May only be called on entities in a scene.  <a href="a02483.html#ae05b798768a5298455a27686a9e86292">More...</a><br /></td></tr>
-<tr class="separator:ae05b798768a5298455a27686a9e86292"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeeac031adfcdc28b425ceb50fde95bd5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02483.html#aeeac031adfcdc28b425ceb50fde95bd5">removeFromScene</a> ()</td></tr>
-<tr class="memdesc:aeeac031adfcdc28b425ceb50fde95bd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the entity from the scene or overlay that it is in.  <a href="a02483.html#aeeac031adfcdc28b425ceb50fde95bd5">More...</a><br /></td></tr>
-<tr class="separator:aeeac031adfcdc28b425ceb50fde95bd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afb6e023344eafbba7d8ae49d7d8fed3b"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="a02223.html">ecs::Entity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02483.html#afb6e023344eafbba7d8ae49d7d8fed3b">entity</a> () const</td></tr>
-<tr class="memdesc:afb6e023344eafbba7d8ae49d7d8fed3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the ECS entity of this drawable.  <a href="a02483.html#afb6e023344eafbba7d8ae49d7d8fed3b">More...</a><br /></td></tr>
-<tr class="separator:afb6e023344eafbba7d8ae49d7d8fed3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00d74d4c35b35f7f758b7bf6ebdcbc10"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02483.html#a00d74d4c35b35f7f758b7bf6ebdcbc10">destroy</a> ()</td></tr>
-<tr class="memdesc:a00d74d4c35b35f7f758b7bf6ebdcbc10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the ECS entity and component.  <a href="a02483.html#a00d74d4c35b35f7f758b7bf6ebdcbc10">More...</a><br /></td></tr>
-<tr class="separator:a00d74d4c35b35f7f758b7bf6ebdcbc10"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad80022f5deb90f89ab57048a3cfa187b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02019.html">com::Animation2D</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02483.html#ad80022f5deb90f89ab57048a3cfa187b">component</a> ()</td></tr>
-<tr class="memdesc:ad80022f5deb90f89ab57048a3cfa187b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the drawable component. Only call after <a class="el" href="a02483.html#a35b338cdd6e950db4efa0ae3fae13ad2" title="Creates the ECS entity and drawable component. Will destroy the prior instance if any.">create()</a>  <a href="a02483.html#ad80022f5deb90f89ab57048a3cfa187b">More...</a><br /></td></tr>
-<tr class="separator:ad80022f5deb90f89ab57048a3cfa187b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2888db89f05d9c93c9c525962f281a6a"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a02019.html">com::Animation2D</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02483.html#a2888db89f05d9c93c9c525962f281a6a">component</a> () const</td></tr>
-<tr class="memdesc:a2888db89f05d9c93c9c525962f281a6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the drawable component. Only call after <a class="el" href="a02483.html#a35b338cdd6e950db4efa0ae3fae13ad2" title="Creates the ECS entity and drawable component. Will destroy the prior instance if any.">create()</a>  <a href="a02483.html#a2888db89f05d9c93c9c525962f281a6a">More...</a><br /></td></tr>
-<tr class="separator:a2888db89f05d9c93c9c525962f281a6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa4bff1075089f05e4228c3745c341a0a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02483.html#aa4bff1075089f05e4228c3745c341a0a">setParent</a> (const <a class="el" href="a02483.html">Drawable</a>&lt; U &gt; &amp;parent)</td></tr>
-<tr class="memdesc:aa4bff1075089f05e4228c3745c341a0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper method to parent this drawable to another.  <a href="a02483.html#aa4bff1075089f05e4228c3745c341a0a">More...</a><br /></td></tr>
-<tr class="separator:aa4bff1075089f05e4228c3745c341a0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2d22d42e018645dae989d1421584a5db"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02483.html#a2d22d42e018645dae989d1421584a5db">setParent</a> (<a class="el" href="a02223.html">ecs::Entity</a> parent)</td></tr>
-<tr class="memdesc:a2d22d42e018645dae989d1421584a5db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper method to parent this drawable.  <a href="a02483.html#a2d22d42e018645dae989d1421584a5db">More...</a><br /></td></tr>
-<tr class="separator:a2d22d42e018645dae989d1421584a5db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a820d8bbe6c73510a65e8d963644e5ed6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02483.html#a820d8bbe6c73510a65e8d963644e5ed6">removeParent</a> ()</td></tr>
-<tr class="memdesc:a820d8bbe6c73510a65e8d963644e5ed6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper method to remove the parent of this drawable, if any.  <a href="a02483.html#a820d8bbe6c73510a65e8d963644e5ed6">More...</a><br /></td></tr>
-<tr class="separator:a820d8bbe6c73510a65e8d963644e5ed6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a736f31628ed3b37a86316b821b7d431f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02483.html#a736f31628ed3b37a86316b821b7d431f">flash</a> (float onPeriod, float offPeriod)</td></tr>
-<tr class="memdesc:a736f31628ed3b37a86316b821b7d431f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Causes the drawable to flash with the given settings.  <a href="a02483.html#a736f31628ed3b37a86316b821b7d431f">More...</a><br /></td></tr>
-<tr class="separator:a736f31628ed3b37a86316b821b7d431f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1abd3b93c6a262f16324ec11627c6070"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02483.html#a1abd3b93c6a262f16324ec11627c6070">stopFlashing</a> ()</td></tr>
-<tr class="memdesc:a1abd3b93c6a262f16324ec11627c6070"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stops the component from flashing.  <a href="a02483.html#a1abd3b93c6a262f16324ec11627c6070">More...</a><br /></td></tr>
-<tr class="separator:a1abd3b93c6a262f16324ec11627c6070"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeec49505849a5429a7616af8fad3933a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02039.html">com::OverlayScaler</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02471.html#aeec49505849a5429a7616af8fad3933a">getOverlayScaler</a> ()</td></tr>
-<tr class="memdesc:aeec49505849a5429a7616af8fad3933a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the OverlayScaler of this entity.  <a href="a02471.html#aeec49505849a5429a7616af8fad3933a">More...</a><br /></td></tr>
-<tr class="separator:aeec49505849a5429a7616af8fad3933a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaff14d3d3930d2857327c80177b9cfce"><td class="memItemLeft" align="right" valign="top">glm::vec2&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02471.html#aaff14d3d3930d2857327c80177b9cfce">getLocalSize</a> () const</td></tr>
-<tr class="memdesc:aaff14d3d3930d2857327c80177b9cfce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the pre-transform size of this entity.  <a href="a02471.html#aaff14d3d3930d2857327c80177b9cfce">More...</a><br /></td></tr>
-<tr class="separator:aaff14d3d3930d2857327c80177b9cfce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab0a036298d4e83c443607c15f7e4cd69"><td class="memItemLeft" align="right" valign="top">glm::vec2&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02471.html#ab0a036298d4e83c443607c15f7e4cd69">getOverlaySize</a> () const</td></tr>
-<tr class="memdesc:ab0a036298d4e83c443607c15f7e4cd69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the post-transform size in Overlay space.  <a href="a02471.html#ab0a036298d4e83c443607c15f7e4cd69">More...</a><br /></td></tr>
-<tr class="separator:ab0a036298d4e83c443607c15f7e4cd69"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a546ad65b2fbaa4a7d97cfe7f52de7901"><td class="memItemLeft" align="right" valign="top">const sf::FloatRect &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02471.html#a546ad65b2fbaa4a7d97cfe7f52de7901">getTargetRegion</a> () const</td></tr>
-<tr class="memdesc:a546ad65b2fbaa4a7d97cfe7f52de7901"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the parent bounds in overlay space.  <a href="a02471.html#a546ad65b2fbaa4a7d97cfe7f52de7901">More...</a><br /></td></tr>
-<tr class="separator:a546ad65b2fbaa4a7d97cfe7f52de7901"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a74f720c686e620743c57c1e49b1a5d93"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02471.html#a74f720c686e620743c57c1e49b1a5d93">setScissorToSelf</a> (bool setToSelf=true)</td></tr>
-<tr class="memdesc:a74f720c686e620743c57c1e49b1a5d93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper method to set the viewport to the region the drawable is in.  <a href="a02471.html#a74f720c686e620743c57c1e49b1a5d93">More...</a><br /></td></tr>
-<tr class="separator:a74f720c686e620743c57c1e49b1a5d93"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1efa41a9ad2a429474a21a187a494e24"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02075.html">com::Transform2D</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02479.html#a1efa41a9ad2a429474a21a187a494e24">getTransform</a> ()</td></tr>
-<tr class="memdesc:a1efa41a9ad2a429474a21a187a494e24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the transform. Must only be called after <a class="el" href="a02479.html#a5a9b364e0644b04edeb6ecb590886a45" title="Creates the transform in the ECS.">create()</a>  <a href="a02479.html#a1efa41a9ad2a429474a21a187a494e24">More...</a><br /></td></tr>
-<tr class="separator:a1efa41a9ad2a429474a21a187a494e24"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac9ebcd2ba56ad519228922c502b51a79"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a02075.html">com::Transform2D</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02479.html#ac9ebcd2ba56ad519228922c502b51a79">getTransform</a> () const</td></tr>
-<tr class="memdesc:ac9ebcd2ba56ad519228922c502b51a79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the transform. Must only be called after <a class="el" href="a02479.html#a5a9b364e0644b04edeb6ecb590886a45" title="Creates the transform in the ECS.">create()</a>  <a href="a02479.html#ac9ebcd2ba56ad519228922c502b51a79">More...</a><br /></td></tr>
-<tr class="separator:ac9ebcd2ba56ad519228922c502b51a79"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7134d1f30e41cc8b1b73d065103e8648"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02467.html#a7134d1f30e41cc8b1b73d065103e8648">useExistingPlayer</a> (<a class="el" href="a02223.html">ecs::Entity</a> player)</td></tr>
-<tr class="memdesc:a7134d1f30e41cc8b1b73d065103e8648"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures the animation to use the existing player in order to share play state with other animations.  <a href="a02467.html#a7134d1f30e41cc8b1b73d065103e8648">More...</a><br /></td></tr>
-<tr class="separator:a7134d1f30e41cc8b1b73d065103e8648"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7b3c4dc329a0b496da9fc0d11fc6aa98"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02467.html#a7b3c4dc329a0b496da9fc0d11fc6aa98">createNewPlayer</a> (const <a class="el" href="a03555.html">resource::Ref</a>&lt; <a class="el" href="a02447.html">gfx::a2d::AnimationData</a> &gt; &amp;animation, bool play=false, bool forceLoop=false)</td></tr>
-<tr class="memdesc:a7b3c4dc329a0b496da9fc0d11fc6aa98"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="a02467.html" title="Base class for 2d animation player components. Players are created on dedicated entities and dependen...">Animation2DPlayer</a> component for this animation to have unique play state.  <a href="a02467.html#a7b3c4dc329a0b496da9fc0d11fc6aa98">More...</a><br /></td></tr>
-<tr class="separator:a7b3c4dc329a0b496da9fc0d11fc6aa98"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4110535eaffc59d10b32b133f98cd781"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02023.html">com::Animation2DPlayer</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02467.html#a4110535eaffc59d10b32b133f98cd781">getPlayer</a> ()</td></tr>
-<tr class="memdesc:a4110535eaffc59d10b32b133f98cd781"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the animation player for this animation.  <a href="a02467.html#a4110535eaffc59d10b32b133f98cd781">More...</a><br /></td></tr>
-<tr class="separator:a4110535eaffc59d10b32b133f98cd781"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a464de332bdf997ce3da3e40e170c73a1"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a02023.html">com::Animation2DPlayer</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02467.html#a464de332bdf997ce3da3e40e170c73a1">getPlayer</a> () const</td></tr>
-<tr class="memdesc:a464de332bdf997ce3da3e40e170c73a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the animation player for this animation.  <a href="a02467.html#a464de332bdf997ce3da3e40e170c73a1">More...</a><br /></td></tr>
-<tr class="separator:a464de332bdf997ce3da3e40e170c73a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adff6c12352fcece0996814cb886c8546"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02223.html">ecs::Entity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02467.html#adff6c12352fcece0996814cb886c8546">getPlayerEntity</a> () const</td></tr>
-<tr class="memdesc:adff6c12352fcece0996814cb886c8546"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the ECS entity id of the player.  <a href="a02467.html#adff6c12352fcece0996814cb886c8546">More...</a><br /></td></tr>
-<tr class="separator:adff6c12352fcece0996814cb886c8546"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a79d8b21916f163236dd37ecb6f1b8ac8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02475.html#a79d8b21916f163236dd37ecb6f1b8ac8">setTexture</a> (const <a class="el" href="a03211.html">rc::res::TextureRef</a> &amp;texture)</td></tr>
-<tr class="memdesc:a79d8b21916f163236dd37ecb6f1b8ac8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes the texture for this drawable.  <a href="a02475.html#a79d8b21916f163236dd37ecb6f1b8ac8">More...</a><br /></td></tr>
-<tr class="separator:a79d8b21916f163236dd37ecb6f1b8ac8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af7fe2449a04882eb53417e73ea284134"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a03211.html">rc::res::TextureRef</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02475.html#af7fe2449a04882eb53417e73ea284134">getTexture</a> () const</td></tr>
-<tr class="memdesc:af7fe2449a04882eb53417e73ea284134"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the texture. Must only be called after <a class="el" href="a02475.html#a317f6474c485e51d7696aaabf1b152fa" title="Creates the texture component in the ECS.">create()</a>  <a href="a02475.html#af7fe2449a04882eb53417e73ea284134">More...</a><br /></td></tr>
-<tr class="separator:af7fe2449a04882eb53417e73ea284134"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5221755f20360461fc8d156907e6bbe"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02459.html#ab5221755f20360461fc8d156907e6bbe">Entity</a> ()</td></tr>
+<tr class="memdesc:ab5221755f20360461fc8d156907e6bbe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes an invalid entity.  <a href="a02459.html#ab5221755f20360461fc8d156907e6bbe">More...</a><br /></td></tr>
+<tr class="separator:ab5221755f20360461fc8d156907e6bbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92ded57f66dbc90b8cbfa084e4102093"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02459.html#a92ded57f66dbc90b8cbfa084e4102093">Entity</a> (<a class="el" href="a02459.html#a6f20d4f5035759797eb767204c24ddf8">IdType</a> <a class="el" href="a02459.html#aac9758c19ed496d47e3bd6efe1bc99d0">id</a>)</td></tr>
+<tr class="memdesc:a92ded57f66dbc90b8cbfa084e4102093"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the entity with the given composite id.  <a href="a02459.html#a92ded57f66dbc90b8cbfa084e4102093">More...</a><br /></td></tr>
+<tr class="separator:a92ded57f66dbc90b8cbfa084e4102093"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f76e3b9b2f5e1213b8423d5a859aa37"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02459.html#a9f76e3b9b2f5e1213b8423d5a859aa37">Entity</a> (std::uint64_t index, std::uint64_t version, <a class="el" href="a02035.html#gad22c7b1807fcff9c01b2082084716652">Flags</a> flags=<a class="el" href="a02035.html#ggad22c7b1807fcff9c01b2082084716652a6adf97f83acf6453d4a6a4b1070f3754">Flags::None</a>)</td></tr>
+<tr class="memdesc:a9f76e3b9b2f5e1213b8423d5a859aa37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Composes the entity from its components.  <a href="a02459.html#a9f76e3b9b2f5e1213b8423d5a859aa37">More...</a><br /></td></tr>
+<tr class="separator:a9f76e3b9b2f5e1213b8423d5a859aa37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f7c10be8a5e299f4ff17159d173f99e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02459.html#a4f7c10be8a5e299f4ff17159d173f99e">Entity</a> (const <a class="el" href="a02459.html">Entity</a> &amp;entity)</td></tr>
+<tr class="memdesc:a4f7c10be8a5e299f4ff17159d173f99e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies the given entity.  <a href="a02459.html#a4f7c10be8a5e299f4ff17159d173f99e">More...</a><br /></td></tr>
+<tr class="separator:a4f7c10be8a5e299f4ff17159d173f99e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa30ecf76c7fbdb6aa29313e589d7e0e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02459.html#afa30ecf76c7fbdb6aa29313e589d7e0e">Entity</a> (<a class="el" href="a02459.html">Entity</a> &amp;&amp;entity)</td></tr>
+<tr class="memdesc:afa30ecf76c7fbdb6aa29313e589d7e0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies the given entity.  <a href="a02459.html#afa30ecf76c7fbdb6aa29313e589d7e0e">More...</a><br /></td></tr>
+<tr class="separator:afa30ecf76c7fbdb6aa29313e589d7e0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17c7793a1ba0fc340403ab833f6e8e23"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02459.html">Entity</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02459.html#a17c7793a1ba0fc340403ab833f6e8e23">operator=</a> (const <a class="el" href="a02459.html">Entity</a> &amp;right)</td></tr>
+<tr class="memdesc:a17c7793a1ba0fc340403ab833f6e8e23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies the given entity.  <a href="a02459.html#a17c7793a1ba0fc340403ab833f6e8e23">More...</a><br /></td></tr>
+<tr class="separator:a17c7793a1ba0fc340403ab833f6e8e23"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09a88e66c4db12c1e106c2460a880f4c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02459.html">Entity</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02459.html#a09a88e66c4db12c1e106c2460a880f4c">operator=</a> (<a class="el" href="a02459.html">Entity</a> &amp;&amp;right)</td></tr>
+<tr class="memdesc:a09a88e66c4db12c1e106c2460a880f4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies the given entity.  <a href="a02459.html#a09a88e66c4db12c1e106c2460a880f4c">More...</a><br /></td></tr>
+<tr class="separator:a09a88e66c4db12c1e106c2460a880f4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3cb71b47f3a72f20913a27233a5dad0"><td class="memItemLeft" align="right" valign="top">std::uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02459.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a> () const</td></tr>
+<tr class="memdesc:aa3cb71b47f3a72f20913a27233a5dad0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the 0-based index for the entity.  <a href="a02459.html#aa3cb71b47f3a72f20913a27233a5dad0">More...</a><br /></td></tr>
+<tr class="separator:aa3cb71b47f3a72f20913a27233a5dad0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a375629bfb156b5397175f0304fcb93c6"><td class="memItemLeft" align="right" valign="top">std::uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02459.html#a375629bfb156b5397175f0304fcb93c6">getVersion</a> () const</td></tr>
+<tr class="memdesc:a375629bfb156b5397175f0304fcb93c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the version of an entity. The same entity index may be reused, the version differentiates it from the prior instances.  <a href="a02459.html#a375629bfb156b5397175f0304fcb93c6">More...</a><br /></td></tr>
+<tr class="separator:a375629bfb156b5397175f0304fcb93c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac63d8c8efe8cea42c313e55b5f3fea1c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02035.html#gad22c7b1807fcff9c01b2082084716652">Flags</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02459.html#ac63d8c8efe8cea42c313e55b5f3fea1c">getFlags</a> () const</td></tr>
+<tr class="memdesc:ac63d8c8efe8cea42c313e55b5f3fea1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the flags set for this entity.  <a href="a02459.html#ac63d8c8efe8cea42c313e55b5f3fea1c">More...</a><br /></td></tr>
+<tr class="separator:ac63d8c8efe8cea42c313e55b5f3fea1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1a3a8bc9afd7fca7e9f044a9b8c96ea"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02459.html#aa1a3a8bc9afd7fca7e9f044a9b8c96ea">flagSet</a> (<a class="el" href="a02035.html#gad22c7b1807fcff9c01b2082084716652">Flags</a> flag) const</td></tr>
+<tr class="memdesc:aa1a3a8bc9afd7fca7e9f044a9b8c96ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test whether or not the given flag(s) is/are set on this entity.  <a href="a02459.html#aa1a3a8bc9afd7fca7e9f044a9b8c96ea">More...</a><br /></td></tr>
+<tr class="separator:aa1a3a8bc9afd7fca7e9f044a9b8c96ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85913e4c4def1e460cbc20bdbff7b496"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02459.html#a85913e4c4def1e460cbc20bdbff7b496">operator IdType</a> () const</td></tr>
+<tr class="memdesc:a85913e4c4def1e460cbc20bdbff7b496"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper implicit conversion operator to the underlying id type.  <a href="a02459.html#a85913e4c4def1e460cbc20bdbff7b496">More...</a><br /></td></tr>
+<tr class="separator:a85913e4c4def1e460cbc20bdbff7b496"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f27633025e2a4f5b79d446e74b5e697"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02459.html#a7f27633025e2a4f5b79d446e74b5e697">operator==</a> (const <a class="el" href="a02459.html">Entity</a> &amp;right) const</td></tr>
+<tr class="memdesc:a7f27633025e2a4f5b79d446e74b5e697"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tests the equality against the given entity.  <a href="a02459.html#a7f27633025e2a4f5b79d446e74b5e697">More...</a><br /></td></tr>
+<tr class="separator:a7f27633025e2a4f5b79d446e74b5e697"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4657a24bc95a19b2093562fcf67eecd"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02459.html#ab4657a24bc95a19b2093562fcf67eecd">operator!=</a> (const <a class="el" href="a02459.html">Entity</a> &amp;right) const</td></tr>
+<tr class="memdesc:ab4657a24bc95a19b2093562fcf67eecd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tests the equality against the given entity.  <a href="a02459.html#ab4657a24bc95a19b2093562fcf67eecd">More...</a><br /></td></tr>
+<tr class="separator:ab4657a24bc95a19b2093562fcf67eecd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
-Protected Member Functions</h2></td></tr>
-<tr class="memitem:a3ce94917943f51d963d72a76f47a27c3"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02459.html#a3ce94917943f51d963d72a76f47a27c3">ensureLocalSizeUpdated</a> () override</td></tr>
-<tr class="memdesc:a3ce94917943f51d963d72a76f47a27c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the local size is queried.  <a href="a02459.html#a3ce94917943f51d963d72a76f47a27c3">More...</a><br /></td></tr>
-<tr class="separator:a3ce94917943f51d963d72a76f47a27c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adef5d2a123c05b5b6f6be50c2ffe1454"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="a02319.html">engine::Engine</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02483.html#adef5d2a123c05b5b6f6be50c2ffe1454">engine</a> ()</td></tr>
-<tr class="memdesc:adef5d2a123c05b5b6f6be50c2ffe1454"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the game engine instance. Only call after <a class="el" href="a02483.html#a35b338cdd6e950db4efa0ae3fae13ad2" title="Creates the ECS entity and drawable component. Will destroy the prior instance if any.">create()</a>  <a href="a02483.html#adef5d2a123c05b5b6f6be50c2ffe1454">More...</a><br /></td></tr>
-<tr class="separator:adef5d2a123c05b5b6f6be50c2ffe1454"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3a618017b9138ff589e4f8cf878134b2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03215.html">sys::DrawableSystem</a>&lt; <a class="el" href="a02019.html">com::Animation2D</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02483.html#a3a618017b9138ff589e4f8cf878134b2">system</a> ()</td></tr>
-<tr class="memdesc:a3a618017b9138ff589e4f8cf878134b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the drawable system. Only call after <a class="el" href="a02483.html#a35b338cdd6e950db4efa0ae3fae13ad2" title="Creates the ECS entity and drawable component. Will destroy the prior instance if any.">create()</a>  <a href="a02483.html#a3a618017b9138ff589e4f8cf878134b2">More...</a><br /></td></tr>
-<tr class="separator:a3a618017b9138ff589e4f8cf878134b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a35b338cdd6e950db4efa0ae3fae13ad2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02483.html#a35b338cdd6e950db4efa0ae3fae13ad2">create</a> (<a class="el" href="a02319.html">engine::Engine</a> &amp;<a class="el" href="a02483.html#adef5d2a123c05b5b6f6be50c2ffe1454">engine</a>, TArgs &amp;&amp;... args)</td></tr>
-<tr class="memdesc:a35b338cdd6e950db4efa0ae3fae13ad2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the ECS entity and drawable component. Will destroy the prior instance if any.  <a href="a02483.html#a35b338cdd6e950db4efa0ae3fae13ad2">More...</a><br /></td></tr>
-<tr class="separator:a35b338cdd6e950db4efa0ae3fae13ad2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a466f1f8daabe91c4191691cacef55938"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02483.html#a466f1f8daabe91c4191691cacef55938">createEntityOnly</a> (<a class="el" href="a02319.html">engine::Engine</a> &amp;<a class="el" href="a02483.html#adef5d2a123c05b5b6f6be50c2ffe1454">engine</a>)</td></tr>
-<tr class="memdesc:a466f1f8daabe91c4191691cacef55938"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the ECS entity for the drawable but does not create the component.  <a href="a02483.html#a466f1f8daabe91c4191691cacef55938">More...</a><br /></td></tr>
-<tr class="separator:a466f1f8daabe91c4191691cacef55938"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a54b730c3942c029b2ad73706a97d06d8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02483.html#a54b730c3942c029b2ad73706a97d06d8">createComponentOnly</a> (TArgs &amp;&amp;... args)</td></tr>
-<tr class="memdesc:a54b730c3942c029b2ad73706a97d06d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the component for the drawable. Must only be called after entity creation.  <a href="a02483.html#a54b730c3942c029b2ad73706a97d06d8">More...</a><br /></td></tr>
-<tr class="separator:a54b730c3942c029b2ad73706a97d06d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a96a86f5a846e4697705a5a518cc1144f"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02483.html#a96a86f5a846e4697705a5a518cc1144f">onAdd</a> (const <a class="el" href="a02919.html">rc::rcom::SceneObjectRef</a> &amp;sceneRef)</td></tr>
-<tr class="memdesc:a96a86f5a846e4697705a5a518cc1144f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called after the entity is added to a scene. Allows derived to sync data if required.  <a href="a02483.html#a96a86f5a846e4697705a5a518cc1144f">More...</a><br /></td></tr>
-<tr class="separator:a96a86f5a846e4697705a5a518cc1144f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a71880c2435bfc65a52310617bfce79d1"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02483.html#a71880c2435bfc65a52310617bfce79d1">onRemove</a> ()</td></tr>
-<tr class="memdesc:a71880c2435bfc65a52310617bfce79d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called after the entity is removed from a scene.  <a href="a02483.html#a71880c2435bfc65a52310617bfce79d1">More...</a><br /></td></tr>
-<tr class="separator:a71880c2435bfc65a52310617bfce79d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab91b8fbcaf4f5f397b7ab5d412befb3a"><td class="memTemplParams" colspan="2">template&lt;typename... TArgs&gt; </td></tr>
-<tr class="memitem:ab91b8fbcaf4f5f397b7ab5d412befb3a"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a02471.html#ab91b8fbcaf4f5f397b7ab5d412befb3a">create</a> (<a class="el" href="a02319.html">engine::Engine</a> &amp;<a class="el" href="a02483.html#adef5d2a123c05b5b6f6be50c2ffe1454">engine</a>, <a class="el" href="a02223.html">ecs::Entity</a> <a class="el" href="a02483.html#afb6e023344eafbba7d8ae49d7d8fed3b">entity</a>, TArgs &amp;&amp;... args)</td></tr>
-<tr class="memdesc:ab91b8fbcaf4f5f397b7ab5d412befb3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the OverlayScaler and <a class="el" href="a02479.html" title="Base component class for Drawables that require a 2d transform.">Transform2D</a> in the ECS.  <a href="a02471.html#ab91b8fbcaf4f5f397b7ab5d412befb3a">More...</a><br /></td></tr>
-<tr class="separator:ab91b8fbcaf4f5f397b7ab5d412befb3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5a9b364e0644b04edeb6ecb590886a45"><td class="memTemplParams" colspan="2">template&lt;typename... TArgs&gt; </td></tr>
-<tr class="memitem:a5a9b364e0644b04edeb6ecb590886a45"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a02479.html#a5a9b364e0644b04edeb6ecb590886a45">create</a> (<a class="el" href="a02267.html">ecs::Registry</a> &amp;registry, <a class="el" href="a02223.html">ecs::Entity</a> <a class="el" href="a02483.html#afb6e023344eafbba7d8ae49d7d8fed3b">entity</a>, TArgs &amp;&amp;... args)</td></tr>
-<tr class="memdesc:a5a9b364e0644b04edeb6ecb590886a45"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the transform in the ECS.  <a href="a02479.html#a5a9b364e0644b04edeb6ecb590886a45">More...</a><br /></td></tr>
-<tr class="separator:a5a9b364e0644b04edeb6ecb590886a45"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4f1e81a4d4e62cbc478b338488fb7202"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02471.html#a4f1e81a4d4e62cbc478b338488fb7202">setLocalSize</a> (const glm::vec2 &amp;size)</td></tr>
-<tr class="memdesc:a4f1e81a4d4e62cbc478b338488fb7202"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the pre-transform size of this entity.  <a href="a02471.html#a4f1e81a4d4e62cbc478b338488fb7202">More...</a><br /></td></tr>
-<tr class="separator:a4f1e81a4d4e62cbc478b338488fb7202"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad338c1830292172ce58b70c5e65cf349"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02471.html#ad338c1830292172ce58b70c5e65cf349">setLocalBounds</a> (const sf::FloatRect &amp;bounds)</td></tr>
-<tr class="memdesc:ad338c1830292172ce58b70c5e65cf349"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the pre-transform bounds of the entity. Use if bound corner is not (0, 0)  <a href="a02471.html#ad338c1830292172ce58b70c5e65cf349">More...</a><br /></td></tr>
-<tr class="separator:ad338c1830292172ce58b70c5e65cf349"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af37a5bf6af393bed9d3845439965da53"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02467.html#af37a5bf6af393bed9d3845439965da53">create</a> (<a class="el" href="a03163.html">rc::Renderer</a> &amp;renderer, <a class="el" href="a02267.html">ecs::Registry</a> &amp;registry, <a class="el" href="a02223.html">ecs::Entity</a> <a class="el" href="a02483.html#afb6e023344eafbba7d8ae49d7d8fed3b">entity</a>, <a class="el" href="a02223.html">ecs::Entity</a> player)</td></tr>
-<tr class="memdesc:af37a5bf6af393bed9d3845439965da53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the animation components. Uses a shared player component.  <a href="a02467.html#af37a5bf6af393bed9d3845439965da53">More...</a><br /></td></tr>
-<tr class="separator:af37a5bf6af393bed9d3845439965da53"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0215081dea9ea89035e46516333a155e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02467.html#a0215081dea9ea89035e46516333a155e">create</a> (<a class="el" href="a03163.html">rc::Renderer</a> &amp;renderer, <a class="el" href="a02267.html">ecs::Registry</a> &amp;registry, <a class="el" href="a02223.html">ecs::Entity</a> <a class="el" href="a02483.html#afb6e023344eafbba7d8ae49d7d8fed3b">entity</a>, const <a class="el" href="a03555.html">resource::Ref</a>&lt; <a class="el" href="a02447.html">gfx::a2d::AnimationData</a> &gt; &amp;animation, bool play, bool forceLoop)</td></tr>
-<tr class="memdesc:a0215081dea9ea89035e46516333a155e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the animation components with a dedicated player component on this entity.  <a href="a02467.html#a0215081dea9ea89035e46516333a155e">More...</a><br /></td></tr>
-<tr class="separator:a0215081dea9ea89035e46516333a155e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a317f6474c485e51d7696aaabf1b152fa"><td class="memTemplParams" colspan="2">template&lt;typename... TArgs&gt; </td></tr>
-<tr class="memitem:a317f6474c485e51d7696aaabf1b152fa"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a02475.html#a317f6474c485e51d7696aaabf1b152fa">create</a> (<a class="el" href="a02267.html">ecs::Registry</a> &amp;registry, <a class="el" href="a02223.html">ecs::Entity</a> <a class="el" href="a02483.html#afb6e023344eafbba7d8ae49d7d8fed3b">entity</a>, TArgs &amp;&amp;... args)</td></tr>
-<tr class="memdesc:a317f6474c485e51d7696aaabf1b152fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the texture component in the ECS.  <a href="a02475.html#a317f6474c485e51d7696aaabf1b152fa">More...</a><br /></td></tr>
-<tr class="separator:a317f6474c485e51d7696aaabf1b152fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:aac9758c19ed496d47e3bd6efe1bc99d0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02459.html#a6f20d4f5035759797eb767204c24ddf8">IdType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02459.html#aac9758c19ed496d47e3bd6efe1bc99d0">id</a></td></tr>
+<tr class="separator:aac9758c19ed496d47e3bd6efe1bc99d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:abd04982c94139ebc1038f8cfd50aa8a7"><td class="memItemLeft" align="right" valign="top">static constexpr <a class="el" href="a02459.html#a6f20d4f5035759797eb767204c24ddf8">IdType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02459.html#abd04982c94139ebc1038f8cfd50aa8a7">InvalidId</a> = std::numeric_limits&lt;<a class="el" href="a02459.html#a6f20d4f5035759797eb767204c24ddf8">IdType</a>&gt;::max()</td></tr>
+<tr class="memdesc:abd04982c94139ebc1038f8cfd50aa8a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Special value to indicate that an <a class="el" href="a02459.html" title="Entity is simply an id. Components are added via a Registry and they own all the relevant properties....">Entity</a> is not valid.  <a href="a02459.html#abd04982c94139ebc1038f8cfd50aa8a7">More...</a><br /></td></tr>
+<tr class="separator:abd04982c94139ebc1038f8cfd50aa8a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0058921f68b3ec4d3497242134c690fa"><td class="memItemLeft" align="right" valign="top">static constexpr std::uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02459.html#a0058921f68b3ec4d3497242134c690fa">IndexMask</a> = 0x00000000FFFFFFFF</td></tr>
+<tr class="separator:a0058921f68b3ec4d3497242134c690fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7deb8d2f0f101171009dc9800042a44b"><td class="memItemLeft" align="right" valign="top">static constexpr std::uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02459.html#a7deb8d2f0f101171009dc9800042a44b">VersionMask</a> = 0xFFFF000000000000</td></tr>
+<tr class="separator:a7deb8d2f0f101171009dc9800042a44b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a31f24df4d8a9a656eb4ccd3fed3c400f"><td class="memItemLeft" align="right" valign="top">static constexpr std::uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02459.html#a31f24df4d8a9a656eb4ccd3fed3c400f">FlagMask</a> = 0x0000FF0000000000</td></tr>
+<tr class="separator:a31f24df4d8a9a656eb4ccd3fed3c400f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a1271f7daf165d927a65aba338a7a1d39"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02459.html#a1271f7daf165d927a65aba338a7a1d39">operator&lt;&lt;</a> (std::ostream &amp;os, <a class="el" href="a02459.html">Entity</a> entity)</td></tr>
+<tr class="memdesc:a1271f7daf165d927a65aba338a7a1d39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Outputs the entity in a human friendly format.  <a href="a02459.html#a1271f7daf165d927a65aba338a7a1d39">More...</a><br /></td></tr>
+<tr class="separator:a1271f7daf165d927a65aba338a7a1d39"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Basic 2d animation. Supports arbitrary animations. Prefer <a class="el" href="a02495.html" title="Specific type of 2d animation where the texture coordinates change over time.">Slideshow</a> for supported animations as more work is done on the GPU and slideshows can be batched into larger vertex arrays while each <a class="el" href="a02459.html" title="Basic 2d animation. Supports arbitrary animations. Prefer Slideshow for supported animations as more ...">Animation2D</a> always requires a dedicated draw call. </p>
+<div class="textblock"><p><a class="el" href="a02459.html" title="Entity is simply an id. Components are added via a Registry and they own all the relevant properties....">Entity</a> is simply an id. Components are added via a <a class="el" href="a02503.html" title="This is the main interface of the ECS. This class manages all entities and components and views and s...">Registry</a> and they own all the relevant properties. Systems can query lists of Entities with certain components and perform logic and updates. </p>
 
-<p class="definition">Definition at line <a class="el" href="a05052_source.html#l00022">22</a> of file <a class="el" href="a05052_source.html">Animation2D.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ac0db581e7a8d6ca16891834afb2e923f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac0db581e7a8d6ca16891834afb2e923f">&#9670;&nbsp;</a></span>Animation2D() <span class="overload">[1/3]</span></h2>
+<p class="definition">Definition at line <a class="el" href="a00161_source.html#l00024">24</a> of file <a class="el" href="a00161_source.html">Entity.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a6f20d4f5035759797eb767204c24ddf8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f20d4f5035759797eb767204c24ddf8">&#9670;&nbsp;</a></span>IdType</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a02459.html#a6f20d4f5035759797eb767204c24ddf8">bl::ecs::Entity::IdType</a> =  std::uint64_t</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00161_source.html#l00025">25</a> of file <a class="el" href="a00161_source.html">Entity.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ab5221755f20360461fc8d156907e6bbe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5221755f20360461fc8d156907e6bbe">&#9670;&nbsp;</a></span>Entity() <span class="overload">[1/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -267,7 +192,7 @@ Protected Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bl::gfx::Animation2D::Animation2D </td>
+          <td class="memname">constexpr bl::ecs::Entity::Entity </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -275,44 +200,79 @@ Protected Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Does nothing. </p>
+<p>Initializes an invalid entity. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00161_source.html#l00040">40</a> of file <a class="el" href="a00161_source.html">Entity.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a0636a8b12eea2014d7b55c102c6e0459"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0636a8b12eea2014d7b55c102c6e0459">&#9670;&nbsp;</a></span>Animation2D() <span class="overload">[2/3]</span></h2>
+<a id="a92ded57f66dbc90b8cbfa084e4102093"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a92ded57f66dbc90b8cbfa084e4102093">&#9670;&nbsp;</a></span>Entity() <span class="overload">[2/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bl::gfx::Animation2D::Animation2D </td>
+          <td class="memname">bl::ecs::Entity::Entity </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a02319.html">engine::Engine</a> &amp;&#160;</td>
-          <td class="paramname"><em>engine</em>, </td>
+          <td class="paramtype"><a class="el" href="a02459.html#a6f20d4f5035759797eb767204c24ddf8">IdType</a>&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Initializes the entity with the given composite id. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>The composite id to use </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00161_source.html#l00048">48</a> of file <a class="el" href="a00161_source.html">Entity.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a9f76e3b9b2f5e1213b8423d5a859aa37"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f76e3b9b2f5e1213b8423d5a859aa37">&#9670;&nbsp;</a></span>Entity() <span class="overload">[3/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::ecs::Entity::Entity </td>
+          <td>(</td>
+          <td class="paramtype">std::uint64_t&#160;</td>
+          <td class="paramname"><em>index</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="a03555.html">resource::Ref</a>&lt; <a class="el" href="a02447.html">a2d::AnimationData</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>animation</em>, </td>
+          <td class="paramtype">std::uint64_t&#160;</td>
+          <td class="paramname"><em>version</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>play</em> = <code>false</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>forceLoop</em> = <code>false</code>&#160;</td>
+          <td class="paramtype"><a class="el" href="a02035.html#gad22c7b1807fcff9c01b2082084716652">Flags</a>&#160;</td>
+          <td class="paramname"><em>flags</em> = <code><a class="el" href="a02035.html#ggad22c7b1807fcff9c01b2082084716652a6adf97f83acf6453d4a6a4b1070f3754">Flags::None</a></code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -320,65 +280,102 @@ Protected Member Functions</h2></td></tr>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Creates the animation with its own player. </p>
+<p>Composes the entity from its components. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">engine</td><td>Game engine instance </td></tr>
-    <tr><td class="paramname">animation</td><td>The animation to use </td></tr>
-    <tr><td class="paramname">play</td><td>True to play immediately, false to start paused </td></tr>
-    <tr><td class="paramname">forceLoop</td><td>True to always loop, false defer to animation setting </td></tr>
+    <tr><td class="paramname">index</td><td>The 0-based index of the entity </td></tr>
+    <tr><td class="paramname">version</td><td>The version of the index </td></tr>
+    <tr><td class="paramname">flags</td><td>Set of flags to mark the entity with </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a05187_source.html#l00020">20</a> of file <a class="el" href="a05187_source.html">Animation2D.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00161_source.html#l00058">58</a> of file <a class="el" href="a00161_source.html">Entity.hpp</a>.</p>
 
 </div>
 </div>
-<a id="ac3f3edd4118c4e260619ab956d3495e5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac3f3edd4118c4e260619ab956d3495e5">&#9670;&nbsp;</a></span>Animation2D() <span class="overload">[3/3]</span></h2>
+<a id="a4f7c10be8a5e299f4ff17159d173f99e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f7c10be8a5e299f4ff17159d173f99e">&#9670;&nbsp;</a></span>Entity() <span class="overload">[4/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bl::gfx::Animation2D::Animation2D </td>
+          <td class="memname">bl::ecs::Entity::Entity </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a02319.html">engine::Engine</a> &amp;&#160;</td>
-          <td class="paramname"><em>engine</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">const <a class="el" href="a02459.html">Entity</a> &amp;&#160;</td>
+          <td class="paramname"><em>entity</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="a02459.html">Animation2D</a> &amp;&#160;</td>
-          <td class="paramname"><em>player</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Creates the animation sharing player state with the given animation. </p>
+<p>Copies the given entity. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">engine</td><td>Game engine instance </td></tr>
-    <tr><td class="paramname">player</td><td>The other animation to share player state with </td></tr>
+    <tr><td class="paramname">entity</td><td>The entity to copy </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a05187_source.html#l00026">26</a> of file <a class="el" href="a05187_source.html">Animation2D.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00161_source.html#l00066">66</a> of file <a class="el" href="a00161_source.html">Entity.hpp</a>.</p>
+
+</div>
+</div>
+<a id="afa30ecf76c7fbdb6aa29313e589d7e0e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afa30ecf76c7fbdb6aa29313e589d7e0e">&#9670;&nbsp;</a></span>Entity() <span class="overload">[5/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::ecs::Entity::Entity </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a02459.html">Entity</a> &amp;&amp;&#160;</td>
+          <td class="paramname"><em>entity</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Copies the given entity. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entity</td><td>The entity to copy </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00161_source.html#l00074">74</a> of file <a class="el" href="a00161_source.html">Entity.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a3f76b95f164baa89ce14a88b3b8621a4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3f76b95f164baa89ce14a88b3b8621a4">&#9670;&nbsp;</a></span>addToScene()</h2>
+<a id="aa1a3a8bc9afd7fca7e9f044a9b8c96ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1a3a8bc9afd7fca7e9f044a9b8c96ea">&#9670;&nbsp;</a></span>flagSet()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -387,45 +384,35 @@ Protected Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="a02483.html">bl::gfx::Drawable</a>&lt; <a class="el" href="a02019.html">com::Animation2D</a> , <a class="el" href="a03215.html">sys::DrawableSystem</a>&lt;<a class="el" href="a02019.html">com::Animation2D</a> &gt;  &gt;::addToScene </td>
+          <td class="memname">bool bl::ecs::Entity::flagSet </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a03243.html">rc::Scene</a> *&#160;</td>
-          <td class="paramname"><em>scene</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a01820.html#ga305dcc5dda3e28bd193ab31444664848">rc::UpdateSpeed</a>&#160;</td>
-          <td class="paramname"><em>updateFreq</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype"><a class="el" href="a02035.html#gad22c7b1807fcff9c01b2082084716652">Flags</a>&#160;</td>
+          <td class="paramname"><em>flag</em></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Adds this entity to the given scene. </p>
+<p>Test whether or not the given flag(s) is/are set on this entity. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">scene</td><td>The scene to add to </td></tr>
-    <tr><td class="paramname">updateFreq</td><td>Whether the entity is expected to be dynamic or static </td></tr>
+    <tr><td class="paramname">flag</td><td>The flag(s) to check for </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the flag(s) is/are present, false otherwise </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a00281_source.html#l00048">48</a> of file <a class="el" href="a00281_source.html">Drawable.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00161_source.html#l00128">128</a> of file <a class="el" href="a00161_source.html">Entity.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a39ccca57aa44932311c99c5bcefb31a5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a39ccca57aa44932311c99c5bcefb31a5">&#9670;&nbsp;</a></span>addToSceneWithCustomPipeline()</h2>
+<a id="ac63d8c8efe8cea42c313e55b5f3fea1c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac63d8c8efe8cea42c313e55b5f3fea1c">&#9670;&nbsp;</a></span>getFlags()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -434,870 +421,7 @@ Protected Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="a02483.html">bl::gfx::Drawable</a>&lt; <a class="el" href="a02019.html">com::Animation2D</a> , <a class="el" href="a03215.html">sys::DrawableSystem</a>&lt;<a class="el" href="a02019.html">com::Animation2D</a> &gt;  &gt;::addToSceneWithCustomPipeline </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a03243.html">rc::Scene</a> *&#160;</td>
-          <td class="paramname"><em>scene</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a01820.html#ga305dcc5dda3e28bd193ab31444664848">rc::UpdateSpeed</a>&#160;</td>
-          <td class="paramname"><em>updateFreq</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::uint32_t&#160;</td>
-          <td class="paramname"><em>pipeline</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Adds this entity to the given scene with custom pipelines. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">scene</td><td>The scene to add to </td></tr>
-    <tr><td class="paramname">updateFreq</td><td>Whether the entity is expected to be dynamic or static </td></tr>
-    <tr><td class="paramname">pipeline</td><td>The pipeline to render with </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00281_source.html#l00057">57</a> of file <a class="el" href="a00281_source.html">Drawable.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ad80022f5deb90f89ab57048a3cfa187b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad80022f5deb90f89ab57048a3cfa187b">&#9670;&nbsp;</a></span>component() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a02019.html">com::Animation2D</a>  &amp; <a class="el" href="a02483.html">bl::gfx::Drawable</a>&lt; <a class="el" href="a02019.html">com::Animation2D</a> , <a class="el" href="a03215.html">sys::DrawableSystem</a>&lt;<a class="el" href="a02019.html">com::Animation2D</a> &gt;  &gt;::component</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the drawable component. Only call after <a class="el" href="a02467.html#af37a5bf6af393bed9d3845439965da53" title="Creates the animation components. Uses a shared player component.">create()</a> </p>
-
-<p class="definition">Definition at line <a class="el" href="a00281_source.html#l00085">85</a> of file <a class="el" href="a00281_source.html">Drawable.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a2888db89f05d9c93c9c525962f281a6a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2888db89f05d9c93c9c525962f281a6a">&#9670;&nbsp;</a></span>component() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="a02019.html">com::Animation2D</a>  &amp; <a class="el" href="a02483.html">bl::gfx::Drawable</a>&lt; <a class="el" href="a02019.html">com::Animation2D</a> , <a class="el" href="a03215.html">sys::DrawableSystem</a>&lt;<a class="el" href="a02019.html">com::Animation2D</a> &gt;  &gt;::component</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the drawable component. Only call after <a class="el" href="a02467.html#af37a5bf6af393bed9d3845439965da53" title="Creates the animation components. Uses a shared player component.">create()</a> </p>
-
-<p class="definition">Definition at line <a class="el" href="a00281_source.html#l00090">90</a> of file <a class="el" href="a00281_source.html">Drawable.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a317f6474c485e51d7696aaabf1b152fa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a317f6474c485e51d7696aaabf1b152fa">&#9670;&nbsp;</a></span>create() <span class="overload">[1/6]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename... TArgs&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::gfx::bcom::Textured::create </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a02267.html">ecs::Registry</a> &amp;&#160;</td>
-          <td class="paramname"><em>registry</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a02223.html">ecs::Entity</a>&#160;</td>
-          <td class="paramname"><em>entity</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">TArgs &amp;&amp;...&#160;</td>
-          <td class="paramname"><em>args</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Creates the texture component in the ECS. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">...TArgs</td><td>Argument types to the texture's constructor </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">registry</td><td>The ECS registry instance </td></tr>
-    <tr><td class="paramname">entity</td><td>The ECS entity id </td></tr>
-    <tr><td class="paramname">...args</td><td>Arguments to the texture's constructor </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00278_source.html#l00060">60</a> of file <a class="el" href="a00278_source.html">Textured.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a5a9b364e0644b04edeb6ecb590886a45"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5a9b364e0644b04edeb6ecb590886a45">&#9670;&nbsp;</a></span>create() <span class="overload">[2/6]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename... TArgs&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::gfx::bcom::Transform2D::create </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a02267.html">ecs::Registry</a> &amp;&#160;</td>
-          <td class="paramname"><em>registry</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a02223.html">ecs::Entity</a>&#160;</td>
-          <td class="paramname"><em>entity</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">TArgs &amp;&amp;...&#160;</td>
-          <td class="paramname"><em>args</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Creates the transform in the ECS. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">...TArgs</td><td>Argument types to the transform constructor </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">registry</td><td>The ECS registry instance </td></tr>
-    <tr><td class="paramname">entity</td><td>The entity id </td></tr>
-    <tr><td class="paramname">...args</td><td>Arguments to the transform constructor </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a05094_source.html#l00059">59</a> of file <a class="el" href="a05094_source.html">Transform2D.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ab91b8fbcaf4f5f397b7ab5d412befb3a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab91b8fbcaf4f5f397b7ab5d412befb3a">&#9670;&nbsp;</a></span>create() <span class="overload">[3/6]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename... TArgs&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::gfx::bcom::OverlayScalable::create </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a02319.html">engine::Engine</a> &amp;&#160;</td>
-          <td class="paramname"><em>engine</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a02223.html">ecs::Entity</a>&#160;</td>
-          <td class="paramname"><em>entity</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">TArgs &amp;&amp;...&#160;</td>
-          <td class="paramname"><em>args</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Creates the OverlayScaler and Transform2D in the ECS. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">...TArgs</td><td>Argument types to the Transform2D constructor </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">engine</td><td>The game engine instance </td></tr>
-    <tr><td class="paramname">entity</td><td>The entity id </td></tr>
-    <tr><td class="paramname">overlay</td><td>Pointer to the Overlay that the object is in </td></tr>
-    <tr><td class="paramname">sceneId</td><td>The id of the entity in the scene that it is in </td></tr>
-    <tr><td class="paramname">...args</td><td>Arguments to the Transform2D constructor </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00275_source.html#l00111">111</a> of file <a class="el" href="a00275_source.html">OverlayScalable.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a35b338cdd6e950db4efa0ae3fae13ad2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a35b338cdd6e950db4efa0ae3fae13ad2">&#9670;&nbsp;</a></span>create() <span class="overload">[4/6]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="a02483.html">bl::gfx::Drawable</a>&lt; <a class="el" href="a02019.html">com::Animation2D</a> , <a class="el" href="a03215.html">sys::DrawableSystem</a>&lt;<a class="el" href="a02019.html">com::Animation2D</a> &gt;  &gt;::create </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a02319.html">engine::Engine</a> &amp;&#160;</td>
-          <td class="paramname"><em>engine</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">TArgs &amp;&amp;...&#160;</td>
-          <td class="paramname"><em>args</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Creates the ECS entity and drawable component. Will destroy the prior instance if any. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">...TArgs</td><td>Argument types to the component's constructor </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">engine</td><td>Game engine instance </td></tr>
-    <tr><td class="paramname">...args</td><td>Arguments to the component's constructor </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00281_source.html#l00157">157</a> of file <a class="el" href="a00281_source.html">Drawable.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a0215081dea9ea89035e46516333a155e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0215081dea9ea89035e46516333a155e">&#9670;&nbsp;</a></span>create() <span class="overload">[5/6]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::gfx::bcom::Animation2DPlayer::create </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a03163.html">rc::Renderer</a> &amp;&#160;</td>
-          <td class="paramname"><em>renderer</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a02267.html">ecs::Registry</a> &amp;&#160;</td>
-          <td class="paramname"><em>registry</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a02223.html">ecs::Entity</a>&#160;</td>
-          <td class="paramname"><em>entity</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a03555.html">resource::Ref</a>&lt; <a class="el" href="a02447.html">gfx::a2d::AnimationData</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>animation</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>play</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>forceLoop</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Creates the animation components with a dedicated player component on this entity. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">renderer</td><td>The renderer instance </td></tr>
-    <tr><td class="paramname">registry</td><td>The ECS registry </td></tr>
-    <tr><td class="paramname">entity</td><td>The parent entity </td></tr>
-    <tr><td class="paramname">animation</td><td>The animation to use </td></tr>
-    <tr><td class="paramname">play</td><td>True to begin playing immediately, false to start paused </td></tr>
-    <tr><td class="paramname">forceLoop</td><td>True to loop the animation, false to use the animation's loop setting </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a05193_source.html#l00048">48</a> of file <a class="el" href="a05193_source.html">Animation2DPlayer.cpp</a>.</p>
-
-</div>
-</div>
-<a id="af37a5bf6af393bed9d3845439965da53"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af37a5bf6af393bed9d3845439965da53">&#9670;&nbsp;</a></span>create() <span class="overload">[6/6]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::gfx::bcom::Animation2DPlayer::create </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a03163.html">rc::Renderer</a> &amp;&#160;</td>
-          <td class="paramname"><em>renderer</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a02267.html">ecs::Registry</a> &amp;&#160;</td>
-          <td class="paramname"><em>registry</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a02223.html">ecs::Entity</a>&#160;</td>
-          <td class="paramname"><em>entity</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a02223.html">ecs::Entity</a>&#160;</td>
-          <td class="paramname"><em>player</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Creates the animation components. Uses a shared player component. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">renderer</td><td>The renderer instance </td></tr>
-    <tr><td class="paramname">registry</td><td>The ECS registry </td></tr>
-    <tr><td class="paramname">entity</td><td>The parent entity </td></tr>
-    <tr><td class="paramname">player</td><td>The entity with the player component </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a05193_source.html#l00036">36</a> of file <a class="el" href="a05193_source.html">Animation2DPlayer.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a54b730c3942c029b2ad73706a97d06d8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a54b730c3942c029b2ad73706a97d06d8">&#9670;&nbsp;</a></span>createComponentOnly()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="a02483.html">bl::gfx::Drawable</a>&lt; <a class="el" href="a02019.html">com::Animation2D</a> , <a class="el" href="a03215.html">sys::DrawableSystem</a>&lt;<a class="el" href="a02019.html">com::Animation2D</a> &gt;  &gt;::createComponentOnly </td>
-          <td>(</td>
-          <td class="paramtype">TArgs &amp;&amp;...&#160;</td>
-          <td class="paramname"><em>args</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Creates the component for the drawable. Must only be called after entity creation. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">...TArgs</td><td>Argument types to the components constructor </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">...args</td><td>Arguments to the components constructor </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00281_source.html#l00173">173</a> of file <a class="el" href="a00281_source.html">Drawable.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a466f1f8daabe91c4191691cacef55938"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a466f1f8daabe91c4191691cacef55938">&#9670;&nbsp;</a></span>createEntityOnly()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="a02483.html">bl::gfx::Drawable</a>&lt; <a class="el" href="a02019.html">com::Animation2D</a> , <a class="el" href="a03215.html">sys::DrawableSystem</a>&lt;<a class="el" href="a02019.html">com::Animation2D</a> &gt;  &gt;::createEntityOnly </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a02319.html">engine::Engine</a> &amp;&#160;</td>
-          <td class="paramname"><em>engine</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Creates the ECS entity for the drawable but does not create the component. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">engine</td><td>Game engine instance </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00281_source.html#l00164">164</a> of file <a class="el" href="a00281_source.html">Drawable.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a7b3c4dc329a0b496da9fc0d11fc6aa98"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7b3c4dc329a0b496da9fc0d11fc6aa98">&#9670;&nbsp;</a></span>createNewPlayer()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::gfx::bcom::Animation2DPlayer::createNewPlayer </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a03555.html">resource::Ref</a>&lt; <a class="el" href="a02447.html">gfx::a2d::AnimationData</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>animation</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>play</em> = <code>false</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>forceLoop</em> = <code>false</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Creates a new Animation2DPlayer component for this animation to have unique play state. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">animation</td><td>The animation to use </td></tr>
-    <tr><td class="paramname">play</td><td>True to begin playing immediately, false to start paused </td></tr>
-    <tr><td class="paramname">forceLoop</td><td>True to loop the animation, false to use the animation's loop setting </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a05193_source.html#l00018">18</a> of file <a class="el" href="a05193_source.html">Animation2DPlayer.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ae5ee273e33865432b7111332147cb6f4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae5ee273e33865432b7111332147cb6f4">&#9670;&nbsp;</a></span>createWithSharedPlayer()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::gfx::Animation2D::createWithSharedPlayer </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a02319.html">engine::Engine</a> &amp;&#160;</td>
-          <td class="paramname"><em>engine</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a02459.html">Animation2D</a> &amp;&#160;</td>
-          <td class="paramname"><em>player</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Creates the animation sharing player state with the given animation. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">engine</td><td>Game engine instance </td></tr>
-    <tr><td class="paramname">player</td><td>The other animation to share player state with </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a05187_source.html#l00043">43</a> of file <a class="el" href="a05187_source.html">Animation2D.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a0fa289fdba32605e5e475b9d79a5c158"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0fa289fdba32605e5e475b9d79a5c158">&#9670;&nbsp;</a></span>createWithUniquePlayer()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::gfx::Animation2D::createWithUniquePlayer </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a02319.html">engine::Engine</a> &amp;&#160;</td>
-          <td class="paramname"><em>engine</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a03555.html">resource::Ref</a>&lt; <a class="el" href="a02447.html">a2d::AnimationData</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>animation</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>play</em> = <code>false</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>forceLoop</em> = <code>false</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Creates the animation with its own player. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">engine</td><td>Game engine instance </td></tr>
-    <tr><td class="paramname">animation</td><td>The animation to use </td></tr>
-    <tr><td class="paramname">play</td><td>True to play immediately, false to start paused </td></tr>
-    <tr><td class="paramname">forceLoop</td><td>True to always loop, false defer to animation setting </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a05187_source.html#l00031">31</a> of file <a class="el" href="a05187_source.html">Animation2D.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a00d74d4c35b35f7f758b7bf6ebdcbc10"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a00d74d4c35b35f7f758b7bf6ebdcbc10">&#9670;&nbsp;</a></span>destroy()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="a02483.html">bl::gfx::Drawable</a>&lt; <a class="el" href="a02019.html">com::Animation2D</a> , <a class="el" href="a03215.html">sys::DrawableSystem</a>&lt;<a class="el" href="a02019.html">com::Animation2D</a> &gt;  &gt;::destroy</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Destroys the ECS entity and component. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00281_source.html#l00080">80</a> of file <a class="el" href="a00281_source.html">Drawable.hpp</a>.</p>
-
-</div>
-</div>
-<a id="adef5d2a123c05b5b6f6be50c2ffe1454"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adef5d2a123c05b5b6f6be50c2ffe1454">&#9670;&nbsp;</a></span>engine()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr <a class="el" href="a02319.html">engine::Engine</a> &amp; <a class="el" href="a02483.html">bl::gfx::Drawable</a>&lt; <a class="el" href="a02019.html">com::Animation2D</a> , <a class="el" href="a03215.html">sys::DrawableSystem</a>&lt;<a class="el" href="a02019.html">com::Animation2D</a> &gt;  &gt;::engine</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">constexpr</span><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the game engine instance. Only call after <a class="el" href="a02467.html#af37a5bf6af393bed9d3845439965da53" title="Creates the animation components. Uses a shared player component.">create()</a> </p>
-
-<p class="definition">Definition at line <a class="el" href="a00281_source.html#l00142">142</a> of file <a class="el" href="a00281_source.html">Drawable.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a3ce94917943f51d963d72a76f47a27c3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3ce94917943f51d963d72a76f47a27c3">&#9670;&nbsp;</a></span>ensureLocalSizeUpdated()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::gfx::Animation2D::ensureLocalSizeUpdated </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Called when the local size is queried. </p>
-
-<p>Implements <a class="el" href="a02471.html#af5faca7d5a139a40733983edb5f5b3ae">bl::gfx::bcom::OverlayScalable</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a05187_source.html#l00056">56</a> of file <a class="el" href="a05187_source.html">Animation2D.cpp</a>.</p>
-
-</div>
-</div>
-<a id="afb6e023344eafbba7d8ae49d7d8fed3b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afb6e023344eafbba7d8ae49d7d8fed3b">&#9670;&nbsp;</a></span>entity()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr <a class="el" href="a02223.html">ecs::Entity</a> <a class="el" href="a02483.html">bl::gfx::Drawable</a>&lt; <a class="el" href="a02019.html">com::Animation2D</a> , <a class="el" href="a03215.html">sys::DrawableSystem</a>&lt;<a class="el" href="a02019.html">com::Animation2D</a> &gt;  &gt;::entity</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">constexpr</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the ECS entity of this drawable. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00281_source.html#l00075">75</a> of file <a class="el" href="a00281_source.html">Drawable.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a736f31628ed3b37a86316b821b7d431f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a736f31628ed3b37a86316b821b7d431f">&#9670;&nbsp;</a></span>flash()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="a02483.html">bl::gfx::Drawable</a>&lt; <a class="el" href="a02019.html">com::Animation2D</a> , <a class="el" href="a03215.html">sys::DrawableSystem</a>&lt;<a class="el" href="a02019.html">com::Animation2D</a> &gt;  &gt;::flash </td>
-          <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>onPeriod</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>offPeriod</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Causes the drawable to flash with the given settings. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">onPeriod</td><td>The amount of time to be visible, in seconds </td></tr>
-    <tr><td class="paramname">offPeriod</td><td>The amount of time to be hidden, in seconds </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00281_source.html#l00119">119</a> of file <a class="el" href="a00281_source.html">Drawable.hpp</a>.</p>
-
-</div>
-</div>
-<a id="aaff14d3d3930d2857327c80177b9cfce"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaff14d3d3930d2857327c80177b9cfce">&#9670;&nbsp;</a></span>getLocalSize()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">glm::vec2 bl::gfx::bcom::OverlayScalable::getLocalSize </td>
+          <td class="memname"><a class="el" href="a02035.html#gad22c7b1807fcff9c01b2082084716652">Flags</a> bl::ecs::Entity::getFlags </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -1305,19 +429,20 @@ template&lt;typename... TArgs&gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the pre-transform size of this entity. </p>
+<p>Returns the flags set for this entity. </p>
+<dl class="section return"><dt>Returns</dt><dd>The flags specified when this entity was created </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a01211_source.html#l00021">21</a> of file <a class="el" href="a01211_source.html">OverlayScalable.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00161_source.html#l00120">120</a> of file <a class="el" href="a00161_source.html">Entity.hpp</a>.</p>
 
 </div>
 </div>
-<a id="aeec49505849a5429a7616af8fad3933a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeec49505849a5429a7616af8fad3933a">&#9670;&nbsp;</a></span>getOverlayScaler()</h2>
+<a id="aa3cb71b47f3a72f20913a27233a5dad0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3cb71b47f3a72f20913a27233a5dad0">&#9670;&nbsp;</a></span>getIndex()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1326,36 +451,7 @@ template&lt;typename... TArgs&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a02039.html">com::OverlayScaler</a> &amp; bl::gfx::bcom::OverlayScalable::getOverlayScaler </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the OverlayScaler of this entity. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00275_source.html#l00108">108</a> of file <a class="el" href="a00275_source.html">OverlayScalable.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ab0a036298d4e83c443607c15f7e4cd69"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab0a036298d4e83c443607c15f7e4cd69">&#9670;&nbsp;</a></span>getOverlaySize()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">glm::vec2 bl::gfx::bcom::OverlayScalable::getOverlaySize </td>
+          <td class="memname">std::uint64_t bl::ecs::Entity::getIndex </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -1363,19 +459,20 @@ template&lt;typename... TArgs&gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the post-transform size in Overlay space. </p>
+<p>Returns the 0-based index for the entity. </p>
+<dl class="section return"><dt>Returns</dt><dd>The 0-based index of the entity </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a01211_source.html#l00027">27</a> of file <a class="el" href="a01211_source.html">OverlayScalable.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00161_source.html#l00104">104</a> of file <a class="el" href="a00161_source.html">Entity.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a4110535eaffc59d10b32b133f98cd781"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4110535eaffc59d10b32b133f98cd781">&#9670;&nbsp;</a></span>getPlayer() <span class="overload">[1/2]</span></h2>
+<a id="a375629bfb156b5397175f0304fcb93c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a375629bfb156b5397175f0304fcb93c6">&#9670;&nbsp;</a></span>getVersion()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1384,36 +481,7 @@ template&lt;typename... TArgs&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a02023.html">com::Animation2DPlayer</a> &amp; bl::gfx::bcom::Animation2DPlayer::getPlayer </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the animation player for this animation. </p>
-
-<p class="definition">Definition at line <a class="el" href="a05058_source.html#l00100">100</a> of file <a class="el" href="a05058_source.html">Animation2DPlayer.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a464de332bdf997ce3da3e40e170c73a1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a464de332bdf997ce3da3e40e170c73a1">&#9670;&nbsp;</a></span>getPlayer() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="a02023.html">com::Animation2DPlayer</a> &amp; bl::gfx::bcom::Animation2DPlayer::getPlayer </td>
+          <td class="memname">std::uint64_t bl::ecs::Entity::getVersion </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -1421,19 +489,26 @@ template&lt;typename... TArgs&gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the animation player for this animation. </p>
+<p>Returns the version of an entity. The same entity index may be reused, the version differentiates it from the prior instances. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entity</td><td>The entity to get the version for </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The version number of the entity </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a05058_source.html#l00102">102</a> of file <a class="el" href="a05058_source.html">Animation2DPlayer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00161_source.html#l00113">113</a> of file <a class="el" href="a00161_source.html">Entity.hpp</a>.</p>
 
 </div>
 </div>
-<a id="adff6c12352fcece0996814cb886c8546"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adff6c12352fcece0996814cb886c8546">&#9670;&nbsp;</a></span>getPlayerEntity()</h2>
+<a id="a85913e4c4def1e460cbc20bdbff7b496"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85913e4c4def1e460cbc20bdbff7b496">&#9670;&nbsp;</a></span>operator IdType()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1442,7 +517,7 @@ template&lt;typename... TArgs&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a02223.html">ecs::Entity</a> bl::gfx::bcom::Animation2DPlayer::getPlayerEntity </td>
+          <td class="memname">bl::ecs::Entity::operator <a class="el" href="a02459.html#a6f20d4f5035759797eb767204c24ddf8">IdType</a> </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -1450,19 +525,19 @@ template&lt;typename... TArgs&gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the ECS entity id of the player. </p>
+<p>Helper implicit conversion operator to the underlying id type. </p>
 
-<p class="definition">Definition at line <a class="el" href="a05058_source.html#l00104">104</a> of file <a class="el" href="a05058_source.html">Animation2DPlayer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00161_source.html#l00133">133</a> of file <a class="el" href="a00161_source.html">Entity.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a546ad65b2fbaa4a7d97cfe7f52de7901"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a546ad65b2fbaa4a7d97cfe7f52de7901">&#9670;&nbsp;</a></span>getTargetRegion()</h2>
+<a id="ab4657a24bc95a19b2093562fcf67eecd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab4657a24bc95a19b2093562fcf67eecd">&#9670;&nbsp;</a></span>operator!=()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1471,27 +546,35 @@ template&lt;typename... TArgs&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const sf::FloatRect &amp; bl::gfx::bcom::OverlayScalable::getTargetRegion </td>
+          <td class="memname">bool bl::ecs::Entity::operator!= </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="a02459.html">Entity</a> &amp;&#160;</td>
+          <td class="paramname"><em>right</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the parent bounds in overlay space. </p>
+<p>Tests the equality against the given entity. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">right</td><td>The entity to compare with </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if not equal, false otherwise </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a00275_source.html#l00128">128</a> of file <a class="el" href="a00275_source.html">OverlayScalable.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00161_source.html#l00149">149</a> of file <a class="el" href="a00161_source.html">Entity.hpp</a>.</p>
 
 </div>
 </div>
-<a id="af7fe2449a04882eb53417e73ea284134"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af7fe2449a04882eb53417e73ea284134">&#9670;&nbsp;</a></span>getTexture()</h2>
+<a id="a17c7793a1ba0fc340403ab833f6e8e23"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a17c7793a1ba0fc340403ab833f6e8e23">&#9670;&nbsp;</a></span>operator=() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1500,121 +583,110 @@ template&lt;typename... TArgs&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="a03211.html">rc::res::TextureRef</a> &amp; bl::gfx::bcom::Textured::getTexture </td>
+          <td class="memname"><a class="el" href="a02459.html">Entity</a>&amp; bl::ecs::Entity::operator= </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="a02459.html">Entity</a> &amp;&#160;</td>
+          <td class="paramname"><em>right</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Copies the given entity. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entity</td><td>The entity to copy </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this entity </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00161_source.html#l00083">83</a> of file <a class="el" href="a00161_source.html">Entity.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a09a88e66c4db12c1e106c2460a880f4c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09a88e66c4db12c1e106c2460a880f4c">&#9670;&nbsp;</a></span>operator=() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a02459.html">Entity</a>&amp; bl::ecs::Entity::operator= </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a02459.html">Entity</a> &amp;&amp;&#160;</td>
+          <td class="paramname"><em>right</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Copies the given entity. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entity</td><td>The entity to copy </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this entity </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00161_source.html#l00094">94</a> of file <a class="el" href="a00161_source.html">Entity.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a7f27633025e2a4f5b79d446e74b5e697"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f27633025e2a4f5b79d446e74b5e697">&#9670;&nbsp;</a></span>operator==()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::ecs::Entity::operator== </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a02459.html">Entity</a> &amp;&#160;</td>
+          <td class="paramname"><em>right</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the texture. Must only be called after <a class="el" href="a02467.html#af37a5bf6af393bed9d3845439965da53" title="Creates the animation components. Uses a shared player component.">create()</a> </p>
-
-<p class="definition">Definition at line <a class="el" href="a00278_source.html#l00057">57</a> of file <a class="el" href="a00278_source.html">Textured.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a1efa41a9ad2a429474a21a187a494e24"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1efa41a9ad2a429474a21a187a494e24">&#9670;&nbsp;</a></span>getTransform() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a02075.html">com::Transform2D</a> &amp; bl::gfx::bcom::Transform2D::getTransform </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the transform. Must only be called after <a class="el" href="a02467.html#af37a5bf6af393bed9d3845439965da53" title="Creates the animation components. Uses a shared player component.">create()</a> </p>
-
-<p class="definition">Definition at line <a class="el" href="a05094_source.html#l00054">54</a> of file <a class="el" href="a05094_source.html">Transform2D.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ac9ebcd2ba56ad519228922c502b51a79"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac9ebcd2ba56ad519228922c502b51a79">&#9670;&nbsp;</a></span>getTransform() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="a02075.html">com::Transform2D</a> &amp; bl::gfx::bcom::Transform2D::getTransform </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the transform. Must only be called after <a class="el" href="a02467.html#af37a5bf6af393bed9d3845439965da53" title="Creates the animation components. Uses a shared player component.">create()</a> </p>
-
-<p class="definition">Definition at line <a class="el" href="a05094_source.html#l00056">56</a> of file <a class="el" href="a05094_source.html">Transform2D.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a96a86f5a846e4697705a5a518cc1144f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a96a86f5a846e4697705a5a518cc1144f">&#9670;&nbsp;</a></span>onAdd()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="a02483.html">bl::gfx::Drawable</a>&lt; <a class="el" href="a02019.html">com::Animation2D</a> , <a class="el" href="a03215.html">sys::DrawableSystem</a>&lt;<a class="el" href="a02019.html">com::Animation2D</a> &gt;  &gt;::onAdd </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a02919.html">rc::rcom::SceneObjectRef</a> &amp;&#160;</td>
-          <td class="paramname"><em>sceneRef</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Called after the entity is added to a scene. Allows derived to sync data if required. </p>
+<p>Tests the equality against the given entity. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">sceneRef</td><td>The scene object information </td></tr>
+    <tr><td class="paramname">right</td><td>The entity to compare with </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>True if equal, false otherwise </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a00281_source.html#l00180">180</a> of file <a class="el" href="a00281_source.html">Drawable.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00161_source.html#l00141">141</a> of file <a class="el" href="a00161_source.html">Entity.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a71880c2435bfc65a52310617bfce79d1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a71880c2435bfc65a52310617bfce79d1">&#9670;&nbsp;</a></span>onRemove()</h2>
+<h2 class="groupheader">Friends And Related Function Documentation</h2>
+<a id="a1271f7daf165d927a65aba338a7a1d39"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1271f7daf165d927a65aba338a7a1d39">&#9670;&nbsp;</a></span>operator&lt;&lt;</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1623,114 +695,47 @@ template&lt;typename... TArgs&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="a02483.html">bl::gfx::Drawable</a>&lt; <a class="el" href="a02019.html">com::Animation2D</a> , <a class="el" href="a03215.html">sys::DrawableSystem</a>&lt;<a class="el" href="a02019.html">com::Animation2D</a> &gt;  &gt;::onRemove</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Called after the entity is removed from a scene. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00281_source.html#l00185">185</a> of file <a class="el" href="a00281_source.html">Drawable.hpp</a>.</p>
-
-</div>
-</div>
-<a id="aeeac031adfcdc28b425ceb50fde95bd5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeeac031adfcdc28b425ceb50fde95bd5">&#9670;&nbsp;</a></span>removeFromScene()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="a02483.html">bl::gfx::Drawable</a>&lt; <a class="el" href="a02019.html">com::Animation2D</a> , <a class="el" href="a03215.html">sys::DrawableSystem</a>&lt;<a class="el" href="a02019.html">com::Animation2D</a> &gt;  &gt;::removeFromScene</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Removes the entity from the scene or overlay that it is in. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00281_source.html#l00070">70</a> of file <a class="el" href="a00281_source.html">Drawable.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a820d8bbe6c73510a65e8d963644e5ed6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a820d8bbe6c73510a65e8d963644e5ed6">&#9670;&nbsp;</a></span>removeParent()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="a02483.html">bl::gfx::Drawable</a>&lt; <a class="el" href="a02019.html">com::Animation2D</a> , <a class="el" href="a03215.html">sys::DrawableSystem</a>&lt;<a class="el" href="a02019.html">com::Animation2D</a> &gt;  &gt;::removeParent</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Helper method to remove the parent of this drawable, if any. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00281_source.html#l00111">111</a> of file <a class="el" href="a00281_source.html">Drawable.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a679e33f01f988c3f43c4e8bed412ef0e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a679e33f01f988c3f43c4e8bed412ef0e">&#9670;&nbsp;</a></span>scaleToSize()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::gfx::Animation2D::scaleToSize </td>
+          <td class="memname">std::ostream&amp; operator&lt;&lt; </td>
           <td>(</td>
-          <td class="paramtype">const glm::vec2 &amp;&#160;</td>
-          <td class="paramname"><em>size</em></td><td>)</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>os</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="a02459.html">Entity</a>&#160;</td>
+          <td class="paramname"><em>entity</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Helper method to set the scale so that the entity is a certain size. </p>
+<p>Outputs the entity in a human friendly format. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">size</td><td>The size to scale to </td></tr>
+    <tr><td class="paramname">os</td><td>The stream to output to </td></tr>
+    <tr><td class="paramname">entity</td><td>The entity to output </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns os </dd></dl>
 
-<p>Implements <a class="el" href="a02483.html#a7c95b7d4b83b233e7b68eb30ba2b9453">bl::gfx::Drawable&lt; com::Animation2D &gt;</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a05187_source.html#l00052">52</a> of file <a class="el" href="a05187_source.html">Animation2D.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00161_source.html#l00158">158</a> of file <a class="el" href="a00161_source.html">Entity.hpp</a>.</p>
 
 </div>
 </div>
-<a id="ae05b798768a5298455a27686a9e86292"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae05b798768a5298455a27686a9e86292">&#9670;&nbsp;</a></span>setHidden()</h2>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a31f24df4d8a9a656eb4ccd3fed3c400f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a31f24df4d8a9a656eb4ccd3fed3c400f">&#9670;&nbsp;</a></span>FlagMask</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1739,34 +744,38 @@ template&lt;typename... TArgs&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="a02483.html">bl::gfx::Drawable</a>&lt; <a class="el" href="a02019.html">com::Animation2D</a> , <a class="el" href="a03215.html">sys::DrawableSystem</a>&lt;<a class="el" href="a02019.html">com::Animation2D</a> &gt;  &gt;::setHidden </td>
-          <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>hide</em></td><td>)</td>
-          <td></td>
+          <td class="memname">constexpr std::uint64_t bl::ecs::Entity::FlagMask = 0x0000FF0000000000</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Set whether the entity is hidden or not. May only be called on entities in a scene. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">hide</td><td>True to block rendering, false to render normally </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00281_source.html#l00065">65</a> of file <a class="el" href="a00281_source.html">Drawable.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00161_source.html#l00033">33</a> of file <a class="el" href="a00161_source.html">Entity.hpp</a>.</p>
 
 </div>
 </div>
-<a id="ad338c1830292172ce58b70c5e65cf349"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad338c1830292172ce58b70c5e65cf349">&#9670;&nbsp;</a></span>setLocalBounds()</h2>
+<a id="aac9758c19ed496d47e3bd6efe1bc99d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac9758c19ed496d47e3bd6efe1bc99d0">&#9670;&nbsp;</a></span>id</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a02459.html#a6f20d4f5035759797eb767204c24ddf8">IdType</a> bl::ecs::Entity::id</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00161_source.html#l00035">35</a> of file <a class="el" href="a00161_source.html">Entity.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a0058921f68b3ec4d3497242134c690fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0058921f68b3ec4d3497242134c690fa">&#9670;&nbsp;</a></span>IndexMask</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1775,34 +784,22 @@ template&lt;typename... TArgs&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::gfx::bcom::OverlayScalable::setLocalBounds </td>
-          <td>(</td>
-          <td class="paramtype">const sf::FloatRect &amp;&#160;</td>
-          <td class="paramname"><em>bounds</em></td><td>)</td>
-          <td></td>
+          <td class="memname">constexpr std::uint64_t bl::ecs::Entity::IndexMask = 0x00000000FFFFFFFF</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Sets the pre-transform bounds of the entity. Use if bound corner is not (0, 0) </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">bounds</td><td>The local bounds of the entity </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00275_source.html#l00124">124</a> of file <a class="el" href="a00275_source.html">OverlayScalable.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00161_source.html#l00031">31</a> of file <a class="el" href="a00161_source.html">Entity.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a4f1e81a4d4e62cbc478b338488fb7202"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4f1e81a4d4e62cbc478b338488fb7202">&#9670;&nbsp;</a></span>setLocalSize()</h2>
+<a id="abd04982c94139ebc1038f8cfd50aa8a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abd04982c94139ebc1038f8cfd50aa8a7">&#9670;&nbsp;</a></span>InvalidId</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1811,34 +808,24 @@ template&lt;typename... TArgs&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::gfx::bcom::OverlayScalable::setLocalSize </td>
-          <td>(</td>
-          <td class="paramtype">const glm::vec2 &amp;&#160;</td>
-          <td class="paramname"><em>size</em></td><td>)</td>
-          <td></td>
+          <td class="memname">constexpr <a class="el" href="a02459.html#a6f20d4f5035759797eb767204c24ddf8">IdType</a> bl::ecs::Entity::InvalidId = std::numeric_limits&lt;<a class="el" href="a02459.html#a6f20d4f5035759797eb767204c24ddf8">IdType</a>&gt;::max()</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Sets the pre-transform size of this entity. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">size</td><td>The pre-transform size to use </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Special value to indicate that an <a class="el" href="a02459.html" title="Entity is simply an id. Components are added via a Registry and they own all the relevant properties....">Entity</a> is not valid. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00275_source.html#l00120">120</a> of file <a class="el" href="a00275_source.html">OverlayScalable.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00161_source.html#l00030">30</a> of file <a class="el" href="a00161_source.html">Entity.hpp</a>.</p>
 
 </div>
 </div>
-<a id="aa4bff1075089f05e4228c3745c341a0a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa4bff1075089f05e4228c3745c341a0a">&#9670;&nbsp;</a></span>setParent() <span class="overload">[1/2]</span></h2>
+<a id="a7deb8d2f0f101171009dc9800042a44b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7deb8d2f0f101171009dc9800042a44b">&#9670;&nbsp;</a></span>VersionMask</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1847,243 +834,28 @@ template&lt;typename... TArgs&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="a02483.html">bl::gfx::Drawable</a>&lt; <a class="el" href="a02019.html">com::Animation2D</a> , <a class="el" href="a03215.html">sys::DrawableSystem</a>&lt;<a class="el" href="a02019.html">com::Animation2D</a> &gt;  &gt;::setParent </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a02483.html">Drawable</a>&lt; U &gt; &amp;&#160;</td>
-          <td class="paramname"><em>parent</em></td><td>)</td>
-          <td></td>
+          <td class="memname">constexpr std::uint64_t bl::ecs::Entity::VersionMask = 0xFFFF000000000000</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Helper method to parent this drawable to another. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">U</td><td>The type of drawable of the parent </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">parent</td><td>The parent of this drawable </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00281_source.html#l00099">99</a> of file <a class="el" href="a00281_source.html">Drawable.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00161_source.html#l00032">32</a> of file <a class="el" href="a00161_source.html">Entity.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a2d22d42e018645dae989d1421584a5db"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2d22d42e018645dae989d1421584a5db">&#9670;&nbsp;</a></span>setParent() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="a02483.html">bl::gfx::Drawable</a>&lt; <a class="el" href="a02019.html">com::Animation2D</a> , <a class="el" href="a03215.html">sys::DrawableSystem</a>&lt;<a class="el" href="a02019.html">com::Animation2D</a> &gt;  &gt;::setParent </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a02223.html">ecs::Entity</a>&#160;</td>
-          <td class="paramname"><em>parent</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Helper method to parent this drawable. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">parent</td><td>The parent entity of this drawable </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00281_source.html#l00106">106</a> of file <a class="el" href="a00281_source.html">Drawable.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a74f720c686e620743c57c1e49b1a5d93"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a74f720c686e620743c57c1e49b1a5d93">&#9670;&nbsp;</a></span>setScissorToSelf()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::gfx::bcom::OverlayScalable::setScissorToSelf </td>
-          <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>setToSelf</em> = <code>true</code></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Helper method to set the viewport to the region the drawable is in. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">setToSelf</td><td>True to create and use a viewport, false to render normally </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01211_source.html#l00019">19</a> of file <a class="el" href="a01211_source.html">OverlayScalable.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a79d8b21916f163236dd37ecb6f1b8ac8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a79d8b21916f163236dd37ecb6f1b8ac8">&#9670;&nbsp;</a></span>setTexture()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::gfx::bcom::Textured::setTexture </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a03211.html">rc::res::TextureRef</a> &amp;&#160;</td>
-          <td class="paramname"><em>texture</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Changes the texture for this drawable. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">texture</td><td>The new texture to use </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00278_source.html#l00055">55</a> of file <a class="el" href="a00278_source.html">Textured.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a1abd3b93c6a262f16324ec11627c6070"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1abd3b93c6a262f16324ec11627c6070">&#9670;&nbsp;</a></span>stopFlashing()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="a02483.html">bl::gfx::Drawable</a>&lt; <a class="el" href="a02019.html">com::Animation2D</a> , <a class="el" href="a03215.html">sys::DrawableSystem</a>&lt;<a class="el" href="a02019.html">com::Animation2D</a> &gt;  &gt;::stopFlashing</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Stops the component from flashing. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00281_source.html#l00124">124</a> of file <a class="el" href="a00281_source.html">Drawable.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a3a618017b9138ff589e4f8cf878134b2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3a618017b9138ff589e4f8cf878134b2">&#9670;&nbsp;</a></span>system()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a03215.html">sys::DrawableSystem</a>&lt;<a class="el" href="a02019.html">com::Animation2D</a> &gt;  &amp; <a class="el" href="a02483.html">bl::gfx::Drawable</a>&lt; <a class="el" href="a02019.html">com::Animation2D</a> , <a class="el" href="a03215.html">sys::DrawableSystem</a>&lt;<a class="el" href="a02019.html">com::Animation2D</a> &gt;  &gt;::system</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the drawable system. Only call after <a class="el" href="a02467.html#af37a5bf6af393bed9d3845439965da53" title="Creates the animation components. Uses a shared player component.">create()</a> </p>
-
-<p class="definition">Definition at line <a class="el" href="a00281_source.html#l00147">147</a> of file <a class="el" href="a00281_source.html">Drawable.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a7134d1f30e41cc8b1b73d065103e8648"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7134d1f30e41cc8b1b73d065103e8648">&#9670;&nbsp;</a></span>useExistingPlayer()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::gfx::bcom::Animation2DPlayer::useExistingPlayer </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a02223.html">ecs::Entity</a>&#160;</td>
-          <td class="paramname"><em>player</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Configures the animation to use the existing player in order to share play state with other animations. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">player</td><td>The entity id that has the Animation2DPlayer component to use </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a05193_source.html#l00030">30</a> of file <a class="el" href="a05193_source.html">Animation2DPlayer.cpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Graphics/<a class="el" href="a05052_source.html">Animation2D.hpp</a></li>
-<li>src/Graphics/<a class="el" href="a05187_source.html">Animation2D.cpp</a></li>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>include/BLIB/ECS/<a class="el" href="a00161_source.html">Entity.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 25 2023 00:24:22 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 27 2023 23:34:42 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

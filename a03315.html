@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::rc::vk::Buffer Class Reference</title>
+<title>BLIB: bl::rc::buf::BatchIndexBufferT&lt; T &gt;::AllocHandle Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,537 +66,395 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01833.html">bl</a></li><li class="navelem"><a class="el" href="a01845.html">rc</a></li><li class="navelem"><a class="el" href="a01846.html">vk</a></li><li class="navelem"><a class="el" href="a03315.html">Buffer</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02058.html">bl</a></li><li class="navelem"><a class="el" href="a02070.html">rc</a></li><li class="navelem"><a class="el" href="a02101.html">buf</a></li><li class="navelem"><a class="el" href="a03307.html">BatchIndexBufferT</a></li><li class="navelem"><a class="el" href="a03315.html">AllocHandle</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="a03312.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::rc::vk::Buffer Class Reference<div class="ingroups"><a class="el" href="a01820.html">Renderer</a></div></div>  </div>
+<div class="title">bl::rc::buf::BatchIndexBufferT&lt; T &gt;::AllocHandle Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Wrapper over Vulkan buffers. Provides simpler interfaces and resize ability.  
+<p>Handle to an allocation from the index buffer.  
  <a href="a03315.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00800_source.html">Buffer.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00671_source.html">BatchIndexBuffer.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ae8599c386307d38472556aff229f855d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03315.html#ae8599c386307d38472556aff229f855d">Buffer</a> ()</td></tr>
-<tr class="memdesc:ae8599c386307d38472556aff229f855d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Does nothing.  <a href="a03315.html#ae8599c386307d38472556aff229f855d">More...</a><br /></td></tr>
-<tr class="separator:ae8599c386307d38472556aff229f855d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a85ef6f357cd442e1a25fcff18e5cb134"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03315.html#a85ef6f357cd442e1a25fcff18e5cb134">~Buffer</a> ()</td></tr>
-<tr class="memdesc:a85ef6f357cd442e1a25fcff18e5cb134"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the buffer if created.  <a href="a03315.html#a85ef6f357cd442e1a25fcff18e5cb134">More...</a><br /></td></tr>
-<tr class="separator:a85ef6f357cd442e1a25fcff18e5cb134"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5b36ff08918b967ac273d064993c9e0f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03315.html#a5b36ff08918b967ac273d064993c9e0f">create</a> (<a class="el" href="a03431.html">VulkanState</a> &amp;vulkanState, VkDeviceSize size, VkMemoryPropertyFlags memPool, VkBufferUsageFlags usage, VmaAllocationCreateFlags allocFlags)</td></tr>
-<tr class="memdesc:a5b36ff08918b967ac273d064993c9e0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the buffer with the given parameters.  <a href="a03315.html#a5b36ff08918b967ac273d064993c9e0f">More...</a><br /></td></tr>
-<tr class="separator:a5b36ff08918b967ac273d064993c9e0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a31906a1fd51a5140e0649968ad381786"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03315.html#a31906a1fd51a5140e0649968ad381786">createWithFallback</a> (<a class="el" href="a03431.html">VulkanState</a> &amp;vulkanState, VkDeviceSize size, VkMemoryPropertyFlags memPool, VkMemoryPropertyFlags fallbackPool, VkBufferUsageFlags usage, VmaAllocationCreateFlags allocFlags)</td></tr>
-<tr class="memdesc:a31906a1fd51a5140e0649968ad381786"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the buffer with the given parameters and a backup memory type.  <a href="a03315.html#a31906a1fd51a5140e0649968ad381786">More...</a><br /></td></tr>
-<tr class="separator:a31906a1fd51a5140e0649968ad381786"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9524dc938539d09965a995b96c0ed2a8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03315.html#a9524dc938539d09965a995b96c0ed2a8">ensureSize</a> (VkDeviceSize size)</td></tr>
-<tr class="memdesc:a9524dc938539d09965a995b96c0ed2a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">If the buffer size is less than the required size, re-creates the buffer to be at least the given size.  <a href="a03315.html#a9524dc938539d09965a995b96c0ed2a8">More...</a><br /></td></tr>
-<tr class="separator:a9524dc938539d09965a995b96c0ed2a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3004808ef5c84f0150d8bbf5f7c8ad7d"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03315.html#a3004808ef5c84f0150d8bbf5f7c8ad7d">created</a> () const</td></tr>
-<tr class="memdesc:a3004808ef5c84f0150d8bbf5f7c8ad7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the buffer is currently created.  <a href="a03315.html#a3004808ef5c84f0150d8bbf5f7c8ad7d">More...</a><br /></td></tr>
-<tr class="separator:a3004808ef5c84f0150d8bbf5f7c8ad7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a309978f0b161def0aa4b67ce4f763946"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03315.html#a309978f0b161def0aa4b67ce4f763946">destroy</a> ()</td></tr>
-<tr class="memdesc:a309978f0b161def0aa4b67ce4f763946"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the buffer immediately.  <a href="a03315.html#a309978f0b161def0aa4b67ce4f763946">More...</a><br /></td></tr>
-<tr class="separator:a309978f0b161def0aa4b67ce4f763946"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afdc83a0683dd29514aacdac9b8ed13d6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03315.html#afdc83a0683dd29514aacdac9b8ed13d6">deferDestruction</a> ()</td></tr>
-<tr class="memdesc:afdc83a0683dd29514aacdac9b8ed13d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defers destruction of the buffer for <a class="el" href="a02923.html#acf7cd0741bc9e043674ec76ff77461a1">Config::MaxConcurrentFrames</a> + 1 frames. <a class="el" href="a03315.html" title="Wrapper over Vulkan buffers. Provides simpler interfaces and resize ability.">Buffer</a> can be re-used immediately.  <a href="a03315.html#afdc83a0683dd29514aacdac9b8ed13d6">More...</a><br /></td></tr>
-<tr class="separator:afdc83a0683dd29514aacdac9b8ed13d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af92a7fc8f9e998d524dea43500228a0d"><td class="memItemLeft" align="right" valign="top">constexpr VkBuffer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03315.html#af92a7fc8f9e998d524dea43500228a0d">getBuffer</a> () const</td></tr>
-<tr class="memdesc:af92a7fc8f9e998d524dea43500228a0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the Vulkan buffer handle.  <a href="a03315.html#af92a7fc8f9e998d524dea43500228a0d">More...</a><br /></td></tr>
-<tr class="separator:af92a7fc8f9e998d524dea43500228a0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aec11fe52dd5d748dab2d9ac2b48edb2f"><td class="memItemLeft" align="right" valign="top">constexpr VmaAllocation&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03315.html#aec11fe52dd5d748dab2d9ac2b48edb2f">getAlloc</a> () const</td></tr>
-<tr class="memdesc:aec11fe52dd5d748dab2d9ac2b48edb2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the VMA allocation.  <a href="a03315.html#aec11fe52dd5d748dab2d9ac2b48edb2f">More...</a><br /></td></tr>
-<tr class="separator:aec11fe52dd5d748dab2d9ac2b48edb2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a59f9f42618fdfb237afec34ca505ac32"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03315.html#a59f9f42618fdfb237afec34ca505ac32">mapMemory</a> ()</td></tr>
-<tr class="memdesc:a59f9f42618fdfb237afec34ca505ac32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maps the buffer. Does not check if buffer is map-able or if it is already mapped.  <a href="a03315.html#a59f9f42618fdfb237afec34ca505ac32">More...</a><br /></td></tr>
-<tr class="separator:a59f9f42618fdfb237afec34ca505ac32"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afbc375ccd8c7d3cc7531f221bde66cbd"><td class="memItemLeft" align="right" valign="top">constexpr void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03315.html#afbc375ccd8c7d3cc7531f221bde66cbd">getMappedMemory</a> () const</td></tr>
-<tr class="memdesc:afbc375ccd8c7d3cc7531f221bde66cbd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a pointer to the mapped buffer memory.  <a href="a03315.html#afbc375ccd8c7d3cc7531f221bde66cbd">More...</a><br /></td></tr>
-<tr class="separator:afbc375ccd8c7d3cc7531f221bde66cbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abf2405a0936e0fd85a481405e6435552"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03315.html#abf2405a0936e0fd85a481405e6435552">unMapMemory</a> ()</td></tr>
-<tr class="memdesc:abf2405a0936e0fd85a481405e6435552"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unmaps the buffer. Does not check if the buffer is currently mapped.  <a href="a03315.html#abf2405a0936e0fd85a481405e6435552">More...</a><br /></td></tr>
-<tr class="separator:abf2405a0936e0fd85a481405e6435552"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7d2244fcfb51c35323166dd2e1a24246"><td class="memItemLeft" align="right" valign="top">constexpr VkDeviceSize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03315.html#a7d2244fcfb51c35323166dd2e1a24246">getSize</a> () const</td></tr>
-<tr class="memdesc:a7d2244fcfb51c35323166dd2e1a24246"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the size of the buffer in bytes.  <a href="a03315.html#a7d2244fcfb51c35323166dd2e1a24246">More...</a><br /></td></tr>
-<tr class="separator:a7d2244fcfb51c35323166dd2e1a24246"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a72d4d58d118f62ae3f58818a5a50187f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03315.html#a72d4d58d118f62ae3f58818a5a50187f">insertPipelineBarrierBeforeChange</a> ()</td></tr>
-<tr class="memdesc:a72d4d58d118f62ae3f58818a5a50187f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Records a pipeline barrier to prevent writes from occurring before fragment shader reads are completed.  <a href="a03315.html#a72d4d58d118f62ae3f58818a5a50187f">More...</a><br /></td></tr>
-<tr class="separator:a72d4d58d118f62ae3f58818a5a50187f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8c70a4a9b6471fb59b4ca3aeb913d0d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03315.html#ab8c70a4a9b6471fb59b4ca3aeb913d0d">AllocHandle</a> ()</td></tr>
+<tr class="memdesc:ab8c70a4a9b6471fb59b4ca3aeb913d0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an invalid handle.  <a href="a03315.html#ab8c70a4a9b6471fb59b4ca3aeb913d0d">More...</a><br /></td></tr>
+<tr class="separator:ab8c70a4a9b6471fb59b4ca3aeb913d0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a322b35dc69b4c07f9333328925043e94"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03315.html#a322b35dc69b4c07f9333328925043e94">AllocHandle</a> (const <a class="el" href="a03315.html">AllocHandle</a> &amp;copy)</td></tr>
+<tr class="memdesc:a322b35dc69b4c07f9333328925043e94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies the allocation handle.  <a href="a03315.html#a322b35dc69b4c07f9333328925043e94">More...</a><br /></td></tr>
+<tr class="separator:a322b35dc69b4c07f9333328925043e94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1773bf04c69215d3f14d22aa47d99d70"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03315.html#a1773bf04c69215d3f14d22aa47d99d70">AllocHandle</a> (<a class="el" href="a03315.html">AllocHandle</a> &amp;&amp;move)</td></tr>
+<tr class="memdesc:a1773bf04c69215d3f14d22aa47d99d70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Moves from the given handle.  <a href="a03315.html#a1773bf04c69215d3f14d22aa47d99d70">More...</a><br /></td></tr>
+<tr class="separator:a1773bf04c69215d3f14d22aa47d99d70"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46fca2bdc6d50a6062628219bfb8273e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03315.html#a46fca2bdc6d50a6062628219bfb8273e">~AllocHandle</a> ()</td></tr>
+<tr class="memdesc:a46fca2bdc6d50a6062628219bfb8273e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Releases the handle if still owned.  <a href="a03315.html#a46fca2bdc6d50a6062628219bfb8273e">More...</a><br /></td></tr>
+<tr class="separator:a46fca2bdc6d50a6062628219bfb8273e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba442f8d9e7896116d7e06a3dc510076"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03315.html">AllocHandle</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03315.html#aba442f8d9e7896116d7e06a3dc510076">operator=</a> (const <a class="el" href="a03315.html">AllocHandle</a> &amp;copy)</td></tr>
+<tr class="memdesc:aba442f8d9e7896116d7e06a3dc510076"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies the allocation handle.  <a href="a03315.html#aba442f8d9e7896116d7e06a3dc510076">More...</a><br /></td></tr>
+<tr class="separator:aba442f8d9e7896116d7e06a3dc510076"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a23425b0ec5fa6c3aaa64565d105148"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03315.html">AllocHandle</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03315.html#a1a23425b0ec5fa6c3aaa64565d105148">operator=</a> (<a class="el" href="a03315.html">AllocHandle</a> &amp;&amp;move)</td></tr>
+<tr class="memdesc:a1a23425b0ec5fa6c3aaa64565d105148"><td class="mdescLeft">&#160;</td><td class="mdescRight">Moves from the given handle.  <a href="a03315.html#a1a23425b0ec5fa6c3aaa64565d105148">More...</a><br /></td></tr>
+<tr class="separator:a1a23425b0ec5fa6c3aaa64565d105148"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ead6c237f12f004680db8a185e0fee1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03315.html#a6ead6c237f12f004680db8a185e0fee1">commit</a> ()</td></tr>
+<tr class="memdesc:a6ead6c237f12f004680db8a185e0fee1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triggers the underlying index buffer to transfer. Call when contents are modified.  <a href="a03315.html#a6ead6c237f12f004680db8a185e0fee1">More...</a><br /></td></tr>
+<tr class="separator:a6ead6c237f12f004680db8a185e0fee1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a548eb545f8d7fce73f2540395257fb21"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03315.html#a548eb545f8d7fce73f2540395257fb21">release</a> ()</td></tr>
+<tr class="memdesc:a548eb545f8d7fce73f2540395257fb21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Releases this handle. Frees the allocation if this is the last handle.  <a href="a03315.html#a548eb545f8d7fce73f2540395257fb21">More...</a><br /></td></tr>
+<tr class="separator:a548eb545f8d7fce73f2540395257fb21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1f42e1e194cc943d9178cc5c4ecf389"><td class="memItemLeft" align="right" valign="top">T *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03315.html#ab1f42e1e194cc943d9178cc5c4ecf389">getVertices</a> ()</td></tr>
+<tr class="memdesc:ab1f42e1e194cc943d9178cc5c4ecf389"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the vertices for writing. Do not store pointers as they may be invalidated.  <a href="a03315.html#ab1f42e1e194cc943d9178cc5c4ecf389">More...</a><br /></td></tr>
+<tr class="separator:ab1f42e1e194cc943d9178cc5c4ecf389"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a82504f304ba927962ebf41882948abef"><td class="memItemLeft" align="right" valign="top">std::uint32_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03315.html#a82504f304ba927962ebf41882948abef">getIndices</a> ()</td></tr>
+<tr class="memdesc:a82504f304ba927962ebf41882948abef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the indices for writing. Do not store pointers as they may be invalidated.  <a href="a03315.html#a82504f304ba927962ebf41882948abef">More...</a><br /></td></tr>
+<tr class="separator:a82504f304ba927962ebf41882948abef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3fd1c510e14dd4fedfb3f6bc30c2048c"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a03311.html">AllocInfo</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03315.html#a3fd1c510e14dd4fedfb3f6bc30c2048c">getInfo</a> () const</td></tr>
+<tr class="memdesc:a3fd1c510e14dd4fedfb3f6bc30c2048c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the allocation parameters.  <a href="a03315.html#a3fd1c510e14dd4fedfb3f6bc30c2048c">More...</a><br /></td></tr>
+<tr class="separator:a3fd1c510e14dd4fedfb3f6bc30c2048c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1ac4fb89658f66823a091cd562598f4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03315.html#aa1ac4fb89658f66823a091cd562598f4">isValid</a> () const</td></tr>
+<tr class="memdesc:aa1ac4fb89658f66823a091cd562598f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not this handle points to a valid allocation.  <a href="a03315.html#aa1ac4fb89658f66823a091cd562598f4">More...</a><br /></td></tr>
+<tr class="separator:aa1ac4fb89658f66823a091cd562598f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a81dfd1ada8776cedd0de57c1e22f6530"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03315.html#a81dfd1ada8776cedd0de57c1e22f6530">BatchIndexBufferT</a></td></tr>
+<tr class="separator:a81dfd1ada8776cedd0de57c1e22f6530"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Wrapper over Vulkan buffers. Provides simpler interfaces and resize ability. </p>
+<div class="textblock"><h3>template&lt;typename T&gt;<br />
+class bl::rc::buf::BatchIndexBufferT&lt; T &gt;::AllocHandle</h3>
 
-<p class="definition">Definition at line <a class="el" href="a00800_source.html#l00019">19</a> of file <a class="el" href="a00800_source.html">Buffer.hpp</a>.</p>
+<p>Handle to an allocation from the index buffer. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00671_source.html#l00040">40</a> of file <a class="el" href="a00671_source.html">BatchIndexBuffer.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ae8599c386307d38472556aff229f855d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae8599c386307d38472556aff229f855d">&#9670;&nbsp;</a></span>Buffer()</h2>
+<a id="ab8c70a4a9b6471fb59b4ca3aeb913d0d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8c70a4a9b6471fb59b4ca3aeb913d0d">&#9670;&nbsp;</a></span>AllocHandle() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">bl::rc::vk::Buffer::Buffer </td>
+          <td class="memname"><a class="el" href="a03307.html">bl::rc::buf::BatchIndexBufferT</a>&lt; T &gt;::AllocHandle::AllocHandle</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates an invalid handle. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00671_source.html#l00384">384</a> of file <a class="el" href="a00671_source.html">BatchIndexBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a322b35dc69b4c07f9333328925043e94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a322b35dc69b4c07f9333328925043e94">&#9670;&nbsp;</a></span>AllocHandle() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a03307.html">bl::rc::buf::BatchIndexBufferT</a>&lt; T &gt;::AllocHandle::AllocHandle </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="a03315.html">AllocHandle</a> &amp;&#160;</td>
+          <td class="paramname"><em>copy</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Does nothing. </p>
+<p>Copies the allocation handle. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">copy</td><td>The handle to copy </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="a01598_source.html#l00011">11</a> of file <a class="el" href="a01598_source.html">Buffer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00671_source.html#l00388">388</a> of file <a class="el" href="a00671_source.html">BatchIndexBuffer.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a85ef6f357cd442e1a25fcff18e5cb134"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a85ef6f357cd442e1a25fcff18e5cb134">&#9670;&nbsp;</a></span>~Buffer()</h2>
+<a id="a1773bf04c69215d3f14d22aa47d99d70"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1773bf04c69215d3f14d22aa47d99d70">&#9670;&nbsp;</a></span>AllocHandle() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">bl::rc::vk::Buffer::~Buffer </td>
+          <td class="memname"><a class="el" href="a03307.html">bl::rc::buf::BatchIndexBufferT</a>&lt; T &gt;::AllocHandle::AllocHandle </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype"><a class="el" href="a03315.html">AllocHandle</a> &amp;&amp;&#160;</td>
+          <td class="paramname"><em>move</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Destroys the buffer if created. </p>
+<p>Moves from the given handle. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">move</td><td>The handle to move from. Is invalidated </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="a01598_source.html#l00021">21</a> of file <a class="el" href="a01598_source.html">Buffer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00671_source.html#l00396">396</a> of file <a class="el" href="a00671_source.html">BatchIndexBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a46fca2bdc6d50a6062628219bfb8273e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46fca2bdc6d50a6062628219bfb8273e">&#9670;&nbsp;</a></span>~AllocHandle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a03307.html">bl::rc::buf::BatchIndexBufferT</a>&lt; T &gt;::AllocHandle::~AllocHandle</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Releases the handle if still owned. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00671_source.html#l00405">405</a> of file <a class="el" href="a00671_source.html">BatchIndexBuffer.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a5b36ff08918b967ac273d064993c9e0f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5b36ff08918b967ac273d064993c9e0f">&#9670;&nbsp;</a></span>create()</h2>
+<a id="a6ead6c237f12f004680db8a185e0fee1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ead6c237f12f004680db8a185e0fee1">&#9670;&nbsp;</a></span>commit()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">bool bl::rc::vk::Buffer::create </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a03431.html">VulkanState</a> &amp;&#160;</td>
-          <td class="paramname"><em>vulkanState</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">VkDeviceSize&#160;</td>
-          <td class="paramname"><em>size</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">VkMemoryPropertyFlags&#160;</td>
-          <td class="paramname"><em>memPool</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">VkBufferUsageFlags&#160;</td>
-          <td class="paramname"><em>usage</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">VmaAllocationCreateFlags&#160;</td>
-          <td class="paramname"><em>allocFlags</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="memname">void <a class="el" href="a03307.html">bl::rc::buf::BatchIndexBufferT</a>&lt; T &gt;::AllocHandle::commit</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates the buffer with the given parameters. </p>
+<p>Triggers the underlying index buffer to transfer. Call when contents are modified. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00671_source.html#l00433">433</a> of file <a class="el" href="a00671_source.html">BatchIndexBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a82504f304ba927962ebf41882948abef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82504f304ba927962ebf41882948abef">&#9670;&nbsp;</a></span>getIndices()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint32_t * <a class="el" href="a03307.html">bl::rc::buf::BatchIndexBufferT</a>&lt; T &gt;::AllocHandle::getIndices</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the indices for writing. Do not store pointers as they may be invalidated. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00671_source.html#l00459">459</a> of file <a class="el" href="a00671_source.html">BatchIndexBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a3fd1c510e14dd4fedfb3f6bc30c2048c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3fd1c510e14dd4fedfb3f6bc30c2048c">&#9670;&nbsp;</a></span>getInfo()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="a03307.html">BatchIndexBufferT</a>&lt; T &gt;::<a class="el" href="a03311.html">AllocInfo</a> &amp; <a class="el" href="a03307.html">bl::rc::buf::BatchIndexBufferT</a>&lt; T &gt;::AllocHandle::getInfo</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the allocation parameters. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00671_source.html#l00464">464</a> of file <a class="el" href="a00671_source.html">BatchIndexBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ab1f42e1e194cc943d9178cc5c4ecf389"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1f42e1e194cc943d9178cc5c4ecf389">&#9670;&nbsp;</a></span>getVertices()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">T * <a class="el" href="a03307.html">bl::rc::buf::BatchIndexBufferT</a>&lt; T &gt;::AllocHandle::getVertices</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the vertices for writing. Do not store pointers as they may be invalidated. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00671_source.html#l00454">454</a> of file <a class="el" href="a00671_source.html">BatchIndexBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aa1ac4fb89658f66823a091cd562598f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1ac4fb89658f66823a091cd562598f4">&#9670;&nbsp;</a></span>isValid()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="a03307.html">bl::rc::buf::BatchIndexBufferT</a>&lt; T &gt;::AllocHandle::isValid</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns whether or not this handle points to a valid allocation. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00671_source.html#l00469">469</a> of file <a class="el" href="a00671_source.html">BatchIndexBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a1a23425b0ec5fa6c3aaa64565d105148"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a23425b0ec5fa6c3aaa64565d105148">&#9670;&nbsp;</a></span>operator=() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a03307.html">BatchIndexBufferT</a>&lt; T &gt;::<a class="el" href="a03315.html">AllocHandle</a> &amp; <a class="el" href="a03307.html">bl::rc::buf::BatchIndexBufferT</a>&lt; T &gt;::AllocHandle::operator= </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a03315.html">AllocHandle</a> &amp;&amp;&#160;</td>
+          <td class="paramname"><em>move</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Moves from the given handle. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">vulkanState</td><td>The renderer Vulkan state </td></tr>
-    <tr><td class="paramname">size</td><td>The size of the buffer in bytes </td></tr>
-    <tr><td class="paramname">memPool</td><td>Which memory type to use </td></tr>
-    <tr><td class="paramname">usage</td><td>How the buffer will be used </td></tr>
-    <tr><td class="paramname">allocFlags</td><td>VMA allocation flags to use for the VMA allocation </td></tr>
+    <tr><td class="paramname">move</td><td>The handle to move from. Is invalidated </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the buffer was able to be created, false otherwise </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this handle </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a01598_source.html#l00023">23</a> of file <a class="el" href="a01598_source.html">Buffer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00671_source.html#l00421">421</a> of file <a class="el" href="a00671_source.html">BatchIndexBuffer.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a3004808ef5c84f0150d8bbf5f7c8ad7d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3004808ef5c84f0150d8bbf5f7c8ad7d">&#9670;&nbsp;</a></span>created()</h2>
+<a id="aba442f8d9e7896116d7e06a3dc510076"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba442f8d9e7896116d7e06a3dc510076">&#9670;&nbsp;</a></span>operator=() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">constexpr bool bl::rc::vk::Buffer::created </td>
+          <td class="memname"><a class="el" href="a03307.html">BatchIndexBufferT</a>&lt; T &gt;::<a class="el" href="a03315.html">AllocHandle</a> &amp; <a class="el" href="a03307.html">bl::rc::buf::BatchIndexBufferT</a>&lt; T &gt;::AllocHandle::operator= </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns whether or not the buffer is currently created. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00800_source.html#l00137">137</a> of file <a class="el" href="a00800_source.html">Buffer.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a31906a1fd51a5140e0649968ad381786"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a31906a1fd51a5140e0649968ad381786">&#9670;&nbsp;</a></span>createWithFallback()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::rc::vk::Buffer::createWithFallback </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a03431.html">VulkanState</a> &amp;&#160;</td>
-          <td class="paramname"><em>vulkanState</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">const <a class="el" href="a03315.html">AllocHandle</a> &amp;&#160;</td>
+          <td class="paramname"><em>copy</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">VkDeviceSize&#160;</td>
-          <td class="paramname"><em>size</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">VkMemoryPropertyFlags&#160;</td>
-          <td class="paramname"><em>memPool</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">VkMemoryPropertyFlags&#160;</td>
-          <td class="paramname"><em>fallbackPool</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">VkBufferUsageFlags&#160;</td>
-          <td class="paramname"><em>usage</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">VmaAllocationCreateFlags&#160;</td>
-          <td class="paramname"><em>allocFlags</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates the buffer with the given parameters and a backup memory type. </p>
+<p>Copies the allocation handle. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">vulkanState</td><td>The renderer Vulkan state </td></tr>
-    <tr><td class="paramname">size</td><td>The size of the buffer in bytes </td></tr>
-    <tr><td class="paramname">memPool</td><td>Which memory type to use </td></tr>
-    <tr><td class="paramname">fallbackPool</td><td>Memory type to use if the desired memory type fails creation </td></tr>
-    <tr><td class="paramname">usage</td><td>How the buffer will be used </td></tr>
-    <tr><td class="paramname">allocFlags</td><td>VMA allocation flags to use for the VMA allocation </td></tr>
+    <tr><td class="paramname">copy</td><td>The handle to copy </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the buffer was able to be created, false otherwise </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this handle </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a01598_source.html#l00060">60</a> of file <a class="el" href="a01598_source.html">Buffer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00671_source.html#l00410">410</a> of file <a class="el" href="a00671_source.html">BatchIndexBuffer.hpp</a>.</p>
 
 </div>
 </div>
-<a id="afdc83a0683dd29514aacdac9b8ed13d6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afdc83a0683dd29514aacdac9b8ed13d6">&#9670;&nbsp;</a></span>deferDestruction()</h2>
+<a id="a548eb545f8d7fce73f2540395257fb21"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a548eb545f8d7fce73f2540395257fb21">&#9670;&nbsp;</a></span>release()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">void bl::rc::vk::Buffer::deferDestruction </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td class="memname">bool <a class="el" href="a03307.html">bl::rc::buf::BatchIndexBufferT</a>&lt; T &gt;::AllocHandle::release</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Defers destruction of the buffer for <a class="el" href="a02923.html#acf7cd0741bc9e043674ec76ff77461a1">Config::MaxConcurrentFrames</a> + 1 frames. <a class="el" href="a03315.html" title="Wrapper over Vulkan buffers. Provides simpler interfaces and resize ability.">Buffer</a> can be re-used immediately. </p>
+<p>Releases this handle. Frees the allocation if this is the last handle. </p>
+<dl class="section return"><dt>Returns</dt><dd>True if the allocation was freed, false if there are other handles </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a01598_source.html#l00077">77</a> of file <a class="el" href="a01598_source.html">Buffer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00671_source.html#l00438">438</a> of file <a class="el" href="a00671_source.html">BatchIndexBuffer.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a309978f0b161def0aa4b67ce4f763946"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a309978f0b161def0aa4b67ce4f763946">&#9670;&nbsp;</a></span>destroy()</h2>
+<h2 class="groupheader">Friends And Related Function Documentation</h2>
+<a id="a81dfd1ada8776cedd0de57c1e22f6530"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a81dfd1ada8776cedd0de57c1e22f6530">&#9670;&nbsp;</a></span>BatchIndexBufferT</h2>
 
 <div class="memitem">
 <div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::rc::vk::Buffer::destroy </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Destroys the buffer immediately. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01598_source.html#l00069">69</a> of file <a class="el" href="a01598_source.html">Buffer.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a9524dc938539d09965a995b96c0ed2a8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9524dc938539d09965a995b96c0ed2a8">&#9670;&nbsp;</a></span>ensureSize()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::rc::vk::Buffer::ensureSize </td>
-          <td>(</td>
-          <td class="paramtype">VkDeviceSize&#160;</td>
-          <td class="paramname"><em>size</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>If the buffer size is less than the required size, re-creates the buffer to be at least the given size. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">size</td><td>The size the buffer should be, at a minimum </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the buffer was resized, false if it was big enough </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a01598_source.html#l00091">91</a> of file <a class="el" href="a01598_source.html">Buffer.cpp</a>.</p>
-
-</div>
-</div>
-<a id="aec11fe52dd5d748dab2d9ac2b48edb2f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aec11fe52dd5d748dab2d9ac2b48edb2f">&#9670;&nbsp;</a></span>getAlloc()</h2>
-
-<div class="memitem">
-<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr VmaAllocation bl::rc::vk::Buffer::getAlloc </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td class="memname">friend class <a class="el" href="a03307.html">BatchIndexBufferT</a></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the VMA allocation. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00800_source.html#l00141">141</a> of file <a class="el" href="a00800_source.html">Buffer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00671_source.html#l00123">123</a> of file <a class="el" href="a00671_source.html">BatchIndexBuffer.hpp</a>.</p>
 
 </div>
 </div>
-<a id="af92a7fc8f9e998d524dea43500228a0d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af92a7fc8f9e998d524dea43500228a0d">&#9670;&nbsp;</a></span>getBuffer()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr VkBuffer bl::rc::vk::Buffer::getBuffer </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the Vulkan buffer handle. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00800_source.html#l00139">139</a> of file <a class="el" href="a00800_source.html">Buffer.hpp</a>.</p>
-
-</div>
-</div>
-<a id="afbc375ccd8c7d3cc7531f221bde66cbd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afbc375ccd8c7d3cc7531f221bde66cbd">&#9670;&nbsp;</a></span>getMappedMemory()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr void * bl::rc::vk::Buffer::getMappedMemory </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns a pointer to the mapped buffer memory. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00800_source.html#l00143">143</a> of file <a class="el" href="a00800_source.html">Buffer.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a7d2244fcfb51c35323166dd2e1a24246"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7d2244fcfb51c35323166dd2e1a24246">&#9670;&nbsp;</a></span>getSize()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr VkDeviceSize bl::rc::vk::Buffer::getSize </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the size of the buffer in bytes. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00800_source.html#l00145">145</a> of file <a class="el" href="a00800_source.html">Buffer.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a72d4d58d118f62ae3f58818a5a50187f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a72d4d58d118f62ae3f58818a5a50187f">&#9670;&nbsp;</a></span>insertPipelineBarrierBeforeChange()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::rc::vk::Buffer::insertPipelineBarrierBeforeChange </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Records a pipeline barrier to prevent writes from occurring before fragment shader reads are completed. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01598_source.html#l00145">145</a> of file <a class="el" href="a01598_source.html">Buffer.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a59f9f42618fdfb237afec34ca505ac32"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a59f9f42618fdfb237afec34ca505ac32">&#9670;&nbsp;</a></span>mapMemory()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void * bl::rc::vk::Buffer::mapMemory </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Maps the buffer. Does not check if buffer is map-able or if it is already mapped. </p>
-<dl class="section return"><dt>Returns</dt><dd>A pointer to the mapped memory </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a01598_source.html#l00138">138</a> of file <a class="el" href="a01598_source.html">Buffer.cpp</a>.</p>
-
-</div>
-</div>
-<a id="abf2405a0936e0fd85a481405e6435552"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abf2405a0936e0fd85a481405e6435552">&#9670;&nbsp;</a></span>unMapMemory()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::rc::vk::Buffer::unMapMemory </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Unmaps the buffer. Does not check if the buffer is currently mapped. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01598_source.html#l00143">143</a> of file <a class="el" href="a01598_source.html">Buffer.cpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Render/Vulkan/<a class="el" href="a00800_source.html">Buffer.hpp</a></li>
-<li>src/Render/Vulkan/<a class="el" href="a01598_source.html">Buffer.cpp</a></li>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>include/BLIB/Render/Buffers/<a class="el" href="a00671_source.html">BatchIndexBuffer.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 25 2023 00:24:23 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 27 2023 23:34:43 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

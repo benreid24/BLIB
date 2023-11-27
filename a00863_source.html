@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Resources/Bundler.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Resources/PipelineCache.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,48 +66,64 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_70ae3ed4186da77d71126d34066606f0.html">Resources</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_0f0c454ab916ef2487b68a1bc3be1485.html">Resources</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Bundler.hpp</div>  </div>
+<div class="title">PipelineCache.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00863.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RESOURCES_BUNDLER_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RESOURCES_BUNDLER_HPP</span></div>
+<a href="a00863.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_RESOURCES_PIPELINECACHE_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_RESOURCES_PIPELINECACHE_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05157.html">BLIB/Resources/Bundling/Config.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01833.html">bl</a></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="a01883.html">    8</a></span>&#160;<span class="keyword">namespace </span>resource</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00962.html">BLIB/Render/Vulkan/Pipeline.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;cstdint&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02058.html">bl</a></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a03435.html">   16</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03435.html">Bundler</a> {</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <a class="code" href="a03435.html#a633dbf4456c5e587a0210fa51dce3d78">Bundler</a>(<a class="code" href="a03467.html">bundle::Config</a>&amp;&amp; config);</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a03435.html#a76a7c828024ac904b24a9ab08e574f05">createBundles</a>();</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">class </span>Renderer;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span>res</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a03619.html">   21</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03619.html">PipelineCache</a> {</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <a class="code" href="a03807.html">vk::Pipeline</a>&amp; <a class="code" href="a03619.html#ab22abbcd5f0da2c18dbd75928e5c66fc">createPipline</a>(std::uint32_t pipelineId, <a class="code" href="a03827.html">vk::PipelineParameters</a>&amp;&amp; params);</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <a class="code" href="a03467.html">bundle::Config</a> config;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;};</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;} <span class="comment">// namespace resource</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01833_html"><div class="ttname"><a href="a01833.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03435_html"><div class="ttname"><a href="a03435.html">bl::resource::Bundler</a></div><div class="ttdoc">Top level resource bundler class. Use this to create bundles for release builds.</div><div class="ttdef"><b>Definition:</b> <a href="a00863_source.html#l00016">Bundler.hpp:16</a></div></div>
-<div class="ttc" id="aa03435_html_a633dbf4456c5e587a0210fa51dce3d78"><div class="ttname"><a href="a03435.html#a633dbf4456c5e587a0210fa51dce3d78">bl::resource::Bundler::Bundler</a></div><div class="ttdeci">Bundler(bundle::Config &amp;&amp;config)</div><div class="ttdoc">Construct a new Bundler from the given config.</div><div class="ttdef"><b>Definition:</b> <a href="a01658_source.html#l00055">Bundler.cpp:55</a></div></div>
-<div class="ttc" id="aa03435_html_a76a7c828024ac904b24a9ab08e574f05"><div class="ttname"><a href="a03435.html#a76a7c828024ac904b24a9ab08e574f05">bl::resource::Bundler::createBundles</a></div><div class="ttdeci">bool createBundles()</div><div class="ttdoc">Creates and saves all of the resource bundles described by the config.</div><div class="ttdef"><b>Definition:</b> <a href="a01658_source.html#l00058">Bundler.cpp:58</a></div></div>
-<div class="ttc" id="aa03467_html"><div class="ttname"><a href="a03467.html">bl::resource::bundle::Config</a></div><div class="ttdoc">Bundler configuration class. This determines the behavior of the bundler.</div><div class="ttdef"><b>Definition:</b> <a href="a05157_source.html#l00035">Config.hpp:35</a></div></div>
-<div class="ttc" id="aa05157_html"><div class="ttname"><a href="a05157.html">Config.hpp</a></div></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <a class="code" href="a03807.html">vk::Pipeline</a>&amp; <a class="code" href="a03619.html#a1ae6ab4cbe018341e55753994fd46c66">getPipeline</a>(std::uint32_t pipelineId);</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <a class="code" href="a03603.html">Renderer</a>&amp; renderer;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    std::unordered_map&lt;std::uint32_t, vk::Pipeline&gt; cache;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <a class="code" href="a03619.html">PipelineCache</a>(<a class="code" href="a03603.html">Renderer</a>&amp; renderer);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordtype">void</span> cleanup();</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordtype">void</span> createBuiltins();</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="a03619.html#a1fc8c4ea65463b448e068f1287349540">   49</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a03603.html">bl::rc::Renderer</a>;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;};</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;} <span class="comment">// namespace res</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00962_html"><div class="ttname"><a href="a00962.html">Pipeline.hpp</a></div></div>
+<div class="ttc" id="aa02058_html"><div class="ttname"><a href="a02058.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03603_html"><div class="ttname"><a href="a03603.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition:</b> <a href="a05641_source.html#l00039">Renderer.hpp:39</a></div></div>
+<div class="ttc" id="aa03619_html"><div class="ttname"><a href="a03619.html">bl::rc::res::PipelineCache</a></div><div class="ttdoc">Basic cache to own and manage pipelines. Owned by the renderer.</div><div class="ttdef"><b>Definition:</b> <a href="a00863_source.html#l00021">PipelineCache.hpp:21</a></div></div>
+<div class="ttc" id="aa03619_html_a1ae6ab4cbe018341e55753994fd46c66"><div class="ttname"><a href="a03619.html#a1ae6ab4cbe018341e55753994fd46c66">bl::rc::res::PipelineCache::getPipeline</a></div><div class="ttdeci">vk::Pipeline &amp; getPipeline(std::uint32_t pipelineId)</div><div class="ttdoc">Returns the pipeline with the given id. Throws an exception if not found. Pipelines should be created...</div><div class="ttdef"><b>Definition:</b> <a href="a01769_source.html#l00035">PipelineCache.cpp:35</a></div></div>
+<div class="ttc" id="aa03619_html_ab22abbcd5f0da2c18dbd75928e5c66fc"><div class="ttname"><a href="a03619.html#ab22abbcd5f0da2c18dbd75928e5c66fc">bl::rc::res::PipelineCache::createPipline</a></div><div class="ttdeci">vk::Pipeline &amp; createPipline(std::uint32_t pipelineId, vk::PipelineParameters &amp;&amp;params)</div><div class="ttdoc">Creates a new pipeline in the cache. Id should be unique.</div><div class="ttdef"><b>Definition:</b> <a href="a01769_source.html#l00028">PipelineCache.cpp:28</a></div></div>
+<div class="ttc" id="aa03807_html"><div class="ttname"><a href="a03807.html">bl::rc::vk::Pipeline</a></div><div class="ttdoc">Core renderer class representing a pipeline that is a part of a RenderPass. Pipelines are managed by ...</div><div class="ttdef"><b>Definition:</b> <a href="a00962_source.html#l00030">Pipeline.hpp:30</a></div></div>
+<div class="ttc" id="aa03827_html"><div class="ttname"><a href="a03827.html">bl::rc::vk::PipelineParameters</a></div><div class="ttdoc">Parameters used to create a Pipeline. This class performs some basic validation and provides sane def...</div><div class="ttdef"><b>Definition:</b> <a href="a00968_source.html#l00031">PipelineParameters.hpp:31</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 25 2023 00:24:20 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 27 2023 23:34:41 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

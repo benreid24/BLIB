@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::serial::json::Serializer&lt; T, true &gt; Struct Template Reference</title>
+<title>BLIB: bl::rc::vk::PerFrameVector&lt; T &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,44 +66,198 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01833.html">bl</a></li><li class="navelem"><a class="el" href="a01836.html">serial</a></li><li class="navelem"><a class="el" href="a01888.html">json</a></li><li class="navelem"><a class="el" href="a03799.html">Serializer&lt; T, true &gt;</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02058.html">bl</a></li><li class="navelem"><a class="el" href="a02070.html">rc</a></li><li class="navelem"><a class="el" href="a02071.html">vk</a></li><li class="navelem"><a class="el" href="a03799.html">PerFrameVector</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="a03796.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::serial::json::Serializer&lt; T, true &gt; Struct Template Reference</div>  </div>
+<div class="title">bl::rc::vk::PerFrameVector&lt; T &gt; Class Template Reference<div class="ingroups"><a class="el" href="a02045.html">Renderer</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="a05172_source.html">Serializer.hpp</a>&gt;</code></p>
+<p>Container version of <a class="el" href="a03795.html" title="Utility struct to easily double-buffer objects and data on a per-frame basis. One object of type T wi...">PerFrame</a>. Intended to replace std::vector&lt;PerFrame&lt;T&gt;&gt; when continuous storage is needed (ie descriptor sets)  
+ <a href="a03799.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00956_source.html">PerFrameVector.hpp</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a4715aaca30e098806e7fc3821e7327db"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03799.html#a4715aaca30e098806e7fc3821e7327db">deserialize</a> (T &amp;result, const <a class="el" href="a03775.html">Value</a> &amp;v)</td></tr>
-<tr class="separator:a4715aaca30e098806e7fc3821e7327db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae3f43866f697d40f1f55b7873d448a97"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03799.html#ae3f43866f697d40f1f55b7873d448a97">deserializeFrom</a> (const <a class="el" href="a03775.html">Value</a> &amp;val, const std::string &amp;name, T &amp;result)</td></tr>
-<tr class="separator:ae3f43866f697d40f1f55b7873d448a97"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1bbfb778de6c3d3c07c569713b972ea8"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a03775.html">Value</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03799.html#a1bbfb778de6c3d3c07c569713b972ea8">serialize</a> (T value)</td></tr>
-<tr class="separator:a1bbfb778de6c3d3c07c569713b972ea8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae9ef0472c21032bc04dff966a87a2e9e"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03799.html#ae9ef0472c21032bc04dff966a87a2e9e">serializeInto</a> (<a class="el" href="a03771.html">Group</a> &amp;result, const std::string &amp;name, T value)</td></tr>
-<tr class="separator:ae9ef0472c21032bc04dff966a87a2e9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a78b5be012359364c744e54aca1f0a7fb"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03799.html#a78b5be012359364c744e54aca1f0a7fb">deserializeStream</a> (std::istream &amp;stream, T &amp;result)</td></tr>
-<tr class="separator:a78b5be012359364c744e54aca1f0a7fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab77f8a7ea9b3a7ca63a17920692e2fa0"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03799.html#ab77f8a7ea9b3a7ca63a17920692e2fa0">serializeStream</a> (std::ostream &amp;stream, T value, unsigned int, unsigned int)</td></tr>
-<tr class="separator:ab77f8a7ea9b3a7ca63a17920692e2fa0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a38c3e16c301555203938bfa5a089c0ba"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03799.html#a38c3e16c301555203938bfa5a089c0ba">PerFrameVector</a> ()</td></tr>
+<tr class="separator:a38c3e16c301555203938bfa5a089c0ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25a3740608d37edde75e028b1267da27"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03799.html#a25a3740608d37edde75e028b1267da27">emptyInit</a> (<a class="el" href="a03875.html">VulkanState</a> &amp;vulkanState, std::uint32_t capacity)</td></tr>
+<tr class="memdesc:a25a3740608d37edde75e028b1267da27"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the <a class="el" href="a03799.html" title="Container version of PerFrame. Intended to replace std::vector&lt;PerFrame&lt;T&gt;&gt; when continuous storage i...">PerFrameVector</a> object without initializing the wrapped values.  <a href="a03799.html#a25a3740608d37edde75e028b1267da27">More...</a><br /></td></tr>
+<tr class="separator:a25a3740608d37edde75e028b1267da27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83eda500d1b6ed88019088ba19ed4c17"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
+<tr class="memitem:a83eda500d1b6ed88019088ba19ed4c17"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a03799.html#a83eda500d1b6ed88019088ba19ed4c17">init</a> (<a class="el" href="a03875.html">VulkanState</a> &amp;vulkanState, std::uint32_t capacity, const U &amp;visitor)</td></tr>
+<tr class="memdesc:a83eda500d1b6ed88019088ba19ed4c17"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the buffer and each contained object.  <a href="a03799.html#a83eda500d1b6ed88019088ba19ed4c17">More...</a><br /></td></tr>
+<tr class="separator:a83eda500d1b6ed88019088ba19ed4c17"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae58605f178c63cd4a3bca72b5e5a958f"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
+<tr class="memitem:ae58605f178c63cd4a3bca72b5e5a958f"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a03799.html#ae58605f178c63cd4a3bca72b5e5a958f">cleanup</a> (const U &amp;visitor)</td></tr>
+<tr class="memdesc:ae58605f178c63cd4a3bca72b5e5a958f"><td class="mdescLeft">&#160;</td><td class="mdescRight">General buffered object visitor intended primarily for cleanup but could be used for anything else requiring visiting each buffered object.  <a href="a03799.html#ae58605f178c63cd4a3bca72b5e5a958f">More...</a><br /></td></tr>
+<tr class="separator:ae58605f178c63cd4a3bca72b5e5a958f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64716578fccd7829f157ca462a45bda8"><td class="memItemLeft" align="right" valign="top">T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03799.html#a64716578fccd7829f157ca462a45bda8">current</a> (std::uint32_t i)</td></tr>
+<tr class="memdesc:a64716578fccd7829f157ca462a45bda8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the active item at the given index.  <a href="a03799.html#a64716578fccd7829f157ca462a45bda8">More...</a><br /></td></tr>
+<tr class="separator:a64716578fccd7829f157ca462a45bda8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ed106797b21870b621df824fb799f45"><td class="memItemLeft" align="right" valign="top">const T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03799.html#a4ed106797b21870b621df824fb799f45">current</a> (std::uint32_t i) const</td></tr>
+<tr class="memdesc:a4ed106797b21870b621df824fb799f45"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the active item at the given index.  <a href="a03799.html#a4ed106797b21870b621df824fb799f45">More...</a><br /></td></tr>
+<tr class="separator:a4ed106797b21870b621df824fb799f45"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a420a3c91e76a8f8951a3704be89bdb86"><td class="memItemLeft" align="right" valign="top">T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03799.html#a420a3c91e76a8f8951a3704be89bdb86">getRaw</a> (std::uint32_t i, std::uint32_t frame)</td></tr>
+<tr class="memdesc:a420a3c91e76a8f8951a3704be89bdb86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manually access the item at the given index for the given frame.  <a href="a03799.html#a420a3c91e76a8f8951a3704be89bdb86">More...</a><br /></td></tr>
+<tr class="separator:a420a3c91e76a8f8951a3704be89bdb86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc5ad4ed11900a7ac061b34aeeb7e10e"><td class="memItemLeft" align="right" valign="top">const T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03799.html#acc5ad4ed11900a7ac061b34aeeb7e10e">getRaw</a> (std::uint32_t i, std::uint32_t frame) const</td></tr>
+<tr class="memdesc:acc5ad4ed11900a7ac061b34aeeb7e10e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manually access the item at the given index for the given frame.  <a href="a03799.html#acc5ad4ed11900a7ac061b34aeeb7e10e">More...</a><br /></td></tr>
+<tr class="separator:acc5ad4ed11900a7ac061b34aeeb7e10e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09fef90b3cb81cd453d89c6056ed7319"><td class="memItemLeft" align="right" valign="top">constexpr std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03799.html#a09fef90b3cb81cd453d89c6056ed7319">size</a> () const</td></tr>
+<tr class="memdesc:a09fef90b3cb81cd453d89c6056ed7319"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of elements in the vector.  <a href="a03799.html#a09fef90b3cb81cd453d89c6056ed7319">More...</a><br /></td></tr>
+<tr class="separator:a09fef90b3cb81cd453d89c6056ed7319"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1b55763cd34112e2f8d288061fbb467"><td class="memItemLeft" align="right" valign="top">constexpr std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03799.html#ab1b55763cd34112e2f8d288061fbb467">totalSize</a> () const</td></tr>
+<tr class="memdesc:ab1b55763cd34112e2f8d288061fbb467"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the total number of elements when accounting for <a class="el" href="a03795.html" title="Utility struct to easily double-buffer objects and data on a per-frame basis. One object of type T wi...">PerFrame</a> logic.  <a href="a03799.html#ab1b55763cd34112e2f8d288061fbb467">More...</a><br /></td></tr>
+<tr class="separator:ab1b55763cd34112e2f8d288061fbb467"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c9e6eab0a28a82873550d914f3685a3"><td class="memItemLeft" align="right" valign="top">constexpr T *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03799.html#a2c9e6eab0a28a82873550d914f3685a3">data</a> ()</td></tr>
+<tr class="memdesc:a2c9e6eab0a28a82873550d914f3685a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a pointer to the first element in the vector.  <a href="a03799.html#a2c9e6eab0a28a82873550d914f3685a3">More...</a><br /></td></tr>
+<tr class="separator:a2c9e6eab0a28a82873550d914f3685a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aead4dc4dd5c74474ffb2013b2d5de8ad"><td class="memItemLeft" align="right" valign="top">constexpr const T *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03799.html#aead4dc4dd5c74474ffb2013b2d5de8ad">data</a> () const</td></tr>
+<tr class="memdesc:aead4dc4dd5c74474ffb2013b2d5de8ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a pointer to the first element in the vector.  <a href="a03799.html#aead4dc4dd5c74474ffb2013b2d5de8ad">More...</a><br /></td></tr>
+<tr class="separator:aead4dc4dd5c74474ffb2013b2d5de8ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;typename T&gt;<br />
-struct bl::serial::json::Serializer&lt; T, true &gt;</h3>
+class bl::rc::vk::PerFrameVector&lt; T &gt;</h3>
 
+<p>Container version of <a class="el" href="a03795.html" title="Utility struct to easily double-buffer objects and data on a per-frame basis. One object of type T wi...">PerFrame</a>. Intended to replace std::vector&lt;PerFrame&lt;T&gt;&gt; when continuous storage is needed (ie descriptor sets) </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The type of item to store </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="a05172_source.html#l00193">193</a> of file <a class="el" href="a05172_source.html">Serializer.hpp</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a4715aaca30e098806e7fc3821e7327db"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4715aaca30e098806e7fc3821e7327db">&#9670;&nbsp;</a></span>deserialize()</h2>
+<p class="definition">Definition at line <a class="el" href="a00956_source.html#l00024">24</a> of file <a class="el" href="a00956_source.html">PerFrameVector.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a38c3e16c301555203938bfa5a089c0ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38c3e16c301555203938bfa5a089c0ba">&#9670;&nbsp;</a></span>PerFrameVector()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a03799.html">bl::rc::vk::PerFrameVector</a>&lt; T &gt;::<a class="el" href="a03799.html">PerFrameVector</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00992_source.html#l00343">343</a> of file <a class="el" href="a00992_source.html">VulkanState.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ae58605f178c63cd4a3bca72b5e5a958f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae58605f178c63cd4a3bca72b5e5a958f">&#9670;&nbsp;</a></span>cleanup()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<div class="memtemplate">
+template&lt;typename U &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a03799.html">bl::rc::vk::PerFrameVector</a>&lt; T &gt;::cleanup </td>
+          <td>(</td>
+          <td class="paramtype">const U &amp;&#160;</td>
+          <td class="paramname"><em>visitor</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>General buffered object visitor intended primarily for cleanup but could be used for anything else requiring visiting each buffered object. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">U</td><td>The callback type. Signature void(uint32_t, std::uint32_t, T&amp;) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">visitor</td><td>The callback to invoke for each buffered object </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00992_source.html#l00362">362</a> of file <a class="el" href="a00992_source.html">VulkanState.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a64716578fccd7829f157ca462a45bda8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64716578fccd7829f157ca462a45bda8">&#9670;&nbsp;</a></span>current() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">T &amp; <a class="el" href="a03799.html">bl::rc::vk::PerFrameVector</a>&lt; T &gt;::current </td>
+          <td>(</td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>i</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the active item at the given index. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">i</td><td>The index to get </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The item for the current frame at the given index </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00992_source.html#l00371">371</a> of file <a class="el" href="a00992_source.html">VulkanState.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a4ed106797b21870b621df824fb799f45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ed106797b21870b621df824fb799f45">&#9670;&nbsp;</a></span>current() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">const T &amp; <a class="el" href="a03799.html">bl::rc::vk::PerFrameVector</a>&lt; T &gt;::current </td>
+          <td>(</td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>i</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the active item at the given index. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">i</td><td>The index to get </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The item for the current frame at the given index </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00992_source.html#l00376">376</a> of file <a class="el" href="a00992_source.html">VulkanState.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a2c9e6eab0a28a82873550d914f3685a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c9e6eab0a28a82873550d914f3685a3">&#9670;&nbsp;</a></span>data() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -114,16 +268,69 @@ template&lt;typename T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static bool <a class="el" href="a03783.html">bl::serial::json::Serializer</a>&lt; T, true &gt;::deserialize </td>
+          <td class="memname">constexpr T * <a class="el" href="a03799.html">bl::rc::vk::PerFrameVector</a>&lt; T &gt;::data</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns a pointer to the first element in the vector. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00992_source.html#l00401">401</a> of file <a class="el" href="a00992_source.html">VulkanState.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aead4dc4dd5c74474ffb2013b2d5de8ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aead4dc4dd5c74474ffb2013b2d5de8ad">&#9670;&nbsp;</a></span>data() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr const T * <a class="el" href="a03799.html">bl::rc::vk::PerFrameVector</a>&lt; T &gt;::data</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns a pointer to the first element in the vector. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00992_source.html#l00406">406</a> of file <a class="el" href="a00992_source.html">VulkanState.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a25a3740608d37edde75e028b1267da27"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25a3740608d37edde75e028b1267da27">&#9670;&nbsp;</a></span>emptyInit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a03799.html">bl::rc::vk::PerFrameVector</a>&lt; T &gt;::emptyInit </td>
           <td>(</td>
-          <td class="paramtype">T &amp;&#160;</td>
-          <td class="paramname"><em>result</em>, </td>
+          <td class="paramtype"><a class="el" href="a03875.html">VulkanState</a> &amp;&#160;</td>
+          <td class="paramname"><em>vulkanState</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="a03775.html">Value</a> &amp;&#160;</td>
-          <td class="paramname"><em>v</em>&#160;</td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>capacity</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -131,45 +338,39 @@ template&lt;typename T &gt; </div>
           <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a05172_source.html#l00194">194</a> of file <a class="el" href="a05172_source.html">Serializer.hpp</a>.</p>
+<p>Initializes the <a class="el" href="a03799.html" title="Container version of PerFrame. Intended to replace std::vector&lt;PerFrame&lt;T&gt;&gt; when continuous storage i...">PerFrameVector</a> object without initializing the wrapped values. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vulkanState</td><td><a class="el" href="a03603.html" title="Top level rendering system of the game engine.">Renderer</a> Vulkan state </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00992_source.html#l00347">347</a> of file <a class="el" href="a00992_source.html">VulkanState.hpp</a>.</p>
 
 </div>
 </div>
-<a id="ae3f43866f697d40f1f55b7873d448a97"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae3f43866f697d40f1f55b7873d448a97">&#9670;&nbsp;</a></span>deserializeFrom()</h2>
+<a id="a420a3c91e76a8f8951a3704be89bdb86"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a420a3c91e76a8f8951a3704be89bdb86">&#9670;&nbsp;</a></span>getRaw() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static bool <a class="el" href="a03783.html">bl::serial::json::Serializer</a>&lt; T, true &gt;::deserializeFrom </td>
+          <td class="memname">T &amp; <a class="el" href="a03799.html">bl::rc::vk::PerFrameVector</a>&lt; T &gt;::getRaw </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="a03775.html">Value</a> &amp;&#160;</td>
-          <td class="paramname"><em>val</em>, </td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>i</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">T &amp;&#160;</td>
-          <td class="paramname"><em>result</em>&#160;</td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>frame</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -177,39 +378,91 @@ template&lt;typename T &gt; </div>
           <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a05172_source.html#l00204">204</a> of file <a class="el" href="a05172_source.html">Serializer.hpp</a>.</p>
+<p>Manually access the item at the given index for the given frame. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">i</td><td>The index to access </td></tr>
+    <tr><td class="paramname">frame</td><td>The frame to access </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The item for the given index and frame </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00992_source.html#l00381">381</a> of file <a class="el" href="a00992_source.html">VulkanState.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a78b5be012359364c744e54aca1f0a7fb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a78b5be012359364c744e54aca1f0a7fb">&#9670;&nbsp;</a></span>deserializeStream()</h2>
+<a id="acc5ad4ed11900a7ac061b34aeeb7e10e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc5ad4ed11900a7ac061b34aeeb7e10e">&#9670;&nbsp;</a></span>getRaw() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static bool <a class="el" href="a03783.html">bl::serial::json::Serializer</a>&lt; T, true &gt;::deserializeStream </td>
+          <td class="memname">const T &amp; <a class="el" href="a03799.html">bl::rc::vk::PerFrameVector</a>&lt; T &gt;::getRaw </td>
           <td>(</td>
-          <td class="paramtype">std::istream &amp;&#160;</td>
-          <td class="paramname"><em>stream</em>, </td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>i</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">T &amp;&#160;</td>
-          <td class="paramname"><em>result</em>&#160;</td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>frame</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Manually access the item at the given index for the given frame. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">i</td><td>The index to access </td></tr>
+    <tr><td class="paramname">frame</td><td>The frame to access </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The item for the given index and frame </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00992_source.html#l00386">386</a> of file <a class="el" href="a00992_source.html">VulkanState.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a83eda500d1b6ed88019088ba19ed4c17"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83eda500d1b6ed88019088ba19ed4c17">&#9670;&nbsp;</a></span>init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<div class="memtemplate">
+template&lt;typename U &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a03799.html">bl::rc::vk::PerFrameVector</a>&lt; T &gt;::init </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a03875.html">VulkanState</a> &amp;&#160;</td>
+          <td class="paramname"><em>vulkanState</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>capacity</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const U &amp;&#160;</td>
+          <td class="paramname"><em>visitor</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -217,19 +470,29 @@ template&lt;typename T &gt; </div>
           <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a05172_source.html#l00217">217</a> of file <a class="el" href="a05172_source.html">Serializer.hpp</a>.</p>
+<p>Initialize the buffer and each contained object. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">U</td><td>The callback type to init with. Signature void(uint32_t, std::uint32_t, T&amp;) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vulkanState</td><td>The <a class="el" href="a03875.html" title="Primary owner and manager of the Vulkan renderer&#39;s state.">VulkanState</a> to sync with </td></tr>
+    <tr><td class="paramname">visitor</td><td>The callback to init each buffered object </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00992_source.html#l00355">355</a> of file <a class="el" href="a00992_source.html">VulkanState.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a1bbfb778de6c3d3c07c569713b972ea8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1bbfb778de6c3d3c07c569713b972ea8">&#9670;&nbsp;</a></span>serialize()</h2>
+<a id="a09fef90b3cb81cd453d89c6056ed7319"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09fef90b3cb81cd453d89c6056ed7319">&#9670;&nbsp;</a></span>size()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -240,26 +503,24 @@ template&lt;typename T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="a03775.html">Value</a> <a class="el" href="a03783.html">bl::serial::json::Serializer</a>&lt; T, true &gt;::serialize </td>
-          <td>(</td>
-          <td class="paramtype">T&#160;</td>
-          <td class="paramname"><em>value</em></td><td>)</td>
-          <td></td>
+          <td class="memname">constexpr std::uint32_t <a class="el" href="a03799.html">bl::rc::vk::PerFrameVector</a>&lt; T &gt;::size</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a05172_source.html#l00208">208</a> of file <a class="el" href="a05172_source.html">Serializer.hpp</a>.</p>
+<p>Returns the number of elements in the vector. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00992_source.html#l00391">391</a> of file <a class="el" href="a00992_source.html">VulkanState.hpp</a>.</p>
 
 </div>
 </div>
-<a id="ae9ef0472c21032bc04dff966a87a2e9e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae9ef0472c21032bc04dff966a87a2e9e">&#9670;&nbsp;</a></span>serializeInto()</h2>
+<a id="ab1b55763cd34112e2f8d288061fbb467"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1b55763cd34112e2f8d288061fbb467">&#9670;&nbsp;</a></span>totalSize()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -270,100 +531,31 @@ template&lt;typename T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static void <a class="el" href="a03783.html">bl::serial::json::Serializer</a>&lt; T, true &gt;::serializeInto </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a03771.html">Group</a> &amp;&#160;</td>
-          <td class="paramname"><em>result</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">T&#160;</td>
-          <td class="paramname"><em>value</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="memname">constexpr std::uint32_t <a class="el" href="a03799.html">bl::rc::vk::PerFrameVector</a>&lt; T &gt;::totalSize</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a05172_source.html#l00213">213</a> of file <a class="el" href="a05172_source.html">Serializer.hpp</a>.</p>
+<p>Returns the total number of elements when accounting for <a class="el" href="a03795.html" title="Utility struct to easily double-buffer objects and data on a per-frame basis. One object of type T wi...">PerFrame</a> logic. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00992_source.html#l00396">396</a> of file <a class="el" href="a00992_source.html">VulkanState.hpp</a>.</p>
 
 </div>
 </div>
-<a id="ab77f8a7ea9b3a7ca63a17920692e2fa0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab77f8a7ea9b3a7ca63a17920692e2fa0">&#9670;&nbsp;</a></span>serializeStream()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static bool <a class="el" href="a03783.html">bl::serial::json::Serializer</a>&lt; T, true &gt;::serializeStream </td>
-          <td>(</td>
-          <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"><em>stream</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">T&#160;</td>
-          <td class="paramname"><em>value</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname">, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname">&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a05172_source.html#l00230">230</a> of file <a class="el" href="a05172_source.html">Serializer.hpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/BLIB/Serialization/JSON/<a class="el" href="a05172_source.html">Serializer.hpp</a></li>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/BLIB/Render/Vulkan/<a class="el" href="a00956_source.html">PerFrameVector.hpp</a></li>
+<li>include/BLIB/Render/Vulkan/<a class="el" href="a00992_source.html">VulkanState.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 25 2023 00:24:24 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 27 2023 23:34:43 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

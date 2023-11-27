@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Resources/Bundling/Utils.hpp Source File</title>
+<title>BLIB: src/Render/Descriptors/Builtin/TexturePoolInstance.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,48 +66,77 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_7a475d59e09b1ce69b1dfbc6b0817add.html">Resources</a></li><li class="navelem"><a class="el" href="dir_650c2bb72fa499737589ce0469633186.html">Bundling</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_c46d59b26ba1c7a895704386ecf9511b.html">Descriptors</a></li><li class="navelem"><a class="el" href="dir_1c9d8e1815e637956400971975ea0cfc.html">Builtin</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Utils.hpp</div>  </div>
+<div class="title">TexturePoolInstance.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01685.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef RESOURCES_UTILS_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define RESOURCES_UTILS_HPP</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;sstream&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno"><a class="line" href="a01685.html#a322792b1134b720d302428923b61a4c7">    6</a></span>&#160;<span class="keyword">inline</span> std::string <a class="code" href="a01685.html#a322792b1134b720d302428923b61a4c7">formatSize</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> byteCount) {</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;    constexpr <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> KB = 1000;</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    constexpr <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> MB = KB * 1000;</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    constexpr <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> GB = MB * 1000;</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    std::stringstream ss;</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keywordflow">if</span> (byteCount &gt; GB) {</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> gb = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(byteCount) / <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(GB);</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        ss &lt;&lt; std::fixed &lt;&lt; gb &lt;&lt; <span class="stringliteral">&quot; GB&quot;</span>;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    }</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (byteCount &gt; MB) {</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> mb = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(byteCount) / <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(MB);</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        ss &lt;&lt; std::fixed &lt;&lt; mb &lt;&lt; <span class="stringliteral">&quot; MB&quot;</span>;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    }</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (byteCount &gt; KB) {</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> kb = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(byteCount) / <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(KB);</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        ss &lt;&lt; std::fixed &lt;&lt; kb &lt;&lt; <span class="stringliteral">&quot; KB&quot;</span>;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    }</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordflow">else</span> { ss &lt;&lt; byteCount &lt;&lt; <span class="stringliteral">&quot; bytes&quot;</span>; }</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordflow">return</span> ss.str();</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;}</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01685_html_a322792b1134b720d302428923b61a4c7"><div class="ttname"><a href="a01685.html#a322792b1134b720d302428923b61a4c7">formatSize</a></div><div class="ttdeci">std::string formatSize(unsigned int byteCount)</div><div class="ttdef"><b>Definition:</b> <a href="a01685_source.html#l00006">Utils.hpp:6</a></div></div>
+<a href="a01685.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00734.html">BLIB/Render/Descriptors/Builtin/TexturePoolInstance.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00911.html">BLIB/Render/Scenes/SceneRenderContext.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02058.html">bl</a></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>ds</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="a03419.html#a6fb14178747dc7abe113072d98970c95">   11</a></span>&#160;<a class="code" href="a03419.html#a6fb14178747dc7abe113072d98970c95">TexturePoolInstance::TexturePoolInstance</a>(<a class="code" href="a03647.html">res::TexturePool</a>&amp; texturePool)</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;: <a class="code" href="a03447.html">DescriptorSetInstance</a>(Bindless, SpeedAgnostic)</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;, texturePool(texturePool) {}</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keywordtype">void</span> TexturePoolInstance::bindForPipeline(<a class="code" href="a03727.html">scene::SceneRenderContext</a>&amp; ctx, VkPipelineLayout layout,</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;                                          std::uint32_t setIndex, <a class="code" href="a02045.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a>)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    texturePool.<a class="code" href="a03647.html#a44f86f7c5c05af9fe35baabb7f021436">bindDescriptors</a>(</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        ctx.<a class="code" href="a03727.html#ac39a1df376b596bd2d91c60124dc05db">getCommandBuffer</a>(), layout, setIndex, ctx.<a class="code" href="a03727.html#a0b438286e6b674cd3c6f818804a55368">targetIsRenderTexture</a>());</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;}</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keywordtype">void</span> TexturePoolInstance::bindForObject(<a class="code" href="a03727.html">scene::SceneRenderContext</a>&amp;, VkPipelineLayout, std::uint32_t,</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;                                        <a class="code" href="a03679.html">scene::Key</a>)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="comment">// noop</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;}</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keywordtype">void</span> TexturePoolInstance::releaseObject(<a class="code" href="a02459.html">ecs::Entity</a>, scene::Key) {</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="comment">// noop</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;}</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keywordtype">void</span> TexturePoolInstance::init(DescriptorComponentStorageCache&amp;) {</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="comment">// noop</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;}</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keywordtype">bool</span> TexturePoolInstance::allocateObject(ecs::Entity, scene::Key) {</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="comment">// noop</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;}</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keywordtype">void</span> TexturePoolInstance::handleFrameStart() {</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="comment">// noop</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;}</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;} <span class="comment">// namespace ds</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00734_html"><div class="ttname"><a href="a00734.html">TexturePoolInstance.hpp</a></div></div>
+<div class="ttc" id="aa00911_html"><div class="ttname"><a href="a00911.html">SceneRenderContext.hpp</a></div></div>
+<div class="ttc" id="aa02045_html_ga305dcc5dda3e28bd193ab31444664848"><div class="ttname"><a href="a02045.html#ga305dcc5dda3e28bd193ab31444664848">bl::rc::UpdateSpeed</a></div><div class="ttdeci">UpdateSpeed</div><div class="ttdoc">Enum representing how frequently an object is expected to be updated.</div><div class="ttdef"><b>Definition:</b> <a href="a00923_source.html#l00015">UpdateSpeed.hpp:15</a></div></div>
+<div class="ttc" id="aa02058_html"><div class="ttname"><a href="a02058.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02459_html"><div class="ttname"><a href="a02459.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition:</b> <a href="a00161_source.html#l00024">Entity.hpp:24</a></div></div>
+<div class="ttc" id="aa03419_html_a6fb14178747dc7abe113072d98970c95"><div class="ttname"><a href="a03419.html#a6fb14178747dc7abe113072d98970c95">bl::rc::ds::TexturePoolInstance::TexturePoolInstance</a></div><div class="ttdeci">TexturePoolInstance(res::TexturePool &amp;texturePool)</div><div class="ttdoc">Creates the descriptor set instance.</div><div class="ttdef"><b>Definition:</b> <a href="a01685_source.html#l00011">TexturePoolInstance.cpp:11</a></div></div>
+<div class="ttc" id="aa03447_html"><div class="ttname"><a href="a03447.html">bl::rc::ds::DescriptorSetInstance</a></div><div class="ttdoc">Base class for descriptor sets that exist for each scene. Derived classes are created by DescriptorSe...</div><div class="ttdef"><b>Definition:</b> <a href="a00749_source.html#l00030">DescriptorSetInstance.hpp:30</a></div></div>
+<div class="ttc" id="aa03647_html"><div class="ttname"><a href="a03647.html">bl::rc::res::TexturePool</a></div><div class="ttdoc">Resource manager for textures on the GPU. Utilizes BindlessTextureArray to provide a large array,...</div><div class="ttdef"><b>Definition:</b> <a href="a00881_source.html#l00032">TexturePool.hpp:32</a></div></div>
+<div class="ttc" id="aa03647_html_a44f86f7c5c05af9fe35baabb7f021436"><div class="ttname"><a href="a03647.html#a44f86f7c5c05af9fe35baabb7f021436">bl::rc::res::TexturePool::bindDescriptors</a></div><div class="ttdeci">void bindDescriptors(VkCommandBuffer commandBuffer, VkPipelineLayout pipelineLayout, std::uint32_t setIndex, bool forRenderTexture)</div><div class="ttdoc">Helper method to bind the descriptor set.</div><div class="ttdef"><b>Definition:</b> <a href="a01784_source.html#l00132">TexturePool.cpp:132</a></div></div>
+<div class="ttc" id="aa03679_html"><div class="ttname"><a href="a03679.html">bl::rc::scene::Key</a></div><div class="ttdoc">Key for objects in scenes. Contains update speed and scene id. Scene ids are not unique across update...</div><div class="ttdef"><b>Definition:</b> <a href="a00890_source.html#l00022">Key.hpp:22</a></div></div>
+<div class="ttc" id="aa03727_html"><div class="ttname"><a href="a03727.html">bl::rc::scene::SceneRenderContext</a></div><div class="ttdoc">Container class that holds the required parameters to render a scene and provides methods for descrip...</div><div class="ttdef"><b>Definition:</b> <a href="a00911_source.html#l00025">SceneRenderContext.hpp:25</a></div></div>
+<div class="ttc" id="aa03727_html_a0b438286e6b674cd3c6f818804a55368"><div class="ttname"><a href="a03727.html#a0b438286e6b674cd3c6f818804a55368">bl::rc::scene::SceneRenderContext::targetIsRenderTexture</a></div><div class="ttdeci">constexpr bool targetIsRenderTexture() const</div><div class="ttdoc">Returns whether or not the current target is a render texture.</div><div class="ttdef"><b>Definition:</b> <a href="a00911_source.html#l00115">SceneRenderContext.hpp:115</a></div></div>
+<div class="ttc" id="aa03727_html_ac39a1df376b596bd2d91c60124dc05db"><div class="ttname"><a href="a03727.html#ac39a1df376b596bd2d91c60124dc05db">bl::rc::scene::SceneRenderContext::getCommandBuffer</a></div><div class="ttdeci">constexpr VkCommandBuffer getCommandBuffer() const</div><div class="ttdoc">Returns the command buffer to use for rendering.</div><div class="ttdef"><b>Definition:</b> <a href="a00911_source.html#l00105">SceneRenderContext.hpp:105</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 25 2023 00:24:21 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 27 2023 23:34:41 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

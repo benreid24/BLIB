@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Interfaces/GUI/Elements/Animation.hpp Source File</title>
+<title>BLIB: include/BLIB/Graphics.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,81 +66,63 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4a89db2e42278000e6aac6ace9db278e.html">Interfaces</a></li><li class="navelem"><a class="el" href="dir_488290d74f9e6b3540591d02cc875229.html">GUI</a></li><li class="navelem"><a class="el" href="dir_0e73644d95625b92b38fc98502188409.html">Elements</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Animation.hpp</div>  </div>
+<div class="title">Graphics.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00341.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_INTERFACES_GUI_ELEMENTS_ANIMATION_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_INTERFACES_GUI_ELEMENTS_ANIMATION_HPP</span></div>
+<a href="a00341.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_GRAPHICS_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_GRAPHICS_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00269.html">BLIB/Graphics/Animation2D/AnimationData.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00365.html">BLIB/Interfaces/GUI/Elements/Element.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00917.html">BLIB/Resources.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01833.html">bl</a></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>gui</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a02607.html">   18</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02607.html">Animation</a> : <span class="keyword">public</span> <a class="code" href="a02639.html">Element</a> {</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a02607.html#a35e63f18e8f57eb9142857ca54ba2fef">   20</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a02607.html#a35e63f18e8f57eb9142857ca54ba2fef">Ptr</a> = std::shared_ptr&lt;Animation&gt;;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a02607.html#ac5eae91af51784c50fbcc69b6bb8fc0f">   22</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02607.html#ac5eae91af51784c50fbcc69b6bb8fc0f">~Animation</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a02607.html#a5aff3bf77ff3e88978436a7386d7c1a3">   30</a></span>&#160;    <span class="keyword">static</span> <a class="code" href="a02607.html#a35e63f18e8f57eb9142857ca54ba2fef">Ptr</a> <a class="code" href="a02607.html#a5aff3bf77ff3e88978436a7386d7c1a3">create</a>(<a class="code" href="a03555.html">resource::Ref&lt;gfx::a2d::AnimationData&gt;</a> anim);</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="a02607.html#ac2bc9d8db34c4640f46b57838a5fd02a">   37</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02607.html#ac2bc9d8db34c4640f46b57838a5fd02a">setAnimation</a>(<a class="code" href="a03555.html">resource::Ref&lt;gfx::a2d::AnimationData&gt;</a> anim);</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="a02607.html#aa9cbd3a9db2093581aa4eeb542693242">   44</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02607.html#aa9cbd3a9db2093581aa4eeb542693242">scaleToSize</a>(<span class="keyword">const</span> sf::Vector2f&amp; size);</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="a02607.html#a07520f07ce945d7c8b7719ebf3298089">   51</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02607.html#a07520f07ce945d7c8b7719ebf3298089">update</a>(<span class="keywordtype">float</span> dt) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="a02607.html#a1a7fe2d8f01daf602fda22852a7e21f0">   59</a></span>&#160;    <a class="code" href="a02607.html#a1a7fe2d8f01daf602fda22852a7e21f0">Animation</a>(<a class="code" href="a03555.html">resource::Ref&lt;gfx::a2d::AnimationData&gt;</a> anim);</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="a02607.html#af9d65d251949ee546513bb0cac6b6a06">   65</a></span>&#160;    <span class="keyword">virtual</span> sf::Vector2f <a class="code" href="a02607.html#af9d65d251949ee546513bb0cac6b6a06">minimumRequisition</a>() <span class="keyword">const override</span>;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="a02607.html#ab9641b69e86f66f58a059db39bd4fad8">   74</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02607.html#ab9641b69e86f66f58a059db39bd4fad8">doRender</a>(sf::RenderTarget&amp; target, sf::RenderStates states,</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                          <span class="keyword">const</span> <a class="code" href="a02727.html">Renderer</a>&amp; renderer) <span class="keyword">const override</span>;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordtype">bool</span> centered;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <a class="code" href="a03555.html">resource::Ref&lt;gfx::a2d::AnimationData&gt;</a> source;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="comment">// gfx::Animation animation;</span></div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="comment">//  TODO - use new animations</span></div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    std::optional&lt;sf::Vector2f&gt; size;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;};</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;} <span class="comment">// namespace gui</span></div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00269_html"><div class="ttname"><a href="a00269.html">AnimationData.hpp</a></div></div>
-<div class="ttc" id="aa00365_html"><div class="ttname"><a href="a00365.html">Element.hpp</a></div></div>
-<div class="ttc" id="aa00917_html"><div class="ttname"><a href="a00917.html">Resources.hpp</a></div></div>
-<div class="ttc" id="aa01833_html"><div class="ttname"><a href="a01833.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02607_html"><div class="ttname"><a href="a02607.html">bl::gui::Animation</a></div><div class="ttdoc">Simple element that displays a constantly playing animation. Similar to Image.</div><div class="ttdef"><b>Definition:</b> <a href="a00341_source.html#l00018">Animation.hpp:18</a></div></div>
-<div class="ttc" id="aa02607_html_a07520f07ce945d7c8b7719ebf3298089"><div class="ttname"><a href="a02607.html#a07520f07ce945d7c8b7719ebf3298089">bl::gui::Animation::update</a></div><div class="ttdeci">virtual void update(float dt) override</div><div class="ttdoc">Updates the animation.</div></div>
-<div class="ttc" id="aa02607_html_a1a7fe2d8f01daf602fda22852a7e21f0"><div class="ttname"><a href="a02607.html#a1a7fe2d8f01daf602fda22852a7e21f0">bl::gui::Animation::Animation</a></div><div class="ttdeci">Animation(resource::Ref&lt; gfx::a2d::AnimationData &gt; anim)</div><div class="ttdoc">Create a new Animation element.</div></div>
-<div class="ttc" id="aa02607_html_a35e63f18e8f57eb9142857ca54ba2fef"><div class="ttname"><a href="a02607.html#a35e63f18e8f57eb9142857ca54ba2fef">bl::gui::Animation::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; Animation &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00341_source.html#l00020">Animation.hpp:20</a></div></div>
-<div class="ttc" id="aa02607_html_a5aff3bf77ff3e88978436a7386d7c1a3"><div class="ttname"><a href="a02607.html#a5aff3bf77ff3e88978436a7386d7c1a3">bl::gui::Animation::create</a></div><div class="ttdeci">static Ptr create(resource::Ref&lt; gfx::a2d::AnimationData &gt; anim)</div><div class="ttdoc">Create a new Animation element.</div></div>
-<div class="ttc" id="aa02607_html_aa9cbd3a9db2093581aa4eeb542693242"><div class="ttname"><a href="a02607.html#aa9cbd3a9db2093581aa4eeb542693242">bl::gui::Animation::scaleToSize</a></div><div class="ttdeci">void scaleToSize(const sf::Vector2f &amp;size)</div><div class="ttdoc">Scales the rendered animation to the given size.</div></div>
-<div class="ttc" id="aa02607_html_ab9641b69e86f66f58a059db39bd4fad8"><div class="ttname"><a href="a02607.html#ab9641b69e86f66f58a059db39bd4fad8">bl::gui::Animation::doRender</a></div><div class="ttdeci">virtual void doRender(sf::RenderTarget &amp;target, sf::RenderStates states, const Renderer &amp;renderer) const override</div><div class="ttdoc">Renders the animation.</div></div>
-<div class="ttc" id="aa02607_html_ac2bc9d8db34c4640f46b57838a5fd02a"><div class="ttname"><a href="a02607.html#ac2bc9d8db34c4640f46b57838a5fd02a">bl::gui::Animation::setAnimation</a></div><div class="ttdeci">void setAnimation(resource::Ref&lt; gfx::a2d::AnimationData &gt; anim)</div><div class="ttdoc">Sets the animation to render. Does not reset any applied size.</div></div>
-<div class="ttc" id="aa02607_html_ac5eae91af51784c50fbcc69b6bb8fc0f"><div class="ttname"><a href="a02607.html#ac5eae91af51784c50fbcc69b6bb8fc0f">bl::gui::Animation::~Animation</a></div><div class="ttdeci">virtual ~Animation()=default</div></div>
-<div class="ttc" id="aa02607_html_af9d65d251949ee546513bb0cac6b6a06"><div class="ttname"><a href="a02607.html#af9d65d251949ee546513bb0cac6b6a06">bl::gui::Animation::minimumRequisition</a></div><div class="ttdeci">virtual sf::Vector2f minimumRequisition() const override</div><div class="ttdoc">Returns the size required to render the animation.</div></div>
-<div class="ttc" id="aa02639_html"><div class="ttname"><a href="a02639.html">bl::gui::Element</a></div><div class="ttdoc">Base class for all GUI elements. Provides the common interface used for positioning,...</div><div class="ttdef"><b>Definition:</b> <a href="a00365_source.html#l00030">Element.hpp:32</a></div></div>
-<div class="ttc" id="aa02727_html"><div class="ttname"><a href="a02727.html">bl::gui::Renderer</a></div><div class="ttdoc">Interface for renderers for GUIs. Derived classes may elect to inherit from DefaultRenderer and only ...</div><div class="ttdef"><b>Definition:</b> <a href="a05136_source.html#l00037">Renderer.hpp:37</a></div></div>
-<div class="ttc" id="aa03555_html"><div class="ttname"><a href="a03555.html">bl::resource::Ref</a></div><div class="ttdoc">Represents a reference to a managed resource. Performs reference counting, but resources are never de...</div><div class="ttdef"><b>Definition:</b> <a href="a00908_source.html#l00025">Ref.hpp:25</a></div></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00995.html">BLIB/Render.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05536.html">BLIB/Graphics/Animation2D.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00278.html">BLIB/Graphics/BatchCircle.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00284.html">BLIB/Graphics/BatchRectangle.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00287.html">BLIB/Graphics/BatchTriangle.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05548.html">BLIB/Graphics/BatchedShapes2D.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00290.html">BLIB/Graphics/Circle.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00296.html">BLIB/Graphics/Components/OverlayScalable.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00299.html">BLIB/Graphics/Components/Textured.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05584.html">BLIB/Graphics/Components/Transform2D.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00302.html">BLIB/Graphics/Drawable.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00305.html">BLIB/Graphics/Dummy2D.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00311.html">BLIB/Graphics/Rectangle.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05560.html">BLIB/Graphics/Slideshow.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05566.html">BLIB/Graphics/Sprite.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05572.html">BLIB/Graphics/Text.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00332.html">BLIB/Graphics/Text/BasicText.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00335.html">BLIB/Graphics/Text/VulkanFont.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00338.html">BLIB/Graphics/Triangle.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00278_html"><div class="ttname"><a href="a00278.html">BatchCircle.hpp</a></div></div>
+<div class="ttc" id="aa00284_html"><div class="ttname"><a href="a00284.html">BatchRectangle.hpp</a></div></div>
+<div class="ttc" id="aa00287_html"><div class="ttname"><a href="a00287.html">BatchTriangle.hpp</a></div></div>
+<div class="ttc" id="aa00290_html"><div class="ttname"><a href="a00290.html">Circle.hpp</a></div></div>
+<div class="ttc" id="aa00296_html"><div class="ttname"><a href="a00296.html">OverlayScalable.hpp</a></div></div>
+<div class="ttc" id="aa00299_html"><div class="ttname"><a href="a00299.html">Textured.hpp</a></div></div>
+<div class="ttc" id="aa00302_html"><div class="ttname"><a href="a00302.html">Drawable.hpp</a></div></div>
+<div class="ttc" id="aa00305_html"><div class="ttname"><a href="a00305.html">Dummy2D.hpp</a></div></div>
+<div class="ttc" id="aa00311_html"><div class="ttname"><a href="a00311.html">Rectangle.hpp</a></div></div>
+<div class="ttc" id="aa00332_html"><div class="ttname"><a href="a00332.html">BasicText.hpp</a></div></div>
+<div class="ttc" id="aa00335_html"><div class="ttname"><a href="a00335.html">VulkanFont.hpp</a></div></div>
+<div class="ttc" id="aa00338_html"><div class="ttname"><a href="a00338.html">Triangle.hpp</a></div></div>
+<div class="ttc" id="aa00995_html"><div class="ttname"><a href="a00995.html">Render.hpp</a></div></div>
+<div class="ttc" id="aa05536_html"><div class="ttname"><a href="a05536.html">Animation2D.hpp</a></div></div>
+<div class="ttc" id="aa05548_html"><div class="ttname"><a href="a05548.html">BatchedShapes2D.hpp</a></div></div>
+<div class="ttc" id="aa05560_html"><div class="ttname"><a href="a05560.html">Slideshow.hpp</a></div></div>
+<div class="ttc" id="aa05566_html"><div class="ttname"><a href="a05566.html">Sprite.hpp</a></div></div>
+<div class="ttc" id="aa05572_html"><div class="ttname"><a href="a05572.html">Text.hpp</a></div></div>
+<div class="ttc" id="aa05584_html"><div class="ttname"><a href="a05584.html">Transform2D.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 25 2023 00:24:20 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 27 2023 23:34:40 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::serial::json::Serializer&lt; script::Value, false &gt; Struct Reference</title>
+<title>BLIB: bl::rc::vk::RenderPassParameters::SubPass Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,59 +66,110 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01833.html">bl</a></li><li class="navelem"><a class="el" href="a01836.html">serial</a></li><li class="navelem"><a class="el" href="a01888.html">json</a></li><li class="navelem"><a class="el" href="a03847.html">Serializer&lt; script::Value, false &gt;</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02058.html">bl</a></li><li class="navelem"><a class="el" href="a02070.html">rc</a></li><li class="navelem"><a class="el" href="a02071.html">vk</a></li><li class="navelem"><a class="el" href="a03843.html">RenderPassParameters</a></li><li class="navelem"><a class="el" href="a03847.html">SubPass</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="a03844.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::serial::json::Serializer&lt; script::Value, false &gt; Struct Reference</div>  </div>
+<div class="title">bl::rc::vk::RenderPassParameters::SubPass Class Reference<div class="ingroups"><a class="el" href="a02045.html">Renderer</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="a05172_source.html">Serializer.hpp</a>&gt;</code></p>
+<p>Helper parameter class that represents a subpass within a render pass.  
+ <a href="a03847.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00974_source.html">RenderPassParameters.hpp</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a3a3a30e3c3614fa66e647526ba1bd430"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a03775.html">Value</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03847.html#a3a3a30e3c3614fa66e647526ba1bd430">serialize</a> (const <a class="el" href="a03615.html">script::Value</a> &amp;value)</td></tr>
-<tr class="separator:a3a3a30e3c3614fa66e647526ba1bd430"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6b032ad67934b4f8df4c512e228201a4"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03847.html#a6b032ad67934b4f8df4c512e228201a4">serializeInto</a> (const std::string &amp;name, <a class="el" href="a03771.html">Group</a> &amp;group, const <a class="el" href="a03615.html">script::Value</a> &amp;val)</td></tr>
-<tr class="separator:a6b032ad67934b4f8df4c512e228201a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acd3f8c524524d7a514836190bfae19a2"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03847.html#acd3f8c524524d7a514836190bfae19a2">deserialize</a> (<a class="el" href="a03615.html">script::Value</a> &amp;result, const <a class="el" href="a03775.html">Value</a> &amp;val)</td></tr>
-<tr class="separator:acd3f8c524524d7a514836190bfae19a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a292505bb6be91b1212b60d305b84f527"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03847.html#a292505bb6be91b1212b60d305b84f527">deserializeFrom</a> (const <a class="el" href="a03775.html">Value</a> &amp;val, const std::string &amp;key, <a class="el" href="a03615.html">script::Value</a> &amp;result)</td></tr>
-<tr class="separator:a292505bb6be91b1212b60d305b84f527"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a57ad3be5ed21ae1f55769f13cc1403ca"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03847.html#a57ad3be5ed21ae1f55769f13cc1403ca">deserializeStream</a> (std::istream &amp;stream, <a class="el" href="a03615.html">script::Value</a> &amp;result)</td></tr>
-<tr class="separator:a57ad3be5ed21ae1f55769f13cc1403ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab074c4e06717756cb871eb8b6fa1af82"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03847.html#ab074c4e06717756cb871eb8b6fa1af82">serializeStream</a> (std::ostream &amp;stream, const <a class="el" href="a03615.html">script::Value</a> &amp;value, unsigned int, unsigned int)</td></tr>
-<tr class="separator:ab074c4e06717756cb871eb8b6fa1af82"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:af59febea8d9397a3198fc61db360adf8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03847.html#af59febea8d9397a3198fc61db360adf8">SubPass</a> ()</td></tr>
+<tr class="memdesc:af59febea8d9397a3198fc61db360adf8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Sub Pass object.  <a href="a03847.html#af59febea8d9397a3198fc61db360adf8">More...</a><br /></td></tr>
+<tr class="separator:af59febea8d9397a3198fc61db360adf8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aceae349a2d8eded2ae0db312d12e2454"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03847.html">SubPass</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03847.html#aceae349a2d8eded2ae0db312d12e2454">withAttachment</a> (std::uint32_t index, VkImageLayout layout)</td></tr>
+<tr class="memdesc:aceae349a2d8eded2ae0db312d12e2454"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds an attachment reference to the subpass.  <a href="a03847.html#aceae349a2d8eded2ae0db312d12e2454">More...</a><br /></td></tr>
+<tr class="separator:aceae349a2d8eded2ae0db312d12e2454"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac686f180eece4c15a8b00e729e608ebb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03847.html">SubPass</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03847.html#ac686f180eece4c15a8b00e729e608ebb">withDepthAttachment</a> (std::uint32_t index, VkImageLayout layout)</td></tr>
+<tr class="memdesc:ac686f180eece4c15a8b00e729e608ebb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a depth attachment to this subpass.  <a href="a03847.html#ac686f180eece4c15a8b00e729e608ebb">More...</a><br /></td></tr>
+<tr class="separator:ac686f180eece4c15a8b00e729e608ebb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9dc875ebea2e5f896af0e08934bbfd2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03847.html">SubPass</a> &amp;&amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03847.html#af9dc875ebea2e5f896af0e08934bbfd2">build</a> ()</td></tr>
+<tr class="memdesc:af9dc875ebea2e5f896af0e08934bbfd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs validation and returns a usable rvalue reference to this object.  <a href="a03847.html#af9dc875ebea2e5f896af0e08934bbfd2">More...</a><br /></td></tr>
+<tr class="separator:af9dc875ebea2e5f896af0e08934bbfd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:aa8ab806874e69ead344abef1c5e76aa0"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03847.html#aa8ab806874e69ead344abef1c5e76aa0">RenderPass</a></td></tr>
+<tr class="separator:aa8ab806874e69ead344abef1c5e76aa0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="a05172_source.html#l00928">928</a> of file <a class="el" href="a05172_source.html">Serializer.hpp</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="acd3f8c524524d7a514836190bfae19a2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acd3f8c524524d7a514836190bfae19a2">&#9670;&nbsp;</a></span>deserialize()</h2>
+<div class="textblock"><p>Helper parameter class that represents a subpass within a render pass. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00974_source.html#l00029">29</a> of file <a class="el" href="a00974_source.html">RenderPassParameters.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="af59febea8d9397a3198fc61db360adf8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af59febea8d9397a3198fc61db360adf8">&#9670;&nbsp;</a></span>SubPass()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static bool <a class="el" href="a03783.html">bl::serial::json::Serializer</a>&lt; <a class="el" href="a03615.html">script::Value</a>, false &gt;::deserialize </td>
+          <td class="memname">bl::rc::vk::RenderPassParameters::SubPass::SubPass </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a03615.html">script::Value</a> &amp;&#160;</td>
-          <td class="paramname"><em>result</em>, </td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Construct a new Sub Pass object. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01850_source.html#l00043">43</a> of file <a class="el" href="a01850_source.html">RenderPassParameters.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="af9dc875ebea2e5f896af0e08934bbfd2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af9dc875ebea2e5f896af0e08934bbfd2">&#9670;&nbsp;</a></span>build()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a03847.html">RenderPassParameters::SubPass</a> &amp;&amp; bl::rc::vk::RenderPassParameters::SubPass::build </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Performs validation and returns a usable rvalue reference to this object. </p>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a03847.html" title="Helper parameter class that represents a subpass within a render pass.">SubPass</a>&amp;&amp; An rvalue reference to this object </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a01850_source.html#l00061">61</a> of file <a class="el" href="a01850_source.html">RenderPassParameters.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aceae349a2d8eded2ae0db312d12e2454"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aceae349a2d8eded2ae0db312d12e2454">&#9670;&nbsp;</a></span>withAttachment()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a03847.html">RenderPassParameters::SubPass</a> &amp; bl::rc::vk::RenderPassParameters::SubPass::withAttachment </td>
+          <td>(</td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>index</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="a03775.html">Value</a> &amp;&#160;</td>
-          <td class="paramname"><em>val</em>&#160;</td>
+          <td class="paramtype">VkImageLayout&#160;</td>
+          <td class="paramname"><em>layout</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -126,43 +177,39 @@ Static Public Member Functions</h2></td></tr>
           <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a05172_source.html#l00977">977</a> of file <a class="el" href="a05172_source.html">Serializer.hpp</a>.</p>
+<p>Adds an attachment reference to the subpass. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>The index of the attachment </td></tr>
+    <tr><td class="paramname">layout</td><td>The image layout of the attachment </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a03847.html" title="Helper parameter class that represents a subpass within a render pass.">SubPass</a>&amp; A reference to this object </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a01850_source.html#l00045">45</a> of file <a class="el" href="a01850_source.html">RenderPassParameters.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a292505bb6be91b1212b60d305b84f527"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a292505bb6be91b1212b60d305b84f527">&#9670;&nbsp;</a></span>deserializeFrom()</h2>
+<a id="ac686f180eece4c15a8b00e729e608ebb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac686f180eece4c15a8b00e729e608ebb">&#9670;&nbsp;</a></span>withDepthAttachment()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static bool <a class="el" href="a03783.html">bl::serial::json::Serializer</a>&lt; <a class="el" href="a03615.html">script::Value</a>, false &gt;::deserializeFrom </td>
+          <td class="memname"><a class="el" href="a03847.html">RenderPassParameters::SubPass</a> &amp; bl::rc::vk::RenderPassParameters::SubPass::withDepthAttachment </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="a03775.html">Value</a> &amp;&#160;</td>
-          <td class="paramname"><em>val</em>, </td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>index</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>key</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a03615.html">script::Value</a> &amp;&#160;</td>
-          <td class="paramname"><em>result</em>&#160;</td>
+          <td class="paramtype">VkImageLayout&#160;</td>
+          <td class="paramname"><em>layout</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -170,19 +217,25 @@ Static Public Member Functions</h2></td></tr>
           <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a05172_source.html#l01044">1044</a> of file <a class="el" href="a05172_source.html">Serializer.hpp</a>.</p>
+<p>Adds a depth attachment to this subpass. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>The index of the attachment </td></tr>
+    <tr><td class="paramname">layout</td><td>The layout of the depth attachment </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this object </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a01850_source.html#l00053">53</a> of file <a class="el" href="a01850_source.html">RenderPassParameters.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a57ad3be5ed21ae1f55769f13cc1403ca"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a57ad3be5ed21ae1f55769f13cc1403ca">&#9670;&nbsp;</a></span>deserializeStream()</h2>
+<h2 class="groupheader">Friends And Related Function Documentation</h2>
+<a id="aa8ab806874e69ead344abef1c5e76aa0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8ab806874e69ead344abef1c5e76aa0">&#9670;&nbsp;</a></span>RenderPass</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -191,164 +244,29 @@ Static Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static bool <a class="el" href="a03783.html">bl::serial::json::Serializer</a>&lt; <a class="el" href="a03615.html">script::Value</a>, false &gt;::deserializeStream </td>
-          <td>(</td>
-          <td class="paramtype">std::istream &amp;&#160;</td>
-          <td class="paramname"><em>stream</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a03615.html">script::Value</a> &amp;&#160;</td>
-          <td class="paramname"><em>result</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="memname">friend class <a class="el" href="a03839.html">RenderPass</a></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a05172_source.html#l01048">1048</a> of file <a class="el" href="a05172_source.html">Serializer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00974_source.html#l00066">66</a> of file <a class="el" href="a00974_source.html">RenderPassParameters.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a3a3a30e3c3614fa66e647526ba1bd430"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3a3a30e3c3614fa66e647526ba1bd430">&#9670;&nbsp;</a></span>serialize()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static <a class="el" href="a03775.html">Value</a> <a class="el" href="a03783.html">bl::serial::json::Serializer</a>&lt; <a class="el" href="a03615.html">script::Value</a>, false &gt;::serialize </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a03615.html">script::Value</a> &amp;&#160;</td>
-          <td class="paramname"><em>value</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a05172_source.html#l00929">929</a> of file <a class="el" href="a05172_source.html">Serializer.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a6b032ad67934b4f8df4c512e228201a4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6b032ad67934b4f8df4c512e228201a4">&#9670;&nbsp;</a></span>serializeInto()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void <a class="el" href="a03783.html">bl::serial::json::Serializer</a>&lt; <a class="el" href="a03615.html">script::Value</a>, false &gt;::serializeInto </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a03771.html">Group</a> &amp;&#160;</td>
-          <td class="paramname"><em>group</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a03615.html">script::Value</a> &amp;&#160;</td>
-          <td class="paramname"><em>val</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a05172_source.html#l00973">973</a> of file <a class="el" href="a05172_source.html">Serializer.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ab074c4e06717756cb871eb8b6fa1af82"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab074c4e06717756cb871eb8b6fa1af82">&#9670;&nbsp;</a></span>serializeStream()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static bool <a class="el" href="a03783.html">bl::serial::json::Serializer</a>&lt; <a class="el" href="a03615.html">script::Value</a>, false &gt;::serializeStream </td>
-          <td>(</td>
-          <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"><em>stream</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a03615.html">script::Value</a> &amp;&#160;</td>
-          <td class="paramname"><em>value</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname">, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname">&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a05172_source.html#l01055">1055</a> of file <a class="el" href="a05172_source.html">Serializer.hpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/BLIB/Serialization/JSON/<a class="el" href="a05172_source.html">Serializer.hpp</a></li>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/BLIB/Render/Vulkan/<a class="el" href="a00974_source.html">RenderPassParameters.hpp</a></li>
+<li>src/Render/Vulkan/<a class="el" href="a01850_source.html">RenderPassParameters.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 25 2023 00:24:24 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 27 2023 23:34:43 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

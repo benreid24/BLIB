@@ -66,24 +66,28 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01833.html">bl</a></li><li class="navelem"><a class="el" href="a01836.html">serial</a></li><li class="navelem"><a class="el" href="a01886.html">binary</a></li><li class="navelem"><a class="el" href="a03735.html">VersionedSerializer</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02058.html">bl</a></li><li class="navelem"><a class="el" href="a02070.html">rc</a></li><li class="navelem"><a class="el" href="a02110.html">tfr</a></li><li class="navelem"><a class="el" href="a03735.html">TransferContext</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">bl::serial::binary::VersionedSerializer&lt; Payload, DefaultLoader, Versions &gt; Member List</div>  </div>
+<div class="title">bl::rc::tfr::TransferContext Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a03735.html">bl::serial::binary::VersionedSerializer&lt; Payload, DefaultLoader, Versions &gt;</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a03735.html">bl::rc::tfr::TransferContext</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a03735.html#a5b58eff6352bd09ed9f8cb6564af0191">read</a>(InputStream &amp;input, Payload &amp;payload)</td><td class="entry"><a class="el" href="a03735.html">bl::serial::binary::VersionedSerializer&lt; Payload, DefaultLoader, Versions &gt;</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a03735.html#a842bf52cbb3166ccfa83e95ef3df7aee">write</a>(OutputStream &amp;output, const Payload &amp;payload)</td><td class="entry"><a class="el" href="a03735.html">bl::serial::binary::VersionedSerializer&lt; Payload, DefaultLoader, Versions &gt;</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a03735.html#a0095891b196aaca7b289210a8a774bee">createTemporaryStagingBuffer</a>(VkDeviceSize size, VkBuffer &amp;bufferResult, void **mappedMemory)</td><td class="entry"><a class="el" href="a03735.html">bl::rc::tfr::TransferContext</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a03735.html#a37f3aa2f09d5a38a8c6761f09ac26d8c">device</a>() const</td><td class="entry"><a class="el" href="a03735.html">bl::rc::tfr::TransferContext</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a03735.html#ad3498b85b2352fb77251503598d24bf0">registerBufferBarrier</a>(const VkBufferMemoryBarrier &amp;barrier)</td><td class="entry"><a class="el" href="a03735.html">bl::rc::tfr::TransferContext</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a03735.html#ab4518b0ecbee6232e04ea2aab04f05aa">registerImageBarrier</a>(const VkImageMemoryBarrier &amp;barrier)</td><td class="entry"><a class="el" href="a03735.html">bl::rc::tfr::TransferContext</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a03735.html#a0516ada22d07c935ad2a1dbff375a55f">registerMemoryBarrier</a>(const VkMemoryBarrier &amp;barrier)</td><td class="entry"><a class="el" href="a03735.html">bl::rc::tfr::TransferContext</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a03735.html#a9895ebe07a88d4990699ce7bc1c6975b">TransferContext</a>(std::mutex &amp;bucketMutex, vk::VulkanState &amp;vulkanState, std::vector&lt; VkBuffer &gt; &amp;stagingBuffers, std::vector&lt; VmaAllocation &gt; &amp;stagingAllocs, std::vector&lt; VkMemoryBarrier &gt; &amp;memoryBarriers, std::vector&lt; VkBufferMemoryBarrier &gt; &amp;bufferBarriers, std::vector&lt; VkImageMemoryBarrier &gt; &amp;imageBarriers)</td><td class="entry"><a class="el" href="a03735.html">bl::rc::tfr::TransferContext</a></td><td class="entry"></td></tr>
 </table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 25 2023 00:24:24 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 27 2023 23:34:43 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

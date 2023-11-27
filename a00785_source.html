@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Transfers/TransferEngine.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Graph/Assets/SceneAsset.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,116 +66,63 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_1371b99667ed992b8332faf3b4f2dec9.html">Transfers</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_70f08ea54355502249f886f7ca541c6e.html">Graph</a></li><li class="navelem"><a class="el" href="dir_318f4421f1f7fb4c659a5f109f7dfe6e.html">Assets</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">TransferEngine.hpp</div>  </div>
+<div class="title">SceneAsset.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00785.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_VULKAN_TRANSFERENGINE_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_VULKAN_TRANSFERENGINE_HPP</span></div>
+<a href="a00785.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_GRAPH_ASSETS_SCENEASSET_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_GRAPH_ASSETS_SCENEASSET_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00716.html">BLIB/Render/Primitives/Vertex.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00782.html">BLIB/Render/Transfers/TransferContext.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00779.html">BLIB/Render/Transfers/Transferable.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00818.html">BLIB/Render/Vulkan/PerFrame.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01106.html">BLIB/Vulkan.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;mutex&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00764.html">BLIB/Render/Graph/Asset.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02058.html">bl</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">class </span>Scene;</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01833.html">bl</a></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>rgi</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span>rc</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">class </span>Renderer;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">namespace </span>tfr</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;{</div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a03295.html">   25</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03295.html">TransferEngine</a> {</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03295.html#a23a553e20f95450f3e823a7a08741394">executeTransfers</a>();</div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a03495.html">   19</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03495.html">SceneAsset</a> : <span class="keyword">public</span> <a class="code" href="a03467.html">rg::Asset</a> {</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <a class="code" href="a03495.html#a0b5c6cdefb32d150f1f344f7cac47acf">SceneAsset</a>(<a class="code" href="a03687.html">Scene</a>* <a class="code" href="a03495.html#a5e4731f6b824801a27c6c0dcca4d3777">scene</a>);</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="a03495.html#ab71e1e2833d6f6440dd0f84b638d650e">   31</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03495.html#ab71e1e2833d6f6440dd0f84b638d650e">~SceneAsset</a>() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <a class="code" href="a03159.html">prim::Vertex</a>* <a class="code" href="a03295.html#afa673e0977f9a95bd36603116bc17516">createOneTimeVertexStorage</a>(std::uint32_t count);</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    std::uint32_t* <a class="code" href="a03295.html#a622ac404dfd07350c2cc847211fc9de3">createOneTimeIndexStorage</a>(std::uint32_t count);</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keyword">struct </span>Bucket {</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        std::mutex mutex;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <a class="code" href="a03431.html">vk::VulkanState</a>&amp; vulkanState;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <a class="code" href="a03351.html">vk::PerFrame&lt;VkCommandBuffer&gt;</a> commandBuffer;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <a class="code" href="a03351.html">vk::PerFrame&lt;VkFence&gt;</a> fence;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <a class="code" href="a03351.html">vk::PerFrame&lt;std::vector&lt;VkBuffer&gt;</a>&gt; stagingBuffers;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <a class="code" href="a03351.html">vk::PerFrame&lt;std::vector&lt;VmaAllocation&gt;</a>&gt; stagingAllocs;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        std::vector&lt;VkMemoryBarrier&gt; memoryBarriers;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        std::vector&lt;VkBufferMemoryBarrier&gt; bufferBarriers;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        std::vector&lt;VkImageMemoryBarrier&gt; imageBarriers;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        std::vector&lt;Transferable*&gt; oneTimeItems;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        std::vector&lt;Transferable*&gt; everyFrameItems;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        Bucket(<a class="code" href="a03431.html">vk::VulkanState</a>&amp; vs);</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <span class="keywordtype">void</span> init();</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <span class="keywordtype">void</span> cleanup();</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <span class="keywordtype">bool</span> hasTransfers() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="a03295.html#a23a553e20f95450f3e823a7a08741394">executeTransfers</a>();</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <span class="keywordtype">void</span> resetResourcesWithSync();</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    };</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <a class="code" href="a03431.html">vk::VulkanState</a>&amp; vulkanState;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    std::mutex mutex;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    Bucket immediateBucket;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    Bucket frameBucket;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    std::vector&lt;prim::Vertex&gt; tempVertices;</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    std::vector&lt;std::uint32_t&gt; tempIndices;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <a class="code" href="a03295.html">TransferEngine</a>(<a class="code" href="a03431.html">vk::VulkanState</a>&amp; vulkanState);</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keywordtype">void</span> init();</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordtype">void</span> cleanup();</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="comment">// for use by Transferable</span></div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keywordtype">void</span> queueOneTimeTransfer(<a class="code" href="a03287.html">Transferable</a>* item, <a class="code" href="a03287.html#a109f9d7acc098649830f276c266b47d0">Transferable::SyncRequirement</a> syncReq);</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordtype">void</span> registerPerFrameTransfer(<a class="code" href="a03287.html">Transferable</a>* item, <a class="code" href="a03287.html#a109f9d7acc098649830f276c266b47d0">Transferable::SyncRequirement</a> syncReq);</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keywordtype">void</span> unregisterPerFrameTransfer(<a class="code" href="a03287.html">Transferable</a>* item, <a class="code" href="a03287.html#a109f9d7acc098649830f276c266b47d0">Transferable::SyncRequirement</a> syncReq);</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
-<div class="line"><a name="l00092"></a><span class="lineno"><a class="line" href="a03295.html#a1fc8c4ea65463b448e068f1287349540">   92</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a03163.html">bl::rc::Renderer</a>;</div>
-<div class="line"><a name="l00093"></a><span class="lineno"><a class="line" href="a03295.html#a6ee612d03dbd6864b495f39f45c05513">   93</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">struct </span><a class="code" href="a03431.html">vk::VulkanState</a>;</div>
-<div class="line"><a name="l00094"></a><span class="lineno"><a class="line" href="a03295.html#aa262fa1478699e80e491638aef63fa10">   94</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a03287.html">Transferable</a>;</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;};</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">bool</span> TransferEngine::Bucket::hasTransfers()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keywordflow">return</span> !everyFrameItems.empty() || !oneTimeItems.empty();</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;}</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;} <span class="comment">// namespace tfr</span></div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00716_html"><div class="ttname"><a href="a00716.html">Vertex.hpp</a></div></div>
-<div class="ttc" id="aa00779_html"><div class="ttname"><a href="a00779.html">Transferable.hpp</a></div></div>
-<div class="ttc" id="aa00782_html"><div class="ttname"><a href="a00782.html">TransferContext.hpp</a></div></div>
-<div class="ttc" id="aa00818_html"><div class="ttname"><a href="a00818.html">PerFrame.hpp</a></div></div>
-<div class="ttc" id="aa01106_html"><div class="ttname"><a href="a01106.html">Vulkan.hpp</a></div></div>
-<div class="ttc" id="aa01833_html"><div class="ttname"><a href="a01833.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03159_html"><div class="ttname"><a href="a03159.html">bl::rc::prim::Vertex</a></div><div class="ttdoc">Base Vertex primitive for the renderer.</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00022">Vertex.hpp:22</a></div></div>
-<div class="ttc" id="aa03163_html"><div class="ttname"><a href="a03163.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition:</b> <a href="a05139_source.html#l00039">Renderer.hpp:39</a></div></div>
-<div class="ttc" id="aa03287_html"><div class="ttname"><a href="a03287.html">bl::rc::tfr::Transferable</a></div><div class="ttdoc">Base class for objects that transfer state or data to the GPU. Used in conjunction with the TransferE...</div><div class="ttdef"><b>Definition:</b> <a href="a00779_source.html#l00025">Transferable.hpp:25</a></div></div>
-<div class="ttc" id="aa03287_html_a109f9d7acc098649830f276c266b47d0"><div class="ttname"><a href="a03287.html#a109f9d7acc098649830f276c266b47d0">bl::rc::tfr::Transferable::SyncRequirement</a></div><div class="ttdeci">SyncRequirement</div><div class="ttdoc">Enum containing requirements for when transfers may start.</div><div class="ttdef"><b>Definition:</b> <a href="a00779_source.html#l00028">Transferable.hpp:28</a></div></div>
-<div class="ttc" id="aa03295_html"><div class="ttname"><a href="a03295.html">bl::rc::tfr::TransferEngine</a></div><div class="ttdoc">Utility class to manage the synchronized transfer of data to the GPU.</div><div class="ttdef"><b>Definition:</b> <a href="a00785_source.html#l00025">TransferEngine.hpp:25</a></div></div>
-<div class="ttc" id="aa03295_html_a23a553e20f95450f3e823a7a08741394"><div class="ttname"><a href="a03295.html#a23a553e20f95450f3e823a7a08741394">bl::rc::tfr::TransferEngine::executeTransfers</a></div><div class="ttdeci">void executeTransfers()</div><div class="ttdoc">Executes the queued transfers, potentially blocking on the prior set of transfers if not yet complete...</div><div class="ttdef"><b>Definition:</b> <a href="a01592_source.html#l00085">TransferEngine.cpp:85</a></div></div>
-<div class="ttc" id="aa03295_html_a622ac404dfd07350c2cc847211fc9de3"><div class="ttname"><a href="a03295.html#a622ac404dfd07350c2cc847211fc9de3">bl::rc::tfr::TransferEngine::createOneTimeIndexStorage</a></div><div class="ttdeci">std::uint32_t * createOneTimeIndexStorage(std::uint32_t count)</div><div class="ttdoc">Creates CPU storage for indices for a single frame. Useful for firing data to GPU that does not other...</div><div class="ttdef"><b>Definition:</b> <a href="a01592_source.html#l00079">TransferEngine.cpp:79</a></div></div>
-<div class="ttc" id="aa03295_html_afa673e0977f9a95bd36603116bc17516"><div class="ttname"><a href="a03295.html#afa673e0977f9a95bd36603116bc17516">bl::rc::tfr::TransferEngine::createOneTimeVertexStorage</a></div><div class="ttdeci">prim::Vertex * createOneTimeVertexStorage(std::uint32_t count)</div><div class="ttdoc">Creates CPU storage for vertices for a single frame. Useful for firing data to GPU that does not othe...</div><div class="ttdef"><b>Definition:</b> <a href="a01592_source.html#l00073">TransferEngine.cpp:73</a></div></div>
-<div class="ttc" id="aa03351_html"><div class="ttname"><a href="a03351.html">bl::rc::vk::PerFrame&lt; VkCommandBuffer &gt;</a></div></div>
-<div class="ttc" id="aa03431_html"><div class="ttname"><a href="a03431.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a00857_source.html#l00038">VulkanState.hpp:38</a></div></div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="a03495.html#a5e4731f6b824801a27c6c0dcca4d3777">   33</a></span>&#160;    <a class="code" href="a03687.html">Scene</a>* <a class="code" href="a03495.html#a5e4731f6b824801a27c6c0dcca4d3777">scene</a>;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> doCreate(<a class="code" href="a02555.html">engine::Engine</a>&amp; engine, <a class="code" href="a03603.html">Renderer</a>&amp; renderer, <a class="code" href="a03567.html">Observer</a>* observer) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> doPrepareForInput(<span class="keyword">const</span> <a class="code" href="a03507.html">rg::ExecutionContext</a>&amp; context) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> doPrepareForOutput(<span class="keyword">const</span> <a class="code" href="a03507.html">rg::ExecutionContext</a>&amp; context) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;};</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;} <span class="comment">// namespace rgi</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00764_html"><div class="ttname"><a href="a00764.html">Asset.hpp</a></div></div>
+<div class="ttc" id="aa02058_html"><div class="ttname"><a href="a02058.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02555_html"><div class="ttname"><a href="a02555.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a05599_source.html#l00032">Engine.hpp:32</a></div></div>
+<div class="ttc" id="aa03467_html"><div class="ttname"><a href="a03467.html">bl::rc::rg::Asset</a></div><div class="ttdoc">Base class for assets in render graphs.</div><div class="ttdef"><b>Definition:</b> <a href="a00764_source.html#l00032">Asset.hpp:32</a></div></div>
+<div class="ttc" id="aa03495_html"><div class="ttname"><a href="a03495.html">bl::rc::rgi::SceneAsset</a></div><div class="ttdoc">Basic asset that provides the scene to tasks.</div><div class="ttdef"><b>Definition:</b> <a href="a00785_source.html#l00019">SceneAsset.hpp:19</a></div></div>
+<div class="ttc" id="aa03495_html_a0b5c6cdefb32d150f1f344f7cac47acf"><div class="ttname"><a href="a03495.html#a0b5c6cdefb32d150f1f344f7cac47acf">bl::rc::rgi::SceneAsset::SceneAsset</a></div><div class="ttdeci">SceneAsset(Scene *scene)</div><div class="ttdoc">Creates the asset from a scene.</div><div class="ttdef"><b>Definition:</b> <a href="a01718_source.html#l00011">SceneAsset.cpp:11</a></div></div>
+<div class="ttc" id="aa03495_html_a5e4731f6b824801a27c6c0dcca4d3777"><div class="ttname"><a href="a03495.html#a5e4731f6b824801a27c6c0dcca4d3777">bl::rc::rgi::SceneAsset::scene</a></div><div class="ttdeci">Scene * scene</div><div class="ttdef"><b>Definition:</b> <a href="a00785_source.html#l00033">SceneAsset.hpp:33</a></div></div>
+<div class="ttc" id="aa03495_html_ab71e1e2833d6f6440dd0f84b638d650e"><div class="ttname"><a href="a03495.html#ab71e1e2833d6f6440dd0f84b638d650e">bl::rc::rgi::SceneAsset::~SceneAsset</a></div><div class="ttdeci">virtual ~SceneAsset()=default</div><div class="ttdoc">Destroys the asset.</div></div>
+<div class="ttc" id="aa03507_html"><div class="ttname"><a href="a03507.html">bl::rc::rg::ExecutionContext</a></div><div class="ttdoc">Context containing graph execution data that is passed down to tasks.</div><div class="ttdef"><b>Definition:</b> <a href="a00794_source.html#l00025">ExecutionContext.hpp:25</a></div></div>
+<div class="ttc" id="aa03567_html"><div class="ttname"><a href="a03567.html">bl::rc::Observer</a></div><div class="ttdoc">Top level class for observers in the renderer. Corresponds to Engine Actors. Each observer may have i...</div><div class="ttdef"><b>Definition:</b> <a href="a00833_source.html#l00036">Observer.hpp:36</a></div></div>
+<div class="ttc" id="aa03603_html"><div class="ttname"><a href="a03603.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition:</b> <a href="a05641_source.html#l00039">Renderer.hpp:39</a></div></div>
+<div class="ttc" id="aa03687_html"><div class="ttname"><a href="a03687.html">bl::rc::Scene</a></div><div class="ttdoc">Base class for all scene types and overlays. Provides common scene logic and object management....</div><div class="ttdef"><b>Definition:</b> <a href="a00893_source.html#l00051">Scene.hpp:51</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 25 2023 00:24:20 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 27 2023 23:34:41 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

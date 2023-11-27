@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::rc::vk::AttachmentSet Class Reference</title>
+<title>BLIB: bl::rc::buf::BatchIndexBufferT&lt; T &gt;::AllocInfo Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,309 +66,142 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01833.html">bl</a></li><li class="navelem"><a class="el" href="a01845.html">rc</a></li><li class="navelem"><a class="el" href="a01846.html">vk</a></li><li class="navelem"><a class="el" href="a03311.html">AttachmentSet</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02058.html">bl</a></li><li class="navelem"><a class="el" href="a02070.html">rc</a></li><li class="navelem"><a class="el" href="a02101.html">buf</a></li><li class="navelem"><a class="el" href="a03307.html">BatchIndexBufferT</a></li><li class="navelem"><a class="el" href="a03311.html">AllocInfo</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pro-attribs">Protected Attributes</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a03308.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::rc::vk::AttachmentSet Class Reference<div class="ingroups"><a class="el" href="a01820.html">Renderer</a></div></div>  </div>
+<div class="title">bl::rc::buf::BatchIndexBufferT&lt; T &gt;::AllocInfo Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Base class representing an attachment set that can be rendered to. Derived classes can provide additional functionality.  
+<p>Basic info defining a sub-allocation in the index buffer.  
  <a href="a03311.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00797_source.html">AttachmentSet.hpp</a>&gt;</code></p>
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::rc::vk::AttachmentSet:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
- <div class="center">
-  <img src="a03311.png" usemap="#bl::rc::vk::AttachmentSet_map" alt=""/>
-  <map id="bl::rc::vk::AttachmentSet_map" name="bl::rc::vk::AttachmentSet_map">
-<area href="a03415.html" title="Attachment set containing the standard attachments for render frames in the engine." alt="bl::rc::vk::StandardAttachmentSet" shape="rect" coords="0,56,196,80"/>
-  </map>
-</div></div>
+<p><code>#include &lt;<a class="el" href="a00671_source.html">BatchIndexBuffer.hpp</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a2277569d26459bf620e46b1c26a4b47e"><td class="memTemplParams" colspan="2">template&lt;std::size_t N&gt; </td></tr>
-<tr class="memitem:a2277569d26459bf620e46b1c26a4b47e"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a03311.html#a2277569d26459bf620e46b1c26a4b47e">AttachmentSet</a> (std::array&lt; VkImage, N &gt; &amp;<a class="el" href="a03311.html#a405d6db47c42436b238bba926a21871a">images</a>, std::array&lt; VkImageView, N &gt; &amp;views)</td></tr>
-<tr class="memdesc:a2277569d26459bf620e46b1c26a4b47e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the attachment set from the images and views.  <a href="a03311.html#a2277569d26459bf620e46b1c26a4b47e">More...</a><br /></td></tr>
-<tr class="separator:a2277569d26459bf620e46b1c26a4b47e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a405d6db47c42436b238bba926a21871a"><td class="memItemLeft" align="right" valign="top">constexpr const VkImage *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03311.html#a405d6db47c42436b238bba926a21871a">images</a> () const</td></tr>
-<tr class="memdesc:a405d6db47c42436b238bba926a21871a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a pointer to the start of the images.  <a href="a03311.html#a405d6db47c42436b238bba926a21871a">More...</a><br /></td></tr>
-<tr class="separator:a405d6db47c42436b238bba926a21871a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0aa8d94c94096392ddf189dabb24acd1"><td class="memItemLeft" align="right" valign="top">constexpr const VkImageView *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03311.html#a0aa8d94c94096392ddf189dabb24acd1">imageViews</a> () const</td></tr>
-<tr class="memdesc:a0aa8d94c94096392ddf189dabb24acd1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a pointer to the start of the image views.  <a href="a03311.html#a0aa8d94c94096392ddf189dabb24acd1">More...</a><br /></td></tr>
-<tr class="separator:a0aa8d94c94096392ddf189dabb24acd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac53e2eb45e02a4d69446f20fdb6a27bb"><td class="memItemLeft" align="right" valign="top">constexpr std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03311.html#ac53e2eb45e02a4d69446f20fdb6a27bb">size</a> () const</td></tr>
-<tr class="memdesc:ac53e2eb45e02a4d69446f20fdb6a27bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of attachments in the set.  <a href="a03311.html#ac53e2eb45e02a4d69446f20fdb6a27bb">More...</a><br /></td></tr>
-<tr class="separator:ac53e2eb45e02a4d69446f20fdb6a27bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3b2d23677dd641f2c0e0dda9444662b7"><td class="memItemLeft" align="right" valign="top">constexpr const VkExtent2D &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03311.html#a3b2d23677dd641f2c0e0dda9444662b7">renderExtent</a> () const</td></tr>
-<tr class="memdesc:a3b2d23677dd641f2c0e0dda9444662b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the size of the renderable area.  <a href="a03311.html#a3b2d23677dd641f2c0e0dda9444662b7">More...</a><br /></td></tr>
-<tr class="separator:a3b2d23677dd641f2c0e0dda9444662b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5f7aaaa7edf6d66939fffcb84b1b23cd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03311.html#a5f7aaaa7edf6d66939fffcb84b1b23cd">setRenderExtent</a> (const VkExtent2D &amp;<a class="el" href="a03311.html#ada8d627479153db31a1cf42d14499cc8">extent</a>)</td></tr>
-<tr class="memdesc:a5f7aaaa7edf6d66939fffcb84b1b23cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the render extent of this attachment set.  <a href="a03311.html#a5f7aaaa7edf6d66939fffcb84b1b23cd">More...</a><br /></td></tr>
-<tr class="separator:a5f7aaaa7edf6d66939fffcb84b1b23cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
-Protected Attributes</h2></td></tr>
-<tr class="memitem:ada8d627479153db31a1cf42d14499cc8"><td class="memItemLeft" align="right" valign="top">VkExtent2D&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03311.html#ada8d627479153db31a1cf42d14499cc8">extent</a></td></tr>
-<tr class="separator:ada8d627479153db31a1cf42d14499cc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a1444b939093be1043c63a8b3c8be901e"><td class="memItemLeft" align="right" valign="top">std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03311.html#a1444b939093be1043c63a8b3c8be901e">refCount</a></td></tr>
+<tr class="separator:a1444b939093be1043c63a8b3c8be901e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad5ab741fb3ff6160b5162f1cf49f3b8a"><td class="memItemLeft" align="right" valign="top">std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03311.html#ad5ab741fb3ff6160b5162f1cf49f3b8a">vertexStart</a></td></tr>
+<tr class="separator:ad5ab741fb3ff6160b5162f1cf49f3b8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a349f5b9f304da6bc6e38bb3ec0fc8c"><td class="memItemLeft" align="right" valign="top">std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03311.html#a0a349f5b9f304da6bc6e38bb3ec0fc8c">vertexSize</a></td></tr>
+<tr class="separator:a0a349f5b9f304da6bc6e38bb3ec0fc8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a484cb771728295d4badce6a1f114c48d"><td class="memItemLeft" align="right" valign="top">std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03311.html#a484cb771728295d4badce6a1f114c48d">indexStart</a></td></tr>
+<tr class="separator:a484cb771728295d4badce6a1f114c48d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a45bd431617b7659fb5ea5d46aa4b1d78"><td class="memItemLeft" align="right" valign="top">std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03311.html#a45bd431617b7659fb5ea5d46aa4b1d78">indexSize</a></td></tr>
+<tr class="separator:a45bd431617b7659fb5ea5d46aa4b1d78"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Base class representing an attachment set that can be rendered to. Derived classes can provide additional functionality. </p>
+<div class="textblock"><h3>template&lt;typename T&gt;<br />
+struct bl::rc::buf::BatchIndexBufferT&lt; T &gt;::AllocInfo</h3>
 
-<p class="definition">Definition at line <a class="el" href="a00797_source.html#l00020">20</a> of file <a class="el" href="a00797_source.html">AttachmentSet.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a2277569d26459bf620e46b1c26a4b47e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2277569d26459bf620e46b1c26a4b47e">&#9670;&nbsp;</a></span>AttachmentSet()</h2>
+<p>Basic info defining a sub-allocation in the index buffer. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00671_source.html#l00029">29</a> of file <a class="el" href="a00671_source.html">BatchIndexBuffer.hpp</a>.</p>
+</div><h2 class="groupheader">Member Data Documentation</h2>
+<a id="a45bd431617b7659fb5ea5d46aa4b1d78"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a45bd431617b7659fb5ea5d46aa4b1d78">&#9670;&nbsp;</a></span>indexSize</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;std::size_t N&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
+template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">bl::rc::vk::AttachmentSet::AttachmentSet </td>
-          <td>(</td>
-          <td class="paramtype">std::array&lt; VkImage, N &gt; &amp;&#160;</td>
-          <td class="paramname"><em>images</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::array&lt; VkImageView, N &gt; &amp;&#160;</td>
-          <td class="paramname"><em>views</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="memname">std::uint32_t <a class="el" href="a03307.html">bl::rc::buf::BatchIndexBufferT</a>&lt; T &gt;::AllocInfo::indexSize</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Creates the attachment set from the images and views. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">N</td><td>The number of attachments </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">images</td><td>The array of image handles </td></tr>
-    <tr><td class="paramname">views</td><td>The array of image view handles </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00797_source.html#l00083">83</a> of file <a class="el" href="a00797_source.html">AttachmentSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00671_source.html#l00034">34</a> of file <a class="el" href="a00671_source.html">BatchIndexBuffer.hpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a405d6db47c42436b238bba926a21871a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a405d6db47c42436b238bba926a21871a">&#9670;&nbsp;</a></span>images()</h2>
+<a id="a484cb771728295d4badce6a1f114c48d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a484cb771728295d4badce6a1f114c48d">&#9670;&nbsp;</a></span>indexStart</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">constexpr const VkImage * bl::rc::vk::AttachmentSet::images </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td class="memname">std::uint32_t <a class="el" href="a03307.html">bl::rc::buf::BatchIndexBufferT</a>&lt; T &gt;::AllocInfo::indexStart</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Returns a pointer to the start of the images. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00797_source.html#l00074">74</a> of file <a class="el" href="a00797_source.html">AttachmentSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00671_source.html#l00033">33</a> of file <a class="el" href="a00671_source.html">BatchIndexBuffer.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a0aa8d94c94096392ddf189dabb24acd1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0aa8d94c94096392ddf189dabb24acd1">&#9670;&nbsp;</a></span>imageViews()</h2>
+<a id="a1444b939093be1043c63a8b3c8be901e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1444b939093be1043c63a8b3c8be901e">&#9670;&nbsp;</a></span>refCount</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">constexpr const VkImageView * bl::rc::vk::AttachmentSet::imageViews </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td class="memname">std::uint32_t <a class="el" href="a03307.html">bl::rc::buf::BatchIndexBufferT</a>&lt; T &gt;::AllocInfo::refCount</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Returns a pointer to the start of the image views. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00797_source.html#l00076">76</a> of file <a class="el" href="a00797_source.html">AttachmentSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00671_source.html#l00030">30</a> of file <a class="el" href="a00671_source.html">BatchIndexBuffer.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a3b2d23677dd641f2c0e0dda9444662b7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3b2d23677dd641f2c0e0dda9444662b7">&#9670;&nbsp;</a></span>renderExtent()</h2>
+<a id="a0a349f5b9f304da6bc6e38bb3ec0fc8c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a349f5b9f304da6bc6e38bb3ec0fc8c">&#9670;&nbsp;</a></span>vertexSize</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">constexpr const VkExtent2D &amp; bl::rc::vk::AttachmentSet::renderExtent </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td class="memname">std::uint32_t <a class="el" href="a03307.html">bl::rc::buf::BatchIndexBufferT</a>&lt; T &gt;::AllocInfo::vertexSize</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Returns the size of the renderable area. </p>
-<dl class="section return"><dt>Returns</dt><dd>The size of the renderable area </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00797_source.html#l00080">80</a> of file <a class="el" href="a00797_source.html">AttachmentSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00671_source.html#l00032">32</a> of file <a class="el" href="a00671_source.html">BatchIndexBuffer.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a5f7aaaa7edf6d66939fffcb84b1b23cd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5f7aaaa7edf6d66939fffcb84b1b23cd">&#9670;&nbsp;</a></span>setRenderExtent()</h2>
+<a id="ad5ab741fb3ff6160b5162f1cf49f3b8a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad5ab741fb3ff6160b5162f1cf49f3b8a">&#9670;&nbsp;</a></span>vertexStart</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">void bl::rc::vk::AttachmentSet::setRenderExtent </td>
-          <td>(</td>
-          <td class="paramtype">const VkExtent2D &amp;&#160;</td>
-          <td class="paramname"><em>extent</em></td><td>)</td>
-          <td></td>
+          <td class="memname">std::uint32_t <a class="el" href="a03307.html">bl::rc::buf::BatchIndexBufferT</a>&lt; T &gt;::AllocInfo::vertexStart</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Sets the render extent of this attachment set. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">extent</td><td>The extent of rendering for this attachment set </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00797_source.html#l00089">89</a> of file <a class="el" href="a00797_source.html">AttachmentSet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00671_source.html#l00031">31</a> of file <a class="el" href="a00671_source.html">BatchIndexBuffer.hpp</a>.</p>
 
 </div>
 </div>
-<a id="ac53e2eb45e02a4d69446f20fdb6a27bb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac53e2eb45e02a4d69446f20fdb6a27bb">&#9670;&nbsp;</a></span>size()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr std::uint32_t bl::rc::vk::AttachmentSet::size </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the number of attachments in the set. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00797_source.html#l00078">78</a> of file <a class="el" href="a00797_source.html">AttachmentSet.hpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="ada8d627479153db31a1cf42d14499cc8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ada8d627479153db31a1cf42d14499cc8">&#9670;&nbsp;</a></span>extent</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">VkExtent2D bl::rc::vk::AttachmentSet::extent</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00797_source.html#l00062">62</a> of file <a class="el" href="a00797_source.html">AttachmentSet.hpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>include/BLIB/Render/Vulkan/<a class="el" href="a00797_source.html">AttachmentSet.hpp</a></li>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>include/BLIB/Render/Buffers/<a class="el" href="a00671_source.html">BatchIndexBuffer.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 25 2023 00:24:23 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 27 2023 23:34:43 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Graph/Assets/SceneAsset.hpp Source File</title>
+<title>BLIB: include/BLIB/Parser/ISkipper.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,63 +66,49 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_70f08ea54355502249f886f7ca541c6e.html">Graph</a></li><li class="navelem"><a class="el" href="dir_318f4421f1f7fb4c659a5f109f7dfe6e.html">Assets</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_68e8475672e907ae2e4c385fdd89fef9.html">Parser</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">SceneAsset.hpp</div>  </div>
+<div class="title">ISkipper.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00650.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_GRAPH_ASSETS_SCENEASSET_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_GRAPH_ASSETS_SCENEASSET_HPP</span></div>
+<a href="a00650.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_PARSER_ISKIPPER_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_PARSER_ISKIPPER_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00629.html">BLIB/Render/Graph/Asset.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01833.html">bl</a></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>rc</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">class </span>Scene;</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>rgi</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a03059.html">   19</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03059.html">SceneAsset</a> : <span class="keyword">public</span> <a class="code" href="a03031.html">rg::Asset</a> {</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <a class="code" href="a03059.html#a0b5c6cdefb32d150f1f344f7cac47acf">SceneAsset</a>(<a class="code" href="a03243.html">Scene</a>* <a class="code" href="a03059.html#a5e4731f6b824801a27c6c0dcca4d3777">scene</a>);</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="a03059.html#ab71e1e2833d6f6440dd0f84b638d650e">   31</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03059.html#ab71e1e2833d6f6440dd0f84b638d650e">~SceneAsset</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="a03059.html#a5e4731f6b824801a27c6c0dcca4d3777">   33</a></span>&#160;    <a class="code" href="a03243.html">Scene</a>* <a class="code" href="a03059.html#a5e4731f6b824801a27c6c0dcca4d3777">scene</a>;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00659.html">BLIB/Parser/Stream.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02058.html">bl</a></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>parser</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a03267.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03267.html">ISkipper</a> {</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a03267.html#ac94262dbc4b796277c22a958aa727323">   19</a></span>&#160;    <span class="keyword">typedef</span> std::shared_ptr&lt;ISkipper&gt; <a class="code" href="a03267.html#ac94262dbc4b796277c22a958aa727323">Ptr</a>;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a03267.html#a8afaad7778d34f6f3f86198ebdd4a86b">   25</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03267.html#a8afaad7778d34f6f3f86198ebdd4a86b">~ISkipper</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="a03267.html#a044cd5fba80d2ab990c25d9b92bbc5b4">   32</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03267.html#a044cd5fba80d2ab990c25d9b92bbc5b4">skip</a>(<a class="code" href="a03291.html">Stream</a>&amp; stream) <span class="keyword">const</span> = 0;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;};</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> doCreate(<a class="code" href="a02319.html">engine::Engine</a>&amp; engine, <a class="code" href="a03163.html">Renderer</a>&amp; renderer, <a class="code" href="a03131.html">Observer</a>* observer) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> doPrepareForInput(<span class="keyword">const</span> <a class="code" href="a03071.html">rg::ExecutionContext</a>&amp; context) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> doPrepareForOutput(<span class="keyword">const</span> <a class="code" href="a03071.html">rg::ExecutionContext</a>&amp; context) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;};</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;} <span class="comment">// namespace rgi</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00629_html"><div class="ttname"><a href="a00629.html">Asset.hpp</a></div></div>
-<div class="ttc" id="aa01833_html"><div class="ttname"><a href="a01833.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02319_html"><div class="ttname"><a href="a02319.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a05103_source.html#l00032">Engine.hpp:32</a></div></div>
-<div class="ttc" id="aa03031_html"><div class="ttname"><a href="a03031.html">bl::rc::rg::Asset</a></div><div class="ttdoc">Base class for assets in render graphs.</div><div class="ttdef"><b>Definition:</b> <a href="a00629_source.html#l00032">Asset.hpp:32</a></div></div>
-<div class="ttc" id="aa03059_html"><div class="ttname"><a href="a03059.html">bl::rc::rgi::SceneAsset</a></div><div class="ttdoc">Basic asset that provides the scene to tasks.</div><div class="ttdef"><b>Definition:</b> <a href="a00650_source.html#l00019">SceneAsset.hpp:19</a></div></div>
-<div class="ttc" id="aa03059_html_a0b5c6cdefb32d150f1f344f7cac47acf"><div class="ttname"><a href="a03059.html#a0b5c6cdefb32d150f1f344f7cac47acf">bl::rc::rgi::SceneAsset::SceneAsset</a></div><div class="ttdeci">SceneAsset(Scene *scene)</div><div class="ttdoc">Creates the asset from a scene.</div><div class="ttdef"><b>Definition:</b> <a href="a01496_source.html#l00011">SceneAsset.cpp:11</a></div></div>
-<div class="ttc" id="aa03059_html_a5e4731f6b824801a27c6c0dcca4d3777"><div class="ttname"><a href="a03059.html#a5e4731f6b824801a27c6c0dcca4d3777">bl::rc::rgi::SceneAsset::scene</a></div><div class="ttdeci">Scene * scene</div><div class="ttdef"><b>Definition:</b> <a href="a00650_source.html#l00033">SceneAsset.hpp:33</a></div></div>
-<div class="ttc" id="aa03059_html_ab71e1e2833d6f6440dd0f84b638d650e"><div class="ttname"><a href="a03059.html#ab71e1e2833d6f6440dd0f84b638d650e">bl::rc::rgi::SceneAsset::~SceneAsset</a></div><div class="ttdeci">virtual ~SceneAsset()=default</div><div class="ttdoc">Destroys the asset.</div></div>
-<div class="ttc" id="aa03071_html"><div class="ttname"><a href="a03071.html">bl::rc::rg::ExecutionContext</a></div><div class="ttdoc">Context containing graph execution data that is passed down to tasks.</div><div class="ttdef"><b>Definition:</b> <a href="a00659_source.html#l00025">ExecutionContext.hpp:25</a></div></div>
-<div class="ttc" id="aa03131_html"><div class="ttname"><a href="a03131.html">bl::rc::Observer</a></div><div class="ttdoc">Top level class for observers in the renderer. Corresponds to Engine Actors. Each observer may have i...</div><div class="ttdef"><b>Definition:</b> <a href="a00698_source.html#l00036">Observer.hpp:36</a></div></div>
-<div class="ttc" id="aa03163_html"><div class="ttname"><a href="a03163.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition:</b> <a href="a05139_source.html#l00039">Renderer.hpp:39</a></div></div>
-<div class="ttc" id="aa03243_html"><div class="ttname"><a href="a03243.html">bl::rc::Scene</a></div><div class="ttdoc">Base class for all scene types and overlays. Provides common scene logic and object management....</div><div class="ttdef"><b>Definition:</b> <a href="a00758_source.html#l00051">Scene.hpp:51</a></div></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;} <span class="comment">// namespace parser</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00659_html"><div class="ttname"><a href="a00659.html">Stream.hpp</a></div></div>
+<div class="ttc" id="aa02058_html"><div class="ttname"><a href="a02058.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03267_html"><div class="ttname"><a href="a03267.html">bl::parser::ISkipper</a></div><div class="ttdoc">Interface for custom parsers to skip past unwanted characters such as whitespace or comments.</div><div class="ttdef"><b>Definition:</b> <a href="a00650_source.html#l00017">ISkipper.hpp:17</a></div></div>
+<div class="ttc" id="aa03267_html_a044cd5fba80d2ab990c25d9b92bbc5b4"><div class="ttname"><a href="a03267.html#a044cd5fba80d2ab990c25d9b92bbc5b4">bl::parser::ISkipper::skip</a></div><div class="ttdeci">virtual void skip(Stream &amp;stream) const =0</div><div class="ttdoc">Skip past unwanted characters in the stream.</div></div>
+<div class="ttc" id="aa03267_html_a8afaad7778d34f6f3f86198ebdd4a86b"><div class="ttname"><a href="a03267.html#a8afaad7778d34f6f3f86198ebdd4a86b">bl::parser::ISkipper::~ISkipper</a></div><div class="ttdeci">virtual ~ISkipper()=default</div><div class="ttdoc">Destroy the ISkipper object.</div></div>
+<div class="ttc" id="aa03267_html_ac94262dbc4b796277c22a958aa727323"><div class="ttname"><a href="a03267.html#ac94262dbc4b796277c22a958aa727323">bl::parser::ISkipper::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; ISkipper &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00650_source.html#l00019">ISkipper.hpp:19</a></div></div>
+<div class="ttc" id="aa03291_html"><div class="ttname"><a href="a03291.html">bl::parser::Stream</a></div><div class="ttdoc">Wrapper class around std::ostream. Used for keeping track of current line and column numbers.</div><div class="ttdef"><b>Definition:</b> <a href="a00659_source.html#l00017">Stream.hpp:17</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 25 2023 00:24:20 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 27 2023 23:34:40 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

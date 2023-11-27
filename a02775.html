@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::menu::Item Class Reference</title>
+<title>BLIB: bl::gfx::s2d::Shape2D Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,193 +66,108 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01833.html">bl</a></li><li class="navelem"><a class="el" href="a01866.html">menu</a></li><li class="navelem"><a class="el" href="a02775.html">Item</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02058.html">bl</a></li><li class="navelem"><a class="el" href="a02068.html">gfx</a></li><li class="navelem"><a class="el" href="a02084.html">s2d</a></li><li class="navelem"><a class="el" href="a02775.html">Shape2D</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
-<a href="#friends">Friends</a> &#124;
 <a href="a02772.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::menu::Item Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span><div class="ingroups"><a class="el" href="a01815.html">Interface</a> &raquo; <a class="el" href="a01829.html">Menu</a></div></div>  </div>
+<div class="title">bl::gfx::s2d::Shape2D Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span><div class="ingroups"><a class="el" href="a02038.html">Graphics</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="a02775.html" title="Item for a mouseless menu. Can be &#39;attached&#39; to other items in a Menu, configured to be selectable,...">Item</a> for a mouseless menu. Can be 'attached' to other items in a <a class="el" href="a02795.html" title="Primary class for mouseless menus.">Menu</a>, configured to be selectable, and can trigger a signal if selected. Subclasses of this provide specific behaviors.  
+<p>Base class for all 2d shapes. Provides part of the interface, as well as index buffer population. Does not provide storage.  
  <a href="a02775.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00446_source.html">Item.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a05554_source.html">Shape2D.hpp</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::menu::Item:</div>
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::gfx::s2d::Shape2D:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
  <div class="center">
-  <img src="a02775.png" usemap="#bl::menu::Item_map" alt=""/>
-  <map id="bl::menu::Item_map" name="bl::menu::Item_map">
-<area href="a02779.html" title="RenderItem for displaying sprites in a Menu." alt="bl::menu::ImageItem" shape="rect" coords="0,56,147,80"/>
-<area href="a02783.html" title="Wrapper item that serves as a dropdown menu of sorts. A base item is used to provide the behavior and..." alt="bl::menu::SubmenuItem" shape="rect" coords="157,56,304,80"/>
-<area href="a02787.html" title="RenderItem to display text." alt="bl::menu::TextItem" shape="rect" coords="314,56,461,80"/>
-<area href="a02791.html" title="Text item with a boolean toggle state. Renders a checkbox to the side of the text." alt="bl::menu::ToggleTextItem" shape="rect" coords="314,112,461,136"/>
+  <img src="a02775.png" usemap="#bl::gfx::s2d::Shape2D_map" alt=""/>
+  <map id="bl::gfx::s2d::Shape2D_map" name="bl::gfx::s2d::Shape2D_map">
+<area href="a02759.html" title="Base class for batched 2d shapes." alt="bl::gfx::s2d::BatchShape2D" shape="rect" coords="0,56,298,80"/>
+<area href="a02779.html" title="Base class for individual 2d shapes. Provides index buffer creation and management." alt="bl::gfx::s2d::SingleShape2D" shape="rect" coords="616,56,914,80"/>
+<area href="a02763.html" alt="bl::gfx::s2d::CircleBase&lt; s2d::BatchShape2D &gt;" shape="rect" coords="308,112,606,136"/>
+<area href="a02767.html" alt="bl::gfx::s2d::IconBase&lt; s2d::BatchShape2D &gt;" shape="rect" coords="308,168,606,192"/>
+<area href="a02771.html" alt="bl::gfx::s2d::RectangleBase&lt; s2d::BatchShape2D &gt;" shape="rect" coords="308,224,606,248"/>
+<area href="a02783.html" alt="bl::gfx::s2d::TriangleBase&lt; s2d::BatchShape2D &gt;" shape="rect" coords="308,280,606,304"/>
+<area href="a02763.html" alt="bl::gfx::s2d::CircleBase&lt; s2d::SingleShape2D &gt;" shape="rect" coords="924,112,1222,136"/>
+<area href="a02767.html" alt="bl::gfx::s2d::IconBase&lt; s2d::SingleShape2D &gt;" shape="rect" coords="924,168,1222,192"/>
+<area href="a02771.html" alt="bl::gfx::s2d::RectangleBase&lt; s2d::SingleShape2D &gt;" shape="rect" coords="924,224,1222,248"/>
+<area href="a02783.html" alt="bl::gfx::s2d::TriangleBase&lt; s2d::SingleShape2D &gt;" shape="rect" coords="924,280,1222,304"/>
   </map>
 </div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:a59352334626855d0cd8c8ca1b173db68"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02775.html#a59352334626855d0cd8c8ca1b173db68">AttachPoint</a> { <br />
-&#160;&#160;<a class="el" href="a02775.html#a59352334626855d0cd8c8ca1b173db68a8ee44d5181ad1e85a92709f1d0b4937c">Top</a>
-, <a class="el" href="a02775.html#a59352334626855d0cd8c8ca1b173db68ae5d7a5789d9f7a019ac01873f986e866">Right</a>
-, <a class="el" href="a02775.html#a59352334626855d0cd8c8ca1b173db68a9b46e5a4c9ffaadc81ac4559e23ebb8d">Bottom</a>
-, <a class="el" href="a02775.html#a59352334626855d0cd8c8ca1b173db68ad917703e5fdbb06791acd491310bd14f">Left</a>
-, <br />
-&#160;&#160;<a class="el" href="a02775.html#a59352334626855d0cd8c8ca1b173db68a2816176a831a8a4c942a0d09e653a9c4">_NUM_ATTACHPOINTS</a>
-<br />
- }</td></tr>
-<tr class="separator:a59352334626855d0cd8c8ca1b173db68"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0bae0491b79706cac6c93b58cfeb5ec5"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02775.html#a0bae0491b79706cac6c93b58cfeb5ec5">EventType</a> { <a class="el" href="a02775.html#a0bae0491b79706cac6c93b58cfeb5ec5a78269e44a81151f5e3e97a49dc6a2aa3">Selected</a>
-, <a class="el" href="a02775.html#a0bae0491b79706cac6c93b58cfeb5ec5a4275858e386e70954b80ef36823ff369">Deselected</a>
-, <a class="el" href="a02775.html#a0bae0491b79706cac6c93b58cfeb5ec5a6698b73a862c1caef37c9d00070fd250">Activated</a>
-, <a class="el" href="a02775.html#a0bae0491b79706cac6c93b58cfeb5ec5aa86dd8b1fbfe5e9c37417099d60a5d9d">_NUM_EVENTS</a>
- }</td></tr>
-<tr class="separator:a0bae0491b79706cac6c93b58cfeb5ec5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac09f75d0ea24baafc88f39b9e30e20ce"><td class="memItemLeft" align="right" valign="top">typedef std::shared_ptr&lt; <a class="el" href="a02775.html">Item</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02775.html#ac09f75d0ea24baafc88f39b9e30e20ce">Ptr</a></td></tr>
-<tr class="separator:ac09f75d0ea24baafc88f39b9e30e20ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a6456946a5c7e6ecd87bd21c5fedd57c6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02775.html#a6456946a5c7e6ecd87bd21c5fedd57c6">isAttached</a> () const</td></tr>
-<tr class="memdesc:a6456946a5c7e6ecd87bd21c5fedd57c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the item has been attached to another.  <a href="a02775.html#a6456946a5c7e6ecd87bd21c5fedd57c6">More...</a><br /></td></tr>
-<tr class="separator:a6456946a5c7e6ecd87bd21c5fedd57c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a944e2405bfafe6b3bf4718cab498b4a2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02775.html#a944e2405bfafe6b3bf4718cab498b4a2">setSelectable</a> (bool selectable)</td></tr>
-<tr class="memdesc:a944e2405bfafe6b3bf4718cab498b4a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set whether or not the <a class="el" href="a02775.html" title="Item for a mouseless menu. Can be &#39;attached&#39; to other items in a Menu, configured to be selectable,...">Item</a> may be selected.  <a href="a02775.html#a944e2405bfafe6b3bf4718cab498b4a2">More...</a><br /></td></tr>
-<tr class="separator:a944e2405bfafe6b3bf4718cab498b4a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8b17ae5ffbb9b3fe97e6105479b601b6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02775.html#a8b17ae5ffbb9b3fe97e6105479b601b6">isSelectable</a> () const</td></tr>
-<tr class="memdesc:a8b17ae5ffbb9b3fe97e6105479b601b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the <a class="el" href="a02775.html" title="Item for a mouseless menu. Can be &#39;attached&#39; to other items in a Menu, configured to be selectable,...">Item</a> may be selected.  <a href="a02775.html#a8b17ae5ffbb9b3fe97e6105479b601b6">More...</a><br /></td></tr>
-<tr class="separator:a8b17ae5ffbb9b3fe97e6105479b601b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a84f76cf2dc6f67fb425d09d804d66948"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02775.html#a84f76cf2dc6f67fb425d09d804d66948">setAllowSelectionCrossing</a> (bool allow)</td></tr>
-<tr class="memdesc:a84f76cf2dc6f67fb425d09d804d66948"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set whether or not the selection is allowed to move through this item if this item is not selectable itself.  <a href="a02775.html#a84f76cf2dc6f67fb425d09d804d66948">More...</a><br /></td></tr>
-<tr class="separator:a84f76cf2dc6f67fb425d09d804d66948"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab5f75c6ebfb7625ff18c0d78afd5c5f0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02775.html#ab5f75c6ebfb7625ff18c0d78afd5c5f0">allowsSelectionCrossing</a> () const</td></tr>
-<tr class="memdesc:ab5f75c6ebfb7625ff18c0d78afd5c5f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the selection may move through this item is it is not selectable itself.  <a href="a02775.html#ab5f75c6ebfb7625ff18c0d78afd5c5f0">More...</a><br /></td></tr>
-<tr class="separator:ab5f75c6ebfb7625ff18c0d78afd5c5f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa484bb2973977732454eb2d5749c9575"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02775.html#aa484bb2973977732454eb2d5749c9575">overridePosition</a> (const glm::vec2 &amp;position)</td></tr>
-<tr class="memdesc:aa484bb2973977732454eb2d5749c9575"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set an explicit position for this item. Default behavior is to grid items.  <a href="a02775.html#aa484bb2973977732454eb2d5749c9575">More...</a><br /></td></tr>
-<tr class="separator:aa484bb2973977732454eb2d5749c9575"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1ec1d4800025cc512ad596ef13cb03fd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04059.html">util::Signal</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02775.html#a1ec1d4800025cc512ad596ef13cb03fd">getSignal</a> (<a class="el" href="a02775.html#a0bae0491b79706cac6c93b58cfeb5ec5">EventType</a> event)</td></tr>
-<tr class="memdesc:a1ec1d4800025cc512ad596ef13cb03fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a modifiable reference to the Signal object for the corresponding EventType.  <a href="a02775.html#a1ec1d4800025cc512ad596ef13cb03fd">More...</a><br /></td></tr>
-<tr class="separator:a1ec1d4800025cc512ad596ef13cb03fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9fd9c891d6b5e873f670a6b8a0c62b53"><td class="memItemLeft" align="right" valign="top">const glm::vec2 &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02775.html#a9fd9c891d6b5e873f670a6b8a0c62b53">getPosition</a> () const</td></tr>
-<tr class="memdesc:a9fd9c891d6b5e873f670a6b8a0c62b53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the position of the button relative to it's menu.  <a href="a02775.html#a9fd9c891d6b5e873f670a6b8a0c62b53">More...</a><br /></td></tr>
-<tr class="separator:a9fd9c891d6b5e873f670a6b8a0c62b53"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a86fe5944b8c3b46b9f7aa2f5d3ac6d52"><td class="memItemLeft" align="right" valign="top">virtual glm::vec2&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02775.html#a86fe5944b8c3b46b9f7aa2f5d3ac6d52">getSize</a> () const =0</td></tr>
-<tr class="memdesc:a86fe5944b8c3b46b9f7aa2f5d3ac6d52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the untransformed size of the object.  <a href="a02775.html#a86fe5944b8c3b46b9f7aa2f5d3ac6d52">More...</a><br /></td></tr>
-<tr class="separator:a86fe5944b8c3b46b9f7aa2f5d3ac6d52"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a8fec45b0851a45c4f753b91062a518fe"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a02775.html#a59352334626855d0cd8c8ca1b173db68">AttachPoint</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02775.html#a8fec45b0851a45c4f753b91062a518fe">oppositeSide</a> (<a class="el" href="a02775.html#a59352334626855d0cd8c8ca1b173db68">AttachPoint</a> point)</td></tr>
-<tr class="memdesc:a8fec45b0851a45c4f753b91062a518fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the opposite side of the given attach point.  <a href="a02775.html#a8fec45b0851a45c4f753b91062a518fe">More...</a><br /></td></tr>
-<tr class="separator:a8fec45b0851a45c4f753b91062a518fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add332899ac9556f20ad04e36fbf9517a"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02775.html#add332899ac9556f20ad04e36fbf9517a">~Shape2D</a> ()=default</td></tr>
+<tr class="memdesc:add332899ac9556f20ad04e36fbf9517a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the shape.  <a href="a02775.html#add332899ac9556f20ad04e36fbf9517a">More...</a><br /></td></tr>
+<tr class="separator:add332899ac9556f20ad04e36fbf9517a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f4a690a301f32cffe664638dd9abdf3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02775.html#a7f4a690a301f32cffe664638dd9abdf3">setFillColor</a> (const glm::vec4 &amp;color)</td></tr>
+<tr class="memdesc:a7f4a690a301f32cffe664638dd9abdf3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the color to fill the shape with.  <a href="a02775.html#a7f4a690a301f32cffe664638dd9abdf3">More...</a><br /></td></tr>
+<tr class="separator:a7f4a690a301f32cffe664638dd9abdf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58ce929d0ee1a4f4ee305cb397218bbf"><td class="memItemLeft" align="right" valign="top">const glm::vec4 &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02775.html#a58ce929d0ee1a4f4ee305cb397218bbf">getFillColor</a> () const</td></tr>
+<tr class="memdesc:a58ce929d0ee1a4f4ee305cb397218bbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the color the shape is filled with.  <a href="a02775.html#a58ce929d0ee1a4f4ee305cb397218bbf">More...</a><br /></td></tr>
+<tr class="separator:a58ce929d0ee1a4f4ee305cb397218bbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a481a4f2f12d0eb5e5db75e9db468e46c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02775.html#a481a4f2f12d0eb5e5db75e9db468e46c">setOutlineColor</a> (const glm::vec4 &amp;color)</td></tr>
+<tr class="memdesc:a481a4f2f12d0eb5e5db75e9db468e46c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the color the outline will be filled with.  <a href="a02775.html#a481a4f2f12d0eb5e5db75e9db468e46c">More...</a><br /></td></tr>
+<tr class="separator:a481a4f2f12d0eb5e5db75e9db468e46c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd88eaa00774156911eaf42886967a37"><td class="memItemLeft" align="right" valign="top">const glm::vec4 &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02775.html#abd88eaa00774156911eaf42886967a37">getOutlineColor</a> () const</td></tr>
+<tr class="memdesc:abd88eaa00774156911eaf42886967a37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the color of the outline.  <a href="a02775.html#abd88eaa00774156911eaf42886967a37">More...</a><br /></td></tr>
+<tr class="separator:abd88eaa00774156911eaf42886967a37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af84399690523725879fa511691aeab53"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02775.html#af84399690523725879fa511691aeab53">setOutlineThickness</a> (float thickness)</td></tr>
+<tr class="memdesc:af84399690523725879fa511691aeab53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the thickness of the outline. Negative outline will render inside the bounds of the shape. Setting to 0 disables the outline.  <a href="a02775.html#af84399690523725879fa511691aeab53">More...</a><br /></td></tr>
+<tr class="separator:af84399690523725879fa511691aeab53"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad87ee4eae6b8230c45f138337c045557"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02775.html#ad87ee4eae6b8230c45f138337c045557">getOutlineThickness</a> () const</td></tr>
+<tr class="memdesc:ad87ee4eae6b8230c45f138337c045557"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the thickness of the outline.  <a href="a02775.html#ad87ee4eae6b8230c45f138337c045557">More...</a><br /></td></tr>
+<tr class="separator:ad87ee4eae6b8230c45f138337c045557"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec7d0a9a2b19c98d9de976bcf0b78aba"><td class="memItemLeft" align="right" valign="top">const sf::FloatRect &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02775.html#aec7d0a9a2b19c98d9de976bcf0b78aba">getLocalBounds</a> ()</td></tr>
+<tr class="memdesc:aec7d0a9a2b19c98d9de976bcf0b78aba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the bounds of the shape. Bounds only computed if the shape is created first.  <a href="a02775.html#aec7d0a9a2b19c98d9de976bcf0b78aba">More...</a><br /></td></tr>
+<tr class="separator:aec7d0a9a2b19c98d9de976bcf0b78aba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:a8224a125d7cb278731f971b8ece7645c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02775.html#a8224a125d7cb278731f971b8ece7645c">Item</a> ()</td></tr>
-<tr class="memdesc:a8224a125d7cb278731f971b8ece7645c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a02775.html" title="Item for a mouseless menu. Can be &#39;attached&#39; to other items in a Menu, configured to be selectable,...">Item</a>.  <a href="a02775.html#a8224a125d7cb278731f971b8ece7645c">More...</a><br /></td></tr>
-<tr class="separator:a8224a125d7cb278731f971b8ece7645c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0e907ebdd1af692727c096e8ff4c86ad"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="a02075.html">com::Transform2D</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02775.html#a0e907ebdd1af692727c096e8ff4c86ad">doCreate</a> (<a class="el" href="a02319.html">engine::Engine</a> &amp;engine, <a class="el" href="a02223.html">ecs::Entity</a> parent)=0</td></tr>
-<tr class="memdesc:a0e907ebdd1af692727c096e8ff4c86ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called at least once when the item is added to a menu. Should create required graphics primitives and return the transform to use.  <a href="a02775.html#a0e907ebdd1af692727c096e8ff4c86ad">More...</a><br /></td></tr>
-<tr class="separator:a0e907ebdd1af692727c096e8ff4c86ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0c93affc39432a9a3d320c9f5ccf128e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02775.html#a0c93affc39432a9a3d320c9f5ccf128e">doSceneAdd</a> (<a class="el" href="a03139.html">rc::Overlay</a> *overlay)=0</td></tr>
-<tr class="memdesc:a0c93affc39432a9a3d320c9f5ccf128e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the item should be added to the overlay.  <a href="a02775.html#a0c93affc39432a9a3d320c9f5ccf128e">More...</a><br /></td></tr>
-<tr class="separator:a0c93affc39432a9a3d320c9f5ccf128e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a22937d4f2963257bb7451681089a2874"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02775.html#a22937d4f2963257bb7451681089a2874">doSceneRemove</a> ()=0</td></tr>
-<tr class="memdesc:a22937d4f2963257bb7451681089a2874"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the item should be removed from the overlay.  <a href="a02775.html#a22937d4f2963257bb7451681089a2874">More...</a><br /></td></tr>
-<tr class="separator:a22937d4f2963257bb7451681089a2874"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2126f9c54fcaf1587c2765c8d11a3e9b"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="a02223.html">ecs::Entity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02775.html#a2126f9c54fcaf1587c2765c8d11a3e9b">getEntity</a> () const =0</td></tr>
-<tr class="memdesc:a2126f9c54fcaf1587c2765c8d11a3e9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the entity (or top level entity) of the item.  <a href="a02775.html#a2126f9c54fcaf1587c2765c8d11a3e9b">More...</a><br /></td></tr>
-<tr class="separator:a2126f9c54fcaf1587c2765c8d11a3e9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
-Friends</h2></td></tr>
-<tr class="memitem:a834cec0fab7efabab3cd53540e4d466d"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02775.html#a834cec0fab7efabab3cd53540e4d466d">Menu</a></td></tr>
-<tr class="separator:a834cec0fab7efabab3cd53540e4d466d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae8455080d0b86b045618069add0a6bf0"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02775.html#ae8455080d0b86b045618069add0a6bf0">SubmenuItem</a></td></tr>
-<tr class="separator:ae8455080d0b86b045618069add0a6bf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a104ba877b5eb3caeccdf3e04359a6d3d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02775.html#a104ba877b5eb3caeccdf3e04359a6d3d">Shape2D</a> ()</td></tr>
+<tr class="memdesc:a104ba877b5eb3caeccdf3e04359a6d3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the shapes fields to sane defaults.  <a href="a02775.html#a104ba877b5eb3caeccdf3e04359a6d3d">More...</a><br /></td></tr>
+<tr class="separator:a104ba877b5eb3caeccdf3e04359a6d3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34905cc51084a1fff5ebc66aec264e2d"><td class="memItemLeft" align="right" valign="top">virtual unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02775.html#a34905cc51084a1fff5ebc66aec264e2d">getVertexCount</a> () const =0</td></tr>
+<tr class="memdesc:a34905cc51084a1fff5ebc66aec264e2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Derived classes should return the number of points their shape requires.  <a href="a02775.html#a34905cc51084a1fff5ebc66aec264e2d">More...</a><br /></td></tr>
+<tr class="separator:a34905cc51084a1fff5ebc66aec264e2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa1d56d8a626884ce8ba58885954d0b6"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02775.html#aaa1d56d8a626884ce8ba58885954d0b6">populateVertex</a> (unsigned int index, <a class="el" href="a03599.html">rc::prim::Vertex</a> &amp;vertex)=0</td></tr>
+<tr class="memdesc:aaa1d56d8a626884ce8ba58885954d0b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Derived classes should set the position (and may override the color) in this method. This will be called for indices [0, <a class="el" href="a02775.html#a34905cc51084a1fff5ebc66aec264e2d" title="Derived classes should return the number of points their shape requires.">getVertexCount()</a>)  <a href="a02775.html#aaa1d56d8a626884ce8ba58885954d0b6">More...</a><br /></td></tr>
+<tr class="separator:aaa1d56d8a626884ce8ba58885954d0b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f433d3dbf63ad72084b44c2e4f659be"><td class="memItemLeft" align="right" valign="top">virtual glm::vec4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02775.html#a1f433d3dbf63ad72084b44c2e4f659be">getCenterColor</a> (const glm::vec4 &amp;avgColor) const</td></tr>
+<tr class="memdesc:a1f433d3dbf63ad72084b44c2e4f659be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allows derived classes to set the color of the center vertex. Simply return the computed average color if no explicit center color is desired (default behavior).  <a href="a02775.html#a1f433d3dbf63ad72084b44c2e4f659be">More...</a><br /></td></tr>
+<tr class="separator:a1f433d3dbf63ad72084b44c2e4f659be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeeb54568280b732f37d78d2dce430781"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02775.html#aeeb54568280b732f37d78d2dce430781">notifyDirty</a> ()=0</td></tr>
+<tr class="memdesc:aeeb54568280b732f37d78d2dce430781"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called whenever the vertices need to be refreshed.  <a href="a02775.html#aeeb54568280b732f37d78d2dce430781">More...</a><br /></td></tr>
+<tr class="separator:aeeb54568280b732f37d78d2dce430781"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01468d8790d0dc6bfbae1a7888e04801"><td class="memItemLeft" align="right" valign="top">std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02775.html#a01468d8790d0dc6bfbae1a7888e04801">calculateRequiredVertices</a> () const</td></tr>
+<tr class="memdesc:a01468d8790d0dc6bfbae1a7888e04801"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates and returns the number of vertices required for the shape.  <a href="a02775.html#a01468d8790d0dc6bfbae1a7888e04801">More...</a><br /></td></tr>
+<tr class="separator:a01468d8790d0dc6bfbae1a7888e04801"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac42d54a60bfc3d8209f8da79b475bb3d"><td class="memItemLeft" align="right" valign="top">std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02775.html#ac42d54a60bfc3d8209f8da79b475bb3d">calculateRequiredIndices</a> () const</td></tr>
+<tr class="memdesc:ac42d54a60bfc3d8209f8da79b475bb3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates and returns the number of indices required for the shape.  <a href="a02775.html#ac42d54a60bfc3d8209f8da79b475bb3d">More...</a><br /></td></tr>
+<tr class="separator:ac42d54a60bfc3d8209f8da79b475bb3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa49016719fef78f8825ee9792e905422"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02775.html#aa49016719fef78f8825ee9792e905422">update</a> (<a class="el" href="a03599.html">rc::prim::Vertex</a> *vertices, std::uint32_t *indices)</td></tr>
+<tr class="memdesc:aa49016719fef78f8825ee9792e905422"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the index buffer to render this shape. Storage should be large enough for calculated size.  <a href="a02775.html#aa49016719fef78f8825ee9792e905422">More...</a><br /></td></tr>
+<tr class="separator:aa49016719fef78f8825ee9792e905422"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6388d0a98db707eb4516e24a03891fb4"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02775.html#a6388d0a98db707eb4516e24a03891fb4">ensureUpdated</a> ()=0</td></tr>
+<tr class="memdesc:a6388d0a98db707eb4516e24a03891fb4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when local bounds is queried to ensure they are correct.  <a href="a02775.html#a6388d0a98db707eb4516e24a03891fb4">More...</a><br /></td></tr>
+<tr class="separator:a6388d0a98db707eb4516e24a03891fb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="a02775.html" title="Item for a mouseless menu. Can be &#39;attached&#39; to other items in a Menu, configured to be selectable,...">Item</a> for a mouseless menu. Can be 'attached' to other items in a <a class="el" href="a02795.html" title="Primary class for mouseless menus.">Menu</a>, configured to be selectable, and can trigger a signal if selected. Subclasses of this provide specific behaviors. </p>
+<div class="textblock"><p>Base class for all 2d shapes. Provides part of the interface, as well as index buffer population. Does not provide storage. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00446_source.html#l00033">33</a> of file <a class="el" href="a00446_source.html">Item.hpp</a>.</p>
-</div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="ac09f75d0ea24baafc88f39b9e30e20ce"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac09f75d0ea24baafc88f39b9e30e20ce">&#9670;&nbsp;</a></span>Ptr</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef std::shared_ptr&lt;<a class="el" href="a02775.html">Item</a>&gt; <a class="el" href="a02775.html#ac09f75d0ea24baafc88f39b9e30e20ce">bl::menu::Item::Ptr</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00446_source.html#l00035">35</a> of file <a class="el" href="a00446_source.html">Item.hpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Enumeration Documentation</h2>
-<a id="a59352334626855d0cd8c8ca1b173db68"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a59352334626855d0cd8c8ca1b173db68">&#9670;&nbsp;</a></span>AttachPoint</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="a02775.html#a59352334626855d0cd8c8ca1b173db68">bl::menu::Item::AttachPoint</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a59352334626855d0cd8c8ca1b173db68a8ee44d5181ad1e85a92709f1d0b4937c"></a>Top&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a59352334626855d0cd8c8ca1b173db68ae5d7a5789d9f7a019ac01873f986e866"></a>Right&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a59352334626855d0cd8c8ca1b173db68a9b46e5a4c9ffaadc81ac4559e23ebb8d"></a>Bottom&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a59352334626855d0cd8c8ca1b173db68ad917703e5fdbb06791acd491310bd14f"></a>Left&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a59352334626855d0cd8c8ca1b173db68a2816176a831a8a4c942a0d09e653a9c4"></a>_NUM_ATTACHPOINTS&#160;</td><td class="fielddoc"></td></tr>
-</table>
-
-<p class="definition">Definition at line <a class="el" href="a00446_source.html#l00036">36</a> of file <a class="el" href="a00446_source.html">Item.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a0bae0491b79706cac6c93b58cfeb5ec5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0bae0491b79706cac6c93b58cfeb5ec5">&#9670;&nbsp;</a></span>EventType</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="a02775.html#a0bae0491b79706cac6c93b58cfeb5ec5">bl::menu::Item::EventType</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a0bae0491b79706cac6c93b58cfeb5ec5a78269e44a81151f5e3e97a49dc6a2aa3"></a>Selected&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a0bae0491b79706cac6c93b58cfeb5ec5a4275858e386e70954b80ef36823ff369"></a>Deselected&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a0bae0491b79706cac6c93b58cfeb5ec5a6698b73a862c1caef37c9d00070fd250"></a>Activated&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a0bae0491b79706cac6c93b58cfeb5ec5aa86dd8b1fbfe5e9c37417099d60a5d9d"></a>_NUM_EVENTS&#160;</td><td class="fielddoc"></td></tr>
-</table>
-
-<p class="definition">Definition at line <a class="el" href="a00446_source.html#l00037">37</a> of file <a class="el" href="a00446_source.html">Item.hpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a8224a125d7cb278731f971b8ece7645c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8224a125d7cb278731f971b8ece7645c">&#9670;&nbsp;</a></span>Item()</h2>
+<p class="definition">Definition at line <a class="el" href="a05554_source.html#l00021">21</a> of file <a class="el" href="a05554_source.html">Shape2D.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="add332899ac9556f20ad04e36fbf9517a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add332899ac9556f20ad04e36fbf9517a">&#9670;&nbsp;</a></span>~Shape2D()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -261,7 +176,34 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bl::menu::Item::Item </td>
+          <td class="memname">virtual bl::gfx::s2d::Shape2D::~Shape2D </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Destroys the shape. </p>
+
+</div>
+</div>
+<a id="a104ba877b5eb3caeccdf3e04359a6d3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a104ba877b5eb3caeccdf3e04359a6d3d">&#9670;&nbsp;</a></span>Shape2D()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::gfx::s2d::Shape2D::Shape2D </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -274,36 +216,15 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Construct a new <a class="el" href="a02775.html" title="Item for a mouseless menu. Can be &#39;attached&#39; to other items in a Menu, configured to be selectable,...">Item</a>. </p>
+<p>Initializes the shapes fields to sane defaults. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01370_source.html#l00009">9</a> of file <a class="el" href="a01370_source.html">Item.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a05707_source.html#l00018">18</a> of file <a class="el" href="a05707_source.html">Shape2D.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ab5f75c6ebfb7625ff18c0d78afd5c5f0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab5f75c6ebfb7625ff18c0d78afd5c5f0">&#9670;&nbsp;</a></span>allowsSelectionCrossing()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::menu::Item::allowsSelectionCrossing </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns whether or not the selection may move through this item is it is not selectable itself. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01370_source.html#l00047">47</a> of file <a class="el" href="a01370_source.html">Item.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a0e907ebdd1af692727c096e8ff4c86ad"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0e907ebdd1af692727c096e8ff4c86ad">&#9670;&nbsp;</a></span>doCreate()</h2>
+<a id="ac42d54a60bfc3d8209f8da79b475bb3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac42d54a60bfc3d8209f8da79b475bb3d">&#9670;&nbsp;</a></span>calculateRequiredIndices()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -312,16 +233,279 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual <a class="el" href="a02075.html">com::Transform2D</a>&amp; bl::menu::Item::doCreate </td>
+          <td class="memname">std::uint32_t bl::gfx::s2d::Shape2D::calculateRequiredIndices </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a02319.html">engine::Engine</a> &amp;&#160;</td>
-          <td class="paramname"><em>engine</em>, </td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Calculates and returns the number of indices required for the shape. </p>
+
+<p class="definition">Definition at line <a class="el" href="a05707_source.html#l00057">57</a> of file <a class="el" href="a05707_source.html">Shape2D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a01468d8790d0dc6bfbae1a7888e04801"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a01468d8790d0dc6bfbae1a7888e04801">&#9670;&nbsp;</a></span>calculateRequiredVertices()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint32_t bl::gfx::s2d::Shape2D::calculateRequiredVertices </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Calculates and returns the number of vertices required for the shape. </p>
+
+<p class="definition">Definition at line <a class="el" href="a05707_source.html#l00051">51</a> of file <a class="el" href="a05707_source.html">Shape2D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a6388d0a98db707eb4516e24a03891fb4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6388d0a98db707eb4516e24a03891fb4">&#9670;&nbsp;</a></span>ensureUpdated()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void bl::gfx::s2d::Shape2D::ensureUpdated </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called when local bounds is queried to ensure they are correct. </p>
+
+</div>
+</div>
+<a id="a1f433d3dbf63ad72084b44c2e4f659be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f433d3dbf63ad72084b44c2e4f659be">&#9670;&nbsp;</a></span>getCenterColor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">glm::vec4 bl::gfx::s2d::Shape2D::getCenterColor </td>
+          <td>(</td>
+          <td class="paramtype">const glm::vec4 &amp;&#160;</td>
+          <td class="paramname"><em>avgColor</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Allows derived classes to set the color of the center vertex. Simply return the computed average color if no explicit center color is desired (default behavior). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">avgColor</td><td>The computed average color of all the vertices </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The color of the center vertex that is managed by this class </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a05707_source.html#l00049">49</a> of file <a class="el" href="a05707_source.html">Shape2D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a58ce929d0ee1a4f4ee305cb397218bbf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a58ce929d0ee1a4f4ee305cb397218bbf">&#9670;&nbsp;</a></span>getFillColor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const glm::vec4 &amp; bl::gfx::s2d::Shape2D::getFillColor </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the color the shape is filled with. </p>
+
+<p class="definition">Definition at line <a class="el" href="a05707_source.html#l00028">28</a> of file <a class="el" href="a05707_source.html">Shape2D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aec7d0a9a2b19c98d9de976bcf0b78aba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec7d0a9a2b19c98d9de976bcf0b78aba">&#9670;&nbsp;</a></span>getLocalBounds()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const sf::FloatRect &amp; bl::gfx::s2d::Shape2D::getLocalBounds </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the bounds of the shape. Bounds only computed if the shape is created first. </p>
+
+<p class="definition">Definition at line <a class="el" href="a05707_source.html#l00044">44</a> of file <a class="el" href="a05707_source.html">Shape2D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="abd88eaa00774156911eaf42886967a37"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abd88eaa00774156911eaf42886967a37">&#9670;&nbsp;</a></span>getOutlineColor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const glm::vec4 &amp; bl::gfx::s2d::Shape2D::getOutlineColor </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the color of the outline. </p>
+
+<p class="definition">Definition at line <a class="el" href="a05707_source.html#l00035">35</a> of file <a class="el" href="a05707_source.html">Shape2D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ad87ee4eae6b8230c45f138337c045557"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad87ee4eae6b8230c45f138337c045557">&#9670;&nbsp;</a></span>getOutlineThickness()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float bl::gfx::s2d::Shape2D::getOutlineThickness </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the thickness of the outline. </p>
+
+<p class="definition">Definition at line <a class="el" href="a05707_source.html#l00042">42</a> of file <a class="el" href="a05707_source.html">Shape2D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a34905cc51084a1fff5ebc66aec264e2d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34905cc51084a1fff5ebc66aec264e2d">&#9670;&nbsp;</a></span>getVertexCount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual unsigned int bl::gfx::s2d::Shape2D::getVertexCount </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Derived classes should return the number of points their shape requires. </p>
+<dl class="section return"><dt>Returns</dt><dd>The number of points for the shape (ie 4 for rectangle, etc) </dd></dl>
+
+</div>
+</div>
+<a id="aeeb54568280b732f37d78d2dce430781"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeeb54568280b732f37d78d2dce430781">&#9670;&nbsp;</a></span>notifyDirty()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void bl::gfx::s2d::Shape2D::notifyDirty </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called whenever the vertices need to be refreshed. </p>
+
+<p>Implemented in <a class="el" href="a02779.html#a9770f1236ddd64957864f605b3065dcb">bl::gfx::s2d::SingleShape2D</a>, and <a class="el" href="a02759.html#ae72cfba3b165030282323fad73d107c6">bl::gfx::s2d::BatchShape2D</a>.</p>
+
+</div>
+</div>
+<a id="aaa1d56d8a626884ce8ba58885954d0b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa1d56d8a626884ce8ba58885954d0b6">&#9670;&nbsp;</a></span>populateVertex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void bl::gfx::s2d::Shape2D::populateVertex </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>index</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="a02223.html">ecs::Entity</a>&#160;</td>
-          <td class="paramname"><em>parent</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="a03599.html">rc::prim::Vertex</a> &amp;&#160;</td>
+          <td class="paramname"><em>vertex</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -336,341 +520,103 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Called at least once when the item is added to a menu. Should create required graphics primitives and return the transform to use. </p>
+<p>Derived classes should set the position (and may override the color) in this method. This will be called for indices [0, <a class="el" href="a02775.html#a34905cc51084a1fff5ebc66aec264e2d" title="Derived classes should return the number of points their shape requires.">getVertexCount()</a>) </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">engine</td><td>The game engine instance </td></tr>
-    <tr><td class="paramname">parent</td><td>The parent entity that should be used </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The transform component to use </dd></dl>
-
-<p>Implemented in <a class="el" href="a02791.html#a2672dad939d23845c20b604f3c8f9919">bl::menu::ToggleTextItem</a>, <a class="el" href="a02787.html#ab73ee997efa2208f3703cf6fb3f072f0">bl::menu::TextItem</a>, <a class="el" href="a02783.html#a9f01b0e772186d1c1b8cefad77e5f054">bl::menu::SubmenuItem</a>, and <a class="el" href="a02779.html#a00d65514d0c6bf8897a8a3d53222f898">bl::menu::ImageItem</a>.</p>
-
-</div>
-</div>
-<a id="a0c93affc39432a9a3d320c9f5ccf128e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0c93affc39432a9a3d320c9f5ccf128e">&#9670;&nbsp;</a></span>doSceneAdd()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void bl::menu::Item::doSceneAdd </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a03139.html">rc::Overlay</a> *&#160;</td>
-          <td class="paramname"><em>overlay</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Called when the item should be added to the overlay. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">overlay</td><td>The overlay to add to </td></tr>
+    <tr><td class="paramname">index</td><td>The index of the current point in the shape </td></tr>
+    <tr><td class="paramname">vertex</td><td>The vertex to populate </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="a02791.html#a742c06ce0ceb084cd952522ccb6aa877">bl::menu::ToggleTextItem</a>, <a class="el" href="a02787.html#ab6cbda5e3b80bab6032fd7ccc0681845">bl::menu::TextItem</a>, <a class="el" href="a02783.html#a7bfc5fd0045622d1473af394310cc7dd">bl::menu::SubmenuItem</a>, and <a class="el" href="a02779.html#a02fce41fea91981b9af8bf3bac29756c">bl::menu::ImageItem</a>.</p>
-
 </div>
 </div>
-<a id="a22937d4f2963257bb7451681089a2874"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a22937d4f2963257bb7451681089a2874">&#9670;&nbsp;</a></span>doSceneRemove()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void bl::menu::Item::doSceneRemove </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Called when the item should be removed from the overlay. </p>
-
-<p>Implemented in <a class="el" href="a02791.html#af52f92410d6b4390de4129778e337174">bl::menu::ToggleTextItem</a>, <a class="el" href="a02787.html#a0c7b4db4fdf02c23ff124b4b485d3abc">bl::menu::TextItem</a>, <a class="el" href="a02783.html#a37de51d62180b1537399e8c3d936b4d7">bl::menu::SubmenuItem</a>, and <a class="el" href="a02779.html#a6096ddd968f950d47a44166757f50e1c">bl::menu::ImageItem</a>.</p>
-
-</div>
-</div>
-<a id="a2126f9c54fcaf1587c2765c8d11a3e9b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2126f9c54fcaf1587c2765c8d11a3e9b">&#9670;&nbsp;</a></span>getEntity()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual <a class="el" href="a02223.html">ecs::Entity</a> bl::menu::Item::getEntity </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the entity (or top level entity) of the item. </p>
-
-<p>Implemented in <a class="el" href="a02791.html#a9dcc196a0b50d3285a9ef8561f5affd5">bl::menu::ToggleTextItem</a>, <a class="el" href="a02787.html#aaaf2ee639eca93a85ff2c7c6389e06f5">bl::menu::TextItem</a>, <a class="el" href="a02783.html#aefd090dafabff4bd1b2ec81d0dd03da0">bl::menu::SubmenuItem</a>, and <a class="el" href="a02779.html#a5291c436b4c3973677e34a525ed573f7">bl::menu::ImageItem</a>.</p>
-
-</div>
-</div>
-<a id="a9fd9c891d6b5e873f670a6b8a0c62b53"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9fd9c891d6b5e873f670a6b8a0c62b53">&#9670;&nbsp;</a></span>getPosition()</h2>
+<a id="a7f4a690a301f32cffe664638dd9abdf3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f4a690a301f32cffe664638dd9abdf3">&#9670;&nbsp;</a></span>setFillColor()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const glm::vec2 &amp; bl::menu::Item::getPosition </td>
+          <td class="memname">void bl::gfx::s2d::Shape2D::setFillColor </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the position of the button relative to it's menu. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01370_source.html#l00058">58</a> of file <a class="el" href="a01370_source.html">Item.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a1ec1d4800025cc512ad596ef13cb03fd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1ec1d4800025cc512ad596ef13cb03fd">&#9670;&nbsp;</a></span>getSignal()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a04059.html">util::Signal</a> &amp; bl::menu::Item::getSignal </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a02775.html#a0bae0491b79706cac6c93b58cfeb5ec5">EventType</a>&#160;</td>
-          <td class="paramname"><em>event</em></td><td>)</td>
+          <td class="paramtype">const glm::vec4 &amp;&#160;</td>
+          <td class="paramname"><em>color</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns a modifiable reference to the Signal object for the corresponding EventType. </p>
+<p>Sets the color to fill the shape with. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">event</td><td>The EventType the Signal is triggered by </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Signal&lt;&gt;&amp; The modifiable signal </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a01370_source.html#l00049">49</a> of file <a class="el" href="a01370_source.html">Item.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a86fe5944b8c3b46b9f7aa2f5d3ac6d52"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a86fe5944b8c3b46b9f7aa2f5d3ac6d52">&#9670;&nbsp;</a></span>getSize()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual glm::vec2 bl::menu::Item::getSize </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Return the untransformed size of the object. </p>
-<dl class="section return"><dt>Returns</dt><dd>Size the item will take up </dd></dl>
-
-<p>Implemented in <a class="el" href="a02791.html#a5cb45d7607b820eb9553a16c83b2f1a7">bl::menu::ToggleTextItem</a>, <a class="el" href="a02787.html#ae26ed7956e302edb9ea8c6cc561384be">bl::menu::TextItem</a>, <a class="el" href="a02783.html#aacfa9f8e47e48c18cc90da8e13efa0f1">bl::menu::SubmenuItem</a>, and <a class="el" href="a02779.html#ac356fcdc4df05e1320fda538980c0566">bl::menu::ImageItem</a>.</p>
-
-</div>
-</div>
-<a id="a6456946a5c7e6ecd87bd21c5fedd57c6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6456946a5c7e6ecd87bd21c5fedd57c6">&#9670;&nbsp;</a></span>isAttached()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::menu::Item::isAttached </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns true if the item has been attached to another. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01370_source.html#l00034">34</a> of file <a class="el" href="a01370_source.html">Item.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a8b17ae5ffbb9b3fe97e6105479b601b6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8b17ae5ffbb9b3fe97e6105479b601b6">&#9670;&nbsp;</a></span>isSelectable()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::menu::Item::isSelectable </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns whether or not the <a class="el" href="a02775.html" title="Item for a mouseless menu. Can be &#39;attached&#39; to other items in a Menu, configured to be selectable,...">Item</a> may be selected. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01370_source.html#l00043">43</a> of file <a class="el" href="a01370_source.html">Item.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a8fec45b0851a45c4f753b91062a518fe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8fec45b0851a45c4f753b91062a518fe">&#9670;&nbsp;</a></span>oppositeSide()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a02775.html#a59352334626855d0cd8c8ca1b173db68">Item::AttachPoint</a> bl::menu::Item::oppositeSide </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a02775.html#a59352334626855d0cd8c8ca1b173db68">AttachPoint</a>&#160;</td>
-          <td class="paramname"><em>point</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Calculates the opposite side of the given attach point. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01370_source.html#l00019">19</a> of file <a class="el" href="a01370_source.html">Item.cpp</a>.</p>
-
-</div>
-</div>
-<a id="aa484bb2973977732454eb2d5749c9575"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa484bb2973977732454eb2d5749c9575">&#9670;&nbsp;</a></span>overridePosition()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::menu::Item::overridePosition </td>
-          <td>(</td>
-          <td class="paramtype">const glm::vec2 &amp;&#160;</td>
-          <td class="paramname"><em>position</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Set an explicit position for this item. Default behavior is to grid items. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01370_source.html#l00051">51</a> of file <a class="el" href="a01370_source.html">Item.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a84f76cf2dc6f67fb425d09d804d66948"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a84f76cf2dc6f67fb425d09d804d66948">&#9670;&nbsp;</a></span>setAllowSelectionCrossing()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::menu::Item::setAllowSelectionCrossing </td>
-          <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>allow</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Set whether or not the selection is allowed to move through this item if this item is not selectable itself. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">allow</td><td>True to allow item on the other side to be selected, false to block </td></tr>
+    <tr><td class="paramname">color</td><td>The color to fill the shape with </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a01370_source.html#l00045">45</a> of file <a class="el" href="a01370_source.html">Item.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a05707_source.html#l00023">23</a> of file <a class="el" href="a05707_source.html">Shape2D.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a944e2405bfafe6b3bf4718cab498b4a2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a944e2405bfafe6b3bf4718cab498b4a2">&#9670;&nbsp;</a></span>setSelectable()</h2>
+<a id="a481a4f2f12d0eb5e5db75e9db468e46c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a481a4f2f12d0eb5e5db75e9db468e46c">&#9670;&nbsp;</a></span>setOutlineColor()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::menu::Item::setSelectable </td>
+          <td class="memname">void bl::gfx::s2d::Shape2D::setOutlineColor </td>
           <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>selectable</em></td><td>)</td>
+          <td class="paramtype">const glm::vec4 &amp;&#160;</td>
+          <td class="paramname"><em>color</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Set whether or not the <a class="el" href="a02775.html" title="Item for a mouseless menu. Can be &#39;attached&#39; to other items in a Menu, configured to be selectable,...">Item</a> may be selected. </p>
+<p>Sets the color the outline will be filled with. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">color</td><td>The color to outline the shape with </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="a01370_source.html#l00041">41</a> of file <a class="el" href="a01370_source.html">Item.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a05707_source.html#l00030">30</a> of file <a class="el" href="a05707_source.html">Shape2D.cpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Friends And Related Function Documentation</h2>
-<a id="a834cec0fab7efabab3cd53540e4d466d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a834cec0fab7efabab3cd53540e4d466d">&#9670;&nbsp;</a></span>Menu</h2>
+<a id="af84399690523725879fa511691aeab53"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af84399690523725879fa511691aeab53">&#9670;&nbsp;</a></span>setOutlineThickness()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gfx::s2d::Shape2D::setOutlineThickness </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>thickness</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the thickness of the outline. Negative outline will render inside the bounds of the shape. Setting to 0 disables the outline. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">thickness</td><td>The thickness of the outline. In the same units as the shape size </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a05707_source.html#l00037">37</a> of file <a class="el" href="a05707_source.html">Shape2D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aa49016719fef78f8825ee9792e905422"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa49016719fef78f8825ee9792e905422">&#9670;&nbsp;</a></span>update()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -679,53 +625,52 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">friend class <a class="el" href="a02795.html">Menu</a></td>
+          <td class="memname">void bl::gfx::s2d::Shape2D::update </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a03599.html">rc::prim::Vertex</a> *&#160;</td>
+          <td class="paramname"><em>vertices</em>, </td>
         </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00446_source.html#l00150">150</a> of file <a class="el" href="a00446_source.html">Item.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ae8455080d0b86b045618069add0a6bf0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae8455080d0b86b045618069add0a6bf0">&#9670;&nbsp;</a></span>SubmenuItem</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
         <tr>
-          <td class="memname">friend class <a class="el" href="a02783.html">SubmenuItem</a></td>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::uint32_t *&#160;</td>
+          <td class="paramname"><em>indices</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00446_source.html#l00151">151</a> of file <a class="el" href="a00446_source.html">Item.hpp</a>.</p>
+<p>Updates the index buffer to render this shape. Storage should be large enough for calculated size. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vertices</td><td>Pointer to the vertices for the shape </td></tr>
+    <tr><td class="paramname">indices</td><td>Pointer to the indices for the shape </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a05707_source.html#l00064">64</a> of file <a class="el" href="a05707_source.html">Shape2D.cpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Interfaces/Menu/<a class="el" href="a00446_source.html">Item.hpp</a></li>
-<li>src/Interfaces/Menu/<a class="el" href="a01370_source.html">Item.cpp</a></li>
+<li>include/BLIB/Graphics/Shapes2D/<a class="el" href="a05554_source.html">Shape2D.hpp</a></li>
+<li>src/Graphics/Shapes2D/<a class="el" href="a05707_source.html">Shape2D.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 25 2023 00:24:23 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 27 2023 23:34:42 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>
