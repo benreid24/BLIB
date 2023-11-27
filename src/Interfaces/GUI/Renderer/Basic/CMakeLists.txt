@@ -17,6 +17,7 @@ target_sources(BLIB PRIVATE
     ScrollAreaComponent.cpp
     SelectBoxComponent.cpp
     SeparatorComponent.cpp
+    ShapeBatchProvider.cpp
     SliderComponent.cpp
     TextEntryComponent.cpp
     WindowComponent.cpp

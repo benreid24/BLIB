@@ -118,6 +118,11 @@ public:
      */
     virtual void assignDepth(float depth);
 
+    /**
+     * @brief Returns the parent component of this component. May be nullptr
+     */
+    Component* getParent() const { return parent; }
+
 protected:
     /**
      * @brief Initializes the component
@@ -195,11 +200,6 @@ protected:
         }
         return *o;
     }
-
-    /**
-     * @brief Returns the parent component of this component. May be nullptr
-     */
-    Component* getParent() const { return parent; }
 
 private:
     HighlightState highlightState;
