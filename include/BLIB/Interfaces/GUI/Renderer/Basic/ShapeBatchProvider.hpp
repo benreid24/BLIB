@@ -2,16 +2,12 @@
 #define BLIB_GUI_RENDERER_BASIC_SHAPEBATCHPROVIDER_HPP
 
 #include <BLIB/Graphics/BatchedShapes2D.hpp>
+#include <BLIB/Interfaces/GUI/Renderer/Component.hpp>
 
 namespace bl
 {
 namespace gui
 {
-namespace rdr
-{
-class Component;
-}
-
 namespace defcoms
 {
 /**
@@ -19,12 +15,14 @@ namespace defcoms
  *
  * @ingroup GUI
  */
-class ShapeBatchProvider {
+class ShapeBatchProvider : public rdr::Component {
 public:
     /**
      * @brief Creates the provider
+     *
+     * @param highlightState How the component should respond to mouse events
      */
-    ShapeBatchProvider();
+    ShapeBatchProvider(HighlightState highlightState);
 
     /**
      * @brief Destroys the provider
@@ -47,9 +45,19 @@ public:
      * @param component The component to get the provider for
      * @return A pointer to the provider to use, may be nullptr
      */
-    static ShapeBatchProvider* findProvider(rdr::Component* component);
+    static ShapeBatchProvider* findProvider(Component* component);
+
+    /**
+     * @brief Helper method to determine the offset for the given component from its batch provider
+     *
+     * @param component The component to get the offset for
+     * @return The position relative to the batch provider
+     */
+    static glm::vec2 determineOffset(Component* component);
 
 protected:
+    gfx::BatchedShapes2D batch;
+
     /**
      * @brief Sets whether or not the provider is enabled
      *
@@ -58,7 +66,6 @@ protected:
     void setEnabled(bool enabled);
 
 private:
-    gfx::BatchedShapes2D batch;
     bool enabled;
 };
 

@@ -30,6 +30,7 @@ ecs::Entity WindowComponent::getEntity() const { return box.entity(); }
 void WindowComponent::doCreate(engine::Engine& engine, rdr::Renderer&) {
     Element& owner = getOwnerAs<Element>();
     box.create(engine, {owner.getAcquisition().width, owner.getAcquisition().height});
+    box.getOverlayScaler().setScissorMode(com::OverlayScaler::ScissorSelf);
 }
 
 void WindowComponent::doSceneAdd(rc::Overlay* overlay) {

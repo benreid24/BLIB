@@ -1,7 +1,10 @@
 #ifndef BLIB_GUI_RENDERER_COMPONENTS_BOXCOMPONENT_HPP
 #define BLIB_GUI_RENDERER_COMPONENTS_BOXCOMPONENT_HPP
 
+#include <BLIB/Graphics/BatchRectangle.hpp>
+#include <BLIB/Graphics/Dummy2D.hpp>
 #include <BLIB/Graphics/Rectangle.hpp>
+#include <BLIB/Interfaces/GUI/Renderer/Basic/ShapeBatchProvider.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Component.hpp>
 
 namespace bl
@@ -15,7 +18,7 @@ namespace defcoms
  *
  * @ingroup GUI
  */
-class BoxComponent : public rdr::Component {
+class BoxComponent : public ShapeBatchProvider {
 public:
     /**
      * @brief Creates the component
@@ -82,7 +85,8 @@ protected:
     virtual void handleMove() override;
 
 private:
-    gfx::Rectangle box;
+    gfx::BatchRectangle batchRect;
+    gfx::Dummy2D dummy;
 };
 
 } // namespace defcoms

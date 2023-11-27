@@ -10,46 +10,78 @@ namespace gui
 namespace defcoms
 {
 BoxComponent::BoxComponent()
-: Component(HighlightState::IgnoresMouse) {}
+: ShapeBatchProvider(HighlightState::IgnoresMouse) {}
 
-void BoxComponent::setVisible(bool v) { box.setHidden(!v); }
+void BoxComponent::setVisible(bool v) {
+    if (isEnabled()) { batch.setHidden(!v); }
+    else {
+        dummy.setHidden(!v);
+        if (v && !batchRect.isCreated()) {
+            Box& owner = getOwnerAs<Box>();
+            batchRect.create(getEngine(),
+                             ShapeBatchProvider::findProvider(this)->getShapeBatch(),
+                             {owner.getAcquisition().width, owner.getAcquisition().height});
+            onAcquisition();
+            onRenderSettingChange();
+        }
+        else if (!v && batchRect.isCreated()) { batchRect.remove(); }
+    }
+}
 
 void BoxComponent::onElementUpdated() {
     Box& owner = getOwnerAs<Box>();
-    box.getOverlayScaler().setScissorMode(owner.isViewConstrained() ?
-                                              com::OverlayScaler::ScissorSelfConstrained :
-                                              com::OverlayScaler::ScissorInherit);
+    if (owner.isViewConstrained() != isEnabled()) {
+        BL_LOG_ERROR << "Cannot change Box::constrainView once component is created";
+    }
 }
 
 void BoxComponent::onRenderSettingChange() {
-    const RenderSettings& settings = getOwnerAs<Element>().getRenderSettings();
-    box.setFillColor(bl::sfcol(settings.fillColor.value_or(sf::Color::Transparent)));
-    box.setOutlineColor(bl::sfcol(settings.outlineColor.value_or(sf::Color::Transparent)));
-    box.setOutlineThickness(-settings.outlineThickness.value_or(0.f));
+    Box& owner                     = getOwnerAs<Box>();
+    const RenderSettings& settings = owner.getRenderSettings();
+    batchRect.setFillColor(bl::sfcol(settings.fillColor.value_or(sf::Color::Transparent)));
+    batchRect.setOutlineColor(bl::sfcol(settings.outlineColor.value_or(sf::Color::Transparent)));
+    batchRect.setOutlineThickness(-settings.outlineThickness.value_or(0.f));
 }
 
-ecs::Entity BoxComponent::getEntity() const { return box.entity(); }
+ecs::Entity BoxComponent::getEntity() const {
+    return isEnabled() ? batch.entity() : dummy.entity();
+}
 
 void BoxComponent::doCreate(engine::Engine& engine, rdr::Renderer&) {
-    Element& owner = getOwnerAs<Element>();
-    box.create(engine, {owner.getAcquisition().width, owner.getAcquisition().height});
+    Box& owner = getOwnerAs<Box>();
+    setEnabled(owner.isViewConstrained());
+    if (owner.isViewConstrained()) { batch.create(engine, 128); }
+    else { dummy.create(engine); }
+    // TODO - fix scissor for enabled mode
+    batchRect.create(engine,
+                     ShapeBatchProvider::findProvider(this)->getShapeBatch(),
+                     {owner.getAcquisition().width, owner.getAcquisition().height});
 }
 
 void BoxComponent::doSceneAdd(rc::Overlay* overlay) {
-    box.addToScene(overlay, rc::UpdateSpeed::Static);
+    if (isEnabled()) { batch.addToScene(overlay, rc::UpdateSpeed::Static); }
 }
 
-void BoxComponent::doSceneRemove() { box.removeFromScene(); }
+void BoxComponent::doSceneRemove() {
+    if (isEnabled()) { batch.removeFromScene(); }
+}
 
 void BoxComponent::handleAcquisition() {
     Element& owner = getOwnerAs<Element>();
-    box.setSize({owner.getAcquisition().width, owner.getAcquisition().height});
-    box.getTransform().setPosition({owner.getLocalPosition().x, owner.getLocalPosition().y});
+    batchRect.setSize({owner.getAcquisition().width, owner.getAcquisition().height});
+    if (!isEnabled()) { dummy.setSize(batchRect.getSize()); }
+    handleMove();
 }
 
 void BoxComponent::handleMove() {
     Element& owner = getOwnerAs<Element>();
-    box.getTransform().setPosition({owner.getLocalPosition().x, owner.getLocalPosition().y});
+    batchRect.getLocalTransform().setPosition(ShapeBatchProvider::determineOffset(this));
+    if (isEnabled()) {
+        batch.getTransform().setPosition({owner.getLocalPosition().x, owner.getLocalPosition().y});
+    }
+    else {
+        dummy.getTransform().setPosition({owner.getLocalPosition().x, owner.getLocalPosition().y});
+    }
 }
 
 } // namespace defcoms

@@ -123,6 +123,11 @@ public:
      */
     Component* getParent() const { return parent; }
 
+    /**
+     * @brief Returns the element that owns this component
+     */
+    const Element& getElement() const { return *owner; }
+
 protected:
     /**
      * @brief Initializes the component
@@ -200,6 +205,11 @@ protected:
         }
         return *o;
     }
+
+    /**
+     * @brief Returns the game engine instance
+     */
+    engine::Engine& getEngine() { return *enginePtr; }
 
 private:
     HighlightState highlightState;

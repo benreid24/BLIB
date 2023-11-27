@@ -4,6 +4,7 @@
 #include <BLIB/ECS.hpp>
 #include <BLIB/Graphics/Components/EntityBacked.hpp>
 #include <BLIB/Graphics/Components/OverlayScalable.hpp>
+#include <BLIB/Render/Overlays/OverlayObject.hpp>
 
 namespace bl
 {
@@ -26,7 +27,7 @@ public:
     /**
      * @brief Does nothing
      */
-    Dummy2D() = default;
+    Dummy2D();
 
     /**
      * @brief Copies from the given dummy
@@ -54,7 +55,17 @@ public:
      */
     void setSize(const glm::vec2& size);
 
+    /**
+     * @brief Controls whether or not children of the dummy are rendered
+     *
+     * @param hidden True to hide, false to render
+     */
+    void setHidden(bool hidden);
+
 private:
+    bool hidden;
+    rc::ovy::OverlayObject* object;
+
     virtual void ensureLocalSizeUpdated() override {}
 };
 
