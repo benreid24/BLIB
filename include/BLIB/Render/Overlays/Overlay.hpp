@@ -120,6 +120,15 @@ private:
         scene::Key sceneKey;
         std::array<ds::DescriptorSetInstance*, Config::MaxDescriptorSets> descriptors;
         std::uint8_t descriptorCount;
+
+        RemovedObject(
+            ecs::Entity entity, scene::Key key,
+            const std::array<ds::DescriptorSetInstance*, Config::MaxDescriptorSets>& descriptors,
+            std::uint8_t dc)
+        : entity(entity)
+        , sceneKey(key)
+        , descriptors(descriptors)
+        , descriptorCount(dc) {}
     };
 
     std::vector<RemovedObject> removalQueue;

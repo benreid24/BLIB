@@ -428,13 +428,6 @@ public:
     void overrideHighlightBehavior(rdr::Component::HighlightState behavior);
 
     /**
-     * @brief Not intended for external use. Called by derived elements to add children to scene
-     *
-     * @param renderer The GUI renderer instance
-     */
-    void addToScene(rdr::Renderer& renderer);
-
-    /**
      * @brief Tests whether or not this element is descended from the given element
      *
      * @param element The element to test
@@ -562,13 +555,6 @@ protected:
      * @brief Returns the current renderer, if any
      */
     rdr::Renderer* getRenderer() { return renderer; }
-
-    /**
-     * @brief Derived classes with children should call addToScene here for all children recursively
-     *
-     * @param renderer The GUI renderer instance
-     */
-    virtual void addChildrenToScene(rdr::Renderer& renderer);
 
 private:
     rdr::Renderer* renderer;

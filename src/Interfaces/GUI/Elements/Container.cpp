@@ -145,11 +145,6 @@ void Container::prepareChildrenRender(rdr::Renderer& r) {
     assignDepths();
 }
 
-void Container::addChildrenToScene(rdr::Renderer& r) {
-    for (auto& child : children) { child->addToScene(r); }
-    assignDepths();
-}
-
 void Container::assignDepths() {
     constexpr float WindowBias = 40.f;
 

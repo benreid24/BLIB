@@ -128,6 +128,10 @@ private:
     struct RemovedObject {
         scene::SceneObject* object;
         std::uint32_t pipelineId;
+
+        RemovedObject(scene::SceneObject* obj, std::uint32_t pid)
+        : object(obj)
+        , pipelineId(pid) {}
     };
 
     engine::Engine& engine;

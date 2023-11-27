@@ -39,7 +39,6 @@ void Renderer::destroyComponent(const Element& owner) {
 void Renderer::addToOverlay(rc::Overlay* o) {
     if (overlay) { removeFromOverlay(); }
     overlay = o;
-    // for (auto& pair : components) { pair.second->addToScene(overlay); }
     flashProvider->doSceneAdd(o);
     highlightProvider->doSceneAdd(o);
     tooltipProvider->doSceneAdd(o);

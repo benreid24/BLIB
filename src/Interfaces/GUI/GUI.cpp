@@ -51,11 +51,10 @@ void GUI::queueAction(const Element::QueuedAction& a) { queuedActions.emplace_ba
 
 void GUI::addToOverlay(rc::Overlay* overlay) {
     if (!overlay) { overlay = observer.getOrCreateSceneOverlay(); }
+    renderer.addToOverlay(overlay);
     prepareRender(renderer);
     getComponent()->assignDepth(800.f); // most things bias negative
     assignDepths();
-    renderer.addToOverlay(overlay);
-    addToScene(renderer);
     bl::event::Dispatcher::subscribe(this);
 }
 

@@ -90,6 +90,8 @@ void Component::assignDepth(float d) {
 }
 
 void Component::addToScene(rc::Overlay* overlay) {
+    BL_LOG_INFO << "Adding component to scene: " << getEntity();
+
     parent = owner->getParent() ? owner->getParent()->getComponent() : nullptr;
 
     if (owner->active()) {
@@ -102,7 +104,9 @@ void Component::addToScene(rc::Overlay* overlay) {
     if (parent && parent != this) {
         const ecs::Entity me    = getEntity();
         const ecs::Entity daddy = parent->getEntity();
-        enginePtr->ecs().setEntityParent(me, daddy);
+        if (enginePtr->ecs().getEntityParent(me) != daddy) {
+            enginePtr->ecs().setEntityParent(me, daddy);
+        }
     }
 
     onElementUpdated();

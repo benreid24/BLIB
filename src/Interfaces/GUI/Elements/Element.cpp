@@ -437,14 +437,9 @@ void Element::updateUiState() {
 void Element::prepareRender(rdr::Renderer& r) {
     renderer      = &r;
     rendererAlive = r.getAliveFlag();
-    if (!component) {
-        component = doPrepareRender(r);
-        prepareChildrenRender(r);
-    }
-    else {
-        r.addComponentToOverlayIfRequired(component);
-        prepareChildrenRender(r);
-    }
+    if (!component) { component = doPrepareRender(r); }
+    else { r.addComponentToOverlayIfRequired(component); }
+    prepareChildrenRender(r);
     updateUiState();
 
     if (highlightBehvaiorOverride.has_value()) {
@@ -452,19 +447,12 @@ void Element::prepareRender(rdr::Renderer& r) {
     }
 }
 
-void Element::addToScene(rdr::Renderer& r) {
-    r.addComponentToOverlayIfRequired(component);
-    addChildrenToScene(r);
-}
-
-void Element::addChildrenToScene(rdr::Renderer&) {}
+void Element::prepareChildrenRender(rdr::Renderer&) {}
 
 void Element::onRenderChange() {
     fireSignal(Event(Event::RenderSettingsChanged));
     if (component) { component->onRenderSettingChange(); }
 }
-
-void Element::prepareChildrenRender(rdr::Renderer&) {}
 
 float Element::getDepthBias() const { return 0.f; }
 

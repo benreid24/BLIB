@@ -91,13 +91,6 @@ protected:
      */
     virtual bool receivesOutOfBoundsEvents() const override;
 
-    /**
-     * @brief Adds all children to the current scene
-     *
-     * @param renderer The GUI renderer instance
-     */
-    virtual void addChildrenToScene(rdr::Renderer& renderer) override;
-
 private:
     Element* children[N];
 
@@ -150,11 +143,6 @@ void CompositeElement<N>::bringToTop(const Element*) {
 template<std::size_t N>
 void CompositeElement<N>::prepareChildrenRender(rdr::Renderer& renderer) {
     for (std::size_t i = 0; i < N; ++i) { children[i]->prepareRender(renderer); }
-}
-
-template<std::size_t N>
-void CompositeElement<N>::addChildrenToScene(rdr::Renderer& r) {
-    for (std::size_t i = 0; i < N; ++i) { children[i]->addToScene(r); }
 }
 
 template<std::size_t N>
