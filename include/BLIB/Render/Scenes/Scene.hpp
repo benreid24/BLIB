@@ -123,12 +123,11 @@ protected:
                                       UpdateSpeed updateFreq) = 0;
 
     /**
-     * @brief Called when an object is removed from the scene. Unlink from descriptors here
+     * @brief Call to remove an object from the scene. Removal is queued
      *
      * @param object The object being removed
-     * @param pipeline The pipeline used to render the object being removed
      */
-    virtual void doRemove(scene::SceneObject* object, std::uint32_t pipeline) = 0;
+    void removeObject(scene::SceneObject* object);
 
     /**
      * @brief Called by Scene in handleDescriptorSync for objects that need to be re-batched
@@ -139,12 +138,20 @@ protected:
     virtual void doBatchChange(const BatchChange& change, std::uint32_t ogPipeline) = 0;
 
     /**
-     * @brief Intended to be called by DrawableSystem. Can be used by derived classes to
-     *        remove child objects
+     * @brief Called when an object should be removed from the scene. Derived scenes should maintain
+     *        a queue of objects marked for removal. If necessary, derived scenes should make copies
+     *        of objects to be removed in case it is possible that the underlying memory is freed
+     *        before the queue is drained
      *
-     * @param object The object to remove
+     * @param object The object to be removed
+     * @param pipeline The pipeline used to render the object being removed
      */
-    void removeObject(scene::SceneObject* object);
+    virtual void queueObjectRemoval(scene::SceneObject* object, std::uint32_t pipeline) = 0;
+
+    /**
+     * @brief Called once per frame. Derived classes should remove all queued objects here
+     */
+    virtual void removeQueuedObjects() = 0;
 
 private:
     std::uint32_t nextObserverIndex;

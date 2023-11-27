@@ -19,8 +19,9 @@ SingleShape2D::~SingleShape2D() {
 void SingleShape2D::notifyDirty() {
     dirty = true;
     if (!updateHandle.isQueued() && entity() != ecs::InvalidEntity) {
-        updateHandle = engine().systems().addFrameTask(
-            engine::FrameStage::RenderObjectSync, std::bind(&SingleShape2D::ensureUpdated, this));
+        updateHandle =
+            engine().systems().addFrameTask(engine::FrameStage::RenderObjectInsertion,
+                                            std::bind(&SingleShape2D::ensureUpdated, this));
     }
 }
 

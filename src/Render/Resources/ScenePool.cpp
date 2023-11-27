@@ -31,6 +31,10 @@ void ScenePool::release(Entry* entry) {
     }
 }
 
+void ScenePool::performObjectRemovals() {
+    for (auto& entry : scenes) { entry.scene->removeQueuedObjects(); }
+}
+
 } // namespace res
 } // namespace rc
 } // namespace bl

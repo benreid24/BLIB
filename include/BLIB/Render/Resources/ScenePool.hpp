@@ -13,6 +13,10 @@
 
 namespace bl
 {
+namespace sys
+{
+class SceneObjectRemovalSystem;
+}
 namespace engine
 {
 class Engine;
@@ -70,8 +74,10 @@ private:
     std::mutex mutex;
 
     void release(Entry* entry);
+    void performObjectRemovals();
 
     friend class bl::rc::SceneRef;
+    friend class sys::SceneObjectRemovalSystem;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////

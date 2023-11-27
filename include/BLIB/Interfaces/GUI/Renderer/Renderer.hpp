@@ -51,7 +51,7 @@ public:
     Component* createComponent(TElem& element) {
         const auto it = components.try_emplace(&element, factory.createComponent<TElem>()).first;
         it->second->create(engine, *this, element);
-        if (overlay) { it->second->doSceneAdd(overlay); }
+        if (overlay) { it->second->addToScene(overlay); }
         return it->second.get();
     }
 

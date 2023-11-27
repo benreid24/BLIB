@@ -22,7 +22,8 @@ namespace sys
 /**
  * @brief Base class for renderer systems that manage scene objects in the ECS. Custom renderable
  *        types should have a system that inherits from this class that manages their membership
- *        within scenes. These systems should run in the engine::FrameStage::RenderObjectSync step
+ *        within scenes. These systems should run in the engine::FrameStage::RenderObjectInsertion
+ * step
  *
  * @tparam T The component type in the ECS that is being managed
  * @ingroup Systems
@@ -109,7 +110,6 @@ private:
     const std::uint32_t defaultPipeline;
     const std::uint32_t overlayPipeline;
     std::vector<AddCommand> toAdd;
-    std::vector<rc::rcom::SceneObjectRef> erased;
 
     virtual void observe(const ecs::event::ComponentRemoved<T>& rm) override;
     virtual void observe(const rc::event::SceneDestroyed& rm) override;
@@ -125,7 +125,6 @@ DrawableSystem<T>::DrawableSystem(std::uint32_t defaultPipeline, std::uint32_t o
 , defaultPipeline(defaultPipeline)
 , overlayPipeline(overlayPipeline) {
     toAdd.reserve(64);
-    erased.reserve(64);
 }
 
 template<typename T>
@@ -160,7 +159,7 @@ void DrawableSystem<T>::addToSceneWithCustomPipeline(ecs::Entity entity, rc::Sce
     }
     if (c->sceneRef.scene) {
         if (c->sceneRef.scene == scene) { return; }
-        erased.emplace_back(c->sceneRef);
+        c->sceneRef.scene->removeObject(c->sceneRef.object);
     }
     toAdd.emplace_back(entity, scene, descriptorUpdateFreq, pipeline);
 }
@@ -177,7 +176,7 @@ void DrawableSystem<T>::removeFromScene(ecs::Entity entity) {
         return;
     }
     if (c->sceneRef.scene) {
-        erased.emplace_back(c->sceneRef);
+        c->sceneRef.scene->removeObject(c->sceneRef.object);
         c->sceneRef.scene = nullptr;
     }
 }
@@ -192,7 +191,7 @@ template<typename T>
 void DrawableSystem<T>::observe(const ecs::event::ComponentRemoved<T>& rm) {
     if (rm.component.sceneRef.scene) {
         std::unique_lock lock(mutex);
-        erased.emplace_back(rm.component.sceneRef);
+        rm.component.sceneRef.scene->removeObject(rm.component.sceneRef.object);
     }
 }
 
@@ -201,9 +200,6 @@ void DrawableSystem<T>::observe(const rc::event::SceneDestroyed& rm) {
     registry->getAllComponents<T>().forEach([&rm](ecs::Entity, T& c) {
         if (c.sceneRef.scene == rm.scene) { c.sceneRef.scene = nullptr; }
     });
-    for (auto& cm : erased) {
-        if (cm.scene == rm.scene) { cm.scene = nullptr; }
-    }
 }
 
 template<typename T>
@@ -217,13 +213,8 @@ template<typename T>
 void DrawableSystem<T>::update(std::mutex& frameMutex, float dt, float, float, float) {
     std::unique_lock lock(mutex);
 
-    if (!toAdd.empty() || !erased.empty()) {
+    if (!toAdd.empty()) {
         std::unique_lock lock(frameMutex);
-
-        for (const rc::rcom::SceneObjectRef& ref : erased) {
-            if (ref.scene) { ref.scene->removeObject(ref.object); }
-        }
-        erased.clear();
 
         for (const auto& add : toAdd) {
             T* c = registry->getComponent<T>(add.entity);

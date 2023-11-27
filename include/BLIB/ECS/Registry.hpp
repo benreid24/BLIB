@@ -118,6 +118,14 @@ public:
     void setEntityParentDestructionBehavior(Entity entity, ParentDestructionBehavior behavior);
 
     /**
+     * @brief Returns the behavior of the entity when its parent is destroyed
+     *
+     * @param entity The entity to get the behavior for
+     * @return What the entity does when its parent is destroyed
+     */
+    ParentDestructionBehavior getEntityParentDestructionBehavior(Entity entity) const;
+
+    /**
      * @brief Adds a dependency on resource from user. Controls whether or not an entity may be
      *        safely deleted
      *
@@ -469,6 +477,12 @@ inline Entity Registry::getEntityParent(Entity child) const { return parentGraph
 inline ctr::IndexMappedList<std::uint32_t, Entity>::Range Registry::getEntityChildren(
     Entity parent) {
     return parentGraph.getChildren(parent);
+}
+
+inline ParentDestructionBehavior Registry::getEntityParentDestructionBehavior(Entity entity) const {
+    const std::uint64_t i = entity.getIndex();
+    return i < parentDestructionBehaviors.size() ? parentDestructionBehaviors[i] :
+                                                   ParentDestructionBehavior::DestroyedWithParent;
 }
 
 } // namespace ecs
