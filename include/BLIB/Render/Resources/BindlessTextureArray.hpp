@@ -74,6 +74,14 @@ public:
     void prepareTextureUpdate(std::uint32_t i, const std::string& path);
 
     /**
+     * @brief Prepares the texture to populate with the given source image
+     *
+     * @param i The index of the texture to update
+     * @param src The source image to populate with
+     */
+    void prepareTextureUpdate(std::uint32_t i, const sf::Image& src);
+
+    /**
      * @brief Returns the bind index of this array within its descriptor set
      */
     constexpr std::uint32_t getBindIndex() const;

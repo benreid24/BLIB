@@ -2,7 +2,6 @@
 #define BLIB_INTERFACES_GUI_ELEMENTS_COMPOSITEELEMENT_HPP
 
 #include <BLIB/Interfaces/GUI/Elements/Element.hpp>
-#include <BLIB/Interfaces/Utilities/ViewUtil.hpp>
 
 namespace bl
 {
@@ -68,7 +67,7 @@ protected:
 
     /**
      * @brief Sends the given event to each child (in order of registerChildren) and returns the
-     *        reuslt. Optionally sends the event to all children or terminates once one consumes
+     *        result. Optionally sends the event to all children or terminates once one consumes
      *
      * @param event The event to send
      * @param stopWhenConsumed True to stop sending when consumed, false to send to all
@@ -77,18 +76,14 @@ protected:
     bool sendEventToChildren(const Event& event, bool stopWhenConsumed = true);
 
     /**
-     * @brief Renders each child element in the order received in registerChildren
+     * @brief Calls prepareRender on each child
      *
-     * @param target The target to render to
-     * @param states The render states to use
-     * @param renderer The renderer to use
-     * @param changeView True to compute a new view, false to use the current
+     * @param renderer The GUI renderer instance
      */
-    void renderChildren(sf::RenderTarget& target, sf::RenderStates states, const Renderer& renderer,
-                        bool changeView) const;
+    virtual void prepareChildrenRender(rdr::Renderer& renderer) override;
 
     /**
-     * @brief Returns whether or not this element should receive events that occured outside the
+     * @brief Returns whether or not this element should receive events that occurred outside the
      *        acquisition of its parent
      *
      * @return True if it should take outside events, false for contained only
@@ -145,17 +140,8 @@ void CompositeElement<N>::bringToTop(const Element*) {
 }
 
 template<std::size_t N>
-void CompositeElement<N>::renderChildren(sf::RenderTarget& target, sf::RenderStates states,
-                                         const Renderer& renderer, bool changeView) const {
-    const sf::View oldView = target.getView();
-    if (changeView) {
-        target.setView(
-            interface::ViewUtil::computeSubView(getAcquisition(), renderer.getOriginalView()));
-    }
-
-    for (std::size_t i = 0; i < N; ++i) { children[i]->render(target, states, renderer); }
-
-    target.setView(oldView);
+void CompositeElement<N>::prepareChildrenRender(rdr::Renderer& renderer) {
+    for (std::size_t i = 0; i < N; ++i) { children[i]->prepareRender(renderer); }
 }
 
 template<std::size_t N>

@@ -73,7 +73,7 @@ public:
     bool valid() const;
 
     /**
-     * @brief Returns an error message for the last parsing error that occured
+     * @brief Returns an error message for the last parsing error that occurred
      *
      */
     const std::string& errorMessage() const;

@@ -12,10 +12,11 @@ namespace sys
 {
 namespace
 {
-bool parentsAllClean(com::OverlayScaler* scaler) {
+bool parentsAllClean(com::OverlayScaler* scaler, com::Transform2D* transform) {
     while (scaler->hasParent()) {
-        scaler = &scaler->getParent();
-        if (scaler->isDirty()) { return false; }
+        scaler    = &scaler->getParent();
+        transform = (transform && transform->hasParent()) ? &transform->getParent() : nullptr;
+        if (scaler->isDirty(transform)) { return false; }
     }
     return true;
 }
@@ -33,14 +34,20 @@ void constrainScissor(VkRect2D& scissor, const VkRect2D& limits) {
     scissor.offset.x = std::max(scissor.offset.x, limits.offset.x);
     scissor.offset.y = std::max(scissor.offset.y, limits.offset.y);
 
-    const auto limitRight = limits.offset.x + limits.extent.width;
+    const unsigned int limitRight = limits.offset.x + limits.extent.width;
     if (scissor.offset.x + scissor.extent.width > limitRight) {
-        scissor.extent.width = limitRight - scissor.offset.x;
+        if (limitRight >= scissor.offset.x) {
+            scissor.extent.width = limitRight - scissor.offset.x;
+        }
+        else { scissor.extent.width = 0; }
     }
 
-    const auto limitBottom = limits.offset.y + limits.extent.height;
+    const unsigned int limitBottom = limits.offset.y + limits.extent.height;
     if (scissor.offset.y + scissor.extent.height > limitBottom) {
-        scissor.extent.height = limitBottom - scissor.offset.y;
+        if (limitBottom >= scissor.offset.y) {
+            scissor.extent.height = limitBottom - scissor.offset.y;
+        }
+        else { scissor.extent.height = 0; }
     }
 }
 
@@ -55,10 +62,11 @@ void OverlayScalerSystem::init(engine::Engine& engine) {
 
 void OverlayScalerSystem::update(std::mutex&, float, float, float, float) {
     view->forEach([this](Result& row) {
-        com::OverlayScaler* scaler = row.get<com::OverlayScaler>();
-        if (scaler && scaler->isDirty()) {
+        com::OverlayScaler* scaler  = row.get<com::OverlayScaler>();
+        com::Transform2D* transform = row.get<com::Transform2D>();
+        if (scaler && scaler->isDirty(transform)) {
             // skip if parent dirty, will be refreshed when parent is
-            if (!parentsAllClean(scaler)) { return; }
+            if (!parentsAllClean(scaler, transform)) { return; }
             refreshObjectAndChildren(row);
         }
     });
@@ -80,8 +88,19 @@ void OverlayScalerSystem::refreshObjectAndChildren(rc::ovy::OverlayObject& obj) 
 void OverlayScalerSystem::refreshEntity(Result& cset) {
     com::OverlayScaler& scaler  = *cset.get<com::OverlayScaler>();
     com::Transform2D& transform = *cset.get<com::Transform2D>();
-    const VkViewport& viewport  = *cset.get<rc::ovy::OverlayObject>()->overlayViewport;
-    glm::vec2 parentSize        = cam::OverlayCamera::getOverlayCoordinateSpace();
+    rc::ovy::OverlayObject& obj = *cset.get<rc::ovy::OverlayObject>();
+
+    // dummy entities only inherit scissor, all else is skipped
+    if (cset.entity().flagSet(ecs::Flags::Dummy)) {
+        if (!obj.hasParent()) {
+            BL_LOG_ERROR << "Root level dummy entities are not supported by OverlayScaler";
+        }
+        else { obj.cachedScissor = obj.getParent().cachedScissor; }
+        return;
+    }
+
+    const VkViewport& viewport = *obj.overlayViewport;
+    glm::vec2 parentSize       = cam::OverlayCamera::getOverlayCoordinateSpace();
     if (scaler.hasParent()) {
         parentSize.x =
             scaler.getParent().cachedObjectBounds.width * transform.getParent().getScale().x;
@@ -89,11 +108,13 @@ void OverlayScalerSystem::refreshEntity(Result& cset) {
             scaler.getParent().cachedObjectBounds.height * transform.getParent().getScale().y;
     }
 
-    scaler.dirty = false;
+    scaler.dirty            = false;
+    scaler.transformVersion = transform.getVersion();
 
     float xScale = 1.f;
     float yScale = 1.f;
 
+    // scale
     switch (scaler.scaleType) {
     case com::OverlayScaler::WidthPercent:
         xScale = scaler.widthPercent * parentSize.x / scaler.cachedObjectBounds.width;
@@ -125,11 +146,18 @@ void OverlayScalerSystem::refreshEntity(Result& cset) {
         break;
     }
 
-    if (transform.getScale().x != xScale || transform.getScale().y != yScale) {
-        transform.setScale({xScale, yScale});
-        if (scaler.onScale) { scaler.onScale(); }
+    if (scaler.scaleType != com::OverlayScaler::None) {
+        if (transform.getScale().x != xScale || transform.getScale().y != yScale) {
+            transform.setScale({xScale, yScale});
+            if (scaler.onScale) { scaler.onScale(); }
+        }
+    }
+    else {
+        xScale = transform.getScale().x;
+        yScale = transform.getScale().y;
     }
 
+    // position
     switch (scaler.posType) {
     case com::OverlayScaler::ParentSpace:
         transform.setPosition(scaler.parentPosition * parentSize);
@@ -140,33 +168,42 @@ void OverlayScalerSystem::refreshEntity(Result& cset) {
         break;
     }
 
+    // scissor
+    VkRect2D& scissor   = cset.get<rc::ovy::OverlayObject>()->cachedScissor;
     const glm::vec2 pos = transform.getGlobalPosition();
-    if (scaler.useScissor) {
+    switch (scaler.scissorMode) {
+    case com::OverlayScaler::ScissorSelf:
+    case com::OverlayScaler::ScissorSelfConstrained: {
         const glm::vec2& origin = transform.getOrigin();
         const glm::vec2 offset((origin.x - scaler.cachedObjectBounds.left) * xScale,
                                (origin.y - scaler.cachedObjectBounds.top) * yScale);
-        const glm::vec2 corner = (pos - offset) / parentSize;
+        const glm::vec2 corner = (pos - offset) / cam::OverlayCamera::getOverlayCoordinateSpace();
 
-        VkRect2D& scissor = cset.get<rc::ovy::OverlayObject>()->cachedScissor;
-        scissor.offset.x  = viewport.x + viewport.width * corner.x;
-        scissor.offset.y  = viewport.y + viewport.height * corner.y;
-        scissor.extent.width =
-            viewport.width * (scaler.cachedObjectBounds.width * xScale) / parentSize.x;
-        scissor.extent.height =
-            viewport.height * (scaler.cachedObjectBounds.height * yScale) / parentSize.y;
-        constrainScissor(scissor, makeScissor(viewport));
-        // TODO - constrain child scissors to parent? make option? (selection extend past window)
-    }
-    else {
-        // ensure scissor is updated
-        auto& obj = *cset.get<rc::ovy::OverlayObject>();
-        if (!obj.hasParent()) { obj.cachedScissor = makeScissor(viewport); }
-        else {
-            // TODO - make this optional?
-            obj.cachedScissor = obj.getParent().cachedScissor;
+        scissor.offset.x     = viewport.x + viewport.width * corner.x;
+        scissor.offset.y     = viewport.y + viewport.height * corner.y;
+        scissor.extent.width = viewport.width * (scaler.cachedObjectBounds.width * xScale) /
+                               cam::OverlayCamera::getOverlayCoordinateSpace().x;
+        scissor.extent.height = viewport.height * (scaler.cachedObjectBounds.height * yScale) /
+                                cam::OverlayCamera::getOverlayCoordinateSpace().y;
+
+        VkRect2D limits = makeScissor(viewport);
+        if (scaler.scissorMode == com::OverlayScaler::ScissorSelfConstrained && obj.hasParent()) {
+            limits = obj.getParent().cachedScissor;
         }
+        constrainScissor(scissor, limits);
+    } break;
+
+    case com::OverlayScaler::ScissorObserver:
+        scissor = makeScissor(viewport);
+        break;
+
+    case com::OverlayScaler::ScissorInherit:
+        if (!obj.hasParent()) { obj.cachedScissor = makeScissor(viewport); }
+        else { obj.cachedScissor = obj.getParent().cachedScissor; }
+        break;
     }
 
+    // update global size
     const glm::vec2& overlaySize = cam::OverlayCamera::getOverlayCoordinateSpace();
     scaler.cachedTargetRegion    = {
         viewport.x + viewport.width * pos.x / overlaySize.x,

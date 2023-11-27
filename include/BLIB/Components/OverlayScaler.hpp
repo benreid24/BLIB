@@ -1,6 +1,7 @@
 #ifndef BLIB_COMPONENTS_OVERLAYSCALER_HPP
 #define BLIB_COMPONENTS_OVERLAYSCALER_HPP
 
+#include <BLIB/Components/Transform2D.hpp>
 #include <BLIB/ECS/Traits/ParentAware.hpp>
 #include <SFML/Graphics/Rect.hpp>
 #include <functional>
@@ -39,6 +40,23 @@ namespace com
 class OverlayScaler : public ecs::trait::ParentAware<OverlayScaler> {
 public:
     using OnScale = std::function<void()>;
+
+    /**
+     * @brief Represents the scissor behavior for an entity controlled by an overlay scaler
+     */
+    enum ScissorMode {
+        /// Default setting. Uses same scissor as parent, or Observer scissor for root elements
+        ScissorInherit,
+
+        /// Sets the scissor to the bounds of the object
+        ScissorSelf,
+
+        /// Sets the scissor to the bounds of the object and constrains against the parent scissor
+        ScissorSelfConstrained,
+
+        /// Sets the scissor to the top-level observer scissor
+        ScissorObserver
+    };
 
     /**
      * @brief Initializes the component to have no scaling effect
@@ -100,11 +118,11 @@ public:
     constexpr const sf::FloatRect& getEntityBounds() const;
 
     /**
-     * @brief Helper method to set the viewport to the region the drawable is in
+     * @brief Sets the behavior of the scissor when rendering this entity
      *
-     * @param setToSelf True to create and use a viewport, false to render normally
+     * @param mode The scissor mode
      */
-    void setScissorToSelf(bool setToSelf);
+    void setScissorMode(ScissorMode mode);
 
     /**
      * @brief Updates the entity position relative to the parent region
@@ -120,8 +138,10 @@ public:
 
     /**
      * @brief Returns whether or not the scale needs to be re-computed
+     *
+     * @param transform Optional transform to take into account for dirty state
      */
-    constexpr bool isDirty() const;
+    bool isDirty(const com::Transform2D* transform = nullptr) const;
 
     /**
      * @brief Sets the callback to call when the entity is scaled
@@ -149,8 +169,9 @@ private:
     union {
         glm::vec2 parentPosition;
     };
-    bool useScissor;
+    ScissorMode scissorMode;
     bool dirty;
+    std::uint16_t transformVersion;
 
     friend class sys::OverlayScalerSystem;
     friend class gfx::bcom::OverlayScalable;
@@ -161,8 +182,6 @@ private:
 inline constexpr const sf::FloatRect& OverlayScaler::getEntityBounds() const {
     return cachedObjectBounds;
 }
-
-inline constexpr bool OverlayScaler::isDirty() const { return dirty; }
 
 } // namespace com
 } // namespace bl

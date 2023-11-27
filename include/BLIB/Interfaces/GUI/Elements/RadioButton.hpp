@@ -99,14 +99,12 @@ protected:
     RadioButton(const Element::Ptr& child, const std::string& name, Group* radioGroup);
 
     /**
-     * @brief Renders the unchecked and checked box
+     * @brief Creates the visual component for this element
      *
-     * @param activeBut The canvas to render the checked box to
-     * @param inactiveBut The canvas to render the unchecked box to
-     * @param renderer The renderer to use to do it
+     * @param renderer The renderer to use to create visual Components
+     * @return The visual component for this element
      */
-    virtual void renderToggles(Canvas& activeBut, Canvas& inactiveBut,
-                               const Renderer& renderer) const override;
+    virtual rdr::Component* doPrepareRender(rdr::Renderer& renderer) override;
 
     /**
      * @brief Activates the radio button. Does not deactivate if already active

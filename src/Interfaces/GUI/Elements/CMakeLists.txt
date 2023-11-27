@@ -7,6 +7,7 @@ target_sources(BLIB PRIVATE
     ComboBox.cpp
     Container.cpp
     Element.cpp
+    Icon.cpp
     Image.cpp
     Label.cpp
     Notebook.cpp

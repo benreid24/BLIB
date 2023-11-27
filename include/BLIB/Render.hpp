@@ -37,6 +37,7 @@
 #include <BLIB/Render/Descriptors/DescriptorSetInstanceCache.hpp>
 #include <BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp>
 #include <BLIB/Render/Events/SceneDestroyed.hpp>
+#include <BLIB/Render/Events/SceneObjectRemoved.hpp>
 #include <BLIB/Render/Graph/Asset.hpp>
 #include <BLIB/Render/Graph/AssetFactory.hpp>
 #include <BLIB/Render/Graph/AssetPool.hpp>

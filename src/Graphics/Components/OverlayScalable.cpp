@@ -16,7 +16,10 @@ OverlayScalable::OverlayScalable()
 , ecsId(ecs::InvalidEntity)
 , handle(nullptr) {}
 
-void OverlayScalable::setScissorToSelf(bool setToSelf) { handle->setScissorToSelf(setToSelf); }
+void OverlayScalable::setScissorToSelf(bool setToSelf) {
+    handle->setScissorMode(setToSelf ? com::OverlayScaler::ScissorSelf :
+                                       com::OverlayScaler::ScissorInherit);
+}
 
 glm::vec2 OverlayScalable::getLocalSize() const {
     const_cast<OverlayScalable*>(this)->ensureLocalSizeUpdated();

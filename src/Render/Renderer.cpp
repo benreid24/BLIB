@@ -5,6 +5,7 @@
 #include <BLIB/Render/Graph/Providers/StandardTargetProvider.hpp>
 #include <BLIB/Render/Graph/Strategies/ForwardRenderStrategy.hpp>
 #include <BLIB/Systems.hpp>
+#include <BLIB/Systems/SceneObjectRemovalSystem.hpp>
 #include <cmath>
 
 namespace bl
@@ -42,12 +43,14 @@ void Renderer::initialize() {
 
     // core renderer systems
     engine.systems().registerSystem<sys::RendererUpdateSystem>(
-        FrameStage::RenderObjectSync, StateMask, *this);
+        FrameStage::RenderObjectInsertion, StateMask, *this);
     engine.systems().registerSystem<sys::RenderSystem>(FrameStage::Render, StateMask, *this);
     engine.systems().registerSystem<sys::OverlayScalerSystem>(FrameStage::RenderIntermediateRefresh,
                                                               StateMask);
     engine.systems().registerSystem<sys::Animation2DSystem>(
         FrameStage::Animate, engine::StateMask::Running | engine::StateMask::Menu, *this);
+    engine.systems().registerSystem<sys::SceneObjectRemovalSystem>(FrameStage::RenderObjectRemoval,
+                                                                   StateMask);
 
     // descriptor systems
     engine.systems().registerSystem<sys::Transform2DDescriptorSystem>(
@@ -58,31 +61,36 @@ void Renderer::initialize() {
         FrameStage::RenderDescriptorRefresh, StateMask);
 
     // drawable systems
-    engine.systems().registerSystem<sys::MeshSystem>(FrameStage::RenderObjectSync,
+    engine.systems().registerSystem<sys::MeshSystem>(FrameStage::RenderObjectInsertion,
                                                      StateMask,
                                                      Config::PipelineIds::SkinnedMeshes,
                                                      Config::PipelineIds::SkinnedMeshes);
-    engine.systems().registerSystem<sys::SpriteSystem>(FrameStage::RenderObjectSync,
+    engine.systems().registerSystem<sys::SpriteSystem>(FrameStage::RenderObjectInsertion,
                                                        StateMask,
                                                        Config::PipelineIds::LitSkinned2DGeometry,
                                                        Config::PipelineIds::UnlitSkinned2DGeometry);
-    engine.systems().registerSystem<sys::TextSystem>(FrameStage::RenderObjectSync,
+    engine.systems().registerSystem<sys::TextSystem>(FrameStage::RenderObjectInsertion,
                                                      StateMask,
                                                      Config::PipelineIds::Text,
                                                      Config::PipelineIds::Text);
-    engine.systems().registerSystem<sys::SlideshowSystem>(FrameStage::RenderObjectSync,
+    engine.systems().registerSystem<sys::SlideshowSystem>(FrameStage::RenderObjectInsertion,
                                                           StateMask,
                                                           Config::PipelineIds::SlideshowLit,
                                                           Config::PipelineIds::SlideshowUnlit);
     engine.systems().registerSystem<sys::Animation2DDrawableSystem>(
-        FrameStage::RenderObjectSync,
+        FrameStage::RenderObjectInsertion,
         StateMask,
         Config::PipelineIds::LitSkinned2DGeometry,
         Config::PipelineIds::UnlitSkinned2DGeometry);
-    engine.systems().registerSystem<sys::Shape2DSystem>(FrameStage::RenderObjectSync,
+    engine.systems().registerSystem<sys::Shape2DSystem>(FrameStage::RenderObjectInsertion,
                                                         StateMask,
                                                         Config::PipelineIds::Lit2DGeometry,
                                                         Config::PipelineIds::Unlit2DGeometry);
+    engine.systems().registerSystem<sys::BatchedShapes2DSystem>(
+        FrameStage::RenderObjectInsertion,
+        StateMask,
+        Config::PipelineIds::Lit2DGeometry,
+        Config::PipelineIds::Unlit2DGeometry);
 
     // asset providers
     assetFactory.addProvider<rgi::StandardAssetProvider>(rg::AssetTags::RenderedSceneOutput);

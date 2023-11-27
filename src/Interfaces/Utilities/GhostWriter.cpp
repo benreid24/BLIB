@@ -10,13 +10,15 @@ namespace interface
 GhostWriter::GhostWriter()
 : speed(engine::Configuration::getOrDefault<float>("blib.interface.ghost_speed", 20.f))
 , showing(0)
-, residual(0.f) {}
+, residual(0.f)
+, managing(nullptr) {}
 
 GhostWriter::GhostWriter(const std::string& content)
 : speed(engine::Configuration::getOrDefault<float>("blib.interface.ghost_speed", 20.f))
 , content(content)
 , showing(0)
-, residual(0.f) {}
+, residual(0.f)
+, managing(nullptr) {}
 
 void GhostWriter::setContent(const std::string& c) {
     content  = c;
@@ -40,12 +42,35 @@ bool GhostWriter::update(float dt) {
         if (finished()) break;
     }
 
-    return a > 0;
+    if (a > 0) {
+        syncText();
+        return true;
+    }
+    return false;
 }
 
 bool GhostWriter::finished() const { return showing >= content.size(); }
 
-void GhostWriter::showAll() { showing = static_cast<unsigned int>(content.size()); }
+void GhostWriter::showAll() {
+    showing = static_cast<unsigned int>(content.size());
+    syncText();
+}
+
+void GhostWriter::manage(gfx::Text& t) {
+    managing = &t.getSection();
+    syncText();
+}
+
+void GhostWriter::manage(gfx::txt::BasicText& s) {
+    managing = &s;
+    syncText();
+}
+
+void GhostWriter::stopManaging() { managing = nullptr; }
+
+void GhostWriter::syncText() {
+    if (managing) { managing->setString(content.substr(0, showing)); }
+}
 
 } // namespace interface
 } // namespace bl

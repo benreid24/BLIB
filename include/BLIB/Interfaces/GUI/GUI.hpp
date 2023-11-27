@@ -3,10 +3,17 @@
 
 #include <BLIB/Events.hpp>
 #include <BLIB/Interfaces/GUI/Elements/Box.hpp>
-#include <SFML/Graphics.hpp>
+#include <BLIB/Interfaces/GUI/Renderer/Renderer.hpp>
+#include <BLIB/Render/Observer.hpp>
+#include <BLIB/Render/Overlays/Overlay.hpp>
 
 namespace bl
 {
+namespace engine
+{
+class Engine;
+}
+
 /// A window based graphical user interface
 namespace gui
 {
@@ -14,43 +21,31 @@ namespace gui
  * @brief Top level class for creating a graphical user interface
  *
  * A GUI object is what client code must use for manipulating and rendering an interface. A GUI
- * object may only be used in a single sf::RenderWindow, but an sf::RenderWindow object may
- * contain multiple GUI's. A GUI may be positioned and have a size set. Elements in the GUI
- * will be positioned and constrained by the GUI's position and size.
+ * object may only be used in a single OS window. A GUI may be positioned and have a size set.
+ * Elements in the GUI will be positioned and constrained by the GUI's position and size. GUI
+ * windows are not constrained
  *
  * @ingroup GUI
- *
  */
 class GUI
-: public sf::Drawable
-, public sf::Transformable
-, public bl::event::Listener<sf::Event>
+: public bl::event::Listener<sf::Event>
 , public gui::Box {
 public:
-    typedef std::shared_ptr<GUI> Ptr;
+    typedef std::unique_ptr<GUI> Ptr;
 
     /**
      * @brief Create a new GUI that is in the given region
      *
+     * @param engine The game engine instance
+     * @param observer The observer the GUI will belong to
      * @param packer The Packer to use
-     * @param region The position and size of the renderable area
+     * @param region The position and size of the renderable area. Defaults to the full overlay
+     *               space unless a value is manually set
+     * @param factory The component factory to use in the renderer. Must remain valid
      */
-    static Ptr create(const gui::Packer::Ptr& packer, const sf::FloatRect& region);
-
-    /**
-     * @brief Create a new GUI that fills the window
-     *
-     * @param packer The Packer to use
-     * @param window The window to fill
-     */
-    static Ptr create(const gui::Packer::Ptr& packer, const sf::RenderWindow& window);
-
-    /**
-     * @brief Sets the renderer to use. Default is gui::Renderer
-     *
-     * @param renderer The renderer to use
-     */
-    void setRenderer(const gui::Renderer::Ptr& renderer);
+    static Ptr create(engine::Engine& engine, rc::Observer& observer,
+                      const gui::Packer::Ptr& packer, const sf::FloatRect& region = {},
+                      rdr::FactoryTable* factory = nullptr);
 
     /**
      * @brief Set the Region objectSets the region to pack elements into
@@ -68,16 +63,11 @@ public:
     virtual void observe(const sf::Event& event) override;
 
     /**
-     * @brief Subscribes the GUI to the event dispatcher to start receiving window events
-     */
-    void subscribe();
-
-    /**
-     * @brief Updates all child elements and runs any queud actions
+     * @brief Updates all child elements and runs any queued actions
      *
      * @param dt Time elapsed in seconds
      */
-    virtual void update(float dt) override;
+    virtual void update(float dt) override; // TODO - put into system?
 
     /**
      * @brief Queues an action to be ran after update()
@@ -87,24 +77,32 @@ public:
      */
     void queueAction(const QueuedAction& action);
 
-protected:
     /**
-     * @brief Renders the GUI to the target
+     * @brief Adds the GUI and all contained elements to the given overlay. Passing nullptr will
+     *        default to getOrCreateOverlay() on the observer
      *
-     * @param target Target to render to
-     * @param states The render states to use
+     * @param overlay The overlay to add to, or nullptr
      */
-    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+    void addToOverlay(rc::Overlay* overlay = nullptr);
+
+    /**
+     * @brief Removes the GUI and all elements from the current overlay
+     */
+    void removeFromOverlay();
+
+    /**
+     * @brief Returns the last known mouse position in overlay space
+     */
+    const glm::vec2& getMousePosition() const { return mousePos; }
 
 private:
+    rc::Observer& observer;
     std::vector<Element::QueuedAction> queuedActions;
-    gui::Renderer::Ptr renderer;
-    sf::Vector2f mousePos;
-    mutable sf::Transform renderTransform;
+    rdr::Renderer renderer;
+    glm::vec2 mousePos;
 
-    GUI(const gui::Packer::Ptr& packer);
-    GUI(const gui::Packer::Ptr& packer, const sf::FloatRect& region);
-    GUI(const gui::Packer::Ptr& packer, const sf::RenderWindow& window);
+    GUI(engine::Engine& engine, rc::Observer& observer, const gui::Packer::Ptr& packer,
+        const sf::FloatRect& region, rdr::FactoryTable* factory);
 };
 
 } // namespace gui

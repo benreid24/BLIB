@@ -2,6 +2,7 @@
 #define BLIB_SYSTEMS_BUILTINDRAWABLESYSTEMS_HPP
 
 #include <BLIB/Components/Animation2D.hpp>
+#include <BLIB/Components/BatchedShapes2D.hpp>
 #include <BLIB/Components/Mesh.hpp>
 #include <BLIB/Components/Shape2D.hpp>
 #include <BLIB/Components/Slideshow.hpp>
@@ -54,6 +55,13 @@ using Animation2DDrawableSystem = DrawableSystem<com::Animation2D>;
  * @ingroup Systems
  */
 using Shape2DSystem = DrawableSystem<com::Shape2D>;
+
+/**
+ * @brief Engine system for managing batched 2d shapes
+ *
+ * @ingroup Systems
+ */
+using BatchedShapes2DSystem = DrawableSystem<com::BatchedShapes2D>;
 
 } // namespace sys
 } // namespace bl

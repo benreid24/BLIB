@@ -4,6 +4,7 @@
 #include <BLIB/ECS/ComponentPool.hpp>
 #include <BLIB/ECS/DependencyGraph.hpp>
 #include <BLIB/ECS/Entity.hpp>
+#include <BLIB/ECS/ParentDestructionBehavior.hpp>
 #include <BLIB/ECS/ParentGraph.hpp>
 #include <BLIB/ECS/View.hpp>
 #include <BLIB/Events/Dispatcher.hpp>
@@ -40,9 +41,10 @@ public:
     /**
      * @brief Creates a new entity and returns its id
      *
+     * @param flags Optional flags to set on the newly created entity. May not be modified later
      * @return Entity The new entity id
      */
-    Entity createEntity();
+    Entity createEntity(Flags flags = Flags::None);
 
     /**
      * @brief Returns whether or not the given entity exists
@@ -98,6 +100,30 @@ public:
      * @return The parent entity or InvalidEntity if no parent
      */
     Entity getEntityParent(Entity child) const;
+
+    /**
+     * @brief Returns an iterable set of child entities for the given entity
+     *
+     * @param parent The entity to get the children of
+     * @return An iterable range of child entities
+     */
+    ctr::IndexMappedList<std::uint32_t, Entity>::Range getEntityChildren(Entity parent);
+
+    /**
+     * @brief Sets what to do for the given entity when any of its parents are destroyed
+     *
+     * @param entity The entity to set the behavior for
+     * @param behavior What to do when a parent is destroyed
+     */
+    void setEntityParentDestructionBehavior(Entity entity, ParentDestructionBehavior behavior);
+
+    /**
+     * @brief Returns the behavior of the entity when its parent is destroyed
+     *
+     * @param entity The entity to get the behavior for
+     * @return What the entity does when its parent is destroyed
+     */
+    ParentDestructionBehavior getEntityParentDestructionBehavior(Entity entity) const;
 
     /**
      * @brief Adds a dependency on resource from user. Controls whether or not an entity may be
@@ -237,6 +263,7 @@ private:
 
     // entity relationships
     ParentGraph parentGraph;
+    std::vector<ParentDestructionBehavior> parentDestructionBehaviors;
     DependencyGraph dependencyGraph;
     std::vector<bool> markedForRemoval;
 
@@ -260,6 +287,8 @@ private:
 
     template<typename T>
     void finishComponentAdd(Entity ent, unsigned int cindex, T* component);
+
+    void removeEntityParentLocked(Entity child);
 
     template<typename TRequire, typename TOptional, typename TExclude>
     friend class View;
@@ -415,7 +444,7 @@ ComponentPool<T>& Registry::getPool() {
             std::exit(1);
         }
 #endif
-        it = poolMap.try_emplace(tid, new ComponentPool<T>(poolMap.size())).first;
+        it = poolMap.try_emplace(tid, new ComponentPool<T>(*this, poolMap.size())).first;
         componentPools.emplace_back(it->second.get());
     }
 
@@ -444,6 +473,17 @@ inline bool Registry::entityHasParent(Entity child) const {
 }
 
 inline Entity Registry::getEntityParent(Entity child) const { return parentGraph.getParent(child); }
+
+inline ctr::IndexMappedList<std::uint32_t, Entity>::Range Registry::getEntityChildren(
+    Entity parent) {
+    return parentGraph.getChildren(parent);
+}
+
+inline ParentDestructionBehavior Registry::getEntityParentDestructionBehavior(Entity entity) const {
+    const std::uint64_t i = entity.getIndex();
+    return i < parentDestructionBehaviors.size() ? parentDestructionBehaviors[i] :
+                                                   ParentDestructionBehavior::DestroyedWithParent;
+}
 
 } // namespace ecs
 } // namespace bl

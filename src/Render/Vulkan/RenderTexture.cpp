@@ -27,7 +27,7 @@ void RenderTexture::create(Renderer& r, const glm::u32vec2& size, VkSampler samp
     const bool firstInit = renderer == nullptr;
 
     renderer = &r;
-    r.registerRenderTexture(this);
+    if (firstInit) { r.registerRenderTexture(this); }
 
     // viewport and scissor come from size
     scissor.extent.width  = size.x;
@@ -61,9 +61,9 @@ void RenderTexture::create(Renderer& r, const glm::u32vec2& size, VkSampler samp
 void RenderTexture::destroy() {
     if (renderer) {
         renderer->removeRenderTexture(this);
-        framebuffer.cleanup();
-        depthBuffer.destroy();
-        renderer->texturePool().releaseTexture(texture);
+        framebuffer.deferCleanup();
+        depthBuffer.deferDestroy();
+        texture.release();
         renderer = nullptr;
     }
 }
@@ -119,6 +119,11 @@ void RenderTexture::renderScene(VkCommandBuffer commandBuffer) {
     }
 
     framebuffer.finishRender(commandBuffer);
+}
+
+void RenderTexture::setCamera(std::unique_ptr<cam::Camera>&& nc) {
+    camera = std::move(nc);
+    if (hasScene()) { scene->setDefaultNearAndFarPlanes(*camera); }
 }
 
 } // namespace vk

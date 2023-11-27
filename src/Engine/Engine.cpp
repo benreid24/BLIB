@@ -30,9 +30,17 @@ Engine::~Engine() {
     if (renderingSystem.vulkanState().device) {
         vkCheck(vkDeviceWaitIdle(renderingSystem.vulkanState().device));
     }
-    entityRegistry.destroyAllEntities();
-    while (!states.empty()) { states.pop(); }
+    while (!states.empty()) {
+        if (states.top().use_count() != 1) {
+            BL_LOG_ERROR << "Dangling pointer to state: " << states.top()->name();
+        }
+        states.pop();
+    }
+    if (newState && newState.use_count() != 1) {
+        BL_LOG_ERROR << "Dangling pointer to state: " << newState->name();
+    }
     newState.reset();
+    entityRegistry.destroyAllEntities();
 
     if (renderWindow.isOpen()) {
         renderingSystem.cleanup();

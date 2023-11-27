@@ -7,6 +7,8 @@ target_sources(BLIB PUBLIC
     DependencyGraph.hpp
     Entity.hpp
     Events.hpp
+    Flags.hpp
+    ParentDestructionBehavior.hpp
     ParentGraph.hpp
     Registry.hpp
     Tags.hpp

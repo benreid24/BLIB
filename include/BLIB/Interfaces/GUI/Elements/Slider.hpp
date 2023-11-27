@@ -10,10 +10,9 @@ namespace bl
 namespace gui
 {
 /**
- * @brief Slidable button element. Can be used as an input. Used by ScrollArea
+ * @brief Slide-able button element. Can be used as an input. Used by ScrollArea
  *
  * @ingroup GUI
- *
  */
 class Slider : public CompositeElement<3> {
 public:
@@ -43,7 +42,7 @@ public:
     /**
      * @brief Set the position of the slider
      *
-     * @param value The normlized position in the range [0,1]
+     * @param value The normalized position in the range [0,1]
      * @param fireEvent True to fire the changed event, false to not
      */
     void setValue(float value, bool fireEvent = true);
@@ -103,20 +102,18 @@ protected:
     virtual sf::Vector2f minimumRequisition() const override;
 
     /**
-     * @brief Renders the slider and buttons
+     * @brief Creates the visual component for this element
      *
-     * @param target The target to render to
-     * @param states Render states to apply
-     * @param renderer The renderer to use
+     * @param renderer The renderer to use to create visual Components
+     * @return The visual component for this element
      */
-    virtual void doRender(sf::RenderTarget& target, sf::RenderStates states,
-                          const Renderer& renderer) const override;
+    virtual rdr::Component* doPrepareRender(rdr::Renderer& renderer) override;
 
     /**
      * @brief Handles the scroll and returns true
      *
      * @param scroll The scroll event
-     * @return True
+     * @return True always
      */
     virtual bool handleScroll(const Event& scroll) override;
 
@@ -141,12 +138,9 @@ private:
     float increment;
     float sliderSize;
     float freeSpace;
-    Canvas::Ptr increaseImg;
     Button::Ptr increaseBut;
-    Canvas::Ptr decreaseImg;
     Button::Ptr decreaseBut;
     Button::Ptr slider;
-    mutable bool renderedButs;
 
     int calculateFreeSize() const;
 

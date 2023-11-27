@@ -347,6 +347,40 @@ TEST(ECS, ParentBeforeCreate) {
     EXPECT_FALSE(testRegistry.entityExists(child));
 }
 
+TEST(ECS, DestroyParentComponent) {
+    Registry testRegistry;
+
+    Entity child  = testRegistry.createEntity();
+    Entity parent = testRegistry.createEntity();
+    testRegistry.setEntityParent(child, parent);
+
+    auto* parentCom = testRegistry.addComponent<ParentTestComponent>(parent, 100);
+    auto* childCom  = testRegistry.addComponent<ParentTestComponent>(child, 10);
+
+    EXPECT_TRUE(childCom->hasParent());
+    EXPECT_FALSE(parentCom->hasParent());
+    EXPECT_EQ(parentCom->getChildren().size(), 1);
+    EXPECT_EQ(childCom->payload, 10);
+    EXPECT_EQ(parentCom->payload, 100);
+    EXPECT_EQ(childCom->getParent().payload, 100);
+
+    testRegistry.removeComponent<ParentTestComponent>(parent);
+    EXPECT_FALSE(childCom->hasParent());
+
+    parentCom = testRegistry.addComponent<ParentTestComponent>(parent, 100);
+    EXPECT_TRUE(childCom->hasParent());
+    EXPECT_FALSE(parentCom->hasParent());
+    EXPECT_EQ(parentCom->getChildren().size(), 1);
+    EXPECT_EQ(childCom->payload, 10);
+    EXPECT_EQ(parentCom->payload, 100);
+    EXPECT_EQ(childCom->getParent().payload, 100);
+
+    testRegistry.removeComponent<ParentTestComponent>(child);
+    EXPECT_FALSE(parentCom->hasParent());
+    EXPECT_EQ(parentCom->getChildren().size(), 0);
+    EXPECT_EQ(parentCom->payload, 100);
+}
+
 TEST(ECS, ParentAfterCreate) {
     Registry testRegistry;
 

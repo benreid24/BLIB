@@ -1,7 +1,7 @@
 #include <BLIB/Interfaces/GUI/Elements/Window.hpp>
 
 #include <BLIB/Interfaces/GUI/Packers/LinePacker.hpp>
-#include <BLIB/Interfaces/Utilities/ViewUtil.hpp>
+#include <BLIB/Interfaces/GUI/Renderer/Renderer.hpp>
 
 namespace bl
 {
@@ -29,6 +29,8 @@ Window::Window(const Packer::Ptr& packer, const std::string& titleText, Style st
 
     titlebar = Box::create(
         LinePacker::create(LinePacker::Horizontal, 2, LinePacker::Compact, LinePacker::LeftAlign));
+    titlebar->setColor(sf::Color(95, 95, 95), sf::Color(20, 20, 20));
+    titlebar->setOutlineThickness(1.f);
     if (hasStyle(style, Titlebar)) {
         // Create titlebar containers
         leftTitleSide  = Box::create(LinePacker::create(LinePacker::Horizontal));
@@ -122,15 +124,8 @@ sf::Vector2f Window::minimumRequisition() const {
 
 void Window::closed() { fireSignal(Event(Event::Closed)); }
 
-void Window::doRender(sf::RenderTarget& target, sf::RenderStates states,
-                      const Renderer& renderer) const {
-    const sf::View oldView = target.getView();
-    target.setView(interface::ViewUtil::computeSubView(sf::FloatRect(getAcquisition()),
-                                                       renderer.getOriginalView()));
-    renderer.renderWindow(target, states, titlebar.get(), *this);
-    if (titlebar) { titlebar->render(target, states, renderer); }
-    elementArea->render(target, states, renderer);
-    target.setView(oldView);
+rdr::Component* Window::doPrepareRender(rdr::Renderer& renderer) {
+    return renderer.createComponent<Window>(*this);
 }
 
 void Window::update(float dt) {
@@ -167,6 +162,8 @@ bool Window::propagateEvent(const Event& event) {
     if (elementArea->processEvent(event)) return true;
     return getAcquisition().contains(event.mousePosition());
 }
+
+float Window::getDepthBias() const { return -400.f; }
 
 } // namespace gui
 } // namespace bl

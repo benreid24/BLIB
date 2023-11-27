@@ -111,7 +111,7 @@ public:
     void includeScrollbarsInRequisition(bool include);
 
     /**
-     * @brief Returns whether or not this element should receive events that occured outside the
+     * @brief Returns whether or not this element should receive events that occurred outside the
      *        acquisition of its parent
      *
      * @return True if it should take outside events, false for contained only
@@ -142,14 +142,12 @@ protected:
     virtual sf::Vector2f minimumRequisition() const override;
 
     /**
-     * @brief Renders the scroll area, scrollbars if visible, and the child elements
+     * @brief Creates the visual component for this element
      *
-     * @param target  The target to render to
-     * @param states States to apply
-     * @param renderer The renderer to use
+     * @param renderer The renderer to use to create visual Components
+     * @return The visual component for this element
      */
-    virtual void doRender(sf::RenderTarget& target, sf::RenderStates states,
-                          const Renderer& renderer) const override;
+    virtual rdr::Component* doPrepareRender(rdr::Renderer& renderer) override;
 
     /**
      * @brief Does a bounds check and calls Container::handleRawEvent if in bounds
@@ -162,7 +160,7 @@ protected:
     /**
      * @brief Scrolls the area and returns true
      *
-     * @param scroll The scroll that occured
+     * @param scroll The scroll that occurred
      * @return True if the scroll was over the area, false otherwise
      */
     virtual bool handleScroll(const Event& scroll) override;
@@ -170,6 +168,7 @@ protected:
 private:
     Slider::Ptr horScrollbar;
     Slider::Ptr vertScrollbar;
+    Box::Ptr contentWrapper;
     Box::Ptr content;
     std::optional<sf::Vector2f> maxSize;
     mutable sf::Vector2f totalSize;
@@ -182,7 +181,6 @@ private:
     bool neverShowV;
     bool includeBars;
 
-    void addBars();
     void refreshSize() const;
     void scrolled();
     void updateContentPos();

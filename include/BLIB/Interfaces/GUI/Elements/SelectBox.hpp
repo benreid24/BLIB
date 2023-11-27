@@ -130,8 +130,7 @@ private:
     virtual bool propagateEvent(const Event& e) override;
     virtual void onAcquisition() override;
     virtual sf::Vector2f minimumRequisition() const override;
-    virtual void doRender(sf::RenderTarget& target, sf::RenderStates states,
-                          const Renderer& renderer) const override;
+    virtual rdr::Component* doPrepareRender(rdr::Renderer& renderer) override;
     void onLabelClick(const Event&, Element* label);
 };
 

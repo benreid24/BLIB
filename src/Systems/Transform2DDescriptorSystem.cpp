@@ -12,7 +12,7 @@ Transform2DDescriptorSystem::Transform2DDescriptorSystem()
 
 void Transform2DDescriptorSystem::update(std::mutex&, float, float, float lag, float) {
     posOnlyView->forEach([](PosTags::TComponentSet& cset) {
-        auto& t = *cset.get<com::Transform2D>();
+        com::Transform2D& t = *cset.get<com::Transform2D>();
         if (t.requiresRefresh()) { t.refresh(); }
     });
     interpView->forEach([lag](InterpTags::TComponentSet& cset) {

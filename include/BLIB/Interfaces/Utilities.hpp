@@ -8,7 +8,5 @@
  */
 
 #include <BLIB/Interfaces/Utilities/GhostWriter.hpp>
-#include <BLIB/Interfaces/Utilities/ViewUtil.hpp>
-#include <BLIB/Interfaces/Utilities/WordWrap.hpp>
 
 #endif

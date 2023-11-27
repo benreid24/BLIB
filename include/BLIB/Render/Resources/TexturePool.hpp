@@ -102,6 +102,17 @@ public:
     TextureRef getOrLoadTexture(const std::string& filePath, VkSampler sampler = nullptr);
 
     /**
+     * @brief Potentially creates a new texture and returns it. The texture contents are loaded from
+     *        the given image. If a texture for the given image already exists then it
+     *        is returned immediately.
+     *
+     * @param src The source image to load
+     * @param sampler The sampler to use
+     * @return A ref to the new or existing texture
+     */
+    TextureRef getOrLoadTexture(const sf::Image& src, VkSampler sampler = nullptr);
+
+    /**
      * @brief Frees all textures that no longer have any valid refs pointing to them
      */
     void releaseUnused();
@@ -121,7 +132,9 @@ private:
     util::IdAllocator<std::uint32_t> freeSlots;
     util::IdAllocator<std::uint32_t> freeRtSlots;
     std::unordered_map<std::string, std::uint32_t> fileMap;
+    std::unordered_map<const sf::Image*, std::uint32_t> imageMap;
     std::vector<const std::string*> reverseFileMap;
+    std::vector<const sf::Image*> reverseImageMap;
     std::vector<std::uint32_t> toRelease;
 
     VkDescriptorPool descriptorPool;

@@ -58,6 +58,7 @@ void Container::bringToTop(const Element* child) {
             Element* c = zorder[i];
             zorder.erase(zorder.begin() + i);
             zorder.insert(zorder.begin(), c);
+            assignDepths();
             return;
         }
     }
@@ -69,7 +70,9 @@ void Container::add(const Element::Ptr& e) {
     children.emplace_back(e);
     zorder.insert(zorder.begin(), e.get());
     setChildParent(e.get());
+    if (getRenderer()) { e->prepareRender(*getRenderer()); }
     makeDirty();
+    assignDepths();
 }
 
 const std::vector<Element::Ptr>& Container::getChildren() const { return children; }
@@ -97,7 +100,7 @@ bool Container::propagateEvent(const Event& event) {
 
 bool Container::handleScroll(const Event& event) {
     if (!getAcquisition().contains(event.mousePosition())) return false;
-    
+
     for (Element* e : zorder) {
         if (e->handleScroll(event)) { return true; }
     }
@@ -114,13 +117,15 @@ void Container::update(float dt) {
         children.clear();
         zorder.clear();
     }
-    else {
+    else if (!toRemove.empty()) {
         for (const Element* e : toRemove) {
+            if (renderer && e->component) { renderer->removeComponentFromOverlay(e->component); }
             deleteElement(children, e);
             deleteElement(zorder, e);
         }
+        assignDepths();
+        toRemove.clear();
     }
-    toRemove.clear();
 
     if (dirty()) { assignAcquisition(getAcquisition()); }
     if (soiled) { makeDirty(); }
@@ -128,33 +133,29 @@ void Container::update(float dt) {
     for (Element* e : zorder) { e->update(dt); }
 }
 
-void Container::renderChildren(sf::RenderTarget& target, sf::RenderStates states,
-                               const Renderer& renderer, bool changeView) const {
-    // Save old view
-    const sf::View oldView = target.getView();
-
-    // Compute new view
-    if (changeView) {
-        sf::View view = interface::ViewUtil::computeSubView(sf::FloatRect{getAcquisition()},
-                                                            renderer.getOriginalView());
-        interface::ViewUtil::constrainView(view, oldView);
-        target.setView(view);
-    }
-
-    // Draw children
-    for (auto it = zorder.rbegin(); it != zorder.rend(); ++it) {
-        (*it)->render(target, states, renderer);
-    }
-
-    // Restore view
-    target.setView(oldView);
-}
-
 bool Container::receivesOutOfBoundsEvents() const {
     for (const auto& c : children) {
         if (c->receivesOutOfBoundsEvents()) return true;
     }
     return false;
+}
+
+void Container::prepareChildrenRender(rdr::Renderer& r) {
+    for (auto& child : children) { child->prepareRender(r); }
+    assignDepths();
+}
+
+void Container::assignDepths() {
+    constexpr float WindowBias = 40.f;
+
+    float d = 0.f;
+    for (auto rit = zorder.rbegin(); rit != zorder.rend(); ++rit) {
+        Element* child      = *rit;
+        const bool isWindow = dynamic_cast<Window*>(child) != nullptr;
+
+        d -= isWindow ? WindowBias : 0.5f;
+        if (child->getComponent()) { child->getComponent()->assignDepth(d); }
+    }
 }
 
 } // namespace gui

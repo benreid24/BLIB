@@ -7,28 +7,18 @@ namespace bl
 namespace gui
 {
 ToggleButton::ToggleButton(const Element::Ptr& c)
-: CompositeElement<3>()
-, butsRendered(false)
+: CompositeElement()
 , child(c)
-, activeButton(Canvas::create(10, 10))
-, inactiveButton(Canvas::create(10, 10))
-, value(false) {
+, value(false)
+, toggleSize(-1.f) {
+    Element* tmp[1] = {c.get()};
+    registerChildren(tmp);
+
     setHorizontalAlignment(RenderSettings::Left);
     setExpandsWidth(true);
-    child->setHorizontalAlignment(RenderSettings::Left);
-    child->setExpandsWidth(true);
+    c->setHorizontalAlignment(RenderSettings::Left);
+    c->setExpandsWidth(true);
     getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) { onClick(); });
-
-    Element* childs[3] = {child.get(), activeButton.get(), inactiveButton.get()};
-    registerChildren(childs);
-}
-
-const Canvas::Ptr& ToggleButton::getVisibleButton() const {
-    return value ? activeButton : inactiveButton;
-}
-
-const Canvas::Ptr& ToggleButton::getHiddenButton() const {
-    return value ? inactiveButton : activeButton;
 }
 
 bool ToggleButton::getValue() const { return value; }
@@ -37,63 +27,45 @@ void ToggleButton::setValue(bool v) {
     if (v != value) {
         value = v;
         fireSignal(Event(Event::ValueChanged, value));
+        if (getComponent()) { getComponent()->onElementUpdated(); }
     }
-}
-
-void ToggleButton::setToggleButtonSize(const sf::Vector2f& size) {
-    butsRendered = false;
-    activeButton->resize(size.x, size.y);
-    inactiveButton->resize(size.x, size.y);
-    makeDirty();
-}
-
-bool ToggleButton::propagateEvent(const Event& event) {
-    sendEventToChildren(event, false);
-    return false;
 }
 
 sf::Vector2f ToggleButton::minimumRequisition() const {
-    const sf::Vector2f butReq   = activeButton->getRequisition();
-    const sf::Vector2f childReq = child->getRequisition();
-    return {butReq.x + childReq.x + 12.f, std::max(butReq.y, childReq.y)};
-}
-
-void ToggleButton::onAcquisition() {
-    Packer::manuallyPackElement(activeButton,
-                                {getAcquisition().left,
-                                 getAcquisition().top,
-                                 activeButton->getRequisition().x,
-                                 getAcquisition().height});
-    Packer::manuallyPackElement(inactiveButton,
-                                {getAcquisition().left,
-                                 getAcquisition().top,
-                                 activeButton->getRequisition().x,
-                                 getAcquisition().height});
-    Packer::manuallyPackElement(child,
-                                {getAcquisition().left + activeButton->getRequisition().x + 2,
-                                 getAcquisition().top,
-                                 getAcquisition().width - activeButton->getRequisition().x - 2,
-                                 getAcquisition().height});
-}
-
-void ToggleButton::doRender(sf::RenderTarget& target, sf::RenderStates states,
-                            const Renderer& renderer) const {
-    if (!butsRendered) {
-        butsRendered = true;
-        renderToggles(*activeButton, *inactiveButton, renderer);
-    }
-    child->render(target, states, renderer);
-    if (value) { activeButton->render(target, states, renderer); }
-    else {
-        inactiveButton->render(target, states, renderer);
-    }
-
-    renderer.renderMouseoverOverlay(target, states, child.get());
+    const sf::Vector2f butReq = child->getRequisition();
+    const float s             = getToggleSize();
+    return {butReq.x + s * 1.2f, std::max(butReq.y, s)};
 }
 
 void ToggleButton::onClick() {
     value = !value;
     fireSignal(Event(Event::ValueChanged, value));
+    if (getComponent()) { getComponent()->onElementUpdated(); }
+}
+
+void ToggleButton::setToggleSize(float s) {
+    toggleSize = s;
+    makeDirty();
+    if (getComponent()) { getComponent()->onRenderSettingChange(); }
+}
+
+float ToggleButton::getToggleSize() const {
+    if (toggleSize <= 0.f) { toggleSize = child->getRequisition().y * 0.8f; }
+    return toggleSize;
+}
+
+void ToggleButton::onAcquisition() {
+    const float s = getToggleSize() * 1.2f;
+    Packer::manuallyPackElement(child,
+                                {getAcquisition().left + s,
+                                 getAcquisition().top,
+                                 getAcquisition().width - s,
+                                 getAcquisition().height});
+}
+
+bool ToggleButton::propagateEvent(const Event& event) {
+    sendEventToChildren(event);
+    return false; // so the button can have proper mouseover and click events
 }
 
 } // namespace gui

@@ -38,6 +38,13 @@ public:
      */
     Direction getDirection() const;
 
+    /**
+     * @brief Convenience method to get the thickness of the separator
+     */
+    float getThickness() const {
+        return renderSettings().outlineThickness.value_or(DefaultThickness);
+    }
+
 protected:
     /**
      * @brief Create a new separator in the given direction
@@ -47,20 +54,18 @@ protected:
     Separator(Direction direction);
 
     /**
-     * @brief Returns the the outline thickness in both the x and y components
+     * @brief Returns the outline thickness in both the x and y components
      *
      */
     virtual sf::Vector2f minimumRequisition() const override;
 
     /**
-     * @brief Renders the separator
+     * @brief Creates the visual component for this element
      *
-     * @param target The target to render to
-     * @param states Render states to apply
-     * @param renderer The renderer to use
+     * @param renderer The renderer to use to create visual Components
+     * @return The visual component for this element
      */
-    virtual void doRender(sf::RenderTarget& target, sf::RenderStates states,
-                          const Renderer& renderer) const override;
+    virtual rdr::Component* doPrepareRender(rdr::Renderer& renderer) override;
 
 private:
     const Direction dir;

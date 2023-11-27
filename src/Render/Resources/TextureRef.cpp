@@ -9,6 +9,11 @@ namespace rc
 {
 namespace res
 {
+namespace
+{
+bool rendererAlive = true;
+}
+
 TextureRef::TextureRef()
 : owner(nullptr)
 , texture(nullptr) {}
@@ -57,7 +62,7 @@ void TextureRef::addRef() {
 }
 
 void TextureRef::release() {
-    if (!texture) return;
+    if (!texture || !rendererAlive) return;
 
     const std::size_t i = id();
     --owner->refCounts[i];
@@ -68,6 +73,8 @@ void TextureRef::release() {
 std::uint32_t TextureRef::id() const { return texture - &(owner->textures.getTexture(0)); }
 
 TextureRef::operator bool() const { return texture != nullptr; }
+
+void TextureRef::disableCleanup() { rendererAlive = false; }
 
 } // namespace res
 } // namespace rc

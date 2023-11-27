@@ -47,6 +47,14 @@ public:
      */
     const Element::Ptr& getChild() const;
 
+    /**
+     * @brief Sets the padding between the child content and button border. Default is 4
+     *
+     * @param padding The amount of space between the child element and button border
+     * @param markDirty True to mark the button for repacking, false to skip
+     */
+    void setChildPadding(float padding, bool markDirty = true);
+
 protected:
     /**
      * @brief Create a new Button
@@ -70,17 +78,16 @@ protected:
     virtual sf::Vector2f minimumRequisition() const override;
 
     /**
-     * @brief Renders the button and text/child
+     * @brief Creates the visual component for this element
      *
-     * @param target The target to render to
-     * @param states Render states to use
-     * @param renderer The renderer to use
+     * @param renderer The renderer to use to create visual Components
+     * @return The visual component for this element
      */
-    virtual void doRender(sf::RenderTarget& target, sf::RenderStates states,
-                          const Renderer& renderer) const override;
+    virtual rdr::Component* doPrepareRender(rdr::Renderer& renderer) override;
 
 private:
     Element::Ptr child;
+    float childPadding;
 
     virtual void onAcquisition() override;
 };

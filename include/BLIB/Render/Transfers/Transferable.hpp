@@ -87,6 +87,7 @@ private:
                                      static_cast<int>(SyncRequirement::DeviceIdle) + 1);
 
     SyncRequirement perFrame;
+    bool queued;
 
     friend class TransferEngine;
 };

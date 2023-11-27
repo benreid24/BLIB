@@ -3,6 +3,7 @@
 
 #include <BLIB/Interfaces/GUI/Elements/Element.hpp>
 
+#include <BLIB/Interfaces/GUI/Renderer/TextEntryComponentBase.hpp>
 #include <SFML/System/String.hpp>
 #include <list>
 
@@ -57,7 +58,6 @@ public:
 
     /**
      * @brief Returns the current input
-     *
      */
     const std::string& getInput() const;
 
@@ -70,30 +70,39 @@ public:
 
     /**
      * @brief Returns whether or not the cursor is visible
-     *
-     * @return true
-     * @return false
      */
     bool cursorVisible() const;
 
     /**
      * @brief Returns the position of the cursor, in characters
-     *
      */
     unsigned int getCursorPosition() const;
 
     /**
-     * @brief Returns the scrolling offset of the text within the entry
-     *
+     * @brief Returns the index of the current line the cursor is on
      */
-    const sf::Vector2f& getTextOffset() const;
+    unsigned int getCurrentLine() const;
 
     /**
-     * @brief Manages cursor visibility based on elapsed time and active status
-     *
-     * @param dt Time elapsed since last update, in seconds
+     * @brief Returns the allowed number of lines in the input
      */
-    virtual void update(float dt) override;
+    unsigned int getLineCount() const;
+
+    /**
+     * @brief Returns the character index for the first character in the given line
+     *
+     * @param line 1 based line index
+     * @return The character index in the input of the first character in the line
+     */
+    unsigned int getLineStartIndex(unsigned int line) const;
+
+    /**
+     * @brief Returns the character index for the last character in the given line
+     *
+     * @param line 1 based line index
+     * @return The character index in the input of the last character in the line
+     */
+    unsigned int getLineEndIndex(unsigned int line) const;
 
 protected:
     /**
@@ -113,39 +122,35 @@ protected:
     virtual sf::Vector2f minimumRequisition() const override;
 
     /**
-     * @brief Renders the text entry
+     * @brief Creates the visual component for this element
      *
-     * @param target Target to render to
-     * @param states RenderStates to apply
-     * @param renderer Renderer to use
+     * @param renderer The renderer to use to create visual Components
+     * @return The visual component for this element
      */
-    virtual void doRender(sf::RenderTarget& target, sf::RenderStates states,
-                          const Renderer& renderer) const override;
+    virtual rdr::Component* doPrepareRender(rdr::Renderer& renderer) override;
 
 private:
+    rdr::TextEntryComponentBase* component;
     const unsigned lineCount;
     const bool allowMoreLines;
     Mode mode;
     std::optional<unsigned int> maxInputLen;
     std::string input;
-    sf::Text renderText;
-    sf::Vector2f textOffset;
 
     unsigned int cursorPos;
     bool cursorShowing;
-    float cursorTime;
 
     std::vector<int> newlines;
     unsigned int currentLine;
 
     void filter();
-    void recalcText();
     void recalcNewlines();
-    void recalcOffset();
-    void refresh();
+    void refreshComponent();
 
     void cursorUp();
     void cursorDown();
+    void updateCursorState();
+    void showAndResetCursor();
 
     void onInput(const Event& action);
     void onKeypress(const Event& action);

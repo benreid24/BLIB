@@ -1,6 +1,7 @@
 #include <BLIB/Interfaces/GUI/Elements/CheckButton.hpp>
 
 #include <BLIB/Interfaces/GUI/Elements/Label.hpp>
+#include <BLIB/Interfaces/GUI/Renderer/Renderer.hpp>
 
 namespace bl
 {
@@ -17,10 +18,8 @@ CheckButton::Ptr CheckButton::create(const Element::Ptr& child) {
 CheckButton::CheckButton(const Element::Ptr& child)
 : ToggleButton(child) {}
 
-void CheckButton::renderToggles(Canvas& activeBut, Canvas& inactiveBut,
-                                const Renderer& renderer) const {
-    renderer.renderToggleCheckButton(activeBut.getTexture(), true);
-    renderer.renderToggleCheckButton(inactiveBut.getTexture(), false);
+rdr::Component* CheckButton::doPrepareRender(rdr::Renderer& renderer) {
+    return renderer.createComponent<CheckButton>(*this);
 }
 
 } // namespace gui

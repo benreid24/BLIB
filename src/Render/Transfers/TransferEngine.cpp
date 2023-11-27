@@ -117,9 +117,11 @@ void TransferEngine::Bucket::executeTransfers() {
                             imageBarriers);
     for (Transferable* item : everyFrameItems) {
         item->executeTransfer(commandBuffer.current(), context);
+        item->queued = false;
     }
     for (Transferable* item : oneTimeItems) {
         item->executeTransfer(commandBuffer.current(), context);
+        item->queued = false;
     }
     oneTimeItems.clear();
 
@@ -173,6 +175,13 @@ void TransferEngine::queueOneTimeTransfer(Transferable* item,
         immediateBucket.oneTimeItems.emplace_back(item);
         break;
     }
+}
+
+void TransferEngine::cancelTransfer(Transferable* item) {
+    std::unique_lock lock(mutex);
+
+    std::erase(frameBucket.oneTimeItems, item);
+    std::erase(immediateBucket.oneTimeItems, item);
 }
 
 void TransferEngine::registerPerFrameTransfer(Transferable* item,

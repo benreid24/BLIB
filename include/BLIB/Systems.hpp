@@ -14,6 +14,7 @@
 #include <BLIB/Systems/OverlayScalerSystem.hpp>
 #include <BLIB/Systems/RenderSystem.hpp>
 #include <BLIB/Systems/RendererUpdateSystem.hpp>
+#include <BLIB/Systems/SceneObjectRemovalSystem.hpp>
 #include <BLIB/Systems/TogglerSystem.hpp>
 #include <BLIB/Systems/Transform2DDescriptorSystem.hpp>
 #include <BLIB/Systems/VelocitySystem.hpp>

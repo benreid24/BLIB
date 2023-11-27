@@ -10,13 +10,8 @@
 
 #include <BLIB/Interfaces/GUI/Event.hpp>
 #include <BLIB/Interfaces/GUI/GUI.hpp>
+#include <BLIB/Interfaces/GUI/RenderSettings.hpp>
 #include <BLIB/Interfaces/GUI/Signal.hpp>
-
-#include <BLIB/Interfaces/GUI/Renderers/DebugRenderer.hpp>
-#include <BLIB/Interfaces/GUI/Renderers/DefaultRenderer.hpp>
-#include <BLIB/Interfaces/GUI/Renderers/RenderSettings.hpp>
-#include <BLIB/Interfaces/GUI/Renderers/Renderer.hpp>
-#include <BLIB/Interfaces/GUI/Renderers/RendererUtil.hpp>
 
 #include <BLIB/Interfaces/GUI/Packers/GridPacker.hpp>
 #include <BLIB/Interfaces/GUI/Packers/LinePacker.hpp>
@@ -30,6 +25,7 @@
 #include <BLIB/Interfaces/GUI/Elements/Canvas.hpp>
 #include <BLIB/Interfaces/GUI/Elements/CheckButton.hpp>
 #include <BLIB/Interfaces/GUI/Elements/ComboBox.hpp>
+#include <BLIB/Interfaces/GUI/Elements/Icon.hpp>
 #include <BLIB/Interfaces/GUI/Elements/Image.hpp>
 #include <BLIB/Interfaces/GUI/Elements/Label.hpp>
 #include <BLIB/Interfaces/GUI/Elements/Notebook.hpp>

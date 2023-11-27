@@ -1,5 +1,7 @@
 #include <BLIB/Interfaces/GUI/Elements/Separator.hpp>
 
+#include <BLIB/Interfaces/GUI/Renderer/Renderer.hpp>
+
 namespace bl
 {
 namespace gui
@@ -22,9 +24,8 @@ sf::Vector2f Separator::minimumRequisition() const {
     return {thick, thick};
 }
 
-void Separator::doRender(sf::RenderTarget& target, sf::RenderStates states,
-                         const Renderer& renderer) const {
-    renderer.renderSeparator(target, states, *this);
+rdr::Component* Separator::doPrepareRender(rdr::Renderer& renderer) {
+    return renderer.createComponent<Separator>(*this);
 }
 
 } // namespace gui

@@ -2,6 +2,7 @@
 #define BLIB_GUI_ELEMENTS_NOTEBOOK_HPP
 
 #include <BLIB/Interfaces/GUI/Elements/Box.hpp>
+#include <BLIB/Interfaces/GUI/Elements/Button.hpp>
 #include <BLIB/Interfaces/GUI/Elements/Container.hpp>
 #include <BLIB/Interfaces/GUI/Elements/Label.hpp>
 
@@ -16,7 +17,6 @@ namespace gui
  *        of the element. Each page is typically a Box. Allows more sophisticated UI's
  *
  * @ingroup GUI
- *
  */
 class Notebook : public Container {
 public:
@@ -34,14 +34,13 @@ public:
 
     /**
      * @brief Container struct representing a page in the notebook
-     *
      */
     struct Page {
         /// The internal name of the page
         const std::string name;
 
         /// The label at the top of the notebook
-        Label::Ptr label;
+        Button::Ptr label;
 
         /// Any element that is the actual page content
         Element::Ptr content;
@@ -52,7 +51,7 @@ public:
         /// Callback to trigger when the page is closed
         PageChangedCb onClose;
 
-        Page(const std::string& name, const Label::Ptr& label, const Element::Ptr& content,
+        Page(const std::string& name, const Button::Ptr& label, const Element::Ptr& content,
              const PageChangedCb& onOpen, const PageChangedCb& onClose);
     };
 
@@ -147,6 +146,11 @@ public:
      */
     const sf::FloatRect& getTabAcquisition() const;
 
+    /**
+     * @brief Returns the offset the tabs are scrolled by
+     */
+    float getTabScroll() const;
+
 protected:
     /**
      * @brief Create a new empty Notebook
@@ -175,14 +179,12 @@ protected:
     virtual void requestMakeDirty(const Element* childRequester) override;
 
     /**
-     * @brief Renders the notebook
+     * @brief Creates the visual component for this element
      *
-     * @param target The target to render to
-     * @param states Render states to apply
-     * @param renderer The renderer to use
+     * @param renderer The renderer to use to create visual Components
+     * @return The visual component for this element
      */
-    virtual void doRender(sf::RenderTarget& target, sf::RenderStates states,
-                          const Renderer& renderer) const override;
+    virtual rdr::Component* doPrepareRender(rdr::Renderer& renderer) override;
 
     /**
      * @brief Passes the event down to the tabs and active page content
@@ -206,6 +208,7 @@ private:
     std::list<Page>::iterator getIterator(unsigned int i);
     sf::FloatRect contentArea() const;
     void constrainScroll();
+    void updateTabBoxes();
 };
 
 } // namespace gui

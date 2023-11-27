@@ -196,10 +196,11 @@ bool DescriptorComponentStorage<TCom, TPayload, TDynamicStorage, TStaticStorage>
     if (key.updateFreq == UpdateSpeed::Dynamic) {
         if (dynamicBuffer.ensureSize(key.sceneId + 1)) {
             refreshLinks(key.updateFreq);
-            dynCounts.resize(key.sceneId + 1, 0);
             dynamicRefresh = 0x1 << Config::MaxConcurrentFrames;
         }
         component->link(this, key, &dynamicBuffer[key.sceneId]);
+
+        if (key.sceneId >= dynCounts.size()) { dynCounts.resize(key.sceneId + 1, 0); }
         dynCounts[key.sceneId] += 1;
     }
     else {
@@ -209,6 +210,8 @@ bool DescriptorComponentStorage<TCom, TPayload, TDynamicStorage, TStaticStorage>
             staticRefresh = 0x1 << Config::MaxConcurrentFrames;
         }
         component->link(this, key, &staticBuffer[key.sceneId]);
+
+        if (key.sceneId >= statCounts.size()) { statCounts.resize(key.sceneId + 1, 0); }
         statCounts[key.sceneId] += 1;
     }
     markObjectDirty(key);
@@ -218,8 +221,10 @@ bool DescriptorComponentStorage<TCom, TPayload, TDynamicStorage, TStaticStorage>
 template<typename TCom, typename TPayload, typename TDynamicStorage, typename TStaticStorage>
 void DescriptorComponentStorage<TCom, TPayload, TDynamicStorage, TStaticStorage>::releaseObject(
     ecs::Entity entity, scene::Key key) {
-    auto& refCount =
-        key.updateFreq == UpdateSpeed::Dynamic ? dynCounts[key.sceneId] : statCounts[key.sceneId];
+    auto& refCounts = key.updateFreq == UpdateSpeed::Dynamic ? dynCounts : statCounts;
+    if (key.sceneId >= refCounts.size()) { return; }
+
+    auto& refCount = refCounts[key.sceneId];
     if (refCount == 1) {
         TCom* component = registry.getComponent<TCom>(entity);
         if (component) { component->unlink(); }
@@ -237,6 +242,7 @@ void DescriptorComponentStorage<TCom, TPayload, TDynamicStorage, TStaticStorage>
         dynamicBuffer.transferRange(dirtyDynamic.start, dirtyDynamic.end - dirtyDynamic.start + 1);
         dirtyDynamic = DirtyRange();
     }
+    else { dynamicBuffer.transferRange(0, 0); }
     dynamicRefresh = dynamicRefresh >> 1;
     staticRefresh  = staticRefresh >> 1;
 }

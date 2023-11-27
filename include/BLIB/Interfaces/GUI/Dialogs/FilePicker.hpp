@@ -1,6 +1,7 @@
 #ifndef BLIB_INTERFACES_GUI_DIALOGS_FILEPICKER_HPP
 #define BLIB_INTERFACES_GUI_DIALOGS_FILEPICKER_HPP
 
+#include <BLIB/Interfaces/GUI/Elements/ScrollArea.hpp>
 #include <BLIB/Interfaces/GUI/Elements/TextEntry.hpp>
 #include <BLIB/Interfaces/GUI/Elements/Window.hpp>
 #include <BLIB/Interfaces/GUI/GUI.hpp>
@@ -42,7 +43,7 @@ public:
      * @param parent The main GUI object to attach to
      * @param resetPath True to reset the starting path to root dir, false to keep the same
      */
-    void open(Mode mode, const std::string& title, GUI::Ptr parent, bool resetPath = false);
+    void open(Mode mode, const std::string& title, GUI::Ptr& parent, bool resetPath = false);
 
     /**
      * @brief Closes the dialog
@@ -58,7 +59,6 @@ private:
     std::vector<std::string> path;
 
     Window::Ptr window;
-    sf::RenderTexture folderTexture;
 
     Box::Ptr pathBox;
     std::vector<Box::Ptr> pathButtons;

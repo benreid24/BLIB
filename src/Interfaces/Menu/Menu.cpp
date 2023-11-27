@@ -1,6 +1,5 @@
 #include <BLIB/Interfaces/Menu/Menu.hpp>
 
-#include <BLIB/Interfaces/Utilities/ViewUtil.hpp>
 #include <BLIB/Logging.hpp>
 #include <BLIB/Render/Primitives/Color.hpp>
 #include <queue>
@@ -37,7 +36,7 @@ void Menu::create(engine::Engine& e, rc::Observer& o, const Selector::Ptr& sel) 
     background.create(*engine, {100.f, 100.f});
     background.setFillColor({1.f, 1.f, 1.f, 0.f});
     background.setOutlineColor({1.f, 1.f, 1.f, 0.f});
-    background.getOverlayScaler().setScissorToSelf(true);
+    background.getOverlayScaler().setScissorMode(com::OverlayScaler::ScissorSelf);
     selector->doCreate(*engine, background.entity());
     event::Dispatcher::subscribe(this);
 }

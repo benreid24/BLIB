@@ -1,9 +1,10 @@
 #ifndef BLIB_GUI_ELEMENTS_ELEMENT_HPP
 #define BLIB_GUI_ELEMENTS_ELEMENT_HPP
 
+#include <BLIB/Graphics/Text/VulkanFont.hpp>
 #include <BLIB/Interfaces/GUI/Event.hpp>
-#include <BLIB/Interfaces/GUI/Renderers/RenderSettings.hpp>
-#include <BLIB/Interfaces/GUI/Renderers/Renderer.hpp>
+#include <BLIB/Interfaces/GUI/RenderSettings.hpp>
+#include <BLIB/Interfaces/GUI/Renderer/Component.hpp>
 #include <BLIB/Interfaces/GUI/Signal.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 #include <SFML/Graphics.hpp>
@@ -15,6 +16,7 @@ namespace bl
 {
 namespace gui
 {
+class Container;
 class Packer;
 class Slider;
 class GUI;
@@ -25,7 +27,6 @@ class GUI;
  *        of the parent element
  *
  * @ingroup GUI
- *
  */
 class Element
 : public bl::util::NonCopyable
@@ -41,7 +42,7 @@ public:
      * @brief Destroy the Element object
      *
      */
-    virtual ~Element() = default;
+    virtual ~Element();
 
     /**
      * @brief Sets the requisition of the Element. This is the minimum amount of space it
@@ -69,6 +70,11 @@ public:
      *
      */
     sf::Vector2f getPosition() const;
+
+    /**
+     * @brief Returns the position of this element relative to its parent
+     */
+    const sf::Vector2f& getLocalPosition() const;
 
     /**
      * @brief Returns a modifiable reference to the signal for the given trigger. Undefined
@@ -228,20 +234,11 @@ public:
     virtual bool handleScroll(const Event& scroll);
 
     /**
-     * @brief Performs any custom logic of the Element
+     * @brief Updates this element
      *
      * @param dt Time elapsed, in seconds, since last update
      */
     virtual void update(float dt);
-
-    /**
-     * @brief Renders the element using the given renderer
-     *
-     * @param target The target to render to
-     * @param states Render states to apply
-     * @param renderer The renderer to use
-     */
-    void render(sf::RenderTarget& target, sf::RenderStates states, const Renderer& renderer) const;
 
     /**
      * @brief Set the character size. Default is 12. Doesn't apply to all Element types
@@ -298,7 +295,7 @@ public:
      *
      * @param font Resource managed font to use
      */
-    void setFont(bl::resource::Ref<sf::Font> font);
+    void setFont(bl::resource::Ref<sf::VulkanFont> font);
 
     /**
      * @brief Set the horizontal alignment. Doesn't apply to all Element types
@@ -379,12 +376,69 @@ public:
     void queueUpdateAction(const QueuedAction& action);
 
     /**
-     * @brief Returns whether or not this element should receive events that occured outside the
+     * @brief Returns whether or not this element should receive events that occurred outside the
      *        acquisition of its parent
      *
      * @return True if it should take outside events, false for contained only
      */
     virtual bool receivesOutOfBoundsEvents() const;
+
+    /**
+     * @brief Creates the visual components for this element
+     *
+     * @param renderer The GUI renderer instance
+     */
+    void prepareRender(rdr::Renderer& renderer);
+
+    /**
+     * @brief Returns the render settings for this element
+     */
+    const RenderSettings& getRenderSettings() const { return settings; }
+
+    /**
+     * @brief Returns the renderer component for this element. May be nullptr
+     */
+    rdr::Component* getComponent() { return component; }
+
+    /**
+     * @brief Returns the renderer component for this element. May be nullptr
+     */
+    const rdr::Component* getComponent() const { return component; }
+
+    /**
+     * @brief Allows elements to give themselves a depth bias in the renderer
+     *
+     * @return The default method returns 0.f
+     */
+    virtual float getDepthBias() const;
+
+    /**
+     * @brief Manually set the position of the element. This modifies the acquisition but does
+     *        not trigger any signals or repacking
+     *
+     * @param pos The new position of the element. Relative to the parent element
+     */
+    void setPosition(const sf::Vector2f& pos);
+
+    /**
+     * @brief Overrides the default highlight behavior for this specific element
+     *
+     * @param behavior How to behave when moused over
+     */
+    void overrideHighlightBehavior(rdr::Component::HighlightState behavior);
+
+    /**
+     * @brief Tests whether or not this element is descended from the given element
+     *
+     * @param element The element to test
+     * @return True if element is a parent of this element, false otherwise
+     */
+    bool isInParentTree(const Element* element) const;
+
+    /**
+     * @brief Returns a pointer to the parent element, if there is one
+     */
+    Element* getParent() const;
 
 protected:
     /**
@@ -452,16 +506,20 @@ protected:
     void fireSignal(const Event& action);
 
     /**
-     * @brief Actually performs the rendering. This is only called if the element is visible.
-     *        Child classes may call specialized methods in the renderer, or implement their
-     *        own rendering
+     * @brief Called when the element is added to the tree. Derived classes should call into the
+     *        renderer to create their visual components in this method
      *
-     * @param target The target to render to
-     * @param states Render states to apply
-     * @param renderer The renderer to use
+     * @param renderer The renderer to use to create visual Components
+     * @return The visual component for this element
      */
-    virtual void doRender(sf::RenderTarget& target, sf::RenderStates states,
-                          const Renderer& renderer) const = 0;
+    virtual rdr::Component* doPrepareRender(rdr::Renderer& renderer) = 0;
+
+    /**
+     * @brief Container elements should call prepareRender on their children in this method
+     *
+     * @param renderer The GUI renderer instance
+     */
+    virtual void prepareChildrenRender(rdr::Renderer& renderer);
 
     /**
      * @brief Set the acquisition of this element. Meant to be called by a Packer
@@ -469,14 +527,6 @@ protected:
      * @param acquisition The area to occupy, in absolute coordinates
      */
     void assignAcquisition(const sf::FloatRect& acquisition);
-
-    /**
-     * @brief Manually set the position of the element. This modifies the acquisition but does
-     *        not trigger any signals or repacking
-     *
-     * @param pos The new position of the element. Relative to the parent element
-     */
-    void setPosition(const sf::Vector2f& pos);
 
     /**
      * @brief Returns whether or not an element is a child of this one
@@ -501,7 +551,15 @@ protected:
      */
     Ptr me();
 
+    /**
+     * @brief Returns the current renderer, if any
+     */
+    rdr::Renderer* getRenderer() { return renderer; }
+
 private:
+    rdr::Renderer* renderer;
+    std::shared_ptr<bool> rendererAlive;
+    rdr::Component* component;
     RenderSettings settings;
     std::optional<sf::Vector2f> requisition;
     sf::Vector2f position;    // relative to parent
@@ -509,6 +567,8 @@ private:
     Element* parent;
     Signal signals[Event::NUM_ACTIONS];
     std::string tooltip;
+    std::optional<rdr::Component::HighlightState> highlightBehvaiorOverride;
+    bool showingTooltip;
 
     bool _dirty;
     bool _active;
@@ -522,16 +582,18 @@ private:
     bool isLeftPressed;
     bool isRightPressed;
     sf::Vector2f dragStart;
-    float flashTime;
     float hoverTime;
 
     bool processAction(const Event& action);
     GUI* getTopParent();
     const GUI* getTopParent() const;
+    void updateUiState();
+    void onRenderChange();
 
     friend class Packer;
     friend class Renderer;
     friend class Slider;
+    friend class Container;
 };
 
 } // namespace gui

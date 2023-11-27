@@ -2,6 +2,8 @@
 #define BLIB_GUI_ELEMENTS_CANVAS_HPP
 
 #include <BLIB/Interfaces/GUI/Elements/Element.hpp>
+#include <BLIB/Interfaces/GUI/Renderer/CanvasComponentBase.hpp>
+#include <BLIB/Render/Resources/SceneRef.hpp>
 
 namespace bl
 {
@@ -25,9 +27,10 @@ public:
      *
      * @param w Width of the renderable area in pixels
      * @param h Height of the renderable area in pixels
+     * @param scene The scene to render to the canvas
      * @return Ptr The new canvas
      */
-    static Ptr create(unsigned int w, unsigned int h);
+    static Ptr create(unsigned int w, unsigned int h, rc::SceneRef scene = {});
 
     /**
      * @brief Resize the underlying texture of the Canvas
@@ -60,12 +63,54 @@ public:
     void setFillAcquisition(bool fill, bool maintainAR = true);
 
     /**
-     * @brief Returns a mutable reference to the underlying texture. This may be rendered to
-     *        Note that display() must be called on this object after rendering is complete
+     * @brief Sets the scene to render in the texture
      *
-     * @return sf::RenderTexture& Reference to the underlying texture
+     * @param scene The scene to render
      */
-    sf::RenderTexture& getTexture();
+    void setScene(rc::SceneRef scene);
+
+    /**
+     * @brief Returns the scene that is rendering to the canvas
+     */
+    rc::SceneRef getScene() const;
+
+    /**
+     * @brief Returns the size of the texture being rendered to
+     */
+    const sf::Vector2u& getTextureSize() const;
+
+    /**
+     * @brief Returns the offset of the texture from the position of the element
+     */
+    const sf::Vector2f& getOffset() const;
+
+    /**
+     * @brief Returns the scale that the texture should be rendered with
+     */
+    const sf::Vector2f& getScale() const;
+
+    /**
+     * @brief Replaces the camera to render the current scene with
+     *
+     * @tparam TCamera The type of camera to install
+     * @tparam ...TArgs Argument types to the camera's constructor
+     * @param ...args Arguments to the camera's constructor
+     * @return A pointer to the new camera
+     */
+    template<typename TCamera, typename... TArgs>
+    TCamera* setCamera(TArgs&&... args);
+
+    /**
+     * @brief Sets the color to clear the canvas with each frame. Default is black
+     *
+     * @param color The color to reset the canvas with
+     */
+    void setClearColor(const sf::Color& color);
+
+    /**
+     * @brief Returns the color that the canvas will be cleared with each frame
+     */
+    const sf::Color& getClearColor() const;
 
 protected:
     /**
@@ -73,8 +118,9 @@ protected:
      *
      * @param w Width of the renderable area in pixels
      * @param h Height of the renderable area in pixels
+     * @param scene The scene to render to the canvas
      */
-    Canvas(unsigned int w, unsigned int h);
+    Canvas(unsigned int w, unsigned int h, rc::SceneRef scene);
 
     /**
      * @brief Returns the size the canvas is set to render to. Default is the canvas size
@@ -83,25 +129,38 @@ protected:
     virtual sf::Vector2f minimumRequisition() const override;
 
     /**
-     * @brief Renders the texture to the acquisition area
+     * @brief Creates the visual component for this element
      *
-     * @param target The target to render to
-     * @param states Render states to apply
-     * @param renderer The renderer to use
+     * @param renderer The renderer to use to create visual Components
+     * @return The visual component for this element
      */
-    virtual void doRender(sf::RenderTarget& target, sf::RenderStates states,
-                          const Renderer& renderer) const override;
+    virtual rdr::Component* doPrepareRender(rdr::Renderer& renderer) override;
 
 private:
-    sf::RenderTexture texture;
-    sf::Sprite sprite;
+    sf::Vector2u textureSize;
     std::optional<sf::Vector2f> size;
+    rc::SceneRef scene;
     bool fillAcq;
     bool maintainAR;
+    sf::Vector2f scale;
+    sf::Vector2f offset;
+    std::unique_ptr<cam::Camera> camera;
+    sf::Color clearColor;
 
     void setScale();
-    void moveCb();
 };
+
+//////////////////////////// INLINE FUNCTIONS /////////////////////////////////
+
+template<typename TCamera, typename... TArgs>
+TCamera* Canvas::setCamera(TArgs&&... args) {
+    rdr::CanvasComponentBase* com = dynamic_cast<rdr::CanvasComponentBase*>(getComponent());
+    if (com) { return com->getRenderTexture().setCamera<TCamera>(std::forward<TArgs>(args)...); }
+    else {
+        camera = std::make_unique<TCamera>(std::forward<TArgs>(args)...);
+        return static_cast<TCamera*>(camera.get());
+    }
+}
 
 } // namespace gui
 } // namespace bl

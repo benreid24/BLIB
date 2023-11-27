@@ -87,6 +87,10 @@ void BindlessTextureArray::prepareTextureUpdate(std::uint32_t i, const std::stri
     else { textures[i].altImg = &errorPattern; }
 }
 
+void BindlessTextureArray::prepareTextureUpdate(std::uint32_t i, const sf::Image& src) {
+    textures[i].altImg = &src;
+}
+
 void BindlessTextureArray::updateTexture(vk::Texture* texture) {
     queuedUpdates.emplace_back(texture);
 }

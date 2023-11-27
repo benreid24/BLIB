@@ -112,11 +112,12 @@ private:
 
     using TStorage = plf::colony<Entry>;
 
+    Registry& owner;
     TStorage storage;
     std::vector<T*> entityToComponent;
     std::vector<typename TStorage::iterator> entityToIter;
 
-    ComponentPool(std::uint16_t index);
+    ComponentPool(Registry& owner, std::uint16_t index);
     virtual ~ComponentPool();
 
     void preAdd(Entity entity);
@@ -138,22 +139,23 @@ private:
         T* childCom  = get(child);
         T* parentCom = get(parent);
 
-        if (child && parent) { childCom->parent = parentCom; }
+        if (childCom && parentCom) { childCom->parent = parentCom; }
         else {
-            if (!child) { BL_LOG_ERROR << "Invalid child entity: " << child; }
-            else { BL_LOG_ERROR << "Invalid parent entity: " << parent; }
+            // only child is checked before this is called so no log for bad parent
+            if (!childCom) { BL_LOG_ERROR << "Invalid child entity: " << child; }
         }
     }
 
     void addChild(Entity child, Entity parent) {
-        T* childCom  = get(child);
         T* parentCom = get(parent);
-
-        if (child && parent) { parentCom->children.emplace_back(childCom); }
-        else {
-            if (!child) { BL_LOG_ERROR << "Invalid child entity: " << child; }
-            else { BL_LOG_ERROR << "Invalid parent entity: " << parent; }
+        if (!parentCom) { return; }
+        T* childCom = get(child);
+        if (childCom) {
+            auto& c       = parentCom->children;
+            const auto it = std::find(c.begin(), c.end(), childCom);
+            if (it == c.end()) { parentCom->children.emplace_back(childCom); }
         }
+        else { BL_LOG_ERROR << "Invalid child entity " << child << " for parent " << parent; }
     }
 
     virtual void onParentRemove(Entity parent, Entity orphan) override {
@@ -168,17 +170,18 @@ private:
     }
 
     void removeChild(Entity parent, Entity orphan) {
-        T* com  = get(orphan);
         T* pcom = get(parent);
-        if (com && pcom) {
-            auto& c = pcom->children;
-            auto it = std::find(c.begin(), c.end(), com);
+        if (!pcom) {
+            // only child is checked before this is called so no log for bad parent
+            return;
+        }
+        T* com = get(orphan);
+        if (com) {
+            auto& c       = pcom->children;
+            const auto it = std::find(c.begin(), c.end(), com);
             if (it != c.end()) { c.erase(it); }
         }
-        else {
-            if (!com) { BL_LOG_WARN << "Invalid orphan entity: " << orphan; }
-            else { BL_LOG_ERROR << "Invalid parent entity: " << parent; }
-        }
+        else { BL_LOG_ERROR << "Invalid orphan entity: " << orphan; }
     }
 
     friend class Registry;
@@ -187,8 +190,9 @@ private:
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 template<typename T>
-ComponentPool<T>::ComponentPool(std::uint16_t index)
+ComponentPool<T>::ComponentPool(Registry& owner, std::uint16_t index)
 : ComponentPoolBase(index)
+, owner(owner)
 , storage(plf::limits{128, TStorage::default_max_block_capacity()})
 , entityToComponent(DefaultCapacity, nullptr)
 , entityToIter(DefaultCapacity, storage.end()) {}

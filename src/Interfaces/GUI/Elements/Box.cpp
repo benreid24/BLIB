@@ -1,5 +1,7 @@
 #include <BLIB/Interfaces/GUI/Elements/Box.hpp>
 
+#include <BLIB/Interfaces/GUI/Renderer/Renderer.hpp>
+
 namespace bl
 {
 namespace gui
@@ -19,7 +21,12 @@ Box::Box(Packer::Ptr packer)
 , packer(packer)
 , computeView(true) {}
 
-void Box::setConstrainView(bool c) { computeView = c; }
+void Box::setConstrainView(bool c) {
+    computeView = c;
+    if (getComponent()) { getComponent()->onElementUpdated(); }
+}
+
+bool Box::isViewConstrained() const { return computeView; }
 
 void Box::setPacker(Packer::Ptr p) {
     packer = p;
@@ -48,10 +55,8 @@ void Box::pack(Element::Ptr e, bool fx, bool fy) {
     add(e);
 }
 
-void Box::doRender(sf::RenderTarget& target, sf::RenderStates states,
-                   const Renderer& renderer) const {
-    renderer.renderBox(target, states, *this);
-    renderChildren(target, states, renderer, computeView);
+rdr::Component* Box::doPrepareRender(rdr::Renderer& renderer) {
+    return renderer.createComponent<Box>(*this);
 }
 
 } // namespace gui

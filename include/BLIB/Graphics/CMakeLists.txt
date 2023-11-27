@@ -1,9 +1,15 @@
 target_sources(BLIB PUBLIC
 	Animation2D.hpp
+	BatchCircle.hpp
+	BatchedShapes2D.hpp
+	BatchIcon.hpp
+	BatchRectangle.hpp
+	BatchTriangle.hpp
 	Circle.hpp
 	Drawable.hpp
+	Dummy2D.hpp
+	Icon.hpp
 	Rectangle.hpp
-	Shape2D.hpp
 	Slideshow.hpp
 	Sprite.hpp
 	Text.hpp
@@ -12,4 +18,5 @@ target_sources(BLIB PUBLIC
 
 add_subdirectory(Animation2D)
 add_subdirectory(Components)
+add_subdirectory(Shapes2D)
 add_subdirectory(Text)

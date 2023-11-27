@@ -1,0 +1,23 @@
+target_sources(BLIB PUBLIC
+    AnimationComponent.hpp
+    BasicTooltipProvider.hpp
+    BoxComponent.hpp
+    ButtonComponent.hpp
+    CanvasComponent.hpp
+    CheckButtonComponent.hpp
+    ComboBoxComponent.hpp
+    IconComponent.hpp
+    ImageComponent.hpp
+    LabelComponent.hpp
+    NotebookComponent.hpp
+    OverlayFlashProvider.hpp
+    OverlayHighlightProvider.hpp
+    ProgressBarComponent.hpp
+    RadioButtonComponent.hpp
+    ScrollAreaComponent.hpp
+    SelectBoxComponent.hpp
+    SeparatorComponent.hpp
+    SliderComponent.hpp
+    TextEntryComponent.hpp
+    WindowComponent.hpp
+)

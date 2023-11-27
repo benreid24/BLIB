@@ -62,12 +62,17 @@ protected:
                                       UpdateSpeed updateFreq) override;
 
     /**
-     * @brief Called when an object is removed from the scene. Unlink from descriptors here
+     * @brief Queues the object to be removed from the scene. Also queues removal of all children
      *
-     * @param object The scene object being removed
-     * @param pipeline The pipeline the object was being rendered with
+     * @param object The object to be removed
+     * @param pipeline The pipeline used to render the object being removed
      */
-    virtual void doRemove(scene::SceneObject* object, std::uint32_t pipeline) override;
+    virtual void queueObjectRemoval(scene::SceneObject* object, std::uint32_t pipeline) override;
+
+    /**
+     * @brief Performs removal of all queued objects
+     */
+    virtual void removeQueuedObjects() override;
 
     /**
      * @brief Called by Scene in handleDescriptorSync for objects that need to be re-batched
@@ -120,12 +125,22 @@ private:
         std::vector<LayoutBatch> batches;
     };
 
+    struct RemovedObject {
+        scene::SceneObject* object;
+        std::uint32_t pipelineId;
+
+        RemovedObject(scene::SceneObject* obj, std::uint32_t pid)
+        : object(obj)
+        , pipelineId(pid) {}
+    };
+
     engine::Engine& engine;
     SceneObjectStorage<SceneObject> objects;
     ObjectBatch opaqueObjects;
     ObjectBatch transparentObjects;
     std::vector<bool> staticTransCache;
     std::vector<bool> dynamicTransCache;
+    std::vector<RemovedObject> removalQueue;
 
     void handleAddressChange(UpdateSpeed speed, SceneObject* oldBase);
 };

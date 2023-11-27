@@ -80,6 +80,13 @@ public:
     TCamera* setCamera(TArgs&&... args);
 
     /**
+     * @brief Sets the camera to render the current scene with
+     *
+     * @param camera The camera to use
+     */
+    void setCamera(std::unique_ptr<cam::Camera>&& camera);
+
+    /**
      * @brief Creates a new scene and sets it to be rendered
      *
      * @tparam TScene The type of scene to create
@@ -108,6 +115,11 @@ public:
      * @brief Returns the size of the textures in pixels
      */
     constexpr glm::u32vec2 getSize() const;
+
+    /**
+     * @brief Returns the current scene being rendered to the texture
+     */
+    const Scene* getScene() const;
 
 private:
     // TODO - consider separate storage in TexturePool for double-buffering
@@ -152,6 +164,8 @@ TCamera* RenderTexture::setCamera(TArgs&&... args) {
     camera.reset(cam);
     return cam;
 }
+
+inline const Scene* RenderTexture::getScene() const { return scene.get(); }
 
 } // namespace vk
 } // namespace rc

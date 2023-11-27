@@ -1,6 +1,7 @@
 #ifndef BLIB_ECS_ENTITY_HPP
 #define BLIB_ECS_ENTITY_HPP
 
+#include <BLIB/ECS/Flags.hpp>
 #include <cstdint>
 #include <functional>
 #include <limits>
@@ -29,6 +30,7 @@ struct Entity {
     static constexpr IdType InvalidId          = std::numeric_limits<IdType>::max();
     static constexpr std::uint64_t IndexMask   = 0x00000000FFFFFFFF;
     static constexpr std::uint64_t VersionMask = 0xFFFF000000000000;
+    static constexpr std::uint64_t FlagMask    = 0x0000FF0000000000;
 
     IdType id;
 
@@ -51,9 +53,10 @@ struct Entity {
      *
      * @param index The 0-based index of the entity
      * @param version The version of the index
+     * @param flags Set of flags to mark the entity with
      */
-    Entity(std::uint64_t index, std::uint64_t version)
-    : id((version << 48) | index) {}
+    Entity(std::uint64_t index, std::uint64_t version, Flags flags = Flags::None)
+    : id((version << 48) | (flags << 40) | index) {}
 
     /**
      * @brief Copies the given entity
@@ -108,6 +111,21 @@ struct Entity {
      * @return The version number of the entity
      */
     std::uint64_t getVersion() const { return (id & VersionMask) >> 48; }
+
+    /**
+     * @brief Returns the flags set for this entity
+     *
+     * @return The flags specified when this entity was created
+     */
+    Flags getFlags() const { return static_cast<Flags>((id & FlagMask) >> 40); }
+
+    /**
+     * @brief Test whether or not the given flag(s) is/are set on this entity
+     *
+     * @param flag The flag(s) to check for
+     * @return True if the flag(s) is/are present, false otherwise
+     */
+    bool flagSet(Flags flag) const { return (getFlags() & flag) != 0; }
 
     /**
      * @brief Helper implicit conversion operator to the underlying id type

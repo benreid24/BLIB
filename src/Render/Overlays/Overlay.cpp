@@ -3,6 +3,7 @@
 #include <BLIB/Cameras/OverlayCamera.hpp>
 #include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Render/Config.hpp>
+#include <BLIB/Render/Events/SceneObjectRemoved.hpp>
 #include <BLIB/Render/Renderer.hpp>
 
 namespace bl
@@ -38,32 +39,43 @@ void Overlay::renderScene(scene::SceneRenderContext& ctx) {
         refreshAll();
     }
 
-    VkPipeline currentPipeline = nullptr;
+    VkPipelineLayout currentPipelineLayout = nullptr;
+    VkPipeline currentPipeline             = nullptr;
+    UpdateSpeed currentSpeed{};
     while (!renderStack.empty()) {
         ovy::OverlayObject& obj = *renderStack.back();
         renderStack.pop_back();
 
         if (obj.hidden) { continue; }
 
-        vkCmdSetScissor(ctx.getCommandBuffer(), 0, 1, &obj.cachedScissor);
+        if (!obj.entity.flagSet(ecs::Flags::Dummy)) {
+            vkCmdSetScissor(ctx.getCommandBuffer(), 0, 1, &obj.cachedScissor);
 
-        const VkPipeline np = obj.pipeline->rawPipeline(ctx.currentRenderPass());
-        if (np != currentPipeline) {
-            currentPipeline = np;
-            ctx.bindPipeline(*obj.pipeline);
-            ctx.bindDescriptors(obj.pipeline->pipelineLayout().rawLayout(),
-                                obj.sceneKey.updateFreq,
-                                obj.descriptors.data(),
-                                obj.descriptorCount);
+            const vk::PipelineLayout& layout = obj.pipeline->pipelineLayout();
+            const VkPipelineLayout vkl       = layout.rawLayout();
+            const VkPipeline vkp             = obj.pipeline->rawPipeline(ctx.currentRenderPass());
+            if (vkl != currentPipelineLayout || currentSpeed != obj.sceneKey.updateFreq) {
+                currentSpeed          = obj.sceneKey.updateFreq;
+                currentPipelineLayout = vkl;
+                ctx.bindPipeline(*obj.pipeline);
+                ctx.bindDescriptors(obj.pipeline->pipelineLayout().rawLayout(),
+                                    obj.sceneKey.updateFreq,
+                                    obj.descriptors.data(),
+                                    obj.descriptorCount);
+            }
+            else if (currentPipeline != vkp) {
+                currentPipeline = vkp;
+                ctx.bindPipeline(*obj.pipeline);
+            }
+            for (std::uint8_t i = obj.perObjStart; i < obj.descriptorCount; ++i) {
+                obj.descriptors[i]->bindForObject(
+                    ctx, obj.pipeline->pipelineLayout().rawLayout(), i, obj.sceneKey);
+            }
+            ctx.renderObject(obj);
         }
-        for (std::uint8_t i = obj.perObjStart; i < obj.descriptorCount; ++i) {
-            obj.descriptors[i]->bindForObject(
-                ctx, obj.pipeline->pipelineLayout().rawLayout(), i, obj.sceneKey);
-        }
-        ctx.renderObject(obj);
 
-        std::copy(obj.getChildren().begin(),
-                  obj.getChildren().end(),
+        std::copy(obj.getChildren().rbegin(),
+                  obj.getChildren().rend(),
                   std::inserter(renderStack, renderStack.end()));
     }
 }
@@ -85,28 +97,44 @@ scene::SceneObject* Overlay::doAdd(ecs::Entity entity, rcom::DrawableBase& objec
         }
     }
 
-    if (!engine.ecs().entityHasParent(entity)) { roots.emplace_back(&obj); }
+    if (!engine.ecs().entityHasParent(entity)) {
+        roots.emplace_back(&obj);
+        sortRoots();
+    }
 
     return &obj;
 }
 
-void Overlay::doRemove(scene::SceneObject* object, std::uint32_t) {
-    ovy::OverlayObject* obj  = static_cast<ovy::OverlayObject*>(object);
-    const ecs::Entity entity = objects.getObjectEntity(obj->sceneKey);
+void Overlay::queueObjectRemoval(scene::SceneObject* object, std::uint32_t) {
+    ovy::OverlayObject* obj = static_cast<ovy::OverlayObject*>(object);
 
-    for (unsigned int i = 0; i < obj->descriptorCount; ++i) {
-        obj->descriptors[i]->releaseObject(entity, obj->sceneKey);
-    }
-    objects.release(obj->sceneKey);
-
-    for (ovy::OverlayObject* child : obj->getChildren()) { removeObject(child); }
-
-    if (!obj->hasParent()) {
-        const auto it = std::find(roots.begin(), roots.end(), obj);
-        if (it != roots.end()) { roots.erase(it); }
+    removalQueue.emplace_back(obj->entity, obj->sceneKey, obj->descriptors, obj->descriptorCount);
+    auto childCopy = obj->getChildren();
+    for (ovy::OverlayObject* child : childCopy) {
+        if (engine.ecs().getEntityParentDestructionBehavior(child->entity) !=
+            ecs::ParentDestructionBehavior::OrphanedByParent) {
+            removeObject(child);
+        }
     }
 
-    engine.ecs().removeComponent<ovy::OverlayObject>(entity);
+    const auto it = std::find(roots.begin(), roots.end(), obj);
+    if (it != roots.end()) {
+        roots.erase(it);
+        sortRoots();
+    }
+
+    engine.ecs().removeComponent<ovy::OverlayObject>(obj->entity);
+    bl::event::Dispatcher::dispatch<rc::event::SceneObjectRemoved>({this, obj->entity});
+}
+
+void Overlay::removeQueuedObjects() {
+    for (auto& obj : removalQueue) {
+        for (unsigned int i = 0; i < obj.descriptorCount; ++i) {
+            obj.descriptors[i]->releaseObject(obj.entity, obj.sceneKey);
+        }
+        objects.release(obj.sceneKey);
+    }
+    removalQueue.clear();
 }
 
 void Overlay::doBatchChange(const BatchChange& change, std::uint32_t ogPipeline) {
@@ -135,6 +163,7 @@ void Overlay::observe(const ecs::event::EntityParentSet& event) {
     for (auto it = roots.begin(); it != roots.end(); ++it) {
         if (*it == obj) {
             roots.erase(it);
+            sortRoots();
             needRefreshAll = true;
             break;
         }
@@ -147,11 +176,22 @@ void Overlay::observe(const ecs::event::EntityParentRemoved& event) {
 
     if (std::find(roots.begin(), roots.end(), obj) != roots.end()) { return; }
     roots.emplace_back(obj);
+    sortRoots();
     needRefreshAll = true;
 }
 
 std::unique_ptr<cam::Camera> Overlay::createDefaultCamera() {
     return std::make_unique<cam::OverlayCamera>();
+}
+
+void Overlay::sortRoots() {
+    std::sort(
+        roots.begin(), roots.end(), [this](ovy::OverlayObject* left, ovy::OverlayObject* right) {
+            com::Transform2D* lpos = engine.ecs().getComponent<com::Transform2D>(left->entity);
+            com::Transform2D* rpos = engine.ecs().getComponent<com::Transform2D>(right->entity);
+            if (!lpos || !rpos) { return left < right; }
+            return lpos->getGlobalDepth() < rpos->getGlobalDepth();
+        });
 }
 
 } // namespace rc

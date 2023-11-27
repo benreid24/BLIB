@@ -2,7 +2,9 @@
 
 #include <BLIB/Components/BatchSceneLink.hpp>
 #include <BLIB/Engine/Engine.hpp>
+#include <BLIB/Events.hpp>
 #include <BLIB/Logging.hpp>
+#include <BLIB/Render/Events/SceneObjectRemoved.hpp>
 #include <BLIB/Render/Renderer.hpp>
 
 namespace bl
@@ -82,51 +84,72 @@ scene::SceneObject* BatchedScene::doAdd(ecs::Entity entity, rcom::DrawableBase& 
     return alloc.newObject;
 }
 
-void BatchedScene::doRemove(scene::SceneObject* object, std::uint32_t pipelineId) {
+void BatchedScene::queueObjectRemoval(scene::SceneObject* object, std::uint32_t pipeline) {
     // lookup object
-    const ecs::Entity entity = objects.getObjectEntity(object->sceneKey);
-    auto& transCache =
-        object->sceneKey.updateFreq == UpdateSpeed::Static ? staticTransCache : dynamicTransCache;
-    auto& batch = transCache[object->sceneKey.sceneId] ? transparentObjects : opaqueObjects;
+    const ecs::Entity entity  = objects.getObjectEntity(object->sceneKey);
     com::BatchSceneLink* link = engine.ecs().getComponent<com::BatchSceneLink>(entity);
 
 #ifdef BLIB_DEBUG
     if (!link) { throw std::runtime_error("Internal error: Scene link missing"); }
 #endif
 
-    // remove from batch
-    vk::Pipeline& pipeline = renderer.pipelineCache().getPipeline(pipelineId);
-    for (LayoutBatch& p : batch.batches) {
-        if (p.layout.rawLayout() == pipeline.pipelineLayout().rawLayout()) {
-            auto& pipelineBatches = object->sceneKey.updateFreq == UpdateSpeed::Static ?
-                                        p.staticBatches :
-                                        p.dynamicBatches;
-            for (PipelineBatch& pb : pipelineBatches) {
-                if (&pb.pipeline == &pipeline) {
-                    for (auto it = pb.objects.begin(); it != pb.objects.end(); ++it) {
-                        if (*it == object) {
-                            pb.objects.erase(it);
-                            goto removeDescriptors;
-                        }
-                    }
-                    break;
-                }
-            }
-        removeDescriptors:
-            for (std::uint8_t i = 0; i < p.descriptorCount; ++i) {
-                p.descriptors[i]->releaseObject(entity, object->sceneKey);
-            }
-            break;
-        }
-    }
+    // handle multi-remove
+    if (link->removed) { return; }
+    link->removed = true;
+
+    // queue removal
+    removalQueue.emplace_back(object, pipeline);
 
     // remove children
     for (com::BatchSceneLink* child : link->getChildren()) {
         removeObject(&objects.getObject(child->key));
     }
 
-    // cleanup scene link
-    engine.ecs().removeComponent<com::BatchSceneLink>(entity);
+    // fire event
+    bl::event::Dispatcher::dispatch<rc::event::SceneObjectRemoved>({this, entity});
+}
+
+void BatchedScene::removeQueuedObjects() {
+    for (auto& record : removalQueue) {
+        scene::SceneObject* object = record.object;
+
+        // lookup object
+        const ecs::Entity entity = objects.getObjectEntity(object->sceneKey);
+        auto& transCache = object->sceneKey.updateFreq == UpdateSpeed::Static ? staticTransCache :
+                                                                                dynamicTransCache;
+        auto& batch = transCache[object->sceneKey.sceneId] ? transparentObjects : opaqueObjects;
+
+        // remove from batch
+        vk::Pipeline& pipeline = renderer.pipelineCache().getPipeline(record.pipelineId);
+        for (LayoutBatch& p : batch.batches) {
+            if (p.layout.rawLayout() == pipeline.pipelineLayout().rawLayout()) {
+                auto& pipelineBatches = object->sceneKey.updateFreq == UpdateSpeed::Static ?
+                                            p.staticBatches :
+                                            p.dynamicBatches;
+                for (PipelineBatch& pb : pipelineBatches) {
+                    if (&pb.pipeline == &pipeline) {
+                        for (auto it = pb.objects.begin(); it != pb.objects.end(); ++it) {
+                            if (*it == object) {
+                                pb.objects.erase(it);
+                                goto removeDescriptors;
+                            }
+                        }
+                        break;
+                    }
+                }
+            removeDescriptors:
+                for (std::uint8_t i = 0; i < p.descriptorCount; ++i) {
+                    p.descriptors[i]->releaseObject(entity, object->sceneKey);
+                }
+                break;
+            }
+        }
+
+        // cleanup scene link
+        engine.ecs().removeComponent<com::BatchSceneLink>(entity);
+    }
+
+    removalQueue.clear();
 }
 
 void BatchedScene::doBatchChange(const BatchChange& change, std::uint32_t ogPipeline) {

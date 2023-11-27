@@ -1,5 +1,5 @@
-#ifndef BLIB_RENDER_PRIMITIVES_INDEXBUFFER_HPP
-#define BLIB_RENDER_PRIMITIVES_INDEXBUFFER_HPP
+#ifndef BLIB_RENDER_BUFFERS_INDEXBUFFER_HPP
+#define BLIB_RENDER_BUFFERS_INDEXBUFFER_HPP
 
 #include <BLIB/Render/Primitives/DrawParameters.hpp>
 #include <BLIB/Render/Primitives/Vertex.hpp>
@@ -101,11 +101,37 @@ public:
      */
     void insertBarrierBeforeWrite();
 
+    /**
+     * @brief Ensures that the buffer has the requested number of indices and vertices, resizing if
+     *        required. If resized then all pointers and buffer handles are invalidated
+     *
+     * @param vertexCount The number of vertices to have
+     * @param indexCount The number of indices to have
+     * @return True if a resize occurred, false if both buffers were already large enough
+     */
+    bool ensureSize(std::uint32_t vertexCount, std::uint32_t indexCount);
+
+    /**
+     * @brief Configures the range of vertices and indices to write on next transfer. Gets reset if
+     *        resized
+     *
+     * @param vertexWriteStart The first vertex to write
+     * @param vertexWriteCount The number of vertices to write
+     * @param indexWriteStart The first index to write
+     * @param indexWriteCount The number of indices to write
+     */
+    void configureWriteRange(std::uint32_t vertexWriteStart, std::uint32_t vertexWriteCount,
+                             std::uint32_t indexWriteStart, std::uint32_t indexWriteCount);
+
 private:
     std::vector<T> cpuVertexBuffer;
     std::vector<std::uint32_t> cpuIndexBuffer;
     vk::Buffer gpuVertexBuffer;
     vk::Buffer gpuIndexBuffer;
+    std::uint32_t vertexWriteStart;
+    std::uint32_t vertexWriteCount;
+    std::uint32_t indexWriteStart;
+    std::uint32_t indexWriteCount;
 
     virtual void executeTransfer(VkCommandBuffer commandBuffer,
                                  tfr::TransferContext& context) override;
@@ -126,13 +152,19 @@ void IndexBufferT<T>::create(vk::VulkanState& vs, std::uint32_t vc, std::uint32_
     gpuVertexBuffer.create(vs,
                            vc * sizeof(T),
                            VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
-                           VK_BUFFER_USAGE_VERTEX_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT,
+                           VK_BUFFER_USAGE_VERTEX_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT |
+                               VK_BUFFER_USAGE_TRANSFER_SRC_BIT,
                            0);
     gpuIndexBuffer.create(vs,
                           ic * sizeof(std::uint32_t),
                           VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
-                          VK_BUFFER_USAGE_INDEX_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT,
+                          VK_BUFFER_USAGE_INDEX_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT |
+                              VK_BUFFER_USAGE_TRANSFER_SRC_BIT,
                           0);
+    vertexWriteStart = 0;
+    vertexWriteCount = vc;
+    indexWriteStart  = 0;
+    indexWriteCount  = ic;
 }
 
 template<typename T>
@@ -206,38 +238,74 @@ constexpr VkBuffer IndexBufferT<T>::indexBufferHandle() const {
 }
 
 template<typename T>
+bool IndexBufferT<T>::ensureSize(std::uint32_t vertexCount, std::uint32_t indexCount) {
+    bool r = false;
+    if (vertexCount > cpuVertexBuffer.size()) {
+        cpuVertexBuffer.resize(vertexCount);
+        gpuVertexBuffer.ensureSize(vertexCount * sizeof(T));
+        vertexWriteStart = 0;
+        vertexWriteCount = vertexCount;
+        r                = true;
+    }
+    if (indexCount > cpuIndexBuffer.size()) {
+        cpuIndexBuffer.resize(indexCount);
+        gpuIndexBuffer.ensureSize(indexCount * sizeof(IndexType));
+        indexWriteStart = 0;
+        indexWriteCount = indexCount;
+        r               = true;
+    }
+    return r;
+}
+
+template<typename T>
+void IndexBufferT<T>::configureWriteRange(std::uint32_t vs, std::uint32_t vc, std::uint32_t is,
+                                          std::uint32_t ic) {
+    vertexWriteStart = vs;
+    vertexWriteCount = vc;
+    indexWriteStart  = is;
+    indexWriteCount  = ic;
+}
+
+template<typename T>
 void IndexBufferT<T>::executeTransfer(VkCommandBuffer commandBuffer,
                                       tfr::TransferContext& context) {
     // vertex buffer
+    const VkDeviceSize vertexOffset = vertexWriteStart * sizeof(T);
+    const VkDeviceSize vertexSize   = vertexWriteCount * sizeof(T);
+
     VkBuffer stagingBuf;
     void* stagingMem;
-    context.createTemporaryStagingBuffer(gpuVertexBuffer.getSize(), stagingBuf, &stagingMem);
-    std::memcpy(stagingMem, cpuVertexBuffer.data(), gpuVertexBuffer.getSize());
+    context.createTemporaryStagingBuffer(vertexSize, stagingBuf, &stagingMem);
+    std::memcpy(stagingMem, &cpuVertexBuffer[vertexWriteStart], vertexSize);
 
     VkBufferCopy copyCmd{};
     copyCmd.srcOffset = 0;
-    copyCmd.dstOffset = 0;
-    copyCmd.size      = gpuVertexBuffer.getSize();
+    copyCmd.dstOffset = vertexOffset;
+    copyCmd.size      = vertexSize;
     vkCmdCopyBuffer(commandBuffer, stagingBuf, gpuVertexBuffer.getBuffer(), 1, &copyCmd);
 
     VkBufferMemoryBarrier barrier{};
     barrier.sType         = VK_STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER;
     barrier.buffer        = gpuVertexBuffer.getBuffer();
-    barrier.offset        = 0;
-    barrier.size          = gpuVertexBuffer.getSize();
+    barrier.offset        = vertexOffset;
+    barrier.size          = vertexSize;
     barrier.srcAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
     barrier.dstAccessMask = VK_ACCESS_VERTEX_ATTRIBUTE_READ_BIT;
     context.registerBufferBarrier(barrier);
 
     // index buffer
-    context.createTemporaryStagingBuffer(gpuIndexBuffer.getSize(), stagingBuf, &stagingMem);
-    std::memcpy(stagingMem, cpuIndexBuffer.data(), gpuIndexBuffer.getSize());
+    const VkDeviceSize indexOffset = indexWriteStart * sizeof(IndexType);
+    const VkDeviceSize indexSize   = indexWriteCount * sizeof(IndexType);
 
-    copyCmd.size = gpuIndexBuffer.getSize();
+    context.createTemporaryStagingBuffer(indexSize, stagingBuf, &stagingMem);
+    std::memcpy(stagingMem, &cpuIndexBuffer[indexWriteStart], indexSize);
+
+    copyCmd.size      = indexSize;
+    copyCmd.dstOffset = indexOffset;
     vkCmdCopyBuffer(commandBuffer, stagingBuf, gpuIndexBuffer.getBuffer(), 1, &copyCmd);
 
     barrier.buffer = gpuIndexBuffer.getBuffer();
-    barrier.size   = gpuIndexBuffer.getSize();
+    barrier.size   = indexSize;
     context.registerBufferBarrier(barrier);
 }
 template<typename T>

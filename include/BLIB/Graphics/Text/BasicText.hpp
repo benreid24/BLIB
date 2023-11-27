@@ -166,6 +166,7 @@ private:
     float lineSpacingFactor;
     float cachedLineHeight;
 
+    glm::vec2 cachedPos;
     sf::FloatRect cachedBounds;
 
     std::uint32_t refreshVertices(const sf::VulkanFont& font, rc::prim::Vertex* vertices,
@@ -173,6 +174,7 @@ private:
     glm::vec2 advanceCharacterPos(const sf::VulkanFont& font, glm::vec2 pos, std::uint32_t curChar,
                                   std::uint32_t prevChar) const;
     const sf::FloatRect& getBounds() const;
+    glm::vec2 findCharacterPos(const sf::VulkanFont& font, unsigned int index) const;
 
     friend class bl::gfx::Text;
 };

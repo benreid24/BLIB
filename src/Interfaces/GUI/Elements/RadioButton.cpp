@@ -1,6 +1,7 @@
 #include <BLIB/Interfaces/GUI/Elements/RadioButton.hpp>
 
 #include <BLIB/Interfaces/GUI/Elements/Label.hpp>
+#include <BLIB/Interfaces/GUI/Renderer/Renderer.hpp>
 
 namespace bl
 {
@@ -31,10 +32,8 @@ RadioButton::~RadioButton() { rgroup->removeButton(this); }
 
 RadioButton::Group* RadioButton::getRadioGroup() { return rgroup; }
 
-void RadioButton::renderToggles(Canvas& activeBut, Canvas& inactiveBut,
-                                const Renderer& renderer) const {
-    renderer.renderToggleRadioButton(activeBut.getTexture(), true);
-    renderer.renderToggleRadioButton(inactiveBut.getTexture(), false);
+rdr::Component* RadioButton::doPrepareRender(rdr::Renderer& renderer) {
+    return renderer.createComponent<RadioButton>(*this);
 }
 
 void RadioButton::onClick() {

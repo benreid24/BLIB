@@ -14,7 +14,8 @@ TexturePool::TexturePool(vk::VulkanState& vs)
 , refCounts(MaxTextureCount)
 , freeSlots(MaxTextureCount - BindlessTextureArray::MaxRenderTextures - 1)
 , freeRtSlots(BindlessTextureArray::MaxRenderTextures)
-, reverseFileMap(MaxTextureCount - BindlessTextureArray::MaxRenderTextures) {
+, reverseFileMap(MaxTextureCount - BindlessTextureArray::MaxRenderTextures)
+, reverseImageMap(MaxTextureCount - BindlessTextureArray::MaxRenderTextures) {
     toRelease.reserve(64);
 }
 
@@ -78,6 +79,7 @@ void TexturePool::init() {
 }
 
 void TexturePool::cleanup() {
+    TextureRef::disableCleanup();
     textures.cleanup();
     vkDestroyDescriptorPool(vulkanState.device, descriptorPool, nullptr);
     vkDestroyDescriptorSetLayout(vulkanState.device, descriptorSetLayout, nullptr);
@@ -116,6 +118,10 @@ void TexturePool::doRelease(std::uint32_t i) {
             fileMap.erase(*reverseFileMap[i]);
             reverseFileMap[i] = nullptr;
         }
+        if (reverseImageMap[i]) {
+            imageMap.erase(reverseImageMap[i]);
+            reverseImageMap[i] = nullptr;
+        }
     }
     else { freeRtSlots.release(i - reverseFileMap.size()); }
 
@@ -143,7 +149,8 @@ TextureRef TexturePool::allocateTexture() {
 
     const std::uint32_t i = freeSlots.allocate();
     refCounts[i].store(0);
-    reverseFileMap[i] = nullptr;
+    reverseFileMap[i]  = nullptr;
+    reverseImageMap[i] = nullptr;
 
     return TextureRef{*this, textures.getTexture(i)};
 }
@@ -219,6 +226,23 @@ TextureRef TexturePool::getOrLoadTexture(const std::string& path, VkSampler samp
     textures.prepareTextureUpdate(txtr.id(), path);
     it                        = fileMap.try_emplace(path, txtr.id()).first;
     reverseFileMap[txtr.id()] = &it->first;
+    finalizeNewTexture(txtr.id(), sampler);
+
+    return txtr;
+}
+
+TextureRef TexturePool::getOrLoadTexture(const sf::Image& src, VkSampler sampler) {
+    if (!sampler) { sampler = vulkanState.samplerCache.filteredEdgeClamped(); }
+
+    std::unique_lock lock(mutex);
+
+    auto it = imageMap.find(&src);
+    if (it != imageMap.end()) { return TextureRef{*this, textures.getTexture(it->second)}; }
+
+    TextureRef txtr = allocateTexture();
+    textures.prepareTextureUpdate(txtr.id(), src);
+    it                         = imageMap.try_emplace(&src, txtr.id()).first;
+    reverseImageMap[txtr.id()] = &src;
     finalizeNewTexture(txtr.id(), sampler);
 
     return txtr;

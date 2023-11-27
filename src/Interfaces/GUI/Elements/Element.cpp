@@ -1,5 +1,6 @@
 #include <BLIB/Interfaces/GUI/Elements/Element.hpp>
 
+#include <BLIB/Interfaces/GUI/Elements/Window.hpp>
 #include <BLIB/Interfaces/GUI/GUI.hpp>
 #include <BLIB/Logging.hpp>
 #include <cmath>
@@ -9,7 +10,10 @@ namespace bl
 namespace gui
 {
 Element::Element()
-: parent(nullptr)
+: renderer(nullptr)
+, component(nullptr)
+, parent(nullptr)
+, showingTooltip(false)
 , _dirty(true)
 , _active(true)
 , _visible(true)
@@ -21,8 +25,13 @@ Element::Element()
 , isMouseOver(false)
 , isLeftPressed(false)
 , isRightPressed(false)
-, flashTime(-1.f)
 , hoverTime(0.f) {}
+
+Element::~Element() {
+    if (component && renderer && rendererAlive && *rendererAlive) {
+        renderer->destroyComponent(*this);
+    }
+}
 
 void Element::setRequisition(const sf::Vector2f& size) {
     requisition.reset();
@@ -73,7 +82,7 @@ bool Element::clearFocus(const Element* requester) {
 bool Element::releaseFocus(const Element* requester) {
     if (focusForced) {
         if (requester && (requester != this && !isChild(requester))) {
-            if (flashTime < 0.f) flashTime = 0.f;
+            if (component) { component->flash(); }
             return false;
         }
     }
@@ -129,10 +138,12 @@ bool Element::processEvent(const Event& event) {
                 if (event.type() == Event::LeftMousePressed) {
                     dragStart     = event.mousePosition();
                     isLeftPressed = true;
+                    updateUiState();
                     return processAction(event);
                 }
                 else {
                     isRightPressed = true;
+                    updateUiState();
                     return true;
                 }
             }
@@ -150,6 +161,7 @@ bool Element::processEvent(const Event& event) {
         if (event.type() == Event::LeftMouseReleased) {
             if (isLeftPressed) {
                 isLeftPressed = false;
+                updateUiState();
                 if (eventOnMe) {
                     processAction(Event(Event::LeftClicked, event.mousePosition()));
                     return true;
@@ -159,6 +171,7 @@ bool Element::processEvent(const Event& event) {
         else if (event.type() == Event::RightMouseReleased) {
             if (isRightPressed) {
                 isRightPressed = false;
+                updateUiState();
                 if (eventOnMe) {
                     processAction(Event(Event::RightClicked, event.mousePosition()));
                     return true;
@@ -169,16 +182,22 @@ bool Element::processEvent(const Event& event) {
 
     case Event::MouseMoved:
         if (!active()) { return eventOnMe; }
+        if (showingTooltip && component) {
+            showingTooltip = false;
+            component->dismissTooltip();
+        }
         if (eventOnMe) { fireSignal(event); }
         if (isLeftPressed) {
             isMouseOver  = eventOnMe;
             const bool r = processAction(Event(Event::Dragged, dragStart, event.mousePosition()));
             dragStart    = event.mousePosition();
+            updateUiState();
             return r;
         }
         else if (eventOnMe) {
             if (!isMouseOver) {
                 isMouseOver = true;
+                updateUiState();
                 processAction(Event(Event::MouseEntered, event.mousePosition()));
             }
             hoverTime = 0.f;
@@ -186,6 +205,7 @@ bool Element::processEvent(const Event& event) {
         }
         else if (isMouseOver) {
             isMouseOver = false;
+            updateUiState();
             processAction(Event(Event::MouseLeft, event.mousePosition()));
         }
         return false;
@@ -194,6 +214,7 @@ bool Element::processEvent(const Event& event) {
         isMouseOver    = false;
         isLeftPressed  = false;
         isRightPressed = false;
+        updateUiState();
         return false;
 
     default:
@@ -234,6 +255,7 @@ void Element::setVisible(bool v, bool md) {
     const bool was = _visible;
     _visible       = v;
     if (v != was && md) makeDirty();
+    if (component) { component->setVisible(v); }
 }
 
 bool Element::packable(bool ivs) const {
@@ -254,6 +276,7 @@ void Element::setActive(bool a) {
         isLeftPressed  = false;
         isRightPressed = false;
     }
+    updateUiState();
 }
 
 bool Element::active() const { return _active && _visible; }
@@ -277,10 +300,11 @@ bool Element::expandsHeight() const { return fillY; }
 void Element::assignAcquisition(const sf::FloatRect& acq) {
     markClean();
     cachedArea = acq;
-    if (parent) {
-        position = sf::Vector2f(cachedArea.left, cachedArea.top) - parent->getPosition();
-    }
+    const sf::Vector2f globalPos(cachedArea.left, cachedArea.top);
+    if (parent) { position = globalPos - parent->getPosition(); }
+    else { position = globalPos; }
     fireSignal(Event(Event::AcquisitionChanged));
+    if (component) { component->onAcquisition(); }
 }
 
 void Element::setPosition(const sf::Vector2f& pos) {
@@ -288,10 +312,10 @@ void Element::setPosition(const sf::Vector2f& pos) {
     dragStart += diff;
     cachedArea.left = pos.x;
     cachedArea.top  = pos.y;
-    if (parent) {
-        position = sf::Vector2f(cachedArea.left, cachedArea.top) - parent->getPosition();
-    }
+    if (parent) { position = pos - parent->getPosition(); }
+    else { position = pos; }
     fireSignal(Event(Event::Moved));
+    if (component) { component->onMove(); }
 }
 
 void Element::recalculatePosition() {
@@ -301,6 +325,7 @@ void Element::recalculatePosition() {
             cachedArea.left = npos.x;
             cachedArea.top  = npos.y;
             fireSignal(Event(Event::Moved));
+            if (component) { component->onMove(); }
         }
     }
 }
@@ -309,72 +334,57 @@ const sf::FloatRect& Element::getAcquisition() const { return cachedArea; }
 
 sf::Vector2f Element::getPosition() const { return {cachedArea.left, cachedArea.top}; }
 
-void Element::setChildParent(Element* p) { p->parent = this; }
+const sf::Vector2f& Element::getLocalPosition() const { return position; }
 
-void Element::render(sf::RenderTarget& target, sf::RenderStates states,
-                     const Renderer& renderer) const {
-    if (visible()) {
-        doRender(target, states, renderer);
-        if (flashTime >= 0.f) {
-            sf::RectangleShape rect({getAcquisition().width, getAcquisition().height});
-            rect.setFillColor(sf::Color(
-                255, 255, 255, 50.f + std::abs(std::sin(flashTime * 4.f * 3.1415f) * 120.f)));
-            rect.setPosition(getPosition());
-            target.draw(rect, states);
-        }
-        if (mouseOver() && hoverTime > 1.f && !tooltip.empty()) {
-            renderer.setTooltipToRender(this);
-        }
-    }
-}
+void Element::setChildParent(Element* p) { p->parent = this; }
 
 const RenderSettings& Element::renderSettings() const { return settings; }
 
-void Element::setFont(bl::resource::Ref<sf::Font> f) {
+void Element::setFont(bl::resource::Ref<sf::VulkanFont> f) {
     settings.font = f;
-    fireSignal(Event(Event::RenderSettingsChanged));
+    onRenderChange();
 }
 
 void Element::setCharacterSize(unsigned int s) {
     settings.characterSize = s;
-    fireSignal(Event(Event::RenderSettingsChanged));
+    onRenderChange();
 }
 
 void Element::setColor(sf::Color fill, sf::Color outline) {
     settings.fillColor    = fill;
     settings.outlineColor = outline;
-    fireSignal(Event(Event::RenderSettingsChanged));
+    onRenderChange();
 }
 
 void Element::setOutlineThickness(float t) {
     settings.outlineThickness = t;
-    fireSignal(Event(Event::RenderSettingsChanged));
+    onRenderChange();
 }
 
 void Element::setSecondaryColor(sf::Color fill, sf::Color outline) {
     settings.secondaryFillColor    = fill;
     settings.secondaryOutlineColor = outline;
-    fireSignal(Event(Event::RenderSettingsChanged));
+    onRenderChange();
 }
 
 void Element::setSecondaryOutlineThickness(float t) {
     settings.secondaryOutlineThickness = t;
-    fireSignal(Event(Event::RenderSettingsChanged));
+    onRenderChange();
 }
 
 void Element::setStyle(sf::Uint32 style) {
     settings.style = style;
-    fireSignal(Event(Event::RenderSettingsChanged));
+    onRenderChange();
 }
 
 void Element::setHorizontalAlignment(RenderSettings::Alignment align) {
     settings.horizontalAlignment = align;
-    fireSignal(Event(Event::RenderSettingsChanged));
+    onRenderChange();
 }
 
 void Element::setVerticalAlignment(RenderSettings::Alignment align) {
     settings.verticalAlignment = align;
-    fireSignal(Event(Event::RenderSettingsChanged));
+    onRenderChange();
 }
 
 Element::Ptr Element::me() { return shared_from_this(); }
@@ -384,11 +394,12 @@ void Element::bringToTop(const Element*) {}
 void Element::removeChild(const Element*) {}
 
 void Element::update(float dt) {
-    if (flashTime >= 0.f) {
-        flashTime += dt;
-        if (flashTime > 0.5f) { flashTime = -1.f; }
-    }
     hoverTime += dt;
+
+    if (component && mouseOver() && hoverTime > 1.f && !tooltip.empty() && !showingTooltip) {
+        showingTooltip = true;
+        component->showTooltip();
+    }
 }
 
 void Element::setTooltip(const std::string& tt) { tooltip = tt; }
@@ -411,6 +422,55 @@ GUI* Element::getTopParent() {
 const GUI* Element::getTopParent() const { return const_cast<Element*>(this)->getTopParent(); }
 
 bool Element::receivesOutOfBoundsEvents() const { return false; }
+
+void Element::updateUiState() {
+    using S = rdr::Component::UIState;
+
+    if (component) {
+        if (!active()) { component->setUIState(S::Disabled); }
+        else if (isLeftPressed || isRightPressed) { component->setUIState(S::Pressed); }
+        else if (isMouseOver) { component->setUIState(S::Highlighted); }
+        else { component->setUIState(S::Regular); }
+    }
+}
+
+void Element::prepareRender(rdr::Renderer& r) {
+    renderer      = &r;
+    rendererAlive = r.getAliveFlag();
+    if (!component) { component = doPrepareRender(r); }
+    else { r.addComponentToOverlayIfRequired(component); }
+    prepareChildrenRender(r);
+    updateUiState();
+
+    if (highlightBehvaiorOverride.has_value()) {
+        component->overrideHighlightBehavior(highlightBehvaiorOverride.value());
+    }
+}
+
+void Element::prepareChildrenRender(rdr::Renderer&) {}
+
+void Element::onRenderChange() {
+    fireSignal(Event(Event::RenderSettingsChanged));
+    if (component) { component->onRenderSettingChange(); }
+}
+
+float Element::getDepthBias() const { return 0.f; }
+
+void Element::overrideHighlightBehavior(rdr::Component::HighlightState behavior) {
+    highlightBehvaiorOverride = behavior;
+    if (component) { component->overrideHighlightBehavior(behavior); }
+}
+
+bool Element::isInParentTree(const Element* p) const {
+    Element* cp = parent;
+    while (cp != nullptr) {
+        if (p == cp) { return true; }
+        cp = cp->parent;
+    }
+    return false;
+}
+
+Element* Element::getParent() const { return parent; }
 
 } // namespace gui
 } // namespace bl

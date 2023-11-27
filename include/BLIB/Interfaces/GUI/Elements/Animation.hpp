@@ -13,7 +13,6 @@ namespace gui
  * @brief Simple element that displays a constantly playing animation. Similar to Image
  *
  * @ingroup GUI
- *
  */
 class Animation : public Element {
 public:
@@ -39,16 +38,19 @@ public:
     /**
      * @brief Scales the rendered animation to the given size
      *
-     * @param size The size to render to, in pixels
+     * @param size The size to render to, in overlay space
      */
     void scaleToSize(const sf::Vector2f& size);
 
     /**
-     * @brief Updates the animation
-     *
-     * @param dt Time elapsed in seconds
+     * @brief Returns the animation being rendered by this element
      */
-    virtual void update(float dt) override;
+    resource::Ref<gfx::a2d::AnimationData>& getAnimation();
+
+    /**
+     * @brief Returns the size being scaled to, if any
+     */
+    const std::optional<sf::Vector2f>& getSize() const;
 
 protected:
     /**
@@ -60,25 +62,19 @@ protected:
 
     /**
      * @brief Returns the size required to render the animation
-     *
      */
     virtual sf::Vector2f minimumRequisition() const override;
 
     /**
-     * @brief Renders the animation
+     * @brief Creates the visual component for this element
      *
-     * @param target The target to render to
-     * @param states Render states to apply
-     * @param renderer Unused
+     * @param renderer The renderer to use to create visual Components
+     * @return The visual component for this element
      */
-    virtual void doRender(sf::RenderTarget& target, sf::RenderStates states,
-                          const Renderer& renderer) const override;
+    virtual rdr::Component* doPrepareRender(rdr::Renderer& renderer) override;
 
 private:
-    bool centered;
     resource::Ref<gfx::a2d::AnimationData> source;
-    // gfx::Animation animation;
-    //  TODO - use new animations
     std::optional<sf::Vector2f> size;
 };
 

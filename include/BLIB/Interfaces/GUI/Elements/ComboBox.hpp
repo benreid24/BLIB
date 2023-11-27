@@ -22,7 +22,7 @@ class ComboBox : public Element {
 public:
     typedef std::shared_ptr<ComboBox> Ptr;
 
-    static constexpr float OptionPadding = 2;
+    static constexpr float OptionPadding = 2.f;
 
     /**
      * @brief Create a new ComboBox
@@ -32,27 +32,20 @@ public:
     static Ptr create();
 
     /**
-     * @brief Set the color of the text labels
-     *
-     */
-    void setLabelColor(const sf::Color& color);
-
-    /**
      * @brief Adds the option to the dropdown
      *
-     * @param text Text to display
+     * @param text The text to display as an option
      */
     void addOption(const std::string& text);
 
     /**
      * @brief Removes all options
-     *
      */
     void clearOptions();
 
     /**
      * @brief Sets the maximum height the box can fill before limiting the size and scrolling. Set
-     *        to 0 for unbounded heoght
+     *        to 0 for unbounded height
      *
      * @param height The maximum height of the dropdown
      */
@@ -75,7 +68,6 @@ public:
      *
      * @param i The index of the option to select
      * @param fireEvent True to fire a changed event, false to not
-     *
      */
     void setSelectedOption(int i, bool fireEvent = true);
 
@@ -90,53 +82,66 @@ public:
 
     /**
      * @brief Returns the number of options in the combo box
-     * 
      */
     int optionCount() const;
 
     /**
      * @brief Returns whether or not the dropdown is opened
-     *
      */
     bool isOpened() const;
 
     /**
      * @brief Returns true if open
-     *
      */
     virtual bool handleScroll(const Event& scroll) override;
 
     /**
-     * @brief Updates the combo box and its children if opened
-     *
-     * @param dt Elapsed time in seconds
-     */
-    virtual void update(float dt) override;
-
-    /**
-     * @brief Returns whether or not this element should receive events that occured outside the
+     * @brief Returns whether or not this element should receive events that occurred outside the
      *        acquisition of its parent
      *
      * @return True if it should take outside events, false for contained only
      */
     virtual bool receivesOutOfBoundsEvents() const override;
 
+    /**
+     * @brief Returns the index of the currently moused-over option, -1 if none
+     */
+    int getMousedOption() const { return moused; }
+
+    /**
+     * @brief Returns the size of the options in the dropdown
+     */
+    const sf::Vector2f& getOptionSize() const { return labelSize; }
+
+    /**
+     * @brief Returns the acquisition of the space where options are rendered, constrained by the
+     *        max size
+     */
+    const sf::FloatRect& getOptionRegion() const { return labelRegion; }
+
+    /**
+     * @brief Returns the current amount of scrolling
+     */
+    float getScroll() const { return scroll; }
+
+    /**
+     * @brief Returns the list of all options
+     */
+    const std::vector<std::string>& getAllOptions() const { return options; }
+
 protected:
     /**
      * @brief Create a new ComboBox
-     *
      */
     ComboBox();
 
     /**
      * @brief Returns the size of the largest label plus the dropdown arrow
-     *
      */
     virtual sf::Vector2f minimumRequisition() const override;
 
     /**
      * @brief Packs the labels
-     *
      */
     void onAcquisition();
 
@@ -149,19 +154,15 @@ protected:
     virtual bool propagateEvent(const Event& event) override;
 
     /**
-     * @brief Renders the box and options
+     * @brief Creates the visual component for this element
      *
-     * @param target The target to render to
-     * @param states Render states to apply
-     * @param renderer The renderer to use
+     * @param renderer The renderer to use to create visual Components
+     * @return The visual component for this element
      */
-    virtual void doRender(sf::RenderTarget& target, sf::RenderStates states,
-                          const Renderer& renderer) const override;
+    virtual rdr::Component* doPrepareRender(rdr::Renderer& renderer) override;
 
 private:
-    Canvas::Ptr arrow;
     std::vector<std::string> options;
-    std::vector<Label::Ptr> labels;
     sf::Vector2f labelSize;
     sf::FloatRect labelRegion;
     std::optional<sf::Color> labelColor;
@@ -169,17 +170,13 @@ private:
     float totalHeight;
     float scroll;
     int selected; // -1 means none
+    int moused;
     bool opened;
-    mutable bool arrowRendered;
 
-    void onSettings(); // update label settings
     void optionClicked(const std::string& text);
     void clicked();
     void scrolled(const Event& scroll);
     void refreshLabelRegion();
-
-    void packOpened();
-    void packClosed();
 };
 
 } // namespace gui

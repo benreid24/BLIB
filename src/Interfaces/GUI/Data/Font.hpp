@@ -1,9 +1,9 @@
 #ifndef BLIB_GUI_DATA_FONT_HPP
 #define BLIB_GUI_DATA_FONT_HPP
 
+#include <BLIB/Graphics/Text/VulkanFont.hpp>
 #include <BLIB/Resources/Loader.hpp>
 #include <BLIB/Resources/Ref.hpp>
-#include <SFML/Graphics/Font.hpp>
 
 namespace bl
 {
@@ -21,7 +21,7 @@ struct Font {
      * @brief Returns a loaded sf::Font resource from the built in font
      *
      */
-    static resource::Ref<sf::Font> get();
+    static resource::Ref<sf::VulkanFont> get();
 };
 
 } // namespace gui

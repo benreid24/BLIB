@@ -1,8 +1,14 @@
 target_sources(BLIB PRIVATE
 	Animation2D.cpp
+	BatchCircle.cpp
+	BatchedShapes2D.cpp
+	BatchIcon.cpp
+	BatchRectangle.cpp
+	BatchTriangle.cpp
 	Circle.cpp
+	Dummy2D.cpp
+	Icon.cpp
 	Rectangle.cpp
-	Shape2D.cpp
 	Slideshow.cpp
 	Sprite.cpp
 	Text.cpp
@@ -11,4 +17,5 @@ target_sources(BLIB PRIVATE
 
 add_subdirectory(Animation2D)
 add_subdirectory(Components)
+add_subdirectory(Shapes2D)
 add_subdirectory(Text)
