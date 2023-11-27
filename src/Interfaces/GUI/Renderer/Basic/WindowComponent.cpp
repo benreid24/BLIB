@@ -10,9 +10,12 @@ namespace gui
 namespace defcoms
 {
 WindowComponent::WindowComponent()
-: Component(HighlightState::IgnoresMouse) {}
+: ShapeBatchProvider(HighlightState::IgnoresMouse) {}
 
-void WindowComponent::setVisible(bool v) { box.setHidden(!v); }
+void WindowComponent::setVisible(bool v) {
+    batch.setHidden(!v);
+    dummy.setHidden(!v);
+}
 
 void WindowComponent::onElementUpdated() {
     // noop
@@ -20,34 +23,38 @@ void WindowComponent::onElementUpdated() {
 
 void WindowComponent::onRenderSettingChange() {
     const RenderSettings& settings = getOwnerAs<Element>().getRenderSettings();
-    box.setFillColor(bl::sfcol(settings.fillColor.value_or(sf::Color(75, 75, 75))));
-    box.setOutlineColor(bl::sfcol(settings.outlineColor.value_or(sf::Color(20, 20, 20))));
-    box.setOutlineThickness(-settings.outlineThickness.value_or(1.f));
+    batchRect.setFillColor(bl::sfcol(settings.fillColor.value_or(sf::Color(75, 75, 75))));
+    batchRect.setOutlineColor(bl::sfcol(settings.outlineColor.value_or(sf::Color(20, 20, 20))));
+    batchRect.setOutlineThickness(-settings.outlineThickness.value_or(1.f));
 }
 
-ecs::Entity WindowComponent::getEntity() const { return box.entity(); }
+ecs::Entity WindowComponent::getEntity() const { return dummy.entity(); }
 
 void WindowComponent::doCreate(engine::Engine& engine, rdr::Renderer&) {
     Element& owner = getOwnerAs<Element>();
-    box.create(engine, {owner.getAcquisition().width, owner.getAcquisition().height});
-    box.getOverlayScaler().setScissorMode(com::OverlayScaler::ScissorSelf);
+    setEnabled(true);
+    dummy.create(engine);
+    batch.create(engine, 128);
+    batch.setParent(dummy);
+    batchRect.create(engine, batch, {owner.getAcquisition().width, owner.getAcquisition().height});
+    dummy.getOverlayScaler().setScissorMode(com::OverlayScaler::ScissorSelf);
 }
 
 void WindowComponent::doSceneAdd(rc::Overlay* overlay) {
-    box.addToScene(overlay, rc::UpdateSpeed::Static);
+    batch.addToScene(overlay, rc::UpdateSpeed::Static);
 }
 
-void WindowComponent::doSceneRemove() { box.removeFromScene(); }
+void WindowComponent::doSceneRemove() { batch.removeFromScene(); }
 
 void WindowComponent::handleAcquisition() {
     Element& owner = getOwnerAs<Element>();
-    box.setSize({owner.getAcquisition().width, owner.getAcquisition().height});
-    box.getTransform().setPosition({owner.getLocalPosition().x, owner.getLocalPosition().y});
+    batchRect.setSize({owner.getAcquisition().width, owner.getAcquisition().height});
+    dummy.getTransform().setPosition({owner.getLocalPosition().x, owner.getLocalPosition().y});
 }
 
 void WindowComponent::handleMove() {
     Element& owner = getOwnerAs<Element>();
-    box.getTransform().setPosition({owner.getLocalPosition().x, owner.getLocalPosition().y});
+    dummy.getTransform().setPosition({owner.getLocalPosition().x, owner.getLocalPosition().y});
 }
 
 } // namespace defcoms

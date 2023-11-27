@@ -16,7 +16,6 @@ ShapeBatchProvider::ShapeBatchProvider(HighlightState highlightState)
 gfx::BatchedShapes2D& ShapeBatchProvider::getShapeBatch() { return batch; }
 
 ShapeBatchProvider* defcoms::ShapeBatchProvider::findProvider(rdr::Component* component) {
-    // TODO - always resolves to GUI
     while (component != nullptr) {
         ShapeBatchProvider* p = dynamic_cast<ShapeBatchProvider*>(component);
         if (p && p->isEnabled()) { return p; }

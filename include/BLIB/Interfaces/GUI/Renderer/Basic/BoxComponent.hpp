@@ -3,7 +3,6 @@
 
 #include <BLIB/Graphics/BatchRectangle.hpp>
 #include <BLIB/Graphics/Dummy2D.hpp>
-#include <BLIB/Graphics/Rectangle.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Basic/ShapeBatchProvider.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Component.hpp>
 
