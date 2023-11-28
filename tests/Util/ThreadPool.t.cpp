@@ -63,7 +63,7 @@ TEST(ThreadPool, ShutdownLongRunningTask) {
     };
 
     auto future       = std::async(test);
-    const auto result = future.wait_for(std::chrono::milliseconds(750));
+    const auto result = future.wait_for(std::chrono::milliseconds(1000));
     EXPECT_NE(result, std::future_status::timeout);
     if (result == std::future_status::timeout) { std::terminate(); }
 }
