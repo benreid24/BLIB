@@ -137,7 +137,7 @@ $(function() {
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;}</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
 <div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="a04527.html#a2093b8daf49ca46987c69b69c1a10e59">   63</a></span>&#160;std::future&lt;void&gt; <a class="code" href="a04527.html#a2093b8daf49ca46987c69b69c1a10e59">ThreadPool::queueTask</a>(<a class="code" href="a04527.html#a1da062602c1bbf14d5d17ce12e777697">Task</a>&amp;&amp; task) {</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordflow">if</span> (shuttingDown.load() || !<a class="code" href="a04527.html#ad9a5691b5c3c8a79d4d635a528702cca">running</a>()) { <span class="keywordflow">return</span> {}; }</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="a04527.html#ad9a5691b5c3c8a79d4d635a528702cca">running</a>()) { <span class="keywordflow">return</span> {}; }</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    std::unique_lock lock(taskMutex);</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordflow">if</span> (shuttingDown.load()) { <span class="keywordflow">return</span> {}; } <span class="comment">// in case of race</span></div>
@@ -170,15 +170,13 @@ $(function() {
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        lock.lock();</div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        --inFlightCount;</div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        taskDoneCv.notify_all();</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <span class="keywordflow">if</span> (shuttingDown) { <span class="keywordflow">break</span>; }</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    }</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <a class="code" href="a00620.html#a459f7ea96e34815206480bf681ee2a2f">BL_LOG_INFO</a> &lt;&lt; <span class="stringliteral">&quot;Worker thread terminated&quot;</span>;</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;}</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;} <span class="comment">// namespace util</span></div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    }</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <a class="code" href="a00620.html#a459f7ea96e34815206480bf681ee2a2f">BL_LOG_INFO</a> &lt;&lt; <span class="stringliteral">&quot;Worker thread terminated&quot;</span>;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;}</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;} <span class="comment">// namespace util</span></div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;} <span class="comment">// namespace bl</span></div>
 <div class="ttc" id="aa00620_html_a459f7ea96e34815206480bf681ee2a2f"><div class="ttname"><a href="a00620.html#a459f7ea96e34815206480bf681ee2a2f">BL_LOG_INFO</a></div><div class="ttdeci">#define BL_LOG_INFO</div><div class="ttdoc">Helper macro to log at info level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00620_source.html#l00107">Logger.hpp:107</a></div></div>
 <div class="ttc" id="aa00626_html"><div class="ttname"><a href="a00626.html">Logging.hpp</a></div></div>
 <div class="ttc" id="aa01220_html"><div class="ttname"><a href="a01220.html">ThreadPool.hpp</a></div></div>
@@ -195,7 +193,7 @@ $(function() {
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Nov 27 2023 23:34:41 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Nov 28 2023 03:30:34 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>
