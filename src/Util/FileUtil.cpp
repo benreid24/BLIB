@@ -5,6 +5,7 @@
 #include <BLIB/Util/FileUtil.hpp>
 
 #include <BLIB/Util/Random.hpp>
+#include <chrono>
 #include <filesystem>
 
 #include <algorithm>
@@ -12,16 +13,11 @@
 #include <cstdlib>
 #include <fstream>
 #include <sstream>
-#include <stack>
 #include <sys/stat.h>
-#include <sys/types.h>
 
 #ifdef BLIB_WINDOWS
-#include "dirent_windows.h"
-#include <direct.h>
 #include <shlobj.h>
 #else
-#include <dirent.h>
 #include <pwd.h>
 #include <unistd.h>
 #endif
@@ -108,8 +104,8 @@ std::vector<std::string> FileUtil::listDirectory(const std::string& path, const 
     std::vector<std::string> list;
 
     const auto append = [&list, &ext, &path](const std::filesystem::path& cpath) {
-        bool add = true;
-        if (!ext.empty()) {
+        bool add = std::filesystem::is_regular_file(cpath);
+        if (add && !ext.empty()) {
             const auto e = cpath.extension();
             const std::string_view es(e.empty() ? e.c_str() : e.c_str() + 1,
                                       e.empty() ? 0 : std::distance(e.begin(), e.end()) - 1);
@@ -133,43 +129,17 @@ std::vector<std::string> FileUtil::listDirectory(const std::string& path, const 
 std::vector<std::string> FileUtil::listDirectoryFolders(const std::string& path) {
     if (path.empty()) return {};
 
-    DIR* cd;
-    struct dirent* cfile;
     std::vector<std::string> list;
-    std::string folder = path;
-    if (folder[folder.size() - 1] != '/' && folder[folder.size() - 1] != '\\')
-        folder.push_back('/');
-
-    cd = opendir(folder.c_str());
-    if (cd != nullptr) {
-        while ((cfile = readdir(cd))) {
-            const std::string file = cfile->d_name;
-            const std::string full = joinPath(folder, file);
-            if (file != "." && file != ".." && directoryExists(full)) { list.push_back(file); }
-        }
+    for (const auto& cpath : std::filesystem::directory_iterator(path)) {
+        if (std::filesystem::is_directory(cpath)) { list.emplace_back(cpath.path()); }
     }
-
     return list;
 }
 
-bool FileUtil::deleteFile(const std::string& file) { return 0 == remove(file.c_str()); }
+bool FileUtil::deleteFile(const std::string& file) { return std::filesystem::remove(file); }
 
 bool FileUtil::deleteDirectory(const std::string& path) {
-    const std::vector<std::string> folders = listDirectoryFolders(path);
-    for (const std::string& d : folders) {
-        if (!deleteDirectory(joinPath(path, d))) { return false; }
-    }
-
-    const std::vector<std::string> files = listDirectory(path);
-    for (const std::string& file : files) {
-        if (!deleteFile(file)) { return false; }
-    }
-
-#ifdef BLIB_WINDOWS
-    return 0 == _rmdir(path.c_str());
-#else
-    return 0 == rmdir(path.c_str());
-#endif
+    return std::filesystem::remove_all(path) > 0;
 }
 
 std::string FileUtil::getDataDirectory(const std::string& appName) {
@@ -178,14 +148,13 @@ std::string FileUtil::getDataDirectory(const std::string& appName) {
     char buf[MAX_PATH];
     SHGetFolderPathA(NULL, CSIDL_MYDOCUMENTS, 0, 0, buf);
     path = joinPath(buf, "My Games");
-    createDirectory(path);
 #else
     struct passwd* pwd = getpwuid(getuid());
     path               = pwd ? pwd->pw_dir : "";
 #endif
 
     path = joinPath(path, appName);
-    createDirectory(path);
+    std::filesystem::create_directories(path);
     return path;
 }
 
