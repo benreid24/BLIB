@@ -61,7 +61,7 @@ void ThreadPool::shutdown() {
 }
 
 std::future<void> ThreadPool::queueTask(Task&& task) {
-    if (shuttingDown.load() || !running()) { return {}; }
+    if (!running()) { return {}; }
 
     std::unique_lock lock(taskMutex);
     if (shuttingDown.load()) { return {}; } // in case of race
@@ -94,8 +94,6 @@ void ThreadPool::worker() {
         lock.lock();
         --inFlightCount;
         taskDoneCv.notify_all();
-
-        if (shuttingDown) { break; }
     }
 
     BL_LOG_INFO << "Worker thread terminated";
