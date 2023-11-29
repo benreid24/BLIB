@@ -77,7 +77,7 @@ $(function() {
 <a href="a01775.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00869.html">BLIB/Render/Resources/RenderPassCache.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00626.html">BLIB/Logging.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05641.html">BLIB/Render/Renderer.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05640.html">BLIB/Render/Renderer.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00980.html">BLIB/Render/Vulkan/StandardAttachmentBuffers.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02058.html">bl</a></div>
@@ -91,8 +91,8 @@ $(function() {
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keywordtype">void</span> RenderPassCache::cleanup() { cache.clear(); }</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a03627.html#a3df69182959af8b8fa569a69805a2efe">   18</a></span>&#160;<a class="code" href="a03839.html">vk::RenderPass</a>&amp; RenderPassCache::createRenderPass(std::uint32_t <span class="keywordtype">id</span>,</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;                                                  <a class="code" href="a03843.html">vk::RenderPassParameters</a>&amp;&amp; sceneParams) {</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a03626.html#a3df69182959af8b8fa569a69805a2efe">   18</a></span>&#160;<a class="code" href="a03838.html">vk::RenderPass</a>&amp; RenderPassCache::createRenderPass(std::uint32_t <span class="keywordtype">id</span>,</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;                                                  <a class="code" href="a03842.html">vk::RenderPassParameters</a>&amp;&amp; sceneParams) {</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> insertResult = cache.try_emplace(</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        <span class="keywordtype">id</span>, renderer.vulkanState(), std::forward&lt;vk::RenderPassParameters&gt;(sceneParams));</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keywordflow">if</span> (!insertResult.second) {</div>
@@ -101,7 +101,7 @@ $(function() {
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordflow">return</span> insertResult.first-&gt;second;</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;}</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a03627.html#ad075fee264f0adfeb7c93a8133cf877f">   28</a></span>&#160;<a class="code" href="a03839.html">vk::RenderPass</a>&amp; RenderPassCache::getRenderPass(std::uint32_t <span class="keywordtype">id</span>) {</div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a03626.html#ad075fee264f0adfeb7c93a8133cf877f">   28</a></span>&#160;<a class="code" href="a03838.html">vk::RenderPass</a>&amp; RenderPassCache::getRenderPass(std::uint32_t <span class="keywordtype">id</span>) {</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keyword">auto</span> it = cache.find(<span class="keywordtype">id</span>);</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordflow">if</span> (it == cache.end()) {</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <a class="code" href="a00620.html#aab250887595d9e02b1f0b670fe342683">BL_LOG_CRITICAL</a> &lt;&lt; <span class="stringliteral">&quot;Failed to find render pass with id: &quot;</span> &lt;&lt; id;</div>
@@ -205,14 +205,14 @@ $(function() {
 <div class="ttc" id="aa00869_html"><div class="ttname"><a href="a00869.html">RenderPassCache.hpp</a></div></div>
 <div class="ttc" id="aa00980_html"><div class="ttname"><a href="a00980.html">StandardAttachmentBuffers.hpp</a></div></div>
 <div class="ttc" id="aa02058_html"><div class="ttname"><a href="a02058.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03839_html"><div class="ttname"><a href="a03839.html">bl::rc::vk::RenderPass</a></div><div class="ttdoc">Represents a render pass in the renderer. A scene is comprised of a sequence of render passes and eac...</div><div class="ttdef"><b>Definition:</b> <a href="a00971_source.html#l00019">RenderPass.hpp:19</a></div></div>
-<div class="ttc" id="aa03843_html"><div class="ttname"><a href="a03843.html">bl::rc::vk::RenderPassParameters</a></div><div class="ttdoc">Parameter builder class used to construct RenderPass objects in the renderer.</div><div class="ttdef"><b>Definition:</b> <a href="a00974_source.html#l00022">RenderPassParameters.hpp:22</a></div></div>
-<div class="ttc" id="aa05641_html"><div class="ttname"><a href="a05641.html">Renderer.hpp</a></div></div>
+<div class="ttc" id="aa03838_html"><div class="ttname"><a href="a03838.html">bl::rc::vk::RenderPass</a></div><div class="ttdoc">Represents a render pass in the renderer. A scene is comprised of a sequence of render passes and eac...</div><div class="ttdef"><b>Definition:</b> <a href="a00971_source.html#l00019">RenderPass.hpp:19</a></div></div>
+<div class="ttc" id="aa03842_html"><div class="ttname"><a href="a03842.html">bl::rc::vk::RenderPassParameters</a></div><div class="ttdoc">Parameter builder class used to construct RenderPass objects in the renderer.</div><div class="ttdef"><b>Definition:</b> <a href="a00974_source.html#l00022">RenderPassParameters.hpp:22</a></div></div>
+<div class="ttc" id="aa05640_html"><div class="ttname"><a href="a05640.html">Renderer.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Nov 28 2023 03:30:34 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 29 2023 03:07:38 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

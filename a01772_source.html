@@ -86,9 +86,9 @@ $(function() {
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;PipelineLayoutCache::PipelineLayoutCache(Renderer&amp; renderer)</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;: renderer(renderer) {}</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="a03623.html#a3d82ee894d5246ffb5422326d659452a">   13</a></span>&#160;<a class="code" href="a03811.html">vk::PipelineLayout</a>* PipelineLayoutCache::getLayout(<a class="code" href="a03815.html">vk::PipelineLayout::LayoutParams</a>&amp;&amp; params) {</div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="a03622.html#a3d82ee894d5246ffb5422326d659452a">   13</a></span>&#160;<a class="code" href="a03810.html">vk::PipelineLayout</a>* PipelineLayoutCache::getLayout(<a class="code" href="a03814.html">vk::PipelineLayout::LayoutParams</a>&amp;&amp; params) {</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="keywordflow">return</span> &amp;(cache</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;                 .try_emplace(<span class="keyword">static_cast&lt;</span><span class="keyword">const </span><a class="code" href="a03815.html">vk::PipelineLayout::LayoutParams</a>&amp;<span class="keyword">&gt;</span>(params),</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;                 .try_emplace(<span class="keyword">static_cast&lt;</span><span class="keyword">const </span><a class="code" href="a03814.html">vk::PipelineLayout::LayoutParams</a>&amp;<span class="keyword">&gt;</span>(params),</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;                              renderer,</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;                              std::forward&lt;vk::PipelineLayout::LayoutParams&gt;(params))</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;                 .first-&gt;second);</div>
@@ -101,13 +101,13 @@ $(function() {
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;} <span class="comment">// namespace bl</span></div>
 <div class="ttc" id="aa00866_html"><div class="ttname"><a href="a00866.html">PipelineLayoutCache.hpp</a></div></div>
 <div class="ttc" id="aa02058_html"><div class="ttname"><a href="a02058.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03811_html"><div class="ttname"><a href="a03811.html">bl::rc::vk::PipelineLayout</a></div><div class="ttdoc">Represents the descriptor layout for pipelines. Allows rendering to be batched by layout to save on b...</div><div class="ttdef"><b>Definition:</b> <a href="a00965_source.html#l00030">PipelineLayout.hpp:30</a></div></div>
-<div class="ttc" id="aa03815_html"><div class="ttname"><a href="a03815.html">bl::rc::vk::PipelineLayout::LayoutParams</a></div><div class="ttdoc">Internal struct to manage layout creation and fetching.</div><div class="ttdef"><b>Definition:</b> <a href="a00965_source.html#l00035">PipelineLayout.hpp:35</a></div></div>
+<div class="ttc" id="aa03810_html"><div class="ttname"><a href="a03810.html">bl::rc::vk::PipelineLayout</a></div><div class="ttdoc">Represents the descriptor layout for pipelines. Allows rendering to be batched by layout to save on b...</div><div class="ttdef"><b>Definition:</b> <a href="a00965_source.html#l00030">PipelineLayout.hpp:30</a></div></div>
+<div class="ttc" id="aa03814_html"><div class="ttname"><a href="a03814.html">bl::rc::vk::PipelineLayout::LayoutParams</a></div><div class="ttdoc">Internal struct to manage layout creation and fetching.</div><div class="ttdef"><b>Definition:</b> <a href="a00965_source.html#l00035">PipelineLayout.hpp:35</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Nov 28 2023 03:30:34 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 29 2023 03:07:38 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

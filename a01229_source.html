@@ -84,20 +84,20 @@ $(function() {
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>util</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keywordtype">bool</span> = std::is_enum_v&lt;T&gt;&gt;</div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a04535.html">   18</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a04535.html">UnderlyingType</a> {};</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a04534.html">   18</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a04534.html">UnderlyingType</a> {};</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a04539.html">   21</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a04535.html">UnderlyingType</a>&lt;U, false&gt; {</div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a04539.html#a5f74c7105c35498fe4eeea79c781ac6a">   22</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a04539.html#a5f74c7105c35498fe4eeea79c781ac6a">type</a> = U;</div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a04538.html">   21</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a04534.html">UnderlyingType</a>&lt;U, false&gt; {</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a04538.html#a5f74c7105c35498fe4eeea79c781ac6a">   22</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a04538.html#a5f74c7105c35498fe4eeea79c781ac6a">type</a> = U;</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;};</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a04543.html">   26</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a04535.html">UnderlyingType</a>&lt;U, true&gt; {</div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="a04543.html#a00abb8857d89214f8bae80045528003b">   27</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a04543.html#a00abb8857d89214f8bae80045528003b">type</a> = std::underlying_type_t&lt;U&gt;;</div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a04542.html">   26</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a04534.html">UnderlyingType</a>&lt;U, true&gt; {</div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="a04542.html#a00abb8857d89214f8bae80045528003b">   27</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a04542.html#a00abb8857d89214f8bae80045528003b">type</a> = std::underlying_type_t&lt;U&gt;;</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;};</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="a02119.html#aa8853668ec5ed0e2e9cc964b2e38334d">   31</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a02119.html#aa8853668ec5ed0e2e9cc964b2e38334d">UnderlyingTypeT</a> = <span class="keyword">typename</span> <a class="code" href="a04535.html">UnderlyingType&lt;T&gt;::type</a>;</div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="a02119.html#aa8853668ec5ed0e2e9cc964b2e38334d">   31</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a02119.html#aa8853668ec5ed0e2e9cc964b2e38334d">UnderlyingTypeT</a> = <span class="keyword">typename</span> <a class="code" href="a04534.html">UnderlyingType&lt;T&gt;::type</a>;</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;} <span class="comment">// namespace util</span></div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;} <span class="comment">// namespace bl</span></div>
@@ -105,14 +105,14 @@ $(function() {
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aa02058_html"><div class="ttname"><a href="a02058.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
 <div class="ttc" id="aa02119_html_aa8853668ec5ed0e2e9cc964b2e38334d"><div class="ttname"><a href="a02119.html#aa8853668ec5ed0e2e9cc964b2e38334d">bl::util::UnderlyingTypeT</a></div><div class="ttdeci">typename UnderlyingType&lt; T &gt;::type UnderlyingTypeT</div><div class="ttdef"><b>Definition:</b> <a href="a01229_source.html#l00031">UnderlyingType.hpp:31</a></div></div>
-<div class="ttc" id="aa04535_html"><div class="ttname"><a href="a04535.html">bl::util::UnderlyingType</a></div><div class="ttdoc">Provides the underlying type of an enum with the added benefit of allow integral types to pass-throug...</div><div class="ttdef"><b>Definition:</b> <a href="a01229_source.html#l00018">UnderlyingType.hpp:18</a></div></div>
-<div class="ttc" id="aa04539_html_a5f74c7105c35498fe4eeea79c781ac6a"><div class="ttname"><a href="a04539.html#a5f74c7105c35498fe4eeea79c781ac6a">bl::util::UnderlyingType&lt; U, false &gt;::type</a></div><div class="ttdeci">U type</div><div class="ttdef"><b>Definition:</b> <a href="a01229_source.html#l00022">UnderlyingType.hpp:22</a></div></div>
-<div class="ttc" id="aa04543_html_a00abb8857d89214f8bae80045528003b"><div class="ttname"><a href="a04543.html#a00abb8857d89214f8bae80045528003b">bl::util::UnderlyingType&lt; U, true &gt;::type</a></div><div class="ttdeci">std::underlying_type_t&lt; U &gt; type</div><div class="ttdef"><b>Definition:</b> <a href="a01229_source.html#l00027">UnderlyingType.hpp:27</a></div></div>
+<div class="ttc" id="aa04534_html"><div class="ttname"><a href="a04534.html">bl::util::UnderlyingType</a></div><div class="ttdoc">Provides the underlying type of an enum with the added benefit of allow integral types to pass-throug...</div><div class="ttdef"><b>Definition:</b> <a href="a01229_source.html#l00018">UnderlyingType.hpp:18</a></div></div>
+<div class="ttc" id="aa04538_html_a5f74c7105c35498fe4eeea79c781ac6a"><div class="ttname"><a href="a04538.html#a5f74c7105c35498fe4eeea79c781ac6a">bl::util::UnderlyingType&lt; U, false &gt;::type</a></div><div class="ttdeci">U type</div><div class="ttdef"><b>Definition:</b> <a href="a01229_source.html#l00022">UnderlyingType.hpp:22</a></div></div>
+<div class="ttc" id="aa04542_html_a00abb8857d89214f8bae80045528003b"><div class="ttname"><a href="a04542.html#a00abb8857d89214f8bae80045528003b">bl::util::UnderlyingType&lt; U, true &gt;::type</a></div><div class="ttdeci">std::underlying_type_t&lt; U &gt; type</div><div class="ttdef"><b>Definition:</b> <a href="a01229_source.html#l00027">UnderlyingType.hpp:27</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Nov 28 2023 03:30:33 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 29 2023 03:07:37 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

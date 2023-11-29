@@ -94,12 +94,12 @@ $(function() {
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    }</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;}</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a03763.html#aa8511d9ff0c759834c2c63a525363e8d">   21</a></span>&#160;<span class="keywordtype">void</span> CleanupManager::add(<span class="keyword">const</span> <a class="code" href="a03763.html#a7231a9195e01c0dba86bc19ce2f56544">Callback</a>&amp; cb) {</div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a03762.html#aa8511d9ff0c759834c2c63a525363e8d">   21</a></span>&#160;<span class="keywordtype">void</span> CleanupManager::add(<span class="keyword">const</span> <a class="code" href="a03762.html#a7231a9195e01c0dba86bc19ce2f56544">Callback</a>&amp; cb) {</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    std::unique_lock lock(mutex);</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    buckets[addIndex()].emplace_back(cb);</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;}</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a03763.html#a0be2d519d4e836c5040713fda94e8cee">   26</a></span>&#160;<span class="keywordtype">void</span> CleanupManager::add(<a class="code" href="a03763.html#a7231a9195e01c0dba86bc19ce2f56544">Callback</a>&amp;&amp; cb) {</div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a03762.html#a0be2d519d4e836c5040713fda94e8cee">   26</a></span>&#160;<span class="keywordtype">void</span> CleanupManager::add(<a class="code" href="a03762.html#a7231a9195e01c0dba86bc19ce2f56544">Callback</a>&amp;&amp; cb) {</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    std::unique_lock lock(mutex);</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    buckets[addIndex()].emplace_back(std::forward&lt;Callback&gt;(cb));</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;}</div>
@@ -116,12 +116,12 @@ $(function() {
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;} <span class="comment">// namespace bl</span></div>
 <div class="ttc" id="aa00938_html"><div class="ttname"><a href="a00938.html">CleanupManager.hpp</a></div></div>
 <div class="ttc" id="aa02058_html"><div class="ttname"><a href="a02058.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03763_html_a7231a9195e01c0dba86bc19ce2f56544"><div class="ttname"><a href="a03763.html#a7231a9195e01c0dba86bc19ce2f56544">bl::rc::vk::CleanupManager::Callback</a></div><div class="ttdeci">std::function&lt; void()&gt; Callback</div><div class="ttdoc">Signature of cleanup callbacks.</div><div class="ttdef"><b>Definition:</b> <a href="a00938_source.html#l00025">CleanupManager.hpp:25</a></div></div>
+<div class="ttc" id="aa03762_html_a7231a9195e01c0dba86bc19ce2f56544"><div class="ttname"><a href="a03762.html#a7231a9195e01c0dba86bc19ce2f56544">bl::rc::vk::CleanupManager::Callback</a></div><div class="ttdeci">std::function&lt; void()&gt; Callback</div><div class="ttdoc">Signature of cleanup callbacks.</div><div class="ttdef"><b>Definition:</b> <a href="a00938_source.html#l00025">CleanupManager.hpp:25</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Nov 28 2023 03:30:34 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 29 2023 03:07:38 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

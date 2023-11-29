@@ -88,18 +88,18 @@ $(function() {
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span>res</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a03623.html">   20</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03623.html">PipelineLayoutCache</a> {</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a03622.html">   20</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03622.html">PipelineLayoutCache</a> {</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <a class="code" href="a03811.html">vk::PipelineLayout</a>* <a class="code" href="a03623.html#a3d82ee894d5246ffb5422326d659452a">getLayout</a>(<a class="code" href="a03815.html">vk::PipelineLayout::LayoutParams</a>&amp;&amp; params);</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <a class="code" href="a03810.html">vk::PipelineLayout</a>* <a class="code" href="a03622.html#a3d82ee894d5246ffb5422326d659452a">getLayout</a>(<a class="code" href="a03814.html">vk::PipelineLayout::LayoutParams</a>&amp;&amp; params);</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <a class="code" href="a03603.html">Renderer</a>&amp; renderer;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <a class="code" href="a03602.html">Renderer</a>&amp; renderer;</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    std::unordered_map&lt;vk::PipelineLayout::LayoutParams, vk::PipelineLayout&gt; cache;</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <a class="code" href="a03623.html">PipelineLayoutCache</a>(<a class="code" href="a03603.html">Renderer</a>&amp; renderer);</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <a class="code" href="a03622.html">PipelineLayoutCache</a>(<a class="code" href="a03602.html">Renderer</a>&amp; renderer);</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordtype">void</span> cleanup();</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="a03623.html#a1fc8c4ea65463b448e068f1287349540">   37</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a03603.html">bl::rc::Renderer</a>;</div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="a03622.html#a1fc8c4ea65463b448e068f1287349540">   37</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a03602.html">bl::rc::Renderer</a>;</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;};</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;} <span class="comment">// namespace res</span></div>
@@ -109,16 +109,16 @@ $(function() {
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aa00965_html"><div class="ttname"><a href="a00965.html">PipelineLayout.hpp</a></div></div>
 <div class="ttc" id="aa02058_html"><div class="ttname"><a href="a02058.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03603_html"><div class="ttname"><a href="a03603.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition:</b> <a href="a05641_source.html#l00039">Renderer.hpp:39</a></div></div>
-<div class="ttc" id="aa03623_html"><div class="ttname"><a href="a03623.html">bl::rc::res::PipelineLayoutCache</a></div><div class="ttdoc">Renderer level cache of pipeline layouts.</div><div class="ttdef"><b>Definition:</b> <a href="a00866_source.html#l00020">PipelineLayoutCache.hpp:20</a></div></div>
-<div class="ttc" id="aa03623_html_a3d82ee894d5246ffb5422326d659452a"><div class="ttname"><a href="a03623.html#a3d82ee894d5246ffb5422326d659452a">bl::rc::res::PipelineLayoutCache::getLayout</a></div><div class="ttdeci">vk::PipelineLayout * getLayout(vk::PipelineLayout::LayoutParams &amp;&amp;params)</div><div class="ttdoc">Creates or fetches a layout that has the given creation parameters.</div><div class="ttdef"><b>Definition:</b> <a href="a01772_source.html#l00013">PipelineLayoutCache.cpp:13</a></div></div>
-<div class="ttc" id="aa03811_html"><div class="ttname"><a href="a03811.html">bl::rc::vk::PipelineLayout</a></div><div class="ttdoc">Represents the descriptor layout for pipelines. Allows rendering to be batched by layout to save on b...</div><div class="ttdef"><b>Definition:</b> <a href="a00965_source.html#l00030">PipelineLayout.hpp:30</a></div></div>
-<div class="ttc" id="aa03815_html"><div class="ttname"><a href="a03815.html">bl::rc::vk::PipelineLayout::LayoutParams</a></div><div class="ttdoc">Internal struct to manage layout creation and fetching.</div><div class="ttdef"><b>Definition:</b> <a href="a00965_source.html#l00035">PipelineLayout.hpp:35</a></div></div>
+<div class="ttc" id="aa03602_html"><div class="ttname"><a href="a03602.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition:</b> <a href="a05640_source.html#l00039">Renderer.hpp:39</a></div></div>
+<div class="ttc" id="aa03622_html"><div class="ttname"><a href="a03622.html">bl::rc::res::PipelineLayoutCache</a></div><div class="ttdoc">Renderer level cache of pipeline layouts.</div><div class="ttdef"><b>Definition:</b> <a href="a00866_source.html#l00020">PipelineLayoutCache.hpp:20</a></div></div>
+<div class="ttc" id="aa03622_html_a3d82ee894d5246ffb5422326d659452a"><div class="ttname"><a href="a03622.html#a3d82ee894d5246ffb5422326d659452a">bl::rc::res::PipelineLayoutCache::getLayout</a></div><div class="ttdeci">vk::PipelineLayout * getLayout(vk::PipelineLayout::LayoutParams &amp;&amp;params)</div><div class="ttdoc">Creates or fetches a layout that has the given creation parameters.</div><div class="ttdef"><b>Definition:</b> <a href="a01772_source.html#l00013">PipelineLayoutCache.cpp:13</a></div></div>
+<div class="ttc" id="aa03810_html"><div class="ttname"><a href="a03810.html">bl::rc::vk::PipelineLayout</a></div><div class="ttdoc">Represents the descriptor layout for pipelines. Allows rendering to be batched by layout to save on b...</div><div class="ttdef"><b>Definition:</b> <a href="a00965_source.html#l00030">PipelineLayout.hpp:30</a></div></div>
+<div class="ttc" id="aa03814_html"><div class="ttname"><a href="a03814.html">bl::rc::vk::PipelineLayout::LayoutParams</a></div><div class="ttdoc">Internal struct to manage layout creation and fetching.</div><div class="ttdef"><b>Definition:</b> <a href="a00965_source.html#l00035">PipelineLayout.hpp:35</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Nov 28 2023 03:30:33 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 29 2023 03:07:37 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

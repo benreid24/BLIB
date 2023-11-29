@@ -89,21 +89,21 @@ $(function() {
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span>res</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a03627.html">   22</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03627.html">RenderPassCache</a> {</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a03626.html">   22</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03626.html">RenderPassCache</a> {</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <a class="code" href="a03839.html">vk::RenderPass</a>&amp; <a class="code" href="a03627.html#a3df69182959af8b8fa569a69805a2efe">createRenderPass</a>(std::uint32_t renderPassId, <a class="code" href="a03843.html">vk::RenderPassParameters</a>&amp;&amp; params);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <a class="code" href="a03838.html">vk::RenderPass</a>&amp; <a class="code" href="a03626.html#a3df69182959af8b8fa569a69805a2efe">createRenderPass</a>(std::uint32_t renderPassId, <a class="code" href="a03842.html">vk::RenderPassParameters</a>&amp;&amp; params);</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <a class="code" href="a03839.html">vk::RenderPass</a>&amp; <a class="code" href="a03627.html#ad075fee264f0adfeb7c93a8133cf877f">getRenderPass</a>(std::uint32_t renderPassId);</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <a class="code" href="a03838.html">vk::RenderPass</a>&amp; <a class="code" href="a03626.html#ad075fee264f0adfeb7c93a8133cf877f">getRenderPass</a>(std::uint32_t renderPassId);</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <a class="code" href="a03603.html">Renderer</a>&amp; renderer;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <a class="code" href="a03602.html">Renderer</a>&amp; renderer;</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    std::unordered_map&lt;std::uint32_t, vk::RenderPass&gt; cache;</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <a class="code" href="a03627.html">RenderPassCache</a>(<a class="code" href="a03603.html">Renderer</a>&amp; renderer);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <a class="code" href="a03626.html">RenderPassCache</a>(<a class="code" href="a03602.html">Renderer</a>&amp; renderer);</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordtype">void</span> cleanup();</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordtype">void</span> addDefaults();</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="a03627.html#a1fc8c4ea65463b448e068f1287349540">   50</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a03603.html">bl::rc::Renderer</a>;</div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="a03626.html#a1fc8c4ea65463b448e068f1287349540">   50</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a03602.html">bl::rc::Renderer</a>;</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;};</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;} <span class="comment">// namespace res</span></div>
@@ -113,17 +113,17 @@ $(function() {
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aa00971_html"><div class="ttname"><a href="a00971.html">RenderPass.hpp</a></div></div>
 <div class="ttc" id="aa02058_html"><div class="ttname"><a href="a02058.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03603_html"><div class="ttname"><a href="a03603.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition:</b> <a href="a05641_source.html#l00039">Renderer.hpp:39</a></div></div>
-<div class="ttc" id="aa03627_html"><div class="ttname"><a href="a03627.html">bl::rc::res::RenderPassCache</a></div><div class="ttdoc">Basic cache to manage render passes. Stores them and provides access. Owned by the renderer.</div><div class="ttdef"><b>Definition:</b> <a href="a00869_source.html#l00022">RenderPassCache.hpp:22</a></div></div>
-<div class="ttc" id="aa03627_html_a3df69182959af8b8fa569a69805a2efe"><div class="ttname"><a href="a03627.html#a3df69182959af8b8fa569a69805a2efe">bl::rc::res::RenderPassCache::createRenderPass</a></div><div class="ttdeci">vk::RenderPass &amp; createRenderPass(std::uint32_t renderPassId, vk::RenderPassParameters &amp;&amp;params)</div><div class="ttdoc">Creates and returns a render pass with the given id and parameters.</div><div class="ttdef"><b>Definition:</b> <a href="a01775_source.html#l00018">RenderPassCache.cpp:18</a></div></div>
-<div class="ttc" id="aa03627_html_ad075fee264f0adfeb7c93a8133cf877f"><div class="ttname"><a href="a03627.html#ad075fee264f0adfeb7c93a8133cf877f">bl::rc::res::RenderPassCache::getRenderPass</a></div><div class="ttdeci">vk::RenderPass &amp; getRenderPass(std::uint32_t renderPassId)</div><div class="ttdoc">Fetches the render pass with the given id. Throws an exception if the id does not exist yet....</div><div class="ttdef"><b>Definition:</b> <a href="a01775_source.html#l00028">RenderPassCache.cpp:28</a></div></div>
-<div class="ttc" id="aa03839_html"><div class="ttname"><a href="a03839.html">bl::rc::vk::RenderPass</a></div><div class="ttdoc">Represents a render pass in the renderer. A scene is comprised of a sequence of render passes and eac...</div><div class="ttdef"><b>Definition:</b> <a href="a00971_source.html#l00019">RenderPass.hpp:19</a></div></div>
-<div class="ttc" id="aa03843_html"><div class="ttname"><a href="a03843.html">bl::rc::vk::RenderPassParameters</a></div><div class="ttdoc">Parameter builder class used to construct RenderPass objects in the renderer.</div><div class="ttdef"><b>Definition:</b> <a href="a00974_source.html#l00022">RenderPassParameters.hpp:22</a></div></div>
+<div class="ttc" id="aa03602_html"><div class="ttname"><a href="a03602.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition:</b> <a href="a05640_source.html#l00039">Renderer.hpp:39</a></div></div>
+<div class="ttc" id="aa03626_html"><div class="ttname"><a href="a03626.html">bl::rc::res::RenderPassCache</a></div><div class="ttdoc">Basic cache to manage render passes. Stores them and provides access. Owned by the renderer.</div><div class="ttdef"><b>Definition:</b> <a href="a00869_source.html#l00022">RenderPassCache.hpp:22</a></div></div>
+<div class="ttc" id="aa03626_html_a3df69182959af8b8fa569a69805a2efe"><div class="ttname"><a href="a03626.html#a3df69182959af8b8fa569a69805a2efe">bl::rc::res::RenderPassCache::createRenderPass</a></div><div class="ttdeci">vk::RenderPass &amp; createRenderPass(std::uint32_t renderPassId, vk::RenderPassParameters &amp;&amp;params)</div><div class="ttdoc">Creates and returns a render pass with the given id and parameters.</div><div class="ttdef"><b>Definition:</b> <a href="a01775_source.html#l00018">RenderPassCache.cpp:18</a></div></div>
+<div class="ttc" id="aa03626_html_ad075fee264f0adfeb7c93a8133cf877f"><div class="ttname"><a href="a03626.html#ad075fee264f0adfeb7c93a8133cf877f">bl::rc::res::RenderPassCache::getRenderPass</a></div><div class="ttdeci">vk::RenderPass &amp; getRenderPass(std::uint32_t renderPassId)</div><div class="ttdoc">Fetches the render pass with the given id. Throws an exception if the id does not exist yet....</div><div class="ttdef"><b>Definition:</b> <a href="a01775_source.html#l00028">RenderPassCache.cpp:28</a></div></div>
+<div class="ttc" id="aa03838_html"><div class="ttname"><a href="a03838.html">bl::rc::vk::RenderPass</a></div><div class="ttdoc">Represents a render pass in the renderer. A scene is comprised of a sequence of render passes and eac...</div><div class="ttdef"><b>Definition:</b> <a href="a00971_source.html#l00019">RenderPass.hpp:19</a></div></div>
+<div class="ttc" id="aa03842_html"><div class="ttname"><a href="a03842.html">bl::rc::vk::RenderPassParameters</a></div><div class="ttdoc">Parameter builder class used to construct RenderPass objects in the renderer.</div><div class="ttdef"><b>Definition:</b> <a href="a00974_source.html#l00022">RenderPassParameters.hpp:22</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Nov 28 2023 03:30:33 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 29 2023 03:07:37 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

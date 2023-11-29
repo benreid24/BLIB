@@ -82,7 +82,7 @@ $(function() {
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>rgi</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a03491.html#a3fc28ba6c24994e7665d516409ba46a3">    9</a></span>&#160;<a class="code" href="a03491.html#a3fc28ba6c24994e7665d516409ba46a3">FramebufferAsset::FramebufferAsset</a>(std::string_view tag, std::uint32_t renderPassId,</div>
+<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a03490.html#a3fc28ba6c24994e7665d516409ba46a3">    9</a></span>&#160;<a class="code" href="a03490.html#a3fc28ba6c24994e7665d516409ba46a3">FramebufferAsset::FramebufferAsset</a>(std::string_view tag, std::uint32_t renderPassId,</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;                                   <span class="keyword">const</span> VkViewport&amp; viewport, <span class="keyword">const</span> VkRect2D&amp; scissor,</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;                                   <span class="keyword">const</span> VkClearValue* clearColors,</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;                                   <span class="keyword">const</span> std::uint32_t clearColorCount)</div>
@@ -95,10 +95,10 @@ $(function() {
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;, clearColorCount(clearColorCount)</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;, cachedSize(0, 0) {}</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a03491.html#a409660b3905d16d4d3fb9208e674c99c">   22</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03491.html#a409660b3905d16d4d3fb9208e674c99c">FramebufferAsset::notifyResize</a>(glm::u32vec2 newSize) {</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a03490.html#a409660b3905d16d4d3fb9208e674c99c">   22</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03490.html#a409660b3905d16d4d3fb9208e674c99c">FramebufferAsset::notifyResize</a>(glm::u32vec2 newSize) {</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordflow">if</span> (newSize != cachedSize) {</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        cachedSize = newSize;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <a class="code" href="a03491.html#ace30b9b5cedf18504dbc17fd21023afa">onResize</a>(newSize);</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <a class="code" href="a03490.html#ace30b9b5cedf18504dbc17fd21023afa">onResize</a>(newSize);</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    }</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;}</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
@@ -107,14 +107,14 @@ $(function() {
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;} <span class="comment">// namespace bl</span></div>
 <div class="ttc" id="aa00782_html"><div class="ttname"><a href="a00782.html">FramebufferAsset.hpp</a></div></div>
 <div class="ttc" id="aa02058_html"><div class="ttname"><a href="a02058.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03491_html_a3fc28ba6c24994e7665d516409ba46a3"><div class="ttname"><a href="a03491.html#a3fc28ba6c24994e7665d516409ba46a3">bl::rc::rgi::FramebufferAsset::FramebufferAsset</a></div><div class="ttdeci">FramebufferAsset(std::string_view tag, std::uint32_t renderPassId, const VkViewport &amp;viewport, const VkRect2D &amp;scissor, const VkClearValue *clearColors, const std::uint32_t clearColorCount)</div><div class="ttdoc">Creates the asset.</div><div class="ttdef"><b>Definition:</b> <a href="a01715_source.html#l00009">FramebufferAsset.cpp:9</a></div></div>
-<div class="ttc" id="aa03491_html_a409660b3905d16d4d3fb9208e674c99c"><div class="ttname"><a href="a03491.html#a409660b3905d16d4d3fb9208e674c99c">bl::rc::rgi::FramebufferAsset::notifyResize</a></div><div class="ttdeci">void notifyResize(glm::u32vec2 newSize)</div><div class="ttdoc">Intended to be called by observer when it resizes.</div><div class="ttdef"><b>Definition:</b> <a href="a01715_source.html#l00022">FramebufferAsset.cpp:22</a></div></div>
-<div class="ttc" id="aa03491_html_ace30b9b5cedf18504dbc17fd21023afa"><div class="ttname"><a href="a03491.html#ace30b9b5cedf18504dbc17fd21023afa">bl::rc::rgi::FramebufferAsset::onResize</a></div><div class="ttdeci">virtual void onResize(glm::u32vec2 newSize)=0</div><div class="ttdoc">Called when the observer render region changes size.</div></div>
+<div class="ttc" id="aa03490_html_a3fc28ba6c24994e7665d516409ba46a3"><div class="ttname"><a href="a03490.html#a3fc28ba6c24994e7665d516409ba46a3">bl::rc::rgi::FramebufferAsset::FramebufferAsset</a></div><div class="ttdeci">FramebufferAsset(std::string_view tag, std::uint32_t renderPassId, const VkViewport &amp;viewport, const VkRect2D &amp;scissor, const VkClearValue *clearColors, const std::uint32_t clearColorCount)</div><div class="ttdoc">Creates the asset.</div><div class="ttdef"><b>Definition:</b> <a href="a01715_source.html#l00009">FramebufferAsset.cpp:9</a></div></div>
+<div class="ttc" id="aa03490_html_a409660b3905d16d4d3fb9208e674c99c"><div class="ttname"><a href="a03490.html#a409660b3905d16d4d3fb9208e674c99c">bl::rc::rgi::FramebufferAsset::notifyResize</a></div><div class="ttdeci">void notifyResize(glm::u32vec2 newSize)</div><div class="ttdoc">Intended to be called by observer when it resizes.</div><div class="ttdef"><b>Definition:</b> <a href="a01715_source.html#l00022">FramebufferAsset.cpp:22</a></div></div>
+<div class="ttc" id="aa03490_html_ace30b9b5cedf18504dbc17fd21023afa"><div class="ttname"><a href="a03490.html#ace30b9b5cedf18504dbc17fd21023afa">bl::rc::rgi::FramebufferAsset::onResize</a></div><div class="ttdeci">virtual void onResize(glm::u32vec2 newSize)=0</div><div class="ttdoc">Called when the observer render region changes size.</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Nov 28 2023 03:30:34 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 29 2023 03:07:38 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

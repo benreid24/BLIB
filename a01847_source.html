@@ -82,7 +82,7 @@ $(function() {
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>vk</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a03839.html#ad011998d18306cfe27a9e94d15cf2460">    9</a></span>&#160;<a class="code" href="a03839.html#ad011998d18306cfe27a9e94d15cf2460">RenderPass::RenderPass</a>(<a class="code" href="a03875.html">VulkanState</a>&amp; vs, <a class="code" href="a03843.html">RenderPassParameters</a>&amp;&amp; params)</div>
+<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a03838.html#ad011998d18306cfe27a9e94d15cf2460">    9</a></span>&#160;<a class="code" href="a03838.html#ad011998d18306cfe27a9e94d15cf2460">RenderPass::RenderPass</a>(<a class="code" href="a03874.html">VulkanState</a>&amp; vs, <a class="code" href="a03842.html">RenderPassParameters</a>&amp;&amp; params)</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;: vulkanState(vs) {</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    std::vector&lt;VkSubpassDescription&gt; subpasses;</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    subpasses.reserve(params.subpasses.size());</div>
@@ -105,29 +105,29 @@ $(function() {
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    renderPassInfo.dependencyCount = params.dependencies.size();</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    renderPassInfo.pDependencies   = params.dependencies.data();</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordflow">if</span> (vkCreateRenderPass(vulkanState.<a class="code" href="a03875.html#a6ad0249d08d9ffb87af35b42f11a1db5">device</a>, &amp;renderPassInfo, <span class="keyword">nullptr</span>, &amp;renderPass) !=</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordflow">if</span> (vkCreateRenderPass(vulkanState.<a class="code" href="a03874.html#a6ad0249d08d9ffb87af35b42f11a1db5">device</a>, &amp;renderPassInfo, <span class="keyword">nullptr</span>, &amp;renderPass) !=</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        VK_SUCCESS) {</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Failed to create render pass&quot;</span>);</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    }</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;}</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="a03839.html#abd170528aea214831e7e4f49d515dd62">   38</a></span>&#160;<a class="code" href="a03839.html#abd170528aea214831e7e4f49d515dd62">RenderPass::~RenderPass</a>() { vkDestroyRenderPass(vulkanState.<a class="code" href="a03875.html#a6ad0249d08d9ffb87af35b42f11a1db5">device</a>, renderPass, <span class="keyword">nullptr</span>); }</div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="a03838.html#abd170528aea214831e7e4f49d515dd62">   38</a></span>&#160;<a class="code" href="a03838.html#abd170528aea214831e7e4f49d515dd62">RenderPass::~RenderPass</a>() { vkDestroyRenderPass(vulkanState.<a class="code" href="a03874.html#a6ad0249d08d9ffb87af35b42f11a1db5">device</a>, renderPass, <span class="keyword">nullptr</span>); }</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;} <span class="comment">// namespace vk</span></div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;} <span class="comment">// namespace rc</span></div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;} <span class="comment">// namespace bl</span></div>
 <div class="ttc" id="aa00971_html"><div class="ttname"><a href="a00971.html">RenderPass.hpp</a></div></div>
 <div class="ttc" id="aa02058_html"><div class="ttname"><a href="a02058.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03839_html_abd170528aea214831e7e4f49d515dd62"><div class="ttname"><a href="a03839.html#abd170528aea214831e7e4f49d515dd62">bl::rc::vk::RenderPass::~RenderPass</a></div><div class="ttdeci">~RenderPass()</div><div class="ttdoc">Destroy the Render Pass object.</div><div class="ttdef"><b>Definition:</b> <a href="a01847_source.html#l00038">RenderPass.cpp:38</a></div></div>
-<div class="ttc" id="aa03839_html_ad011998d18306cfe27a9e94d15cf2460"><div class="ttname"><a href="a03839.html#ad011998d18306cfe27a9e94d15cf2460">bl::rc::vk::RenderPass::RenderPass</a></div><div class="ttdeci">RenderPass(VulkanState &amp;vulkanState, RenderPassParameters &amp;&amp;params)</div><div class="ttdoc">Construct a new Render Pass.</div><div class="ttdef"><b>Definition:</b> <a href="a01847_source.html#l00009">RenderPass.cpp:9</a></div></div>
-<div class="ttc" id="aa03843_html"><div class="ttname"><a href="a03843.html">bl::rc::vk::RenderPassParameters</a></div><div class="ttdoc">Parameter builder class used to construct RenderPass objects in the renderer.</div><div class="ttdef"><b>Definition:</b> <a href="a00974_source.html#l00022">RenderPassParameters.hpp:22</a></div></div>
-<div class="ttc" id="aa03875_html"><div class="ttname"><a href="a03875.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a00992_source.html#l00038">VulkanState.hpp:38</a></div></div>
-<div class="ttc" id="aa03875_html_a6ad0249d08d9ffb87af35b42f11a1db5"><div class="ttname"><a href="a03875.html#a6ad0249d08d9ffb87af35b42f11a1db5">bl::rc::vk::VulkanState::device</a></div><div class="ttdeci">VkDevice device</div><div class="ttdef"><b>Definition:</b> <a href="a00992_source.html#l00221">VulkanState.hpp:221</a></div></div>
+<div class="ttc" id="aa03838_html_abd170528aea214831e7e4f49d515dd62"><div class="ttname"><a href="a03838.html#abd170528aea214831e7e4f49d515dd62">bl::rc::vk::RenderPass::~RenderPass</a></div><div class="ttdeci">~RenderPass()</div><div class="ttdoc">Destroy the Render Pass object.</div><div class="ttdef"><b>Definition:</b> <a href="a01847_source.html#l00038">RenderPass.cpp:38</a></div></div>
+<div class="ttc" id="aa03838_html_ad011998d18306cfe27a9e94d15cf2460"><div class="ttname"><a href="a03838.html#ad011998d18306cfe27a9e94d15cf2460">bl::rc::vk::RenderPass::RenderPass</a></div><div class="ttdeci">RenderPass(VulkanState &amp;vulkanState, RenderPassParameters &amp;&amp;params)</div><div class="ttdoc">Construct a new Render Pass.</div><div class="ttdef"><b>Definition:</b> <a href="a01847_source.html#l00009">RenderPass.cpp:9</a></div></div>
+<div class="ttc" id="aa03842_html"><div class="ttname"><a href="a03842.html">bl::rc::vk::RenderPassParameters</a></div><div class="ttdoc">Parameter builder class used to construct RenderPass objects in the renderer.</div><div class="ttdef"><b>Definition:</b> <a href="a00974_source.html#l00022">RenderPassParameters.hpp:22</a></div></div>
+<div class="ttc" id="aa03874_html"><div class="ttname"><a href="a03874.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a00992_source.html#l00038">VulkanState.hpp:38</a></div></div>
+<div class="ttc" id="aa03874_html_a6ad0249d08d9ffb87af35b42f11a1db5"><div class="ttname"><a href="a03874.html#a6ad0249d08d9ffb87af35b42f11a1db5">bl::rc::vk::VulkanState::device</a></div><div class="ttdeci">VkDevice device</div><div class="ttdef"><b>Definition:</b> <a href="a00992_source.html#l00221">VulkanState.hpp:221</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Nov 28 2023 03:30:34 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 29 2023 03:07:38 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

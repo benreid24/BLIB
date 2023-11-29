@@ -88,12 +88,12 @@ $(function() {
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keywordtype">void</span> DescriptorSetFactoryCache::cleanup() { cache.clear(); }</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="a03443.html#a28f61c708e0e041938fce05317a1c071">   15</a></span>&#160;<a class="code" href="a03439.html">DescriptorSetFactory</a>* DescriptorSetFactoryCache::getOrAddFactory(</div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="a03442.html#a28f61c708e0e041938fce05317a1c071">   15</a></span>&#160;<a class="code" href="a03438.html">DescriptorSetFactory</a>* DescriptorSetFactoryCache::getOrAddFactory(</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    std::type_index tid, std::unique_ptr&lt;DescriptorSetFactory&gt;&amp;&amp; factory) {</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keyword">auto</span> it = cache.find(tid);</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keywordflow">if</span> (it != cache.end()) { <span class="keywordflow">return</span> it-&gt;second.get(); }</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    it = cache.try_emplace(tid, std::move(factory)).first;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    it-&gt;second-&gt;<a class="code" href="a03439.html#a695e2dd0cdc087f6c983bdf49a0a4fc1">init</a>(engine, renderer);</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    it-&gt;second-&gt;<a class="code" href="a03438.html#a695e2dd0cdc087f6c983bdf49a0a4fc1">init</a>(engine, renderer);</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keywordflow">return</span> it-&gt;second.get();</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;}</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
@@ -102,13 +102,13 @@ $(function() {
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;} <span class="comment">// namespace bl</span></div>
 <div class="ttc" id="aa00746_html"><div class="ttname"><a href="a00746.html">DescriptorSetFactoryCache.hpp</a></div></div>
 <div class="ttc" id="aa02058_html"><div class="ttname"><a href="a02058.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03439_html"><div class="ttname"><a href="a03439.html">bl::rc::ds::DescriptorSetFactory</a></div><div class="ttdoc">Base class for descriptor set instances. Descriptor set factories are given to PipelineParameters and...</div><div class="ttdef"><b>Definition:</b> <a href="a00743_source.html#l00031">DescriptorSetFactory.hpp:31</a></div></div>
-<div class="ttc" id="aa03439_html_a695e2dd0cdc087f6c983bdf49a0a4fc1"><div class="ttname"><a href="a03439.html#a695e2dd0cdc087f6c983bdf49a0a4fc1">bl::rc::ds::DescriptorSetFactory::init</a></div><div class="ttdeci">virtual void init(engine::Engine &amp;engine, Renderer &amp;renderer)=0</div><div class="ttdoc">This method will be called exactly once by the renderer the first time this descriptor set is created...</div></div>
+<div class="ttc" id="aa03438_html"><div class="ttname"><a href="a03438.html">bl::rc::ds::DescriptorSetFactory</a></div><div class="ttdoc">Base class for descriptor set instances. Descriptor set factories are given to PipelineParameters and...</div><div class="ttdef"><b>Definition:</b> <a href="a00743_source.html#l00031">DescriptorSetFactory.hpp:31</a></div></div>
+<div class="ttc" id="aa03438_html_a695e2dd0cdc087f6c983bdf49a0a4fc1"><div class="ttname"><a href="a03438.html#a695e2dd0cdc087f6c983bdf49a0a4fc1">bl::rc::ds::DescriptorSetFactory::init</a></div><div class="ttdeci">virtual void init(engine::Engine &amp;engine, Renderer &amp;renderer)=0</div><div class="ttdoc">This method will be called exactly once by the renderer the first time this descriptor set is created...</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Nov 28 2023 03:30:34 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 29 2023 03:07:38 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -74,9 +74,9 @@ $(function() {
 <div class="title">Systems.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01337.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05608.html">BLIB/Engine/Systems.hpp</a>&gt;</span></div>
+<a href="a01337.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05607.html">BLIB/Engine/Systems.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05599.html">BLIB/Engine/Engine.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05598.html">BLIB/Engine/Engine.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02058.html">bl</a></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
@@ -125,11 +125,11 @@ $(function() {
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    }</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;}</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="a02611.html#a39e6933ef7ed45bc11f58f7b77429137">   52</a></span>&#160;<a class="code" href="a02615.html">Systems::TaskHandle</a> Systems::addFrameTask(<a class="code" href="a02587.html#af6ea181be91b7069f9f52557a1445e1a">FrameStage::V</a> stage, <a class="code" href="a02611.html#a0f4d079b76e506c0a630dfe30c0cbc2f">Task</a>&amp;&amp; task) {</div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="a02610.html#a39e6933ef7ed45bc11f58f7b77429137">   52</a></span>&#160;<a class="code" href="a02614.html">Systems::TaskHandle</a> Systems::addFrameTask(<a class="code" href="a02586.html#af6ea181be91b7069f9f52557a1445e1a">FrameStage::V</a> stage, <a class="code" href="a02610.html#a0f4d079b76e506c0a630dfe30c0cbc2f">Task</a>&amp;&amp; task) {</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keyword">auto</span>&amp; set = systems[stage];</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    std::unique_lock lock(set.taskMutex);</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    set.tasks.emplace_back(std::forward&lt;Task&gt;(task));</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="a02615.html">TaskHandle</a>(&amp;set, set.tasks.size() - 1, std::move(set.tasks.back().task.get_future()));</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="a02614.html">TaskHandle</a>(&amp;set, set.tasks.size() - 1, std::move(set.tasks.back().task.get_future()));</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;}</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="keywordtype">void</span> Systems::StageSet::drainTasks() {</div>
@@ -139,18 +139,18 @@ $(function() {
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    ++version;</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;}</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="a02615.html#ac3cce5e1fcc4d801667a2ed93bbe8d47">   66</a></span>&#160;Systems::TaskHandle::TaskHandle()</div>
+<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="a02614.html#ac3cce5e1fcc4d801667a2ed93bbe8d47">   66</a></span>&#160;Systems::TaskHandle::TaskHandle()</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;: owner(nullptr) {}</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<a class="code" href="a02615.html#ac3cce5e1fcc4d801667a2ed93bbe8d47">Systems::TaskHandle::TaskHandle</a>(StageSet* owner, std::size_t index, std::future&lt;void&gt;&amp;&amp; future)</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<a class="code" href="a02614.html#ac3cce5e1fcc4d801667a2ed93bbe8d47">Systems::TaskHandle::TaskHandle</a>(StageSet* owner, std::size_t index, std::future&lt;void&gt;&amp;&amp; future)</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;: owner(owner)</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;, index(index)</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;, version(owner-&gt;version)</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;, future(<a class="code" href="a02075.html">std</a>::forward&lt;<a class="code" href="a02075.html">std</a>::future&lt;void&gt;&gt;(future)) {}</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="a02615.html#af2f224c590b17227976d74a2ce21d875">   75</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a02615.html#af2f224c590b17227976d74a2ce21d875">Systems::TaskHandle::isValid</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> future.valid(); }</div>
+<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="a02614.html#af2f224c590b17227976d74a2ce21d875">   75</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a02614.html#af2f224c590b17227976d74a2ce21d875">Systems::TaskHandle::isValid</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> future.valid(); }</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="a02615.html#a32c79bfe6d7311798eff40da9e536a9b">   77</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a02615.html#a32c79bfe6d7311798eff40da9e536a9b">Systems::TaskHandle::isQueued</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="a02614.html#a32c79bfe6d7311798eff40da9e536a9b">   77</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a02614.html#a32c79bfe6d7311798eff40da9e536a9b">Systems::TaskHandle::isQueued</a>()<span class="keyword"> const </span>{</div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordflow">if</span> (owner) {</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        std::unique_lock lock(owner-&gt;taskMutex);</div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        <span class="keywordflow">return</span> version == owner-&gt;version &amp;&amp; index &lt; owner-&gt;tasks.size();</div>
@@ -158,7 +158,7 @@ $(function() {
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;}</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
-<div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="a02615.html#a02abbd450e13345c326b12e1673a340c">   85</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02615.html#a02abbd450e13345c326b12e1673a340c">Systems::TaskHandle::cancel</a>() {</div>
+<div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="a02614.html#a02abbd450e13345c326b12e1673a340c">   85</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02614.html#a02abbd450e13345c326b12e1673a340c">Systems::TaskHandle::cancel</a>() {</div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keywordflow">if</span> (owner) {</div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        std::unique_lock lock(owner-&gt;taskMutex);</div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        <span class="keywordflow">if</span> (version == owner-&gt;version &amp;&amp; index &lt; owner-&gt;tasks.size()) {</div>
@@ -167,7 +167,7 @@ $(function() {
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    }</div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;}</div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
-<div class="line"><a name="l00094"></a><span class="lineno"><a class="line" href="a02615.html#a76f80ed7c566277031d3d815009f0ced">   94</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02615.html#a76f80ed7c566277031d3d815009f0ced">Systems::TaskHandle::wait</a>() {</div>
+<div class="line"><a name="l00094"></a><span class="lineno"><a class="line" href="a02614.html#a76f80ed7c566277031d3d815009f0ced">   94</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02614.html#a76f80ed7c566277031d3d815009f0ced">Systems::TaskHandle::wait</a>() {</div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="keywordflow">if</span> (future.valid()) { future.wait(); }</div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;}</div>
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
@@ -175,21 +175,21 @@ $(function() {
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;} <span class="comment">// namespace bl</span></div>
 <div class="ttc" id="aa02058_html"><div class="ttname"><a href="a02058.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
 <div class="ttc" id="aa02075_html"><div class="ttname"><a href="a02075.html">std</a></div><div class="ttdef"><b>Definition:</b> <a href="a00161_source.html#l00172">Entity.hpp:173</a></div></div>
-<div class="ttc" id="aa02587_html_af6ea181be91b7069f9f52557a1445e1a"><div class="ttname"><a href="a02587.html#af6ea181be91b7069f9f52557a1445e1a">bl::engine::FrameStage::V</a></div><div class="ttdeci">V</div><div class="ttdoc">Value-type for engine stage ids.</div><div class="ttdef"><b>Definition:</b> <a href="a00230_source.html#l00018">FrameStage.hpp:18</a></div></div>
-<div class="ttc" id="aa02611_html_a0f4d079b76e506c0a630dfe30c0cbc2f"><div class="ttname"><a href="a02611.html#a0f4d079b76e506c0a630dfe30c0cbc2f">bl::engine::Systems::Task</a></div><div class="ttdeci">std::function&lt; void()&gt; Task</div><div class="ttdoc">Signature of one-off tasks that can be registered to run.</div><div class="ttdef"><b>Definition:</b> <a href="a05608_source.html#l00035">Systems.hpp:35</a></div></div>
-<div class="ttc" id="aa02615_html"><div class="ttname"><a href="a02615.html">bl::engine::Systems::TaskHandle</a></div><div class="ttdoc">Handle to a task submitted to Systems.</div><div class="ttdef"><b>Definition:</b> <a href="a05608_source.html#l00042">Systems.hpp:42</a></div></div>
-<div class="ttc" id="aa02615_html_a02abbd450e13345c326b12e1673a340c"><div class="ttname"><a href="a02615.html#a02abbd450e13345c326b12e1673a340c">bl::engine::Systems::TaskHandle::cancel</a></div><div class="ttdeci">void cancel()</div><div class="ttdoc">Cancels the task if it has not yet ran. Safe to call on invalid handles.</div><div class="ttdef"><b>Definition:</b> <a href="a01337_source.html#l00085">Systems.cpp:85</a></div></div>
-<div class="ttc" id="aa02615_html_a32c79bfe6d7311798eff40da9e536a9b"><div class="ttname"><a href="a02615.html#a32c79bfe6d7311798eff40da9e536a9b">bl::engine::Systems::TaskHandle::isQueued</a></div><div class="ttdeci">bool isQueued() const</div><div class="ttdoc">Returns whether or not the task is currently queued and waiting to be executed.</div><div class="ttdef"><b>Definition:</b> <a href="a01337_source.html#l00077">Systems.cpp:77</a></div></div>
-<div class="ttc" id="aa02615_html_a76f80ed7c566277031d3d815009f0ced"><div class="ttname"><a href="a02615.html#a76f80ed7c566277031d3d815009f0ced">bl::engine::Systems::TaskHandle::wait</a></div><div class="ttdeci">void wait()</div><div class="ttdoc">Waits for the submitted task to complete. Safe to call on invalid handles.</div><div class="ttdef"><b>Definition:</b> <a href="a01337_source.html#l00094">Systems.cpp:94</a></div></div>
-<div class="ttc" id="aa02615_html_ac3cce5e1fcc4d801667a2ed93bbe8d47"><div class="ttname"><a href="a02615.html#ac3cce5e1fcc4d801667a2ed93bbe8d47">bl::engine::Systems::TaskHandle::TaskHandle</a></div><div class="ttdeci">TaskHandle()</div><div class="ttdoc">Constructs a null handle.</div><div class="ttdef"><b>Definition:</b> <a href="a01337_source.html#l00066">Systems.cpp:66</a></div></div>
-<div class="ttc" id="aa02615_html_af2f224c590b17227976d74a2ce21d875"><div class="ttname"><a href="a02615.html#af2f224c590b17227976d74a2ce21d875">bl::engine::Systems::TaskHandle::isValid</a></div><div class="ttdeci">bool isValid() const</div><div class="ttdoc">Returns whether or not the handle refers to a valid task.</div><div class="ttdef"><b>Definition:</b> <a href="a01337_source.html#l00075">Systems.cpp:75</a></div></div>
-<div class="ttc" id="aa05599_html"><div class="ttname"><a href="a05599.html">Engine.hpp</a></div></div>
-<div class="ttc" id="aa05608_html"><div class="ttname"><a href="a05608.html">Systems.hpp</a></div></div>
+<div class="ttc" id="aa02586_html_af6ea181be91b7069f9f52557a1445e1a"><div class="ttname"><a href="a02586.html#af6ea181be91b7069f9f52557a1445e1a">bl::engine::FrameStage::V</a></div><div class="ttdeci">V</div><div class="ttdoc">Value-type for engine stage ids.</div><div class="ttdef"><b>Definition:</b> <a href="a00230_source.html#l00018">FrameStage.hpp:18</a></div></div>
+<div class="ttc" id="aa02610_html_a0f4d079b76e506c0a630dfe30c0cbc2f"><div class="ttname"><a href="a02610.html#a0f4d079b76e506c0a630dfe30c0cbc2f">bl::engine::Systems::Task</a></div><div class="ttdeci">std::function&lt; void()&gt; Task</div><div class="ttdoc">Signature of one-off tasks that can be registered to run.</div><div class="ttdef"><b>Definition:</b> <a href="a05607_source.html#l00035">Systems.hpp:35</a></div></div>
+<div class="ttc" id="aa02614_html"><div class="ttname"><a href="a02614.html">bl::engine::Systems::TaskHandle</a></div><div class="ttdoc">Handle to a task submitted to Systems.</div><div class="ttdef"><b>Definition:</b> <a href="a05607_source.html#l00042">Systems.hpp:42</a></div></div>
+<div class="ttc" id="aa02614_html_a02abbd450e13345c326b12e1673a340c"><div class="ttname"><a href="a02614.html#a02abbd450e13345c326b12e1673a340c">bl::engine::Systems::TaskHandle::cancel</a></div><div class="ttdeci">void cancel()</div><div class="ttdoc">Cancels the task if it has not yet ran. Safe to call on invalid handles.</div><div class="ttdef"><b>Definition:</b> <a href="a01337_source.html#l00085">Systems.cpp:85</a></div></div>
+<div class="ttc" id="aa02614_html_a32c79bfe6d7311798eff40da9e536a9b"><div class="ttname"><a href="a02614.html#a32c79bfe6d7311798eff40da9e536a9b">bl::engine::Systems::TaskHandle::isQueued</a></div><div class="ttdeci">bool isQueued() const</div><div class="ttdoc">Returns whether or not the task is currently queued and waiting to be executed.</div><div class="ttdef"><b>Definition:</b> <a href="a01337_source.html#l00077">Systems.cpp:77</a></div></div>
+<div class="ttc" id="aa02614_html_a76f80ed7c566277031d3d815009f0ced"><div class="ttname"><a href="a02614.html#a76f80ed7c566277031d3d815009f0ced">bl::engine::Systems::TaskHandle::wait</a></div><div class="ttdeci">void wait()</div><div class="ttdoc">Waits for the submitted task to complete. Safe to call on invalid handles.</div><div class="ttdef"><b>Definition:</b> <a href="a01337_source.html#l00094">Systems.cpp:94</a></div></div>
+<div class="ttc" id="aa02614_html_ac3cce5e1fcc4d801667a2ed93bbe8d47"><div class="ttname"><a href="a02614.html#ac3cce5e1fcc4d801667a2ed93bbe8d47">bl::engine::Systems::TaskHandle::TaskHandle</a></div><div class="ttdeci">TaskHandle()</div><div class="ttdoc">Constructs a null handle.</div><div class="ttdef"><b>Definition:</b> <a href="a01337_source.html#l00066">Systems.cpp:66</a></div></div>
+<div class="ttc" id="aa02614_html_af2f224c590b17227976d74a2ce21d875"><div class="ttname"><a href="a02614.html#af2f224c590b17227976d74a2ce21d875">bl::engine::Systems::TaskHandle::isValid</a></div><div class="ttdeci">bool isValid() const</div><div class="ttdoc">Returns whether or not the handle refers to a valid task.</div><div class="ttdef"><b>Definition:</b> <a href="a01337_source.html#l00075">Systems.cpp:75</a></div></div>
+<div class="ttc" id="aa05598_html"><div class="ttname"><a href="a05598.html">Engine.hpp</a></div></div>
+<div class="ttc" id="aa05607_html"><div class="ttname"><a href="a05607.html">Systems.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Nov 28 2023 03:30:33 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 29 2023 03:07:37 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

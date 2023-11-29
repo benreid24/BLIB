@@ -77,7 +77,7 @@ $(function() {
 <a href="a01769.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00863.html">BLIB/Render/Resources/PipelineCache.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00626.html">BLIB/Logging.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05656.html">BLIB/Render/Config.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05655.html">BLIB/Render/Config.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00698.html">BLIB/Render/Descriptors/Builtin/FadeEffectFactory.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00701.html">BLIB/Render/Descriptors/Builtin/Object2DFactory.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00707.html">BLIB/Render/Descriptors/Builtin/Object3DFactory.hpp</a>&gt;</span></div>
@@ -86,7 +86,7 @@ $(function() {
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00725.html">BLIB/Render/Descriptors/Builtin/SlideshowFactory.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00731.html">BLIB/Render/Descriptors/Builtin/TexturePoolFactory.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00848.html">BLIB/Render/Primitives/SlideshowVertex.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05641.html">BLIB/Render/Renderer.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05640.html">BLIB/Render/Renderer.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02058.html">bl</a></div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
@@ -101,14 +101,14 @@ $(function() {
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keywordtype">void</span> PipelineCache::cleanup() { cache.clear(); }</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a03619.html#ab22abbcd5f0da2c18dbd75928e5c66fc">   28</a></span>&#160;<a class="code" href="a03807.html">vk::Pipeline</a>&amp; PipelineCache::createPipline(std::uint32_t <span class="keywordtype">id</span>, <a class="code" href="a03827.html">vk::PipelineParameters</a>&amp;&amp; params) {</div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a03618.html#ab22abbcd5f0da2c18dbd75928e5c66fc">   28</a></span>&#160;<a class="code" href="a03806.html">vk::Pipeline</a>&amp; PipelineCache::createPipline(std::uint32_t <span class="keywordtype">id</span>, <a class="code" href="a03826.html">vk::PipelineParameters</a>&amp;&amp; params) {</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> insertResult =</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        cache.try_emplace(<span class="keywordtype">id</span>, renderer, std::forward&lt;vk::PipelineParameters&gt;(params));</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordflow">if</span> (!insertResult.second) { <a class="code" href="a00620.html#af954e63cd52a20dcd7087a8c569f373f">BL_LOG_WARN</a> &lt;&lt; <span class="stringliteral">&quot;Pipeline with id &quot;</span> &lt;&lt; <span class="keywordtype">id</span> &lt;&lt; <span class="stringliteral">&quot; already exists&quot;</span>; }</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordflow">return</span> insertResult.first-&gt;second;</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;}</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="a03619.html#a1ae6ab4cbe018341e55753994fd46c66">   35</a></span>&#160;<a class="code" href="a03807.html">vk::Pipeline</a>&amp; PipelineCache::getPipeline(std::uint32_t <span class="keywordtype">id</span>) {</div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="a03618.html#a1ae6ab4cbe018341e55753994fd46c66">   35</a></span>&#160;<a class="code" href="a03806.html">vk::Pipeline</a>&amp; PipelineCache::getPipeline(std::uint32_t <span class="keywordtype">id</span>) {</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">auto</span> it = cache.find(<span class="keywordtype">id</span>);</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordflow">if</span> (it == cache.end()) {</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <a class="code" href="a00620.html#aab250887595d9e02b1f0b670fe342683">BL_LOG_CRITICAL</a> &lt;&lt; <span class="stringliteral">&quot;Failed to find pipeline with id: &quot;</span> &lt;&lt; id;</div>
@@ -297,15 +297,15 @@ $(function() {
 <div class="ttc" id="aa00848_html"><div class="ttname"><a href="a00848.html">SlideshowVertex.hpp</a></div></div>
 <div class="ttc" id="aa00863_html"><div class="ttname"><a href="a00863.html">PipelineCache.hpp</a></div></div>
 <div class="ttc" id="aa02058_html"><div class="ttname"><a href="a02058.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03807_html"><div class="ttname"><a href="a03807.html">bl::rc::vk::Pipeline</a></div><div class="ttdoc">Core renderer class representing a pipeline that is a part of a RenderPass. Pipelines are managed by ...</div><div class="ttdef"><b>Definition:</b> <a href="a00962_source.html#l00030">Pipeline.hpp:30</a></div></div>
-<div class="ttc" id="aa03827_html"><div class="ttname"><a href="a03827.html">bl::rc::vk::PipelineParameters</a></div><div class="ttdoc">Parameters used to create a Pipeline. This class performs some basic validation and provides sane def...</div><div class="ttdef"><b>Definition:</b> <a href="a00968_source.html#l00031">PipelineParameters.hpp:31</a></div></div>
-<div class="ttc" id="aa05641_html"><div class="ttname"><a href="a05641.html">Renderer.hpp</a></div></div>
-<div class="ttc" id="aa05656_html"><div class="ttname"><a href="a05656.html">Config.hpp</a></div></div>
+<div class="ttc" id="aa03806_html"><div class="ttname"><a href="a03806.html">bl::rc::vk::Pipeline</a></div><div class="ttdoc">Core renderer class representing a pipeline that is a part of a RenderPass. Pipelines are managed by ...</div><div class="ttdef"><b>Definition:</b> <a href="a00962_source.html#l00030">Pipeline.hpp:30</a></div></div>
+<div class="ttc" id="aa03826_html"><div class="ttname"><a href="a03826.html">bl::rc::vk::PipelineParameters</a></div><div class="ttdoc">Parameters used to create a Pipeline. This class performs some basic validation and provides sane def...</div><div class="ttdef"><b>Definition:</b> <a href="a00968_source.html#l00031">PipelineParameters.hpp:31</a></div></div>
+<div class="ttc" id="aa05640_html"><div class="ttname"><a href="a05640.html">Renderer.hpp</a></div></div>
+<div class="ttc" id="aa05655_html"><div class="ttname"><a href="a05655.html">Config.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Nov 28 2023 03:30:34 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 29 2023 03:07:38 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

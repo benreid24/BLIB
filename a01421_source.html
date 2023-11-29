@@ -74,7 +74,7 @@ $(function() {
 <div class="title">Listener.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01421.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05620.html">BLIB/Input/Listener.hpp</a>&gt;</span></div>
+<a href="a01421.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05619.html">BLIB/Input/Listener.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00344.html">BLIB/Input/Actor.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
@@ -82,40 +82,40 @@ $(function() {
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>input</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a02867.html#a079b505ecaed9f6afd8278bbb7f38a44">    9</a></span>&#160;<a class="code" href="a02867.html#a079b505ecaed9f6afd8278bbb7f38a44">Listener::Listener</a>()</div>
+<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a02866.html#a079b505ecaed9f6afd8278bbb7f38a44">    9</a></span>&#160;<a class="code" href="a02866.html#a079b505ecaed9f6afd8278bbb7f38a44">Listener::Listener</a>()</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;: owner(nullptr) {}</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="a02867.html#ae3540d1af77f94edd329e089eec2da82">   12</a></span>&#160;<a class="code" href="a02867.html#a079b505ecaed9f6afd8278bbb7f38a44">Listener::Listener</a>(<span class="keyword">const</span> <a class="code" href="a02867.html">Listener</a>&amp; l)</div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="a02866.html#ae3540d1af77f94edd329e089eec2da82">   12</a></span>&#160;<a class="code" href="a02866.html#a079b505ecaed9f6afd8278bbb7f38a44">Listener::Listener</a>(<span class="keyword">const</span> <a class="code" href="a02866.html">Listener</a>&amp; l)</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;: owner(l.owner) {</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <a class="code" href="a02867.html">Listener</a>&amp; c = <span class="keyword">const_cast&lt;</span><a class="code" href="a02867.html">Listener</a>&amp;<span class="keyword">&gt;</span>(l);</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keywordflow">if</span> (owner) { owner-&gt;<a class="code" href="a02827.html#a863a02458bc5d034b2fdb33076ea58b3">replaceListener</a>(c, *<span class="keyword">this</span>); }</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <a class="code" href="a02866.html">Listener</a>&amp; c = <span class="keyword">const_cast&lt;</span><a class="code" href="a02866.html">Listener</a>&amp;<span class="keyword">&gt;</span>(l);</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keywordflow">if</span> (owner) { owner-&gt;<a class="code" href="a02826.html#a863a02458bc5d034b2fdb33076ea58b3">replaceListener</a>(c, *<span class="keyword">this</span>); }</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;}</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a02867.html#a29b323fc5a97661724c3a97790d72758">   18</a></span>&#160;<a class="code" href="a02867.html#a079b505ecaed9f6afd8278bbb7f38a44">Listener::Listener</a>(<a class="code" href="a02867.html">Listener</a>&amp;&amp; l)</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a02866.html#a29b323fc5a97661724c3a97790d72758">   18</a></span>&#160;<a class="code" href="a02866.html#a079b505ecaed9f6afd8278bbb7f38a44">Listener::Listener</a>(<a class="code" href="a02866.html">Listener</a>&amp;&amp; l)</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;: owner(l.owner) {</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keywordflow">if</span> (owner) { owner-&gt;<a class="code" href="a02827.html#a863a02458bc5d034b2fdb33076ea58b3">replaceListener</a>(l, *<span class="keyword">this</span>); }</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keywordflow">if</span> (owner) { owner-&gt;<a class="code" href="a02826.html#a863a02458bc5d034b2fdb33076ea58b3">replaceListener</a>(l, *<span class="keyword">this</span>); }</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    l.owner = <span class="keyword">nullptr</span>;</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;}</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a02867.html#a483ff531396a8a888ece355a945985cd">   24</a></span>&#160;<a class="code" href="a02867.html#a483ff531396a8a888ece355a945985cd">Listener::~Listener</a>() {</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordflow">if</span> (owner) { owner-&gt;<a class="code" href="a02827.html#a56283b2fa7496cb11af9ce65ea40a5d6">removeListener</a>(*<span class="keyword">this</span>); }</div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a02866.html#a483ff531396a8a888ece355a945985cd">   24</a></span>&#160;<a class="code" href="a02866.html#a483ff531396a8a888ece355a945985cd">Listener::~Listener</a>() {</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordflow">if</span> (owner) { owner-&gt;<a class="code" href="a02826.html#a56283b2fa7496cb11af9ce65ea40a5d6">removeListener</a>(*<span class="keyword">this</span>); }</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;}</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;} <span class="comment">// namespace input</span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;} <span class="comment">// namespace bl</span></div>
 <div class="ttc" id="aa00344_html"><div class="ttname"><a href="a00344.html">Actor.hpp</a></div></div>
 <div class="ttc" id="aa02058_html"><div class="ttname"><a href="a02058.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02827_html_a56283b2fa7496cb11af9ce65ea40a5d6"><div class="ttname"><a href="a02827.html#a56283b2fa7496cb11af9ce65ea40a5d6">bl::input::Actor::removeListener</a></div><div class="ttdeci">void removeListener(input::Listener &amp;listener)</div><div class="ttdoc">Removes the given listener. Does not have to be the active listener.</div><div class="ttdef"><b>Definition:</b> <a href="a01394_source.html#l00161">Actor.cpp:161</a></div></div>
-<div class="ttc" id="aa02827_html_a863a02458bc5d034b2fdb33076ea58b3"><div class="ttname"><a href="a02827.html#a863a02458bc5d034b2fdb33076ea58b3">bl::input::Actor::replaceListener</a></div><div class="ttdeci">void replaceListener(input::Listener &amp;oldListener, input::Listener &amp;newListener)</div><div class="ttdoc">Replaces the old listener with the new, keeping it at the same position in the queue.</div><div class="ttdef"><b>Definition:</b> <a href="a01394_source.html#l00171">Actor.cpp:171</a></div></div>
-<div class="ttc" id="aa02867_html"><div class="ttname"><a href="a02867.html">bl::input::Listener</a></div><div class="ttdoc">Base class for input listeners that can subscribe to an Actor. The base class keeps the input system ...</div><div class="ttdef"><b>Definition:</b> <a href="a05620_source.html#l00019">Listener.hpp:19</a></div></div>
-<div class="ttc" id="aa02867_html_a079b505ecaed9f6afd8278bbb7f38a44"><div class="ttname"><a href="a02867.html#a079b505ecaed9f6afd8278bbb7f38a44">bl::input::Listener::Listener</a></div><div class="ttdeci">Listener()</div><div class="ttdoc">Construct a new Listener object.</div><div class="ttdef"><b>Definition:</b> <a href="a01421_source.html#l00009">Listener.cpp:9</a></div></div>
-<div class="ttc" id="aa02867_html_a483ff531396a8a888ece355a945985cd"><div class="ttname"><a href="a02867.html#a483ff531396a8a888ece355a945985cd">bl::input::Listener::~Listener</a></div><div class="ttdeci">virtual ~Listener()</div><div class="ttdoc">Unsubscribes the listener if subscribed.</div><div class="ttdef"><b>Definition:</b> <a href="a01421_source.html#l00024">Listener.cpp:24</a></div></div>
-<div class="ttc" id="aa05620_html"><div class="ttname"><a href="a05620.html">Listener.hpp</a></div></div>
+<div class="ttc" id="aa02826_html_a56283b2fa7496cb11af9ce65ea40a5d6"><div class="ttname"><a href="a02826.html#a56283b2fa7496cb11af9ce65ea40a5d6">bl::input::Actor::removeListener</a></div><div class="ttdeci">void removeListener(input::Listener &amp;listener)</div><div class="ttdoc">Removes the given listener. Does not have to be the active listener.</div><div class="ttdef"><b>Definition:</b> <a href="a01394_source.html#l00161">Actor.cpp:161</a></div></div>
+<div class="ttc" id="aa02826_html_a863a02458bc5d034b2fdb33076ea58b3"><div class="ttname"><a href="a02826.html#a863a02458bc5d034b2fdb33076ea58b3">bl::input::Actor::replaceListener</a></div><div class="ttdeci">void replaceListener(input::Listener &amp;oldListener, input::Listener &amp;newListener)</div><div class="ttdoc">Replaces the old listener with the new, keeping it at the same position in the queue.</div><div class="ttdef"><b>Definition:</b> <a href="a01394_source.html#l00171">Actor.cpp:171</a></div></div>
+<div class="ttc" id="aa02866_html"><div class="ttname"><a href="a02866.html">bl::input::Listener</a></div><div class="ttdoc">Base class for input listeners that can subscribe to an Actor. The base class keeps the input system ...</div><div class="ttdef"><b>Definition:</b> <a href="a05619_source.html#l00019">Listener.hpp:19</a></div></div>
+<div class="ttc" id="aa02866_html_a079b505ecaed9f6afd8278bbb7f38a44"><div class="ttname"><a href="a02866.html#a079b505ecaed9f6afd8278bbb7f38a44">bl::input::Listener::Listener</a></div><div class="ttdeci">Listener()</div><div class="ttdoc">Construct a new Listener object.</div><div class="ttdef"><b>Definition:</b> <a href="a01421_source.html#l00009">Listener.cpp:9</a></div></div>
+<div class="ttc" id="aa02866_html_a483ff531396a8a888ece355a945985cd"><div class="ttname"><a href="a02866.html#a483ff531396a8a888ece355a945985cd">bl::input::Listener::~Listener</a></div><div class="ttdeci">virtual ~Listener()</div><div class="ttdoc">Unsubscribes the listener if subscribed.</div><div class="ttdef"><b>Definition:</b> <a href="a01421_source.html#l00024">Listener.cpp:24</a></div></div>
+<div class="ttc" id="aa05619_html"><div class="ttname"><a href="a05619.html">Listener.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Nov 28 2023 03:30:33 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 29 2023 03:07:37 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>
