@@ -41,21 +41,21 @@ bool FileUtil::isBigEndian() {
 }
 
 std::string FileUtil::getExtension(const std::string& file) {
-    std::string ext = std::filesystem::path(file).extension();
+    std::string ext = std::filesystem::path(file).extension().generic_string();
     if (ext.size() >= 1 && ext[0] == '.') { ext.erase(0, 1); }
     return ext;
 }
 
 std::string FileUtil::getBaseName(const std::string& file) {
-    return std::filesystem::path(file).stem();
+    return std::filesystem::path(file).stem().generic_string();
 }
 
 std::string FileUtil::getFilename(const std::string& file) {
-    return std::filesystem::path(file).filename();
+    return std::filesystem::path(file).filename().generic_string();
 }
 
 std::string FileUtil::getPath(const std::string& file) {
-    return std::filesystem::path(file).parent_path();
+    return std::filesystem::path(file).parent_path().generic_string();
 }
 
 std::string FileUtil::joinPath(const std::string& l, const std::string& r) {
@@ -66,7 +66,7 @@ std::string FileUtil::joinPath(const std::string& l, const std::string& r) {
     const std::string_view rv(rabs ? r.c_str() + 1 : r.c_str(), rabs ? r.size() - 1 : r.size());
     auto result = std::filesystem::path(l);
     result /= std::filesystem::path(rv);
-    return result;
+    return result.generic_string();
 }
 
 bool FileUtil::startsWithPath(const std::string& file, const std::string& path) {
@@ -103,15 +103,13 @@ std::vector<std::string> FileUtil::listDirectory(const std::string& path, const 
 
     std::vector<std::string> list;
 
-    const auto append = [&list, &ext, &path](const std::filesystem::path& cpath) {
+    std::filesystem::path extPath(ext);
+    if (ext.size() >= 1 && ext[0] != '.') { extPath = "." + ext; }
+
+    const auto append = [&list, &ext, &path, &extPath](const std::filesystem::path& cpath) {
         bool add = std::filesystem::is_regular_file(cpath);
-        if (add && !ext.empty()) {
-            const auto e = cpath.extension();
-            const std::string_view es(e.empty() ? e.c_str() : e.c_str() + 1,
-                                      e.empty() ? 0 : std::distance(e.begin(), e.end()) - 1);
-            add = ext == es;
-        }
-        if (add) { list.emplace_back(std::filesystem::relative(cpath, path)); }
+        if (add && !ext.empty()) { add = cpath.extension() == extPath; }
+        if (add) { list.emplace_back(std::filesystem::relative(cpath, path).generic_string()); }
     };
 
     if (recursive) {
@@ -131,7 +129,9 @@ std::vector<std::string> FileUtil::listDirectoryFolders(const std::string& path)
 
     std::vector<std::string> list;
     for (const auto& cpath : std::filesystem::directory_iterator(path)) {
-        if (std::filesystem::is_directory(cpath)) { list.emplace_back(cpath.path()); }
+        if (std::filesystem::is_directory(cpath)) {
+            list.emplace_back(cpath.path().generic_string());
+        }
     }
     return list;
 }
