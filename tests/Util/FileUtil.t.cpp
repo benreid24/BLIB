@@ -11,7 +11,7 @@ namespace unittest
 {
 TEST(FileUtil, Extension) {
     const std::vector<std::pair<std::string, std::string>> files = {
-        {"some/path/file.png", "png"},
+        {"/some/path/file.png", "png"},
         {"some/other/path/file.info.json", "json"},
         {"some/werid.path/file.jpg", "jpg"},
         {"/woah/this.might/be/too.much.csv", "csv"}};
@@ -44,10 +44,10 @@ TEST(FileUtil, Basename) {
 
 TEST(FileUtil, Path) {
     const std::vector<std::pair<std::string, std::string>> files = {
-        {"some/path/file.png", "some/path/"},
-        {"some/other/path/file.info.json", "some/other/path/"},
-        {"some/weird.path/file.jpg", "some/weird.path/"},
-        {"/woah/this.might/be/too.much.csv", "/woah/this.might/be/"}};
+        {"some/path/file.png", "some/path"},
+        {"some/other/path/file.info.json", "some/other/path"},
+        {"some/weird.path/file.jpg", "some/weird.path"},
+        {"/woah/this.might/be/too.much.csv", "/woah/this.might/be"}};
     for (unsigned int i = 0; i < files.size(); ++i) {
         EXPECT_EQ(FileUtil::getPath(files[i].first), files[i].second);
     }
