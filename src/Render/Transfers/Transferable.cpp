@@ -24,17 +24,20 @@ Transferable::~Transferable() {
     else if (queued) { vulkanState->transferEngine.cancelTransfer(this); }
 }
 
-void Transferable::queueTransfer(SyncRequirement syncReq) {
+bool Transferable::queueTransfer(SyncRequirement syncReq) {
 #ifdef BLIB_DEBUG
     if (vulkanState == nullptr) {
         BL_LOG_CRITICAL << "Tried to queue transfer with nullptr Vulkan state";
+        return false;
     }
 #endif
 
     if (!queued) {
         queued = true;
         vulkanState->transferEngine.queueOneTimeTransfer(this, syncReq);
+        return true;
     }
+    return false;
 }
 
 void Transferable::transferEveryFrame(SyncRequirement syncReq) {

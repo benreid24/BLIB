@@ -361,8 +361,9 @@ void BatchIndexBufferT<T>::release(typename std::list<AllocInfo>::iterator it) {
 
 template<typename T>
 void BatchIndexBufferT<T>::commit() {
-    storage.insertBarrierBeforeWrite();
-    storage.queueTransfer(tfr::Transferable::SyncRequirement::Immediate);
+    if (storage.queueTransfer(tfr::Transferable::SyncRequirement::Immediate)) {
+        storage.insertBarrierBeforeWrite();
+    }
 }
 
 template<typename T>
