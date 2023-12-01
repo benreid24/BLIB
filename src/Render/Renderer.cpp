@@ -69,6 +69,11 @@ void Renderer::initialize() {
                                                        StateMask,
                                                        Config::PipelineIds::LitSkinned2DGeometry,
                                                        Config::PipelineIds::UnlitSkinned2DGeometry);
+    engine.systems().registerSystem<sys::BatchedSpriteSystem>(
+        FrameStage::RenderObjectInsertion,
+        StateMask,
+        Config::PipelineIds::LitSkinned2DGeometry,
+        Config::PipelineIds::UnlitSkinned2DGeometry);
     engine.systems().registerSystem<sys::TextSystem>(FrameStage::RenderObjectInsertion,
                                                      StateMask,
                                                      Config::PipelineIds::Text,

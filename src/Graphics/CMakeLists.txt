@@ -2,8 +2,10 @@ target_sources(BLIB PRIVATE
 	Animation2D.cpp
 	BatchCircle.cpp
 	BatchedShapes2D.cpp
+	BatchedSprites.cpp
 	BatchIcon.cpp
 	BatchRectangle.cpp
+	BatchSprite.cpp
 	BatchTriangle.cpp
 	Circle.cpp
 	Dummy2D.cpp

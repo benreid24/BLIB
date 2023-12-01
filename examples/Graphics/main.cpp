@@ -28,6 +28,11 @@ private:
     bl::gfx::BatchCircle batchCircle;
     bl::gfx::BatchTriangle batchTriangle;
 
+    bl::gfx::BatchedSprites spriteBatch;
+    bl::gfx::BatchSprite water1;
+    bl::gfx::BatchSprite water2;
+    bl::gfx::BatchSprite water3;
+
     virtual const char* name() const override { return "DemoState"; }
 
     virtual void activate(bl::engine::Engine& engine) override {
@@ -108,6 +113,18 @@ private:
         batchTriangle.setOutlineColor({0.f, 0.f, 0.f, 1.f});
         batchTriangle.setOutlineThickness(2.f);
         batchTriangle.getLocalTransform().setPosition({60.f, 95.f});
+
+        // add a set of batched sprites to the scene
+        spriteBatch.create(
+            engine, engine.renderer().texturePool().getOrLoadTexture("resources/water.png"), 2);
+        spriteBatch.getTransform().setPosition({400.f, 750.f});
+        spriteBatch.addToScene(scene, bl::rc::UpdateSpeed::Static);
+
+        water1.create(engine, spriteBatch, {0.f, 0.f, 32.f, 32.f});
+        water2.create(engine, spriteBatch, {32.f, 0.f, 32.f, 32.f});
+        water2.getLocalTransform().setPosition({34.f, 0.f});
+        water3.create(engine, spriteBatch, {64.f, 0.f, 32.f, 32.f});
+        water3.getLocalTransform().setPosition({68.f, 0.f});
     }
 
     virtual void deactivate(bl::engine::Engine& engine) override {
