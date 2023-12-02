@@ -95,12 +95,17 @@ void Animation2DSystem::ensureSlideshowDescriptorsUpdated() {
 }
 
 void Animation2DSystem::observe(const ecs::event::ComponentAdded<com::Animation2DPlayer>& event) {
-    if (event.component.animation->isSlideshow()) { doSlideshowAdd(event.component); }
+    if (event.component.forSlideshow) {
+        if (!event.component.animation->isSlideshow()) {
+            BL_LOG_ERROR << "Non-slideshow animation being used as slideshow";
+        }
+        doSlideshowAdd(event.component);
+    }
     else { doNonSlideshowCreate(event.component); }
 }
 
 void Animation2DSystem::observe(const ecs::event::ComponentRemoved<com::Animation2DPlayer>& event) {
-    if (event.component.animation->isSlideshow()) { doSlideshowFree(event.component); }
+    if (event.component.forSlideshow) { doSlideshowFree(event.component); }
     else { tryFreeVertexData(event.component); }
 }
 

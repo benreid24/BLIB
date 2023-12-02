@@ -33,6 +33,12 @@ private:
     bl::gfx::BatchSprite water2;
     bl::gfx::BatchSprite water3;
 
+    bl::gfx::BatchedSlideshows waterBatch;
+    bl::gfx::DiscreteAnimation2DPlayer waterPlayer;
+    bl::gfx::BatchSlideshow slideshow1;
+    bl::gfx::BatchSlideshow slideshow2;
+    bl::gfx::BatchSlideshow slideshow3;
+
     virtual const char* name() const override { return "DemoState"; }
 
     virtual void activate(bl::engine::Engine& engine) override {
@@ -125,6 +131,23 @@ private:
         water2.getLocalTransform().setPosition({34.f, 0.f});
         water3.create(engine, spriteBatch, {64.f, 0.f, 32.f, 32.f});
         water3.getLocalTransform().setPosition({68.f, 0.f});
+
+        // add a set of batched slideshows to the scene
+        waterBatch.create(engine, 3);
+        waterBatch.getTransform().setPosition({1500.f, 800.f});
+        waterBatch.addToScene(scene, bl::rc::UpdateSpeed::Static);
+        waterPlayer.create(engine,
+                           bl::resource::ResourceManager<bl::gfx::a2d::AnimationData>::load(
+                               "resources/water.anim"),
+                           bl::gfx::DiscreteAnimation2DPlayer::Slideshow,
+                           true,
+                           true);
+
+        slideshow1.create(engine, waterBatch, waterPlayer.entity());
+        slideshow2.create(engine, waterBatch, waterPlayer.entity());
+        slideshow2.getLocalTransform().setPosition({34.f, 0.f});
+        slideshow3.create(engine, waterBatch, waterPlayer.entity());
+        slideshow3.getLocalTransform().setPosition({68.f, 0.f});
     }
 
     virtual void deactivate(bl::engine::Engine& engine) override {

@@ -82,6 +82,11 @@ void Renderer::initialize() {
                                                           StateMask,
                                                           Config::PipelineIds::SlideshowLit,
                                                           Config::PipelineIds::SlideshowUnlit);
+    engine.systems().registerSystem<sys::BatchedSlideshowsSystem>(
+        FrameStage::RenderObjectInsertion,
+        StateMask,
+        Config::PipelineIds::SlideshowLit,
+        Config::PipelineIds::SlideshowUnlit);
     engine.systems().registerSystem<sys::Animation2DDrawableSystem>(
         FrameStage::RenderObjectInsertion,
         StateMask,

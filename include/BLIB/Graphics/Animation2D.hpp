@@ -27,7 +27,7 @@ public:
     /**
      * @brief Does nothing
      */
-    Animation2D() = default;
+    Animation2D();
 
     /**
      * @brief Creates the animation with its own player

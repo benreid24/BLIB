@@ -17,6 +17,8 @@ namespace com
  * @ingroup Components
  */
 struct Animation2DPlayer {
+    static constexpr std::uint32_t InvalidIndex = std::numeric_limits<std::uint32_t>::max();
+
     /**
      * @brief Deleted
      */
@@ -26,11 +28,12 @@ struct Animation2DPlayer {
      * @brief Creates a player for the given animation
      *
      * @param animation The animation to play
+     * @param forSlideshow Indicates where to upload animation data to the Animation2DSystem
      * @param play True to begin playing immediately
      * @param forceLoop True to always loop, false to defer to animation loop setting
      */
-    Animation2DPlayer(const resource::Ref<gfx::a2d::AnimationData>& animation, bool play,
-                      bool forceLoop = false);
+    Animation2DPlayer(const resource::Ref<gfx::a2d::AnimationData>& animation, bool forSlideshow,
+                      bool play, bool forceLoop = false);
 
     /**
      * @brief Starts playing the animation, optionally restarting it
@@ -70,6 +73,7 @@ struct Animation2DPlayer {
      */
     void update(float dt);
 
+    const bool forSlideshow;
     resource::Ref<gfx::a2d::AnimationData> animation;
     bool isPlaying;
     bool forceLoop;
@@ -77,9 +81,11 @@ struct Animation2DPlayer {
     std::size_t currentFrame;
     float frameTime;
 
-    std::uint32_t playerIndex; // assigned by Animation2DSystem
-    util::VectorRef<std::uint32_t, rc::vk::AlignedBuffer<std::uint32_t>>
-        framePayload; // in descriptor set
+    // assigned by Animation2DSystem
+    std::uint32_t playerIndex;
+
+    // in descriptor set
+    util::VectorRef<std::uint32_t, rc::vk::AlignedBuffer<std::uint32_t>> framePayload;
 };
 
 } // namespace com

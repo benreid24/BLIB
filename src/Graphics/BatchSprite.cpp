@@ -12,7 +12,8 @@ BatchSprite::BatchSprite()
 , dirty(false) {}
 
 BatchSprite::BatchSprite(engine::Engine& engine, BatchedSprites& batch,
-                         const sf::FloatRect& textureSource) {
+                         const sf::FloatRect& textureSource)
+: BatchSprite() {
     create(engine, batch, textureSource);
 }
 

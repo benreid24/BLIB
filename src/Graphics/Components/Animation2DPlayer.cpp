@@ -8,8 +8,9 @@ namespace gfx
 {
 namespace bcom
 {
-Animation2DPlayer::Animation2DPlayer()
-: renderer(nullptr)
+Animation2DPlayer::Animation2DPlayer(bool fs)
+: forSlideshow(fs)
+, renderer(nullptr)
 , registry(nullptr)
 , me(ecs::InvalidEntity)
 , playerEntity(ecs::InvalidEntity)
@@ -23,7 +24,7 @@ void Animation2DPlayer::createNewPlayer(const resource::Ref<gfx::a2d::AnimationD
     // create new player entity and component
     playerEntity = registry->createEntity();
     player       = registry->emplaceComponent<com::Animation2DPlayer>(
-        playerEntity, animation, play, forceLoop);
+        playerEntity, animation, forSlideshow, play, forceLoop);
     addPlayerDep();
 }
 
