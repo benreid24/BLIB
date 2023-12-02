@@ -65,8 +65,8 @@ private:
         std::vector<Transferable*> everyFrameItems;
 
         Bucket(vk::VulkanState& vs);
-        void init();
-        void cleanup();
+        void init(VkCommandPool pool);
+        void cleanup(VkCommandPool pool);
         bool hasTransfers() const;
         void executeTransfers();
         void resetResourcesWithSync();
@@ -74,6 +74,7 @@ private:
 
     vk::VulkanState& vulkanState;
     std::mutex mutex;
+    VkCommandPool commandPool;
     Bucket immediateBucket;
     Bucket frameBucket;
 

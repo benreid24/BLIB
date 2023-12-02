@@ -42,8 +42,9 @@ public:
      * @brief Queues this object with the TransferEngine to be transfered on the next frame
      *
      * @param syncReq Synchronization requirements for the transfer
+     * @return True if the transfer was scheduled, false if already scheduled
      */
-    void queueTransfer(SyncRequirement syncReq = SyncRequirement::Immediate);
+    bool queueTransfer(SyncRequirement syncReq = SyncRequirement::Immediate);
 
     /**
      * @brief Configures this Transferable to transfer every frame with the given sync requirement

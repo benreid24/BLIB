@@ -2,8 +2,12 @@ target_sources(BLIB PUBLIC
 	Animation2D.hpp
 	BatchCircle.hpp
 	BatchedShapes2D.hpp
+	BatchedSlideshows.hpp
+	BatchedSprites.hpp
 	BatchIcon.hpp
 	BatchRectangle.hpp
+	BatchSlideshow.hpp
+	BatchSprite.hpp
 	BatchTriangle.hpp
 	Circle.hpp
 	Drawable.hpp

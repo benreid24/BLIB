@@ -11,6 +11,7 @@
 #include <BLIB/Render/Vulkan/Framebuffer.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
 #include <BLIB/Render/Vulkan/PerFrameVector.hpp>
+#include <BLIB/Render/Vulkan/SharedCommandPool.hpp>
 #include <BLIB/Render/Vulkan/Swapchain.hpp>
 #include <BLIB/Render/Vulkan/VkCheck.hpp>
 #include <BLIB/Vulkan.hpp>
@@ -80,23 +81,6 @@ struct VulkanState {
      * @return VkCommandPool The new command pool
      */
     VkCommandPool createCommandPool(VkCommandPoolCreateFlags flags);
-
-    /**
-     * @brief Helper function to create a command buffer optimized for one-off single commands such
-     *        as transfers
-     *
-     * @param commandPool Optional command pool to use to allocate the command buffer
-     * @return VkCommandBuffer A new command buffer for one-off commands
-     */
-    VkCommandBuffer beginSingleTimeCommands(VkCommandPool commandPool = nullptr);
-
-    /**
-     * @brief Finalizes the given command buffer and frees it
-     *
-     * @param commandBuffer The command buffer to submit and free
-     * @param commandPool The command pool used to allocate the buffer
-     */
-    void endSingleTimeCommands(VkCommandBuffer commandBuffer, VkCommandPool commandPool = nullptr);
 
     /**
      * @brief Performs a synchronized submission of the command buffer to the graphics queue
@@ -222,7 +206,7 @@ struct VulkanState {
     VmaAllocator vmaAllocator;
     VkQueue graphicsQueue;
     VkQueue presentQueue;
-    VkCommandPool sharedCommandPool;
+    SharedCommandPool sharedCommandPool;
     Swapchain swapchain;
     res::ShaderModuleCache shaderCache;
     tfr::TransferEngine transferEngine;
@@ -230,7 +214,6 @@ struct VulkanState {
     CommonSamplers samplerCache;
     CleanupManager cleanupManager;
 
-    std::mutex cbAllocMutex;
     std::mutex cbSubmitMutex;
     std::mutex bufferAllocMutex;
     std::mutex imageAllocMutex;
@@ -248,7 +231,6 @@ private:
     void pickPhysicalDevice();
     void createLogicalDevice();
     void createVmaAllocator();
-    void createSharedCommandPool();
 
     void cleanupDebugMessenger();
 

@@ -25,7 +25,7 @@ public:
     /**
      * @brief Does nothing
      */
-    Slideshow() = default;
+    Slideshow();
 
     /**
      * @brief Creates the slideshow with its own player

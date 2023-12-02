@@ -23,8 +23,10 @@ class Animation2DPlayer : public Textured {
 public:
     /**
      * @brief Does nothing
+     *
+     * @param forSlideshow Whether or not this player will be used for slideshow animations
      */
-    Animation2DPlayer();
+    Animation2DPlayer(bool forSlideshow);
 
     /**
      * @brief Configures the animation to use the existing player in order to share play state with
@@ -85,6 +87,7 @@ protected:
                 const resource::Ref<gfx::a2d::AnimationData>& animation, bool play, bool forceLoop);
 
 private:
+    const bool forSlideshow;
     rc::Renderer* renderer;
     ecs::Registry* registry;
     ecs::Entity me;

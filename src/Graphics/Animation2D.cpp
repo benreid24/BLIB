@@ -17,6 +17,9 @@ glm::vec2 getSize(const resource::Ref<a2d::AnimationData>& animation) {
 }
 } // namespace
 
+Animation2D::Animation2D()
+: Animation2DPlayer(false) {}
+
 Animation2D::Animation2D(engine::Engine& engine, const resource::Ref<a2d::AnimationData>& animation,
                          bool play, bool forceLoop)
 : Animation2D() {

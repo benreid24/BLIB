@@ -3,6 +3,7 @@
 #define VMA_IMPLEMENTATION
 #include "vk_mem_alloc.h"
 
+#include <BLIB/Engine/Configuration.hpp>
 #include <BLIB/Logging.hpp>
 #include <BLIB/Render/Vulkan/Framebuffer.hpp>
 #include <BLIB/Resources/FileSystem.hpp>
@@ -135,9 +136,8 @@ void VulkanState::init() {
     createSurface();
     pickPhysicalDevice();
     createLogicalDevice();
-    // volkLoadDevice(device);
     createVmaAllocator();
-    createSharedCommandPool();
+    sharedCommandPool.create(*this);
     swapchain.create(surface);
     transferEngine.init();
     descriptorPool.init();
@@ -152,7 +152,7 @@ void VulkanState::cleanup() {
     transferEngine.cleanup();
     shaderCache.cleanup();
     swapchain.destroy();
-    vkDestroyCommandPool(device, sharedCommandPool, nullptr);
+    sharedCommandPool.cleanup();
     vmaDestroyAllocator(vmaAllocator);
     vkDestroyDevice(device, nullptr);
 #ifdef BLIB_DEBUG
@@ -177,9 +177,11 @@ void VulkanState::completeFrame() {
 
 void VulkanState::createInstance() {
     // app info
+    const std::string appName =
+        engine::Configuration::getOrDefault<std::string>("blib.app.name", "BLIB Application");
     VkApplicationInfo appInfo{};
     appInfo.sType              = VK_STRUCTURE_TYPE_APPLICATION_INFO;
-    appInfo.pApplicationName   = "Vulkan Sandbox"; // TODO - from config
+    appInfo.pApplicationName   = appName.c_str();
     appInfo.applicationVersion = VK_MAKE_VERSION(1, 0, 0);
     appInfo.pEngineName        = "BLIB";
     appInfo.engineVersion      = VK_MAKE_VERSION(1, 0, 0);
@@ -413,10 +415,6 @@ VkCommandPool VulkanState::createCommandPool(VkCommandPoolCreateFlags flags) {
     return commandPool;
 }
 
-void VulkanState::createSharedCommandPool() {
-    sharedCommandPool = createCommandPool(VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT);
-}
-
 #ifdef BLIB_DEBUG
 void VulkanState::cleanupDebugMessenger() {
     auto func = (PFN_vkDestroyDebugUtilsMessengerEXT)vkGetInstanceProcAddr(
@@ -505,44 +503,6 @@ void VulkanState::createImage(std::uint32_t width, std::uint32_t height, VkForma
     vkCheck(vmaCreateImage(vmaAllocator, &imageInfo, &allocInfo, image, vmaAlloc, vmaAllocInfo));
 }
 
-VkCommandBuffer VulkanState::beginSingleTimeCommands(VkCommandPool pool) {
-    std::unique_lock lock(cbAllocMutex);
-
-    VkCommandBufferAllocateInfo allocInfo{};
-    allocInfo.sType              = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
-    allocInfo.level              = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
-    allocInfo.commandPool        = pool != nullptr ? pool : sharedCommandPool;
-    allocInfo.commandBufferCount = 1;
-
-    VkCommandBuffer commandBuffer;
-    vkCheck(vkAllocateCommandBuffers(device, &allocInfo, &commandBuffer));
-
-    VkCommandBufferBeginInfo beginInfo{};
-    beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
-    beginInfo.flags = VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT;
-
-    vkCheck(vkBeginCommandBuffer(commandBuffer, &beginInfo));
-
-    return commandBuffer;
-}
-
-void VulkanState::endSingleTimeCommands(VkCommandBuffer commandBuffer, VkCommandPool pool) {
-    vkCheck(vkEndCommandBuffer(commandBuffer));
-
-    VkSubmitInfo submitInfo{};
-    submitInfo.sType              = VK_STRUCTURE_TYPE_SUBMIT_INFO;
-    submitInfo.commandBufferCount = 1;
-    submitInfo.pCommandBuffers    = &commandBuffer;
-
-    submitCommandBuffer(submitInfo);
-
-    pool = pool != nullptr ? pool : sharedCommandPool;
-    cleanupManager.add([this, commandBuffer, pool]() {
-        std::unique_lock lock(cbAllocMutex);
-        vkFreeCommandBuffers(device, pool, 1, &commandBuffer);
-    });
-}
-
 VkResult VulkanState::submitCommandBuffer(const VkSubmitInfo& submitInfo, VkFence fence) {
     std::unique_lock lock(cbSubmitMutex);
 
@@ -553,9 +513,9 @@ VkResult VulkanState::submitCommandBuffer(const VkSubmitInfo& submitInfo, VkFenc
 
 void VulkanState::transitionImageLayout(VkImage image, VkImageLayout oldLayout,
                                         VkImageLayout newLayout) {
-    VkCommandBuffer commandBuffer = beginSingleTimeCommands();
+    auto commandBuffer = sharedCommandPool.createBuffer();
     transitionImageLayout(commandBuffer, image, oldLayout, newLayout);
-    endSingleTimeCommands(commandBuffer);
+    commandBuffer.submit();
 }
 
 void VulkanState::transitionImageLayout(VkCommandBuffer commandBuffer, VkImage image,
@@ -617,7 +577,7 @@ void VulkanState::transitionImageLayout(VkCommandBuffer commandBuffer, VkImage i
 
 void VulkanState::copyBufferToImage(VkBuffer buffer, VkImage image, std::uint32_t width,
                                     std::uint32_t height) {
-    VkCommandBuffer commandBuffer = beginSingleTimeCommands();
+    auto commandBuffer = sharedCommandPool.createBuffer();
 
     VkBufferImageCopy region{};
     region.bufferOffset      = 0;
@@ -635,7 +595,7 @@ void VulkanState::copyBufferToImage(VkBuffer buffer, VkImage image, std::uint32_
     vkCmdCopyBufferToImage(
         commandBuffer, buffer, image, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, 1, &region);
 
-    endSingleTimeCommands(commandBuffer);
+    commandBuffer.submit();
 }
 
 VkImageView VulkanState::createImageView(VkImage image, VkFormat format,

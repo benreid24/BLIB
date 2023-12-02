@@ -21,7 +21,7 @@ TransferEngine::Bucket::Bucket(vk::VulkanState& vs)
     imageBarriers.reserve(32);
 }
 
-void TransferEngine::Bucket::init() {
+void TransferEngine::Bucket::init(VkCommandPool pool) {
     fence.init(vulkanState, [this](VkFence& f) {
         VkFenceCreateInfo create{};
         create.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
@@ -32,13 +32,13 @@ void TransferEngine::Bucket::init() {
     commandBuffer.emptyInit(vulkanState);
     VkCommandBufferAllocateInfo alloc{};
     alloc.sType              = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
-    alloc.commandPool        = vulkanState.sharedCommandPool;
+    alloc.commandPool        = pool;
     alloc.level              = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
     alloc.commandBufferCount = Config::MaxConcurrentFrames;
     vkCheck(vkAllocateCommandBuffers(vulkanState.device, &alloc, commandBuffer.rawData()));
 }
 
-void TransferEngine::Bucket::cleanup() {
+void TransferEngine::Bucket::cleanup(VkCommandPool pool) {
     for (unsigned int j = 0; j < Config::MaxConcurrentFrames; ++j) {
         for (unsigned int i = 0; i < stagingBuffers.getRaw(j).size(); ++i) {
             vmaDestroyBuffer(
@@ -46,10 +46,8 @@ void TransferEngine::Bucket::cleanup() {
         }
     }
     fence.cleanup([this](VkFence f) { vkDestroyFence(vulkanState.device, f, nullptr); });
-    vkFreeCommandBuffers(vulkanState.device,
-                         vulkanState.sharedCommandPool,
-                         Config::MaxConcurrentFrames,
-                         commandBuffer.rawData());
+    vkFreeCommandBuffers(
+        vulkanState.device, pool, Config::MaxConcurrentFrames, commandBuffer.rawData());
 }
 
 TransferEngine::TransferEngine(vk::VulkanState& vs)
@@ -61,13 +59,15 @@ TransferEngine::TransferEngine(vk::VulkanState& vs)
 }
 
 void TransferEngine::init() {
-    frameBucket.init();
-    immediateBucket.init();
+    commandPool = vulkanState.createCommandPool(VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT);
+    frameBucket.init(commandPool);
+    immediateBucket.init(commandPool);
 }
 
 void TransferEngine::cleanup() {
-    frameBucket.cleanup();
-    immediateBucket.cleanup();
+    frameBucket.cleanup(commandPool);
+    immediateBucket.cleanup(commandPool);
+    vkDestroyCommandPool(vulkanState.device, commandPool, nullptr);
 }
 
 prim::Vertex* TransferEngine::createOneTimeVertexStorage(std::uint32_t count) {

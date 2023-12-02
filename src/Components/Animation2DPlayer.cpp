@@ -4,14 +4,16 @@ namespace bl
 {
 namespace com
 {
-Animation2DPlayer::Animation2DPlayer(const resource::Ref<gfx::a2d::AnimationData>& a, bool p,
-                                     bool l)
-: animation(a)
+Animation2DPlayer::Animation2DPlayer(const resource::Ref<gfx::a2d::AnimationData>& a, bool s,
+                                     bool p, bool l)
+: forSlideshow(s)
+, animation(a)
 , currentState(0)
 , currentFrame(0)
 , isPlaying(p)
 , forceLoop(l)
 , frameTime(0.f)
+, playerIndex(InvalidIndex)
 , framePayload() {}
 
 void Animation2DPlayer::play(bool restart) {

@@ -352,6 +352,11 @@ void BatchIndexBufferT<T>::release(typename std::list<AllocInfo>::iterator it) {
         if (a.indexStart > alloc.indexStart) { a.indexStart -= alloc.indexSize; }
     }
 
+    // update values of affected indices
+    for (auto i : storage.indices()) {
+        if (i >= alloc.vertexStart) { i -= alloc.vertexSize; }
+    }
+
     // update metadata and commit
     usedVertices -= alloc.vertexSize;
     usedIndices -= alloc.indexSize;
@@ -361,8 +366,9 @@ void BatchIndexBufferT<T>::release(typename std::list<AllocInfo>::iterator it) {
 
 template<typename T>
 void BatchIndexBufferT<T>::commit() {
-    storage.insertBarrierBeforeWrite();
-    storage.queueTransfer(tfr::Transferable::SyncRequirement::Immediate);
+    if (storage.queueTransfer(tfr::Transferable::SyncRequirement::Immediate)) {
+        storage.insertBarrierBeforeWrite();
+    }
 }
 
 template<typename T>

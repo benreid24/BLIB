@@ -97,10 +97,7 @@ bool Buffer::ensureSize(VkDeviceSize newSize) {
         size                       = newSize;
         if (!doCreate()) { throw std::runtime_error("Failed to resize buffer"); }
 
-        // TODO - remove this when command buffers are thread safe
-        std::unique_lock lock(vulkanState->bufferAllocMutex);
-
-        VkCommandBuffer commandBuffer = vulkanState->beginSingleTimeCommands();
+        auto commandBuffer = vulkanState->sharedCommandPool.createBuffer();
 
         // copy old buffer into new
         VkBufferCopy copyCmd{};
@@ -128,7 +125,7 @@ bool Buffer::ensureSize(VkDeviceSize newSize) {
                              0,
                              nullptr);
 
-        vulkanState->endSingleTimeCommands(commandBuffer);
+        commandBuffer.submit();
 
         return true;
     }
@@ -143,7 +140,7 @@ void* Buffer::mapMemory() {
 void Buffer::unMapMemory() { vmaUnmapMemory(vulkanState->vmaAllocator, alloc); }
 
 void Buffer::insertPipelineBarrierBeforeChange() {
-    VkCommandBuffer cb = vulkanState->beginSingleTimeCommands();
+    auto cb = vulkanState->sharedCommandPool.createBuffer();
 
     VkBufferMemoryBarrier barrier{};
     barrier.sType         = VK_STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER;
@@ -163,7 +160,7 @@ void Buffer::insertPipelineBarrierBeforeChange() {
                          0,
                          nullptr);
 
-    vulkanState->endSingleTimeCommands(cb);
+    cb.submit();
 }
 
 } // namespace vk

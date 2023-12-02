@@ -3,6 +3,8 @@
 
 #include <BLIB/Components/Animation2D.hpp>
 #include <BLIB/Components/BatchedShapes2D.hpp>
+#include <BLIB/Components/BatchedSlideshows.hpp>
+#include <BLIB/Components/BatchedSprites.hpp>
 #include <BLIB/Components/Mesh.hpp>
 #include <BLIB/Components/Shape2D.hpp>
 #include <BLIB/Components/Slideshow.hpp>
@@ -29,6 +31,13 @@ using MeshSystem = DrawableSystem<com::Mesh>;
 using SpriteSystem = DrawableSystem<com::Sprite>;
 
 /**
+ * @brief Engine system for managing batched sprites
+ *
+ * @ingroup Systems
+ */
+using BatchedSpriteSystem = DrawableSystem<com::BatchedSprites>;
+
+/**
  * @brief Engine system for managing text entities
  *
  * @ingroup Systems
@@ -41,6 +50,13 @@ using TextSystem = DrawableSystem<com::Text>;
  * @ingroup Systems
  */
 using SlideshowSystem = DrawableSystem<com::Slideshow>;
+
+/**
+ * @brief Engine system for managing batched slideshow animations
+ *
+ * @ingroup Systems
+ */
+using BatchedSlideshowsSystem = DrawableSystem<com::BatchedSlideshows>;
 
 /**
  * @brief Engine system for managing non-slideshow animations
