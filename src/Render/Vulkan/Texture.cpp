@@ -98,7 +98,7 @@ void Texture::ensureSize(const glm::u32vec2& s) {
     create(s, format, usage);
 
     // copy from old to new
-    VkCommandBuffer cb = vulkanState->beginSingleTimeCommands();
+    auto cb = vulkanState->sharedCommandPool.createBuffer();
 
     VkImageCopy copyInfo{};
     copyInfo.extent.width                  = oldSize.x;
@@ -118,7 +118,7 @@ void Texture::ensureSize(const glm::u32vec2& s) {
                    1,
                    &copyInfo);
 
-    vulkanState->endSingleTimeCommands(cb);
+    cb.submit();
 
     parent->updateTexture(this);
 }

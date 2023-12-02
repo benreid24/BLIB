@@ -16,6 +16,8 @@ target_sources(BLIB PUBLIC
     RenderPass.hpp
     RenderPassParameters.hpp
     RenderTexture.hpp
+    SharedCommandBuffer.hpp
+    SharedCommandPool.hpp
     StandardAttachmentSet.hpp
     StandardAttachmentBuffers.hpp
     Swapchain.hpp

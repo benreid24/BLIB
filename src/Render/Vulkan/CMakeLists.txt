@@ -12,6 +12,8 @@ target_sources(BLIB PRIVATE
     RenderPass.cpp
     RenderPassParameters.cpp
     RenderTexture.cpp
+    SharedCommandBuffer.cpp
+    SharedCommandPool.cpp
     StandardAttachmentBuffers.cpp
     Swapchain.cpp
     Texture.cpp

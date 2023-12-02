@@ -128,6 +128,7 @@ T Configuration::getOrDefault(const std::string& key, const T& d) {
         if (jit != it->second.end()) { return *std::any_cast<T>(&jit->second); }
     }
 
+    BL_LOG_DEBUG << "Using default value for unset config: " << key << " value: " << d;
     return d;
 }
 
