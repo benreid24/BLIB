@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Serialization/Binary/InputFile.cpp Source File</title>
+<title>BLIB: src/Resources/ResourceManager.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,45 +66,47 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_e7c9606de6dc9534b0042ecacee5f21f.html">Serialization</a></li><li class="navelem"><a class="el" href="dir_0dbe044ffc6a709740d6a25d09c3d747.html">Binary</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_7a475d59e09b1ce69b1dfbc6b0817add.html">Resources</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">InputFile.cpp</div>  </div>
+<div class="title">ResourceManager.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01958.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01085.html">BLIB/Serialization/Binary/InputFile.hpp</a>&gt;</span></div>
+<a href="a01958.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01070.html">BLIB/Resources/ResourceManager.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02058.html">bl</a></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>serial</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01058.html">BLIB/Resources/GarbageCollector.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02100.html">bl</a></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>binary</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>resource</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a04062.html#aa6659b98d2fc65579eb58eecc981d01e">    9</a></span>&#160;<a class="code" href="a04062.html#aa6659b98d2fc65579eb58eecc981d01e">InputFile::InputFile</a>(<span class="keyword">const</span> std::string&amp; path)</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;: <a class="code" href="a04066.html">InputStream</a>(<a class="code" href="a01247.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>)</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;, file(path)</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;, input(path.c_str(), <a class="code" href="a02075.html">std</a>::ios::in | <a class="code" href="a02075.html">std</a>::ios::binary)</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;, <a class="code" href="a01247.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>(input) {}</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="a04062.html#a7763b6551d4cef2cc2c5325b94030bb7">   15</a></span>&#160;<span class="keyword">const</span> std::string&amp; <a class="code" href="a04062.html#a7763b6551d4cef2cc2c5325b94030bb7">InputFile::filename</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> file; }</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;} <span class="comment">// namespace binary</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;} <span class="comment">// namespace serial</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa01085_html"><div class="ttname"><a href="a01085.html">InputFile.hpp</a></div></div>
-<div class="ttc" id="aa01247_html_ad2ae6b0ac080ea0ac45f7a06ccc480ba"><div class="ttname"><a href="a01247.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a></div><div class="ttdeci">SoundHandle buffer</div><div class="ttdef"><b>Definition:</b> <a href="a01247_source.html#l00025">AudioSystem.cpp:25</a></div></div>
-<div class="ttc" id="aa02058_html"><div class="ttname"><a href="a02058.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02075_html"><div class="ttname"><a href="a02075.html">std</a></div><div class="ttdef"><b>Definition:</b> <a href="a00161_source.html#l00172">Entity.hpp:173</a></div></div>
-<div class="ttc" id="aa04062_html_a7763b6551d4cef2cc2c5325b94030bb7"><div class="ttname"><a href="a04062.html#a7763b6551d4cef2cc2c5325b94030bb7">bl::serial::binary::InputFile::filename</a></div><div class="ttdeci">const std::string &amp; filename() const</div><div class="ttdoc">Returns the filename used to open the file.</div><div class="ttdef"><b>Definition:</b> <a href="a01958_source.html#l00015">InputFile.cpp:15</a></div></div>
-<div class="ttc" id="aa04062_html_aa6659b98d2fc65579eb58eecc981d01e"><div class="ttname"><a href="a04062.html#aa6659b98d2fc65579eb58eecc981d01e">bl::serial::binary::InputFile::InputFile</a></div><div class="ttdeci">InputFile(const std::string &amp;path)</div><div class="ttdoc">Construct a new Binary Input File from a file path.</div><div class="ttdef"><b>Definition:</b> <a href="a01958_source.html#l00009">InputFile.cpp:9</a></div></div>
-<div class="ttc" id="aa04066_html"><div class="ttname"><a href="a04066.html">bl::serial::binary::InputStream</a></div><div class="ttdoc">A readable stream for binary deserialization.</div><div class="ttdef"><b>Definition:</b> <a href="a01088_source.html#l00028">InputStream.hpp:28</a></div></div>
+<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a04089.html#aefb504334dee80cd3692d5cd7492c48e">    9</a></span>&#160;<a class="code" href="a04089.html#aefb504334dee80cd3692d5cd7492c48e">ResourceManagerBase::ResourceManagerBase</a>()</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;: gcPeriod(300) {</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    GarbageCollector::get().registerManager(<span class="keyword">this</span>);</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;}</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="a04089.html#a772009bb487d321e8bd0d6fef65cd701">   14</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04089.html#a772009bb487d321e8bd0d6fef65cd701">ResourceManagerBase::unregister</a>() { GarbageCollector::get().unregisterManager(<span class="keyword">this</span>); }</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a04089.html#a3a86e73410fa6cf7c507341a09b1429b">   16</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04089.html#a3a86e73410fa6cf7c507341a09b1429b">ResourceManagerBase::getGCPeriod</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> gc) {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    gcPeriod = gc;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    GarbageCollector::get().managerPeriodChanged(<span class="keyword">this</span>);</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;}</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;} <span class="comment">// namespace resource</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa01058_html"><div class="ttname"><a href="a01058.html">GarbageCollector.hpp</a></div></div>
+<div class="ttc" id="aa01070_html"><div class="ttname"><a href="a01070.html">ResourceManager.hpp</a></div></div>
+<div class="ttc" id="aa02100_html"><div class="ttname"><a href="a02100.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04089_html_a3a86e73410fa6cf7c507341a09b1429b"><div class="ttname"><a href="a04089.html#a3a86e73410fa6cf7c507341a09b1429b">bl::resource::ResourceManagerBase::getGCPeriod</a></div><div class="ttdeci">void getGCPeriod(unsigned int period)</div><div class="ttdef"><b>Definition:</b> <a href="a01958_source.html#l00016">ResourceManager.cpp:16</a></div></div>
+<div class="ttc" id="aa04089_html_a772009bb487d321e8bd0d6fef65cd701"><div class="ttname"><a href="a04089.html#a772009bb487d321e8bd0d6fef65cd701">bl::resource::ResourceManagerBase::unregister</a></div><div class="ttdeci">void unregister()</div><div class="ttdef"><b>Definition:</b> <a href="a01958_source.html#l00014">ResourceManager.cpp:14</a></div></div>
+<div class="ttc" id="aa04089_html_aefb504334dee80cd3692d5cd7492c48e"><div class="ttname"><a href="a04089.html#aefb504334dee80cd3692d5cd7492c48e">bl::resource::ResourceManagerBase::ResourceManagerBase</a></div><div class="ttdeci">ResourceManagerBase()</div><div class="ttdef"><b>Definition:</b> <a href="a01958_source.html#l00009">ResourceManager.cpp:9</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Nov 29 2023 03:07:38 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Dec 2 2023 04:00:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

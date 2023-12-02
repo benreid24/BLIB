@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Containers/FastEraseVector.hpp Source File</title>
+<title>BLIB: include/BLIB/Components.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,60 +66,58 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_32e9a2f6b8be632bf999c595b5284fff.html">Containers</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">FastEraseVector.hpp</div>  </div>
+<div class="title">Components.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00110.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_CONTAINERS_FASTERASEVECTOR_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_CONTAINERS_FASTERASEVECTOR_HPP</span></div>
+<a href="a00110.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_COMPONENTS_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_COMPONENTS_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;algorithm&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02058.html">bl</a></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>ctr</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">class</span> T, <span class="keyword">class</span> Alloc = std::allocator&lt;T&gt;&gt;</div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a02326.html">   22</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02326.html">FastEraseVector</a> : <span class="keyword">public</span> std::vector&lt;T, Alloc&gt; {</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a02326.html#a8ecb676ceae1d63d038aeaf1027fc3ea">   24</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a02326.html#a8ecb676ceae1d63d038aeaf1027fc3ea">iterator</a> = <span class="keyword">typename</span> std::vector&lt;T, Alloc&gt;::iterator;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02326.html#a2311c45c3a001bf19a0e1ba03d66413a">erase</a>(<a class="code" href="a02326.html#a8ecb676ceae1d63d038aeaf1027fc3ea">iterator</a> position);</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02326.html#a2311c45c3a001bf19a0e1ba03d66413a">erase</a>(std::size_t index);</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;};</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">class</span> T, <span class="keyword">class</span> Alloc&gt;</div>
-<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="a02326.html#a2311c45c3a001bf19a0e1ba03d66413a">   44</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02326.html#a2311c45c3a001bf19a0e1ba03d66413a">FastEraseVector&lt;T, Alloc&gt;::erase</a>(<a class="code" href="a02326.html#a8ecb676ceae1d63d038aeaf1027fc3ea">iterator</a> position) {</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    std::swap(*position, std::vector&lt;T, Alloc&gt;::back());</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    std::vector&lt;T, Alloc&gt;::pop_back();</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;}</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">class</span> T, <span class="keyword">class</span> Alloc&gt;</div>
-<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="a02326.html#a2221d0efbe90ad0537e905e81bd6847e">   50</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02326.html#a2311c45c3a001bf19a0e1ba03d66413a">FastEraseVector&lt;T, Alloc&gt;::erase</a>(std::size_t i) {</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    std::swap((*<span class="keyword">this</span>)[i], std::vector&lt;T, Alloc&gt;::back());</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    std::vector&lt;T, Alloc&gt;::pop_back();</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;}</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;} <span class="comment">// namespace ctr</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa02058_html"><div class="ttname"><a href="a02058.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02326_html"><div class="ttname"><a href="a02326.html">bl::ctr::FastEraseVector</a></div><div class="ttdoc">A thin reskin of std::vector, this vector replaces the O(n) erase() methods of vector with a constant...</div><div class="ttdef"><b>Definition:</b> <a href="a00110_source.html#l00022">FastEraseVector.hpp:22</a></div></div>
-<div class="ttc" id="aa02326_html_a2311c45c3a001bf19a0e1ba03d66413a"><div class="ttname"><a href="a02326.html#a2311c45c3a001bf19a0e1ba03d66413a">bl::ctr::FastEraseVector::erase</a></div><div class="ttdeci">void erase(iterator position)</div><div class="ttdoc">Erase a single element using an iterator.</div><div class="ttdef"><b>Definition:</b> <a href="a00110_source.html#l00044">FastEraseVector.hpp:44</a></div></div>
-<div class="ttc" id="aa02326_html_a8ecb676ceae1d63d038aeaf1027fc3ea"><div class="ttname"><a href="a02326.html#a8ecb676ceae1d63d038aeaf1027fc3ea">bl::ctr::FastEraseVector::iterator</a></div><div class="ttdeci">typename std::vector&lt; T, Alloc &gt;::iterator iterator</div><div class="ttdef"><b>Definition:</b> <a href="a00110_source.html#l00024">FastEraseVector.hpp:24</a></div></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05635.html">BLIB/Components/Animation2D.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05641.html">BLIB/Components/Animation2DPlayer.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00071.html">BLIB/Components/BatchSceneLink.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05647.html">BLIB/Components/BatchedShapes2D.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05653.html">BLIB/Components/BatchedSlideshows.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05659.html">BLIB/Components/BatchedSprites.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00074.html">BLIB/Components/Mesh.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00077.html">BLIB/Components/Orientation3D.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00080.html">BLIB/Components/OverlayScaler.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05665.html">BLIB/Components/Shape2D.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05671.html">BLIB/Components/Slideshow.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05677.html">BLIB/Components/Sprite.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05689.html">BLIB/Components/Texture.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00098.html">BLIB/Components/Toggler.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05695.html">BLIB/Components/Transform2D.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00104.html">BLIB/Components/Transform3D.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00107.html">BLIB/Components/Velocity2D.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00071_html"><div class="ttname"><a href="a00071.html">BatchSceneLink.hpp</a></div></div>
+<div class="ttc" id="aa00074_html"><div class="ttname"><a href="a00074.html">Mesh.hpp</a></div></div>
+<div class="ttc" id="aa00077_html"><div class="ttname"><a href="a00077.html">Orientation3D.hpp</a></div></div>
+<div class="ttc" id="aa00080_html"><div class="ttname"><a href="a00080.html">OverlayScaler.hpp</a></div></div>
+<div class="ttc" id="aa00098_html"><div class="ttname"><a href="a00098.html">Toggler.hpp</a></div></div>
+<div class="ttc" id="aa00104_html"><div class="ttname"><a href="a00104.html">Transform3D.hpp</a></div></div>
+<div class="ttc" id="aa00107_html"><div class="ttname"><a href="a00107.html">Velocity2D.hpp</a></div></div>
+<div class="ttc" id="aa05635_html"><div class="ttname"><a href="a05635.html">Animation2D.hpp</a></div></div>
+<div class="ttc" id="aa05641_html"><div class="ttname"><a href="a05641.html">Animation2DPlayer.hpp</a></div></div>
+<div class="ttc" id="aa05647_html"><div class="ttname"><a href="a05647.html">BatchedShapes2D.hpp</a></div></div>
+<div class="ttc" id="aa05653_html"><div class="ttname"><a href="a05653.html">BatchedSlideshows.hpp</a></div></div>
+<div class="ttc" id="aa05659_html"><div class="ttname"><a href="a05659.html">BatchedSprites.hpp</a></div></div>
+<div class="ttc" id="aa05665_html"><div class="ttname"><a href="a05665.html">Shape2D.hpp</a></div></div>
+<div class="ttc" id="aa05671_html"><div class="ttname"><a href="a05671.html">Slideshow.hpp</a></div></div>
+<div class="ttc" id="aa05677_html"><div class="ttname"><a href="a05677.html">Sprite.hpp</a></div></div>
+<div class="ttc" id="aa05689_html"><div class="ttname"><a href="a05689.html">Texture.hpp</a></div></div>
+<div class="ttc" id="aa05695_html"><div class="ttname"><a href="a05695.html">Transform2D.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Nov 29 2023 03:07:37 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Dec 2 2023 04:00:54 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

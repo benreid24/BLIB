@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/ECS/View.hpp Source File</title>
+<title>BLIB: include/BLIB/ECS/Traits/ParentAwareVersioned.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,97 +66,99 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ce575a5afd2ea0954c4dff0006796805.html">ECS</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ce575a5afd2ea0954c4dff0006796805.html">ECS</a></li><li class="navelem"><a class="el" href="dir_659bc538448a0e8899465bc52d6638f0.html">Traits</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">View.hpp</div>  </div>
+<div class="title">ParentAwareVersioned.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00197.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_ECS_VIEW_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_ECS_VIEW_HPP</span></div>
+<a href="a00197.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_ECS_TRAITS_PARENTAWAREVERSIONED_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_ECS_TRAITS_PARENTAWAREVERSIONED_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00146.html">BLIB/ECS/ComponentMask.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00152.html">BLIB/ECS/ComponentSet.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00161.html">BLIB/ECS/Entity.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05586.html">BLIB/ECS/Events.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00179.html">BLIB/ECS/Tags.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00164.html">BLIB/Events.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05616.html">BLIB/Events/Listener.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01202.html">BLIB/Util/NonCopyable.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;array&gt;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;limits&gt;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;queue&gt;</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;typeindex&gt;</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02058.html">bl</a></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;{</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">namespace </span>ecs</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;{</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">class </span>Registry;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">namespace </span>priv</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;{</div>
-<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="a02542.html">   32</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02542.html">ViewBase</a> : <span class="keyword">private</span> <a class="code" href="a04458.html">util::NonCopyable</a> {</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="a02542.html#aafdfd8e3839e65877f319f37996af1aa">   34</a></span>&#160;    <span class="keyword">const</span> std::type_index <a class="code" href="a02542.html#aafdfd8e3839e65877f319f37996af1aa">id</a>;</div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="a02542.html#aaec4846781fb716ae60bc560bce90dfe">   35</a></span>&#160;    <span class="keyword">const</span> <a class="code" href="a02422.html">ComponentMask</a> <a class="code" href="a02542.html#aaec4846781fb716ae60bc560bce90dfe">mask</a>;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="a02542.html#a5969969dbaaa83ed0713eed8cd35ae17">   37</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02542.html#a5969969dbaaa83ed0713eed8cd35ae17">~ViewBase</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="a02542.html#aad663a90cdfb9c7d9f98aaf6ff89a488">   40</a></span>&#160;    <a class="code" href="a02542.html#aad663a90cdfb9c7d9f98aaf6ff89a488">ViewBase</a>(<a class="code" href="a02422.html">ComponentMask</a> <a class="code" href="a02542.html#aaec4846781fb716ae60bc560bce90dfe">mask</a>, std::type_index <span class="keywordtype">id</span>)</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    : <a class="code" href="a02542.html#aafdfd8e3839e65877f319f37996af1aa">id</a>(<a class="code" href="a02542.html#aafdfd8e3839e65877f319f37996af1aa">id</a>)</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    , <a class="code" href="a02542.html#aaec4846781fb716ae60bc560bce90dfe">mask</a>(<a class="code" href="a02542.html#aaec4846781fb716ae60bc560bce90dfe">mask</a>) {}</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="a02542.html#a1b85cace86a9ac96e0709123561754d9">   44</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02542.html#a1b85cace86a9ac96e0709123561754d9">removeEntity</a>(<a class="code" href="a02458.html">Entity</a> entity) = 0;</div>
-<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="a02542.html#af34b9807e8e8ee6f2b6e6acf2fa90f27">   45</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02542.html#af34b9807e8e8ee6f2b6e6acf2fa90f27">tryAddEntity</a>(<a class="code" href="a02458.html">Entity</a> entity) = 0;</div>
-<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="a02542.html#a6ce0458f819504dbf9c2b7e5b28401a8">   46</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02542.html#a6ce0458f819504dbf9c2b7e5b28401a8">clearAndRefresh</a>()           = 0;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="a02542.html#a732f6ebccb46b7e6d1a06877441c60a9">   48</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a02502.html">bl::ecs::Registry</a>;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;};</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;} <span class="comment">// namespace priv</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> TRequire, <span class="keyword">typename</span> TOptional = Optional&lt;&gt;, <span class="keyword">typename</span> TExclude = Exclude&lt;&gt;&gt;</div>
-<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="a02426.html">   61</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02426.html">View</a> : <span class="keyword">public</span> <a class="code" href="a02542.html">priv::ViewBase</a> {</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    static_assert(std::is_same_v&lt;TRequire, void&gt;,</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                  <span class="stringliteral">&quot;View must use tags. Example: View&lt;Require&lt;int, char&gt;, &quot;</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                  <span class="stringliteral">&quot;Optional&lt;std::string&gt;, Exclude&lt;unsigned&gt;&gt;&quot;</span>);</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;};</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;} <span class="comment">// namespace ecs</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00194.html">BLIB/ECS/Traits/ParentAware.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00200.html">BLIB/ECS/Traits/Versioned.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;limits&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02100.html">bl</a></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>ecs</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>trait</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a02585.html">   23</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02585.html">ParentAwareVersioned</a></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;: <span class="keyword">public</span> <a class="code" href="a02581.html">ParentAware</a>&lt;T&gt;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;, <span class="keyword">public</span> <a class="code" href="a02589.html">Versioned</a> {</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a02585.html#a25713b56a0155f6a27985c90c7028fbd">   30</a></span>&#160;    <a class="code" href="a02585.html#a25713b56a0155f6a27985c90c7028fbd">ParentAwareVersioned</a>()</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    : lastRefreshVersion(<a class="code" href="a02117.html">std</a>::numeric_limits&lt;<a class="code" href="a02117.html">std</a>::uint16_t&gt;::max())</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    , lastParentVersion(<a class="code" href="a02117.html">std</a>::numeric_limits&lt;<a class="code" href="a02117.html">std</a>::uint16_t&gt;::max())</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    , lastParent(nullptr) {}</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="a02585.html#a7e718ab7c98a9f55df78b46933c07c8f">   38</a></span>&#160;    <a class="code" href="a02585.html#a7e718ab7c98a9f55df78b46933c07c8f">ParentAwareVersioned</a>(<span class="keyword">const</span> <a class="code" href="a02585.html">ParentAwareVersioned</a>&amp;) = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="a02585.html#a0918e4fdb98af1efc77c5ad01a7606ab">   43</a></span>&#160;    <a class="code" href="a02585.html#a0918e4fdb98af1efc77c5ad01a7606ab">ParentAwareVersioned</a>(<a class="code" href="a02585.html">ParentAwareVersioned</a>&amp;&amp;) = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="a02585.html#adcf23c5e788b8996e14c9c04e2f7ac12">   48</a></span>&#160;    <a class="code" href="a02585.html">ParentAwareVersioned</a>&amp; <a class="code" href="a02585.html#adcf23c5e788b8996e14c9c04e2f7ac12">operator=</a>(<span class="keyword">const</span> <a class="code" href="a02585.html">ParentAwareVersioned</a>&amp;) = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="a02585.html#a987216f1e4582948cf76250687ebd4fe">   53</a></span>&#160;    <a class="code" href="a02585.html">ParentAwareVersioned</a>&amp; <a class="code" href="a02585.html#a987216f1e4582948cf76250687ebd4fe">operator=</a>(<a class="code" href="a02585.html">ParentAwareVersioned</a>&amp;&amp;) = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="a02585.html#a304a6ded9ccb6c48fa1e788e17887d90">   59</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a02585.html#a304a6ded9ccb6c48fa1e788e17887d90">refreshRequired</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="keywordflow">if</span> (lastRefreshVersion != <a class="code" href="a02589.html#aa588c79bb8fcd9436a0e57628859d41d">getVersion</a>()) { <span class="keywordflow">return</span> <span class="keyword">true</span>; }</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <span class="keywordflow">if</span> (this-&gt;<a class="code" href="a02581.html#ab780c69836a6fda54b7bb9d14c536c7f">hasParent</a>()) {</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            <span class="keyword">auto</span>&amp; parent = this-&gt;<a class="code" href="a02581.html#af956a8665be493c1af3a83e7b8b46b39">getParent</a>();</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            <span class="keywordflow">if</span> (lastParent != &amp;parent) { <span class="keywordflow">return</span> <span class="keyword">true</span>; }</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            <span class="keywordflow">if</span> (parent.getVersion() != lastParentVersion) { <span class="keywordflow">return</span> <span class="keyword">true</span>; }</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            <span class="keywordflow">return</span> parent.refreshRequired();</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        }</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <span class="keywordflow">return</span> lastParent != <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    }</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00146_html"><div class="ttname"><a href="a00146.html">ComponentMask.hpp</a></div></div>
-<div class="ttc" id="aa00152_html"><div class="ttname"><a href="a00152.html">ComponentSet.hpp</a></div></div>
-<div class="ttc" id="aa00161_html"><div class="ttname"><a href="a00161.html">Entity.hpp</a></div></div>
-<div class="ttc" id="aa00164_html"><div class="ttname"><a href="a00164.html">Events.hpp</a></div></div>
-<div class="ttc" id="aa00179_html"><div class="ttname"><a href="a00179.html">Tags.hpp</a></div></div>
-<div class="ttc" id="aa01202_html"><div class="ttname"><a href="a01202.html">NonCopyable.hpp</a></div></div>
-<div class="ttc" id="aa02058_html"><div class="ttname"><a href="a02058.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02422_html"><div class="ttname"><a href="a02422.html">bl::ecs::ComponentMask</a></div><div class="ttdoc">Helper struct for creating masks representing component types on an entity.</div><div class="ttdef"><b>Definition:</b> <a href="a00146_source.html#l00018">ComponentMask.hpp:18</a></div></div>
-<div class="ttc" id="aa02426_html"><div class="ttname"><a href="a02426.html">bl::ecs::View</a></div><div class="ttdoc">Base definition of the View class. Use the tagged specialization.</div><div class="ttdef"><b>Definition:</b> <a href="a00197_source.html#l00061">View.hpp:61</a></div></div>
-<div class="ttc" id="aa02458_html"><div class="ttname"><a href="a02458.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition:</b> <a href="a00161_source.html#l00024">Entity.hpp:24</a></div></div>
-<div class="ttc" id="aa02502_html"><div class="ttname"><a href="a02502.html">bl::ecs::Registry</a></div><div class="ttdoc">This is the main interface of the ECS. This class manages all entities and components and views and s...</div><div class="ttdef"><b>Definition:</b> <a href="a00176_source.html#l00032">Registry.hpp:32</a></div></div>
-<div class="ttc" id="aa02542_html"><div class="ttname"><a href="a02542.html">bl::ecs::priv::ViewBase</a></div><div class="ttdoc">Helper class not to be used directly.</div><div class="ttdef"><b>Definition:</b> <a href="a00197_source.html#l00032">View.hpp:32</a></div></div>
-<div class="ttc" id="aa02542_html_a1b85cace86a9ac96e0709123561754d9"><div class="ttname"><a href="a02542.html#a1b85cace86a9ac96e0709123561754d9">bl::ecs::priv::ViewBase::removeEntity</a></div><div class="ttdeci">virtual void removeEntity(Entity entity)=0</div></div>
-<div class="ttc" id="aa02542_html_a5969969dbaaa83ed0713eed8cd35ae17"><div class="ttname"><a href="a02542.html#a5969969dbaaa83ed0713eed8cd35ae17">bl::ecs::priv::ViewBase::~ViewBase</a></div><div class="ttdeci">virtual ~ViewBase()=default</div></div>
-<div class="ttc" id="aa02542_html_a6ce0458f819504dbf9c2b7e5b28401a8"><div class="ttname"><a href="a02542.html#a6ce0458f819504dbf9c2b7e5b28401a8">bl::ecs::priv::ViewBase::clearAndRefresh</a></div><div class="ttdeci">virtual void clearAndRefresh()=0</div></div>
-<div class="ttc" id="aa02542_html_aad663a90cdfb9c7d9f98aaf6ff89a488"><div class="ttname"><a href="a02542.html#aad663a90cdfb9c7d9f98aaf6ff89a488">bl::ecs::priv::ViewBase::ViewBase</a></div><div class="ttdeci">ViewBase(ComponentMask mask, std::type_index id)</div><div class="ttdef"><b>Definition:</b> <a href="a00197_source.html#l00040">View.hpp:40</a></div></div>
-<div class="ttc" id="aa02542_html_aaec4846781fb716ae60bc560bce90dfe"><div class="ttname"><a href="a02542.html#aaec4846781fb716ae60bc560bce90dfe">bl::ecs::priv::ViewBase::mask</a></div><div class="ttdeci">const ComponentMask mask</div><div class="ttdef"><b>Definition:</b> <a href="a00197_source.html#l00035">View.hpp:35</a></div></div>
-<div class="ttc" id="aa02542_html_aafdfd8e3839e65877f319f37996af1aa"><div class="ttname"><a href="a02542.html#aafdfd8e3839e65877f319f37996af1aa">bl::ecs::priv::ViewBase::id</a></div><div class="ttdeci">const std::type_index id</div><div class="ttdef"><b>Definition:</b> <a href="a00197_source.html#l00034">View.hpp:34</a></div></div>
-<div class="ttc" id="aa02542_html_af34b9807e8e8ee6f2b6e6acf2fa90f27"><div class="ttname"><a href="a02542.html#af34b9807e8e8ee6f2b6e6acf2fa90f27">bl::ecs::priv::ViewBase::tryAddEntity</a></div><div class="ttdeci">virtual void tryAddEntity(Entity entity)=0</div></div>
-<div class="ttc" id="aa04458_html"><div class="ttname"><a href="a04458.html">bl::util::NonCopyable</a></div><div class="ttdoc">Helper class to make derived classes impossible for user to copy directly.</div><div class="ttdef"><b>Definition:</b> <a href="a01202_source.html#l00013">NonCopyable.hpp:13</a></div></div>
-<div class="ttc" id="aa05586_html"><div class="ttname"><a href="a05586.html">Events.hpp</a></div></div>
-<div class="ttc" id="aa05616_html"><div class="ttname"><a href="a05616.html">Listener.hpp</a></div></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="a02585.html#a1318a18bf58404bb724762666ee8c971">   74</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02585.html#a1318a18bf58404bb724762666ee8c971">markRefreshed</a>() {</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        lastRefreshVersion = <a class="code" href="a02589.html#aa588c79bb8fcd9436a0e57628859d41d">getVersion</a>();</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        <span class="keywordflow">if</span> (this-&gt;<a class="code" href="a02581.html#ab780c69836a6fda54b7bb9d14c536c7f">hasParent</a>()) {</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;            lastParentVersion = this-&gt;<a class="code" href="a02581.html#af956a8665be493c1af3a83e7b8b46b39">getParent</a>().getVersion();</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;            lastParent        = &amp;this-&gt;<a class="code" href="a02581.html#af956a8665be493c1af3a83e7b8b46b39">getParent</a>();</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        }</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        <span class="keywordflow">else</span> { lastParent = <span class="keyword">nullptr</span>; }</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    }</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    std::uint16_t lastRefreshVersion;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    std::uint16_t lastParentVersion;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <a class="code" href="a02585.html">ParentAwareVersioned</a>* lastParent;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;};</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;} <span class="comment">// namespace trait</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;} <span class="comment">// namespace ecs</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00194_html"><div class="ttname"><a href="a00194.html">ParentAware.hpp</a></div></div>
+<div class="ttc" id="aa00200_html"><div class="ttname"><a href="a00200.html">Versioned.hpp</a></div></div>
+<div class="ttc" id="aa02100_html"><div class="ttname"><a href="a02100.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02117_html"><div class="ttname"><a href="a02117.html">std</a></div><div class="ttdef"><b>Definition:</b> <a href="a00167_source.html#l00172">Entity.hpp:173</a></div></div>
+<div class="ttc" id="aa02581_html"><div class="ttname"><a href="a02581.html">bl::ecs::trait::ParentAware</a></div><div class="ttdoc">Component trait for components that are parent-able. Parent is set in the Registry as an entity-level...</div><div class="ttdef"><b>Definition:</b> <a href="a00194_source.html#l00025">ParentAware.hpp:25</a></div></div>
+<div class="ttc" id="aa02581_html_ab780c69836a6fda54b7bb9d14c536c7f"><div class="ttname"><a href="a02581.html#ab780c69836a6fda54b7bb9d14c536c7f">bl::ecs::trait::ParentAware::hasParent</a></div><div class="ttdeci">bool hasParent() const</div><div class="ttdoc">Returns whether or not a parent has been set.</div><div class="ttdef"><b>Definition:</b> <a href="a00194_source.html#l00060">ParentAware.hpp:60</a></div></div>
+<div class="ttc" id="aa02581_html_af956a8665be493c1af3a83e7b8b46b39"><div class="ttname"><a href="a02581.html#af956a8665be493c1af3a83e7b8b46b39">bl::ecs::trait::ParentAware::getParent</a></div><div class="ttdeci">T &amp; getParent()</div><div class="ttdoc">Returns the parent component.</div><div class="ttdef"><b>Definition:</b> <a href="a00194_source.html#l00065">ParentAware.hpp:65</a></div></div>
+<div class="ttc" id="aa02585_html"><div class="ttname"><a href="a02585.html">bl::ecs::trait::ParentAwareVersioned</a></div><div class="ttdoc">Combined trait that is both parent aware and versioned. Maintains an internal dirty state that derive...</div><div class="ttdef"><b>Definition:</b> <a href="a00197_source.html#l00023">ParentAwareVersioned.hpp:25</a></div></div>
+<div class="ttc" id="aa02585_html_a0918e4fdb98af1efc77c5ad01a7606ab"><div class="ttname"><a href="a02585.html#a0918e4fdb98af1efc77c5ad01a7606ab">bl::ecs::trait::ParentAwareVersioned::ParentAwareVersioned</a></div><div class="ttdeci">ParentAwareVersioned(ParentAwareVersioned &amp;&amp;)=default</div><div class="ttdoc">Default move constructor.</div></div>
+<div class="ttc" id="aa02585_html_a1318a18bf58404bb724762666ee8c971"><div class="ttname"><a href="a02585.html#a1318a18bf58404bb724762666ee8c971">bl::ecs::trait::ParentAwareVersioned::markRefreshed</a></div><div class="ttdeci">void markRefreshed()</div><div class="ttdoc">Marks the component as refreshed.</div><div class="ttdef"><b>Definition:</b> <a href="a00197_source.html#l00074">ParentAwareVersioned.hpp:74</a></div></div>
+<div class="ttc" id="aa02585_html_a25713b56a0155f6a27985c90c7028fbd"><div class="ttname"><a href="a02585.html#a25713b56a0155f6a27985c90c7028fbd">bl::ecs::trait::ParentAwareVersioned::ParentAwareVersioned</a></div><div class="ttdeci">ParentAwareVersioned()</div><div class="ttdoc">Creates the trait and registers as dirty.</div><div class="ttdef"><b>Definition:</b> <a href="a00197_source.html#l00030">ParentAwareVersioned.hpp:30</a></div></div>
+<div class="ttc" id="aa02585_html_a304a6ded9ccb6c48fa1e788e17887d90"><div class="ttname"><a href="a02585.html#a304a6ded9ccb6c48fa1e788e17887d90">bl::ecs::trait::ParentAwareVersioned::refreshRequired</a></div><div class="ttdeci">bool refreshRequired() const</div><div class="ttdoc">Returns whether or not this component needs to be refreshed. Takes into account parent state as well,...</div><div class="ttdef"><b>Definition:</b> <a href="a00197_source.html#l00059">ParentAwareVersioned.hpp:59</a></div></div>
+<div class="ttc" id="aa02585_html_a7e718ab7c98a9f55df78b46933c07c8f"><div class="ttname"><a href="a02585.html#a7e718ab7c98a9f55df78b46933c07c8f">bl::ecs::trait::ParentAwareVersioned::ParentAwareVersioned</a></div><div class="ttdeci">ParentAwareVersioned(const ParentAwareVersioned &amp;)=default</div><div class="ttdoc">Default copy constructor.</div></div>
+<div class="ttc" id="aa02585_html_a987216f1e4582948cf76250687ebd4fe"><div class="ttname"><a href="a02585.html#a987216f1e4582948cf76250687ebd4fe">bl::ecs::trait::ParentAwareVersioned::operator=</a></div><div class="ttdeci">ParentAwareVersioned &amp; operator=(ParentAwareVersioned &amp;&amp;)=default</div><div class="ttdoc">Default move assignment.</div></div>
+<div class="ttc" id="aa02585_html_adcf23c5e788b8996e14c9c04e2f7ac12"><div class="ttname"><a href="a02585.html#adcf23c5e788b8996e14c9c04e2f7ac12">bl::ecs::trait::ParentAwareVersioned::operator=</a></div><div class="ttdeci">ParentAwareVersioned &amp; operator=(const ParentAwareVersioned &amp;)=default</div><div class="ttdoc">Default copy assignment.</div></div>
+<div class="ttc" id="aa02589_html"><div class="ttname"><a href="a02589.html">bl::ecs::trait::Versioned</a></div><div class="ttdoc">Component trait for versions. Versions are a more robust dirty state, allowing observers of the compo...</div><div class="ttdef"><b>Definition:</b> <a href="a00200_source.html#l00018">Versioned.hpp:18</a></div></div>
+<div class="ttc" id="aa02589_html_aa588c79bb8fcd9436a0e57628859d41d"><div class="ttname"><a href="a02589.html#aa588c79bb8fcd9436a0e57628859d41d">bl::ecs::trait::Versioned::getVersion</a></div><div class="ttdeci">std::uint16_t getVersion() const</div><div class="ttdoc">Returns the current version of the component. The value itself is not important, only changes in the ...</div><div class="ttdef"><b>Definition:</b> <a href="a00200_source.html#l00050">Versioned.hpp:50</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Nov 29 2023 03:07:37 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Dec 2 2023 04:00:54 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

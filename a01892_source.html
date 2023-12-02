@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Resources/Bundling/FileHandlerContext.cpp Source File</title>
+<title>BLIB: src/Render/Vulkan/SharedCommandBuffer.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,41 +66,69 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_7a475d59e09b1ce69b1dfbc6b0817add.html">Resources</a></li><li class="navelem"><a class="el" href="dir_650c2bb72fa499737589ce0469633186.html">Bundling</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_2a24e9216d188d12785cf0650df1274b.html">Vulkan</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">FileHandlerContext.cpp</div>  </div>
+<div class="title">SharedCommandBuffer.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01892.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01019.html">BLIB/Resources/Bundling/FileHandlerContext.hpp</a>&gt;</span></div>
+<a href="a01892.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00995.html">BLIB/Render/Vulkan/SharedCommandBuffer.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02058.html">bl</a></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>resource</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>bundle</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;FileHandlerContext::FileHandlerContext(std::unordered_set&lt;std::string&gt;&amp; excludes,</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;                                       std::stack&lt;std::string, std::vector&lt;std::string&gt;&gt;&amp; fileStack)</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;: excludes(excludes)</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;, fileList(fileStack) {}</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="a03918.html#a117fbcb7e5871373ebb7270b39b20721">   14</a></span>&#160;<span class="keywordtype">void</span> FileHandlerContext::addDependencyFile(<span class="keyword">const</span> std::string&amp; path) { fileList.emplace(path); }</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a03918.html#acf80fad2b5d9f50e479ef3182d34c447">   16</a></span>&#160;<span class="keywordtype">void</span> FileHandlerContext::addExcludeFile(<span class="keyword">const</span> std::string&amp; path) { excludes.emplace(path); }</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;} <span class="comment">// namespace bundle</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;} <span class="comment">// namespace resource</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa01019_html"><div class="ttname"><a href="a01019.html">FileHandlerContext.hpp</a></div></div>
-<div class="ttc" id="aa02058_html"><div class="ttname"><a href="a02058.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00641.html">BLIB/Logging.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00998.html">BLIB/Render/Vulkan/SharedCommandPool.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02100.html">bl</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>vk</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="a03925.html#a3df3e5d5f1ba7bb4b432b8410768330f">   12</a></span>&#160;SharedCommandBuffer::SharedCommandBuffer(<a class="code" href="a03925.html">SharedCommandBuffer</a>&amp;&amp; move)</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;: owner(move.owner)</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;, <a class="code" href="a01268.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>(move.<a class="code" href="a01268.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>) {</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    move.owner  = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    move.buffer = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;}</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;SharedCommandBuffer::SharedCommandBuffer(<a class="code" href="a03929.html">SharedCommandPool</a>* owner, VkCommandBuffer <a class="code" href="a01268.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>)</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;: owner(owner)</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;, <a class="code" href="a01268.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>(<a class="code" href="a01268.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>) {}</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a03925.html#a3d4ca4bd67e357a4a5580b1b1aa0cd52">   23</a></span>&#160;<a class="code" href="a03925.html#a3d4ca4bd67e357a4a5580b1b1aa0cd52">SharedCommandBuffer::~SharedCommandBuffer</a>() {</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordflow">if</span> (owner &amp;&amp; buffer) {</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <a class="code" href="a00635.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Command buffer destroyed without being submitted&quot;</span>;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        owner-&gt;mutex.unlock();</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    }</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;}</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a03925.html#a9672efb9777484cc47217323b31567b4">   30</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03925.html#a9672efb9777484cc47217323b31567b4">SharedCommandBuffer::submit</a>() {</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordflow">if</span> (owner &amp;&amp; buffer) {</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        owner-&gt;submit(*<span class="keyword">this</span>);</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        owner  = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        buffer = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    }</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;}</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;} <span class="comment">// namespace vk</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00635_html_a927270d671e83a1c6b5382f30bfbf895"><div class="ttname"><a href="a00635.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a></div><div class="ttdeci">#define BL_LOG_ERROR</div><div class="ttdoc">Helper macro to log at error level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00635_source.html#l00101">Logger.hpp:101</a></div></div>
+<div class="ttc" id="aa00641_html"><div class="ttname"><a href="a00641.html">Logging.hpp</a></div></div>
+<div class="ttc" id="aa00995_html"><div class="ttname"><a href="a00995.html">SharedCommandBuffer.hpp</a></div></div>
+<div class="ttc" id="aa00998_html"><div class="ttname"><a href="a00998.html">SharedCommandPool.hpp</a></div></div>
+<div class="ttc" id="aa01268_html_ad2ae6b0ac080ea0ac45f7a06ccc480ba"><div class="ttname"><a href="a01268.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a></div><div class="ttdeci">SoundHandle buffer</div><div class="ttdef"><b>Definition:</b> <a href="a01268_source.html#l00025">AudioSystem.cpp:25</a></div></div>
+<div class="ttc" id="aa02100_html"><div class="ttname"><a href="a02100.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03925_html"><div class="ttname"><a href="a03925.html">bl::rc::vk::SharedCommandBuffer</a></div><div class="ttdoc">Wrapper around a command buffer allocated from a SharedCommandPool.</div><div class="ttdef"><b>Definition:</b> <a href="a00995_source.html#l00019">SharedCommandBuffer.hpp:19</a></div></div>
+<div class="ttc" id="aa03925_html_a3d4ca4bd67e357a4a5580b1b1aa0cd52"><div class="ttname"><a href="a03925.html#a3d4ca4bd67e357a4a5580b1b1aa0cd52">bl::rc::vk::SharedCommandBuffer::~SharedCommandBuffer</a></div><div class="ttdeci">~SharedCommandBuffer()</div><div class="ttdoc">Releases the lock on the pool if not already submitted.</div><div class="ttdef"><b>Definition:</b> <a href="a01892_source.html#l00023">SharedCommandBuffer.cpp:23</a></div></div>
+<div class="ttc" id="aa03925_html_a9672efb9777484cc47217323b31567b4"><div class="ttname"><a href="a03925.html#a9672efb9777484cc47217323b31567b4">bl::rc::vk::SharedCommandBuffer::submit</a></div><div class="ttdeci">void submit()</div><div class="ttdoc">Submits the buffer and releases the lock on the pool.</div><div class="ttdef"><b>Definition:</b> <a href="a01892_source.html#l00030">SharedCommandBuffer.cpp:30</a></div></div>
+<div class="ttc" id="aa03929_html"><div class="ttname"><a href="a03929.html">bl::rc::vk::SharedCommandPool</a></div><div class="ttdoc">Wrapper around a Vulkan command pool that is intended to be shared for short-lived command buffers....</div><div class="ttdef"><b>Definition:</b> <a href="a00998_source.html#l00023">SharedCommandPool.hpp:23</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Nov 29 2023 03:07:38 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Dec 2 2023 04:00:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

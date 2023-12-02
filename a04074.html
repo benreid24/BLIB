@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::serial::binary::OutputStream Class Reference</title>
+<title>BLIB: Member List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,203 +66,39 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02058.html">bl</a></li><li class="navelem"><a class="el" href="a02061.html">serial</a></li><li class="navelem"><a class="el" href="a02114.html">binary</a></li><li class="navelem"><a class="el" href="a04074.html">OutputStream</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02100.html">bl</a></li><li class="navelem"><a class="el" href="a02153.html">resource</a></li><li class="navelem"><a class="el" href="a04077.html">Ref</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="a04071.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::serial::binary::OutputStream Class Reference<div class="ingroups"><a class="el" href="a02048.html">Serialization</a> &raquo; <a class="el" href="a02057.html">Binary</a></div></div>  </div>
+<div class="title">bl::resource::Ref&lt; TResourceType &gt; Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>A writable stream for binary serialization.  
- <a href="a04074.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="a01094_source.html">OutputStream.hpp</a>&gt;</code></p>
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::serial::binary::OutputStream:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
- <div class="center">
-  <img src="a04074.png" usemap="#bl::serial::binary::OutputStream_map" alt=""/>
-  <map id="bl::serial::binary::OutputStream_map" name="bl::serial::binary::OutputStream_map">
-<area href="a04070.html" title="Helper wrapper class that encapsulates a file, a buffer, and a stream." alt="bl::serial::binary::OutputFile" shape="rect" coords="0,56,183,80"/>
-  </map>
-</div></div>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a626d48b72224f324866a4afd57af81b3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04074.html#a626d48b72224f324866a4afd57af81b3">OutputStream</a> (<a class="el" href="a04194.html">OutputBuffer</a> &amp;buffer)</td></tr>
-<tr class="memdesc:a626d48b72224f324866a4afd57af81b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Output Stream.  <a href="a04074.html#a626d48b72224f324866a4afd57af81b3">More...</a><br /></td></tr>
-<tr class="separator:a626d48b72224f324866a4afd57af81b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac4410d9f4e7f1bd5efd08dc7a01ec3f3"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ac4410d9f4e7f1bd5efd08dc7a01ec3f3"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if&lt; std::is_integral_v&lt; T &gt;, bool &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a04074.html#ac4410d9f4e7f1bd5efd08dc7a01ec3f3">write</a> (const T &amp;data)</td></tr>
-<tr class="memdesc:ac4410d9f4e7f1bd5efd08dc7a01ec3f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes an integral type to the stream in it's binary representation.  <a href="a04074.html#ac4410d9f4e7f1bd5efd08dc7a01ec3f3">More...</a><br /></td></tr>
-<tr class="separator:ac4410d9f4e7f1bd5efd08dc7a01ec3f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a21f37530f8f42f779c58cd8fea566afe"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04074.html#a21f37530f8f42f779c58cd8fea566afe">write</a> (const std::string &amp;data)</td></tr>
-<tr class="memdesc:a21f37530f8f42f779c58cd8fea566afe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the string to the stream. Stores 4 bytes for the length, then the content of the string.  <a href="a04074.html#a21f37530f8f42f779c58cd8fea566afe">More...</a><br /></td></tr>
-<tr class="separator:a21f37530f8f42f779c58cd8fea566afe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a80d05e18a69fc45887a82f643c7a4cdd"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04074.html#a80d05e18a69fc45887a82f643c7a4cdd">good</a> () const</td></tr>
-<tr class="memdesc:a80d05e18a69fc45887a82f643c7a4cdd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the status of the stream.  <a href="a04074.html#a80d05e18a69fc45887a82f643c7a4cdd">More...</a><br /></td></tr>
-<tr class="separator:a80d05e18a69fc45887a82f643c7a4cdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>A writable stream for binary serialization. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01094_source.html#l00022">22</a> of file <a class="el" href="a01094_source.html">OutputStream.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a626d48b72224f324866a4afd57af81b3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a626d48b72224f324866a4afd57af81b3">&#9670;&nbsp;</a></span>OutputStream()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::serial::binary::OutputStream::OutputStream </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a04194.html">OutputBuffer</a> &amp;&#160;</td>
-          <td class="paramname"><em>buffer</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Construct a new Output Stream. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">buffer</td><td>The underlying buffer to write to </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01094_source.html#l00062">62</a> of file <a class="el" href="a01094_source.html">OutputStream.hpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a80d05e18a69fc45887a82f643c7a4cdd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a80d05e18a69fc45887a82f643c7a4cdd">&#9670;&nbsp;</a></span>good()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::serial::binary::OutputStream::good </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the status of the stream. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01094_source.html#l00088">88</a> of file <a class="el" href="a01094_source.html">OutputStream.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a21f37530f8f42f779c58cd8fea566afe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a21f37530f8f42f779c58cd8fea566afe">&#9670;&nbsp;</a></span>write() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::serial::binary::OutputStream::write </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>data</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Writes the string to the stream. Stores 4 bytes for the length, then the content of the string. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">data</td><td>The string to write </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>bool True if the value could be written </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a01094_source.html#l00082">82</a> of file <a class="el" href="a01094_source.html">OutputStream.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ac4410d9f4e7f1bd5efd08dc7a01ec3f3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac4410d9f4e7f1bd5efd08dc7a01ec3f3">&#9670;&nbsp;</a></span>write() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">std::enable_if&lt; std::is_integral_v&lt; T &gt;, bool &gt;::type bl::serial::binary::OutputStream::write </td>
-          <td>(</td>
-          <td class="paramtype">const T &amp;&#160;</td>
-          <td class="paramname"><em>data</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Writes an integral type to the stream in it's binary representation. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">T</td><td>The type to write. It is better to be explicit for code to be cross platform </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">data</td><td>The value to write </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>bool True if the value could be written </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a01094_source.html#l00066">66</a> of file <a class="el" href="a01094_source.html">OutputStream.hpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>include/BLIB/Serialization/Binary/<a class="el" href="a01094_source.html">OutputStream.hpp</a></li>
-</ul>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="a04077.html">bl::resource::Ref&lt; TResourceType &gt;</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="a04077.html#a1f478c0a2406af99110fc7f31d69587d">forceInCache</a>(bool force=true)</td><td class="entry"><a class="el" href="a04077.html">bl::resource::Ref&lt; TResourceType &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a04077.html#a356bff39b6254c3d12d522b33de2bd66">get</a>()</td><td class="entry"><a class="el" href="a04077.html">bl::resource::Ref&lt; TResourceType &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a04077.html#a00b466b079ddda423c3f2d661af19cc6">get</a>() const</td><td class="entry"><a class="el" href="a04077.html">bl::resource::Ref&lt; TResourceType &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a04077.html#ab4971339d6bc377a1679c552cd3069b1">gui::Font</a></td><td class="entry"><a class="el" href="a04077.html">bl::resource::Ref&lt; TResourceType &gt;</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a04077.html#a38eb67a2dbd29a87cfa4859dc11b0290">operator bool</a>() const</td><td class="entry"><a class="el" href="a04077.html">bl::resource::Ref&lt; TResourceType &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a04077.html#a6018425045a28689ecb3c2665083d60e">operator*</a>()</td><td class="entry"><a class="el" href="a04077.html">bl::resource::Ref&lt; TResourceType &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a04077.html#afcddf98fab49bc55e0d4b0d93e0768b0">operator*</a>() const</td><td class="entry"><a class="el" href="a04077.html">bl::resource::Ref&lt; TResourceType &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a04077.html#a9c25de9b6f9e367dcf4219925ff59d04">operator-&gt;</a>()</td><td class="entry"><a class="el" href="a04077.html">bl::resource::Ref&lt; TResourceType &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a04077.html#a5697eeb0148d6768d395865cd8bde361">operator-&gt;</a>() const</td><td class="entry"><a class="el" href="a04077.html">bl::resource::Ref&lt; TResourceType &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a04077.html#abaea3846d5c6f42711e7a84a80356de0">operator=</a>(const Ref &amp;copy)</td><td class="entry"><a class="el" href="a04077.html">bl::resource::Ref&lt; TResourceType &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a04077.html#a683c10e69eec08df622b9902fca1c115">operator=</a>(Ref &amp;&amp;copy) noexcept</td><td class="entry"><a class="el" href="a04077.html">bl::resource::Ref&lt; TResourceType &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a04077.html#a456218f5b8fddcd2ab7698c3ccf97cbf">Ref</a>()</td><td class="entry"><a class="el" href="a04077.html">bl::resource::Ref&lt; TResourceType &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a04077.html#aefbe2d35674fbc2880676de2d48f562e">Ref</a>(const Ref &amp;copy)</td><td class="entry"><a class="el" href="a04077.html">bl::resource::Ref&lt; TResourceType &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a04077.html#a3a5f210e53b7e03216a22605d6bfd9b6">Ref</a>(Ref &amp;&amp;copy)</td><td class="entry"><a class="el" href="a04077.html">bl::resource::Ref&lt; TResourceType &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a04077.html#a50fd528f3507d277bd2466cafac037d9">release</a>()</td><td class="entry"><a class="el" href="a04077.html">bl::resource::Ref&lt; TResourceType &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a04077.html#a2dab980cf405a16640657cc953f8c18f">ResourceManager&lt; TResourceType &gt;</a> class</td><td class="entry"><a class="el" href="a04077.html">bl::resource::Ref&lt; TResourceType &gt;</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a04077.html#a0c55db25c96fa9e7ab3e56fccdd1f040">~Ref</a>()</td><td class="entry"><a class="el" href="a04077.html">bl::resource::Ref&lt; TResourceType &gt;</a></td><td class="entry"></td></tr>
+</table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Nov 29 2023 03:07:40 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Dec 2 2023 04:00:57 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

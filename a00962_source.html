@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Vulkan/Pipeline.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Vulkan/DescriptorSet.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,84 +71,78 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Pipeline.hpp</div>  </div>
+<div class="title">DescriptorSet.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00962.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_VULKAN_PIPELINE_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_VULKAN_PIPELINE_HPP</span></div>
+<a href="a00962.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_VULKAN_DESCRIPTORSET_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_VULKAN_DESCRIPTORSET_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05655.html">BLIB/Render/Config.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00752.html">BLIB/Render/Descriptors/DescriptorSetInstanceCache.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00965.html">BLIB/Render/Vulkan/PipelineLayout.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00968.html">BLIB/Render/Vulkan/PipelineParameters.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00992.html">BLIB/Render/Vulkan/VulkanState.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01244.html">BLIB/Vulkan.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;array&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;variant&gt;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00959.html">BLIB/Render/Vulkan/DescriptorPool.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01265.html">BLIB/Vulkan.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02100.html">bl</a></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>vk</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">struct </span>VulkanState;</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02058.html">bl</a></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">namespace </span>rc</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;{</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">class </span>Renderer;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">class </span>PipelineCache;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">namespace </span>vk</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;{</div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a03806.html">   30</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03806.html">Pipeline</a> {</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <a class="code" href="a03806.html#a03224c8b83adbe3ff812ce8a7df427fc">Pipeline</a>(<a class="code" href="a03602.html">Renderer</a>&amp; renderer, <a class="code" href="a03826.html">PipelineParameters</a>&amp;&amp; params);</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <a class="code" href="a03806.html#a1d57975a718d565a44e8c07c95332326">~Pipeline</a>();</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    constexpr <span class="keyword">const</span> <a class="code" href="a03810.html">PipelineLayout</a>&amp; <a class="code" href="a03806.html#a8a9980440a4260616ae1597e7c09dd44">pipelineLayout</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    VkPipeline <a class="code" href="a03806.html#a1e4a1d5a83d4391cb2f92917d1bdb9b6">rawPipeline</a>(std::uint32_t renderPassId) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03806.html#a4dbf56eca4795bb6bae91f2c7fb4e330">bind</a>(VkCommandBuffer commandBuffer, std::uint32_t renderPassId);</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <a class="code" href="a03602.html">Renderer</a>&amp; renderer;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <a class="code" href="a03810.html">PipelineLayout</a>* layout;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    std::array&lt;VkPipeline, Config::MaxRenderPasses&gt; pipelines;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="a03806.html#a3c6e79faddcf860d9ddab95307145e2f">   73</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a03806.html#a3c6e79faddcf860d9ddab95307145e2f">PipelineCache</a>;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;};</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno"><a class="line" href="a03806.html#a8a9980440a4260616ae1597e7c09dd44">   78</a></span>&#160;<span class="keyword">inline</span> constexpr <span class="keyword">const</span> <a class="code" href="a03810.html">PipelineLayout</a>&amp; <a class="code" href="a03806.html#a8a9980440a4260616ae1597e7c09dd44">Pipeline::pipelineLayout</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> *layout; }</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="a03806.html#a1e4a1d5a83d4391cb2f92917d1bdb9b6">   80</a></span>&#160;<span class="keyword">inline</span> VkPipeline <a class="code" href="a03806.html#a1e4a1d5a83d4391cb2f92917d1bdb9b6">Pipeline::rawPipeline</a>(std::uint32_t rpid)<span class="keyword"> const </span>{ <span class="keywordflow">return</span> pipelines[rpid]; }</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;} <span class="comment">// namespace vk</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00752_html"><div class="ttname"><a href="a00752.html">DescriptorSetInstanceCache.hpp</a></div></div>
-<div class="ttc" id="aa00965_html"><div class="ttname"><a href="a00965.html">PipelineLayout.hpp</a></div></div>
-<div class="ttc" id="aa00968_html"><div class="ttname"><a href="a00968.html">PipelineParameters.hpp</a></div></div>
-<div class="ttc" id="aa00992_html"><div class="ttname"><a href="a00992.html">VulkanState.hpp</a></div></div>
-<div class="ttc" id="aa01244_html"><div class="ttname"><a href="a01244.html">Vulkan.hpp</a></div></div>
-<div class="ttc" id="aa02058_html"><div class="ttname"><a href="a02058.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03602_html"><div class="ttname"><a href="a03602.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition:</b> <a href="a05640_source.html#l00039">Renderer.hpp:39</a></div></div>
-<div class="ttc" id="aa03806_html"><div class="ttname"><a href="a03806.html">bl::rc::vk::Pipeline</a></div><div class="ttdoc">Core renderer class representing a pipeline that is a part of a RenderPass. Pipelines are managed by ...</div><div class="ttdef"><b>Definition:</b> <a href="a00962_source.html#l00030">Pipeline.hpp:30</a></div></div>
-<div class="ttc" id="aa03806_html_a03224c8b83adbe3ff812ce8a7df427fc"><div class="ttname"><a href="a03806.html#a03224c8b83adbe3ff812ce8a7df427fc">bl::rc::vk::Pipeline::Pipeline</a></div><div class="ttdeci">Pipeline(Renderer &amp;renderer, PipelineParameters &amp;&amp;params)</div><div class="ttdoc">Construct a new Pipeline.</div><div class="ttdef"><b>Definition:</b> <a href="a01838_source.html#l00011">Pipeline.cpp:11</a></div></div>
-<div class="ttc" id="aa03806_html_a1d57975a718d565a44e8c07c95332326"><div class="ttname"><a href="a03806.html#a1d57975a718d565a44e8c07c95332326">bl::rc::vk::Pipeline::~Pipeline</a></div><div class="ttdeci">~Pipeline()</div><div class="ttdoc">Destroy the Pipeline and frees Vulkan resources.</div><div class="ttdef"><b>Definition:</b> <a href="a01838_source.html#l00089">Pipeline.cpp:89</a></div></div>
-<div class="ttc" id="aa03806_html_a1e4a1d5a83d4391cb2f92917d1bdb9b6"><div class="ttname"><a href="a03806.html#a1e4a1d5a83d4391cb2f92917d1bdb9b6">bl::rc::vk::Pipeline::rawPipeline</a></div><div class="ttdeci">VkPipeline rawPipeline(std::uint32_t renderPassId) const</div><div class="ttdoc">Returns the underlying Vulkan pipeline handle.</div><div class="ttdef"><b>Definition:</b> <a href="a00962_source.html#l00080">Pipeline.hpp:80</a></div></div>
-<div class="ttc" id="aa03806_html_a3c6e79faddcf860d9ddab95307145e2f"><div class="ttname"><a href="a03806.html#a3c6e79faddcf860d9ddab95307145e2f">bl::rc::vk::Pipeline::PipelineCache</a></div><div class="ttdeci">friend class PipelineCache</div><div class="ttdef"><b>Definition:</b> <a href="a00962_source.html#l00073">Pipeline.hpp:73</a></div></div>
-<div class="ttc" id="aa03806_html_a4dbf56eca4795bb6bae91f2c7fb4e330"><div class="ttname"><a href="a03806.html#a4dbf56eca4795bb6bae91f2c7fb4e330">bl::rc::vk::Pipeline::bind</a></div><div class="ttdeci">void bind(VkCommandBuffer commandBuffer, std::uint32_t renderPassId)</div><div class="ttdoc">Issues the command to bind the pipeline.</div><div class="ttdef"><b>Definition:</b> <a href="a01838_source.html#l00097">Pipeline.cpp:97</a></div></div>
-<div class="ttc" id="aa03806_html_a8a9980440a4260616ae1597e7c09dd44"><div class="ttname"><a href="a03806.html#a8a9980440a4260616ae1597e7c09dd44">bl::rc::vk::Pipeline::pipelineLayout</a></div><div class="ttdeci">constexpr const PipelineLayout &amp; pipelineLayout() const</div><div class="ttdoc">Returns the layout of this pipeline.</div><div class="ttdef"><b>Definition:</b> <a href="a00962_source.html#l00078">Pipeline.hpp:78</a></div></div>
-<div class="ttc" id="aa03810_html"><div class="ttname"><a href="a03810.html">bl::rc::vk::PipelineLayout</a></div><div class="ttdoc">Represents the descriptor layout for pipelines. Allows rendering to be batched by layout to save on b...</div><div class="ttdef"><b>Definition:</b> <a href="a00965_source.html#l00030">PipelineLayout.hpp:30</a></div></div>
-<div class="ttc" id="aa03826_html"><div class="ttname"><a href="a03826.html">bl::rc::vk::PipelineParameters</a></div><div class="ttdoc">Parameters used to create a Pipeline. This class performs some basic validation and provides sane def...</div><div class="ttdef"><b>Definition:</b> <a href="a00968_source.html#l00031">PipelineParameters.hpp:31</a></div></div>
-<div class="ttc" id="aa05655_html"><div class="ttname"><a href="a05655.html">Config.hpp</a></div></div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a03857.html">   20</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03857.html">DescriptorSet</a> {</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <a class="code" href="a03857.html#a8f194eda22254c760637377a84bb7c9b">DescriptorSet</a>(<a class="code" href="a03953.html">VulkanState</a>&amp; vulkanState);</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <a class="code" href="a03857.html#a8f194eda22254c760637377a84bb7c9b">DescriptorSet</a>(<a class="code" href="a03953.html">VulkanState</a>&amp; vulkanState, VkDescriptorSetLayout layout,</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;                  <span class="keywordtype">bool</span> dedicatedPool = <span class="keyword">false</span>);</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="a03857.html#ab6ed0bc70752febc342036bc270d5dd9">   42</a></span>&#160;    <a class="code" href="a03857.html#ab6ed0bc70752febc342036bc270d5dd9">DescriptorSet</a>(<span class="keyword">const</span> <a class="code" href="a03857.html">DescriptorSet</a>&amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <a class="code" href="a03857.html#a8f194eda22254c760637377a84bb7c9b">DescriptorSet</a>(<a class="code" href="a03857.html">DescriptorSet</a>&amp;&amp; ds);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <a class="code" href="a03857.html#a799707e8dfa2b1993b61607fe8a1dd1d">~DescriptorSet</a>();</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="a03857.html#a4435b071e9cebdda93a8676f79be795c">   59</a></span>&#160;    <a class="code" href="a03857.html">DescriptorSet</a>&amp; <a class="code" href="a03857.html#a4435b071e9cebdda93a8676f79be795c">operator=</a>(<span class="keyword">const</span> <a class="code" href="a03857.html">DescriptorSet</a>&amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <a class="code" href="a03857.html">DescriptorSet</a>&amp; <a class="code" href="a03857.html#a4435b071e9cebdda93a8676f79be795c">operator=</a>(<a class="code" href="a03857.html">DescriptorSet</a>&amp;&amp; ds);</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03857.html#ab4688b60580626c3a49ae1dc37a8b64a">allocate</a>(VkDescriptorSetLayout layout, <span class="keywordtype">bool</span> dedicatedPool = <span class="keyword">false</span>);</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03857.html#a76d00935670fc4f545dbfbf4e995b51e">release</a>();</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03857.html#a13eec443ddabd8645770709f0e0e5fe7">deferRelease</a>();</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
+<div class="line"><a name="l00092"></a><span class="lineno"><a class="line" href="a03857.html#a2f1a683b42ec64d4d17c7994245a2dce">   92</a></span>&#160;    constexpr VkDescriptorSet <a class="code" href="a03857.html#a2f1a683b42ec64d4d17c7994245a2dce">getSet</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> set; }</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <a class="code" href="a03953.html">VulkanState</a>&amp; vulkanState;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <a class="code" href="a03841.html#a7bb5a0efe4177857484ecb6ae66c75dd">vk::DescriptorPool::AllocationHandle</a> alloc;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    VkDescriptorSet set;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;};</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;} <span class="comment">// namespace vk</span></div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00959_html"><div class="ttname"><a href="a00959.html">DescriptorPool.hpp</a></div></div>
+<div class="ttc" id="aa01265_html"><div class="ttname"><a href="a01265.html">Vulkan.hpp</a></div></div>
+<div class="ttc" id="aa02100_html"><div class="ttname"><a href="a02100.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03841_html_a7bb5a0efe4177857484ecb6ae66c75dd"><div class="ttname"><a href="a03841.html#a7bb5a0efe4177857484ecb6ae66c75dd">bl::rc::vk::DescriptorPool::AllocationHandle</a></div><div class="ttdeci">std::list&lt; Allocation &gt;::iterator AllocationHandle</div><div class="ttdoc">Handle to an allocation from the pool.</div><div class="ttdef"><b>Definition:</b> <a href="a00959_source.html#l00044">DescriptorPool.hpp:44</a></div></div>
+<div class="ttc" id="aa03857_html"><div class="ttname"><a href="a03857.html">bl::rc::vk::DescriptorSet</a></div><div class="ttdoc">Wrapper around a single allocated descriptor set from the DescriptorPool.</div><div class="ttdef"><b>Definition:</b> <a href="a00962_source.html#l00020">DescriptorSet.hpp:20</a></div></div>
+<div class="ttc" id="aa03857_html_a13eec443ddabd8645770709f0e0e5fe7"><div class="ttname"><a href="a03857.html#a13eec443ddabd8645770709f0e0e5fe7">bl::rc::vk::DescriptorSet::deferRelease</a></div><div class="ttdeci">void deferRelease()</div><div class="ttdoc">Defers release of the descriptor set if any.</div><div class="ttdef"><b>Definition:</b> <a href="a01868_source.html#l00048">DescriptorSet.cpp:48</a></div></div>
+<div class="ttc" id="aa03857_html_a2f1a683b42ec64d4d17c7994245a2dce"><div class="ttname"><a href="a03857.html#a2f1a683b42ec64d4d17c7994245a2dce">bl::rc::vk::DescriptorSet::getSet</a></div><div class="ttdeci">constexpr VkDescriptorSet getSet() const</div><div class="ttdoc">Returns the allocated descriptor set.</div><div class="ttdef"><b>Definition:</b> <a href="a00962_source.html#l00092">DescriptorSet.hpp:92</a></div></div>
+<div class="ttc" id="aa03857_html_a4435b071e9cebdda93a8676f79be795c"><div class="ttname"><a href="a03857.html#a4435b071e9cebdda93a8676f79be795c">bl::rc::vk::DescriptorSet::operator=</a></div><div class="ttdeci">DescriptorSet &amp; operator=(const DescriptorSet &amp;)=delete</div><div class="ttdoc">Deleted.</div></div>
+<div class="ttc" id="aa03857_html_a76d00935670fc4f545dbfbf4e995b51e"><div class="ttname"><a href="a03857.html#a76d00935670fc4f545dbfbf4e995b51e">bl::rc::vk::DescriptorSet::release</a></div><div class="ttdeci">void release()</div><div class="ttdoc">Immediately releases the descriptor set if any.</div><div class="ttdef"><b>Definition:</b> <a href="a01868_source.html#l00041">DescriptorSet.cpp:41</a></div></div>
+<div class="ttc" id="aa03857_html_a799707e8dfa2b1993b61607fe8a1dd1d"><div class="ttname"><a href="a03857.html#a799707e8dfa2b1993b61607fe8a1dd1d">bl::rc::vk::DescriptorSet::~DescriptorSet</a></div><div class="ttdeci">~DescriptorSet()</div><div class="ttdoc">Defers release of the set if allocated.</div><div class="ttdef"><b>Definition:</b> <a href="a01868_source.html#l00027">DescriptorSet.cpp:27</a></div></div>
+<div class="ttc" id="aa03857_html_a8f194eda22254c760637377a84bb7c9b"><div class="ttname"><a href="a03857.html#a8f194eda22254c760637377a84bb7c9b">bl::rc::vk::DescriptorSet::DescriptorSet</a></div><div class="ttdeci">DescriptorSet(VulkanState &amp;vulkanState)</div><div class="ttdoc">Creates an un-allocated descriptor set.</div><div class="ttdef"><b>Definition:</b> <a href="a01868_source.html#l00011">DescriptorSet.cpp:11</a></div></div>
+<div class="ttc" id="aa03857_html_ab4688b60580626c3a49ae1dc37a8b64a"><div class="ttname"><a href="a03857.html#ab4688b60580626c3a49ae1dc37a8b64a">bl::rc::vk::DescriptorSet::allocate</a></div><div class="ttdeci">void allocate(VkDescriptorSetLayout layout, bool dedicatedPool=false)</div><div class="ttdoc">Creates and allocates the descriptor set. Defers release of the prior set if any.</div><div class="ttdef"><b>Definition:</b> <a href="a01868_source.html#l00036">DescriptorSet.cpp:36</a></div></div>
+<div class="ttc" id="aa03857_html_ab6ed0bc70752febc342036bc270d5dd9"><div class="ttname"><a href="a03857.html#ab6ed0bc70752febc342036bc270d5dd9">bl::rc::vk::DescriptorSet::DescriptorSet</a></div><div class="ttdeci">DescriptorSet(const DescriptorSet &amp;)=delete</div><div class="ttdoc">Deleted.</div></div>
+<div class="ttc" id="aa03953_html"><div class="ttname"><a href="a03953.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a01013_source.html#l00039">VulkanState.hpp:39</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Nov 29 2023 03:07:37 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Dec 2 2023 04:00:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

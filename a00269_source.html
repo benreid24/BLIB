@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Events/SingleDispatcher.hpp Source File</title>
+<title>BLIB: include/BLIB/Events/ListenerGuard.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,150 +71,73 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">SingleDispatcher.hpp</div>  </div>
+<div class="title">ListenerGuard.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00269.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_EVENTS_SINGLEDISPATCHER_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_EVENTS_SINGLEDISPATCHER_HPP</span></div>
+<a href="a00269.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_EVENTS_LISTENERGUARD_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_EVENTS_LISTENERGUARD_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05616.html">BLIB/Events/Listener.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01211.html">BLIB/Util/ReadWriteLock.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;unordered_set&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02058.html">bl</a></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>event</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">class </span>Dispatcher;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span>priv</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a02658.html">   18</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02658.html">SingleDispatcherBase</a> {</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> syncListeners() = 0;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> clear()         = 0;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a02658.html#a8851c41da4b18722c985e63301502b59">   22</a></span>&#160;    <span class="keyword">friend</span> class ::bl::event::Dispatcher;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;};</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a02662.html">   26</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02662.html">SingleDispatcher</a> : <span class="keyword">private</span> <a class="code" href="a02658.html">SingleDispatcherBase</a> {</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keyword">static</span> <a class="code" href="a02662.html">SingleDispatcher</a>&amp; get(std::vector&lt;SingleDispatcherBase*&gt;&amp; dlist, std::mutex&amp; dlock) {</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        <span class="keyword">static</span> <a class="code" href="a02662.html">SingleDispatcher</a> d(dlist, dlock);</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="keywordflow">return</span> d;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    }</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <a class="code" href="a02662.html">SingleDispatcher</a>(std::vector&lt;SingleDispatcherBase*&gt;&amp; dlist, std::mutex&amp; dlock) {</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        listeners.reserve(256);</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        toAdd.reserve(32);</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        toRemove.reserve(32);</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        std::lock_guard lock(dlock);</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        dlist.push_back(<span class="keyword">this</span>);</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    }</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordtype">void</span> dispatch(<span class="keyword">const</span> T&amp; event) {</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <a class="code" href="a04498.html">util::ReadWriteLock::ReadScopeGuard</a> lock(busLock);</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="a02646.html">ListenerBase&lt;T&gt;</a>* l : listeners) { l-&gt;observe(event); }</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    }</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordtype">void</span> addListener(<a class="code" href="a02646.html">ListenerBase&lt;T&gt;</a>* listener, <span class="keywordtype">bool</span> defer) {</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="keywordflow">if</span> (defer) {</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            std::lock_guard lock(deferLock);</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            toAdd.emplace_back(listener);</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        }</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            <a class="code" href="a04502.html">util::ReadWriteLock::WriteScopeGuard</a> lock(busLock);</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            doAdd(listener);</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        }</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    }</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordtype">void</span> removeListener(<a class="code" href="a02646.html">ListenerBase&lt;T&gt;</a>* listener, <span class="keywordtype">bool</span> defer) {</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="keywordflow">if</span> (defer) {</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            std::lock_guard lock(deferLock);</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            toRemove.emplace_back(listener);</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        }</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            <a class="code" href="a04502.html">util::ReadWriteLock::WriteScopeGuard</a> lock(busLock);</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            doRemove(listener);</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        }</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    }</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> syncListeners()<span class="keyword"> override </span>{</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <a class="code" href="a04502.html">util::ReadWriteLock::WriteScopeGuard</a> lock(busLock);</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        std::lock_guard lock2(deferLock);</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="a02646.html">ListenerBase&lt;T&gt;</a>* listener : toAdd) { doAdd(listener); }</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="a02646.html">ListenerBase&lt;T&gt;</a>* listener : toRemove) { doRemove(listener); }</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        toAdd.clear();</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        toRemove.clear();</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    }</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> clear()<span class="keyword"> override </span>{</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        <a class="code" href="a04502.html">util::ReadWriteLock::WriteScopeGuard</a> lock(busLock);</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        std::lock_guard lock2(deferLock);</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        listeners.clear();</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        toAdd.clear();</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        toRemove.clear();</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    }</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keywordtype">void</span> doAdd(<a class="code" href="a02646.html">ListenerBase&lt;T&gt;</a>* listener) {</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        <span class="keywordflow">if</span> (dedup.emplace(listener).second) { listeners.emplace_back(listener); }</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    }</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keywordtype">void</span> doRemove(<a class="code" href="a02646.html">ListenerBase&lt;T&gt;</a>* listener) {</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <span class="keywordflow">if</span> (dedup.erase(listener) &gt; 0) {</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;            <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = listeners.begin(); it != listeners.end(); ++it) {</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;                <span class="keywordflow">if</span> (*it == listener) {</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;                    listeners.erase(it);</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;                    <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;                }</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;            }</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        }</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    }</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <a class="code" href="a04494.html">util::ReadWriteLock</a> busLock;</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    std::vector&lt;ListenerBase&lt;T&gt;*&gt; listeners;</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    std::unordered_set&lt;ListenerBase&lt;T&gt;*&gt; dedup;</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    std::mutex deferLock;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    std::vector&lt;ListenerBase&lt;T&gt;*&gt; toAdd;</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    std::vector&lt;ListenerBase&lt;T&gt;*&gt; toRemove;</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
-<div class="line"><a name="l00109"></a><span class="lineno"><a class="line" href="a02662.html#a8851c41da4b18722c985e63301502b59">  109</a></span>&#160;    <span class="keyword">friend</span> class ::bl::event::Dispatcher;</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</div>
-<div class="line"><a name="l00111"></a><span class="lineno"><a class="line" href="a02662.html#a03307f30a4aeee85bfd6686c800b1d1f">  111</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">struct </span><a class="code" href="a02666.html">SubscriberBase</a>;</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span>... U&gt;</div>
-<div class="line"><a name="l00113"></a><span class="lineno"><a class="line" href="a02662.html#a5601c961a11d509db9428514d8fd4829">  113</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">struct </span><a class="code" href="a02670.html">SubscriberHelper</a>;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</div>
-<div class="line"><a name="l00115"></a><span class="lineno"><a class="line" href="a02662.html#aef1dbdcd2a358999b3921de352a41aa6">  115</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">struct </span><a class="code" href="a02674.html">UnSubscriberBase</a>;</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span>... U&gt;</div>
-<div class="line"><a name="l00117"></a><span class="lineno"><a class="line" href="a02662.html#a86dc8bdff73ed3de03aa8816a73b3dc7">  117</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">struct </span><a class="code" href="a02678.html">UnSubscriberHelper</a>;</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;};</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;} <span class="comment">// namespace priv</span></div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;} <span class="comment">// namespace event</span></div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01211_html"><div class="ttname"><a href="a01211.html">ReadWriteLock.hpp</a></div></div>
-<div class="ttc" id="aa02058_html"><div class="ttname"><a href="a02058.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02646_html"><div class="ttname"><a href="a02646.html">bl::event::ListenerBase</a></div><div class="ttdoc">Base class for Listener. Do not use directly.</div><div class="ttdef"><b>Definition:</b> <a href="a05616_source.html#l00022">Listener.hpp:22</a></div></div>
-<div class="ttc" id="aa02658_html"><div class="ttname"><a href="a02658.html">bl::event::priv::SingleDispatcherBase</a></div><div class="ttdef"><b>Definition:</b> <a href="a00269_source.html#l00018">SingleDispatcher.hpp:18</a></div></div>
-<div class="ttc" id="aa02662_html"><div class="ttname"><a href="a02662.html">bl::event::priv::SingleDispatcher</a></div><div class="ttdef"><b>Definition:</b> <a href="a00269_source.html#l00026">SingleDispatcher.hpp:26</a></div></div>
-<div class="ttc" id="aa02666_html"><div class="ttname"><a href="a02666.html">bl::event::priv::SubscriberBase</a></div><div class="ttdef"><b>Definition:</b> <a href="a00272_source.html#l00013">SubscribeHelpers.hpp:13</a></div></div>
-<div class="ttc" id="aa02670_html"><div class="ttname"><a href="a02670.html">bl::event::priv::SubscriberHelper</a></div><div class="ttdef"><b>Definition:</b> <a href="a00272_source.html#l00020">SubscribeHelpers.hpp:20</a></div></div>
-<div class="ttc" id="aa02674_html"><div class="ttname"><a href="a02674.html">bl::event::priv::UnSubscriberBase</a></div><div class="ttdef"><b>Definition:</b> <a href="a00272_source.html#l00028">SubscribeHelpers.hpp:28</a></div></div>
-<div class="ttc" id="aa02678_html"><div class="ttname"><a href="a02678.html">bl::event::priv::UnSubscriberHelper</a></div><div class="ttdef"><b>Definition:</b> <a href="a00272_source.html#l00035">SubscribeHelpers.hpp:35</a></div></div>
-<div class="ttc" id="aa04494_html"><div class="ttname"><a href="a04494.html">bl::util::ReadWriteLock</a></div><div class="ttdoc">Reader-writer lock built on top of std::shared_mutex. The primary benefit of this class is that lockR...</div><div class="ttdef"><b>Definition:</b> <a href="a01211_source.html#l00020">ReadWriteLock.hpp:20</a></div></div>
-<div class="ttc" id="aa04498_html"><div class="ttname"><a href="a04498.html">bl::util::ReadWriteLock::ReadScopeGuard</a></div><div class="ttdoc">RAII helper to acquire a read lock and release it when the scope is exited.</div><div class="ttdef"><b>Definition:</b> <a href="a01211_source.html#l00059">ReadWriteLock.hpp:59</a></div></div>
-<div class="ttc" id="aa04502_html"><div class="ttname"><a href="a04502.html">bl::util::ReadWriteLock::WriteScopeGuard</a></div><div class="ttdoc">RAII helper to acquire a write lock and release it when the scope is exited.</div><div class="ttdef"><b>Definition:</b> <a href="a01211_source.html#l00091">ReadWriteLock.hpp:91</a></div></div>
-<div class="ttc" id="aa05616_html"><div class="ttname"><a href="a05616.html">Listener.hpp</a></div></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00260.html">BLIB/Events/Dispatcher.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02100.html">bl</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>event</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TEvents&gt;</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a02705.html">   18</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02705.html">ListenerGuard</a> {</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <a class="code" href="a02705.html#a96a8d50a80ae728156a8b5c32e3675e5">ListenerGuard</a>(<a class="code" href="a02701.html">Listener&lt;TEvents...&gt;</a>* owner);</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <a class="code" href="a02705.html#a328851620e6bb20d1ddbebc9994a7dd3">~ListenerGuard</a>();</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02705.html#aaf8c7456d69baddfc086251a1fa77ae6">subscribe</a>(<span class="keywordtype">bool</span> defer = <span class="keyword">false</span>);</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02705.html#a010f7f24a4188f4283499854147a520f">unsubscribe</a>();</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <a class="code" href="a02701.html">Listener</a>&lt;TEvents...&gt;* <span class="keyword">const</span> listener;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;};</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TEvents&gt;</div>
+<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="a02705.html#a96a8d50a80ae728156a8b5c32e3675e5">   55</a></span>&#160;<a class="code" href="a02705.html#a96a8d50a80ae728156a8b5c32e3675e5">ListenerGuard&lt;TEvents...&gt;::ListenerGuard</a>(<a class="code" href="a02701.html">Listener&lt;TEvents...&gt;</a>* owner)</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;: listener(owner) {}</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TEvents&gt;</div>
+<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="a02705.html#a328851620e6bb20d1ddbebc9994a7dd3">   59</a></span>&#160;<a class="code" href="a02705.html#a328851620e6bb20d1ddbebc9994a7dd3">ListenerGuard&lt;TEvents...&gt;::~ListenerGuard</a>() {</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    unsubscribe();</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;}</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TEvents&gt;</div>
+<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="a02705.html#aaf8c7456d69baddfc086251a1fa77ae6">   64</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02705.html#aaf8c7456d69baddfc086251a1fa77ae6">ListenerGuard&lt;TEvents...&gt;::subscribe</a>(<span class="keywordtype">bool</span> defer) {</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    unsubscribe();</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <a class="code" href="a02689.html#a36b6226eb7a776e0fc9c798689725bdc">Dispatcher::subscribe</a>(listener, defer);</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;}</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TEvents&gt;</div>
+<div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="a02705.html#a010f7f24a4188f4283499854147a520f">   70</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02705.html#a010f7f24a4188f4283499854147a520f">ListenerGuard&lt;TEvents...&gt;::unsubscribe</a>() {</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <a class="code" href="a02689.html#a7d6b29860c56388036edd8a38f26a4c7">Dispatcher::unsubscribe</a>(listener);</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;}</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;} <span class="comment">// namespace event</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00260_html"><div class="ttname"><a href="a00260.html">Dispatcher.hpp</a></div></div>
+<div class="ttc" id="aa02100_html"><div class="ttname"><a href="a02100.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02689_html_a36b6226eb7a776e0fc9c798689725bdc"><div class="ttname"><a href="a02689.html#a36b6226eb7a776e0fc9c798689725bdc">bl::event::Dispatcher::subscribe</a></div><div class="ttdeci">static void subscribe(Listener&lt; TEvents... &gt; *listener, bool defer=false)</div><div class="ttdoc">Subscribe the given listener to the event stream for the event types given.</div><div class="ttdef"><b>Definition:</b> <a href="a00260_source.html#l00093">Dispatcher.hpp:93</a></div></div>
+<div class="ttc" id="aa02689_html_a7d6b29860c56388036edd8a38f26a4c7"><div class="ttname"><a href="a02689.html#a7d6b29860c56388036edd8a38f26a4c7">bl::event::Dispatcher::unsubscribe</a></div><div class="ttdeci">static void unsubscribe(Listener&lt; TEvents... &gt; *listener, bool defer=false)</div><div class="ttdoc">Removes the given listener and prevents it from receiving any more events.</div><div class="ttdef"><b>Definition:</b> <a href="a00260_source.html#l00104">Dispatcher.hpp:104</a></div></div>
+<div class="ttc" id="aa02701_html"><div class="ttname"><a href="a02701.html">bl::event::Listener&lt; TEvents... &gt;</a></div></div>
+<div class="ttc" id="aa02705_html"><div class="ttname"><a href="a02705.html">bl::event::ListenerGuard</a></div><div class="ttdoc">Version of scope guard but for classes. Classes that subscribe to event buses through a member Listen...</div><div class="ttdef"><b>Definition:</b> <a href="a00269_source.html#l00018">ListenerGuard.hpp:18</a></div></div>
+<div class="ttc" id="aa02705_html_a010f7f24a4188f4283499854147a520f"><div class="ttname"><a href="a02705.html#a010f7f24a4188f4283499854147a520f">bl::event::ListenerGuard::unsubscribe</a></div><div class="ttdeci">void unsubscribe()</div><div class="ttdoc">Unsubscribes the owner from the given event bus.</div><div class="ttdef"><b>Definition:</b> <a href="a00269_source.html#l00070">ListenerGuard.hpp:70</a></div></div>
+<div class="ttc" id="aa02705_html_a328851620e6bb20d1ddbebc9994a7dd3"><div class="ttname"><a href="a02705.html#a328851620e6bb20d1ddbebc9994a7dd3">bl::event::ListenerGuard::~ListenerGuard</a></div><div class="ttdeci">~ListenerGuard()</div><div class="ttdoc">Unsubscribes if subscribed.</div><div class="ttdef"><b>Definition:</b> <a href="a00269_source.html#l00059">ListenerGuard.hpp:59</a></div></div>
+<div class="ttc" id="aa02705_html_a96a8d50a80ae728156a8b5c32e3675e5"><div class="ttname"><a href="a02705.html#a96a8d50a80ae728156a8b5c32e3675e5">bl::event::ListenerGuard::ListenerGuard</a></div><div class="ttdeci">ListenerGuard(Listener&lt; TEvents... &gt; *owner)</div><div class="ttdoc">Creates an empty guard.</div><div class="ttdef"><b>Definition:</b> <a href="a00269_source.html#l00055">ListenerGuard.hpp:55</a></div></div>
+<div class="ttc" id="aa02705_html_aaf8c7456d69baddfc086251a1fa77ae6"><div class="ttname"><a href="a02705.html#aaf8c7456d69baddfc086251a1fa77ae6">bl::event::ListenerGuard::subscribe</a></div><div class="ttdeci">void subscribe(bool defer=false)</div><div class="ttdoc">Subscribes the owner to the given bus.</div><div class="ttdef"><b>Definition:</b> <a href="a00269_source.html#l00064">ListenerGuard.hpp:64</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Nov 29 2023 03:07:37 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Dec 2 2023 04:00:54 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

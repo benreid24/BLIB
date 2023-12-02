@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/ECS/Registry.hpp File Reference</title>
+<title>BLIB: include/BLIB/ECS/ParentDestructionBehavior.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,53 +71,38 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a>  </div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#enum-members">Enumerations</a>  </div>
   <div class="headertitle">
-<div class="title">Registry.hpp File Reference</div>  </div>
+<div class="title">ParentDestructionBehavior.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00149_source.html">BLIB/ECS/ComponentPool.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00158_source.html">BLIB/ECS/DependencyGraph.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00161_source.html">BLIB/ECS/Entity.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00170_source.html">BLIB/ECS/ParentDestructionBehavior.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00173_source.html">BLIB/ECS/ParentGraph.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00197_source.html">BLIB/ECS/View.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00254_source.html">BLIB/Events/Dispatcher.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a01196_source.html">BLIB/Util/IdAllocatorUnbounded.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a01202_source.html">BLIB/Util/NonCopyable.hpp</a>&gt;</code><br />
-<code>#include &lt;cstdlib&gt;</code><br />
-<code>#include &lt;memory&gt;</code><br />
-<code>#include &lt;utility&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00155_source.html">BLIB/ECS/ComponentSetImpl.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00182_source.html">BLIB/ECS/TagsImpl.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00200_source.html">BLIB/ECS/ViewImpl.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;cstdint&gt;</code><br />
 </div>
 <p><a href="a00176_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02502.html">bl::ecs::Registry</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is the main interface of the ECS. This class manages all entities and components and views and serves as the primary interface to be used.  <a href="a02502.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a02058"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02058.html">bl</a></td></tr>
-<tr class="memdesc:a02058"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="memitem:a02100"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02100.html">bl</a></td></tr>
+<tr class="memdesc:a02100"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02065"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02065.html">bl::engine</a></td></tr>
-<tr class="memdesc:a02065"><td class="mdescLeft">&#160;</td><td class="mdescRight">The core game engine and related classes. <br /></td></tr>
+<tr class="memitem:a02115"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02115.html">bl::ecs</a></td></tr>
+<tr class="memdesc:a02115"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains the <a class="el" href="a02509.html" title="Entity is simply an id. Components are added via a Registry and they own all the relevant properties....">Entity</a> Component System. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02073"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02073.html">bl::ecs</a></td></tr>
-<tr class="memdesc:a02073"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains the <a class="el" href="a02458.html" title="Entity is simply an id. Components are added via a Registry and they own all the relevant properties....">Entity</a> Component System. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:ga8a26375b4229d8ec106886db32501969"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02077.html#ga8a26375b4229d8ec106886db32501969">bl::ecs::ParentDestructionBehavior</a> : std::uint8_t { <a class="el" href="a02077.html#gga8a26375b4229d8ec106886db32501969ac817e89a441e03ce62483611fd6ddeb1">bl::ecs::DestroyedWithParent</a>
+, <a class="el" href="a02077.html#gga8a26375b4229d8ec106886db32501969a7e648f0f6f1f3177fc23eb64b4af8103">bl::ecs::OrphanedByParent</a>
+ }</td></tr>
+<tr class="memdesc:ga8a26375b4229d8ec106886db32501969"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines the behavior of an entity when any of its parents are destroyed.  <a href="a02077.html#ga8a26375b4229d8ec106886db32501969">More...</a><br /></td></tr>
+<tr class="separator:ga8a26375b4229d8ec106886db32501969"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Nov 29 2023 03:07:38 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Dec 2 2023 04:00:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

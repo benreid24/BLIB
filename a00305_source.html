@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Graphics/Dummy2D.hpp Source File</title>
+<title>BLIB: include/BLIB/Graphics/Circle.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,66 +71,44 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Dummy2D.hpp</div>  </div>
+<div class="title">Circle.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00305.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_GRAPHICS_DUMMY2D_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_GRAPHICS_DUMMY2D_HPP</span></div>
+<a href="a00305.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_GRAPHICS_CIRCLE_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_GRAPHICS_CIRCLE_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00203.html">BLIB/ECS.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00293.html">BLIB/Graphics/Components/EntityBacked.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00296.html">BLIB/Graphics/Components/OverlayScalable.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02058.html">bl</a></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>engine</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">class </span>Engine;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;}</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span>gfx</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a02746.html">   22</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02746.html">Dummy2D</a></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;: <span class="keyword">public</span> <a class="code" href="a02726.html">bcom::EntityBacked</a></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;, <span class="keyword">public</span> <a class="code" href="a02730.html">bcom::OverlayScalable</a> {</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a02746.html#a9079eac4e2d0891599ca2b4431e4b51e">   29</a></span>&#160;    <a class="code" href="a02746.html#a9079eac4e2d0891599ca2b4431e4b51e">Dummy2D</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="a02746.html#abba6e14b0f2f8eb7ed0996cf4ad79349">   36</a></span>&#160;    <a class="code" href="a02746.html#abba6e14b0f2f8eb7ed0996cf4ad79349">Dummy2D</a>(<a class="code" href="a02746.html">Dummy2D</a>&amp;&amp; move) = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="a02746.html#a808460300fa199f7586ba4227e8d9fe1">   41</a></span>&#160;    <a class="code" href="a02746.html#a808460300fa199f7586ba4227e8d9fe1">~Dummy2D</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02746.html#a26660cb30f08a0e02e74b7a56bd5a812">create</a>(<a class="code" href="a02554.html">engine::Engine</a>&amp; <a class="code" href="a02726.html#aa120ac89c9e8e4a405404e5e66245458">engine</a>);</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02746.html#a09209cbe03fbe26bbe84307cdd0a80be">setSize</a>(<span class="keyword">const</span> glm::vec2&amp; size);</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> ensureLocalSizeUpdated()<span class="keyword"> override </span>{}</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;};</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;} <span class="comment">// namespace gfx</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00203_html"><div class="ttname"><a href="a00203.html">ECS.hpp</a></div></div>
-<div class="ttc" id="aa00293_html"><div class="ttname"><a href="a00293.html">EntityBacked.hpp</a></div></div>
-<div class="ttc" id="aa00296_html"><div class="ttname"><a href="a00296.html">OverlayScalable.hpp</a></div></div>
-<div class="ttc" id="aa02058_html"><div class="ttname"><a href="a02058.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02554_html"><div class="ttname"><a href="a02554.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a05598_source.html#l00032">Engine.hpp:32</a></div></div>
-<div class="ttc" id="aa02726_html"><div class="ttname"><a href="a02726.html">bl::gfx::bcom::EntityBacked</a></div><div class="ttdoc">Base class for ECS-backed graphics objects.</div><div class="ttdef"><b>Definition:</b> <a href="a00293_source.html#l00017">EntityBacked.hpp:17</a></div></div>
-<div class="ttc" id="aa02726_html_aa120ac89c9e8e4a405404e5e66245458"><div class="ttname"><a href="a02726.html#aa120ac89c9e8e4a405404e5e66245458">bl::gfx::bcom::EntityBacked::engine</a></div><div class="ttdeci">engine::Engine &amp; engine()</div><div class="ttdoc">Returns the game engine instance. Only call after create()</div><div class="ttdef"><b>Definition:</b> <a href="a00293_source.html#l00106">EntityBacked.hpp:106</a></div></div>
-<div class="ttc" id="aa02730_html"><div class="ttname"><a href="a02730.html">bl::gfx::bcom::OverlayScalable</a></div><div class="ttdoc">Base component that manages and provides a Transform2D, OverlayScaler, and Viewport.</div><div class="ttdef"><b>Definition:</b> <a href="a00296_source.html#l00030">OverlayScalable.hpp:30</a></div></div>
-<div class="ttc" id="aa02746_html"><div class="ttname"><a href="a02746.html">bl::gfx::Dummy2D</a></div><div class="ttdoc">Dummy graphical entity that is not actually drawn. Useful for anchoring in parent trees.</div><div class="ttdef"><b>Definition:</b> <a href="a00305_source.html#l00022">Dummy2D.hpp:24</a></div></div>
-<div class="ttc" id="aa02746_html_a09209cbe03fbe26bbe84307cdd0a80be"><div class="ttname"><a href="a02746.html#a09209cbe03fbe26bbe84307cdd0a80be">bl::gfx::Dummy2D::setSize</a></div><div class="ttdeci">void setSize(const glm::vec2 &amp;size)</div><div class="ttdoc">Sets the size of the dummy object for overlay scaling.</div><div class="ttdef"><b>Definition:</b> <a href="a01370_source.html#l00017">Dummy2D.cpp:17</a></div></div>
-<div class="ttc" id="aa02746_html_a26660cb30f08a0e02e74b7a56bd5a812"><div class="ttname"><a href="a02746.html#a26660cb30f08a0e02e74b7a56bd5a812">bl::gfx::Dummy2D::create</a></div><div class="ttdeci">void create(engine::Engine &amp;engine)</div><div class="ttdoc">Creates the dummy entity with Transform2D and OverlayScaler components.</div><div class="ttdef"><b>Definition:</b> <a href="a01370_source.html#l00010">Dummy2D.cpp:10</a></div></div>
-<div class="ttc" id="aa02746_html_a808460300fa199f7586ba4227e8d9fe1"><div class="ttname"><a href="a02746.html#a808460300fa199f7586ba4227e8d9fe1">bl::gfx::Dummy2D::~Dummy2D</a></div><div class="ttdeci">~Dummy2D()=default</div><div class="ttdoc">Destroys the underlying entity.</div></div>
-<div class="ttc" id="aa02746_html_a9079eac4e2d0891599ca2b4431e4b51e"><div class="ttname"><a href="a02746.html#a9079eac4e2d0891599ca2b4431e4b51e">bl::gfx::Dummy2D::Dummy2D</a></div><div class="ttdeci">Dummy2D()=default</div><div class="ttdoc">Does nothing.</div></div>
-<div class="ttc" id="aa02746_html_abba6e14b0f2f8eb7ed0996cf4ad79349"><div class="ttname"><a href="a02746.html#abba6e14b0f2f8eb7ed0996cf4ad79349">bl::gfx::Dummy2D::Dummy2D</a></div><div class="ttdeci">Dummy2D(Dummy2D &amp;&amp;move)=default</div><div class="ttdoc">Copies from the given dummy.</div></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00332.html">BLIB/Graphics/Shapes2D/CircleBase.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00341.html">BLIB/Graphics/Shapes2D/SingleShape2D.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02100.html">bl</a></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>gfx</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a02789.html">   16</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02789.html">Circle</a> : <span class="keyword">public</span> <a class="code" href="a02833.html">s2d::CircleBase</a>&lt;s2d::SingleShape2D&gt; {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <a class="code" href="a02789.html#a9d18a3cbd0e5c7a276fcd740709192f6">Circle</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> pointCount = 300);</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02789.html#ad668ee68333d7d9a9f3b8b8ff1fdd811">create</a>(<a class="code" href="a02605.html">engine::Engine</a>&amp; <a class="code" href="a02797.html#aa120ac89c9e8e4a405404e5e66245458">engine</a>, <span class="keywordtype">float</span> radius);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;};</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;} <span class="comment">// namespace gfx</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00332_html"><div class="ttname"><a href="a00332.html">CircleBase.hpp</a></div></div>
+<div class="ttc" id="aa00341_html"><div class="ttname"><a href="a00341.html">SingleShape2D.hpp</a></div></div>
+<div class="ttc" id="aa02100_html"><div class="ttname"><a href="a02100.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02605_html"><div class="ttname"><a href="a02605.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a05713_source.html#l00032">Engine.hpp:32</a></div></div>
+<div class="ttc" id="aa02789_html"><div class="ttname"><a href="a02789.html">bl::gfx::Circle</a></div><div class="ttdoc">Basic circle that can be rendered in scenes.</div><div class="ttdef"><b>Definition:</b> <a href="a00305_source.html#l00016">Circle.hpp:16</a></div></div>
+<div class="ttc" id="aa02789_html_a9d18a3cbd0e5c7a276fcd740709192f6"><div class="ttname"><a href="a02789.html#a9d18a3cbd0e5c7a276fcd740709192f6">bl::gfx::Circle::Circle</a></div><div class="ttdeci">Circle(unsigned int pointCount=300)</div><div class="ttdoc">Creates the circle with the given point count.</div><div class="ttdef"><b>Definition:</b> <a href="a01397_source.html#l00007">Circle.cpp:7</a></div></div>
+<div class="ttc" id="aa02789_html_ad668ee68333d7d9a9f3b8b8ff1fdd811"><div class="ttname"><a href="a02789.html#ad668ee68333d7d9a9f3b8b8ff1fdd811">bl::gfx::Circle::create</a></div><div class="ttdeci">void create(engine::Engine &amp;engine, float radius)</div><div class="ttdoc">Creates the circle entity and components.</div><div class="ttdef"><b>Definition:</b> <a href="a01397_source.html#l00010">Circle.cpp:10</a></div></div>
+<div class="ttc" id="aa02797_html_aa120ac89c9e8e4a405404e5e66245458"><div class="ttname"><a href="a02797.html#aa120ac89c9e8e4a405404e5e66245458">bl::gfx::bcom::EntityBacked::engine</a></div><div class="ttdeci">engine::Engine &amp; engine()</div><div class="ttdoc">Returns the game engine instance. Only call after create()</div><div class="ttdef"><b>Definition:</b> <a href="a00308_source.html#l00106">EntityBacked.hpp:106</a></div></div>
+<div class="ttc" id="aa02833_html"><div class="ttname"><a href="a02833.html">bl::gfx::s2d::CircleBase</a></div><div class="ttdoc">Intermediate base class for circles. Use gfx::CircleBase or gfx::BatchedCircle.</div><div class="ttdef"><b>Definition:</b> <a href="a00332_source.html#l00022">CircleBase.hpp:22</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Nov 29 2023 03:07:37 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Dec 2 2023 04:00:54 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

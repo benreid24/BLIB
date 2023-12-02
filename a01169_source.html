@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Systems/TogglerSystem.hpp Source File</title>
+<title>BLIB: include/BLIB/Systems/BuiltinDrawableSystems.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,52 +71,66 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">TogglerSystem.hpp</div>  </div>
+<div class="title">BuiltinDrawableSystems.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01169.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_SYSTEMS_TOGGLERSYSTEM_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_SYSTEMS_TOGGLERSYSTEM_HPP</span></div>
+<a href="a01169.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_SYSTEMS_BUILTINDRAWABLESYSTEMS_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_SYSTEMS_BUILTINDRAWABLESYSTEMS_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00092.html">BLIB/Components/Toggler.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00203.html">BLIB/ECS.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05601.html">BLIB/Engine/System.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02058.html">bl</a></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>sys</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a04402.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="a04402.html">TogglerSystem</a> : <span class="keyword">public</span> <a class="code" href="a02606.html">engine::System</a> {</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a04402.html#a18753732afc1c31c4356a0fe3eb3a6cc">   22</a></span>&#160;    <a class="code" href="a04402.html#a18753732afc1c31c4356a0fe3eb3a6cc">TogglerSystem</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="a04402.html#ae5e54cf8c385bd341ae56417fea4181c">   27</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a04402.html#ae5e54cf8c385bd341ae56417fea4181c">~TogglerSystem</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <a class="code" href="a02434.html">ecs::ComponentPool&lt;com::Toggler&gt;</a>* pool;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> init(<a class="code" href="a02554.html">engine::Engine</a>&amp; engine) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> update(std::mutex&amp; stageMutex, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;};</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;} <span class="comment">// namespace sys</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00092_html"><div class="ttname"><a href="a00092.html">Toggler.hpp</a></div></div>
-<div class="ttc" id="aa00203_html"><div class="ttname"><a href="a00203.html">ECS.hpp</a></div></div>
-<div class="ttc" id="aa02058_html"><div class="ttname"><a href="a02058.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02434_html"><div class="ttname"><a href="a02434.html">bl::ecs::ComponentPool</a></div><div class="ttdoc">Provides storage and management for components in the ECS. Used internally in the Registry.</div><div class="ttdef"><b>Definition:</b> <a href="a00149_source.html#l00069">ComponentPool.hpp:69</a></div></div>
-<div class="ttc" id="aa02554_html"><div class="ttname"><a href="a02554.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a05598_source.html#l00032">Engine.hpp:32</a></div></div>
-<div class="ttc" id="aa02606_html"><div class="ttname"><a href="a02606.html">bl::engine::System</a></div><div class="ttdoc">Base class for Engine systems which can be registered in the Systems registry.</div><div class="ttdef"><b>Definition:</b> <a href="a05601_source.html#l00018">System.hpp:18</a></div></div>
-<div class="ttc" id="aa04402_html"><div class="ttname"><a href="a04402.html">bl::sys::TogglerSystem</a></div><div class="ttdoc">Basic system to update Toggler components.</div><div class="ttdef"><b>Definition:</b> <a href="a01169_source.html#l00017">TogglerSystem.hpp:17</a></div></div>
-<div class="ttc" id="aa04402_html_a18753732afc1c31c4356a0fe3eb3a6cc"><div class="ttname"><a href="a04402.html#a18753732afc1c31c4356a0fe3eb3a6cc">bl::sys::TogglerSystem::TogglerSystem</a></div><div class="ttdeci">TogglerSystem()=default</div><div class="ttdoc">Creates the system.</div></div>
-<div class="ttc" id="aa04402_html_ae5e54cf8c385bd341ae56417fea4181c"><div class="ttname"><a href="a04402.html#ae5e54cf8c385bd341ae56417fea4181c">bl::sys::TogglerSystem::~TogglerSystem</a></div><div class="ttdeci">virtual ~TogglerSystem()=default</div><div class="ttdoc">Destroys the system.</div></div>
-<div class="ttc" id="aa05601_html"><div class="ttname"><a href="a05601.html">System.hpp</a></div></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05635.html">BLIB/Components/Animation2D.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05647.html">BLIB/Components/BatchedShapes2D.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05653.html">BLIB/Components/BatchedSlideshows.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05659.html">BLIB/Components/BatchedSprites.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00074.html">BLIB/Components/Mesh.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05665.html">BLIB/Components/Shape2D.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05671.html">BLIB/Components/Slideshow.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05677.html">BLIB/Components/Sprite.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05683.html">BLIB/Components/Text.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01175.html">BLIB/Systems/DrawableSystem.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02100.html">bl</a></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">namespace </span>sys</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;{</div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a02091.html#ga4477117aea35eeac21751bf038a0098b">   24</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a03725.html">MeshSystem</a> = <a class="code" href="a03725.html">DrawableSystem&lt;com::Mesh&gt;</a>;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="a02091.html#ga68bd85b37280b05c447083208d4079f7">   31</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a03725.html">SpriteSystem</a> = <a class="code" href="a03725.html">DrawableSystem&lt;com::Sprite&gt;</a>;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="a02091.html#ga8226f6cc5bdcfdb2b8a1c1c81162f9d7">   38</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a03725.html">BatchedSpriteSystem</a> = <a class="code" href="a03725.html">DrawableSystem&lt;com::BatchedSprites&gt;</a>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="a02091.html#ga09945f85269b1a8ed93da9da3150378f">   45</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a03725.html">TextSystem</a> = <a class="code" href="a03725.html">DrawableSystem&lt;com::Text&gt;</a>;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="a02091.html#gafc72d25e40dc5e41d1b7876e99072b2f">   52</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a03725.html">SlideshowSystem</a> = <a class="code" href="a03725.html">DrawableSystem&lt;com::Slideshow&gt;</a>;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="a02091.html#gad5200c125ca4068561acf231aa7b02f1">   59</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a03725.html">BatchedSlideshowsSystem</a> = <a class="code" href="a03725.html">DrawableSystem&lt;com::BatchedSlideshows&gt;</a>;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="a02091.html#gae9d9f38e1109df2f51f1c4327fdb2bf0">   66</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a03725.html">Animation2DDrawableSystem</a> = <a class="code" href="a03725.html">DrawableSystem&lt;com::Animation2D&gt;</a>;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="a02091.html#ga15d83a9ebb5cec163379398bf32e248b">   73</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a03725.html">Shape2DSystem</a> = <a class="code" href="a03725.html">DrawableSystem&lt;com::Shape2D&gt;</a>;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="a02091.html#ga2bdbd0db13fca04903c774a865b296d6">   80</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a03725.html">BatchedShapes2DSystem</a> = <a class="code" href="a03725.html">DrawableSystem&lt;com::BatchedShapes2D&gt;</a>;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;} <span class="comment">// namespace sys</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00074_html"><div class="ttname"><a href="a00074.html">Mesh.hpp</a></div></div>
+<div class="ttc" id="aa01175_html"><div class="ttname"><a href="a01175.html">DrawableSystem.hpp</a></div></div>
+<div class="ttc" id="aa02100_html"><div class="ttname"><a href="a02100.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03725_html"><div class="ttname"><a href="a03725.html">bl::sys::DrawableSystem</a></div><div class="ttdoc">Base class for renderer systems that manage scene objects in the ECS. Custom renderable types should ...</div><div class="ttdef"><b>Definition:</b> <a href="a01175_source.html#l00033">DrawableSystem.hpp:36</a></div></div>
+<div class="ttc" id="aa05635_html"><div class="ttname"><a href="a05635.html">Animation2D.hpp</a></div></div>
+<div class="ttc" id="aa05647_html"><div class="ttname"><a href="a05647.html">BatchedShapes2D.hpp</a></div></div>
+<div class="ttc" id="aa05653_html"><div class="ttname"><a href="a05653.html">BatchedSlideshows.hpp</a></div></div>
+<div class="ttc" id="aa05659_html"><div class="ttname"><a href="a05659.html">BatchedSprites.hpp</a></div></div>
+<div class="ttc" id="aa05665_html"><div class="ttname"><a href="a05665.html">Shape2D.hpp</a></div></div>
+<div class="ttc" id="aa05671_html"><div class="ttname"><a href="a05671.html">Slideshow.hpp</a></div></div>
+<div class="ttc" id="aa05677_html"><div class="ttname"><a href="a05677.html">Sprite.hpp</a></div></div>
+<div class="ttc" id="aa05683_html"><div class="ttname"><a href="a05683.html">Text.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Nov 29 2023 03:07:37 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Dec 2 2023 04:00:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Parser/ISkipper.hpp Source File</title>
+<title>BLIB: include/BLIB/Math/Trig.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,49 +66,47 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_68e8475672e907ae2e4c385fdd89fef9.html">Parser</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_e9abbcd9e0c082db5b09973bee2e6f6b.html">Math</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">ISkipper.hpp</div>  </div>
+<div class="title">Trig.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00650.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_PARSER_ISKIPPER_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_PARSER_ISKIPPER_HPP</span></div>
+<a href="a00650.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_MATH_TRIG_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_MATH_TRIG_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00659.html">BLIB/Parser/Stream.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02058.html">bl</a></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>parser</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a03266.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03266.html">ISkipper</a> {</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a03266.html#ac94262dbc4b796277c22a958aa727323">   19</a></span>&#160;    <span class="keyword">typedef</span> std::shared_ptr&lt;ISkipper&gt; <a class="code" href="a03266.html#ac94262dbc4b796277c22a958aa727323">Ptr</a>;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00644.html">BLIB/Math/Constants.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02100.html">bl</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>math</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keywordtype">float</span> <a class="code" href="a02084.html#gae8e482156412ed87dc2d91572ee817ab">cos</a>(<span class="keywordtype">float</span> degrees);</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a03266.html#a8afaad7778d34f6f3f86198ebdd4a86b">   25</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03266.html#a8afaad7778d34f6f3f86198ebdd4a86b">~ISkipper</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="a03266.html#a044cd5fba80d2ab990c25d9b92bbc5b4">   32</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03266.html#a044cd5fba80d2ab990c25d9b92bbc5b4">skip</a>(<a class="code" href="a03290.html">Stream</a>&amp; stream) <span class="keyword">const</span> = 0;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;};</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;} <span class="comment">// namespace parser</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00659_html"><div class="ttname"><a href="a00659.html">Stream.hpp</a></div></div>
-<div class="ttc" id="aa02058_html"><div class="ttname"><a href="a02058.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03266_html"><div class="ttname"><a href="a03266.html">bl::parser::ISkipper</a></div><div class="ttdoc">Interface for custom parsers to skip past unwanted characters such as whitespace or comments.</div><div class="ttdef"><b>Definition:</b> <a href="a00650_source.html#l00017">ISkipper.hpp:17</a></div></div>
-<div class="ttc" id="aa03266_html_a044cd5fba80d2ab990c25d9b92bbc5b4"><div class="ttname"><a href="a03266.html#a044cd5fba80d2ab990c25d9b92bbc5b4">bl::parser::ISkipper::skip</a></div><div class="ttdeci">virtual void skip(Stream &amp;stream) const =0</div><div class="ttdoc">Skip past unwanted characters in the stream.</div></div>
-<div class="ttc" id="aa03266_html_a8afaad7778d34f6f3f86198ebdd4a86b"><div class="ttname"><a href="a03266.html#a8afaad7778d34f6f3f86198ebdd4a86b">bl::parser::ISkipper::~ISkipper</a></div><div class="ttdeci">virtual ~ISkipper()=default</div><div class="ttdoc">Destroy the ISkipper object.</div></div>
-<div class="ttc" id="aa03266_html_ac94262dbc4b796277c22a958aa727323"><div class="ttname"><a href="a03266.html#ac94262dbc4b796277c22a958aa727323">bl::parser::ISkipper::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; ISkipper &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00650_source.html#l00019">ISkipper.hpp:19</a></div></div>
-<div class="ttc" id="aa03290_html"><div class="ttname"><a href="a03290.html">bl::parser::Stream</a></div><div class="ttdoc">Wrapper class around std::ostream. Used for keeping track of current line and column numbers.</div><div class="ttdef"><b>Definition:</b> <a href="a00659_source.html#l00017">Stream.hpp:17</a></div></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keywordtype">float</span> <a class="code" href="a02084.html#ga0379b8bbdfc3c74fecd12c93fdf0ca5b">sin</a>(<span class="keywordtype">float</span> degrees);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="a02084.html#ga2f1f77fa956c6d37dd2761746ed513d7">   40</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">float</span> <a class="code" href="a02084.html#ga2f1f77fa956c6d37dd2761746ed513d7">radiansToDegrees</a>(<span class="keywordtype">float</span> radians) { <span class="keywordflow">return</span> radians * 180.f / <a class="code" href="a02139.html#a5d956eb5741fd61ccb4d7a18bd6fd431">Pi</a>; }</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="a02084.html#ga5ba29ca07fceceb0c2753dccbe5d50db">   50</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">float</span> <a class="code" href="a02084.html#ga5ba29ca07fceceb0c2753dccbe5d50db">degreesToRadians</a>(<span class="keywordtype">float</span> degrees) { <span class="keywordflow">return</span> degrees / 180.f * <a class="code" href="a02139.html#a5d956eb5741fd61ccb4d7a18bd6fd431">Pi</a>; }</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;} <span class="comment">// namespace math</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00644_html"><div class="ttname"><a href="a00644.html">Constants.hpp</a></div></div>
+<div class="ttc" id="aa02084_html_ga0379b8bbdfc3c74fecd12c93fdf0ca5b"><div class="ttname"><a href="a02084.html#ga0379b8bbdfc3c74fecd12c93fdf0ca5b">bl::math::sin</a></div><div class="ttdeci">float sin(float degrees)</div><div class="ttdoc">Computes the sine of the given angle using cached values. Values are cached in quarter degree increme...</div><div class="ttdef"><b>Definition:</b> <a href="a01664_source.html#l00037">Trig.cpp:37</a></div></div>
+<div class="ttc" id="aa02084_html_ga2f1f77fa956c6d37dd2761746ed513d7"><div class="ttname"><a href="a02084.html#ga2f1f77fa956c6d37dd2761746ed513d7">bl::math::radiansToDegrees</a></div><div class="ttdeci">float radiansToDegrees(float radians)</div><div class="ttdoc">Converts an angle in radians to degrees.</div><div class="ttdef"><b>Definition:</b> <a href="a00650_source.html#l00040">Trig.hpp:40</a></div></div>
+<div class="ttc" id="aa02084_html_ga5ba29ca07fceceb0c2753dccbe5d50db"><div class="ttname"><a href="a02084.html#ga5ba29ca07fceceb0c2753dccbe5d50db">bl::math::degreesToRadians</a></div><div class="ttdeci">float degreesToRadians(float degrees)</div><div class="ttdoc">Converts an angle in degrees to radians.</div><div class="ttdef"><b>Definition:</b> <a href="a00650_source.html#l00050">Trig.hpp:50</a></div></div>
+<div class="ttc" id="aa02084_html_gae8e482156412ed87dc2d91572ee817ab"><div class="ttname"><a href="a02084.html#gae8e482156412ed87dc2d91572ee817ab">bl::math::cos</a></div><div class="ttdeci">float cos(float degrees)</div><div class="ttdoc">Computes the cosine of the given angle using cached values. Values are cached in quarter degree incre...</div><div class="ttdef"><b>Definition:</b> <a href="a01664_source.html#l00031">Trig.cpp:31</a></div></div>
+<div class="ttc" id="aa02100_html"><div class="ttname"><a href="a02100.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02139_html_a5d956eb5741fd61ccb4d7a18bd6fd431"><div class="ttname"><a href="a02139.html#a5d956eb5741fd61ccb4d7a18bd6fd431">bl::math::Pi</a></div><div class="ttdeci">constexpr float Pi</div><div class="ttdoc">It's pi.</div><div class="ttdef"><b>Definition:</b> <a href="a00644_source.html#l00010">Constants.hpp:10</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Nov 29 2023 03:07:37 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Dec 2 2023 04:00:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

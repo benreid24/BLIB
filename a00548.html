@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Interfaces/GUI/Renderer/NullHighlightProvider.hpp File Reference</title>
+<title>BLIB: include/BLIB/Interfaces/GUI/Renderer/FactoryTable.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,36 +74,42 @@ $(function() {
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">NullHighlightProvider.hpp File Reference</div>  </div>
+<div class="title">FactoryTable.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00539_source.html">BLIB/Interfaces/GUI/Renderer/HighlightProvider.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00425_source.html">BLIB/Interfaces/GUI/Elements/Element.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00545_source.html">BLIB/Interfaces/GUI/Renderer/ComponentFactory.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00551_source.html">BLIB/Interfaces/GUI/Renderer/FlashProvider.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00554_source.html">BLIB/Interfaces/GUI/Renderer/HighlightProvider.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00575_source.html">BLIB/Interfaces/GUI/Renderer/TooltipProvider.hpp</a>&gt;</code><br />
+<code>#include &lt;typeindex&gt;</code><br />
+<code>#include &lt;unordered_map&gt;</code><br />
 </div>
 <p><a href="a00548_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03138.html">bl::gui::rdr::NullHighlightProvider</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Does nothing.  <a href="a03138.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03189.html">bl::gui::rdr::FactoryTable</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Managed mapping of <a class="el" href="a03069.html" title="Top level class for creating a graphical user interface.">GUI</a> <a class="el" href="a03001.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a> to <a class="el" href="a03181.html" title="Base class for component factories. Component factories are owned by FactoryTables,...">ComponentFactory</a>. Allows swapping out render behavior for specific <a class="el" href="a03001.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a> types individually.  <a href="a03189.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a02058"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02058.html">bl</a></td></tr>
-<tr class="memdesc:a02058"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="memitem:a02100"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02100.html">bl</a></td></tr>
+<tr class="memdesc:a02100"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02090"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02090.html">bl::gui</a></td></tr>
-<tr class="memdesc:a02090"><td class="mdescLeft">&#160;</td><td class="mdescRight">A window based graphical user interface. <br /></td></tr>
+<tr class="memitem:a02132"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02132.html">bl::gui</a></td></tr>
+<tr class="memdesc:a02132"><td class="mdescLeft">&#160;</td><td class="mdescRight">A window based graphical user interface. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02093"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02093.html">bl::gui::rdr</a></td></tr>
-<tr class="memdesc:a02093"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a02998.html" title="Top level class for creating a graphical user interface.">GUI</a> renderer classes. <br /></td></tr>
+<tr class="memitem:a02135"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02135.html">bl::gui::rdr</a></td></tr>
+<tr class="memdesc:a02135"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a03069.html" title="Top level class for creating a graphical user interface.">GUI</a> renderer classes. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Nov 29 2023 03:07:38 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Dec 2 2023 04:00:56 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

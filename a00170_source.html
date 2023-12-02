@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/ECS/ParentDestructionBehavior.hpp Source File</title>
+<title>BLIB: include/BLIB/Events.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,42 +66,32 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ce575a5afd2ea0954c4dff0006796805.html">ECS</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">ParentDestructionBehavior.hpp</div>  </div>
+<div class="title">Events.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00170.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_ECS_DESTROYBEHAVIOR_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_ECS_DESTROYBEHAVIOR_HPP</span></div>
+<a href="a00170.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_EVENTS_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_EVENTS_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;cstdint&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02058.html">bl</a></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>ecs</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="a02035.html#ga8a26375b4229d8ec106886db32501969">   15</a></span>&#160;<span class="keyword">enum struct</span> <a class="code" href="a02035.html#ga8a26375b4229d8ec106886db32501969">ParentDestructionBehavior</a> : std::uint8_t {</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <a class="code" href="a02035.html#gga8a26375b4229d8ec106886db32501969ac817e89a441e03ce62483611fd6ddeb1">DestroyedWithParent</a>,</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <a class="code" href="a02035.html#gga8a26375b4229d8ec106886db32501969a7e648f0f6f1f3177fc23eb64b4af8103">OrphanedByParent</a></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;};</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;} <span class="comment">// namespace ecs</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa02035_html_ga8a26375b4229d8ec106886db32501969"><div class="ttname"><a href="a02035.html#ga8a26375b4229d8ec106886db32501969">bl::ecs::ParentDestructionBehavior</a></div><div class="ttdeci">ParentDestructionBehavior</div><div class="ttdoc">Defines the behavior of an entity when any of its parents are destroyed.</div><div class="ttdef"><b>Definition:</b> <a href="a00170_source.html#l00015">ParentDestructionBehavior.hpp:15</a></div></div>
-<div class="ttc" id="aa02035_html_gga8a26375b4229d8ec106886db32501969a7e648f0f6f1f3177fc23eb64b4af8103"><div class="ttname"><a href="a02035.html#gga8a26375b4229d8ec106886db32501969a7e648f0f6f1f3177fc23eb64b4af8103">bl::ecs::ParentDestructionBehavior::OrphanedByParent</a></div><div class="ttdeci">@ OrphanedByParent</div><div class="ttdoc">The entity becomes parent-less instead of being destroyed.</div></div>
-<div class="ttc" id="aa02035_html_gga8a26375b4229d8ec106886db32501969ac817e89a441e03ce62483611fd6ddeb1"><div class="ttname"><a href="a02035.html#gga8a26375b4229d8ec106886db32501969ac817e89a441e03ce62483611fd6ddeb1">bl::ecs::ParentDestructionBehavior::DestroyedWithParent</a></div><div class="ttdeci">@ DestroyedWithParent</div><div class="ttdoc">Default behavior. The entity is erased with its parent.</div></div>
-<div class="ttc" id="aa02058_html"><div class="ttname"><a href="a02058.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00260.html">BLIB/Events/Dispatcher.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00263.html">BLIB/Events/EventWaiter.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05731.html">BLIB/Events/Listener.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00269.html">BLIB/Events/ListenerGuard.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00260_html"><div class="ttname"><a href="a00260.html">Dispatcher.hpp</a></div></div>
+<div class="ttc" id="aa00263_html"><div class="ttname"><a href="a00263.html">EventWaiter.hpp</a></div></div>
+<div class="ttc" id="aa00269_html"><div class="ttname"><a href="a00269.html">ListenerGuard.hpp</a></div></div>
+<div class="ttc" id="aa05731_html"><div class="ttname"><a href="a05731.html">Listener.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Nov 29 2023 03:07:37 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Dec 2 2023 04:00:54 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

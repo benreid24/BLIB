@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Vulkan.hpp Source File</title>
+<title>BLIB: include/BLIB/Util/Timer.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,27 +66,68 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4b3af2b25a05b4f12e892fbe45139fe9.html">Util</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Vulkan.hpp</div>  </div>
+<div class="title">Timer.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01244.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_VULKAN_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_VULKAN_HPP</span></div>
+<a href="a01244.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_UTIL_TIMER_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_UTIL_TIMER_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;volk.h&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;vk_mem_alloc.h&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01223.html">BLIB/Util/NonCopyable.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;SFML/System.hpp&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02100.html">bl</a></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>util</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a04609.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="a04609.html">Timer</a> : <span class="keyword">private</span> <a class="code" href="a04537.html">util::NonCopyable</a> {</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keyword">static</span> <a class="code" href="a04609.html">Timer</a>&amp; <a class="code" href="a04609.html#aecde32b54c94ec7f5c2eca40e0975584">get</a>();</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a04609.html#a04d476133cd5a6559d4a7cbd5fbe2d48">timeElapsedSeconds</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <span class="keywordtype">int</span> <a class="code" href="a04609.html#af2414c20069843d3a9a7b98efa5b3b83">timeElapsedMilliseconds</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    sf::Time <a class="code" href="a04609.html#ac99ffbd80e0e1af189f47fdecdacdb26">timeElapsed</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    sf::Time <a class="code" href="a04609.html#a57708d1e70962d8764fc11839425d332">timeElapsedRaw</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04609.html#a4bb92a9c02daeb62980e97e37c258a8f">pause</a>();</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04609.html#a3493011738abc4ec4481f297c053fc50">resume</a>();</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <a class="code" href="a04609.html">Timer</a>();</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    sf::Clock clock;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    sf::Time timePaused, offset;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordtype">bool</span> paused;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;};</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;} <span class="comment">// namespace util</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01223_html"><div class="ttname"><a href="a01223.html">NonCopyable.hpp</a></div></div>
+<div class="ttc" id="aa02100_html"><div class="ttname"><a href="a02100.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04537_html"><div class="ttname"><a href="a04537.html">bl::util::NonCopyable</a></div><div class="ttdoc">Helper class to make derived classes impossible for user to copy directly.</div><div class="ttdef"><b>Definition:</b> <a href="a01223_source.html#l00013">NonCopyable.hpp:13</a></div></div>
+<div class="ttc" id="aa04609_html"><div class="ttname"><a href="a04609.html">bl::util::Timer</a></div><div class="ttdoc">Global class for tracking time. Implemented over the top of sf::Clock to allow for pausing.</div><div class="ttdef"><b>Definition:</b> <a href="a01244_source.html#l00017">Timer.hpp:17</a></div></div>
+<div class="ttc" id="aa04609_html_a04d476133cd5a6559d4a7cbd5fbe2d48"><div class="ttname"><a href="a04609.html#a04d476133cd5a6559d4a7cbd5fbe2d48">bl::util::Timer::timeElapsedSeconds</a></div><div class="ttdeci">float timeElapsedSeconds() const</div><div class="ttdoc">Returns the time elapsed in seconds.</div><div class="ttdef"><b>Definition:</b> <a href="a02066_source.html#l00023">Timer.cpp:23</a></div></div>
+<div class="ttc" id="aa04609_html_a3493011738abc4ec4481f297c053fc50"><div class="ttname"><a href="a04609.html#a3493011738abc4ec4481f297c053fc50">bl::util::Timer::resume</a></div><div class="ttdeci">void resume()</div><div class="ttdoc">Resumes the timer.</div><div class="ttdef"><b>Definition:</b> <a href="a02066_source.html#l00032">Timer.cpp:32</a></div></div>
+<div class="ttc" id="aa04609_html_a4bb92a9c02daeb62980e97e37c258a8f"><div class="ttname"><a href="a04609.html#a4bb92a9c02daeb62980e97e37c258a8f">bl::util::Timer::pause</a></div><div class="ttdeci">void pause()</div><div class="ttdoc">Pauses the timer.</div><div class="ttdef"><b>Definition:</b> <a href="a02066_source.html#l00027">Timer.cpp:27</a></div></div>
+<div class="ttc" id="aa04609_html_a57708d1e70962d8764fc11839425d332"><div class="ttname"><a href="a04609.html#a57708d1e70962d8764fc11839425d332">bl::util::Timer::timeElapsedRaw</a></div><div class="ttdeci">sf::Time timeElapsedRaw() const</div><div class="ttdoc">Returns the raw elapsed time. Does not compensate for pausing.</div><div class="ttdef"><b>Definition:</b> <a href="a02066_source.html#l00015">Timer.cpp:15</a></div></div>
+<div class="ttc" id="aa04609_html_ac99ffbd80e0e1af189f47fdecdacdb26"><div class="ttname"><a href="a04609.html#ac99ffbd80e0e1af189f47fdecdacdb26">bl::util::Timer::timeElapsed</a></div><div class="ttdeci">sf::Time timeElapsed() const</div><div class="ttdoc">Returns the elapsed time.</div><div class="ttdef"><b>Definition:</b> <a href="a02066_source.html#l00017">Timer.cpp:17</a></div></div>
+<div class="ttc" id="aa04609_html_aecde32b54c94ec7f5c2eca40e0975584"><div class="ttname"><a href="a04609.html#aecde32b54c94ec7f5c2eca40e0975584">bl::util::Timer::get</a></div><div class="ttdeci">static Timer &amp; get()</div><div class="ttdoc">Returns the global timer object.</div><div class="ttdef"><b>Definition:</b> <a href="a02066_source.html#l00010">Timer.cpp:10</a></div></div>
+<div class="ttc" id="aa04609_html_af2414c20069843d3a9a7b98efa5b3b83"><div class="ttname"><a href="a04609.html#af2414c20069843d3a9a7b98efa5b3b83">bl::util::Timer::timeElapsedMilliseconds</a></div><div class="ttdeci">unsigned long int timeElapsedMilliseconds() const</div><div class="ttdoc">Returns the time elapsed in milliseconds.</div><div class="ttdef"><b>Definition:</b> <a href="a02066_source.html#l00025">Timer.cpp:25</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Nov 29 2023 03:07:37 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Dec 2 2023 04:00:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

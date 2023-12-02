@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Vulkan/VulkanState.cpp File Reference</title>
+<title>BLIB: src/Render/Vulkan/PipelineLayout.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,64 +71,33 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#define-members">Macros</a>  </div>
+<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">VulkanState.cpp File Reference</div>  </div>
+<div class="title">PipelineLayout.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00992_source.html">BLIB/Render/Vulkan/VulkanState.hpp</a>&gt;</code><br />
-<code>#include &quot;vk_mem_alloc.h&quot;</code><br />
-<code>#include &lt;<a class="el" href="a00626_source.html">BLIB/Logging.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00950_source.html">BLIB/Render/Vulkan/Framebuffer.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a01034_source.html">BLIB/Resources/FileSystem.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a01868_source.html">Render/Vulkan/Utils/QueueFamilyLocator.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a01874_source.html">Render/Vulkan/Utils/SwapChainSupportDetails.hpp</a>&gt;</code><br />
-<code>#include &lt;set&gt;</code><br />
-<code>#include &lt;string&gt;</code><br />
-<code>#include &lt;unordered_set&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00980_source.html">BLIB/Render/Vulkan/PipelineLayout.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a05755_source.html">BLIB/Render/Renderer.hpp</a>&gt;</code><br />
 </div>
 <p><a href="a01877_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a02058"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02058.html">bl</a></td></tr>
-<tr class="memdesc:a02058"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="memitem:a02100"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02100.html">bl</a></td></tr>
+<tr class="memdesc:a02100"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02070"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02070.html">bl::rc</a></td></tr>
-<tr class="memdesc:a02070"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a03602.html" title="Top level rendering system of the game engine.">Renderer</a> core implementation classes and functionality. <br /></td></tr>
+<tr class="memitem:a02109"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02109.html">bl::rc</a></td></tr>
+<tr class="memdesc:a02109"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a03673.html" title="Top level rendering system of the game engine.">Renderer</a> core implementation classes and functionality. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02071"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02071.html">bl::rc::vk</a></td></tr>
-<tr class="memdesc:a02071"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of interfaces and utilities directly related to Vulkan. <br /></td></tr>
+<tr class="memitem:a02110"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02110.html">bl::rc::vk</a></td></tr>
+<tr class="memdesc:a02110"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of interfaces and utilities directly related to Vulkan. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
-Macros</h2></td></tr>
-<tr class="memitem:abea80547807da765ebe9fce1c6dd6a8d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01877.html#abea80547807da765ebe9fce1c6dd6a8d">VMA_IMPLEMENTATION</a></td></tr>
-<tr class="separator:abea80547807da765ebe9fce1c6dd6a8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="abea80547807da765ebe9fce1c6dd6a8d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abea80547807da765ebe9fce1c6dd6a8d">&#9670;&nbsp;</a></span>VMA_IMPLEMENTATION</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define VMA_IMPLEMENTATION</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01877_source.html#l00003">3</a> of file <a class="el" href="a01877_source.html">VulkanState.cpp</a>.</p>
-
-</div>
-</div>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Nov 29 2023 03:07:38 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Dec 2 2023 04:00:56 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Serialization/Binary/OutputFile.hpp Source File</title>
+<title>BLIB: include/BLIB/Scripts/ReferenceValue.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,57 +66,68 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_0603dcfd3f324f38b3f10f913306f40f.html">Serialization</a></li><li class="navelem"><a class="el" href="dir_16181c53270a1447d0a8c102e5a0532b.html">Binary</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_9fb35b166bb00afcaa31ece623ebed60.html">Scripts</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">OutputFile.hpp</div>  </div>
+<div class="title">ReferenceValue.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01091.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_SERIALIZATION_BINARY_BINARYOUTPUTFILE_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_SERIALIZATION_BINARY_BINARYOUTPUTFILE_HPP</span></div>
+<a href="a01091.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_SCRIPTS_REFERENCEVALUE_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_SCRIPTS_REFERENCEVALUE_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01094.html">BLIB/Serialization/Binary/OutputStream.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01121.html">BLIB/Serialization/Buffers/StreamOutputBuffer.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;fstream&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02058.html">bl</a></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>serial</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>binary</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a04070.html">   20</a></span>&#160;<span class="keyword">class </span><a class="code" href="a04070.html">OutputFile</a> : <span class="keyword">public</span> <a class="code" href="a04074.html">OutputStream</a> {</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <a class="code" href="a04070.html#a532927eeaa88aa29512a6be438ef85f9">OutputFile</a>(<span class="keyword">const</span> std::string&amp; path);</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;variant&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02100.html">bl</a></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>script</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">class </span>Value;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a04121.html">   19</a></span>&#160;<span class="keyword">class </span><a class="code" href="a04121.html">ReferenceValue</a> {</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a04121.html#a8d7f6ceda6658e98684f1605bade87c1">   21</a></span>&#160;    <a class="code" href="a04121.html#a8d7f6ceda6658e98684f1605bade87c1">ReferenceValue</a>() = <span class="keyword">delete</span>;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <a class="code" href="a04121.html#a8d7f6ceda6658e98684f1605bade87c1">ReferenceValue</a>(<span class="keyword">const</span> <a class="code" href="a04137.html">Value</a>&amp; copy);</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keyword">const</span> std::string&amp; <a class="code" href="a04070.html#a90ed8fff6d1c1ce1e3f5ad0ccb66d23b">filename</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <a class="code" href="a04121.html#a8d7f6ceda6658e98684f1605bade87c1">ReferenceValue</a>(<a class="code" href="a04137.html">Value</a>&amp;&amp; move);</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">const</span> std::string file;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    std::ofstream output;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <a class="code" href="a04202.html">StreamOutputBuffer</a> buffer;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;};</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <a class="code" href="a04121.html#a8d7f6ceda6658e98684f1605bade87c1">ReferenceValue</a>(std::shared_ptr&lt;Value&gt;&amp;&amp; ptr);</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;} <span class="comment">// namespace binary</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;} <span class="comment">// namespace serial</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01094_html"><div class="ttname"><a href="a01094.html">OutputStream.hpp</a></div></div>
-<div class="ttc" id="aa01121_html"><div class="ttname"><a href="a01121.html">StreamOutputBuffer.hpp</a></div></div>
-<div class="ttc" id="aa02058_html"><div class="ttname"><a href="a02058.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04070_html"><div class="ttname"><a href="a04070.html">bl::serial::binary::OutputFile</a></div><div class="ttdoc">Helper wrapper class that encapsulates a file, a buffer, and a stream.</div><div class="ttdef"><b>Definition:</b> <a href="a01091_source.html#l00020">OutputFile.hpp:20</a></div></div>
-<div class="ttc" id="aa04070_html_a532927eeaa88aa29512a6be438ef85f9"><div class="ttname"><a href="a04070.html#a532927eeaa88aa29512a6be438ef85f9">bl::serial::binary::OutputFile::OutputFile</a></div><div class="ttdeci">OutputFile(const std::string &amp;path)</div><div class="ttdoc">Construct a new Output File.</div><div class="ttdef"><b>Definition:</b> <a href="a01961_source.html#l00009">OutputFile.cpp:9</a></div></div>
-<div class="ttc" id="aa04070_html_a90ed8fff6d1c1ce1e3f5ad0ccb66d23b"><div class="ttname"><a href="a04070.html#a90ed8fff6d1c1ce1e3f5ad0ccb66d23b">bl::serial::binary::OutputFile::filename</a></div><div class="ttdeci">const std::string &amp; filename() const</div><div class="ttdoc">The filename used to open the file.</div><div class="ttdef"><b>Definition:</b> <a href="a01961_source.html#l00015">OutputFile.cpp:15</a></div></div>
-<div class="ttc" id="aa04074_html"><div class="ttname"><a href="a04074.html">bl::serial::binary::OutputStream</a></div><div class="ttdoc">A writable stream for binary serialization.</div><div class="ttdef"><b>Definition:</b> <a href="a01094_source.html#l00022">OutputStream.hpp:22</a></div></div>
-<div class="ttc" id="aa04202_html"><div class="ttname"><a href="a04202.html">bl::serial::StreamOutputBuffer</a></div><div class="ttdoc">Output buffer that allows writing to C++ streams.</div><div class="ttdef"><b>Definition:</b> <a href="a01121_source.html#l00017">StreamOutputBuffer.hpp:17</a></div></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <a class="code" href="a04121.html#a8d7f6ceda6658e98684f1605bade87c1">ReferenceValue</a>(<a class="code" href="a04137.html">Value</a>* value);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04121.html#aeee3ebad7744898f2280a77fe8349de8">makeSafe</a>();</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="a04121.html#a9a16a146e76c0f7d1f2aa0ac25e464db">   57</a></span>&#160;    <a class="code" href="a04121.html#a9a16a146e76c0f7d1f2aa0ac25e464db">~ReferenceValue</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keyword">const</span> <a class="code" href="a04137.html">Value</a>&amp; <a class="code" href="a04121.html#a57d32cd7c5bd824b1d0a9cc45ecbe672">deref</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <a class="code" href="a04137.html">Value</a>&amp; <a class="code" href="a04121.html#a57d32cd7c5bd824b1d0a9cc45ecbe672">deref</a>();</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    std::variant&lt;std::shared_ptr&lt;Value&gt;, <a class="code" href="a04137.html">Value</a>*&gt; value;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <a class="code" href="a04137.html">Value</a>* ptr();</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;};</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;} <span class="comment">// namespace script</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa02100_html"><div class="ttname"><a href="a02100.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04121_html"><div class="ttname"><a href="a04121.html">bl::script::ReferenceValue</a></div><div class="ttdoc">Reference type for values. Wrapper around std::shared_ptr.</div><div class="ttdef"><b>Definition:</b> <a href="a01091_source.html#l00019">ReferenceValue.hpp:19</a></div></div>
+<div class="ttc" id="aa04121_html_a57d32cd7c5bd824b1d0a9cc45ecbe672"><div class="ttname"><a href="a04121.html#a57d32cd7c5bd824b1d0a9cc45ecbe672">bl::script::ReferenceValue::deref</a></div><div class="ttdeci">const Value &amp; deref() const</div><div class="ttdoc">Access the value being referred to.</div><div class="ttdef"><b>Definition:</b> <a href="a01976_source.html#l00027">ReferenceValue.cpp:27</a></div></div>
+<div class="ttc" id="aa04121_html_a8d7f6ceda6658e98684f1605bade87c1"><div class="ttname"><a href="a04121.html#a8d7f6ceda6658e98684f1605bade87c1">bl::script::ReferenceValue::ReferenceValue</a></div><div class="ttdeci">ReferenceValue()=delete</div></div>
+<div class="ttc" id="aa04121_html_a9a16a146e76c0f7d1f2aa0ac25e464db"><div class="ttname"><a href="a04121.html#a9a16a146e76c0f7d1f2aa0ac25e464db">bl::script::ReferenceValue::~ReferenceValue</a></div><div class="ttdeci">~ReferenceValue()=default</div><div class="ttdoc">Destroy the Value Reference object.</div></div>
+<div class="ttc" id="aa04121_html_aeee3ebad7744898f2280a77fe8349de8"><div class="ttname"><a href="a04121.html#aeee3ebad7744898f2280a77fe8349de8">bl::script::ReferenceValue::makeSafe</a></div><div class="ttdeci">void makeSafe()</div><div class="ttdoc">Copies the referenced value to managed heap storage.</div><div class="ttdef"><b>Definition:</b> <a href="a01976_source.html#l00031">ReferenceValue.cpp:31</a></div></div>
+<div class="ttc" id="aa04137_html"><div class="ttname"><a href="a04137.html">bl::script::Value</a></div><div class="ttdoc">Main representation of a value in scripts.</div><div class="ttdef"><b>Definition:</b> <a href="a01100_source.html#l00022">Value.hpp:22</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Nov 29 2023 03:07:37 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Dec 2 2023 04:00:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

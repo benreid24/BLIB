@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Vulkan/RenderPass.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Vulkan/PerFrameVector.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,56 +71,82 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">RenderPass.hpp</div>  </div>
+<div class="title">PerFrameVector.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00971.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_VULKAN_RENDERPASS_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_VULKAN_RENDERPASS_HPP</span></div>
+<a href="a00971.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_VULKAN_PERFRAMEVECTOR_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_VULKAN_PERFRAMEVECTOR_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00974.html">BLIB/Render/Vulkan/RenderPassParameters.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00992.html">BLIB/Render/Vulkan/VulkanState.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02058.html">bl</a></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>rc</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>vk</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a03838.html">   19</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03838.html">RenderPass</a> {</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <a class="code" href="a03838.html#ad011998d18306cfe27a9e94d15cf2460">RenderPass</a>(<a class="code" href="a03874.html">VulkanState</a>&amp; vulkanState, <a class="code" href="a03842.html">RenderPassParameters</a>&amp;&amp; params);</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <a class="code" href="a03838.html#abd170528aea214831e7e4f49d515dd62">~RenderPass</a>();</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05770.html">BLIB/Render/Config.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;cstdint&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02100.html">bl</a></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>vk</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">struct </span>VulkanState;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a03869.html">   24</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03869.html">PerFrameVector</a> {</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <a class="code" href="a03869.html#a38c3e16c301555203938bfa5a089c0ba">PerFrameVector</a>();</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03869.html#a25a3740608d37edde75e028b1267da27">emptyInit</a>(<a class="code" href="a03953.html">VulkanState</a>&amp; vulkanState, std::uint32_t capacity);</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    constexpr VkRenderPass <a class="code" href="a03838.html#a2b408d041da558b67ed167df55f17339">rawPass</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <a class="code" href="a03874.html">VulkanState</a>&amp; vulkanState;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    VkRenderPass renderPass;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;};</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="a03838.html#a2b408d041da558b67ed167df55f17339">   49</a></span>&#160;constexpr VkRenderPass <a class="code" href="a03838.html#a2b408d041da558b67ed167df55f17339">RenderPass::rawPass</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> renderPass; }</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;} <span class="comment">// namespace vk</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03869.html#a83eda500d1b6ed88019088ba19ed4c17">init</a>(<a class="code" href="a03953.html">VulkanState</a>&amp; vulkanState, std::uint32_t capacity, <span class="keyword">const</span> U&amp; visitor);</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03869.html#ae58605f178c63cd4a3bca72b5e5a958f">cleanup</a>(<span class="keyword">const</span> U&amp; visitor);</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00974_html"><div class="ttname"><a href="a00974.html">RenderPassParameters.hpp</a></div></div>
-<div class="ttc" id="aa00992_html"><div class="ttname"><a href="a00992.html">VulkanState.hpp</a></div></div>
-<div class="ttc" id="aa02058_html"><div class="ttname"><a href="a02058.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03838_html"><div class="ttname"><a href="a03838.html">bl::rc::vk::RenderPass</a></div><div class="ttdoc">Represents a render pass in the renderer. A scene is comprised of a sequence of render passes and eac...</div><div class="ttdef"><b>Definition:</b> <a href="a00971_source.html#l00019">RenderPass.hpp:19</a></div></div>
-<div class="ttc" id="aa03838_html_a2b408d041da558b67ed167df55f17339"><div class="ttname"><a href="a03838.html#a2b408d041da558b67ed167df55f17339">bl::rc::vk::RenderPass::rawPass</a></div><div class="ttdeci">constexpr VkRenderPass rawPass() const</div><div class="ttdoc">Returns the Vulkan render pass handle.</div><div class="ttdef"><b>Definition:</b> <a href="a00971_source.html#l00049">RenderPass.hpp:49</a></div></div>
-<div class="ttc" id="aa03838_html_abd170528aea214831e7e4f49d515dd62"><div class="ttname"><a href="a03838.html#abd170528aea214831e7e4f49d515dd62">bl::rc::vk::RenderPass::~RenderPass</a></div><div class="ttdeci">~RenderPass()</div><div class="ttdoc">Destroy the Render Pass object.</div><div class="ttdef"><b>Definition:</b> <a href="a01847_source.html#l00038">RenderPass.cpp:38</a></div></div>
-<div class="ttc" id="aa03838_html_ad011998d18306cfe27a9e94d15cf2460"><div class="ttname"><a href="a03838.html#ad011998d18306cfe27a9e94d15cf2460">bl::rc::vk::RenderPass::RenderPass</a></div><div class="ttdeci">RenderPass(VulkanState &amp;vulkanState, RenderPassParameters &amp;&amp;params)</div><div class="ttdoc">Construct a new Render Pass.</div><div class="ttdef"><b>Definition:</b> <a href="a01847_source.html#l00009">RenderPass.cpp:9</a></div></div>
-<div class="ttc" id="aa03842_html"><div class="ttname"><a href="a03842.html">bl::rc::vk::RenderPassParameters</a></div><div class="ttdoc">Parameter builder class used to construct RenderPass objects in the renderer.</div><div class="ttdef"><b>Definition:</b> <a href="a00974_source.html#l00022">RenderPassParameters.hpp:22</a></div></div>
-<div class="ttc" id="aa03874_html"><div class="ttname"><a href="a03874.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a00992_source.html#l00038">VulkanState.hpp:38</a></div></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    T&amp; <a class="code" href="a03869.html#a64716578fccd7829f157ca462a45bda8">current</a>(std::uint32_t i);</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keyword">const</span> T&amp; <a class="code" href="a03869.html#a64716578fccd7829f157ca462a45bda8">current</a>(std::uint32_t i) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    T&amp; <a class="code" href="a03869.html#a420a3c91e76a8f8951a3704be89bdb86">getRaw</a>(std::uint32_t i, std::uint32_t frame);</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keyword">const</span> T&amp; <a class="code" href="a03869.html#a420a3c91e76a8f8951a3704be89bdb86">getRaw</a>(std::uint32_t i, std::uint32_t frame) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    constexpr std::uint32_t <a class="code" href="a03869.html#a09fef90b3cb81cd453d89c6056ed7319">size</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    constexpr std::uint32_t <a class="code" href="a03869.html#ab1b55763cd34112e2f8d288061fbb467">totalSize</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    constexpr T* <a class="code" href="a03869.html#a2c9e6eab0a28a82873550d914f3685a3">data</a>();</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    constexpr <span class="keyword">const</span> T* <a class="code" href="a03869.html#a2c9e6eab0a28a82873550d914f3685a3">data</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <a class="code" href="a03953.html">VulkanState</a>* vs;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    std::uint32_t cap;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    std::vector&lt;T&gt; items;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;};</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;} <span class="comment">// namespace vk</span></div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa02100_html"><div class="ttname"><a href="a02100.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03869_html"><div class="ttname"><a href="a03869.html">bl::rc::vk::PerFrameVector</a></div><div class="ttdoc">Container version of PerFrame. Intended to replace std::vector&lt;PerFrame&lt;T&gt;&gt; when continuous storage i...</div><div class="ttdef"><b>Definition:</b> <a href="a00971_source.html#l00024">PerFrameVector.hpp:24</a></div></div>
+<div class="ttc" id="aa03869_html_a09fef90b3cb81cd453d89c6056ed7319"><div class="ttname"><a href="a03869.html#a09fef90b3cb81cd453d89c6056ed7319">bl::rc::vk::PerFrameVector::size</a></div><div class="ttdeci">constexpr std::uint32_t size() const</div><div class="ttdoc">Returns the number of elements in the vector.</div><div class="ttdef"><b>Definition:</b> <a href="a01013_source.html#l00373">VulkanState.hpp:373</a></div></div>
+<div class="ttc" id="aa03869_html_a25a3740608d37edde75e028b1267da27"><div class="ttname"><a href="a03869.html#a25a3740608d37edde75e028b1267da27">bl::rc::vk::PerFrameVector::emptyInit</a></div><div class="ttdeci">void emptyInit(VulkanState &amp;vulkanState, std::uint32_t capacity)</div><div class="ttdoc">Initializes the PerFrameVector object without initializing the wrapped values.</div><div class="ttdef"><b>Definition:</b> <a href="a01013_source.html#l00329">VulkanState.hpp:329</a></div></div>
+<div class="ttc" id="aa03869_html_a2c9e6eab0a28a82873550d914f3685a3"><div class="ttname"><a href="a03869.html#a2c9e6eab0a28a82873550d914f3685a3">bl::rc::vk::PerFrameVector::data</a></div><div class="ttdeci">constexpr T * data()</div><div class="ttdoc">Returns a pointer to the first element in the vector.</div><div class="ttdef"><b>Definition:</b> <a href="a01013_source.html#l00383">VulkanState.hpp:383</a></div></div>
+<div class="ttc" id="aa03869_html_a38c3e16c301555203938bfa5a089c0ba"><div class="ttname"><a href="a03869.html#a38c3e16c301555203938bfa5a089c0ba">bl::rc::vk::PerFrameVector::PerFrameVector</a></div><div class="ttdeci">PerFrameVector()</div><div class="ttdef"><b>Definition:</b> <a href="a01013_source.html#l00325">VulkanState.hpp:325</a></div></div>
+<div class="ttc" id="aa03869_html_a420a3c91e76a8f8951a3704be89bdb86"><div class="ttname"><a href="a03869.html#a420a3c91e76a8f8951a3704be89bdb86">bl::rc::vk::PerFrameVector::getRaw</a></div><div class="ttdeci">T &amp; getRaw(std::uint32_t i, std::uint32_t frame)</div><div class="ttdoc">Manually access the item at the given index for the given frame.</div><div class="ttdef"><b>Definition:</b> <a href="a01013_source.html#l00363">VulkanState.hpp:363</a></div></div>
+<div class="ttc" id="aa03869_html_a64716578fccd7829f157ca462a45bda8"><div class="ttname"><a href="a03869.html#a64716578fccd7829f157ca462a45bda8">bl::rc::vk::PerFrameVector::current</a></div><div class="ttdeci">T &amp; current(std::uint32_t i)</div><div class="ttdoc">Returns the active item at the given index.</div><div class="ttdef"><b>Definition:</b> <a href="a01013_source.html#l00353">VulkanState.hpp:353</a></div></div>
+<div class="ttc" id="aa03869_html_a83eda500d1b6ed88019088ba19ed4c17"><div class="ttname"><a href="a03869.html#a83eda500d1b6ed88019088ba19ed4c17">bl::rc::vk::PerFrameVector::init</a></div><div class="ttdeci">void init(VulkanState &amp;vulkanState, std::uint32_t capacity, const U &amp;visitor)</div><div class="ttdoc">Initialize the buffer and each contained object.</div><div class="ttdef"><b>Definition:</b> <a href="a01013_source.html#l00337">VulkanState.hpp:337</a></div></div>
+<div class="ttc" id="aa03869_html_ab1b55763cd34112e2f8d288061fbb467"><div class="ttname"><a href="a03869.html#ab1b55763cd34112e2f8d288061fbb467">bl::rc::vk::PerFrameVector::totalSize</a></div><div class="ttdeci">constexpr std::uint32_t totalSize() const</div><div class="ttdoc">Returns the total number of elements when accounting for PerFrame logic.</div><div class="ttdef"><b>Definition:</b> <a href="a01013_source.html#l00378">VulkanState.hpp:378</a></div></div>
+<div class="ttc" id="aa03869_html_ae58605f178c63cd4a3bca72b5e5a958f"><div class="ttname"><a href="a03869.html#ae58605f178c63cd4a3bca72b5e5a958f">bl::rc::vk::PerFrameVector::cleanup</a></div><div class="ttdeci">void cleanup(const U &amp;visitor)</div><div class="ttdoc">General buffered object visitor intended primarily for cleanup but could be used for anything else re...</div><div class="ttdef"><b>Definition:</b> <a href="a01013_source.html#l00344">VulkanState.hpp:344</a></div></div>
+<div class="ttc" id="aa03953_html"><div class="ttname"><a href="a03953.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a01013_source.html#l00039">VulkanState.hpp:39</a></div></div>
+<div class="ttc" id="aa05770_html"><div class="ttname"><a href="a05770.html">Config.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Nov 29 2023 03:07:37 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Dec 2 2023 04:00:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

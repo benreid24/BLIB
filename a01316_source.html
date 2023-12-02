@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/ECS/DependencyGraph.cpp Source File</title>
+<title>BLIB: src/Components/Mesh.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,65 +66,41 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b1a122bf62c958266ec5bf64d14fde5a.html">ECS</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_c610c8504d46288da7634b3c0b18263f.html">Components</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">DependencyGraph.cpp</div>  </div>
+<div class="title">Mesh.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01316.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00158.html">BLIB/ECS/DependencyGraph.hpp</a>&gt;</span></div>
+<a href="a01316.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00074.html">BLIB/Components/Mesh.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02058.html">bl</a></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02100.html">bl</a></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>ecs</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>com</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="a02454.html#a42ca2d87dfe5867e1e48b7cd927e8998">    7</a></span>&#160;<a class="code" href="a02454.html#a42ca2d87dfe5867e1e48b7cd927e8998">ecs::DependencyGraph::DependencyGraph</a>(std::size_t capacityHint)</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;: parentsToChildren(capacityHint)</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;, childrenToParents(capacityHint) {}</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="a02454.html#a5be0aef92ec886c39769384811f02ccc">   11</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02454.html#a5be0aef92ec886c39769384811f02ccc">DependencyGraph::addDependency</a>(<a class="code" href="a02458.html">Entity</a> parent, <a class="code" href="a02458.html">Entity</a> child) {</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    parentsToChildren.add(parent.<a class="code" href="a02458.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>(), child);</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    childrenToParents.add(child.<a class="code" href="a02458.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>(), parent);</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;}</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a02454.html#a306e898c7fab38052be04f243e154f8c">   16</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a02454.html#a306e898c7fab38052be04f243e154f8c">DependencyGraph::hasDependencies</a>(<a class="code" href="a02458.html">Entity</a> parent)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordflow">return</span> parentsToChildren.hasValues(parent.<a class="code" href="a02458.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>());</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;}</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a02454.html#a578885f410b0ca7aa8551962258bb59f">   20</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02454.html#a578885f410b0ca7aa8551962258bb59f">DependencyGraph::removeDependency</a>(<a class="code" href="a02458.html">Entity</a> parent, <a class="code" href="a02458.html">Entity</a> child) {</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    parentsToChildren.removeValue(parent.<a class="code" href="a02458.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>(), child);</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    childrenToParents.removeValue(child.<a class="code" href="a02458.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>(), parent);</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;}</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a02454.html#a46bb4369e09fcc49d21b3f8c07946f4c">   25</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02454.html#a46bb4369e09fcc49d21b3f8c07946f4c">DependencyGraph::clear</a>() {</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    parentsToChildren.clear();</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    childrenToParents.clear();</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;}</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a02454.html#a334277ed7244554257b87ee0530b6d3a">   30</a></span>&#160;<a class="code" href="a02346.html">ctr::IndexMappedList&lt;std::uint32_t, Entity&gt;::Range</a> <a class="code" href="a02454.html#a334277ed7244554257b87ee0530b6d3a">DependencyGraph::getResources</a>(<a class="code" href="a02458.html">Entity</a> child) {</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordflow">return</span> childrenToParents.getValues(child.<a class="code" href="a02458.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>());</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;}</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;} <span class="comment">// namespace ecs</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00158_html"><div class="ttname"><a href="a00158.html">DependencyGraph.hpp</a></div></div>
-<div class="ttc" id="aa02058_html"><div class="ttname"><a href="a02058.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02346_html"><div class="ttname"><a href="a02346.html">bl::ctr::IndexMappedList::Range</a></div><div class="ttdoc">Helper struct to allow range-based for loops.</div><div class="ttdef"><b>Definition:</b> <a href="a00119_source.html#l00187">IndexMappedList.hpp:187</a></div></div>
-<div class="ttc" id="aa02454_html_a306e898c7fab38052be04f243e154f8c"><div class="ttname"><a href="a02454.html#a306e898c7fab38052be04f243e154f8c">bl::ecs::DependencyGraph::hasDependencies</a></div><div class="ttdeci">bool hasDependencies(Entity parent) const</div><div class="ttdoc">Returns whether or not the given entity has others depending on it.</div><div class="ttdef"><b>Definition:</b> <a href="a01316_source.html#l00016">DependencyGraph.cpp:16</a></div></div>
-<div class="ttc" id="aa02454_html_a334277ed7244554257b87ee0530b6d3a"><div class="ttname"><a href="a02454.html#a334277ed7244554257b87ee0530b6d3a">bl::ecs::DependencyGraph::getResources</a></div><div class="ttdeci">ctr::IndexMappedList&lt; std::uint32_t, Entity &gt;::Range getResources(Entity child)</div><div class="ttdoc">Returns an iterable of dependencies for the given entity.</div><div class="ttdef"><b>Definition:</b> <a href="a01316_source.html#l00030">DependencyGraph.cpp:30</a></div></div>
-<div class="ttc" id="aa02454_html_a42ca2d87dfe5867e1e48b7cd927e8998"><div class="ttname"><a href="a02454.html#a42ca2d87dfe5867e1e48b7cd927e8998">bl::ecs::DependencyGraph::DependencyGraph</a></div><div class="ttdeci">DependencyGraph(std::size_t capacityHint)</div><div class="ttdoc">Creates the graph with the given capacity hint.</div><div class="ttdef"><b>Definition:</b> <a href="a01316_source.html#l00007">DependencyGraph.cpp:7</a></div></div>
-<div class="ttc" id="aa02454_html_a46bb4369e09fcc49d21b3f8c07946f4c"><div class="ttname"><a href="a02454.html#a46bb4369e09fcc49d21b3f8c07946f4c">bl::ecs::DependencyGraph::clear</a></div><div class="ttdeci">void clear()</div><div class="ttdoc">Clears out all relationship data.</div><div class="ttdef"><b>Definition:</b> <a href="a01316_source.html#l00025">DependencyGraph.cpp:25</a></div></div>
-<div class="ttc" id="aa02454_html_a578885f410b0ca7aa8551962258bb59f"><div class="ttname"><a href="a02454.html#a578885f410b0ca7aa8551962258bb59f">bl::ecs::DependencyGraph::removeDependency</a></div><div class="ttdeci">void removeDependency(Entity parent, Entity child)</div><div class="ttdoc">Removes the given dependency.</div><div class="ttdef"><b>Definition:</b> <a href="a01316_source.html#l00020">DependencyGraph.cpp:20</a></div></div>
-<div class="ttc" id="aa02454_html_a5be0aef92ec886c39769384811f02ccc"><div class="ttname"><a href="a02454.html#a5be0aef92ec886c39769384811f02ccc">bl::ecs::DependencyGraph::addDependency</a></div><div class="ttdeci">void addDependency(Entity parent, Entity child)</div><div class="ttdoc">Adds a dependency between two entities.</div><div class="ttdef"><b>Definition:</b> <a href="a01316_source.html#l00011">DependencyGraph.cpp:11</a></div></div>
-<div class="ttc" id="aa02458_html"><div class="ttname"><a href="a02458.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition:</b> <a href="a00161_source.html#l00024">Entity.hpp:24</a></div></div>
-<div class="ttc" id="aa02458_html_aa3cb71b47f3a72f20913a27233a5dad0"><div class="ttname"><a href="a02458.html#aa3cb71b47f3a72f20913a27233a5dad0">bl::ecs::Entity::getIndex</a></div><div class="ttdeci">std::uint64_t getIndex() const</div><div class="ttdoc">Returns the 0-based index for the entity.</div><div class="ttdef"><b>Definition:</b> <a href="a00161_source.html#l00104">Entity.hpp:104</a></div></div>
+<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="a02317.html#af0c0061167c1dded9dc5c2b8a71aa93d">    7</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02317.html#af0c0061167c1dded9dc5c2b8a71aa93d">Mesh::create</a>(<a class="code" href="a03953.html">rc::vk::VulkanState</a>&amp; vulkanState, std::uint32_t vertexCount,</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;                  std::uint32_t indexCount) {</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    <a class="code" href="a02317.html#a11a861d64d0ccbf3609b15778808ae30">gpuBuffer</a>.<a class="code" href="a03397.html#ad0b395bc88a2cf9c8cce245b5d9763bf">create</a>(vulkanState, vertexCount, indexCount);</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <a class="code" href="a03417.html#a9c3ad2caaf2846e720343ec52eaf1073">drawParams</a> = <a class="code" href="a02317.html#a11a861d64d0ccbf3609b15778808ae30">gpuBuffer</a>.<a class="code" href="a03397.html#af615777e9f82e5c6bdad436203b4f024">getDrawParameters</a>();</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;}</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;} <span class="comment">// namespace com</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00074_html"><div class="ttname"><a href="a00074.html">Mesh.hpp</a></div></div>
+<div class="ttc" id="aa02100_html"><div class="ttname"><a href="a02100.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02317_html_a11a861d64d0ccbf3609b15778808ae30"><div class="ttname"><a href="a02317.html#a11a861d64d0ccbf3609b15778808ae30">bl::com::Mesh::gpuBuffer</a></div><div class="ttdeci">rc::buf::IndexBuffer gpuBuffer</div><div class="ttdef"><b>Definition:</b> <a href="a00074_source.html#l00018">Mesh.hpp:18</a></div></div>
+<div class="ttc" id="aa02317_html_af0c0061167c1dded9dc5c2b8a71aa93d"><div class="ttname"><a href="a02317.html#af0c0061167c1dded9dc5c2b8a71aa93d">bl::com::Mesh::create</a></div><div class="ttdeci">void create(rc::vk::VulkanState &amp;vulkanState, std::uint32_t vertexCount, std::uint32_t indexCount)</div><div class="ttdoc">Helper method to initialize all the mesh data.</div><div class="ttdef"><b>Definition:</b> <a href="a01316_source.html#l00007">Mesh.cpp:7</a></div></div>
+<div class="ttc" id="aa03397_html_ad0b395bc88a2cf9c8cce245b5d9763bf"><div class="ttname"><a href="a03397.html#ad0b395bc88a2cf9c8cce245b5d9763bf">bl::rc::buf::IndexBufferT::create</a></div><div class="ttdeci">void create(vk::VulkanState &amp;vulkanState, std::uint32_t vertexCount, std::uint32_t indexCount)</div><div class="ttdoc">Creates the vertex and index buffers.</div><div class="ttdef"><b>Definition:</b> <a href="a00692_source.html#l00148">IndexBuffer.hpp:148</a></div></div>
+<div class="ttc" id="aa03397_html_af615777e9f82e5c6bdad436203b4f024"><div class="ttname"><a href="a03397.html#af615777e9f82e5c6bdad436203b4f024">bl::rc::buf::IndexBufferT::getDrawParameters</a></div><div class="ttdeci">prim::DrawParameters getDrawParameters() const</div><div class="ttdoc">Builds and returns the parameters required to render the index buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a00692_source.html#l00207">IndexBuffer.hpp:207</a></div></div>
+<div class="ttc" id="aa03417_html_a9c3ad2caaf2846e720343ec52eaf1073"><div class="ttname"><a href="a03417.html#a9c3ad2caaf2846e720343ec52eaf1073">bl::rc::rcom::DrawableBase::drawParams</a></div><div class="ttdeci">prim::DrawParameters drawParams</div><div class="ttdef"><b>Definition:</b> <a href="a00707_source.html#l00025">DrawableBase.hpp:25</a></div></div>
+<div class="ttc" id="aa03953_html"><div class="ttname"><a href="a03953.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a01013_source.html#l00039">VulkanState.hpp:39</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Nov 29 2023 03:07:37 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Dec 2 2023 04:00:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/ECS/ParentGraph.cpp Source File</title>
+<title>BLIB: src/Components/Orientation3D.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,129 +66,87 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b1a122bf62c958266ec5bf64d14fde5a.html">ECS</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_c610c8504d46288da7634b3c0b18263f.html">Components</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">ParentGraph.cpp</div>  </div>
+<div class="title">Orientation3D.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01319.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00173.html">BLIB/ECS/ParentGraph.hpp</a>&gt;</span></div>
+<a href="a01319.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00077.html">BLIB/Components/Orientation3D.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00626.html">BLIB/Logging.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02058.html">bl</a></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02100.html">bl</a></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>com</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>ecs</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a02498.html#ad26ff71314c9640bc163c7e814445c9d">    9</a></span>&#160;<a class="code" href="a02498.html#ad26ff71314c9640bc163c7e814445c9d">ecs::ParentGraph::ParentGraph</a>(std::size_t capacityHint)</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;: parentMap(capacityHint, <a class="code" href="a02073.html#a01655307bcb32baf2884e18213123917">InvalidEntity</a>)</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;, childMap(capacityHint) {}</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="a02498.html#a9121be6b1da7de47f609491e7b84dd1e">   13</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02498.html#a9121be6b1da7de47f609491e7b84dd1e">ParentGraph::setParent</a>(<a class="code" href="a02458.html">Entity</a> child, <a class="code" href="a02458.html">Entity</a> parent) {</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    ensureParentCap(child);</div>
+<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="a02321.html#a65e09b4c73a47adb059a052274a3a0f0">    7</a></span>&#160;<a class="code" href="a02321.html#a65e09b4c73a47adb059a052274a3a0f0">Orientation3D::Orientation3D</a>(<span class="keywordtype">float</span> yaw, <span class="keywordtype">float</span> pitch, <span class="keywordtype">float</span> roll)</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;: roll(roll) {</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    <a class="code" href="a02321.html#a7d4a859619d866c0bcccb83016d16ced">setYawAndPitch</a>(yaw, pitch);</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;}</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="a02321.html#ab53e6fe6f67e60636ee36d838134bd44">   12</a></span>&#160;<a class="code" href="a02321.html#a65e09b4c73a47adb059a052274a3a0f0">Orientation3D::Orientation3D</a>(<span class="keyword">const</span> glm::vec3&amp; dir, <span class="keywordtype">float</span> r)</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;: faceDir(dir)</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;, roll(r) {}</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keyword">const</span> std::size_t i   = child.<a class="code" href="a02458.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>();</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keyword">const</span> <a class="code" href="a02458.html">Entity</a> ogParent = parentMap[i];</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keywordflow">if</span> (ogParent == parent) { <span class="keywordflow">return</span>; }</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (ogParent != <a class="code" href="a02073.html#a01655307bcb32baf2884e18213123917">InvalidEntity</a>) { <a class="code" href="a02498.html#a965b2d787f0e6ccb2beed91b3d70a815">unParent</a>(child); }</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    parentMap[i] = parent;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    childMap.add(parent.<a class="code" href="a02458.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>(), child);</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a02321.html#af253d8e8e9856019ef683f5e73d756a8">   16</a></span>&#160;<a class="code" href="a02321.html#a65e09b4c73a47adb059a052274a3a0f0">Orientation3D::Orientation3D</a>(<span class="keyword">const</span> glm::vec3&amp; lookAt, <span class="keyword">const</span> glm::vec3&amp; from, <span class="keywordtype">float</span> r)</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;: faceDir(glm::<a class="code" href="a02084.html#gabe5a1e6b62ee715c30c7d49051a8d3fc">normalize</a>(lookAt - from))</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;, roll(r) {}</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a02321.html#a935595e4769dbaeb584c5af72052fa1b">   20</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02321.html#a935595e4769dbaeb584c5af72052fa1b">Orientation3D::setPitch</a>(<span class="keywordtype">float</span> p) { <a class="code" href="a02321.html#a7d4a859619d866c0bcccb83016d16ced">setYawAndPitch</a>(<a class="code" href="a02321.html#a7caa149cc7a3799ef2ba5d06510a9540">getYaw</a>(), p); }</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a02321.html#a272c7bcb7b91ccab7d01fcbc1125ac7a">   22</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02321.html#a272c7bcb7b91ccab7d01fcbc1125ac7a">Orientation3D::applyPitch</a>(<span class="keywordtype">float</span> offset) { <a class="code" href="a02321.html#a7d4a859619d866c0bcccb83016d16ced">setYawAndPitch</a>(<a class="code" href="a02321.html#a7caa149cc7a3799ef2ba5d06510a9540">getYaw</a>(), <a class="code" href="a02321.html#ac3b4fcaf367105dbbf5a8c188a2ea240">getPitch</a>() + offset); }</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#ifdef BLIB_DEBUG</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordflow">if</span> (checkForCycles(child)) {</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        <a class="code" href="a00620.html#aab250887595d9e02b1f0b670fe342683">BL_LOG_CRITICAL</a> &lt;&lt; <span class="stringliteral">&quot;Cycle created when assigning parent &quot;</span> &lt;&lt; parent &lt;&lt; <span class="stringliteral">&quot; to entity &quot;</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;                        &lt;&lt; child;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        std::abort();</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    }</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;}</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="a02498.html#a965b2d787f0e6ccb2beed91b3d70a815">   33</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02498.html#a965b2d787f0e6ccb2beed91b3d70a815">ParentGraph::unParent</a>(<a class="code" href="a02458.html">Entity</a> child) {</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keyword">const</span> std::size_t i = child.<a class="code" href="a02458.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>();</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordflow">if</span> (parentMap.size() &lt;= i) { <span class="keywordflow">return</span>; }</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordflow">if</span> (parentMap[i] == <a class="code" href="a02073.html#a01655307bcb32baf2884e18213123917">InvalidEntity</a>) { <span class="keywordflow">return</span>; }</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keyword">const</span> std::uint32_t j = parentMap[i].getIndex();</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    parentMap[i]          = <a class="code" href="a02073.html#a01655307bcb32baf2884e18213123917">InvalidEntity</a>;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    childMap.removeValue(j, child);</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;}</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="a02498.html#ab26869bf08eb3701dc146e226ef887da">   43</a></span>&#160;<a class="code" href="a02458.html">Entity</a> <a class="code" href="a02498.html#ab26869bf08eb3701dc146e226ef887da">ParentGraph::getParent</a>(<a class="code" href="a02458.html">Entity</a> child)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">const</span> std::size_t i = child.<a class="code" href="a02458.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>();</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordflow">return</span> i &lt; parentMap.size() ? parentMap[i] : <a class="code" href="a02073.html#a01655307bcb32baf2884e18213123917">InvalidEntity</a>;</div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a02321.html#ac3b4fcaf367105dbbf5a8c188a2ea240">   24</a></span>&#160;<span class="keywordtype">float</span> <a class="code" href="a02321.html#ac3b4fcaf367105dbbf5a8c188a2ea240">Orientation3D::getPitch</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> glm::degrees(std::asin(faceDir.y)); }</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a02321.html#af3f17113b18e44bae8af536e8e4dafea">   26</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02321.html#af3f17113b18e44bae8af536e8e4dafea">Orientation3D::setYaw</a>(<span class="keywordtype">float</span> y) { <a class="code" href="a02321.html#a7d4a859619d866c0bcccb83016d16ced">setYawAndPitch</a>(y, <a class="code" href="a02321.html#ac3b4fcaf367105dbbf5a8c188a2ea240">getPitch</a>()); }</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a02321.html#a2863ca46af23ea5d7189324567c93757">   28</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02321.html#a2863ca46af23ea5d7189324567c93757">Orientation3D::applyYaw</a>(<span class="keywordtype">float</span> offset) { <a class="code" href="a02321.html#a7d4a859619d866c0bcccb83016d16ced">setYawAndPitch</a>(<a class="code" href="a02321.html#a7caa149cc7a3799ef2ba5d06510a9540">getYaw</a>(), <a class="code" href="a02321.html#ac3b4fcaf367105dbbf5a8c188a2ea240">getPitch</a>() + offset); }</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a02321.html#a7caa149cc7a3799ef2ba5d06510a9540">   30</a></span>&#160;<span class="keywordtype">float</span> <a class="code" href="a02321.html#a7caa149cc7a3799ef2ba5d06510a9540">Orientation3D::getYaw</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> glm::degrees(std::atan2(faceDir.z, faceDir.x)); }</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="a02321.html#ae076f8a1b20405ca19e08e7825405376">   32</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02321.html#ae076f8a1b20405ca19e08e7825405376">Orientation3D::setRoll</a>(<span class="keywordtype">float</span> r) { roll = r; }</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="a02321.html#a2f1c20894c65b552fd6293a829fb100a">   34</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02321.html#a2f1c20894c65b552fd6293a829fb100a">Orientation3D::applyRoll</a>(<span class="keywordtype">float</span> r) { roll += r; }</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="a02321.html#afbb197f10284feaa07e55db73af7df07">   36</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02321.html#afbb197f10284feaa07e55db73af7df07">Orientation3D::lookAt</a>(<span class="keyword">const</span> glm::vec3&amp; pos, <span class="keyword">const</span> glm::vec3&amp; from) {</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    faceDir = <a class="code" href="a02084.html#gabe5a1e6b62ee715c30c7d49051a8d3fc">glm::normalize</a>(pos - from);</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;}</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="a02321.html#a7d4a859619d866c0bcccb83016d16ced">   40</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02321.html#a7d4a859619d866c0bcccb83016d16ced">Orientation3D::setYawAndPitch</a>(<span class="keywordtype">float</span> yaw, <span class="keywordtype">float</span> pitch) {</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> yawRad   = glm::radians(yaw);</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> pitchRad = glm::radians(pitch);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    faceDir              = <a class="code" href="a02084.html#gabe5a1e6b62ee715c30c7d49051a8d3fc">glm::normalize</a>(glm::vec3{<a class="code" href="a02084.html#gae8e482156412ed87dc2d91572ee817ab">std::cos</a>(yawRad) * <a class="code" href="a02084.html#gae8e482156412ed87dc2d91572ee817ab">std::cos</a>(pitchRad),</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                                       <a class="code" href="a02084.html#ga0379b8bbdfc3c74fecd12c93fdf0ca5b">std::sin</a>(pitchRad),</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                                       <a class="code" href="a02084.html#ga0379b8bbdfc3c74fecd12c93fdf0ca5b">std::sin</a>(yawRad) * <a class="code" href="a02084.html#gae8e482156412ed87dc2d91572ee817ab">std::cos</a>(pitchRad)});</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;}</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="a02498.html#ade74b5299fd5c0df5933e636664d07eb">   48</a></span>&#160;<a class="code" href="a02346.html">ctr::IndexMappedList&lt;std::uint32_t, Entity&gt;::Range</a> <a class="code" href="a02498.html#ade74b5299fd5c0df5933e636664d07eb">ParentGraph::getChildren</a>(<a class="code" href="a02458.html">Entity</a> parent) {</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordflow">return</span> childMap.getValues(parent.<a class="code" href="a02458.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>());</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;}</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="a02498.html#acbcc3b794d2c338032bb80fc5bbbfc8f">   52</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02498.html#acbcc3b794d2c338032bb80fc5bbbfc8f">ParentGraph::reset</a>() {</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    std::fill(parentMap.begin(), parentMap.end(), <a class="code" href="a02073.html#a01655307bcb32baf2884e18213123917">InvalidEntity</a>);</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    childMap.clear();</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;}</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="a02498.html#a17db4dda4272bce51c49a7c96b71b03d">   57</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02498.html#a17db4dda4272bce51c49a7c96b71b03d">ParentGraph::removeEntity</a>(<a class="code" href="a02458.html">Entity</a> entity) {</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keyword">const</span> std::size_t i = entity.<a class="code" href="a02458.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>();</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordflow">if</span> (i &gt;= parentMap.size()) { <span class="keywordflow">return</span>; }</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keyword">const</span> <a class="code" href="a02458.html">Entity</a> parent = parentMap[i];</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    parentMap[i]        = <a class="code" href="a02073.html#a01655307bcb32baf2884e18213123917">InvalidEntity</a>;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    childMap.remove(entity);</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordflow">if</span> (parent != <a class="code" href="a02073.html#a01655307bcb32baf2884e18213123917">InvalidEntity</a>) { childMap.removeValue(parent.<a class="code" href="a02458.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>(), entity); }</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;}</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="keywordtype">void</span> ParentGraph::ensureParentCap(<a class="code" href="a02458.html">Entity</a> child) {</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keyword">const</span> std::size_t cap = child.<a class="code" href="a02458.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>() + 1;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordflow">if</span> (cap &gt; parentMap.size()) { parentMap.resize(cap, <a class="code" href="a02073.html#a01655307bcb32baf2884e18213123917">InvalidEntity</a>); }</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;}</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="keywordtype">bool</span> ParentGraph::checkForCycles(Entity start) {</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    std::vector&lt;bool&gt; visited(parentMap.size(), <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    std::vector&lt;Entity&gt; toVisit;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    toVisit.reserve(32);</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    toVisit.emplace_back(start);</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordflow">while</span> (!toVisit.empty()) {</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        <span class="keyword">const</span> Entity ent = toVisit.back();</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        toVisit.pop_back();</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        <span class="keyword">const</span> std::uint32_t i = ent.getIndex();</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <span class="keywordflow">if</span> (i &gt;= visited.size()) { visited.resize(i + 1, <span class="keyword">false</span>); }</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        <span class="keywordflow">if</span> (visited[i]) { <span class="keywordflow">return</span> <span class="keyword">true</span>; }</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        visited[i] = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        <span class="keyword">const</span> Entity parent = <a class="code" href="a02498.html#ab26869bf08eb3701dc146e226ef887da">getParent</a>(ent);</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        <span class="keywordflow">if</span> (parent != <a class="code" href="a02073.html#a01655307bcb32baf2884e18213123917">InvalidEntity</a>) { toVisit.emplace_back(parent); }</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    }</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;}</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;} <span class="comment">// namespace ecs</span></div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00173_html"><div class="ttname"><a href="a00173.html">ParentGraph.hpp</a></div></div>
-<div class="ttc" id="aa00620_html_aab250887595d9e02b1f0b670fe342683"><div class="ttname"><a href="a00620.html#aab250887595d9e02b1f0b670fe342683">BL_LOG_CRITICAL</a></div><div class="ttdeci">#define BL_LOG_CRITICAL</div><div class="ttdoc">Helper macro to log at critical level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00620_source.html#l00098">Logger.hpp:98</a></div></div>
-<div class="ttc" id="aa00626_html"><div class="ttname"><a href="a00626.html">Logging.hpp</a></div></div>
-<div class="ttc" id="aa02058_html"><div class="ttname"><a href="a02058.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02073_html_a01655307bcb32baf2884e18213123917"><div class="ttname"><a href="a02073.html#a01655307bcb32baf2884e18213123917">bl::ecs::InvalidEntity</a></div><div class="ttdeci">static constexpr Entity InvalidEntity</div><div class="ttdoc">Special value to indicate that an Entity is not valid.</div><div class="ttdef"><b>Definition:</b> <a href="a00161_source.html#l00167">Entity.hpp:167</a></div></div>
-<div class="ttc" id="aa02346_html"><div class="ttname"><a href="a02346.html">bl::ctr::IndexMappedList::Range</a></div><div class="ttdoc">Helper struct to allow range-based for loops.</div><div class="ttdef"><b>Definition:</b> <a href="a00119_source.html#l00187">IndexMappedList.hpp:187</a></div></div>
-<div class="ttc" id="aa02458_html"><div class="ttname"><a href="a02458.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition:</b> <a href="a00161_source.html#l00024">Entity.hpp:24</a></div></div>
-<div class="ttc" id="aa02458_html_aa3cb71b47f3a72f20913a27233a5dad0"><div class="ttname"><a href="a02458.html#aa3cb71b47f3a72f20913a27233a5dad0">bl::ecs::Entity::getIndex</a></div><div class="ttdeci">std::uint64_t getIndex() const</div><div class="ttdoc">Returns the 0-based index for the entity.</div><div class="ttdef"><b>Definition:</b> <a href="a00161_source.html#l00104">Entity.hpp:104</a></div></div>
-<div class="ttc" id="aa02498_html_a17db4dda4272bce51c49a7c96b71b03d"><div class="ttname"><a href="a02498.html#a17db4dda4272bce51c49a7c96b71b03d">bl::ecs::ParentGraph::removeEntity</a></div><div class="ttdeci">void removeEntity(Entity entity)</div><div class="ttdoc">Removes the given entity from the graph. Does not update children. remove() must be called manually f...</div><div class="ttdef"><b>Definition:</b> <a href="a01319_source.html#l00057">ParentGraph.cpp:57</a></div></div>
-<div class="ttc" id="aa02498_html_a9121be6b1da7de47f609491e7b84dd1e"><div class="ttname"><a href="a02498.html#a9121be6b1da7de47f609491e7b84dd1e">bl::ecs::ParentGraph::setParent</a></div><div class="ttdeci">void setParent(Entity child, Entity parent)</div><div class="ttdoc">Adds a parent &lt;-&gt; child association.</div><div class="ttdef"><b>Definition:</b> <a href="a01319_source.html#l00013">ParentGraph.cpp:13</a></div></div>
-<div class="ttc" id="aa02498_html_a965b2d787f0e6ccb2beed91b3d70a815"><div class="ttname"><a href="a02498.html#a965b2d787f0e6ccb2beed91b3d70a815">bl::ecs::ParentGraph::unParent</a></div><div class="ttdeci">void unParent(Entity child)</div><div class="ttdoc">Removes the parent from the given entity.</div><div class="ttdef"><b>Definition:</b> <a href="a01319_source.html#l00033">ParentGraph.cpp:33</a></div></div>
-<div class="ttc" id="aa02498_html_ab26869bf08eb3701dc146e226ef887da"><div class="ttname"><a href="a02498.html#ab26869bf08eb3701dc146e226ef887da">bl::ecs::ParentGraph::getParent</a></div><div class="ttdeci">Entity getParent(Entity child) const</div><div class="ttdoc">Returns the parent for the given child.</div><div class="ttdef"><b>Definition:</b> <a href="a01319_source.html#l00043">ParentGraph.cpp:43</a></div></div>
-<div class="ttc" id="aa02498_html_acbcc3b794d2c338032bb80fc5bbbfc8f"><div class="ttname"><a href="a02498.html#acbcc3b794d2c338032bb80fc5bbbfc8f">bl::ecs::ParentGraph::reset</a></div><div class="ttdeci">void reset()</div><div class="ttdoc">Resets the entire graph to the empty state.</div><div class="ttdef"><b>Definition:</b> <a href="a01319_source.html#l00052">ParentGraph.cpp:52</a></div></div>
-<div class="ttc" id="aa02498_html_ad26ff71314c9640bc163c7e814445c9d"><div class="ttname"><a href="a02498.html#ad26ff71314c9640bc163c7e814445c9d">bl::ecs::ParentGraph::ParentGraph</a></div><div class="ttdeci">ParentGraph(std::size_t capacityHint)</div><div class="ttdoc">Creates an empty graph.</div><div class="ttdef"><b>Definition:</b> <a href="a01319_source.html#l00009">ParentGraph.cpp:9</a></div></div>
-<div class="ttc" id="aa02498_html_ade74b5299fd5c0df5933e636664d07eb"><div class="ttname"><a href="a02498.html#ade74b5299fd5c0df5933e636664d07eb">bl::ecs::ParentGraph::getChildren</a></div><div class="ttdeci">ctr::IndexMappedList&lt; std::uint32_t, Entity &gt;::Range getChildren(Entity parent)</div><div class="ttdoc">Returns a range of children for the given entity.</div><div class="ttdef"><b>Definition:</b> <a href="a01319_source.html#l00048">ParentGraph.cpp:48</a></div></div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="a02321.html#a55e316ef43064a70e7fa741556e5734a">   48</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02321.html#a55e316ef43064a70e7fa741556e5734a">Orientation3D::setFaceDirection</a>(<span class="keyword">const</span> glm::vec3&amp; f) { faceDir = f; }</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;} <span class="comment">// namespace com</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00077_html"><div class="ttname"><a href="a00077.html">Orientation3D.hpp</a></div></div>
+<div class="ttc" id="aa02084_html_ga0379b8bbdfc3c74fecd12c93fdf0ca5b"><div class="ttname"><a href="a02084.html#ga0379b8bbdfc3c74fecd12c93fdf0ca5b">bl::math::sin</a></div><div class="ttdeci">float sin(float degrees)</div><div class="ttdoc">Computes the sine of the given angle using cached values. Values are cached in quarter degree increme...</div><div class="ttdef"><b>Definition:</b> <a href="a01664_source.html#l00037">Trig.cpp:37</a></div></div>
+<div class="ttc" id="aa02084_html_gabe5a1e6b62ee715c30c7d49051a8d3fc"><div class="ttname"><a href="a02084.html#gabe5a1e6b62ee715c30c7d49051a8d3fc">bl::math::normalize</a></div><div class="ttdeci">void normalize(sf::Vector2&lt; T &gt; &amp;vec)</div><div class="ttdoc">Normalizes the given vector in place.</div><div class="ttdef"><b>Definition:</b> <a href="a00653_source.html#l00095">Vector.hpp:95</a></div></div>
+<div class="ttc" id="aa02084_html_gae8e482156412ed87dc2d91572ee817ab"><div class="ttname"><a href="a02084.html#gae8e482156412ed87dc2d91572ee817ab">bl::math::cos</a></div><div class="ttdeci">float cos(float degrees)</div><div class="ttdoc">Computes the cosine of the given angle using cached values. Values are cached in quarter degree incre...</div><div class="ttdef"><b>Definition:</b> <a href="a01664_source.html#l00031">Trig.cpp:31</a></div></div>
+<div class="ttc" id="aa02100_html"><div class="ttname"><a href="a02100.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02321_html_a272c7bcb7b91ccab7d01fcbc1125ac7a"><div class="ttname"><a href="a02321.html#a272c7bcb7b91ccab7d01fcbc1125ac7a">bl::com::Orientation3D::applyPitch</a></div><div class="ttdeci">void applyPitch(float offset)</div><div class="ttdoc">Adds the given offset to the pitch of the orientation.</div><div class="ttdef"><b>Definition:</b> <a href="a01319_source.html#l00022">Orientation3D.cpp:22</a></div></div>
+<div class="ttc" id="aa02321_html_a2863ca46af23ea5d7189324567c93757"><div class="ttname"><a href="a02321.html#a2863ca46af23ea5d7189324567c93757">bl::com::Orientation3D::applyYaw</a></div><div class="ttdeci">void applyYaw(float offset)</div><div class="ttdoc">Adds the given offset to the yaw of the orientation.</div><div class="ttdef"><b>Definition:</b> <a href="a01319_source.html#l00028">Orientation3D.cpp:28</a></div></div>
+<div class="ttc" id="aa02321_html_a2f1c20894c65b552fd6293a829fb100a"><div class="ttname"><a href="a02321.html#a2f1c20894c65b552fd6293a829fb100a">bl::com::Orientation3D::applyRoll</a></div><div class="ttdeci">void applyRoll(float roll)</div><div class="ttdoc">Adds the given roll to the roll angle of the orientation.</div><div class="ttdef"><b>Definition:</b> <a href="a01319_source.html#l00034">Orientation3D.cpp:34</a></div></div>
+<div class="ttc" id="aa02321_html_a55e316ef43064a70e7fa741556e5734a"><div class="ttname"><a href="a02321.html#a55e316ef43064a70e7fa741556e5734a">bl::com::Orientation3D::setFaceDirection</a></div><div class="ttdeci">void setFaceDirection(const glm ::vec3 &amp;faceDir)</div><div class="ttdoc">Sets the direction the orientation is facing towards.</div><div class="ttdef"><b>Definition:</b> <a href="a01319_source.html#l00048">Orientation3D.cpp:48</a></div></div>
+<div class="ttc" id="aa02321_html_a65e09b4c73a47adb059a052274a3a0f0"><div class="ttname"><a href="a02321.html#a65e09b4c73a47adb059a052274a3a0f0">bl::com::Orientation3D::Orientation3D</a></div><div class="ttdeci">Orientation3D(float yaw=0.f, float pitch=0.f, float roll=0.f)</div><div class="ttdoc">Creates a new orientation from the given Euler angles.</div><div class="ttdef"><b>Definition:</b> <a href="a01319_source.html#l00007">Orientation3D.cpp:7</a></div></div>
+<div class="ttc" id="aa02321_html_a7caa149cc7a3799ef2ba5d06510a9540"><div class="ttname"><a href="a02321.html#a7caa149cc7a3799ef2ba5d06510a9540">bl::com::Orientation3D::getYaw</a></div><div class="ttdeci">float getYaw() const</div><div class="ttdoc">Returns the yaw of the orientation in degrees.</div><div class="ttdef"><b>Definition:</b> <a href="a01319_source.html#l00030">Orientation3D.cpp:30</a></div></div>
+<div class="ttc" id="aa02321_html_a7d4a859619d866c0bcccb83016d16ced"><div class="ttname"><a href="a02321.html#a7d4a859619d866c0bcccb83016d16ced">bl::com::Orientation3D::setYawAndPitch</a></div><div class="ttdeci">void setYawAndPitch(float yaw, float pitch)</div><div class="ttdoc">Sets both the yaw and pitch of the orientation. Call this if both are changing as it's more efficient...</div><div class="ttdef"><b>Definition:</b> <a href="a01319_source.html#l00040">Orientation3D.cpp:40</a></div></div>
+<div class="ttc" id="aa02321_html_a935595e4769dbaeb584c5af72052fa1b"><div class="ttname"><a href="a02321.html#a935595e4769dbaeb584c5af72052fa1b">bl::com::Orientation3D::setPitch</a></div><div class="ttdeci">void setPitch(float pitch)</div><div class="ttdoc">Sets the pitch angle of the orientation.</div><div class="ttdef"><b>Definition:</b> <a href="a01319_source.html#l00020">Orientation3D.cpp:20</a></div></div>
+<div class="ttc" id="aa02321_html_ac3b4fcaf367105dbbf5a8c188a2ea240"><div class="ttname"><a href="a02321.html#ac3b4fcaf367105dbbf5a8c188a2ea240">bl::com::Orientation3D::getPitch</a></div><div class="ttdeci">float getPitch() const</div><div class="ttdoc">Returns the pitch of the orientation in degrees.</div><div class="ttdef"><b>Definition:</b> <a href="a01319_source.html#l00024">Orientation3D.cpp:24</a></div></div>
+<div class="ttc" id="aa02321_html_ae076f8a1b20405ca19e08e7825405376"><div class="ttname"><a href="a02321.html#ae076f8a1b20405ca19e08e7825405376">bl::com::Orientation3D::setRoll</a></div><div class="ttdeci">void setRoll(float roll)</div><div class="ttdoc">Sets the roll of the orientation.</div><div class="ttdef"><b>Definition:</b> <a href="a01319_source.html#l00032">Orientation3D.cpp:32</a></div></div>
+<div class="ttc" id="aa02321_html_af3f17113b18e44bae8af536e8e4dafea"><div class="ttname"><a href="a02321.html#af3f17113b18e44bae8af536e8e4dafea">bl::com::Orientation3D::setYaw</a></div><div class="ttdeci">void setYaw(float yaw)</div><div class="ttdoc">Sets the yaw angle of the orientation.</div><div class="ttdef"><b>Definition:</b> <a href="a01319_source.html#l00026">Orientation3D.cpp:26</a></div></div>
+<div class="ttc" id="aa02321_html_afbb197f10284feaa07e55db73af7df07"><div class="ttname"><a href="a02321.html#afbb197f10284feaa07e55db73af7df07">bl::com::Orientation3D::lookAt</a></div><div class="ttdeci">void lookAt(const glm::vec3 &amp;lookAt, const glm::vec3 &amp;from)</div><div class="ttdoc">Orients the orientation to look at the given position from its current position.</div><div class="ttdef"><b>Definition:</b> <a href="a01319_source.html#l00036">Orientation3D.cpp:36</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Nov 29 2023 03:07:37 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Dec 2 2023 04:00:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

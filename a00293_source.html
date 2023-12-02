@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Graphics/Components/EntityBacked.hpp Source File</title>
+<title>BLIB: include/BLIB/Graphics/BatchRectangle.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,91 +66,49 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_8af985930208ac2752e8061e22535a56.html">Graphics</a></li><li class="navelem"><a class="el" href="dir_58ecc6b00f968b16d73d81661642db7f.html">Components</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_8af985930208ac2752e8061e22535a56.html">Graphics</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">EntityBacked.hpp</div>  </div>
+<div class="title">BatchRectangle.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00293.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_GRAPHICS_COMPONENTS_ENTITYBACKED_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_GRAPHICS_COMPONENTS_ENTITYBACKED_HPP</span></div>
+<a href="a00293.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_GRAPHICS_BATCHRECTANGLE_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_GRAPHICS_BATCHRECTANGLE_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00203.html">BLIB/ECS.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02058.html">bl</a></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>gfx</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>bcom</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a02726.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02726.html">EntityBacked</a> {</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <a class="code" href="a02726.html#a9566a1d13535e046a136af6130190c2a">EntityBacked</a>();</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="a02726.html#a6d5048f9b4e285abf8ee3891b71eae49">   27</a></span>&#160;    <a class="code" href="a02726.html#a6d5048f9b4e285abf8ee3891b71eae49">EntityBacked</a>(<span class="keyword">const</span> <a class="code" href="a02726.html">EntityBacked</a>&amp;) = <span class="keyword">delete</span>;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <a class="code" href="a02726.html#a9566a1d13535e046a136af6130190c2a">EntityBacked</a>(<a class="code" href="a02726.html">EntityBacked</a>&amp;&amp; move);</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00329.html">BLIB/Graphics/Shapes2D/BatchShape2D.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00338.html">BLIB/Graphics/Shapes2D/RectangleBase.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02100.html">bl</a></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>gfx</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a02773.html">   16</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02773.html">BatchRectangle</a> : <span class="keyword">public</span> <a class="code" href="a02841.html">s2d::RectangleBase</a>&lt;s2d::BatchShape2D&gt; {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <a class="code" href="a02773.html#aa4912b609d43565869165350630f73bf">BatchRectangle</a>();</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02773.html#a63e521689e08c00738f2444431a73fa9">create</a>(<a class="code" href="a02605.html">engine::Engine</a>&amp; engine, <a class="code" href="a02757.html">BatchedShapes2D</a>&amp; owner, <span class="keyword">const</span> glm::vec2&amp; size);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;};</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;} <span class="comment">// namespace gfx</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;} <span class="comment">// namespace bl</span></div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <a class="code" href="a02726.html#a0df8e64fac4a31d5bf97afbc53def227">~EntityBacked</a>();</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="a02726.html#a7c795c508e4f747ada2fb3039703052a">   44</a></span>&#160;    <a class="code" href="a02726.html">EntityBacked</a>&amp; <a class="code" href="a02726.html#a7c795c508e4f747ada2fb3039703052a">operator=</a>(<span class="keyword">const</span> <a class="code" href="a02726.html">EntityBacked</a>&amp;) = <span class="keyword">delete</span>;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <a class="code" href="a02726.html">EntityBacked</a>&amp; <a class="code" href="a02726.html#a7c795c508e4f747ada2fb3039703052a">operator=</a>(<a class="code" href="a02726.html">EntityBacked</a>&amp;&amp; move);</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <a class="code" href="a02458.html">ecs::Entity</a> <a class="code" href="a02726.html#aa90fee361f18950be56cfd0ac772c4f5">entity</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02726.html#afb024b8d466cfc183930fa86f31193ce">destroy</a>();</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02726.html#a5e99eabbaad7060b102626dd892a06f9">setParent</a>(<span class="keyword">const</span> <a class="code" href="a02726.html">EntityBacked</a>&amp; parent);</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02726.html#a5e99eabbaad7060b102626dd892a06f9">setParent</a>(<a class="code" href="a02458.html">ecs::Entity</a> parent);</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02726.html#afc80cad522ec9ce62caea44248aea0d0">removeParent</a>();</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02726.html#ab015519cc2bcb2879cd499a56573d27a">createEntityOnly</a>(<a class="code" href="a02554.html">engine::Engine</a>&amp; <a class="code" href="a02726.html#aa120ac89c9e8e4a405404e5e66245458">engine</a>, <a class="code" href="a02035.html#gad22c7b1807fcff9c01b2082084716652">ecs::Flags</a> flags = <a class="code" href="a02035.html#ggad22c7b1807fcff9c01b2082084716652a6adf97f83acf6453d4a6a4b1070f3754">ecs::Flags::None</a>);</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <a class="code" href="a02554.html">engine::Engine</a>&amp; <a class="code" href="a02726.html#aa120ac89c9e8e4a405404e5e66245458">engine</a>();</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <a class="code" href="a02554.html">engine::Engine</a>* enginePtr;</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <a class="code" href="a02458.html">ecs::Entity</a> ecsId;</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;};</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
-<div class="line"><a name="l00104"></a><span class="lineno"><a class="line" href="a02726.html#aa90fee361f18950be56cfd0ac772c4f5">  104</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="a02458.html">ecs::Entity</a> <a class="code" href="a02726.html#aa90fee361f18950be56cfd0ac772c4f5">EntityBacked::entity</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> ecsId; }</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
-<div class="line"><a name="l00106"></a><span class="lineno"><a class="line" href="a02726.html#aa120ac89c9e8e4a405404e5e66245458">  106</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="a02554.html">engine::Engine</a>&amp; <a class="code" href="a02726.html#aa120ac89c9e8e4a405404e5e66245458">EntityBacked::engine</a>() { <span class="keywordflow">return</span> *enginePtr; }</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;} <span class="comment">// namespace bcom</span></div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;} <span class="comment">// namespace gfx</span></div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00203_html"><div class="ttname"><a href="a00203.html">ECS.hpp</a></div></div>
-<div class="ttc" id="aa02035_html_gad22c7b1807fcff9c01b2082084716652"><div class="ttname"><a href="a02035.html#gad22c7b1807fcff9c01b2082084716652">bl::ecs::Flags</a></div><div class="ttdeci">Flags</div><div class="ttdoc">Collection of flags that may be set on an entity when created.</div><div class="ttdef"><b>Definition:</b> <a href="a05592_source.html#l00015">Flags.hpp:15</a></div></div>
-<div class="ttc" id="aa02035_html_ggad22c7b1807fcff9c01b2082084716652a6adf97f83acf6453d4a6a4b1070f3754"><div class="ttname"><a href="a02035.html#ggad22c7b1807fcff9c01b2082084716652a6adf97f83acf6453d4a6a4b1070f3754">bl::ecs::Flags::None</a></div><div class="ttdeci">@ None</div><div class="ttdoc">The entity has no special flags.</div></div>
-<div class="ttc" id="aa02058_html"><div class="ttname"><a href="a02058.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02458_html"><div class="ttname"><a href="a02458.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition:</b> <a href="a00161_source.html#l00024">Entity.hpp:24</a></div></div>
-<div class="ttc" id="aa02554_html"><div class="ttname"><a href="a02554.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a05598_source.html#l00032">Engine.hpp:32</a></div></div>
-<div class="ttc" id="aa02726_html"><div class="ttname"><a href="a02726.html">bl::gfx::bcom::EntityBacked</a></div><div class="ttdoc">Base class for ECS-backed graphics objects.</div><div class="ttdef"><b>Definition:</b> <a href="a00293_source.html#l00017">EntityBacked.hpp:17</a></div></div>
-<div class="ttc" id="aa02726_html_a0df8e64fac4a31d5bf97afbc53def227"><div class="ttname"><a href="a02726.html#a0df8e64fac4a31d5bf97afbc53def227">bl::gfx::bcom::EntityBacked::~EntityBacked</a></div><div class="ttdeci">~EntityBacked()</div><div class="ttdoc">Destroys the ECS entity.</div><div class="ttdef"><b>Definition:</b> <a href="a01364_source.html#l00022">EntityBacked.cpp:22</a></div></div>
-<div class="ttc" id="aa02726_html_a5e99eabbaad7060b102626dd892a06f9"><div class="ttname"><a href="a02726.html#a5e99eabbaad7060b102626dd892a06f9">bl::gfx::bcom::EntityBacked::setParent</a></div><div class="ttdeci">void setParent(const EntityBacked &amp;parent)</div><div class="ttdoc">Helper method to parent this drawable to another.</div><div class="ttdef"><b>Definition:</b> <a href="a01364_source.html#l00048">EntityBacked.cpp:48</a></div></div>
-<div class="ttc" id="aa02726_html_a6d5048f9b4e285abf8ee3891b71eae49"><div class="ttname"><a href="a02726.html#a6d5048f9b4e285abf8ee3891b71eae49">bl::gfx::bcom::EntityBacked::EntityBacked</a></div><div class="ttdeci">EntityBacked(const EntityBacked &amp;)=delete</div><div class="ttdoc">Deleted.</div></div>
-<div class="ttc" id="aa02726_html_a7c795c508e4f747ada2fb3039703052a"><div class="ttname"><a href="a02726.html#a7c795c508e4f747ada2fb3039703052a">bl::gfx::bcom::EntityBacked::operator=</a></div><div class="ttdeci">EntityBacked &amp; operator=(const EntityBacked &amp;)=delete</div><div class="ttdoc">Deleted.</div></div>
-<div class="ttc" id="aa02726_html_a9566a1d13535e046a136af6130190c2a"><div class="ttname"><a href="a02726.html#a9566a1d13535e046a136af6130190c2a">bl::gfx::bcom::EntityBacked::EntityBacked</a></div><div class="ttdeci">EntityBacked()</div><div class="ttdoc">Does nothing.</div><div class="ttdef"><b>Definition:</b> <a href="a01364_source.html#l00011">EntityBacked.cpp:11</a></div></div>
-<div class="ttc" id="aa02726_html_aa120ac89c9e8e4a405404e5e66245458"><div class="ttname"><a href="a02726.html#aa120ac89c9e8e4a405404e5e66245458">bl::gfx::bcom::EntityBacked::engine</a></div><div class="ttdeci">engine::Engine &amp; engine()</div><div class="ttdoc">Returns the game engine instance. Only call after create()</div><div class="ttdef"><b>Definition:</b> <a href="a00293_source.html#l00106">EntityBacked.hpp:106</a></div></div>
-<div class="ttc" id="aa02726_html_aa90fee361f18950be56cfd0ac772c4f5"><div class="ttname"><a href="a02726.html#aa90fee361f18950be56cfd0ac772c4f5">bl::gfx::bcom::EntityBacked::entity</a></div><div class="ttdeci">ecs::Entity entity() const</div><div class="ttdoc">Returns the ECS entity of this drawable.</div><div class="ttdef"><b>Definition:</b> <a href="a00293_source.html#l00104">EntityBacked.hpp:104</a></div></div>
-<div class="ttc" id="aa02726_html_ab015519cc2bcb2879cd499a56573d27a"><div class="ttname"><a href="a02726.html#ab015519cc2bcb2879cd499a56573d27a">bl::gfx::bcom::EntityBacked::createEntityOnly</a></div><div class="ttdeci">void createEntityOnly(engine::Engine &amp;engine, ecs::Flags flags=ecs::Flags::None)</div><div class="ttdoc">Creates the ECS entity for the drawable.</div><div class="ttdef"><b>Definition:</b> <a href="a01364_source.html#l00043">EntityBacked.cpp:43</a></div></div>
-<div class="ttc" id="aa02726_html_afb024b8d466cfc183930fa86f31193ce"><div class="ttname"><a href="a02726.html#afb024b8d466cfc183930fa86f31193ce">bl::gfx::bcom::EntityBacked::destroy</a></div><div class="ttdeci">void destroy()</div><div class="ttdoc">Destroys the ECS entity and component.</div><div class="ttdef"><b>Definition:</b> <a href="a01364_source.html#l00035">EntityBacked.cpp:35</a></div></div>
-<div class="ttc" id="aa02726_html_afc80cad522ec9ce62caea44248aea0d0"><div class="ttname"><a href="a02726.html#afc80cad522ec9ce62caea44248aea0d0">bl::gfx::bcom::EntityBacked::removeParent</a></div><div class="ttdeci">void removeParent()</div><div class="ttdoc">Helper method to remove the parent of this drawable, if any.</div><div class="ttdef"><b>Definition:</b> <a href="a01364_source.html#l00056">EntityBacked.cpp:56</a></div></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00329_html"><div class="ttname"><a href="a00329.html">BatchShape2D.hpp</a></div></div>
+<div class="ttc" id="aa00338_html"><div class="ttname"><a href="a00338.html">RectangleBase.hpp</a></div></div>
+<div class="ttc" id="aa02100_html"><div class="ttname"><a href="a02100.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02605_html"><div class="ttname"><a href="a02605.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a05713_source.html#l00032">Engine.hpp:32</a></div></div>
+<div class="ttc" id="aa02757_html"><div class="ttname"><a href="a02757.html">bl::gfx::BatchedShapes2D</a></div><div class="ttdoc">Drawable for a collection of batched 2d shapes. Create one of these and use with multiple BatchedCirc...</div><div class="ttdef"><b>Definition:</b> <a href="a05650_source.html#l00020">BatchedShapes2D.hpp:22</a></div></div>
+<div class="ttc" id="aa02773_html"><div class="ttname"><a href="a02773.html">bl::gfx::BatchRectangle</a></div><div class="ttdoc">Renderable 2d rectangle shape for use in batched shapes.</div><div class="ttdef"><b>Definition:</b> <a href="a00293_source.html#l00016">BatchRectangle.hpp:16</a></div></div>
+<div class="ttc" id="aa02773_html_a63e521689e08c00738f2444431a73fa9"><div class="ttname"><a href="a02773.html#a63e521689e08c00738f2444431a73fa9">bl::gfx::BatchRectangle::create</a></div><div class="ttdeci">void create(engine::Engine &amp;engine, BatchedShapes2D &amp;owner, const glm::vec2 &amp;size)</div><div class="ttdoc">Creates the rectangle.</div><div class="ttdef"><b>Definition:</b> <a href="a01385_source.html#l00010">BatchRectangle.cpp:10</a></div></div>
+<div class="ttc" id="aa02773_html_aa4912b609d43565869165350630f73bf"><div class="ttname"><a href="a02773.html#aa4912b609d43565869165350630f73bf">bl::gfx::BatchRectangle::BatchRectangle</a></div><div class="ttdeci">BatchRectangle()</div><div class="ttdoc">Initializes the object.</div><div class="ttdef"><b>Definition:</b> <a href="a01385_source.html#l00007">BatchRectangle.cpp:7</a></div></div>
+<div class="ttc" id="aa02841_html"><div class="ttname"><a href="a02841.html">bl::gfx::s2d::RectangleBase</a></div><div class="ttdoc">Intermediate base class for rectangles. Use gfx::Rectangle or BatchedRectangle.</div><div class="ttdef"><b>Definition:</b> <a href="a00338_source.html#l00020">RectangleBase.hpp:20</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Nov 29 2023 03:07:37 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Dec 2 2023 04:00:54 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

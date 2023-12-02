@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Scripts/ScriptImpl.hpp Source File</title>
+<title>BLIB: src/Resources/Bundling/FileHandlers/PlaylistHandler.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,72 +66,64 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3ac9928fc2e7e2cbc53db7c1a11acda2.html">Scripts</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_7a475d59e09b1ce69b1dfbc6b0817add.html">Resources</a></li><li class="navelem"><a class="el" href="dir_650c2bb72fa499737589ce0469633186.html">Bundling</a></li><li class="navelem"><a class="el" href="dir_aa9914aaa11d841a9b5a3bf23363db45.html">FileHandlers</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">ScriptImpl.hpp</div>  </div>
+<div class="title">PlaylistHandler.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01943.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_SCRIPTS_SCRIPTIMPL_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_SCRIPTS_SCRIPTIMPL_HPP</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01082.html">BLIB/Scripts.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;optional&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02058.html">bl</a></div>
+<a href="a01943.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_TEST_TARGET</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00014.html">BLIB/Audio/Playlist.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01049.html">BLIB/Resources/Bundling/FileHandlers/PlaylistHandler.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02100.html">bl</a></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>resource</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>script</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>bundle</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="a04626.html">   15</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a04626.html">ScriptImpl</a> {</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keyword">static</span> <a class="code" href="a04034.html">PrimitiveValue</a> <a class="code" href="a04626.html#ab89b5a71f7593314d16d29d070158abd">computeValue</a>(<span class="keyword">const</span> <a class="code" href="a03270.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&amp; value, <a class="code" href="a04054.html">SymbolTable</a>&amp; table);</div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="a04009.html#af1d4746fd48ca4112fde79fde3b0d6f5">   11</a></span>&#160;<a class="code" href="a04009.html#af1d4746fd48ca4112fde79fde3b0d6f5">PlaylistHandler::PlaylistHandler</a>(<span class="keywordtype">bool</span> bdeps)</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;: bundleMusicFiles(bdeps) {}</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="a04009.html#afca0b240a71de04cb2cc40199e4c80d4">   14</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a04009.html#afca0b240a71de04cb2cc40199e4c80d4">PlaylistHandler::processFile</a>(<span class="keyword">const</span> std::string&amp; path, std::ostream&amp; output,</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;                                  <a class="code" href="a03997.html">FileHandlerContext</a>&amp; ctx) {</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <a class="code" href="a02237.html">audio::Playlist</a> <a class="code" href="a01268.html#a34cfaee126866c60bb82a2c96e47940d">playlist</a>;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="a01268.html#a34cfaee126866c60bb82a2c96e47940d">playlist</a>.loadFromFile(path)) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <a class="code" href="a04281.html">serial::StreamOutputBuffer</a> wrapper(output);</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <a class="code" href="a04153.html">serial::binary::OutputStream</a> os(wrapper);</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="a01268.html#a34cfaee126866c60bb82a2c96e47940d">playlist</a>.saveToMemory(os)) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="a04626.html#ad600bd780c64799931298593de49beaf">runFunction</a>(<span class="keyword">const</span> <a class="code" href="a03270.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&amp; call, <a class="code" href="a04054.html">SymbolTable</a>&amp; table, <a class="code" href="a04058.html">Value</a>&amp; result);</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="a04009.html#a16c3946d25a3118840098ffffa4687c7">bundleMusicFiles</a>) {</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">const</span> std::string&amp; song : <a class="code" href="a01268.html#a34cfaee126866c60bb82a2c96e47940d">playlist</a>.getSongList()) { ctx.<a class="code" href="a03997.html#a117fbcb7e5871373ebb7270b39b20721">addDependencyFile</a>(song); }</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    }</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;}</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;} <span class="comment">// namespace bundle</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;} <span class="comment">// namespace resource</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;} <span class="comment">// namespace bl</span></div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keyword">static</span> std::optional&lt;Value&gt; <a class="code" href="a04626.html#a6b8c371d6bd8211fc97a31e753a2254d">runStatementList</a>(<span class="keyword">const</span> <a class="code" href="a03270.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&amp; statement,</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;                                                 <a class="code" href="a04054.html">SymbolTable</a>&amp; table);</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keyword">static</span> std::optional&lt;Value&gt; <a class="code" href="a04626.html#aafe0c3f6b3e62a67995275bc5dfeade3">runStatement</a>(<span class="keyword">const</span> <a class="code" href="a03270.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&amp; statement,</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;                                             <a class="code" href="a04054.html">SymbolTable</a>&amp; table);</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keyword">static</span> std::optional&lt;Value&gt; <a class="code" href="a04626.html#aaba966c59056e1324676b3a8121ea060">runConditional</a>(<span class="keyword">const</span> <a class="code" href="a03270.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&amp; conditional,</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                                               <a class="code" href="a04054.html">SymbolTable</a>&amp; table);</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keyword">static</span> std::optional&lt;Value&gt; <a class="code" href="a04626.html#a0b0bccc4c272547de40f824c62ac4103">runLoop</a>(<span class="keyword">const</span> <a class="code" href="a03270.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&amp; loop, <a class="code" href="a04054.html">SymbolTable</a>&amp; table);</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keyword">static</span> std::optional&lt;Value&gt; <a class="code" href="a04626.html#ac9c951d23f831210e7f40dc70808af70">runForLoop</a>(<span class="keyword">const</span> <a class="code" href="a03270.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&amp; loop, <a class="code" href="a04054.html">SymbolTable</a>&amp; table);</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="a04626.html#a7bf3baa166e50473900bee9137b6a093">evaluateCond</a>(<span class="keyword">const</span> <a class="code" href="a03270.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&amp; pgroup, <a class="code" href="a04054.html">SymbolTable</a>&amp; table);</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="a04626.html#a2e339a085d8372e636fc1c8fbeaff707">equals</a>(<span class="keyword">const</span> <a class="code" href="a04058.html">Value</a>&amp; left, <span class="keyword">const</span> <a class="code" href="a04058.html">Value</a>&amp; right);</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;};</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;} <span class="comment">// namespace script</span></div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01082_html"><div class="ttname"><a href="a01082.html">Scripts.hpp</a></div></div>
-<div class="ttc" id="aa02058_html"><div class="ttname"><a href="a02058.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03270_html_a3f49fe9da8742463aa757f89f67a8827"><div class="ttname"><a href="a03270.html#a3f49fe9da8742463aa757f89f67a8827">bl::parser::Node::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; Node &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00653_source.html#l00024">Node.hpp:24</a></div></div>
-<div class="ttc" id="aa04034_html"><div class="ttname"><a href="a04034.html">bl::script::PrimitiveValue</a></div><div class="ttdoc">Represents the lowest level values in scripts.</div><div class="ttdef"><b>Definition:</b> <a href="a01067_source.html#l00023">PrimitiveValue.hpp:23</a></div></div>
-<div class="ttc" id="aa04054_html"><div class="ttname"><a href="a04054.html">bl::script::SymbolTable</a></div><div class="ttdoc">Stack aware symbol table for managing functions and variables Each Script holds a single instance.</div><div class="ttdef"><b>Definition:</b> <a href="a01076_source.html#l00026">SymbolTable.hpp:26</a></div></div>
-<div class="ttc" id="aa04058_html"><div class="ttname"><a href="a04058.html">bl::script::Value</a></div><div class="ttdoc">Main representation of a value in scripts.</div><div class="ttdef"><b>Definition:</b> <a href="a01079_source.html#l00022">Value.hpp:22</a></div></div>
-<div class="ttc" id="aa04626_html"><div class="ttname"><a href="a04626.html">bl::script::ScriptImpl</a></div><div class="ttdoc">Collection of testable utility methods for executing components of scripts.</div><div class="ttdef"><b>Definition:</b> <a href="a01943_source.html#l00015">ScriptImpl.hpp:15</a></div></div>
-<div class="ttc" id="aa04626_html_a0b0bccc4c272547de40f824c62ac4103"><div class="ttname"><a href="a04626.html#a0b0bccc4c272547de40f824c62ac4103">bl::script::ScriptImpl::runLoop</a></div><div class="ttdeci">static std::optional&lt; Value &gt; runLoop(const parser::Node::Ptr &amp;loop, SymbolTable &amp;table)</div><div class="ttdoc">Runs a Loop.</div><div class="ttdef"><b>Definition:</b> <a href="a01940_source.html#l00206">ScriptImpl.cpp:206</a></div></div>
-<div class="ttc" id="aa04626_html_a2e339a085d8372e636fc1c8fbeaff707"><div class="ttname"><a href="a04626.html#a2e339a085d8372e636fc1c8fbeaff707">bl::script::ScriptImpl::equals</a></div><div class="ttdeci">static bool equals(const Value &amp;left, const Value &amp;right)</div><div class="ttdoc">Helper function that exposes the ability to compare values.</div><div class="ttdef"><b>Definition:</b> <a href="a01940_source.html#l00298">ScriptImpl.cpp:298</a></div></div>
-<div class="ttc" id="aa04626_html_a6b8c371d6bd8211fc97a31e753a2254d"><div class="ttname"><a href="a04626.html#a6b8c371d6bd8211fc97a31e753a2254d">bl::script::ScriptImpl::runStatementList</a></div><div class="ttdeci">static std::optional&lt; Value &gt; runStatementList(const parser::Node::Ptr &amp;statement, SymbolTable &amp;table)</div><div class="ttdoc">Executes a list of statements. Can take Statement, StmtList, or StmtBlock.</div><div class="ttdef"><b>Definition:</b> <a href="a01940_source.html#l00177">ScriptImpl.cpp:177</a></div></div>
-<div class="ttc" id="aa04626_html_a7bf3baa166e50473900bee9137b6a093"><div class="ttname"><a href="a04626.html#a7bf3baa166e50473900bee9137b6a093">bl::script::ScriptImpl::evaluateCond</a></div><div class="ttdeci">static bool evaluateCond(const parser::Node::Ptr &amp;pgroup, SymbolTable &amp;table)</div><div class="ttdoc">Evaluates a PGroup to true or false.</div><div class="ttdef"><b>Definition:</b> <a href="a01940_source.html#l00302">ScriptImpl.cpp:302</a></div></div>
-<div class="ttc" id="aa04626_html_aaba966c59056e1324676b3a8121ea060"><div class="ttname"><a href="a04626.html#aaba966c59056e1324676b3a8121ea060">bl::script::ScriptImpl::runConditional</a></div><div class="ttdeci">static std::optional&lt; Value &gt; runConditional(const parser::Node::Ptr &amp;conditional, SymbolTable &amp;table)</div><div class="ttdoc">Runs a Conditional.</div><div class="ttdef"><b>Definition:</b> <a href="a01940_source.html#l00260">ScriptImpl.cpp:260</a></div></div>
-<div class="ttc" id="aa04626_html_aafe0c3f6b3e62a67995275bc5dfeade3"><div class="ttname"><a href="a04626.html#aafe0c3f6b3e62a67995275bc5dfeade3">bl::script::ScriptImpl::runStatement</a></div><div class="ttdeci">static std::optional&lt; Value &gt; runStatement(const parser::Node::Ptr &amp;statement, SymbolTable &amp;table)</div><div class="ttdoc">Executes a statement.</div><div class="ttdef"><b>Definition:</b> <a href="a01940_source.html#l00097">ScriptImpl.cpp:97</a></div></div>
-<div class="ttc" id="aa04626_html_ab89b5a71f7593314d16d29d070158abd"><div class="ttname"><a href="a04626.html#ab89b5a71f7593314d16d29d070158abd">bl::script::ScriptImpl::computeValue</a></div><div class="ttdeci">static PrimitiveValue computeValue(const parser::Node::Ptr &amp;value, SymbolTable &amp;table)</div><div class="ttdoc">Takes a Value Node and computes the actual Value.</div><div class="ttdef"><b>Definition:</b> <a href="a01940_source.html#l00053">ScriptImpl.cpp:53</a></div></div>
-<div class="ttc" id="aa04626_html_ac9c951d23f831210e7f40dc70808af70"><div class="ttname"><a href="a04626.html#ac9c951d23f831210e7f40dc70808af70">bl::script::ScriptImpl::runForLoop</a></div><div class="ttdeci">static std::optional&lt; Value &gt; runForLoop(const parser::Node::Ptr &amp;loop, SymbolTable &amp;table)</div><div class="ttdoc">Runs a ForLoop.</div><div class="ttdef"><b>Definition:</b> <a href="a01940_source.html#l00230">ScriptImpl.cpp:230</a></div></div>
-<div class="ttc" id="aa04626_html_ad600bd780c64799931298593de49beaf"><div class="ttname"><a href="a04626.html#ad600bd780c64799931298593de49beaf">bl::script::ScriptImpl::runFunction</a></div><div class="ttdeci">static void runFunction(const parser::Node::Ptr &amp;call, SymbolTable &amp;table, Value &amp;result)</div><div class="ttdoc">Performs a function call. Evaluates arguments, updates SymbolTable, and runs statements.</div><div class="ttdef"><b>Definition:</b> <a href="a01940_source.html#l00069">ScriptImpl.cpp:69</a></div></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00014_html"><div class="ttname"><a href="a00014.html">Playlist.hpp</a></div></div>
+<div class="ttc" id="aa01049_html"><div class="ttname"><a href="a01049.html">PlaylistHandler.hpp</a></div></div>
+<div class="ttc" id="aa01268_html_a34cfaee126866c60bb82a2c96e47940d"><div class="ttname"><a href="a01268.html#a34cfaee126866c60bb82a2c96e47940d">playlist</a></div><div class="ttdeci">Playlist * playlist</div><div class="ttdef"><b>Definition:</b> <a href="a01268_source.html#l00042">AudioSystem.cpp:42</a></div></div>
+<div class="ttc" id="aa02100_html"><div class="ttname"><a href="a02100.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02237_html"><div class="ttname"><a href="a02237.html">bl::audio::Playlist</a></div><div class="ttdoc">A playable, serializable music playlist. Can be manually manipulated or loaded from files.</div><div class="ttdef"><b>Definition:</b> <a href="a00014_source.html#l00020">Playlist.hpp:20</a></div></div>
+<div class="ttc" id="aa03997_html"><div class="ttname"><a href="a03997.html">bl::resource::bundle::FileHandlerContext</a></div><div class="ttdoc">Context data that is provided to FileHandler objects when processing files.</div><div class="ttdef"><b>Definition:</b> <a href="a01040_source.html#l00023">FileHandlerContext.hpp:23</a></div></div>
+<div class="ttc" id="aa03997_html_a117fbcb7e5871373ebb7270b39b20721"><div class="ttname"><a href="a03997.html#a117fbcb7e5871373ebb7270b39b20721">bl::resource::bundle::FileHandlerContext::addDependencyFile</a></div><div class="ttdeci">void addDependencyFile(const std::string &amp;path)</div><div class="ttdoc">Adds a file to be bundled with the current file being processed. Call this for dependency files (ie s...</div><div class="ttdef"><b>Definition:</b> <a href="a01934_source.html#l00014">FileHandlerContext.cpp:14</a></div></div>
+<div class="ttc" id="aa04009_html_a16c3946d25a3118840098ffffa4687c7"><div class="ttname"><a href="a04009.html#a16c3946d25a3118840098ffffa4687c7">bl::resource::bundle::PlaylistHandler::bundleMusicFiles</a></div><div class="ttdeci">const bool bundleMusicFiles</div><div class="ttdef"><b>Definition:</b> <a href="a01049_source.html#l00033">PlaylistHandler.hpp:33</a></div></div>
+<div class="ttc" id="aa04009_html_af1d4746fd48ca4112fde79fde3b0d6f5"><div class="ttname"><a href="a04009.html#af1d4746fd48ca4112fde79fde3b0d6f5">bl::resource::bundle::PlaylistHandler::PlaylistHandler</a></div><div class="ttdeci">PlaylistHandler(bool bundleMusicFiles=false)</div><div class="ttdoc">Construct a new Playlist Handler.</div><div class="ttdef"><b>Definition:</b> <a href="a01943_source.html#l00011">PlaylistHandler.cpp:11</a></div></div>
+<div class="ttc" id="aa04009_html_afca0b240a71de04cb2cc40199e4c80d4"><div class="ttname"><a href="a04009.html#afca0b240a71de04cb2cc40199e4c80d4">bl::resource::bundle::PlaylistHandler::processFile</a></div><div class="ttdeci">virtual bool processFile(const std::string &amp;path, std::ostream &amp;output, FileHandlerContext &amp;context) override</div><div class="ttdoc">Process the given file and add its data to the bundle.</div><div class="ttdef"><b>Definition:</b> <a href="a01943_source.html#l00014">PlaylistHandler.cpp:14</a></div></div>
+<div class="ttc" id="aa04153_html"><div class="ttname"><a href="a04153.html">bl::serial::binary::OutputStream</a></div><div class="ttdoc">A writable stream for binary serialization.</div><div class="ttdef"><b>Definition:</b> <a href="a01115_source.html#l00022">OutputStream.hpp:22</a></div></div>
+<div class="ttc" id="aa04281_html"><div class="ttname"><a href="a04281.html">bl::serial::StreamOutputBuffer</a></div><div class="ttdoc">Output buffer that allows writing to C++ streams.</div><div class="ttdef"><b>Definition:</b> <a href="a01142_source.html#l00017">StreamOutputBuffer.hpp:17</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Nov 29 2023 03:07:38 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Dec 2 2023 04:00:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

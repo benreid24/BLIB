@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::rc::rg::GraphAssetPool Class Reference</title>
+<title>BLIB: Member List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,238 +66,38 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02058.html">bl</a></li><li class="navelem"><a class="el" href="a02070.html">rc</a></li><li class="navelem"><a class="el" href="a02106.html">rg</a></li><li class="navelem"><a class="el" href="a03514.html">GraphAssetPool</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02100.html">bl</a></li><li class="navelem"><a class="el" href="a02109.html">rc</a></li><li class="navelem"><a class="el" href="a02146.html">ds</a></li><li class="navelem"><a class="el" href="a03517.html">DescriptorSetInstance</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="a03511.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::rc::rg::GraphAssetPool Class Reference<div class="ingroups"><a class="el" href="a02045.html">Renderer</a></div></div>  </div>
+<div class="title">bl::rc::ds::DescriptorSetInstance Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="a03466.html" title="Base class for assets in render graphs.">Asset</a> pool for individual <a class="el" href="a03522.html" title="The core render graph functionality. Drives rendering for each observer.">RenderGraph</a> instances that exist per scene per observer.  
- <a href="a03514.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="a00800_source.html">GraphAssetPool.hpp</a>&gt;</code></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a7dfa3e88a01eea016080f8418eae755f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03514.html#a7dfa3e88a01eea016080f8418eae755f">GraphAssetPool</a> (<a class="el" href="a03474.html">AssetPool</a> &amp;pool)</td></tr>
-<tr class="memdesc:a7dfa3e88a01eea016080f8418eae755f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the pool.  <a href="a03514.html#a7dfa3e88a01eea016080f8418eae755f">More...</a><br /></td></tr>
-<tr class="separator:a7dfa3e88a01eea016080f8418eae755f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a383622423fffd29675531b2d9fdf4185"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03510.html">GraphAsset</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03514.html#a383622423fffd29675531b2d9fdf4185">getAssetForOutput</a> (std::string_view tag, <a class="el" href="a03542.html">Task</a> *task)</td></tr>
-<tr class="memdesc:a383622423fffd29675531b2d9fdf4185"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetch an existing asset from the pool to be used as an output.  <a href="a03514.html#a383622423fffd29675531b2d9fdf4185">More...</a><br /></td></tr>
-<tr class="separator:a383622423fffd29675531b2d9fdf4185"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a33777297c7565c90e15ebc071ebdb58c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03510.html">GraphAsset</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03514.html#a33777297c7565c90e15ebc071ebdb58c">getAssetForInput</a> (std::string_view tag)</td></tr>
-<tr class="memdesc:a33777297c7565c90e15ebc071ebdb58c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetch an existing asset from the pool to be used as an input. Only use for external assets. Do not call after calls to createAsset.  <a href="a03514.html#a33777297c7565c90e15ebc071ebdb58c">More...</a><br /></td></tr>
-<tr class="separator:a33777297c7565c90e15ebc071ebdb58c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5c876bfc4cf7146b28efb5cdff375879"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03510.html">GraphAsset</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03514.html#a5c876bfc4cf7146b28efb5cdff375879">createAsset</a> (std::string_view tag, <a class="el" href="a03542.html">Task</a> *creator)</td></tr>
-<tr class="memdesc:a5c876bfc4cf7146b28efb5cdff375879"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new asset with the given tag and creator.  <a href="a03514.html#a5c876bfc4cf7146b28efb5cdff375879">More...</a><br /></td></tr>
-<tr class="separator:a5c876bfc4cf7146b28efb5cdff375879"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a63a3e675fdb6fa2095e17e1d05d3f57a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03510.html">GraphAsset</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03514.html#a63a3e675fdb6fa2095e17e1d05d3f57a">getFinalOutput</a> ()</td></tr>
-<tr class="memdesc:a63a3e675fdb6fa2095e17e1d05d3f57a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetches the swap frame asset from the pool.  <a href="a03514.html#a63a3e675fdb6fa2095e17e1d05d3f57a">More...</a><br /></td></tr>
-<tr class="separator:a63a3e675fdb6fa2095e17e1d05d3f57a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a099f1d0022b8e681b04e91c422c991dd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03514.html#a099f1d0022b8e681b04e91c422c991dd">reset</a> ()</td></tr>
-<tr class="memdesc:a099f1d0022b8e681b04e91c422c991dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Releases all held assets to allow rebuilding of the graph.  <a href="a03514.html#a099f1d0022b8e681b04e91c422c991dd">More...</a><br /></td></tr>
-<tr class="separator:a099f1d0022b8e681b04e91c422c991dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="a03466.html" title="Base class for assets in render graphs.">Asset</a> pool for individual <a class="el" href="a03522.html" title="The core render graph functionality. Drives rendering for each observer.">RenderGraph</a> instances that exist per scene per observer. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00800_source.html#l00023">23</a> of file <a class="el" href="a00800_source.html">GraphAssetPool.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a7dfa3e88a01eea016080f8418eae755f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7dfa3e88a01eea016080f8418eae755f">&#9670;&nbsp;</a></span>GraphAssetPool()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::rc::rg::GraphAssetPool::GraphAssetPool </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a03474.html">AssetPool</a> &amp;&#160;</td>
-          <td class="paramname"><em>pool</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Creates the pool. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">pool</td><td>The parent asset pool to get assets from </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01724_source.html#l00012">12</a> of file <a class="el" href="a01724_source.html">GraphAssetPool.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a5c876bfc4cf7146b28efb5cdff375879"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5c876bfc4cf7146b28efb5cdff375879">&#9670;&nbsp;</a></span>createAsset()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a03510.html">GraphAsset</a> * bl::rc::rg::GraphAssetPool::createAsset </td>
-          <td>(</td>
-          <td class="paramtype">std::string_view&#160;</td>
-          <td class="paramname"><em>tag</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a03542.html">Task</a> *&#160;</td>
-          <td class="paramname"><em>creator</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Creates a new asset with the given tag and creator. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">tag</td><td>The asset tag </td></tr>
-    <tr><td class="paramname">creator</td><td>The <a class="el" href="a03542.html" title="Base class for tasks within a RenderGraph.">Task</a> that is creating the asset </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A pointer to the new asset </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a01724_source.html#l00046">46</a> of file <a class="el" href="a01724_source.html">GraphAssetPool.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a33777297c7565c90e15ebc071ebdb58c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a33777297c7565c90e15ebc071ebdb58c">&#9670;&nbsp;</a></span>getAssetForInput()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a03510.html">GraphAsset</a> * bl::rc::rg::GraphAssetPool::getAssetForInput </td>
-          <td>(</td>
-          <td class="paramtype">std::string_view&#160;</td>
-          <td class="paramname"><em>tag</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Fetch an existing asset from the pool to be used as an input. Only use for external assets. Do not call after calls to createAsset. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">tag</td><td>The asset tag to fetch </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A pointer to the contained asset, or nullptr if none </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a01724_source.html#l00037">37</a> of file <a class="el" href="a01724_source.html">GraphAssetPool.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a383622423fffd29675531b2d9fdf4185"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a383622423fffd29675531b2d9fdf4185">&#9670;&nbsp;</a></span>getAssetForOutput()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a03510.html">GraphAsset</a> * bl::rc::rg::GraphAssetPool::getAssetForOutput </td>
-          <td>(</td>
-          <td class="paramtype">std::string_view&#160;</td>
-          <td class="paramname"><em>tag</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a03542.html">Task</a> *&#160;</td>
-          <td class="paramname"><em>task</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Fetch an existing asset from the pool to be used as an output. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">tag</td><td>The asset tag to fetch </td></tr>
-    <tr><td class="paramname">task</td><td>The task that will be outputting to the asset </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A pointer to the contained asset, or nullptr if none </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a01724_source.html#l00023">23</a> of file <a class="el" href="a01724_source.html">GraphAssetPool.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a63a3e675fdb6fa2095e17e1d05d3f57a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a63a3e675fdb6fa2095e17e1d05d3f57a">&#9670;&nbsp;</a></span>getFinalOutput()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a03510.html">GraphAsset</a> * bl::rc::rg::GraphAssetPool::getFinalOutput </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Fetches the swap frame asset from the pool. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01724_source.html#l00015">15</a> of file <a class="el" href="a01724_source.html">GraphAssetPool.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a099f1d0022b8e681b04e91c422c991dd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a099f1d0022b8e681b04e91c422c991dd">&#9670;&nbsp;</a></span>reset()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::rc::rg::GraphAssetPool::reset </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Releases all held assets to allow rebuilding of the graph. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01724_source.html#l00053">53</a> of file <a class="el" href="a01724_source.html">GraphAssetPool.cpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Render/Graph/<a class="el" href="a00800_source.html">GraphAssetPool.hpp</a></li>
-<li>src/Render/Graph/<a class="el" href="a01724_source.html">GraphAssetPool.cpp</a></li>
-</ul>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="a03517.html">bl::rc::ds::DescriptorSetInstance</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="a03517.html#a2ba205af3f1d551707d5144f1bd9f7ca">allocateObject</a>(ecs::Entity entity, scene::Key key)=0</td><td class="entry"><a class="el" href="a03517.html">bl::rc::ds::DescriptorSetInstance</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a03517.html#a2e0ea55d6c929c82a464523b983e0c22">bindForObject</a>(scene::SceneRenderContext &amp;ctx, VkPipelineLayout layout, std::uint32_t setIndex, scene::Key objectKey) const =0</td><td class="entry"><a class="el" href="a03517.html">bl::rc::ds::DescriptorSetInstance</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a03517.html#a149c32afd1bac4d5417412d41e11db53">bindForPipeline</a>(scene::SceneRenderContext &amp;ctx, VkPipelineLayout layout, std::uint32_t setIndex, UpdateSpeed updateFreq) const =0</td><td class="entry"><a class="el" href="a03517.html">bl::rc::ds::DescriptorSetInstance</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a03517.html#a0d2abd5826961d67047b9e5b4d60e611a98d12a1bb275ddccb59ac803d85d829c">Bindful</a> enum value</td><td class="entry"><a class="el" href="a03517.html">bl::rc::ds::DescriptorSetInstance</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a03517.html#a0d2abd5826961d67047b9e5b4d60e611aca3f770200fb26547b3e7b354d670957">Bindless</a> enum value</td><td class="entry"><a class="el" href="a03517.html">bl::rc::ds::DescriptorSetInstance</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a03517.html#a0d2abd5826961d67047b9e5b4d60e611">BindMode</a> enum name</td><td class="entry"><a class="el" href="a03517.html">bl::rc::ds::DescriptorSetInstance</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a03517.html#a8824c7c30fbcff84b14719d6c01dd617">DescriptorSetInstance</a>(BindMode bindMode, SpeedBucketSetting speedSetting)</td><td class="entry"><a class="el" href="a03517.html">bl::rc::ds::DescriptorSetInstance</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a03517.html#aa50ce1024dd08e10d768dfacdba06bb1">handleFrameStart</a>()=0</td><td class="entry"><a class="el" href="a03517.html">bl::rc::ds::DescriptorSetInstance</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a03517.html#adcaa003139af3183b7be4e6f4719c9c7">init</a>(DescriptorComponentStorageCache &amp;storageCache)=0</td><td class="entry"><a class="el" href="a03517.html">bl::rc::ds::DescriptorSetInstance</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a03517.html#afd986b19a260694d023fae3ca6e492e7">isBindless</a>() const</td><td class="entry"><a class="el" href="a03517.html">bl::rc::ds::DescriptorSetInstance</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a03517.html#a1f4c36f9496f74f8f8f4c17449eb5e6c">needsRebindForNewSpeed</a>() const</td><td class="entry"><a class="el" href="a03517.html">bl::rc::ds::DescriptorSetInstance</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a03517.html#a56d01a7643e3e65933db3c5a957db66fabac649864fea33d090a888e842a80ffd">RebindForNewSpeed</a> enum value</td><td class="entry"><a class="el" href="a03517.html">bl::rc::ds::DescriptorSetInstance</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a03517.html#ab3226380a4dc14215c5f1738b169dbee">releaseObject</a>(ecs::Entity entity, scene::Key key)=0</td><td class="entry"><a class="el" href="a03517.html">bl::rc::ds::DescriptorSetInstance</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a03517.html#a56d01a7643e3e65933db3c5a957db66fa0e36b32fa7aa8a6327f0832d2470a57d">SpeedAgnostic</a> enum value</td><td class="entry"><a class="el" href="a03517.html">bl::rc::ds::DescriptorSetInstance</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a03517.html#a56d01a7643e3e65933db3c5a957db66f">SpeedBucketSetting</a> enum name</td><td class="entry"><a class="el" href="a03517.html">bl::rc::ds::DescriptorSetInstance</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a03517.html#aa70664371828bfffff77ffd75ce2136e">~DescriptorSetInstance</a>()=default</td><td class="entry"><a class="el" href="a03517.html">bl::rc::ds::DescriptorSetInstance</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+</table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Nov 29 2023 03:07:39 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Dec 2 2023 04:00:57 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

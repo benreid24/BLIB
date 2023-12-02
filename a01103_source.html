@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Serialization/Binary.hpp Source File</title>
+<title>BLIB: include/BLIB/Scripts.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,33 +66,36 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_0603dcfd3f324f38b3f10f913306f40f.html">Serialization</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Binary.hpp</div>  </div>
+<div class="title">Scripts.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01103.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01085.html">BLIB/Serialization/Binary/InputFile.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01088.html">BLIB/Serialization/Binary/InputStream.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01091.html">BLIB/Serialization/Binary/OutputFile.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01094.html">BLIB/Serialization/Binary/OutputStream.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05670.html">BLIB/Serialization/Binary/Serializer.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01100.html">BLIB/Serialization/Binary/VersionedSerializer.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01124.html">BLIB/Serialization/Buffers.hpp</a>&gt;</span></div>
-<div class="ttc" id="aa01085_html"><div class="ttname"><a href="a01085.html">InputFile.hpp</a></div></div>
-<div class="ttc" id="aa01088_html"><div class="ttname"><a href="a01088.html">InputStream.hpp</a></div></div>
-<div class="ttc" id="aa01091_html"><div class="ttname"><a href="a01091.html">OutputFile.hpp</a></div></div>
-<div class="ttc" id="aa01094_html"><div class="ttname"><a href="a01094.html">OutputStream.hpp</a></div></div>
-<div class="ttc" id="aa01100_html"><div class="ttname"><a href="a01100.html">VersionedSerializer.hpp</a></div></div>
-<div class="ttc" id="aa01124_html"><div class="ttname"><a href="a01124.html">Buffers.hpp</a></div></div>
-<div class="ttc" id="aa05670_html"><div class="ttname"><a href="a05670.html">Serializer.hpp</a></div></div>
+<a href="a01103.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_SCRIPTS_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_SCRIPTS_HPP</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01079.html">BLIB/Scripts/Error.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01082.html">BLIB/Scripts/Function.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01085.html">BLIB/Scripts/Manager.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01094.html">BLIB/Scripts/Script.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01097.html">BLIB/Scripts/SymbolTable.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01100.html">BLIB/Scripts/Value.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01079_html"><div class="ttname"><a href="a01079.html">Error.hpp</a></div></div>
+<div class="ttc" id="aa01082_html"><div class="ttname"><a href="a01082.html">Function.hpp</a></div></div>
+<div class="ttc" id="aa01085_html"><div class="ttname"><a href="a01085.html">Manager.hpp</a></div></div>
+<div class="ttc" id="aa01094_html"><div class="ttname"><a href="a01094.html">Script.hpp</a></div></div>
+<div class="ttc" id="aa01097_html"><div class="ttname"><a href="a01097.html">SymbolTable.hpp</a></div></div>
+<div class="ttc" id="aa01100_html"><div class="ttname"><a href="a01100.html">Value.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Nov 29 2023 03:07:37 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Dec 2 2023 04:00:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

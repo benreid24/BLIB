@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Serialization/Binary/OutputFile.cpp Source File</title>
+<title>BLIB: src/Scripts/Context.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,45 +66,43 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_e7c9606de6dc9534b0042ecacee5f21f.html">Serialization</a></li><li class="navelem"><a class="el" href="dir_0dbe044ffc6a709740d6a25d09c3d747.html">Binary</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3ac9928fc2e7e2cbc53db7c1a11acda2.html">Scripts</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">OutputFile.cpp</div>  </div>
+<div class="title">Context.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01961.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01091.html">BLIB/Serialization/Binary/OutputFile.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02058.html">bl</a></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>serial</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>binary</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a04070.html#a532927eeaa88aa29512a6be438ef85f9">    9</a></span>&#160;<a class="code" href="a04070.html#a532927eeaa88aa29512a6be438ef85f9">OutputFile::OutputFile</a>(<span class="keyword">const</span> std::string&amp; path)</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;: <a class="code" href="a04074.html">OutputStream</a>(<a class="code" href="a01247.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>)</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;, file(path)</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;, output(path.c_str(), <a class="code" href="a02075.html">std</a>::ios::out | <a class="code" href="a02075.html">std</a>::ios::binary)</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;, <a class="code" href="a01247.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>(output) {}</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="a04070.html#a90ed8fff6d1c1ce1e3f5ad0ccb66d23b">   15</a></span>&#160;<span class="keyword">const</span> std::string&amp; <a class="code" href="a04070.html#a90ed8fff6d1c1ce1e3f5ad0ccb66d23b">OutputFile::filename</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> file; }</div>
+<a href="a01961.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01076.html">BLIB/Scripts/Context.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01991.html">Scripts/ScriptLibrary.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02100.html">bl</a></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;{</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>script</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keywordtype">void</span> Context::initializeTable(SymbolTable&amp; table)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    <a class="code" href="a04709.html#ace07fac924c00874885a109b4fb8ad2d">Library::addBuiltIns</a>(table);</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <a class="code" href="a04093.html#a60d6dc826b2e1dbd3d54ef4a58d1816a">addCustomSymbols</a>(table);</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;}</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="a04093.html#a60d6dc826b2e1dbd3d54ef4a58d1816a">   13</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04093.html#a60d6dc826b2e1dbd3d54ef4a58d1816a">Context::addCustomSymbols</a>(<a class="code" href="a04133.html">SymbolTable</a>&amp;)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="comment">// empty</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;}</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;} <span class="comment">// namespace binary</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;} <span class="comment">// namespace serial</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa01091_html"><div class="ttname"><a href="a01091.html">OutputFile.hpp</a></div></div>
-<div class="ttc" id="aa01247_html_ad2ae6b0ac080ea0ac45f7a06ccc480ba"><div class="ttname"><a href="a01247.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a></div><div class="ttdeci">SoundHandle buffer</div><div class="ttdef"><b>Definition:</b> <a href="a01247_source.html#l00025">AudioSystem.cpp:25</a></div></div>
-<div class="ttc" id="aa02058_html"><div class="ttname"><a href="a02058.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02075_html"><div class="ttname"><a href="a02075.html">std</a></div><div class="ttdef"><b>Definition:</b> <a href="a00161_source.html#l00172">Entity.hpp:173</a></div></div>
-<div class="ttc" id="aa04070_html_a532927eeaa88aa29512a6be438ef85f9"><div class="ttname"><a href="a04070.html#a532927eeaa88aa29512a6be438ef85f9">bl::serial::binary::OutputFile::OutputFile</a></div><div class="ttdeci">OutputFile(const std::string &amp;path)</div><div class="ttdoc">Construct a new Output File.</div><div class="ttdef"><b>Definition:</b> <a href="a01961_source.html#l00009">OutputFile.cpp:9</a></div></div>
-<div class="ttc" id="aa04070_html_a90ed8fff6d1c1ce1e3f5ad0ccb66d23b"><div class="ttname"><a href="a04070.html#a90ed8fff6d1c1ce1e3f5ad0ccb66d23b">bl::serial::binary::OutputFile::filename</a></div><div class="ttdeci">const std::string &amp; filename() const</div><div class="ttdoc">The filename used to open the file.</div><div class="ttdef"><b>Definition:</b> <a href="a01961_source.html#l00015">OutputFile.cpp:15</a></div></div>
-<div class="ttc" id="aa04074_html"><div class="ttname"><a href="a04074.html">bl::serial::binary::OutputStream</a></div><div class="ttdoc">A writable stream for binary serialization.</div><div class="ttdef"><b>Definition:</b> <a href="a01094_source.html#l00022">OutputStream.hpp:22</a></div></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;} <span class="comment">// namespace script</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa01076_html"><div class="ttname"><a href="a01076.html">Context.hpp</a></div></div>
+<div class="ttc" id="aa01991_html"><div class="ttname"><a href="a01991.html">ScriptLibrary.hpp</a></div></div>
+<div class="ttc" id="aa02100_html"><div class="ttname"><a href="a02100.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04093_html_a60d6dc826b2e1dbd3d54ef4a58d1816a"><div class="ttname"><a href="a04093.html#a60d6dc826b2e1dbd3d54ef4a58d1816a">bl::script::Context::addCustomSymbols</a></div><div class="ttdeci">virtual void addCustomSymbols(SymbolTable &amp;table) const</div><div class="ttdoc">Add your custom functions and variables to the symbol table here.</div><div class="ttdef"><b>Definition:</b> <a href="a01961_source.html#l00013">Context.cpp:13</a></div></div>
+<div class="ttc" id="aa04133_html"><div class="ttname"><a href="a04133.html">bl::script::SymbolTable</a></div><div class="ttdoc">Stack aware symbol table for managing functions and variables Each Script holds a single instance.</div><div class="ttdef"><b>Definition:</b> <a href="a01097_source.html#l00026">SymbolTable.hpp:26</a></div></div>
+<div class="ttc" id="aa04709_html_ace07fac924c00874885a109b4fb8ad2d"><div class="ttname"><a href="a04709.html#ace07fac924c00874885a109b4fb8ad2d">bl::script::Library::addBuiltIns</a></div><div class="ttdeci">static void addBuiltIns(SymbolTable &amp;table)</div><div class="ttdef"><b>Definition:</b> <a href="a01988_source.html#l00102">ScriptLibrary.cpp:102</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Nov 29 2023 03:07:38 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Dec 2 2023 04:00:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

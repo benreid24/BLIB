@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Graph/Assets/FramebufferAsset.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Graph/AssetFactory.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,88 +66,58 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_70f08ea54355502249f886f7ca541c6e.html">Graph</a></li><li class="navelem"><a class="el" href="dir_318f4421f1f7fb4c659a5f109f7dfe6e.html">Assets</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_70f08ea54355502249f886f7ca541c6e.html">Graph</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">FramebufferAsset.hpp</div>  </div>
+<div class="title">AssetFactory.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00782.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_GRAPH_ASSETS_FRAMEBUFFERASSET_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_GRAPH_ASSETS_FRAMEBUFFERASSET_HPP</span></div>
+<a href="a00782.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_GRAPH_ASSETFACTORY_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_GRAPH_ASSETFACTORY_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00764.html">BLIB/Render/Graph/Asset.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00950.html">BLIB/Render/Vulkan/Framebuffer.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00971.html">BLIB/Render/Vulkan/RenderPass.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02058.html">bl</a></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00788.html">BLIB/Render/Graph/AssetProvider.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;string_view&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02100.html">bl</a></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">class </span>Observer;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span>rgi</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span>rg</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a03490.html">   21</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03490.html">FramebufferAsset</a> : <span class="keyword">public</span> <a class="code" href="a03466.html">rg::Asset</a> {</div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a03541.html">   21</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03541.html">AssetFactory</a> {</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a03490.html#a848768a7d8c51464f230d7a02ff10052">   26</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03490.html#a848768a7d8c51464f230d7a02ff10052">~FramebufferAsset</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="a03490.html#a2a26c21947cd163a91e7172f7732e2ca">   31</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03790.html">vk::Framebuffer</a>&amp; <a class="code" href="a03490.html#a2a26c21947cd163a91e7172f7732e2ca">currentFramebuffer</a>() = 0;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="a03490.html#afbb46da8b5bea760cdc1b67ee3b0b752">   36</a></span>&#160;    constexpr <span class="keyword">const</span> <a class="code" href="a03838.html">vk::RenderPass</a>&amp; <a class="code" href="a03490.html#afbb46da8b5bea760cdc1b67ee3b0b752">getRenderPass</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> *<a class="code" href="a03490.html#a146954ae1351c2bfa089889af6a3ab60">renderPass</a>; }</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03490.html#a409660b3905d16d4d3fb9208e674c99c">notifyResize</a>(glm::u32vec2 newSize);</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="a03490.html#aa076fbdd14348dffd311d4db4e7f31ba">   45</a></span>&#160;    <span class="keyword">const</span> std::uint32_t <a class="code" href="a03490.html#aa076fbdd14348dffd311d4db4e7f31ba">renderPassId</a>;</div>
-<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="a03490.html#a6382f4fc54a3274be43097cd41accf9b">   46</a></span>&#160;    <span class="keyword">const</span> VkViewport&amp; <a class="code" href="a03490.html#a6382f4fc54a3274be43097cd41accf9b">viewport</a>;</div>
-<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="a03490.html#af79eff1acf691c3e36462cc58f102639">   47</a></span>&#160;    <span class="keyword">const</span> VkRect2D&amp; <a class="code" href="a03490.html#af79eff1acf691c3e36462cc58f102639">scissor</a>;</div>
-<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="a03490.html#a65b9e38cba06e4d65e4d86da6d23ef6c">   48</a></span>&#160;    <span class="keyword">const</span> VkClearValue* <a class="code" href="a03490.html#a65b9e38cba06e4d65e4d86da6d23ef6c">clearColors</a>;</div>
-<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="a03490.html#a23d36691b92ad120b391d4709e7d01c0">   49</a></span>&#160;    <span class="keyword">const</span> std::uint32_t <a class="code" href="a03490.html#a23d36691b92ad120b391d4709e7d01c0">clearColorCount</a>;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="a03490.html#a146954ae1351c2bfa089889af6a3ab60">   52</a></span>&#160;    <span class="keyword">const</span> <a class="code" href="a03838.html">vk::RenderPass</a>* <a class="code" href="a03490.html#a146954ae1351c2bfa089889af6a3ab60">renderPass</a>;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <a class="code" href="a03490.html#a3fc28ba6c24994e7665d516409ba46a3">FramebufferAsset</a>(std::string_view tag, std::uint32_t <a class="code" href="a03490.html#aa076fbdd14348dffd311d4db4e7f31ba">renderPassId</a>, <span class="keyword">const</span> VkViewport&amp; <a class="code" href="a03490.html#a6382f4fc54a3274be43097cd41accf9b">viewport</a>,</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                     <span class="keyword">const</span> VkRect2D&amp; <a class="code" href="a03490.html#af79eff1acf691c3e36462cc58f102639">scissor</a>, <span class="keyword">const</span> VkClearValue* <a class="code" href="a03490.html#a65b9e38cba06e4d65e4d86da6d23ef6c">clearColors</a>,</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                     <span class="keyword">const</span> std::uint32_t <a class="code" href="a03490.html#a23d36691b92ad120b391d4709e7d01c0">clearColorCount</a>);</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="a03490.html#ace30b9b5cedf18504dbc17fd21023afa">   73</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03490.html#ace30b9b5cedf18504dbc17fd21023afa">onResize</a>(glm::u32vec2 newSize) = 0;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    glm::u32vec2 cachedSize;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;};</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;} <span class="comment">// namespace rgi</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00764_html"><div class="ttname"><a href="a00764.html">Asset.hpp</a></div></div>
-<div class="ttc" id="aa00950_html"><div class="ttname"><a href="a00950.html">Framebuffer.hpp</a></div></div>
-<div class="ttc" id="aa00971_html"><div class="ttname"><a href="a00971.html">RenderPass.hpp</a></div></div>
-<div class="ttc" id="aa02058_html"><div class="ttname"><a href="a02058.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03466_html"><div class="ttname"><a href="a03466.html">bl::rc::rg::Asset</a></div><div class="ttdoc">Base class for assets in render graphs.</div><div class="ttdef"><b>Definition:</b> <a href="a00764_source.html#l00032">Asset.hpp:32</a></div></div>
-<div class="ttc" id="aa03490_html"><div class="ttname"><a href="a03490.html">bl::rc::rgi::FramebufferAsset</a></div><div class="ttdoc">Intermediate base class for assets that provide framebuffers.</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00021">FramebufferAsset.hpp:21</a></div></div>
-<div class="ttc" id="aa03490_html_a146954ae1351c2bfa089889af6a3ab60"><div class="ttname"><a href="a03490.html#a146954ae1351c2bfa089889af6a3ab60">bl::rc::rgi::FramebufferAsset::renderPass</a></div><div class="ttdeci">const vk::RenderPass * renderPass</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00052">FramebufferAsset.hpp:52</a></div></div>
-<div class="ttc" id="aa03490_html_a23d36691b92ad120b391d4709e7d01c0"><div class="ttname"><a href="a03490.html#a23d36691b92ad120b391d4709e7d01c0">bl::rc::rgi::FramebufferAsset::clearColorCount</a></div><div class="ttdeci">const std::uint32_t clearColorCount</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00049">FramebufferAsset.hpp:49</a></div></div>
-<div class="ttc" id="aa03490_html_a2a26c21947cd163a91e7172f7732e2ca"><div class="ttname"><a href="a03490.html#a2a26c21947cd163a91e7172f7732e2ca">bl::rc::rgi::FramebufferAsset::currentFramebuffer</a></div><div class="ttdeci">virtual vk::Framebuffer &amp; currentFramebuffer()=0</div><div class="ttdoc">Returns the current framebuffer to use. Defined in derived assets.</div></div>
-<div class="ttc" id="aa03490_html_a3fc28ba6c24994e7665d516409ba46a3"><div class="ttname"><a href="a03490.html#a3fc28ba6c24994e7665d516409ba46a3">bl::rc::rgi::FramebufferAsset::FramebufferAsset</a></div><div class="ttdeci">FramebufferAsset(std::string_view tag, std::uint32_t renderPassId, const VkViewport &amp;viewport, const VkRect2D &amp;scissor, const VkClearValue *clearColors, const std::uint32_t clearColorCount)</div><div class="ttdoc">Creates the asset.</div><div class="ttdef"><b>Definition:</b> <a href="a01715_source.html#l00009">FramebufferAsset.cpp:9</a></div></div>
-<div class="ttc" id="aa03490_html_a409660b3905d16d4d3fb9208e674c99c"><div class="ttname"><a href="a03490.html#a409660b3905d16d4d3fb9208e674c99c">bl::rc::rgi::FramebufferAsset::notifyResize</a></div><div class="ttdeci">void notifyResize(glm::u32vec2 newSize)</div><div class="ttdoc">Intended to be called by observer when it resizes.</div><div class="ttdef"><b>Definition:</b> <a href="a01715_source.html#l00022">FramebufferAsset.cpp:22</a></div></div>
-<div class="ttc" id="aa03490_html_a6382f4fc54a3274be43097cd41accf9b"><div class="ttname"><a href="a03490.html#a6382f4fc54a3274be43097cd41accf9b">bl::rc::rgi::FramebufferAsset::viewport</a></div><div class="ttdeci">const VkViewport &amp; viewport</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00046">FramebufferAsset.hpp:46</a></div></div>
-<div class="ttc" id="aa03490_html_a65b9e38cba06e4d65e4d86da6d23ef6c"><div class="ttname"><a href="a03490.html#a65b9e38cba06e4d65e4d86da6d23ef6c">bl::rc::rgi::FramebufferAsset::clearColors</a></div><div class="ttdeci">const VkClearValue * clearColors</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00048">FramebufferAsset.hpp:48</a></div></div>
-<div class="ttc" id="aa03490_html_a848768a7d8c51464f230d7a02ff10052"><div class="ttname"><a href="a03490.html#a848768a7d8c51464f230d7a02ff10052">bl::rc::rgi::FramebufferAsset::~FramebufferAsset</a></div><div class="ttdeci">virtual ~FramebufferAsset()=default</div><div class="ttdoc">Destroys the asset.</div></div>
-<div class="ttc" id="aa03490_html_aa076fbdd14348dffd311d4db4e7f31ba"><div class="ttname"><a href="a03490.html#aa076fbdd14348dffd311d4db4e7f31ba">bl::rc::rgi::FramebufferAsset::renderPassId</a></div><div class="ttdeci">const std::uint32_t renderPassId</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00045">FramebufferAsset.hpp:45</a></div></div>
-<div class="ttc" id="aa03490_html_ace30b9b5cedf18504dbc17fd21023afa"><div class="ttname"><a href="a03490.html#ace30b9b5cedf18504dbc17fd21023afa">bl::rc::rgi::FramebufferAsset::onResize</a></div><div class="ttdeci">virtual void onResize(glm::u32vec2 newSize)=0</div><div class="ttdoc">Called when the observer render region changes size.</div></div>
-<div class="ttc" id="aa03490_html_af79eff1acf691c3e36462cc58f102639"><div class="ttname"><a href="a03490.html#af79eff1acf691c3e36462cc58f102639">bl::rc::rgi::FramebufferAsset::scissor</a></div><div class="ttdeci">const VkRect2D &amp; scissor</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00047">FramebufferAsset.hpp:47</a></div></div>
-<div class="ttc" id="aa03490_html_afbb46da8b5bea760cdc1b67ee3b0b752"><div class="ttname"><a href="a03490.html#afbb46da8b5bea760cdc1b67ee3b0b752">bl::rc::rgi::FramebufferAsset::getRenderPass</a></div><div class="ttdeci">constexpr const vk::RenderPass &amp; getRenderPass() const</div><div class="ttdoc">Returns the render pass to use to render to the swap frame.</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00036">FramebufferAsset.hpp:36</a></div></div>
-<div class="ttc" id="aa03790_html"><div class="ttname"><a href="a03790.html">bl::rc::vk::Framebuffer</a></div><div class="ttdoc">Utility struct that wraps a Vulkan framebuffer.</div><div class="ttdef"><b>Definition:</b> <a href="a00950_source.html#l00022">Framebuffer.hpp:22</a></div></div>
-<div class="ttc" id="aa03838_html"><div class="ttname"><a href="a03838.html">bl::rc::vk::RenderPass</a></div><div class="ttdoc">Represents a render pass in the renderer. A scene is comprised of a sequence of render passes and eac...</div><div class="ttdef"><b>Definition:</b> <a href="a00971_source.html#l00019">RenderPass.hpp:19</a></div></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span>... TArgs&gt;</div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="a03541.html#ad0920c14fe35af9234cd2d3c271c1a25">   32</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03541.html#ad0920c14fe35af9234cd2d3c271c1a25">addProvider</a>(std::string_view tag, TArgs&amp;&amp;... args) {</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        providers.try_emplace(tag, std::make_unique&lt;T&gt;(std::forward&lt;TArgs&gt;(args)...));</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    }</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <a class="code" href="a03537.html">Asset</a>* <a class="code" href="a03541.html#a77e7c1dd5519a1be712b2305d5960a4a">createAsset</a>(std::string_view tag);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    std::unordered_map&lt;std::string_view, std::unique_ptr&lt;AssetProvider&gt;&gt; providers;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;};</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;} <span class="comment">// namespace rg</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00788_html"><div class="ttname"><a href="a00788.html">AssetProvider.hpp</a></div></div>
+<div class="ttc" id="aa02100_html"><div class="ttname"><a href="a02100.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03537_html"><div class="ttname"><a href="a03537.html">bl::rc::rg::Asset</a></div><div class="ttdoc">Base class for assets in render graphs.</div><div class="ttdef"><b>Definition:</b> <a href="a00779_source.html#l00032">Asset.hpp:32</a></div></div>
+<div class="ttc" id="aa03541_html"><div class="ttname"><a href="a03541.html">bl::rc::rg::AssetFactory</a></div><div class="ttdoc">Factory for render graph assets. Manages the set of providers keyed on tag.</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00021">AssetFactory.hpp:21</a></div></div>
+<div class="ttc" id="aa03541_html_a77e7c1dd5519a1be712b2305d5960a4a"><div class="ttname"><a href="a03541.html#a77e7c1dd5519a1be712b2305d5960a4a">bl::rc::rg::AssetFactory::createAsset</a></div><div class="ttdeci">Asset * createAsset(std::string_view tag)</div><div class="ttdoc">Creates a new asset from the given tag.</div><div class="ttdef"><b>Definition:</b> <a href="a01742_source.html#l00011">AssetFactory.cpp:11</a></div></div>
+<div class="ttc" id="aa03541_html_ad0920c14fe35af9234cd2d3c271c1a25"><div class="ttname"><a href="a03541.html#ad0920c14fe35af9234cd2d3c271c1a25">bl::rc::rg::AssetFactory::addProvider</a></div><div class="ttdeci">void addProvider(std::string_view tag, TArgs &amp;&amp;... args)</div><div class="ttdoc">Adds a new asset provider to the factory.</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00032">AssetFactory.hpp:32</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Nov 29 2023 03:07:37 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Dec 2 2023 04:00:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

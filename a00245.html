@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Systems.hpp File Reference</title>
+<title>BLIB: include/BLIB/Engine/StateMask.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,33 +66,98 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_21925c401d8b9381bdf61383d8a14cd0.html">Engine</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">Systems.hpp File Reference</div>  </div>
+<div class="title">StateMask.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a01142_source.html">BLIB/Systems/Animation2DSystem.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a01145_source.html">BLIB/Systems/BuiltinDescriptorComponentSystems.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a01148_source.html">BLIB/Systems/BuiltinDrawableSystems.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a01151_source.html">BLIB/Systems/DescriptorComponentSystem.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a01154_source.html">BLIB/Systems/DrawableSystem.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a01157_source.html">BLIB/Systems/OverlayScalerSystem.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a01163_source.html">BLIB/Systems/RenderSystem.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a01160_source.html">BLIB/Systems/RendererUpdateSystem.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a01166_source.html">BLIB/Systems/SceneObjectRemovalSystem.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a01169_source.html">BLIB/Systems/TogglerSystem.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a01172_source.html">BLIB/Systems/Transform2DDescriptorSystem.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a01175_source.html">BLIB/Systems/VelocitySystem.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;cstdint&gt;</code><br />
+<code>#include &lt;type_traits&gt;</code><br />
 </div>
 <p><a href="a00245_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02653.html">bl::engine::StateMask</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper struct for state masks. An engine state has a mask which determines which systems run while that state is active. Any systems whose mask overlaps the state mask are executed each frame while the others are skipped.  <a href="a02653.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:a02100"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02100.html">bl</a></td></tr>
+<tr class="memdesc:a02100"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02107"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02107.html">bl::engine</a></td></tr>
+<tr class="memdesc:a02107"><td class="mdescLeft">&#160;</td><td class="mdescRight">The core game engine and related classes. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a2664b6394aa67917caa416341ff9b494"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02653.html#aae4beb82249d6acee3fae792b71efdd5">bl::engine::StateMask::V</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00245.html#a2664b6394aa67917caa416341ff9b494">operator|</a> (<a class="el" href="a02653.html#aae4beb82249d6acee3fae792b71efdd5">bl::engine::StateMask::V</a> left, <a class="el" href="a02653.html#aae4beb82249d6acee3fae792b71efdd5">bl::engine::StateMask::V</a> right)</td></tr>
+<tr class="memdesc:a2664b6394aa67917caa416341ff9b494"><td class="mdescLeft">&#160;</td><td class="mdescRight">Explicitly defined binary OR operator for easy typing.  <a href="a00245.html#a2664b6394aa67917caa416341ff9b494">More...</a><br /></td></tr>
+<tr class="separator:a2664b6394aa67917caa416341ff9b494"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="a2664b6394aa67917caa416341ff9b494"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2664b6394aa67917caa416341ff9b494">&#9670;&nbsp;</a></span>operator|()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a02653.html#aae4beb82249d6acee3fae792b71efdd5">bl::engine::StateMask::V</a> operator| </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a02653.html#aae4beb82249d6acee3fae792b71efdd5">bl::engine::StateMask::V</a>&#160;</td>
+          <td class="paramname"><em>left</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a02653.html#aae4beb82249d6acee3fae792b71efdd5">bl::engine::StateMask::V</a>&#160;</td>
+          <td class="paramname"><em>right</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Explicitly defined binary OR operator for easy typing. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">left</td><td>The left mask </td></tr>
+    <tr><td class="paramname">right</td><td>The right mask </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The mask containing both left and right </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00245_source.html#l00048">48</a> of file <a class="el" href="a00245_source.html">StateMask.hpp</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Nov 29 2023 03:07:38 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Dec 2 2023 04:00:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

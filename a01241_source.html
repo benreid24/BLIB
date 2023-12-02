@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Util.hpp Source File</title>
+<title>BLIB: include/BLIB/Util/ThreadPool.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,56 +66,83 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4b3af2b25a05b4f12e892fbe45139fe9.html">Util</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Util.hpp</div>  </div>
+<div class="title">ThreadPool.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01241.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_UTIL_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_UTIL_HPP</span></div>
+<a href="a01241.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_UTIL_THREADPOOL_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_UTIL_THREADPOOL_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01181.html">BLIB/Util/BufferIstreamBuf.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01184.html">BLIB/Util/FileUtil.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01187.html">BLIB/Util/HashCombine.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01190.html">BLIB/Util/Hashes.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01193.html">BLIB/Util/IdAllocator.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01199.html">BLIB/Util/LastVariadic.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01202.html">BLIB/Util/NonCopyable.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01205.html">BLIB/Util/Random.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01211.html">BLIB/Util/ReadWriteLock.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05646.html">BLIB/Util/Signal.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01214.html">BLIB/Util/StreamUtil.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01220.html">BLIB/Util/ThreadPool.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01223.html">BLIB/Util/Timer.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01226.html">BLIB/Util/TupleLoop.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01229.html">BLIB/Util/UnderlyingType.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01238.html">BLIB/Util/Waiter.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01181_html"><div class="ttname"><a href="a01181.html">BufferIstreamBuf.hpp</a></div></div>
-<div class="ttc" id="aa01184_html"><div class="ttname"><a href="a01184.html">FileUtil.hpp</a></div></div>
-<div class="ttc" id="aa01187_html"><div class="ttname"><a href="a01187.html">HashCombine.hpp</a></div></div>
-<div class="ttc" id="aa01190_html"><div class="ttname"><a href="a01190.html">Hashes.hpp</a></div></div>
-<div class="ttc" id="aa01193_html"><div class="ttname"><a href="a01193.html">IdAllocator.hpp</a></div></div>
-<div class="ttc" id="aa01199_html"><div class="ttname"><a href="a01199.html">LastVariadic.hpp</a></div></div>
-<div class="ttc" id="aa01202_html"><div class="ttname"><a href="a01202.html">NonCopyable.hpp</a></div></div>
-<div class="ttc" id="aa01205_html"><div class="ttname"><a href="a01205.html">Random.hpp</a></div></div>
-<div class="ttc" id="aa01211_html"><div class="ttname"><a href="a01211.html">ReadWriteLock.hpp</a></div></div>
-<div class="ttc" id="aa01214_html"><div class="ttname"><a href="a01214.html">StreamUtil.hpp</a></div></div>
-<div class="ttc" id="aa01220_html"><div class="ttname"><a href="a01220.html">ThreadPool.hpp</a></div></div>
-<div class="ttc" id="aa01223_html"><div class="ttname"><a href="a01223.html">Timer.hpp</a></div></div>
-<div class="ttc" id="aa01226_html"><div class="ttname"><a href="a01226.html">TupleLoop.hpp</a></div></div>
-<div class="ttc" id="aa01229_html"><div class="ttname"><a href="a01229.html">UnderlyingType.hpp</a></div></div>
-<div class="ttc" id="aa01238_html"><div class="ttname"><a href="a01238.html">Waiter.hpp</a></div></div>
-<div class="ttc" id="aa05646_html"><div class="ttname"><a href="a05646.html">Signal.hpp</a></div></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01223.html">BLIB/Util/NonCopyable.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;atomic&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;condition_variable&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;functional&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;future&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;list&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;mutex&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;queue&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;shared_mutex&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;thread&gt;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02100.html">bl</a></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">namespace </span>util</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;{</div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a04605.html">   24</a></span>&#160;<span class="keyword">class </span><a class="code" href="a04605.html">ThreadPool</a> : <span class="keyword">private</span> <a class="code" href="a04537.html">NonCopyable</a> {</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="a04605.html#a1da062602c1bbf14d5d17ce12e777697">   27</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a04605.html#a1da062602c1bbf14d5d17ce12e777697">Task</a> = std::function&lt;void()&gt;;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <a class="code" href="a04605.html#a460d8cce09b5e1c14157d395457e3bfd">ThreadPool</a>();</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <a class="code" href="a04605.html#af14005becc6ac6d61be21015e323968c">~ThreadPool</a>();</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a04605.html#a267094fe3aa471ed368b229e7ace11e8">start</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> workerCount = 0);</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a04605.html#ad9a5691b5c3c8a79d4d635a528702cca">running</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04605.html#a38acd300a96f722e47c9f6214bfa759f">drain</a>();</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04605.html#a5422d1988e881339da8cecd35049d352">shutdown</a>();</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    std::future&lt;void&gt; <a class="code" href="a04605.html#a2093b8daf49ca46987c69b69c1a10e59">queueTask</a>(<a class="code" href="a04605.html#a1da062602c1bbf14d5d17ce12e777697">Task</a>&amp;&amp; task);</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    std::atomic_bool shuttingDown;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    std::list&lt;std::thread&gt; workers;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    std::queue&lt;std::packaged_task&lt;void()&gt;&gt; tasks;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    std::atomic_uint32_t inFlightCount;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    std::mutex taskMutex;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    std::condition_variable taskQueuedCv;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    std::condition_variable_any taskDoneCv;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordtype">void</span> worker();</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;};</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;} <span class="comment">// namespace util</span></div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01223_html"><div class="ttname"><a href="a01223.html">NonCopyable.hpp</a></div></div>
+<div class="ttc" id="aa02100_html"><div class="ttname"><a href="a02100.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04537_html"><div class="ttname"><a href="a04537.html">bl::util::NonCopyable</a></div><div class="ttdoc">Helper class to make derived classes impossible for user to copy directly.</div><div class="ttdef"><b>Definition:</b> <a href="a01223_source.html#l00013">NonCopyable.hpp:13</a></div></div>
+<div class="ttc" id="aa04605_html"><div class="ttname"><a href="a04605.html">bl::util::ThreadPool</a></div><div class="ttdoc">Provides a thread pool with variable concurrency and support for draining.</div><div class="ttdef"><b>Definition:</b> <a href="a01241_source.html#l00024">ThreadPool.hpp:24</a></div></div>
+<div class="ttc" id="aa04605_html_a1da062602c1bbf14d5d17ce12e777697"><div class="ttname"><a href="a04605.html#a1da062602c1bbf14d5d17ce12e777697">bl::util::ThreadPool::Task</a></div><div class="ttdeci">std::function&lt; void()&gt; Task</div><div class="ttdoc">Callback signature of tasks to be submitted.</div><div class="ttdef"><b>Definition:</b> <a href="a01241_source.html#l00027">ThreadPool.hpp:27</a></div></div>
+<div class="ttc" id="aa04605_html_a2093b8daf49ca46987c69b69c1a10e59"><div class="ttname"><a href="a04605.html#a2093b8daf49ca46987c69b69c1a10e59">bl::util::ThreadPool::queueTask</a></div><div class="ttdeci">std::future&lt; void &gt; queueTask(Task &amp;&amp;task)</div><div class="ttdoc">Queues a task to be executed by a worker. Returns an invalid future if the pool is not accepting task...</div><div class="ttdef"><b>Definition:</b> <a href="a02063_source.html#l00063">ThreadPool.cpp:63</a></div></div>
+<div class="ttc" id="aa04605_html_a267094fe3aa471ed368b229e7ace11e8"><div class="ttname"><a href="a04605.html#a267094fe3aa471ed368b229e7ace11e8">bl::util::ThreadPool::start</a></div><div class="ttdeci">bool start(unsigned int workerCount=0)</div><div class="ttdoc">Starts the thread pool with the given concurrency. If the workerCount is 0 then std::thread::hardware...</div><div class="ttdef"><b>Definition:</b> <a href="a02063_source.html#l00016">ThreadPool.cpp:16</a></div></div>
+<div class="ttc" id="aa04605_html_a38acd300a96f722e47c9f6214bfa759f"><div class="ttname"><a href="a04605.html#a38acd300a96f722e47c9f6214bfa759f">bl::util::ThreadPool::drain</a></div><div class="ttdeci">void drain()</div><div class="ttdoc">Blocks until the task queue is empty and all workers are idle. If more tasks are submitted during thi...</div><div class="ttdef"><b>Definition:</b> <a href="a02063_source.html#l00031">ThreadPool.cpp:31</a></div></div>
+<div class="ttc" id="aa04605_html_a460d8cce09b5e1c14157d395457e3bfd"><div class="ttname"><a href="a04605.html#a460d8cce09b5e1c14157d395457e3bfd">bl::util::ThreadPool::ThreadPool</a></div><div class="ttdeci">ThreadPool()</div><div class="ttdoc">Initializes the thread pool. Does not start it.</div><div class="ttdef"><b>Definition:</b> <a href="a02063_source.html#l00010">ThreadPool.cpp:10</a></div></div>
+<div class="ttc" id="aa04605_html_a5422d1988e881339da8cecd35049d352"><div class="ttname"><a href="a04605.html#a5422d1988e881339da8cecd35049d352">bl::util::ThreadPool::shutdown</a></div><div class="ttdeci">void shutdown()</div><div class="ttdoc">Prevents new tasks from being submitted, drains the queue, and stops all workers.</div><div class="ttdef"><b>Definition:</b> <a href="a02063_source.html#l00037">ThreadPool.cpp:37</a></div></div>
+<div class="ttc" id="aa04605_html_ad9a5691b5c3c8a79d4d635a528702cca"><div class="ttname"><a href="a04605.html#ad9a5691b5c3c8a79d4d635a528702cca">bl::util::ThreadPool::running</a></div><div class="ttdeci">bool running() const</div><div class="ttdoc">Returns whether or not the pool is running.</div><div class="ttdef"><b>Definition:</b> <a href="a02063_source.html#l00029">ThreadPool.cpp:29</a></div></div>
+<div class="ttc" id="aa04605_html_af14005becc6ac6d61be21015e323968c"><div class="ttname"><a href="a04605.html#af14005becc6ac6d61be21015e323968c">bl::util::ThreadPool::~ThreadPool</a></div><div class="ttdeci">~ThreadPool()</div><div class="ttdoc">Terminates the pool.</div><div class="ttdef"><b>Definition:</b> <a href="a02063_source.html#l00014">ThreadPool.cpp:14</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Nov 29 2023 03:07:37 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Dec 2 2023 04:00:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

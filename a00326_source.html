@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Graphics/Shapes2D/SingleShape2D.hpp Source File</title>
+<title>BLIB: include/BLIB/Graphics/Rectangle.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,85 +66,49 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_8af985930208ac2752e8061e22535a56.html">Graphics</a></li><li class="navelem"><a class="el" href="dir_886502d98260abb236f1d1310d59e9a0.html">Shapes2D</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_8af985930208ac2752e8061e22535a56.html">Graphics</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">SingleShape2D.hpp</div>  </div>
+<div class="title">Rectangle.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00326.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_GRAPHICS_SHAPES_SINGLESHAPE2D_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_GRAPHICS_SHAPES_SINGLESHAPE2D_HPP</span></div>
+<a href="a00326.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_GRAPHICS_RECTANGLE_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_GRAPHICS_RECTANGLE_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05550.html">BLIB/Components/Shape2D.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05607.html">BLIB/Engine/Systems.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00296.html">BLIB/Graphics/Components/OverlayScalable.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05583.html">BLIB/Graphics/Components/Transform2D.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00302.html">BLIB/Graphics/Drawable.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05553.html">BLIB/Graphics/Shapes2D/Shape2D.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02058.html">bl</a></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span>gfx</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span>s2d</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a02778.html">   22</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02778.html">SingleShape2D</a></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;: <span class="keyword">public</span> <a class="code" href="a02774.html">Shape2D</a></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;, <span class="keyword">public</span> <a class="code" href="a02742.html">Drawable</a>&lt;com::Shape2D&gt;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;, <span class="keyword">public</span> <a class="code" href="a02730.html">bcom::OverlayScalable</a> {</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02778.html#a5b7e4a439a5a65759b2bf5b9e4172f9e">~SingleShape2D</a>();</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00338.html">BLIB/Graphics/Shapes2D/RectangleBase.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00341.html">BLIB/Graphics/Shapes2D/SingleShape2D.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02100.html">bl</a></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>gfx</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a02825.html">   16</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02825.html">Rectangle</a> : <span class="keyword">public</span> <a class="code" href="a02841.html">s2d::RectangleBase</a>&lt;s2d::SingleShape2D&gt; {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <a class="code" href="a02825.html#afa055c8fb3d6ed1e54a87ac0db39c06f">Rectangle</a>();</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02825.html#a30f0c3275154cc47eb8684e2b21f16cc">create</a>(<a class="code" href="a02605.html">engine::Engine</a>&amp; <a class="code" href="a02797.html#aa120ac89c9e8e4a405404e5e66245458">engine</a>, <span class="keyword">const</span> glm::vec2&amp; size);</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;};</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02778.html#a3f1e9d7a42c2b23e6569b1699fa48b8a">scaleToSize</a>(<span class="keyword">const</span> glm::vec2&amp; size) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <a class="code" href="a02778.html#ab9bcd9250a7ac1ea1ecc26025bb45b96">SingleShape2D</a>();</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02778.html#a4de1dc61459a69066c34f714b2d4079d">create</a>(<a class="code" href="a02554.html">engine::Engine</a>&amp; <a class="code" href="a02726.html#aa120ac89c9e8e4a405404e5e66245458">engine</a>);</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02778.html#a6b4cadef02a01385993372fbcd945aa3">ensureLocalSizeUpdated</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02778.html#a9770f1236ddd64957864f605b3065dcb">notifyDirty</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordtype">bool</span> dirty;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <a class="code" href="a02614.html">engine::Systems::TaskHandle</a> updateHandle;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> ensureUpdated() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;};</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;} <span class="comment">// namespace s2d</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;} <span class="comment">// namespace gfx</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00296_html"><div class="ttname"><a href="a00296.html">OverlayScalable.hpp</a></div></div>
-<div class="ttc" id="aa00302_html"><div class="ttname"><a href="a00302.html">Drawable.hpp</a></div></div>
-<div class="ttc" id="aa02058_html"><div class="ttname"><a href="a02058.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02554_html"><div class="ttname"><a href="a02554.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a05598_source.html#l00032">Engine.hpp:32</a></div></div>
-<div class="ttc" id="aa02614_html"><div class="ttname"><a href="a02614.html">bl::engine::Systems::TaskHandle</a></div><div class="ttdoc">Handle to a task submitted to Systems.</div><div class="ttdef"><b>Definition:</b> <a href="a05607_source.html#l00042">Systems.hpp:42</a></div></div>
-<div class="ttc" id="aa02726_html_aa120ac89c9e8e4a405404e5e66245458"><div class="ttname"><a href="a02726.html#aa120ac89c9e8e4a405404e5e66245458">bl::gfx::bcom::EntityBacked::engine</a></div><div class="ttdeci">engine::Engine &amp; engine()</div><div class="ttdoc">Returns the game engine instance. Only call after create()</div><div class="ttdef"><b>Definition:</b> <a href="a00293_source.html#l00106">EntityBacked.hpp:106</a></div></div>
-<div class="ttc" id="aa02730_html"><div class="ttname"><a href="a02730.html">bl::gfx::bcom::OverlayScalable</a></div><div class="ttdoc">Base component that manages and provides a Transform2D, OverlayScaler, and Viewport.</div><div class="ttdef"><b>Definition:</b> <a href="a00296_source.html#l00030">OverlayScalable.hpp:30</a></div></div>
-<div class="ttc" id="aa02742_html"><div class="ttname"><a href="a02742.html">bl::gfx::Drawable</a></div><div class="ttdoc">Base class for Drawable objects. A Drawable object should inherit this class for the drawable compone...</div><div class="ttdef"><b>Definition:</b> <a href="a00302_source.html#l00033">Drawable.hpp:33</a></div></div>
-<div class="ttc" id="aa02774_html"><div class="ttname"><a href="a02774.html">bl::gfx::s2d::Shape2D</a></div><div class="ttdoc">Base class for all 2d shapes. Provides part of the interface, as well as index buffer population....</div><div class="ttdef"><b>Definition:</b> <a href="a05553_source.html#l00021">Shape2D.hpp:21</a></div></div>
-<div class="ttc" id="aa02778_html"><div class="ttname"><a href="a02778.html">bl::gfx::s2d::SingleShape2D</a></div><div class="ttdoc">Base class for individual 2d shapes. Provides index buffer creation and management.</div><div class="ttdef"><b>Definition:</b> <a href="a00326_source.html#l00022">SingleShape2D.hpp:25</a></div></div>
-<div class="ttc" id="aa02778_html_a3f1e9d7a42c2b23e6569b1699fa48b8a"><div class="ttname"><a href="a02778.html#a3f1e9d7a42c2b23e6569b1699fa48b8a">bl::gfx::s2d::SingleShape2D::scaleToSize</a></div><div class="ttdeci">virtual void scaleToSize(const glm::vec2 &amp;size) override</div><div class="ttdoc">Helper method to set the scale so that the entity is a certain size.</div><div class="ttdef"><b>Definition:</b> <a href="a01382_source.html#l00058">SingleShape2D.cpp:58</a></div></div>
-<div class="ttc" id="aa02778_html_a4de1dc61459a69066c34f714b2d4079d"><div class="ttname"><a href="a02778.html#a4de1dc61459a69066c34f714b2d4079d">bl::gfx::s2d::SingleShape2D::create</a></div><div class="ttdeci">void create(engine::Engine &amp;engine)</div><div class="ttdoc">Creates the ECS entity and required components.</div><div class="ttdef"><b>Definition:</b> <a href="a01382_source.html#l00028">SingleShape2D.cpp:28</a></div></div>
-<div class="ttc" id="aa02778_html_a5b7e4a439a5a65759b2bf5b9e4172f9e"><div class="ttname"><a href="a02778.html#a5b7e4a439a5a65759b2bf5b9e4172f9e">bl::gfx::s2d::SingleShape2D::~SingleShape2D</a></div><div class="ttdeci">virtual ~SingleShape2D()</div><div class="ttdoc">Destroys the shape.</div><div class="ttdef"><b>Definition:</b> <a href="a01382_source.html#l00015">SingleShape2D.cpp:15</a></div></div>
-<div class="ttc" id="aa02778_html_a6b4cadef02a01385993372fbcd945aa3"><div class="ttname"><a href="a02778.html#a6b4cadef02a01385993372fbcd945aa3">bl::gfx::s2d::SingleShape2D::ensureLocalSizeUpdated</a></div><div class="ttdeci">virtual void ensureLocalSizeUpdated() override</div><div class="ttdoc">Called when the local size is queried.</div><div class="ttdef"><b>Definition:</b> <a href="a01382_source.html#l00034">SingleShape2D.cpp:34</a></div></div>
-<div class="ttc" id="aa02778_html_a9770f1236ddd64957864f605b3065dcb"><div class="ttname"><a href="a02778.html#a9770f1236ddd64957864f605b3065dcb">bl::gfx::s2d::SingleShape2D::notifyDirty</a></div><div class="ttdeci">virtual void notifyDirty() override</div><div class="ttdoc">Call whenever the shape geometry needs to be updated.</div><div class="ttdef"><b>Definition:</b> <a href="a01382_source.html#l00019">SingleShape2D.cpp:19</a></div></div>
-<div class="ttc" id="aa02778_html_ab9bcd9250a7ac1ea1ecc26025bb45b96"><div class="ttname"><a href="a02778.html#ab9bcd9250a7ac1ea1ecc26025bb45b96">bl::gfx::s2d::SingleShape2D::SingleShape2D</a></div><div class="ttdeci">SingleShape2D()</div><div class="ttdoc">Initializes the shapes fields to sane defaults.</div><div class="ttdef"><b>Definition:</b> <a href="a01382_source.html#l00010">SingleShape2D.cpp:10</a></div></div>
-<div class="ttc" id="aa05550_html"><div class="ttname"><a href="a05550.html">Shape2D.hpp</a></div></div>
-<div class="ttc" id="aa05553_html"><div class="ttname"><a href="a05553.html">Shape2D.hpp</a></div></div>
-<div class="ttc" id="aa05583_html"><div class="ttname"><a href="a05583.html">Transform2D.hpp</a></div></div>
-<div class="ttc" id="aa05607_html"><div class="ttname"><a href="a05607.html">Systems.hpp</a></div></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;} <span class="comment">// namespace gfx</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00338_html"><div class="ttname"><a href="a00338.html">RectangleBase.hpp</a></div></div>
+<div class="ttc" id="aa00341_html"><div class="ttname"><a href="a00341.html">SingleShape2D.hpp</a></div></div>
+<div class="ttc" id="aa02100_html"><div class="ttname"><a href="a02100.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02605_html"><div class="ttname"><a href="a02605.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a05713_source.html#l00032">Engine.hpp:32</a></div></div>
+<div class="ttc" id="aa02797_html_aa120ac89c9e8e4a405404e5e66245458"><div class="ttname"><a href="a02797.html#aa120ac89c9e8e4a405404e5e66245458">bl::gfx::bcom::EntityBacked::engine</a></div><div class="ttdeci">engine::Engine &amp; engine()</div><div class="ttdoc">Returns the game engine instance. Only call after create()</div><div class="ttdef"><b>Definition:</b> <a href="a00308_source.html#l00106">EntityBacked.hpp:106</a></div></div>
+<div class="ttc" id="aa02825_html"><div class="ttname"><a href="a02825.html">bl::gfx::Rectangle</a></div><div class="ttdoc">Renderable 2d rectangle shape.</div><div class="ttdef"><b>Definition:</b> <a href="a00326_source.html#l00016">Rectangle.hpp:16</a></div></div>
+<div class="ttc" id="aa02825_html_a30f0c3275154cc47eb8684e2b21f16cc"><div class="ttname"><a href="a02825.html#a30f0c3275154cc47eb8684e2b21f16cc">bl::gfx::Rectangle::create</a></div><div class="ttdeci">void create(engine::Engine &amp;engine, const glm::vec2 &amp;size)</div><div class="ttdoc">Creates the rectangle entity and components.</div><div class="ttdef"><b>Definition:</b> <a href="a01412_source.html#l00010">Rectangle.cpp:10</a></div></div>
+<div class="ttc" id="aa02825_html_afa055c8fb3d6ed1e54a87ac0db39c06f"><div class="ttname"><a href="a02825.html#afa055c8fb3d6ed1e54a87ac0db39c06f">bl::gfx::Rectangle::Rectangle</a></div><div class="ttdeci">Rectangle()</div><div class="ttdoc">Initializes the object.</div><div class="ttdef"><b>Definition:</b> <a href="a01412_source.html#l00007">Rectangle.cpp:7</a></div></div>
+<div class="ttc" id="aa02841_html"><div class="ttname"><a href="a02841.html">bl::gfx::s2d::RectangleBase</a></div><div class="ttdoc">Intermediate base class for rectangles. Use gfx::Rectangle or BatchedRectangle.</div><div class="ttdef"><b>Definition:</b> <a href="a00338_source.html#l00020">RectangleBase.hpp:20</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Nov 29 2023 03:07:37 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Dec 2 2023 04:00:54 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Events/Dispatcher.cpp Source File</title>
+<title>BLIB: src/ECS/DependencyGraph.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,57 +66,65 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_1ff81008302cb45769f1dab653ab23f8.html">Events</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b1a122bf62c958266ec5bf64d14fde5a.html">ECS</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Dispatcher.cpp</div>  </div>
+<div class="title">DependencyGraph.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01343.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00164.html">BLIB/Events.hpp</a>&gt;</span></div>
+<a href="a01343.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00164.html">BLIB/ECS/DependencyGraph.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02058.html">bl</a></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02100.html">bl</a></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>event</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>ecs</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>priv</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a04578.html">    9</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a04578.html">ReserveOnStartupHelper</a> {</div>
-<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="a04578.html#a2e5c0b69d6c18e7d6864f942d70e5d38">   10</a></span>&#160;    <a class="code" href="a04578.html#a2e5c0b69d6c18e7d6864f942d70e5d38">ReserveOnStartupHelper</a>() { Dispatcher::dispatchers.reserve(128); }</div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="a02082.html#a865c966fc289cfc34e75b4070c3e8e63">   11</a></span>&#160;} <a class="code" href="a02082.html#a865c966fc289cfc34e75b4070c3e8e63">helper</a>;</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;} <span class="comment">// namespace priv</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;std::mutex Dispatcher::dispatcherLock;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;std::vector&lt;priv::SingleDispatcherBase*&gt; Dispatcher::dispatchers;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a02638.html#ac7b00210042e2dd107ebbbf3ce7a2c8f">   17</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02638.html#ac7b00210042e2dd107ebbbf3ce7a2c8f">Dispatcher::syncListeners</a>() {</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    std::lock_guard lock(dispatcherLock);</div>
+<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="a02505.html#a42ca2d87dfe5867e1e48b7cd927e8998">    7</a></span>&#160;<a class="code" href="a02505.html#a42ca2d87dfe5867e1e48b7cd927e8998">ecs::DependencyGraph::DependencyGraph</a>(std::size_t capacityHint)</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;: parentsToChildren(capacityHint)</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;, childrenToParents(capacityHint) {}</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="a02505.html#a5be0aef92ec886c39769384811f02ccc">   11</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02505.html#a5be0aef92ec886c39769384811f02ccc">DependencyGraph::addDependency</a>(<a class="code" href="a02509.html">Entity</a> parent, <a class="code" href="a02509.html">Entity</a> child) {</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    parentsToChildren.add(parent.<a class="code" href="a02509.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>(), child);</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    childrenToParents.add(child.<a class="code" href="a02509.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>(), parent);</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;}</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a02505.html#a306e898c7fab38052be04f243e154f8c">   16</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a02505.html#a306e898c7fab38052be04f243e154f8c">DependencyGraph::hasDependencies</a>(<a class="code" href="a02509.html">Entity</a> parent)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordflow">return</span> parentsToChildren.hasValues(parent.<a class="code" href="a02509.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>());</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;}</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="a02658.html">priv::SingleDispatcherBase</a>* d : dispatchers) { d-&gt;syncListeners(); }</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;}</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a02638.html#a34fde267ef1ef9b3bc71d7233556fd5a">   23</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02638.html#a34fde267ef1ef9b3bc71d7233556fd5a">Dispatcher::clearAllListeners</a>() {</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    std::lock_guard lock(dispatcherLock);</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="a02658.html">priv::SingleDispatcherBase</a>* d : dispatchers) { d-&gt;clear(); }</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;}</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;} <span class="comment">// namespace event</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00164_html"><div class="ttname"><a href="a00164.html">Events.hpp</a></div></div>
-<div class="ttc" id="aa02058_html"><div class="ttname"><a href="a02058.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02082_html_a865c966fc289cfc34e75b4070c3e8e63"><div class="ttname"><a href="a02082.html#a865c966fc289cfc34e75b4070c3e8e63">bl::event::priv::helper</a></div><div class="ttdeci">struct bl::event::priv::ReserveOnStartupHelper helper</div></div>
-<div class="ttc" id="aa02638_html_a34fde267ef1ef9b3bc71d7233556fd5a"><div class="ttname"><a href="a02638.html#a34fde267ef1ef9b3bc71d7233556fd5a">bl::event::Dispatcher::clearAllListeners</a></div><div class="ttdeci">static void clearAllListeners()</div><div class="ttdoc">Removes all listeners from the subscription queues. Meant mostly for unit test cleanup but may have o...</div><div class="ttdef"><b>Definition:</b> <a href="a01343_source.html#l00023">Dispatcher.cpp:23</a></div></div>
-<div class="ttc" id="aa02638_html_ac7b00210042e2dd107ebbbf3ce7a2c8f"><div class="ttname"><a href="a02638.html#ac7b00210042e2dd107ebbbf3ce7a2c8f">bl::event::Dispatcher::syncListeners</a></div><div class="ttdeci">static void syncListeners()</div><div class="ttdoc">Synchronizes the listener buses. Called once per update cycle by the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a01343_source.html#l00017">Dispatcher.cpp:17</a></div></div>
-<div class="ttc" id="aa02658_html"><div class="ttname"><a href="a02658.html">bl::event::priv::SingleDispatcherBase</a></div><div class="ttdef"><b>Definition:</b> <a href="a00269_source.html#l00018">SingleDispatcher.hpp:18</a></div></div>
-<div class="ttc" id="aa04578_html"><div class="ttname"><a href="a04578.html">bl::event::priv::ReserveOnStartupHelper</a></div><div class="ttdef"><b>Definition:</b> <a href="a01343_source.html#l00009">Dispatcher.cpp:9</a></div></div>
-<div class="ttc" id="aa04578_html_a2e5c0b69d6c18e7d6864f942d70e5d38"><div class="ttname"><a href="a04578.html#a2e5c0b69d6c18e7d6864f942d70e5d38">bl::event::priv::ReserveOnStartupHelper::ReserveOnStartupHelper</a></div><div class="ttdeci">ReserveOnStartupHelper()</div><div class="ttdef"><b>Definition:</b> <a href="a01343_source.html#l00010">Dispatcher.cpp:10</a></div></div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a02505.html#a578885f410b0ca7aa8551962258bb59f">   20</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02505.html#a578885f410b0ca7aa8551962258bb59f">DependencyGraph::removeDependency</a>(<a class="code" href="a02509.html">Entity</a> parent, <a class="code" href="a02509.html">Entity</a> child) {</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    parentsToChildren.removeValue(parent.<a class="code" href="a02509.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>(), child);</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    childrenToParents.removeValue(child.<a class="code" href="a02509.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>(), parent);</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;}</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a02505.html#a46bb4369e09fcc49d21b3f8c07946f4c">   25</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02505.html#a46bb4369e09fcc49d21b3f8c07946f4c">DependencyGraph::clear</a>() {</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    parentsToChildren.clear();</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    childrenToParents.clear();</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;}</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a02505.html#a334277ed7244554257b87ee0530b6d3a">   30</a></span>&#160;<a class="code" href="a02397.html">ctr::IndexMappedList&lt;std::uint32_t, Entity&gt;::Range</a> <a class="code" href="a02505.html#a334277ed7244554257b87ee0530b6d3a">DependencyGraph::getResources</a>(<a class="code" href="a02509.html">Entity</a> child) {</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordflow">return</span> childrenToParents.getValues(child.<a class="code" href="a02509.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>());</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;}</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;} <span class="comment">// namespace ecs</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00164_html"><div class="ttname"><a href="a00164.html">DependencyGraph.hpp</a></div></div>
+<div class="ttc" id="aa02100_html"><div class="ttname"><a href="a02100.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02397_html"><div class="ttname"><a href="a02397.html">bl::ctr::IndexMappedList::Range</a></div><div class="ttdoc">Helper struct to allow range-based for loops.</div><div class="ttdef"><b>Definition:</b> <a href="a00125_source.html#l00187">IndexMappedList.hpp:187</a></div></div>
+<div class="ttc" id="aa02505_html_a306e898c7fab38052be04f243e154f8c"><div class="ttname"><a href="a02505.html#a306e898c7fab38052be04f243e154f8c">bl::ecs::DependencyGraph::hasDependencies</a></div><div class="ttdeci">bool hasDependencies(Entity parent) const</div><div class="ttdoc">Returns whether or not the given entity has others depending on it.</div><div class="ttdef"><b>Definition:</b> <a href="a01343_source.html#l00016">DependencyGraph.cpp:16</a></div></div>
+<div class="ttc" id="aa02505_html_a334277ed7244554257b87ee0530b6d3a"><div class="ttname"><a href="a02505.html#a334277ed7244554257b87ee0530b6d3a">bl::ecs::DependencyGraph::getResources</a></div><div class="ttdeci">ctr::IndexMappedList&lt; std::uint32_t, Entity &gt;::Range getResources(Entity child)</div><div class="ttdoc">Returns an iterable of dependencies for the given entity.</div><div class="ttdef"><b>Definition:</b> <a href="a01343_source.html#l00030">DependencyGraph.cpp:30</a></div></div>
+<div class="ttc" id="aa02505_html_a42ca2d87dfe5867e1e48b7cd927e8998"><div class="ttname"><a href="a02505.html#a42ca2d87dfe5867e1e48b7cd927e8998">bl::ecs::DependencyGraph::DependencyGraph</a></div><div class="ttdeci">DependencyGraph(std::size_t capacityHint)</div><div class="ttdoc">Creates the graph with the given capacity hint.</div><div class="ttdef"><b>Definition:</b> <a href="a01343_source.html#l00007">DependencyGraph.cpp:7</a></div></div>
+<div class="ttc" id="aa02505_html_a46bb4369e09fcc49d21b3f8c07946f4c"><div class="ttname"><a href="a02505.html#a46bb4369e09fcc49d21b3f8c07946f4c">bl::ecs::DependencyGraph::clear</a></div><div class="ttdeci">void clear()</div><div class="ttdoc">Clears out all relationship data.</div><div class="ttdef"><b>Definition:</b> <a href="a01343_source.html#l00025">DependencyGraph.cpp:25</a></div></div>
+<div class="ttc" id="aa02505_html_a578885f410b0ca7aa8551962258bb59f"><div class="ttname"><a href="a02505.html#a578885f410b0ca7aa8551962258bb59f">bl::ecs::DependencyGraph::removeDependency</a></div><div class="ttdeci">void removeDependency(Entity parent, Entity child)</div><div class="ttdoc">Removes the given dependency.</div><div class="ttdef"><b>Definition:</b> <a href="a01343_source.html#l00020">DependencyGraph.cpp:20</a></div></div>
+<div class="ttc" id="aa02505_html_a5be0aef92ec886c39769384811f02ccc"><div class="ttname"><a href="a02505.html#a5be0aef92ec886c39769384811f02ccc">bl::ecs::DependencyGraph::addDependency</a></div><div class="ttdeci">void addDependency(Entity parent, Entity child)</div><div class="ttdoc">Adds a dependency between two entities.</div><div class="ttdef"><b>Definition:</b> <a href="a01343_source.html#l00011">DependencyGraph.cpp:11</a></div></div>
+<div class="ttc" id="aa02509_html"><div class="ttname"><a href="a02509.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition:</b> <a href="a00167_source.html#l00024">Entity.hpp:24</a></div></div>
+<div class="ttc" id="aa02509_html_aa3cb71b47f3a72f20913a27233a5dad0"><div class="ttname"><a href="a02509.html#aa3cb71b47f3a72f20913a27233a5dad0">bl::ecs::Entity::getIndex</a></div><div class="ttdeci">std::uint64_t getIndex() const</div><div class="ttdoc">Returns the 0-based index for the entity.</div><div class="ttdef"><b>Definition:</b> <a href="a00167_source.html#l00104">Entity.hpp:104</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Nov 29 2023 03:07:37 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Dec 2 2023 04:00:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>
