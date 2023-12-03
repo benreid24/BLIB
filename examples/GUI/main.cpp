@@ -221,7 +221,7 @@ private:
     gui::FilePicker filePicker;
 
     void openFilePicker() {
-        filePicker.open(gui::FilePicker::PickExisting, "Select an image", gui);
+        filePicker.open(gui::FilePicker::PickExisting, "Select an image", gui.get());
     }
 
     void onFilePick(const std::string& file) {

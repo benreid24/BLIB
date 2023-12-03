@@ -113,7 +113,7 @@ FilePicker::FilePicker(const std::string& rootdir, const std::vector<std::string
     window->pack(entryRow, true, false);
 }
 
-void FilePicker::open(Mode m, const std::string& title, GUI::Ptr& parent, bool rpath) {
+void FilePicker::open(Mode m, const std::string& title, GUI* parent, bool rpath) {
     mode = m;
     window->getTitleLabel()->setText(title);
 
