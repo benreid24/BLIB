@@ -66,7 +66,6 @@ void Shape2D::update(rc::prim::Vertex* vertices, std::uint32_t* indices) {
     const bool hasOutline                 = outlineThickness != 0.f;
     const std::uint32_t pointCount        = getVertexCount();
     const std::uint32_t vertexCount       = calculateRequiredVertices();
-    const std::uint32_t indexCount        = calculateRequiredIndices();
     const std::uint32_t outlineStartIndex = pointCount + 1;
 
     // set colors for all points

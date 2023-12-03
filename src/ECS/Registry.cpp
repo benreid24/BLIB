@@ -101,7 +101,6 @@ bool Registry::destroyEntity(Entity start) {
     }
 
     // unparent top entity if there is a parent
-    const std::uint32_t sindex = start.getIndex();
     removeEntityParentLocked(start);
 
     // remove all discovered entities

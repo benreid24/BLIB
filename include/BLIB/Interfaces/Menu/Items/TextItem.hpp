@@ -58,7 +58,7 @@ protected:
      * @param style The style of the text
      */
     TextItem(const std::string& text, const sf::VulkanFont& font, const sf::Color& color,
-             unsigned int fontSize, std::uint32_t style);
+             unsigned int fontSize, std::uint32_t style = 0);
 
     /**
      * @brief Called at least once when the item is added to a menu. Should create required graphics

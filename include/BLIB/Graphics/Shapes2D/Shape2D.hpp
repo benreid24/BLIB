@@ -42,6 +42,13 @@ public:
     void setFillColor(const sf::Color& color) { setFillColor(sfcol(color)); }
 
     /**
+     * @brief Sets the color to fill the shape with
+     *
+     * @param color The color to fill the shape with
+     */
+    void setFillColor(std::initializer_list<float> color) { setFillColor(sfcol(color)); }
+
+    /**
      * @brief Returns the color the shape is filled with
      */
     const glm::vec4& getFillColor() const;
@@ -59,6 +66,13 @@ public:
      * @param color The color to outline the shape with
      */
     void setOutlineColor(const sf::Color& color) { setOutlineColor(sfcol(color)); }
+
+    /**
+     * @brief Sets the color the outline will be filled with
+     *
+     * @param color The color to outline the shape with
+     */
+    void setOutlineColor(std::initializer_list<float> color) { setOutlineColor(sfcol(color)); }
 
     /**
      * @brief Returns the color of the outline
