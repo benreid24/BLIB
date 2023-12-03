@@ -118,6 +118,20 @@ public:
     TCamera* setCamera(TArgs&&... args);
 
     /**
+     * @brief Returns the current camera. May be nullptr
+     */
+    cam::Camera* getCurrentCamera();
+
+    /**
+     * @brief Returns the current camera and performs a checked cast to the desired type
+     *
+     * @tparam TCamera The type of camera that is expected
+     * @return A pointer to the current camera. May be nullptr
+     */
+    template<typename TCamera>
+    TCamera* getCurrentCamera();
+
+    /**
      * @brief Sets the color to clear the observer's render region to prior to rendering
      *
      * @param color The color to clear with
@@ -221,6 +235,27 @@ TCamera* Observer::setCamera(TArgs&&... args) {
     }
 
     BL_LOG_ERROR << "Tried to set camera for observer with no current scene";
+    return nullptr;
+}
+
+template<typename TCamera>
+TCamera* Observer::getCurrentCamera() {
+    if (hasScene()) {
+        TCamera* camera = dynamic_cast<TCamera*>(scenes.back().camera.get());
+        if (!camera) {
+            BL_LOG_WARN << "Could not convert current camera to type: " << typeid(TCamera).name();
+        }
+        return camera;
+    }
+
+    BL_LOG_WARN << "Tried to retrieve current camera without a scene";
+    return nullptr;
+}
+
+inline cam::Camera* Observer::getCurrentCamera() {
+    if (hasScene()) { return scenes.back().camera.get(); }
+
+    BL_LOG_WARN << "Tried to retrieve current camera without a scene";
     return nullptr;
 }
 

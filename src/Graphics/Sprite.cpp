@@ -2,6 +2,7 @@
 
 #include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Render/Overlays/Overlay.hpp>
+#include <BLIB/Render/Primitives/Color.hpp>
 
 namespace bl
 {
@@ -31,6 +32,8 @@ void Sprite::setTexture(rc::res::TextureRef texture, const sf::FloatRect region)
     component().create(nullptr, texture, region);
     component().containsTransparency = Textured::getTexture()->containsTransparency();
 }
+
+void Sprite::setColor(const sf::Color& color) { component().setColor(sfcol(color)); }
 
 void Sprite::scaleToSize(const glm::vec2& size) {
     getTransform().setScale(size / OverlayScalable::getLocalSize());

@@ -19,16 +19,18 @@ public:
     typedef std::shared_ptr<TextItem> Ptr;
 
     /**
-     * @brief Create a new TextItem from the sf::Text object
+     * @brief Create a new TextItem
      *
      * @param text The string to display
      * @param font The font to use
      * @param color The color of the text
      * @param fontSize The font size
+     * @param style The style of the text
      * @return Ptr The created text menu item
      */
     static Ptr create(const std::string& text, const sf::VulkanFont& font,
-                      const sf::Color& color = sf::Color::Black, unsigned int fontSize = 30);
+                      const sf::Color& color = sf::Color::Black, unsigned int fontSize = 30,
+                      std::uint32_t style = sf::Text::Regular);
 
     /**
      * @brief Destroy the Text Item object
@@ -47,15 +49,16 @@ public:
 
 protected:
     /**
-     * @brief Create a new TextItem from the sf::Text object
+     * @brief Create a new TextItem
      *
      * @param text The string to display
      * @param font The font to use
      * @param color The color of the text
      * @param fontSize The font size
+     * @param style The style of the text
      */
     TextItem(const std::string& text, const sf::VulkanFont& font, const sf::Color& color,
-             unsigned int fontSize);
+             unsigned int fontSize, std::uint32_t style);
 
     /**
      * @brief Called at least once when the item is added to a menu. Should create required graphics
@@ -89,6 +92,7 @@ private:
     const sf::VulkanFont& font;
     const sf::Color color;
     const unsigned int fontSize;
+    const std::uint32_t style;
     gfx::Text text;
 };
 

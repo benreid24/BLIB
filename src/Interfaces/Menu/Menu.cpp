@@ -48,6 +48,8 @@ void Menu::addToOverlay() {
     for (auto& item : items) { item->doSceneAdd(overlay); }
 }
 
+void Menu::setHidden(bool h) { background.setHidden(h); }
+
 void Menu::removeFromOverlay() {
     overlay = nullptr;
     background.removeFromScene();

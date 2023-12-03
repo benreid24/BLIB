@@ -164,7 +164,7 @@ struct Entity {
 /**
  * @brief Special value to indicate that an Entity is not valid
  */
-static constexpr Entity InvalidEntity = Entity();
+constexpr Entity InvalidEntity = Entity();
 
 } // namespace ecs
 } // namespace bl

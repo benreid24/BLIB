@@ -66,6 +66,13 @@ public:
     void setTexture(rc::res::TextureRef texture, const sf::FloatRect region);
 
     /**
+     * @brief Convenience method that calls setColor on the underlying component
+     *
+     * @param color The color to multiply the texture by
+     */
+    void setColor(const sf::Color& color);
+
+    /**
      * @brief Helper method to set the scale so that the entity is a certain size
      *
      * @param size The size to scale to

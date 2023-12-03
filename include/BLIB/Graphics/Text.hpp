@@ -9,6 +9,7 @@
 #include <BLIB/Graphics/Drawable.hpp>
 #include <BLIB/Graphics/Text/BasicText.hpp>
 #include <BLIB/Graphics/Text/VulkanFont.hpp>
+#include <BLIB/Render/Primitives/Color.hpp>
 #include <SFML/Graphics/Text.hpp>
 #include <vector>
 
@@ -75,6 +76,23 @@ public:
     void create(engine::Engine& engine, const sf::VulkanFont& font, const sf::String& content = {},
                 unsigned int fontSize = 18, const glm::vec4& color = {0.f, 0.f, 0.f, 1.f},
                 std::uint32_t style = sf::Text::Regular);
+
+    /**
+     * @brief Creates the text entity and components in the ECS and creates a section using the
+     *        given settings. This must be called before using any other method on the Text object
+     *
+     * @param engine The game engine instance
+     * @param font The font to use
+     * @param content The string to render
+     * @param fontSize The font size of the text
+     * @param color The color of the text
+     * @param style The style of the text
+     */
+    void create(engine::Engine& engine, const sf::VulkanFont& font, const sf::String& content = {},
+                unsigned int fontSize = 18, const sf::Color& color = sf::Color::Black,
+                std::uint32_t style = sf::Text::Regular) {
+        create(engine, font, content, fontSize, sfcol(color), style);
+    }
 
     /**
      * @brief Changes the font used to render the text

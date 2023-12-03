@@ -58,6 +58,13 @@ public:
     void removeFromOverlay();
 
     /**
+     * @brief Set whether or not the menu is hidden
+     *
+     * @param hide True to hide, false to show. Menus are visible by default
+     */
+    void setHidden(bool hide);
+
+    /**
      * @brief Set the position to render the menu at
      *
      * @param position The position of the menu itself

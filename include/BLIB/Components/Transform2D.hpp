@@ -39,6 +39,14 @@ public:
     void setOrigin(const glm::vec2& origin);
 
     /**
+     * @brief Convenience method to set the origin from the individual components
+     *
+     * @param x The x component
+     * @param y The y component
+     */
+    void setOrigin(float x, float y) { setOrigin({x, y}); }
+
+    /**
      * @brief Returns the origin of the transform
      */
     const glm::vec2& getOrigin() const;
@@ -49,6 +57,14 @@ public:
      * @param position The new position to transform to
      */
     void setPosition(const glm::vec2& position);
+
+    /**
+     * @brief Convenience method to set the position from the individual components
+     *
+     * @param x The x component
+     * @param y The y component
+     */
+    void setPosition(float x, float y) { setPosition({x, y}); }
 
     /**
      * @brief Applies an offset to the current position
@@ -98,6 +114,14 @@ public:
      * @param factors The scale factors to set
      */
     void setScale(const glm::vec2& factors);
+
+    /**
+     * @brief Convenience method to set the scale from the individual components
+     *
+     * @param x The x component
+     * @param y The y component
+     */
+    void setScale(float x, float y) { setScale({x, y}); }
 
     /**
      * @brief Convenience method to set the x and y scale factors
