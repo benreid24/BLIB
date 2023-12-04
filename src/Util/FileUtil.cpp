@@ -94,6 +94,7 @@ void FileUtil::copyFile(const std::string& src, const std::string& dest) {
 }
 
 bool FileUtil::createDirectory(const std::string& path) {
+    if (std::filesystem::is_directory(path)) { return true; }
     return std::filesystem::create_directories(path);
 }
 
@@ -109,7 +110,7 @@ std::vector<std::string> FileUtil::listDirectory(const std::string& path, const 
     const auto append = [&list, &ext, &path, &extPath](const std::filesystem::path& cpath) {
         bool add = std::filesystem::is_regular_file(cpath);
         if (add && !ext.empty()) { add = cpath.extension() == extPath; }
-        if (add) { list.emplace_back(std::filesystem::relative(cpath, path).generic_string()); }
+        if (add) { list.emplace_back(cpath.generic_string()); }
     };
 
     if (recursive) {
@@ -130,7 +131,7 @@ std::vector<std::string> FileUtil::listDirectoryFolders(const std::string& path)
     std::vector<std::string> list;
     for (const auto& cpath : std::filesystem::directory_iterator(path)) {
         if (std::filesystem::is_directory(cpath)) {
-            list.emplace_back(cpath.path().generic_string());
+            list.emplace_back(std::filesystem::relative(cpath, path).generic_string());
         }
     }
     return list;
