@@ -156,6 +156,22 @@ public:
                                std::uint32_t style    = sf::Text::Regular);
 
     /**
+     * @brief Creates a section using the given settings
+     *
+     * @param engine The game engine instance
+     * @param font The font to use
+     * @param content The string to render
+     * @param fontSize The font size of the text
+     * @param color The color of the text
+     * @param style The style of the text
+     * @return A reference to the new text section
+     */
+    txt::BasicText& addSection(const sf::String& content, unsigned int fontSize,
+                               const sf::Color& color, std::uint32_t style = sf::Text::Regular) {
+        return addSection(content, fontSize, sfcol(color), style);
+    }
+
+    /**
      * @brief Returns the bounding rectangle of the text in pre-transform space
      */
     sf::FloatRect getLocalBounds() const;

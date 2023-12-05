@@ -49,8 +49,10 @@ public:
     /**
      * @brief Adds the menu and all items to the observer's current overlay. New items will be
      *        added automatically
+     *
+     * @param parent Optional entity to parent the menu to
      */
-    void addToOverlay();
+    void addToOverlay(ecs::Entity parent = ecs::InvalidEntity);
 
     /**
      * @brief Removes the menu and all components from its current overlay

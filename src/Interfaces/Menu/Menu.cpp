@@ -37,11 +37,14 @@ void Menu::create(engine::Engine& e, rc::Observer& o, const Selector::Ptr& sel) 
     background.setFillColor({1.f, 1.f, 1.f, 0.f});
     background.setOutlineColor({1.f, 1.f, 1.f, 0.f});
     background.getOverlayScaler().setScissorMode(com::OverlayScaler::ScissorSelf);
+    e.ecs().setEntityParentDestructionBehavior(background.entity(),
+                                               ecs::ParentDestructionBehavior::OrphanedByParent);
     selector->doCreate(*engine, background.entity());
     event::Dispatcher::subscribe(this);
 }
 
-void Menu::addToOverlay() {
+void Menu::addToOverlay(ecs::Entity parent) {
+    if (parent != ecs::InvalidEntity) { background.setParent(parent); }
     overlay = observer->getOrCreateSceneOverlay();
     background.addToScene(overlay, rc::UpdateSpeed::Static);
     selector->doSceneAdd(overlay);

@@ -90,7 +90,7 @@ std::string FileUtil::genTempName(const std::string& path, const std::string& ex
 
 void FileUtil::copyFile(const std::string& src, const std::string& dest) {
     if (src == dest) return;
-    std::filesystem::copy_file(src, dest);
+    std::filesystem::copy_file(src, dest, std::filesystem::copy_options::overwrite_existing);
 }
 
 bool FileUtil::createDirectory(const std::string& path) {
