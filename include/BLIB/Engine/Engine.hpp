@@ -187,7 +187,7 @@ private:
 
     bool awaitFocus();
     void handleResize(const sf::Event::SizeEvent& resize, bool saveAndSend);
-    void postStateChange(const State::Ptr& prev);
+    void postStateChange(State::Ptr& prev);
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////

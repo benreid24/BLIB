@@ -220,7 +220,11 @@ TextureRef TexturePool::getOrLoadTexture(const std::string& path, VkSampler samp
     std::unique_lock lock(mutex);
 
     auto it = fileMap.find(path);
-    if (it != fileMap.end()) { return TextureRef{*this, textures.getTexture(it->second)}; }
+    if (it != fileMap.end()) {
+        const auto rit = std::find(toRelease.begin(), toRelease.end(), it->second);
+        if (rit != toRelease.end()) { toRelease.erase(rit); }
+        return TextureRef{*this, textures.getTexture(it->second)};
+    }
 
     TextureRef txtr = allocateTexture();
     textures.prepareTextureUpdate(txtr.id(), path);
@@ -237,7 +241,11 @@ TextureRef TexturePool::getOrLoadTexture(const sf::Image& src, VkSampler sampler
     std::unique_lock lock(mutex);
 
     auto it = imageMap.find(&src);
-    if (it != imageMap.end()) { return TextureRef{*this, textures.getTexture(it->second)}; }
+    if (it != imageMap.end()) {
+        const auto rit = std::find(toRelease.begin(), toRelease.end(), it->second);
+        if (rit != toRelease.end()) { toRelease.erase(rit); }
+        return TextureRef{*this, textures.getTexture(it->second)};
+    }
 
     TextureRef txtr = allocateTexture();
     textures.prepareTextureUpdate(txtr.id(), src);
