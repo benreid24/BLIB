@@ -254,8 +254,10 @@ void Drawable<TCom, TSys>::resetFlash() {
 
 template<typename TCom, typename TSys>
 void Drawable<TCom, TSys>::stopFlashing() {
-    engine().ecs().template removeComponent<com::Toggler>(entity());
-    component().sceneRef.object->hidden = false;
+    if (entity() != ecs::InvalidEntity) {
+        engine().ecs().template removeComponent<com::Toggler>(entity());
+        if (component().sceneRef.object) { component().sceneRef.object->hidden = false; }
+    }
 }
 
 template<typename TCom, typename TSys>
