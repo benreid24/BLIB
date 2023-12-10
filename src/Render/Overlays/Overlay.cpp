@@ -103,6 +103,9 @@ scene::SceneObject* Overlay::doAdd(ecs::Entity entity, rcom::DrawableBase& objec
         sortRoots();
     }
 
+    com::OverlayScaler* scaler = engine.ecs().getComponent<com::OverlayScaler>(entity);
+    if (scaler) { scaler->dirty = true; }
+
     return &obj;
 }
 

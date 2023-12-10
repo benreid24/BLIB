@@ -164,6 +164,7 @@ void DrawableSystem<T>::addToSceneWithCustomPipeline(ecs::Entity entity, rc::Sce
         if (c->sceneRef.scene == scene) { return; }
         c->sceneRef.scene->removeObject(c->sceneRef.object);
     }
+    c->sceneRef.scene = scene;
     toAdd.emplace_back(entity, scene, descriptorUpdateFreq, pipeline);
 }
 

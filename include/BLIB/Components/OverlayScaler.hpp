@@ -175,6 +175,7 @@ private:
 
     friend class sys::OverlayScalerSystem;
     friend class gfx::bcom::OverlayScalable;
+    friend class rc::Overlay;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////

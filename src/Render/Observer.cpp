@@ -78,7 +78,14 @@ Overlay* Observer::getOrCreateSceneOverlay() {
     return scenes.back().overlay ? scenes.back().overlay : createSceneOverlay();
 }
 
-Overlay* Observer::getCurrentOverlay() { return scenes.empty() ? nullptr : scenes.back().overlay; }
+Overlay* Observer::getCurrentOverlay() {
+    if (scenes.empty()) { return nullptr; }
+
+    Overlay* overlay = dynamic_cast<Overlay*>(scenes.back().scene.get());
+    if (overlay) { return overlay; }
+
+    return scenes.back().overlay;
+}
 
 SceneRef Observer::popSceneNoRelease() {
     SceneRef s = scenes.back().scene;
