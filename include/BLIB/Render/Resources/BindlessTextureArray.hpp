@@ -66,7 +66,7 @@ public:
     /**
      * @brief Loads the texture contents for the given texture from the given resource id. Utilizes
      *        ResourceManager<sf::Image> to load the contents. Falls back on the error content if
-     *        loading fails. Does not perform update. Call commitTexture() to update.
+     *        loading fails. Does not perform update. Call updateTexture() to update.
      *
      * @param i The index of the texture to load
      * @param path The resource id of the content to load into the texture
@@ -95,7 +95,8 @@ public:
     /**
      * @brief Helper method to send descriptor writes for the given texture across a batch of
      *        texture arrays. Useful for uses like MaterialPool where each id has several associated
-     *        textures. This method sends over updated texture contents from prepareTextureUpdate()
+     *        textures. This method sends over updated texture contents from prepareTextureUpdate().
+     *        Performs the update immediately so usage must be externally synchronized
      *
      * @tparam N The number of arrays to update the given index across
      * @param descriptorSet The descriptor set to update
@@ -107,7 +108,8 @@ public:
                               const std::array<BindlessTextureArray*, N>& arrays, std::uint32_t i);
 
     /**
-     * @brief Updates the descriptor set for the given texture
+     * @brief Updates the descriptor set for the given texture. Updates are performed in sync with
+     *        the GPU to avoid modifying the descriptor set while in use
      *
      * @param texture The texture to update descriptors for
      */

@@ -57,6 +57,7 @@ void Overlay::renderScene(scene::SceneRenderContext& ctx) {
             if (vkl != currentPipelineLayout || currentSpeed != obj.sceneKey.updateFreq) {
                 currentSpeed          = obj.sceneKey.updateFreq;
                 currentPipelineLayout = vkl;
+                currentPipeline       = vkp;
                 ctx.bindPipeline(*obj.pipeline);
                 ctx.bindDescriptors(obj.pipeline->pipelineLayout().rawLayout(),
                                     obj.sceneKey.updateFreq,

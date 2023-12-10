@@ -155,13 +155,6 @@ TextureRef TexturePool::allocateTexture() {
     return TextureRef{*this, textures.getTexture(i)};
 }
 
-void TexturePool::finalizeNewTexture(std::uint32_t i, VkSampler sampler) {
-    std::array<BindlessTextureArray*, 1> arrays = {&textures};
-    textures.getTexture(i).sampler              = sampler;
-    textures.getTexture(i).createFromContentsAndQueue();
-    BindlessTextureArray::commitTexture(descriptorSet, rtDescriptorSet, arrays, i);
-}
-
 TextureRef TexturePool::createTexture(const sf::Image& src, VkSampler sampler) {
     if (!sampler) { sampler = vulkanState.samplerCache.filteredEdgeClamped(); }
 
@@ -169,7 +162,9 @@ TextureRef TexturePool::createTexture(const sf::Image& src, VkSampler sampler) {
 
     TextureRef txtr      = allocateTexture();
     txtr.texture->altImg = &src;
-    finalizeNewTexture(txtr.id(), sampler);
+    txtr->sampler        = sampler;
+    txtr->createFromContentsAndQueue();
+    textures.updateTexture(txtr.get());
 
     return txtr;
 }
@@ -230,7 +225,9 @@ TextureRef TexturePool::getOrLoadTexture(const std::string& path, VkSampler samp
     textures.prepareTextureUpdate(txtr.id(), path);
     it                        = fileMap.try_emplace(path, txtr.id()).first;
     reverseFileMap[txtr.id()] = &it->first;
-    finalizeNewTexture(txtr.id(), sampler);
+    txtr->sampler             = sampler;
+    txtr->createFromContentsAndQueue();
+    textures.updateTexture(txtr.get());
 
     return txtr;
 }
@@ -251,7 +248,9 @@ TextureRef TexturePool::getOrLoadTexture(const sf::Image& src, VkSampler sampler
     textures.prepareTextureUpdate(txtr.id(), src);
     it                         = imageMap.try_emplace(&src, txtr.id()).first;
     reverseImageMap[txtr.id()] = &src;
-    finalizeNewTexture(txtr.id(), sampler);
+    txtr->sampler              = sampler;
+    txtr->createFromContentsAndQueue();
+    textures.updateTexture(txtr.get());
 
     return txtr;
 }

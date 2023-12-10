@@ -148,8 +148,6 @@ private:
     void onFrameStart();
 
     TextureRef allocateTexture();
-    void finalizeNewTexture(std::uint32_t i, VkSampler sampler);
-
     void queueForRelease(std::uint32_t i);
     void releaseUnusedLocked();
     void doRelease(std::uint32_t i);
