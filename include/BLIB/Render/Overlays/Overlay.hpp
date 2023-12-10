@@ -35,7 +35,8 @@ class Observer;
  */
 class Overlay
 : public Scene
-, public bl::event::Listener<ecs::event::EntityParentSet, ecs::event::EntityParentRemoved> {
+, public bl::event::Listener<ecs::event::EntityParentSet, ecs::event::EntityParentRemoved,
+                             ecs::event::ComponentRemoved<ovy::OverlayObject>> {
 public:
     static constexpr std::uint32_t NoParent = std::numeric_limits<std::uint32_t>::max();
 
@@ -138,6 +139,7 @@ private:
 
     virtual void observe(const ecs::event::EntityParentSet& event) override;
     virtual void observe(const ecs::event::EntityParentRemoved& event) override;
+    virtual void observe(const ecs::event::ComponentRemoved<ovy::OverlayObject>& event) override;
 
     template<typename T>
     friend class sys::DrawableSystem;

@@ -84,9 +84,10 @@ void Overlay::renderScene(scene::SceneRenderContext& ctx) {
 scene::SceneObject* Overlay::doAdd(ecs::Entity entity, rcom::DrawableBase& object,
                                    UpdateSpeed updateFreq) {
     ovy::OverlayObject& obj = *objects.allocate(updateFreq, entity);
-    obj.entity              = entity;
-    obj.overlay             = this;
-    obj.pipeline            = &renderer.pipelineCache().getPipeline(object.pipeline);
+
+    obj.entity   = entity;
+    obj.overlay  = this;
+    obj.pipeline = &renderer.pipelineCache().getPipeline(object.pipeline);
     obj.descriptorCount =
         obj.pipeline->pipelineLayout().initDescriptorSets(descriptorSets, obj.descriptors.data());
     obj.perObjStart     = obj.descriptorCount;
@@ -182,6 +183,17 @@ void Overlay::observe(const ecs::event::EntityParentRemoved& event) {
     roots.emplace_back(obj);
     sortRoots();
     needRefreshAll = true;
+}
+
+void Overlay::observe(const ecs::event::ComponentRemoved<ovy::OverlayObject>& event) {
+    if (event.component.overlay == this) {
+        ovy::OverlayObject* obj = const_cast<ovy::OverlayObject*>(&event.component);
+        removeObject(obj);
+
+        // always remove from roots
+        const auto it = std::find(roots.begin(), roots.end(), obj);
+        if (it != roots.end()) { roots.erase(it); }
+    }
 }
 
 std::unique_ptr<cam::Camera> Overlay::createDefaultCamera() {

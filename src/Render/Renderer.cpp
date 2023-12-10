@@ -38,67 +38,67 @@ void Renderer::initialize() {
     renderRegion.width  = window.getSfWindow().getSize().x;
     renderRegion.height = window.getSfWindow().getSize().y;
 
-    constexpr engine::StateMask::V StateMask = engine::StateMask::All;
+    constexpr engine::StateMask::V AllMask = engine::StateMask::All;
     using engine::FrameStage;
 
     // core renderer systems
     engine.systems().registerSystem<sys::RendererUpdateSystem>(
-        FrameStage::RenderObjectInsertion, StateMask, *this);
-    engine.systems().registerSystem<sys::RenderSystem>(FrameStage::Render, StateMask, *this);
+        FrameStage::RenderObjectInsertion, AllMask, *this);
+    engine.systems().registerSystem<sys::RenderSystem>(FrameStage::Render, AllMask, *this);
     engine.systems().registerSystem<sys::OverlayScalerSystem>(FrameStage::RenderIntermediateRefresh,
-                                                              StateMask);
+                                                              AllMask);
     engine.systems().registerSystem<sys::Animation2DSystem>(
         FrameStage::Animate, engine::StateMask::Running | engine::StateMask::Menu, *this);
     engine.systems().registerSystem<sys::SceneObjectRemovalSystem>(FrameStage::RenderObjectRemoval,
-                                                                   StateMask);
+                                                                   AllMask);
 
     // descriptor systems
     engine.systems().registerSystem<sys::Transform2DDescriptorSystem>(
-        FrameStage::RenderDescriptorRefresh, StateMask);
+        FrameStage::RenderDescriptorRefresh, AllMask);
     engine.systems().registerSystem<sys::Transform3DDescriptorSystem>(
-        FrameStage::RenderDescriptorRefresh, StateMask);
+        FrameStage::RenderDescriptorRefresh, AllMask);
     engine.systems().registerSystem<sys::TextureDescriptorSystem>(
-        FrameStage::RenderDescriptorRefresh, StateMask);
+        FrameStage::RenderDescriptorRefresh, AllMask);
 
     // drawable systems
     engine.systems().registerSystem<sys::MeshSystem>(FrameStage::RenderObjectInsertion,
-                                                     StateMask,
+                                                     AllMask,
                                                      Config::PipelineIds::SkinnedMeshes,
                                                      Config::PipelineIds::SkinnedMeshes);
     engine.systems().registerSystem<sys::SpriteSystem>(FrameStage::RenderObjectInsertion,
-                                                       StateMask,
+                                                       AllMask,
                                                        Config::PipelineIds::LitSkinned2DGeometry,
                                                        Config::PipelineIds::UnlitSkinned2DGeometry);
     engine.systems().registerSystem<sys::BatchedSpriteSystem>(
         FrameStage::RenderObjectInsertion,
-        StateMask,
+        AllMask,
         Config::PipelineIds::LitSkinned2DGeometry,
         Config::PipelineIds::UnlitSkinned2DGeometry);
     engine.systems().registerSystem<sys::TextSystem>(FrameStage::RenderObjectInsertion,
-                                                     StateMask,
+                                                     AllMask,
                                                      Config::PipelineIds::Text,
                                                      Config::PipelineIds::Text);
     engine.systems().registerSystem<sys::SlideshowSystem>(FrameStage::RenderObjectInsertion,
-                                                          StateMask,
+                                                          AllMask,
                                                           Config::PipelineIds::SlideshowLit,
                                                           Config::PipelineIds::SlideshowUnlit);
     engine.systems().registerSystem<sys::BatchedSlideshowsSystem>(
         FrameStage::RenderObjectInsertion,
-        StateMask,
+        AllMask,
         Config::PipelineIds::SlideshowLit,
         Config::PipelineIds::SlideshowUnlit);
     engine.systems().registerSystem<sys::Animation2DDrawableSystem>(
         FrameStage::RenderObjectInsertion,
-        StateMask,
+        AllMask,
         Config::PipelineIds::LitSkinned2DGeometry,
         Config::PipelineIds::UnlitSkinned2DGeometry);
     engine.systems().registerSystem<sys::Shape2DSystem>(FrameStage::RenderObjectInsertion,
-                                                        StateMask,
+                                                        AllMask,
                                                         Config::PipelineIds::Lit2DGeometry,
                                                         Config::PipelineIds::Unlit2DGeometry);
     engine.systems().registerSystem<sys::BatchedShapes2DSystem>(
         FrameStage::RenderObjectInsertion,
-        StateMask,
+        AllMask,
         Config::PipelineIds::Lit2DGeometry,
         Config::PipelineIds::Unlit2DGeometry);
 
