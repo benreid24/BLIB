@@ -199,6 +199,12 @@ public:
     const Item* getSelectedItem() const;
 
     /**
+     * @brief Returns the ECS entity of the menu background. All items are children of the
+     *        background entity
+     */
+    ecs::Entity getEntity() const { return background.entity(); }
+
+    /**
      * @brief Sets the sound that plays when the selector is moved
      *
      * @param sound The sound to play

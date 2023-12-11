@@ -19,10 +19,7 @@ SubmenuItem::SubmenuItem(Menu& parent, const Item::Ptr& i, AttachPoint sp, Attac
     getSignal(Activated).willAlwaysCall([this]() { openMenu(); });
 }
 
-com::Transform2D& SubmenuItem::doCreate(engine::Engine& e, ecs::Entity p) {
-    self->create(e, p);
-    return *self->transform;
-}
+void SubmenuItem::doCreate(engine::Engine& e) { self->create(e, parent.getEntity()); }
 
 void SubmenuItem::doSceneAdd(rc::Overlay* overlay) { self->doSceneAdd(overlay); }
 

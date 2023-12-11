@@ -19,10 +19,8 @@ TextItem::TextItem(const std::string& t, const sf::VulkanFont& font, const sf::C
 , fontSize(fontSize)
 , style(style) {}
 
-com::Transform2D& TextItem::doCreate(engine::Engine& engine, ecs::Entity parent) {
+void TextItem::doCreate(engine::Engine& engine) {
     text.create(engine, font, string, fontSize, sfcol(color), style);
-    text.setParent(parent);
-    return text.getTransform();
 }
 
 void TextItem::doSceneAdd(rc::Overlay* overlay) {

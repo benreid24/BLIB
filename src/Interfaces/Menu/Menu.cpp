@@ -64,7 +64,9 @@ void Menu::setSelectedItem(Item* s) {
     if (selectedItem) { selectedItem->getSignal(Item::Deselected)(); }
     selectedItem = s;
     selectedItem->getSignal(Item::Selected)();
-    const glm::vec2& pos = selectedItem->transform->getLocalPosition();
+    com::Transform2D* tform =
+        engine->ecs().getComponent<com::Transform2D>(selectedItem->getEntity());
+    const glm::vec2& pos = tform->getLocalPosition();
     selector->notifySelection(selectedItem->getEntity(),
                               {pos.x, pos.y, selectedItem->getSize().x, selectedItem->getSize().y});
     refreshScroll();
@@ -298,7 +300,9 @@ void Menu::refreshPositions() {
     background.getTransform().setPosition(position + thick);
 
     if (selectedItem != nullptr) {
-        const glm::vec2& pos = selectedItem->transform->getLocalPosition();
+        com::Transform2D* tform =
+            engine->ecs().getComponent<com::Transform2D>(selectedItem->getEntity());
+        const glm::vec2& pos = tform->getLocalPosition();
         selector->notifySelection(
             selectedItem->getEntity(),
             {pos.x, pos.y, selectedItem->getSize().x, selectedItem->getSize().y});

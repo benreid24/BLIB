@@ -1,5 +1,6 @@
 #include <BLIB/Interfaces/Menu/Item.hpp>
 
+#include <BLIB/Engine/Engine.hpp>
 #include <algorithm>
 
 namespace bl
@@ -7,7 +8,7 @@ namespace bl
 namespace menu
 {
 Item::Item()
-: transform(nullptr)
+: enginePtr(nullptr)
 , position{}
 , offset{}
 , canBeSelected(true)
@@ -68,11 +69,16 @@ void Item::notifyOffset(const glm::vec2& o) {
 }
 
 void Item::updatePosition() {
-    if (transform) { transform->setPosition(position - offset); }
+    if (enginePtr) {
+        com::Transform2D* transform = enginePtr->ecs().getComponent<com::Transform2D>(getEntity());
+        if (transform) { transform->setPosition(position - offset); }
+    }
 }
 
 void Item::create(engine::Engine& engine, ecs::Entity parent) {
-    transform = &doCreate(engine, parent);
+    enginePtr = &engine;
+    doCreate(engine);
+    engine.ecs().setEntityParent(getEntity(), parent);
 }
 
 } // namespace menu
