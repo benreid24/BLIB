@@ -103,6 +103,12 @@ bool Engine::run(State::Ptr initialState) {
     if (engineSettings.createWindow()) {
         if (!reCreateWindow(engineSettings.windowParameters())) { return false; }
         renderingSystem.initialize();
+        if (engineSettings.windowParameters().letterBox()) {
+            sf::Event::SizeEvent e{};
+            e.width  = renderWindow.getSfWindow().getSize().x;
+            e.height = renderWindow.getSfWindow().getSize().y;
+            handleResize(e, false);
+        }
     }
     ecsSystems.init();
 
@@ -305,6 +311,8 @@ bool Engine::reCreateWindow(const Settings::WindowParameters& params) {
         }
         else { BL_LOG_WARN << "Failed to load icon: " << params.icon(); }
     }
+
+    if (renderingSystem.vulkanState().device) { renderingSystem.processWindowRecreate(); }
 
     // also saves to config
     updateExistingWindow(params);

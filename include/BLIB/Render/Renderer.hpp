@@ -201,6 +201,7 @@ private:
     void initialize();
     void cleanup();
     void processResize(const sf::Rect<std::uint32_t>& region);
+    void processWindowRecreate();
 
     void registerRenderTexture(vk::RenderTexture* rt);
     void removeRenderTexture(vk::RenderTexture* rt);

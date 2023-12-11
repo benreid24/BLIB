@@ -281,5 +281,10 @@ rg::Strategy& Renderer::getRenderStrategy() {
     return *strategy;
 }
 
+void Renderer::processWindowRecreate() {
+    state.createSurface();
+    state.swapchain.invalidate();
+}
+
 } // namespace rc
 } // namespace bl

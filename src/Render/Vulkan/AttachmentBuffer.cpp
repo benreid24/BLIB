@@ -20,7 +20,7 @@ AttachmentBuffer::~AttachmentBuffer() { deferDestroy(); }
 
 void AttachmentBuffer::create(VulkanState& vs, VkFormat format, VkImageUsageFlags usage,
                               const VkExtent2D& extent) {
-    if (size.width == extent.width && size.height == extent.height) { return; }
+    if (vulkanState && size.width == extent.width && size.height == extent.height) { return; }
     size = extent;
 
     deferDestroy();

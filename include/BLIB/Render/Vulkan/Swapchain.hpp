@@ -40,9 +40,8 @@ public:
 
     /**
      * @brief Creates the swap chain itself
-     * @param surface The surface to present to
      */
-    void create(VkSurfaceKHR surface);
+    void create();
 
     /**
      * @brief Invalidates the swap chain. Will cause the swapchain to be recreated on the next
@@ -107,7 +106,6 @@ private:
 
     VulkanState& vulkanState;
     sf::WindowBase& window;
-    VkSurfaceKHR surface;
 
     VkSwapchainKHR swapchain;
     VkFormat imageFormat;

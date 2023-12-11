@@ -79,7 +79,7 @@ bool ToggleTextItem::isChecked() const { return checked; }
 
 void ToggleTextItem::setChecked(bool c) {
     checked = c;
-    innerBox.setHidden(!checked);
+    if (innerBox.entity() != ecs::InvalidEntity) { innerBox.setHidden(!checked); }
 }
 
 void ToggleTextItem::setBoxProperties(sf::Color fc, sf::Color bc, float w, float bt, float pad,

@@ -115,6 +115,7 @@ int scorePhysicalDevice(VkPhysicalDevice device, const VkPhysicalDevicePropertie
 VulkanState::VulkanState(engine::EngineWindow& window)
 : window(window)
 , device(nullptr)
+, surface(nullptr)
 , swapchain(*this, window.getSfWindow())
 , transferEngine(*this)
 , descriptorPool(*this)
@@ -138,7 +139,7 @@ void VulkanState::init() {
     createLogicalDevice();
     createVmaAllocator();
     sharedCommandPool.create(*this);
-    swapchain.create(surface);
+    swapchain.create();
     transferEngine.init();
     descriptorPool.init();
     samplerCache.init();
@@ -282,6 +283,11 @@ void VulkanState::setupDebugMessenger() {
 #endif
 
 void VulkanState::createSurface() {
+    if (surface) {
+        cleanupManager.add([instance = instance, surface = surface]() {
+            vkDestroySurfaceKHR(instance, surface, nullptr);
+        });
+    }
     if (!window.createVulkanSurface(instance, surface)) {
         throw std::runtime_error("Failed to create Vulkan surface");
     }

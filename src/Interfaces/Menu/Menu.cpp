@@ -61,16 +61,13 @@ void Menu::removeFromOverlay() {
 }
 
 void Menu::setSelectedItem(Item* s) {
-    if (s != selectedItem) {
-        if (selectedItem) { selectedItem->getSignal(Item::Deselected)(); }
-        selectedItem = s;
-        selectedItem->getSignal(Item::Selected)();
-        const glm::vec2& pos = selectedItem->transform->getLocalPosition();
-        selector->notifySelection(
-            selectedItem->getEntity(),
-            {pos.x, pos.y, selectedItem->getSize().x, selectedItem->getSize().y});
-        refreshScroll();
-    }
+    if (selectedItem) { selectedItem->getSignal(Item::Deselected)(); }
+    selectedItem = s;
+    selectedItem->getSignal(Item::Selected)();
+    const glm::vec2& pos = selectedItem->transform->getLocalPosition();
+    selector->notifySelection(selectedItem->getEntity(),
+                              {pos.x, pos.y, selectedItem->getSize().x, selectedItem->getSize().y});
+    refreshScroll();
 }
 
 void Menu::setPosition(const glm::vec2& pos) {

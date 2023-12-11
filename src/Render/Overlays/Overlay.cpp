@@ -188,10 +188,7 @@ void Overlay::observe(const ecs::event::EntityParentRemoved& event) {
 void Overlay::observe(const ecs::event::ComponentRemoved<ovy::OverlayObject>& event) {
     if (event.component.overlay == this) {
         ovy::OverlayObject* obj = const_cast<ovy::OverlayObject*>(&event.component);
-        removeObject(obj);
-
-        // always remove from roots
-        const auto it = std::find(roots.begin(), roots.end(), obj);
+        const auto it           = std::find(roots.begin(), roots.end(), obj);
         if (it != roots.end()) { roots.erase(it); }
     }
 }
