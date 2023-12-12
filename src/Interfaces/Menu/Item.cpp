@@ -13,7 +13,8 @@ Item::Item()
 , offset{}
 , canBeSelected(true)
 , allowSelectionCross(true)
-, positionOverridden(false) {
+, positionOverridden(false)
+, created(false) {
     for (unsigned int i = 0; i < AttachPoint::_NUM_ATTACHPOINTS; ++i) { attachments[i] = nullptr; }
 }
 
@@ -77,7 +78,10 @@ void Item::updatePosition() {
 
 void Item::create(engine::Engine& engine, ecs::Entity parent) {
     enginePtr = &engine;
-    doCreate(engine);
+    if (!created) {
+        created = true;
+        doCreate(engine);
+    }
     engine.ecs().setEntityParent(getEntity(), parent);
 }
 

@@ -139,6 +139,7 @@ private:
     bool allowSelectionCross;
     bool positionOverridden;
     glm::vec2 posOverride;
+    bool created;
 
     void create(engine::Engine& engine, ecs::Entity parent);
     void notifyPosition(const glm::vec2& position);
