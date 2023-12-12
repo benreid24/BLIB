@@ -162,6 +162,13 @@ public:
     void refreshPositions();
 
     /**
+     * @brief Sets the depth of the menu when rendering. Default is OverlayCamera::MinDepth + 100.f
+     *
+     * @param depth The depth to render at. For use with overlay render order and depth buffer
+     */
+    void setDepth(float depth);
+
+    /**
      * @brief Returns the bounds of the menu. Ignores the maximum size
      *
      */
@@ -264,6 +271,7 @@ private:
     audio::AudioSystem::Handle moveSound;
     audio::AudioSystem::Handle failSound;
     audio::AudioSystem::Handle selectSound;
+    float depth;
 
     glm::vec2 move(const glm::vec2& pos, const glm::vec2& psize, const glm::vec2& esize,
                    Item::AttachPoint ap);

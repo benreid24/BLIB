@@ -27,7 +27,8 @@ Menu::Menu()
 , bgndPadding(padding.x * 2.f, padding.y * 2.f, padding.x * 2.f, padding.y * 2.f)
 , moveSound(defaultMoveSound)
 , failSound(defaultFailSound)
-, selectSound(defaultSelectSound) {}
+, selectSound(defaultSelectSound)
+, depth(cam::OverlayCamera::MinDepth + 100.f) {}
 
 void Menu::create(engine::Engine& e, rc::Observer& o, const Selector::Ptr& sel) {
     engine   = &e;
@@ -37,6 +38,7 @@ void Menu::create(engine::Engine& e, rc::Observer& o, const Selector::Ptr& sel) 
     background.setFillColor({1.f, 1.f, 1.f, 0.f});
     background.setOutlineColor({1.f, 1.f, 1.f, 0.f});
     background.getOverlayScaler().setScissorMode(com::OverlayScaler::ScissorSelf);
+    background.getTransform().setDepth(depth);
     e.ecs().setEntityParentDestructionBehavior(background.entity(),
                                                ecs::ParentDestructionBehavior::OrphanedByParent);
     selector->doCreate(*engine, background.entity());
@@ -123,6 +125,11 @@ const glm::vec2& Menu::currentOffset() const { return offset; }
 void Menu::setMaximumSize(const glm::vec2& m) {
     maxSize = m;
     refreshScroll();
+}
+
+void Menu::setDepth(float d) {
+    depth = d;
+    if (background.entity() != ecs::InvalidEntity) { background.getTransform().setDepth(depth); }
 }
 
 void Menu::refreshScroll() {
