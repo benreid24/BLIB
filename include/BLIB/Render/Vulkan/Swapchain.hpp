@@ -108,6 +108,8 @@ private:
     sf::WindowBase& window;
 
     VkSwapchainKHR swapchain;
+    VkSwapchainKHR oldSwapchain;
+    VkSurfaceKHR oldSurface;
     VkFormat imageFormat;
     std::vector<StandardAttachmentSet> renderFrames;
     std::vector<AttachmentBuffer> depthBuffers;
@@ -116,6 +118,7 @@ private:
     bool outOfDate;
 
     void cleanup();
+    void deferCleanup();
     void recreate();
     void createSwapchain();
 };
