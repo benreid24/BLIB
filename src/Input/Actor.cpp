@@ -154,8 +154,11 @@ void Actor::update() {
 }
 
 void Actor::addListener(Listener& l) {
-    listeners.emplace_back(&l);
-    l.owner = this;
+    if (l.owner != this) {
+        if (l.owner != nullptr) { l.owner->removeListener(l); }
+        listeners.emplace_back(&l);
+        l.owner = this;
+    }
 }
 
 void Actor::removeListener(Listener& l) {
