@@ -520,6 +520,31 @@ TEST(ECS, ParentAwareVersionedTrait) {
     EXPECT_FALSE(childCom.refreshRequired());
 }
 
+TEST(ECS, DestroyByFlags) {
+    Registry testRegistry;
+
+    Entity toBeDestroyed[]       = {testRegistry.createEntity(Flags::WorldObject),
+                                    testRegistry.createEntity(Flags::WorldObject),
+                                    testRegistry.createEntity(Flags::WorldObject),
+                                    testRegistry.createEntity(Flags::WorldObject | Flags::Dummy),
+                                    testRegistry.createEntity(Flags::WorldObject),
+                                    testRegistry.createEntity(Flags::WorldObject | Flags::Dummy)};
+    const std::size_t nDestroyed = std::size(toBeDestroyed);
+
+    Entity toLive[]         = {testRegistry.createEntity(Flags::None),
+                               testRegistry.createEntity(Flags::Dummy),
+                               testRegistry.createEntity(Flags::Dummy),
+                               testRegistry.createEntity(Flags::Dummy),
+                               testRegistry.createEntity(Flags::None)};
+    const std::size_t nLive = std::size(toLive);
+
+    EXPECT_EQ(testRegistry.destroyAllWorldEntities(), nDestroyed);
+    for (std::size_t i = 0; i < nDestroyed; ++i) {
+        EXPECT_FALSE(testRegistry.entityExists(toBeDestroyed[i]));
+    }
+    for (std::size_t i = 0; i < nLive; ++i) { EXPECT_TRUE(testRegistry.entityExists(toLive[i])); }
+}
+
 } // namespace unittest
 } // namespace ecs
 } // namespace bl

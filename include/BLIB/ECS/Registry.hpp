@@ -65,6 +65,21 @@ public:
     bool destroyEntity(Entity entity);
 
     /**
+     * @brief Destroys all entities that have the given flags
+     *
+     * @param flags The flags to search for
+     * @return The number of destroyed entities, not counting freed resource entities
+     */
+    unsigned int destroyAllEntitiesWithFlags(Flags flags);
+
+    /**
+     * @brief Destroys all entities with the WorldObject flag
+     *
+     * @return The number of destroyed entities, not counting freed resource entities
+     */
+    unsigned int destroyAllWorldEntities();
+
+    /**
      * @brief Destroys and removes all entities and components from the ECS
      *
      */
@@ -260,6 +275,7 @@ private:
     util::IdAllocatorUnbounded<std::uint32_t> entityAllocator;
     std::vector<ComponentMask::SimpleMask> entityMasks;
     std::vector<std::uint16_t> entityVersions;
+    std::vector<Flags> entityFlags;
 
     // entity relationships
     ParentGraph parentGraph;
@@ -279,6 +295,7 @@ private:
 
     bool entityExistsLocked(Entity ent) const;
     void markEntityForRemoval(Entity ent);
+    bool destroyEntityLocked(Entity ent);
 
     template<typename TRequire, typename TOptional, typename TExclude>
     void populateView(View<TRequire, TOptional, TExclude>& view);

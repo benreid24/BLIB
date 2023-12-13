@@ -7,6 +7,7 @@ namespace ecs
 Registry::Registry()
 : entityAllocator(DefaultCapacity)
 , entityMasks(DefaultCapacity, ComponentMask::EmptyMask)
+, entityFlags(DefaultCapacity, Flags::None)
 , entityVersions(DefaultCapacity, 0)
 , parentGraph(DefaultCapacity)
 , parentDestructionBehaviors(DefaultCapacity, ParentDestructionBehavior::DestroyedWithParent)
@@ -25,12 +26,14 @@ Entity Registry::createEntity(Flags flags) {
         entityVersions.resize(index + 1, 1);
         parentDestructionBehaviors.resize(index + 1,
                                           ParentDestructionBehavior::DestroyedWithParent);
+        entityFlags.resize(index + 1, Flags::None);
     }
     else {
         entityMasks[index]                = ComponentMask::EmptyMask;
         version                           = ++entityVersions[index];
         parentDestructionBehaviors[index] = ParentDestructionBehavior::DestroyedWithParent;
     }
+    entityFlags[index] = flags;
 
     const Entity ent(index, version, flags);
     bl::event::Dispatcher::dispatch<event::EntityCreated>({ent});
@@ -49,7 +52,10 @@ bool Registry::entityExistsLocked(Entity ent) const {
 
 bool Registry::destroyEntity(Entity start) {
     std::lock_guard lock(entityLock);
+    return destroyEntityLocked(start);
+}
 
+bool Registry::destroyEntityLocked(Entity start) {
     if (!entityExistsLocked(start)) { return false; }
 
     // check if we can remove due to dependencies
@@ -122,6 +128,7 @@ bool Registry::destroyEntity(Entity start) {
         // reset metadata
         entityAllocator.release(index);
         entityMasks[index] = ComponentMask::EmptyMask;
+        entityFlags[index] = Flags::None;
 
         // remove parenting info
         parentGraph.removeEntity(ent);
@@ -131,6 +138,26 @@ bool Registry::destroyEntity(Entity start) {
     }
 
     return true;
+}
+
+unsigned int Registry::destroyAllEntitiesWithFlags(Flags flags) {
+    std::lock_guard lock(entityLock);
+
+    unsigned int destroyed = 0;
+    for (std::uint32_t i = 0; i < entityFlags.size(); ++i) {
+        if (entityAllocator.isAllocated(i)) {
+            const Flags f = entityFlags[i];
+            if ((f & flags) != 0) {
+                destroyEntityLocked(Entity(i, entityVersions[i], f));
+                ++destroyed;
+            }
+        }
+    }
+    return destroyed;
+}
+
+unsigned int Registry::destroyAllWorldEntities() {
+    return destroyAllEntitiesWithFlags(Flags::WorldObject);
 }
 
 void Registry::destroyAllEntities() {

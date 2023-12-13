@@ -17,7 +17,10 @@ enum struct Flags : std::uint64_t {
     None = 0,
 
     /// The entity is a dummy entity. Affects the trait SkipDummy
-    Dummy = 0x1 << 0
+    Dummy = 0x1 << 0,
+
+    /// The entity is a world object. Useful for clearing out the ECS between levels
+    WorldObject = 0x1 << 1
 };
 
 } // namespace ecs
@@ -35,6 +38,11 @@ inline std::uint64_t operator>>(bl::ecs::Flags flags, T shift) {
 
 inline std::uint64_t operator&(bl::ecs::Flags left, bl::ecs::Flags right) {
     return static_cast<std::uint64_t>(left) & static_cast<std::uint64_t>(right);
+}
+
+inline bl::ecs::Flags operator|(bl::ecs::Flags left, bl::ecs::Flags right) {
+    return static_cast<bl::ecs::Flags>(static_cast<std::uint64_t>(left) |
+                                       static_cast<std::uint64_t>(right));
 }
 
 #endif
