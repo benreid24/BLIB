@@ -47,6 +47,36 @@ public:
         TaskHandle();
 
         /**
+         * @brief Copy constructor. Invalidates the future in the copied-from task handle
+         *
+         * @param handle The handle to copy from
+         */
+        TaskHandle(const TaskHandle& handle);
+
+        /**
+         * @brief Move constructor. Invalidates the future in the copied-from task handle
+         *
+         * @param handle The handle to copy from
+         */
+        TaskHandle(TaskHandle&& handle) = default;
+
+        /**
+         * @brief Copy assignment. Invalidates the future in the copied-from task handle
+         *
+         * @param handle The handle to copy from
+         * @return A reference to this handle
+         */
+        TaskHandle& operator=(const TaskHandle& handle);
+
+        /**
+         * @brief Move assignment. Invalidates the future in the copied-from task handle
+         *
+         * @param handle The handle to copy from
+         * @return A reference to this handle
+         */
+        TaskHandle& operator=(TaskHandle&& handle) = default;
+
+        /**
          * @brief Returns whether or not the handle refers to a valid task
          */
         bool isValid() const;

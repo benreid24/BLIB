@@ -66,6 +66,20 @@ void Systems::StageSet::drainTasks() {
 Systems::TaskHandle::TaskHandle()
 : owner(nullptr) {}
 
+Systems::TaskHandle::TaskHandle(const TaskHandle& handle)
+: owner(handle.owner)
+, index(handle.index)
+, version(handle.version)
+, future(std::move(const_cast<TaskHandle&>(handle).future)) {}
+
+Systems::TaskHandle& Systems::TaskHandle::operator=(const TaskHandle& handle) {
+    owner   = handle.owner;
+    index   = handle.index;
+    version = handle.version;
+    future  = std::move(const_cast<TaskHandle&>(handle).future);
+    return *this;
+}
+
 Systems::TaskHandle::TaskHandle(StageSet* owner, std::size_t index, std::future<void>&& future)
 : owner(owner)
 , index(index)
