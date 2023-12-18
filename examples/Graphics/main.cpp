@@ -4,6 +4,7 @@
 #include <BLIB/Graphics.hpp>
 #include <BLIB/Render.hpp>
 #include <BLIB/Systems.hpp>
+#include <BLIB/Util/ImageStitcher.hpp>
 #include <iostream>
 
 class DemoState : public bl::engine::State {
@@ -42,6 +43,23 @@ private:
     virtual const char* name() const override { return "DemoState"; }
 
     virtual void activate(bl::engine::Engine& engine) override {
+        // stitch some images just for fun
+        sf::Image img;
+        bl::util::ImageStitcher stitcher(engine.renderer());
+        BL_LOG_INFO << "Stitching images...";
+        img.loadFromFile("resources/Stitching/s1.png");
+        BL_LOG_INFO << "Added image: " << stitcher.addImage(img);
+        img.loadFromFile("resources/Stitching/s2.png");
+        BL_LOG_INFO << "Added image: " << stitcher.addImage(img);
+        img.loadFromFile("resources/Stitching/s3.png");
+        BL_LOG_INFO << "Added image: " << stitcher.addImage(img);
+        img.loadFromFile("resources/Stitching/s4.png");
+        BL_LOG_INFO << "Added image: " << stitcher.addImage(img);
+        img.loadFromFile("resources/Stitching/s5.png");
+        BL_LOG_INFO << "Added image: " << stitcher.addImage(img);
+        BL_LOG_INFO << "Atlas size: " << stitcher.getStitchedImage().getSize();
+        stitcher.getStitchedImage().saveToFile("output.png");
+
         // create scene and camera
         auto& o = engine.renderer().getObserver();
         scene   = o.pushScene<bl::rc::scene::Scene2D>();

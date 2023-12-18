@@ -91,7 +91,7 @@ public:
      *
      * @return A reference to the common observer
      */
-    constexpr Observer& getCommonObserver();
+    Observer& getCommonObserver();
 
     /**
      * @brief Sets the direction the screen will split if there is more than one observer. Default
@@ -104,42 +104,47 @@ public:
     /**
      * @brief Returns the Vulkan state of the renderer
      */
-    constexpr vk::VulkanState& vulkanState();
+    vk::VulkanState& vulkanState();
+
+    /**
+     * @brief Returns the Vulkan state of the renderer
+     */
+    const vk::VulkanState& vulkanState() const;
 
     /**
      * @brief Returns the texture pool of this renderer
      */
-    constexpr res::TexturePool& texturePool();
+    res::TexturePool& texturePool();
 
     /**
      * @brief Returns the material pool of this renderer
      */
-    constexpr res::MaterialPool& materialPool();
+    res::MaterialPool& materialPool();
 
     /**
      * @brief Returns the render pass cache of this renderer
      */
-    constexpr res::RenderPassCache& renderPassCache();
+    res::RenderPassCache& renderPassCache();
 
     /**
      * @brief Returns the pipeline cache of this renderer
      */
-    constexpr res::PipelineCache& pipelineCache();
+    res::PipelineCache& pipelineCache();
 
     /**
      * @brief Returns the pipeline layout cache of this renderer
      */
-    constexpr res::PipelineLayoutCache& pipelineLayoutCache();
+    res::PipelineLayoutCache& pipelineLayoutCache();
 
     /**
      * @brief Returns the scene pool of the renderer
      */
-    constexpr res::ScenePool& scenePool();
+    res::ScenePool& scenePool();
 
     /**
      * @brief Returns a reference to the descriptor set factory cache used by this renderer
      */
-    constexpr ds::DescriptorSetFactoryCache& descriptorFactoryCache();
+    ds::DescriptorSetFactoryCache& descriptorFactoryCache();
 
     /**
      * @brief Sets the color to clear the window with prior to rendering
@@ -168,12 +173,12 @@ public:
     /**
      * @brief Returns the graph asset factory used by the renderer
      */
-    constexpr rg::AssetFactory& getAssetFactory();
+    rg::AssetFactory& getAssetFactory();
 
     /**
      * @brief Returns the framebuffers for the swap chain frames
      */
-    constexpr vk::PerSwapFrame<vk::Framebuffer>& getSwapframeBuffers();
+    vk::PerSwapFrame<vk::Framebuffer>& getSwapframeBuffers();
 
 private:
     engine::Engine& engine;
@@ -221,27 +226,27 @@ private:
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline constexpr vk::VulkanState& Renderer::vulkanState() { return state; }
+inline vk::VulkanState& Renderer::vulkanState() { return state; }
 
-inline constexpr res::TexturePool& Renderer::texturePool() { return textures; }
+inline const vk::VulkanState& Renderer::vulkanState() const { return state; }
 
-inline constexpr res::MaterialPool& Renderer::materialPool() { return materials; }
+inline res::TexturePool& Renderer::texturePool() { return textures; }
 
-inline constexpr res::RenderPassCache& Renderer::renderPassCache() { return renderPasses; }
+inline res::MaterialPool& Renderer::materialPool() { return materials; }
 
-inline constexpr res::PipelineCache& Renderer::pipelineCache() { return pipelines; }
+inline res::RenderPassCache& Renderer::renderPassCache() { return renderPasses; }
 
-inline constexpr res::PipelineLayoutCache& Renderer::pipelineLayoutCache() {
-    return pipelineLayouts;
-}
+inline res::PipelineCache& Renderer::pipelineCache() { return pipelines; }
 
-inline constexpr res::ScenePool& Renderer::scenePool() { return scenes; }
+inline res::PipelineLayoutCache& Renderer::pipelineLayoutCache() { return pipelineLayouts; }
 
-inline constexpr ds::DescriptorSetFactoryCache& Renderer::descriptorFactoryCache() {
+inline res::ScenePool& Renderer::scenePool() { return scenes; }
+
+inline ds::DescriptorSetFactoryCache& Renderer::descriptorFactoryCache() {
     return descriptorSetFactoryCache;
 }
 
-inline constexpr Observer& Renderer::getCommonObserver() { return commonObserver; }
+inline Observer& Renderer::getCommonObserver() { return commonObserver; }
 
 inline Observer& Renderer::getObserver(unsigned int i) { return *observers[i]; }
 
@@ -278,11 +283,9 @@ T* Renderer::useRenderStrategy(TArgs&&... args) {
     return s;
 }
 
-inline constexpr rg::AssetFactory& Renderer::getAssetFactory() { return assetFactory; }
+inline rg::AssetFactory& Renderer::getAssetFactory() { return assetFactory; }
 
-inline constexpr vk::PerSwapFrame<vk::Framebuffer>& Renderer::getSwapframeBuffers() {
-    return framebuffers;
-}
+inline vk::PerSwapFrame<vk::Framebuffer>& Renderer::getSwapframeBuffers() { return framebuffers; }
 
 } // namespace rc
 } // namespace bl

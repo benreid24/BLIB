@@ -51,6 +51,11 @@ public:
     void setPlayer(ecs::Entity playerEntity);
 
     /**
+     * @brief Returns the player entity for this animation
+     */
+    com::Animation2DPlayer& getPlayer();
+
+    /**
      * @brief Helper method to scale the sprite to the given size in batch coordinates
      *
      * @param size The size to scale to
@@ -95,6 +100,12 @@ private:
     void markDirty();
     void commit();
 };
+
+//////////////////////////// INLINE FUNCTIONS /////////////////////////////////
+
+inline com::Animation2DPlayer& BatchSlideshow::getPlayer() {
+    return *engine->ecs().getComponent<com::Animation2DPlayer>(playerEntity);
+}
 
 } // namespace gfx
 } // namespace bl
