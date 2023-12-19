@@ -136,6 +136,10 @@ void Animation2DSystem::doSlideshowAdd(com::Animation2DPlayer& player) {
     slideshowPlayerCurrentFrameSSBO[index] = player.currentFrame;
     slideshowOffsetUploadRange.addRange(index, 1);
 
+    // fetch texture to convert texCoords
+    rc::res::TextureRef texture =
+        renderer.texturePool().getOrLoadTexture(player.animation->resolvedSpritesheet());
+
     // add frames to SSBO if required
     if (uploadFrames) {
         slideshowFrameMap[player.animation.get()] = offset;
@@ -145,10 +149,11 @@ void Animation2DSystem::doSlideshowAdd(com::Animation2DPlayer& player) {
             auto& frame              = slideshowFramesSSBO[offset + i];
             const sf::FloatRect& tex = src.normalizedSource;
             frame.opacity            = static_cast<float>(src.alpha) / 255.f;
-            frame.texCoords[0]       = {tex.left, tex.top};
-            frame.texCoords[1]       = {tex.left + tex.width, tex.top};
-            frame.texCoords[2]       = {tex.left + tex.width, tex.top + tex.height};
-            frame.texCoords[3]       = {tex.left, tex.top + tex.height};
+            frame.texCoords[0]       = texture->convertCoord({tex.left, tex.top});
+            frame.texCoords[1]       = texture->convertCoord({tex.left + tex.width, tex.top});
+            frame.texCoords[2] =
+                texture->convertCoord({tex.left + tex.width, tex.top + tex.height});
+            frame.texCoords[3] = texture->convertCoord({tex.left, tex.top + tex.height});
         }
         slideshowFrameUploadRange.addRange(offset, player.animation->frameCount());
     }
@@ -247,8 +252,7 @@ Animation2DSystem::VertexAnimation* Animation2DSystem::doNonSlideshowCreate(
     const com::Animation2DPlayer& player) {
     auto it = vertexAnimationData.find(player.animation.get());
     if (it == vertexAnimationData.end()) {
-        it = vertexAnimationData
-                 .try_emplace(player.animation.get(), renderer.vulkanState(), *player.animation)
+        it = vertexAnimationData.try_emplace(player.animation.get(), renderer, *player.animation)
                  .first;
     }
     return &it->second;
@@ -270,7 +274,7 @@ void Animation2DSystem::tryFreeVertexData(const com::Animation2DPlayer& player) 
     }
 }
 
-Animation2DSystem::VertexAnimation::VertexAnimation(rc::vk::VulkanState& vs,
+Animation2DSystem::VertexAnimation::VertexAnimation(rc::Renderer& renderer,
                                                     const gfx::a2d::AnimationData& anim)
 : useCount(0) {
     unsigned int shardCount = 0;
@@ -281,7 +285,11 @@ Animation2DSystem::VertexAnimation::VertexAnimation(rc::vk::VulkanState& vs,
         frameToIndices.resize(anim.frameCount(), {});
 
         // allocate buffer
-        indexBuffer.create(vs, shardCount * 4, shardCount * 6);
+        indexBuffer.create(renderer.vulkanState(), shardCount * 4, shardCount * 6);
+
+        // fetch texture to convert texCoords
+        rc::res::TextureRef texture =
+            renderer.texturePool().getOrLoadTexture(anim.resolvedSpritesheet());
 
         // populate buffer
         std::uint32_t vi = 0;
@@ -352,6 +360,10 @@ Animation2DSystem::VertexAnimation::VertexAnimation(rc::vk::VulkanState& vs,
                 indexBuffer.vertices()[vbase + 3].texCoord = {shard.normalizedSource.left,
                                                               shard.normalizedSource.top +
                                                                   shard.normalizedSource.height};
+                for (unsigned int i = 0; i < 4; ++i) {
+                    indexBuffer.vertices()[vbase + i].texCoord =
+                        texture->convertCoord(indexBuffer.vertices()[vbase + i].texCoord);
+                }
             }
 
             vi += frame.shards.size() * 4;

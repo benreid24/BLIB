@@ -79,19 +79,19 @@ void BatchSprite::commit() {
         const float rightX         = (source.left + source.width) / owner->getTexture()->size().x;
         const float bottomY        = (source.top + source.height) / owner->getTexture()->size().y;
 
-        vertices[0].texCoord = {leftX, topY};
+        vertices[0].texCoord = owner->getTexture()->convertCoord({leftX, topY});
         vertices[0].pos      = {0.f, 0.f, 0.f};
         vertices[0].color    = {1.f, 1.f, 1.f, 1.f};
 
-        vertices[1].texCoord = {rightX, topY};
+        vertices[1].texCoord = owner->getTexture()->convertCoord({rightX, topY});
         vertices[1].pos      = {source.width, 0.f, 0.f};
         vertices[1].color    = {1.f, 1.f, 1.f, 1.f};
 
-        vertices[2].texCoord = {rightX, bottomY};
+        vertices[2].texCoord = owner->getTexture()->convertCoord({rightX, bottomY});
         vertices[2].pos      = {source.width, source.height, 0.f};
         vertices[2].color    = {1.f, 1.f, 1.f, 1.f};
 
-        vertices[3].texCoord = {leftX, bottomY};
+        vertices[3].texCoord = owner->getTexture()->convertCoord({leftX, bottomY});
         vertices[3].pos      = {0.f, source.height, 0.f};
         vertices[3].color    = {1.f, 1.f, 1.f, 1.f};
 

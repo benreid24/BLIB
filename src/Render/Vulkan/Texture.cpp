@@ -76,6 +76,15 @@ void Texture::update(const resource::Ref<sf::Image>& content, const glm::u32vec2
     queueTransfer(SyncRequirement::Immediate);
 }
 
+glm::vec2 Texture::convertCoord(const glm::vec2& src) const {
+    // TODO - texture atlasing at the renderer level
+    return src;
+}
+
+glm::vec2 Texture::normalizeAndConvertCoord(const glm::vec2& src) const {
+    return convertCoord(src / size());
+}
+
 void Texture::ensureSize(const glm::u32vec2& s) {
     if (s.x <= sizeRaw.x && s.y <= sizeRaw.y) return;
 

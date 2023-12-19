@@ -94,7 +94,7 @@ private:
         std::vector<DrawIndices> frameToIndices;
         unsigned int useCount;
 
-        VertexAnimation(rc::vk::VulkanState& vs, const gfx::a2d::AnimationData& anim);
+        VertexAnimation(rc::Renderer& renderer, const gfx::a2d::AnimationData& anim);
     };
 
     rc::Renderer& renderer;

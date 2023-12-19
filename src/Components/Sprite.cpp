@@ -54,6 +54,8 @@ void Sprite::create(rc::Renderer* renderer, const rc::res::TextureRef& txtr, sf:
     vertices[3].pos      = {0.f, region.height, 0.f};
     vertices[3].color    = {1.f, 1.f, 1.f, 1.f};
 
+    for (auto& v : vertices) { v.texCoord = texture->convertCoord(v.texCoord); }
+
     refreshTrans();
     drawParams = buffer.getDrawParameters();
     buffer.queueTransfer(rc::tfr::Transferable::SyncRequirement::Immediate);

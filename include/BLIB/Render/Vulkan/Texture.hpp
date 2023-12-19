@@ -70,6 +70,23 @@ public:
                 const sf::IntRect& source = {});
 
     /**
+     * @brief Returns the normalized coordinate for this texture, taking into account atlasing
+     *        performed by the renderer
+     *
+     * @param src The texture coordinate to convert
+     * @return The texture coordinate to use for geometry
+     */
+    glm::vec2 convertCoord(const glm::vec2& src) const;
+
+    /**
+     * @brief Performs convertCoord but first normalizes the coordinate to this texture
+     *
+     * @param src The unnormalized coordinate to normalize and convert
+     * @return The coordinate to use for geometry
+     */
+    glm::vec2 normalizeAndConvertCoord(const glm::vec2& src) const;
+
+    /**
      * @brief Updates the sampler that this texture uses
      *
      * @param sampler The new sampler to use

@@ -95,7 +95,10 @@ public:
         bl::com::Mesh* mesh = engine.ecs().emplaceComponent<bl::com::Mesh>(meshEntity);
         mesh->create(engine.renderer().vulkanState(), Vertices.size(), Indices.size());
         mesh->gpuBuffer.vertices() = Vertices;
-        mesh->gpuBuffer.indices()  = Indices;
+        for (auto& v : mesh->gpuBuffer.vertices()) {
+            v.texCoord = texture->convertCoord(v.texCoord);
+        }
+        mesh->gpuBuffer.indices() = Indices;
         mesh->gpuBuffer.queueTransfer(bl::rc::tfr::Transferable::SyncRequirement::Immediate);
         meshSystem.addToScene(meshEntity, scene, bl::rc::UpdateSpeed::Static);
 
