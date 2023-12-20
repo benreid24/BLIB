@@ -24,15 +24,22 @@ glm::u32vec2 ImageStitcher::addImage(const sf::Image& img) {
 
     for (Row& row : rows) {
         if (row.height >= img.getSize().y && row.height <= maxRowHeight) {
-            const unsigned int diff = row.height - img.getSize().y;
-            if (!bestRow || diff < bestRowDiff) {
-                bestRow     = &row;
-                bestRowDiff = diff;
+            if (row.width + img.getSize().x <= maxWidth) {
+                const unsigned int diff = row.height - img.getSize().y;
+                if (!bestRow || diff < bestRowDiff) {
+                    bestRow     = &row;
+                    bestRowDiff = diff;
+                }
             }
         }
     }
 
-    if (!bestRow) { bestRow = &rows.emplace_back(image.getSize().y + padding, img.getSize().y); }
+    if (!bestRow) {
+        if (image.getSize().y + img.getSize().y + padding > maxWidth) {
+            BL_LOG_ERROR << "New stitched image row will exceed maximum height";
+        }
+        bestRow = &rows.emplace_back(image.getSize().y + padding, img.getSize().y);
+    }
 
     const sf::Vector2u requiredSize(
         std::max(image.getSize().x, bestRow->width + img.getSize().x + padding),

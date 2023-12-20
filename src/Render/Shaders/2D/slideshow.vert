@@ -31,17 +31,20 @@ struct AnimationFrame {
 layout(std140, set = 3, binding = 0) readonly buffer animOffset {
     uint frameOffsets[];
 } animToOffset;
-layout(std140, set = 3, binding = 1) readonly buffer animFrameIndex {
+layout(std140, set = 3, binding = 1) readonly buffer animTexture {
+    uint textureIds[];
+} animToTexture;
+layout(std140, set = 3, binding = 2) readonly buffer animFrameIndex {
     uint currentFrames[];
 } animToFrameIndex;
-layout(std140, set = 3, binding = 2) readonly buffer animFrame {
+layout(std140, set = 3, binding = 3) readonly buffer animFrame {
     AnimationFrame frames[];
 } animFrames;
 
 void main() {
 	gl_Position = camera.viewProj * object.model[gl_InstanceIndex] * vec4(inPosition, 1.0);
 	fragColor = inColor;
-    fragTextureId = skin.index[gl_InstanceIndex];
+    fragTextureId = animToTexture.textureIds[inPlayerIndex];
 
     uint coordOffset = animToOffset.frameOffsets[inPlayerIndex];
     uint frameIndex = animToFrameIndex.currentFrames[inPlayerIndex];

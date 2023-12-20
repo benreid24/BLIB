@@ -28,6 +28,7 @@ void Animation2DSystem::cleanup() {
     slideshowDescriptorSets.cleanup([](rc::vk::DescriptorSet& ds) { ds.release(); });
     slideshowFramesSSBO.destroy();
     slideshowFrameOffsetSSBO.destroy();
+    slideshowTextureSSBO.destroy();
     slideshowPlayerCurrentFrameSSBO.destroy();
     vertexAnimationData.clear();
 }
@@ -50,6 +51,7 @@ void Animation2DSystem::init(engine::Engine& engine) {
 
     slideshowFramesSSBO.create(renderer.vulkanState(), InitialSlideshowFrameCapacity);
     slideshowFrameOffsetSSBO.create(renderer.vulkanState(), 32);
+    slideshowTextureSSBO.create(renderer.vulkanState(), 32);
     slideshowPlayerCurrentFrameSSBO.create(renderer.vulkanState(), 32);
 
     event::Dispatcher::subscribe(this);
@@ -68,6 +70,8 @@ void Animation2DSystem::update(std::mutex&, float dt, float, float, float) {
     if (slideshowOffsetUploadRange.needsUpload()) {
         slideshowFrameOffsetSSBO.transferRange(slideshowOffsetUploadRange.start,
                                                slideshowOffsetUploadRange.size);
+        slideshowTextureSSBO.transferRange(slideshowOffsetUploadRange.start,
+                                           slideshowOffsetUploadRange.size);
         slideshowOffsetUploadRange.reset();
     }
     slideshowPlayerCurrentFrameSSBO.transferAll(); // always upload all play indices
@@ -136,9 +140,12 @@ void Animation2DSystem::doSlideshowAdd(com::Animation2DPlayer& player) {
     slideshowPlayerCurrentFrameSSBO[index] = player.currentFrame;
     slideshowOffsetUploadRange.addRange(index, 1);
 
-    // fetch texture to convert texCoords
+    // fetch texture to convert texCoords and set texture id
     rc::res::TextureRef texture =
         renderer.texturePool().getOrLoadTexture(player.animation->resolvedSpritesheet());
+    player.texture = texture;
+    slideshowTextureSSBO.ensureSize(index + 1);
+    slideshowTextureSSBO[index] = texture.id();
 
     // add frames to SSBO if required
     if (uploadFrames) {
@@ -186,7 +193,7 @@ void Animation2DSystem::doSlideshowFree(const com::Animation2DPlayer& player) {
 }
 
 void Animation2DSystem::updateSlideshowDescriptorSets() {
-    VkWriteDescriptorSet setWrites[3]{};
+    VkWriteDescriptorSet setWrites[4]{};
 
     // (re)allocate the descriptor sets
     slideshowDescriptorSets.current().allocate(descriptorLayout);
@@ -205,34 +212,48 @@ void Animation2DSystem::updateSlideshowDescriptorSets() {
     setWrites[0].pBufferInfo     = &frameOffsetWrite;
     setWrites[0].descriptorType  = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
 
-    // current frames (binding 1)
-    VkDescriptorBufferInfo currentFrameWrite{};
-    currentFrameWrite.buffer =
-        slideshowPlayerCurrentFrameSSBO.gpuBufferHandles().current().getBuffer();
-    currentFrameWrite.offset = 0;
-    currentFrameWrite.range  = slideshowPlayerCurrentFrameSSBO.getTotalRange();
+    // texture id (binding 1)
+    VkDescriptorBufferInfo textureIdWrite{};
+    textureIdWrite.buffer = slideshowTextureSSBO.gpuBufferHandle().getBuffer();
+    textureIdWrite.offset = 0;
+    textureIdWrite.range  = slideshowTextureSSBO.getTotalRange();
 
     setWrites[1].sType           = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
     setWrites[1].descriptorCount = 1;
     setWrites[1].dstBinding      = 1;
     setWrites[1].dstArrayElement = 0;
     setWrites[1].dstSet          = slideshowDescriptorSets.current().getSet();
-    setWrites[1].pBufferInfo     = &currentFrameWrite;
+    setWrites[1].pBufferInfo     = &textureIdWrite;
     setWrites[1].descriptorType  = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
 
-    // frame data (binding 2)
-    VkDescriptorBufferInfo frameDataWrite{};
-    frameDataWrite.buffer = slideshowFramesSSBO.gpuBufferHandle().getBuffer();
-    frameDataWrite.offset = 0;
-    frameDataWrite.range  = slideshowFramesSSBO.getTotalRange();
+    // current frames (binding 2)
+    VkDescriptorBufferInfo currentFrameWrite{};
+    currentFrameWrite.buffer =
+        slideshowPlayerCurrentFrameSSBO.gpuBufferHandles().current().getBuffer();
+    currentFrameWrite.offset = 0;
+    currentFrameWrite.range  = slideshowPlayerCurrentFrameSSBO.getTotalRange();
 
     setWrites[2].sType           = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
     setWrites[2].descriptorCount = 1;
     setWrites[2].dstBinding      = 2;
     setWrites[2].dstArrayElement = 0;
     setWrites[2].dstSet          = slideshowDescriptorSets.current().getSet();
-    setWrites[2].pBufferInfo     = &frameDataWrite;
+    setWrites[2].pBufferInfo     = &currentFrameWrite;
     setWrites[2].descriptorType  = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
+
+    // frame data (binding 3)
+    VkDescriptorBufferInfo frameDataWrite{};
+    frameDataWrite.buffer = slideshowFramesSSBO.gpuBufferHandle().getBuffer();
+    frameDataWrite.offset = 0;
+    frameDataWrite.range  = slideshowFramesSSBO.getTotalRange();
+
+    setWrites[3].sType           = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+    setWrites[3].descriptorCount = 1;
+    setWrites[3].dstBinding      = 3;
+    setWrites[3].dstArrayElement = 0;
+    setWrites[3].dstSet          = slideshowDescriptorSets.current().getSet();
+    setWrites[3].pBufferInfo     = &frameDataWrite;
+    setWrites[3].descriptorType  = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
 
     // perform write
     vkUpdateDescriptorSets(

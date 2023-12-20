@@ -2,6 +2,7 @@
 #define BLIB_COMPONENTS_ANIMATION2DPLAYER_HPP
 
 #include <BLIB/Graphics/Animation2D/AnimationData.hpp>
+#include <BLIB/Render/Resources/TextureRef.hpp>
 #include <BLIB/Render/Vulkan/AlignedBuffer.hpp>
 #include <BLIB/Resources/Ref.hpp>
 #include <BLIB/Util/VectorRef.hpp>
@@ -86,6 +87,9 @@ struct Animation2DPlayer {
 
     // in descriptor set
     util::VectorRef<std::uint32_t, rc::vk::AlignedBuffer<std::uint32_t>> framePayload;
+
+    // assigned by Animation2DSystem to keep texture alive
+    rc::res::TextureRef texture;
 };
 
 } // namespace com

@@ -10,6 +10,7 @@ BatchedSlideshows::BatchedSlideshows(rc::vk::VulkanState& vulkanState, unsigned 
 
 void BatchedSlideshows::create(rc::vk::VulkanState& vulkanState, unsigned int ic) {
     indexBuffer.create(vulkanState, ic * 4, ic * 6);
+    drawParams = indexBuffer.getDrawParameters();
 }
 
 void BatchedSlideshows::updateDrawParams() {

@@ -109,6 +109,7 @@ private:
     util::RangeAllocatorUnbounded<std::uint32_t> slideshowFrameRangeAllocator;
     rc::buf::StaticSSBO<SlideshowFrame> slideshowFramesSSBO;     // all anim frames
     rc::buf::StaticSSBO<std::uint32_t> slideshowFrameOffsetSSBO; // playerIndex -> frame index
+    rc::buf::StaticSSBO<std::uint32_t> slideshowTextureSSBO;     // playerIndex -> texture id
     rc::buf::DynamicSSBO<std::uint32_t> slideshowPlayerCurrentFrameSSBO; //     -> current frame
     rc::vk::PerFrame<rc::vk::DescriptorSet> slideshowDescriptorSets;
     std::uint8_t slideshowRefreshRequired;

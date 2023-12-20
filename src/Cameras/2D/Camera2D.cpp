@@ -20,39 +20,39 @@ Camera2D::Camera2D(const sf::FloatRect& area, float rotation)
 
 void Camera2D::setCenter(const glm::vec2& c) {
     center = c;
-    markViewDirty();
+    markProjDirty();
 }
 
 void Camera2D::move(const glm::vec2& offset) {
     center += offset;
-    markViewDirty();
+    markProjDirty();
 }
 
 void Camera2D::setSize(const glm::vec2& ns) {
     size = ns;
-    markViewDirty();
+    markProjDirty();
 }
 
 void Camera2D::zoom(float factor) {
     size.x *= factor;
     size.y *= factor;
-    markViewDirty();
+    markProjDirty();
 }
 
 void Camera2D::zoom(const glm::vec2& factors) {
     size.x *= factors.x;
     size.y *= factors.y;
-    markViewDirty();
+    markProjDirty();
 }
 
 void Camera2D::changeSize(const glm::vec2& delta) {
     size += delta;
-    markViewDirty();
+    markProjDirty();
 }
 
 void Camera2D::setCorner(const glm::vec2& c) {
     center = c + size * 0.5f;
-    markViewDirty();
+    markProjDirty();
 }
 
 glm::vec2 Camera2D::getCorner() const { return center - size * 0.5f; }

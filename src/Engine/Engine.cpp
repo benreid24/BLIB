@@ -41,6 +41,7 @@ Engine::~Engine() {
     }
     newState.reset();
     entityRegistry.destroyAllEntities();
+    resource::GarbageCollector::get().clear();
 
     if (renderWindow.isOpen()) {
         renderingSystem.cleanup();

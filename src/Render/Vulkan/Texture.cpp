@@ -164,7 +164,6 @@ void Texture::executeTransfer(VkCommandBuffer cb, tfr::TransferContext& engine) 
         else { std::memcpy(data, src.getPixelsPtr(), stageSize); }
 
         // transition to transfer dst prior to copy
-        // TODO - add pre-tfr barrier params to context
         vulkanState->transitionImageLayout(
             cb, image, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
 

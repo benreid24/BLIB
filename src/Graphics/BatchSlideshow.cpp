@@ -135,7 +135,8 @@ void BatchSlideshow::addPlayerDep() {
 }
 
 void BatchSlideshow::removePlayerDep() {
-    if (playerEntity != ecs::InvalidEntity && owner && owner->entity() != ecs::InvalidEntity) {
+    if (playerEntity != ecs::InvalidEntity && owner &&
+        engine->ecs().entityExists(owner->entity())) {
         engine->ecs().removeDependencyAndDestroyIfPossible(playerEntity, owner->entity());
     }
 }
