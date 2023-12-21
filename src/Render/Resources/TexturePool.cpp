@@ -156,7 +156,7 @@ TextureRef TexturePool::allocateTexture() {
 }
 
 TextureRef TexturePool::createTexture(const sf::Image& src, VkSampler sampler) {
-    if (!sampler) { sampler = vulkanState.samplerCache.filteredEdgeClamped(); }
+    if (!sampler) { sampler = vulkanState.samplerCache.filteredBorderClamped(); }
 
     std::unique_lock lock(mutex);
 
@@ -170,7 +170,7 @@ TextureRef TexturePool::createTexture(const sf::Image& src, VkSampler sampler) {
 }
 
 TextureRef TexturePool::createTexture(const glm::u32vec2& size, VkSampler sampler) {
-    if (!sampler) { sampler = vulkanState.samplerCache.filteredEdgeClamped(); }
+    if (!sampler) { sampler = vulkanState.samplerCache.filteredBorderClamped(); }
 
     std::unique_lock lock(mutex);
 
@@ -183,7 +183,7 @@ TextureRef TexturePool::createTexture(const glm::u32vec2& size, VkSampler sample
 }
 
 TextureRef TexturePool::createRenderTexture(const glm::u32vec2& size, VkSampler sampler) {
-    if (!sampler) { sampler = vulkanState.samplerCache.filteredEdgeClamped(); }
+    if (!sampler) { sampler = vulkanState.samplerCache.filteredBorderClamped(); }
 
     std::unique_lock lock(mutex);
 
@@ -210,7 +210,7 @@ TextureRef TexturePool::createRenderTexture(const glm::u32vec2& size, VkSampler 
 }
 
 TextureRef TexturePool::getOrLoadTexture(const std::string& path, VkSampler sampler) {
-    if (!sampler) { sampler = vulkanState.samplerCache.filteredEdgeClamped(); }
+    if (!sampler) { sampler = vulkanState.samplerCache.filteredBorderClamped(); }
 
     std::unique_lock lock(mutex);
 
@@ -233,7 +233,7 @@ TextureRef TexturePool::getOrLoadTexture(const std::string& path, VkSampler samp
 }
 
 TextureRef TexturePool::getOrLoadTexture(const sf::Image& src, VkSampler sampler) {
-    if (!sampler) { sampler = vulkanState.samplerCache.filteredEdgeClamped(); }
+    if (!sampler) { sampler = vulkanState.samplerCache.filteredBorderClamped(); }
 
     std::unique_lock lock(mutex);
 
