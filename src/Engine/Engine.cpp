@@ -41,6 +41,7 @@ Engine::~Engine() {
     }
     newState.reset();
     entityRegistry.destroyAllEntities();
+    sf::SoundBuffer sfHack; // keeps audio device alive after all resources cleared
     resource::GarbageCollector::get().clear();
 
     if (renderWindow.isOpen()) {
