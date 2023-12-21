@@ -162,6 +162,17 @@ void Observer::compositeSceneAndOverlay(VkCommandBuffer commandBuffer) {
             vkCmdSetViewport(commandBuffer, 0, 1, &viewport);
             vkCmdSetScissor(commandBuffer, 0, 1, &scissor);
 
+            VkClearAttachment attachment{};
+            attachment.aspectMask = VK_IMAGE_ASPECT_DEPTH_BIT;
+            attachment.clearValue = clearColors[1];
+
+            VkClearRect rect{};
+            rect.rect           = scissor;
+            rect.baseArrayLayer = 0;
+            rect.layerCount     = 1;
+
+            vkCmdClearAttachments(commandBuffer, 1, &attachment, 1, &rect);
+
             scene::SceneRenderContext ctx(commandBuffer,
                                           scenes.back().overlayIndex,
                                           viewport,
