@@ -216,6 +216,8 @@ void Texture::executeTransfer(VkCommandBuffer cb, tfr::TransferContext& engine) 
 void Texture::cleanup() {
     vkDestroyImageView(vulkanState->device, view, nullptr);
     vmaDestroyImage(vulkanState->vmaAllocator, image, alloc);
+
+    cancelQueuedTransfer();
 }
 
 void Texture::updateTrans(const sf::Image& content) {

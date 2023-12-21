@@ -141,8 +141,9 @@ void Animation2DSystem::doSlideshowAdd(com::Animation2DPlayer& player) {
     slideshowOffsetUploadRange.addRange(index, 1);
 
     // fetch texture to convert texCoords and set texture id
-    rc::res::TextureRef texture =
-        renderer.texturePool().getOrLoadTexture(player.animation->resolvedSpritesheet());
+    rc::res::TextureRef texture = renderer.texturePool().getOrLoadTexture(
+        player.animation->resolvedSpritesheet(),
+        renderer.vulkanState().samplerCache.noFilterEdgeClamped()); // TODO - parameterize?
     player.texture = texture;
     slideshowTextureSSBO.ensureSize(index + 1);
     slideshowTextureSSBO[index] = texture.id();
