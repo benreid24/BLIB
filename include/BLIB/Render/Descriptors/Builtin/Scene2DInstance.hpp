@@ -1,6 +1,7 @@
 #ifndef BLIB_RENDER_DESCRIPTORS_SCENE2DINSTANCE_HPP
 #define BLIB_RENDER_DESCRIPTORS_SCENE2DINSTANCE_HPP
 
+#include <BLIB/Render/Buffers/StaticUniformBuffer.hpp>
 #include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp>
 #include <BLIB/Render/Vulkan/DescriptorPool.hpp>
@@ -40,9 +41,23 @@ public:
      */
     virtual ~Scene2DInstance();
 
+    // TODO - interface for updating lighting data
+
 private:
+    struct alignas(16) Light {
+        glm::vec4 color;
+        glm::vec2 position;
+    };
+
+    struct alignas(16) Lighting {
+        std::uint32_t lightCount;
+        glm::vec3 ambient;
+        alignas(16) Light lights[1024];
+    };
+
     vk::VulkanState& vulkanState;
     const VkDescriptorSetLayout setLayout;
+    buf::StaticUniformBuffer<Lighting> lighting;
     vk::PerFrameVector<VkDescriptorSet> descriptorSets;
     vk::DescriptorPool::AllocationHandle allocHandle;
 

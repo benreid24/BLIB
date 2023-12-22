@@ -18,6 +18,7 @@ Scene2DInstance::~Scene2DInstance() {
     cameraBuffer.stopTransferringEveryFrame();
     vulkanState.descriptorPool.release(allocHandle);
     cameraBuffer.destroy();
+    lighting.destroy();
 }
 
 void Scene2DInstance::bindForPipeline(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
@@ -45,6 +46,7 @@ void Scene2DInstance::init(DescriptorComponentStorageCache&) {
     // allocate memory
     cameraBuffer.create(vulkanState, Config::MaxSceneObservers);
     cameraBuffer.transferEveryFrame(tfr::Transferable::SyncRequirement::Immediate);
+    lighting.create(vulkanState, 1);
 
     // allocate descriptors
     descriptorSets.emptyInit(vulkanState, Config::MaxSceneObservers);
@@ -55,22 +57,48 @@ void Scene2DInstance::init(DescriptorComponentStorageCache&) {
     for (std::uint32_t i = 0; i < descriptorSets.size(); ++i) {
         // write descriptors
         for (std::uint32_t j = 0; j < Config::MaxConcurrentFrames; ++j) {
-            VkDescriptorBufferInfo bufferWrite{};
-            bufferWrite.buffer = cameraBuffer.gpuBufferHandles().getRaw(j).getBuffer();
-            bufferWrite.offset = static_cast<VkDeviceSize>(i) * cameraBuffer.alignedUniformSize();
-            bufferWrite.range  = cameraBuffer.alignedUniformSize();
+            VkWriteDescriptorSet setWrites[2]{};
 
-            VkWriteDescriptorSet setWrite{};
-            setWrite.sType           = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
-            setWrite.descriptorCount = 1;
-            setWrite.dstBinding      = 0;
-            setWrite.dstArrayElement = 0;
-            setWrite.dstSet          = descriptorSets.getRaw(i, j);
-            setWrite.pBufferInfo     = &bufferWrite;
-            setWrite.descriptorType  = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
-            vkUpdateDescriptorSets(vulkanState.device, 1, &setWrite, 0, nullptr);
+            VkDescriptorBufferInfo cameraBufferWrite{};
+            cameraBufferWrite.buffer = cameraBuffer.gpuBufferHandles().getRaw(j).getBuffer();
+            cameraBufferWrite.offset =
+                static_cast<VkDeviceSize>(i) * cameraBuffer.alignedUniformSize();
+            cameraBufferWrite.range = cameraBuffer.alignedUniformSize();
+
+            setWrites[0].sType           = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+            setWrites[0].descriptorCount = 1;
+            setWrites[0].dstBinding      = 0;
+            setWrites[0].dstArrayElement = 0;
+            setWrites[0].dstSet          = descriptorSets.getRaw(i, j);
+            setWrites[0].pBufferInfo     = &cameraBufferWrite;
+            setWrites[0].descriptorType  = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+
+            VkDescriptorBufferInfo lightingBufferWrite{};
+            lightingBufferWrite.buffer = lighting.gpuBufferHandle().getBuffer();
+            lightingBufferWrite.offset = 0;
+            lightingBufferWrite.range  = lighting.totalAlignedSize();
+
+            setWrites[1].sType           = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+            setWrites[1].descriptorCount = 1;
+            setWrites[1].dstBinding      = 1;
+            setWrites[1].dstArrayElement = 0;
+            setWrites[1].dstSet          = descriptorSets.getRaw(i, j);
+            setWrites[1].pBufferInfo     = &lightingBufferWrite;
+            setWrites[1].descriptorType  = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+
+            vkUpdateDescriptorSets(vulkanState.device, std::size(setWrites), setWrites, 0, nullptr);
         }
     }
+
+    // TODO - sensible defaults
+    Lighting& l          = lighting[0];
+    l.lightCount         = 2;
+    l.ambient            = glm::vec3{0.4f, 0.4f, 0.4f};
+    l.lights[0].position = glm::vec2{232.f * 32.f, 232.f * 32.f};
+    l.lights[0].color    = glm::vec4{1.f, 1.f, 1.f, 8.f * 32.f};
+    l.lights[1].position = glm::vec2{237.f * 32.f, 237.f * 32.f};
+    l.lights[1].color    = glm::vec4{0.1f, 0.3f, 1.5f, 10.f * 32.f};
+    lighting.queueTransfer();
 }
 
 bool Scene2DInstance::allocateObject(ecs::Entity, scene::Key) {

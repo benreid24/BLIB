@@ -7,6 +7,7 @@ layout(location = 2) in uint inPlayerIndex;
 layout(location = 0) out vec4 fragColor;
 layout(location = 1) out vec2 fragTexCoords;
 layout(location = 2) flat out uint fragTextureId;
+layout(location = 3) out vec2 fragPos;
 
 layout(set = 1, binding = 0) uniform cam {
     mat4 viewProj;
@@ -42,7 +43,8 @@ layout(std140, set = 3, binding = 3) readonly buffer animFrame {
 } animFrames;
 
 void main() {
-	gl_Position = camera.viewProj * object.model[gl_InstanceIndex] * vec4(inPosition, 1.0);
+    vec4 worldPos = object.model[gl_InstanceIndex] * vec4(inPosition, 1.0);
+	gl_Position = camera.viewProj * worldPos;
 	fragColor = inColor;
     fragTextureId = animToTexture.textureIds[inPlayerIndex];
 
@@ -55,4 +57,5 @@ void main() {
     vec2 texCoords[4] = {frame.texCoord0, frame.texCoord1, frame.texCoord2, frame.texCoord3};
     fragTexCoords = texCoords[vertexIndex];
     fragColor.a = fragColor.a * frame.opacity;
+    fragPos = vec2(worldPos.x, worldPos.y);
 }

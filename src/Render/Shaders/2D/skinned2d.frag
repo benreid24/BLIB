@@ -3,6 +3,7 @@
 layout(location = 0) in vec4 fragColor;
 layout(location = 1) in vec2 texCoords;
 layout(location = 2) flat in uint textureIndex;
+layout(location = 3) in vec2 fragPos;
 
 layout(location = 0) out vec4 outColor;
 
