@@ -91,14 +91,10 @@ void Scene2DInstance::init(DescriptorComponentStorageCache&) {
     }
 
     // TODO - sensible defaults
-    Lighting& l          = lighting[0];
-    l.lightCount         = 2;
-    l.ambient            = glm::vec3{0.4f, 0.4f, 0.4f};
-    l.lights[0].position = glm::vec2{232.f * 32.f, 232.f * 32.f};
-    l.lights[0].color    = glm::vec4{1.f, 1.f, 1.f, 8.f * 32.f};
-    l.lights[1].position = glm::vec2{237.f * 32.f, 237.f * 32.f};
-    l.lights[1].color    = glm::vec4{0.1f, 0.3f, 1.5f, 10.f * 32.f};
-    lighting.queueTransfer();
+    Lighting& l  = lighting[0];
+    l.lightCount = 0;
+    l.ambient    = glm::vec3{1.f};
+    lighting.transferEveryFrame();
 }
 
 bool Scene2DInstance::allocateObject(ecs::Entity, scene::Key) {

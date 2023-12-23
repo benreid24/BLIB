@@ -9,6 +9,7 @@
 
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/System/Vector2.hpp>
+#include <SFML/System/Vector3.hpp>
 #include <array>
 #include <type_traits>
 #include <unordered_map>
@@ -360,6 +361,24 @@ struct Serializer<sf::Vector2<U>, false> {
     }
 
     static std::uint32_t size(const sf::Vector2<U>& v) { return S::size(v.x) + S::size(v.y); }
+};
+
+template<typename U>
+struct Serializer<sf::Vector3<U>, false> {
+    using S = Serializer<U>;
+    static bool serialize(OutputStream& output, const sf::Vector3<U>& v) {
+        if (!S::serialize(output, v.x)) return false;
+        if (!S::serialize(output, v.y)) return false;
+        return S::serialize(output, v.z);
+    }
+
+    static bool deserialize(InputStream& input, sf::Vector3<U>& v) {
+        if (!S::deserialize(input, v.x)) return false;
+        if (!S::deserialize(input, v.y)) return false;
+        return S::deserialize(input, v.z);
+    }
+
+    static std::uint32_t size(const sf::Vector3<U>& v) { return S::size(v.x) * 3; }
 };
 
 template<>

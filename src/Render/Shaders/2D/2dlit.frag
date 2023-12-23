@@ -14,7 +14,7 @@ struct Light {
 layout(std140, set = 0, binding = 1) uniform lb {
     uint count;
     vec3 ambient;
-    Light lights[1024];
+    Light lights[512];
 } lighting;
 
 void main() {
@@ -35,6 +35,10 @@ void main() {
         vec4 color = lighting.lights[i].color * strength;
         lightColor += color.xyz;
     }
+
+    lightColor.x = min(lightColor.x, 1.1);
+    lightColor.y = min(lightColor.y, 1.1);
+    lightColor.z = min(lightColor.z, 1.1);
 
     outColor = fragColor * vec4(lightColor, 1.0);
 }

@@ -3,6 +3,7 @@ target_sources(BLIB PUBLIC
 	DynamicSSBO.hpp
 	IndexBuffer.hpp
 	StaticSSBO.hpp
+	StaticUniformBuffer.hpp
 	UniformBuffer.hpp
 	VertexBuffer.hpp
 )
