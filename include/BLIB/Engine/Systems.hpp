@@ -182,6 +182,7 @@ private:
     void init();
     void update(FrameStage::V startStage, FrameStage::V endStage, StateMask::V stateMask, float dt,
                 float realDt, float lag, float realLag);
+    void cleanup();
 
     friend class Engine;
 };

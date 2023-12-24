@@ -49,6 +49,12 @@ void Systems::update(FrameStage::V startStage, FrameStage::V endStage, StateMask
     }
 }
 
+void Systems::cleanup() {
+    for (auto& set : systems) {
+        for (auto& system : set.systems) { system.system->cleanup(); }
+    }
+}
+
 Systems::TaskHandle Systems::addFrameTask(FrameStage::V stage, Task&& task) {
     auto& set = systems[stage];
     std::unique_lock lock(set.taskMutex);

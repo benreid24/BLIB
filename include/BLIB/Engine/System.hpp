@@ -42,6 +42,11 @@ public:
      */
     virtual void update(std::mutex& stageMutex, float dt, float realDt, float residual,
                         float realResidual) = 0;
+
+    /**
+     * @brief Called during engine shutdown. Gives systems an opportunity to release resources
+     */
+    virtual void cleanup() {}
 };
 
 } // namespace engine
