@@ -6,9 +6,14 @@ namespace bl
 {
 namespace engine
 {
+namespace
+{
+constexpr std::size_t MaxTaskCapacity = 64;
+}
+
 Systems::StageSet::StageSet()
 : version(0) {
-    systems.reserve(8);
+    systems.reserve(32);
 };
 
 Systems::Systems(Engine& e)
@@ -66,6 +71,10 @@ void Systems::StageSet::drainTasks() {
     std::unique_lock lock(taskMutex);
     for (auto& task : tasks) { task.execute(); }
     tasks.clear();
+    if (tasks.capacity() > MaxTaskCapacity) {
+        std::vector<TaskEntry> empty;
+        tasks.swap(empty);
+    }
     ++version;
 }
 
