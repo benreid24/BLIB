@@ -15,6 +15,7 @@
 #include <SFML/System/Vector3.hpp>
 #include <array>
 #include <cstdint>
+#include <glm/glm.hpp>
 #include <unordered_map>
 #include <unordered_set>
 #include <variant>
@@ -861,6 +862,168 @@ struct Serializer<sf::Vector3<U>, false> {
         Serializer<U>::serializeStream(stream, value.y, 0, 0);
         stream << ", \"z\": ";
         Serializer<U>::serializeStream(stream, value.z, 0, 0);
+        stream << " }";
+        return stream.good();
+    }
+};
+
+template<typename U, glm::qualifier P>
+struct Serializer<glm::vec<2, U, P>, false> {
+    using V = glm::vec<2, U, P>;
+
+    static Value serialize(const V& v) {
+        Group g;
+        g.addField("x", Serializer<U>::serialize(v.x));
+        g.addField("y", Serializer<U>::serialize(v.y));
+        return {g};
+    }
+
+    static void serializeInto(const std::string& key, Group& g, const V& val) {
+        priv::Serializer<V>::serializeInto(g, key, val, &serialize);
+    }
+
+    static bool deserialize(V& result, const Value& val) {
+        const Group* rg = val.getAsGroup();
+        if (rg == nullptr) return false;
+        const Group& g = *rg;
+        const Value* x = g.getField("x");
+        const Value* y = g.getField("y");
+        if (!x || !y) return false;
+        if (!Serializer<U>::deserialize(result.x, *x)) return false;
+        if (!Serializer<U>::deserialize(result.y, *y)) return false;
+        return true;
+    }
+
+    static bool deserializeFrom(const Value& val, const std::string& key, V& result) {
+        return priv::Serializer<V>::deserializeFrom(val, key, result, &deserialize);
+    }
+
+    static bool deserializeStream(std::istream& stream, V& result) {
+        json::Loader loader(stream);
+        Value val(0);
+        if (!loader.loadValue(val)) return false;
+        return deserialize(result, val);
+    }
+
+    static bool serializeStream(std::ostream& stream, const V& value, unsigned int, unsigned int) {
+        stream << "{ ";
+        stream << "\"x\": ";
+        Serializer<U>::serializeStream(stream, value.x, 0, 0);
+        stream << ", \"y\": ";
+        Serializer<U>::serializeStream(stream, value.y, 0, 0);
+        stream << " }";
+        return stream.good();
+    }
+};
+
+template<typename U, glm::qualifier P>
+struct Serializer<glm::vec<3, U, P>, false> {
+    using V = glm::vec<3, U, P>;
+
+    static Value serialize(const V& v) {
+        Group g;
+        g.addField("x", Serializer<U>::serialize(v.x));
+        g.addField("y", Serializer<U>::serialize(v.y));
+        g.addField("z", Serializer<U>::serialize(v.z));
+        return {g};
+    }
+
+    static void serializeInto(const std::string& key, Group& g, const V& val) {
+        priv::Serializer<V>::serializeInto(g, key, val, &serialize);
+    }
+
+    static bool deserialize(V& result, const Value& val) {
+        const Group* rg = val.getAsGroup();
+        if (rg == nullptr) return false;
+        const Group& g = *rg;
+        const Value* x = g.getField("x");
+        const Value* y = g.getField("y");
+        const Value* z = g.getField("z");
+        if (!x || !y || !z) return false;
+        if (!Serializer<U>::deserialize(result.x, *x)) return false;
+        if (!Serializer<U>::deserialize(result.y, *y)) return false;
+        if (!Serializer<U>::deserialize(result.z, *z)) return false;
+        return true;
+    }
+
+    static bool deserializeFrom(const Value& val, const std::string& key, V& result) {
+        return priv::Serializer<V>::deserializeFrom(val, key, result, &deserialize);
+    }
+
+    static bool deserializeStream(std::istream& stream, V& result) {
+        json::Loader loader(stream);
+        Value val(0);
+        if (!loader.loadValue(val)) return false;
+        return deserialize(result, val);
+    }
+
+    static bool serializeStream(std::ostream& stream, const V& value, unsigned int, unsigned int) {
+        stream << "{ ";
+        stream << "\"x\": ";
+        Serializer<U>::serializeStream(stream, value.x, 0, 0);
+        stream << ", \"y\": ";
+        Serializer<U>::serializeStream(stream, value.y, 0, 0);
+        stream << ", \"z\": ";
+        Serializer<U>::serializeStream(stream, value.z, 0, 0);
+        stream << " }";
+        return stream.good();
+    }
+};
+
+template<typename U, glm::qualifier P>
+struct Serializer<glm::vec<4, U, P>, false> {
+    using V = glm::vec<4, U, P>;
+
+    static Value serialize(const V& v) {
+        Group g;
+        g.addField("x", Serializer<U>::serialize(v.x));
+        g.addField("y", Serializer<U>::serialize(v.y));
+        g.addField("z", Serializer<U>::serialize(v.z));
+        g.addField("w", Serializer<U>::serialize(v.w));
+        return {g};
+    }
+
+    static void serializeInto(const std::string& key, Group& g, const V& val) {
+        priv::Serializer<V>::serializeInto(g, key, val, &serialize);
+    }
+
+    static bool deserialize(V& result, const Value& val) {
+        const Group* rg = val.getAsGroup();
+        if (rg == nullptr) return false;
+        const Group& g = *rg;
+        const Value* x = g.getField("x");
+        const Value* y = g.getField("y");
+        const Value* z = g.getField("z");
+        const Value* w = g.getField("w");
+        if (!x || !y || !z || !w) return false;
+        if (!Serializer<U>::deserialize(result.x, *x)) return false;
+        if (!Serializer<U>::deserialize(result.y, *y)) return false;
+        if (!Serializer<U>::deserialize(result.z, *z)) return false;
+        if (!Serializer<U>::deserialize(result.w, *w)) return false;
+        return true;
+    }
+
+    static bool deserializeFrom(const Value& val, const std::string& key, V& result) {
+        return priv::Serializer<V>::deserializeFrom(val, key, result, &deserialize);
+    }
+
+    static bool deserializeStream(std::istream& stream, V& result) {
+        json::Loader loader(stream);
+        Value val(0);
+        if (!loader.loadValue(val)) return false;
+        return deserialize(result, val);
+    }
+
+    static bool serializeStream(std::ostream& stream, const V& value, unsigned int, unsigned int) {
+        stream << "{ ";
+        stream << "\"x\": ";
+        Serializer<U>::serializeStream(stream, value.x, 0, 0);
+        stream << ", \"y\": ";
+        Serializer<U>::serializeStream(stream, value.y, 0, 0);
+        stream << ", \"z\": ";
+        Serializer<U>::serializeStream(stream, value.z, 0, 0);
+        stream << ", \"w\": ";
+        Serializer<U>::serializeStream(stream, value.w, 0, 0);
         stream << " }";
         return stream.good();
     }
