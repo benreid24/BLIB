@@ -80,6 +80,13 @@ public:
      */
     void removeParent();
 
+    /**
+     * @brief Configures whether or not to destroy the ECS entity when this object is destroyed
+     *
+     * @param deleteEntity True to destroy, false to keep. Default is true
+     */
+    void deleteEntityOnDestroy(bool deleteEntity);
+
 protected:
     /**
      * @brief Creates the ECS entity for the drawable
@@ -90,6 +97,14 @@ protected:
     void createEntityOnly(engine::Engine& engine, ecs::Flags flags = ecs::Flags::None);
 
     /**
+     * @brief Initializes using an existing entity instead of creating one
+     *
+     * @param engine Game engine instance
+     * @param entity The existing entity to use
+     */
+    void createFromExistingEntity(engine::Engine& engine, ecs::Entity entity);
+
+    /**
      * @brief Returns the game engine instance. Only call after create()
      */
     engine::Engine& engine();
@@ -97,6 +112,7 @@ protected:
 private:
     engine::Engine* enginePtr;
     ecs::Entity ecsId;
+    bool isDestroyed;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////

@@ -144,10 +144,12 @@ protected:
      * @brief Creates the component for the drawable. Must only be called after entity creation
      *
      * @tparam ...TArgs Argument types to the components constructor
+     * @param engine Game engine instance
+     * @param existingEntity An already existing entity to add components to
      * @param ...args Arguments to the components constructor
      */
     template<typename... TArgs>
-    void createComponentOnly(TArgs&&... args);
+    void createComponentOnly(engine::Engine& engine, ecs::Entity existingEntity, TArgs&&... args);
 
     /**
      * @brief Called after the entity is added to a scene. Allows derived to sync data if required
@@ -273,7 +275,10 @@ void Drawable<TCom, TSys>::onRemove() {}
 
 template<typename TCom, typename TSys>
 template<typename... TArgs>
-void Drawable<TCom, TSys>::createComponentOnly(TArgs&&... args) {
+void Drawable<TCom, TSys>::createComponentOnly(engine::Engine& e, ecs::Entity existing,
+                                               TArgs&&... args) {
+    if (handle != nullptr) { destroy(); }
+    createFromExistingEntity(e, existing);
     handle = engine().ecs().template emplaceComponent<TCom>(entity(), std::forward<TArgs>(args)...);
 }
 
@@ -282,7 +287,7 @@ template<typename... TArgs>
 void Drawable<TCom, TSys>::create(engine::Engine& engine, TArgs&&... args) {
     if (handle != nullptr) { destroy(); }
     createEntityOnly(engine);
-    createComponentOnly(std::forward<TArgs>(args)...);
+    handle = engine.ecs().template emplaceComponent<TCom>(entity(), std::forward<TArgs>(args)...);
 }
 
 } // namespace gfx
