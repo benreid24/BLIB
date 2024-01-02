@@ -143,7 +143,7 @@ ResourceManager<T>::~ResourceManager() {
 
 template<typename T>
 void ResourceManager<T>::setGarbageCollectionPeriod(unsigned int gc) {
-    get().getGCPeriod(gc);
+    get().setGCPeriod(gc);
 }
 
 template<typename T>
