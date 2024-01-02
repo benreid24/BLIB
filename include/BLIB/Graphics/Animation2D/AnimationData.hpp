@@ -221,8 +221,6 @@ private:
     static void computeFrameSize(Frame& frame);
     bool doLoad(serial::binary::InputStream& input, const std::string& path, bool forBundle);
     static bool isValidSlideshow(const AnimationData& data);
-
-    friend class Animation;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////

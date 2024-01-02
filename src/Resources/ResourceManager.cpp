@@ -13,7 +13,7 @@ ResourceManagerBase::ResourceManagerBase()
 
 void ResourceManagerBase::unregister() { GarbageCollector::get().unregisterManager(this); }
 
-void ResourceManagerBase::getGCPeriod(unsigned int gc) {
+void ResourceManagerBase::setGCPeriod(unsigned int gc) {
     gcPeriod = gc;
     GarbageCollector::get().managerPeriodChanged(this);
 }

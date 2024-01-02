@@ -26,13 +26,12 @@ class GarbageCollector;
  * @brief Base class for resource managers, do not use
  *
  * @ingroup Resources
- *
  */
 class ResourceManagerBase {
 protected:
     ResourceManagerBase();
     void unregister();
-    void getGCPeriod(unsigned int period);
+    void setGCPeriod(unsigned int period);
 
 private:
     virtual void doClean() = 0;
@@ -56,7 +55,6 @@ class ResourceManager
 public:
     /**
      * @brief Exits the garbage collection thread. Resources still held are not freed
-     *
      */
     ~ResourceManager();
 
@@ -88,9 +86,20 @@ public:
     static Ref<TResourceType> load(const std::string& uri);
 
     /**
+     * @brief Similar to load() but bypasses the filesystem and directly calls the loader with the
+     *        URI. Intended for generated/composite resources where the URI is not a file path and
+     *        the loader creates the resource from other sources. Only use when a compatible loader
+     *        is set as the data pointers passed to it will always be nullptr
+     *
+     * @param uri The resource path to pass to the loader
+     * @return A ref to the requested resource
+     */
+    static Ref<TResourceType> getOrCreateGenerated(const std::string& uri);
+
+    /**
      * @brief Uses the underlying FileSystem and loader to initialize the existing resource. The
      *        resource will not be managed. This is useful when dynamic management is not necessary
-     *         but you still want the resource loading to be bundle and loader aware
+     *        but you still want the resource loading to be bundle and loader aware
      *
      * @param uri The resource path to initialize from
      * @param resource The resource to initialize
@@ -101,7 +110,6 @@ public:
     /**
      * @brief Explicitly frees and destroys all resources, regardless of ownership state. Be very
      *        careful with this
-     *
      */
     static void freeAndDestroyAll();
 
@@ -163,6 +171,23 @@ Ref<T> ResourceManager<T>::load(const std::string& uri) {
 
         if (!m.doInit(uri, buffer, len, it->second.data)) {
             BL_LOG_ERROR << "Failed to load resource: " << uri;
+        }
+    }
+
+    return {&it->second};
+}
+
+template<typename TResourceType>
+Ref<TResourceType> ResourceManager<TResourceType>::getOrCreateGenerated(const std::string& uri) {
+    ResourceManager& m = get();
+    std::unique_lock lock(m.mapLock);
+    auto it = m.resources.find(uri);
+    if (it == m.resources.end()) {
+        it = m.resources.try_emplace(uri).first;
+
+        std::istream stream;
+        if (!m.loader->load(uri, nullptr, 0, stream, it->second.data)) {
+            BL_LOG_ERROR << "Failed to create resource: " << uri;
         }
     }
 
