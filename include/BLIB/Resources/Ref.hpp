@@ -325,7 +325,7 @@ Ref<T>::operator bool() const {
 
 template<typename T>
 void Ref<T>::forceInCache(bool f) {
-    *forceInCache = f;
+    *forceCache = f;
 }
 
 template<typename T>
