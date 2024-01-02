@@ -185,7 +185,8 @@ Ref<TResourceType> ResourceManager<TResourceType>::getOrCreateGenerated(const st
     if (it == m.resources.end()) {
         it = m.resources.try_emplace(uri).first;
 
-        std::istream stream;
+        util::BufferIstreamBuf buf(nullptr, 0);
+        std::istream stream(&buf);
         if (!m.loader->load(uri, nullptr, 0, stream, it->second.data)) {
             BL_LOG_ERROR << "Failed to create resource: " << uri;
         }
