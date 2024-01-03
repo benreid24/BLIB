@@ -75,6 +75,14 @@ public:
     bool moving(float tileSize) const;
 
     /**
+     * @brief Helper method to get the world space position of this coordinate
+     *
+     * @param tileSize Tile size to use if the transform is not present
+     * @return The world space position of this coordinate
+     */
+    glm::vec2 getWorldPosition(float tileSize) const;
+
+    /**
      * @brief Returns the direction that an entity at 'from' position should face to face the 'to'
      *        position
      *
@@ -105,6 +113,12 @@ public:
     /// Optional world transform component for this position
     com::Transform2D* transform;
 };
+
+inline std::ostream& operator<<(std::ostream& os, const Position& pos) {
+    os << "(" << static_cast<unsigned>(pos.level) << ", [" << pos.position.x << ", "
+       << pos.position.y << "])";
+    return os;
+}
 
 } // namespace tmap
 

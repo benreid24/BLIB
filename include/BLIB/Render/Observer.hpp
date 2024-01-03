@@ -79,6 +79,11 @@ public:
     Overlay* getCurrentOverlay();
 
     /**
+     * @brief Returns the current scene of the observer. May be nullptr
+     */
+    Scene* getCurrentScene();
+
+    /**
      * @brief Removes the top scene from the observer's scene stack and returns it. Does not release
      *        the scene back into the scene pool
      *
@@ -224,6 +229,10 @@ private:
 inline std::size_t Observer::sceneCount() const { return scenes.size(); }
 
 inline bool Observer::hasScene() const { return !scenes.empty(); }
+
+inline Scene* Observer::getCurrentScene() {
+    return !scenes.empty() ? scenes.back().scene.get() : nullptr;
+}
 
 template<typename TCamera, typename... TArgs>
 TCamera* Observer::setCamera(TArgs&&... args) {

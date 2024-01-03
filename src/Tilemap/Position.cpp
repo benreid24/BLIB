@@ -63,6 +63,11 @@ bool Position::moving(float tileSize) const {
     return std::abs(v.x) <= e && std::abs(v.y) <= e;
 }
 
+glm::vec2 Position::getWorldPosition(float tileSize) const {
+    if (transform) { return transform->getGlobalPosition(); }
+    return glm::vec2(position) * tileSize;
+}
+
 Direction Position::facePosition(const Position& from, const Position& to) {
     if (from.position.x > to.position.x) return Direction::Left;
     if (from.position.y > to.position.y) return Direction::Up;

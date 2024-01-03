@@ -207,7 +207,7 @@ Ref<T>::Ref(const Ref<U>& copy)
 : data(copy.data)
 , refCount(copy.refCount)
 , forceCache(copy.forceCache) {
-    static_assert(std::is_base_of_v<U, T>, "Ref may only be converted to Ref of base");
+    static_assert(std::is_base_of_v<T, U>, "Ref may only be converted to Ref of base");
     if (refCount) { ++(*refCount); }
 }
 
@@ -227,7 +227,7 @@ Ref<T>::Ref(Ref<U>&& copy)
 : data(copy.data)
 , refCount(copy.refCount)
 , forceCache(copy.forceCache) {
-    static_assert(std::is_base_of_v<U, T>, "Ref may only be converted to Ref of base");
+    static_assert(std::is_base_of_v<T, U>, "Ref may only be converted to Ref of base");
     copy.data       = nullptr;
     copy.refCount   = nullptr;
     copy.forceCache = nullptr;
@@ -251,7 +251,7 @@ Ref<T>& Ref<T>::operator=(const Ref& copy) {
 template<typename T>
 template<typename U>
 Ref<T>& Ref<T>::operator=(const Ref<U>& copy) {
-    static_assert(std::is_base_of_v<U, T>, "Ref may only be converted to Ref of base");
+    static_assert(std::is_base_of_v<T, U>, "Ref may only be converted to Ref of base");
 
     release();
     data       = copy.data;
@@ -276,7 +276,7 @@ Ref<T>& Ref<T>::operator=(Ref&& copy) noexcept {
 template<typename T>
 template<typename U>
 Ref<T>& Ref<T>::operator=(Ref<U>&& copy) noexcept {
-    static_assert(std::is_base_of_v<U, T>, "Ref may only be converted to Ref of base");
+    static_assert(std::is_base_of_v<T, U>, "Ref may only be converted to Ref of base");
 
     release();
     data            = copy.data;
