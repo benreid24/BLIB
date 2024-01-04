@@ -87,6 +87,11 @@ public:
      */
     void deleteEntityOnDestroy(bool deleteEntity);
 
+    /**
+     * @brief Returns whether or not the underlying entity is destroyed when this object is
+     */
+    bool entityIsDeletedOnDestruction() const { return isDestroyed; }
+
 protected:
     /**
      * @brief Creates the ECS entity for the drawable
