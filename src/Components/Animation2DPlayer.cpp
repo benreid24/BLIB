@@ -37,8 +37,12 @@ void Animation2DPlayer::stop() {
 }
 
 void Animation2DPlayer::setState(std::size_t state, bool p) {
-    currentState = state;
-    stop();
+    if (currentState != state) {
+        frameTime    = 0.f;
+        currentState = state;
+        currentFrame = animation->getFrameForState(currentState);
+        if (framePayload.valid()) { *framePayload = currentFrame; }
+    }
     if (p) { play(); }
 }
 
@@ -50,9 +54,12 @@ void Animation2DPlayer::update(float dt) {
             frameTime -= animation->getFrameLength(currentFrame);
             currentFrame = animation->getNextFrame(currentFrame);
 
-            // we restarted, stop if we shouldn't loop
+            // if we restarted and we shouldn't loop then stop
             if (ogFrame > currentFrame) {
-                if (!forceLoop && !animation->isLooping()) { stop(); }
+                if (!forceLoop && !animation->isLooping()) {
+                    stop();
+                    break;
+                }
             }
 
             if (framePayload.valid()) { *framePayload = currentFrame; }

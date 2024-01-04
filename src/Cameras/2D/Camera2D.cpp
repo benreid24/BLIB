@@ -91,12 +91,13 @@ void Camera2D::refreshProjMatrix(glm::mat4& proj, const VkViewport&) {
     glm::vec2 s = size;
     for (auto& a : affectors) { a->applyOnProj(c, s); }
 
-    proj = glm::ortho(c.x - s.x * 0.5f,
-                      c.x + s.x * 0.5f,
-                      c.y - s.y * 0.5f,
-                      c.y + s.y * 0.5f,
-                      nearPlane(),
-                      farPlane());
+    // if we dont round we get pixel errors from integer pixels after rasterizing
+    const float l = std::roundf(c.x - s.x * 0.5f);
+    const float r = std::roundf(c.x + s.x * 0.5f);
+    const float b = std::roundf(c.y - s.y * 0.5f);
+    const float t = std::roundf(c.y + s.y * 0.5f);
+
+    proj = glm::ortho(l, r, b, t, nearPlane(), farPlane());
 }
 
 void Camera2D::refreshViewMatrix(glm::mat4& view) {

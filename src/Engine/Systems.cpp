@@ -17,11 +17,19 @@ Systems::StageSet::StageSet()
 };
 
 Systems::Systems(Engine& e)
-: engine(e) {}
+: engine(e)
+, inited(false) {}
 
 void Systems::init() {
+    inited = true;
     for (auto& set : systems) {
         for (auto& system : set.systems) { system.system->init(engine); }
+    }
+}
+
+void Systems::notifyFrameStart() {
+    for (auto& set : systems) {
+        for (auto& system : set.systems) { system.system->notifyFrameStart(); }
     }
 }
 

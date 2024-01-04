@@ -159,6 +159,8 @@ bool Engine::run(State::Ptr initialState) {
             }
         }
 
+        ecsSystems.notifyFrameStart();
+
         // Update and render
         lag += updateOuterTimer.getElapsedTime().asSeconds() * timeScale;
         updateOuterTimer.restart();
