@@ -13,7 +13,9 @@
 #include <BLIB/Graphics/BatchCircle.hpp>
 #include <BLIB/Graphics/BatchRectangle.hpp>
 #include <BLIB/Graphics/BatchSlideshow.hpp>
+#include <BLIB/Graphics/BatchSlideshowSimple.hpp>
 #include <BLIB/Graphics/BatchSprite.hpp>
+#include <BLIB/Graphics/BatchSpriteSimple.hpp>
 #include <BLIB/Graphics/BatchTriangle.hpp>
 #include <BLIB/Graphics/BatchedShapes2D.hpp>
 #include <BLIB/Graphics/BatchedSlideshows.hpp>

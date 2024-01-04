@@ -7,7 +7,9 @@ target_sources(BLIB PRIVATE
 	BatchIcon.cpp
 	BatchRectangle.cpp
 	BatchSlideshow.cpp
+	BatchSlideshowSimple.cpp
 	BatchSprite.cpp
+	BatchSpriteSimple.cpp
 	BatchTriangle.cpp
 	Circle.cpp
 	Dummy2D.cpp

@@ -203,6 +203,11 @@ public:
      */
     const IndexBufferT<T>& getIndexBuffer() const;
 
+    /**
+     * @brief Manually commit the vertices to the GPU
+     */
+    void commit();
+
 private:
     IndexBufferT<T> storage;
     std::uint32_t usedVertices;
@@ -211,7 +216,6 @@ private:
     std::shared_ptr<bool> alive;
 
     void release(typename std::list<AllocInfo>::iterator alloc);
-    void commit();
 };
 
 /**

@@ -10,7 +10,8 @@ BatchSlideshow::BatchSlideshow()
 : engine(nullptr)
 , owner(nullptr)
 , playerEntity(ecs::InvalidEntity)
-, dirty(false) {}
+, dirty(false)
+, autoCommit(true) {}
 
 BatchSlideshow::BatchSlideshow(engine::Engine& engine, BatchedSlideshows& batch, ecs::Entity player)
 : BatchSlideshow() {
@@ -62,7 +63,7 @@ bool BatchSlideshow::isCreated() const { return owner != nullptr; }
 
 void BatchSlideshow::markDirty() {
     dirty = true;
-    if (owner && !updateHandle.isQueued()) {
+    if (autoCommit && owner && !updateHandle.isQueued()) {
         updateHandle = engine->systems().addFrameTask(engine::FrameStage::RenderObjectInsertion,
                                                       std::bind(&BatchSlideshow::commit, this));
     }
@@ -113,6 +114,8 @@ void BatchSlideshow::commit() {
         owner->component().updateDrawParams();
     }
 }
+
+void BatchSlideshow::disableAutoCommit(bool d) { autoCommit = !d; }
 
 com::Animation2DPlayer* BatchSlideshow::validatePlayer(ecs::Entity ent) {
     com::Animation2DPlayer* player = engine->ecs().getComponent<com::Animation2DPlayer>(ent);

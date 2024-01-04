@@ -9,7 +9,8 @@ namespace gfx
 BatchSprite::BatchSprite()
 : engine(nullptr)
 , owner(nullptr)
-, dirty(false) {}
+, dirty(false)
+, autoCommit(true) {}
 
 BatchSprite::BatchSprite(engine::Engine& engine, BatchedSprites& batch,
                          const sf::FloatRect& textureSource)
@@ -52,7 +53,7 @@ bool BatchSprite::isCreated() const { return owner != nullptr; }
 
 void BatchSprite::markDirty() {
     dirty = true;
-    if (owner && !updateHandle.isQueued()) {
+    if (autoCommit && owner && !updateHandle.isQueued()) {
         updateHandle = engine->systems().addFrameTask(engine::FrameStage::RenderObjectInsertion,
                                                       std::bind(&BatchSprite::commit, this));
     }
@@ -103,6 +104,8 @@ void BatchSprite::commit() {
         owner->component().updateDrawParams();
     }
 }
+
+void BatchSprite::disableAutoCommit(bool d) { autoCommit = !d; }
 
 } // namespace gfx
 } // namespace bl
