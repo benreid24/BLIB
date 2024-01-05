@@ -46,8 +46,10 @@ struct Animation2DPlayer {
     /**
      * @brief Starts playing the animation from the beginning and loops it, regardless of the
      *        underlying loop setting
+     *
+     * @param restart True to restart, false to resume
      */
-    void playLooping();
+    void playLooping(bool restart = false);
 
     /**
      * @brief Pauses the animation from playing

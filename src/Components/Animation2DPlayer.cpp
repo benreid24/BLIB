@@ -21,8 +21,8 @@ void Animation2DPlayer::play(bool restart) {
     isPlaying = true;
 }
 
-void Animation2DPlayer::playLooping() {
-    stop();
+void Animation2DPlayer::playLooping(bool restart) {
+    if (restart) { stop(); }
     forceLoop = true;
     isPlaying = true;
 }
