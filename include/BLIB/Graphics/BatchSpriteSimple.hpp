@@ -21,12 +21,20 @@ public:
     BatchSpriteSimple();
 
     /**
-     * @brief Creates the simple batched sprite and populates the indices
+     * @brief Creates the simple batched sprite and populates
      *
      * @param batch The batch to be a part of
      * @param textureSource The texture source rectangle to use
      */
     BatchSpriteSimple(BatchedSprites& batch, const sf::FloatRect& textureSource);
+
+    /**
+     * @brief Creates the simple batched sprite and populates. Allocates multiple sprites
+     *
+     * @param batch The batch to be a part of
+     * @param textureSource The texture source rectangles to use
+     */
+    BatchSpriteSimple(BatchedSprites& batch, std::span<sf::FloatRect> textureSources);
 
     /**
      * @brief Creates the simple batched sprite and populates the indices and vertices
@@ -37,14 +45,26 @@ public:
     void create(BatchedSprites& batch, const sf::FloatRect& textureSource);
 
     /**
+     * @brief Creates the simple batched sprite and populates. Allocates multiple sprites
+     *
+     * @param batch The batch to be a part of
+     * @param textureSource The texture source rectangles to use
+     */
+    void create(BatchedSprites& batch, std::span<const sf::FloatRect> textureSources);
+
+    /**
      * @brief Access the vertices for this sprite
      */
-    std::span<rc::prim::Vertex> getVertices() { return {alloc.getVertices(), 4}; }
+    std::span<rc::prim::Vertex> getVertices() {
+        return {alloc.getVertices(), alloc.getInfo().vertexSize};
+    }
 
     /**
      * @brief Access the indices for this sprite. Manual manipulation should not be required
      */
-    std::span<std::uint32_t> getIndices() { return {alloc.getIndices(), 6}; }
+    std::span<std::uint32_t> getIndices() {
+        return {alloc.getIndices(), alloc.getInfo().indexSize};
+    }
 
     /**
      * @brief Calls commit on the owning batch
