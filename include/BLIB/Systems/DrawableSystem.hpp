@@ -209,8 +209,10 @@ void DrawableSystem<T>::observe(const rc::event::SceneDestroyed& rm) {
 
 template<typename T>
 void DrawableSystem<T>::observe(const rc::event::SceneObjectRemoved& rm) {
-    T* c = registry->getComponent<T>(rm.entity);
-    if (c) { c->sceneRef.scene = nullptr; }
+    if (registry->entityExists(rm.entity)) {
+        T* c = registry->getComponent<T>(rm.entity);
+        if (c) { c->sceneRef.scene = nullptr; }
+    }
 }
 
 template<typename T>

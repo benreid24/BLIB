@@ -50,6 +50,14 @@ protected:
     void create(engine::Engine& engine);
 
     /**
+     * @brief Creates the required components on the existing entity
+     *
+     * @param engine The game engine instance
+     * @param existingEntity The entity to add the sprite components to
+     */
+    void create(engine::Engine& engine, ecs::Entity existingEntity);
+
+    /**
      * @brief Called when the local size is queried
      */
     virtual void ensureLocalSizeUpdated() override;

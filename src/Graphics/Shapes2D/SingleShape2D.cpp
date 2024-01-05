@@ -31,6 +31,12 @@ void SingleShape2D::create(engine::Engine& engine) {
     notifyDirty();
 }
 
+void SingleShape2D::create(engine::Engine& engine, ecs::Entity existing) {
+    Drawable::createComponentOnly(engine, existing);
+    OverlayScalable::create(engine, entity());
+    notifyDirty();
+}
+
 void SingleShape2D::ensureLocalSizeUpdated() { ensureUpdated(); }
 
 void SingleShape2D::ensureUpdated() {
@@ -49,6 +55,15 @@ void SingleShape2D::ensureUpdated() {
 
     // populate the index buffer
     update(ib.vertices().data(), ib.indices().data());
+
+    // determine if we are transparent
+    component().containsTransparency = false;
+    for (const auto& v : ib.vertices()) {
+        if (v.color.a > 0.01f && v.color.a < 0.99f) {
+            component().containsTransparency = true;
+            break;
+        }
+    }
 
     // Update local size and commit index buffer + draw command
     OverlayScalable::setLocalBounds(getLocalBounds());

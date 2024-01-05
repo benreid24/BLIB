@@ -114,6 +114,11 @@ bool Registry::destroyEntityLocked(Entity start) {
         const std::uint32_t index            = ent.getIndex();
         const ComponentMask::SimpleMask mask = entityMasks[index];
 
+        // reset metadata
+        entityAllocator.release(index);
+        entityMasks[index] = ComponentMask::EmptyMask;
+        entityFlags[index] = Flags::None;
+
         // notify external and remove from views
         bl::event::Dispatcher::dispatch<event::EntityDestroyed>({ent});
         for (auto& view : views) {
@@ -124,11 +129,6 @@ bool Registry::destroyEntityLocked(Entity start) {
         for (ComponentPoolBase* pool : componentPools) {
             if (ComponentMask::has(mask, pool->ComponentIndex)) { pool->remove(ent); }
         }
-
-        // reset metadata
-        entityAllocator.release(index);
-        entityMasks[index] = ComponentMask::EmptyMask;
-        entityFlags[index] = Flags::None;
 
         // remove parenting info
         parentGraph.removeEntity(ent);

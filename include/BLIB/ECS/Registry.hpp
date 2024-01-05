@@ -271,7 +271,7 @@ public:
 
 private:
     // entity id management
-    mutable std::mutex entityLock;
+    mutable std::recursive_mutex entityLock;
     util::IdAllocatorUnbounded<std::uint32_t> entityAllocator;
     std::vector<ComponentMask::SimpleMask> entityMasks;
     std::vector<std::uint16_t> entityVersions;
