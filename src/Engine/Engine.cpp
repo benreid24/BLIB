@@ -30,6 +30,7 @@ Engine::~Engine() {
     if (renderingSystem.vulkanState().device) {
         vkCheck(vkDeviceWaitIdle(renderingSystem.vulkanState().device));
     }
+
     while (!states.empty()) {
         if (states.top().use_count() != 1) {
             BL_LOG_ERROR << "Dangling pointer to state: " << states.top()->name();
@@ -40,15 +41,16 @@ Engine::~Engine() {
         BL_LOG_ERROR << "Dangling pointer to state: " << newState->name();
     }
     newState.reset();
-    systems().cleanup();
     entityRegistry.destroyAllEntities();
     sf::SoundBuffer sfHack; // keeps audio device alive after all resources cleared
     resource::GarbageCollector::get().clear();
+    systems().cleanup();
 
     if (renderWindow.isOpen()) {
         renderingSystem.cleanup();
         renderWindow.close();
     }
+
     audio::AudioSystem::shutdown();
 }
 

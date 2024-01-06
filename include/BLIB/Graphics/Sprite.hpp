@@ -88,6 +88,13 @@ public:
     void setTexture(rc::res::TextureRef texture, const sf::FloatRect region);
 
     /**
+     * @brief Updates the texture coordinates to render with
+     *
+     * @param region The source region from the texture
+     */
+    void setTextureSource(const sf::FloatRect& region);
+
+    /**
      * @brief Convenience method that calls setColor on the underlying component
      *
      * @param color The color to multiply the texture by

@@ -23,7 +23,7 @@ Animation2DSystem::Animation2DSystem(rc::Renderer& renderer)
     slideshowDescriptorSets.emptyInit(renderer.vulkanState());
 }
 
-void Animation2DSystem::cleanup() {
+Animation2DSystem::~Animation2DSystem() {
     event::Dispatcher::unsubscribe(this);
     slideshowDescriptorSets.cleanup([](rc::vk::DescriptorSet& ds) { ds.release(); });
     slideshowFramesSSBO.destroy();

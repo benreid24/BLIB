@@ -48,8 +48,8 @@ protected:
     ComponentPoolBase(std::uint16_t index)
     : ComponentIndex(index) {}
 
-    virtual void remove(Entity entity) = 0;
-    virtual void clear()               = 0;
+    virtual void* remove(Entity entity) = 0;
+    virtual void clear()                = 0;
 
     virtual void onParentSet(Entity child, Entity parent)     = 0;
     virtual void onParentRemove(Entity parent, Entity orphan) = 0;
@@ -127,7 +127,7 @@ private:
     template<typename... TArgs>
     T* emplace(Entity ent, TArgs&&... args);
 
-    virtual void remove(Entity entity) override;
+    virtual void* remove(Entity entity) override;
     virtual void clear() override;
 
     virtual void onParentSet(Entity child, Entity parent) override {
@@ -255,14 +255,14 @@ T* ComponentPool<T>::emplace(Entity ent, TArgs&&... args) {
 }
 
 template<typename T>
-void ComponentPool<T>::remove(Entity ent) {
+void* ComponentPool<T>::remove(Entity ent) {
     util::ReadWriteLock::WriteScopeGuard lock(poolLock);
 
     // determine if present
     const std::uint64_t entIndex = ent.getIndex();
-    if (entIndex >= entityToComponent.size()) return;
+    if (entIndex >= entityToComponent.size()) return nullptr;
     T* com = entityToComponent[entIndex];
-    if (com == nullptr) return;
+    if (com == nullptr) return nullptr;
 
     // send event
     bl::event::Dispatcher::dispatch<event::ComponentRemoved<T>>({ent, *com});
@@ -270,6 +270,8 @@ void ComponentPool<T>::remove(Entity ent) {
     // perform removal
     storage.erase(entityToIter[entIndex]);
     entityToComponent[entIndex] = nullptr;
+
+    return com;
 }
 
 template<typename T>

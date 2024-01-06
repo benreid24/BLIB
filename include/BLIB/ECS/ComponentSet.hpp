@@ -22,8 +22,10 @@ namespace priv
 template<typename T>
 struct ComponentSetMember {
     T* component;
+
     ComponentSetMember();
     bool populate(Registry& registry, Entity owner);
+    void nullout(void* com);
 };
 } // namespace priv
 

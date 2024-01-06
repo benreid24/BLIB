@@ -417,9 +417,14 @@ void Registry::removeComponent(Entity ent) {
     }
 
     // do remove
-    pool.remove(ent);
+    void* com = pool.remove(ent);
     for (auto& view : views) {
-        if (view->mask.passes(mask)) { view->removeEntity(ent); }
+        if (ComponentMask::contains(view->mask.required, pool.ComponentIndex)) {
+            view->removeEntity(ent);
+        }
+        else if (ComponentMask::contains(view->mask.optional, pool.ComponentIndex)) {
+            view->nullEntityComponent(ent, com);
+        }
     }
     ComponentMask::remove(mask, pool.ComponentIndex);
 }

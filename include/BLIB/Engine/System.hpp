@@ -44,11 +44,6 @@ public:
                         float realResidual) = 0;
 
     /**
-     * @brief Called during engine shutdown. Gives systems an opportunity to release resources
-     */
-    virtual void cleanup() {}
-
-    /**
      * @brief Called once each frame immediately after OS events are processed and before update
      */
     virtual void notifyFrameStart() {}

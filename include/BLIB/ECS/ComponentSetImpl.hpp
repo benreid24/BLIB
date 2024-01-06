@@ -21,6 +21,11 @@ bool ComponentSetMember<T>::populate(Registry& registry, Entity owner) {
     return component != nullptr;
 }
 
+template<typename T>
+void ComponentSetMember<T>::nullout(void* com) {
+    if (static_cast<void*>(component) == com) { component = nullptr; }
+}
+
 } // namespace priv
 
 /**
@@ -106,6 +111,16 @@ public:
      * @return True if all components were found, false if some were not
      */
     constexpr bool isValid() const { return valid; }
+
+    /**
+     * @brief Helper method to null a component in the component set. Intended to be used internally
+     *
+     * @param com Pointer to the component to null
+     */
+    void removeComponent(void* com) {
+        const bool trash[] = {priv::ComponentSetMember<TOptComs>::nullout(owner)...};
+        (void)trash;
+    }
 
 private:
     Entity owner;

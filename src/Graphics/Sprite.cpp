@@ -47,6 +47,8 @@ void Sprite::setTexture(rc::res::TextureRef texture, const sf::FloatRect region)
     component().containsTransparency = Textured::getTexture()->containsTransparency();
 }
 
+void Sprite::setTextureSource(const sf::FloatRect& src) { component().setTextureSource(src); }
+
 void Sprite::setColor(const sf::Color& color) { component().setColor(sfcol(color)); }
 
 void Sprite::scaleToSize(const glm::vec2& size) {

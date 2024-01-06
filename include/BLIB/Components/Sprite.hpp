@@ -61,6 +61,13 @@ public:
     void setTexture(const rc::res::TextureRef& texture);
 
     /**
+     * @brief Updates the texture coordinates to render with
+     *
+     * @param region The source region from the texture
+     */
+    void setTextureSource(const sf::FloatRect& region);
+
+    /**
      * @brief Returns the texture that is rendered by the sprite
      */
     constexpr const rc::res::TextureRef& getTexture() const;

@@ -130,7 +130,6 @@ void Renderer::cleanup() {
     vkCheck(vkDeviceWaitIdle(state.device));
 
     resource::ResourceManager<sf::VulkanFont>::freeAndDestroyAll();
-    engine.systems().getSystem<sys::Animation2DSystem>().cleanup();
     for (vk::RenderTexture* rt : renderTextures) { rt->destroy(); }
     observers.clear();
     commonObserver.cleanup();

@@ -41,9 +41,10 @@ protected:
     : id(id)
     , mask(mask) {}
 
-    virtual void removeEntity(Entity entity) = 0;
-    virtual void tryAddEntity(Entity entity) = 0;
-    virtual void clearAndRefresh()           = 0;
+    virtual void removeEntity(Entity entity)                   = 0;
+    virtual void nullEntityComponent(Entity entity, void* com) = 0;
+    virtual void tryAddEntity(Entity entity)                   = 0;
+    virtual void clearAndRefresh()                             = 0;
 
     friend class bl::ecs::Registry;
 };

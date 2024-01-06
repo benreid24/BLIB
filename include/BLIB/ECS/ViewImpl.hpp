@@ -96,6 +96,11 @@ private:
         toRemove.emplace_back(entity);
     }
 
+    virtual void nullEntityComponent(Entity entity, void* com) override {
+        const std::uint64_t entIndex = entity.getIndex();
+        if (entIndex < entityToIndex.size()) { results[entityToIndex[entIndex]].refresh(registry); }
+    }
+
     virtual void tryAddEntity(Entity entity) override {
         std::unique_lock lock(queueLock);
         toAdd.emplace_back(entity);
