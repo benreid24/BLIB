@@ -109,6 +109,7 @@ void Animation2DSystem::observe(const ecs::event::ComponentAdded<com::Animation2
 }
 
 void Animation2DSystem::observe(const ecs::event::ComponentRemoved<com::Animation2DPlayer>& event) {
+    // TODO - animation free/reuse bug
     if (event.component.forSlideshow) { doSlideshowFree(event.component); }
     else { tryFreeVertexData(event.component); }
 }

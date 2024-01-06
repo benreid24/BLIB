@@ -13,6 +13,7 @@
 #include <BLIB/Render/Vulkan/StandardAttachmentBuffers.hpp>
 #include <BLIB/Vulkan.hpp>
 #include <SFML/Window.hpp>
+#include <list>
 #include <memory>
 #include <mutex>
 #include <stack>
@@ -95,6 +96,13 @@ public:
      * @brief Removes and releases the current active scene to the scene pool
      */
     void popScene();
+
+    /**
+     * @brief Removes a specific scene from the scene stack
+     *
+     * @param scene The scene to remove
+     */
+    void removeScene(Scene* scene);
 
     /**
      * @brief Removes all scenes from the observer
@@ -203,7 +211,7 @@ private:
     VkViewport viewport;
     VkRect2D scissor;
     rgi::FinalSwapframeAsset* swapframeAsset;
-    std::vector<SceneInstance> scenes;
+    std::list<SceneInstance> scenes;
     VkClearValue clearColors[2];
     cam::OverlayCamera overlayCamera;
     glm::mat4 overlayProjView;

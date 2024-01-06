@@ -266,9 +266,9 @@ void Grid<T>::forAllInCellAndNeighbors(const sf::Vector2f& pos, const TCb& cb) {
 
     const sf::Vector2u i  = getIndexAtPosition(pos);
     const unsigned int sx = i.x > 0 ? i.x - 1 : 0;
-    const unsigned int ex = i.x < cells.getWidth() - 2 ? i.x + 1 : cells.getWidth() - 1;
+    const unsigned int ex = std::min(i.x + 1, cells.getWidth() - 1);
     const unsigned int sy = i.y > 0 ? i.y - 1 : 0;
-    const unsigned int ey = i.y < cells.getHeight() - 2 ? i.y + 1 : cells.getHeight() - 1;
+    const unsigned int ey = std::min(i.y + 1, cells.getHeight() - 1);
 
     for (unsigned int x = sx; x <= ex; ++x) {
         for (unsigned int y = sy; y <= ey; ++y) {

@@ -99,6 +99,13 @@ void Observer::popScene() {
     onSceneChange();
 }
 
+void Observer::removeScene(Scene* scene) {
+    if (!scenes.empty() && scenes.back().scene == scene) { popScene(); }
+    else {
+        std::erase_if(scenes, [scene](const SceneInstance& s) { return s.scene.get() == scene; });
+    }
+}
+
 void Observer::clearScenes() { scenes.clear(); }
 
 void Observer::onSceneAdd() {
