@@ -132,7 +132,9 @@ void Animation2DSystem::doSlideshowAdd(com::Animation2DPlayer& player) {
     slideshowFrameOffsetSSBO.ensureSize(index + 1);
     if (slideshowPlayerCurrentFrameSSBO.ensureSize(index + 1)) {
         players->forEach([this](ecs::Entity, com::Animation2DPlayer& player) {
-            slideshowPlayerCurrentFrameSSBO.assignRef(player.framePayload, player.playerIndex);
+            if (player.framePayload.valid()) {
+                slideshowPlayerCurrentFrameSSBO.assignRef(player.framePayload, player.playerIndex);
+            }
         });
     }
     else { slideshowPlayerCurrentFrameSSBO.assignRef(player.framePayload, player.playerIndex); }
