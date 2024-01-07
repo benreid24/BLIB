@@ -119,8 +119,8 @@ public:
      */
     void removeComponent(void* com) {
         if constexpr (sizeof...(TOptComs) > 0) {
-            const bool trash[] = {priv::ComponentSetMember<TOptComs>::nullout(owner)...};
-            (void)trash;
+            (void)std::initializer_list<int>{
+                (priv::ComponentSetMember<TOptComs>::nullout(com), 0)...};
         }
     }
 
