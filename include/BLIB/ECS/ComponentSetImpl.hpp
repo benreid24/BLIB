@@ -118,8 +118,10 @@ public:
      * @param com Pointer to the component to null
      */
     void removeComponent(void* com) {
-        const bool trash[] = {priv::ComponentSetMember<TOptComs>::nullout(owner)...};
-        (void)trash;
+        if constexpr (sizeof...(TOptComs) > 0) {
+            const bool trash[] = {priv::ComponentSetMember<TOptComs>::nullout(owner)...};
+            (void)trash;
+        }
     }
 
 private:

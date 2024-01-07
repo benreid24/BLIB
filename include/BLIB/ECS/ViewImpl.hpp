@@ -98,7 +98,9 @@ private:
 
     virtual void nullEntityComponent(Entity entity, void* com) override {
         const std::uint64_t entIndex = entity.getIndex();
-        if (entIndex < entityToIndex.size()) { results[entityToIndex[entIndex]].refresh(registry); }
+        if (entIndex < entityToIndex.size()) {
+            results[entityToIndex[entIndex]].removeComponent(com);
+        }
     }
 
     virtual void tryAddEntity(Entity entity) override {
@@ -119,22 +121,6 @@ private:
         std::unique_lock lock(queueLock);
         lockWrite();
 
-        for (Entity ent : toAdd) {
-            const std::uint64_t entIndex = ent.getIndex();
-            if (entIndex + 1 > entityToIndex.size()) {
-                entityToIndex.resize(entIndex + 1, InvalidIndex);
-            }
-
-            if (entityToIndex[entIndex] != InvalidIndex) { continue; }
-            if (!mask.passes(registry.entityMasks[entIndex])) { continue; }
-
-            const std::size_t ni = results.size();
-            results.emplace_back(registry, ent);
-            if (!results.back().isValid()) { results.pop_back(); }
-            else { entityToIndex[entIndex] = ni; }
-        }
-        toAdd.clear();
-
         for (Entity ent : toRemove) {
             const std::uint64_t entIndex = ent.getIndex();
             if (entIndex + 1 > entityToIndex.size()) { continue; }
@@ -150,6 +136,22 @@ private:
             index = InvalidIndex;
         }
         toRemove.clear();
+
+        for (Entity ent : toAdd) {
+            const std::uint64_t entIndex = ent.getIndex();
+            if (entIndex + 1 > entityToIndex.size()) {
+                entityToIndex.resize(entIndex + 1, InvalidIndex);
+            }
+
+            if (entityToIndex[entIndex] != InvalidIndex) { continue; }
+            if (!mask.passes(registry.entityMasks[entIndex])) { continue; }
+
+            const std::size_t ni = results.size();
+            results.emplace_back(registry, ent);
+            if (!results.back().isValid()) { results.pop_back(); }
+            else { entityToIndex[entIndex] = ni; }
+        }
+        toAdd.clear();
 
         unlockWrite();
     }

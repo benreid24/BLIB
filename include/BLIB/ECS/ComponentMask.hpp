@@ -36,7 +36,7 @@ struct ComponentMask {
      * @return True if the mask satisfies the tagged requirements, false otherwise
      */
     bool passes(SimpleMask entityMask) const {
-        return (entityMask & required) != 0 && (entityMask & excluded) == 0;
+        return (entityMask & required) == required && (entityMask & excluded) == 0;
     }
 
     /**
