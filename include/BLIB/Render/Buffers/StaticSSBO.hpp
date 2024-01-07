@@ -98,6 +98,15 @@ public:
     void transferRange(std::uint32_t start, std::uint32_t numElements);
 
     /**
+     * @brief Expands the current transfer range to include the new given range. Queues a single
+     *        transfer if not already queued
+     *
+     * @param start The first element to copy
+     * @param numElements The number of elements to copy
+     */
+    void expandTransferRange(std::uint32_t start, std::uint32_t numElements);
+
+    /**
      * @brief Queues the transfer of all elements
      */
     void transferAll();
@@ -112,6 +121,7 @@ private:
     vk::Buffer gpuBuffer;
     std::uint32_t copyStart;
     std::uint32_t copyCount;
+    bool trackingExpansion;
 
     virtual void executeTransfer(VkCommandBuffer commandBuffer,
                                  tfr::TransferContext& context) override;
@@ -126,9 +136,10 @@ StaticSSBO<T>::StaticSSBO(vk::VulkanState& vulkanState, std::uint32_t size) {
 
 template<typename T>
 void StaticSSBO<T>::create(vk::VulkanState& vs, std::uint32_t size) {
-    vulkanState = &vs;
-    copyStart   = 0;
-    copyCount   = size;
+    vulkanState       = &vs;
+    copyStart         = 0;
+    copyCount         = size;
+    trackingExpansion = false;
 
     cpuBuffer.create(vs, vk::AlignedBuffer<T>::StorageBuffer, size);
     gpuBuffer.create(vs,
@@ -214,6 +225,24 @@ void StaticSSBO<T>::transferRange(std::uint32_t start, std::uint32_t numElements
     if (numElements > 0) {
         copyStart = start;
         copyCount = numElements;
+        queueTransfer(SyncRequirement::Immediate);
+    }
+}
+
+template<typename T>
+void StaticSSBO<T>::expandTransferRange(std::uint32_t start, std::uint32_t numElements) {
+    if (numElements > 0) {
+        if (!trackingExpansion) {
+            trackingExpansion = true;
+            copyStart         = start;
+            copyCount         = numElements;
+        }
+        else {
+            const auto prevEnd = copyStart + copyCount;
+            const auto newEnd  = std::max(prevEnd, start + numElements);
+            copyStart          = std::min(start, copyStart);
+            copyCount          = newEnd - copyStart;
+        }
         queueTransfer(SyncRequirement::Immediate);
     }
 }

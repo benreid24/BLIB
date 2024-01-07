@@ -62,18 +62,6 @@ void Animation2DSystem::update(std::mutex&, float dt, float, float, float) {
     players->forEach([dt](ecs::Entity, com::Animation2DPlayer& player) { player.update(dt); });
 
     // perform slideshow uploads
-    if (slideshowFrameUploadRange.needsUpload()) {
-        slideshowFramesSSBO.transferRange(slideshowFrameUploadRange.start,
-                                          slideshowFrameUploadRange.size);
-        slideshowFrameUploadRange.reset();
-    }
-    if (slideshowOffsetUploadRange.needsUpload()) {
-        slideshowFrameOffsetSSBO.transferRange(slideshowOffsetUploadRange.start,
-                                               slideshowOffsetUploadRange.size);
-        slideshowTextureSSBO.transferRange(slideshowOffsetUploadRange.start,
-                                           slideshowOffsetUploadRange.size);
-        slideshowOffsetUploadRange.reset();
-    }
     slideshowPlayerCurrentFrameSSBO.transferAll(); // always upload all play indices
 
     // sync vertex animation draw parameters
@@ -109,7 +97,6 @@ void Animation2DSystem::observe(const ecs::event::ComponentAdded<com::Animation2
 }
 
 void Animation2DSystem::observe(const ecs::event::ComponentRemoved<com::Animation2DPlayer>& event) {
-    // TODO - animation free/reuse bug
     if (event.component.forSlideshow) { doSlideshowFree(event.component); }
     else { tryFreeVertexData(event.component); }
 }
@@ -132,16 +119,16 @@ void Animation2DSystem::doSlideshowAdd(com::Animation2DPlayer& player) {
     // add frame offset and current frame to SSBO's
     slideshowFrameOffsetSSBO.ensureSize(index + 1);
     if (slideshowPlayerCurrentFrameSSBO.ensureSize(index + 1)) {
-        players->forEach([this](ecs::Entity, com::Animation2DPlayer& player) {
-            if (player.framePayload.valid()) {
-                slideshowPlayerCurrentFrameSSBO.assignRef(player.framePayload, player.playerIndex);
+        players->forEach([this](ecs::Entity, com::Animation2DPlayer& p) {
+            if (p.framePayload.valid()) {
+                slideshowPlayerCurrentFrameSSBO.assignRef(p.framePayload, p.playerIndex);
             }
         });
     }
     else { slideshowPlayerCurrentFrameSSBO.assignRef(player.framePayload, player.playerIndex); }
     slideshowFrameOffsetSSBO[index]        = offset;
     slideshowPlayerCurrentFrameSSBO[index] = player.currentFrame;
-    slideshowOffsetUploadRange.addRange(index, 1);
+    slideshowFrameOffsetSSBO.expandTransferRange(index, 1);
 
     // fetch texture to convert texCoords and set texture id
     rc::res::TextureRef texture = renderer.texturePool().getOrLoadTexture(
@@ -150,6 +137,7 @@ void Animation2DSystem::doSlideshowAdd(com::Animation2DPlayer& player) {
     player.texture = texture;
     slideshowTextureSSBO.ensureSize(index + 1);
     slideshowTextureSSBO[index] = texture.id();
+    slideshowTextureSSBO.expandTransferRange(index, 1);
 
     // add frames to SSBO if required
     if (uploadFrames) {
@@ -166,7 +154,7 @@ void Animation2DSystem::doSlideshowAdd(com::Animation2DPlayer& player) {
                 texture->convertCoord({tex.left + tex.width, tex.top + tex.height});
             frame.texCoords[3] = texture->convertCoord({tex.left, tex.top + tex.height});
         }
-        slideshowFrameUploadRange.addRange(offset, player.animation->frameCount());
+        slideshowFramesSSBO.expandTransferRange(offset, player.animation->frameCount());
     }
     slideshowDataRefCounts[player.animation.get()] += 1;
 
