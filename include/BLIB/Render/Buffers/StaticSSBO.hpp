@@ -184,6 +184,7 @@ inline constexpr vk::Buffer& StaticSSBO<T>::gpuBufferHandle() {
 template<typename T>
 void StaticSSBO<T>::executeTransfer(VkCommandBuffer commandBuffer, tfr::TransferContext& context) {
     const VkDeviceSize copySize = copyCount * cpuBuffer.elementSize();
+    trackingExpansion           = false;
 
     VkBuffer stagingBuffer;
     void* dest;
