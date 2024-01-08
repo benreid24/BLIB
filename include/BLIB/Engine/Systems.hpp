@@ -184,6 +184,7 @@ private:
     void notifyFrameStart();
     void update(FrameStage::V startStage, FrameStage::V endStage, StateMask::V stateMask, float dt,
                 float realDt, float lag, float realLag);
+    void earlyCleanup();
     void cleanup();
 
     friend class Engine;

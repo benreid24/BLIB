@@ -41,6 +41,8 @@ Engine::~Engine() {
         BL_LOG_ERROR << "Dangling pointer to state: " << newState->name();
     }
     newState.reset();
+
+    systems().earlyCleanup();
     entityRegistry.destroyAllEntities();
     sf::SoundBuffer sfHack; // keeps audio device alive after all resources cleared
     resource::GarbageCollector::get().clear();

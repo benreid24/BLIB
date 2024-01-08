@@ -47,6 +47,12 @@ public:
      * @brief Called once each frame immediately after OS events are processed and before update
      */
     virtual void notifyFrameStart() {}
+
+    /**
+     * @brief Optional early cleanup hook that is called when the engine is destructing prior to
+     *        entities and resources all being freed
+     */
+    virtual void earlyCleanup() {}
 };
 
 } // namespace engine

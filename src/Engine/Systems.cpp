@@ -62,6 +62,12 @@ void Systems::update(FrameStage::V startStage, FrameStage::V endStage, StateMask
     }
 }
 
+void Systems::earlyCleanup() {
+    for (auto& set : systems) {
+        for (auto& system : set.systems) { system.system->earlyCleanup(); }
+    }
+}
+
 void Systems::cleanup() {
     for (auto& set : systems) { set.systems.clear(); }
 }
