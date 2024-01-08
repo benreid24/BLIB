@@ -116,9 +116,7 @@ void Observer::onSceneAdd() {
 void Observer::onSceneChange() {
     if (hasScene()) {
         graphAssets.replaceAsset<rgi::SceneAsset>(scenes.back().scene.get());
-        if (scenes.back().graph.needsRepopulation()) {
-            scenes.back().graph.populate(renderer.getRenderStrategy(), *scenes.back().scene);
-        }
+        scenes.back().graph.populate(renderer.getRenderStrategy(), *scenes.back().scene);
         graphAssets.releaseUnused();
     }
 }

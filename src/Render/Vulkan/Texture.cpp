@@ -11,6 +11,7 @@ namespace vk
 {
 Texture::Texture()
 : parent(nullptr)
+, altImg(nullptr)
 , destPos(0, 0)
 , source(0, 0, 0, 0)
 , image(nullptr)
@@ -22,6 +23,7 @@ Texture::Texture()
 void Texture::createFromContentsAndQueue() {
     const sf::Image& src = altImg ? *altImg : *transferImg;
     create({src.getSize().x, src.getSize().y}, DefaultFormat, 0);
+    updateTrans(src);
     queueTransfer(SyncRequirement::Immediate);
 }
 
@@ -218,6 +220,17 @@ void Texture::cleanup() {
     vmaDestroyImage(vulkanState->vmaAllocator, image, alloc);
 
     cancelQueuedTransfer();
+}
+
+void Texture::reset() {
+    transferImg.release();
+    altImg        = nullptr;
+    destPos.x     = 0;
+    destPos.y     = 0;
+    source.left   = 0;
+    source.top    = 0;
+    source.width  = 0;
+    source.height = 0;
 }
 
 void Texture::updateTrans(const sf::Image& content) {

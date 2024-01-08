@@ -213,6 +213,7 @@ void BindlessTextureArray::resetTexture(VkDescriptorSet descriptorSet,
         array->textures[i].altImg = &array->errorPattern;
     }
     commitTexture(descriptorSet, rtDescriptorSet, arrays, i);
+    for (BindlessTextureArray* array : arrays) { array->textures[i].reset(); }
 }
 
 } // namespace res

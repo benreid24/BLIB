@@ -96,28 +96,28 @@ public:
     /**
      * @brief Returns the size of the texture in pixels
      */
-    constexpr const glm::u32vec2& rawSize() const;
+    const glm::u32vec2& rawSize() const;
 
     /**
      * @brief Returns the size of the texture in pixels
      */
-    constexpr const glm::vec2& size() const;
+    const glm::vec2& size() const;
 
     /**
      * @brief Returns the Vulkan image handle
      */
-    constexpr VkImage getImage() const;
+    VkImage getImage() const;
 
     /**
      * @brief Returns the Vulkan image view handle
      */
-    constexpr VkImageView getView() const;
+    VkImageView getView() const;
 
     /**
      * @brief Returns whether or not this texture contains significant transparency (more than 10%).
      *        Only valid for textures loaded from static data, not render textures
      */
-    constexpr bool containsTransparency() const;
+    bool containsTransparency() const;
 
 private:
     res::BindlessTextureArray* parent;
@@ -145,6 +145,7 @@ private:
     virtual void executeTransfer(VkCommandBuffer commandBuffer,
                                  tfr::TransferContext& transferEngine) override;
     void cleanup();
+    void reset();
     void updateTrans(const sf::Image& data);
 
     friend class res::TexturePool;
@@ -153,15 +154,15 @@ private:
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline constexpr const glm::u32vec2& Texture::rawSize() const { return sizeRaw; }
+inline const glm::u32vec2& Texture::rawSize() const { return sizeRaw; }
 
-inline constexpr const glm::vec2& Texture::size() const { return sizeF; }
+inline const glm::vec2& Texture::size() const { return sizeF; }
 
-inline constexpr VkImage Texture::getImage() const { return image; }
+inline VkImage Texture::getImage() const { return image; }
 
-inline constexpr VkImageView Texture::getView() const { return view; }
+inline VkImageView Texture::getView() const { return view; }
 
-inline constexpr bool Texture::containsTransparency() const { return hasTransparency; }
+inline bool Texture::containsTransparency() const { return hasTransparency; }
 
 } // namespace vk
 } // namespace rc
