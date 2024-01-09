@@ -103,6 +103,7 @@ void Menu::configureBackground(sf::Color fill, sf::Color outline, float t, const
         bgndPadding = p;
         refreshPositions();
     }
+    refreshBackground();
 }
 
 sf::FloatRect Menu::getBounds() const {
@@ -125,6 +126,7 @@ const glm::vec2& Menu::currentOffset() const { return offset; }
 void Menu::setMaximumSize(const glm::vec2& m) {
     maxSize = m;
     refreshScroll();
+    refreshBackground();
 }
 
 void Menu::setDepth(float d) {
@@ -302,10 +304,6 @@ void Menu::refreshPositions() {
                              glm::vec2{bgndPadding.left, bgndPadding.top});
     }
 
-    const glm::vec2 thick(background.getOutlineThickness(), background.getOutlineThickness());
-    background.setSize(visibleSize() - thick * 2.f);
-    background.getTransform().setPosition(position + thick);
-
     if (selectedItem != nullptr) {
         com::Transform2D* tform =
             engine->ecs().getComponent<com::Transform2D>(selectedItem->getEntity());
@@ -316,6 +314,13 @@ void Menu::refreshPositions() {
     }
 
     refreshScroll();
+    refreshBackground();
+}
+
+void Menu::refreshBackground() {
+    const glm::vec2 thick(background.getOutlineThickness(), background.getOutlineThickness());
+    background.setSize(visibleSize() - thick * 2.f);
+    background.getTransform().setPosition(position + thick);
 }
 
 glm::vec2 Menu::move(const glm::vec2& pos, const glm::vec2& psize, const glm::vec2& esize,

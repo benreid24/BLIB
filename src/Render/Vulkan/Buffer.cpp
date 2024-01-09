@@ -99,6 +99,25 @@ bool Buffer::ensureSize(VkDeviceSize newSize) {
 
         auto commandBuffer = vulkanState->sharedCommandPool.createBuffer();
 
+        // barrier to ensure writes to old buffer are complete
+        VkBufferMemoryBarrier barrier{};
+        barrier.sType         = VK_STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER;
+        barrier.buffer        = oldBuffer;
+        barrier.offset        = 0;
+        barrier.size          = oldSize;
+        barrier.srcAccessMask = VK_ACCESS_MEMORY_WRITE_BIT;
+        barrier.dstAccessMask = VK_ACCESS_MEMORY_READ_BIT;
+        vkCmdPipelineBarrier(commandBuffer,
+                             VK_PIPELINE_STAGE_TRANSFER_BIT,
+                             VK_PIPELINE_STAGE_TRANSFER_BIT,
+                             VK_DEPENDENCY_BY_REGION_BIT,
+                             0,
+                             nullptr,
+                             1,
+                             &barrier,
+                             0,
+                             nullptr);
+
         // copy old buffer into new
         VkBufferCopy copyCmd{};
         copyCmd.dstOffset = 0;

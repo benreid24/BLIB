@@ -276,6 +276,7 @@ private:
     glm::vec2 move(const glm::vec2& pos, const glm::vec2& psize, const glm::vec2& esize,
                    Item::AttachPoint ap);
     void refreshScroll();
+    void refreshBackground();
     void playSound(audio::AudioSystem::Handle sound) const;
     virtual void observe(const rc::event::SceneDestroyed& event) override;
 
