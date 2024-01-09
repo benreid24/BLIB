@@ -299,10 +299,8 @@ void Menu::refreshPositions() {
     }
 
     totalSize = {bounds.width - bounds.left, bounds.height - bounds.top};
-    for (auto& item : items) {
-        item->notifyPosition(item->position - glm::vec2{bounds.left, bounds.top} +
-                             glm::vec2{bgndPadding.left, bgndPadding.top});
-    }
+    const glm::vec2 finalOffset(bounds.left - bgndPadding.left, bounds.top - bgndPadding.top);
+    for (auto& item : items) { item->notifyPosition(item->position - finalOffset); }
 
     if (selectedItem != nullptr) {
         com::Transform2D* tform =
