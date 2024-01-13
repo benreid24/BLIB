@@ -100,6 +100,7 @@ private:
     virtual void observe(
         const ecs::event::ComponentRemoved<com::Animation2DPlayer>& event) override;
     virtual void observe(const ecs::event::ComponentRemoved<com::Animation2D>& event) override;
+    virtual void earlyCleanup() override;
 
     // slideshow methods
     void doSlideshowAdd(com::Animation2DPlayer& player);

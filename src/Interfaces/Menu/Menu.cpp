@@ -356,7 +356,7 @@ void Menu::setMoveFailSound(audio::AudioSystem::Handle s) { failSound = s; }
 void Menu::setSelectSound(audio::AudioSystem::Handle s) { selectSound = s; }
 
 void Menu::observe(const rc::event::SceneDestroyed& event) {
-    if (event.scene == static_cast<rc::Scene*>(overlay)) { overlay = nullptr; }
+    if (event.scene == static_cast<rc::Scene*>(overlay)) { removeFromOverlay(); }
 }
 
 } // namespace menu

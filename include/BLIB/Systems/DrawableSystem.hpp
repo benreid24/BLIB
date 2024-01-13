@@ -202,7 +202,10 @@ void DrawableSystem<T>::observe(const ecs::event::ComponentRemoved<T>& rm) {
 template<typename T>
 void DrawableSystem<T>::observe(const rc::event::SceneDestroyed& rm) {
     registry->getAllComponents<T>().forEach([&rm](ecs::Entity, T& c) {
-        if (c.sceneRef.scene == rm.scene) { c.sceneRef.scene = nullptr; }
+        if (c.sceneRef.scene == rm.scene) {
+            c.sceneRef.scene->removeObject(c.sceneRef.object);
+            c.sceneRef.scene = nullptr;
+        }
     });
     std::erase_if(toAdd, [&rm](const AddCommand& add) { return add.scene == rm.scene; });
 }
