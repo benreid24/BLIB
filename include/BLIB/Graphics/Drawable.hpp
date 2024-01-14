@@ -168,6 +168,9 @@ private:
 
     template<typename U, typename US>
     friend class Drawable;
+
+    void doFlash(float on, float off);
+    void retryFlash(float on, float off);
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -240,6 +243,24 @@ const TCom& Drawable<TCom, TSys>::component() const {
 
 template<typename TCom, typename TSys>
 void Drawable<TCom, TSys>::flash(float onPeriod, float offPeriod) {
+    if (component().sceneRef.object) { doFlash(onPeriod, offPeriod); }
+    else {
+        engine().renderer().vulkanState().cleanupManager.add(
+            [this, onPeriod, offPeriod]() { retryFlash(onPeriod, offPeriod); });
+    }
+}
+
+template<typename TCom, typename TSys>
+void Drawable<TCom, TSys>::retryFlash(float onPeriod, float offPeriod) {
+    if (component().sceneRef.object) { doFlash(onPeriod, offPeriod); }
+    else {
+        BL_LOG_WARN << "Failed to flash object (" << entity()
+                    << ") Not in scene after delayed retry";
+    }
+}
+
+template<typename TCom, typename TSys>
+void Drawable<TCom, TSys>::doFlash(float onPeriod, float offPeriod) {
     // swap off/on period because we have hidden toggle instead of visible toggle
     engine().ecs().template emplaceComponent<com::Toggler>(
         entity(), offPeriod, onPeriod, &component().sceneRef.object->hidden);

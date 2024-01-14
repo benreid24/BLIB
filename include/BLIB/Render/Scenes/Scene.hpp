@@ -13,6 +13,7 @@
 #include <BLIB/Util/IdAllocator.hpp>
 #include <BLIB/Vulkan.hpp>
 #include <array>
+#include <mutex>
 #include <vector>
 
 namespace bl
@@ -154,8 +155,9 @@ protected:
     virtual void removeQueuedObjects() = 0;
 
 private:
-    std::uint32_t nextObserverIndex;
     std::mutex batchMutex;
+    std::recursive_mutex objectMutex;
+    std::uint32_t nextObserverIndex;
     std::vector<BatchChange> batchChanges;
     std::vector<std::uint32_t> staticPipelines;
     std::vector<std::uint32_t> dynamicPipelines;
@@ -170,7 +172,6 @@ private:
     void handleDescriptorSync();
     std::uint32_t registerObserver();
     void updateObserverCamera(std::uint32_t observerIndex, const glm::mat4& projView);
-    // TODO - virtual hook for updateCam to allow derived scenes to prepare descriptors (ie lights)
 
     template<typename T>
     friend class sys::DrawableSystem;

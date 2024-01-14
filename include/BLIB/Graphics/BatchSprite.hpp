@@ -67,6 +67,12 @@ public:
     void remove();
 
     /**
+     * @brief Detaches this sprite from the batch, invalidating this object but leaving the
+     *        vertices. Performs a commit before detaching
+     */
+    void orphan();
+
+    /**
      * @brief Returns whether or not the sprite has been created
      */
     bool isCreated() const;

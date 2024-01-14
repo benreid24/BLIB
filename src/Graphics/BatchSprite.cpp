@@ -49,6 +49,15 @@ void BatchSprite::remove() {
     }
 }
 
+void BatchSprite::orphan() {
+    if (alloc.isValid()) {
+        commit();
+        owner = nullptr;
+        alloc.orphan();
+        updateHandle.cancel();
+    }
+}
+
 bool BatchSprite::isCreated() const { return owner != nullptr; }
 
 void BatchSprite::markDirty() {

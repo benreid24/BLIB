@@ -92,6 +92,12 @@ public:
         bool release();
 
         /**
+         * @brief Invalidates this handle without releasing. Useful if the allocated vertices should
+         *        outlive the handle used to create them
+         */
+        void orphan();
+
+        /**
          * @brief Returns the vertices for writing. Do not store pointers as they may be invalidated
          */
         T* getVertices();
@@ -458,6 +464,13 @@ bool BatchIndexBufferT<T>::AllocHandle::release() {
         owner = nullptr;
     }
     return r;
+}
+
+template<typename T>
+void BatchIndexBufferT<T>::AllocHandle::orphan() {
+    parentAlive.reset();
+    alloc = owner->allocations.end();
+    owner = nullptr;
 }
 
 template<typename T>

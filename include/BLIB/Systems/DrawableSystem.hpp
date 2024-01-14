@@ -94,24 +94,9 @@ protected:
     virtual void doUpdate(std::mutex& mutex, float dt);
 
 private:
-    struct AddCommand {
-        ecs::Entity entity;
-        rc::Scene* scene;
-        rc::UpdateSpeed updateFreq;
-        std::uint32_t pipeline;
-
-        AddCommand(ecs::Entity ent, rc::Scene* s, rc::UpdateSpeed us, std::uint32_t pipeline)
-        : entity(ent)
-        , scene(s)
-        , updateFreq(us)
-        , pipeline(pipeline) {}
-    };
-
-    std::mutex mutex;
     ecs::Registry* registry;
     const std::uint32_t defaultPipeline;
     const std::uint32_t overlayPipeline;
-    std::vector<AddCommand> toAdd;
 
     virtual void observe(const ecs::event::ComponentRemoved<T>& rm) override;
     virtual void observe(const rc::event::SceneDestroyed& rm) override;
@@ -126,9 +111,7 @@ template<typename T>
 DrawableSystem<T>::DrawableSystem(std::uint32_t defaultPipeline, std::uint32_t overlayPipeline)
 : registry(nullptr)
 , defaultPipeline(defaultPipeline)
-, overlayPipeline(overlayPipeline) {
-    toAdd.reserve(64);
-}
+, overlayPipeline(overlayPipeline) {}
 
 template<typename T>
 void DrawableSystem<T>::addToScene(ecs::Entity ent, rc::Scene* scene,
@@ -141,18 +124,18 @@ void DrawableSystem<T>::addToScene(ecs::Entity ent, rc::Scene* scene,
         return;
     }
 
-    addToSceneWithCustomPipeline(
-        ent,
-        scene,
-        descriptorUpdateFreq,
-        c->pipeline != rc::rcom::DrawableBase::PipelineNotSet ? c->pipeline : defaultPipeline);
+    if (c->pipeline == rc::rcom::DrawableBase::PipelineNotSet) {
+        if (dynamic_cast<rc::Overlay*>(scene) != nullptr) { c->pipeline = overlayPipeline; }
+        else { c->pipeline = defaultPipeline; }
+    }
+
+    addToSceneWithCustomPipeline(ent, scene, descriptorUpdateFreq, c->pipeline);
 }
 
 template<typename T>
 void DrawableSystem<T>::addToSceneWithCustomPipeline(ecs::Entity entity, rc::Scene* scene,
                                                      rc::UpdateSpeed descriptorUpdateFreq,
                                                      std::uint32_t pipeline) {
-    std::unique_lock lock(mutex);
     T* c = registry->getComponent<T>(entity);
     if (!c) {
 #ifdef BLIB_DEBUG
@@ -165,13 +148,16 @@ void DrawableSystem<T>::addToSceneWithCustomPipeline(ecs::Entity entity, rc::Sce
         c->sceneRef.scene->removeObject(c->sceneRef.object);
     }
     c->sceneRef.scene = scene;
-    toAdd.emplace_back(entity, scene, descriptorUpdateFreq, pipeline);
+
+    c->pipeline = pipeline;
+    scene->createAndAddObject(entity, *c, descriptorUpdateFreq);
+    if (!c->sceneRef.object) {
+        BL_LOG_WARN << "Failed to add entity " << entity << " to scene " << scene;
+    }
 }
 
 template<typename T>
 void DrawableSystem<T>::removeFromScene(ecs::Entity entity) {
-    std::unique_lock lock(mutex);
-
     T* c = registry->getComponent<T>(entity);
     if (!c) {
 #ifdef BLIB_DEBUG
@@ -194,7 +180,6 @@ void DrawableSystem<T>::doUpdate(std::mutex&, float) {}
 template<typename T>
 void DrawableSystem<T>::observe(const ecs::event::ComponentRemoved<T>& rm) {
     if (rm.component.sceneRef.scene) {
-        std::unique_lock lock(mutex);
         rm.component.sceneRef.scene->removeObject(rm.component.sceneRef.object);
     }
 }
@@ -207,7 +192,6 @@ void DrawableSystem<T>::observe(const rc::event::SceneDestroyed& rm) {
             c.sceneRef.scene = nullptr;
         }
     });
-    std::erase_if(toAdd, [&rm](const AddCommand& add) { return add.scene == rm.scene; });
 }
 
 template<typename T>
@@ -227,28 +211,6 @@ void DrawableSystem<T>::init(engine::Engine& engine) {
 
 template<typename T>
 void DrawableSystem<T>::update(std::mutex& frameMutex, float dt, float, float, float) {
-    std::unique_lock lock(mutex);
-
-    if (!toAdd.empty()) {
-        std::unique_lock lock(frameMutex);
-
-        for (const auto& add : toAdd) {
-            T* c = registry->getComponent<T>(add.entity);
-            if (!c) {
-#ifdef BLIB_DEBUG
-                BL_LOG_DEBUG << "Entity erased before it could be added to scene: " << add.entity;
-#endif
-                continue;
-            }
-            c->pipeline = add.pipeline;
-            add.scene->createAndAddObject(add.entity, *c, add.updateFreq);
-            if (!c->sceneRef.object) {
-                BL_LOG_WARN << "Failed to add entity " << add.entity << " to scene " << add.scene;
-            }
-        }
-        toAdd.clear();
-    }
-
     doUpdate(frameMutex, dt);
 }
 
