@@ -201,6 +201,13 @@ void OverlayScalerSystem::refreshEntity(Result& cset) {
         if (!obj.hasParent()) { obj.cachedScissor = makeScissor(viewport); }
         else { obj.cachedScissor = obj.getParent().cachedScissor; }
         break;
+
+    case com::OverlayScaler::ScissorFixed:
+        scissor.offset.x      = scaler.fixedScissor.left;
+        scissor.offset.y      = scaler.fixedScissor.top;
+        scissor.extent.width  = scaler.fixedScissor.width;
+        scissor.extent.height = scaler.fixedScissor.height;
+        break;
     }
 
     // update global size

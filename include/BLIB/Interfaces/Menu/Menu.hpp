@@ -28,7 +28,6 @@ namespace menu
  * @brief Primary class for mouseless menus
  *
  * @ingroup Menu
- *
  */
 class Menu : public event::Listener<rc::event::SceneDestroyed> {
 public:
@@ -128,19 +127,16 @@ public:
 
     /**
      * @brief Sets the padding to place between elements
-     *
      */
     void setPadding(const glm::vec2& padding);
 
     /**
      * @brief Sets the minimum height an item should take
-     *
      */
     void setMinHeight(float mh);
 
     /**
      * @brief Sets the minimum width an item should take
-     *
      */
     void setMinWidth(float mw);
 
@@ -156,8 +152,24 @@ public:
                              const sf::FloatRect& padding = {-1.f, -1.f, -1.f, -1.f});
 
     /**
-     * @brief Refreshes the positions of all items in the menu
+     * @brief Constrains the rendering to the bounds of the background
+     */
+    void setScissorToSelf();
+
+    /**
+     * @brief Constrains the rendering to the given fixed scissor
      *
+     * @param scissor The scissor to constrain to
+     */
+    void setScissor(const sf::IntRect& scissor);
+
+    /**
+     * @brief Removes any explicit scissor set on this menu
+     */
+    void removeScissor();
+
+    /**
+     * @brief Refreshes the positions of all items in the menu
      */
     void refreshPositions();
 
@@ -170,38 +182,32 @@ public:
 
     /**
      * @brief Returns the bounds of the menu. Ignores the maximum size
-     *
      */
     sf::FloatRect getBounds() const;
 
     /**
      * @brief Set the maximum size the menu may take up before scrolling. Set negative dimensions to
      *        prevent scrolling in that dimension. Default is no max size
-     *
      */
     void setMaximumSize(const glm::vec2& maxSize);
 
     /**
      * @brief Returns the maximum size of the menu
-     *
      */
     const glm::vec2& maximumSize() const;
 
     /**
      * @brief Returns the currently visible size of the menu
-     *
      */
     glm::vec2 visibleSize() const;
 
     /**
      * @brief Returns the current scroll offset of the menu
-     *
      */
     const glm::vec2& currentOffset() const;
 
     /**
      * @brief Returns the currently selected item
-     *
      */
     const Item* getSelectedItem() const;
 

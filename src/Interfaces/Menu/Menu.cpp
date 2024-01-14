@@ -106,6 +106,18 @@ void Menu::configureBackground(sf::Color fill, sf::Color outline, float t, const
     refreshBackground();
 }
 
+void Menu::setScissorToSelf() {
+    background.getOverlayScaler().setScissorMode(com::OverlayScaler::ScissorSelfConstrained);
+}
+
+void Menu::setScissor(const sf::IntRect& scissor) {
+    background.getOverlayScaler().setFixedScissor(scissor);
+}
+
+void Menu::removeScissor() {
+    background.getOverlayScaler().setScissorMode(com::OverlayScaler::ScissorInherit);
+}
+
 sf::FloatRect Menu::getBounds() const {
     const auto& pos = background.getTransform().getLocalPosition();
     return {pos.x, pos.y, totalSize.x, totalSize.y};

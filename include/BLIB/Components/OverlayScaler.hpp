@@ -55,7 +55,10 @@ public:
         ScissorSelfConstrained,
 
         /// Sets the scissor to the top-level observer scissor
-        ScissorObserver
+        ScissorObserver,
+
+        /// Sets the scissor to a fixed value
+        ScissorFixed
     };
 
     /**
@@ -125,6 +128,13 @@ public:
     void setScissorMode(ScissorMode mode);
 
     /**
+     * @brief Sets the scissor to a fixed value
+     *
+     * @param scissor The scissor to set for this entity
+     */
+    void setFixedScissor(const sf::IntRect& scissor);
+
+    /**
      * @brief Updates the entity position relative to the parent region
      *
      * @param position Normalized coordinates to position at
@@ -170,6 +180,9 @@ private:
         glm::vec2 parentPosition;
     };
     ScissorMode scissorMode;
+    union {
+        sf::IntRect fixedScissor;
+    };
     bool dirty;
     std::uint16_t transformVersion;
 
