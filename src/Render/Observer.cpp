@@ -117,7 +117,8 @@ void Observer::onSceneChange() {
     if (hasScene()) {
         graphAssets.replaceAsset<rgi::SceneAsset>(scenes.back().scene.get());
         scenes.back().graph.populate(renderer.getRenderStrategy(), *scenes.back().scene);
-        graphAssets.releaseUnused();
+        // TODO - this releases used assets
+        // graphAssets.releaseUnused();
     }
 }
 
