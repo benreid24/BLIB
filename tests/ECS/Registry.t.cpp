@@ -427,6 +427,22 @@ TEST(ECS, ParentRemove) {
     EXPECT_TRUE(testRegistry.entityExists(child));
 }
 
+TEST(ECS, ChildComponentReAdd) {
+    Registry testRegistry;
+
+    Entity child  = testRegistry.createEntity();
+    Entity parent = testRegistry.createEntity();
+
+    auto* childCom  = testRegistry.addComponent<ParentTestComponent>(child, 10);
+    auto* parentCom = testRegistry.addComponent<ParentTestComponent>(parent, 100);
+    testRegistry.setEntityParent(child, parent);
+
+    ASSERT_EQ(parentCom->getChildren().front(), childCom);
+
+    childCom = testRegistry.addComponent<ParentTestComponent>(child, 10);
+    ASSERT_EQ(parentCom->getChildren().front(), childCom);
+}
+
 TEST(ECS, Dependencies) {
     Registry testRegistry;
 

@@ -50,7 +50,7 @@ void BatchSprite::remove() {
 }
 
 void BatchSprite::orphan() {
-    if (alloc.isValid()) {
+    if (isCreated()) {
         commit();
         owner = nullptr;
         alloc.orphan();

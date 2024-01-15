@@ -82,6 +82,12 @@ void OverlayScalerSystem::refreshObjectAndChildren(Result& row) {
 void OverlayScalerSystem::refreshObjectAndChildren(rc::ovy::OverlayObject& obj) {
     Result childRow = registry->getComponentSet<Required, Optional>(obj.entity);
     if (childRow.isValid()) { refreshObjectAndChildren(childRow); }
+    else if (childRow.get<rc::ovy::OverlayObject>()) {
+        rc::ovy::OverlayObject& obj = *childRow.get<rc::ovy::OverlayObject>();
+        if (obj.overlay && obj.overlayViewport) {
+            obj.cachedScissor = makeScissor(*obj.overlayViewport);
+        }
+    }
     else { BL_LOG_ERROR << "Invalid child entity: " << obj.entity; }
 }
 
