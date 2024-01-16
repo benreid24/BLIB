@@ -227,6 +227,7 @@ void Drawable<TCom, TSys>::removeFromScene() {
     }
 #endif
 
+    stopFlashing();
     system().removeFromScene(entity());
     onRemove();
 }

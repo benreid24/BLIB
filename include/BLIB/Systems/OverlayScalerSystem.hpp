@@ -54,6 +54,7 @@ private:
 
     void refreshObjectAndChildren(Result& row);
     void refreshEntity(Result& row);
+    void updateScissor(Result& cset, float xScale, float yScale);
 
     friend class bl::rc::Overlay;
 };

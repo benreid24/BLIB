@@ -45,6 +45,7 @@ void Sprite::setTexture(rc::res::TextureRef texture, const sf::FloatRect region)
     Textured::setTexture(texture);
     component().create(nullptr, texture, region);
     component().containsTransparency = Textured::getTexture()->containsTransparency();
+    OverlayScalable::setLocalSize(component().getSize());
 }
 
 void Sprite::setTextureSource(const sf::FloatRect& src) { component().setTextureSource(src); }
