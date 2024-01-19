@@ -23,8 +23,8 @@ namespace sys
 /**
  * @brief Base class for renderer systems that manage scene objects in the ECS. Custom renderable
  *        types should have a system that inherits from this class that manages their membership
- *        within scenes. These systems should run in the engine::FrameStage::RenderObjectInsertion
- * step
+ *        within scenes. These systems should run in the engine::FrameStage::RenderEarlyRefresh
+ *        step
  *
  * @tparam T The component type in the ECS that is being managed
  * @ingroup Systems

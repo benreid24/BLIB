@@ -74,17 +74,12 @@ protected:
                                       UpdateSpeed updateFreq) override;
 
     /**
-     * @brief Queues the object to be removed from the scene. Also queues removal of all children
+     * @brief Removes the object from the scene. Also removes all children
      *
      * @param object The object to be removed
      * @param pipeline The pipeline used to render the object being removed
      */
-    virtual void queueObjectRemoval(scene::SceneObject* object, std::uint32_t pipeline) override;
-
-    /**
-     * @brief Performs removal of all queued objects
-     */
-    virtual void removeQueuedObjects() override;
+    virtual void doObjectRemoval(scene::SceneObject* object, std::uint32_t pipeline) override;
 
     /**
      * @brief Called by Scene in handleDescriptorSync for objects that need to be re-batched
@@ -115,24 +110,6 @@ private:
     std::vector<ovy::OverlayObject*> renderStack;
     VkViewport cachedParentViewport;
     glm::u32vec2 cachedTargetSize;
-
-    struct RemovedObject {
-        ecs::Entity entity;
-        scene::Key sceneKey;
-        std::array<ds::DescriptorSetInstance*, Config::MaxDescriptorSets> descriptors;
-        std::uint8_t descriptorCount;
-
-        RemovedObject(
-            ecs::Entity entity, scene::Key key,
-            const std::array<ds::DescriptorSetInstance*, Config::MaxDescriptorSets>& descriptors,
-            std::uint8_t dc)
-        : entity(entity)
-        , sceneKey(key)
-        , descriptors(descriptors)
-        , descriptorCount(dc) {}
-    };
-
-    std::vector<RemovedObject> removalQueue;
 
     void refreshAll();
     void sortRoots();

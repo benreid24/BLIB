@@ -110,10 +110,9 @@ scene::SceneObject* Overlay::doAdd(ecs::Entity entity, rcom::DrawableBase& objec
     return &obj;
 }
 
-void Overlay::queueObjectRemoval(scene::SceneObject* object, std::uint32_t) {
+void Overlay::doObjectRemoval(scene::SceneObject* object, std::uint32_t) {
     ovy::OverlayObject* obj = static_cast<ovy::OverlayObject*>(object);
 
-    removalQueue.emplace_back(obj->entity, obj->sceneKey, obj->descriptors, obj->descriptorCount);
     auto childCopy = obj->getChildren();
     for (ovy::OverlayObject* child : childCopy) {
         if (engine.ecs().getEntityParentDestructionBehavior(child->entity) !=
@@ -128,18 +127,12 @@ void Overlay::queueObjectRemoval(scene::SceneObject* object, std::uint32_t) {
         sortRoots();
     }
 
+    for (unsigned int i = 0; i < obj->descriptorCount; ++i) {
+        obj->descriptors[i]->releaseObject(obj->entity, object->sceneKey);
+    }
+    objects.release(obj->sceneKey);
     engine.ecs().removeComponent<ovy::OverlayObject>(obj->entity);
     bl::event::Dispatcher::dispatch<rc::event::SceneObjectRemoved>({this, obj->entity});
-}
-
-void Overlay::removeQueuedObjects() {
-    for (auto& obj : removalQueue) {
-        for (unsigned int i = 0; i < obj.descriptorCount; ++i) {
-            obj.descriptors[i]->releaseObject(obj.entity, obj.sceneKey);
-        }
-        objects.release(obj.sceneKey);
-    }
-    removalQueue.clear();
 }
 
 void Overlay::doBatchChange(const BatchChange& change, std::uint32_t ogPipeline) {

@@ -64,7 +64,7 @@ bool BatchSlideshow::isCreated() const { return owner != nullptr; }
 void BatchSlideshow::markDirty() {
     dirty = true;
     if (autoCommit && owner && !updateHandle.isQueued()) {
-        updateHandle = engine->systems().addFrameTask(engine::FrameStage::RenderObjectInsertion,
+        updateHandle = engine->systems().addFrameTask(engine::FrameStage::RenderEarlyRefresh,
                                                       std::bind(&BatchSlideshow::commit, this));
     }
 }

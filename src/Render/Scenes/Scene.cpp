@@ -87,7 +87,7 @@ void Scene::removeObject(scene::SceneObject* obj) {
                                  objectPipelines[obj->sceneKey.sceneId] :
                                  NoPipeline;
     if (pipeline != NoPipeline) {
-        queueObjectRemoval(obj, pipeline);
+        doObjectRemoval(obj, pipeline);
         objectPipelines[obj->sceneKey.sceneId] = NoPipeline;
     }
 }

@@ -181,7 +181,10 @@ Drawable<TCom, TSys>::Drawable()
 
 template<typename TCom, typename TSys>
 Drawable<TCom, TSys>::~Drawable() {
-    if (entity() != ecs::InvalidEntity && entityIsDeletedOnDestruction()) { removeFromScene(); }
+    if (entity() != ecs::InvalidEntity && component().sceneRef.scene &&
+        entityIsDeletedOnDestruction()) {
+        removeFromScene();
+    }
 }
 
 template<typename TCom, typename TSys>

@@ -139,20 +139,12 @@ protected:
     virtual void doBatchChange(const BatchChange& change, std::uint32_t ogPipeline) = 0;
 
     /**
-     * @brief Called when an object should be removed from the scene. Derived scenes should maintain
-     *        a queue of objects marked for removal. If necessary, derived scenes should make copies
-     *        of objects to be removed in case it is possible that the underlying memory is freed
-     *        before the queue is drained
+     * @brief Called when an object should be removed from the scene
      *
      * @param object The object to be removed
      * @param pipeline The pipeline used to render the object being removed
      */
-    virtual void queueObjectRemoval(scene::SceneObject* object, std::uint32_t pipeline) = 0;
-
-    /**
-     * @brief Called once per frame. Derived classes should remove all queued objects here
-     */
-    virtual void removeQueuedObjects() = 0;
+    virtual void doObjectRemoval(scene::SceneObject* object, std::uint32_t pipeline) = 0;
 
 private:
     std::mutex batchMutex;

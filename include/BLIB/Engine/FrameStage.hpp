@@ -40,26 +40,20 @@ struct FrameStage {
         /// This stage and later are called once per frame
         MARKER_OncePerFrame = 4,
 
-        /// Objects in scenes queued for removal are removed here
-        RenderObjectRemoval = 4,
-
-        /// Adds objects from the ECS into the scene-local object buffers for rendering
-        RenderObjectInsertion = 5,
-
         /// Separate stage for descriptors to be modified prior to syncing into scene buffers
-        RenderIntermediateRefresh = 6,
+        RenderEarlyRefresh = 4,
 
         /// Syncs dirty descriptor components (ie transforms) into scene-local descriptor sets
-        RenderDescriptorRefresh = 7,
+        RenderDescriptorRefresh = 5,
 
         /// Records command buffers and submits to the GPU
-        Render = 8,
+        Render = 6,
 
         /// Slot for more user-defined operations
-        FrameEnd = 9,
+        FrameEnd = 7,
 
         /// The number of engine stages
-        COUNT = 10
+        COUNT = 8
     };
 };
 
