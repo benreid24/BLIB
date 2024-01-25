@@ -96,12 +96,12 @@ void OverlayScalerSystem::refreshEntity(Result& cset) {
     com::Transform2D& transform = *cset.get<com::Transform2D>();
     rc::ovy::OverlayObject& obj = *cset.get<rc::ovy::OverlayObject>();
 
+    scaler.dirty            = false;
+    scaler.transformVersion = transform.getVersion();
+
     // dummy entities only get scissor, all else is skipped
     if (cset.entity().flagSet(ecs::Flags::Dummy)) {
-        if (!obj.hasParent()) {
-            BL_LOG_ERROR << "Root level dummy entities are not supported by OverlayScaler";
-        }
-        else { updateScissor(cset, 1.f, 1.f); }
+        updateScissor(cset, 1.f, 1.f);
         return;
     }
 
@@ -113,9 +113,6 @@ void OverlayScalerSystem::refreshEntity(Result& cset) {
         parentSize.y =
             scaler.getParent().cachedObjectBounds.height * transform.getParent().getScale().y;
     }
-
-    scaler.dirty            = false;
-    scaler.transformVersion = transform.getVersion();
 
     float xScale = 1.f;
     float yScale = 1.f;
@@ -229,8 +226,7 @@ void OverlayScalerSystem::updateScissor(Result& cset, float xScale, float yScale
 
     case com::OverlayScaler::ScissorInherit:
         if (!obj.hasParent()) {
-            // this method is only called if we are not a dummy or have a parent
-            obj.cachedScissor = makeScissor(*obj.overlayViewport);
+            if (obj.overlayViewport) { obj.cachedScissor = makeScissor(*obj.overlayViewport); }
         }
         else { obj.cachedScissor = obj.getParent().cachedScissor; }
         break;
