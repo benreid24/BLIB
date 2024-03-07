@@ -176,6 +176,7 @@ void Menu::refreshScroll() {
 }
 
 void Menu::setRootItem(const Item::Ptr& root) {
+    selectedItem = nullptr;
     for (auto& item : items) { item->doSceneRemove(); }
     items.clear();
     items.emplace_back(root);

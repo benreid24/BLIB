@@ -2,6 +2,7 @@
 #define BLIB_RESOURCES_REF_HPP
 
 #include <BLIB/Resources/Resource.hpp>
+#include <BLIB/Resources/State.hpp>
 
 namespace bl
 {
@@ -330,7 +331,7 @@ void Ref<T>::forceInCache(bool f) {
 
 template<typename T>
 void Ref<T>::release() {
-    if (refCount) {
+    if (refCount && !State::appExiting) {
         --(*refCount);
         data       = nullptr;
         refCount   = nullptr;

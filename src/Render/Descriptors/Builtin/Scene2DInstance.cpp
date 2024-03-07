@@ -16,7 +16,7 @@ Scene2DInstance::Scene2DInstance(vk::VulkanState& vulkanState, VkDescriptorSetLa
 
 Scene2DInstance::~Scene2DInstance() {
     cameraBuffer.stopTransferringEveryFrame();
-    vulkanState.descriptorPool.release(allocHandle);
+    vulkanState.descriptorPool.release(allocHandle, descriptorSets.data());
     cameraBuffer.destroy();
     lighting.destroy();
 }
@@ -90,7 +90,6 @@ void Scene2DInstance::init(DescriptorComponentStorageCache&) {
         }
     }
 
-    // TODO - sensible defaults
     Lighting& l  = lighting[0];
     l.lightCount = 0;
     l.ambient    = glm::vec3{1.f};

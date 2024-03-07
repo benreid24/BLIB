@@ -3,6 +3,7 @@
 #include <BLIB/Audio.hpp>
 #include <BLIB/Logging.hpp>
 #include <BLIB/Resources/GarbageCollector.hpp>
+#include <BLIB/Resources/State.hpp>
 #include <BLIB/Systems.hpp>
 #include <SFML/Window.hpp>
 #include <cmath>
@@ -42,18 +43,22 @@ Engine::~Engine() {
     }
     newState.reset();
 
+    if (renderWindow.isOpen()) { renderWindow.close(); }
+
     systems().earlyCleanup();
     entityRegistry.destroyAllEntities();
-    sf::SoundBuffer sfHack; // keeps audio device alive after all resources cleared
+
+    audio::AudioSystem::shutdown();
+
+    resource::State::appExiting = true;
     resource::GarbageCollector::get().clear();
+
     systems().cleanup();
 
     if (renderWindow.isOpen()) {
         renderingSystem.cleanup();
         renderWindow.close();
     }
-
-    audio::AudioSystem::shutdown();
 }
 
 void Engine::pushState(State::Ptr next) {
