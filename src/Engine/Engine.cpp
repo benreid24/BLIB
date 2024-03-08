@@ -59,6 +59,9 @@ Engine::~Engine() {
         renderingSystem.cleanup();
         renderWindow.close();
     }
+
+    // reset resource manager state for other instances
+    resource::State::appExiting = false;
 }
 
 void Engine::pushState(State::Ptr next) {
