@@ -28,6 +28,11 @@ public:
     using TSink     = Sink<T>;
 
     /**
+     * @brief Initializes the particle manager
+     */
+    ParticleManager();
+
+    /**
      * @brief Destroys the particle manager
      */
     virtual ~ParticleManager() = default;
@@ -35,10 +40,11 @@ public:
     /**
      * @brief Updates all the particles
      *
+     * @param threadPool The threadpool to use
      * @param dt Elapsed simulation time in seconds
      * @param realDt Elapsed real time in seconds
      */
-    virtual void update(float dt, float realDt) override;
+    virtual void update(util::ThreadPool& threadPool, float dt, float realDt) override;
 
     /**
      * @brief Adds a particle affector of the given type
@@ -163,15 +169,84 @@ public:
     /**
      * @brief Destroys all particles, affectors, emitters, and sinks
      */
-    void clearAndReset();
+    virtual void clearAndReset() override;
 
-    // TODO - renderer interface
+    /**
+     * @brief Called when the particle manager should be rendered in the given scene. May be called
+     *        multiple times in order for multiple observers to view the same particles
+     *
+     * @param scene The scene to add to
+     */
+    virtual void addToScene(rc::Scene* scene) override;
+
+    /**
+     * @brief Called when the particles should be removed from the given scene
+     *
+     * @param scene The scene to remove from. Pass nullptr to remove from all
+     */
+    virtual void removeFromScene(rc::Scene* scene) override;
 
 private:
+    constexpr std::size_t ParticlesPerThread = 800;
+
     std::mutex mutex;
+    TRenderer renderer;
     std::vector<T> particles;
+
+    std::mutex releaseMutex;
     std::vector<std::size_t> freeList;
+    std::vector<bool> freed;
+
+    std::vector<std::unique_ptr<Affector>> affectors;
+    std::vector<std::unique_ptr<Emitter>> emitters;
+    std::vector<std::unique_ptr<Sink>> sinks;
+
+    void updateSink(TSink* sink, util::ThreadPool& pool, float dt, float realDt);
 };
+
+//////////////////////////// INLINE FUNCTIONS /////////////////////////////////
+
+template<typename T, typename R>
+ParticleManager<T, R>::ParticleManager() {
+    constexpr std::size_t DefaultCapacity = 512;
+
+    particles.reserve(DefaultCapacity);
+    freeList.reserve(DefaultCapacity / 16);
+    freed.reserve(DefaultCapacity);
+}
+
+template<typename T, typename R>
+void ParticleManager<T, R>::update(util::ThreadPool& threadPool, float dt, float realDt) {
+    std::unique_lock lock(mutex);
+
+    if (!sinks.empty()) {
+        // reset free list
+        freeList.clear();
+        freed.resize(particles.size());
+        std::fill(freed.begin(), freed.end(), false);
+
+        // update sinks first to populate freelist
+        for (auto& sink : sinks) { updateSink(sink.get(), threadPool, dt, realDt); }
+    }
+}
+
+template<typename T, typename R>
+void ParticleManager<T, R>::updateSink(TSink* sink, util::ThreadPool& pool, float dt,
+                                       float realDt) {
+    std::vector<std::future<void>> futures;
+    TSink::Proxy sinkProxy(releaseMutex, particles.begin(), freeList, freed);
+
+    auto it = particles.begin();
+    while (it != particles.end()) {
+        const std::size_t len = std::min(particles.end() - it, ParticlesPerThread);
+        futures.emplace_back([this, it, len, sink, dt, realDt]() {
+            sink->update(proxy, std::span<T>(it, len), dt, realDt);
+        });
+    }
+
+    for (auto& f : futures) { f.wait(); }
+    futures.clear();
+}
 
 } // namespace pcl
 } // namespace bl

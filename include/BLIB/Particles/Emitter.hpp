@@ -7,7 +7,7 @@ namespace bl
 {
 namespace pcl
 {
-template<typename T>
+template<typename T, typename R>
 class ParticleManager;
 
 /**
@@ -52,7 +52,8 @@ public:
         : storage(storage)
         , freeList(freeList) {}
 
-        friend class ParticleManager<T>;
+        template<typename R>
+        friend class ParticleManager<T, R>;
     };
 
     /**

@@ -9,7 +9,7 @@ namespace bl
 {
 namespace pcl
 {
-template<typename T>
+template<typename T, typename R>
 class ParticleManager;
 
 /**
@@ -30,7 +30,7 @@ public:
          * @brief Call to destroy the given particle
          * @param particle The particle to destroy
          */
-        void destroy(const T& particle) {
+        void destroy(const T& particle) const {
             const std::size_t i = particle - base;
 
             std::unique_lock lock(mutex);
@@ -45,6 +45,16 @@ public:
         T* base;
         std::vector<std::size_t>& freeList;
         std::vector<bool>& freed;
+
+        Proxy(std::mutex& mutex, T* base, std::vector<std::size_t>& freeList,
+              std::vector<bool>& freed)
+        : mutex(mutex)
+        , base(base)
+        , freeList(freeList)
+        , freed(freed) {}
+
+        template<typename R>
+        friend class ParticleManager<T, R>;
     };
 
     /**
@@ -60,7 +70,7 @@ public:
      * @param dt Elapsed simulation time, in seconds, since last call to update
      * @param realDt Elapsed real time, in seconds, since last call to update
      */
-    virtual void update(Proxy proxy, std::span<T> particles, float dt, float realDt) = 0;
+    virtual void update(const Proxy& proxy, std::span<T> particles, float dt, float realDt) = 0;
 };
 
 } // namespace pcl

@@ -1,6 +1,8 @@
 #ifndef BLIB_PARTICLES_RENDERER_HPP
 #define BLIB_PARTICLES_RENDERER_HPP
 
+#include <BLIB/Logging.hpp>
+
 namespace bl
 {
 namespace pcl
@@ -16,7 +18,31 @@ namespace pcl
 template<typename T>
 class Renderer {
 public:
-    // TODO - renderer interface
+    /**
+     * @brief Destroys the renderer
+     */
+    virtual ~Renderer() = default;
+
+    /**
+     * @brief Called when the particle manager should be rendered in the given scene. May be called
+     *        multiple times in order for multiple observers to view the same particles
+     *
+     * @param scene The scene to add to
+     */
+    void addToScene(rc::Scene* scene) {
+        BL_LOG_CRITICAL << "Called addToScene on default renderer";
+        (void)scene;
+    }
+
+    /**
+     * @brief Called when the particles should be removed from the given scene
+     *
+     * @param scene The scene to remove from. Pass nullptr to remove from all
+     */
+    void removeFromScene(rc::Scene* scene) {
+        BL_LOG_CRITICAL << "Called removeFromScene on default renderer";
+        (void)scene;
+    }
 };
 
 } // namespace pcl
