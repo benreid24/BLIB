@@ -53,8 +53,8 @@ public:
         , freeList(freeList)
         , freed(freed) {}
 
-        template<typename R>
-        friend class ParticleManager<T, R>;
+        template<typename U, typename R>
+        friend class ParticleManager;
     };
 
     /**

@@ -194,7 +194,7 @@ public:
     const TRenderer& getRenderer() const;
 
 private:
-    constexpr std::size_t ParticlesPerThread = 800;
+    static constexpr std::size_t ParticlesPerThread = 800;
 
     std::mutex mutex;
     TRenderer renderer;
@@ -203,10 +203,11 @@ private:
     std::mutex releaseMutex;
     std::vector<std::size_t> freeList;
     std::vector<bool> freed;
+    std::vector<std::future<void>> futures;
 
-    std::vector<std::unique_ptr<Affector>> affectors;
-    std::vector<std::unique_ptr<Emitter>> emitters;
-    std::vector<std::unique_ptr<Sink>> sinks;
+    std::vector<std::unique_ptr<TAffector>> affectors;
+    std::vector<std::unique_ptr<TEmitter>> emitters;
+    std::vector<std::unique_ptr<TSink>> sinks;
 
     void updateSink(TSink* sink, util::ThreadPool& pool, float dt, float realDt);
 };
@@ -238,7 +239,7 @@ void ParticleManager<T, R>::update(util::ThreadPool& threadPool, float dt, float
 
     // run emitters to fill holes
     if (!emitters.empty()) {
-        TEmitter::Proxy proxy(particles, freeList);
+        typename TEmitter::Proxy proxy(particles, freeList);
         for (auto& emitter : emitters) { emitter->update(proxy, dt, realDt); }
     }
 
@@ -251,7 +252,7 @@ void ParticleManager<T, R>::update(util::ThreadPool& threadPool, float dt, float
 
     // run affectors over all particles
     if (!affectors.empty()) {
-        std::vector<std::future<void>> futures;
+        futures.reserve(affectors.size());
         for (auto& affector : affectors) {
             auto it = particles.begin();
             while (it != particles.end()) {
@@ -262,6 +263,7 @@ void ParticleManager<T, R>::update(util::ThreadPool& threadPool, float dt, float
             }
         }
         for (auto& f : futures) { f.wait(); }
+        futures.clear();
     }
 
     // update renderer data
@@ -357,10 +359,10 @@ const TRenderer& ParticleManager<T, TRenderer>::getRenderer() const {
 template<typename T, typename R>
 void ParticleManager<T, R>::updateSink(TSink* sink, util::ThreadPool& pool, float dt,
                                        float realDt) {
-    std::vector<std::future<void>> futures;
-    TSink::Proxy sinkProxy(releaseMutex, &particles.front(), freeList, freed);
-
+    typename TSink::Proxy proxy(releaseMutex, &particles.front(), freeList, freed);
     auto it = particles.begin();
+
+    futures.reserve(particles.size() / ParticlesPerThread + 1);
     while (it != particles.end()) {
         const std::size_t len = std::min(particles.end() - it, ParticlesPerThread);
         futures.emplace_back([this, it, len, sink, dt, realDt]() {
@@ -369,6 +371,7 @@ void ParticleManager<T, R>::updateSink(TSink* sink, util::ThreadPool& pool, floa
     }
 
     for (auto& f : futures) { f.wait(); }
+    futures.clear();
 }
 
 template<typename T, typename TRenderer>
@@ -401,8 +404,9 @@ void ParticleManager<T, TRenderer>::removeAffectors() {
     static_assert(std::is_base_of_v<Affector, U>, "U must derive from Affector");
     std::unique_lock lock(mutex);
 
-    std::erase_if(affectors,
-                  [](std::unique_tr<Affector>& a) { return dynamic_cast<U*>(a.get()) != nullptr; });
+    std::erase_if(affectors, [](std::unique_ptr<TAffector>& a) {
+        return dynamic_cast<U*>(a.get()) != nullptr;
+    });
 }
 
 template<typename T, typename TRenderer>
@@ -435,8 +439,9 @@ void ParticleManager<T, TRenderer>::removeEmitters() {
     static_assert(std::is_base_of_v<Emitter, U>, "U must derive from Emitter");
     std::unique_lock lock(mutex);
 
-    std::erase_if(emitters,
-                  [](std::unique_ptr<Emitter>& e) { return dynamic_cast<U*>(e.get()) != nullptr; });
+    std::erase_if(emitters, [](std::unique_ptr<TEmitter>& e) {
+        return dynamic_cast<U*>(e.get()) != nullptr;
+    });
 }
 
 template<typename T, typename TRenderer>
@@ -470,7 +475,7 @@ void ParticleManager<T, TRenderer>::removeSinks() {
     std::unique_lock lock(mutex);
 
     std::erase_if(sinks,
-                  [](std::unique_ptr<Sink>& s) { return dynamic_cast<U*>(s.get()) != nullptr; });
+                  [](std::unique_ptr<TSink>& s) { return dynamic_cast<U*>(s.get()) != nullptr; });
 }
 
 } // namespace pcl

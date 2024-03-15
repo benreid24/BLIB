@@ -46,7 +46,6 @@ public:
             BL_LOG_CRITICAL << "Called removeFromScene on default renderer";
             warned = true;
         }
-        (void)scene;
     }
 
     /**
