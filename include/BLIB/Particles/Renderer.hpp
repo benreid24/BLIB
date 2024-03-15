@@ -29,7 +29,11 @@ public:
      * @param scene The scene to add to
      */
     void addToScene(rc::Scene* scene) {
-        BL_LOG_CRITICAL << "Called addToScene on default renderer";
+        static bool warned = false;
+        if (!warned) {
+            BL_LOG_CRITICAL << "Called addToScene on default renderer";
+            warned = true;
+        }
         (void)scene;
     }
 
@@ -37,8 +41,26 @@ public:
      * @brief Called when the particles should be removed from its current scene
      */
     void removeFromScene() {
-        BL_LOG_CRITICAL << "Called removeFromScene on default renderer";
+        static bool warned = false;
+        if (!warned) {
+            BL_LOG_CRITICAL << "Called removeFromScene on default renderer";
+            warned = true;
+        }
         (void)scene;
+    }
+
+    /**
+     * @brief Called when the particle data changes
+     *
+     * @param particles The current beginning particle
+     * @param length The number of particles
+     */
+    void notifyData(T* particles, std::size_t length) {
+        static bool warned = false;
+        if (!warned) {
+            BL_LOG_CRITICAL << "Called notifyData on default renderer";
+            warned = true;
+        }
     }
 };
 

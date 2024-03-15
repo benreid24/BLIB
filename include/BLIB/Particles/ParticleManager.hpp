@@ -183,6 +183,16 @@ public:
      */
     virtual void removeFromScene() override;
 
+    /**
+     * @brief Returns the renderer for this particle manager
+     */
+    TRenderer& getRenderer();
+
+    /**
+     * @brief Returns the renderer for this particle manager
+     */
+    const TRenderer& getRenderer() const;
+
 private:
     constexpr std::size_t ParticlesPerThread = 800;
 
@@ -227,10 +237,35 @@ void ParticleManager<T, R>::update(util::ThreadPool& threadPool, float dt, float
     }
 
     // run emitters to fill holes
-    // TODO
+    if (!emitters.empty()) {
+        TEmitter::Proxy proxy(particles, freeList);
+        for (auto& emitter : emitters) { emitter->update(proxy, dt, realDt); }
+    }
+
+    // remove particles that did not get re-emitted
+    for (std::size_t i : freeList) {
+        if (particles.size() > 1 && i != particles.size() - 1) { particles[i] = particles.back(); }
+        particles.pop_back();
+    }
+    freeList.clear();
 
     // run affectors over all particles
-    // TODO
+    if (!affectors.empty()) {
+        std::vector<std::future<void>> futures;
+        for (auto& affector : affectors) {
+            auto it = particles.begin();
+            while (it != particles.end()) {
+                const std::size_t len = std::min(particles.end() - it, ParticlesPerThread);
+                futures.emplace_back(threadPool.queueTask([this, &affector, it, dt, realDt]() {
+                    affector->update(std::span<T>(it, len), dt, realDt);
+                }));
+            }
+        }
+        for (auto& f : futures) { f.wait(); }
+    }
+
+    // update renderer data
+    renderer.notifyData(particles.data(), particles.size());
 }
 
 template<typename T, typename TRenderer>
@@ -301,12 +336,22 @@ void ParticleManager<T, TRenderer>::clearAndReset() {
 
 template<typename T, typename TRenderer>
 void ParticleManager<T, TRenderer>::addToScene(rc::Scene* scene) {
-    // TODO
+    renderer.addToScene(scene);
 }
 
 template<typename T, typename TRenderer>
 void ParticleManager<T, TRenderer>::removeFromScene() {
-    // TODO
+    renderer.removeFromScene();
+}
+
+template<typename T, typename TRenderer>
+TRenderer& ParticleManager<T, TRenderer>::getRenderer() {
+    return renderer;
+}
+
+template<typename T, typename TRenderer>
+const TRenderer& ParticleManager<T, TRenderer>::getRenderer() const {
+    return renderer;
 }
 
 template<typename T, typename R>
@@ -324,7 +369,6 @@ void ParticleManager<T, R>::updateSink(TSink* sink, util::ThreadPool& pool, floa
     }
 
     for (auto& f : futures) { f.wait(); }
-    futures.clear();
 }
 
 template<typename T, typename TRenderer>
