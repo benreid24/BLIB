@@ -53,7 +53,7 @@ public:
      * @param ...args Arguments to construct the affector with
      * @return A pointer to the new affector
      */
-    template<typename U, template... TArgs>
+    template<typename U, typename... TArgs>
     U* addAffector(TArgs&&... args);
 
     /**
@@ -93,7 +93,7 @@ public:
      * @param ...args Arguments to construct the emitter with
      * @return A pointer to the new emitter
      */
-    template<typename U, template... TArgs>
+    template<typename U, typename... TArgs>
     U* addEmitter(TArgs&&... args);
 
     /**
@@ -133,7 +133,7 @@ public:
      * @param ...args Arguments to construct the sink with
      * @return A pointer to the new sink
      */
-    template<typename U, template... TArgs>
+    template<typename U, typename... TArgs>
     U* addSink(TArgs&&... args);
 
     /**
@@ -172,19 +172,16 @@ public:
     virtual void clearAndReset() override;
 
     /**
-     * @brief Called when the particle manager should be rendered in the given scene. May be called
-     *        multiple times in order for multiple observers to view the same particles
+     * @brief Called when the particle manager should be rendered in the given scene
      *
      * @param scene The scene to add to
      */
     virtual void addToScene(rc::Scene* scene) override;
 
     /**
-     * @brief Called when the particles should be removed from the given scene
-     *
-     * @param scene The scene to remove from. Pass nullptr to remove from all
+     * @brief Called when the particles should be removed from its current scene
      */
-    virtual void removeFromScene(rc::Scene* scene) override;
+    virtual void removeFromScene() override;
 
 private:
     constexpr std::size_t ParticlesPerThread = 800;
@@ -228,13 +225,95 @@ void ParticleManager<T, R>::update(util::ThreadPool& threadPool, float dt, float
         // update sinks first to populate freelist
         for (auto& sink : sinks) { updateSink(sink.get(), threadPool, dt, realDt); }
     }
+
+    // run emitters to fill holes
+    // TODO
+
+    // run affectors over all particles
+    // TODO
+}
+
+template<typename T, typename TRenderer>
+void ParticleManager<T, TRenderer>::removeAffector(TAffector* affector) {
+    std::unique_lock lock(mutex);
+
+    for (auto it = affectors.begin(); it != affectors.end(); ++it) {
+        if (&*it == affector) {
+            affectors.erase(it);
+            return;
+        }
+    }
+}
+
+template<typename T, typename TRenderer>
+void ParticleManager<T, TRenderer>::removeAllAffectors() {
+    std::unique_lock lock(mutex);
+    affectors.clear();
+}
+
+template<typename T, typename TRenderer>
+void ParticleManager<T, TRenderer>::removeEmitter(TEmitter* emitter) {
+    std::unique_lock lock(mutex);
+
+    for (auto it = emitters.begin(); it != emitters.end(); ++it) {
+        if (&*it == emitter) {
+            emitters.erase(it);
+            return;
+        }
+    }
+}
+
+template<typename T, typename TRenderer>
+void ParticleManager<T, TRenderer>::removeAllEmitters() {
+    std::unique_lock lock(mutex);
+    emitters.clear();
+}
+
+template<typename T, typename TRenderer>
+void ParticleManager<T, TRenderer>::removeSink(TSink* sink) {
+    std::unique_lock lock(mutex);
+
+    for (auto it = sinks.begin(); it != sinks.end(); ++it) {
+        if (&*it == sink) {
+            sinks.erase(it);
+            return;
+        }
+    }
+}
+
+template<typename T, typename TRenderer>
+void ParticleManager<T, TRenderer>::removeAllSinks() {
+    std::unique_lock lock(mutex);
+    sinks.clear();
+}
+
+template<typename T, typename TRenderer>
+void ParticleManager<T, TRenderer>::clearAndReset() {
+    std::unique_lock lock(mutex);
+
+    affectors.clear();
+    emitters.clear();
+    sinks.clear();
+    particles.clear();
+    freed.clear();
+    freeList.clear();
+}
+
+template<typename T, typename TRenderer>
+void ParticleManager<T, TRenderer>::addToScene(rc::Scene* scene) {
+    // TODO
+}
+
+template<typename T, typename TRenderer>
+void ParticleManager<T, TRenderer>::removeFromScene() {
+    // TODO
 }
 
 template<typename T, typename R>
 void ParticleManager<T, R>::updateSink(TSink* sink, util::ThreadPool& pool, float dt,
                                        float realDt) {
     std::vector<std::future<void>> futures;
-    TSink::Proxy sinkProxy(releaseMutex, particles.begin(), freeList, freed);
+    TSink::Proxy sinkProxy(releaseMutex, &particles.front(), freeList, freed);
 
     auto it = particles.begin();
     while (it != particles.end()) {
@@ -246,6 +325,108 @@ void ParticleManager<T, R>::updateSink(TSink* sink, util::ThreadPool& pool, floa
 
     for (auto& f : futures) { f.wait(); }
     futures.clear();
+}
+
+template<typename T, typename TRenderer>
+template<typename U, typename... TArgs>
+U* ParticleManager<T, TRenderer>::addAffector(TArgs&&... args) {
+    static_assert(std::is_base_of_v<Affector, U>, "U must derive from Affector");
+    std::unique_lock lock(mutex);
+
+    U* affector = new U(std::forward<TArgs>(args)...);
+    affectors.emplace_back(affector);
+    return affector;
+}
+
+template<typename T, typename TRenderer>
+template<typename U>
+U* ParticleManager<T, TRenderer>::getAffector() {
+    static_assert(std::is_base_of_v<Affector, U>, "U must derive from Affector");
+    std::unique_lock lock(mutex);
+
+    for (auto& a : affectors) {
+        U* u = dynamic_cast<U*>(a.get());
+        if (u) { return u; }
+    }
+    return nullptr;
+}
+
+template<typename T, typename TRenderer>
+template<typename U>
+void ParticleManager<T, TRenderer>::removeAffectors() {
+    static_assert(std::is_base_of_v<Affector, U>, "U must derive from Affector");
+    std::unique_lock lock(mutex);
+
+    std::erase_if(affectors,
+                  [](std::unique_tr<Affector>& a) { return dynamic_cast<U*>(a.get()) != nullptr; });
+}
+
+template<typename T, typename TRenderer>
+template<typename U, typename... TArgs>
+U* ParticleManager<T, TRenderer>::addEmitter(TArgs&&... args) {
+    static_assert(std::is_base_of_v<Emitter, U>, "U must derive from Emitter");
+    std::unique_lock lock(mutex);
+
+    U* emitter = new U(std::forward<TArgs>(args)...);
+    emitters.emplace_back(emitter);
+    return emitter;
+}
+
+template<typename T, typename TRenderer>
+template<typename U>
+U* ParticleManager<T, TRenderer>::getEmitter() {
+    static_assert(std::is_base_of_v<Emitter, U>, "U must derive from Emitter");
+    std::unique_lock lock(mutex);
+
+    for (auto& e : emitters) {
+        U* u = dynamic_cast<U*>(e.get());
+        if (u) { return u; }
+    }
+    return nullptr;
+}
+
+template<typename T, typename TRenderer>
+template<typename U>
+void ParticleManager<T, TRenderer>::removeEmitters() {
+    static_assert(std::is_base_of_v<Emitter, U>, "U must derive from Emitter");
+    std::unique_lock lock(mutex);
+
+    std::erase_if(emitters,
+                  [](std::unique_ptr<Emitter>& e) { return dynamic_cast<U*>(e.get()) != nullptr; });
+}
+
+template<typename T, typename TRenderer>
+template<typename U, typename... TArgs>
+U* ParticleManager<T, TRenderer>::addSink(TArgs&&... args) {
+    static_assert(std::is_base_of_v<Sink, U>, "U must derive from Sink");
+    std::unique_lock lock(mutex);
+
+    U* sink = new U(std::forward<TArgs>(args)...);
+    sinks.emplace_back(sink);
+    return sink;
+}
+
+template<typename T, typename TRenderer>
+template<typename U>
+U* ParticleManager<T, TRenderer>::getSink() {
+    static_assert(std::is_base_of_v<Sink, U>, "U must derive from Sink");
+    std::unique_lock lock(mutex);
+
+    for (auto& s : sinks) {
+        U* u = dynamic_cast<U*>(s.get());
+        if (u) { return u; }
+    }
+    return nullptr;
+}
+
+template<typename T, typename TRenderer>
+template<typename U>
+void ParticleManager<T, TRenderer>::removeSinks() {
+    static_assert(std::is_base_of_v<Sink, U>, "U must derive from Sink");
+    std::unique_lock lock(mutex);
+
+    std::erase_if(sinks,
+                  [](std::unique_ptr<Sink>& s) { return dynamic_cast<U*>(s.get()) != nullptr; });
 }
 
 } // namespace pcl

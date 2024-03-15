@@ -24,8 +24,7 @@ public:
     virtual ~Renderer() = default;
 
     /**
-     * @brief Called when the particle manager should be rendered in the given scene. May be called
-     *        multiple times in order for multiple observers to view the same particles
+     * @brief Called when the particle manager should be rendered in the given scene
      *
      * @param scene The scene to add to
      */
@@ -35,11 +34,9 @@ public:
     }
 
     /**
-     * @brief Called when the particles should be removed from the given scene
-     *
-     * @param scene The scene to remove from. Pass nullptr to remove from all
+     * @brief Called when the particles should be removed from its current scene
      */
-    void removeFromScene(rc::Scene* scene) {
+    void removeFromScene() {
         BL_LOG_CRITICAL << "Called removeFromScene on default renderer";
         (void)scene;
     }
