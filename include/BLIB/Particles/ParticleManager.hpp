@@ -377,7 +377,7 @@ void ParticleManager<T, R>::updateSink(TSink* sink, util::ThreadPool& pool, floa
 template<typename T, typename TRenderer>
 template<typename U, typename... TArgs>
 U* ParticleManager<T, TRenderer>::addAffector(TArgs&&... args) {
-    static_assert(std::is_base_of_v<Affector, U>, "U must derive from Affector");
+    static_assert(std::is_base_of_v<TAffector, U>, "U must derive from Affector");
     std::unique_lock lock(mutex);
 
     U* affector = new U(std::forward<TArgs>(args)...);
@@ -388,7 +388,7 @@ U* ParticleManager<T, TRenderer>::addAffector(TArgs&&... args) {
 template<typename T, typename TRenderer>
 template<typename U>
 U* ParticleManager<T, TRenderer>::getAffector() {
-    static_assert(std::is_base_of_v<Affector, U>, "U must derive from Affector");
+    static_assert(std::is_base_of_v<TAffector, U>, "U must derive from Affector");
     std::unique_lock lock(mutex);
 
     for (auto& a : affectors) {
@@ -401,7 +401,7 @@ U* ParticleManager<T, TRenderer>::getAffector() {
 template<typename T, typename TRenderer>
 template<typename U>
 void ParticleManager<T, TRenderer>::removeAffectors() {
-    static_assert(std::is_base_of_v<Affector, U>, "U must derive from Affector");
+    static_assert(std::is_base_of_v<TAffector, U>, "U must derive from Affector");
     std::unique_lock lock(mutex);
 
     std::erase_if(affectors, [](std::unique_ptr<TAffector>& a) {
@@ -412,7 +412,7 @@ void ParticleManager<T, TRenderer>::removeAffectors() {
 template<typename T, typename TRenderer>
 template<typename U, typename... TArgs>
 U* ParticleManager<T, TRenderer>::addEmitter(TArgs&&... args) {
-    static_assert(std::is_base_of_v<Emitter, U>, "U must derive from Emitter");
+    static_assert(std::is_base_of_v<TEmitter, U>, "U must derive from Emitter");
     std::unique_lock lock(mutex);
 
     U* emitter = new U(std::forward<TArgs>(args)...);
@@ -423,7 +423,7 @@ U* ParticleManager<T, TRenderer>::addEmitter(TArgs&&... args) {
 template<typename T, typename TRenderer>
 template<typename U>
 U* ParticleManager<T, TRenderer>::getEmitter() {
-    static_assert(std::is_base_of_v<Emitter, U>, "U must derive from Emitter");
+    static_assert(std::is_base_of_v<TEmitter, U>, "U must derive from Emitter");
     std::unique_lock lock(mutex);
 
     for (auto& e : emitters) {
@@ -436,7 +436,7 @@ U* ParticleManager<T, TRenderer>::getEmitter() {
 template<typename T, typename TRenderer>
 template<typename U>
 void ParticleManager<T, TRenderer>::removeEmitters() {
-    static_assert(std::is_base_of_v<Emitter, U>, "U must derive from Emitter");
+    static_assert(std::is_base_of_v<TEmitter, U>, "U must derive from Emitter");
     std::unique_lock lock(mutex);
 
     std::erase_if(emitters, [](std::unique_ptr<TEmitter>& e) {
@@ -447,7 +447,7 @@ void ParticleManager<T, TRenderer>::removeEmitters() {
 template<typename T, typename TRenderer>
 template<typename U, typename... TArgs>
 U* ParticleManager<T, TRenderer>::addSink(TArgs&&... args) {
-    static_assert(std::is_base_of_v<Sink, U>, "U must derive from Sink");
+    static_assert(std::is_base_of_v<TSink, U>, "U must derive from Sink");
     std::unique_lock lock(mutex);
 
     U* sink = new U(std::forward<TArgs>(args)...);
@@ -458,7 +458,7 @@ U* ParticleManager<T, TRenderer>::addSink(TArgs&&... args) {
 template<typename T, typename TRenderer>
 template<typename U>
 U* ParticleManager<T, TRenderer>::getSink() {
-    static_assert(std::is_base_of_v<Sink, U>, "U must derive from Sink");
+    static_assert(std::is_base_of_v<TSink, U>, "U must derive from Sink");
     std::unique_lock lock(mutex);
 
     for (auto& s : sinks) {
@@ -471,7 +471,7 @@ U* ParticleManager<T, TRenderer>::getSink() {
 template<typename T, typename TRenderer>
 template<typename U>
 void ParticleManager<T, TRenderer>::removeSinks() {
-    static_assert(std::is_base_of_v<Sink, U>, "U must derive from Sink");
+    static_assert(std::is_base_of_v<TSink, U>, "U must derive from Sink");
     std::unique_lock lock(mutex);
 
     std::erase_if(sinks,
