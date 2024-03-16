@@ -257,7 +257,7 @@ void ParticleManager<T, R>::update(util::ThreadPool& threadPool, float dt, float
             auto it = particles.begin();
             while (it != particles.end()) {
                 const std::size_t len = std::min(particles.end() - it, ParticlesPerThread);
-                futures.emplace_back(threadPool.queueTask([this, &affector, it, dt, realDt]() {
+                futures.emplace_back(threadPool.queueTask([this, &affector, it, len, dt, realDt]() {
                     affector->update(std::span<T>(it, len), dt, realDt);
                 }));
             }
@@ -365,7 +365,7 @@ void ParticleManager<T, R>::updateSink(TSink* sink, util::ThreadPool& pool, floa
     futures.reserve(particles.size() / ParticlesPerThread + 1);
     while (it != particles.end()) {
         const std::size_t len = std::min(particles.end() - it, ParticlesPerThread);
-        futures.emplace_back([this, it, len, sink, dt, realDt]() {
+        futures.emplace_back([this, &proxy, it, len, sink, dt, realDt]() {
             sink->update(proxy, std::span<T>(it, len), dt, realDt);
         });
     }
