@@ -48,11 +48,9 @@ public:
     virtual void addToScene(rc::Scene* scene) = 0;
 
     /**
-     * @brief Called when the particles should be removed from the given scene
-     *
-     * @param scene The scene to remove from. Pass nullptr to remove from all
+     * @brief Called when the particles should be removed from its current scene
      */
-    virtual void removeFromScene(rc::Scene* scene) = 0;
+    virtual void removeFromScene() = 0;
 };
 
 } // namespace pcl
