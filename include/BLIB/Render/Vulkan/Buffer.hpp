@@ -61,9 +61,10 @@ public:
      *        least the given size
      *
      * @param size The size the buffer should be, at a minimum
+     * @param skipCopy Optionally skips copying the old buffer to the new if resized
      * @return True if the buffer was resized, false if it was big enough
      */
-    bool ensureSize(VkDeviceSize size);
+    bool ensureSize(VkDeviceSize size, bool skipCopy = false);
 
     /**
      * @brief Returns whether or not the buffer is currently created

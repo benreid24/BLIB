@@ -88,7 +88,7 @@ void Buffer::doDefer() {
     }
 }
 
-bool Buffer::ensureSize(VkDeviceSize newSize) {
+bool Buffer::ensureSize(VkDeviceSize newSize, bool skipCopy) {
     if (newSize > size) {
         doDefer();
 
@@ -97,56 +97,58 @@ bool Buffer::ensureSize(VkDeviceSize newSize) {
         size                       = newSize;
         if (!doCreate()) { throw std::runtime_error("Failed to resize buffer"); }
 
-        auto commandBuffer = vulkanState->sharedCommandPool.createBuffer();
+        if (!skipCopy) {
+            auto commandBuffer = vulkanState->sharedCommandPool.createBuffer();
 
-        // barrier to ensure writes to old buffer are complete
-        VkBufferMemoryBarrier barrier{};
-        barrier.sType         = VK_STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER;
-        barrier.buffer        = oldBuffer;
-        barrier.offset        = 0;
-        barrier.size          = oldSize;
-        barrier.srcAccessMask = VK_ACCESS_MEMORY_WRITE_BIT;
-        barrier.dstAccessMask = VK_ACCESS_MEMORY_READ_BIT;
-        vkCmdPipelineBarrier(commandBuffer,
-                             VK_PIPELINE_STAGE_TRANSFER_BIT,
-                             VK_PIPELINE_STAGE_TRANSFER_BIT,
-                             VK_DEPENDENCY_BY_REGION_BIT,
-                             0,
-                             nullptr,
-                             1,
-                             &barrier,
-                             0,
-                             nullptr);
+            // barrier to ensure writes to old buffer are complete
+            VkBufferMemoryBarrier barrier{};
+            barrier.sType         = VK_STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER;
+            barrier.buffer        = oldBuffer;
+            barrier.offset        = 0;
+            barrier.size          = oldSize;
+            barrier.srcAccessMask = VK_ACCESS_MEMORY_WRITE_BIT;
+            barrier.dstAccessMask = VK_ACCESS_MEMORY_READ_BIT;
+            vkCmdPipelineBarrier(commandBuffer,
+                                 VK_PIPELINE_STAGE_TRANSFER_BIT,
+                                 VK_PIPELINE_STAGE_TRANSFER_BIT,
+                                 VK_DEPENDENCY_BY_REGION_BIT,
+                                 0,
+                                 nullptr,
+                                 1,
+                                 &barrier,
+                                 0,
+                                 nullptr);
 
-        // copy old buffer into new
-        VkBufferCopy copyCmd{};
-        copyCmd.dstOffset = 0;
-        copyCmd.size      = oldSize;
-        copyCmd.srcOffset = 0;
-        vkCmdCopyBuffer(commandBuffer, oldBuffer, buffer, 1, &copyCmd);
+            // copy old buffer into new
+            VkBufferCopy copyCmd{};
+            copyCmd.dstOffset = 0;
+            copyCmd.size      = oldSize;
+            copyCmd.srcOffset = 0;
+            vkCmdCopyBuffer(commandBuffer, oldBuffer, buffer, 1, &copyCmd);
 
-        // insert pipeline barrier
-        VkBufferMemoryBarrier bufBarrier{};
-        bufBarrier.sType         = VK_STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER;
-        bufBarrier.srcAccessMask = VK_ACCESS_MEMORY_WRITE_BIT;
-        bufBarrier.dstAccessMask = VK_ACCESS_MEMORY_READ_BIT;
-        bufBarrier.buffer        = buffer;
-        bufBarrier.offset        = 0;
-        bufBarrier.size          = oldSize;
-        vkCmdPipelineBarrier(commandBuffer,
-                             VK_PIPELINE_STAGE_TRANSFER_BIT,
-                             VK_PIPELINE_STAGE_VERTEX_INPUT_BIT,
-                             VK_DEPENDENCY_BY_REGION_BIT,
-                             0,
-                             nullptr,
-                             1,
-                             &bufBarrier,
-                             0,
-                             nullptr);
+            // insert pipeline barrier
+            VkBufferMemoryBarrier bufBarrier{};
+            bufBarrier.sType         = VK_STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER;
+            bufBarrier.srcAccessMask = VK_ACCESS_MEMORY_WRITE_BIT;
+            bufBarrier.dstAccessMask = VK_ACCESS_MEMORY_READ_BIT;
+            bufBarrier.buffer        = buffer;
+            bufBarrier.offset        = 0;
+            bufBarrier.size          = oldSize;
+            vkCmdPipelineBarrier(commandBuffer,
+                                 VK_PIPELINE_STAGE_TRANSFER_BIT,
+                                 VK_PIPELINE_STAGE_VERTEX_INPUT_BIT,
+                                 VK_DEPENDENCY_BY_REGION_BIT,
+                                 0,
+                                 nullptr,
+                                 1,
+                                 &bufBarrier,
+                                 0,
+                                 nullptr);
 
-        commandBuffer.submit();
+            commandBuffer.submit();
 
-        return true;
+            return true;
+        }
     }
     return false;
 }
