@@ -252,16 +252,18 @@ void ParticleManager<T, R>::update(util::ThreadPool& threadPool, float dt, float
 
     // run affectors over all particles
     if (!affectors.empty()) {
-        futures.reserve(affectors.size());
-        for (auto& affector : affectors) {
-            auto it = particles.begin();
-            while (it != particles.end()) {
-                const std::size_t len = std::min(particles.end() - it, ParticlesPerThread);
-                futures.emplace_back(threadPool.queueTask([this, &affector, it, len, dt, realDt]() {
+        futures.reserve(particles.size() / ParticlesPerThread + 1);
+        auto it = particles.begin();
+        while (it != particles.end()) {
+            const std::size_t len = std::min(particles.end() - it, ParticlesPerThread);
+            futures.emplace_back(threadPool.queueTask([this, it, len, dt, realDt]() {
+                for (auto& affector : affectors) {
                     affector->update(std::span<T>(it, len), dt, realDt);
-                }));
-            }
+                }
+            }));
+            it += len;
         }
+
         for (auto& f : futures) { f.wait(); }
         futures.clear();
     }
