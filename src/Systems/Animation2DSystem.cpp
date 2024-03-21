@@ -23,11 +23,14 @@ Animation2DSystem::Animation2DSystem(rc::Renderer& renderer)
     slideshowDescriptorSets.emptyInit(renderer.vulkanState());
 }
 
-void Animation2DSystem::cleanup() {
+Animation2DSystem::~Animation2DSystem() {}
+
+void Animation2DSystem::earlyCleanup() {
     event::Dispatcher::unsubscribe(this);
     slideshowDescriptorSets.cleanup([](rc::vk::DescriptorSet& ds) { ds.release(); });
     slideshowFramesSSBO.destroy();
     slideshowFrameOffsetSSBO.destroy();
+    slideshowTextureSSBO.destroy();
     slideshowPlayerCurrentFrameSSBO.destroy();
     vertexAnimationData.clear();
 }
@@ -50,6 +53,7 @@ void Animation2DSystem::init(engine::Engine& engine) {
 
     slideshowFramesSSBO.create(renderer.vulkanState(), InitialSlideshowFrameCapacity);
     slideshowFrameOffsetSSBO.create(renderer.vulkanState(), 32);
+    slideshowTextureSSBO.create(renderer.vulkanState(), 32);
     slideshowPlayerCurrentFrameSSBO.create(renderer.vulkanState(), 32);
 
     event::Dispatcher::subscribe(this);
@@ -60,16 +64,6 @@ void Animation2DSystem::update(std::mutex&, float dt, float, float, float) {
     players->forEach([dt](ecs::Entity, com::Animation2DPlayer& player) { player.update(dt); });
 
     // perform slideshow uploads
-    if (slideshowFrameUploadRange.needsUpload()) {
-        slideshowFramesSSBO.transferRange(slideshowFrameUploadRange.start,
-                                          slideshowFrameUploadRange.size);
-        slideshowFrameUploadRange.reset();
-    }
-    if (slideshowOffsetUploadRange.needsUpload()) {
-        slideshowFrameOffsetSSBO.transferRange(slideshowOffsetUploadRange.start,
-                                               slideshowOffsetUploadRange.size);
-        slideshowOffsetUploadRange.reset();
-    }
     slideshowPlayerCurrentFrameSSBO.transferAll(); // always upload all play indices
 
     // sync vertex animation draw parameters
@@ -127,14 +121,25 @@ void Animation2DSystem::doSlideshowAdd(com::Animation2DPlayer& player) {
     // add frame offset and current frame to SSBO's
     slideshowFrameOffsetSSBO.ensureSize(index + 1);
     if (slideshowPlayerCurrentFrameSSBO.ensureSize(index + 1)) {
-        players->forEach([this](ecs::Entity, com::Animation2DPlayer& player) {
-            slideshowPlayerCurrentFrameSSBO.assignRef(player.framePayload, player.playerIndex);
+        players->forEach([this](ecs::Entity, com::Animation2DPlayer& p) {
+            if (p.framePayload.valid()) {
+                slideshowPlayerCurrentFrameSSBO.assignRef(p.framePayload, p.playerIndex);
+            }
         });
     }
     else { slideshowPlayerCurrentFrameSSBO.assignRef(player.framePayload, player.playerIndex); }
     slideshowFrameOffsetSSBO[index]        = offset;
     slideshowPlayerCurrentFrameSSBO[index] = player.currentFrame;
-    slideshowOffsetUploadRange.addRange(index, 1);
+    slideshowFrameOffsetSSBO.expandTransferRange(index, 1);
+
+    // fetch texture to convert texCoords and set texture id
+    rc::res::TextureRef texture = renderer.texturePool().getOrLoadTexture(
+        player.animation->resolvedSpritesheet(),
+        renderer.vulkanState().samplerCache.noFilterEdgeClamped()); // TODO - parameterize?
+    player.texture = texture;
+    slideshowTextureSSBO.ensureSize(index + 1);
+    slideshowTextureSSBO[index] = texture.id();
+    slideshowTextureSSBO.expandTransferRange(index, 1);
 
     // add frames to SSBO if required
     if (uploadFrames) {
@@ -145,12 +150,13 @@ void Animation2DSystem::doSlideshowAdd(com::Animation2DPlayer& player) {
             auto& frame              = slideshowFramesSSBO[offset + i];
             const sf::FloatRect& tex = src.normalizedSource;
             frame.opacity            = static_cast<float>(src.alpha) / 255.f;
-            frame.texCoords[0]       = {tex.left, tex.top};
-            frame.texCoords[1]       = {tex.left + tex.width, tex.top};
-            frame.texCoords[2]       = {tex.left + tex.width, tex.top + tex.height};
-            frame.texCoords[3]       = {tex.left, tex.top + tex.height};
+            frame.texCoords[0]       = texture->convertCoord({tex.left, tex.top});
+            frame.texCoords[1]       = texture->convertCoord({tex.left + tex.width, tex.top});
+            frame.texCoords[2] =
+                texture->convertCoord({tex.left + tex.width, tex.top + tex.height});
+            frame.texCoords[3] = texture->convertCoord({tex.left, tex.top + tex.height});
         }
-        slideshowFrameUploadRange.addRange(offset, player.animation->frameCount());
+        slideshowFramesSSBO.expandTransferRange(offset, player.animation->frameCount());
     }
     slideshowDataRefCounts[player.animation.get()] += 1;
 
@@ -181,7 +187,7 @@ void Animation2DSystem::doSlideshowFree(const com::Animation2DPlayer& player) {
 }
 
 void Animation2DSystem::updateSlideshowDescriptorSets() {
-    VkWriteDescriptorSet setWrites[3]{};
+    VkWriteDescriptorSet setWrites[4]{};
 
     // (re)allocate the descriptor sets
     slideshowDescriptorSets.current().allocate(descriptorLayout);
@@ -200,34 +206,48 @@ void Animation2DSystem::updateSlideshowDescriptorSets() {
     setWrites[0].pBufferInfo     = &frameOffsetWrite;
     setWrites[0].descriptorType  = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
 
-    // current frames (binding 1)
-    VkDescriptorBufferInfo currentFrameWrite{};
-    currentFrameWrite.buffer =
-        slideshowPlayerCurrentFrameSSBO.gpuBufferHandles().current().getBuffer();
-    currentFrameWrite.offset = 0;
-    currentFrameWrite.range  = slideshowPlayerCurrentFrameSSBO.getTotalRange();
+    // texture id (binding 1)
+    VkDescriptorBufferInfo textureIdWrite{};
+    textureIdWrite.buffer = slideshowTextureSSBO.gpuBufferHandle().getBuffer();
+    textureIdWrite.offset = 0;
+    textureIdWrite.range  = slideshowTextureSSBO.getTotalRange();
 
     setWrites[1].sType           = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
     setWrites[1].descriptorCount = 1;
     setWrites[1].dstBinding      = 1;
     setWrites[1].dstArrayElement = 0;
     setWrites[1].dstSet          = slideshowDescriptorSets.current().getSet();
-    setWrites[1].pBufferInfo     = &currentFrameWrite;
+    setWrites[1].pBufferInfo     = &textureIdWrite;
     setWrites[1].descriptorType  = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
 
-    // frame data (binding 2)
-    VkDescriptorBufferInfo frameDataWrite{};
-    frameDataWrite.buffer = slideshowFramesSSBO.gpuBufferHandle().getBuffer();
-    frameDataWrite.offset = 0;
-    frameDataWrite.range  = slideshowFramesSSBO.getTotalRange();
+    // current frames (binding 2)
+    VkDescriptorBufferInfo currentFrameWrite{};
+    currentFrameWrite.buffer =
+        slideshowPlayerCurrentFrameSSBO.gpuBufferHandles().current().getBuffer();
+    currentFrameWrite.offset = 0;
+    currentFrameWrite.range  = slideshowPlayerCurrentFrameSSBO.getTotalRange();
 
     setWrites[2].sType           = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
     setWrites[2].descriptorCount = 1;
     setWrites[2].dstBinding      = 2;
     setWrites[2].dstArrayElement = 0;
     setWrites[2].dstSet          = slideshowDescriptorSets.current().getSet();
-    setWrites[2].pBufferInfo     = &frameDataWrite;
+    setWrites[2].pBufferInfo     = &currentFrameWrite;
     setWrites[2].descriptorType  = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
+
+    // frame data (binding 3)
+    VkDescriptorBufferInfo frameDataWrite{};
+    frameDataWrite.buffer = slideshowFramesSSBO.gpuBufferHandle().getBuffer();
+    frameDataWrite.offset = 0;
+    frameDataWrite.range  = slideshowFramesSSBO.getTotalRange();
+
+    setWrites[3].sType           = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+    setWrites[3].descriptorCount = 1;
+    setWrites[3].dstBinding      = 3;
+    setWrites[3].dstArrayElement = 0;
+    setWrites[3].dstSet          = slideshowDescriptorSets.current().getSet();
+    setWrites[3].pBufferInfo     = &frameDataWrite;
+    setWrites[3].descriptorType  = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
 
     // perform write
     vkUpdateDescriptorSets(
@@ -247,8 +267,7 @@ Animation2DSystem::VertexAnimation* Animation2DSystem::doNonSlideshowCreate(
     const com::Animation2DPlayer& player) {
     auto it = vertexAnimationData.find(player.animation.get());
     if (it == vertexAnimationData.end()) {
-        it = vertexAnimationData
-                 .try_emplace(player.animation.get(), renderer.vulkanState(), *player.animation)
+        it = vertexAnimationData.try_emplace(player.animation.get(), renderer, *player.animation)
                  .first;
     }
     return &it->second;
@@ -270,7 +289,7 @@ void Animation2DSystem::tryFreeVertexData(const com::Animation2DPlayer& player) 
     }
 }
 
-Animation2DSystem::VertexAnimation::VertexAnimation(rc::vk::VulkanState& vs,
+Animation2DSystem::VertexAnimation::VertexAnimation(rc::Renderer& renderer,
                                                     const gfx::a2d::AnimationData& anim)
 : useCount(0) {
     unsigned int shardCount = 0;
@@ -281,7 +300,11 @@ Animation2DSystem::VertexAnimation::VertexAnimation(rc::vk::VulkanState& vs,
         frameToIndices.resize(anim.frameCount(), {});
 
         // allocate buffer
-        indexBuffer.create(vs, shardCount * 4, shardCount * 6);
+        indexBuffer.create(renderer.vulkanState(), shardCount * 4, shardCount * 6);
+
+        // fetch texture to convert texCoords
+        rc::res::TextureRef texture =
+            renderer.texturePool().getOrLoadTexture(anim.resolvedSpritesheet());
 
         // populate buffer
         std::uint32_t vi = 0;
@@ -352,6 +375,10 @@ Animation2DSystem::VertexAnimation::VertexAnimation(rc::vk::VulkanState& vs,
                 indexBuffer.vertices()[vbase + 3].texCoord = {shard.normalizedSource.left,
                                                               shard.normalizedSource.top +
                                                                   shard.normalizedSource.height};
+                for (unsigned int i = 0; i < 4; ++i) {
+                    indexBuffer.vertices()[vbase + i].texCoord =
+                        texture->convertCoord(indexBuffer.vertices()[vbase + i].texCoord);
+                }
             }
 
             vi += frame.shards.size() * 4;

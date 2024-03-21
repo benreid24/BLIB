@@ -12,5 +12,10 @@ void Circle::create(engine::Engine& engine, float r) {
     SingleShape2D::create(engine);
 }
 
+void Circle::create(engine::Engine& engine, ecs::Entity existing, float r) {
+    setRadius(r);
+    SingleShape2D::create(engine, existing);
+}
+
 } // namespace gfx
 } // namespace bl

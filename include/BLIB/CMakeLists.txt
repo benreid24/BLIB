@@ -18,6 +18,7 @@ target_sources(BLIB PUBLIC
     Scripts.hpp
     Serialization.hpp
     Systems.hpp
+    Tilemap.hpp
     Util.hpp
 )
 
@@ -40,4 +41,5 @@ add_subdirectory(Render)
 add_subdirectory(Scripts)
 add_subdirectory(Serialization)
 add_subdirectory(Systems)
+add_subdirectory(Tilemap)
 add_subdirectory(Util)

@@ -1,6 +1,7 @@
 #ifndef BLIB_RENDER_SCENES_SCENE2D_HPP
 #define BLIB_RENDER_SCENES_SCENE2D_HPP
 
+#include <BLIB/Render/Lighting/Scene2DLighting.hpp>
 #include <BLIB/Render/Scenes/BatchedScene.hpp>
 
 namespace bl
@@ -28,6 +29,11 @@ public:
      */
     virtual ~Scene2D() = default;
 
+    /**
+     * @brief Returns the scene lighting manager for this scene
+     */
+    lgt::Scene2DLighting& getLighting() { return lighting; }
+
 protected:
     /**
      * @brief Creates a 2d camera
@@ -40,6 +46,9 @@ protected:
      * @param camera The camera to initialize
      */
     virtual void setDefaultNearAndFarPlanes(cam::Camera& camera) const override;
+
+private:
+    lgt::Scene2DLighting lighting;
 };
 
 } // namespace scene

@@ -29,6 +29,15 @@ public:
      * @param radius The circle radius in local units
      */
     void create(engine::Engine& engine, float radius);
+
+    /**
+     * @brief Creates the circle components on an existing entity
+     *
+     * @param engine The game engine instance
+     * @param existingEntity The entity to add the sprite components to
+     * @param radius The circle radius in local units
+     */
+    void create(engine::Engine& engine, ecs::Entity existingEntity, float radius);
 };
 
 } // namespace gfx

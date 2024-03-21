@@ -1,5 +1,7 @@
 #include <Render/Vulkan/Utils/SwapChainSupportDetails.hpp>
 
+#include <BLIB/Render/Vulkan/VkCheck.hpp>
+
 namespace bl
 {
 namespace rc
@@ -9,13 +11,14 @@ SwapChainSupportDetails::SwapChainSupportDetails(VkPhysicalDevice device, VkSurf
 }
 
 void SwapChainSupportDetails::populate(VkPhysicalDevice device, VkSurfaceKHR surface) {
-    vkGetPhysicalDeviceSurfaceCapabilitiesKHR(device, surface, &capabilities);
+    vkCheck(vkGetPhysicalDeviceSurfaceCapabilitiesKHR(device, surface, &capabilities));
 
-    std::uint32_t formatCount;
-    vkGetPhysicalDeviceSurfaceFormatsKHR(device, surface, &formatCount, nullptr);
+    std::uint32_t formatCount = 0;
+    vkCheck(vkGetPhysicalDeviceSurfaceFormatsKHR(device, surface, &formatCount, nullptr));
     if (formatCount != 0) {
         formats.resize(formatCount);
-        vkGetPhysicalDeviceSurfaceFormatsKHR(device, surface, &formatCount, formats.data());
+        vkCheck(
+            vkGetPhysicalDeviceSurfaceFormatsKHR(device, surface, &formatCount, formats.data()));
     }
 
     std::uint32_t presentModeCount;
@@ -39,9 +42,9 @@ const VkSurfaceFormatKHR& SwapChainSupportDetails::swapSurfaceFormat() const {
 }
 
 VkPresentModeKHR SwapChainSupportDetails::presentationMode(bool noVsync) const {
-    const auto requestedMode =
+    const VkPresentModeKHR requestedMode =
         noVsync ? VK_PRESENT_MODE_IMMEDIATE_KHR : VK_PRESENT_MODE_MAILBOX_KHR;
-    for (const VkPresentModeKHR& mode : presentModes) {
+    for (const VkPresentModeKHR mode : presentModes) {
         if (mode == requestedMode) { return mode; }
     }
     BL_LOG_DEBUG << "VK_PRESENT_MODE_MAILBOX_KHR not supported, falling back to "

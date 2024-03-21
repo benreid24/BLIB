@@ -10,22 +10,27 @@ namespace bcom
 {
 EntityBacked::EntityBacked()
 : enginePtr(nullptr)
-, ecsId(ecs::InvalidEntity) {}
+, ecsId(ecs::InvalidEntity)
+, isDestroyed(true) {}
 
 EntityBacked::EntityBacked(EntityBacked&& move)
 : enginePtr(move.enginePtr)
-, ecsId(move.ecsId) {
+, ecsId(move.ecsId)
+, isDestroyed(move.isDestroyed) {
     move.enginePtr = nullptr;
     move.ecsId     = ecs::InvalidEntity;
 }
 
-EntityBacked::~EntityBacked() { destroy(); }
+EntityBacked::~EntityBacked() {
+    if (isDestroyed) { destroy(); }
+}
 
 EntityBacked& EntityBacked::operator=(EntityBacked&& move) {
     destroy();
 
     enginePtr      = move.enginePtr;
     ecsId          = move.ecsId;
+    isDestroyed    = move.isDestroyed;
     move.enginePtr = nullptr;
     move.ecsId     = ecs::InvalidEntity;
 
@@ -44,6 +49,13 @@ void EntityBacked::createEntityOnly(engine::Engine& engine, ecs::Flags flags) {
     enginePtr = &engine;
     ecsId     = engine.ecs().createEntity(flags);
 }
+
+void EntityBacked::createFromExistingEntity(engine::Engine& engine, ecs::Entity ent) {
+    enginePtr = &engine;
+    ecsId     = ent;
+}
+
+void EntityBacked::deleteEntityOnDestroy(bool d) { isDestroyed = d; }
 
 void EntityBacked::setParent(const EntityBacked& parent) {
     enginePtr->ecs().setEntityParent(ecsId, parent.ecsId);

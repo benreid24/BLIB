@@ -99,7 +99,7 @@ TEST(Grid, IterateCells) {
         ASSERT_NE(it, inRegion.end()) << "Failed to find " + std::to_string(val);
         inRegion.erase(it);
     };
-    grid.forAllInCellAndNeighbors({55.f, 55.f}, visitor);
+    grid.forAllInCellAndNeighbors(sf::Vector2f{55.f, 55.f}, visitor);
     EXPECT_TRUE(inRegion.empty());
 }
 
@@ -123,7 +123,7 @@ TEST(Grid, IterateEndEarly) {
         return val == 10;
     };
 
-    grid.forAllInCellAndNeighbors({55.f, 55.f}, visitor);
+    grid.forAllInCellAndNeighbors(sf::Vector2f{55.f, 55.f}, visitor);
     EXPECT_EQ(lastSeen, 10);
 }
 

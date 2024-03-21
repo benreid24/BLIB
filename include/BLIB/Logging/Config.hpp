@@ -78,8 +78,8 @@ private:
     std::list<std::fstream> files;
 
     void doWrite(const std::string& content, int level);
-
     std::string genPrefix(int level) const;
+    static void configureOutputLocked(std::ostream& output, int logLevel);
 
     Config();
     static Config& get();

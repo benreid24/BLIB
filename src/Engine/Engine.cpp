@@ -3,6 +3,7 @@
 #include <BLIB/Audio.hpp>
 #include <BLIB/Logging.hpp>
 #include <BLIB/Resources/GarbageCollector.hpp>
+#include <BLIB/Resources/State.hpp>
 #include <BLIB/Systems.hpp>
 #include <SFML/Window.hpp>
 #include <cmath>
@@ -30,6 +31,7 @@ Engine::~Engine() {
     if (renderingSystem.vulkanState().device) {
         vkCheck(vkDeviceWaitIdle(renderingSystem.vulkanState().device));
     }
+
     while (!states.empty()) {
         if (states.top().use_count() != 1) {
             BL_LOG_ERROR << "Dangling pointer to state: " << states.top()->name();
@@ -40,13 +42,26 @@ Engine::~Engine() {
         BL_LOG_ERROR << "Dangling pointer to state: " << newState->name();
     }
     newState.reset();
+
+    if (renderWindow.isOpen()) { renderWindow.close(); }
+
+    systems().earlyCleanup();
     entityRegistry.destroyAllEntities();
+
+    audio::AudioSystem::shutdown();
+
+    resource::State::appExiting = true;
+    resource::GarbageCollector::get().clear();
+
+    systems().cleanup();
 
     if (renderWindow.isOpen()) {
         renderingSystem.cleanup();
         renderWindow.close();
     }
-    audio::AudioSystem::shutdown();
+
+    // reset resource manager state for other instances
+    resource::State::appExiting = false;
 }
 
 void Engine::pushState(State::Ptr next) {
@@ -103,6 +118,12 @@ bool Engine::run(State::Ptr initialState) {
     if (engineSettings.createWindow()) {
         if (!reCreateWindow(engineSettings.windowParameters())) { return false; }
         renderingSystem.initialize();
+        if (engineSettings.windowParameters().letterBox()) {
+            sf::Event::SizeEvent e{};
+            e.width  = renderWindow.getSfWindow().getSize().x;
+            e.height = renderWindow.getSfWindow().getSize().y;
+            handleResize(e, false);
+        }
     }
     ecsSystems.init();
 
@@ -149,6 +170,8 @@ bool Engine::run(State::Ptr initialState) {
                 }
             }
         }
+
+        ecsSystems.notifyFrameStart();
 
         // Update and render
         lag += updateOuterTimer.getElapsedTime().asSeconds() * timeScale;
@@ -306,6 +329,8 @@ bool Engine::reCreateWindow(const Settings::WindowParameters& params) {
         else { BL_LOG_WARN << "Failed to load icon: " << params.icon(); }
     }
 
+    if (renderingSystem.vulkanState().device) { renderingSystem.processWindowRecreate(); }
+
     // also saves to config
     updateExistingWindow(params);
 
@@ -378,7 +403,7 @@ float Engine::getTimeScale() const { return timeScale; }
 
 void Engine::resetTimeScale() { timeScale = 1.f; }
 
-void Engine::postStateChange(const State::Ptr& prev) {
+void Engine::postStateChange(State::Ptr& prev) {
     states.top()->activate(*this);
     bl::event::Dispatcher::dispatch<event::StateChange>({states.top(), prev});
     if (renderingSystem.vulkanState().device) { renderingSystem.texturePool().releaseUnused(); }

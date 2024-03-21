@@ -11,6 +11,11 @@
 
 namespace bl
 {
+namespace engine
+{
+class Engine;
+}
+
 namespace resource
 {
 class ResourceManagerBase;
@@ -26,7 +31,6 @@ public:
     /**
      * @brief Shuts down the GC if running and frees all remaining resources. Call at the end of
      *        main()
-     *
      */
     static void shutdownAndClear();
 
@@ -42,6 +46,7 @@ private:
     GarbageCollector();
     ~GarbageCollector();
     void stop();
+    void clear();
     void runner();
     unsigned int soonestIndex() const;
 
@@ -54,6 +59,8 @@ private:
     friend class FileSystem;
 
     static GarbageCollector& get();
+
+    friend class engine::Engine;
 };
 
 } // namespace resource

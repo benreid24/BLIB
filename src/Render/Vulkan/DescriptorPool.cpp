@@ -127,6 +127,8 @@ DescriptorPool::Subpool::Subpool(VulkanState& vs)
 : vulkanState(vs)
 , freeSets(MaxSets)
 , available(PoolSizes) {
+    BL_LOG_INFO << "Allocated shared pool: " << this;
+
     std::array<VkDescriptorPoolSize, PoolSizes.size()> sizes;
     for (std::size_t i = 0; i < PoolSizes.size(); ++i) {
         sizes[i].type            = static_cast<VkDescriptorType>(i);
@@ -148,6 +150,8 @@ DescriptorPool::Subpool::Subpool(VulkanState& vs, const SetBindingInfo& allocInf
                                  std::size_t setCount)
 : vulkanState(vs)
 , freeSets(0) {
+    BL_LOG_INFO << "Allocated dedicated pool: " << this;
+
     auto bindings = allocInfo.bindings;
     for (auto& binding : bindings) { binding.descriptorCount *= setCount; }
 
@@ -167,7 +171,10 @@ DescriptorPool::Subpool::Subpool(VulkanState& vs, const SetBindingInfo& allocInf
     }
 }
 
-DescriptorPool::Subpool::~Subpool() { vkDestroyDescriptorPool(vulkanState.device, pool, nullptr); }
+DescriptorPool::Subpool::~Subpool() {
+    BL_LOG_INFO << "Released pool: " << this;
+    vkDestroyDescriptorPool(vulkanState.device, pool, nullptr);
+}
 
 bool DescriptorPool::Subpool::canAllocate(const SetBindingInfo& allocInfo,
                                           std::size_t setCount) const {
@@ -176,7 +183,9 @@ bool DescriptorPool::Subpool::canAllocate(const SetBindingInfo& allocInfo,
     for (std::size_t i = 0; i < setCount; ++i) {
         for (std::size_t j = 0; j < allocInfo.bindingCount; ++j) {
             const auto& binding = allocInfo.bindings[j];
-            if (available[binding.descriptorType] < binding.descriptorCount) { return false; }
+            if (available[binding.descriptorType] < binding.descriptorCount * setCount) {
+                return false;
+            }
         }
     }
 

@@ -15,7 +15,6 @@ namespace com
  */
 struct BatchSceneLink : public ecs::trait::ChildAware<BatchSceneLink> {
     rc::scene::Key key;
-    bool removed;
 
     /**
      * @brief Creates a new link component
@@ -23,8 +22,7 @@ struct BatchSceneLink : public ecs::trait::ChildAware<BatchSceneLink> {
      * @param key The scene key of this entity
      */
     BatchSceneLink(rc::scene::Key key)
-    : key(key)
-    , removed(false) {}
+    : key(key) {}
 };
 
 } // namespace com

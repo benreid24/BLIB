@@ -3,7 +3,6 @@ target_sources(BLIB PRIVATE
 	OverlayScalerSystem.cpp
 	RendererUpdateSystem.cpp
 	RenderSystem.cpp
-	SceneObjectRemovalSystem.cpp
 	TogglerSystem.cpp
 	Transform2DDescriptorSystem.cpp
 	VelocitySystem.cpp

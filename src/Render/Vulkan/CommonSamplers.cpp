@@ -39,9 +39,21 @@ void CommonSamplers::init() {
         throw std::runtime_error("Failed to create sampler");
     }
 
+    // no filter edge clamped
+    create.maxAnisotropy = vulkanState.physicalDeviceProperties.limits.maxSamplerAnisotropy;
+    create.addressModeU  = VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE;
+    create.addressModeV  = VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE;
+    create.addressModeW  = VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE;
+    if (VK_SUCCESS != vkCreateSampler(vulkanState.device, &create, nullptr, &noFilterEClamped)) {
+        throw std::runtime_error("Failed to create sampler");
+    }
+
     // min filter sampler
-    create.minFilter = VK_FILTER_LINEAR;
-    create.magFilter = VK_FILTER_NEAREST;
+    create.addressModeU = VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER;
+    create.addressModeV = VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER;
+    create.addressModeW = VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER;
+    create.minFilter    = VK_FILTER_LINEAR;
+    create.magFilter    = VK_FILTER_NEAREST;
     if (VK_SUCCESS != vkCreateSampler(vulkanState.device, &create, nullptr, &minFilterClamped)) {
         throw std::runtime_error("Failed to create sampler");
     }
@@ -73,6 +85,7 @@ void CommonSamplers::init() {
 
 void CommonSamplers::cleanup() {
     vkDestroySampler(vulkanState.device, noFilterClamped, nullptr);
+    vkDestroySampler(vulkanState.device, noFilterEClamped, nullptr);
     vkDestroySampler(vulkanState.device, minFilterClamped, nullptr);
     vkDestroySampler(vulkanState.device, magFilterClamped, nullptr);
     vkDestroySampler(vulkanState.device, filteredClamped, nullptr);

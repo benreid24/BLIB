@@ -78,7 +78,14 @@ Overlay* Observer::getOrCreateSceneOverlay() {
     return scenes.back().overlay ? scenes.back().overlay : createSceneOverlay();
 }
 
-Overlay* Observer::getCurrentOverlay() { return scenes.empty() ? nullptr : scenes.back().overlay; }
+Overlay* Observer::getCurrentOverlay() {
+    if (scenes.empty()) { return nullptr; }
+
+    Overlay* overlay = dynamic_cast<Overlay*>(scenes.back().scene.get());
+    if (overlay) { return overlay; }
+
+    return scenes.back().overlay;
+}
 
 SceneRef Observer::popSceneNoRelease() {
     SceneRef s = scenes.back().scene;
@@ -92,6 +99,13 @@ void Observer::popScene() {
     onSceneChange();
 }
 
+void Observer::removeScene(Scene* scene) {
+    if (!scenes.empty() && scenes.back().scene == scene) { popScene(); }
+    else {
+        std::erase_if(scenes, [scene](const SceneInstance& s) { return s.scene.get() == scene; });
+    }
+}
+
 void Observer::clearScenes() { scenes.clear(); }
 
 void Observer::onSceneAdd() {
@@ -102,9 +116,7 @@ void Observer::onSceneAdd() {
 void Observer::onSceneChange() {
     if (hasScene()) {
         graphAssets.replaceAsset<rgi::SceneAsset>(scenes.back().scene.get());
-        if (scenes.back().graph.needsRepopulation()) {
-            scenes.back().graph.populate(renderer.getRenderStrategy(), *scenes.back().scene);
-        }
+        scenes.back().graph.populate(renderer.getRenderStrategy(), *scenes.back().scene);
         graphAssets.releaseUnused();
     }
 }
@@ -154,6 +166,17 @@ void Observer::compositeSceneAndOverlay(VkCommandBuffer commandBuffer) {
         if (scenes.back().overlay) {
             vkCmdSetViewport(commandBuffer, 0, 1, &viewport);
             vkCmdSetScissor(commandBuffer, 0, 1, &scissor);
+
+            VkClearAttachment attachment{};
+            attachment.aspectMask = VK_IMAGE_ASPECT_DEPTH_BIT;
+            attachment.clearValue = clearColors[1];
+
+            VkClearRect rect{};
+            rect.rect           = scissor;
+            rect.baseArrayLayer = 0;
+            rect.layerCount     = 1;
+
+            vkCmdClearAttachments(commandBuffer, 1, &attachment, 1, &rect);
 
             scene::SceneRenderContext ctx(commandBuffer,
                                           scenes.back().overlayIndex,

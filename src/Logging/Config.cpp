@@ -53,7 +53,10 @@ void Config::rollLogs(const std::string& path, const std::string& name, unsigned
 
 void Config::configureOutput(std::ostream& s, int level) {
     std::unique_lock lock(get().mutex);
+    configureOutputLocked(s, level);
+}
 
+void Config::configureOutputLocked(std::ostream& s, int level) {
     Config& c = get();
     for (auto& o : c.outputs) {
         if (o.first == &s) {
@@ -70,7 +73,7 @@ void Config::addFileOutput(const std::string& file, int level) {
     Config& c = get();
     c.files.emplace_back(file.c_str(), std::ios::out | std::ios::app);
     c.files.back() << std::endl << "Beginning new log" << std::endl;
-    configureOutput(c.files.back(), level);
+    configureOutputLocked(c.files.back(), level);
 }
 
 void Config::timeInUTC(bool utc) { get().utc = utc; }

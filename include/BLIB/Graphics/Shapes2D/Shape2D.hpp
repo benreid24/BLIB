@@ -1,7 +1,9 @@
 #ifndef BLIB_GRAPHICS_SHAPES2D_SHAPE2D_HPP
 #define BLIB_GRAPHICS_SHAPES2D_SHAPE2D_HPP
 
+#include <BLIB/Render/Primitives/Color.hpp>
 #include <BLIB/Render/Primitives/Vertex.hpp>
+#include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/Rect.hpp>
 #include <glm/glm.hpp>
 
@@ -33,6 +35,20 @@ public:
     void setFillColor(const glm::vec4& color);
 
     /**
+     * @brief Sets the color to fill the shape with
+     *
+     * @param color The color to fill the shape with
+     */
+    void setFillColor(const sf::Color& color) { setFillColor(sfcol(color)); }
+
+    /**
+     * @brief Sets the color to fill the shape with
+     *
+     * @param color The color to fill the shape with
+     */
+    void setFillColor(std::initializer_list<float> color) { setFillColor(sfcol(color)); }
+
+    /**
      * @brief Returns the color the shape is filled with
      */
     const glm::vec4& getFillColor() const;
@@ -43,6 +59,20 @@ public:
      * @param color The color to outline the shape with
      */
     void setOutlineColor(const glm::vec4& color);
+
+    /**
+     * @brief Sets the color the outline will be filled with
+     *
+     * @param color The color to outline the shape with
+     */
+    void setOutlineColor(const sf::Color& color) { setOutlineColor(sfcol(color)); }
+
+    /**
+     * @brief Sets the color the outline will be filled with
+     *
+     * @param color The color to outline the shape with
+     */
+    void setOutlineColor(std::initializer_list<float> color) { setOutlineColor(sfcol(color)); }
 
     /**
      * @brief Returns the color of the outline

@@ -85,10 +85,8 @@ protected:
      *        primitives and return the transform to use
      *
      * @param engine The game engine instance
-     * @param parent The parent entity that should be used
-     * @return The transform component to use
      */
-    virtual com::Transform2D& doCreate(engine::Engine& engine, ecs::Entity parent) override;
+    virtual void doCreate(engine::Engine& engine) override;
 
     /**
      * @brief Called when the item should be added to the overlay

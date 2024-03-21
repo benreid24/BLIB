@@ -9,7 +9,9 @@
 
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/System/Vector2.hpp>
+#include <SFML/System/Vector3.hpp>
 #include <array>
+#include <glm/glm.hpp>
 #include <type_traits>
 #include <unordered_map>
 #include <unordered_set>
@@ -360,6 +362,86 @@ struct Serializer<sf::Vector2<U>, false> {
     }
 
     static std::uint32_t size(const sf::Vector2<U>& v) { return S::size(v.x) + S::size(v.y); }
+};
+
+template<typename U>
+struct Serializer<sf::Vector3<U>, false> {
+    using S = Serializer<U>;
+    static bool serialize(OutputStream& output, const sf::Vector3<U>& v) {
+        if (!S::serialize(output, v.x)) return false;
+        if (!S::serialize(output, v.y)) return false;
+        return S::serialize(output, v.z);
+    }
+
+    static bool deserialize(InputStream& input, sf::Vector3<U>& v) {
+        if (!S::deserialize(input, v.x)) return false;
+        if (!S::deserialize(input, v.y)) return false;
+        return S::deserialize(input, v.z);
+    }
+
+    static std::uint32_t size(const sf::Vector3<U>& v) { return S::size(v.x) * 3; }
+};
+
+template<typename U, glm::qualifier P>
+struct Serializer<glm::vec<2, U, P>, false> {
+    using S = Serializer<U>;
+    using V = glm::vec<2, U, P>;
+
+    static bool serialize(OutputStream& output, const V& v) {
+        if (!S::serialize(output, v.x)) return false;
+        return S::serialize(output, v.y);
+    }
+
+    static bool deserialize(InputStream& input, V& v) {
+        if (!S::deserialize(input, v.x)) return false;
+        return S::deserialize(input, v.y);
+    }
+
+    static std::uint32_t size(const V& v) { return S::size(v.x) + S::size(v.y); }
+};
+
+template<typename U, glm::qualifier P>
+struct Serializer<glm::vec<3, U, P>, false> {
+    using S = Serializer<U>;
+    using V = glm::vec<3, U, P>;
+
+    static bool serialize(OutputStream& output, const V& v) {
+        if (!S::serialize(output, v.x)) return false;
+        if (!S::serialize(output, v.y)) return false;
+        return S::serialize(output, v.z);
+    }
+
+    static bool deserialize(InputStream& input, V& v) {
+        if (!S::deserialize(input, v.x)) return false;
+        if (!S::deserialize(input, v.y)) return false;
+        return S::deserialize(input, v.z);
+    }
+
+    static std::uint32_t size(const V& v) { return S::size(v.x) + S::size(v.y) + S::size(v.z); }
+};
+
+template<typename U, glm::qualifier P>
+struct Serializer<glm::vec<4, U, P>, false> {
+    using S = Serializer<U>;
+    using V = glm::vec<4, U, P>;
+
+    static bool serialize(OutputStream& output, const V& v) {
+        if (!S::serialize(output, v.x)) return false;
+        if (!S::serialize(output, v.y)) return false;
+        if (!S::serialize(output, v.z)) return false;
+        return S::serialize(output, v.w);
+    }
+
+    static bool deserialize(InputStream& input, V& v) {
+        if (!S::deserialize(input, v.x)) return false;
+        if (!S::deserialize(input, v.y)) return false;
+        if (!S::deserialize(input, v.z)) return false;
+        return S::deserialize(input, v.w);
+    }
+
+    static std::uint32_t size(const V& v) {
+        return S::size(v.x) + S::size(v.y) + S::size(v.z) + S::size(v.w);
+    }
 };
 
 template<>

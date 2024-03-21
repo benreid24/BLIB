@@ -51,6 +51,11 @@ public:
     void setPlayer(ecs::Entity playerEntity);
 
     /**
+     * @brief Returns the player entity for this animation
+     */
+    com::Animation2DPlayer& getPlayer();
+
+    /**
      * @brief Helper method to scale the sprite to the given size in batch coordinates
      *
      * @param size The size to scale to
@@ -79,6 +84,18 @@ public:
      */
     bool isCreated() const;
 
+    /**
+     * @brief Disables auto-commit of the geometry when parameters change
+     *
+     * @param disable True to disable, false to auto commit. Default is false
+     */
+    void disableAutoCommit(bool disable);
+
+    /**
+     * @brief Manually commit the geometry to the batch. Only required if auto-commit is off
+     */
+    void commit();
+
 private:
     engine::Engine* engine;
     BatchedSlideshows* owner;
@@ -86,6 +103,7 @@ private:
     com::Transform2D transform;
     rc::buf::BatchIndexBufferT<rc::prim::SlideshowVertex>::AllocHandle alloc;
     bool dirty;
+    bool autoCommit;
     engine::Systems::TaskHandle updateHandle;
 
     com::Animation2DPlayer* validatePlayer(ecs::Entity ent);
@@ -93,8 +111,13 @@ private:
     void removePlayerDep();
 
     void markDirty();
-    void commit();
 };
+
+//////////////////////////// INLINE FUNCTIONS /////////////////////////////////
+
+inline com::Animation2DPlayer& BatchSlideshow::getPlayer() {
+    return *engine->ecs().getComponent<com::Animation2DPlayer>(playerEntity);
+}
 
 } // namespace gfx
 } // namespace bl

@@ -19,6 +19,7 @@
 #include <BLIB/Components/Slideshow.hpp>
 #include <BLIB/Components/Sprite.hpp>
 #include <BLIB/Components/Texture.hpp>
+#include <BLIB/Components/TilemapPosition.hpp>
 #include <BLIB/Components/Toggler.hpp>
 #include <BLIB/Components/Transform2D.hpp>
 #include <BLIB/Components/Transform3D.hpp>

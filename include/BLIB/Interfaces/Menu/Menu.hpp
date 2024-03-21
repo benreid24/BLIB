@@ -28,7 +28,6 @@ namespace menu
  * @brief Primary class for mouseless menus
  *
  * @ingroup Menu
- *
  */
 class Menu : public event::Listener<rc::event::SceneDestroyed> {
 public:
@@ -49,13 +48,22 @@ public:
     /**
      * @brief Adds the menu and all items to the observer's current overlay. New items will be
      *        added automatically
+     *
+     * @param parent Optional entity to parent the menu to
      */
-    void addToOverlay();
+    void addToOverlay(ecs::Entity parent = ecs::InvalidEntity);
 
     /**
      * @brief Removes the menu and all components from its current overlay
      */
     void removeFromOverlay();
+
+    /**
+     * @brief Set whether or not the menu is hidden
+     *
+     * @param hide True to hide, false to show. Menus are visible by default
+     */
+    void setHidden(bool hide);
 
     /**
      * @brief Set the position to render the menu at
@@ -119,19 +127,16 @@ public:
 
     /**
      * @brief Sets the padding to place between elements
-     *
      */
     void setPadding(const glm::vec2& padding);
 
     /**
      * @brief Sets the minimum height an item should take
-     *
      */
     void setMinHeight(float mh);
 
     /**
      * @brief Sets the minimum width an item should take
-     *
      */
     void setMinWidth(float mw);
 
@@ -147,47 +152,70 @@ public:
                              const sf::FloatRect& padding = {-1.f, -1.f, -1.f, -1.f});
 
     /**
-     * @brief Refreshes the positions of all items in the menu
+     * @brief Constrains the rendering to the bounds of the background
+     */
+    void setScissorToSelf();
+
+    /**
+     * @brief Constrains the rendering to the given fixed scissor
      *
+     * @param scissor The scissor to constrain to
+     */
+    void setScissor(const sf::IntRect& scissor);
+
+    /**
+     * @brief Removes any explicit scissor set on this menu
+     */
+    void removeScissor();
+
+    /**
+     * @brief Refreshes the positions of all items in the menu
      */
     void refreshPositions();
 
     /**
-     * @brief Returns the bounds of the menu. Ignores the maximum size
+     * @brief Sets the depth of the menu when rendering. Default is OverlayCamera::MinDepth + 100.f
      *
+     * @param depth The depth to render at. For use with overlay render order and depth buffer
+     */
+    void setDepth(float depth);
+
+    /**
+     * @brief Returns the bounds of the menu. Ignores the maximum size
      */
     sf::FloatRect getBounds() const;
 
     /**
      * @brief Set the maximum size the menu may take up before scrolling. Set negative dimensions to
      *        prevent scrolling in that dimension. Default is no max size
-     *
      */
     void setMaximumSize(const glm::vec2& maxSize);
 
     /**
      * @brief Returns the maximum size of the menu
-     *
      */
     const glm::vec2& maximumSize() const;
 
     /**
      * @brief Returns the currently visible size of the menu
-     *
      */
     glm::vec2 visibleSize() const;
 
     /**
      * @brief Returns the current scroll offset of the menu
-     *
      */
     const glm::vec2& currentOffset() const;
 
     /**
      * @brief Returns the currently selected item
-     *
      */
     const Item* getSelectedItem() const;
+
+    /**
+     * @brief Returns the ECS entity of the menu background. All items are children of the
+     *        background entity
+     */
+    ecs::Entity getEntity() const { return background.entity(); }
 
     /**
      * @brief Sets the sound that plays when the selector is moved
@@ -249,10 +277,12 @@ private:
     audio::AudioSystem::Handle moveSound;
     audio::AudioSystem::Handle failSound;
     audio::AudioSystem::Handle selectSound;
+    float depth;
 
     glm::vec2 move(const glm::vec2& pos, const glm::vec2& psize, const glm::vec2& esize,
                    Item::AttachPoint ap);
     void refreshScroll();
+    void refreshBackground();
     void playSound(audio::AudioSystem::Handle sound) const;
     virtual void observe(const rc::event::SceneDestroyed& event) override;
 

@@ -47,7 +47,7 @@ public:
     /**
      * @brief Returns the post-transform size in Overlay space
      */
-    glm::vec2 getOverlaySize() const;
+    glm::vec2 getGlobalSize() const;
 
     /**
      * @brief Returns the parent bounds in overlay space

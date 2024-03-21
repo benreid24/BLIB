@@ -144,10 +144,12 @@ protected:
      * @brief Creates the component for the drawable. Must only be called after entity creation
      *
      * @tparam ...TArgs Argument types to the components constructor
+     * @param engine Game engine instance
+     * @param existingEntity An already existing entity to add components to
      * @param ...args Arguments to the components constructor
      */
     template<typename... TArgs>
-    void createComponentOnly(TArgs&&... args);
+    void createComponentOnly(engine::Engine& engine, ecs::Entity existingEntity, TArgs&&... args);
 
     /**
      * @brief Called after the entity is added to a scene. Allows derived to sync data if required
@@ -166,6 +168,9 @@ private:
 
     template<typename U, typename US>
     friend class Drawable;
+
+    void doFlash(float on, float off);
+    void retryFlash(float on, float off);
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -176,7 +181,10 @@ Drawable<TCom, TSys>::Drawable()
 
 template<typename TCom, typename TSys>
 Drawable<TCom, TSys>::~Drawable() {
-    if (entity() != ecs::InvalidEntity) { removeFromScene(); }
+    if (entity() != ecs::InvalidEntity && component().sceneRef.scene &&
+        entityIsDeletedOnDestruction()) {
+        removeFromScene();
+    }
 }
 
 template<typename TCom, typename TSys>
@@ -222,6 +230,7 @@ void Drawable<TCom, TSys>::removeFromScene() {
     }
 #endif
 
+    stopFlashing();
     system().removeFromScene(entity());
     onRemove();
 }
@@ -238,6 +247,24 @@ const TCom& Drawable<TCom, TSys>::component() const {
 
 template<typename TCom, typename TSys>
 void Drawable<TCom, TSys>::flash(float onPeriod, float offPeriod) {
+    if (component().sceneRef.object) { doFlash(onPeriod, offPeriod); }
+    else {
+        engine().renderer().vulkanState().cleanupManager.add(
+            [this, onPeriod, offPeriod]() { retryFlash(onPeriod, offPeriod); });
+    }
+}
+
+template<typename TCom, typename TSys>
+void Drawable<TCom, TSys>::retryFlash(float onPeriod, float offPeriod) {
+    if (component().sceneRef.object) { doFlash(onPeriod, offPeriod); }
+    else {
+        BL_LOG_WARN << "Failed to flash object (" << entity()
+                    << ") Not in scene after delayed retry";
+    }
+}
+
+template<typename TCom, typename TSys>
+void Drawable<TCom, TSys>::doFlash(float onPeriod, float offPeriod) {
     // swap off/on period because we have hidden toggle instead of visible toggle
     engine().ecs().template emplaceComponent<com::Toggler>(
         entity(), offPeriod, onPeriod, &component().sceneRef.object->hidden);
@@ -254,8 +281,10 @@ void Drawable<TCom, TSys>::resetFlash() {
 
 template<typename TCom, typename TSys>
 void Drawable<TCom, TSys>::stopFlashing() {
-    engine().ecs().template removeComponent<com::Toggler>(entity());
-    component().sceneRef.object->hidden = false;
+    if (entity() != ecs::InvalidEntity) {
+        engine().ecs().template removeComponent<com::Toggler>(entity());
+        if (component().sceneRef.object) { component().sceneRef.object->hidden = false; }
+    }
 }
 
 template<typename TCom, typename TSys>
@@ -271,7 +300,10 @@ void Drawable<TCom, TSys>::onRemove() {}
 
 template<typename TCom, typename TSys>
 template<typename... TArgs>
-void Drawable<TCom, TSys>::createComponentOnly(TArgs&&... args) {
+void Drawable<TCom, TSys>::createComponentOnly(engine::Engine& e, ecs::Entity existing,
+                                               TArgs&&... args) {
+    if (handle != nullptr) { destroy(); }
+    createFromExistingEntity(e, existing);
     handle = engine().ecs().template emplaceComponent<TCom>(entity(), std::forward<TArgs>(args)...);
 }
 
@@ -280,7 +312,7 @@ template<typename... TArgs>
 void Drawable<TCom, TSys>::create(engine::Engine& engine, TArgs&&... args) {
     if (handle != nullptr) { destroy(); }
     createEntityOnly(engine);
-    createComponentOnly(std::forward<TArgs>(args)...);
+    handle = engine.ecs().template emplaceComponent<TCom>(entity(), std::forward<TArgs>(args)...);
 }
 
 } // namespace gfx

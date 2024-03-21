@@ -7,7 +7,9 @@ target_sources(BLIB PUBLIC
 	BatchIcon.hpp
 	BatchRectangle.hpp
 	BatchSlideshow.hpp
+	BatchSlideshowSimple.hpp
 	BatchSprite.hpp
+	BatchSpriteSimple.hpp
 	BatchTriangle.hpp
 	Circle.hpp
 	Drawable.hpp

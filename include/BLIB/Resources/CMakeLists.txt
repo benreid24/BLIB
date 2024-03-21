@@ -6,6 +6,7 @@ target_sources(BLIB PUBLIC
     Ref.hpp
     Resource.hpp
     ResourceManager.hpp
+    State.hpp
 )
 
 add_subdirectory(Bundling)

@@ -21,6 +21,11 @@ class DescriptorSet {
 public:
     /**
      * @brief Creates an un-allocated descriptor set
+     */
+    DescriptorSet();
+
+    /**
+     * @brief Creates an un-allocated descriptor set
      *
      * @param vulkanState Renderer Vulkan state
      */
@@ -68,6 +73,13 @@ public:
     DescriptorSet& operator=(DescriptorSet&& ds);
 
     /**
+     * @brief Deferred init of Vulkan state pointer. For use with PerFrame
+     *
+     * @param vs The renderer Vulkan state
+     */
+    void init(VulkanState& vs);
+
+    /**
      * @brief Creates and allocates the descriptor set. Defers release of the prior set if any
      *
      * @param vulkanState Renderer Vulkan state
@@ -89,10 +101,21 @@ public:
     /**
      * @brief Returns the allocated descriptor set
      */
-    constexpr VkDescriptorSet getSet() const { return set; }
+    VkDescriptorSet getSet() const { return set; }
+
+    /**
+     * @brief Issues the bind command into the command buffer to bind the descriptor set
+     *
+     * @param commandBuffer The command buffer to issue the command into
+     * @param bindPoint The pipeline bind point to bind to
+     * @param layout The pipeline layout of the currently bound pipeline
+     * @param index The index to bind at
+     */
+    void bind(VkCommandBuffer commandBuffer, VkPipelineBindPoint bindPoint, VkPipelineLayout layout,
+              std::uint32_t index);
 
 private:
-    VulkanState& vulkanState;
+    VulkanState* vulkanState;
     vk::DescriptorPool::AllocationHandle alloc;
     VkDescriptorSet set;
 };

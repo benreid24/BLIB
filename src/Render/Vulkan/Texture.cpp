@@ -11,6 +11,7 @@ namespace vk
 {
 Texture::Texture()
 : parent(nullptr)
+, altImg(nullptr)
 , destPos(0, 0)
 , source(0, 0, 0, 0)
 , image(nullptr)
@@ -22,6 +23,7 @@ Texture::Texture()
 void Texture::createFromContentsAndQueue() {
     const sf::Image& src = altImg ? *altImg : *transferImg;
     create({src.getSize().x, src.getSize().y}, DefaultFormat, 0);
+    updateTrans(src);
     queueTransfer(SyncRequirement::Immediate);
 }
 
@@ -74,6 +76,15 @@ void Texture::update(const resource::Ref<sf::Image>& content, const glm::u32vec2
     source      = s;
     updateTrans(*content);
     queueTransfer(SyncRequirement::Immediate);
+}
+
+glm::vec2 Texture::convertCoord(const glm::vec2& src) const {
+    // TODO - texture atlasing at the renderer level
+    return src;
+}
+
+glm::vec2 Texture::normalizeAndConvertCoord(const glm::vec2& src) const {
+    return convertCoord(src / size());
 }
 
 void Texture::ensureSize(const glm::u32vec2& s) {
@@ -155,7 +166,6 @@ void Texture::executeTransfer(VkCommandBuffer cb, tfr::TransferContext& engine) 
         else { std::memcpy(data, src.getPixelsPtr(), stageSize); }
 
         // transition to transfer dst prior to copy
-        // TODO - add pre-tfr barrier params to context
         vulkanState->transitionImageLayout(
             cb, image, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
 
@@ -208,6 +218,19 @@ void Texture::executeTransfer(VkCommandBuffer cb, tfr::TransferContext& engine) 
 void Texture::cleanup() {
     vkDestroyImageView(vulkanState->device, view, nullptr);
     vmaDestroyImage(vulkanState->vmaAllocator, image, alloc);
+
+    cancelQueuedTransfer();
+}
+
+void Texture::reset() {
+    transferImg.release();
+    altImg        = nullptr;
+    destPos.x     = 0;
+    destPos.y     = 0;
+    source.left   = 0;
+    source.top    = 0;
+    source.width  = 0;
+    source.height = 0;
 }
 
 void Texture::updateTrans(const sf::Image& content) {

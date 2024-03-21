@@ -13,6 +13,7 @@
 #include <BLIB/Render/Vulkan/StandardAttachmentBuffers.hpp>
 #include <BLIB/Vulkan.hpp>
 #include <SFML/Window.hpp>
+#include <list>
 #include <memory>
 #include <mutex>
 #include <stack>
@@ -79,6 +80,11 @@ public:
     Overlay* getCurrentOverlay();
 
     /**
+     * @brief Returns the current scene of the observer. May be nullptr
+     */
+    Scene* getCurrentScene();
+
+    /**
      * @brief Removes the top scene from the observer's scene stack and returns it. Does not release
      *        the scene back into the scene pool
      *
@@ -90,6 +96,13 @@ public:
      * @brief Removes and releases the current active scene to the scene pool
      */
     void popScene();
+
+    /**
+     * @brief Removes a specific scene from the scene stack
+     *
+     * @param scene The scene to remove
+     */
+    void removeScene(Scene* scene);
 
     /**
      * @brief Removes all scenes from the observer
@@ -116,6 +129,20 @@ public:
      */
     template<typename TCamera, typename... TArgs>
     TCamera* setCamera(TArgs&&... args);
+
+    /**
+     * @brief Returns the current camera. May be nullptr
+     */
+    cam::Camera* getCurrentCamera();
+
+    /**
+     * @brief Returns the current camera and performs a checked cast to the desired type
+     *
+     * @tparam TCamera The type of camera that is expected
+     * @return A pointer to the current camera. May be nullptr
+     */
+    template<typename TCamera>
+    TCamera* getCurrentCamera();
 
     /**
      * @brief Sets the color to clear the observer's render region to prior to rendering
@@ -184,7 +211,7 @@ private:
     VkViewport viewport;
     VkRect2D scissor;
     rgi::FinalSwapframeAsset* swapframeAsset;
-    std::vector<SceneInstance> scenes;
+    std::list<SceneInstance> scenes;
     VkClearValue clearColors[2];
     cam::OverlayCamera overlayCamera;
     glm::mat4 overlayProjView;
@@ -211,6 +238,10 @@ inline std::size_t Observer::sceneCount() const { return scenes.size(); }
 
 inline bool Observer::hasScene() const { return !scenes.empty(); }
 
+inline Scene* Observer::getCurrentScene() {
+    return !scenes.empty() ? scenes.back().scene.get() : nullptr;
+}
+
 template<typename TCamera, typename... TArgs>
 TCamera* Observer::setCamera(TArgs&&... args) {
     if (hasScene()) {
@@ -221,6 +252,27 @@ TCamera* Observer::setCamera(TArgs&&... args) {
     }
 
     BL_LOG_ERROR << "Tried to set camera for observer with no current scene";
+    return nullptr;
+}
+
+template<typename TCamera>
+TCamera* Observer::getCurrentCamera() {
+    if (hasScene()) {
+        TCamera* camera = dynamic_cast<TCamera*>(scenes.back().camera.get());
+        if (!camera) {
+            BL_LOG_WARN << "Could not convert current camera to type: " << typeid(TCamera).name();
+        }
+        return camera;
+    }
+
+    BL_LOG_WARN << "Tried to retrieve current camera without a scene";
+    return nullptr;
+}
+
+inline cam::Camera* Observer::getCurrentCamera() {
+    if (hasScene()) { return scenes.back().camera.get(); }
+
+    BL_LOG_WARN << "Tried to retrieve current camera without a scene";
     return nullptr;
 }
 

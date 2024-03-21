@@ -50,6 +50,11 @@ struct DrawableBase {
     void setHidden(bool hide);
 
     /**
+     * @brief Returns whether or not the entity is hidden
+     */
+    bool isHidden() const { return hidden; }
+
+    /**
      * @brief Triggers the owning scene to re-bucket this object. Call when transparency changes
      */
     void rebucket();

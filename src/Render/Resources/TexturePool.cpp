@@ -155,27 +155,22 @@ TextureRef TexturePool::allocateTexture() {
     return TextureRef{*this, textures.getTexture(i)};
 }
 
-void TexturePool::finalizeNewTexture(std::uint32_t i, VkSampler sampler) {
-    std::array<BindlessTextureArray*, 1> arrays = {&textures};
-    textures.getTexture(i).sampler              = sampler;
-    textures.getTexture(i).createFromContentsAndQueue();
-    BindlessTextureArray::commitTexture(descriptorSet, rtDescriptorSet, arrays, i);
-}
-
 TextureRef TexturePool::createTexture(const sf::Image& src, VkSampler sampler) {
-    if (!sampler) { sampler = vulkanState.samplerCache.filteredEdgeClamped(); }
+    if (!sampler) { sampler = vulkanState.samplerCache.filteredBorderClamped(); }
 
     std::unique_lock lock(mutex);
 
     TextureRef txtr      = allocateTexture();
     txtr.texture->altImg = &src;
-    finalizeNewTexture(txtr.id(), sampler);
+    txtr->sampler        = sampler;
+    txtr->createFromContentsAndQueue();
+    textures.updateTexture(txtr.get());
 
     return txtr;
 }
 
 TextureRef TexturePool::createTexture(const glm::u32vec2& size, VkSampler sampler) {
-    if (!sampler) { sampler = vulkanState.samplerCache.filteredEdgeClamped(); }
+    if (!sampler) { sampler = vulkanState.samplerCache.filteredBorderClamped(); }
 
     std::unique_lock lock(mutex);
 
@@ -188,7 +183,7 @@ TextureRef TexturePool::createTexture(const glm::u32vec2& size, VkSampler sample
 }
 
 TextureRef TexturePool::createRenderTexture(const glm::u32vec2& size, VkSampler sampler) {
-    if (!sampler) { sampler = vulkanState.samplerCache.filteredEdgeClamped(); }
+    if (!sampler) { sampler = vulkanState.samplerCache.filteredBorderClamped(); }
 
     std::unique_lock lock(mutex);
 
@@ -215,35 +210,47 @@ TextureRef TexturePool::createRenderTexture(const glm::u32vec2& size, VkSampler 
 }
 
 TextureRef TexturePool::getOrLoadTexture(const std::string& path, VkSampler sampler) {
-    if (!sampler) { sampler = vulkanState.samplerCache.filteredEdgeClamped(); }
+    if (!sampler) { sampler = vulkanState.samplerCache.filteredBorderClamped(); }
 
     std::unique_lock lock(mutex);
 
     auto it = fileMap.find(path);
-    if (it != fileMap.end()) { return TextureRef{*this, textures.getTexture(it->second)}; }
+    if (it != fileMap.end()) {
+        const auto rit = std::find(toRelease.begin(), toRelease.end(), it->second);
+        if (rit != toRelease.end()) { toRelease.erase(rit); }
+        return TextureRef{*this, textures.getTexture(it->second)};
+    }
 
     TextureRef txtr = allocateTexture();
     textures.prepareTextureUpdate(txtr.id(), path);
     it                        = fileMap.try_emplace(path, txtr.id()).first;
     reverseFileMap[txtr.id()] = &it->first;
-    finalizeNewTexture(txtr.id(), sampler);
+    txtr->sampler             = sampler;
+    txtr->createFromContentsAndQueue();
+    textures.updateTexture(txtr.get());
 
     return txtr;
 }
 
 TextureRef TexturePool::getOrLoadTexture(const sf::Image& src, VkSampler sampler) {
-    if (!sampler) { sampler = vulkanState.samplerCache.filteredEdgeClamped(); }
+    if (!sampler) { sampler = vulkanState.samplerCache.filteredBorderClamped(); }
 
     std::unique_lock lock(mutex);
 
     auto it = imageMap.find(&src);
-    if (it != imageMap.end()) { return TextureRef{*this, textures.getTexture(it->second)}; }
+    if (it != imageMap.end()) {
+        const auto rit = std::find(toRelease.begin(), toRelease.end(), it->second);
+        if (rit != toRelease.end()) { toRelease.erase(rit); }
+        return TextureRef{*this, textures.getTexture(it->second)};
+    }
 
     TextureRef txtr = allocateTexture();
     textures.prepareTextureUpdate(txtr.id(), src);
     it                         = imageMap.try_emplace(&src, txtr.id()).first;
     reverseImageMap[txtr.id()] = &src;
-    finalizeNewTexture(txtr.id(), sampler);
+    txtr->sampler              = sampler;
+    txtr->createFromContentsAndQueue();
+    textures.updateTexture(txtr.get());
 
     return txtr;
 }

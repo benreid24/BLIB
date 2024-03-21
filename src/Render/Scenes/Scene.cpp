@@ -58,6 +58,8 @@ void Scene::handleDescriptorSync() {
 
 void Scene::createAndAddObject(ecs::Entity entity, rcom::DrawableBase& object,
                                UpdateSpeed updateFreq) {
+    std::unique_lock lock(objectMutex);
+
     scene::SceneObject* sobj = doAdd(entity, object, updateFreq);
     if (sobj) {
         object.sceneRef.object = sobj;
@@ -77,13 +79,15 @@ void Scene::createAndAddObject(ecs::Entity entity, rcom::DrawableBase& object,
 }
 
 void Scene::removeObject(scene::SceneObject* obj) {
+    std::unique_lock lock(objectMutex);
+
     auto& objectPipelines =
         obj->sceneKey.updateFreq == UpdateSpeed::Static ? staticPipelines : dynamicPipelines;
     std::uint32_t pipeline = obj->sceneKey.sceneId < objectPipelines.size() ?
                                  objectPipelines[obj->sceneKey.sceneId] :
                                  NoPipeline;
     if (pipeline != NoPipeline) {
-        queueObjectRemoval(obj, pipeline);
+        doObjectRemoval(obj, pipeline);
         objectPipelines[obj->sceneKey.sceneId] = NoPipeline;
     }
 }

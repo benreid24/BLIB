@@ -80,7 +80,7 @@ void FadeEffectTask::onGraphInit() {
     for (unsigned int i = 0; i < Config::MaxConcurrentFrames; ++i) {
         imageInfos[i].imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
         imageInfos[i].imageView   = src->getImages().getRaw(i).attachmentSet().colorImageView();
-        imageInfos[i].sampler     = renderer->vulkanState().samplerCache.filteredEdgeClamped();
+        imageInfos[i].sampler     = renderer->vulkanState().samplerCache.filteredBorderClamped();
     }
 
     std::array<VkWriteDescriptorSet, Config::MaxConcurrentFrames> descriptorWrites{};

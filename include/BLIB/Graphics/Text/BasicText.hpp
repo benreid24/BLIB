@@ -4,6 +4,7 @@
 #include <BLIB/Components/Mesh.hpp>
 #include <BLIB/Graphics/Drawable.hpp>
 #include <BLIB/Graphics/Text/VulkanFont.hpp>
+#include <BLIB/Render/Primitives/Color.hpp>
 #include <BLIB/Render/Primitives/Vertex.hpp>
 #include <BLIB/Resources.hpp>
 #include <SFML/Graphics/Font.hpp>
@@ -72,6 +73,13 @@ public:
     void setFillColor(const glm::vec4& color);
 
     /**
+     * @brief Sets the color of the text
+     *
+     * @param color The color of the rendered text
+     */
+    void setFillColor(const sf::Color& color) { setFillColor(sfcol(color)); }
+
+    /**
      * @brief Returns the color of the text
      */
     constexpr const glm::vec4& getFillColor() const;
@@ -82,6 +90,13 @@ public:
      * @param color The color of the outline if the thickness is greater than 0
      */
     void setOutlineColor(const glm::vec4& color);
+    /**
+     * @brief Sets the color of the outline around the text
+     *
+     * @param color The color of the outline if the thickness is greater than 0
+     */
+
+    void setOutlineColor(const sf::Color& color) { setOutlineColor(sfcol(color)); }
 
     /**
      * @brief Returns the color of the text outline

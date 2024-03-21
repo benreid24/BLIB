@@ -6,6 +6,7 @@ target_sources(BLIB PUBLIC
     HashCombine.hpp
     IdAllocator.hpp
     IdAllocatorUnbounded.hpp
+    ImageStitcher.hpp
     LastVariadic.hpp
     NonCopyable.hpp
     Random.hpp

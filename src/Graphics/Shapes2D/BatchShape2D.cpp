@@ -26,7 +26,7 @@ void BatchShape2D::notifyDirty() {
     dirty = true;
     if (!updateHandle.isQueued() && owner != nullptr) {
         updateHandle =
-            engine->systems().addFrameTask(engine::FrameStage::RenderObjectInsertion,
+            engine->systems().addFrameTask(engine::FrameStage::RenderEarlyRefresh,
                                            std::bind(&BatchShape2D::ensureUpdated, this));
     }
 }

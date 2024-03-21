@@ -20,13 +20,19 @@ void SingleShape2D::notifyDirty() {
     dirty = true;
     if (!updateHandle.isQueued() && entity() != ecs::InvalidEntity) {
         updateHandle =
-            engine().systems().addFrameTask(engine::FrameStage::RenderObjectInsertion,
+            engine().systems().addFrameTask(engine::FrameStage::RenderEarlyRefresh,
                                             std::bind(&SingleShape2D::ensureUpdated, this));
     }
 }
 
 void SingleShape2D::create(engine::Engine& engine) {
     Drawable::create(engine);
+    OverlayScalable::create(engine, entity());
+    notifyDirty();
+}
+
+void SingleShape2D::create(engine::Engine& engine, ecs::Entity existing) {
+    Drawable::createComponentOnly(engine, existing);
     OverlayScalable::create(engine, entity());
     notifyDirty();
 }
@@ -49,6 +55,15 @@ void SingleShape2D::ensureUpdated() {
 
     // populate the index buffer
     update(ib.vertices().data(), ib.indices().data());
+
+    // determine if we are transparent
+    component().containsTransparency = false;
+    for (const auto& v : ib.vertices()) {
+        if (v.color.a > 0.01f && v.color.a < 0.99f) {
+            component().containsTransparency = true;
+            break;
+        }
+    }
 
     // Update local size and commit index buffer + draw command
     OverlayScalable::setLocalBounds(getLocalBounds());
