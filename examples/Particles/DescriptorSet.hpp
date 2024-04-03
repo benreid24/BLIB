@@ -26,24 +26,47 @@ public:
 
 private:
     struct Instance {
+        const VkDevice device;
         bl::rc::buf::FullyDynamicSSBO<Particle> storage;
         bl::rc::vk::PerFrame<bl::rc::vk::DescriptorSet> descriptorSets;
         bl::pcl::Link<Particle>* link;
 
-        Instance(bl::engine::Engine& engine, VkDescriptorSetLayout layout, bl::ecs::Entity entity) {
+        Instance(bl::engine::Engine& engine, VkDescriptorSetLayout layout, bl::ecs::Entity entity)
+        : device(engine.renderer().vulkanState().device) {
             storage.create(engine.renderer().vulkanState(), 128);
             descriptorSets.init(engine.renderer().vulkanState(),
                                 [this, &engine, layout](bl::rc::vk::DescriptorSet& set) {
                                     set.init(engine.renderer().vulkanState());
                                     set.allocate(layout);
-
-                                    // TODO - write descriptors
+                                    writeDescriptorSet(set);
                                 });
             link = engine.ecs().getComponent<bl::pcl::Link<Particle>>(entity);
             if (!link) {
                 BL_LOG_CRITICAL << "Link component not created for ParticleSystem: " << entity;
                 throw std::runtime_error("Link component not created for ParticleSystem");
             }
+        }
+
+        void writeDescriptorSet(bl::rc::vk::DescriptorSet& set) {
+            // TODO - re-allocate for deferred delete on change?
+
+            bl::rc::vk::Buffer& buffer = descriptorSets.getOther(set, storage.gpuBufferHandles());
+
+            VkDescriptorBufferInfo bufferInfo{};
+            bufferInfo.buffer = buffer.getBuffer();
+            bufferInfo.offset = 0;
+            bufferInfo.range  = buffer.getSize();
+
+            VkWriteDescriptorSet setWrite{};
+            setWrite.sType           = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+            setWrite.descriptorCount = 1;
+            setWrite.dstBinding      = 0;
+            setWrite.dstArrayElement = 0;
+            setWrite.dstSet          = set.getSet();
+            setWrite.pBufferInfo     = &bufferInfo;
+            setWrite.descriptorType  = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER; // TODO - UBO instead?
+
+            vkUpdateDescriptorSets(device, 1, &setWrite, 0, nullptr);
         }
     };
 
@@ -65,7 +88,7 @@ private:
         }
 
         if (it->second.storage.ensureSize(it->second.link->len, true)) {
-            // TODO - update descriptor
+            it->second.writeDescriptorSet(it->second.descriptorSets.current());
         }
 
         it->second.descriptorSets.current().bind(

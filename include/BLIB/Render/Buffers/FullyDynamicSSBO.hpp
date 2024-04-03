@@ -85,12 +85,12 @@ public:
     /**
      * @brief Returns the Buffer objects of the GPU buffers
      */
-    constexpr vk::PerFrame<vk::Buffer>& gpuBufferHandles();
+    vk::PerFrame<vk::Buffer>& gpuBufferHandles();
 
     /**
      * @brief Returns the size of the SSBO on the device
      */
-    constexpr VkDeviceSize getTotalRange() const;
+    VkDeviceSize getTotalRange() const;
 
 private:
     vk::VulkanState* vulkanState;
@@ -142,12 +142,12 @@ void FullyDynamicSSBO<T>::destroy() {
 }
 
 template<typename T>
-constexpr vk::PerFrame<vk::Buffer>& FullyDynamicSSBO<T>::gpuBufferHandles() {
+vk::PerFrame<vk::Buffer>& FullyDynamicSSBO<T>::gpuBufferHandles() {
     return gpuBuffers;
 }
 
 template<typename T>
-constexpr VkDeviceSize FullyDynamicSSBO<T>::getTotalRange() const {
+VkDeviceSize FullyDynamicSSBO<T>::getTotalRange() const {
     return gpuBuffers.current().getSize();
 }
 

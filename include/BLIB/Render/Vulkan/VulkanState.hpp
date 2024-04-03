@@ -276,6 +276,12 @@ void PerFrame<T>::visit(const U& visitor) {
 }
 
 template<typename T>
+template<typename U>
+U& PerFrame<T>::getOther(const T& member, PerFrame<U>& other) const {
+    return other.getRaw(getIndex(member));
+}
+
+template<typename T>
 constexpr T& PerFrame<T>::current() {
 #ifdef BLIB_DEBUG
     if (!vs) { throw std::runtime_error("PerFrame has not been inited with VulkanInstance"); }
@@ -289,6 +295,16 @@ constexpr const T& PerFrame<T>::current() const {
     if (!vs) { throw std::runtime_error("PerFrame has not been inited with VulkanInstance"); }
 #endif
     return data[vs->currentFrameIndex()];
+}
+
+template<typename T>
+std::uint32_t PerFrame<T>::getCurrentIndex() const {
+    return vs->currentFrameIndex();
+}
+
+template<typename T>
+std::uint32_t PerFrame<T>::getIndex(const T& member) const {
+    return &member - data.data();
 }
 
 template<typename T>
