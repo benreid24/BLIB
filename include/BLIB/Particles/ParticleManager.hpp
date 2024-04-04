@@ -33,6 +33,13 @@ public:
     ParticleManager();
 
     /**
+     * @brief Called once after being constructed
+     *
+     * @param engine The game engine instance
+     */
+    virtual void init(engine::Engine& engine) override;
+
+    /**
      * @brief Destroys the particle manager
      */
     virtual ~ParticleManager() = default;
@@ -221,6 +228,11 @@ ParticleManager<T, R>::ParticleManager() {
     particles.reserve(DefaultCapacity);
     freeList.reserve(DefaultCapacity / 16);
     freed.reserve(DefaultCapacity);
+}
+
+template<typename T, typename TRenderer>
+void ParticleManager<T, TRenderer>::init(engine::Engine& engine) {
+    renderer.init(engine);
 }
 
 template<typename T, typename R>

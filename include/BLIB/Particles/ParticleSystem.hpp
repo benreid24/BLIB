@@ -100,6 +100,7 @@ public:
     void removeAllSystems();
 
 private:
+    engine::Engine* engine;
     std::mutex mutex;
     util::ThreadPool* engineThreadpool;
     util::ThreadPool particleThreadpool;
@@ -125,8 +126,9 @@ T& ParticleSystem::getUniqueSystem() {
     auto it = singleSystems.find(typeid(T));
     if (it == singleSystems.end()) {
         it = singleSystems.try_emplace(typeid(T), std::make_unique<T>()).first;
+        it->second->init(*engine);
     }
-    return it->second;
+    return static_cast<T&>(*it->second);
 }
 
 template<typename T>
@@ -143,8 +145,10 @@ T& ParticleSystem::addRepeatedSystem() {
 
     std::unique_lock lock(mutex);
 
-    auto& list = multiSystems[typeid(T)];
-    return list.emplace_back(std::make_unique<T>());
+    auto& list  = multiSystems[typeid(T)];
+    auto& added = list.emplace_back(std::make_unique<T>());
+    added->init(*engine);
+    return static_cast<T&>(*added);
 }
 
 template<typename T>

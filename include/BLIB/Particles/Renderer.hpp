@@ -19,9 +19,18 @@ template<typename T>
 class Renderer {
 public:
     /**
-     * @brief Destroys the renderer
+     * @brief Called once after being constructed
+     *
+     * @param engine The game engine instance
      */
-    virtual ~Renderer() = default;
+    void init(engine::Engine& engine) {
+        static bool warned = false;
+        if (!warned) {
+            BL_LOG_CRITICAL << "Called init on default renderer";
+            warned = true;
+        }
+        (void)engine;
+    }
 
     /**
      * @brief Called when the particle manager should be rendered in the given scene

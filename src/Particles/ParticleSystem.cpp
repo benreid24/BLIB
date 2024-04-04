@@ -7,7 +7,8 @@ namespace bl
 namespace pcl
 {
 ParticleSystem::ParticleSystem()
-: engineThreadpool(nullptr) {}
+: engine(nullptr)
+, engineThreadpool(nullptr) {}
 
 void ParticleSystem::removeUniqueSystem(ParticleManagerBase* system) {
     std::unique_lock lock(mutex);
@@ -44,8 +45,9 @@ void ParticleSystem::removeAllSystems() {
     multiSystems.clear();
 }
 
-void ParticleSystem::init(engine::Engine& engine) {
-    engineThreadpool = &engine.threadPool();
+void ParticleSystem::init(engine::Engine& e) {
+    engine           = &e;
+    engineThreadpool = &e.threadPool();
     particleThreadpool.start(4);
 }
 

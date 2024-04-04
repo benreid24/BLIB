@@ -5,6 +5,10 @@
 
 namespace bl
 {
+namespace engine
+{
+class Engine;
+}
 namespace rc
 {
 class Scene;
@@ -24,6 +28,13 @@ public:
      * @brief Destroys the particle manager
      */
     virtual ~ParticleManagerBase() = default;
+
+    /**
+     * @brief Called once after being constructed
+     *
+     * @param engine The game engine instance
+     */
+    virtual void init(engine::Engine& engine) = 0;
 
     /**
      * @brief Updates all the particles in the particle manager
