@@ -2,6 +2,7 @@
 
 #include <BLIB/Audio.hpp>
 #include <BLIB/Logging.hpp>
+#include <BLIB/Particles/ParticleSystem.hpp>
 #include <BLIB/Resources/GarbageCollector.hpp>
 #include <BLIB/Resources/State.hpp>
 #include <BLIB/Systems.hpp>
@@ -22,6 +23,7 @@ Engine::Engine(const Settings& settings)
     settings.syncToConfig();
     systems().registerSystem<sys::TogglerSystem>(FrameStage::Update0, StateMask::All);
     systems().registerSystem<sys::VelocitySystem>(FrameStage::Animate, StateMask::Running);
+    systems().registerSystem<pcl::ParticleSystem>(FrameStage::Update0, StateMask::All);
     bl::event::Dispatcher::subscribe(&input);
 }
 

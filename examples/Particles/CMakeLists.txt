@@ -1,5 +1,7 @@
 add_executable(particles main.cpp)
 
+add_subdirectory(Shaders)
+
 include(configure_blib_target)
 include(link_blib_target)
 
@@ -16,7 +18,7 @@ set_target_properties(particles
 if(TARGET blib_builtin_shaders)
     add_custom_target(copy_particles_shaders
         COMMAND ${CMAKE_COMMAND} -E copy_directory "${CMAKE_SOURCE_DIR}/${SHADER_PATH}" "${CMAKE_CURRENT_LIST_DIR}/${SHADER_PATH}"
-        DEPENDS blib_builtin_shaders
+        DEPENDS blib_builtin_shaders particle_shaders
         COMMENT "Copying shaders to Particles example"
     )
     add_dependencies(particles copy_particles_shaders)

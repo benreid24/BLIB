@@ -2,6 +2,7 @@
 #define RENDERER_HPP
 
 #include "Component.hpp"
+#include "Constants.hpp"
 #include "Particle.hpp"
 #include <BLIB/ECS.hpp>
 #include <BLIB/Engine/Engine.hpp>
@@ -18,9 +19,9 @@ public:
     void init(engine::Engine& e) { engine = &e; }
 
     void addToScene(rc::Scene* scene) {
-        constexpr std::uint32_t pipeline = 0;          // TODO - actual pipeline
-        constexpr bool transparent       = false;      // TODO - parameterize
-        constexpr glm::vec2 size         = {2.f, 2.f}; // TODO - parameterize
+        constexpr std::uint32_t pipeline = ParticlePipelineId; // TODO - actual pipeline
+        constexpr bool transparent       = false;              // TODO - parameterize
+        constexpr glm::vec2 size         = {2.f, 2.f};         // TODO - parameterize
 
         entity    = engine->ecs().createEntity();
         component = engine->ecs().emplaceComponent<Component>(

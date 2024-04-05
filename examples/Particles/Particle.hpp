@@ -8,4 +8,8 @@ struct Particle {
     glm::vec2 vel;
 };
 
+struct GpuParticle {
+    glm::vec2 pos;
+};
+
 #endif
