@@ -6,6 +6,8 @@
 #include <BLIB/Particles/ParticleManagerBase.hpp>
 #include <BLIB/Particles/Renderer.hpp>
 #include <BLIB/Particles/Sink.hpp>
+#include <cmath>
+#include <iterator>
 #include <memory>
 
 namespace bl
@@ -267,7 +269,8 @@ void ParticleManager<T, R>::update(util::ThreadPool& threadPool, float dt, float
         futures.reserve(particles.size() / ParticlesPerThread + 1);
         auto it = particles.begin();
         while (it != particles.end()) {
-            const std::size_t len = std::min(particles.end() - it, ParticlesPerThread);
+            const std::size_t len =
+                std::min<std::size_t>(std::distance(it, particles.end()), ParticlesPerThread);
             futures.emplace_back(threadPool.queueTask([this, it, len, dt, realDt]() {
                 for (auto& affector : affectors) {
                     affector->update(std::span<T>(it, len), dt, realDt);
@@ -378,10 +381,11 @@ void ParticleManager<T, R>::updateSink(TSink* sink, util::ThreadPool& pool, floa
 
     futures.reserve(particles.size() / ParticlesPerThread + 1);
     while (it != particles.end()) {
-        const std::size_t len = std::min(particles.end() - it, ParticlesPerThread);
-        futures.emplace_back([this, &proxy, it, len, sink, dt, realDt]() {
+        const std::size_t len =
+            std::min<std::size_t>(std::distance(it, particles.end()), ParticlesPerThread);
+        futures.emplace_back(pool.queueTask([this, &proxy, it, len, sink, dt, realDt]() {
             sink->update(proxy, std::span<T>(it, len), dt, realDt);
-        });
+        }));
     }
 
     for (auto& f : futures) { f.wait(); }

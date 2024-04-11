@@ -103,7 +103,9 @@ private:
         if (!instances.try_emplace(key.sceneId, engine, layout, entity).second) {
             BL_LOG_ERROR << "Collision for ParticleManager " << entity << " with scene key "
                          << key.sceneId;
+            return false;
         }
+        return true;
     }
 
     virtual void releaseObject(bl::ecs::Entity, bl::rc::scene::Key key) override {

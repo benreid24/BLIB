@@ -413,5 +413,9 @@ void Engine::postStateChange(State::Ptr& prev) {
     newState.reset();
 }
 
+pcl::ParticleSystem& Engine::particleSystem() {
+    return ecsSystems.getSystem<pcl::ParticleSystem>();
+}
+
 } // namespace engine
 } // namespace bl

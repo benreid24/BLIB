@@ -11,6 +11,7 @@
 #include <BLIB/Engine/Worker.hpp>
 #include <BLIB/Events/Dispatcher.hpp>
 #include <BLIB/Input.hpp>
+#include <BLIB/Particles/ParticleSystem.hpp>
 #include <BLIB/Render/Renderer.hpp>
 #include <BLIB/Resources.hpp>
 #include <BLIB/Scripts/Manager.hpp>
@@ -78,6 +79,11 @@ public:
      * @brief Returns the engine thread pool
      */
     util::ThreadPool& threadPool();
+
+    /**
+     * @brief Returns the engine particle system
+     */
+    pcl::ParticleSystem& particleSystem();
 
     /**
      * @brief Returns the settings the engine is using
