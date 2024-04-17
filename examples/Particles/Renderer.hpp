@@ -24,7 +24,7 @@ public:
         constexpr glm::vec2 size         = {2.f, 2.f};         // TODO - parameterize
 
         entity    = engine->ecs().createEntity();
-        component = engine->ecs().emplaceComponent<Component>(
+        component = engine->ecs().emplaceComponent<ExampleComponent>(
             entity, engine->renderer(), size, transparent, pipeline);
         link = engine->ecs().emplaceComponent<Link<Particle>>(entity);
     }
@@ -40,7 +40,7 @@ public:
 private:
     engine::Engine* engine;
     ecs::Entity entity;
-    Component* component;
+    ExampleComponent* component;
     Link<Particle>* link;
 };
 

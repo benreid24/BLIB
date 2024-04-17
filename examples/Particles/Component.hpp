@@ -6,11 +6,11 @@
 #include <BLIB/Render/Components/DrawableBase.hpp>
 #include <BLIB/Render/Renderer.hpp>
 
-struct Component : public bl::rc::rcom::DrawableBase {
+struct ExampleComponent : public bl::rc::rcom::DrawableBase {
     bl::rc::buf::IndexBuffer indexBuffer;
 
-    Component(bl::rc::Renderer& renderer, const glm::vec2 size, bool transparency,
-              std::uint32_t pipeline) {
+    ExampleComponent(bl::rc::Renderer& renderer, const glm::vec2 size, bool transparency,
+                     std::uint32_t pipeline) {
         indexBuffer.create(renderer.vulkanState(), 4, 6);
 
         auto& vertices       = indexBuffer.vertices();
