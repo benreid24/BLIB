@@ -27,17 +27,18 @@ public:
 private:
     struct Instance {
         const VkDevice device;
+        const VkDescriptorSetLayout layout;
         bl::rc::buf::FullyDynamicSSBO<Particle> storage;
         bl::rc::vk::PerFrame<bl::rc::vk::DescriptorSet> descriptorSets;
         bl::pcl::Link<Particle>* link;
 
         Instance(bl::engine::Engine& engine, VkDescriptorSetLayout layout, bl::ecs::Entity entity)
-        : device(engine.renderer().vulkanState().device) {
+        : device(engine.renderer().vulkanState().device)
+        , layout(layout) {
             storage.create(engine.renderer().vulkanState(), 128);
             descriptorSets.init(engine.renderer().vulkanState(),
                                 [this, &engine, layout](bl::rc::vk::DescriptorSet& set) {
                                     set.init(engine.renderer().vulkanState());
-                                    set.allocate(layout);
                                     writeDescriptorSet(set);
                                 });
             link = engine.ecs().getComponent<bl::pcl::Link<Particle>>(entity);
@@ -48,7 +49,7 @@ private:
         }
 
         void writeDescriptorSet(bl::rc::vk::DescriptorSet& set) {
-            // TODO - re-allocate for deferred delete on change?
+            set.allocate(layout);
 
             bl::rc::vk::Buffer& buffer = descriptorSets.getOther(set, storage.gpuBufferHandles());
 
@@ -67,6 +68,13 @@ private:
             setWrite.descriptorType  = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER; // TODO - UBO instead?
 
             vkUpdateDescriptorSets(device, 1, &setWrite, 0, nullptr);
+        }
+
+        void copyData() {
+            if (storage.performFullCopy(link->base, link->len)) {
+                descriptorSets.visit(
+                    [this](bl::rc::vk::DescriptorSet& ds) { writeDescriptorSet(ds); });
+            }
         }
     };
 
@@ -112,7 +120,9 @@ private:
         instances.erase(key.sceneId);
     }
 
-    virtual void handleFrameStart() override {}
+    virtual void handleFrameStart() override {
+        for (auto& pair : instances) { pair.second.copyData(); }
+    }
 };
 
 #endif

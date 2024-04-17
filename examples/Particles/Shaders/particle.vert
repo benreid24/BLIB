@@ -13,7 +13,7 @@ layout(set = 1, binding = 0) uniform cam {
     mat4 viewProj;
 } camera;
 
-layout(std140, set = 3, binding = 0) readonly buffer pcl {
+layout(std140, set = 2, binding = 0) readonly buffer pcl {
     vec2 pos[];
 } particles;
 

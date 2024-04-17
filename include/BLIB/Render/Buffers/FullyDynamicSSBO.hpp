@@ -78,9 +78,10 @@ public:
      * @tparam U Some type that can be assigned to T. Overload operator= if required
      * @param base The first element to copy from
      * @param len The number of elements to copy
+     * @return True if the buffer grew, false otherwise
      */
     template<typename U>
-    void performFullCopy(U* base, std::size_t len);
+    bool performFullCopy(U* base, std::size_t len);
 
     /**
      * @brief Returns the Buffer objects of the GPU buffers
@@ -170,16 +171,17 @@ bool FullyDynamicSSBO<T>::ensureSize(std::uint32_t desiredSize, bool skipCopy) {
 
 template<typename T>
 template<typename U>
-void FullyDynamicSSBO<T>::performFullCopy(U* base, std::size_t len) {
-    ensureSize(len, true);
-    U* end    = base + len;
-    char* dst = static_cast<char*>(gpuBuffers.current().getMappedMemory());
+bool FullyDynamicSSBO<T>::performFullCopy(U* base, std::size_t len) {
+    const bool grew = ensureSize(len, true);
+    U* end          = base + len;
+    char* dst       = static_cast<char*>(gpuBuffers.current().getMappedMemory());
     while (base != end) {
         T* slot = static_cast<T*>(static_cast<void*>(dst));
         *slot   = *base;
         ++base;
         dst += alignment;
     }
+    return grew;
 }
 
 } // namespace buf

@@ -13,10 +13,46 @@
 
 using SimpleParticleSystem = bl::pcl::ParticleManager<Particle>;
 
+bool pipelineCreated = false;
+
 class DemoState : public bl::engine::State {
 public:
     DemoState(bl::engine::Engine& engine)
-    : State(bl::engine::StateMask::All) {
+    : State(bl::engine::StateMask::All) {}
+
+    virtual const char* name() const override { return "DemoState"; }
+
+    virtual void activate(bl::engine::Engine& engine) override {
+        if (!pipelineCreated) {
+            pipelineCreated = true;
+            createPipeline(engine);
+        }
+
+        // TODO - better interface
+        auto& simpleManager =
+            engine.particleSystem().getUniqueSystem<bl::pcl::ParticleManager<Particle>>();
+
+        simpleManager.addEmitter<SimpleTimedEmitter>();
+
+        auto& observer = engine.renderer().getObserver(0);
+        auto scene     = observer.pushScene<bl::rc::scene::Scene2D>();
+        observer.setCamera<bl::cam::Camera2D>(
+            sf::FloatRect(Bounds.x, Bounds.y, Bounds.z, Bounds.w));
+
+        simpleManager.addToScene(scene);
+    }
+
+    virtual void deactivate(bl::engine::Engine& engine) override {
+        engine.particleSystem().removeUniqueSystem<bl::pcl::ParticleManager<Particle>>();
+        engine.renderer().getObserver().popScene();
+    }
+
+    virtual void update(bl::engine::Engine&, float, float) override {
+        // nothing
+    }
+
+private:
+    void createPipeline(bl::engine::Engine& engine) {
         // create custom pipeline to render Particle
         VkPipelineDepthStencilStateCreateInfo depthStencilDepthEnabled{};
         depthStencilDepthEnabled.sType = VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;
@@ -49,43 +85,15 @@ public:
                 {bl::rc::Config::RenderPassIds::StandardAttachmentDefault,
                  bl::rc::Config::RenderPassIds::SwapchainDefault})
                 .withShaders("Resources/Shaders/particle.vert.spv",
-                             bl::rc::Config::ShaderIds::SkinnedMeshFragment)
+                             bl::rc::Config::ShaderIds::Fragment2DSkinnedLit)
                 .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
                 .withRasterizer(rasterizer)
                 .withDepthStencilState(&depthStencilDepthEnabled)
                 .addDescriptorSet<bl::rc::ds::TexturePoolFactory>()
-                .addDescriptorSet<bl::rc::ds::Scene3DFactory>()
+                .addDescriptorSet<bl::rc::ds::Scene2DFactory>()
                 .addDescriptorSet<DescriptorFactory>()
                 .build());
     }
-
-    virtual const char* name() const override { return "DemoState"; }
-
-    virtual void activate(bl::engine::Engine& engine) override {
-        auto& simpleManager =
-            engine.particleSystem().getUniqueSystem<bl::pcl::ParticleManager<Particle>>();
-
-        simpleManager.addEmitter<SimpleTimedEmitter>();
-
-        auto& observer = engine.renderer().getObserver(0);
-        auto scene     = observer.pushScene<bl::rc::scene::Scene2D>();
-        observer.setCamera<bl::cam::Camera2D>(
-            sf::FloatRect(Bounds.x, Bounds.y, Bounds.z, Bounds.w));
-
-        simpleManager.addToScene(scene);
-    }
-
-    virtual void deactivate(bl::engine::Engine& engine) override {
-        // TODO - remove particle system
-        engine.renderer().getObserver().popScene();
-    }
-
-    virtual void update(bl::engine::Engine&, float, float) override {
-        // nothing
-    }
-
-private:
-    // data?
 };
 
 /**

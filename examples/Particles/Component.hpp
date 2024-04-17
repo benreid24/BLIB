@@ -30,6 +30,8 @@ struct ExampleComponent : public bl::rc::rcom::DrawableBase {
         vertices[3].texCoord = {0.f, 1.f};
         vertices[3].color    = {1.f, 1.f, 1.f, 1.f};
 
+        indexBuffer.indices() = {0, 1, 2, 0, 2, 3};
+
         indexBuffer.queueTransfer(bl::rc::tfr::Transferable::SyncRequirement::Immediate);
 
         drawParams               = indexBuffer.getDrawParameters();

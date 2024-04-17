@@ -20,7 +20,7 @@ private:
         bindings.bindings[0].binding         = 0;
         bindings.bindings[0].descriptorCount = 1;
         bindings.bindings[0].descriptorType  = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
-        bindings.bindings[0].stageFlags = VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT;
+        bindings.bindings[0].stageFlags = VK_SHADER_STAGE_VERTEX_BIT;
 
         descriptorSetLayout = renderer.vulkanState().descriptorPool.createLayout(bindings);
     }

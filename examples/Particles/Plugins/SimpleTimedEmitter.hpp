@@ -8,7 +8,7 @@
 
 class SimpleTimedEmitter : public bl::pcl::Emitter<Particle> {
 public:
-    static constexpr float SpawnRate = 10.f;
+    static constexpr float SpawnRate = 100.f;
     static constexpr int MaxSpawn    = 5000;
 
     SimpleTimedEmitter()
