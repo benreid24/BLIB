@@ -18,7 +18,11 @@ layout(std140, set = 2, binding = 0) readonly buffer pcl {
 } particles;
 
 void main() {
-    vec4 worldPos = vec4(particles.pos[gl_InstanceIndex], 0.0, 1.0) + vec4(inPosition, 1.0);
+    vec2 pos = particles.pos[gl_InstanceIndex];
+    mat4 particleTransform = mat4(1.0);
+    particleTransform[3][0] = pos[0];
+    particleTransform[3][1] = pos[1];
+    vec4 worldPos = particleTransform * vec4(inPosition, 1.0);
 	gl_Position = camera.viewProj * worldPos;
 	fragColor = inColor;
 	fragTexCoords = inTexCoords;
