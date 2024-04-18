@@ -9,11 +9,44 @@
 #include "Particle.hpp"
 #include "Renderer.hpp"
 
-#include "Plugins/SimpleTimedEmitter.hpp"
+#include "Plugins/SimpleBlackHoleSink.hpp"
+#include "Plugins/SimpleGravityAffector.hpp"
+#include "Plugins/SimplePointEmitter.hpp"
+#include "Plugins/SimpleVelocityAffector.hpp"
+#include "Plugins/SimpleWrapAffector.hpp"
 
 using SimpleParticleSystem = bl::pcl::ParticleManager<Particle>;
 
 bool pipelineCreated = false;
+
+class ClickSpawner : public bl::event::Listener<sf::Event> {
+public:
+    ClickSpawner()
+    : particles(nullptr) {}
+
+    void init(bl::pcl::ParticleManager<Particle>& manager) { particles = &manager; }
+
+    virtual void observe(const sf::Event& event) override {
+        if (event.type == sf::Event::MouseButtonPressed) {
+            const glm::vec2 pos(event.mouseButton.x, event.mouseButton.y);
+
+            if (event.mouseButton.button == sf::Mouse::Button::Left) {
+                particles->addEmitter<SimplePointEmitter>(pos);
+            }
+            else if (event.mouseButton.button == sf::Mouse::Button::Right) {
+                particles->addAffector<SimpleGravityAffector>(pos);
+            }
+            else if (event.mouseButton.button == sf::Mouse::Button::Middle) {
+                particles->addSink<SimpleBlackHoleSink>(pos);
+            }
+        }
+    }
+
+    virtual ~ClickSpawner() = default;
+
+private:
+    bl::pcl::ParticleManager<Particle>* particles;
+};
 
 class DemoState : public bl::engine::State {
 public:
@@ -31,8 +64,12 @@ public:
         // TODO - better interface
         auto& simpleManager =
             engine.particleSystem().getUniqueSystem<bl::pcl::ParticleManager<Particle>>();
+        spawner.init(simpleManager);
+        bl::event::Dispatcher::subscribe(&spawner);
 
-        simpleManager.addEmitter<SimpleTimedEmitter>();
+        simpleManager.addEmitter<SimplePointEmitter>(glm::vec2{400.f, 300.f});
+        simpleManager.addAffector<SimpleVelocityAffector>();
+        simpleManager.addAffector<SimpleWrapAffector>();
 
         auto& observer = engine.renderer().getObserver(0);
         auto scene     = observer.pushScene<bl::rc::scene::Scene2D>();
@@ -43,6 +80,7 @@ public:
     }
 
     virtual void deactivate(bl::engine::Engine& engine) override {
+        bl::event::Dispatcher::unsubscribe(&spawner);
         engine.particleSystem().removeUniqueSystem<bl::pcl::ParticleManager<Particle>>();
         engine.renderer().getObserver().popScene();
     }
@@ -52,6 +90,8 @@ public:
     }
 
 private:
+    ClickSpawner spawner;
+
     void createPipeline(bl::engine::Engine& engine) {
         // create custom pipeline to render Particle
         VkPipelineDepthStencilStateCreateInfo depthStencilDepthEnabled{};
@@ -85,11 +125,10 @@ private:
                 {bl::rc::Config::RenderPassIds::StandardAttachmentDefault,
                  bl::rc::Config::RenderPassIds::SwapchainDefault})
                 .withShaders("Resources/Shaders/particle.vert.spv",
-                             bl::rc::Config::ShaderIds::Fragment2DSkinnedLit)
-                .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
+                             "Resources/Shaders/particle.frag.spv")
+                .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_POINT_LIST)
                 .withRasterizer(rasterizer)
                 .withDepthStencilState(&depthStencilDepthEnabled)
-                .addDescriptorSet<bl::rc::ds::TexturePoolFactory>()
                 .addDescriptorSet<bl::rc::ds::Scene2DFactory>()
                 .addDescriptorSet<DescriptorFactory>()
                 .build());

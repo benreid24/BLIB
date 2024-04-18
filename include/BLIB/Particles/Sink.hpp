@@ -31,7 +31,7 @@ public:
          * @param particle The particle to destroy
          */
         void destroy(const T& particle) const {
-            const std::size_t i = particle - base;
+            const std::size_t i = (&particle) - base;
 
             std::unique_lock lock(mutex);
             if (!freed[i]) {

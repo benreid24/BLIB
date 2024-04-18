@@ -5,4 +5,5 @@ compile_shaders(
     
     SHADERS
 	particle.vert
+    particle.frag
 )

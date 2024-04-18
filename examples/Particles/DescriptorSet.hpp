@@ -28,7 +28,7 @@ private:
     struct Instance {
         const VkDevice device;
         const VkDescriptorSetLayout layout;
-        bl::rc::buf::FullyDynamicSSBO<Particle> storage;
+        bl::rc::buf::FullyDynamicSSBO<GpuParticle> storage;
         bl::rc::vk::PerFrame<bl::rc::vk::DescriptorSet> descriptorSets;
         bl::pcl::Link<Particle>* link;
 
@@ -65,7 +65,7 @@ private:
             setWrite.dstArrayElement = 0;
             setWrite.dstSet          = set.getSet();
             setWrite.pBufferInfo     = &bufferInfo;
-            setWrite.descriptorType  = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER; // TODO - UBO instead?
+            setWrite.descriptorType  = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
 
             vkUpdateDescriptorSets(device, 1, &setWrite, 0, nullptr);
         }

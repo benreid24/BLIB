@@ -386,6 +386,7 @@ void ParticleManager<T, R>::updateSink(TSink* sink, util::ThreadPool& pool, floa
         futures.emplace_back(pool.queueTask([this, &proxy, it, len, sink, dt, realDt]() {
             sink->update(proxy, std::span<T>(it, len), dt, realDt);
         }));
+        it += len;
     }
 
     for (auto& f : futures) { f.wait(); }

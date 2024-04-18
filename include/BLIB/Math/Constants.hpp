@@ -9,6 +9,9 @@ namespace math
 /// It's pi
 constexpr float Pi = 3.14159265359f;
 
+/// Controversial brother of Pi
+constexpr float Tau = 2.f * Pi;
+
 } // namespace math
 } // namespace bl
 
