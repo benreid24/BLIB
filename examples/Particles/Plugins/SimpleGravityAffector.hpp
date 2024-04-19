@@ -28,10 +28,10 @@ public:
 
     virtual ~SimpleGravityAffector() = default;
 
-    virtual void update(std::span<Particle> particles, float dt, float) override {
+    virtual void update(Proxy& proxy, float dt, float) override {
         const float rsqrd = radius * radius;
 
-        for (Particle& p : particles) {
+        for (Particle& p : proxy.particles()) {
             const glm::vec2 diff = pos - p.pos;
             const float distSqrd = diff.x * diff.x + diff.y * diff.y;
 

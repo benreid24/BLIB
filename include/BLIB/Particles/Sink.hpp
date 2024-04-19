@@ -40,18 +40,25 @@ public:
             }
         }
 
+        /**
+         * @brief Call to erase this sink
+         */
+        void eraseMe() { erased = true; }
+
     private:
         std::mutex& mutex;
         T* base;
         std::vector<std::size_t>& freeList;
         std::vector<bool>& freed;
+        bool erased;
 
         Proxy(std::mutex& mutex, T* base, std::vector<std::size_t>& freeList,
               std::vector<bool>& freed)
         : mutex(mutex)
         , base(base)
         , freeList(freeList)
-        , freed(freed) {}
+        , freed(freed)
+        , erased(false) {}
 
         template<typename U, typename R>
         friend class ParticleManager;
@@ -70,7 +77,7 @@ public:
      * @param dt Elapsed simulation time, in seconds, since last call to update
      * @param realDt Elapsed real time, in seconds, since last call to update
      */
-    virtual void update(const Proxy& proxy, std::span<T> particles, float dt, float realDt) = 0;
+    virtual void update(Proxy& proxy, std::span<T> particles, float dt, float realDt) = 0;
 };
 
 } // namespace pcl

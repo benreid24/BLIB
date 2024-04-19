@@ -218,7 +218,7 @@ private:
     std::vector<std::unique_ptr<TEmitter>> emitters;
     std::vector<std::unique_ptr<TSink>> sinks;
 
-    void updateSink(TSink* sink, util::ThreadPool& pool, float dt, float realDt);
+    void updateSink(std::size_t i, util::ThreadPool& pool, float dt, float realDt);
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -248,13 +248,23 @@ void ParticleManager<T, R>::update(util::ThreadPool& threadPool, float dt, float
         std::fill(freed.begin(), freed.end(), false);
 
         // update sinks first to populate freelist
-        for (auto& sink : sinks) { updateSink(sink.get(), threadPool, dt, realDt); }
+        for (std::size_t i = sinks.size(); i > 0; --i) {
+            updateSink(i - 1, threadPool, dt, realDt);
+        }
     }
 
     // run emitters to fill holes
     if (!emitters.empty()) {
         typename TEmitter::Proxy proxy(particles, freeList);
-        for (auto& emitter : emitters) { emitter->update(proxy, dt, realDt); }
+        for (std::size_t i = emitters.size(); i > 0; --i) {
+            const std::size_t idx = i - 1;
+            emitters[idx]->update(proxy, dt, realDt);
+            if (proxy.erased) {
+                if (i != emitters.size()) { emitters[idx] = std::move(emitters.back()); }
+                emitters.pop_back();
+            }
+            proxy.reset();
+        }
     }
 
     // remove particles that did not get re-emitted
@@ -266,14 +276,22 @@ void ParticleManager<T, R>::update(util::ThreadPool& threadPool, float dt, float
 
     // run affectors over all particles
     if (!affectors.empty()) {
+        std::vector<std::uint8_t> erased;
+        erased.resize(affectors.size(), 0);
+
         futures.reserve(particles.size() / ParticlesPerThread + 1);
         auto it = particles.begin();
         while (it != particles.end()) {
             const std::size_t len =
                 std::min<std::size_t>(std::distance(it, particles.end()), ParticlesPerThread);
-            futures.emplace_back(threadPool.queueTask([this, it, len, dt, realDt]() {
+            futures.emplace_back(threadPool.queueTask([this, it, len, dt, realDt, &erased]() {
+                typename TAffector::Proxy proxy(std::span<T>(it, len));
+                unsigned int i = 0;
                 for (auto& affector : affectors) {
-                    affector->update(std::span<T>(it, len), dt, realDt);
+                    affector->update(proxy, dt, realDt);
+                    erased[i] = proxy.erased ? 1 : 0;
+                    proxy.reset();
+                    ++i;
                 }
             }));
             it += len;
@@ -281,6 +299,14 @@ void ParticleManager<T, R>::update(util::ThreadPool& threadPool, float dt, float
 
         for (auto& f : futures) { f.wait(); }
         futures.clear();
+
+        for (std::size_t i = affectors.size(); i > 0; --i) {
+            const std::size_t idx = i - 1;
+            if (erased[idx] != 0) {
+                if (i != affectors.size()) { affectors[idx] = std::move(affectors.back()); }
+                affectors.pop_back();
+            }
+        }
     }
 
     // update renderer data
@@ -374,8 +400,9 @@ const TRenderer& ParticleManager<T, TRenderer>::getRenderer() const {
 }
 
 template<typename T, typename R>
-void ParticleManager<T, R>::updateSink(TSink* sink, util::ThreadPool& pool, float dt,
+void ParticleManager<T, R>::updateSink(std::size_t i, util::ThreadPool& pool, float dt,
                                        float realDt) {
+    auto* sink = sinks[i].get();
     typename TSink::Proxy proxy(releaseMutex, &particles.front(), freeList, freed);
     auto it = particles.begin();
 
@@ -391,6 +418,11 @@ void ParticleManager<T, R>::updateSink(TSink* sink, util::ThreadPool& pool, floa
 
     for (auto& f : futures) { f.wait(); }
     futures.clear();
+
+    if (proxy.erased) {
+        if (i != sinks.size() - 1) { sinks[i] = std::move(sinks.back()); }
+        sinks.pop_back();
+    }
 }
 
 template<typename T, typename TRenderer>

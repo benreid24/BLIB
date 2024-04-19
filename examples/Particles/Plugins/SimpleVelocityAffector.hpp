@@ -8,8 +8,8 @@ class SimpleVelocityAffector : public bl::pcl::Affector<Particle> {
 public:
     virtual ~SimpleVelocityAffector() = default;
 
-    virtual void update(std::span<Particle> particles, float dt, float) override {
-        for (Particle& p : particles) { p.pos += p.vel * dt; }
+    virtual void update(Proxy& proxy, float dt, float) override {
+        for (Particle& p : proxy.particles()) { p.pos += p.vel * dt; }
     }
 };
 

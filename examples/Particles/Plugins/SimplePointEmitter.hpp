@@ -34,7 +34,7 @@ public:
 
     virtual ~SimplePointEmitter() = default;
 
-    virtual void update(const Emitter::Proxy& proxy, float dt, float) override {
+    virtual void update(Emitter::Proxy& proxy, float dt, float) override {
         angle += angularVel * dt;
         if (angularVel > 0.f) {
             while (angle >= bl::math::Tau) { angle -= bl::math::Tau; }
@@ -56,7 +56,7 @@ public:
         const float p = 1.f - static_cast<float>(spawned) / static_cast<float>(SpawnCount);
         circle.setFillColor({1.f, 1.f, 1.f, p});
 
-        // TODO - count spawned and erase self
+        if (spawned == SpawnCount) { proxy.eraseMe(); }
     }
 
 private:

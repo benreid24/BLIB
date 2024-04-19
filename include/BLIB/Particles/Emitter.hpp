@@ -32,7 +32,7 @@ public:
          * @return A reference to the new particle. May be invalidated by future calls to emit()
          */
         template<typename... TArgs>
-        T& emit(TArgs&&... args) const {
+        T& emit(TArgs&&... args) {
             if (!freeList.empty()) {
                 T* val = new (&storage[freeList.back()]) T(std::forward<TArgs>(args)...);
                 freeList.pop_back();
@@ -44,13 +44,22 @@ public:
             }
         }
 
+        /**
+         * @brief Call if the emitter needs to remove itself from the particle system
+         */
+        void eraseMe() { erased = true; }
+
     private:
         std::vector<T>& storage;
         std::vector<std::size_t>& freeList;
+        bool erased;
 
         Proxy(std::vector<T>& storage, std::vector<std::size_t>& freeList)
         : storage(storage)
-        , freeList(freeList) {}
+        , freeList(freeList)
+        , erased(false) {}
+
+        void reset() { erased = false; }
 
         template<typename U, typename R>
         friend class ParticleManager;
@@ -68,7 +77,7 @@ public:
      * @param dt Elapsed simulation time, in seconds, since last call to update
      * @param realDt Elapsed real time, in seconds, since last call to update
      */
-    virtual void update(const Proxy& proxy, float dt, float realDt) = 0;
+    virtual void update(Proxy& proxy, float dt, float realDt) = 0;
 };
 
 } // namespace pcl

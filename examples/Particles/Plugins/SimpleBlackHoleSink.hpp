@@ -27,8 +27,7 @@ public:
 
     virtual ~SimpleBlackHoleSink() = default;
 
-    virtual void update(const Proxy& proxy, std::span<Particle> particles, float dt,
-                        float) override {
+    virtual void update(Proxy& proxy, std::span<Particle> particles, float dt, float) override {
         const float rsqrd = radius * radius;
 
         for (Particle& p : particles) {
