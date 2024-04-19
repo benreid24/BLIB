@@ -241,7 +241,7 @@ template<typename T, typename R>
 void ParticleManager<T, R>::update(util::ThreadPool& threadPool, float dt, float realDt) {
     std::unique_lock lock(mutex);
 
-    if (!sinks.empty()) {
+    if (!sinks.empty() && !particles.empty()) {
         // reset free list
         freeList.clear();
         freed.resize(particles.size());
@@ -259,7 +259,7 @@ void ParticleManager<T, R>::update(util::ThreadPool& threadPool, float dt, float
 
     // remove particles that did not get re-emitted
     for (std::size_t i : freeList) {
-        if (particles.size() > 1 && i != particles.size() - 1) { particles[i] = particles.back(); }
+        if (particles.size() > 1 && i < particles.size() - 1) { particles[i] = particles.back(); }
         particles.pop_back();
     }
     freeList.clear();

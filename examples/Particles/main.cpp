@@ -1,5 +1,6 @@
 #include <BLIB/Cameras/2D/Camera2D.hpp>
 #include <BLIB/Engine.hpp>
+#include <BLIB/Graphics.hpp>
 #include <BLIB/Particles.hpp>
 #include <BLIB/Render.hpp>
 
@@ -22,22 +23,28 @@ bool pipelineCreated = false;
 class ClickSpawner : public bl::event::Listener<sf::Event> {
 public:
     ClickSpawner()
-    : particles(nullptr) {}
+    : eng(nullptr)
+    , particles(nullptr) {}
 
-    void init(bl::pcl::ParticleManager<Particle>& manager) { particles = &manager; }
+    void init(bl::engine::Engine& engine, bl::pcl::ParticleManager<Particle>& manager,
+              bl::rc::Scene* s) {
+        particles = &manager;
+        eng       = &engine;
+        scene     = s;
+    }
 
     virtual void observe(const sf::Event& event) override {
         if (event.type == sf::Event::MouseButtonPressed) {
             const glm::vec2 pos(event.mouseButton.x, event.mouseButton.y);
 
             if (event.mouseButton.button == sf::Mouse::Button::Left) {
-                particles->addEmitter<SimplePointEmitter>(pos);
+                particles->addEmitter<SimplePointEmitter>(pos, *eng, scene);
             }
             else if (event.mouseButton.button == sf::Mouse::Button::Right) {
-                particles->addAffector<SimpleGravityAffector>(pos);
+                particles->addAffector<SimpleGravityAffector>(pos, *eng, scene);
             }
             else if (event.mouseButton.button == sf::Mouse::Button::Middle) {
-                particles->addSink<SimpleBlackHoleSink>(pos);
+                particles->addSink<SimpleBlackHoleSink>(pos, *eng, scene);
             }
         }
     }
@@ -45,7 +52,9 @@ public:
     virtual ~ClickSpawner() = default;
 
 private:
+    bl::engine::Engine* eng;
     bl::pcl::ParticleManager<Particle>* particles;
+    bl::rc::Scene* scene;
 };
 
 class DemoState : public bl::engine::State {
@@ -61,21 +70,22 @@ public:
             createPipeline(engine);
         }
 
-        // TODO - better interface
-        auto& simpleManager =
-            engine.particleSystem().getUniqueSystem<bl::pcl::ParticleManager<Particle>>();
-        spawner.init(simpleManager);
-        bl::event::Dispatcher::subscribe(&spawner);
-
-        simpleManager.addEmitter<SimplePointEmitter>(glm::vec2{400.f, 300.f});
-        simpleManager.addAffector<SimpleVelocityAffector>();
-        simpleManager.addAffector<SimpleWrapAffector>();
-
         auto& observer = engine.renderer().getObserver(0);
         auto scene     = observer.pushScene<bl::rc::scene::Scene2D>();
         observer.setCamera<bl::cam::Camera2D>(
             sf::FloatRect(Bounds.x, Bounds.y, Bounds.z, Bounds.w));
+        observer.setClearColor({0.05f, 0.05f, 0.05f, 1.f});
 
+        // TODO - better interface
+        auto& simpleManager =
+            engine.particleSystem().getUniqueSystem<bl::pcl::ParticleManager<Particle>>();
+
+        simpleManager.addEmitter<SimplePointEmitter>(glm::vec2{400.f, 300.f}, engine, scene);
+        simpleManager.addAffector<SimpleVelocityAffector>();
+        simpleManager.addAffector<SimpleWrapAffector>();
+
+        spawner.init(engine, simpleManager, scene);
+        bl::event::Dispatcher::subscribe(&spawner);
         simpleManager.addToScene(scene);
     }
 
@@ -138,12 +148,16 @@ private:
 /**
  * TODO
  * Functionality:
- *   - Add particles. Start static to test rendering then use particle system to make interesting
+ *   - Special particles for emitters and sinks
+ *   - Allow emitters, sinks, affectors to erase themselves
+ *   - Add meta updaters to particle systems
+ *   - Make particle system interface less verbose
  *
  * Genericize:
  *   - Make ECS drawable component generic (already close)
  *   - Make Renderer generic? Maybe just need some params
  *   - Template DescriptorSet and move into library
+ *   - Add global info binding struct to descriptor set
  *   - Add way to add additional data (textures, etc) to descriptor set w/o rewrite
  *   - Simplify interface of ParticleSystem to allow fetch/create using just particle type
  */

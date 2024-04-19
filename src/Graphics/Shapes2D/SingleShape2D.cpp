@@ -19,9 +19,8 @@ SingleShape2D::~SingleShape2D() {
 void SingleShape2D::notifyDirty() {
     dirty = true;
     if (!updateHandle.isQueued() && entity() != ecs::InvalidEntity) {
-        updateHandle =
-            engine().systems().addFrameTask(engine::FrameStage::RenderEarlyRefresh,
-                                            std::bind(&SingleShape2D::ensureUpdated, this));
+        updateHandle = engine().systems().addFrameTask(
+            engine::FrameStage::RenderEarlyRefresh, std::bind(&SingleShape2D::ensureUpdated, this));
     }
 }
 
@@ -38,6 +37,11 @@ void SingleShape2D::create(engine::Engine& engine, ecs::Entity existing) {
 }
 
 void SingleShape2D::ensureLocalSizeUpdated() { ensureUpdated(); }
+
+void SingleShape2D::commit() {
+    ensureUpdated();
+    updateHandle.cancel();
+}
 
 void SingleShape2D::ensureUpdated() {
     if (entity() == ecs::InvalidEntity || !dirty) { return; }

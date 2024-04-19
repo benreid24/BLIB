@@ -9,15 +9,18 @@ struct Particle {
     glm::vec2 vel;
     glm::vec4 color;
     float radius;
+    int variant;
 
-    Particle()
-    : color(makeColor()) {}
+    enum Variant : std::int32_t { Regular, BlackHole, Emitter };
 
-    Particle(const glm::vec2& pos, const glm::vec2& vel)
+    Particle() = default;
+
+    Particle(const glm::vec2& pos, const glm::vec2& vel, Variant variant)
     : pos(pos)
     , vel(vel)
     , color(makeColor())
-    , radius(bl::util::Random::get<float>(1.f, 3.f)) {}
+    , radius(bl::util::Random::get<float>(1.f, 3.f))
+    , variant(variant) {}
 
     static glm::vec4 makeColor() {
         return glm::vec4(bl::util::Random::get<float>(0.1f, 1.f),
@@ -28,12 +31,15 @@ struct Particle {
 };
 
 struct GpuParticle {
-    glm::vec4 pos;
+    glm::vec2 pos;
+    float radius;
+    std::int32_t variant;
     glm::vec4 color;
 
     GpuParticle& operator=(const Particle& p) {
-        pos   = glm::vec4(p.pos, p.radius, 0.f);
-        color = p.color;
+        pos    = p.pos;
+        radius = p.radius;
+        color  = p.color;
         return *this;
     }
 };

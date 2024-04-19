@@ -3,6 +3,7 @@
 
 #include "../Constants.hpp"
 #include "../Particle.hpp"
+#include <BLIB/Graphics/Circle.hpp>
 #include <BLIB/Particles/Affector.hpp>
 #include <BLIB/Util/Random.hpp>
 
@@ -13,9 +14,17 @@ public:
     static constexpr float MinRadius = 20.f;
     static constexpr float MaxRadius = 120.f;
 
-    SimpleGravityAffector(const glm::vec2& pos)
+    SimpleGravityAffector(const glm::vec2& pos, bl::engine::Engine& engine, bl::rc::Scene* scene)
     : pos(pos)
-    , radius(bl::util::Random::get<float>(MinRadius, MaxRadius)) {}
+    , radius(bl::util::Random::get<float>(MinRadius, MaxRadius)) {
+        circle.create(engine, 5.f);
+        circle.setFillColor(sf::Color(79, 50, 2));
+        circle.setOutlineThickness(1.f);
+        circle.setOutlineColor(sf::Color(44, 140, 0));
+        circle.getTransform().setPosition(pos);
+        circle.getTransform().setOrigin({6.f, 6.f});
+        circle.addToScene(scene, bl::rc::UpdateSpeed::Static);
+    }
 
     virtual ~SimpleGravityAffector() = default;
 
@@ -38,6 +47,7 @@ public:
     }
 
 private:
+    bl::gfx::Circle circle;
     const glm::vec2 pos;
     const float radius;
 };
