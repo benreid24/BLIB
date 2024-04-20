@@ -285,7 +285,7 @@ void ParticleManager<T, R>::update(util::ThreadPool& threadPool, float dt, float
             const std::size_t len =
                 std::min<std::size_t>(std::distance(it, particles.end()), ParticlesPerThread);
             futures.emplace_back(threadPool.queueTask([this, it, len, dt, realDt, &erased]() {
-                typename TAffector::Proxy proxy(std::span<T>(it, len));
+                typename TAffector::Proxy proxy(std::span<T>(&*it, len));
                 unsigned int i = 0;
                 for (auto& affector : affectors) {
                     affector->update(proxy, dt, realDt);
@@ -411,7 +411,7 @@ void ParticleManager<T, R>::updateSink(std::size_t i, util::ThreadPool& pool, fl
         const std::size_t len =
             std::min<std::size_t>(std::distance(it, particles.end()), ParticlesPerThread);
         futures.emplace_back(pool.queueTask([this, &proxy, it, len, sink, dt, realDt]() {
-            sink->update(proxy, std::span<T>(it, len), dt, realDt);
+            sink->update(proxy, std::span<T>(&*it, len), dt, realDt);
         }));
         it += len;
     }
