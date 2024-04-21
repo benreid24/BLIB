@@ -6,6 +6,7 @@
 
 #include "Constants.hpp"
 #include "Particle.hpp"
+#include "ShaderPayload.hpp"
 
 #include "Plugins/SimpleBlackHoleSink.hpp"
 #include "Plugins/SimpleGravityAffector.hpp"
@@ -32,6 +33,7 @@ struct RenderConfigMap<Particle> {
     static constexpr std::initializer_list<std::uint32_t> RenderPassIds =
         bl::pcl::RenderConfigDefaults<Particle>::RenderPassIds;
 
+    using GlobalShaderPayload = ShaderPayload;
     using DescriptorSets =
         bl::pcl::RenderConfigDescriptorList<bl::rc::ds::Scene2DFactory,
                                             // This descriptor set can be used most of the time
@@ -45,9 +47,9 @@ struct RenderConfigMap<Particle> {
 } // namespace pcl
 } // namespace bl
 
-class ClickSpawner : public bl::event::Listener<sf::Event> {
+class InputHandler : public bl::event::Listener<sf::Event> {
 public:
-    ClickSpawner()
+    InputHandler()
     : eng(nullptr)
     , particles(nullptr) {}
 
@@ -56,6 +58,7 @@ public:
         particles = &manager;
         eng       = &engine;
         scene     = s;
+        globals   = &manager.getRenderer().getGlobals();
     }
 
     virtual void observe(const sf::Event& event) override {
@@ -76,14 +79,21 @@ public:
             const float factor = event.mouseWheelScroll.delta > 0.f ? 1.05f : 0.95f;
             eng->setTimeScale(eng->getTimeScale() * factor);
         }
+        else if (event.type == sf::Event::KeyPressed) {
+            if (event.key.code == sf::Keyboard::C) { globals->shuffle(); }
+            else if (event.key.code == sf::Keyboard::R) {
+                globals->colorMultiplier = glm::vec4(1.f);
+            }
+        }
     }
 
-    virtual ~ClickSpawner() = default;
+    virtual ~InputHandler() = default;
 
 private:
     bl::engine::Engine* eng;
     bl::pcl::ParticleManager<Particle>* particles;
     bl::rc::Scene* scene;
+    ShaderPayload* globals;
 };
 
 class DemoState : public bl::engine::State {
@@ -123,12 +133,8 @@ public:
     }
 
 private:
-    ClickSpawner spawner;
+    InputHandler spawner;
 };
-
-/**
- * TODO - Add global info binding struct to descriptor set
- */
 
 int main() {
     bl::cam::OverlayCamera::setOverlayCoordinateSpace(800.f, 600.f);

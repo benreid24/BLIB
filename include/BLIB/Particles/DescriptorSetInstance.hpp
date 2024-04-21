@@ -2,10 +2,13 @@
 #define BLIB_PARTICLES_DESCRIPTORSETINSTANCE_HPP
 
 #include <BLIB/Particles/Link.hpp>
+#include <BLIB/Particles/RenderConfigMap.hpp>
 #include <BLIB/Render/Buffers/FullyDynamicSSBO.hpp>
+#include <BLIB/Render/Buffers/UniformBuffer.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
 #include <BLIB/Render/Vulkan/DescriptorPool.hpp>
 #include <BLIB/Render/Vulkan/DescriptorSet.hpp>
+#include <type_traits>
 
 namespace bl
 {
@@ -21,7 +24,7 @@ namespace pcl
  * @ingroup Particles
  */
 template<typename T, typename GpuT>
-class DescriptorSetInstance : public bl::rc::ds::DescriptorSetInstance {
+class DescriptorSetInstance : public rc::ds::DescriptorSetInstance {
 public:
     /**
      * @brief Creates the descriptor set instance
@@ -38,9 +41,13 @@ public:
 
 private:
     struct Instance {
+        using TGlobalPayload             = typename RenderConfigMap<T>::GlobalShaderPayload;
+        static constexpr bool HasGlobals = !std::is_same_v<TGlobalPayload, std::monostate>;
+
         const VkDevice device;
         const VkDescriptorSetLayout layout;
         rc::buf::FullyDynamicSSBO<GpuT> storage;
+        rc::buf::UniformBuffer<TGlobalPayload> globals;
         rc::vk::PerFrame<rc::vk::DescriptorSet> descriptorSets;
         Link<T>* link;
 

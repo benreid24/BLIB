@@ -73,7 +73,8 @@ void Renderer<T>::addToScene(rc::Scene* scene) {
     entity    = engine->ecs().createEntity();
     component = engine->ecs().emplaceComponent<TComponent>(
         entity, *engine, ContainsTransparency, PipelineId);
-    link = engine->ecs().emplaceComponent<Link<T>>(entity);
+    link          = engine->ecs().emplaceComponent<Link<T>>(entity);
+    link->globals = &globals;
     static_cast<TEngineSystem*>(system)->addToScene(entity, scene, bl::rc::UpdateSpeed::Dynamic);
 }
 

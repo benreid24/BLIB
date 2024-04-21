@@ -6,6 +6,10 @@ layout(location = 1) in vec2 fragPos;
 
 layout(location = 0) out vec4 outColor;
 
+layout(set = 1, binding = 1) uniform pcl {
+    vec4 colorMultiplier;
+} globals;
+
 void main() {
-    outColor = fragColor;
+    outColor = fragColor * globals.colorMultiplier;
 }

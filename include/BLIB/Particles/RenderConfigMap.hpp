@@ -28,6 +28,7 @@ struct RenderConfigDefaults {
     static constexpr std::initializer_list<std::uint32_t> RenderPassIds = {
         bl::rc::Config::RenderPassIds::StandardAttachmentDefault,
         bl::rc::Config::RenderPassIds::SwapchainDefault};
+    using GlobalShaderPayload = std::monostate;
 };
 
 /**
@@ -81,6 +82,9 @@ struct RenderConfigMap {
 
     /// The topology type the pipeline should be created with
     static constexpr VkPrimitiveTopology Topology = VK_PRIMITIVE_TOPOLOGY_POINT_LIST;
+
+    /// Type of the global struct for the default descriptor set implementation
+    using GlobalShaderPayload = RenderConfigDefaults<T>::GlobalShaderPayload;
 };
 
 } // namespace pcl

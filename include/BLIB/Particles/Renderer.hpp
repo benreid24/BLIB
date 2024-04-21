@@ -30,6 +30,7 @@ public:
     using TComponent                           = typename RenderComponentMap<T>::TComponent;
     static constexpr std::uint32_t PipelineId  = RenderConfigMap<T>::PipelineId;
     static constexpr bool ContainsTransparency = RenderConfigMap<T>::ContainsTransparency;
+    using TGlobalsPayload                      = typename RenderConfigMap<T>::GlobalShaderPayload;
 
     static_assert(PipelineId != priv::PipelineNotSet,
                   "Specialize RenderConfigMap and specify pipeline id and transparency");
@@ -61,12 +62,18 @@ public:
      */
     void notifyData(T* particles, std::size_t length);
 
+    /**
+     * @brief Returns the global shader payload being sent to the shaders
+     */
+    TGlobalsPayload& getGlobals() { return globals; }
+
 private:
     engine::Engine* engine;
     void* system;
     ecs::Entity entity;
     TComponent* component;
     Link<T>* link;
+    TGlobalsPayload globals;
 };
 
 } // namespace pcl

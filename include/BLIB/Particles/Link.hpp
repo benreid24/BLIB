@@ -1,6 +1,7 @@
 #ifndef BLIB_PARTICLES_LINK_HPP
 #define BLIB_PARTICLES_LINK_HPP
 
+#include <BLIB/Particles/RenderConfigMap.hpp>
 #include <cstddef>
 
 namespace bl
@@ -15,8 +16,11 @@ namespace pcl
  */
 template<typename T>
 struct Link {
+    using TGlobalPayload = typename RenderConfigMap<T>::GlobalShaderPayload;
+
     T* base;
     std::size_t len;
+    TGlobalPayload* globals;
 };
 
 } // namespace pcl

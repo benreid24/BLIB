@@ -59,6 +59,11 @@ DescriptorSetInstance<T, GpuT>::Instance::Instance(engine::Engine& engine,
                                                    bl::ecs::Entity entity)
 : device(engine.renderer().vulkanState().device)
 , layout(layout) {
+    if constexpr (HasGlobals) {
+        globals.create(engine.renderer().vulkanState(), 1);
+        globals.transferEveryFrame();
+    }
+
     storage.create(engine.renderer().vulkanState(), 128);
     descriptorSets.init(engine.renderer().vulkanState(),
                         [this, &engine, layout](rc::vk::DescriptorSet& set) {
@@ -73,26 +78,41 @@ DescriptorSetInstance<T, GpuT>::Instance::Instance(engine::Engine& engine,
 }
 
 template<typename T, typename GpuT>
-void DescriptorSetInstance<T, GpuT>::Instance::writeDescriptorSet(bl::rc::vk::DescriptorSet& set) {
+void DescriptorSetInstance<T, GpuT>::Instance::writeDescriptorSet(rc::vk::DescriptorSet& set) {
     set.allocate(layout);
 
     bl::rc::vk::Buffer& buffer = descriptorSets.getOther(set, storage.gpuBufferHandles());
-
     VkDescriptorBufferInfo bufferInfo{};
     bufferInfo.buffer = buffer.getBuffer();
     bufferInfo.offset = 0;
     bufferInfo.range  = buffer.getSize();
 
-    VkWriteDescriptorSet setWrite{};
-    setWrite.sType           = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
-    setWrite.descriptorCount = 1;
-    setWrite.dstBinding      = 0;
-    setWrite.dstArrayElement = 0;
-    setWrite.dstSet          = set.getSet();
-    setWrite.pBufferInfo     = &bufferInfo;
-    setWrite.descriptorType  = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
+    VkWriteDescriptorSet setWrites[2]{};
+    setWrites[0].sType           = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+    setWrites[0].descriptorCount = 1;
+    setWrites[0].dstBinding      = 0;
+    setWrites[0].dstArrayElement = 0;
+    setWrites[0].dstSet          = set.getSet();
+    setWrites[0].pBufferInfo     = &bufferInfo;
+    setWrites[0].descriptorType  = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
 
-    vkUpdateDescriptorSets(device, 1, &setWrite, 0, nullptr);
+    VkDescriptorBufferInfo globalsInfo{};
+    if constexpr (HasGlobals) {
+        bl::rc::vk::Buffer& gbuf = descriptorSets.getOther(set, globals.gpuBufferHandles());
+        globalsInfo.buffer       = gbuf.getBuffer();
+        globalsInfo.offset       = 0;
+        globalsInfo.range        = gbuf.getSize();
+
+        setWrites[1].sType           = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+        setWrites[1].descriptorCount = 1;
+        setWrites[1].dstBinding      = 1;
+        setWrites[1].dstArrayElement = 0;
+        setWrites[1].dstSet          = set.getSet();
+        setWrites[1].pBufferInfo     = &globalsInfo;
+        setWrites[1].descriptorType  = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+    }
+
+    vkUpdateDescriptorSets(device, HasGlobals ? 2 : 1, setWrites, 0, nullptr);
 }
 
 template<typename T, typename GpuT>
@@ -100,6 +120,8 @@ void DescriptorSetInstance<T, GpuT>::Instance::copyData() {
     if (storage.performFullCopy(link->base, link->len)) {
         descriptorSets.visit([this](bl::rc::vk::DescriptorSet& ds) { writeDescriptorSet(ds); });
     }
+
+    if constexpr (HasGlobals) { globals[0] = *link->globals; }
 }
 
 } // namespace pcl
