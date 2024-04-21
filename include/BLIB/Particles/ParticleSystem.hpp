@@ -33,16 +33,16 @@ public:
      * @brief Returns a particle manager for the given particle type. Ensures only one manager is
      *        created. Use for global particle managers
      *
-     * @tparam T The manager type to get or create
+     * @tparam T The particle type to get or create the manager for
      * @return A unique particle manager for the given particle type
      */
     template<typename T>
-    T& getUniqueSystem();
+    ParticleManager<T>& getUniqueSystem();
 
     /**
      * @brief Removes the unique particle manager for the given particle type
      *
-     * @tparam T The manager type to remove
+     * @tparam T The particle type of the manager to remove
      */
     template<typename T>
     void removeUniqueSystem();
@@ -63,11 +63,11 @@ public:
      * @brief Adds a new particle manager for the given particle type. Always creates a new one. Use
      *        for entity level particle managers
      *
-     * @tparam T The particle manager type
+     * @tparam T The particle type
      * @return The newly created particle manager
      */
     template<typename T>
-    T& addRepeatedSystem();
+    ParticleManager<T>& addRepeatedSystem();
 
     /**
      * @brief Removes the specific entity level particle manager
@@ -80,16 +80,16 @@ public:
      * @brief Removes the specific entity level particle manager. Prefer this typed version to the
      *        generic for faster erasing
      *
-     * @tparam T The particle manager type to remove
+     * @tparam T The particle type
      * @param system The particle manager to remove
      */
     template<typename T>
-    void removeRepeatedSystem(T* system);
+    void removeRepeatedSystem(ParticleManager<T>* system);
 
     /**
      * @brief Removes all particle managers of the given type
      *
-     * @tparam T The type of particle managers to remove
+     * @tparam T The particle type to remove all managers for
      */
     template<typename T>
     void removeRepeatedSystems();
@@ -118,42 +118,40 @@ private:
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 template<typename T>
-T& ParticleSystem::getUniqueSystem() {
-    static_assert(std::is_base_of_v<ParticleManagerBase, T>, "T must be a ParticleManager");
+ParticleManager<T>& ParticleSystem::getUniqueSystem() {
+    using U = ParticleManager<T>;
 
     std::unique_lock lock(mutex);
 
     auto it = singleSystems.find(typeid(T));
     if (it == singleSystems.end()) {
-        it = singleSystems.try_emplace(typeid(T), std::make_unique<T>()).first;
+        it = singleSystems.try_emplace(typeid(T), std::make_unique<U>()).first;
         it->second->init(*engine);
     }
-    return static_cast<T&>(*it->second);
+    return static_cast<U&>(*it->second);
 }
 
 template<typename T>
 void ParticleSystem::removeUniqueSystem() {
-    static_assert(std::is_base_of_v<ParticleManagerBase, T>, "T must be a ParticleManager");
-
     std::unique_lock lock(mutex);
     singleSystems.erase(typeid(T));
 }
 
 template<typename T>
-T& ParticleSystem::addRepeatedSystem() {
-    static_assert(std::is_base_of_v<ParticleManagerBase, T>, "T must be a ParticleManager");
+ParticleManager<T>& ParticleSystem::addRepeatedSystem() {
+    using U = ParticleManager<T>;
 
     std::unique_lock lock(mutex);
 
     auto& list  = multiSystems[typeid(T)];
-    auto& added = list.emplace_back(std::make_unique<T>());
+    auto& added = list.emplace_back(std::make_unique<U>());
     added->init(*engine);
-    return static_cast<T&>(*added);
+    return static_cast<U&>(*added);
 }
 
 template<typename T>
-inline void ParticleSystem::removeRepeatedSystem(T* system) {
-    static_assert(std::is_base_of_v<ParticleManagerBase, T>, "T must be a ParticleManager");
+void ParticleSystem::removeRepeatedSystem(ParticleManager<T>* system) {
+    using U = ParticleManager<T>;
 
     std::unique_lock lock(mutex);
 
@@ -170,8 +168,6 @@ inline void ParticleSystem::removeRepeatedSystem(T* system) {
 
 template<typename T>
 void ParticleSystem::removeRepeatedSystems() {
-    static_assert(std::is_base_of_v<ParticleManagerBase, T>, "T must be a ParticleManager");
-
     std::unique_lock lock(mutex);
     multiSystems.erase(typeid(T));
 }

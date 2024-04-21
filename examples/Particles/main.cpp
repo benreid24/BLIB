@@ -13,8 +13,6 @@
 #include "Plugins/SimpleVelocityAffector.hpp"
 #include "Plugins/SimpleWrapAffector.hpp"
 
-using SimpleParticleSystem = bl::pcl::ParticleManager<Particle>;
-
 // We are using the default renderer. All we need to do is specialize this class and specify our
 // render settings (pipeline, transparency, shaders, etc)
 namespace bl
@@ -101,9 +99,7 @@ public:
             sf::FloatRect(Bounds.x, Bounds.y, Bounds.z, Bounds.w));
         observer.setClearColor({0.05f, 0.05f, 0.05f, 1.f});
 
-        // TODO - better interface
-        auto& simpleManager =
-            engine.particleSystem().getUniqueSystem<bl::pcl::ParticleManager<Particle>>();
+        auto& simpleManager = engine.particleSystem().getUniqueSystem<Particle>();
 
         simpleManager.addEmitter<SimplePointEmitter>(glm::vec2{400.f, 300.f}, engine, scene);
         simpleManager.addAffector<SimpleVelocityAffector>();
@@ -116,7 +112,7 @@ public:
 
     virtual void deactivate(bl::engine::Engine& engine) override {
         bl::event::Dispatcher::unsubscribe(&spawner);
-        engine.particleSystem().removeUniqueSystem<bl::pcl::ParticleManager<Particle>>();
+        engine.particleSystem().removeUniqueSystem<Particle>();
         engine.renderer().getObserver().popScene();
     }
 
@@ -132,11 +128,9 @@ private:
  * TODO
  * Functionality:
  *   - Add meta updaters to particle systems
- *   - Make particle system interface less verbose
  *
  * Genericize:
  *   - Add global info binding struct to descriptor set
- *   - Simplify interface of ParticleSystem to allow fetch/create using just particle type
  */
 
 int main() {
