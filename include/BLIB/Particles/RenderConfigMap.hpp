@@ -85,7 +85,7 @@ struct RenderConfigMap {
     static constexpr VkPrimitiveTopology Topology = VK_PRIMITIVE_TOPOLOGY_POINT_LIST;
 
     /// Type of the global struct for the default descriptor set implementation
-    using GlobalShaderPayload = RenderConfigDefaults<T>::GlobalShaderPayload;
+    using GlobalShaderPayload = typename RenderConfigDefaults<T>::GlobalShaderPayload;
 };
 
 } // namespace pcl
