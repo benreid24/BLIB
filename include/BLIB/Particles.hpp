@@ -15,6 +15,7 @@
 #include <BLIB/Particles/DescriptorSetInstance.hpp>
 #include <BLIB/Particles/Emitter.hpp>
 #include <BLIB/Particles/Link.hpp>
+#include <BLIB/Particles/MetaUpdater.hpp>
 #include <BLIB/Particles/ParticleManager.hpp>
 #include <BLIB/Particles/ParticleManagerBase.hpp>
 #include <BLIB/Particles/ParticleSystem.hpp>

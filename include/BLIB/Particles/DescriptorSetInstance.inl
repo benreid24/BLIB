@@ -25,11 +25,6 @@ void DescriptorSetInstance<T, GpuT>::bindForObject(rc::scene::SceneRenderContext
         return;
     }
 
-    // TODO - not needed?
-    if (it->second.storage.ensureSize(it->second.link->len, true)) {
-        it->second.writeDescriptorSet(it->second.descriptorSets.current());
-    }
-
     it->second.descriptorSets.current().bind(
         ctx.getCommandBuffer(), VK_PIPELINE_BIND_POINT_GRAPHICS, layout, setIndex);
 }

@@ -34,12 +34,19 @@ public:
          */
         void eraseMe() { erased = true; }
 
+        /**
+         * @brief Access the particle manager that owns this affector
+         */
+        const ParticleManager<T>& getManager() const { return manager; }
+
     private:
+        ParticleManager<T>& manager;
         std::span<T> span;
         bool erased;
 
-        Proxy(const std::span<T>& span)
-        : span(span)
+        Proxy(ParticleManager<T>& manager, const std::span<T>& span)
+        : manager(manager)
+        , span(span)
         , erased(false) {}
 
         void reset() { erased = false; }

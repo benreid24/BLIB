@@ -9,6 +9,7 @@
 
 #include "Plugins/SimpleBlackHoleSink.hpp"
 #include "Plugins/SimpleGravityAffector.hpp"
+#include "Plugins/SimpleMovableUpdater.hpp"
 #include "Plugins/SimplePointEmitter.hpp"
 #include "Plugins/SimpleVelocityAffector.hpp"
 #include "Plugins/SimpleWrapAffector.hpp"
@@ -101,6 +102,7 @@ public:
 
         auto& simpleManager = engine.particleSystem().getUniqueSystem<Particle>();
 
+        simpleManager.addUpdater<SimpleMovableUpdater>();
         simpleManager.addEmitter<SimplePointEmitter>(glm::vec2{400.f, 300.f}, engine, scene);
         simpleManager.addAffector<SimpleVelocityAffector>();
         simpleManager.addAffector<SimpleWrapAffector>();
@@ -125,12 +127,7 @@ private:
 };
 
 /**
- * TODO
- * Functionality:
- *   - Add meta updaters to particle systems
- *
- * Genericize:
- *   - Add global info binding struct to descriptor set
+ * TODO - Add global info binding struct to descriptor set
  */
 
 int main() {

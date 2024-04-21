@@ -3,6 +3,7 @@
 
 #include <BLIB/Particles/Affector.hpp>
 #include <BLIB/Particles/Emitter.hpp>
+#include <BLIB/Particles/MetaUpdater.hpp>
 #include <BLIB/Particles/ParticleManagerBase.hpp>
 #include <BLIB/Particles/RenderTypeMap.hpp>
 #include <BLIB/Particles/Sink.hpp>
@@ -26,6 +27,7 @@ template<typename T>
 class ParticleManager : public ParticleManagerBase {
 public:
     using TRenderer = typename RenderTypeMap<T>::TRenderer;
+    using TUpdater  = MetaUpdater<T>;
     using TAffector = Affector<T>;
     using TEmitter  = Emitter<T>;
     using TSink     = Sink<T>;
@@ -55,6 +57,46 @@ public:
      * @param realDt Elapsed real time in seconds
      */
     virtual void update(util::ThreadPool& threadPool, float dt, float realDt) override;
+
+    /**
+     * @brief Adds a particle updater of the given type
+     *
+     * @tparam U The type of updater to add
+     * @param ...args Arguments to construct the updater with
+     * @return A pointer to the new updater
+     */
+    template<typename U, typename... TArgs>
+    U* addUpdater(TArgs... args);
+
+    /**
+     * @brief Fetches the updater of the given type. Returns the first one found if there are
+     *        multiple of the same type
+     *
+     * @tparam U The type of updater to fetch
+     * @return A pointer to the updater, nullptr if not found
+     */
+    template<typename U>
+    U* getUpdater();
+
+    /**
+     * @brief Removes the particular updater from the manager
+     *
+     * @param updater The updater to remove
+     */
+    void removeUpdater(TUpdater* updater);
+
+    /**
+     * @brief Removes all updaters of the given type from the manager
+     *
+     * @tparam U The updater type to remove
+     */
+    template<typename U>
+    void removeUpdaters();
+
+    /**
+     * @brief Removes all particle updaters
+     */
+    void removeAllUpdaters();
 
     /**
      * @brief Adds a particle affector of the given type
@@ -215,6 +257,7 @@ private:
     std::vector<bool> freed;
     std::vector<std::future<void>> futures;
 
+    std::vector<std::unique_ptr<TUpdater>> updaters;
     std::vector<std::unique_ptr<TAffector>> affectors;
     std::vector<std::unique_ptr<TEmitter>> emitters;
     std::vector<std::unique_ptr<TSink>> sinks;
@@ -242,6 +285,20 @@ template<typename T>
 void ParticleManager<T>::update(util::ThreadPool& threadPool, float dt, float realDt) {
     std::unique_lock lock(mutex);
 
+    // call updaters before anything else
+    if (!updaters.empty()) {
+        typename TUpdater::Proxy proxy(*this, affectors, emitters, sinks);
+        for (std::size_t i = updaters.size(); i > 0; --i) {
+            const std::size_t idx = i - 1;
+            updaters[idx]->update(proxy, dt, realDt);
+            if (proxy.erased) {
+                if (i != updaters.size()) { updaters[idx] = std::move(updaters.back()); }
+                updaters.pop_back();
+            }
+            proxy.reset();
+        }
+    }
+
     if (!sinks.empty() && !particles.empty()) {
         // reset free list
         freeList.clear();
@@ -256,7 +313,7 @@ void ParticleManager<T>::update(util::ThreadPool& threadPool, float dt, float re
 
     // run emitters to fill holes
     if (!emitters.empty()) {
-        typename TEmitter::Proxy proxy(particles, freeList);
+        typename TEmitter::Proxy proxy(*this, particles, freeList);
         for (std::size_t i = emitters.size(); i > 0; --i) {
             const std::size_t idx = i - 1;
             emitters[idx]->update(proxy, dt, realDt);
@@ -286,7 +343,7 @@ void ParticleManager<T>::update(util::ThreadPool& threadPool, float dt, float re
             const std::size_t len =
                 std::min<std::size_t>(std::distance(it, particles.end()), ParticlesPerThread);
             futures.emplace_back(threadPool.queueTask([this, it, len, dt, realDt, &erased]() {
-                typename TAffector::Proxy proxy(std::span<T>(&*it, len));
+                typename TAffector::Proxy proxy(*this, std::span<T>(&*it, len));
                 unsigned int i = 0;
                 for (auto& affector : affectors) {
                     affector->update(proxy, dt, realDt);
@@ -312,6 +369,24 @@ void ParticleManager<T>::update(util::ThreadPool& threadPool, float dt, float re
 
     // update renderer data
     renderer.notifyData(particles.data(), particles.size());
+}
+
+template<typename T>
+void ParticleManager<T>::removeUpdater(TUpdater* updater) {
+    std::unique_lock lock(mutex);
+
+    for (auto it = updaters.begin(); it != updaters.end(); ++it) {
+        if (&*it == updater) {
+            updaters.erase(it);
+            return;
+        }
+    }
+}
+
+template<typename T>
+void ParticleManager<T>::removeAllUpdaters() {
+    std::unique_lock lock(mutex);
+    updaters.clear();
 }
 
 template<typename T>
@@ -403,7 +478,7 @@ const typename ParticleManager<T>::TRenderer& ParticleManager<T>::getRenderer() 
 template<typename T>
 void ParticleManager<T>::updateSink(std::size_t i, util::ThreadPool& pool, float dt, float realDt) {
     auto* sink = sinks[i].get();
-    typename TSink::Proxy proxy(releaseMutex, &particles.front(), freeList, freed);
+    typename TSink::Proxy proxy(releaseMutex, *this, &particles.front(), freeList, freed);
     auto it = particles.begin();
 
     futures.reserve(particles.size() / ParticlesPerThread + 1);
@@ -423,6 +498,41 @@ void ParticleManager<T>::updateSink(std::size_t i, util::ThreadPool& pool, float
         if (i != sinks.size() - 1) { sinks[i] = std::move(sinks.back()); }
         sinks.pop_back();
     }
+}
+
+template<typename T>
+template<typename U, typename... TArgs>
+U* ParticleManager<T>::addUpdater(TArgs... args) {
+    static_assert(std::is_base_of_v<TUpdater, U>, "U must derive from MetaUpdater");
+    std::unique_lock lock(mutex);
+
+    U* updater = new U(std::forward<TArgs>(args)...);
+    updaters.emplace_back(updater);
+    return updater;
+}
+
+template<typename T>
+template<typename U>
+U* ParticleManager<T>::getUpdater() {
+    static_assert(std::is_base_of_v<TUpdater, U>, "U must derive from MetaUpdater");
+    std::unique_lock lock(mutex);
+
+    for (auto& a : updaters) {
+        U* u = dynamic_cast<U*>(a.get());
+        if (u) { return u; }
+    }
+    return nullptr;
+}
+
+template<typename T>
+template<typename U>
+void ParticleManager<T>::removeUpdaters() {
+    static_assert(std::is_base_of_v<TUpdater, U>, "U must derive from MetaUpdater");
+    std::unique_lock lock(mutex);
+
+    std::erase_if(updaters, [](std::unique_ptr<TUpdater>& a) {
+        return dynamic_cast<U*>(a.get()) != nullptr;
+    });
 }
 
 template<typename T>

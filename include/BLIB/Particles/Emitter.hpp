@@ -49,13 +49,21 @@ public:
          */
         void eraseMe() { erased = true; }
 
+        /**
+         * @brief Access the particle manager that owns this emitter
+         */
+        const ParticleManager<T>& getManager() const { return manager; }
+
     private:
+        ParticleManager<T>& manager;
         std::vector<T>& storage;
         std::vector<std::size_t>& freeList;
         bool erased;
 
-        Proxy(std::vector<T>& storage, std::vector<std::size_t>& freeList)
-        : storage(storage)
+        Proxy(ParticleManager<T>& manager, std::vector<T>& storage,
+              std::vector<std::size_t>& freeList)
+        : manager(manager)
+        , storage(storage)
         , freeList(freeList)
         , erased(false) {}
 

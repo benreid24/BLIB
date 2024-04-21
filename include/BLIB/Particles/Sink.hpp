@@ -45,16 +45,23 @@ public:
          */
         void eraseMe() { erased = true; }
 
+        /**
+         * @brief Access the particle manager that owns this sink
+         */
+        const ParticleManager<T>& getManager() const { return manager; }
+
     private:
         std::mutex& mutex;
+        ParticleManager<T>& manager;
         T* base;
         std::vector<std::size_t>& freeList;
         std::vector<bool>& freed;
         bool erased;
 
-        Proxy(std::mutex& mutex, T* base, std::vector<std::size_t>& freeList,
-              std::vector<bool>& freed)
+        Proxy(std::mutex& mutex, ParticleManager<T>& manager, T* base,
+              std::vector<std::size_t>& freeList, std::vector<bool>& freed)
         : mutex(mutex)
+        , manager(manager)
         , base(base)
         , freeList(freeList)
         , freed(freed)

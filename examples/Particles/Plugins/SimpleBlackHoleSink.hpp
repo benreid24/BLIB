@@ -2,11 +2,14 @@
 #define SIMPLEBLACKHOLESINK_HPP
 
 #include "../Particle.hpp"
+#include "Movable.hpp"
 #include <BLIB/Graphics/Circle.hpp>
 #include <BLIB/Particles/Sink.hpp>
 #include <BLIB/Util/Random.hpp>
 
-class SimpleBlackHoleSink : public bl::pcl::Sink<Particle> {
+class SimpleBlackHoleSink
+: public bl::pcl::Sink<Particle>
+, public Movable {
 public:
     static constexpr float MinRadius = 20.f;
     static constexpr float MaxRadius = 50.f;
@@ -14,7 +17,7 @@ public:
     static constexpr float EatRadius = 4.f;
 
     SimpleBlackHoleSink(const glm::vec2& pos, bl::engine::Engine& engine, bl::rc::Scene* scene)
-    : pos(pos)
+    : Movable(pos)
     , radius(bl::util::Random::get<float>(MinRadius, MaxRadius)) {
         circle.create(engine, 3.f);
         circle.setFillColor(sf::Color::Black);
@@ -22,7 +25,7 @@ public:
         circle.setOutlineColor(sf::Color(255, 196, 0));
         circle.getTransform().setPosition(pos);
         circle.getTransform().setOrigin({4.f, 4.f});
-        circle.addToScene(scene, bl::rc::UpdateSpeed::Static);
+        circle.addToScene(scene, bl::rc::UpdateSpeed::Dynamic);
     }
 
     virtual ~SimpleBlackHoleSink() = default;
@@ -43,11 +46,12 @@ public:
                 p.vel += dir * accel * dt;
             }
         }
+
+        circle.getTransform().setPosition(pos);
     }
 
 private:
     bl::gfx::Circle circle;
-    const glm::vec2 pos;
     const float radius;
 };
 
