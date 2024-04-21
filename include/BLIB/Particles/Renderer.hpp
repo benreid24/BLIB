@@ -67,6 +67,11 @@ public:
      */
     TGlobalsPayload& getGlobals() { return globals; }
 
+    /**
+     * @brief Access the ECS entity being used to render the particle system
+     */
+    ecs::Entity getEntity() const { return entity; }
+
 private:
     engine::Engine* engine;
     void* system;

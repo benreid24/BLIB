@@ -64,6 +64,7 @@ void Renderer<T>::init(engine::Engine& e) {
                                                          bl::engine::StateMask::All,
                                                          PipelineId,
                                                          PipelineId);
+    component = nullptr;
 }
 
 template<typename T>
@@ -81,14 +82,17 @@ void Renderer<T>::addToScene(rc::Scene* scene) {
 template<typename T>
 void Renderer<T>::removeFromScene() {
     engine->ecs().destroyEntity(entity);
+    component = nullptr;
 }
 
 template<typename T>
 void Renderer<T>::notifyData(T* particles, std::size_t length) {
-    component->drawParams.instanceCount = length;
-    component->syncDrawParamsToScene();
-    link->base = particles;
-    link->len  = length;
+    if (component) {
+        component->drawParams.instanceCount = length;
+        component->syncDrawParamsToScene();
+        link->base = particles;
+        link->len  = length;
+    }
 }
 
 } // namespace pcl
