@@ -5,8 +5,6 @@
 #include <BLIB/Render.hpp>
 
 #include "Constants.hpp"
-#include "DescriptorFactory.hpp"
-#include "DescriptorSet.hpp"
 #include "Particle.hpp"
 
 #include "Plugins/SimpleBlackHoleSink.hpp"
@@ -17,10 +15,8 @@
 
 using SimpleParticleSystem = bl::pcl::ParticleManager<Particle>;
 
-bool pipelineCreated = false;
-
 // We are using the default renderer. All we need to do is specialize this class and specify our
-// render settings (pipeline + transparency)
+// render settings (pipeline, transparency, shaders, etc)
 namespace bl
 {
 namespace pcl
@@ -29,6 +25,23 @@ template<>
 struct RenderConfigMap<Particle> {
     static constexpr std::uint32_t PipelineId  = ParticlePipelineId;
     static constexpr bool ContainsTransparency = false;
+
+    static constexpr bool CreateRenderPipeline = true; // set to true to create pipeline for us
+
+    // Below settings only used when pipeline is created
+
+    static constexpr std::initializer_list<std::uint32_t> RenderPassIds =
+        bl::pcl::RenderConfigDefaults<Particle>::RenderPassIds;
+
+    using DescriptorSets =
+        bl::pcl::RenderConfigDescriptorList<bl::rc::ds::Scene2DFactory,
+                                            // This descriptor set can be used most of the time
+                                            bl::pcl::DescriptorSetFactory<Particle, GpuParticle>>;
+
+    static constexpr bool EnableDepthTesting      = true;
+    static constexpr VkPrimitiveTopology Topology = VK_PRIMITIVE_TOPOLOGY_POINT_LIST;
+    static constexpr const char* VertexShader     = "Resources/Shaders/particle.vert.spv";
+    static constexpr const char* FragmentShader   = "Resources/Shaders/particle.frag.spv";
 };
 } // namespace pcl
 } // namespace bl
@@ -82,11 +95,6 @@ public:
     virtual const char* name() const override { return "DemoState"; }
 
     virtual void activate(bl::engine::Engine& engine) override {
-        if (!pipelineCreated) {
-            pipelineCreated = true;
-            createPipeline(engine);
-        }
-
         auto& observer = engine.renderer().getObserver(0);
         auto scene     = observer.pushScene<bl::rc::scene::Scene2D>();
         observer.setCamera<bl::cam::Camera2D>(
@@ -118,48 +126,6 @@ public:
 
 private:
     ClickSpawner spawner;
-
-    void createPipeline(bl::engine::Engine& engine) {
-        // create custom pipeline to render Particle
-        VkPipelineDepthStencilStateCreateInfo depthStencilDepthEnabled{};
-        depthStencilDepthEnabled.sType = VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;
-        depthStencilDepthEnabled.depthTestEnable       = VK_TRUE;
-        depthStencilDepthEnabled.depthWriteEnable      = VK_TRUE;
-        depthStencilDepthEnabled.depthCompareOp        = VK_COMPARE_OP_LESS_OR_EQUAL;
-        depthStencilDepthEnabled.depthBoundsTestEnable = VK_FALSE;
-        depthStencilDepthEnabled.minDepthBounds        = 0.0f; // Optional
-        depthStencilDepthEnabled.maxDepthBounds        = 1.0f; // Optional
-        depthStencilDepthEnabled.stencilTestEnable     = VK_FALSE;
-        depthStencilDepthEnabled.front                 = {}; // Optional (Stencil)
-        depthStencilDepthEnabled.back                  = {}; // Optional (Stencil)
-
-        VkPipelineRasterizationStateCreateInfo rasterizer{};
-        rasterizer.sType            = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
-        rasterizer.depthClampEnable = VK_FALSE;
-        rasterizer.rasterizerDiscardEnable = VK_FALSE;
-        rasterizer.polygonMode             = VK_POLYGON_MODE_FILL;
-        rasterizer.lineWidth               = 1.0f;
-        rasterizer.cullMode                = VK_CULL_MODE_NONE;
-        rasterizer.frontFace               = VK_FRONT_FACE_COUNTER_CLOCKWISE;
-        rasterizer.depthBiasEnable         = VK_FALSE;
-        rasterizer.depthBiasConstantFactor = 0.0f; // Optional
-        rasterizer.depthBiasClamp          = 0.0f; // Optional
-        rasterizer.depthBiasSlopeFactor    = 0.0f; // Optional
-
-        engine.renderer().pipelineCache().createPipline(
-            ParticlePipelineId,
-            bl::rc::vk::PipelineParameters(
-                {bl::rc::Config::RenderPassIds::StandardAttachmentDefault,
-                 bl::rc::Config::RenderPassIds::SwapchainDefault})
-                .withShaders("Resources/Shaders/particle.vert.spv",
-                             "Resources/Shaders/particle.frag.spv")
-                .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_POINT_LIST)
-                .withRasterizer(rasterizer)
-                .withDepthStencilState(&depthStencilDepthEnabled)
-                .addDescriptorSet<bl::rc::ds::Scene2DFactory>()
-                .addDescriptorSet<DescriptorFactory>()
-                .build());
-    }
 };
 
 /**
@@ -169,11 +135,7 @@ private:
  *   - Make particle system interface less verbose
  *
  * Genericize:
- *   - Make ECS drawable component generic (already close)
- *   - Make Renderer generic? Maybe just need some params
- *   - Template DescriptorSet and move into library
  *   - Add global info binding struct to descriptor set
- *   - Add way to add additional data (textures, etc) to descriptor set w/o rewrite
  *   - Simplify interface of ParticleSystem to allow fetch/create using just particle type
  */
 

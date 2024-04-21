@@ -1,5 +1,9 @@
 target_sources(BLIB PUBLIC
     Affector.hpp
+    DescriptorSetFactory.hpp
+    DescriptorSetFactory.inl
+    DescriptorSetInstance.hpp
+    DescriptorSetInstance.inl
     EcsComponent.hpp
     Emitter.hpp
     Link.hpp
