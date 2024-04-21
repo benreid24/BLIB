@@ -7,7 +7,7 @@ namespace bl
 {
 namespace pcl
 {
-template<typename T, typename R>
+template<typename T>
 class ParticleManager;
 
 /**
@@ -61,8 +61,7 @@ public:
 
         void reset() { erased = false; }
 
-        template<typename U, typename R>
-        friend class ParticleManager;
+        friend class ParticleManager<T>;
     };
 
     /**

@@ -4,7 +4,7 @@
 #include <BLIB/Particles/Affector.hpp>
 #include <BLIB/Particles/Emitter.hpp>
 #include <BLIB/Particles/ParticleManagerBase.hpp>
-#include <BLIB/Particles/Renderer.hpp>
+#include <BLIB/Particles/RenderTypeMap.hpp>
 #include <BLIB/Particles/Sink.hpp>
 #include <cmath>
 #include <iterator>
@@ -22,9 +22,10 @@ namespace pcl
  * @tparam TRenderer The type of renderer plugin to use
  * @ingroup Particles
  */
-template<typename T, typename TRenderer = Renderer<T>>
+template<typename T>
 class ParticleManager : public ParticleManagerBase {
 public:
+    using TRenderer = typename RenderTypeMap<T>::TRenderer;
     using TAffector = Affector<T>;
     using TEmitter  = Emitter<T>;
     using TSink     = Sink<T>;
@@ -223,8 +224,8 @@ private:
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-template<typename T, typename R>
-ParticleManager<T, R>::ParticleManager() {
+template<typename T>
+ParticleManager<T>::ParticleManager() {
     constexpr std::size_t DefaultCapacity = 512;
 
     particles.reserve(DefaultCapacity);
@@ -232,13 +233,13 @@ ParticleManager<T, R>::ParticleManager() {
     freed.reserve(DefaultCapacity);
 }
 
-template<typename T, typename TRenderer>
-void ParticleManager<T, TRenderer>::init(engine::Engine& engine) {
+template<typename T>
+void ParticleManager<T>::init(engine::Engine& engine) {
     renderer.init(engine);
 }
 
-template<typename T, typename R>
-void ParticleManager<T, R>::update(util::ThreadPool& threadPool, float dt, float realDt) {
+template<typename T>
+void ParticleManager<T>::update(util::ThreadPool& threadPool, float dt, float realDt) {
     std::unique_lock lock(mutex);
 
     if (!sinks.empty() && !particles.empty()) {
@@ -313,8 +314,8 @@ void ParticleManager<T, R>::update(util::ThreadPool& threadPool, float dt, float
     renderer.notifyData(particles.data(), particles.size());
 }
 
-template<typename T, typename TRenderer>
-void ParticleManager<T, TRenderer>::removeAffector(TAffector* affector) {
+template<typename T>
+void ParticleManager<T>::removeAffector(TAffector* affector) {
     std::unique_lock lock(mutex);
 
     for (auto it = affectors.begin(); it != affectors.end(); ++it) {
@@ -325,14 +326,14 @@ void ParticleManager<T, TRenderer>::removeAffector(TAffector* affector) {
     }
 }
 
-template<typename T, typename TRenderer>
-void ParticleManager<T, TRenderer>::removeAllAffectors() {
+template<typename T>
+void ParticleManager<T>::removeAllAffectors() {
     std::unique_lock lock(mutex);
     affectors.clear();
 }
 
-template<typename T, typename TRenderer>
-void ParticleManager<T, TRenderer>::removeEmitter(TEmitter* emitter) {
+template<typename T>
+void ParticleManager<T>::removeEmitter(TEmitter* emitter) {
     std::unique_lock lock(mutex);
 
     for (auto it = emitters.begin(); it != emitters.end(); ++it) {
@@ -343,14 +344,14 @@ void ParticleManager<T, TRenderer>::removeEmitter(TEmitter* emitter) {
     }
 }
 
-template<typename T, typename TRenderer>
-void ParticleManager<T, TRenderer>::removeAllEmitters() {
+template<typename T>
+void ParticleManager<T>::removeAllEmitters() {
     std::unique_lock lock(mutex);
     emitters.clear();
 }
 
-template<typename T, typename TRenderer>
-void ParticleManager<T, TRenderer>::removeSink(TSink* sink) {
+template<typename T>
+void ParticleManager<T>::removeSink(TSink* sink) {
     std::unique_lock lock(mutex);
 
     for (auto it = sinks.begin(); it != sinks.end(); ++it) {
@@ -361,14 +362,14 @@ void ParticleManager<T, TRenderer>::removeSink(TSink* sink) {
     }
 }
 
-template<typename T, typename TRenderer>
-void ParticleManager<T, TRenderer>::removeAllSinks() {
+template<typename T>
+void ParticleManager<T>::removeAllSinks() {
     std::unique_lock lock(mutex);
     sinks.clear();
 }
 
-template<typename T, typename TRenderer>
-void ParticleManager<T, TRenderer>::clearAndReset() {
+template<typename T>
+void ParticleManager<T>::clearAndReset() {
     std::unique_lock lock(mutex);
 
     affectors.clear();
@@ -379,29 +380,28 @@ void ParticleManager<T, TRenderer>::clearAndReset() {
     freeList.clear();
 }
 
-template<typename T, typename TRenderer>
-void ParticleManager<T, TRenderer>::addToScene(rc::Scene* scene) {
+template<typename T>
+void ParticleManager<T>::addToScene(rc::Scene* scene) {
     renderer.addToScene(scene);
 }
 
-template<typename T, typename TRenderer>
-void ParticleManager<T, TRenderer>::removeFromScene() {
+template<typename T>
+void ParticleManager<T>::removeFromScene() {
     renderer.removeFromScene();
 }
 
-template<typename T, typename TRenderer>
-TRenderer& ParticleManager<T, TRenderer>::getRenderer() {
+template<typename T>
+typename ParticleManager<T>::TRenderer& ParticleManager<T>::getRenderer() {
     return renderer;
 }
 
-template<typename T, typename TRenderer>
-const TRenderer& ParticleManager<T, TRenderer>::getRenderer() const {
+template<typename T>
+const typename ParticleManager<T>::TRenderer& ParticleManager<T>::getRenderer() const {
     return renderer;
 }
 
-template<typename T, typename R>
-void ParticleManager<T, R>::updateSink(std::size_t i, util::ThreadPool& pool, float dt,
-                                       float realDt) {
+template<typename T>
+void ParticleManager<T>::updateSink(std::size_t i, util::ThreadPool& pool, float dt, float realDt) {
     auto* sink = sinks[i].get();
     typename TSink::Proxy proxy(releaseMutex, &particles.front(), freeList, freed);
     auto it = particles.begin();
@@ -425,9 +425,9 @@ void ParticleManager<T, R>::updateSink(std::size_t i, util::ThreadPool& pool, fl
     }
 }
 
-template<typename T, typename TRenderer>
+template<typename T>
 template<typename U, typename... TArgs>
-U* ParticleManager<T, TRenderer>::addAffector(TArgs&&... args) {
+U* ParticleManager<T>::addAffector(TArgs&&... args) {
     static_assert(std::is_base_of_v<TAffector, U>, "U must derive from Affector");
     std::unique_lock lock(mutex);
 
@@ -436,9 +436,9 @@ U* ParticleManager<T, TRenderer>::addAffector(TArgs&&... args) {
     return affector;
 }
 
-template<typename T, typename TRenderer>
+template<typename T>
 template<typename U>
-U* ParticleManager<T, TRenderer>::getAffector() {
+U* ParticleManager<T>::getAffector() {
     static_assert(std::is_base_of_v<TAffector, U>, "U must derive from Affector");
     std::unique_lock lock(mutex);
 
@@ -449,9 +449,9 @@ U* ParticleManager<T, TRenderer>::getAffector() {
     return nullptr;
 }
 
-template<typename T, typename TRenderer>
+template<typename T>
 template<typename U>
-void ParticleManager<T, TRenderer>::removeAffectors() {
+void ParticleManager<T>::removeAffectors() {
     static_assert(std::is_base_of_v<TAffector, U>, "U must derive from Affector");
     std::unique_lock lock(mutex);
 
@@ -460,9 +460,9 @@ void ParticleManager<T, TRenderer>::removeAffectors() {
     });
 }
 
-template<typename T, typename TRenderer>
+template<typename T>
 template<typename U, typename... TArgs>
-U* ParticleManager<T, TRenderer>::addEmitter(TArgs&&... args) {
+U* ParticleManager<T>::addEmitter(TArgs&&... args) {
     static_assert(std::is_base_of_v<TEmitter, U>, "U must derive from Emitter");
     std::unique_lock lock(mutex);
 
@@ -471,9 +471,9 @@ U* ParticleManager<T, TRenderer>::addEmitter(TArgs&&... args) {
     return emitter;
 }
 
-template<typename T, typename TRenderer>
+template<typename T>
 template<typename U>
-U* ParticleManager<T, TRenderer>::getEmitter() {
+U* ParticleManager<T>::getEmitter() {
     static_assert(std::is_base_of_v<TEmitter, U>, "U must derive from Emitter");
     std::unique_lock lock(mutex);
 
@@ -484,9 +484,9 @@ U* ParticleManager<T, TRenderer>::getEmitter() {
     return nullptr;
 }
 
-template<typename T, typename TRenderer>
+template<typename T>
 template<typename U>
-void ParticleManager<T, TRenderer>::removeEmitters() {
+void ParticleManager<T>::removeEmitters() {
     static_assert(std::is_base_of_v<TEmitter, U>, "U must derive from Emitter");
     std::unique_lock lock(mutex);
 
@@ -495,9 +495,9 @@ void ParticleManager<T, TRenderer>::removeEmitters() {
     });
 }
 
-template<typename T, typename TRenderer>
+template<typename T>
 template<typename U, typename... TArgs>
-U* ParticleManager<T, TRenderer>::addSink(TArgs&&... args) {
+U* ParticleManager<T>::addSink(TArgs&&... args) {
     static_assert(std::is_base_of_v<TSink, U>, "U must derive from Sink");
     std::unique_lock lock(mutex);
 
@@ -506,9 +506,9 @@ U* ParticleManager<T, TRenderer>::addSink(TArgs&&... args) {
     return sink;
 }
 
-template<typename T, typename TRenderer>
+template<typename T>
 template<typename U>
-U* ParticleManager<T, TRenderer>::getSink() {
+U* ParticleManager<T>::getSink() {
     static_assert(std::is_base_of_v<TSink, U>, "U must derive from Sink");
     std::unique_lock lock(mutex);
 
@@ -519,9 +519,9 @@ U* ParticleManager<T, TRenderer>::getSink() {
     return nullptr;
 }
 
-template<typename T, typename TRenderer>
+template<typename T>
 template<typename U>
-void ParticleManager<T, TRenderer>::removeSinks() {
+void ParticleManager<T>::removeSinks() {
     static_assert(std::is_base_of_v<TSink, U>, "U must derive from Sink");
     std::unique_lock lock(mutex);
 

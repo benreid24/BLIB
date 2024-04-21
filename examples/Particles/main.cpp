@@ -8,7 +8,6 @@
 #include "DescriptorFactory.hpp"
 #include "DescriptorSet.hpp"
 #include "Particle.hpp"
-#include "Renderer.hpp"
 
 #include "Plugins/SimpleBlackHoleSink.hpp"
 #include "Plugins/SimpleGravityAffector.hpp"
@@ -19,6 +18,20 @@
 using SimpleParticleSystem = bl::pcl::ParticleManager<Particle>;
 
 bool pipelineCreated = false;
+
+// We are using the default renderer. All we need to do is specialize this class and specify our
+// render settings (pipeline + transparency)
+namespace bl
+{
+namespace pcl
+{
+template<>
+struct RenderConfigMap<Particle> {
+    static constexpr std::uint32_t PipelineId  = ParticlePipelineId;
+    static constexpr bool ContainsTransparency = false;
+};
+} // namespace pcl
+} // namespace bl
 
 class ClickSpawner : public bl::event::Listener<sf::Event> {
 public:
@@ -46,6 +59,10 @@ public:
             else if (event.mouseButton.button == sf::Mouse::Button::Middle) {
                 particles->addSink<SimpleBlackHoleSink>(pos, *eng, scene);
             }
+        }
+        else if (event.type == sf::Event::MouseWheelScrolled) {
+            const float factor = event.mouseWheelScroll.delta > 0.f ? 1.05f : 0.95f;
+            eng->setTimeScale(eng->getTimeScale() * factor);
         }
     }
 
@@ -148,8 +165,6 @@ private:
 /**
  * TODO
  * Functionality:
- *   - Special particles for emitters and sinks
- *   - Allow emitters, sinks, affectors to erase themselves
  *   - Add meta updaters to particle systems
  *   - Make particle system interface less verbose
  *

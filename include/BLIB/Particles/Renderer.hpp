@@ -1,16 +1,25 @@
 #ifndef BLIB_PARTICLES_RENDERER_HPP
 #define BLIB_PARTICLES_RENDERER_HPP
 
-#include <BLIB/Logging.hpp>
+#include <BLIB/ECS/Entity.hpp>
+#include <BLIB/Particles/Link.hpp>
+#include <BLIB/Particles/RenderComponentMap.hpp>
+#include <BLIB/Particles/RenderConfigMap.hpp>
+#include <cstddef>
 
 namespace bl
 {
+namespace engine
+{
+class Engine;
+}
+
 namespace pcl
 {
 /**
- * @brief Base class for all renderer plugins for particle managers. Renderer plugins create ECS
- *        entities and interact with the renderer. Specialize this class or provide a custom class
- *        to the template argument to the particle manager
+ * @brief Default renderer implementation for particle systems. If you use the default all you need
+ *        to do is specialize RenderConfig for your particle type to specify the pipeline and
+ *        transparency settings to render with.
  *
  * @tparam T The type of particle to render
  * @ingroup Particles
@@ -18,44 +27,31 @@ namespace pcl
 template<typename T>
 class Renderer {
 public:
+    using TComponent                           = typename RenderComponentMap<T>::TComponent;
+    static constexpr std::uint32_t PipelineId  = RenderConfigMap<T>::PipelineId;
+    static constexpr bool ContainsTransparency = RenderConfigMap<T>::ContainsTransparency;
+
+    static_assert(PipelineId != priv::PipelineNotSet,
+                  "Specialize RenderConfigMap and specify pipeline id and transparency");
+
     /**
      * @brief Called once after being constructed
      *
      * @param engine The game engine instance
      */
-    void init(engine::Engine& engine) {
-        static bool warned = false;
-        if (!warned) {
-            BL_LOG_CRITICAL << "Called init on default renderer";
-            warned = true;
-        }
-        (void)engine;
-    }
+    void init(engine::Engine& engine);
 
     /**
      * @brief Called when the particle manager should be rendered in the given scene
      *
      * @param scene The scene to add to
      */
-    void addToScene(rc::Scene* scene) {
-        static bool warned = false;
-        if (!warned) {
-            BL_LOG_CRITICAL << "Called addToScene on default renderer";
-            warned = true;
-        }
-        (void)scene;
-    }
+    void addToScene(rc::Scene* scene);
 
     /**
      * @brief Called when the particles should be removed from its current scene
      */
-    void removeFromScene() {
-        static bool warned = false;
-        if (!warned) {
-            BL_LOG_CRITICAL << "Called removeFromScene on default renderer";
-            warned = true;
-        }
-    }
+    void removeFromScene();
 
     /**
      * @brief Called when the particle data changes
@@ -63,13 +59,14 @@ public:
      * @param particles The current beginning particle
      * @param length The number of particles
      */
-    void notifyData(T* particles, std::size_t length) {
-        static bool warned = false;
-        if (!warned) {
-            BL_LOG_CRITICAL << "Called notifyData on default renderer";
-            warned = true;
-        }
-    }
+    void notifyData(T* particles, std::size_t length);
+
+private:
+    engine::Engine* engine;
+    void* system;
+    ecs::Entity entity;
+    TComponent* component;
+    Link<T>* link;
 };
 
 } // namespace pcl

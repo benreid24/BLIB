@@ -19,4 +19,7 @@
 #include <BLIB/Particles/Renderer.hpp>
 #include <BLIB/Particles/Sink.hpp>
 
+// Keep separate
+#include <BLIB/Particles/Renderer.inl>
+
 #endif
