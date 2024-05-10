@@ -245,10 +245,15 @@ public:
      */
     const TRenderer& getRenderer() const;
 
+    /**
+     * @brief Returns the current number of active particles in this manager
+     */
+    std::size_t getParticleCount() const;
+
 private:
     static constexpr std::size_t ParticlesPerThread = 800;
 
-    std::mutex mutex;
+    mutable std::mutex mutex;
     TRenderer renderer;
     std::vector<T> particles;
 
@@ -473,6 +478,12 @@ typename ParticleManager<T>::TRenderer& ParticleManager<T>::getRenderer() {
 template<typename T>
 const typename ParticleManager<T>::TRenderer& ParticleManager<T>::getRenderer() const {
     return renderer;
+}
+
+template<typename T>
+std::size_t ParticleManager<T>::getParticleCount() const {
+    std::unique_lock lock(mutex);
+    return particles.size();
 }
 
 template<typename T>
