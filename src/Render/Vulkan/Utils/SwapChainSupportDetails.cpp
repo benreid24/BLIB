@@ -33,7 +33,7 @@ void SwapChainSupportDetails::populate(VkPhysicalDevice device, VkSurfaceKHR sur
 const VkSurfaceFormatKHR& SwapChainSupportDetails::swapSurfaceFormat() const {
     for (const VkSurfaceFormatKHR& format : formats) {
         if (format.colorSpace == VK_COLOR_SPACE_SRGB_NONLINEAR_KHR &&
-            format.format == VK_FORMAT_R8G8B8A8_SRGB) {
+            format.format == VK_FORMAT_R8G8B8A8_UNORM) {
             return format;
         }
     }
