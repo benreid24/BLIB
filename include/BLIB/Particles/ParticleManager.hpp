@@ -246,9 +246,16 @@ public:
     const TRenderer& getRenderer() const;
 
     /**
-     * @brief Returns the current number of active particles in this manager
+     * @brief Returns the current number of active particles in this manager. Safe to call from
+     *        update() methods. External callers should use the locked version
      */
     std::size_t getParticleCount() const;
+
+    /**
+     * @brief Returns the current number of active particles. Use this version from outside the
+     *        particle system and its emitters, affectors, sinks, and updaters
+     */
+    std::size_t getParticleCountLocked() const;
 
 private:
     static constexpr std::size_t ParticlesPerThread = 800;
@@ -482,6 +489,11 @@ const typename ParticleManager<T>::TRenderer& ParticleManager<T>::getRenderer() 
 
 template<typename T>
 std::size_t ParticleManager<T>::getParticleCount() const {
+    return particles.size();
+}
+
+template<typename T>
+std::size_t ParticleManager<T>::getParticleCountLocked() const {
     std::unique_lock lock(mutex);
     return particles.size();
 }

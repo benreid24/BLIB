@@ -72,6 +72,11 @@ public:
      */
     ecs::Entity getEntity() const { return entity; }
 
+    /**
+     * @brief Returns the renderable component. Only valid after addToScene is called
+     */
+    TComponent* getComponent();
+
 private:
     engine::Engine* engine;
     void* system;

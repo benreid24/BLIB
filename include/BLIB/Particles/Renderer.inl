@@ -95,6 +95,11 @@ void Renderer<T>::notifyData(T* particles, std::size_t length) {
     }
 }
 
+template<typename T>
+typename Renderer<T>::TComponent* Renderer<T>::getComponent() {
+    return engine->ecs().getComponent<TComponent>(entity);
+}
+
 } // namespace pcl
 } // namespace bl
 
