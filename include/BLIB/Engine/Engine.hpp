@@ -175,6 +175,11 @@ public:
      */
     void resetTimeScale();
 
+    /**
+     * @brief Returns the scale factor being applied to the window to letterbox
+     */
+    float getWindowScale() const;
+
 private:
     Worker worker;
     Settings engineSettings;
@@ -182,6 +187,7 @@ private:
     std::stack<State::Ptr> states;
     State::Ptr newState;
     float timeScale;
+    float windowScale;
 
     EngineWindow renderWindow;
     Systems ecsSystems;
@@ -215,6 +221,8 @@ inline Flags& Engine::flags() { return engineFlags; }
 inline EngineWindow& Engine::window() { return renderWindow; }
 
 inline util::ThreadPool& Engine::threadPool() { return workers; }
+
+inline float Engine::getWindowScale() const { return windowScale; }
 
 } // namespace engine
 } // namespace bl

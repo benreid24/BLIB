@@ -16,6 +16,7 @@ namespace engine
 Engine::Engine(const Settings& settings)
 : engineSettings(settings)
 , timeScale(1.f)
+, windowScale(1.f)
 , ecsSystems(*this)
 , entityRegistry()
 , renderingSystem(*this, renderWindow)
@@ -372,10 +373,12 @@ void Engine::handleResize(const sf::Event::SizeEvent& resize, bool ss) {
         const float yScale = newHeight / ogSize.y;
 
         if (xScale >= yScale) { // constrained by height, bars on sides
+            windowScale    = yScale;
             viewport.width = ogSize.x * yScale / newWidth;
             viewport.left  = (1.f - viewport.width) * 0.5f;
         }
         else { // constrained by width, bars on top and bottom
+            windowScale     = xScale;
             viewport.height = ogSize.y * xScale / newHeight;
             viewport.top    = (1.f - viewport.height) * 0.5f;
         }
