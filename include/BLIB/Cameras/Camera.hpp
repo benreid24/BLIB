@@ -63,6 +63,12 @@ public:
      */
     void setNearAndFarPlanes(float nearValue, float farValue);
 
+    /**
+     * @brief Returns the size of the rendered pane in camera units. Used by the particle system to
+     *        scale particles based on window size
+     */
+    virtual glm::vec2 getViewerSize() const = 0;
+
 protected:
     /**
      * @brief Construct a new Camera

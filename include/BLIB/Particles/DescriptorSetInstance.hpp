@@ -1,6 +1,7 @@
 #ifndef BLIB_PARTICLES_DESCRIPTORSETINSTANCE_HPP
 #define BLIB_PARTICLES_DESCRIPTORSETINSTANCE_HPP
 
+#include <BLIB/Particles/GlobalParticleSystemInfo.hpp>
 #include <BLIB/Particles/Link.hpp>
 #include <BLIB/Particles/RenderConfigMap.hpp>
 #include <BLIB/Render/Buffers/FullyDynamicSSBO.hpp>
@@ -48,6 +49,7 @@ private:
         const VkDescriptorSetLayout layout;
         rc::buf::FullyDynamicSSBO<GpuT> storage;
         rc::buf::UniformBuffer<TGlobalPayload> globals;
+        rc::buf::UniformBuffer<priv::GlobalParticleSystemInfo> globalSystemInfo;
         rc::vk::PerFrame<rc::vk::DescriptorSet> descriptorSets;
         Link<T>* link;
 

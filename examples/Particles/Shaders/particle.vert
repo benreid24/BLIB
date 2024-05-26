@@ -22,6 +22,10 @@ layout(std140, set = 1, binding = 0) readonly buffer pcl {
     Particle particles[];
 } particles;
 
+layout(std140, set = 1, binding = 1) uniform gpinfo {
+    float cameraToWindowScale;
+} globalInfo;
+
 void main() {
     vec2 pos = particles.particles[gl_InstanceIndex].pos;
     mat4 particleTransform = mat4(1.0);
@@ -31,5 +35,5 @@ void main() {
 	gl_Position = camera.viewProj * worldPos;
 	fragColor = inColor * particles.particles[gl_InstanceIndex].color;
     fragPos = vec2(worldPos.x, worldPos.y);
-    gl_PointSize = particles.particles[gl_InstanceIndex].radius;
+    gl_PointSize = particles.particles[gl_InstanceIndex].radius * globalInfo.cameraToWindowScale;
 }

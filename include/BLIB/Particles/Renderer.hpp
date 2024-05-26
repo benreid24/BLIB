@@ -36,6 +36,11 @@ public:
                   "Specialize RenderConfigMap and specify pipeline id and transparency");
 
     /**
+     * @brief Creates the default renderer
+     */
+    Renderer();
+
+    /**
      * @brief Called once after being constructed
      *
      * @param engine The game engine instance
@@ -76,6 +81,11 @@ public:
      * @brief Returns the renderable component. Only valid after addToScene is called
      */
     TComponent* getComponent();
+
+    /**
+     * @brief Returns the link component. Only valid after addToScene is called
+     */
+    Link<T>* getLink();
 
 private:
     engine::Engine* engine;

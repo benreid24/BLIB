@@ -201,6 +201,11 @@ public:
      */
     void removeAffector(const CameraAffector2D* affector);
 
+    /**
+     * @brief Returns the size of the rendered pane in camera units
+     */
+    virtual glm::vec2 getViewerSize() const override;
+
 private:
     glm::vec2 center;
     glm::vec2 size;

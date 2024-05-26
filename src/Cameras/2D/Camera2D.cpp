@@ -118,5 +118,7 @@ void Camera2D::update(float dt) {
     if (proj) { markProjDirty(); }
 }
 
+glm::vec2 Camera2D::getViewerSize() const { return size; }
+
 } // namespace cam
 } // namespace bl

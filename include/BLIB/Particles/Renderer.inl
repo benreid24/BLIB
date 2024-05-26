@@ -11,6 +11,14 @@ namespace bl
 namespace pcl
 {
 template<typename T>
+Renderer<T>::Renderer()
+: engine(nullptr)
+, system(nullptr)
+, entity(ecs::InvalidEntity)
+, component(nullptr)
+, link(nullptr) {}
+
+template<typename T>
 void Renderer<T>::init(engine::Engine& e) {
     using TEngineSystem = sys::DrawableSystem<TComponent>;
 
@@ -58,12 +66,16 @@ void Renderer<T>::init(engine::Engine& e) {
         }
     }
 
-    engine = &e;
-    system =
-        &engine->systems().registerSystem<TEngineSystem>(bl::engine::FrameStage::RenderEarlyRefresh,
-                                                         bl::engine::StateMask::All,
-                                                         PipelineId,
-                                                         PipelineId);
+    engine                    = &e;
+    static bool systemCreated = false;
+    if (!systemCreated) {
+        systemCreated = true;
+        system        = &engine->systems().registerSystem<TEngineSystem>(
+            bl::engine::FrameStage::RenderEarlyRefresh,
+            bl::engine::StateMask::All,
+            PipelineId,
+            PipelineId);
+    }
     component = nullptr;
 }
 
@@ -98,6 +110,11 @@ void Renderer<T>::notifyData(T* particles, std::size_t length) {
 template<typename T>
 typename Renderer<T>::TComponent* Renderer<T>::getComponent() {
     return engine->ecs().getComponent<TComponent>(entity);
+}
+
+template<typename T>
+typename Link<T>* Renderer<T>::getLink() {
+    return engine->ecs().getComponent<Link<T>>(entity);
 }
 
 } // namespace pcl

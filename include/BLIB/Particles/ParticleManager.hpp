@@ -3,6 +3,7 @@
 
 #include <BLIB/Particles/Affector.hpp>
 #include <BLIB/Particles/Emitter.hpp>
+#include <BLIB/Particles/GlobalParticleSystemInfo.hpp>
 #include <BLIB/Particles/MetaUpdater.hpp>
 #include <BLIB/Particles/ParticleManagerBase.hpp>
 #include <BLIB/Particles/RenderTypeMap.hpp>
@@ -261,7 +262,9 @@ private:
     static constexpr std::size_t ParticlesPerThread = 800;
 
     mutable std::mutex mutex;
+    engine::Engine* engine;
     TRenderer renderer;
+    priv::GlobalParticleSystemInfo globalInfo;
     std::vector<T> particles;
 
     std::mutex releaseMutex;
@@ -289,8 +292,9 @@ ParticleManager<T>::ParticleManager() {
 }
 
 template<typename T>
-void ParticleManager<T>::init(engine::Engine& engine) {
-    renderer.init(engine);
+void ParticleManager<T>::init(engine::Engine& e) {
+    engine = &e;
+    renderer.init(e);
 }
 
 template<typename T>
@@ -378,6 +382,11 @@ void ParticleManager<T>::update(util::ThreadPool& threadPool, float dt, float re
             }
         }
     }
+
+    // update global info
+    globalInfo.cameraToWindowScale =
+        engine->renderer().getObserver().getRegionSize().x /
+        engine->renderer().getObserver().getCurrentCamera()->getViewerSize().x;
 
     // update renderer data
     renderer.notifyData(particles.data(), particles.size());
@@ -470,6 +479,7 @@ void ParticleManager<T>::clearAndReset() {
 template<typename T>
 void ParticleManager<T>::addToScene(rc::Scene* scene) {
     renderer.addToScene(scene);
+    renderer.getLink()->systemInfo = &globalInfo;
 }
 
 template<typename T>
