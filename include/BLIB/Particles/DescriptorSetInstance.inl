@@ -121,7 +121,7 @@ void DescriptorSetInstance<T, GpuT>::Instance::writeDescriptorSet(rc::vk::Descri
 
         setWrites[2].sType           = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
         setWrites[2].descriptorCount = 1;
-        setWrites[2].dstBinding      = 1;
+        setWrites[2].dstBinding      = 2;
         setWrites[2].dstArrayElement = 0;
         setWrites[2].dstSet          = set.getSet();
         setWrites[2].pBufferInfo     = &globalsInfo;
