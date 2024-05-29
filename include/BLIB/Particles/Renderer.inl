@@ -113,7 +113,7 @@ typename Renderer<T>::TComponent* Renderer<T>::getComponent() {
 }
 
 template<typename T>
-typename Link<T>* Renderer<T>::getLink() {
+Link<T>* Renderer<T>::getLink() {
     return engine->ecs().getComponent<Link<T>>(entity);
 }
 
