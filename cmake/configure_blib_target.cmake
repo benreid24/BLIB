@@ -74,6 +74,7 @@ function(configure_blib_target target_name)
             target_compile_options(${target_name} PUBLIC
                 -Wno-nullability-extension
                 -Wno-nullability-completeness
+                -Wno-error=unused-command-line-argument
             )
         endif()
     endif()
