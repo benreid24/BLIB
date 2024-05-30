@@ -43,12 +43,13 @@ struct Config {
         static constexpr char Fragment2DLit[]   = {6};
         static constexpr char Fragment2DUnlit[] = {7};
 
-        static constexpr char Vertex2DSkinned[]        = {8};
-        static constexpr char Fragment2DSkinnedUnlit[] = {9};
-        static constexpr char Fragment2DSkinnedLit[]   = {10};
+        static constexpr char Vertex2DSkinned[]           = {8};
+        static constexpr char Fragment2DSkinnedUnlit[]    = {9};
+        static constexpr char Fragment2DSkinnedLit[]      = {10};
+        static constexpr char Fragment2DRotatedParticle[] = {11};
 
-        static constexpr char TextFragment[]  = {11};
-        static constexpr char SlideshowVert[] = {12};
+        static constexpr char TextFragment[]  = {12};
+        static constexpr char SlideshowVert[] = {13};
 
         static constexpr char FadeEffectFragment[] = {31};
 
