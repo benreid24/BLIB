@@ -25,7 +25,7 @@ void main() {
         discard;
     }
 
-    vec3 lightColor = lighting.ambient;
+    vec3 lightColor = vec3(0.0);
     for (uint i = 0; i < lighting.count; i += 1) {
         Light light = lighting.lights[i];
 
@@ -46,6 +46,7 @@ void main() {
     lightColor.x = min(lightColor.x, 1.1);
     lightColor.y = min(lightColor.y, 1.1);
     lightColor.z = min(lightColor.z, 1.1);
+    lightColor = lightColor + lighting.ambient;
 
     outColor = fragColor * texColor * vec4(lightColor, 1.0);
 }
