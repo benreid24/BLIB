@@ -66,15 +66,16 @@ void Renderer<T>::init(engine::Engine& e) {
         }
     }
 
-    engine                    = &e;
-    static bool systemCreated = false;
-    if (!systemCreated) {
-        systemCreated = true;
-        system        = &engine->systems().registerSystem<TEngineSystem>(
-            bl::engine::FrameStage::RenderEarlyRefresh,
-            bl::engine::StateMask::All,
-            PipelineId,
-            PipelineId);
+    engine = &e;
+    if (!system) {
+        system = engine->systems().getSystemMaybe<TEngineSystem>();
+        if (!system) {
+            system = &engine->systems().registerSystem<TEngineSystem>(
+                bl::engine::FrameStage::RenderEarlyRefresh,
+                bl::engine::StateMask::All,
+                PipelineId,
+                PipelineId);
+        }
     }
     component = nullptr;
 }

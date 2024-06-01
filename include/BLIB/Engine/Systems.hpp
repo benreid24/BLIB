@@ -130,6 +130,15 @@ public:
     T& getSystem();
 
     /**
+     * @brief Returns a pointer to the given system if it exists
+     *
+     * @tparam T The type of system to fetch
+     * @return A pointer to the system with the given type or nullptr
+     */
+    template<typename T>
+    T* getSystemMaybe();
+
+    /**
      * @brief Adds a one-off task to be executed in the given frame stage along with the systems in
      *        that stage. Tasks should be thread safe. The task queue is drained once processed
      *
@@ -226,6 +235,14 @@ T& Systems::getSystem() {
 #endif
 
     return *static_cast<T*>(it->second);
+}
+
+template<typename T>
+T* Systems::getSystemMaybe() {
+    const auto it = typeMap.find(typeid(T));
+    if (it == typeMap.end()) { return nullptr; }
+
+    return static_cast<T*>(it->second);
 }
 
 } // namespace engine
