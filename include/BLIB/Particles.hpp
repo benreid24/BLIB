@@ -25,6 +25,7 @@
 // Keep separate
 #include <BLIB/Particles/DescriptorSetFactory.inl>
 #include <BLIB/Particles/DescriptorSetInstance.inl>
+#include <BLIB/Particles/ParticleManager.inl>
 #include <BLIB/Particles/Renderer.inl>
 
 #endif

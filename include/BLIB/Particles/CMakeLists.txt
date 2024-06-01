@@ -9,6 +9,7 @@ target_sources(BLIB PUBLIC
     Link.hpp
     MetaUpdater.hpp
     ParticleManager.hpp
+    ParticleManager.inl
     ParticleManagerBase.hpp
     ParticleSystem.hpp
     RenderComponentMap.hpp
