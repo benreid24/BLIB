@@ -21,6 +21,8 @@ struct Config {
 
     static constexpr std::size_t MaxDescriptorSets = 4;
 
+    static constexpr std::size_t MaxDescriptorBindings = 8;
+
     static constexpr std::uint32_t MaxRenderPasses = 4;
 
     static constexpr std::uint32_t DefaultSceneObjectCapacity = 128;

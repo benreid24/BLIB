@@ -36,7 +36,10 @@
 #include <BLIB/Render/Descriptors/DescriptorSetFactoryCache.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstanceCache.hpp>
+#include <BLIB/Render/Descriptors/GenericDescriptorSetFactory.hpp>
+#include <BLIB/Render/Descriptors/GenericDescriptorSetInstance.hpp>
 #include <BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp>
+#include <BLIB/Render/Descriptors/SetWriteHelper.hpp>
 #include <BLIB/Render/Events/SceneDestroyed.hpp>
 #include <BLIB/Render/Events/SceneObjectRemoved.hpp>
 #include <BLIB/Render/Graph/Asset.hpp>
