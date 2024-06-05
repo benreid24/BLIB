@@ -30,10 +30,10 @@ public:
     /**
      * @brief Called once by the descriptor set instance during creation
      *
-     * @param engine The game engine instance
+     * @param engine Renderer Vulkan state
      * @storageCache Descriptor component storage cache for ECS backed data
      */
-    void init(engine::Engine& engine, DescriptorComponentStorageCache& storageCache);
+    void init(vk::VulkanState& vulkanState, DescriptorComponentStorageCache& storageCache);
 
     /**
      * @brief Fetches the payload of the given type from one of the contained bindings
@@ -63,7 +63,7 @@ public:
      * @param writer The set writer to use
      * @param frameIndex The index to use for PerFrame resources
      */
-    void writeSet(SetWriteHelper& writer, std::uint32_t frameIndex);
+    void writeSet(SetWriteHelper& writer, UpdateSpeed speed, std::uint32_t frameIndex);
 
     /**
      * @brief Called when a new object will be using the descriptor set
@@ -142,13 +142,13 @@ VkDescriptorType Bindings<TBindings...>::getTypeHelper(std::uint32_t index) cons
 }
 
 template<typename... TBindings>
-void Bindings<TBindings...>::init(engine::Engine& engine,
+void Bindings<TBindings...>::init(vk::VulkanState& vulkanState,
                                   DescriptorComponentStorageCache& storageCache) {
     std::size_t index = 0;
     ((std::get<TBindings>(bindings).index = index++), ...);
 
-    std::apply([&engine, &storageCache](
-                   const auto&... binding) { (binding.init(engine, storageCache), ...); },
+    std::apply([&vulkanState, &storageCache](
+                   const auto&... binding) { (binding.init(vulkanState, storageCache), ...); },
                bindings);
 }
 
@@ -163,9 +163,10 @@ void Bindings<TBindings...>::onFrameStart() {
 }
 
 template<typename... TBindings>
-void Bindings<TBindings...>::writeSet(SetWriteHelper& writer, std::uint32_t frameIndex) {
-    std::apply([&writer, frameIndex](
-                   const auto&... binding) { (binding.writeSet(writer, frameIndex), ...); },
+void Bindings<TBindings...>::writeSet(SetWriteHelper& writer, UpdateSpeed speed,
+                                      std::uint32_t frameIndex) {
+    std::apply([&writer, speed, frameIndex](
+                   const auto&... binding) { (binding.writeSet(writer, speed, frameIndex), ...); },
                bindings);
 }
 

@@ -60,18 +60,20 @@ public:
     /**
      * @brief Called once after the descriptor set is created
      *
-     * @param engine The game engine instance
+     * @param vulkanState Renderer Vulkan state
      * @storageCache Descriptor component storage cache for ECS backed data
      */
-    virtual void init(engine::Engine& engine, DescriptorComponentStorageCache& storageCache) = 0;
+    virtual void init(vk::VulkanState& vulkanState,
+                      DescriptorComponentStorageCache& storageCache) = 0;
 
     /**
      * @brief Called to write this binding to the given descriptor set
      *
      * @param writer The writer for the descriptor set being updated
+     * @param speed The speed of the set being written
      * @param frameIndex The index to use for PerFrame resources
      */
-    virtual void writeSet(SetWriteHelper& writer, std::uint32_t frameIndex) = 0;
+    virtual void writeSet(SetWriteHelper& writer, UpdateSpeed speed, std::uint32_t frameIndex) = 0;
 
     /**
      * @brief Called when a new object will be using the descriptor set

@@ -36,6 +36,9 @@
 #include <BLIB/Render/Descriptors/DescriptorSetFactoryCache.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstanceCache.hpp>
+#include <BLIB/Render/Descriptors/Generic/GlobalStorageBuffer.hpp>
+#include <BLIB/Render/Descriptors/Generic/GlobalUniformBuffer.hpp>
+#include <BLIB/Render/Descriptors/Generic/ObjectStorageBuffer.hpp>
 #include <BLIB/Render/Descriptors/GenericDescriptorSetFactory.hpp>
 #include <BLIB/Render/Descriptors/GenericDescriptorSetInstance.hpp>
 #include <BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp>

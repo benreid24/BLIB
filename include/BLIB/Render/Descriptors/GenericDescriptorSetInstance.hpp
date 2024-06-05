@@ -36,9 +36,9 @@ public:
     /**
      * @brief Creates the descriptor set instance
      *
-     * @param engine The game engine instance
+     * @param vulkanState Renderer Vulkan state
      */
-    GenericDescriptorSetInstance(engine::Engine& engine);
+    GenericDescriptorSetInstance(vk::VulkanState& vulkanState);
 
     /**
      * @brief Destroys the descriptor set instance
@@ -55,7 +55,7 @@ public:
     T& getBindingPayload();
 
 private:
-    engine::Engine& engine;
+    vk::VulkanState& vulkanState;
     TBindings bindings;
     vk::DescriptorSet staticDescriptorSet;
     vk::PerFrame<vk::DescriptorSet> dynamicDescriptorSets;
@@ -76,9 +76,9 @@ private:
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 template<typename TBindings>
-GenericDescriptorSetInstance<TBindings>::GenericDescriptorSetInstance(engine::Engine& engine)
+GenericDescriptorSetInstance<TBindings>::GenericDescriptorSetInstance(vk::VulkanState& vulkanState)
 : DescriptorSetInstance(bindings.getBindMode(), bindings.getSpeedMode())
-, engine(engine) {
+, vulkanState(vulkanState) {
     if (!isBindless()) {
         throw std::runtime_error("GenericDescriptorSet only supports bindless sets");
     }
@@ -86,8 +86,8 @@ GenericDescriptorSetInstance<TBindings>::GenericDescriptorSetInstance(engine::En
 
 template<typename TBindings>
 void GenericDescriptorSetInstance<TBindings>::init(DescriptorComponentStorageCache& storageCache) {
-    bindings.init(engine, storageCache);
-    dynamicDescriptorSets.emptyInit(engine.renderer().vulkanState());
+    bindings.init(vulkanState, storageCache);
+    dynamicDescriptorSets.emptyInit(vulkanState);
     updateStaticDescriptors();
     for (std::uint32_t i = 0; i < Config::MaxConcurrentFrames; ++i) { updateDynamicDescriptors(i); }
 }
@@ -138,22 +138,22 @@ template<typename TBindings>
 void GenericDescriptorSetInstance<TBindings>::handleFrameStart() {
     if (bindings.staticDescriptorUpdateRequired()) { updateStaticDescriptors(); }
     if (bindings.dynamicDescriptorUpdateRequired()) {
-        updateDynamicDescriptors(engine.renderer().vulkanState().currentFrameIndex());
+        updateDynamicDescriptors(vulkanState.currentFrameIndex());
     }
 }
 
 template<typename TBindings>
 void GenericDescriptorSetInstance<TBindings>::updateStaticDescriptors() {
     SetWriteHelper writer(staticDescriptorSet.getSet());
-    bindings.writeSet(writer, 0); // TODO - PerFrame for static?
-    writer.performWrite(engine.renderer().vulkanState().device);
+    bindings.writeSet(writer, UpdateSpeed::Static, 0); // TODO - PerFrame for static?
+    writer.performWrite(vulkanState.device);
 }
 
 template<typename TBindings>
 void GenericDescriptorSetInstance<TBindings>::updateDynamicDescriptors(std::uint32_t i) {
     SetWriteHelper writer(dynamicDescriptorSets.getRaw(i).getSet());
-    bindings.writeSet(writer, i);
-    writer.performWrite(engine.renderer().vulkanState().device);
+    bindings.writeSet(writer, UpdateSpeed::Dynamic, i);
+    writer.performWrite(vulkanState.device);
 }
 
 template<typename TBindings>

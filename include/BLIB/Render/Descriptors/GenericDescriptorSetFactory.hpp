@@ -46,7 +46,7 @@ public:
     virtual std::unique_ptr<DescriptorSetInstance> createDescriptorSet() const override;
 
 private:
-    engine::Engine* engine;
+    vk::VulkanState* vulkanState;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -54,7 +54,7 @@ private:
 template<typename TBindings, VkPipelineStageFlags... BindingStages>
 void GenericDescriptorSetFactory<TBindings, BindingStages...>::init(engine::Engine& e,
                                                                     Renderer& r) {
-    engine = &e;
+    vulkanState = &r.vulkanState();
 
     TBindings bindingInfo;
     bl::rc::vk::DescriptorPool::SetBindingInfo bindings;
@@ -77,7 +77,7 @@ void GenericDescriptorSetFactory<TBindings, BindingStages...>::init(engine::Engi
 template<typename TBindings, VkPipelineStageFlags... BindingStages>
 std::unique_ptr<DescriptorSetInstance>
 GenericDescriptorSetFactory<TBindings, BindingStages...>::createDescriptorSet() const {
-    return std::make_unique<GenericDescriptorSetInstance<TBindings>>(*engine);
+    return std::make_unique<GenericDescriptorSetInstance<TBindings>>(*vulkanState);
 }
 
 } // namespace ds
