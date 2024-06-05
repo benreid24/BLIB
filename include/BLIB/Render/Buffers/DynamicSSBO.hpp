@@ -118,6 +118,14 @@ public:
      */
     constexpr VkDeviceSize getTotalRange() const;
 
+    /**
+     * @brief Helper method to return the raw buffer handle for the given frame index
+     *
+     * @param frameIndex The frame index to get the buffer handle for
+     * @return The raw buffer handle
+     */
+    VkBuffer getRawBuffer(std::uint32_t frameIndex);
+
 private:
     struct DirtyRange {
         std::uint32_t start;
@@ -255,6 +263,11 @@ void DynamicSSBO<T>::transferAll() {
 template<typename T>
 constexpr VkDeviceSize DynamicSSBO<T>::getTotalRange() const {
     return cpuBuffer.alignedSize();
+}
+
+template<typename T>
+VkBuffer DynamicSSBO<T>::getRawBuffer(std::uint32_t frameIndex) {
+    return gpuBuffers.getRaw(frameIndex).getBuffer();
 }
 
 } // namespace buf

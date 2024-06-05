@@ -22,16 +22,13 @@ public:
     /**
      * @brief Creates the binding
      */
-    GlobalUniformBuffer() = default;
+    GlobalUniformBuffer()
+    : Binding(VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER) {}
 
     /**
      * @brief Destroys the binding
      */
     virtual ~GlobalUniformBuffer() = default;
-
-private:
-    T value;
-    buf::UniformBuffer<T> buffer;
 
     DescriptorSetInstance::BindMode getBindMode() const override;
     DescriptorSetInstance::SpeedBucketSetting getSpeedMode() const override;
@@ -43,6 +40,10 @@ private:
     void* getPayload() override;
     bool staticDescriptorUpdateRequired() const override;
     bool dynamicDescriptorUpdateRequired() const override;
+
+private:
+    T value;
+    buf::UniformBuffer<T> buffer;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////

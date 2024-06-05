@@ -3,13 +3,8 @@
 
 #include <BLIB/Components/Texture.hpp>
 #include <BLIB/Components/Transform2D.hpp>
-#include <BLIB/ECS/Registry.hpp>
-#include <BLIB/Render/Buffers/DynamicSSBO.hpp>
-#include <BLIB/Render/Buffers/StaticSSBO.hpp>
-#include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
-#include <BLIB/Render/Vulkan/DescriptorSet.hpp>
-#include <BLIB/Render/Vulkan/PerFrameVector.hpp>
-#include <cstdint>
+#include <BLIB/Render/Descriptors/Generic/ObjectStorageBuffer.hpp>
+#include <BLIB/Render/Descriptors/GenericDescriptorSetInstance.hpp>
 #include <glm/glm.hpp>
 #include <vector>
 
@@ -26,49 +21,22 @@ class Renderer;
 
 namespace ds
 {
+namespace priv
+{
+using Transform2DBinding = ObjectStorageBuffer<glm::mat4, com::Transform2D>;
+using TextureBinding =
+    ObjectStorageBuffer<std::uint32_t, com::Texture, buf::StaticSSBO<std::uint32_t>,
+                        buf::StaticSSBO<std::uint32_t>>;
+using Object2DBindings = Bindings<Transform2DBinding, TextureBinding>;
+} // namespace priv
+
 /**
  * @brief Descriptor set instance used by all 2d objects in the engine default pipelines. Contains
  *        the object transform matrix and texture id
  *
  * @ingroup Renderer
  */
-class Object2DInstance : public DescriptorSetInstance {
-public:
-    /**
-     * @brief Create a new set instance
-     *
-     * @param engine Game engine instance
-     * @param descriptorSetLayout Layout of the descriptor set
-     */
-    Object2DInstance(engine::Engine& engine, VkDescriptorSetLayout descriptorSetLayout);
-
-    /**
-     * @brief Frees resources
-     */
-    virtual ~Object2DInstance();
-
-private:
-    ecs::Registry& registry;
-    vk::VulkanState& vulkanState;
-    const VkDescriptorSetLayout descriptorSetLayout;
-    vk::DescriptorSet staticDescriptorSet;
-    vk::PerFrame<vk::DescriptorSet> dynamicDescriptorSets;
-    DescriptorComponentStorage<com::Transform2D, glm::mat4>* transforms;
-    DescriptorComponentStorage<com::Texture, std::uint32_t, buf::StaticSSBO<std::uint32_t>,
-                               buf::StaticSSBO<std::uint32_t>>* textures;
-
-    virtual void bindForPipeline(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
-                                 std::uint32_t setIndex, UpdateSpeed updateFreq) const override;
-    virtual void bindForObject(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
-                               std::uint32_t setIndex, scene::Key objectKey) const override;
-    virtual void releaseObject(ecs::Entity entity, scene::Key objectKey) override;
-    virtual void init(DescriptorComponentStorageCache& storageCache) override;
-    virtual bool allocateObject(ecs::Entity entity, scene::Key key) override;
-    virtual void handleFrameStart() override;
-
-    void updateStaticDescriptors();
-    void updateDynamicDescriptors();
-};
+using Object2DInstance = GenericDescriptorSetInstance<priv::Object2DBindings>;
 
 } // namespace ds
 } // namespace rc

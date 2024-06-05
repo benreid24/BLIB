@@ -3,6 +3,7 @@
 
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
 #include <BLIB/Render/Descriptors/Generic/Bindings.hpp>
+#include <BLIB/Render/Scenes/SceneRenderContext.hpp>
 #include <BLIB/Render/Vulkan/DescriptorSet.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
 
@@ -110,10 +111,9 @@ void GenericDescriptorSetInstance<TBindings>::bindForPipeline(scene::SceneRender
 }
 
 template<typename TBindings>
-void GenericDescriptorSetInstance<TBindings>::bindForObject(scene::SceneRenderContext& ctx,
-                                                            VkPipelineLayout layout,
-                                                            std::uint32_t setIndex,
-                                                            scene::Key objectKey) const {
+void GenericDescriptorSetInstance<TBindings>::bindForObject(scene::SceneRenderContext&,
+                                                            VkPipelineLayout, std::uint32_t,
+                                                            scene::Key) const {
     // TODO - descriptor set per object?
 }
 

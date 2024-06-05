@@ -116,6 +116,14 @@ public:
      */
     constexpr VkDeviceSize getTotalRange() const;
 
+    /**
+     * @brief Helper method to return the raw buffer handle for the given frame index
+     *
+     * @param frameIndex The frame index to get the buffer handle for
+     * @return The raw buffer handle
+     */
+    VkBuffer getRawBuffer(std::uint32_t frameIndex);
+
 private:
     vk::AlignedBuffer<T> cpuBuffer;
     vk::Buffer gpuBuffer;
@@ -256,6 +264,11 @@ void StaticSSBO<T>::transferAll() {
 template<typename T>
 constexpr VkDeviceSize StaticSSBO<T>::getTotalRange() const {
     return gpuBuffer.getSize();
+}
+
+template<typename T>
+VkBuffer StaticSSBO<T>::getRawBuffer(std::uint32_t) {
+    return gpuBuffer.getBuffer();
 }
 
 } // namespace buf

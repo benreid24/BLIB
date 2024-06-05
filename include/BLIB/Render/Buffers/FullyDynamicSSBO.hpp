@@ -93,6 +93,14 @@ public:
      */
     VkDeviceSize getTotalRange() const;
 
+    /**
+     * @brief Helper method to return the raw buffer handle for the given frame index
+     *
+     * @param frameIndex The frame index to get the buffer handle for
+     * @return The raw buffer handle
+     */
+    VkBuffer getRawBuffer(std::uint32_t frameIndex);
+
 private:
     vk::VulkanState* vulkanState;
     vk::PerFrame<vk::Buffer> gpuBuffers;
@@ -150,6 +158,11 @@ vk::PerFrame<vk::Buffer>& FullyDynamicSSBO<T>::gpuBufferHandles() {
 template<typename T>
 VkDeviceSize FullyDynamicSSBO<T>::getTotalRange() const {
     return gpuBuffers.current().getSize();
+}
+
+template<typename T>
+VkBuffer FullyDynamicSSBO<T>::getRawBuffer(std::uint32_t frameIndex) {
+    return gpuBuffers.getRaw(frameIndex).getBuffer();
 }
 
 template<typename T>

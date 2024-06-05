@@ -28,6 +28,11 @@ public:
     static constexpr std::size_t NBindings = sizeof...(TBindings);
 
     /**
+     * @brief Creates the bindings descriptor object
+     */
+    Bindings() = default;
+
+    /**
      * @brief Called once by the descriptor set instance during creation
      *
      * @param engine Renderer Vulkan state
@@ -138,7 +143,10 @@ template<typename... TBindings>
 template<std::uint32_t I>
 VkDescriptorType Bindings<TBindings...>::getTypeHelper(std::uint32_t index) const {
     if (index == I) { return std::get<I>(bindings).getDescriptorType(); }
-    return getTypeHelper<I + 1>(index);
+    if constexpr (I + 1 < sizeof...(TBindings)) { return getTypeHelper<I + 1>(index); }
+
+    // unreachable ideally
+    throw std::runtime_error("Failed to find binding");
 }
 
 template<typename... TBindings>
@@ -146,10 +154,7 @@ void Bindings<TBindings...>::init(vk::VulkanState& vulkanState,
                                   DescriptorComponentStorageCache& storageCache) {
     std::size_t index = 0;
     ((std::get<TBindings>(bindings).index = index++), ...);
-
-    std::apply([&vulkanState, &storageCache](
-                   const auto&... binding) { (binding.init(vulkanState, storageCache), ...); },
-               bindings);
+    ((std::get<TBindings>(bindings).init(vulkanState, storageCache)), ...);
 }
 
 template<typename... TBindings>
@@ -159,79 +164,51 @@ VkDescriptorType Bindings<TBindings...>::getDescriptorType(std::uint32_t index) 
 
 template<typename... TBindings>
 void Bindings<TBindings...>::onFrameStart() {
-    std::apply([](const auto&... binding) { (binding.onFrameStart(), ...); }, bindings);
+    ((std::get<TBindings>(bindings).onFrameStart()), ...);
 }
 
 template<typename... TBindings>
 void Bindings<TBindings...>::writeSet(SetWriteHelper& writer, UpdateSpeed speed,
                                       std::uint32_t frameIndex) {
-    std::apply([&writer, speed, frameIndex](
-                   const auto&... binding) { (binding.writeSet(writer, speed, frameIndex), ...); },
-               bindings);
+    ((std::get<TBindings>(bindings).writeSet(writer, speed, frameIndex)), ...);
 }
 
 template<typename... TBindings>
 bool Bindings<TBindings...>::allocateObject(ecs::Entity entity, scene::Key key) {
-    bool failed = false;
-    std::apply(
-        [&failed, entity, key](const auto&... binding) {
-            failed = failed || binding.allocateObject(entity, key);
-        },
-        bindings);
-    if (failed) { releaseObject(entity, key); }
-    return !failed;
+    const bool success = ((std::get<TBindings>(bindings).allocateObject(entity, key)) && ...);
+    if (!success) { releaseObject(entity, key); }
+    return success;
 }
 
 template<typename... TBindings>
 void Bindings<TBindings...>::releaseObject(ecs::Entity entity, scene::Key key) {
-    std::apply([entity, key](const auto&... binding) { binding.releaseObject(entity, key); },
-               bindings);
+    ((std::get<TBindings>(bindings).releaseObject(entity, key)), ...);
 }
 
 template<typename... TBindings>
 DescriptorSetInstance::BindMode Bindings<TBindings...>::getBindMode() const {
-    bool bindful = false;
-    std::apply(
-        [&bindful](const auto&... binding) {
-            bindful = bindful || binding.getBindMode() == DescriptorSetInstance::Bindful;
-        },
-        bindings);
+    const bool bindful =
+        ((std::get<TBindings>(bindings).getBindMode() == DescriptorSetInstance::Bindful) || ...);
     return bindful ? DescriptorSetInstance::Bindful : DescriptorSetInstance::Bindless;
 }
 
 template<typename... TBindings>
 DescriptorSetInstance::SpeedBucketSetting Bindings<TBindings...>::getSpeedMode() const {
-    bool speedRequired = false;
-    std::apply(
-        [&speedRequired](const auto&... binding) {
-            speedRequired =
-                speedRequired || binding.getSpeedMode() == DescriptorSetInstance::RebindForNewSpeed;
-        },
-        bindings);
+    const bool speedRequired = ((std::get<TBindings>(bindings).getSpeedMode() ==
+                                 DescriptorSetInstance::RebindForNewSpeed) ||
+                                ...);
     return speedRequired ? DescriptorSetInstance::RebindForNewSpeed :
                            DescriptorSetInstance::SpeedAgnostic;
 }
 
 template<typename... TBindings>
 bool Bindings<TBindings...>::staticDescriptorUpdateRequired() const {
-    bool required = false;
-    std::apply(
-        [&required](const auto&... binding) {
-            required = required || binding.staticDescriptorUpdateRequired();
-        },
-        bindings);
-    return required;
+    return ((std::get<TBindings>(bindings).staticDescriptorUpdateRequired()) || ...);
 }
 
 template<typename... TBindings>
 bool Bindings<TBindings...>::dynamicDescriptorUpdateRequired() const {
-    bool required = false;
-    std::apply(
-        [&required](const auto&... binding) {
-            required = required || binding.dynamicDescriptorUpdateRequired();
-        },
-        bindings);
-    return required;
+    return ((std::get<TBindings>(bindings).dynamicDescriptorUpdateRequired()) || ...);
 }
 
 } // namespace ds

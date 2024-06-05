@@ -4,6 +4,7 @@
 #include <BLIB/Render/Descriptors/DescriptorSetFactory.hpp>
 #include <BLIB/Render/Descriptors/Generic/Bindings.hpp>
 #include <BLIB/Render/Descriptors/GenericDescriptorSetInstance.hpp>
+#include <BLIB/Render/Renderer.hpp>
 #include <type_traits>
 
 namespace bl
@@ -52,8 +53,7 @@ private:
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 template<typename TBindings, VkPipelineStageFlags... BindingStages>
-void GenericDescriptorSetFactory<TBindings, BindingStages...>::init(engine::Engine& e,
-                                                                    Renderer& r) {
+void GenericDescriptorSetFactory<TBindings, BindingStages...>::init(engine::Engine&, Renderer& r) {
     vulkanState = &r.vulkanState();
 
     TBindings bindingInfo;

@@ -29,15 +29,14 @@ public:
     /**
      * @brief Creates the binding
      */
-    ObjectStorageBuffer() = default;
+    ObjectStorageBuffer()
+    : Binding(VK_DESCRIPTOR_TYPE_STORAGE_BUFFER)
+    , components(nullptr) {}
 
     /**
      * @brief Creates the binding
      */
     virtual ~ObjectStorageBuffer() = default;
-
-private:
-    DescriptorComponentStorage<TComponent, TPayload, TDynamicStorage, TStaticStorage>* components;
 
     DescriptorSetInstance::BindMode getBindMode() const override;
     DescriptorSetInstance::SpeedBucketSetting getSpeedMode() const override;
@@ -50,8 +49,8 @@ private:
     bool staticDescriptorUpdateRequired() const override;
     bool dynamicDescriptorUpdateRequired() const override;
 
-    template<typename TStorage>
-    void writeSetHelper(SetWriteHelper& writer, std::uint32_t frameIndex, TStorage& storage);
+private:
+    DescriptorComponentStorage<TComponent, TPayload, TDynamicStorage, TStaticStorage>* components;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -70,7 +69,7 @@ ObjectStorageBuffer<TPayload, TComponent, TDynamicStorage, TStaticStorage>::getS
 
 template<typename TPayload, typename TComponent, typename TDynamicStorage, typename TStaticStorage>
 void ObjectStorageBuffer<TPayload, TComponent, TDynamicStorage, TStaticStorage>::init(
-    vk::VulkanState& vulkanState, DescriptorComponentStorageCache& storageCache) {
+    vk::VulkanState&, DescriptorComponentStorageCache& storageCache) {
     components =
         storageCache.getComponentStorage<TComponent, TPayload, TDynamicStorage, TStaticStorage>();
 }
@@ -78,10 +77,19 @@ void ObjectStorageBuffer<TPayload, TComponent, TDynamicStorage, TStaticStorage>:
 template<typename TPayload, typename TComponent, typename TDynamicStorage, typename TStaticStorage>
 void ObjectStorageBuffer<TPayload, TComponent, TDynamicStorage, TStaticStorage>::writeSet(
     SetWriteHelper& writer, UpdateSpeed speed, std::uint32_t frameIndex) {
-    if (speed == UpdateSpeed::Dynamic) {
-        writeSetHelper<TDynamicStorage>(writer, frameIndex, components->getDynamicBuffer());
-    }
-    else { writeSetHelper<TStaticStorage>(writer, frameIndex, components->getStaticBuffer()); }
+    VkDescriptorBufferInfo& bufferInfo = writer.getNewBufferInfo();
+    bufferInfo.buffer                  = speed == UpdateSpeed::Dynamic ?
+                                             components->getDynamicBuffer().getRawBuffer(frameIndex) :
+                                             components->getStaticBuffer().getRawBuffer(frameIndex);
+    bufferInfo.offset                  = 0;
+    bufferInfo.range                   = speed == UpdateSpeed::Dynamic ?
+                                             components->getDynamicBuffer().getTotalRange() :
+                                             components->getStaticBuffer().getTotalRange();
+
+    VkWriteDescriptorSet& setWrite = writer.getNewSetWrite();
+    setWrite.dstBinding            = getBindingIndex();
+    setWrite.pBufferInfo           = &bufferInfo;
+    setWrite.descriptorType        = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
 }
 
 template<typename TPayload, typename TComponent, typename TDynamicStorage, typename TStaticStorage>
@@ -117,27 +125,6 @@ template<typename TPayload, typename TComponent, typename TDynamicStorage, typen
 bool ObjectStorageBuffer<TPayload, TComponent, TDynamicStorage,
                          TStaticStorage>::dynamicDescriptorUpdateRequired() const {
     return components->dynamicDescriptorUpdateRequired();
-}
-
-template<typename TPayload, typename TComponent, typename TDynamicStorage, typename TStaticStorage>
-template<typename TStorage>
-void ObjectStorageBuffer<TPayload, TComponent, TDynamicStorage, TStaticStorage>::writeSetHelper(
-    SetWriteHelper& writer, std::uint32_t frameIndex, TStorage& storage) {
-    VkBuffer buf;
-    if constexpr (std::is_same_v<TStorage, buf::StaticSSBO<TPayload>>) {
-        buf = storage.gpuBufferHandle().getBuffer();
-    }
-    else { buf = storage.gpuBufferHandles().getRaw(frameIndex).getBuffer(); }
-
-    VkDescriptorBufferInfo& bufferInfo = writer.getNewBufferInfo();
-    bufferInfo.buffer                  = buf;
-    bufferInfo.offset                  = 0;
-    bufferInfo.range                   = storage.getTotalRange();
-
-    VkWriteDescriptorSet& setWrite = writer.getNewSetWrite();
-    setWrite.dstBinding            = getBindingIndex();
-    setWrite.pBufferInfo           = &bufferInfo;
-    setWrite.descriptorType        = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
 }
 
 } // namespace ds

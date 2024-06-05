@@ -24,15 +24,13 @@ public:
     /**
      * @brief Creates the binding
      */
-    GlobalStorageBuffer() = default;
+    GlobalStorageBuffer()
+    : Binding(VK_DESCRIPTOR_TYPE_STORAGE_BUFFER) {}
 
     /**
      * @brief Destroys the binding
      */
     virtual ~GlobalStorageBuffer() = default;
-
-private:
-    TStorage storage;
 
     DescriptorSetInstance::BindMode getBindMode() const override;
     DescriptorSetInstance::SpeedBucketSetting getSpeedMode() const override;
@@ -44,6 +42,9 @@ private:
     void* getPayload() override;
     bool staticDescriptorUpdateRequired() const override;
     bool dynamicDescriptorUpdateRequired() const override;
+
+private:
+    TStorage storage;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
