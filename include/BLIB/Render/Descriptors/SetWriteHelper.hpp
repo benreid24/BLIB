@@ -89,7 +89,7 @@ inline VkDescriptorBufferInfo& SetWriteHelper::getNewBufferInfo() {
     return info;
 }
 
-void SetWriteHelper::performWrite(VkDevice device) {
+inline void SetWriteHelper::performWrite(VkDevice device) {
     vkUpdateDescriptorSets(device, setWriteCount, setWrites, 0, nullptr);
 }
 
