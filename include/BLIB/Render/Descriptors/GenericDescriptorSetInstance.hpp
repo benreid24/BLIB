@@ -38,8 +38,14 @@ public:
      * @brief Creates the descriptor set instance
      *
      * @param vulkanState Renderer Vulkan state
+     * @param descriptorSetLayout The descriptor set layout
+     * @param bindMode The binding requirement for this set
+     * @param speedMode The speed requirement for this set
      */
-    GenericDescriptorSetInstance(vk::VulkanState& vulkanState);
+    GenericDescriptorSetInstance(vk::VulkanState& vulkanState,
+                                 VkDescriptorSetLayout descriptorSetLayout,
+                                 DescriptorSetInstance::BindMode bindMode,
+                                 DescriptorSetInstance::SpeedBucketSetting speedMode);
 
     /**
      * @brief Destroys the descriptor set instance
@@ -56,6 +62,7 @@ public:
     T& getBindingPayload();
 
 private:
+    const VkDescriptorSetLayout descriptorSetLayout;
     vk::VulkanState& vulkanState;
     TBindings bindings;
     vk::DescriptorSet staticDescriptorSet;
@@ -77,20 +84,24 @@ private:
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 template<typename TBindings>
-GenericDescriptorSetInstance<TBindings>::GenericDescriptorSetInstance(vk::VulkanState& vulkanState)
-: DescriptorSetInstance(bindings.getBindMode(), bindings.getSpeedMode())
+GenericDescriptorSetInstance<TBindings>::GenericDescriptorSetInstance(
+    vk::VulkanState& vulkanState, VkDescriptorSetLayout descriptorSetLayout,
+    DescriptorSetInstance::BindMode bindMode, DescriptorSetInstance::SpeedBucketSetting speedMode)
+: DescriptorSetInstance(bindMode, speedMode)
+, descriptorSetLayout(descriptorSetLayout)
 , vulkanState(vulkanState) {
     if (!isBindless()) {
         throw std::runtime_error("GenericDescriptorSet only supports bindless sets");
     }
+
+    dynamicDescriptorSets.init(vulkanState,
+                               [&vulkanState](vk::DescriptorSet& set) { set.init(vulkanState); });
+    staticDescriptorSet.init(vulkanState);
 }
 
 template<typename TBindings>
 void GenericDescriptorSetInstance<TBindings>::init(DescriptorComponentStorageCache& storageCache) {
     bindings.init(vulkanState, storageCache);
-    dynamicDescriptorSets.emptyInit(vulkanState);
-    updateStaticDescriptors();
-    for (std::uint32_t i = 0; i < Config::MaxConcurrentFrames; ++i) { updateDynamicDescriptors(i); }
 }
 
 template<typename TBindings>
@@ -144,6 +155,7 @@ void GenericDescriptorSetInstance<TBindings>::handleFrameStart() {
 
 template<typename TBindings>
 void GenericDescriptorSetInstance<TBindings>::updateStaticDescriptors() {
+    staticDescriptorSet.allocate(descriptorSetLayout);
     SetWriteHelper writer(staticDescriptorSet.getSet());
     bindings.writeSet(writer, UpdateSpeed::Static, 0); // TODO - PerFrame for static?
     writer.performWrite(vulkanState.device);
@@ -151,6 +163,7 @@ void GenericDescriptorSetInstance<TBindings>::updateStaticDescriptors() {
 
 template<typename TBindings>
 void GenericDescriptorSetInstance<TBindings>::updateDynamicDescriptors(std::uint32_t i) {
+    dynamicDescriptorSets.getRaw(i).allocate(descriptorSetLayout);
     SetWriteHelper writer(dynamicDescriptorSets.getRaw(i).getSet());
     bindings.writeSet(writer, UpdateSpeed::Dynamic, i);
     writer.performWrite(vulkanState.device);

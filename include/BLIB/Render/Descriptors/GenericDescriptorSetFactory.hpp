@@ -77,7 +77,9 @@ void GenericDescriptorSetFactory<TBindings, BindingStages...>::init(engine::Engi
 template<typename TBindings, VkPipelineStageFlags... BindingStages>
 std::unique_ptr<DescriptorSetInstance>
 GenericDescriptorSetFactory<TBindings, BindingStages...>::createDescriptorSet() const {
-    return std::make_unique<GenericDescriptorSetInstance<TBindings>>(*vulkanState);
+    TBindings bindingInfo;
+    return std::make_unique<GenericDescriptorSetInstance<TBindings>>(
+        *vulkanState, descriptorSetLayout, bindingInfo.getBindMode(), bindingInfo.getSpeedMode());
 }
 
 } // namespace ds
