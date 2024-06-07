@@ -18,6 +18,8 @@ std::unique_ptr<DescriptorSetInstance> TexturePoolFactory::createDescriptorSet()
     return std::make_unique<TexturePoolInstance>(*texturePool);
 }
 
+std::type_index TexturePoolFactory::creates() const { return typeid(TexturePoolInstance); }
+
 } // namespace ds
 } // namespace rc
 } // namespace bl

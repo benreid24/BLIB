@@ -57,6 +57,11 @@ public:
      */
     virtual std::unique_ptr<DescriptorSetInstance> createDescriptorSet() const = 0;
 
+    /**
+     * @brief Should return the type of descriptor set that is created by this factory
+     */
+    virtual std::type_index creates() const = 0;
+
 protected:
     VkDescriptorSetLayout descriptorSetLayout;
 };

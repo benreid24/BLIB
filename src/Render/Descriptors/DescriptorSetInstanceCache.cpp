@@ -9,7 +9,7 @@ namespace ds
 DescriptorSetInstanceCache::DescriptorSetInstanceCache(
     DescriptorComponentStorageCache& storageCache)
 : storageCache(storageCache) {
-    sceneSets.reserve(8);
+    sceneSets.reserve(4);
 }
 
 DescriptorSetInstance* DescriptorSetInstanceCache::getDescriptorSet(DescriptorSetFactory* factory) {

@@ -58,11 +58,30 @@ public:
      */
     void handleDescriptorSync();
 
+    /**
+     * @brief Fetches the contained descriptor set by type, if present
+     * @tparam T The type of descriptor set to fetch
+     * @return The descriptor set of the given type, if present
+     */
+    template<typename T>
+    T* getDescriptorSet();
+
 private:
     DescriptorComponentStorageCache& storageCache;
     std::unordered_map<DescriptorSetFactory*, std::unique_ptr<DescriptorSetInstance>> cache;
     std::vector<ds::SceneDescriptorSetInstance*> sceneSets;
 };
+
+//////////////////////////// INLINE FUNCTIONS /////////////////////////////////
+
+template<typename T>
+T* DescriptorSetInstanceCache::getDescriptorSet() {
+    for (auto& p : cache) {
+        T* val = dynamic_cast<T*>(p.second.get());
+        if (val) { return val; }
+    }
+    return nullptr;
+}
 
 } // namespace ds
 } // namespace rc

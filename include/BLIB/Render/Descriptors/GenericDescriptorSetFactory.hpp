@@ -46,6 +46,11 @@ public:
      */
     virtual std::unique_ptr<DescriptorSetInstance> createDescriptorSet() const override;
 
+    /**
+     * @brief Returns the type of descriptor set that this factory makes
+     */
+    virtual std::type_index creates() const override;
+
 private:
     vk::VulkanState* vulkanState;
 };
@@ -80,6 +85,11 @@ GenericDescriptorSetFactory<TBindings, BindingStages...>::createDescriptorSet() 
     TBindings bindingInfo;
     return std::make_unique<GenericDescriptorSetInstance<TBindings>>(
         *vulkanState, descriptorSetLayout, bindingInfo.getBindMode(), bindingInfo.getSpeedMode());
+}
+
+template<typename TBindings, VkPipelineStageFlags... BindingStages>
+std::type_index GenericDescriptorSetFactory<TBindings, BindingStages...>::creates() const {
+    return typeid(GenericDescriptorSetInstance<TBindings>);
 }
 
 } // namespace ds
