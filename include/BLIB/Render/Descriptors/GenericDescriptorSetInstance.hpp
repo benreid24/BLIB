@@ -172,7 +172,7 @@ void GenericDescriptorSetInstance<TBindings>::updateDynamicDescriptors(std::uint
 template<typename TBindings>
 template<typename T>
 T& GenericDescriptorSetInstance<TBindings>::getBindingPayload() {
-    return bindings.get<T>();
+    return bindings.template get<T>();
 }
 
 } // namespace ds
