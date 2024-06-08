@@ -32,6 +32,8 @@ std::unique_ptr<DescriptorSetInstance> SlideshowFactory::createDescriptorSet() c
     return std::make_unique<SlideshowInstance>(*engine);
 }
 
+std::type_index SlideshowFactory::creates() const { return typeid(SlideshowInstance); }
+
 } // namespace ds
 } // namespace rc
 } // namespace bl

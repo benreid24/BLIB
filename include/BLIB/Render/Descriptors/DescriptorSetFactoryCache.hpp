@@ -59,6 +59,15 @@ public:
     template<typename T, typename... TArgs>
     T* getOrCreateFactory(TArgs&&... args);
 
+    /**
+     * @brief Returns the factory that creates the given type
+     *
+     * @tparam T The descriptor set to search for
+     * @return The factory that creates the given set type, or nullptr if not found
+     */
+    template<typename T>
+    DescriptorSetFactory* getFactoryThatMakes();
+
 private:
     engine::Engine& engine;
     Renderer& renderer;
@@ -87,6 +96,14 @@ T* DescriptorSetFactoryCache::getOrCreateFactory(TArgs&&... args) {
         it->second->init(engine, renderer);
     }
     return static_cast<T*>(it->second.get());
+}
+
+template<typename T>
+DescriptorSetFactory* DescriptorSetFactoryCache::getFactoryThatMakes() {
+    for (auto& p : cache) {
+        if (p.second->creates() == typeid(T)) { return p.second.get(); }
+    }
+    return nullptr;
 }
 
 } // namespace ds

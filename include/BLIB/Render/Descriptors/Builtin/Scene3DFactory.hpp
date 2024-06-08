@@ -32,6 +32,7 @@ private:
 
     virtual void init(engine::Engine&, Renderer& renderer) override;
     virtual std::unique_ptr<DescriptorSetInstance> createDescriptorSet() const override;
+    virtual std::type_index creates() const override;
 };
 
 } // namespace ds

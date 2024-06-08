@@ -25,6 +25,8 @@ std::unique_ptr<DescriptorSetInstance> FadeEffectFactory::createDescriptorSet() 
     throw std::runtime_error("No instances should be created for FadeEffectFactory");
 }
 
+std::type_index FadeEffectFactory::creates() const { return typeid(void); }
+
 } // namespace ds
 } // namespace rc
 } // namespace bl
