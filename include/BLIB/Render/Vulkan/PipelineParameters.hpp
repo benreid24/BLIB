@@ -31,6 +31,12 @@ class Pipeline;
 class PipelineParameters {
 public:
     /**
+     * @brief Creates the parameters using the StandardAttachmentDefault and SwapchainDefault render
+     *        passes as defaults
+     */
+    PipelineParameters();
+
+    /**
      * @brief Construct new Pipeline Parameters for a given render pass
      *
      * @param renderPassIds The ids of the render passes the pipeline will be used with
@@ -174,6 +180,14 @@ public:
     PipelineParameters& withDepthStencilState(VkPipelineDepthStencilStateCreateInfo* depthStencil);
 
     /**
+     * @brief Helper function to populate the depth stencil state based on depth testing setting
+     *
+     * @param depthTestingEnabled Whether or not to enable depth testing
+     * @return A reference to this object
+     */
+    PipelineParameters& withSimpleDepthStencil(bool depthTestingEnabled);
+
+    /**
      * @brief Performs final validation and defaulting, then returns an rvalue reference to this
      *        object to be used for pipeline creation
      *
@@ -217,6 +231,8 @@ private:
     std::array<std::uint32_t, Config::MaxRenderPasses> renderPassIds;
     std::uint32_t renderPassCount;
     std::uint32_t subpass;
+
+    VkPipelineDepthStencilStateCreateInfo localDepthStencil;
 
     friend class Pipeline;
 };
