@@ -29,6 +29,7 @@ private:
 
     virtual void init(bl::engine::Engine& e, bl::rc::Renderer& renderer) override;
     virtual std::unique_ptr<rc::ds::DescriptorSetInstance> createDescriptorSet() const override;
+    virtual std::type_index creates() const override;
 };
 
 } // namespace pcl

@@ -47,6 +47,11 @@ std::unique_ptr<rc::ds::DescriptorSetInstance> DescriptorSetFactory<T, GpuT>::cr
     return std::make_unique<DescriptorSetInstance<T, GpuT>>(*engine, descriptorSetLayout);
 }
 
+template<typename T, typename GpuT>
+std::type_index DescriptorSetFactory<T, GpuT>::creates() const {
+    return typeid(DescriptorSetInstance<T, GpuT>);
+}
+
 } // namespace pcl
 } // namespace bl
 
