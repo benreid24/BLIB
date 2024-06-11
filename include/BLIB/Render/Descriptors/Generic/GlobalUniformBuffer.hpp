@@ -19,6 +19,8 @@ namespace ds
 template<typename T>
 class GlobalUniformBuffer : public Binding {
 public:
+    using TPayload = T;
+
     /**
      * @brief Creates the binding
      */

@@ -130,7 +130,8 @@ template<typename T, std::size_t I>
 T& Bindings<TBindings...>::getHelper() {
     if constexpr (I < sizeof...(TBindings)) {
         auto& binding  = std::get<I>(bindings);
-        using TPayload = typename std::decay<decltype(binding)>::TPayload;
+        using TBinding = std::decay_t<decltype(binding)>;
+        using TPayload = typename TBinding::TPayload;
         if constexpr (std::is_same<TPayload, T>::value) {
             return *static_cast<T*>(binding.getPayload());
         }

@@ -73,6 +73,16 @@ public:
     virtual void addGraphTasks(rg::RenderGraph& graph);
 
     /**
+     * @brief Provides direct access to the descriptor set of the given type. Creates it if not
+     *        already created. May be slow, cache the result
+     *
+     * @tparam T The descriptor set type to fetch or create
+     * @return The descriptor set of the given type
+     */
+    template<typename T>
+    T& getDescriptorSet();
+
+    /**
      * @brief Creates a default camera for the scene
      *
      * @return The default camera to use
@@ -146,16 +156,6 @@ protected:
      */
     virtual void doObjectRemoval(scene::SceneObject* object, std::uint32_t pipeline) = 0;
 
-    /**
-     * @brief Provides direct access to the descriptor set of the given type. Creates it if not
-     *        already created. May be slow, cache the result
-     *
-     * @tparam T The descriptor set type to fetch or create
-     * @return The descriptor set of the given type
-     */
-    template<typename T>
-    T& getDescriptorSet();
-
 private:
     std::mutex batchMutex;
     std::recursive_mutex objectMutex;
@@ -186,7 +186,7 @@ private:
 template<typename T>
 T& Scene::getDescriptorSet() {
     T* set = descriptorSets.getDescriptorSet<T>();
-    if (set) { return set; }
+    if (set) { return *set; }
 
     ds::DescriptorSetFactory* factory = descriptorFactories.getFactoryThatMakes<T>();
     if (!factory) { throw std::runtime_error("Failed to find descriptor set"); }

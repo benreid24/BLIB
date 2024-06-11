@@ -21,6 +21,8 @@ namespace ds
 template<typename T, typename TStorage = buf::StaticSSBO<T>>
 class GlobalStorageBuffer : public Binding {
 public:
+    using TPayload = T;
+
     /**
      * @brief Creates the binding
      */
