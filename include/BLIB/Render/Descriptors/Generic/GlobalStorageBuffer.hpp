@@ -27,7 +27,9 @@ public:
      * @brief Creates the binding
      */
     GlobalStorageBuffer()
-    : Binding(VK_DESCRIPTOR_TYPE_STORAGE_BUFFER) {}
+    : Binding(VK_DESCRIPTOR_TYPE_STORAGE_BUFFER)
+    , staticWritten(false)
+    , dynamicWritten(Config::MaxConcurrentFrames) {}
 
     /**
      * @brief Destroys the binding
@@ -47,6 +49,8 @@ public:
 
 private:
     TStorage storage;
+    bool staticWritten;
+    int dynamicWritten;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -70,7 +74,7 @@ void GlobalStorageBuffer<T, TStorage>::init(vk::VulkanState& vulkanState,
 }
 
 template<typename T, typename TStorage>
-void GlobalStorageBuffer<T, TStorage>::writeSet(SetWriteHelper& writer, UpdateSpeed,
+void GlobalStorageBuffer<T, TStorage>::writeSet(SetWriteHelper& writer, UpdateSpeed speed,
                                                 std::uint32_t frameIndex) {
     VkBuffer buf;
     if constexpr (std::is_same_v<TStorage, buf::StaticSSBO<T>>) {
@@ -87,6 +91,9 @@ void GlobalStorageBuffer<T, TStorage>::writeSet(SetWriteHelper& writer, UpdateSp
     setWrite.dstBinding            = getBindingIndex();
     setWrite.pBufferInfo           = &bufferInfo;
     setWrite.descriptorType        = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
+
+    if (speed == UpdateSpeed::Static) { staticWritten = true; }
+    else { --dynamicWritten; }
 }
 
 template<typename T, typename TStorage>
@@ -110,12 +117,12 @@ void* GlobalStorageBuffer<T, TStorage>::getPayload() {
 
 template<typename T, typename TStorage>
 bool GlobalStorageBuffer<T, TStorage>::staticDescriptorUpdateRequired() const {
-    return false;
+    return !staticWritten;
 }
 
 template<typename T, typename TStorage>
 bool GlobalStorageBuffer<T, TStorage>::dynamicDescriptorUpdateRequired() const {
-    return false;
+    return dynamicWritten > 0;
 }
 
 } // namespace ds

@@ -2,6 +2,7 @@
 #define BLIB_RENDER_DESCRIPTORS_GENERIC_GLOBALUNIFORMBUFFER_HPP
 
 #include <BLIB/Render/Buffers/UniformBuffer.hpp>
+#include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Descriptors/Generic/Binding.hpp>
 
 namespace bl
@@ -25,7 +26,9 @@ public:
      * @brief Creates the binding
      */
     GlobalUniformBuffer()
-    : Binding(VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER) {}
+    : Binding(VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER)
+    , staticWritten(false)
+    , dynamicWritten(Config::MaxConcurrentFrames) {}
 
     /**
      * @brief Destroys the binding
@@ -46,6 +49,8 @@ public:
 private:
     T value;
     buf::UniformBuffer<T> buffer;
+    bool staticWritten;
+    int dynamicWritten;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -67,7 +72,7 @@ void GlobalUniformBuffer<T>::init(vk::VulkanState& vs, DescriptorComponentStorag
 }
 
 template<typename T>
-void GlobalUniformBuffer<T>::writeSet(SetWriteHelper& writer, UpdateSpeed,
+void GlobalUniformBuffer<T>::writeSet(SetWriteHelper& writer, UpdateSpeed speed,
                                       std::uint32_t frameIndex) {
     VkDescriptorBufferInfo& bufferInfo = writer.getNewBufferInfo();
     bufferInfo.buffer                  = buffer.gpuBufferHandles().getRaw(frameIndex).getBuffer();
@@ -78,6 +83,9 @@ void GlobalUniformBuffer<T>::writeSet(SetWriteHelper& writer, UpdateSpeed,
     setWrite.dstBinding            = getBindingIndex();
     setWrite.pBufferInfo           = &bufferInfo;
     setWrite.descriptorType        = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+
+    if (speed == UpdateSpeed::Static) { staticWritten = true; }
+    else { --dynamicWritten; }
 }
 
 template<typename T>
@@ -103,12 +111,12 @@ void* GlobalUniformBuffer<T>::getPayload() {
 
 template<typename T>
 bool GlobalUniformBuffer<T>::staticDescriptorUpdateRequired() const {
-    return false;
+    return !staticWritten;
 }
 
 template<typename T>
 bool GlobalUniformBuffer<T>::dynamicDescriptorUpdateRequired() const {
-    return false;
+    return dynamicWritten > 0;
 }
 
 } // namespace ds

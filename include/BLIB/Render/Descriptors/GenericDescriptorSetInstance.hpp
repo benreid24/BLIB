@@ -147,6 +147,7 @@ void GenericDescriptorSetInstance<TBindings>::releaseObject(ecs::Entity entity, 
 
 template<typename TBindings>
 void GenericDescriptorSetInstance<TBindings>::handleFrameStart() {
+    bindings.onFrameStart();
     if (bindings.staticDescriptorUpdateRequired()) { updateStaticDescriptors(); }
     if (bindings.dynamicDescriptorUpdateRequired()) {
         updateDynamicDescriptors(vulkanState.currentFrameIndex());
