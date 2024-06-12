@@ -17,12 +17,14 @@ namespace ds
  *
  * @tparam T The shader format of the data to provide
  * @tparam TComponent The ECS component to populate from
+ * @tparam Optional Whether or not this binding is optional for objects
  * @tparam TDynamicStorage The type of buffer to use for dynamic entities
  * @tparam TStaticStorage The type of buffer to use for static entities
  * @ingroup Renderer
  */
-template<typename T, typename TComponent = T, typename TDynamicStorage = buf::DynamicSSBO<T>,
-         typename TStaticStorage = buf::StaticSSBO<T>>
+template<typename T, typename TComponent = T, bool Optional = false,
+         typename TDynamicStorage = buf::DynamicSSBO<T>,
+         typename TStaticStorage  = buf::StaticSSBO<T>>
 class ObjectStorageBuffer : public Binding {
 public:
     using TPayload = T;
@@ -56,26 +58,30 @@ private:
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-template<typename T, typename TComponent, typename TDynamicStorage, typename TStaticStorage>
+template<typename T, typename TComponent, bool Optional, typename TDynamicStorage,
+         typename TStaticStorage>
 DescriptorSetInstance::BindMode
-ObjectStorageBuffer<T, TComponent, TDynamicStorage, TStaticStorage>::getBindMode() const {
+ObjectStorageBuffer<T, TComponent, Optional, TDynamicStorage, TStaticStorage>::getBindMode() const {
     return DescriptorSetInstance::BindMode::Bindless;
 }
 
-template<typename T, typename TComponent, typename TDynamicStorage, typename TStaticStorage>
-DescriptorSetInstance::SpeedBucketSetting
-ObjectStorageBuffer<T, TComponent, TDynamicStorage, TStaticStorage>::getSpeedMode() const {
+template<typename T, typename TComponent, bool Optional, typename TDynamicStorage,
+         typename TStaticStorage>
+DescriptorSetInstance::SpeedBucketSetting ObjectStorageBuffer<
+    T, TComponent, Optional, TDynamicStorage, TStaticStorage>::getSpeedMode() const {
     return DescriptorSetInstance::SpeedBucketSetting::RebindForNewSpeed;
 }
 
-template<typename T, typename TComponent, typename TDynamicStorage, typename TStaticStorage>
-void ObjectStorageBuffer<T, TComponent, TDynamicStorage, TStaticStorage>::init(
+template<typename T, typename TComponent, bool Optional, typename TDynamicStorage,
+         typename TStaticStorage>
+void ObjectStorageBuffer<T, TComponent, Optional, TDynamicStorage, TStaticStorage>::init(
     vk::VulkanState&, DescriptorComponentStorageCache& storageCache) {
     components = storageCache.getComponentStorage<TComponent, T, TDynamicStorage, TStaticStorage>();
 }
 
-template<typename T, typename TComponent, typename TDynamicStorage, typename TStaticStorage>
-void ObjectStorageBuffer<T, TComponent, TDynamicStorage, TStaticStorage>::writeSet(
+template<typename T, typename TComponent, bool Optional, typename TDynamicStorage,
+         typename TStaticStorage>
+void ObjectStorageBuffer<T, TComponent, Optional, TDynamicStorage, TStaticStorage>::writeSet(
     SetWriteHelper& writer, UpdateSpeed speed, std::uint32_t frameIndex) {
     VkDescriptorBufferInfo& bufferInfo = writer.getNewBufferInfo();
     bufferInfo.buffer                  = speed == UpdateSpeed::Dynamic ?
@@ -92,37 +98,43 @@ void ObjectStorageBuffer<T, TComponent, TDynamicStorage, TStaticStorage>::writeS
     setWrite.descriptorType        = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
 }
 
-template<typename T, typename TComponent, typename TDynamicStorage, typename TStaticStorage>
-bool ObjectStorageBuffer<T, TComponent, TDynamicStorage, TStaticStorage>::allocateObject(
+template<typename T, typename TComponent, bool Optional, typename TDynamicStorage,
+         typename TStaticStorage>
+bool ObjectStorageBuffer<T, TComponent, Optional, TDynamicStorage, TStaticStorage>::allocateObject(
     ecs::Entity entity, scene::Key key) {
-    return components->allocateObject(entity, key);
+    return components->allocateObject(entity, key) || Optional;
 }
 
-template<typename T, typename TComponent, typename TDynamicStorage, typename TStaticStorage>
-void ObjectStorageBuffer<T, TComponent, TDynamicStorage, TStaticStorage>::releaseObject(
+template<typename T, typename TComponent, bool Optional, typename TDynamicStorage,
+         typename TStaticStorage>
+void ObjectStorageBuffer<T, TComponent, Optional, TDynamicStorage, TStaticStorage>::releaseObject(
     ecs::Entity entity, scene::Key key) {
     components->releaseObject(entity, key);
 }
 
-template<typename T, typename TComponent, typename TDynamicStorage, typename TStaticStorage>
-void ObjectStorageBuffer<T, TComponent, TDynamicStorage, TStaticStorage>::onFrameStart() {
+template<typename T, typename TComponent, bool Optional, typename TDynamicStorage,
+         typename TStaticStorage>
+void ObjectStorageBuffer<T, TComponent, Optional, TDynamicStorage, TStaticStorage>::onFrameStart() {
     // noop
 }
 
-template<typename T, typename TComponent, typename TDynamicStorage, typename TStaticStorage>
-void* ObjectStorageBuffer<T, TComponent, TDynamicStorage, TStaticStorage>::getPayload() {
+template<typename T, typename TComponent, bool Optional, typename TDynamicStorage,
+         typename TStaticStorage>
+void* ObjectStorageBuffer<T, TComponent, Optional, TDynamicStorage, TStaticStorage>::getPayload() {
     // no payload
     return nullptr;
 }
 
-template<typename T, typename TComponent, typename TDynamicStorage, typename TStaticStorage>
-bool ObjectStorageBuffer<T, TComponent, TDynamicStorage,
+template<typename T, typename TComponent, bool Optional, typename TDynamicStorage,
+         typename TStaticStorage>
+bool ObjectStorageBuffer<T, TComponent, Optional, TDynamicStorage,
                          TStaticStorage>::staticDescriptorUpdateRequired() const {
     return components->staticDescriptorUpdateRequired();
 }
 
-template<typename T, typename TComponent, typename TDynamicStorage, typename TStaticStorage>
-bool ObjectStorageBuffer<T, TComponent, TDynamicStorage,
+template<typename T, typename TComponent, bool Optional, typename TDynamicStorage,
+         typename TStaticStorage>
+bool ObjectStorageBuffer<T, TComponent, Optional, TDynamicStorage,
                          TStaticStorage>::dynamicDescriptorUpdateRequired() const {
     return components->dynamicDescriptorUpdateRequired();
 }

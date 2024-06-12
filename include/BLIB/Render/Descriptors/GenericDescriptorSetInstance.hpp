@@ -157,7 +157,7 @@ template<typename TBindings>
 void GenericDescriptorSetInstance<TBindings>::updateStaticDescriptors() {
     staticDescriptorSet.allocate(descriptorSetLayout);
     SetWriteHelper writer(staticDescriptorSet.getSet());
-    bindings.writeSet(writer, UpdateSpeed::Static, 0); // TODO - PerFrame for static?
+    bindings.writeSet(writer, UpdateSpeed::Static, 0);
     writer.performWrite(vulkanState.device);
 }
 

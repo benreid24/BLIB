@@ -21,7 +21,7 @@ namespace priv
 using Transform2DBinding = ObjectStorageBuffer<glm::mat4, com::Transform2D>;
 using Transform3DBinding = ObjectStorageBuffer<glm::mat4, com::Transform3D>;
 using TextureBinding =
-    ObjectStorageBuffer<std::uint32_t, com::Texture, buf::StaticSSBO<std::uint32_t>,
+    ObjectStorageBuffer<std::uint32_t, com::Texture, true, buf::StaticSSBO<std::uint32_t>,
                         buf::StaticSSBO<std::uint32_t>>;
 
 } // namespace priv

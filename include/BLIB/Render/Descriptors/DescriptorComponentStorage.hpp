@@ -159,8 +159,14 @@ private:
 
 inline void DescriptorComponentStorageBase::markObjectDirty(scene::Key key) {
     auto& range = key.updateFreq == UpdateSpeed::Dynamic ? dirtyDynamic : dirtyStatic;
-    range.start = key.sceneId < range.start ? key.sceneId : range.start;
-    range.end   = key.sceneId > range.end ? key.sceneId : range.end;
+    if (range.start > range.end) {
+        range.start = key.sceneId;
+        range.end   = key.sceneId;
+    }
+    else {
+        range.start = key.sceneId < range.start ? key.sceneId : range.start;
+        range.end   = key.sceneId > range.end ? key.sceneId : range.end;
+    }
 }
 
 inline constexpr const DescriptorComponentStorageBase::DirtyRange&
