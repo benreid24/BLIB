@@ -8,6 +8,7 @@
 #include <BLIB/Particles/ParticleManagerBase.hpp>
 #include <BLIB/Particles/RenderTypeMap.hpp>
 #include <BLIB/Particles/Sink.hpp>
+#include <BLIB/Render/Scenes/CodeScene.hpp>
 #include <cmath>
 #include <iterator>
 #include <memory>
@@ -257,6 +258,14 @@ public:
      *        particle system and its emitters, affectors, sinks, and updaters
      */
     std::size_t getParticleCountLocked() const;
+
+    /**
+     * @brief Manually issue the required commands to draw this object. Must be called within the
+     *        context of a CodeScene
+     *
+     * @param ctx The CodeScene rendering context
+     */
+    void draw(rc::scene::CodeScene::RenderContext& ctx);
 
 private:
     static constexpr std::size_t ParticlesPerThread = 800;

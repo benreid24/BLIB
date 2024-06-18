@@ -87,6 +87,7 @@
 #include <BLIB/Render/Resources/TexturePool.hpp>
 #include <BLIB/Render/Resources/TextureRef.hpp>
 #include <BLIB/Render/Scenes/BatchedScene.hpp>
+#include <BLIB/Render/Scenes/CodeScene.hpp>
 #include <BLIB/Render/Scenes/Key.hpp>
 #include <BLIB/Render/Scenes/Scene.hpp>
 #include <BLIB/Render/Scenes/Scene2D.hpp>

@@ -147,6 +147,13 @@ void Overlay::doBatchChange(const BatchChange& change, std::uint32_t ogPipeline)
                                                                    entity,
                                                                    object.sceneKey.sceneId,
                                                                    object.sceneKey.updateFreq);
+        object.perObjStart = object.descriptorCount;
+        for (unsigned int i = 0; i < object.descriptorCount; ++i) {
+            if (!object.descriptors[i]->isBindless()) {
+                object.perObjStart = i;
+                break;
+            }
+        }
     }
 }
 

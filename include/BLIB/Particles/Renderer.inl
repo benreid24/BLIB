@@ -118,6 +118,11 @@ Link<T>* Renderer<T>::getLink() {
     return engine->ecs().getComponent<Link<T>>(entity);
 }
 
+template<typename T>
+void Renderer<T>::draw(rc::scene::CodeScene::RenderContext& ctx) {
+    ctx.renderObject(*component);
+}
+
 } // namespace pcl
 } // namespace bl
 

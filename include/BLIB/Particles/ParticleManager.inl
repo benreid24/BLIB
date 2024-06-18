@@ -236,6 +236,11 @@ std::size_t ParticleManager<T>::getParticleCountLocked() const {
 }
 
 template<typename T>
+void ParticleManager<T>::draw(rc::scene::CodeScene::RenderContext& ctx) {
+    renderer.draw(ctx);
+}
+
+template<typename T>
 void ParticleManager<T>::updateSink(std::size_t i, util::ThreadPool& pool, float dt, float realDt) {
     auto* sink = sinks[i].get();
     typename TSink::Proxy proxy(releaseMutex, *this, &particles.front(), freeList, freed);

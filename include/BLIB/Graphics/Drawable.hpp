@@ -5,6 +5,7 @@
 #include <BLIB/ECS.hpp>
 #include <BLIB/Graphics/Components/EntityBacked.hpp>
 #include <BLIB/Render/Components/DrawableBase.hpp>
+#include <BLIB/Render/Scenes/CodeScene.hpp>
 #include <BLIB/Systems/DrawableSystem.hpp>
 #include <type_traits>
 
@@ -118,6 +119,14 @@ public:
      * @param size The size to scale to
      */
     virtual void scaleToSize(const glm::vec2& size) = 0;
+
+    /**
+     * @brief Manually issue the required commands to draw this object. Must be called within the
+     *        context of a CodeScene
+     *
+     * @param ctx The CodeScene rendering context
+     */
+    void draw(rc::scene::CodeScene::RenderContext& ctx);
 
 protected:
     /**
@@ -313,6 +322,11 @@ void Drawable<TCom, TSys>::create(engine::Engine& engine, TArgs&&... args) {
     if (handle != nullptr) { destroy(); }
     createEntityOnly(engine);
     handle = engine.ecs().template emplaceComponent<TCom>(entity(), std::forward<TArgs>(args)...);
+}
+
+template<typename TCom, typename TSys>
+void Drawable<TCom, TSys>::draw(rc::scene::CodeScene::RenderContext& ctx) {
+    ctx.renderObject(*handle);
 }
 
 } // namespace gfx

@@ -5,6 +5,7 @@
 #include <BLIB/Particles/Link.hpp>
 #include <BLIB/Particles/RenderComponentMap.hpp>
 #include <BLIB/Particles/RenderConfigMap.hpp>
+#include <BLIB/Render/Scenes/CodeScene.hpp>
 #include <cstddef>
 
 namespace bl
@@ -86,6 +87,14 @@ public:
      * @brief Returns the link component. Only valid after addToScene is called
      */
     Link<T>* getLink();
+
+    /**
+     * @brief Manually issue the required commands to draw this object. Must be called within the
+     *        context of a CodeScene
+     *
+     * @param ctx The CodeScene rendering context
+     */
+    void draw(rc::scene::CodeScene::RenderContext& ctx);
 
 private:
     engine::Engine* engine;

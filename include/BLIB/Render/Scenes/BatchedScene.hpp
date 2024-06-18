@@ -6,18 +6,8 @@
 
 namespace bl
 {
-namespace sys
-{
-template<typename T>
-class DrawableSystem;
-}
 namespace rc
 {
-class Renderer;
-namespace res
-{
-class ScenePool;
-}
 namespace scene
 {
 /**
