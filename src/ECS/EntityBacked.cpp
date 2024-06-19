@@ -1,12 +1,10 @@
-#include <BLIB/Graphics/Components/EntityBacked.hpp>
+#include <BLIB/ECS/EntityBacked.hpp>
 
 #include <BLIB/Engine.hpp>
 
 namespace bl
 {
-namespace gfx
-{
-namespace bcom
+namespace ecs
 {
 EntityBacked::EntityBacked()
 : enginePtr(nullptr)
@@ -67,6 +65,5 @@ void EntityBacked::setParent(ecs::Entity parent) {
 
 void EntityBacked::removeParent() { enginePtr->ecs().removeEntityParent(ecsId); }
 
-} // namespace bcom
-} // namespace gfx
+} // namespace ecs
 } // namespace bl

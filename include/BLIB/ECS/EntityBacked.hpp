@@ -1,18 +1,22 @@
-#ifndef BLIB_GRAPHICS_COMPONENTS_ENTITYBACKED_HPP
-#define BLIB_GRAPHICS_COMPONENTS_ENTITYBACKED_HPP
+#ifndef BLIB_ECS_ENTITYBACKED_HPP
+#define BLIB_ECS_ENTITYBACKED_HPP
 
-#include <BLIB/ECS.hpp>
+#include <BLIB/ECS/Entity.hpp>
 
 namespace bl
 {
-namespace gfx
+namespace engine
 {
-namespace bcom
+class Engine;
+}
+
+namespace ecs
 {
 /**
- * @brief Base class for ECS-backed graphics objects
+ * @brief Base class for ECS-backed objects. Useful for nice class interfaces while using ECS as
+ *        backing for components. This class provides lifetime management of the entity itself
  *
- * @ingroup Graphics
+ * @ingroup ECS
  */
 class EntityBacked {
 public:
@@ -126,8 +130,7 @@ inline ecs::Entity EntityBacked::entity() const { return ecsId; }
 
 inline engine::Engine& EntityBacked::engine() { return *enginePtr; }
 
-} // namespace bcom
-} // namespace gfx
+} // namespace ecs
 } // namespace bl
 
 #endif

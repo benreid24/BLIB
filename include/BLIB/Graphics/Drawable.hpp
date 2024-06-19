@@ -3,7 +3,7 @@
 
 #include <BLIB/Components/Toggler.hpp>
 #include <BLIB/ECS.hpp>
-#include <BLIB/Graphics/Components/EntityBacked.hpp>
+#include <BLIB/ECS/EntityBacked.hpp>
 #include <BLIB/Render/Components/DrawableBase.hpp>
 #include <BLIB/Render/Scenes/CodeScene.hpp>
 #include <BLIB/Systems/DrawableSystem.hpp>
@@ -31,7 +31,7 @@ class Drawable;
  * @ingroup Graphics
  */
 template<typename TCom, typename TSys = sys::DrawableSystem<TCom>>
-class Drawable : public bcom::EntityBacked {
+class Drawable : public ecs::EntityBacked {
     static_assert(std::is_base_of_v<rc::rcom::DrawableBase, TCom>,
                   "TCom must derive from DrawableBase");
 
