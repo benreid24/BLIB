@@ -10,6 +10,7 @@
 #include <BLIB/Render/Events/SceneDestroyed.hpp>
 #include <BLIB/Render/Observer.hpp>
 #include <BLIB/Render/Overlays/Overlay.hpp>
+#include <BLIB/Render/Scenes/CodeScene.hpp>
 #include <BLIB/Util/Hashes.hpp>
 #include <list>
 #include <unordered_map>
@@ -54,9 +55,17 @@ public:
     void addToOverlay(ecs::Entity parent = ecs::InvalidEntity);
 
     /**
-     * @brief Removes the menu and all components from its current overlay
+     * @brief Adds the menu and all items to the given scene. New items will be
+     *        added automatically
+     *
+     * @param scene The scene to add to
      */
-    void removeFromOverlay();
+    void addToScene(rc::Scene* scene);
+
+    /**
+     * @brief Removes the menu and all components from its current scene
+     */
+    void removeFromScene();
 
     /**
      * @brief Set whether or not the menu is hidden
@@ -259,10 +268,17 @@ public:
      */
     static void setDefaultSelectSound(audio::AudioSystem::Handle sound);
 
+    /**
+     * @brief Manually draws the menu. Must be in a CodeScene
+     *
+     * @param ctx The render context
+     */
+    void draw(rc::scene::CodeScene::RenderContext& ctx);
+
 private:
     engine::Engine* engine;
     rc::Observer* observer;
-    rc::Overlay* overlay;
+    rc::Scene* scene;
     glm::vec2 maxSize;
     glm::vec2 offset;
     std::vector<Item::Ptr> items;

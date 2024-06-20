@@ -12,7 +12,6 @@ namespace menu
  * @brief Basic selection indicator, draws a triangle to the left of the selected item
  *
  * @ingroup Menu
- *
  */
 class ArrowSelector : public Selector {
 public:
@@ -23,7 +22,6 @@ public:
      *
      * @param width The width of the arrow in pixels
      * @param fill Color to fill the arrow with
-     *
      */
     static Ptr create(float width, const sf::Color& fill = sf::Color::White);
 
@@ -54,16 +52,23 @@ public:
     virtual void notifySelection(ecs::Entity item, sf::FloatRect itemArea) override;
 
     /**
-     * @brief Called when the selector should be added to the overlay
+     * @brief Called when the selector should be added to the scene
      *
-     * @param overlay The overlay to add to
+     * @param scene The overlay to add to
      */
-    virtual void doSceneAdd(rc::Overlay* overlay) override;
+    virtual void doSceneAdd(rc::Scene* scene) override;
 
     /**
-     * @brief Called when the selector should be removed from the overlay
+     * @brief Called when the selector should be removed from the scene
      */
     virtual void doSceneRemove() override;
+
+    /**
+     * @brief Manually draw the selector
+     *
+     * @param ctx The render context
+     */
+    virtual void draw(rc::scene::CodeScene::RenderContext& ctx) override;
 
 private:
     const float width;

@@ -124,6 +124,11 @@ public:
      */
     void releaseTexture(const TextureRef& ref);
 
+    /**
+     * @brief Returns a shared blank texture. Do not modify the blank texture
+     */
+    TextureRef getBlankTexture();
+
 private:
     std::mutex mutex;
     vk::VulkanState& vulkanState;
@@ -136,6 +141,7 @@ private:
     std::vector<const std::string*> reverseFileMap;
     std::vector<const sf::Image*> reverseImageMap;
     std::vector<std::uint32_t> toRelease;
+    TextureRef blankTexture;
 
     VkDescriptorPool descriptorPool;
     VkDescriptorSetLayout descriptorSetLayout;

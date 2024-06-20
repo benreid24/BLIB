@@ -16,7 +16,7 @@ audio::AudioSystem::Handle Menu::defaultSelectSound = audio::AudioSystem::Invali
 Menu::Menu()
 : engine(nullptr)
 , observer(nullptr)
-, overlay(nullptr)
+, scene(nullptr)
 , maxSize(-1.f, -1.f)
 , offset{}
 , selector()
@@ -47,16 +47,20 @@ void Menu::create(engine::Engine& e, rc::Observer& o, const Selector::Ptr& sel) 
 
 void Menu::addToOverlay(ecs::Entity parent) {
     if (parent != ecs::InvalidEntity) { background.setParent(parent); }
-    overlay = observer->getOrCreateSceneOverlay();
-    background.addToScene(overlay, rc::UpdateSpeed::Static);
-    selector->doSceneAdd(overlay);
-    for (auto& item : items) { item->doSceneAdd(overlay); }
+    addToScene(observer->getOrCreateSceneOverlay());
+}
+
+void Menu::addToScene(rc::Scene* s) {
+    scene = s;
+    background.addToScene(scene, rc::UpdateSpeed::Static);
+    selector->doSceneAdd(scene);
+    for (auto& item : items) { item->doSceneAdd(scene); }
 }
 
 void Menu::setHidden(bool h) { background.setHidden(h); }
 
-void Menu::removeFromOverlay() {
-    overlay = nullptr;
+void Menu::removeFromScene() {
+    scene = nullptr;
     background.removeFromScene();
     selector->doSceneRemove();
     for (auto& item : items) { item->doSceneRemove(); }
@@ -181,7 +185,7 @@ void Menu::setRootItem(const Item::Ptr& root) {
     items.clear();
     items.emplace_back(root);
     root->create(*engine, background.entity());
-    if (overlay) { root->doSceneAdd(overlay); }
+    if (scene) { root->doSceneAdd(scene); }
     setSelectedItem(root.get());
     refreshPositions();
 }
@@ -192,7 +196,7 @@ void Menu::addItem(const Item::Ptr& item, Item* parent, Item::AttachPoint ap, bo
     if (r) { item->attachments[Item::oppositeSide(ap)] = parent; }
     item->parent = ap;
     item->create(*engine, background.entity());
-    if (overlay) { item->doSceneAdd(overlay); }
+    if (scene) { item->doSceneAdd(scene); }
     refreshPositions();
 }
 
@@ -369,7 +373,15 @@ void Menu::setMoveFailSound(audio::AudioSystem::Handle s) { failSound = s; }
 void Menu::setSelectSound(audio::AudioSystem::Handle s) { selectSound = s; }
 
 void Menu::observe(const rc::event::SceneDestroyed& event) {
-    if (event.scene == static_cast<rc::Scene*>(overlay)) { removeFromOverlay(); }
+    if (event.scene == static_cast<rc::Scene*>(scene)) { removeFromScene(); }
+}
+
+void Menu::draw(rc::scene::CodeScene::RenderContext& ctx) {
+    if (!background.component().isHidden()) {
+        background.draw(ctx);
+        for (auto& item : items) { item->draw(ctx); }
+        selector->draw(ctx);
+    }
 }
 
 } // namespace menu

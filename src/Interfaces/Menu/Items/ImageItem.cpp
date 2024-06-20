@@ -29,13 +29,13 @@ glm::vec2 ImageItem::getSize() const {
 
 void ImageItem::doCreate(engine::Engine& engine) { sprite.create(engine, texture); }
 
-void ImageItem::doSceneAdd(rc::Overlay* overlay) {
-    sprite.addToScene(overlay, rc::UpdateSpeed::Static);
-}
+void ImageItem::doSceneAdd(rc::Scene* s) { sprite.addToScene(s, rc::UpdateSpeed::Static); }
 
 void ImageItem::doSceneRemove() { sprite.removeFromScene(); }
 
 ecs::Entity ImageItem::getEntity() const { return sprite.entity(); }
+
+void ImageItem::draw(rc::scene::CodeScene::RenderContext& ctx) { sprite.draw(ctx); }
 
 } // namespace menu
 } // namespace bl

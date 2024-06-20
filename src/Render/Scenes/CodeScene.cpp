@@ -118,16 +118,18 @@ void CodeScene::RenderContext::renderObject(rcom::DrawableBase& object) {
     if (!obj) { throw std::runtime_error("Cannot render object with nullptr scene ref"); }
 #endif
 
-    renderContext.bindPipeline(*obj->pipeline);
-    renderContext.bindDescriptors(obj->pipeline->pipelineLayout().rawLayout(),
-                                  obj->sceneKey.updateFreq,
-                                  obj->descriptors.data(),
-                                  obj->descriptorCount);
-    for (std::uint8_t i = obj->perObjStart; i < obj->descriptorCount; ++i) {
-        obj->descriptors[i]->bindForObject(
-            renderContext, obj->pipeline->pipelineLayout().rawLayout(), i, obj->sceneKey);
+    if (!obj->hidden) {
+        renderContext.bindPipeline(*obj->pipeline);
+        renderContext.bindDescriptors(obj->pipeline->pipelineLayout().rawLayout(),
+                                      obj->sceneKey.updateFreq,
+                                      obj->descriptors.data(),
+                                      obj->descriptorCount);
+        for (std::uint8_t i = obj->perObjStart; i < obj->descriptorCount; ++i) {
+            obj->descriptors[i]->bindForObject(
+                renderContext, obj->pipeline->pipelineLayout().rawLayout(), i, obj->sceneKey);
+        }
+        renderContext.renderObject(*obj);
     }
-    renderContext.renderObject(*obj);
 }
 
 void CodeScene::RenderContext::setViewport(const VkViewport& vp, bool setScissor) {

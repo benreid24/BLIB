@@ -21,7 +21,7 @@ SubmenuItem::SubmenuItem(Menu& parent, const Item::Ptr& i, AttachPoint sp, Attac
 
 void SubmenuItem::doCreate(engine::Engine& e) { self->create(e, parent.getEntity()); }
 
-void SubmenuItem::doSceneAdd(rc::Overlay* overlay) { self->doSceneAdd(overlay); }
+void SubmenuItem::doSceneAdd(rc::Scene* s) { self->doSceneAdd(s); }
 
 void SubmenuItem::doSceneRemove() { self->doSceneRemove(); }
 
@@ -59,6 +59,8 @@ void SubmenuItem::closeMenu() {
 constexpr bool SubmenuItem::isOpen() const { return open; }
 
 glm::vec2 SubmenuItem::getSize() const { return self->getSize(); }
+
+void SubmenuItem::draw(rc::scene::CodeScene::RenderContext& ctx) { self->draw(ctx); }
 
 } // namespace menu
 } // namespace bl

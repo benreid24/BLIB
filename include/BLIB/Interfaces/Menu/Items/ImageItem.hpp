@@ -59,14 +59,14 @@ protected:
     virtual void doCreate(engine::Engine& engine) override;
 
     /**
-     * @brief Called when the item should be added to the overlay
+     * @brief Called when the item should be added to the scene
      *
-     * @param overlay The overlay to add to
+     * @param scene The scene to add to
      */
-    virtual void doSceneAdd(rc::Overlay* overlay) override;
+    virtual void doSceneAdd(rc::Scene* scene) override;
 
     /**
-     * @brief Called when the item should be removed from the overlay
+     * @brief Called when the item should be removed from the scene
      */
     virtual void doSceneRemove() override;
 
@@ -74,6 +74,13 @@ protected:
      * @brief Returns the entity (or top level entity) of the item
      */
     virtual ecs::Entity getEntity() const override;
+
+    /**
+     * @brief Manually draw the item
+     *
+     * @param ctx The render context
+     */
+    virtual void draw(rc::scene::CodeScene::RenderContext& ctx) override;
 
 private:
     rc::res::TextureRef texture;

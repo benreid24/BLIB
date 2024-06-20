@@ -23,9 +23,7 @@ void TextItem::doCreate(engine::Engine& engine) {
     text.create(engine, font, string, fontSize, sfcol(color), style);
 }
 
-void TextItem::doSceneAdd(rc::Overlay* overlay) {
-    text.addToScene(overlay, rc::UpdateSpeed::Static);
-}
+void TextItem::doSceneAdd(rc::Scene* s) { text.addToScene(s, rc::UpdateSpeed::Static); }
 
 void TextItem::doSceneRemove() { text.removeFromScene(); }
 
@@ -34,6 +32,8 @@ ecs::Entity TextItem::getEntity() const { return text.entity(); }
 gfx::Text& TextItem::getTextObject() { return text; }
 
 glm::vec2 TextItem::getSize() const { return text.getGlobalSize(); }
+
+void TextItem::draw(rc::scene::CodeScene::RenderContext& ctx) { text.draw(ctx); }
 
 } // namespace menu
 } // namespace bl

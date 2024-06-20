@@ -34,10 +34,10 @@ void ToggleTextItem::doCreate(engine::Engine& engine) {
     update();
 }
 
-void ToggleTextItem::doSceneAdd(rc::Overlay* overlay) {
-    TextItem::doSceneAdd(overlay);
-    box.addToScene(overlay, rc::UpdateSpeed::Static);
-    innerBox.addToScene(overlay, rc::UpdateSpeed::Static);
+void ToggleTextItem::doSceneAdd(rc::Scene* s) {
+    TextItem::doSceneAdd(s);
+    box.addToScene(s, rc::UpdateSpeed::Static);
+    innerBox.addToScene(s, rc::UpdateSpeed::Static);
     innerBox.setHidden(!checked);
 }
 
@@ -96,6 +96,12 @@ glm::vec2 ToggleTextItem::getSize() const {
     const glm::vec2 ts  = TextItem::getSize();
     const glm::vec2& bs = box.getSize();
     return {ts.x + padding + bs.x, std::max(ts.y, bs.y)};
+}
+
+void ToggleTextItem::draw(rc::scene::CodeScene::RenderContext& ctx) {
+    TextItem::draw(ctx);
+    box.draw(ctx);
+    innerBox.draw(ctx);
 }
 
 } // namespace menu

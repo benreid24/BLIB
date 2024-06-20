@@ -3,8 +3,8 @@
 
 #include <BLIB/Components/Transform2D.hpp>
 #include <BLIB/Render/Overlays/Overlay.hpp>
+#include <BLIB/Render/Scenes/CodeScene.hpp>
 #include <BLIB/Util/Signal.hpp>
-#include <SFML/Graphics.hpp>
 #include <functional>
 #include <glm/glm.hpp>
 #include <list>
@@ -99,7 +99,6 @@ public:
 protected:
     /**
      * @brief Construct a new Item
-     *
      */
     Item();
 
@@ -112,16 +111,23 @@ protected:
     virtual void doCreate(engine::Engine& engine) = 0;
 
     /**
-     * @brief Called when the item should be added to the overlay
+     * @brief Called when the item should be added to the scene
      *
-     * @param overlay The overlay to add to
+     * @param scene The scene to add to
      */
-    virtual void doSceneAdd(rc::Overlay* overlay) = 0;
+    virtual void doSceneAdd(rc::Scene* scene) = 0;
 
     /**
-     * @brief Called when the item should be removed from the overlay
+     * @brief Called when the item should be removed from the scene
      */
     virtual void doSceneRemove() = 0;
+
+    /**
+     * @brief Manually draw the item
+     *
+     * @param ctx The render context
+     */
+    virtual void draw(rc::scene::CodeScene::RenderContext& ctx) = 0;
 
     /**
      * @brief Returns the entity (or top level entity) of the item
