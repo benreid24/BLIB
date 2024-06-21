@@ -35,9 +35,9 @@ void Sprite::create(engine::Engine& engine, ecs::Entity existing, rc::res::Textu
     component().containsTransparency = Textured::getTexture()->containsTransparency();
 }
 
-void Sprite::setTexture(rc::res::TextureRef texture) {
+void Sprite::setTexture(rc::res::TextureRef texture, bool reset) {
     Textured::setTexture(texture);
-    component().setTexture(texture);
+    component().setTexture(texture, reset);
     component().containsTransparency = Textured::getTexture()->containsTransparency();
 }
 

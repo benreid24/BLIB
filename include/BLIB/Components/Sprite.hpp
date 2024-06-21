@@ -57,8 +57,9 @@ public:
      *        region texture
      *
      * @param texture The new texture to render
+     * @param resetVertices Whether to reset vertex positions and texture coords
      */
-    void setTexture(const rc::res::TextureRef& texture);
+    void setTexture(const rc::res::TextureRef& texture, bool resetVertices = false);
 
     /**
      * @brief Updates the texture coordinates to render with

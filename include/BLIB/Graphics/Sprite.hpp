@@ -76,8 +76,9 @@ public:
      * @brief Sets the texture for this sprite. Use on already created sprites
      *
      * @param texture The texture to use
+     * @param resetVertices Whether to reset vertex positions and texture coords
      */
-    void setTexture(rc::res::TextureRef texture);
+    void setTexture(rc::res::TextureRef texture, bool resetVertices = false);
 
     /**
      * @brief Sets the texture for this sprite. Use on already created sprites

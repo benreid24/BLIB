@@ -69,9 +69,28 @@ void Sprite::setTextureSource(const sf::FloatRect& region) {
     buffer.queueTransfer(rc::tfr::Transferable::SyncRequirement::Immediate);
 }
 
-void Sprite::setTexture(const rc::res::TextureRef& txtr) {
+void Sprite::setTexture(const rc::res::TextureRef& txtr, bool reset) {
     texture = txtr;
     refreshTrans();
+
+    if (reset) {
+        const sf::FloatRect region(0.f, 0.f, texture->size().x, texture->size().y);
+        auto& vertices = buffer.vertices();
+
+        vertices[0].pos   = {0.f, 0.f, 0.f};
+        vertices[0].color = {1.f, 1.f, 1.f, 1.f};
+
+        vertices[1].pos   = {region.width, 0.f, 0.f};
+        vertices[1].color = {1.f, 1.f, 1.f, 1.f};
+
+        vertices[2].pos   = {region.width, region.height, 0.f};
+        vertices[2].color = {1.f, 1.f, 1.f, 1.f};
+
+        vertices[3].pos   = {0.f, region.height, 0.f};
+        vertices[3].color = {1.f, 1.f, 1.f, 1.f};
+
+        setTextureSource(region);
+    }
 }
 
 void Sprite::setColor(const glm::vec4& color) {
