@@ -2,6 +2,7 @@
 #define BLIB_RENDER_SCENES_CODESCENE_HPP
 
 #include <BLIB/Render/Components/DrawableBase.hpp>
+#include <BLIB/Render/Lighting/Scene2DLighting.hpp>
 #include <BLIB/Render/Scenes/CodeSceneObject.hpp>
 #include <BLIB/Render/Scenes/Scene.hpp>
 #include <BLIB/Render/Scenes/SceneObjectStorage.hpp>
@@ -90,9 +91,15 @@ public:
      */
     virtual ~CodeScene();
 
+    /**
+     * @brief Returns the scene lighting manager for this scene
+     */
+    lgt::Scene2DLighting& getLighting() { return lighting; }
+
 private:
     const RenderCallback renderCallback;
     SceneObjectStorage<CodeSceneObject> objects;
+    lgt::Scene2DLighting lighting;
 
     virtual void renderScene(scene::SceneRenderContext& context) override;
     virtual std::unique_ptr<cam::Camera> createDefaultCamera() override;

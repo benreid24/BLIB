@@ -2,6 +2,7 @@
 
 #include <BLIB/Cameras/2D/Camera2D.hpp>
 #include <BLIB/Events.hpp>
+#include <BLIB/Render/Descriptors/Builtin/Scene2DFactory.hpp>
 #include <BLIB/Render/Events/SceneObjectRemoved.hpp>
 #include <BLIB/Render/Renderer.hpp>
 
@@ -37,7 +38,9 @@ VkViewport makeViewport(const VkRect2D& s) {
 
 CodeScene::CodeScene(engine::Engine& engine, RenderCallback&& renderCallback)
 : Scene(engine, objects.makeEntityCallback())
-, renderCallback(renderCallback) {}
+, renderCallback(renderCallback)
+, lighting(static_cast<ds::Scene2DInstance*>(descriptorSets.getDescriptorSet(
+      descriptorFactories.getOrCreateFactory<ds::Scene2DFactory>()))) {}
 
 CodeScene::~CodeScene() { objects.unlinkAll(descriptorSets); }
 
