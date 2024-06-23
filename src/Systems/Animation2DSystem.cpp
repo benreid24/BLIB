@@ -68,7 +68,7 @@ void Animation2DSystem::update(std::mutex&, float dt, float, float, float) {
 
     // sync vertex animation draw parameters
     vertexPool->forEach([](ecs::Entity, com::Animation2D& anim) {
-        if (anim.player && anim.sceneRef.object) {
+        if (anim.systemHandle && anim.player && anim.sceneRef.object) {
             const VertexAnimation& data = *static_cast<VertexAnimation*>(anim.systemHandle);
             const auto& frame           = data.frameToIndices[anim.player->currentFrame];
             anim.drawParams.indexOffset = frame.indexStart;
@@ -89,6 +89,8 @@ void Animation2DSystem::ensureSlideshowDescriptorsUpdated() {
 }
 
 void Animation2DSystem::observe(const ecs::event::ComponentAdded<com::Animation2DPlayer>& event) {
+    if (event.component.animation->frameCount() == 0) { return; }
+
     if (event.component.forSlideshow) {
         if (!event.component.animation->isSlideshow()) {
             BL_LOG_ERROR << "Non-slideshow animation being used as slideshow";
@@ -256,11 +258,13 @@ void Animation2DSystem::updateSlideshowDescriptorSets() {
 
 void Animation2DSystem::createNonSlideshow(com::Animation2D& anim,
                                            const com::Animation2DPlayer& player) {
-    doNonSlideshowRemove(anim);
-    VertexAnimation* data = doNonSlideshowCreate(player);
-    data->useCount += 1;
-    anim.systemHandle = data;
-    anim.drawParams   = data->indexBuffer.getDrawParameters(); // indices overwritten in update()
+    if (player.animation->frameCount() > 0) {
+        doNonSlideshowRemove(anim);
+        VertexAnimation* data = doNonSlideshowCreate(player);
+        data->useCount += 1;
+        anim.systemHandle = data;
+        anim.drawParams = data->indexBuffer.getDrawParameters(); // indices overwritten in update()
+    }
 }
 
 Animation2DSystem::VertexAnimation* Animation2DSystem::doNonSlideshowCreate(
