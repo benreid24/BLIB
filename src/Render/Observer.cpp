@@ -129,6 +129,7 @@ void Observer::handleDescriptorSync() {
                     << "Scene being rendered before having a camera set. Creating default camera";
             }
             scenes.back().camera = scenes.back().scene->createDefaultCamera();
+            scenes.back().scene->setDefaultNearAndFarPlanes(*scenes.back().camera);
         }
 
         const glm::mat4 projView = scenes.back().camera->getProjectionMatrix(viewport) *
