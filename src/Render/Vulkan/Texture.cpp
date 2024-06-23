@@ -17,6 +17,7 @@ Texture::Texture()
 , image(nullptr)
 , view(nullptr)
 , sampler(nullptr)
+, currentLayout(VK_IMAGE_LAYOUT_UNDEFINED)
 , sizeRaw(0, 0)
 , sizeF(0.f, 0.f) {}
 
@@ -49,11 +50,15 @@ void Texture::create(const glm::u32vec2& s, VkFormat f, VkImageUsageFlags u) {
     if ((u & VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT) == 0) {
         vulkanState->transitionImageLayout(
             image, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
+        currentLayout = VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL;
     }
     else {
         vulkanState->transitionImageLayout(
             image, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
+        currentLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
     }
+
+    queueTransfer(SyncRequirement::Immediate);
 }
 
 void Texture::setSampler(VkSampler s) {
@@ -103,6 +108,7 @@ void Texture::ensureSize(const glm::u32vec2& s) {
     // transition original image to transfer source layout
     vulkanState->transitionImageLayout(
         image, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL);
+    currentLayout = VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL;
 
     // create new image
     const glm::u32vec2 oldSize = sizeRaw;
@@ -135,6 +141,25 @@ void Texture::ensureSize(const glm::u32vec2& s) {
 }
 
 void Texture::executeTransfer(VkCommandBuffer cb, tfr::TransferContext& engine) {
+    const auto transitionLayout = [this, cb, &engine]() {
+        VkImageMemoryBarrier barrier{};
+        barrier.sType                           = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER;
+        barrier.oldLayout                       = VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL;
+        barrier.newLayout                       = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
+        barrier.srcQueueFamilyIndex             = VK_QUEUE_FAMILY_IGNORED;
+        barrier.dstQueueFamilyIndex             = VK_QUEUE_FAMILY_IGNORED;
+        barrier.image                           = image;
+        barrier.subresourceRange.aspectMask     = VK_IMAGE_ASPECT_COLOR_BIT;
+        barrier.subresourceRange.baseMipLevel   = 0;
+        barrier.subresourceRange.levelCount     = 1;
+        barrier.subresourceRange.baseArrayLayer = 0;
+        barrier.subresourceRange.layerCount     = 1;
+        barrier.srcAccessMask                   = VK_ACCESS_TRANSFER_WRITE_BIT;
+        barrier.dstAccessMask                   = VK_ACCESS_SHADER_READ_BIT;
+        engine.registerImageBarrier(barrier);
+        currentLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
+    };
+
     // copy image contents if required
     if (altImg || transferImg) {
         const sf::Image& src = altImg ? *altImg : *transferImg;
@@ -187,21 +212,7 @@ void Texture::executeTransfer(VkCommandBuffer cb, tfr::TransferContext& engine) 
             cb, stagingBuffer, image, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, 1, &copyInfo);
 
         // insert pipeline barrier
-        VkImageMemoryBarrier barrier{};
-        barrier.sType                           = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER;
-        barrier.oldLayout                       = VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL;
-        barrier.newLayout                       = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
-        barrier.srcQueueFamilyIndex             = VK_QUEUE_FAMILY_IGNORED;
-        barrier.dstQueueFamilyIndex             = VK_QUEUE_FAMILY_IGNORED;
-        barrier.image                           = image;
-        barrier.subresourceRange.aspectMask     = VK_IMAGE_ASPECT_COLOR_BIT;
-        barrier.subresourceRange.baseMipLevel   = 0;
-        barrier.subresourceRange.levelCount     = 1;
-        barrier.subresourceRange.baseArrayLayer = 0;
-        barrier.subresourceRange.layerCount     = 1;
-        barrier.srcAccessMask                   = VK_ACCESS_TRANSFER_WRITE_BIT;
-        barrier.dstAccessMask                   = VK_ACCESS_SHADER_READ_BIT;
-        engine.registerImageBarrier(barrier);
+        transitionLayout();
 
         // cleanup
         transferImg.release();
@@ -213,6 +224,7 @@ void Texture::executeTransfer(VkCommandBuffer cb, tfr::TransferContext& engine) 
         source.width  = 0;
         source.height = 0;
     }
+    else if (currentLayout != VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL) { transitionLayout(); }
 }
 
 void Texture::cleanup() {

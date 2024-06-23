@@ -136,6 +136,7 @@ private:
     VmaAllocationInfo allocInfo;
     VkImageView view;
     VkSampler sampler;
+    VkImageLayout currentLayout;
     glm::u32vec2 sizeRaw;
     glm::vec2 sizeF;
     bool hasTransparency;
