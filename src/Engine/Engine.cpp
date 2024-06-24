@@ -409,11 +409,11 @@ float Engine::getTimeScale() const { return timeScale; }
 void Engine::resetTimeScale() { timeScale = 1.f; }
 
 void Engine::postStateChange(State::Ptr& prev) {
+    engineFlags.clear();
+    newState.reset();
     states.top()->activate(*this);
     bl::event::Dispatcher::dispatch<event::StateChange>({states.top(), prev});
     if (renderingSystem.vulkanState().device) { renderingSystem.texturePool().releaseUnused(); }
-    engineFlags.clear();
-    newState.reset();
 }
 
 pcl::ParticleSystem& Engine::particleSystem() {

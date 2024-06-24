@@ -258,7 +258,11 @@ TextureRef TexturePool::getOrLoadTexture(const sf::Image& src, VkSampler sampler
 void TexturePool::onFrameStart() { textures.commitDescriptorUpdates(); }
 
 TextureRef TexturePool::getBlankTexture() {
-    if (!blankTexture.get()) { blankTexture = createTexture({32.f, 32.f}); }
+    if (!blankTexture.get()) {
+        static sf::Image src;
+        if (src.getSize().x == 0) { src.create(2, 2, sf::Color::Transparent); }
+        blankTexture = createTexture(src);
+    }
     return blankTexture;
 }
 

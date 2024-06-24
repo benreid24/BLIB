@@ -66,6 +66,9 @@ void Sprite::setTextureSource(const sf::FloatRect& region) {
     vertices[2].texCoord = {rightX, bottomY};
     vertices[3].texCoord = {leftX, bottomY};
 
+    size.x = region.width;
+    size.y = region.height;
+
     buffer.queueTransfer(rc::tfr::Transferable::SyncRequirement::Immediate);
 }
 

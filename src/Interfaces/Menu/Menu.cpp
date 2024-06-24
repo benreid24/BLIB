@@ -13,7 +13,7 @@ audio::AudioSystem::Handle Menu::defaultMoveSound   = audio::AudioSystem::Invali
 audio::AudioSystem::Handle Menu::defaultFailSound   = audio::AudioSystem::InvalidHandle;
 audio::AudioSystem::Handle Menu::defaultSelectSound = audio::AudioSystem::InvalidHandle;
 
-Menu::Menu()
+Menu::Menu(float depth)
 : engine(nullptr)
 , observer(nullptr)
 , scene(nullptr)
@@ -28,7 +28,7 @@ Menu::Menu()
 , moveSound(defaultMoveSound)
 , failSound(defaultFailSound)
 , selectSound(defaultSelectSound)
-, depth(cam::OverlayCamera::MinDepth + 100.f) {}
+, depth(depth) {}
 
 void Menu::create(engine::Engine& e, rc::Observer& o, const Selector::Ptr& sel) {
     engine   = &e;

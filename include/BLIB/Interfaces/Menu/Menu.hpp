@@ -34,8 +34,10 @@ class Menu : public event::Listener<rc::event::SceneDestroyed> {
 public:
     /**
      * @brief Initializes the Menu. create() must be called before the menu can be used
+     *
+     * @param depth Optional depth value to use when rendering
      */
-    Menu();
+    Menu(float depth = cam::OverlayCamera::MinDepth + 100.f);
 
     /**
      * @brief Create a new Menu with the base Item and selection indicator

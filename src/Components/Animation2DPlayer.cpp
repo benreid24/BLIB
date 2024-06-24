@@ -47,23 +47,26 @@ void Animation2DPlayer::setState(std::size_t state, bool p) {
 }
 
 void Animation2DPlayer::update(float dt) {
-    if (isPlaying && animation) {
-        frameTime += dt;
-        while (frameTime >= animation->getFrameLength(currentFrame)) {
-            const std::size_t ogFrame = currentFrame;
-            frameTime -= animation->getFrameLength(currentFrame);
-            currentFrame = animation->getNextFrame(currentFrame);
+    if (isPlaying) {
+        if (animation && animation->frameCount() > 0) {
+            frameTime += dt;
+            while (frameTime >= animation->getFrameLength(currentFrame)) {
+                const std::size_t ogFrame = currentFrame;
+                frameTime -= animation->getFrameLength(currentFrame);
+                currentFrame = animation->getNextFrame(currentFrame);
 
-            // if we restarted and we shouldn't loop then stop
-            if (ogFrame > currentFrame) {
-                if (!forceLoop && !animation->isLooping()) {
-                    stop();
-                    break;
+                // if we restarted and we shouldn't loop then stop
+                if (ogFrame > currentFrame) {
+                    if (!forceLoop && !animation->isLooping()) {
+                        stop();
+                        break;
+                    }
                 }
-            }
 
-            if (framePayload.valid()) { *framePayload = currentFrame; }
+                if (framePayload.valid()) { *framePayload = currentFrame; }
+            }
         }
+        else { isPlaying = false; }
     }
 }
 
