@@ -88,9 +88,34 @@ void Engine::replaceState(State::Ptr next) {
 void Engine::popState() { flags().set(Flags::PopState); }
 
 bool Engine::run(State::Ptr initialState) {
-    BL_LOG_INFO << "Starting engine with state: " << initialState->name();
-    states.push(initialState);
-    initialState.reset();
+    if (!setup()) { return false; }
+    states.push(std::move(initialState));
+    return loop();
+}
+
+bool Engine::run(StateFactory&& factory) {
+    if (!setup()) { return false; }
+    states.push(factory());
+    return loop();
+}
+
+bool Engine::setup() {
+    if (engineSettings.createWindow()) {
+        if (!reCreateWindow(engineSettings.windowParameters())) { return false; }
+        renderingSystem.initialize();
+        if (engineSettings.windowParameters().letterBox()) {
+            sf::Event::SizeEvent e{};
+            e.width  = renderWindow.getSfWindow().getSize().x;
+            e.height = renderWindow.getSfWindow().getSize().y;
+            handleResize(e, false);
+        }
+    }
+    ecsSystems.init();
+    return true;
+}
+
+bool Engine::loop() {
+    BL_LOG_INFO << "Starting engine with state: " << states.top()->name();
 
     sf::Clock loopTimer;
     sf::Clock updateOuterTimer;
@@ -117,18 +142,6 @@ bool Engine::run(State::Ptr initialState) {
             BL_LOG_INFO << "Skipping " << frameCount << " updates";
         }
     };
-
-    if (engineSettings.createWindow()) {
-        if (!reCreateWindow(engineSettings.windowParameters())) { return false; }
-        renderingSystem.initialize();
-        if (engineSettings.windowParameters().letterBox()) {
-            sf::Event::SizeEvent e{};
-            e.width  = renderWindow.getSfWindow().getSize().x;
-            e.height = renderWindow.getSfWindow().getSize().y;
-            handleResize(e, false);
-        }
-    }
-    ecsSystems.init();
 
     sf::Clock fpsTimer;
     float frameCount = 0.f;

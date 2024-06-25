@@ -65,5 +65,9 @@ void EntityBacked::setParent(ecs::Entity parent) {
 
 void EntityBacked::removeParent() { enginePtr->ecs().removeEntityParent(ecsId); }
 
+bool EntityBacked::exists() const {
+    return enginePtr && ecsId != InvalidEntity && enginePtr->ecs().entityExists(ecsId);
+}
+
 } // namespace ecs
 } // namespace bl

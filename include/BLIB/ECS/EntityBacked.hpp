@@ -96,6 +96,12 @@ public:
      */
     bool entityIsDeletedOnDestruction() const { return isDestroyed; }
 
+    /**
+     * @brief Returns whether or not the underlying entity exists
+     * @return
+     */
+    bool exists() const;
+
 protected:
     /**
      * @brief Creates the ECS entity for the drawable

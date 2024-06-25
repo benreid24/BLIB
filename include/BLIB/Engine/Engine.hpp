@@ -32,6 +32,9 @@ namespace engine
  */
 class Engine : private util::NonCopyable {
 public:
+    /// Type signature of factory methods to create engine states
+    using StateFactory = std::function<State::Ptr()>;
+
     /**
      * @brief Creates the game engine from the given settings
      *
@@ -131,6 +134,15 @@ public:
     bool run(State::Ptr initialState);
 
     /**
+     * @brief Same as run but creates the initial state after engine initialization. Useful if the
+     *        state constructor relies on the engine being loaded
+     *
+     * @param stateCreator The factory to create the initial state
+     * @return True if the engine exited cleanly, false if exiting due to error
+     */
+    bool run(StateFactory&& stateCreator);
+
+    /**
      * @brief Sets the next state for the following engine update loop. May be called at any
      *        time, the next state will not be transitioned to until the start of main loop. If
      *        the PopState flag is set, that will be evaluated before the new state is pushed
@@ -200,6 +212,9 @@ private:
     bool awaitFocus();
     void handleResize(const sf::Event::SizeEvent& resize, bool saveAndSend);
     void postStateChange(State::Ptr& prev);
+
+    bool setup();
+    bool loop();
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
