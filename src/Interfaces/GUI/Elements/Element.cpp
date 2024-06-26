@@ -246,7 +246,22 @@ void Element::makeDirty() {
 }
 
 void Element::requestMakeDirty(const Element* child) {
-    if (child->packable()) makeDirty();
+    if (child->packable() && shouldMarkSelfDirty()) {
+        BL_LOG_INFO << "Parent marked dirty";
+        makeDirty();
+    }
+}
+
+bool Element::shouldMarkSelfDirty() {
+    constexpr float ShrinkThresh = 0.75f;
+    const sf::Vector2f newReq    = getRequisition();
+    const sf::FloatRect& acq     = getAcquisition();
+    if (newReq.x > acq.width || newReq.y > acq.height ||
+        (!fillX && newReq.x < acq.width * ShrinkThresh) ||
+        (!fillY && newReq.y < acq.height * ShrinkThresh)) {
+        return true;
+    }
+    return false;
 }
 
 void Element::markClean() { _dirty = false; }

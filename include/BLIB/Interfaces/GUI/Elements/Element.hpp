@@ -545,6 +545,15 @@ protected:
     virtual void requestMakeDirty(const Element* childRequester);
 
     /**
+     * @brief Tests whether this element should mark itself dirty when requested by a child element.
+     *        Default return is false. Containers should check if their requisition changed enough
+     *        to warrant repacking
+     *
+     * @return True if the element should be marked dirty, false if the propagation should stop
+     */
+    virtual bool shouldMarkSelfDirty();
+
+    /**
      * @brief Returns the Ptr to this Element
      *
      * @return Element::Ptr Ptr to this Element
