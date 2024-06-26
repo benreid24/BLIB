@@ -1,6 +1,7 @@
 #include <BLIB/Engine/Engine.hpp>
 
 #include <BLIB/Audio.hpp>
+#include <BLIB/Cameras/OverlayCamera.hpp>
 #include <BLIB/Logging.hpp>
 #include <BLIB/Particles/ParticleSystem.hpp>
 #include <BLIB/Resources/GarbageCollector.hpp>
@@ -368,6 +369,10 @@ void Engine::updateExistingWindow(const Settings::WindowParameters& params) {
         e.height = renderWindow.getSfWindow().getSize().y;
         handleResize(e, false);
     }
+    else if (params.syncOverlaySize()) {
+        cam::OverlayCamera::setOverlayCoordinateSpace(renderWindow.getSfWindow().getSize().x,
+                                                      renderWindow.getSfWindow().getSize().y);
+    }
 }
 
 void Engine::handleResize(const sf::Event::SizeEvent& resize, bool ss) {
@@ -402,6 +407,10 @@ void Engine::handleResize(const sf::Event::SizeEvent& resize, bool ss) {
                                                               newHeight * viewport.top,
                                                               newWidth * viewport.width,
                                                               newHeight * viewport.height));
+        if (engineSettings.windowParameters().syncOverlaySize() &&
+            !engineSettings.windowParameters().letterBox()) {
+            cam::OverlayCamera::setOverlayCoordinateSpace(newWidth, newHeight);
+        }
     }
 
     if (ss) {
