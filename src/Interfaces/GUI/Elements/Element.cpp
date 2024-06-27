@@ -246,10 +246,7 @@ void Element::makeDirty() {
 }
 
 void Element::requestMakeDirty(const Element* child) {
-    if (child->packable() && shouldMarkSelfDirty()) {
-        BL_LOG_INFO << "Parent marked dirty";
-        makeDirty();
-    }
+    if (child->packable() && shouldMarkSelfDirty()) { makeDirty(); }
 }
 
 bool Element::shouldMarkSelfDirty() {

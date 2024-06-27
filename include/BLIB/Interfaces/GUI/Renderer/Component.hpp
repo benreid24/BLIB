@@ -201,6 +201,33 @@ protected:
      */
     Component* getParent() const { return parent; }
 
+    /**
+     * @brief Helper method for components containing other components to call doSceneAdd on their
+     *        children
+     *
+     * @param component The child component to call doSceneAdd on
+     * @param overlay The overlay to call with
+     */
+    static void doSceneAdd(Component& component, rc::Overlay* overlay) {
+        component.addToScene(overlay);
+    }
+
+    /**
+     * @brief Helper method for components containing other components to call doSceneRemove on
+     *        their children
+     *
+     * @param component The child component to call doSceneRemove on
+     */
+    static void doSceneRemove(Component& component) { component.doSceneRemove(); }
+
+    /**
+     * @brief Helper method for components containing other components to call create on
+     *        their children
+     *
+     * @param component The child component to call create on
+     */
+    void createChild(Component& child) { child.create(*enginePtr, *renderer, *owner); }
+
 private:
     HighlightState highlightState;
     engine::Engine* enginePtr;
