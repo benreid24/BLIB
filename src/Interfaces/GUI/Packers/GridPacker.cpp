@@ -60,7 +60,7 @@ void GridPacker::doPack(const sf::FloatRect& area, const std::vector<Element::Pt
                         mreq   = {0, 0};
                         pcount = 0;
                     }
-                    else { // coninue in row/column
+                    else { // continue in row/column
                         pos.x += req.x + padding;
                     }
                 }
@@ -84,7 +84,7 @@ void GridPacker::doPack(const sf::FloatRect& area, const std::vector<Element::Pt
                         mreq   = {0, 0};
                         pcount = 0;
                     }
-                    else { // coninue in row/column
+                    else { // continue in row/column
                         pos.y += req.y + padding;
                     }
                 }
