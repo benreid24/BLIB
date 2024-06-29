@@ -183,7 +183,8 @@ public:
      * @return A reference to the new text section
      */
     txt::BasicText& addSection(const sf::String& content, unsigned int fontSize,
-                               std::initializer_list<float> color, std::uint32_t style = sf::Text::Regular) {
+                               std::initializer_list<float> color,
+                               std::uint32_t style = sf::Text::Regular) {
         return addSection(content, fontSize, sfcol(color), style);
     }
 
@@ -237,6 +238,11 @@ public:
      * @param width The post-transform max width to take up
      */
     void wordWrap(float width);
+
+    /**
+     * @brief Returns the word wrapping width if explicitly set
+     */
+    float getWordWrapWidth() const { return wordWrapWidth; }
 
     /**
      * @brief Word wraps to a normalized width relative to the parent component

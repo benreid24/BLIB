@@ -116,7 +116,8 @@ void Overlay::doObjectRemoval(scene::SceneObject* object, std::uint32_t) {
     auto childCopy = obj->getChildren();
     for (ovy::OverlayObject* child : childCopy) {
         if (engine.ecs().getEntityParentDestructionBehavior(child->entity) !=
-            ecs::ParentDestructionBehavior::OrphanedByParent) {
+                ecs::ParentDestructionBehavior::OrphanedByParent &&
+            child->sceneKey.sceneId != scene::Key::InvalidSceneId) {
             removeObject(child);
         }
     }

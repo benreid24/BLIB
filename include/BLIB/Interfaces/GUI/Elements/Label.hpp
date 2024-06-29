@@ -21,6 +21,9 @@ public:
 
     static constexpr int DefaultFontSize = 20;
 
+    /// Enum representing the different wrapping modes for label text
+    enum TextWrapBehavior { WrapDisabled, WrapToAcquisition, WrapFixedWidth };
+
     /**
      * @brief Construct a new Label
      *
@@ -45,6 +48,31 @@ public:
      *
      */
     const std::string& getText() const;
+
+    /**
+     * @brief Set the text wrapping behavior for the label
+     *
+     * @param behavior The text wrapping behavior
+     * @param width The width to wrap to. Only used for WrapFixedWidth
+     */
+    void setTextWrapping(TextWrapBehavior behavior, float width = -1.f);
+
+    /**
+     * @brief Returns the text wrapping behavior of the label
+     */
+    TextWrapBehavior getTextWrapBehavior() const;
+
+    /**
+     * @brief Returns the wrapping width
+     */
+    float getTextWrapWidth() const;
+
+    /**
+     * @brief Performs update logic on the Label
+     *
+     * @param dt Elapsed time in seconds
+     */
+    virtual void update(float dt) override;
 
 protected:
     /**
@@ -71,6 +99,8 @@ protected:
 
 private:
     std::string text;
+    TextWrapBehavior wrapBehavior;
+    float wrapWidth;
 
     void settingsChanged();
 };

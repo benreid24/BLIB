@@ -419,19 +419,12 @@ void Element::setTooltip(const std::string& tt) { tooltip = tt; }
 const std::string& Element::getTooltip() const { return tooltip; }
 
 void Element::queueUpdateAction(const QueuedAction& a) {
-    GUI* g = getTopParent();
+    GUI* g = getGUI();
     if (g) { g->queueAction(a); }
     else { BL_LOG_ERROR << "Element " << this << " is not a child of GUI"; }
 }
 
-GUI* Element::getTopParent() {
-    Element* p = parent;
-    while (p && p->parent) { p = p->parent; }
-    if (p) return dynamic_cast<GUI*>(p);
-    return nullptr;
-}
-
-const GUI* Element::getTopParent() const { return const_cast<Element*>(this)->getTopParent(); }
+const GUI* Element::getGUI() const { return const_cast<Element*>(this)->getGUI(); }
 
 bool Element::receivesOutOfBoundsEvents() const { return false; }
 
@@ -483,6 +476,16 @@ bool Element::isInParentTree(const Element* p) const {
 }
 
 Element* Element::getParent() const { return parent; }
+
+GUI* Element::getGUI() {
+    Element* current = this;
+    while (current) {
+        GUI* gui = dynamic_cast<GUI*>(current);
+        if (gui) { return gui; }
+        current = current->parent;
+    }
+    return nullptr;
+}
 
 } // namespace gui
 } // namespace bl

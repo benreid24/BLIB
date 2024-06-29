@@ -83,12 +83,12 @@ void Scene::removeObject(scene::SceneObject* obj) {
 
     auto& objectPipelines =
         obj->sceneKey.updateFreq == UpdateSpeed::Static ? staticPipelines : dynamicPipelines;
-    std::uint32_t pipeline = obj->sceneKey.sceneId < objectPipelines.size() ?
-                                 objectPipelines[obj->sceneKey.sceneId] :
-                                 NoPipeline;
+    const auto cachedKey = obj->sceneKey.sceneId;
+    std::uint32_t pipeline =
+        cachedKey < objectPipelines.size() ? objectPipelines[cachedKey] : NoPipeline;
     if (pipeline != NoPipeline) {
         doObjectRemoval(obj, pipeline);
-        objectPipelines[obj->sceneKey.sceneId] = NoPipeline;
+        objectPipelines[cachedKey] = NoPipeline;
     }
 }
 

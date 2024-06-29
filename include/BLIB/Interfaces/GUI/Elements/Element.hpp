@@ -440,6 +440,11 @@ public:
      */
     Element* getParent() const;
 
+    /**
+     * @brief Helper method to fetch the GUI that this element belongs to. May return nullptr
+     */
+    GUI* getGUI();
+
 protected:
     /**
      * @brief Builds a new Element
@@ -594,8 +599,7 @@ private:
     float hoverTime;
 
     bool processAction(const Event& action);
-    GUI* getTopParent();
-    const GUI* getTopParent() const;
+    const GUI* getGUI() const;
     void updateUiState();
     void onRenderChange();
 
