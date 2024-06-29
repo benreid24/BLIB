@@ -28,7 +28,7 @@ void ImageComponent::onElementUpdated() {
 }
 
 void ImageComponent::onRenderSettingChange() {
-    // noop
+    image.setColor(getOwnerAs<Image>().getRenderSettings().fillColor.value_or(sf::Color::White));
 }
 
 ecs::Entity ImageComponent::getEntity() const { return image.entity(); }
