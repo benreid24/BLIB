@@ -24,7 +24,8 @@ Engine::Engine(const Settings& settings)
 , input(*this) {
     settings.syncToConfig();
     systems().registerSystem<sys::TogglerSystem>(FrameStage::Update0, StateMask::All);
-    systems().registerSystem<sys::VelocitySystem>(FrameStage::Animate, StateMask::Running);
+    systems().registerSystem<sys::VelocitySystem>(FrameStage::Animate,
+                                                  StateMask::Running | engine::StateMask::Editor);
     systems().registerSystem<pcl::ParticleSystem>(FrameStage::Update0, StateMask::All);
     bl::event::Dispatcher::subscribe(&input);
 }

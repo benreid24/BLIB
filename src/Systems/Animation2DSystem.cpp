@@ -39,7 +39,7 @@ resource::Ref<gfx::a2d::AnimationData> getErrorPlaceholder() {
             const sf::Color c1(230, 66, 245);
             const sf::Color c2(255, 254, 196);
             fillSquare(0, c1, c2);
-            fillSquare(34, c2, c1);
+            fillSquare(102, c2, c1);
             ImageManager::put(Spritesheet, img);
         }
 
@@ -313,13 +313,14 @@ void Animation2DSystem::updateSlideshowDescriptorSets() {
 
 void Animation2DSystem::createNonSlideshow(com::Animation2D& anim,
                                            const com::Animation2DPlayer& player) {
-    if (player.animation->frameCount() > 0) {
-        doNonSlideshowRemove(anim);
-        VertexAnimation* data = doNonSlideshowCreate(player);
-        data->useCount += 1;
-        anim.systemHandle = data;
-        anim.drawParams = data->indexBuffer.getDrawParameters(); // indices overwritten in update()
+    if (player.animation->frameCount() == 0) {
+        const_cast<com::Animation2DPlayer&>(player).animation = getErrorPlaceholder();
     }
+    doNonSlideshowRemove(anim);
+    VertexAnimation* data = doNonSlideshowCreate(player);
+    data->useCount += 1;
+    anim.systemHandle = data;
+    anim.drawParams   = data->indexBuffer.getDrawParameters(); // indices overwritten in update()
 }
 
 Animation2DSystem::VertexAnimation* Animation2DSystem::doNonSlideshowCreate(

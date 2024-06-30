@@ -209,6 +209,7 @@ void AnimationData::populateDerivedState() {
     for (unsigned int i = 0; i < frames.size(); ++i) {
         auto& frame      = frames[i];
         frame.shardIndex = shardIndex;
+        frame.nextFrame  = i + 1;
         shardIndex += frame.shards.size();
         computeFrameSize(frame);
         totalLength += frame.length;

@@ -47,7 +47,9 @@ void Renderer::initialize() {
     engine.systems().registerSystem<sys::OverlayScalerSystem>(FrameStage::RenderEarlyRefresh,
                                                               AllMask);
     engine.systems().registerSystem<sys::Animation2DSystem>(
-        FrameStage::Animate, engine::StateMask::Running | engine::StateMask::Menu, *this);
+        FrameStage::Animate,
+        engine::StateMask::Running | engine::StateMask::Menu | engine::StateMask::Editor,
+        *this);
 
     // descriptor systems
     engine.systems().registerSystem<sys::Transform2DDescriptorSystem>(

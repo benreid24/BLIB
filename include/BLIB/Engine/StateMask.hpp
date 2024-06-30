@@ -30,6 +30,9 @@ struct StateMask {
         /// The game is in a full screen menu
         Menu = 0x1 << 2,
 
+        /// Special state to indicate that the editor is running
+        Editor = 0x1 << 3,
+
         /// Special value to use if a system should execute regardless of engine state
         All = 0xFFFFFFFF
     };
