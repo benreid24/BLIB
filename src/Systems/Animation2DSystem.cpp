@@ -11,7 +11,59 @@ namespace sys
 namespace
 {
 constexpr std::uint32_t InitialSlideshowFrameCapacity = 128;
+
+resource::Ref<gfx::a2d::AnimationData> getErrorPlaceholder() {
+    using ImageManager                = resource::ResourceManager<sf::Image>;
+    using AnimationManager            = resource::ResourceManager<gfx::a2d::AnimationData>;
+    constexpr const char* Spritesheet = "blib.animation.error_spritesheet";
+    constexpr const char* Path        = "blib.animation.error_animation";
+
+    if (!AnimationManager::available(Path)) {
+        // Create spritesheet
+        if (!ImageManager::available(Spritesheet)) {
+            sf::Image img;
+            img.create(202, 100, sf::Color::Transparent);
+
+            const auto fillSquare = [&img](unsigned int baseX, sf::Color main, sf::Color alt) {
+                constexpr unsigned int BoxSize = 4;
+                for (unsigned int x = 0; x < 100; ++x) {
+                    for (unsigned int y = 0; y < 100; ++y) {
+                        const unsigned int xi = x / BoxSize;
+                        const unsigned int yi = y / BoxSize;
+                        const auto& col       = (xi % 2) == (yi % 2) ? main : alt;
+                        img.setPixel(x + baseX, y, col);
+                    }
+                }
+            };
+
+            const sf::Color c1(230, 66, 245);
+            const sf::Color c2(255, 254, 196);
+            fillSquare(0, c1, c2);
+            fillSquare(34, c2, c1);
+            ImageManager::put(Spritesheet, img);
+        }
+
+        std::vector<gfx::a2d::AnimationData::Frame> frames;
+        frames.resize(2);
+        for (unsigned int i = 0; i < 2; ++i) {
+            auto& frame    = frames[i];
+            frame.length   = 0.75f;
+            auto& shard    = frame.shards.emplace_back();
+            shard.source   = {i == 0 ? 0 : 102, 0, 100, 100};
+            shard.alpha    = 255;
+            shard.rotation = 0.f;
+            shard.offset   = {0.f, 0.f};
+            shard.scale    = {1.f, 1.f};
+        }
+
+        gfx::a2d::AnimationData anim;
+        anim.debugInitialize(Spritesheet, std::move(frames), true, false);
+        return AnimationManager::put(Path, anim);
+    }
+
+    return AnimationManager::load(Path);
 }
+} // namespace
 
 Animation2DSystem::Animation2DSystem(rc::Renderer& renderer)
 : renderer(renderer)
@@ -89,7 +141,10 @@ void Animation2DSystem::ensureSlideshowDescriptorsUpdated() {
 }
 
 void Animation2DSystem::observe(const ecs::event::ComponentAdded<com::Animation2DPlayer>& event) {
-    if (event.component.animation->frameCount() == 0) { return; }
+    if (event.component.animation->frameCount() == 0) {
+        auto& component     = const_cast<com::Animation2DPlayer&>(event.component);
+        component.animation = getErrorPlaceholder();
+    }
 
     if (event.component.forSlideshow) {
         if (!event.component.animation->isSlideshow()) {

@@ -77,6 +77,14 @@ public:
     static void setGarbageCollectionPeriod(unsigned int period);
 
     /**
+     * @brief Query whether the resource with the given URI is available in the resource manager
+     *
+     * @param uri The URI to check
+     * @return True if the resource is loaded, false otherwise
+     */
+    static bool available(const std::string& uri);
+
+    /**
      * @brief Returns a pointer to the resource for modification (such as forcing it to stay in
      *        cache). Will load the resource if it is not in cache
      *
@@ -106,6 +114,15 @@ public:
      * @return True if the resource could be initialized, false otherwise
      */
     static bool initializeExisting(const std::string& uri, TResourceType& resource);
+
+    /**
+     * @brief Manually insert a resource into the manager. Will be managed as normal
+     *
+     * @param uri The uri of the resource
+     * @param resource The resource to insert
+     * @return A handle to the inserted resource
+     */
+    static Ref<TResourceType> put(const std::string& uri, TResourceType& resource);
 
     /**
      * @brief Explicitly frees and destroys all resources, regardless of ownership state. Be very
@@ -144,6 +161,14 @@ ResourceManager<T>::~ResourceManager() {
 template<typename T>
 void ResourceManager<T>::setGarbageCollectionPeriod(unsigned int gc) {
     get().setGCPeriod(gc);
+}
+
+template<typename TResourceType>
+bool ResourceManager<TResourceType>::available(const std::string& uri) {
+    ResourceManager& m = get();
+    std::unique_lock lock(m.mapLock);
+    const auto it = m.resources.find(uri);
+    return it != m.resources.end();
 }
 
 template<typename T>
@@ -206,6 +231,19 @@ bool ResourceManager<T>::initializeExisting(const std::string& uri, T& result) {
         return false;
     }
     return m.doInit(uri, buffer, len, result);
+}
+
+template<typename TResourceType>
+Ref<TResourceType> ResourceManager<TResourceType>::put(const std::string& uri,
+                                                       TResourceType& resource) {
+    ResourceManager& m = get();
+    std::unique_lock lock(m.mapLock);
+    auto it = m.resources.find(uri);
+    if (it == m.resources.end()) {
+        it              = m.resources.try_emplace(uri).first;
+        it->second.data = resource;
+    }
+    return {&it->second};
 }
 
 template<typename T>

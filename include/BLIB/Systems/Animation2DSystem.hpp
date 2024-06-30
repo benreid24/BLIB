@@ -76,6 +76,7 @@ private:
     VkDescriptorSetLayout descriptorLayout;
     ecs::ComponentPool<com::Animation2DPlayer>* players;
     ecs::ComponentPool<com::Animation2D>* vertexPool;
+    resource::Ref<gfx::a2d::AnimationData> errorAnim;
 
     // slideshow data
     std::unordered_map<const gfx::a2d::AnimationData*, std::uint32_t> slideshowFrameMap;

@@ -30,20 +30,22 @@ public:
          */
         struct Shard {
             sf::IntRect source;
-            sf::FloatRect normalizedSource;
             sf::Vector2f offset;
             sf::Vector2f scale;
             float rotation;
             std::uint8_t alpha;
+
+            // computed
+            sf::FloatRect normalizedSource;
         };
 
-        std::size_t nextFrame;
         std::vector<Shard> shards;
-        sf::Vector2f size;
         float length;
 
         // computed
         std::uint32_t shardIndex;
+        sf::Vector2f size;
+        std::size_t nextFrame;
     };
 
     /**
@@ -208,6 +210,17 @@ public:
      */
     bool shardsAreCentered() const;
 
+    /**
+     * @brief Sets the animation frames directly
+     *
+     * @param spritesheet The spritesheet path to use. Performs no resolution
+     * @param frames The frames of the animation
+     * @param loop Whether to loop the animation
+     * @param centerShards Whether to center the shards before transforming
+     */
+    void debugInitialize(const std::string& spritesheet, std::vector<Frame>&& frames, bool loop,
+                         bool centerShards = false);
+
 private:
     std::string actualSpritesheetPath;
     std::string spritesheetSource;
@@ -218,6 +231,7 @@ private:
     bool centerShards;
     bool slideshow;
 
+    void populateDerivedState();
     static void computeFrameSize(Frame& frame);
     bool doLoad(serial::binary::InputStream& input, const std::string& path, bool forBundle);
     static bool isValidSlideshow(const AnimationData& data);
