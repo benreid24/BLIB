@@ -10,15 +10,18 @@ namespace gui
 namespace defcoms
 {
 AnimationComponent::AnimationComponent()
-: Component(HighlightState::IgnoresMouse) {}
+: Component(HighlightState::IgnoresMouse)
+, enginePtr(nullptr)
+, currentOverlay(nullptr) {}
 
 void AnimationComponent::setVisible(bool v) { anim.setHidden(!v); }
 
 void AnimationComponent::onElementUpdated() {
     Animation& owner = getOwnerAs<Animation>();
-    if (owner.getAnimation().get() != source.get()) {
-        BL_LOG_WARN << "Changing animations is not yet supported";
-        // TODO - add support to change animation
+    if (owner.getAnimation().get() != source.get() && enginePtr) {
+        anim.setAnimationWithUniquePlayer(owner.getAnimation(), true, true);
+        setPosition();
+        if (currentOverlay) { doSceneAdd(currentOverlay); }
     }
 
     if (owner.getSize().has_value()) {
@@ -37,9 +40,11 @@ void AnimationComponent::doCreate(engine::Engine& engine, rdr::Renderer&) {
     Animation& owner = getOwnerAs<Animation>();
     source           = owner.getAnimation();
     anim.createWithUniquePlayer(engine, owner.getAnimation(), true, true);
+    enginePtr = &engine;
 }
 
 void AnimationComponent::doSceneAdd(rc::Overlay* overlay) {
+    currentOverlay = overlay;
     anim.addToScene(overlay, rc::UpdateSpeed::Static);
 }
 

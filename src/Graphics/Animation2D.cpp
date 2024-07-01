@@ -86,11 +86,23 @@ void Animation2D::createWithSharedPlayer(engine::Engine& engine, ecs::Entity exi
     component().containsTransparency = Textured::getTexture()->containsTransparency();
 }
 
+void Animation2D::setAnimationWithUniquePlayer(const resource::Ref<a2d::AnimationData>& animation,
+                                               bool play, bool forceLoop) {
+    Animation2DPlayer::createNewPlayer(animation, play, forceLoop);
+    component().create(engine(), Animation2DPlayer::getPlayer());
+    component().containsTransparency = Textured::getTexture()->containsTransparency();
+}
+
 void Animation2D::scaleToSize(const glm::vec2& size) {
     getTransform().setScale(size / getLocalSize());
 }
 
-void Animation2D::ensureLocalSizeUpdated() {}
+void Animation2D::ensureLocalSizeUpdated() {
+    if (entity() != ecs::InvalidEntity && component().player && component().player->animation) {
+        const auto sf = component().player->animation->getMaxSize();
+        OverlayScalable::setLocalSize({sf.x, sf.y});
+    }
+}
 
 } // namespace gfx
 } // namespace bl

@@ -84,6 +84,8 @@ protected:
 private:
     resource::Ref<gfx::a2d::AnimationData> source;
     gfx::Animation2D anim;
+    engine::Engine* enginePtr;
+    rc::Overlay* currentOverlay;
 
     void setPosition();
 };

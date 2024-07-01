@@ -114,6 +114,16 @@ public:
                                 const Animation2D& player);
 
     /**
+     * @brief Sets a new animation source and creates a new dedicated player for it
+     *
+     * @param animation The new animation to render
+     * @param play True to play immediately, false to start paused
+     * @param forceLoop True to always loop, false defer to animation setting
+     */
+    void setAnimationWithUniquePlayer(const resource::Ref<a2d::AnimationData>& animation, bool play,
+                                      bool forceLoop);
+
+    /**
      * @brief Helper method to set the scale so that the entity is a certain size
      *
      * @param size The size to scale to
