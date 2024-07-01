@@ -14,7 +14,10 @@ BatchShape2D::BatchShape2D()
 , owner(nullptr)
 , dirty(false) {}
 
-BatchShape2D::~BatchShape2D() { remove(); }
+BatchShape2D::~BatchShape2D() {
+    remove();
+    if (updateHandle.isQueued()) { updateHandle.cancel(); }
+}
 
 void BatchShape2D::create(engine::Engine& e, BatchedShapes2D& o) {
     engine = &e;
@@ -25,9 +28,8 @@ void BatchShape2D::create(engine::Engine& e, BatchedShapes2D& o) {
 void BatchShape2D::notifyDirty() {
     dirty = true;
     if (!updateHandle.isQueued() && owner != nullptr) {
-        updateHandle =
-            engine->systems().addFrameTask(engine::FrameStage::RenderEarlyRefresh,
-                                           std::bind(&BatchShape2D::ensureUpdated, this));
+        updateHandle = engine->systems().addFrameTask(
+            engine::FrameStage::RenderEarlyRefresh, std::bind(&BatchShape2D::ensureUpdated, this));
     }
 }
 
