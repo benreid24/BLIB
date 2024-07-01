@@ -82,9 +82,7 @@ void LabelComponent::reposition() {
     Label& owner                     = getOwnerAs<Label>();
     const RenderSettings& settings   = owner.renderSettings();
     const sf::Vector2f& parentOffset = owner.getLocalPosition();
-
-    const sf::FloatRect bounds = text.getLocalBounds();
-    const sf::Vector2f size    = getRequisition();
+    const sf::Vector2f size          = getRequisition();
 
     const sf::Vector2f localPos = RenderSettings::calculatePosition(
         settings.horizontalAlignment.value_or(RenderSettings::Center),
