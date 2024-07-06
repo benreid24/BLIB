@@ -26,7 +26,8 @@ const std::unordered_set<std::string> RequestedValidationLayers{"VK_LAYER_KHRONO
                                                                 "VK_LAYER_LUNARG_monitor"};
 #endif
 
-constexpr std::array<const char*, 1> RequiredDeviceExtensions{VK_KHR_SWAPCHAIN_EXTENSION_NAME};
+constexpr std::array<const char*, 2> RequiredDeviceExtensions{VK_KHR_SWAPCHAIN_EXTENSION_NAME,
+                                                              VK_KHR_MAINTENANCE_4_EXTENSION_NAME};
 
 #ifdef BLIB_DEBUG
 VKAPI_ATTR VkBool32 VKAPI_CALL
