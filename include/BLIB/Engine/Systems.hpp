@@ -175,6 +175,7 @@ private:
     struct StageSet {
         std::mutex mutex;
         std::mutex taskMutex;
+        std::mutex taskListMutex;
         std::vector<SystemInstance> systems;
         std::vector<TaskEntry> tasks;
         std::uint16_t version;

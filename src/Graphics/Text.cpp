@@ -80,6 +80,7 @@ void Text::computeBoundsIfNeeded() const {
 }
 
 void Text::commit() {
+    if (commitTask.isQueued()) { commitTask.cancel(); }
     commitTask = {};
 
     // word wrap
