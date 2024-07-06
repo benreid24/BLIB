@@ -113,6 +113,11 @@ void Container::update(float dt) {
 
     const bool soiled = clearFlag || !toRemove.empty();
     if (clearFlag) {
+        if (renderer) {
+            for (auto& e : children) {
+                if (e->component) { renderer->removeComponentFromOverlay(e->component); }
+            }
+        }
         clearFlag = false;
         children.clear();
         zorder.clear();
