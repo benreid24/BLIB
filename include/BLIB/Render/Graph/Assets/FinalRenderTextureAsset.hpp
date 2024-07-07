@@ -1,9 +1,8 @@
-#ifndef BLIB_RENDER_GRAPH_ASSETS_FINALSWAPFRAMEASSET_HPP
-#define BLIB_RENDER_GRAPH_ASSETS_FINALSWAPFRAMEASSET_HPP
+#ifndef BLIB_RENDER_GRAPH_ASSETS_FINALRENDERTEXTUREASSET_HPP
+#define BLIB_RENDER_GRAPH_ASSETS_FINALRENDERTEXTUREASSET_HPP
 
 #include <BLIB/Render/Graph/Assets/FramebufferAsset.hpp>
 #include <BLIB/Render/Vulkan/Framebuffer.hpp>
-#include <BLIB/Render/Vulkan/PerSwapFrame.hpp>
 
 namespace bl
 {
@@ -12,29 +11,29 @@ namespace rc
 namespace rgi
 {
 /**
- * @brief Asset for the swapchain image that an observer renders to
+ * @brief Asset for the framebuffer that a render texture renders to
  *
  * @ingroup Renderer
  */
-class FinalSwapframeAsset : public FramebufferAsset {
+class FinalRenderTextureAsset : public FramebufferAsset {
 public:
     /**
      * @brief Creates a new asset
      *
-     * @param framebuffers The swapchain image framebuffers
+     * @param framebuffer The render texture framebuffer
      * @param viewport The observer's viewport
      * @param scissor The observer's scissor
      * @param clearColors Pointer to array of clear colors for attachments
      * @param clearColorCount The number of clear colors
      */
-    FinalSwapframeAsset(vk::PerSwapFrame<vk::Framebuffer>& framebuffers, const VkViewport& viewport,
-                        const VkRect2D& scissor, const VkClearValue* clearColors,
-                        const std::uint32_t clearColorCount);
+    FinalRenderTextureAsset(vk::Framebuffer& framebuffer, const VkViewport& viewport,
+                            const VkRect2D& scissor, const VkClearValue* clearColors,
+                            const std::uint32_t clearColorCount);
 
     /**
      * @brief Does nothing
      */
-    virtual ~FinalSwapframeAsset() = default;
+    virtual ~FinalRenderTextureAsset() = default;
 
     /**
      * @brief Returns the current framebuffer to use
@@ -42,7 +41,7 @@ public:
     virtual vk::Framebuffer& currentFramebuffer() override;
 
 private:
-    vk::PerSwapFrame<vk::Framebuffer>& framebuffers;
+    vk::Framebuffer& framebuffer;
 
     virtual void doCreate(engine::Engine& engine, Renderer& renderer,
                           RenderTarget* observer) override;

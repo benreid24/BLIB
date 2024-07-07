@@ -23,7 +23,7 @@ Renderer::Renderer(engine::Engine& engine, engine::EngineWindow& window)
 , pipelines(*this)
 , scenes(engine)
 , splitscreenDirection(SplitscreenDirection::TopAndBottom)
-, commonObserver(engine, *this, assetFactory, true) {
+, commonObserver(engine, *this, assetFactory, true, false) {
     renderTextures.reserve(16);
     clearColors[0].color        = {{0.f, 0.f, 0.f, 1.f}};
     clearColors[1].depthStencil = {1.f, 0};
@@ -129,8 +129,9 @@ void Renderer::cleanup() {
     vkCheck(vkDeviceWaitIdle(state.device));
 
     resource::ResourceManager<sf::VulkanFont>::freeAndDestroyAll();
-    for (vk::RenderTexture* rt : renderTextures) { rt->destroy(); }
+    renderTextures.clear();
     observers.clear();
+    virtualObservers.clear();
     commonObserver.cleanup();
     scenes.cleanup();
     pipelines.cleanup();
@@ -151,7 +152,7 @@ void Renderer::processResize(const sf::Rect<std::uint32_t>& region) {
 }
 
 void Renderer::update(float dt) {
-    for (vk::RenderTexture* rt : renderTextures) { rt->updateCamera(dt); }
+    for (auto& rt : renderTextures) { rt.payload->update(dt); }
     commonObserver.update(dt);
     for (auto& o : observers) { o->update(dt); }
 }
@@ -159,7 +160,7 @@ void Renderer::update(float dt) {
 void Renderer::renderFrame() {
     // kick off transfers
     textures.onFrameStart();
-    for (vk::RenderTexture* rt : renderTextures) { rt->handleDescriptorSync(); }
+    for (auto& rt : renderTextures) { rt.payload->handleDescriptorSync(); }
     if (commonObserver.hasScene()) { commonObserver.handleDescriptorSync(); }
     else {
         for (auto& o : observers) { o->handleDescriptorSync(); }
@@ -172,8 +173,11 @@ void Renderer::renderFrame() {
     state.beginFrame(currentFrame, commandBuffer);
     framebuffers.current().recreateIfChanged(*currentFrame);
 
-    // begin render texture rendering
-    for (vk::RenderTexture* rt : renderTextures) { rt->renderScene(commandBuffer); }
+    // begin render texture rendering in parallel
+    for (auto& rt : renderTextures) {
+        rt.future =
+            engine.threadPool().queueTask(std::bind(&vk::RenderTexture::render, rt.payload.get()));
+    }
 
     const auto clearDepthBuffer = [this, commandBuffer]() {
         VkClearAttachment attachment{};
@@ -193,6 +197,10 @@ void Renderer::renderFrame() {
 
     // record commands to render scenes
     for (auto& o : observers) { o->renderScene(commandBuffer); }
+    if (!virtualObservers.empty()) {
+        clearDepthBuffer();
+        for (auto& o : virtualObservers) { o->renderScene(commandBuffer); }
+    }
     if (commonObserver.hasScene()) {
         clearDepthBuffer();
         commonObserver.renderScene(commandBuffer);
@@ -207,10 +215,17 @@ void Renderer::renderFrame() {
 
     // render scene outputs
     for (auto& o : observers) { o->compositeSceneAndOverlay(commandBuffer); }
+    if (!virtualObservers.empty()) {
+        clearDepthBuffer();
+        for (auto& o : virtualObservers) { o->compositeSceneAndOverlay(commandBuffer); }
+    }
     if (commonObserver.hasScene()) {
         clearDepthBuffer();
         commonObserver.compositeSceneAndOverlay(commandBuffer);
     }
+
+    // wait for render texture rendering to be submitted
+    for (auto& rt : renderTextures) { rt.future.wait(); }
 
     // complete frame
     framebuffers.current().finishRender(commandBuffer);
@@ -225,7 +240,7 @@ Observer& Renderer::addObserver() {
     }
 #endif
 
-    observers.emplace_back(new Observer(engine, *this, assetFactory, false));
+    observers.emplace_back(new Observer(engine, *this, assetFactory, false, false));
     assignObserverRegions();
     return *observers.back();
 }
@@ -241,6 +256,23 @@ void Renderer::popSceneFromAllObservers() {
 }
 
 unsigned int Renderer::observerCount() const { return observers.size(); }
+
+Observer& Renderer::addVirtualObserver(const VkRect2D& region) {
+    virtualObservers.emplace_back(new Observer(engine, *this, assetFactory, false, true));
+    virtualObservers.back()->assignRegion(region);
+    return *observers.back();
+}
+
+void Renderer::destroyVirtualObserver(const Observer& o) {
+    vkCheck(vkDeviceWaitIdle(state.device));
+    for (auto it = virtualObservers.begin(); it != virtualObservers.end(); ++it) {
+        if (it->get() == &o) {
+            virtualObservers.erase(it);
+            return;
+        }
+    }
+    BL_LOG_WARN << "Failed to find virtual observer " << &o;
+}
 
 void Renderer::assignObserverRegions() {
     unsigned int i = 0;
@@ -263,11 +295,15 @@ void Renderer::setClearColor(const glm::vec3& color) {
     clearColors[0].color = {{color.x, color.y, color.z, 1.f}};
 }
 
-void Renderer::registerRenderTexture(vk::RenderTexture* rt) { renderTextures.emplace_back(rt); }
+vk::RenderTexture::Handle Renderer::createRenderTexture(const glm::u32vec2& size,
+                                                        VkSampler sampler) {
+    renderTextures.emplace_back(new vk::RenderTexture(engine, *this, assetFactory, size, sampler));
+    return {this, renderTextures.back().payload.get()};
+}
 
-void Renderer::removeRenderTexture(vk::RenderTexture* rt) {
+void Renderer::destroyRenderTexture(vk::RenderTexture* rt) {
     for (auto it = renderTextures.begin(); it != renderTextures.end(); ++it) {
-        if (*it == rt) {
+        if (it->payload.get() == rt) {
             renderTextures.erase(it);
             return;
         }

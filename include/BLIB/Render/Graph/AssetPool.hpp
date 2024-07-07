@@ -14,7 +14,7 @@ namespace bl
 {
 namespace rc
 {
-class Observer;
+class RenderTarget;
 
 namespace rgi
 {
@@ -38,7 +38,7 @@ public:
      * @param factory The AssetFactory to use
      * @param observer The observer that the pool belongs to
      */
-    AssetPool(AssetFactory& factory, Observer* observer);
+    AssetPool(AssetFactory& factory, RenderTarget* observer);
 
     /**
      * @brief Destroys all contained assets
@@ -138,7 +138,7 @@ public:
 
 private:
     AssetFactory& factory;
-    Observer* observer;
+    RenderTarget* observer;
     std::unordered_map<std::string_view, std::vector<std::unique_ptr<Asset>>> assets;
     std::vector<rgi::FramebufferAsset*> framebufferAssets;
 

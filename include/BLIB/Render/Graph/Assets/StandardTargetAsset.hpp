@@ -41,13 +41,14 @@ public:
 
 private:
     Renderer* renderer;
-    Observer* observer;
+    RenderTarget* observer;
     vk::PerFrame<vk::StandardAttachmentBuffers> images;
     vk::PerFrame<vk::Framebuffer> framebuffers;
     VkViewport cachedViewport;
     VkRect2D cachedScissor;
 
-    virtual void doCreate(engine::Engine& engine, Renderer& renderer, Observer* observer) override;
+    virtual void doCreate(engine::Engine& engine, Renderer& renderer,
+                          RenderTarget* observer) override;
     virtual void doPrepareForInput(const rg::ExecutionContext& context) override;
     virtual void doPrepareForOutput(const rg::ExecutionContext& context) override;
     virtual void onResize(glm::u32vec2 newSize) override;

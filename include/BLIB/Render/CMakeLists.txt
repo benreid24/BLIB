@@ -2,6 +2,7 @@ target_sources(BLIB PUBLIC
     Config.hpp
     Observer.hpp
     Renderer.hpp
+    RenderTarget.hpp
     UpdateSpeed.hpp
 )
 

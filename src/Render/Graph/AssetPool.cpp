@@ -8,7 +8,7 @@ namespace rc
 {
 namespace rg
 {
-AssetPool::AssetPool(AssetFactory& factory, Observer* observer)
+AssetPool::AssetPool(AssetFactory& factory, RenderTarget* observer)
 : factory(factory)
 , observer(observer) {}
 

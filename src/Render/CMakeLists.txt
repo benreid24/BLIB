@@ -1,6 +1,7 @@
 target_sources(BLIB PRIVATE
     Observer.cpp
     Renderer.cpp
+    RenderTarget.cpp
 )
 
 add_subdirectory(Components)

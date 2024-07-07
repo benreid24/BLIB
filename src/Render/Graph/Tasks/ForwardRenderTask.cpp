@@ -30,12 +30,14 @@ void ForwardRenderTask::onGraphInit() {
 }
 
 void ForwardRenderTask::execute(const rg::ExecutionContext& ctx) {
-    if (!ctx.isFinalStep) {
+    const bool doRenderPass = !ctx.isFinalStep || ctx.renderingToRenderTexture;
+
+    if (doRenderPass) {
         output->currentFramebuffer().beginRender(ctx.commandBuffer,
                                                  output->scissor,
                                                  output->clearColors,
                                                  output->clearColorCount,
-                                                 false,
+                                                 ctx.renderingToRenderTexture,
                                                  output->getRenderPass().rawPass());
     }
     else {
@@ -65,7 +67,7 @@ void ForwardRenderTask::execute(const rg::ExecutionContext& ctx) {
                                        ctx.renderingToRenderTexture);
     scene->scene->renderScene(sceneCtx);
 
-    if (!ctx.isFinalStep) { output->currentFramebuffer().finishRender(ctx.commandBuffer); }
+    if (doRenderPass) { output->currentFramebuffer().finishRender(ctx.commandBuffer); }
 }
 
 } // namespace rgi

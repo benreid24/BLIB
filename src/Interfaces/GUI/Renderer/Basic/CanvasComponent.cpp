@@ -21,25 +21,35 @@ void CanvasComponent::onElementUpdated() {
     const sf::Vector2f sfpos = pos + owner.getOffset();
     img.getTransform().setPosition({sfpos.x, sfpos.y});
     img.getTransform().setScale({owner.getScale().x, owner.getScale().y});
+
+    if (owner.getScene().isValid() && owner.getScene().get() != texture->getCurrentScene()) {
+        texture->popScene();
+        texture->pushScene(owner.getScene());
+        if (owner.getCamera()) { texture->setCamera(std::move(owner.getCamera())); }
+    }
 }
 
 void CanvasComponent::onRenderSettingChange() {
     Canvas& owner = getOwnerAs<Canvas>();
-    texture.setClearColor(sfcol(owner.getClearColor()));
+    texture->setClearColor(sfcol(owner.getClearColor()));
 }
 
 ecs::Entity CanvasComponent::getEntity() const { return img.entity(); }
 
-rc::vk::RenderTexture& CanvasComponent::getRenderTexture() { return texture; }
+rc::vk::RenderTexture& CanvasComponent::getRenderTexture() { return *texture; }
 
 void CanvasComponent::doCreate(engine::Engine& engine, rdr::Renderer&) {
     Canvas& owner = getOwnerAs<Canvas>();
 
-    texture.create(engine.renderer(), {owner.getTextureSize().x, owner.getTextureSize().y});
-    if (owner.getScene().isValid()) { texture.setScene(owner.getScene()); }
-    texture.setClearColor(sfcol(owner.getClearColor()));
+    texture =
+        engine.renderer().createRenderTexture({owner.getTextureSize().x, owner.getTextureSize().y});
+    if (owner.getScene().isValid()) {
+        texture->pushScene(owner.getScene());
+        if (owner.getCamera()) { texture->setCamera(std::move(owner.getCamera())); }
+    }
+    texture->setClearColor(sfcol(owner.getClearColor()));
 
-    img.create(engine, texture.getTexture());
+    img.create(engine, texture->getTexture());
 }
 
 void CanvasComponent::doSceneAdd(rc::Overlay* overlay) {

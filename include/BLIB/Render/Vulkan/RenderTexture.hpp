@@ -1,14 +1,13 @@
 #ifndef BLIB_RENDER_RESOURCES_RENDERTEXTURE_HPP
 #define BLIB_RENDER_RESOURCES_RENDERTEXTURE_HPP
 
-#include <BLIB/Cameras/Camera.hpp>
-#include <BLIB/Render/Resources/SceneRef.hpp>
+#include <BLIB/Render/RenderTarget.hpp>
 #include <BLIB/Render/Resources/TextureRef.hpp>
 #include <BLIB/Render/Scenes/Scene.hpp>
 #include <BLIB/Render/Vulkan/AttachmentBuffer.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
+#include <BLIB/Render/Vulkan/SharedCommandPool.hpp>
 #include <BLIB/Render/Vulkan/StandardAttachmentSet.hpp>
-#include <BLIB/Util/NonCopyable.hpp>
 #include <memory>
 
 namespace bl
@@ -25,26 +24,93 @@ namespace vk
  *
  * @ingroup Renderer
  */
-class RenderTexture : private util::NonCopyable {
+class RenderTexture : public RenderTarget {
 public:
     /**
-     * @brief Empty initialization
+     * @brief Handle for render textures. Render textures themselves are owned by Renderer
      */
-    RenderTexture();
+    class Handle {
+    public:
+        /**
+         * @brief Creates an empty handle
+         */
+        Handle();
+
+        /**
+         * @brief Deleted
+         */
+        Handle(const Handle&) = delete;
+
+        /**
+         * @brief Moves from the given handle and assumes ownership of the texture
+         *
+         * @param c The handle to move from
+         */
+        Handle(Handle&& c);
+
+        /**
+         * @brief Releases the texture if any
+         */
+        ~Handle();
+
+        /**
+         * @brief Deleted
+         */
+        Handle& operator=(const Handle&) = delete;
+
+        /**
+         * @brief Moves from the given handle and assumes ownership of the texture
+         *
+         * @param c The handle to move from
+         * @return A reference to this handle
+         */
+        Handle& operator=(Handle&& c);
+
+        /**
+         * @brief Returns whether the handle has a valid texture
+         */
+        bool isValid() const;
+
+        /**
+         * @brief Releases the texture if any
+         */
+        void release();
+
+        /**
+         * @brief Returns the underlying texture
+         */
+        RenderTexture* operator->();
+
+        /**
+         * @brief Returns the underlying texture
+         */
+        RenderTexture& operator*();
+
+        /**
+         * @brief Returns whether the handle has a valid texture
+         */
+        operator bool() const;
+
+    private:
+        Renderer* renderer;
+        RenderTexture* texture;
+
+        Handle(Renderer* r, RenderTexture* t);
+
+        friend class Renderer;
+    };
 
     /**
      * @brief Destroys the textures if still created
      */
-    ~RenderTexture();
+    virtual ~RenderTexture();
 
     /**
-     * @brief Creates (or re-creates) the textures and depth buffers
+     * @brief Resizes the texture being rendered to
      *
-     * @param renderer The renderer instance
-     * @param size The size of the textures to create
-     * @param sampler The sampler to use on the texture
+     * @param newSize The new size of the texture
      */
-    void create(Renderer& renderer, const glm::u32vec2& size, VkSampler sampler = nullptr);
+    void resize(const glm::u32vec2& newSize);
 
     /**
      * @brief Destroys the texture
@@ -57,92 +123,23 @@ public:
     const res::TextureRef& getTexture() const;
 
     /**
-     * @brief Sets the color to clear the texture to prior to rendering
-     *
-     * @param color The color to clear with
-     */
-    void setClearColor(const glm::vec4& color);
-
-    /**
-     * @brief Returns whether or not a scene has been set
-     */
-    bool hasScene() const;
-
-    /**
-     * @brief Replaces the camera to render the current scene with
-     *
-     * @tparam TCamera The type of camera to install
-     * @tparam ...TArgs Argument types to the camera's constructor
-     * @param ...args Arguments to the camera's constructor
-     * @return A pointer to the new camera
-     */
-    template<typename TCamera, typename... TArgs>
-    TCamera* setCamera(TArgs&&... args);
-
-    /**
-     * @brief Sets the camera to render the current scene with
-     *
-     * @param camera The camera to use
-     */
-    void setCamera(std::unique_ptr<cam::Camera>&& camera);
-
-    /**
-     * @brief Creates a new scene and sets it to be rendered
-     *
-     * @tparam TScene The type of scene to create
-     * @tparam TArgs Argument types to the scene's constructor
-     * @param args Arguments to the scene's constructor
-     * @return The newly created, now active, scene
-     */
-    template<typename TScene, typename... TArgs>
-    SceneRef setScene(TArgs&&... args);
-
-    /**
-     * @brief Sets the current scene to render
-     *
-     * @param scene The scene to make active
-     */
-    void setScene(SceneRef scene);
-
-    /**
-     * @brief Removes the current scene. Textures are still cleared each frame
-     *
-     * @ingroup clearCamera True to also free the camera, false to keep it
-     */
-    void removeScene(bool clearCamera = true);
-
-    /**
      * @brief Returns the size of the textures in pixels
      */
-    constexpr glm::u32vec2 getSize() const;
-
-    /**
-     * @brief Returns the current scene being rendered to the texture
-     */
-    const Scene* getScene() const;
+    glm::u32vec2 getSize() const;
 
 private:
     // TODO - consider separate storage in TexturePool for double-buffering
     // or allow Texture to double-buffer
-    Renderer* renderer;
+    SharedCommandPool commandPool;
     res::TextureRef texture;
     AttachmentBuffer depthBuffer;
     StandardAttachmentSet attachmentSet;
     Framebuffer framebuffer;
-    VkRect2D scissor;
-    VkViewport viewport;
-    VkClearValue clearColors[2];
-
-    SceneRef scene;
-    std::unique_ptr<cam::Camera> camera;
-    std::uint32_t observerIndex;
-
-    void onSceneSet();
 
     // called by renderer
-    void handleDescriptorSync();
-    void updateCamera(float dt);
-    void renderScene(VkCommandBuffer commandBuffer);
+    RenderTexture(engine::Engine& engine, Renderer& renderer, rg::AssetFactory& factory,
+                  const glm::u32vec2& size, VkSampler sampler = nullptr);
+    void render();
 
     friend class bl::rc::Renderer;
 };
@@ -151,21 +148,41 @@ private:
 
 inline const res::TextureRef& RenderTexture::getTexture() const { return texture; }
 
-inline bool RenderTexture::hasScene() const { return scene.isValid(); }
-
-inline constexpr glm::u32vec2 RenderTexture::getSize() const {
+inline glm::u32vec2 RenderTexture::getSize() const {
     return {scissor.extent.width, scissor.extent.height};
 }
 
-template<typename TCamera, typename... TArgs>
-TCamera* RenderTexture::setCamera(TArgs&&... args) {
-    TCamera* cam = new TCamera(std::forward<TArgs>(args)...);
-    if (hasScene()) { scene->setDefaultNearAndFarPlanes(*cam); }
-    camera.reset(cam);
-    return cam;
+inline RenderTexture::Handle::Handle()
+: renderer(nullptr)
+, texture(nullptr) {}
+
+inline RenderTexture::Handle::Handle(Renderer* r, RenderTexture* t)
+: renderer(r)
+, texture(t) {}
+
+inline RenderTexture::Handle::Handle(Handle&& c)
+: renderer(c.renderer)
+, texture(c.texture) {
+    c.texture = nullptr;
 }
 
-inline const Scene* RenderTexture::getScene() const { return scene.get(); }
+inline RenderTexture::Handle::~Handle() { release(); }
+
+inline RenderTexture::Handle& RenderTexture::Handle::operator=(Handle&& c) {
+    release();
+    renderer  = c.renderer;
+    texture   = c.texture;
+    c.texture = nullptr;
+    return *this;
+}
+
+inline bool RenderTexture::Handle::isValid() const { return texture != nullptr; }
+
+inline RenderTexture& RenderTexture::Handle::operator*() { return *texture; }
+
+inline RenderTexture* RenderTexture::Handle::operator->() { return texture; }
+
+inline RenderTexture::Handle::operator bool() const { return isValid(); }
 
 } // namespace vk
 } // namespace rc

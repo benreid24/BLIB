@@ -14,7 +14,6 @@ namespace gui
  *
  * @see Image
  * @ingroup GUI
- *
  */
 class Canvas : public Element {
 public:
@@ -111,6 +110,11 @@ public:
      * @brief Returns the color that the canvas will be cleared with each frame
      */
     const sf::Color& getClearColor() const;
+
+    /**
+     * @brief Returns the camera set on this element. For use by the renderer component only
+     */
+    std::unique_ptr<cam::Camera>& getCamera();
 
 protected:
     /**

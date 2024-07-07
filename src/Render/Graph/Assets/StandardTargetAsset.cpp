@@ -25,7 +25,7 @@ StandardTargetAsset::StandardTargetAsset()
     cachedViewport.y        = 0.f;
 }
 
-void StandardTargetAsset::doCreate(engine::Engine&, Renderer& r, Observer* o) {
+void StandardTargetAsset::doCreate(engine::Engine&, Renderer& r, RenderTarget* o) {
     renderer = &r;
     observer = o;
     images.emptyInit(r.vulkanState());

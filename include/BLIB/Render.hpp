@@ -75,6 +75,7 @@
 #include <BLIB/Render/Primitives/Color.hpp>
 #include <BLIB/Render/Primitives/DrawParameters.hpp>
 #include <BLIB/Render/Primitives/Vertex.hpp>
+#include <BLIB/Render/RenderTarget.hpp>
 #include <BLIB/Render/Renderer.hpp>
 #include <BLIB/Render/Resources/BindlessTextureArray.hpp>
 #include <BLIB/Render/Resources/Material.hpp>

@@ -14,6 +14,7 @@
 #include <BLIB/Render/Vulkan/RenderTexture.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
+#include <future>
 
 namespace bl
 {
@@ -102,6 +103,33 @@ public:
     void setSplitscreenDirection(SplitscreenDirection direction);
 
     /**
+     * @brief Adds a new virtual observer to render to the given region. Virtual observers are
+     *        separate from regular observers and may render to arbitrary screen regions. They
+     *        render on top of the main observers
+     *
+     * @param region The screen scissor to render to. Viewport is set from this
+     * @return A reference to the new observer
+     */
+    Observer& addVirtualObserver(const VkRect2D& region);
+
+    /**
+     * @brief Destroys the given virtual observer
+     *
+     * @param observer The observer to destroy
+     */
+    void destroyVirtualObserver(const Observer& observer);
+
+    /**
+     * @brief Create a render texture from the texture pool that can be rendered to
+     *
+     * @param size The size of the texture to create
+     * @param sampler Optional sampler to use
+     * @return A handle to the render texture
+     */
+    vk::RenderTexture::Handle createRenderTexture(const glm::u32vec2& size,
+                                                  VkSampler sampler = nullptr);
+
+    /**
      * @brief Returns the Vulkan state of the renderer
      */
     vk::VulkanState& vulkanState();
@@ -181,6 +209,16 @@ public:
     vk::PerSwapFrame<vk::Framebuffer>& getSwapframeBuffers();
 
 private:
+    template<typename T>
+    struct WithFuture {
+        T payload;
+        std::future<void> future;
+
+        template<typename... TArgs>
+        WithFuture(TArgs&&... args)
+        : payload(std::forward<TArgs>(args)...) {}
+    };
+
     engine::Engine& engine;
     engine::EngineWindow& window;
     sf::Rect<std::uint32_t> renderRegion;
@@ -196,8 +234,9 @@ private:
     SplitscreenDirection splitscreenDirection;
     Observer commonObserver;
     std::vector<std::unique_ptr<Observer>> observers;
+    std::vector<std::unique_ptr<Observer>> virtualObservers;
     VkClearValue clearColors[2];
-    std::vector<vk::RenderTexture*> renderTextures;
+    std::vector<WithFuture<std::unique_ptr<vk::RenderTexture>>> renderTextures;
     std::unique_ptr<rg::Strategy> strategy;
     rg::AssetFactory assetFactory;
 
@@ -208,8 +247,7 @@ private:
     void processResize(const sf::Rect<std::uint32_t>& region);
     void processWindowRecreate();
 
-    void registerRenderTexture(vk::RenderTexture* rt);
-    void removeRenderTexture(vk::RenderTexture* rt);
+    void destroyRenderTexture(vk::RenderTexture* rt);
 
     // render stages
     void update(float dt);
@@ -221,7 +259,7 @@ private:
     friend class Observer;
     friend class sys::RendererUpdateSystem;
     friend class sys::RenderSystem;
-    friend class vk::RenderTexture;
+    friend class vk::RenderTexture::Handle;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -258,20 +296,13 @@ SceneRef Renderer::pushSceneToAllObservers(TArgs&&... args) {
 }
 
 template<typename TScene, typename... TArgs>
-SceneRef Observer::pushScene(TArgs&&... args) {
+SceneRef RenderTarget::pushScene(TArgs&&... args) {
     static_assert(std::is_base_of_v<Scene, TScene>, "Scene must derive from Scene");
 
     SceneRef s = renderer.scenePool().allocateScene<TScene, TArgs...>(std::forward<TArgs>(args)...);
     scenes.emplace_back(engine, renderer, this, graphAssets, s);
     onSceneAdd();
     return s;
-}
-
-template<typename TScene, typename... TArgs>
-SceneRef vk::RenderTexture::setScene(TArgs&&... args) {
-    scene = renderer->scenePool().allocateScene<TScene, TArgs...>(std::forward<TArgs>(args)...);
-    onSceneSet();
-    return scene;
 }
 
 template<typename T, typename... TArgs>

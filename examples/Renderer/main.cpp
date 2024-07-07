@@ -130,12 +130,12 @@ public:
         sprite2.addToScene(overlay, bl::rc::UpdateSpeed::Static);
 
         // setup render texture
-        renderTexture.create(engine.renderer(), {128, 128});
+        renderTexture = engine.renderer().createRenderTexture({128, 128});
         bl::rc::SceneRef rto =
             engine.renderer().scenePool().allocateScene<bl::rc::scene::Scene2D>();
-        renderTexture.setScene(rto);
-        renderTexture.setCamera<bl::cam::Camera2D>(sf::FloatRect{0.f, 0.f, 1.f, 1.f});
-        renderTexture.setClearColor({0.f, 0.0f, 0.7f, 0.4f});
+        renderTexture->pushScene(rto);
+        renderTexture->setCamera<bl::cam::Camera2D>(sf::FloatRect{0.f, 0.f, 1.f, 1.f});
+        renderTexture->setClearColor({0.f, 0.0f, 0.7f, 0.4f});
 
         renderTextureInnerSprite.create(engine, texture);
         renderTextureInnerSprite.getTransform().setScale(
@@ -144,7 +144,7 @@ public:
         renderTextureInnerSprite.getTransform().setPosition({0.f, 0.f});
         renderTextureInnerSprite.addToScene(rto, bl::rc::UpdateSpeed::Static);
 
-        renderTextureOuterSprite.create(engine, renderTexture.getTexture());
+        renderTextureOuterSprite.create(engine, renderTexture->getTexture());
         renderTextureOuterSprite.getOverlayScaler().scaleToHeightPercent(0.15f);
         renderTextureOuterSprite.getOverlayScaler().positionInParentSpace({0.05f, 0.1f});
         renderTextureOuterSprite.addToScene(overlay, bl::rc::UpdateSpeed::Static);
@@ -176,7 +176,7 @@ private:
     bl::rc::res::TextureRef messageBoxTxtr;
     bl::resource::Ref<sf::VulkanFont> font;
     bl::gfx::Text text;
-    bl::rc::vk::RenderTexture renderTexture;
+    bl::rc::vk::RenderTexture::Handle renderTexture;
     bl::gfx::Sprite renderTextureInnerSprite;
     bl::gfx::Sprite renderTextureOuterSprite;
     bl::rc::rgi::FadeEffectTask* fadeout;

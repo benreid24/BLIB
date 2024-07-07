@@ -177,7 +177,7 @@ private:
 
     template<typename T>
     friend class sys::DrawableSystem;
-    friend class Observer;
+    friend class RenderTarget;
     friend class res::ScenePool;
     friend class vk::RenderTexture;
     friend struct rcom::DrawableBase;

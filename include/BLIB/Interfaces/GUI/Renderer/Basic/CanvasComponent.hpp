@@ -90,7 +90,7 @@ protected:
 
 private:
     engine::Engine* enginePtr;
-    rc::vk::RenderTexture texture;
+    rc::vk::RenderTexture::Handle texture;
     gfx::Sprite img;
     sf::Vector2f pos;
 };

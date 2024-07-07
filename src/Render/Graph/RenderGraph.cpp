@@ -16,7 +16,7 @@ namespace rg
 {
 
 RenderGraph::RenderGraph(engine::Engine& engine, Renderer& renderer, AssetPool& pool,
-                         Observer* observer)
+                         RenderTarget* observer)
 : engine(engine)
 , renderer(renderer)
 , observer(observer)
