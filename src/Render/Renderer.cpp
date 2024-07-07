@@ -298,7 +298,7 @@ void Renderer::setClearColor(const glm::vec3& color) {
 vk::RenderTexture::Handle Renderer::createRenderTexture(const glm::u32vec2& size,
                                                         VkSampler sampler) {
     renderTextures.emplace_back(new vk::RenderTexture(engine, *this, assetFactory, size, sampler));
-    return {this, renderTextures.back().payload.get()};
+    return vk::RenderTexture::Handle(this, renderTextures.back().payload.get());
 }
 
 void Renderer::destroyRenderTexture(vk::RenderTexture* rt) {
