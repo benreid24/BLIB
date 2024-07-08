@@ -225,7 +225,7 @@ void Renderer::renderFrame() {
     }
 
     // wait for render texture rendering to be submitted
-    for (auto& rt : renderTextures) { rt.future.wait(); }
+    for (auto& rt : renderTextures) { rt.future.get(); }
 
     // complete frame
     framebuffers.current().finishRender(commandBuffer);

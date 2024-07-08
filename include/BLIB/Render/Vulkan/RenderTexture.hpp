@@ -5,8 +5,8 @@
 #include <BLIB/Render/Resources/TextureRef.hpp>
 #include <BLIB/Render/Scenes/Scene.hpp>
 #include <BLIB/Render/Vulkan/AttachmentBuffer.hpp>
+#include <BLIB/Render/Vulkan/DedicatedCommandBuffers.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
-#include <BLIB/Render/Vulkan/SharedCommandPool.hpp>
 #include <BLIB/Render/Vulkan/StandardAttachmentSet.hpp>
 #include <memory>
 
@@ -130,7 +130,7 @@ public:
 private:
     // TODO - consider separate storage in TexturePool for double-buffering
     // or allow Texture to double-buffer
-    SharedCommandPool commandPool;
+    DedicatedCommandBuffers commandBuffers;
     res::TextureRef texture;
     AttachmentBuffer depthBuffer;
     StandardAttachmentSet attachmentSet;

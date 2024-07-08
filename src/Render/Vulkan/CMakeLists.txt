@@ -3,6 +3,7 @@ target_sources(BLIB PRIVATE
     Buffer.cpp
     CleanupManager.cpp
     CommonSamplers.cpp
+    DedicatedCommandBuffers.cpp
     DescriptorPool.cpp
     DescriptorSet.cpp
     Framebuffer.cpp

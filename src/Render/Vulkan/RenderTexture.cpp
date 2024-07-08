@@ -15,7 +15,7 @@ namespace vk
 RenderTexture::RenderTexture(engine::Engine& engine, Renderer& renderer, rg::AssetFactory& factory,
                              const glm::u32vec2& size, VkSampler sampler)
 : RenderTarget(engine, renderer, factory, true) {
-    commandPool.create(renderer.vulkanState());
+    commandBuffers.create(renderer.vulkanState());
 
     scissor.extent.width  = size.x;
     scissor.extent.height = size.y;
@@ -37,7 +37,7 @@ RenderTexture::RenderTexture(engine::Engine& engine, Renderer& renderer, rg::Ass
 
 RenderTexture::~RenderTexture() {
     destroy();
-    commandPool.cleanup();
+    commandBuffers.destroy();
 }
 
 void RenderTexture::resize(const glm::u32vec2& size) {
@@ -66,10 +66,10 @@ void RenderTexture::destroy() {
 }
 
 void RenderTexture::render() {
-    auto commandBuffer = commandPool.createBuffer(VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT);
+    auto commandBuffer = commandBuffers.begin();
     renderScene(commandBuffer);
     compositeSceneAndOverlay(commandBuffer);
-    commandBuffer.submit();
+    commandBuffers.submit();
 }
 
 void RenderTexture::Handle::release() {
