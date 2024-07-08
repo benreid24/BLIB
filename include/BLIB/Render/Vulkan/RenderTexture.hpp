@@ -97,7 +97,7 @@ public:
 
         Handle(Renderer* r, RenderTexture* t);
 
-        friend class Renderer;
+        friend class ::bl::rc::Renderer;
     };
 
     /**
