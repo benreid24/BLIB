@@ -39,18 +39,7 @@ public:
     /**
      * @brief Returns the layout of the descriptor set containing the textures
      */
-    constexpr VkDescriptorSetLayout getDescriptorLayout() const;
-
-    /**
-     * @brief Returns the descriptor set containing the textures
-     */
-    constexpr VkDescriptorSet getDescriptorSet() const;
-
-    /**
-     * @brief Returns the descriptor set with render textures omitted. Used for rendering to render
-     *        textures to avoid validation errors with expected image layouts
-     */
-    constexpr VkDescriptorSet getRenderTextureDescriptorSet() const;
+    VkDescriptorSetLayout getDescriptorLayout() const;
 
     /**
      * @brief Helper method to bind the descriptor set
@@ -145,8 +134,8 @@ private:
 
     VkDescriptorPool descriptorPool;
     VkDescriptorSetLayout descriptorSetLayout;
-    VkDescriptorSet descriptorSet;
-    VkDescriptorSet rtDescriptorSet;
+    vk::PerFrame<VkDescriptorSet> descriptorSets;
+    vk::PerFrame<VkDescriptorSet> rtDescriptorSets;
 
     TexturePool(vk::VulkanState& vulkanState);
     void init();
@@ -164,14 +153,8 @@ private:
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline constexpr VkDescriptorSetLayout TexturePool::getDescriptorLayout() const {
+inline VkDescriptorSetLayout TexturePool::getDescriptorLayout() const {
     return descriptorSetLayout;
-}
-
-inline constexpr VkDescriptorSet TexturePool::getDescriptorSet() const { return descriptorSet; }
-
-inline constexpr VkDescriptorSet TexturePool::getRenderTextureDescriptorSet() const {
-    return rtDescriptorSet;
 }
 
 } // namespace res

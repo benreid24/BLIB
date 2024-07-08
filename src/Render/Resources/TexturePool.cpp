@@ -35,11 +35,11 @@ void TexturePool::init() {
     // create descriptor pool
     VkDescriptorPoolSize poolSize{};
     poolSize.type            = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
-    poolSize.descriptorCount = MaxTextureCount * 2;
+    poolSize.descriptorCount = MaxTextureCount * 2 * Config::MaxConcurrentFrames;
 
     VkDescriptorPoolCreateInfo poolCreate{};
     poolCreate.sType         = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
-    poolCreate.maxSets       = 2;
+    poolCreate.maxSets       = 2 * Config::MaxConcurrentFrames;
     poolCreate.poolSizeCount = 1;
     poolCreate.pPoolSizes    = &poolSize;
     if (VK_SUCCESS !=
@@ -48,18 +48,23 @@ void TexturePool::init() {
     }
 
     // allocate descriptor set
-    VkDescriptorSet allocatedSets[2];
-    VkDescriptorSetLayout setLayouts[2] = {descriptorSetLayout, descriptorSetLayout};
+    VkDescriptorSet allocatedSets[2 * Config::MaxConcurrentFrames];
+    std::array<VkDescriptorSetLayout, 2 * Config::MaxConcurrentFrames> setLayouts;
+    setLayouts.fill(descriptorSetLayout);
+
     VkDescriptorSetAllocateInfo setAlloc{};
     setAlloc.sType              = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
     setAlloc.descriptorPool     = descriptorPool;
-    setAlloc.descriptorSetCount = 2;
-    setAlloc.pSetLayouts        = setLayouts;
+    setAlloc.descriptorSetCount = setLayouts.size();
+    setAlloc.pSetLayouts        = setLayouts.data();
     if (VK_SUCCESS != vkAllocateDescriptorSets(vulkanState.device, &setAlloc, allocatedSets)) {
         throw std::runtime_error("Failed to allocate texture descriptor set");
     }
-    descriptorSet   = allocatedSets[0];
-    rtDescriptorSet = allocatedSets[1];
+
+    unsigned int i = 0;
+    descriptorSets.init(vulkanState, [&i, &allocatedSets](auto& set) { set = allocatedSets[i++]; });
+    rtDescriptorSets.init(vulkanState,
+                          [&i, &allocatedSets](auto& set) { set = allocatedSets[i++]; });
 
     // create error texture pattern and init texture array
     constexpr unsigned int ErrorSize    = 1024;
@@ -75,7 +80,7 @@ void TexturePool::init() {
             else { textures.getErrorPattern().setPixel(x, y, sf::Color(255, 254, 196)); }
         }
     }
-    textures.init(descriptorSet, rtDescriptorSet);
+    textures.init(descriptorSets, rtDescriptorSets);
 }
 
 void TexturePool::cleanup() {
@@ -125,13 +130,12 @@ void TexturePool::doRelease(std::uint32_t i) {
     }
     else { freeRtSlots.release(i - reverseFileMap.size()); }
 
-    std::array<BindlessTextureArray*, 1> arrays = {&textures};
-    BindlessTextureArray::resetTexture(descriptorSet, rtDescriptorSet, arrays, i);
+    textures.resetTexture(i);
 }
 
 void TexturePool::bindDescriptors(VkCommandBuffer cb, VkPipelineLayout pipelineLayout,
                                   std::uint32_t setIndex, bool forRt) {
-    const VkDescriptorSet ds = forRt ? rtDescriptorSet : descriptorSet;
+    const VkDescriptorSet ds = forRt ? rtDescriptorSets.current() : descriptorSets.current();
     vkCmdBindDescriptorSets(
         cb, VK_PIPELINE_BIND_POINT_GRAPHICS, pipelineLayout, setIndex, 1, &ds, 0, nullptr);
 }

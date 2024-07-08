@@ -18,12 +18,13 @@ BindlessTextureArray::BindlessTextureArray(vk::VulkanState& vs, std::uint32_t si
         t.parent      = this;
         t.vulkanState = &vs;
     }
-    queuedUpdates.reserve(8);
+    queuedUpdates.init(vs, [](auto& vec) { vec.reserve(8); });
 }
 
-void BindlessTextureArray::init(VkDescriptorSet ds, VkDescriptorSet rtds) {
-    descriptorSet   = ds;
-    rtDescriptorSet = rtds;
+void BindlessTextureArray::init(vk::PerFrame<VkDescriptorSet>& ds,
+                                vk::PerFrame<VkDescriptorSet>& rtds) {
+    descriptorSets   = &ds;
+    rtDescriptorSets = &rtds;
 
     // ensure an error pattern exists
     if (errorPattern.getSize().x == 0) { errorPattern.create(32, 32, sf::Color(245, 66, 242)); }
@@ -45,23 +46,21 @@ void BindlessTextureArray::init(VkDescriptorSet ds, VkDescriptorSet rtds) {
         imageInfos[i].sampler     = textures[i].sampler;
     }
 
-    VkWriteDescriptorSet setWrites[2]{};
-    setWrites[0].sType           = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
-    setWrites[0].descriptorCount = textures.size();
-    setWrites[0].dstBinding      = bindIndex;
-    setWrites[0].dstArrayElement = 0;
-    setWrites[0].dstSet          = descriptorSet;
-    setWrites[0].pImageInfo      = imageInfos.data();
-    setWrites[0].descriptorType  = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
-
-    setWrites[1].sType           = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
-    setWrites[1].descriptorCount = textures.size();
-    setWrites[1].dstBinding      = bindIndex;
-    setWrites[1].dstArrayElement = 0;
-    setWrites[1].dstSet          = rtDescriptorSet;
-    setWrites[1].pImageInfo      = imageInfos.data();
-    setWrites[1].descriptorType  = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
-    vkUpdateDescriptorSets(vulkanState.device, 2, setWrites, 0, nullptr);
+    std::array<VkWriteDescriptorSet, 2 * Config::MaxConcurrentFrames> setWrites{};
+    unsigned int i     = 0;
+    const auto visitor = [this, &i, &setWrites, &imageInfos](auto& set) {
+        setWrites[i].sType           = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+        setWrites[i].descriptorCount = textures.size();
+        setWrites[i].dstBinding      = bindIndex;
+        setWrites[i].dstArrayElement = 0;
+        setWrites[i].dstSet          = set;
+        setWrites[i].pImageInfo      = imageInfos.data();
+        setWrites[i].descriptorType  = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+        ++i;
+    };
+    descriptorSets->visit(visitor);
+    rtDescriptorSets->visit(visitor);
+    vkUpdateDescriptorSets(vulkanState.device, setWrites.size(), setWrites.data(), 0, nullptr);
 }
 
 void BindlessTextureArray::cleanup() {
@@ -92,22 +91,30 @@ void BindlessTextureArray::prepareTextureUpdate(std::uint32_t i, const sf::Image
 }
 
 void BindlessTextureArray::updateTexture(vk::Texture* texture) {
-    queuedUpdates.emplace_back(texture);
+    queuedUpdates.visit([texture](auto& vec) { vec.emplace_back(texture); });
+}
+
+void BindlessTextureArray::resetTexture(std::uint32_t i) {
+    vk::Texture* texture = &textures[i];
+    texture->cleanup();
+    *texture = errorTexture;
+    updateTexture(texture);
+    texture->reset();
 }
 
 void BindlessTextureArray::commitDescriptorUpdates() {
-    if (!queuedUpdates.empty()) {
+    if (!queuedUpdates.current().empty()) {
         // prepare descriptor updates before waiting
         std::vector<VkWriteDescriptorSet> writes;
         std::vector<VkDescriptorImageInfo> infos;
-        writes.resize(queuedUpdates.size() * 2, {});
-        infos.resize(queuedUpdates.size() * 2, {});
+        writes.resize(queuedUpdates.current().size() * 2, {});
+        infos.resize(queuedUpdates.current().size() * 2, {});
 
-        for (unsigned int j = 0; j < queuedUpdates.size(); ++j) {
-            vk::Texture* texture  = queuedUpdates[j];
+        for (unsigned int j = 0; j < queuedUpdates.current().size(); ++j) {
+            vk::Texture* texture  = queuedUpdates.current()[j];
             const std::uint32_t i = texture - textures.data();
             const bool isRT       = i >= firstRtId;
-            const unsigned int k  = queuedUpdates.size() + j;
+            const unsigned int k  = queuedUpdates.current().size() + j;
 
             infos[j].imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
             infos[j].imageView   = texture->view;
@@ -123,7 +130,7 @@ void BindlessTextureArray::commitDescriptorUpdates() {
             writes[j].descriptorCount = 1;
             writes[j].dstBinding      = bindIndex;
             writes[j].dstArrayElement = i;
-            writes[j].dstSet          = descriptorSet;
+            writes[j].dstSet          = descriptorSets->current();
             writes[j].pImageInfo      = &infos[j];
             writes[j].descriptorType  = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
 
@@ -131,14 +138,12 @@ void BindlessTextureArray::commitDescriptorUpdates() {
             writes[k].descriptorCount = 1;
             writes[k].dstBinding      = bindIndex;
             writes[k].dstArrayElement = i;
-            writes[k].dstSet          = rtDescriptorSet;
+            writes[k].dstSet          = rtDescriptorSets->current();
             writes[k].pImageInfo      = &infos[k];
             writes[k].descriptorType  = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
         }
-        queuedUpdates.clear();
 
-        // perform update after waiting
-        vkDeviceWaitIdle(vulkanState.device);
+        queuedUpdates.current().clear();
         vkUpdateDescriptorSets(vulkanState.device, writes.size(), writes.data(), 0, nullptr);
     }
 }
