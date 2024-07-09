@@ -1,22 +1,14 @@
 #ifndef BLIB_RENDER_RENDERER_TEXTURE_HPP
 #define BLIB_RENDER_RENDERER_TEXTURE_HPP
 
-#include <BLIB/Render/Transfers/Transferable.hpp>
+#include <BLIB/Render/Vulkan/TextureBase.hpp>
 #include <BLIB/Resources.hpp>
-#include <BLIB/Vulkan.hpp>
 #include <SFML/Graphics/Image.hpp>
-#include <glm/glm.hpp>
 
 namespace bl
 {
 namespace rc
 {
-namespace res
-{
-class TexturePool;
-class BindlessTextureArray;
-} // namespace res
-
 namespace vk
 {
 struct VulkanState;
@@ -27,7 +19,7 @@ struct VulkanState;
  *
  * @ingroup Renderer
  */
-class Texture : public tfr::Transferable {
+class Texture : public TextureBase {
 public:
     static constexpr VkFormat DefaultFormat = VK_FORMAT_R8G8B8A8_UNORM;
 
@@ -43,11 +35,11 @@ public:
     virtual ~Texture() = default;
 
     /**
-     * @brief Resizes the texture to be the given size unless it is already bigger
+     * @brief Resizes the texture to the given size
      *
-     * @param size The size to ensure
+     * @param size The new texture size
      */
-    void ensureSize(const glm::u32vec2& size);
+    virtual void resize(const glm::u32vec2& size) override;
 
     /**
      * @brief Updates the content of the texture from the given image. Performs no bounds validation
@@ -70,40 +62,6 @@ public:
                 const sf::IntRect& source = {});
 
     /**
-     * @brief Returns the normalized coordinate for this texture, taking into account atlasing
-     *        performed by the renderer
-     *
-     * @param src The texture coordinate to convert
-     * @return The texture coordinate to use for geometry
-     */
-    glm::vec2 convertCoord(const glm::vec2& src) const;
-
-    /**
-     * @brief Performs convertCoord but first normalizes the coordinate to this texture
-     *
-     * @param src The unnormalized coordinate to normalize and convert
-     * @return The coordinate to use for geometry
-     */
-    glm::vec2 normalizeAndConvertCoord(const glm::vec2& src) const;
-
-    /**
-     * @brief Updates the sampler that this texture uses
-     *
-     * @param sampler The new sampler to use
-     */
-    void setSampler(VkSampler sampler);
-
-    /**
-     * @brief Returns the size of the texture in pixels
-     */
-    const glm::u32vec2& rawSize() const;
-
-    /**
-     * @brief Returns the size of the texture in pixels
-     */
-    const glm::vec2& size() const;
-
-    /**
      * @brief Returns the Vulkan image handle
      */
     VkImage getImage() const;
@@ -113,15 +71,7 @@ public:
      */
     VkImageView getView() const;
 
-    /**
-     * @brief Returns whether or not this texture contains significant transparency (more than 10%).
-     *        Only valid for textures loaded from static data, not render textures
-     */
-    bool containsTransparency() const;
-
 private:
-    res::BindlessTextureArray* parent;
-
     // transfer data
     const sf::Image* altImg;
     resource::Ref<sf::Image> transferImg;
@@ -129,19 +79,13 @@ private:
     sf::IntRect source;
 
     // texture data
-    VkFormat format;
-    VkImageUsageFlags usage;
     VkImage image;
     VmaAllocation alloc;
     VmaAllocationInfo allocInfo;
     VkImageView view;
-    VkSampler sampler;
     VkImageLayout currentLayout;
-    glm::u32vec2 sizeRaw;
-    glm::vec2 sizeF;
-    bool hasTransparency;
 
-    void create(const glm::u32vec2& size, VkFormat format, VkImageUsageFlags usage);
+    virtual void create(const glm::u32vec2& size) override;
     void createFromContentsAndQueue();
     virtual void executeTransfer(VkCommandBuffer commandBuffer,
                                  tfr::TransferContext& transferEngine) override;
@@ -155,15 +99,9 @@ private:
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline const glm::u32vec2& Texture::rawSize() const { return sizeRaw; }
-
-inline const glm::vec2& Texture::size() const { return sizeF; }
-
 inline VkImage Texture::getImage() const { return image; }
 
 inline VkImageView Texture::getView() const { return view; }
-
-inline bool Texture::containsTransparency() const { return hasTransparency; }
 
 } // namespace vk
 } // namespace rc

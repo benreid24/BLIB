@@ -25,6 +25,12 @@ struct Config {
 
     static constexpr std::uint32_t MaxRenderPasses = 4;
 
+    static constexpr std::uint32_t MaxTextureCount = 4096;
+
+    static constexpr std::uint32_t MaxRenderTextures = 32;
+
+    static constexpr std::uint32_t ErrorTextureId = MaxTextureCount - Config::MaxRenderTextures - 1;
+
     static constexpr std::uint32_t DefaultSceneObjectCapacity = 128;
 
     static constexpr glm::vec3 UpDirection  = {0.f, 1.f, 0.f};

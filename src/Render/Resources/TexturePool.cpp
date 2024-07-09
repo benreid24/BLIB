@@ -10,12 +10,12 @@ namespace res
 {
 TexturePool::TexturePool(vk::VulkanState& vs)
 : vulkanState(vs)
-, textures(vs, MaxTextureCount, TextureArrayBindIndex)
-, refCounts(MaxTextureCount)
-, freeSlots(MaxTextureCount - BindlessTextureArray::MaxRenderTextures - 1)
-, freeRtSlots(BindlessTextureArray::MaxRenderTextures)
-, reverseFileMap(MaxTextureCount - BindlessTextureArray::MaxRenderTextures)
-, reverseImageMap(MaxTextureCount - BindlessTextureArray::MaxRenderTextures) {
+, textures(vs, Config::MaxTextureCount, TextureArrayBindIndex)
+, refCounts(Config::MaxTextureCount)
+, freeSlots(Config::MaxTextureCount - Config::MaxRenderTextures - 1)
+, freeRtSlots(Config::MaxRenderTextures)
+, reverseFileMap(Config::MaxTextureCount - Config::MaxRenderTextures)
+, reverseImageMap(Config::MaxTextureCount - Config::MaxRenderTextures) {
     toRelease.reserve(64);
 }
 
@@ -35,7 +35,7 @@ void TexturePool::init() {
     // create descriptor pool
     VkDescriptorPoolSize poolSize{};
     poolSize.type            = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
-    poolSize.descriptorCount = MaxTextureCount * 2 * Config::MaxConcurrentFrames;
+    poolSize.descriptorCount = Config::MaxTextureCount * 2 * Config::MaxConcurrentFrames;
 
     VkDescriptorPoolCreateInfo poolCreate{};
     poolCreate.sType         = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
@@ -97,7 +97,7 @@ void TexturePool::releaseUnused() {
 }
 
 void TexturePool::releaseTexture(const TextureRef& ref) {
-    if (ref.id() == ErrorTextureId) return;
+    if (ref.id() == Config::ErrorTextureId) return;
 
     std::unique_lock lock(mutex);
 
@@ -156,7 +156,7 @@ TextureRef TexturePool::allocateTexture() {
     reverseFileMap[i]  = nullptr;
     reverseImageMap[i] = nullptr;
 
-    return TextureRef{*this, textures.getTexture(i)};
+    return TextureRef{*this, textures.getTexture(i), i};
 }
 
 TextureRef TexturePool::createTexture(const sf::Image& src, VkSampler sampler) {
@@ -164,10 +164,11 @@ TextureRef TexturePool::createTexture(const sf::Image& src, VkSampler sampler) {
 
     std::unique_lock lock(mutex);
 
-    TextureRef txtr      = allocateTexture();
-    txtr.texture->altImg = &src;
-    txtr->sampler        = sampler;
-    txtr->createFromContentsAndQueue();
+    TextureRef txtr = allocateTexture();
+    auto& t         = static_cast<vk::Texture&>(*txtr.get());
+    t.altImg        = &src;
+    txtr->sampler   = sampler;
+    t.createFromContentsAndQueue();
     textures.updateTexture(txtr.get());
 
     return txtr;
@@ -179,7 +180,7 @@ TextureRef TexturePool::createTexture(const glm::u32vec2& size, VkSampler sample
     std::unique_lock lock(mutex);
 
     TextureRef txtr = allocateTexture();
-    txtr->create(size, vk::Texture::DefaultFormat, 0);
+    txtr->create(size);
     txtr->sampler = sampler;
     textures.updateTexture(txtr.get());
 
@@ -203,10 +204,8 @@ TextureRef TexturePool::createRenderTexture(const glm::u32vec2& size, VkSampler 
     refCounts[i].store(0);
 
     // init texture
-    TextureRef txtr{*this, textures.getTexture(i)};
-    txtr->create(size,
-                 vk::StandardAttachmentBuffers::DefaultColorFormat,
-                 VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT);
+    TextureRef txtr{*this, textures.getTexture(i), i};
+    txtr->create(size);
     txtr->sampler = sampler;
     textures.updateTexture(txtr.get());
 
@@ -222,7 +221,7 @@ TextureRef TexturePool::getOrLoadTexture(const std::string& path, VkSampler samp
     if (it != fileMap.end()) {
         const auto rit = std::find(toRelease.begin(), toRelease.end(), it->second);
         if (rit != toRelease.end()) { toRelease.erase(rit); }
-        return TextureRef{*this, textures.getTexture(it->second)};
+        return TextureRef{*this, textures.getTexture(it->second), it->second};
     }
 
     TextureRef txtr = allocateTexture();
@@ -230,7 +229,7 @@ TextureRef TexturePool::getOrLoadTexture(const std::string& path, VkSampler samp
     it                        = fileMap.try_emplace(path, txtr.id()).first;
     reverseFileMap[txtr.id()] = &it->first;
     txtr->sampler             = sampler;
-    txtr->createFromContentsAndQueue();
+    static_cast<vk::Texture&>(*txtr.get()).createFromContentsAndQueue();
     textures.updateTexture(txtr.get());
 
     return txtr;
@@ -245,7 +244,7 @@ TextureRef TexturePool::getOrLoadTexture(const sf::Image& src, VkSampler sampler
     if (it != imageMap.end()) {
         const auto rit = std::find(toRelease.begin(), toRelease.end(), it->second);
         if (rit != toRelease.end()) { toRelease.erase(rit); }
-        return TextureRef{*this, textures.getTexture(it->second)};
+        return TextureRef{*this, textures.getTexture(it->second), it->second};
     }
 
     TextureRef txtr = allocateTexture();
@@ -253,7 +252,7 @@ TextureRef TexturePool::getOrLoadTexture(const sf::Image& src, VkSampler sampler
     it                         = imageMap.try_emplace(&src, txtr.id()).first;
     reverseImageMap[txtr.id()] = &src;
     txtr->sampler              = sampler;
-    txtr->createFromContentsAndQueue();
+    static_cast<vk::Texture&>(*txtr.get()).createFromContentsAndQueue();
     textures.updateTexture(txtr.get());
 
     return txtr;

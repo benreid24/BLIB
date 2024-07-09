@@ -31,9 +31,6 @@ namespace res
  */
 class TexturePool {
 public:
-    static constexpr std::uint32_t MaxTextureCount = 4096;
-    static constexpr std::uint32_t ErrorTextureId =
-        MaxTextureCount - BindlessTextureArray::MaxRenderTextures - 1;
     static constexpr std::uint32_t TextureArrayBindIndex = 0;
 
     /**

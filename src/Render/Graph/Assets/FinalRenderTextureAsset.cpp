@@ -10,7 +10,7 @@ namespace rc
 {
 namespace rgi
 {
-FinalRenderTextureAsset::FinalRenderTextureAsset(vk::Framebuffer& framebuffer,
+FinalRenderTextureAsset::FinalRenderTextureAsset(vk::PerFrame<vk::Framebuffer>& framebuffers,
                                                  const VkViewport& viewport,
                                                  const VkRect2D& scissor,
                                                  const VkClearValue* clearColors,
@@ -18,7 +18,7 @@ FinalRenderTextureAsset::FinalRenderTextureAsset(vk::Framebuffer& framebuffer,
 : FramebufferAsset(rg::AssetTags::FinalFrameOutput,
                    Config::RenderPassIds::StandardAttachmentDefault, viewport, scissor, clearColors,
                    clearColorCount)
-, framebuffer(framebuffer) {}
+, framebuffers(framebuffers) {}
 
 void FinalRenderTextureAsset::doCreate(engine::Engine&, Renderer& renderer, RenderTarget*) {
     renderPass = &renderer.renderPassCache().getRenderPass(renderPassId);
@@ -32,7 +32,7 @@ void FinalRenderTextureAsset::doPrepareForOutput(const rg::ExecutionContext&) {
     // noop, handled by renderpass
 }
 
-vk::Framebuffer& FinalRenderTextureAsset::currentFramebuffer() { return framebuffer; }
+vk::Framebuffer& FinalRenderTextureAsset::currentFramebuffer() { return framebuffers.current(); }
 
 void FinalRenderTextureAsset::onResize(glm::u32vec2) {
     // noop

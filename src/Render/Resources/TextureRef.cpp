@@ -2,6 +2,7 @@
 
 #include <BLIB/Render/Resources/TexturePool.hpp>
 #include <BLIB/Render/Vulkan/Texture.hpp>
+#include <BLIB/Render/Vulkan/TextureDoubleBuffered.hpp>
 
 namespace bl
 {
@@ -16,23 +17,27 @@ bool rendererAlive = true;
 
 TextureRef::TextureRef()
 : owner(nullptr)
-, texture(nullptr) {}
+, texture(nullptr)
+, arrayId(0) {}
 
-TextureRef::TextureRef(TexturePool& owner, vk::Texture& texture)
+TextureRef::TextureRef(TexturePool& owner, vk::TextureBase& texture, std::uint32_t aid)
 : owner(&owner)
-, texture(&texture) {
+, texture(&texture)
+, arrayId(aid) {
     addRef();
 }
 
 TextureRef::TextureRef(const TextureRef& copy)
 : owner(copy.owner)
-, texture(copy.texture) {
+, texture(copy.texture)
+, arrayId(copy.arrayId) {
     addRef();
 }
 
 TextureRef::TextureRef(TextureRef&& m)
 : owner(m.owner)
-, texture(m.texture) {
+, texture(m.texture)
+, arrayId(m.arrayId) {
     m.texture = nullptr;
 }
 
@@ -43,6 +48,7 @@ TextureRef& TextureRef::operator=(const TextureRef& copy) {
 
     owner   = copy.owner;
     texture = copy.texture;
+    arrayId = copy.arrayId;
     addRef();
     return *this;
 }
@@ -52,6 +58,7 @@ TextureRef& TextureRef::operator=(TextureRef&& copy) {
 
     owner        = copy.owner;
     texture      = copy.texture;
+    arrayId      = copy.arrayId;
     copy.texture = nullptr;
     return *this;
 }
@@ -70,11 +77,49 @@ void TextureRef::release() {
     if (owner->refCounts[i].load() == 0) { owner->queueForRelease(i); }
 }
 
-std::uint32_t TextureRef::id() const { return texture - &(owner->textures.getTexture(0)); }
-
 TextureRef::operator bool() const { return texture != nullptr; }
 
 void TextureRef::disableCleanup() { rendererAlive = false; }
+
+vk::Texture* TextureRef::asBindlessTexture() {
+#ifdef BLIB_DEBUG
+    vk::Texture* t = dynamic_cast<vk::Texture*>(texture);
+    if (!t) { throw std::runtime_error("Texture is not a bindless texture"); }
+    return t;
+#else
+    return static_cast<vk::Texture*>(texture);
+#endif
+}
+
+const vk::Texture* TextureRef::asBindlessTexture() const {
+#ifdef BLIB_DEBUG
+    const vk::Texture* t = dynamic_cast<const vk::Texture*>(texture);
+    if (!t) { throw std::runtime_error("Texture is not a bindless texture"); }
+    return t;
+#else
+    return static_cast<const vk::Texture*>(texture);
+#endif
+}
+
+vk::TextureDoubleBuffered* TextureRef::asRenderTexture() {
+#ifdef BLIB_DEBUG
+    vk::TextureDoubleBuffered* t = dynamic_cast<vk::TextureDoubleBuffered*>(texture);
+    if (!t) { throw std::runtime_error("Texture is not a render texture"); }
+    return t;
+#else
+    return static_cast<vk::TextureDoubleBuffered*>(texture);
+#endif
+}
+
+const vk::TextureDoubleBuffered* TextureRef::asRenderTexture() const {
+#ifdef BLIB_DEBUG
+    const vk::TextureDoubleBuffered* t = dynamic_cast<const vk::TextureDoubleBuffered*>(texture);
+    if (!t) { throw std::runtime_error("Texture is not a render texture"); }
+    return t;
+#else
+    return static_cast<const vk::TextureDoubleBuffered*>(texture);
+#endif
+}
 
 } // namespace res
 } // namespace rc

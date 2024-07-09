@@ -10,60 +10,40 @@ namespace rc
 namespace vk
 {
 Texture::Texture()
-: parent(nullptr)
-, altImg(nullptr)
+: altImg(nullptr)
 , destPos(0, 0)
 , source(0, 0, 0, 0)
 , image(nullptr)
 , view(nullptr)
-, sampler(nullptr)
-, currentLayout(VK_IMAGE_LAYOUT_UNDEFINED)
-, sizeRaw(0, 0)
-, sizeF(0.f, 0.f) {}
+, currentLayout(VK_IMAGE_LAYOUT_UNDEFINED) {}
 
 void Texture::createFromContentsAndQueue() {
     const sf::Image& src = altImg ? *altImg : *transferImg;
-    create({src.getSize().x, src.getSize().y}, DefaultFormat, 0);
+    create({src.getSize().x, src.getSize().y});
     updateTrans(src);
     queueTransfer(SyncRequirement::Immediate);
 }
 
-void Texture::create(const glm::u32vec2& s, VkFormat f, VkImageUsageFlags u) {
-    usage   = u;
-    format  = f;
-    sizeRaw = s;
-    sizeF.x = static_cast<float>(sizeRaw.x);
-    sizeF.y = static_cast<float>(sizeRaw.y);
+void Texture::create(const glm::u32vec2& s) {
+    updateSize(s);
 
     vulkanState->createImage(s.x,
                              s.y,
-                             format,
+                             DefaultFormat,
                              VK_IMAGE_TILING_OPTIMAL,
                              VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT |
-                                 VK_IMAGE_USAGE_TRANSFER_SRC_BIT | usage,
+                                 VK_IMAGE_USAGE_TRANSFER_SRC_BIT,
                              VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
                              &image,
                              &alloc,
                              &allocInfo);
-    view = vulkanState->createImageView(image, format, VK_IMAGE_ASPECT_COLOR_BIT);
+    view = vulkanState->createImageView(image, DefaultFormat, VK_IMAGE_ASPECT_COLOR_BIT);
 
-    if ((u & VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT) == 0) {
-        vulkanState->transitionImageLayout(
-            image, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
-        currentLayout = VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL;
-    }
-    else {
-        vulkanState->transitionImageLayout(
-            image, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
-        currentLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
-    }
+    vulkanState->transitionImageLayout(
+        image, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
+    currentLayout = VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL;
 
     queueTransfer(SyncRequirement::Immediate);
-}
-
-void Texture::setSampler(VkSampler s) {
-    sampler = s;
-    parent->updateTexture(this);
 }
 
 void Texture::update(const sf::Image& content, const glm::u32vec2& dp, const sf::IntRect& s) {
@@ -83,18 +63,7 @@ void Texture::update(const resource::Ref<sf::Image>& content, const glm::u32vec2
     queueTransfer(SyncRequirement::Immediate);
 }
 
-glm::vec2 Texture::convertCoord(const glm::vec2& src) const {
-    // TODO - texture atlasing at the renderer level
-    return src;
-}
-
-glm::vec2 Texture::normalizeAndConvertCoord(const glm::vec2& src) const {
-    return convertCoord(src / size());
-}
-
-void Texture::ensureSize(const glm::u32vec2& s) {
-    if (s.x <= sizeRaw.x && s.y <= sizeRaw.y) return;
-
+void Texture::resize(const glm::u32vec2& s) {
     // cache data needed to delete original image
     VkImage oldImage = image;
 
@@ -111,15 +80,15 @@ void Texture::ensureSize(const glm::u32vec2& s) {
     currentLayout = VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL;
 
     // create new image
-    const glm::u32vec2 oldSize = sizeRaw;
-    create(s, format, usage);
+    const glm::u32vec2 oldSize = rawSize();
+    create(s);
 
     // copy from old to new
     auto cb = vulkanState->sharedCommandPool.createBuffer();
 
     VkImageCopy copyInfo{};
-    copyInfo.extent.width                  = oldSize.x;
-    copyInfo.extent.height                 = oldSize.y;
+    copyInfo.extent.width                  = std::min(oldSize.x, s.x);
+    copyInfo.extent.height                 = std::min(oldSize.y, s.y);
     copyInfo.extent.depth                  = 1;
     copyInfo.srcSubresource.aspectMask     = VK_IMAGE_ASPECT_COLOR_BIT;
     copyInfo.srcSubresource.mipLevel       = 0;
@@ -137,7 +106,7 @@ void Texture::ensureSize(const glm::u32vec2& s) {
 
     cb.submit();
 
-    parent->updateTexture(this);
+    updateDescriptors();
 }
 
 void Texture::executeTransfer(VkCommandBuffer cb, tfr::TransferContext& engine) {
@@ -256,13 +225,13 @@ void Texture::updateTrans(const sf::Image& content) {
         if (*a > 0 || *a < 255) {
             ++t;
             if (t >= thresh) {
-                hasTransparency = true;
+                updateTransparency(true);
                 return;
             }
         }
     }
 
-    hasTransparency = false;
+    updateTransparency(false);
 }
 
 } // namespace vk

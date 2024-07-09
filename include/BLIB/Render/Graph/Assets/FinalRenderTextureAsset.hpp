@@ -20,13 +20,13 @@ public:
     /**
      * @brief Creates a new asset
      *
-     * @param framebuffer The render texture framebuffer
+     * @param framebuffers The render texture framebuffers
      * @param viewport The observer's viewport
      * @param scissor The observer's scissor
      * @param clearColors Pointer to array of clear colors for attachments
      * @param clearColorCount The number of clear colors
      */
-    FinalRenderTextureAsset(vk::Framebuffer& framebuffer, const VkViewport& viewport,
+    FinalRenderTextureAsset(vk::PerFrame<vk::Framebuffer>& framebuffers, const VkViewport& viewport,
                             const VkRect2D& scissor, const VkClearValue* clearColors,
                             const std::uint32_t clearColorCount);
 
@@ -41,7 +41,7 @@ public:
     virtual vk::Framebuffer& currentFramebuffer() override;
 
 private:
-    vk::Framebuffer& framebuffer;
+    vk::PerFrame<vk::Framebuffer>& framebuffers;
 
     virtual void doCreate(engine::Engine& engine, Renderer& renderer,
                           RenderTarget* observer) override;

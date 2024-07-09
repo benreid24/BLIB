@@ -128,13 +128,15 @@ public:
     glm::u32vec2 getSize() const;
 
 private:
-    // TODO - consider separate storage in TexturePool for double-buffering
-    // or allow Texture to double-buffer
+    struct FramePayload {
+        AttachmentBuffer depthBuffer;
+        StandardAttachmentSet attachmentSet;
+    };
+
     DedicatedCommandBuffers commandBuffers;
     res::TextureRef texture;
-    AttachmentBuffer depthBuffer;
-    StandardAttachmentSet attachmentSet;
-    Framebuffer framebuffer;
+    PerFrame<FramePayload> attachments;
+    PerFrame<Framebuffer> framebuffers;
 
     // called by renderer
     RenderTexture(engine::Engine& engine, Renderer& renderer, rg::AssetFactory& factory,

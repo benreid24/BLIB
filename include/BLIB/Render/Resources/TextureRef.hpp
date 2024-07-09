@@ -10,7 +10,9 @@ namespace rc
 namespace vk
 {
 class Texture;
-}
+class TextureBase;
+class TextureDoubleBuffered;
+} // namespace vk
 
 namespace res
 {
@@ -84,38 +86,59 @@ public:
     /**
      * @brief Access the underlying texture
      */
-    constexpr const vk::Texture& operator*() const;
+    const vk::TextureBase& operator*() const;
 
     /**
      * @brief Access the underlying texture
      */
-    constexpr vk::Texture& operator*();
+    vk::TextureBase& operator*();
 
     /**
      * @brief Access the underlying texture
      */
-    constexpr const vk::Texture* operator->() const;
+    const vk::TextureBase* operator->() const;
 
     /**
      * @brief Access the underlying texture
      */
-    constexpr vk::Texture* operator->();
+    vk::TextureBase* operator->();
 
     /**
      * @brief Access the underlying texture
      */
-    constexpr vk::Texture* get();
+    vk::TextureBase* get();
 
     /**
      * @brief Access the underlying texture
      */
-    constexpr const vk::Texture* get() const;
+    const vk::TextureBase* get() const;
+
+    /**
+     * @brief Access the underlying texture as a bindless texture
+     */
+    vk::Texture* asBindlessTexture();
+
+    /**
+     * @brief Access the underlying texture as a bindless texture
+     */
+    const vk::Texture* asBindlessTexture() const;
+
+    /**
+     * @brief Access the underlying texture as a render texture
+     */
+    vk::TextureDoubleBuffered* asRenderTexture();
+
+    /**
+     * @brief Access the underlying texture as a render texture
+     */
+    const vk::TextureDoubleBuffered* asRenderTexture() const;
 
 private:
     TexturePool* owner;
-    vk::Texture* texture;
+    vk::TextureBase* texture;
+    std::uint32_t arrayId;
 
-    TextureRef(TexturePool& owner, vk::Texture& texture);
+    TextureRef(TexturePool& owner, vk::TextureBase& texture, std::uint32_t arrayId);
 
     void addRef();
     static void disableCleanup();
@@ -125,17 +148,19 @@ private:
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline constexpr const vk::Texture& TextureRef::operator*() const { return *texture; }
+inline std::uint32_t TextureRef::id() const { return arrayId; }
 
-inline constexpr const vk::Texture* TextureRef::operator->() const { return texture; }
+inline const vk::TextureBase& TextureRef::operator*() const { return *texture; }
 
-inline constexpr vk::Texture& TextureRef::operator*() { return *texture; }
+inline const vk::TextureBase* TextureRef::operator->() const { return texture; }
 
-inline constexpr vk::Texture* TextureRef::operator->() { return texture; }
+inline vk::TextureBase& TextureRef::operator*() { return *texture; }
 
-inline constexpr vk::Texture* TextureRef::get() { return texture; }
+inline vk::TextureBase* TextureRef::operator->() { return texture; }
 
-inline constexpr const vk::Texture* TextureRef::get() const { return texture; }
+inline vk::TextureBase* TextureRef::get() { return texture; }
+
+inline const vk::TextureBase* TextureRef::get() const { return texture; }
 
 } // namespace res
 } // namespace rc

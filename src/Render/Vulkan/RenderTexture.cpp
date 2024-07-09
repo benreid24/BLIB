@@ -16,6 +16,8 @@ RenderTexture::RenderTexture(engine::Engine& engine, Renderer& renderer, rg::Ass
                              const glm::u32vec2& size, VkSampler sampler)
 : RenderTarget(engine, renderer, factory, true) {
     commandBuffers.create(renderer.vulkanState());
+    attachments.emptyInit(renderer.vulkanState());
+    framebuffers.emptyInit(renderer.vulkanState());
 
     scissor.extent.width  = size.x;
     scissor.extent.height = size.y;
@@ -27,12 +29,11 @@ RenderTexture::RenderTexture(engine::Engine& engine, Renderer& renderer, rg::Ass
     viewport.width        = size.x;
     viewport.height       = size.y;
 
-    // allocate textures and depth buffers
     texture = renderer.texturePool().createRenderTexture(size, sampler);
     resize(size);
 
     graphAssets.putAsset<rgi::FinalRenderTextureAsset>(
-        framebuffer, viewport, scissor, clearColors, std::size(clearColors));
+        framebuffers, viewport, scissor, clearColors, std::size(clearColors));
 }
 
 RenderTexture::~RenderTexture() {
@@ -41,26 +42,38 @@ RenderTexture::~RenderTexture() {
 }
 
 void RenderTexture::resize(const glm::u32vec2& size) {
-    if (getSize() != size) { texture->ensureSize(size); }
-    depthBuffer.create(renderer.vulkanState(),
-                       StandardAttachmentBuffers::findDepthFormat(renderer.vulkanState()),
-                       VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT,
-                       {size.x, size.y});
+    if (getSize() != size) { texture->resize(size); }
 
-    // set attachment sets and bind framebuffers
     VkRenderPass renderPass = renderer.renderPassCache()
                                   .getRenderPass(Config::RenderPassIds::StandardAttachmentDefault)
                                   .rawPass();
-    attachmentSet.setRenderExtent(scissor.extent);
-    attachmentSet.setAttachments(
-        texture->getImage(), texture->getView(), depthBuffer.image(), depthBuffer.view());
-    framebuffer.create(renderer.vulkanState(), renderPass, attachmentSet);
+
+    unsigned int i = 0;
+    attachments.visit([this, size, renderPass, &i](auto& a) {
+        a.depthBuffer.create(renderer.vulkanState(),
+                             StandardAttachmentBuffers::findDepthFormat(renderer.vulkanState()),
+                             VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT,
+                             {size.x, size.y});
+
+        a.attachmentSet.setRenderExtent(scissor.extent);
+        a.attachmentSet.setAttachments(texture.asRenderTexture()->getImages().getRaw(i).image,
+                                       texture.asRenderTexture()->getImages().getRaw(i).view,
+                                       a.depthBuffer.image(),
+                                       a.depthBuffer.view());
+        ++i;
+    });
+
+    i = 0;
+    framebuffers.visit([this, &i, renderPass](auto& fb) {
+        fb.create(renderer.vulkanState(), renderPass, attachments.getRaw(i).attachmentSet);
+        ++i;
+    });
 }
 
 void RenderTexture::destroy() {
     if (texture) {
-        framebuffer.deferCleanup();
-        depthBuffer.deferDestroy();
+        framebuffers.cleanup([](auto& fb) { fb.deferCleanup(); });
+        attachments.cleanup([](auto& a) { a.depthBuffer.deferDestroy(); });
         texture.release();
     }
 }
