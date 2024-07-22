@@ -302,12 +302,14 @@ vk::RenderTexture::Handle Renderer::createRenderTexture(const glm::u32vec2& size
 }
 
 void Renderer::destroyRenderTexture(vk::RenderTexture* rt) {
-    for (auto it = renderTextures.begin(); it != renderTextures.end(); ++it) {
-        if (it->payload.get() == rt) {
-            renderTextures.erase(it);
-            return;
+    vulkanState().cleanupManager.add([this, rt]() {
+        for (auto it = renderTextures.begin(); it != renderTextures.end(); ++it) {
+            if (it->payload.get() == rt) {
+                renderTextures.erase(it);
+                return;
+            }
         }
-    }
+    });
 }
 
 rg::Strategy& Renderer::getRenderStrategy() {

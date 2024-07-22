@@ -44,6 +44,9 @@ RenderTexture::~RenderTexture() {
 void RenderTexture::resize(const glm::u32vec2& size) {
     if (getSize() != size) { texture->resize(size); }
 
+    scissor.extent.width  = size.x;
+    scissor.extent.height = size.y;
+
     VkRenderPass renderPass = renderer.renderPassCache()
                                   .getRenderPass(Config::RenderPassIds::StandardAttachmentDefault)
                                   .rawPass();
