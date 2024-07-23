@@ -27,8 +27,8 @@ void Animation2DPlayer::createNewPlayer(const resource::Ref<gfx::a2d::AnimationD
         playerEntity, animation, forSlideshow, play, forceLoop);
     addPlayerDep();
     if (isUpdate) {
-        Textured::setTexture(
-            renderer->texturePool().getOrLoadTexture(player->animation->resolvedSpritesheet()));
+        Textured::setTexture(renderer->texturePool().getOrLoadTexture(
+            player->getAnimation()->resolvedSpritesheet()));
     }
 }
 
@@ -38,8 +38,8 @@ void Animation2DPlayer::useExistingPlayer(ecs::Entity pent) {
     player              = registry->getComponent<com::Animation2DPlayer>(pent);
     addPlayerDep();
     if (isUpdate) {
-        Textured::setTexture(
-            renderer->texturePool().getOrLoadTexture(player->animation->resolvedSpritesheet()));
+        Textured::setTexture(renderer->texturePool().getOrLoadTexture(
+            player->getAnimation()->resolvedSpritesheet()));
     }
 }
 
@@ -52,7 +52,7 @@ void Animation2DPlayer::create(rc::Renderer& r, ecs::Registry& reg, ecs::Entity 
     Textured::create(
         reg,
         entity,
-        renderer->texturePool().getOrLoadTexture(player->animation->resolvedSpritesheet()));
+        renderer->texturePool().getOrLoadTexture(player->getAnimation()->resolvedSpritesheet()));
 }
 
 void Animation2DPlayer::create(rc::Renderer& r, ecs::Registry& reg, ecs::Entity entity,
@@ -65,7 +65,7 @@ void Animation2DPlayer::create(rc::Renderer& r, ecs::Registry& reg, ecs::Entity 
     Textured::create(
         reg,
         entity,
-        renderer->texturePool().getOrLoadTexture(player->animation->resolvedSpritesheet()));
+        renderer->texturePool().getOrLoadTexture(player->getAnimation()->resolvedSpritesheet()));
 }
 
 void Animation2DPlayer::addPlayerDep() { registry->addDependency(playerEntity, me); }

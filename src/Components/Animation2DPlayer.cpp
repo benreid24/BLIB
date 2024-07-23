@@ -12,18 +12,21 @@ Animation2DPlayer::Animation2DPlayer(const resource::Ref<gfx::a2d::AnimationData
 , currentFrame(0)
 , isPlaying(p)
 , forceLoop(l)
+, loop(true)
 , frameTime(0.f)
 , playerIndex(InvalidIndex)
 , framePayload() {}
 
 void Animation2DPlayer::play(bool restart) {
+    forceLoop = false;
     if (restart) { stop(); }
     isPlaying = true;
 }
 
-void Animation2DPlayer::playLooping(bool restart) {
+void Animation2DPlayer::playLooping(bool l, bool restart) {
     if (restart) { stop(); }
     forceLoop = true;
+    loop      = l;
     isPlaying = true;
 }
 
@@ -57,7 +60,7 @@ void Animation2DPlayer::update(float dt) {
 
                 // if we restarted and we shouldn't loop then stop
                 if (ogFrame > currentFrame) {
-                    if (!forceLoop && !animation->isLooping()) {
+                    if (!isLooping()) {
                         stop();
                         break;
                     }
@@ -68,6 +71,10 @@ void Animation2DPlayer::update(float dt) {
         }
         else { isPlaying = false; }
     }
+}
+
+bool Animation2DPlayer::isLooping() const {
+    return forceLoop ? loop : animation ? animation->isLooping() : false;
 }
 
 } // namespace com

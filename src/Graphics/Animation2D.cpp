@@ -98,8 +98,9 @@ void Animation2D::scaleToSize(const glm::vec2& size) {
 }
 
 void Animation2D::ensureLocalSizeUpdated() {
-    if (entity() != ecs::InvalidEntity && component().player && component().player->animation) {
-        const auto sf = component().player->animation->getMaxSize();
+    if (entity() != ecs::InvalidEntity && component().player &&
+        component().player->getAnimation()) {
+        const auto sf = component().player->getAnimation()->getMaxSize();
         OverlayScalable::setLocalSize({sf.x, sf.y});
     }
 }

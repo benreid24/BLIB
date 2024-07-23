@@ -5,7 +5,7 @@ namespace bl
 namespace com
 {
 bool Slideshow::create(rc::vk::VulkanState& vs, const Animation2DPlayer& anim) {
-    if (!anim.animation->isSlideshow()) {
+    if (!anim.getAnimation()->isSlideshow()) {
         BL_LOG_ERROR << "Animation is not a slideshow";
         return false;
     }
@@ -18,13 +18,13 @@ bool Slideshow::create(rc::vk::VulkanState& vs, const Animation2DPlayer& anim) {
         }
     }
 
-    const sf::FloatRect src(anim.animation->getFrame(0).shards.front().source);
+    const sf::FloatRect src(anim.getAnimation()->getFrame(0).shards.front().source);
     indexBuffer.vertices()[0].pos = {0.f, 0.f, 0.f};
     indexBuffer.vertices()[1].pos = {src.width, 0.f, 0.f};
     indexBuffer.vertices()[2].pos = {src.width, src.height, 0.f};
     indexBuffer.vertices()[3].pos = {0.f, src.height, 0.f};
     for (rc::prim::SlideshowVertex& vertex : indexBuffer.vertices()) {
-        vertex.slideshowIndex = anim.playerIndex;
+        vertex.slideshowIndex = anim.getPlayerIndex();
     }
     size       = {src.width, src.height};
     drawParams = indexBuffer.getDrawParameters();
@@ -34,7 +34,7 @@ bool Slideshow::create(rc::vk::VulkanState& vs, const Animation2DPlayer& anim) {
 }
 
 bool Slideshow::setPlayer(const Animation2DPlayer& anim) {
-    if (!anim.animation->isSlideshow()) {
+    if (!anim.getAnimation()->isSlideshow()) {
         BL_LOG_ERROR << "Animation is not a slideshow";
         return false;
     }
@@ -44,7 +44,7 @@ bool Slideshow::setPlayer(const Animation2DPlayer& anim) {
     }
 
     for (rc::prim::SlideshowVertex& vertex : indexBuffer.vertices()) {
-        vertex.slideshowIndex = anim.playerIndex;
+        vertex.slideshowIndex = anim.getPlayerIndex();
     }
     // TODO - handle size change?
 

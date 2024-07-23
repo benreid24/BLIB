@@ -21,7 +21,7 @@ void BatchSlideshowSimple::create(engine::Engine& engine, BatchedSlideshows& bat
     player                    = validatePlayer(engine, playerEntity);
     std::uint32_t playerIndex = 0;
     if (!player) { BL_LOG_ERROR << "Invalid animation player used, defaulting to player 0"; }
-    else { playerIndex = player->playerIndex; }
+    else { playerIndex = player->getPlayerIndex(); }
 
     alloc = owner->component().indexBuffer.allocate(4, 6);
 
@@ -33,7 +33,7 @@ void BatchSlideshowSimple::create(engine::Engine& engine, BatchedSlideshows& bat
     alloc.getIndices()[5] = 3 + alloc.getInfo().vertexStart;
 
     rc::prim::SlideshowVertex* vertices = alloc.getVertices();
-    const sf::FloatRect src(player->animation->getFrame(0).shards.front().source);
+    const sf::FloatRect src(player->getAnimation()->getFrame(0).shards.front().source);
     vertices[0].pos = {0.f, 0.f, 0.f};
     vertices[1].pos = {src.width, 0.f, 0.f};
     vertices[2].pos = {src.width, src.height, 0.f};
@@ -55,7 +55,7 @@ void BatchSlideshowSimple::setPlayer(engine::Engine& engine, ecs::Entity pent) {
     rc::prim::SlideshowVertex* vertices = alloc.getVertices();
     for (unsigned int i = 0; i < 4; ++i) {
         rc::prim::SlideshowVertex& vertex = vertices[i];
-        vertex.slideshowIndex             = player->playerIndex;
+        vertex.slideshowIndex             = player->getPlayerIndex();
         vertex.color                      = {1.f, 1.f, 1.f, 1.f};
     }
 }
@@ -72,7 +72,7 @@ com::Animation2DPlayer* BatchSlideshowSimple::validatePlayer(engine::Engine& eng
         BL_LOG_ERROR << "Given player entity " << ent << " is missing Animation2DPlayer component";
         return nullptr;
     }
-    if (!player->forSlideshow) {
+    if (!player->isForSlideshow()) {
         BL_LOG_ERROR << "Given animation player entity " << ent
                      << " is not configured for Slideshow animations";
         return nullptr;
