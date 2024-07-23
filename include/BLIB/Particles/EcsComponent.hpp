@@ -3,6 +3,7 @@
 
 #include <BLIB/Render/Buffers/VertexBuffer.hpp>
 #include <BLIB/Render/Components/DrawableBase.hpp>
+#include <BLIB/Render/Resources/TextureRef.hpp>
 
 namespace bl
 {
@@ -32,6 +33,13 @@ struct EcsComponent : public bl::rc::rcom::DrawableBase {
      * @param pipeline The pipeline to render with
      */
     EcsComponent(engine::Engine& engine, bool transparency, std::uint32_t pipeline);
+
+    /**
+     * @brief Resizes the vertex buffer to 4 points and populates them as a rectangle like a sprite
+     *
+     * @param texture The texture to use to determine size and texture coords
+     */
+    void makeSprite(const rc::res::TextureRef& texture);
 };
 
 } // namespace pcl

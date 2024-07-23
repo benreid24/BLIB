@@ -38,6 +38,14 @@ public:
     void create(vk::VulkanState& vulkanState, std::uint32_t vertexCount);
 
     /**
+     * @brief Resizes to the given vertex count. Must not be called before create()
+     *
+     * @param vertexCount The new number of vertices
+     * @param copyOldVertices Whether to copy the old buffer into the new
+     */
+    void resize(std::uint32_t vertexCount, bool copyOldVertices = false);
+
+    /**
      * @brief Frees the vertex buffer
      */
     void destroy();
@@ -96,6 +104,12 @@ void VertexBufferT<T>::create(vk::VulkanState& vs, std::uint32_t vc) {
                            VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
                            VK_BUFFER_USAGE_VERTEX_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT,
                            0);
+}
+
+template<typename T>
+inline void VertexBufferT<T>::resize(std::uint32_t vc, bool copy) {
+    cpuVertexBuffer.resize(vc);
+    gpuVertexBuffer.ensureSize(vc * sizeof(T), !copy);
 }
 
 template<typename T>

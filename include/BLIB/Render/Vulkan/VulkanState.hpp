@@ -282,7 +282,7 @@ U& PerFrame<T>::getOther(const T& member, PerFrame<U>& other) const {
 }
 
 template<typename T>
-constexpr T& PerFrame<T>::current() {
+T& PerFrame<T>::current() {
 #ifdef BLIB_DEBUG
     if (!vs) { throw std::runtime_error("PerFrame has not been inited with VulkanInstance"); }
 #endif
@@ -290,11 +290,27 @@ constexpr T& PerFrame<T>::current() {
 }
 
 template<typename T>
-constexpr const T& PerFrame<T>::current() const {
+const T& PerFrame<T>::current() const {
 #ifdef BLIB_DEBUG
     if (!vs) { throw std::runtime_error("PerFrame has not been inited with VulkanInstance"); }
 #endif
     return data[vs->currentFrameIndex()];
+}
+
+template<typename T>
+T& PerFrame<T>::next() {
+#ifdef BLIB_DEBUG
+    if (!vs) { throw std::runtime_error("PerFrame has not been inited with VulkanInstance"); }
+#endif
+    return data[vs->currentFrameIndex() < data.size() - 1 ? vs->currentFrameIndex() + 1 : 0];
+}
+
+template<typename T>
+const T& PerFrame<T>::next() const {
+#ifdef BLIB_DEBUG
+    if (!vs) { throw std::runtime_error("PerFrame has not been inited with VulkanInstance"); }
+#endif
+    return data[vs->currentFrameIndex() < data.size() - 1 ? vs->currentFrameIndex() + 1 : 0];
 }
 
 template<typename T>
@@ -308,32 +324,32 @@ std::uint32_t PerFrame<T>::getIndex(const T& member) const {
 }
 
 template<typename T>
-constexpr T& PerFrame<T>::getRaw(unsigned int i) {
+T& PerFrame<T>::getRaw(unsigned int i) {
     return data[i];
 }
 
 template<typename T>
-constexpr const T& PerFrame<T>::getRaw(unsigned int i) const {
+const T& PerFrame<T>::getRaw(unsigned int i) const {
     return data[i];
 }
 
 template<typename T>
-constexpr bool PerFrame<T>::valid() const {
+bool PerFrame<T>::valid() const {
     return vs != nullptr;
 }
 
 template<typename T>
-constexpr std::size_t PerFrame<T>::size() const {
+std::size_t PerFrame<T>::size() const {
     return data.size();
 }
 
 template<typename T>
-constexpr T* PerFrame<T>::rawData() {
+T* PerFrame<T>::rawData() {
     return data.data();
 }
 
 template<typename T>
-constexpr const T* PerFrame<T>::rawData() const {
+const T* PerFrame<T>::rawData() const {
     return data.data();
 }
 

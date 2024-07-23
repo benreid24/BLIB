@@ -158,6 +158,12 @@ void Renderer::update(float dt) {
 }
 
 void Renderer::renderFrame() {
+    // begin frame
+    vk::StandardAttachmentSet* currentFrame = nullptr;
+    VkCommandBuffer commandBuffer           = nullptr;
+    state.beginFrame(currentFrame, commandBuffer);
+    framebuffers.current().recreateIfChanged(*currentFrame);
+
     // kick off transfers
     textures.onFrameStart();
     for (auto& rt : renderTextures) { rt.payload->handleDescriptorSync(); }
@@ -166,12 +172,6 @@ void Renderer::renderFrame() {
         for (auto& o : observers) { o->handleDescriptorSync(); }
     }
     state.transferEngine.executeTransfers();
-
-    // begin frame
-    vk::StandardAttachmentSet* currentFrame = nullptr;
-    VkCommandBuffer commandBuffer           = nullptr;
-    state.beginFrame(currentFrame, commandBuffer);
-    framebuffers.current().recreateIfChanged(*currentFrame);
 
     // begin render texture rendering in parallel
     for (auto& rt : renderTextures) {
