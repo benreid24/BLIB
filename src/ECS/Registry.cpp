@@ -67,44 +67,68 @@ bool Registry::destroyEntityLocked(Entity start) {
     // determine list of entities to remove due to parenting and dependencies
     std::vector<Entity> toRemove;
     std::vector<Entity> toVisit;
+    std::vector<Entity> toUnparent;
     toRemove.reserve(16);
-    toVisit.reserve(16);
-    toVisit.emplace_back(start);
 
-    while (!toVisit.empty()) {
-        const Entity ent = toVisit.back();
-        toVisit.pop_back();
-        toRemove.emplace_back(ent);
+    Entity nextToVisit = start;
+    Entity visiting    = InvalidEntity;
+    while (nextToVisit != visiting) {
+        const Entity visiting = nextToVisit;
+        toRemove.emplace_back(visiting);
+
+        // send events before actually modifying anything
+        const std::uint32_t index            = visiting.getIndex();
+        const ComponentMask::SimpleMask mask = entityMasks[index];
+        bl::event::Dispatcher::dispatch<event::EntityDestroyed>({visiting});
+        for (ComponentPoolBase* pool : componentPools) {
+            if (ComponentMask::has(mask, pool->ComponentIndex)) {
+                pool->fireRemoveEventOnly(visiting);
+            }
+        }
+
+        // try to avoid memory allocation by being too clever
+        const auto appendToVisit = [&visiting, &nextToVisit, &toVisit](Entity next) {
+            if (nextToVisit == visiting) { nextToVisit = next; }
+            else {
+                toVisit.reserve(16);
+                toVisit.emplace_back(next);
+            }
+        };
 
         // add marked dependencies
-        for (Entity resource : dependencyGraph.getResources(ent)) {
-            dependencyGraph.removeDependency(resource, ent);
+        for (Entity resource : dependencyGraph.getResources(visiting)) {
+            dependencyGraph.removeDependency(resource, visiting);
             if (!dependencyGraph.hasDependencies(resource)) {
                 const std::uint32_t i = resource.getIndex();
-                if (i < markedForRemoval.size() && markedForRemoval[i]) {
-                    toVisit.emplace_back(resource);
-                }
+                if (i < markedForRemoval.size() && markedForRemoval[i]) { appendToVisit(resource); }
             }
         }
 
         // add children
-        std::vector<Entity> toUnparent;
-        toUnparent.reserve(16);
-        for (Entity child : parentGraph.getChildren(ent)) {
+        for (Entity child : parentGraph.getChildren(visiting)) {
             const std::uint32_t j = child.getIndex();
             switch (parentDestructionBehaviors[j]) {
             case ParentDestructionBehavior::DestroyedWithParent:
-                toVisit.emplace_back(child);
+                appendToVisit(child);
                 break;
             case ParentDestructionBehavior::OrphanedByParent:
+                toUnparent.reserve(16);
                 toUnparent.emplace_back(child);
                 break;
             }
         }
 
-        // unparent outside of loop to avoid modifying child list
-        for (Entity child : toUnparent) { removeEntityParentLocked(child); }
+        if (nextToVisit == visiting) {
+            if (!toVisit.empty()) {
+                nextToVisit = toVisit.back();
+                toVisit.pop_back();
+            }
+            else { break; }
+        }
     }
+
+    // unparent outside of loop to avoid modifying child list
+    for (Entity child : toUnparent) { removeEntityParentLocked(child); }
 
     // unparent top entity if there is a parent
     removeEntityParentLocked(start);
@@ -119,15 +143,14 @@ bool Registry::destroyEntityLocked(Entity start) {
         entityMasks[index] = ComponentMask::EmptyMask;
         entityFlags[index] = Flags::None;
 
-        // notify external and remove from views
-        bl::event::Dispatcher::dispatch<event::EntityDestroyed>({ent});
+        // remove from views
         for (auto& view : views) {
             if (view->mask.passes(mask)) { view->removeEntity(ent); }
         }
 
         // destroy components
         for (ComponentPoolBase* pool : componentPools) {
-            if (ComponentMask::has(mask, pool->ComponentIndex)) { pool->remove(ent); }
+            if (ComponentMask::has(mask, pool->ComponentIndex)) { pool->remove(ent, false); }
         }
 
         // remove parenting info

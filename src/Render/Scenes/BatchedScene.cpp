@@ -88,12 +88,14 @@ void BatchedScene::doObjectRemoval(scene::SceneObject* object, std::uint32_t pip
     // lookup object
     const ecs::Entity entity  = objects.getObjectEntity(object->sceneKey);
     com::BatchSceneLink* link = engine.ecs().getComponent<com::BatchSceneLink>(entity);
-    if (!link) { return; }
 
     // remove children
-    for (com::BatchSceneLink* child : link->getChildren()) {
-        removeObject(&objects.getObject(child->key));
+    if (link) {
+        for (com::BatchSceneLink* child : link->getChildren()) {
+            removeObject(&objects.getObject(child->key));
+        }
     }
+    else { BL_LOG_WARN << "Failed to find BatchSceneLink for entity: " << entity; }
 
     // release object
     releaseObject(object, pipeline);

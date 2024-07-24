@@ -230,6 +230,8 @@ void Group::print(std::ostream& stream, int ilvl) const {
     stream << "\n" << std::string(ilvl, ' ') << "}";
 }
 
+void Group::clear() { fields.clear(); }
+
 void Value::print(std::ostream& stream, int ilvl) const {
     switch (getType()) {
     case Type::Bool:

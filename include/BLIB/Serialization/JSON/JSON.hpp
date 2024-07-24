@@ -190,6 +190,11 @@ public:
      */
     void print(std::ostream& stream, int indentLevel) const;
 
+    /**
+     * @brief Removes all fields from the group
+     */
+    void clear();
+
 private:
     std::set<std::string> fieldNames;
     std::map<std::string, Value> fields;
