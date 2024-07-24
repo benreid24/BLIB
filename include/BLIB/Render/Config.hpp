@@ -84,6 +84,7 @@ struct Config {
         static constexpr std::uint32_t Text           = 9;
         static constexpr std::uint32_t SlideshowLit   = 10;
         static constexpr std::uint32_t SlideshowUnlit = 11;
+        static constexpr std::uint32_t Lines2D        = 12;
 
         static constexpr std::uint32_t FadeEffect = 100;
     };

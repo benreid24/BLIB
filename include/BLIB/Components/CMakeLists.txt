@@ -16,4 +16,5 @@ target_sources(BLIB PUBLIC
 	Toggler.hpp
 	Transform2D.hpp
 	Transform3D.hpp
+	VertexBuffer.hpp
 )

@@ -10,6 +10,7 @@
 #include <BLIB/Components/Slideshow.hpp>
 #include <BLIB/Components/Sprite.hpp>
 #include <BLIB/Components/Text.hpp>
+#include <BLIB/Components/VertexBuffer.hpp>
 #include <BLIB/Systems/DrawableSystem.hpp>
 
 namespace bl
@@ -78,6 +79,13 @@ using Shape2DSystem = DrawableSystem<com::Shape2D>;
  * @ingroup Systems
  */
 using BatchedShapes2DSystem = DrawableSystem<com::BatchedShapes2D>;
+
+/**
+ * @brief Engine system for managing raw vertex buffer entities
+ *
+ * @ingroup Systems
+ */
+using VertexBufferSystem = DrawableSystem<com::VertexBuffer>;
 
 } // namespace sys
 } // namespace bl

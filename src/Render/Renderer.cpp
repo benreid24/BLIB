@@ -100,6 +100,10 @@ void Renderer::initialize() {
         AllMask,
         Config::PipelineIds::Lit2DGeometry,
         Config::PipelineIds::Unlit2DGeometry);
+    engine.systems().registerSystem<sys::VertexBufferSystem>(FrameStage::RenderEarlyRefresh,
+                                                             AllMask,
+                                                             Config::PipelineIds::Lit2DGeometry,
+                                                             Config::PipelineIds::Unlit2DGeometry);
 
     // asset providers
     assetFactory.addProvider<rgi::StandardAssetProvider>(rg::AssetTags::RenderedSceneOutput);

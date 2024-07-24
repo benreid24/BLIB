@@ -19,6 +19,7 @@ target_sources(BLIB PRIVATE
 	Sprite.cpp
 	Text.cpp
 	Triangle.cpp
+	VertexBuffer2D.cpp
 )
 
 add_subdirectory(Animation2D)
