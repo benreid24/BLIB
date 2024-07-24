@@ -6,6 +6,7 @@ namespace gfx
 {
 void VertexBuffer2D::create(engine::Engine& engine, unsigned int vc) {
     Drawable::create(engine);
+    Transform2D::create(engine.ecs(), entity());
     component().create(engine, vc);
 }
 

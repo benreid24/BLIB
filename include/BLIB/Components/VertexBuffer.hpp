@@ -34,6 +34,14 @@ public:
     std::size_t getSize() const { return buffer.vertexCount(); }
 
     /**
+     * @brief Resizes the vertex buffer to the given size
+     *
+     * @param vertexCount The number of vertices to resize to
+     * @param copyOld Whether to copy the vertices to the new buffer if grown
+     */
+    void resize(unsigned int vertexCount, bool copyOld = true);
+
+    /**
      * @brief Access the vertex at the given index
      *
      * @param i The index to access

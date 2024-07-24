@@ -11,6 +11,11 @@ void VertexBuffer::create(engine::Engine& engine, unsigned int vc) {
     commit();
 }
 
+void VertexBuffer::resize(unsigned int vc, bool copy) {
+    buffer.resize(vc, copy);
+    commit();
+}
+
 void VertexBuffer::commit() {
     drawParams = buffer.getDrawParameters();
     buffer.queueTransfer();

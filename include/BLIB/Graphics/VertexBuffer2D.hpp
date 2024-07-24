@@ -43,6 +43,16 @@ public:
     void create(engine::Engine& engine, unsigned int vertexCount, rc::res::TextureRef texture);
 
     /**
+     * @brief Resizes the vertex buffer to the given size
+     *
+     * @param vertexCount The number of vertices to resize to
+     * @param copyOld Whether to copy the vertices to the new buffer if grown
+     */
+    void resize(unsigned int vertexCount, bool copyOld = true) {
+        component().resize(vertexCount, copyOld);
+    }
+
+    /**
      * @brief Returns the number of vertices in the buffer
      */
     std::size_t getSize() const { return component().getSize(); }
