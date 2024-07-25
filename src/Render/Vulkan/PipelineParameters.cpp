@@ -194,8 +194,8 @@ PipelineParameters&& PipelineParameters::build() {
         ca.dstColorBlendFactor = VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA;
         ca.colorBlendOp        = VK_BLEND_OP_ADD;
         ca.srcAlphaBlendFactor = VK_BLEND_FACTOR_ONE;
-        ca.dstAlphaBlendFactor = VK_BLEND_FACTOR_ZERO;
-        ca.alphaBlendOp        = VK_BLEND_OP_ADD;
+        ca.dstAlphaBlendFactor = VK_BLEND_FACTOR_ONE;
+        ca.alphaBlendOp        = VK_BLEND_OP_MAX;
     }
     colorBlending.pAttachments    = colorAttachmentBlendStates.data();
     colorBlending.attachmentCount = colorAttachmentBlendStates.size();

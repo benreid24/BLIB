@@ -48,6 +48,11 @@ public:
      */
     bool isCreated() const;
 
+    /**
+     * @brief Call to manually commit geometry updates to the owning batch
+     */
+    void commit();
+
 protected:
     /**
      * @brief Initializes the shape
@@ -76,6 +81,7 @@ private:
     engine::Systems::TaskHandle updateHandle;
 
     virtual void ensureUpdated() override;
+    void updateVertices();
 };
 } // namespace s2d
 } // namespace gfx
