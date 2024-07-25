@@ -47,6 +47,7 @@ public:
      * @brief Destroys the entity
      */
     virtual ~Drawable();
+
     /**
      * @brief Assumes ownership of the underlying entity from the given drawable
      *

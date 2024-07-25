@@ -271,7 +271,10 @@ void BatchedScene::handleAddressChange(UpdateSpeed speed, SceneObject* base) {
         for (LayoutBatch& lb : ob->batches) {
             auto& pbs = speed == UpdateSpeed::Static ? lb.staticBatches : lb.dynamicBatches;
             for (PipelineBatch& pb : pbs) {
-                for (SceneObject*& so : pb.objects) { so = objects.rebase(speed, so, base); }
+                for (SceneObject*& so : pb.objects) {
+                    so = objects.rebase(speed, so, base);
+                    so->updateRefToThis();
+                }
             }
         }
     }

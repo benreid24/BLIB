@@ -67,6 +67,7 @@ void Scene::createAndAddObject(ecs::Entity entity, rcom::DrawableBase& object,
 
         sobj->hidden     = object.hidden;
         sobj->drawParams = object.drawParams;
+        sobj->refToThis  = &object.sceneRef;
 
         auto& objectPipelines =
             sobj->sceneKey.updateFreq == UpdateSpeed::Static ? staticPipelines : dynamicPipelines;

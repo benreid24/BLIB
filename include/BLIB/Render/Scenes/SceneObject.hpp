@@ -8,9 +8,17 @@ namespace bl
 {
 namespace rc
 {
+class Scene;
+
+namespace rcom
+{
+struct SceneObjectRef;
+}
+
 /// Collection of core rendering functionality for rendering scenes
 namespace scene
 {
+
 /**
  * @brief Base renderable object. Everything that is rendered will reference an instance of this.
  *        Exists within the renderer and is batched per pipeline. Other classes reference into the
@@ -24,9 +32,19 @@ struct SceneObject {
      */
     SceneObject();
 
+    /**
+     * @brief Called by BatchedScene when when scene object addresses change
+     */
+    void updateRefToThis();
+
     bool hidden;
     Key sceneKey;
     prim::DrawParameters drawParams;
+
+private:
+    rcom::SceneObjectRef* refToThis;
+
+    friend class bl::rc::Scene;
 };
 
 } // namespace scene
