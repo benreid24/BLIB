@@ -71,6 +71,7 @@ void BatchSprite::markDirty() {
 void BatchSprite::commit() {
     if (dirty && owner) {
         dirty = false;
+        updateHandle.cancel();
 
         if (!alloc.isValid()) {
             alloc = owner->component().getBuffer().allocate(4, 6);
