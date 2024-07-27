@@ -53,7 +53,7 @@ public:
     const glm::vec2& getSize() const;
 
 protected:
-    const Type iconType;
+    Type iconType;
 
 private:
     glm::vec2 size;
