@@ -28,6 +28,11 @@ public:
     BatchSprite(engine::Engine& engine, BatchedSprites& batch, const sf::FloatRect& textureSource);
 
     /**
+     * @brief Releases its allocation from its owner and updates draw command
+     */
+    ~BatchSprite();
+
+    /**
      * @brief Creates the sprite in the given batch
      *
      * @param batch The batch of sprites to create within

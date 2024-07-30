@@ -14,6 +14,8 @@ BatchSlideshowSimple::BatchSlideshowSimple(engine::Engine& engine, BatchedSlides
     create(engine, batch, playerEntity);
 }
 
+BatchSlideshowSimple::~BatchSlideshowSimple() { remove(); }
+
 void BatchSlideshowSimple::create(engine::Engine& engine, BatchedSlideshows& batch,
                                   ecs::Entity playerEntity) {
     owner = &batch;
@@ -63,6 +65,15 @@ void BatchSlideshowSimple::setPlayer(engine::Engine& engine, ecs::Entity pent) {
 void BatchSlideshowSimple::commit() {
     alloc.commit();
     owner->component().updateDrawParams();
+}
+
+void BatchSlideshowSimple::remove() {
+    if (alloc.isValid()) {
+        if (alloc.release() && owner) {
+            owner->component().updateDrawParams();
+            owner = nullptr;
+        }
+    }
 }
 
 com::Animation2DPlayer* BatchSlideshowSimple::validatePlayer(engine::Engine& engine,

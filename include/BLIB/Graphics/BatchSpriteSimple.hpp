@@ -37,6 +37,11 @@ public:
     BatchSpriteSimple(BatchedSprites& batch, std::span<sf::FloatRect> textureSources);
 
     /**
+     * @brief Releases its allocation from its owner and updates draw command
+     */
+    ~BatchSpriteSimple();
+
+    /**
      * @brief Creates the simple batched sprite and populates the indices and vertices
      *
      * @param batch The batch to be a part of
@@ -51,6 +56,11 @@ public:
      * @param textureSource The texture source rectangles to use
      */
     void create(BatchedSprites& batch, std::span<const sf::FloatRect> textureSources);
+
+    /**
+     * @brief Removes the sprite from the batch
+     */
+    void remove();
 
     /**
      * @brief Access the vertices for this sprite

@@ -18,7 +18,10 @@ BatchSlideshow::BatchSlideshow(engine::Engine& engine, BatchedSlideshows& batch,
     create(engine, batch, player);
 }
 
-BatchSlideshow::~BatchSlideshow() { removePlayerDep(); }
+BatchSlideshow::~BatchSlideshow() {
+    removePlayerDep();
+    remove();
+}
 
 void BatchSlideshow::create(engine::Engine& e, BatchedSlideshows& batch, ecs::Entity player) {
     engine = &e;

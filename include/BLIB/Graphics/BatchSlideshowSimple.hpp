@@ -32,6 +32,11 @@ public:
                          ecs::Entity playerEntity);
 
     /**
+     * @brief Releases its allocation from its owner and updates draw command
+     */
+    ~BatchSlideshowSimple();
+
+    /**
      * @brief Creates the slideshow batch and populates the indices and player fields
      *
      * @param engine The game engine instance
@@ -39,6 +44,11 @@ public:
      * @param playerEntity The ECS entity with the player component to use
      */
     void create(engine::Engine& engine, BatchedSlideshows& batch, ecs::Entity playerEntity);
+
+    /**
+     * @brief Removes the slideshow from the batch
+     */
+    void remove();
 
     /**
      * @brief Updates the player component. Does some basic validation

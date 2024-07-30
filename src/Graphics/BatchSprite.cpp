@@ -18,6 +18,8 @@ BatchSprite::BatchSprite(engine::Engine& engine, BatchedSprites& batch,
     create(engine, batch, textureSource);
 }
 
+BatchSprite::~BatchSprite() { remove(); }
+
 void BatchSprite::create(engine::Engine& e, BatchedSprites& batch,
                          const sf::FloatRect& textureSource) {
     engine = &e;

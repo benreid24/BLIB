@@ -15,6 +15,8 @@ BatchSpriteSimple::BatchSpriteSimple(BatchedSprites& batch, std::span<sf::FloatR
     create(batch, src);
 }
 
+BatchSpriteSimple::~BatchSpriteSimple() { remove(); }
+
 void BatchSpriteSimple::create(BatchedSprites& batch, const sf::FloatRect& source) {
     owner = &batch;
 
@@ -93,6 +95,15 @@ void BatchSpriteSimple::create(BatchedSprites& batch, std::span<const sf::FloatR
 void BatchSpriteSimple::commit() {
     alloc.commit();
     owner->component().updateDrawParams();
+}
+
+void BatchSpriteSimple::remove() {
+    if (alloc.isValid()) {
+        if (alloc.release() && owner) {
+            owner->component().updateDrawParams();
+            owner = nullptr;
+        }
+    }
 }
 
 } // namespace gfx
