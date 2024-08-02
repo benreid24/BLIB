@@ -363,7 +363,7 @@ void BatchIndexBufferT<T>::release(typename std::list<AllocInfo>::iterator it) {
     }
 
     // update values of affected indices
-    for (auto i : storage.indices()) {
+    for (auto& i : storage.indices()) {
         if (i >= alloc.vertexStart) { i -= alloc.vertexSize; }
     }
 
