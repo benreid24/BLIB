@@ -47,7 +47,7 @@ private:
     void onFrameEnd();
 
     friend class TextureExport;
-    friend class Renderer;
+    friend class ::bl::rc::Renderer;
 };
 
 } // namespace tfr
