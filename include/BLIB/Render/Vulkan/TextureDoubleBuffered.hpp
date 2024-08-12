@@ -59,6 +59,8 @@ private:
     virtual void executeTransfer(VkCommandBuffer commandBuffer,
                                  tfr::TransferContext& transferEngine) override;
     void cleanup();
+    virtual VkImage getCurrentImage() const override;
+    virtual VkImageLayout getCurrentImageLayout() const override;
 
     friend class res::BindlessTextureArray;
 };

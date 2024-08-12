@@ -22,6 +22,7 @@ Renderer::Renderer(engine::Engine& engine, engine::EngineWindow& window)
 , pipelineLayouts(*this)
 , pipelines(*this)
 , scenes(engine)
+, imageExporter(*this)
 , splitscreenDirection(SplitscreenDirection::TopAndBottom)
 , commonObserver(engine, *this, assetFactory, true, false) {
     renderTextures.reserve(16);
@@ -132,6 +133,7 @@ void Renderer::initialize() {
 void Renderer::cleanup() {
     vkCheck(vkDeviceWaitIdle(state.device));
 
+    imageExporter.cleanup();
     resource::ResourceManager<sf::VulkanFont>::freeAndDestroyAll();
     renderTextures.clear();
     observers.clear();
@@ -234,6 +236,9 @@ void Renderer::renderFrame() {
     // complete frame
     framebuffers.current().finishRender(commandBuffer);
     state.completeFrame();
+
+    // submit texture exports
+    imageExporter.onFrameEnd();
 }
 
 Observer& Renderer::addObserver() {

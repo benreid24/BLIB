@@ -92,6 +92,16 @@ public:
      */
     bool containsTransparency() const;
 
+    /**
+     * @brief Returns the VkImage for the current frame
+     */
+    virtual VkImage getCurrentImage() const = 0;
+
+    /**
+     * @brief Returns the current image layout of the image for the current frame
+     */
+    virtual VkImageLayout getCurrentImageLayout() const = 0;
+
 protected:
     /**
      * @brief Derived classes should call this whenever the size changes

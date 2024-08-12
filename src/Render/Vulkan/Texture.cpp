@@ -234,6 +234,10 @@ void Texture::updateTrans(const sf::Image& content) {
     updateTransparency(false);
 }
 
+VkImage Texture::getCurrentImage() const { return image; }
+
+VkImageLayout Texture::getCurrentImageLayout() const { return currentLayout; }
+
 } // namespace vk
 } // namespace rc
 } // namespace bl

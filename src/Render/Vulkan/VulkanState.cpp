@@ -568,8 +568,7 @@ void VulkanState::transitionImageLayout(VkCommandBuffer commandBuffer, VkImage i
             destinationStage = VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT;
         }
     }
-    else if (oldLayout == VK_IMAGE_LAYOUT_UNDEFINED &&
-             newLayout == VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL) {
+    else if (newLayout == VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL) {
         barrier.srcAccessMask = VK_ACCESS_SHADER_READ_BIT;
         barrier.dstAccessMask = VK_ACCESS_MEMORY_READ_BIT;
 

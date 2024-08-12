@@ -92,6 +92,8 @@ private:
     void cleanup();
     void reset();
     void updateTrans(const sf::Image& data);
+    virtual VkImage getCurrentImage() const override;
+    virtual VkImageLayout getCurrentImageLayout() const override;
 
     friend class res::TexturePool;
     friend class res::BindlessTextureArray;

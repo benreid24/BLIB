@@ -11,6 +11,7 @@
 #include <BLIB/Render/Resources/RenderPassCache.hpp>
 #include <BLIB/Render/Resources/ScenePool.hpp>
 #include <BLIB/Render/Resources/TexturePool.hpp>
+#include <BLIB/Render/Transfers/TextureExporter.hpp>
 #include <BLIB/Render/Vulkan/RenderTexture.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
@@ -175,6 +176,11 @@ public:
     ds::DescriptorSetFactoryCache& descriptorFactoryCache();
 
     /**
+     * @brief Returns the texture exporter system
+     */
+    tfr::TextureExporter& textureExporter();
+
+    /**
      * @brief Sets the color to clear the window with prior to rendering
      *
      * @param color The color to clear with
@@ -231,6 +237,7 @@ private:
     res::PipelineLayoutCache pipelineLayouts;
     res::PipelineCache pipelines;
     res::ScenePool scenes;
+    tfr::TextureExporter imageExporter;
     SplitscreenDirection splitscreenDirection;
     Observer commonObserver;
     std::vector<std::unique_ptr<Observer>> observers;
@@ -283,6 +290,8 @@ inline res::ScenePool& Renderer::scenePool() { return scenes; }
 inline ds::DescriptorSetFactoryCache& Renderer::descriptorFactoryCache() {
     return descriptorSetFactoryCache;
 }
+
+inline tfr::TextureExporter& Renderer::textureExporter() { return imageExporter; }
 
 inline Observer& Renderer::getCommonObserver() { return commonObserver; }
 

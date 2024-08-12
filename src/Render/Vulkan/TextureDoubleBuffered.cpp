@@ -67,6 +67,13 @@ void TextureDoubleBuffered::cleanup() {
     });
 }
 
+VkImage TextureDoubleBuffered::getCurrentImage() const { return images.current().image; }
+
+VkImageLayout TextureDoubleBuffered::getCurrentImageLayout() const {
+    // return the layout that we will be in at the end of the current frame
+    return VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
+}
+
 } // namespace vk
 } // namespace rc
 } // namespace bl
