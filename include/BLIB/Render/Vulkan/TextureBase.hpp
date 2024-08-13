@@ -102,6 +102,11 @@ public:
      */
     virtual VkImageLayout getCurrentImageLayout() const = 0;
 
+    /**
+     * @brief Returns the color format of the texture
+     */
+    virtual VkFormat getFormat() const = 0;
+
 protected:
     /**
      * @brief Derived classes should call this whenever the size changes

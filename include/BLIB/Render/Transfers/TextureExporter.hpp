@@ -40,6 +40,7 @@ private:
     std::mutex mutex;
     std::list<TextureExport> exports;
     std::vector<TextureExport*> queuedExports;
+    std::vector<TextureExport*> inProgressExports;
 
     TextureExporter(Renderer& owner);
     void cleanup();

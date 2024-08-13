@@ -4,6 +4,9 @@
 #include <BLIB/Util/NonCopyable.hpp>
 #include <BLIB/Vulkan.hpp>
 #include <SFML/Graphics/Image.hpp>
+#include <atomic>
+#include <condition_variable>
+#include <mutex>
 
 namespace bl
 {
@@ -34,9 +37,10 @@ public:
      * @param srcLayout The layout of the image to copy
      * @param srcExtent The extent of the image copy
      * @param srcAspect The aspect of the image to copy
+     * @param srcFormat The format of the image to copy
      */
     TextureExport(vk::VulkanState& vs, TextureExporter& owner, VkImage src, VkImageLayout srcLayout,
-                  VkExtent3D srcExtent, VkImageAspectFlags srcAspect);
+                  VkExtent3D srcExtent, VkImageAspectFlags srcAspect, VkFormat srcFormat);
 
     /**
      * @brief Releases resources
@@ -75,14 +79,22 @@ private:
     VkFence fence;
     VmaAllocation destAlloc;
     VmaAllocationInfo destAllocInfo;
-    VkBuffer destBuffer;
+    VkImage destImage;
+    bool requiresManualConversion;
+    void* mapped;
 
     VkImage srcImage;
     VkImageLayout srcLayout;
     VkExtent3D srcExtent;
     VkImageAspectFlags srcAspect;
+    VkFormat srcFormat;
+
+    std::mutex progressMutex;
+    std::condition_variable cv;
+    std::atomic_bool inProgress;
 
     void performCopy();
+    bool checkComplete();
 
     friend class TextureExporter;
 };

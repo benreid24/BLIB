@@ -31,6 +31,7 @@ Engine::Engine(const Settings& settings)
 }
 
 Engine::~Engine() {
+    backgroundWorkers.shutdown();
     workers.shutdown();
     bl::event::Dispatcher::clearAllListeners();
     if (renderingSystem.vulkanState().device) {
@@ -149,6 +150,7 @@ bool Engine::loop() {
     float frameCount = 0.f;
 
     workers.start();
+    backgroundWorkers.start(2);
     states.top()->activate(*this);
     bl::event::Dispatcher::dispatch<event::Startup>({states.top()});
 

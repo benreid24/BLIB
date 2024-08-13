@@ -20,13 +20,24 @@ const std::vector<bl::rc::prim::Vertex> Vertices = {
 const std::vector<std::uint32_t> Indices = {0, 1, 2, 2, 3, 0, 4, 5, 6};
 } // namespace
 
+void exportTexture(bl::rc::tfr::TextureExport* te, std::string_view outfile,
+                   std::atomic_bool& inProgress) {
+    te->wait();
+    sf::Image result;
+    te->copyImage(result);
+    te->release();
+    result.saveToFile(std::string(outfile));
+    inProgress = false;
+}
+
 class DemoState
 : public bl::engine::State
 , bl::event::Listener<sf::Event> {
 public:
     DemoState()
     : State(bl::engine::StateMask::All)
-    , fadeout(nullptr) {}
+    , fadeout(nullptr)
+    , exportInProgress(false) {}
 
     virtual ~DemoState() = default;
 
@@ -180,6 +191,7 @@ private:
     bl::gfx::Sprite renderTextureInnerSprite;
     bl::gfx::Sprite renderTextureOuterSprite;
     bl::rc::rgi::FadeEffectTask* fadeout;
+    std::atomic_bool exportInProgress;
 
     virtual void observe(const sf::Event& event) override {
         if (event.type == sf::Event::KeyPressed) {
@@ -221,6 +233,23 @@ private:
             case sf::Keyboard::C:
                 renderer->getObserver(0).getRenderGraph().removeTask<bl::rc::rgi::FadeEffectTask>();
                 fadeout = nullptr;
+                break;
+
+            case sf::Keyboard::S:
+            case sf::Keyboard::T:
+                if (!exportInProgress) {
+                    exportInProgress    = true;
+                    const bool isScreen = event.key.code == sf::Keyboard::S;
+                    bl::rc::tfr::TextureExport* te =
+                        isScreen ?
+                            renderer->textureExporter().exportSwapImage() :
+                            renderer->textureExporter().exportTexture(renderTexture->getTexture());
+                    engine->longRunningThreadpool().queueTask([this, te, isScreen]() {
+                        exportTexture(te,
+                                      isScreen ? "exportedScreen.png" : "exportedRenderTexture.png",
+                                      exportInProgress);
+                    });
+                }
                 break;
             }
         }

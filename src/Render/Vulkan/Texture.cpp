@@ -238,6 +238,8 @@ VkImage Texture::getCurrentImage() const { return image; }
 
 VkImageLayout Texture::getCurrentImageLayout() const { return currentLayout; }
 
+VkFormat Texture::getFormat() const { return DefaultFormat; }
+
 } // namespace vk
 } // namespace rc
 } // namespace bl

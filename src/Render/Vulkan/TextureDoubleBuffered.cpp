@@ -20,7 +20,8 @@ void TextureDoubleBuffered::create(const glm::u32vec2& s) {
                                  s.y,
                                  vk::StandardAttachmentBuffers::DefaultColorFormat,
                                  VK_IMAGE_TILING_OPTIMAL,
-                                 VK_IMAGE_USAGE_SAMPLED_BIT | VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT,
+                                 VK_IMAGE_USAGE_SAMPLED_BIT | VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT |
+                                     VK_IMAGE_USAGE_TRANSFER_SRC_BIT,
                                  VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
                                  &img.image,
                                  &img.alloc,
@@ -72,6 +73,10 @@ VkImage TextureDoubleBuffered::getCurrentImage() const { return images.current()
 VkImageLayout TextureDoubleBuffered::getCurrentImageLayout() const {
     // return the layout that we will be in at the end of the current frame
     return VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
+}
+
+VkFormat TextureDoubleBuffered::getFormat() const {
+    return vk::StandardAttachmentBuffers::DefaultColorFormat;
 }
 
 } // namespace vk

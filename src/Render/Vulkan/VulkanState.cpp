@@ -485,7 +485,8 @@ void VulkanState::createBuffer(VkDeviceSize size, VkBufferUsageFlags usage,
 void VulkanState::createImage(std::uint32_t width, std::uint32_t height, VkFormat format,
                               VkImageTiling tiling, VkImageUsageFlags usage,
                               VkMemoryPropertyFlags properties, VkImage* image,
-                              VmaAllocation* vmaAlloc, VmaAllocationInfo* vmaAllocInfo) {
+                              VmaAllocation* vmaAlloc, VmaAllocationInfo* vmaAllocInfo,
+                              VmaAllocationCreateFlags flags) {
     std::unique_lock lock(imageAllocMutex);
 
     VkImageCreateInfo imageInfo{};
@@ -506,6 +507,7 @@ void VulkanState::createImage(std::uint32_t width, std::uint32_t height, VkForma
     VmaAllocationCreateInfo allocInfo{};
     allocInfo.requiredFlags = properties;
     allocInfo.usage         = VMA_MEMORY_USAGE_AUTO;
+    allocInfo.flags         = flags;
 
     vkCheck(vmaCreateImage(vmaAllocator, &imageInfo, &allocInfo, image, vmaAlloc, vmaAllocInfo));
 }
@@ -627,6 +629,12 @@ VkImageView VulkanState::createImageView(VkImage image, VkFormat format,
 
 VkDeviceSize VulkanState::computeAlignedSize(VkDeviceSize len, VkDeviceSize align) {
     return (len + align - 1) & ~(align - 1);
+}
+
+VkFormatProperties VulkanState::getFormatProperties(VkFormat format) {
+    VkFormatProperties props;
+    vkGetPhysicalDeviceFormatProperties(physicalDevice, format, &props);
+    return props;
 }
 
 } // namespace vk

@@ -130,11 +130,12 @@ struct VulkanState {
      * @param image The image to be populated
      * @param vmaAlloc VMA allocation to be populated
      * @param vmaAllocInfo VMA allocation info to be populated
+     * @param flags Optional flags to pass to VMA for memory alloc
      */
     void createImage(std::uint32_t width, std::uint32_t height, VkFormat format,
                      VkImageTiling tiling, VkImageUsageFlags usage,
                      VkMemoryPropertyFlags properties, VkImage* image, VmaAllocation* vmaAlloc,
-                     VmaAllocationInfo* vmaAllocInfo);
+                     VmaAllocationInfo* vmaAllocInfo, VmaAllocationCreateFlags flags = 0);
 
     /**
      * @brief Converts an image from one layout to another
@@ -193,6 +194,14 @@ struct VulkanState {
      * @return The aligned size of the data
      */
     static VkDeviceSize computeAlignedSize(VkDeviceSize dataSize, VkDeviceSize alignment);
+
+    /**
+     * @brief Retrieves the format properties of the physical device for the given format
+     *
+     * @param format The format to get features for
+     * @return The supported format features for the current physical device
+     */
+    VkFormatProperties getFormatProperties(VkFormat format);
 
     engine::EngineWindow& window;
     VkInstance instance;

@@ -84,6 +84,11 @@ public:
     util::ThreadPool& threadPool();
 
     /**
+     * @brief Returns the threadpool to be used for long running background tasks
+     */
+    util::ThreadPool& longRunningThreadpool();
+
+    /**
      * @brief Returns the engine particle system
      */
     pcl::ParticleSystem& particleSystem();
@@ -208,6 +213,7 @@ private:
     rc::Renderer renderingSystem;
     input::InputSystem input;
     util::ThreadPool workers;
+    util::ThreadPool backgroundWorkers;
 
     bool awaitFocus();
     void handleResize(const sf::Event::SizeEvent& resize, bool saveAndSend);
@@ -236,6 +242,8 @@ inline Flags& Engine::flags() { return engineFlags; }
 inline EngineWindow& Engine::window() { return renderWindow; }
 
 inline util::ThreadPool& Engine::threadPool() { return workers; }
+
+inline util::ThreadPool& Engine::longRunningThreadpool() { return backgroundWorkers; }
 
 inline float Engine::getWindowScale() const { return windowScale; }
 

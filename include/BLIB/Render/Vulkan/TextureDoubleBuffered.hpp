@@ -61,6 +61,7 @@ private:
     void cleanup();
     virtual VkImage getCurrentImage() const override;
     virtual VkImageLayout getCurrentImageLayout() const override;
+    virtual VkFormat getFormat() const override;
 
     friend class res::BindlessTextureArray;
 };

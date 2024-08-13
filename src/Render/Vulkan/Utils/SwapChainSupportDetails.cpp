@@ -37,7 +37,7 @@ const VkSurfaceFormatKHR& SwapChainSupportDetails::swapSurfaceFormat() const {
             return format;
         }
     }
-    BL_LOG_DEBUG << "Did not find VK_FORMAT_R8G8B8A8_SRGB, using " << formats.front().format;
+    BL_LOG_DEBUG << "Did not find VK_FORMAT_R8G8B8A8_UNORM, using " << formats.front().format;
     return formats.front();
 }
 
