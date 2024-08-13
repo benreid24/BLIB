@@ -77,6 +77,7 @@ void RenderTexture::resize(const glm::u32vec2& size) {
 
 void RenderTexture::destroy() {
     if (texture) {
+        clearScenes();
         framebuffers.cleanup([](auto& fb) { fb.deferCleanup(); });
         attachments.cleanup([](auto& a) { a.depthBuffer.deferDestroy(); });
         texture.release();
@@ -84,10 +85,12 @@ void RenderTexture::destroy() {
 }
 
 void RenderTexture::render() {
-    auto commandBuffer = commandBuffers.begin();
-    renderScene(commandBuffer);
-    compositeSceneAndOverlay(commandBuffer);
-    commandBuffers.submit();
+    if (texture) {
+        auto commandBuffer = commandBuffers.begin();
+        renderScene(commandBuffer);
+        compositeSceneAndOverlay(commandBuffer);
+        commandBuffers.submit();
+    }
 }
 
 void RenderTexture::Handle::release() {

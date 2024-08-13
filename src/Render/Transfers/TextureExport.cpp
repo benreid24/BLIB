@@ -33,33 +33,7 @@ TextureExport::TextureExport(vk::VulkanState& vs, TextureExporter& owner, VkImag
 , srcExtent(srcExtent)
 , srcAspect(srcAspect)
 , srcFormat(srcFormat)
-, inProgress(true) {
-    commandPool = vulkanState.createCommandPool(VK_COMMAND_POOL_CREATE_TRANSIENT_BIT);
-    VkCommandBufferAllocateInfo cbAllocInfo{};
-    cbAllocInfo.sType              = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
-    cbAllocInfo.level              = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
-    cbAllocInfo.commandPool        = commandPool;
-    cbAllocInfo.commandBufferCount = 1;
-    vkCheck(vkAllocateCommandBuffers(vulkanState.device, &cbAllocInfo, &commandBuffer));
-
-    VkFenceCreateInfo createFence{};
-    createFence.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
-    createFence.flags = 0;
-    vkCheck(vkCreateFence(vulkanState.device, &createFence, nullptr, &fence));
-
-    // create staging image to copy to
-    vulkanState.createImage(srcExtent.width,
-                            srcExtent.height,
-                            OutputFormat,
-                            VK_IMAGE_TILING_LINEAR,
-                            VK_IMAGE_USAGE_TRANSFER_SRC_BIT | VK_IMAGE_USAGE_TRANSFER_DST_BIT,
-                            VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT |
-                                VK_MEMORY_PROPERTY_HOST_COHERENT_BIT,
-                            &destImage,
-                            &destAlloc,
-                            &destAllocInfo,
-                            VMA_ALLOCATION_CREATE_HOST_ACCESS_RANDOM_BIT);
-}
+, inProgress(true) {}
 
 TextureExport::~TextureExport() {
     if (mapped) { vmaUnmapMemory(vulkanState.vmaAllocator, destAlloc); }
@@ -112,6 +86,32 @@ void TextureExport::copyImage(sf::Image& dst) {
 void TextureExport::release() { owner.release(this); }
 
 void TextureExport::performCopy() {
+    // create resources
+    commandPool = vulkanState.createCommandPool(VK_COMMAND_POOL_CREATE_TRANSIENT_BIT);
+    VkCommandBufferAllocateInfo cbAllocInfo{};
+    cbAllocInfo.sType              = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
+    cbAllocInfo.level              = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
+    cbAllocInfo.commandPool        = commandPool;
+    cbAllocInfo.commandBufferCount = 1;
+    vkCheck(vkAllocateCommandBuffers(vulkanState.device, &cbAllocInfo, &commandBuffer));
+
+    VkFenceCreateInfo createFence{};
+    createFence.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
+    createFence.flags = 0;
+    vkCheck(vkCreateFence(vulkanState.device, &createFence, nullptr, &fence));
+
+    // create staging image to copy to
+    vulkanState.createImage(srcExtent.width,
+                            srcExtent.height,
+                            OutputFormat,
+                            VK_IMAGE_TILING_LINEAR,
+                            VK_IMAGE_USAGE_TRANSFER_SRC_BIT | VK_IMAGE_USAGE_TRANSFER_DST_BIT,
+                            VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT |
+                                VK_MEMORY_PROPERTY_HOST_COHERENT_BIT,
+                            &destImage,
+                            &destAlloc,
+                            &destAllocInfo,
+                            VMA_ALLOCATION_CREATE_HOST_ACCESS_RANDOM_BIT);
     // Begin recording commands
     VkCommandBufferBeginInfo begin{};
     begin.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;

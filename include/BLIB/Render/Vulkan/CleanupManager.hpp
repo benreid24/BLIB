@@ -40,7 +40,9 @@ public:
 
 private:
     std::mutex mutex;
+    std::atomic_bool isClearing;
     std::array<std::vector<Callback>, Config::MaxConcurrentFrames + 1> buckets;
+    std::vector<Callback> addedDuringClear;
     unsigned int clearIndex;
 
     CleanupManager();
