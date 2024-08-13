@@ -6,6 +6,7 @@
 #include <BLIB/ECS/EntityBacked.hpp>
 #include <BLIB/Render/Components/DrawableBase.hpp>
 #include <BLIB/Render/Scenes/CodeScene.hpp>
+#include <BLIB/Resources/State.hpp>
 #include <BLIB/Systems/DrawableSystem.hpp>
 #include <type_traits>
 
@@ -192,7 +193,7 @@ Drawable<TCom, TSys>::Drawable()
 template<typename TCom, typename TSys>
 Drawable<TCom, TSys>::~Drawable() {
     if (exists() && component().sceneRef.scene && component().sceneRef.object &&
-        entityIsDeletedOnDestruction()) {
+        entityIsDeletedOnDestruction() && !resource::State::engineShuttingDown()) {
         removeFromScene();
     }
 }

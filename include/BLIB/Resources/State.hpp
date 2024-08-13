@@ -19,6 +19,11 @@ class Ref;
  * @ingroup Resources
  */
 struct State {
+    /**
+     * @brief Returns whether the engine is currently shutting down
+     */
+    static bool engineShuttingDown() { return appExiting; }
+
 private:
     static bool appExiting;
 

@@ -31,6 +31,8 @@ Engine::Engine(const Settings& settings)
 }
 
 Engine::~Engine() {
+    resource::State::appExiting = true;
+
     backgroundWorkers.shutdown();
     workers.shutdown();
     bl::event::Dispatcher::clearAllListeners();
@@ -55,10 +57,7 @@ Engine::~Engine() {
     entityRegistry.destroyAllEntities();
 
     audio::AudioSystem::shutdown();
-
-    resource::State::appExiting = true;
     resource::GarbageCollector::get().clear();
-
     systems().cleanup();
 
     if (renderWindow.isOpen()) {
