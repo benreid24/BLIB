@@ -53,14 +53,13 @@ public:
         messageBoxTxtr =
             engine.renderer().texturePool().getOrLoadTexture("Resources/Textures/messageBox.png");
         font = bl::resource::ResourceManager<sf::VulkanFont>::load("Resources/Fonts/font.ttf");
-        // font->loadFromFile("Resources/Fonts/font.ttf");
 
         // get first observer and set background color
         bl::rc::Observer& p1 = engine.renderer().getObserver(0);
         p1.setClearColor({0.f, 0.f, 1.f, 1.f});
 
         // create 2d scene and camera for observer 1
-        bl::rc::SceneRef scene = p1.pushScene<bl::rc::scene::Scene2D>();
+        bl::rc::SceneRef scene2d = p1.pushScene<bl::rc::scene::Scene2D>();
         auto* p1cam =
             p1.setCamera<bl::cam::Camera2D>(sf::FloatRect{0.f, 0.f, 1920.f, 1080.f * 0.5f});
         p1cam->setRotation(15.f);
@@ -71,7 +70,7 @@ public:
         engine.ecs().emplaceComponent<bl::com::Texture>(spriteEntity, texture);
         engine.ecs().emplaceComponent<bl::com::Sprite>(spriteEntity, engine.renderer(), texture);
         engine.systems().getSystem<bl::sys::SpriteSystem>().addToScene(
-            spriteEntity, scene, bl::rc::UpdateSpeed::Dynamic);
+            spriteEntity, scene2d, bl::rc::UpdateSpeed::Dynamic);
         spritePosition->setPosition({1920.f * 0.5f, 1080.f * 0.25f});
         spritePosition->setScale({100.f / texture->size().x, 100.f / texture->size().y});
         spritePosition->setOrigin(texture->size() * 0.5f);
@@ -82,11 +81,11 @@ public:
         sprite.getTransform().setPosition({1920.f * 0.75f, 1080.f * 0.25f});
         sprite.scaleToSize({150.f, 150.f});
         sprite.getTransform().setOrigin(texture->size() * 0.5f);
-        sprite.addToScene(scene, bl::rc::UpdateSpeed::Static);
+        sprite.addToScene(scene2d, bl::rc::UpdateSpeed::Static);
 
         // create 3d scene for observer 2
-        bl::rc::Observer& p2 = engine.renderer().addObserver();
-        scene                = p2.pushScene<bl::rc::scene::Scene3D>();
+        bl::rc::Observer& p2   = engine.renderer().addObserver();
+        bl::rc::SceneRef scene = p2.pushScene<bl::rc::scene::Scene3D>();
 
         // create camera for observer 2
         p2.setClearColor({0.f, 1.f, 0.f, 1.f});
@@ -160,6 +159,17 @@ public:
         renderTextureOuterSprite.getOverlayScaler().positionInParentSpace({0.05f, 0.1f});
         renderTextureOuterSprite.addToScene(overlay, bl::rc::UpdateSpeed::Static);
 
+        // setup another render texture that renders our 2d scene
+        renderTextureNested = engine.renderer().createRenderTexture({200, 200});
+        renderTextureNested->pushScene(scene2d);
+        renderTextureNested->setClearColor({0.f, 0.f, 1.f, 1.f});
+        renderTextureNested->setCamera<bl::cam::Camera2D>(glm::vec2(1920.f * 0.5f, 1080.f * 0.25f),
+                                                          glm::vec2(1200.f, 1200.f));
+        renderTextureNestedSprite.create(engine, renderTextureNested->getTexture());
+        renderTextureNestedSprite.getOverlayScaler().scaleToHeightPercent(0.4f);
+        renderTextureNestedSprite.getOverlayScaler().positionInParentSpace({0.8f, 0.2f});
+        renderTextureNestedSprite.addToScene(overlay, bl::rc::UpdateSpeed::Static);
+
         // subscribe to window events
         bl::event::Dispatcher::subscribe(this);
     }
@@ -191,6 +201,8 @@ private:
     bl::gfx::Sprite renderTextureInnerSprite;
     bl::gfx::Sprite renderTextureOuterSprite;
     bl::rc::rgi::FadeEffectTask* fadeout;
+    bl::rc::vk::RenderTexture::Handle renderTextureNested;
+    bl::gfx::Sprite renderTextureNestedSprite;
     std::atomic_bool exportInProgress;
 
     virtual void observe(const sf::Event& event) override {

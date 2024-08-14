@@ -87,8 +87,26 @@ void RenderTexture::destroy() {
 void RenderTexture::render() {
     if (texture) {
         auto commandBuffer = commandBuffers.begin();
+
+        framebuffers.current().beginRender(
+            commandBuffer, scissor, clearColors, std::size(clearColors), true, nullptr);
+
         renderScene(commandBuffer);
-        compositeSceneAndOverlay(commandBuffer);
+        renderSceneFinal(commandBuffer);
+
+        VkClearAttachment attachment{};
+        attachment.aspectMask = VK_IMAGE_ASPECT_DEPTH_BIT;
+        attachment.clearValue = clearColors[1];
+
+        VkClearRect rect{};
+        rect.rect           = scissor;
+        rect.baseArrayLayer = 0;
+        rect.layerCount     = 1;
+
+        vkCmdClearAttachments(commandBuffer, 1, &attachment, 1, &rect);
+        renderOverlay(commandBuffer);
+
+        framebuffers.current().finishRender(commandBuffer);
         commandBuffers.submit();
     }
 }

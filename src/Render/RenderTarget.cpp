@@ -192,11 +192,15 @@ void RenderTarget::renderScene(VkCommandBuffer commandBuffer) {
     }
 }
 
-void RenderTarget::compositeSceneAndOverlay(VkCommandBuffer commandBuffer) {
+void RenderTarget::renderSceneFinal(VkCommandBuffer commandBuffer) {
     if (hasScene()) {
         scenes.back().graph.executeFinal(
             commandBuffer, scenes.back().observerIndex, isRenderTexture);
+    }
+}
 
+void RenderTarget::renderOverlay(VkCommandBuffer commandBuffer) {
+    if (hasScene()) {
         if (scenes.back().overlay) {
             vkCmdSetViewport(commandBuffer, 0, 1, &viewport);
             vkCmdSetScissor(commandBuffer, 0, 1, &scissor);
@@ -222,6 +226,11 @@ void RenderTarget::compositeSceneAndOverlay(VkCommandBuffer commandBuffer) {
             scenes.back().overlay->renderScene(ctx);
         }
     }
+}
+
+void RenderTarget::compositeSceneAndOverlay(VkCommandBuffer commandBuffer) {
+    renderSceneFinal(commandBuffer);
+    renderOverlay(commandBuffer);
 }
 
 } // namespace rc

@@ -30,7 +30,7 @@ void ForwardRenderTask::onGraphInit() {
 }
 
 void ForwardRenderTask::execute(const rg::ExecutionContext& ctx) {
-    const bool doRenderPass = !ctx.isFinalStep || ctx.renderingToRenderTexture;
+    const bool doRenderPass = !ctx.isFinalStep && !ctx.renderingToRenderTexture;
 
     if (doRenderPass) {
         output->currentFramebuffer().beginRender(ctx.commandBuffer,
