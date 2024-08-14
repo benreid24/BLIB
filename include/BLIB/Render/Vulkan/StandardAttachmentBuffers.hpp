@@ -20,7 +20,7 @@ namespace vk
  */
 class StandardAttachmentBuffers {
 public:
-    static constexpr VkFormat DefaultColorFormat = VK_FORMAT_R8G8B8A8_SRGB;
+    static constexpr VkFormat DefaultColorFormat = VK_FORMAT_R8G8B8A8_UNORM;
 
     /**
      * @brief Creates an empty render buffer with no resources

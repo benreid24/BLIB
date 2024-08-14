@@ -37,7 +37,7 @@ vk::RenderPass& RenderPassCache::getRenderPass(std::uint32_t id) {
 void RenderPassCache::addDefaults() {
     // scene render pass for observers
     VkAttachmentDescription standardColorAttachment{};
-    standardColorAttachment.format         = VK_FORMAT_R8G8B8A8_SRGB;
+    standardColorAttachment.format         = vk::StandardAttachmentBuffers::DefaultColorFormat;
     standardColorAttachment.samples        = VK_SAMPLE_COUNT_1_BIT;
     standardColorAttachment.loadOp         = VK_ATTACHMENT_LOAD_OP_CLEAR;
     standardColorAttachment.storeOp        = VK_ATTACHMENT_STORE_OP_STORE;
