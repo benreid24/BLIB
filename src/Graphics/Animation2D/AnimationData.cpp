@@ -140,8 +140,9 @@ bool AnimationData::doLoad(serial::binary::InputStream& input, const std::string
         else { return false; }
 
         if (forBundle) { spritesheetSource = sheet; }
-        actualSpritesheetPath = sheet;
     }
+    actualSpritesheetPath = sheet;
+
     if (!input.read(loop)) return false;
 
     std::uint32_t shardIndex = 0;
