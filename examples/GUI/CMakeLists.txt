@@ -8,8 +8,7 @@ link_blib_target(gui)
 
 set_target_properties(gui
     PROPERTIES
-    RUNTIME_OUTPUT_DIRECTORY_DEBUG "${CMAKE_CURRENT_SOURCE_DIR}"
-    RUNTIME_OUTPUT_DIRECTORY_RELEASE "${CMAKE_CURRENT_SOURCE_DIR}"
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
 )
 
 # Copy compiled shaders. This step is not needed for top-level targets that set SHADER_PATH
