@@ -52,7 +52,7 @@ void Animation2D::createWithUniquePlayer(engine::Engine& engine,
     Animation2DPlayer::create(
         engine.renderer(), engine.ecs(), entity(), animation, play, forceLoop);
     component().create(engine, Animation2DPlayer::getPlayer());
-    component().containsTransparency = Textured::getTexture()->containsTransparency();
+    component().setContainsTransparency(Textured::getTexture()->containsTransparency());
 }
 
 void Animation2D::createWithUniquePlayer(engine::Engine& engine, ecs::Entity existing,
@@ -64,7 +64,7 @@ void Animation2D::createWithUniquePlayer(engine::Engine& engine, ecs::Entity exi
     Animation2DPlayer::create(
         engine.renderer(), engine.ecs(), entity(), animation, play, forceLoop);
     component().create(engine, Animation2DPlayer::getPlayer());
-    component().containsTransparency = Textured::getTexture()->containsTransparency();
+    component().setContainsTransparency(Textured::getTexture()->containsTransparency());
 }
 
 void Animation2D::createWithSharedPlayer(engine::Engine& engine, const Animation2D& player) {
@@ -73,7 +73,7 @@ void Animation2D::createWithSharedPlayer(engine::Engine& engine, const Animation
     OverlayScalable::setLocalSize(player.getLocalSize());
     Animation2DPlayer::create(engine.renderer(), engine.ecs(), entity(), player.getPlayerEntity());
     component().create(engine, Animation2DPlayer::getPlayer());
-    component().containsTransparency = Textured::getTexture()->containsTransparency();
+    component().setContainsTransparency(Textured::getTexture()->containsTransparency());
 }
 
 void Animation2D::createWithSharedPlayer(engine::Engine& engine, ecs::Entity existing,
@@ -83,14 +83,14 @@ void Animation2D::createWithSharedPlayer(engine::Engine& engine, ecs::Entity exi
     OverlayScalable::setLocalSize(player.getLocalSize());
     Animation2DPlayer::create(engine.renderer(), engine.ecs(), entity(), player.getPlayerEntity());
     component().create(engine, Animation2DPlayer::getPlayer());
-    component().containsTransparency = Textured::getTexture()->containsTransparency();
+    component().setContainsTransparency(Textured::getTexture()->containsTransparency());
 }
 
 void Animation2D::setAnimationWithUniquePlayer(const resource::Ref<a2d::AnimationData>& animation,
                                                bool play, bool forceLoop) {
     Animation2DPlayer::createNewPlayer(animation, play, forceLoop);
     component().create(engine(), Animation2DPlayer::getPlayer());
-    component().containsTransparency = Textured::getTexture()->containsTransparency();
+    component().setContainsTransparency(Textured::getTexture()->containsTransparency());
 }
 
 void Animation2D::scaleToSize(const glm::vec2& size) {

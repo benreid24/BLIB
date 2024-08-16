@@ -40,6 +40,20 @@ struct EcsComponent : public bl::rc::rcom::DrawableBase {
      * @param texture The texture to use to determine size and texture coords
      */
     void makeSprite(const rc::res::TextureRef& texture);
+
+    /**
+     * @brief Returns the default pipeline for regular scenes
+     */
+    virtual std::uint32_t getDefaultScenePipelineId() const override {
+        return getCurrentPipeline();
+    }
+
+    /**
+     * @brief Returns the default pipeline for overlays
+     */
+    virtual std::uint32_t getDefaultOverlayPipelineId() const override {
+        return getCurrentPipeline();
+    }
 };
 
 } // namespace pcl

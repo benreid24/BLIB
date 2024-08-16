@@ -33,11 +33,11 @@ void SwapChainSupportDetails::populate(VkPhysicalDevice device, VkSurfaceKHR sur
 const VkSurfaceFormatKHR& SwapChainSupportDetails::swapSurfaceFormat() const {
     for (const VkSurfaceFormatKHR& format : formats) {
         if (format.colorSpace == VK_COLOR_SPACE_SRGB_NONLINEAR_KHR &&
-            format.format == VK_FORMAT_R8G8B8A8_UNORM) {
+            format.format == VK_FORMAT_B8G8R8A8_UNORM) {
             return format;
         }
     }
-    BL_LOG_DEBUG << "Did not find VK_FORMAT_R8G8B8A8_UNORM, using " << formats.front().format;
+    BL_LOG_DEBUG << "Did not find VK_FORMAT_B8G8R8A8_UNORM, using " << formats.front().format;
     return formats.front();
 }
 

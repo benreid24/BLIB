@@ -49,7 +49,7 @@ void Slideshow::createWithUniquePlayer(engine::Engine& engine,
     Animation2DPlayer::create(
         engine.renderer(), engine.ecs(), entity(), animation, play, forceLoop);
     component().create(engine.renderer().vulkanState(), Animation2DPlayer::getPlayer());
-    component().containsTransparency = Textured::getTexture()->containsTransparency();
+    component().setContainsTransparency(Textured::getTexture()->containsTransparency());
 }
 
 void Slideshow::createWithUniquePlayer(engine::Engine& engine, ecs::Entity existing,
@@ -61,7 +61,7 @@ void Slideshow::createWithUniquePlayer(engine::Engine& engine, ecs::Entity exist
     Animation2DPlayer::create(
         engine.renderer(), engine.ecs(), entity(), animation, play, forceLoop);
     component().create(engine.renderer().vulkanState(), Animation2DPlayer::getPlayer());
-    component().containsTransparency = Textured::getTexture()->containsTransparency();
+    component().setContainsTransparency(Textured::getTexture()->containsTransparency());
 }
 
 void Slideshow::createWithSharedPlayer(engine::Engine& engine, const Slideshow& player) {
@@ -70,7 +70,7 @@ void Slideshow::createWithSharedPlayer(engine::Engine& engine, const Slideshow& 
     OverlayScalable::setLocalSize(player.getLocalSize());
     Animation2DPlayer::create(engine.renderer(), engine.ecs(), entity(), player.getPlayerEntity());
     component().create(engine.renderer().vulkanState(), Animation2DPlayer::getPlayer());
-    component().containsTransparency = Textured::getTexture()->containsTransparency();
+    component().setContainsTransparency(Textured::getTexture()->containsTransparency());
 }
 
 void Slideshow::createWithSharedPlayer(engine::Engine& engine, ecs::Entity existing,
@@ -80,7 +80,7 @@ void Slideshow::createWithSharedPlayer(engine::Engine& engine, ecs::Entity exist
     OverlayScalable::setLocalSize(player.getLocalSize());
     Animation2DPlayer::create(engine.renderer(), engine.ecs(), entity(), player.getPlayerEntity());
     component().create(engine.renderer().vulkanState(), Animation2DPlayer::getPlayer());
-    component().containsTransparency = Textured::getTexture()->containsTransparency();
+    component().setContainsTransparency(Textured::getTexture()->containsTransparency());
 }
 
 void Slideshow::scaleToSize(const glm::vec2& size) {

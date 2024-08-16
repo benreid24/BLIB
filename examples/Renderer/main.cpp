@@ -68,9 +68,9 @@ public:
         bl::ecs::Entity spriteEntity = engine.ecs().createEntity();
         spritePosition = engine.ecs().emplaceComponent<bl::com::Transform2D>(spriteEntity);
         engine.ecs().emplaceComponent<bl::com::Texture>(spriteEntity, texture);
-        engine.ecs().emplaceComponent<bl::com::Sprite>(spriteEntity, engine.renderer(), texture);
-        engine.systems().getSystem<bl::sys::SpriteSystem>().addToScene(
-            spriteEntity, scene2d, bl::rc::UpdateSpeed::Dynamic);
+        bl::com::Sprite& scom = *engine.ecs().emplaceComponent<bl::com::Sprite>(
+            spriteEntity, engine.renderer(), texture);
+        scom.addToScene(engine.ecs(), spriteEntity, scene2d, bl::rc::UpdateSpeed::Dynamic);
         spritePosition->setPosition({1920.f * 0.5f, 1080.f * 0.25f});
         spritePosition->setScale({100.f / texture->size().x, 100.f / texture->size().y});
         spritePosition->setOrigin(texture->size() * 0.5f);
@@ -95,9 +95,6 @@ public:
             glm::vec3{0.f, 0.f, 0.f}, 4.f, glm::vec3{0.3f, 1.f, 0.1f}, 2.f, 4.f);
         player2Cam->addAffector<bl::cam::c3d::CameraShake>(0.1f, 7.f);
 
-        // get handle to mesh system
-        bl::sys::MeshSystem& meshSystem = engine.systems().getSystem<bl::sys::MeshSystem>();
-
         // create object in scene
         meshEntity = engine.ecs().createEntity();
         engine.ecs().emplaceComponent<bl::com::Transform3D>(meshEntity);
@@ -110,7 +107,7 @@ public:
         }
         mesh->gpuBuffer.indices() = Indices;
         mesh->gpuBuffer.queueTransfer(bl::rc::tfr::Transferable::SyncRequirement::Immediate);
-        meshSystem.addToScene(meshEntity, scene, bl::rc::UpdateSpeed::Static);
+        mesh->addToScene(engine.ecs(), meshEntity, scene, bl::rc::UpdateSpeed::Static);
 
         // create overlay and add sprite for observer 2
         bl::rc::Overlay* overlay = p2.getOrCreateSceneOverlay();

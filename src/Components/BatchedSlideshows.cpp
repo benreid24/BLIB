@@ -16,7 +16,7 @@ void BatchedSlideshows::create(rc::vk::VulkanState& vulkanState, unsigned int ic
 void BatchedSlideshows::updateDrawParams() {
     if (indexBuffer.getIndexBuffer().vertexCount() > 0) {
         drawParams = indexBuffer.getDrawParameters();
-        if (sceneRef.object) { syncDrawParamsToScene(); }
+        if (getSceneRef().object) { syncDrawParamsToScene(); }
     }
 }
 

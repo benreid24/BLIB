@@ -11,6 +11,7 @@
 #include <BLIB/Render/Resources/RenderPassCache.hpp>
 #include <BLIB/Render/Resources/ScenePool.hpp>
 #include <BLIB/Render/Resources/TexturePool.hpp>
+#include <BLIB/Render/Scenes/SceneSync.hpp>
 #include <BLIB/Render/Transfers/TextureExporter.hpp>
 #include <BLIB/Render/Vulkan/RenderTexture.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
@@ -246,6 +247,7 @@ private:
     std::vector<WithFuture<std::unique_ptr<vk::RenderTexture>>> renderTextures;
     std::unique_ptr<rg::Strategy> strategy;
     rg::AssetFactory assetFactory;
+    scene::SceneSync sceneSync;
 
     Renderer(engine::Engine& engine, engine::EngineWindow& window);
     ~Renderer();

@@ -18,5 +18,16 @@ void Animation2D::create(engine::Engine& engine, const Animation2DPlayer& anim) 
     system.createNonSlideshow(*this, anim);
 }
 
+void Animation2D::initDrawParams(const rc::prim::DrawParameters& params) {
+    drawParams = params;
+    syncDrawParamsToScene();
+}
+
+void Animation2D::updateDrawParams(std::uint32_t indexStart, std::uint32_t indexCount) {
+    drawParams.indexOffset = indexStart;
+    drawParams.indexCount  = indexCount;
+    syncDrawParamsToScene();
+}
+
 } // namespace com
 } // namespace bl

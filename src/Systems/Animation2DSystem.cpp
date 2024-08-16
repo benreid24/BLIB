@@ -120,12 +120,10 @@ void Animation2DSystem::update(std::mutex&, float dt, float, float, float) {
 
     // sync vertex animation draw parameters
     vertexPool->forEach([](ecs::Entity, com::Animation2D& anim) {
-        if (anim.systemHandle && anim.player && anim.sceneRef.object) {
+        if (anim.systemHandle && anim.player && anim.getSceneRef().object) {
             const VertexAnimation& data = *static_cast<VertexAnimation*>(anim.systemHandle);
             const auto& frame           = data.frameToIndices[anim.player->currentFrame];
-            anim.drawParams.indexOffset = frame.indexStart;
-            anim.drawParams.indexCount  = frame.indexCount;
-            anim.syncDrawParamsToScene();
+            anim.updateDrawParams(frame.indexStart, frame.indexCount);
         }
     });
 }
@@ -320,7 +318,7 @@ void Animation2DSystem::createNonSlideshow(com::Animation2D& anim,
     VertexAnimation* data = doNonSlideshowCreate(player);
     data->useCount += 1;
     anim.systemHandle = data;
-    anim.drawParams   = data->indexBuffer.getDrawParameters(); // indices overwritten in update()
+    anim.initDrawParams(data->indexBuffer.getDrawParameters()); // indices overwritten in update()
 }
 
 Animation2DSystem::VertexAnimation* Animation2DSystem::doNonSlideshowCreate(

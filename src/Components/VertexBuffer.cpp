@@ -19,7 +19,7 @@ void VertexBuffer::resize(unsigned int vc, bool copy) {
 void VertexBuffer::commit() {
     drawParams = buffer.getDrawParameters();
     buffer.queueTransfer();
-    if (sceneRef.object) { syncDrawParamsToScene(); }
+    syncDrawParamsToScene();
 }
 
 } // namespace com

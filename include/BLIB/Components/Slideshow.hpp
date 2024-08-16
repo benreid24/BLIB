@@ -43,6 +43,20 @@ struct Slideshow : public rc::rcom::DrawableBase {
      * @return True on success, false if animation is invalid slideshow
      */
     bool setPlayer(const Animation2DPlayer& anim);
+
+    /**
+     * @brief Returns the default pipeline for regular scenes
+     */
+    virtual std::uint32_t getDefaultScenePipelineId() const override {
+        return rc::Config::PipelineIds::SlideshowLit;
+    }
+
+    /**
+     * @brief Returns the default pipeline for overlays
+     */
+    virtual std::uint32_t getDefaultOverlayPipelineId() const override {
+        return rc::Config::PipelineIds::SlideshowUnlit;
+    }
 };
 
 } // namespace com

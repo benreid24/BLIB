@@ -5,7 +5,8 @@ namespace bl
 namespace util
 {
 ReadWriteLock::ReadWriteLock()
-: readerCount(0) {}
+: readerCount(0)
+, recursiveWriteLock(0) {}
 
 void ReadWriteLock::lockRead() {
     std::unique_lock lock(mutex);
@@ -37,18 +38,20 @@ void ReadWriteLock::lockWrite() {
     }
 
     writeLocker = std::this_thread::get_id();
+    ++recursiveWriteLock;
 }
 
 void ReadWriteLock::unlockWrite() {
     std::unique_lock lock(mutex);
 
 #ifdef BLIB_DEBUG
-    if (!writeLocker.has_value() || writeLocker.value() != std::this_thread::get_id()) {
+    if (!writeLocker.has_value() || writeLocker.value() != std::this_thread::get_id() ||
+        recursiveWriteLock == 0) {
         throw std::runtime_error("Invalid call to unlockWrite()");
     }
 #endif
 
-    writeLocker.reset();
+    if (--recursiveWriteLock == 0) { writeLocker.reset(); }
 
     lock.unlock();
     cv.notify_one();

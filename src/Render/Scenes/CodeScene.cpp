@@ -49,7 +49,7 @@ void CodeScene::renderScene(scene::SceneRenderContext& context) {
     renderCallback(ctx);
 }
 
-void CodeScene::doObjectRemoval(SceneObject* object, std::uint32_t pipeline) {
+void CodeScene::doObjectRemoval(SceneObject* object, std::uint32_t) {
     CodeSceneObject* obj     = static_cast<CodeSceneObject*>(object);
     const ecs::Entity entity = objects.getObjectEntity(obj->sceneKey);
 
@@ -64,7 +64,7 @@ SceneObject* CodeScene::doAdd(ecs::Entity entity, rcom::DrawableBase& object,
                               UpdateSpeed updateFreq) {
     CodeSceneObject& obj = *objects.allocate(updateFreq, entity).newObject;
 
-    obj.pipeline = &renderer.pipelineCache().getPipeline(object.pipeline);
+    obj.pipeline = &renderer.pipelineCache().getPipeline(object.getCurrentPipeline());
     obj.descriptorCount =
         obj.pipeline->pipelineLayout().initDescriptorSets(descriptorSets, obj.descriptors.data());
     obj.perObjStart = obj.descriptorCount;
@@ -115,7 +115,7 @@ CodeScene::RenderContext::RenderContext(SceneRenderContext& ctx)
 : renderContext(ctx) {}
 
 void CodeScene::RenderContext::renderObject(rcom::DrawableBase& object) {
-    CodeSceneObject* obj = static_cast<CodeSceneObject*>(object.sceneRef.object);
+    CodeSceneObject* obj = static_cast<CodeSceneObject*>(object.getSceneRef().object);
 
 #ifdef BLIB_DEBUG
     if (!obj) { throw std::runtime_error("Cannot render object with nullptr scene ref"); }

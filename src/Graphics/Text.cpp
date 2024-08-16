@@ -112,9 +112,7 @@ void Text::commit() {
     OverlayScalable::setLocalSize({bounds.width + bounds.left, bounds.height + bounds.top});
 
     // update draw parameters
-    component().drawParams             = component().vertices.getDrawParameters();
-    component().drawParams.vertexCount = vertexCount;
-    component().updateDrawParams();
+    component().updateDrawParams(vertexCount);
 
     // always upload new font atlas if required
     font->syncTexture(engine().renderer());

@@ -11,13 +11,15 @@ Text::Text()
     containsTransparency = true;
 }
 
-void Text::updateDrawParams() {
+void Text::updateDrawParams(std::uint32_t vc) {
     const bool wasTrans = containsTransparency;
 
-    pipeline             = rc::Config::PipelineIds::Text;
-    containsTransparency = true;
+    drawParams             = vertices.getDrawParameters();
+    drawParams.vertexCount = vc;
+    pipeline               = rc::Config::PipelineIds::Text;
+    containsTransparency   = true;
 
-    if (sceneRef.object) {
+    if (getSceneRef().object) {
         syncDrawParamsToScene();
         if (wasTrans != containsTransparency) { rebucket(); }
     }

@@ -24,7 +24,8 @@ Renderer::Renderer(engine::Engine& engine, engine::EngineWindow& window)
 , scenes(engine)
 , imageExporter(*this)
 , splitscreenDirection(SplitscreenDirection::TopAndBottom)
-, commonObserver(engine, *this, assetFactory, true, false) {
+, commonObserver(engine, *this, assetFactory, true, false)
+, sceneSync(engine.ecs()) {
     renderTextures.reserve(16);
     clearColors[0].color        = {{0.f, 0.f, 0.f, 1.f}};
     clearColors[1].depthStencil = {1.f, 0};
@@ -60,52 +61,6 @@ void Renderer::initialize() {
     engine.systems().registerSystem<sys::TextureDescriptorSystem>(
         FrameStage::RenderDescriptorRefresh, AllMask);
 
-    // drawable systems
-    engine.systems().registerSystem<sys::MeshSystem>(FrameStage::RenderEarlyRefresh,
-                                                     AllMask,
-                                                     Config::PipelineIds::SkinnedMeshes,
-                                                     Config::PipelineIds::SkinnedMeshes);
-    engine.systems().registerSystem<sys::SpriteSystem>(FrameStage::RenderEarlyRefresh,
-                                                       AllMask,
-                                                       Config::PipelineIds::LitSkinned2DGeometry,
-                                                       Config::PipelineIds::UnlitSkinned2DGeometry);
-    engine.systems().registerSystem<sys::BatchedSpriteSystem>(
-        FrameStage::RenderEarlyRefresh,
-        AllMask,
-        Config::PipelineIds::LitSkinned2DGeometry,
-        Config::PipelineIds::UnlitSkinned2DGeometry);
-    engine.systems().registerSystem<sys::TextSystem>(FrameStage::RenderEarlyRefresh,
-                                                     AllMask,
-                                                     Config::PipelineIds::Text,
-                                                     Config::PipelineIds::Text);
-    engine.systems().registerSystem<sys::SlideshowSystem>(FrameStage::RenderEarlyRefresh,
-                                                          AllMask,
-                                                          Config::PipelineIds::SlideshowLit,
-                                                          Config::PipelineIds::SlideshowUnlit);
-    engine.systems().registerSystem<sys::BatchedSlideshowsSystem>(
-        FrameStage::RenderEarlyRefresh,
-        AllMask,
-        Config::PipelineIds::SlideshowLit,
-        Config::PipelineIds::SlideshowUnlit);
-    engine.systems().registerSystem<sys::Animation2DDrawableSystem>(
-        FrameStage::RenderEarlyRefresh,
-        AllMask,
-        Config::PipelineIds::LitSkinned2DGeometry,
-        Config::PipelineIds::UnlitSkinned2DGeometry);
-    engine.systems().registerSystem<sys::Shape2DSystem>(FrameStage::RenderEarlyRefresh,
-                                                        AllMask,
-                                                        Config::PipelineIds::Lit2DGeometry,
-                                                        Config::PipelineIds::Unlit2DGeometry);
-    engine.systems().registerSystem<sys::BatchedShapes2DSystem>(
-        FrameStage::RenderEarlyRefresh,
-        AllMask,
-        Config::PipelineIds::Lit2DGeometry,
-        Config::PipelineIds::Unlit2DGeometry);
-    engine.systems().registerSystem<sys::VertexBufferSystem>(FrameStage::RenderEarlyRefresh,
-                                                             AllMask,
-                                                             Config::PipelineIds::Lit2DGeometry,
-                                                             Config::PipelineIds::Unlit2DGeometry);
-
     // asset providers
     assetFactory.addProvider<rgi::StandardAssetProvider>(rg::AssetTags::RenderedSceneOutput);
     assetFactory.addProvider<rgi::StandardAssetProvider>(rg::AssetTags::PostFXOutput);
@@ -128,11 +83,15 @@ void Renderer::initialize() {
     // initialize observers
     addObserver();
     commonObserver.assignRegion(window.getSfWindow().getSize(), renderRegion, 1, 0, true);
+
+    // begin ECS sync
+    bl::event::Dispatcher::subscribe(&sceneSync);
 }
 
 void Renderer::cleanup() {
     vkCheck(vkDeviceWaitIdle(state.device));
 
+    bl::event::Dispatcher::unsubscribe(&sceneSync);
     imageExporter.cleanup();
     resource::ResourceManager<sf::VulkanFont>::freeAndDestroyAll();
     renderTextures.clear();

@@ -87,7 +87,7 @@ scene::SceneObject* Overlay::doAdd(ecs::Entity entity, rcom::DrawableBase& objec
 
     obj.entity   = entity;
     obj.overlay  = this;
-    obj.pipeline = &renderer.pipelineCache().getPipeline(object.pipeline);
+    obj.pipeline = &renderer.pipelineCache().getPipeline(object.getCurrentPipeline());
     obj.descriptorCount =
         obj.pipeline->pipelineLayout().initDescriptorSets(descriptorSets, obj.descriptors.data());
     obj.perObjStart     = obj.descriptorCount;

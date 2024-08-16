@@ -90,6 +90,20 @@ public:
      */
     constexpr const glm::vec2& getSize() const;
 
+    /**
+     * @brief Returns the default pipeline for regular scenes
+     */
+    virtual std::uint32_t getDefaultScenePipelineId() const override {
+        return rc::Config::PipelineIds::LitSkinned2DGeometry;
+    }
+
+    /**
+     * @brief Returns the default pipeline for overlays
+     */
+    virtual std::uint32_t getDefaultOverlayPipelineId() const override {
+        return rc::Config::PipelineIds::UnlitSkinned2DGeometry;
+    }
+
 private:
     rc::buf::IndexBuffer buffer;
     rc::res::TextureRef texture;

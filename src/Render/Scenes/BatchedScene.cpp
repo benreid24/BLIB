@@ -33,9 +33,9 @@ scene::SceneObject* BatchedScene::doAdd(ecs::Entity entity, rcom::DrawableBase& 
         handleAddressChange(updateFreq, alloc.originalBaseAddress);
     }
 
-    transCache[sceneId]    = obj.containsTransparency;
-    auto& batch            = obj.containsTransparency ? transparentObjects : opaqueObjects;
-    vk::Pipeline& pipeline = renderer.pipelineCache().getPipeline(obj.pipeline);
+    transCache[sceneId]    = obj.getContainsTransparency();
+    auto& batch            = obj.getContainsTransparency() ? transparentObjects : opaqueObjects;
+    vk::Pipeline& pipeline = renderer.pipelineCache().getPipeline(obj.getCurrentPipeline());
 
     // find or create layout batch
     LayoutBatch* layoutBatch = nullptr;

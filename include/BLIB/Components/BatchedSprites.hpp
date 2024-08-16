@@ -62,6 +62,20 @@ public:
      */
     rc::buf::BatchIndexBuffer& getBuffer() { return buffer; }
 
+    /**
+     * @brief Returns the default pipeline for regular scenes
+     */
+    virtual std::uint32_t getDefaultScenePipelineId() const override {
+        return rc::Config::PipelineIds::LitSkinned2DGeometry;
+    }
+
+    /**
+     * @brief Returns the default pipeline for overlays
+     */
+    virtual std::uint32_t getDefaultOverlayPipelineId() const override {
+        return rc::Config::PipelineIds::UnlitSkinned2DGeometry;
+    }
+
 private:
     rc::buf::BatchIndexBuffer buffer;
     rc::res::TextureRef texture;

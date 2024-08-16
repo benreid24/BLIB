@@ -32,6 +32,10 @@ namespace vk
 {
 class RenderTexture;
 }
+namespace scene
+{
+class SceneSync;
+}
 
 namespace res
 {
@@ -164,7 +168,7 @@ private:
     std::vector<std::uint32_t> staticPipelines;
     std::vector<std::uint32_t> dynamicPipelines;
 
-    // called by sys::DrawableSystem in locked context
+    // called by SceneSync
     void createAndAddObject(ecs::Entity entity, rcom::DrawableBase& object, UpdateSpeed updateFreq);
 
     // called by DrawableBase
@@ -175,8 +179,7 @@ private:
     std::uint32_t registerObserver();
     void updateObserverCamera(std::uint32_t observerIndex, const glm::mat4& projView);
 
-    template<typename T>
-    friend class sys::DrawableSystem;
+    friend class scene::SceneSync;
     friend class RenderTarget;
     friend class res::ScenePool;
     friend class vk::RenderTexture;

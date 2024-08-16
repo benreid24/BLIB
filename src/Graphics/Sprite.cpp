@@ -23,7 +23,7 @@ void Sprite::create(engine::Engine& engine, rc::res::TextureRef texture,
     Textured::create(engine.ecs(), entity(), texture);
     OverlayScalable::create(engine, entity());
     OverlayScalable::setLocalSize(component().getSize());
-    component().containsTransparency = Textured::getTexture()->containsTransparency();
+    component().setContainsTransparency(Textured::getTexture()->containsTransparency());
 }
 
 void Sprite::create(engine::Engine& engine, ecs::Entity existing, rc::res::TextureRef texture,
@@ -32,20 +32,20 @@ void Sprite::create(engine::Engine& engine, ecs::Entity existing, rc::res::Textu
     Textured::create(engine.ecs(), entity(), texture);
     OverlayScalable::create(engine, entity());
     OverlayScalable::setLocalSize(component().getSize());
-    component().containsTransparency = Textured::getTexture()->containsTransparency();
+    component().setContainsTransparency(Textured::getTexture()->containsTransparency());
 }
 
 void Sprite::setTexture(rc::res::TextureRef texture, bool reset) {
     Textured::setTexture(texture);
     component().setTexture(texture, reset);
-    component().containsTransparency = Textured::getTexture()->containsTransparency();
+    component().setContainsTransparency(Textured::getTexture()->containsTransparency());
     if (reset) { OverlayScalable::setLocalSize(component().getSize()); }
 }
 
 void Sprite::setTexture(rc::res::TextureRef texture, const sf::FloatRect region) {
     Textured::setTexture(texture);
     component().create(nullptr, texture, region);
-    component().containsTransparency = Textured::getTexture()->containsTransparency();
+    component().setContainsTransparency(Textured::getTexture()->containsTransparency());
     OverlayScalable::setLocalSize(component().getSize());
 }
 

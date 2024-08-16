@@ -120,6 +120,7 @@ private:
     std::mutex mutex;
     std::condition_variable cv;
     unsigned int readerCount;
+    unsigned int recursiveWriteLock;
     std::optional<std::thread::id> writeLocker;
 
     bool otherThreadHasWriteLock() const {

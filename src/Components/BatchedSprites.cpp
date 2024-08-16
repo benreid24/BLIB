@@ -19,17 +19,13 @@ void BatchedSprites::create(rc::Renderer& renderer, const rc::res::TextureRef& t
     drawParams = buffer.getDrawParameters();
 }
 
-void BatchedSprites::refreshTrans() {
-    const bool wasTrans  = containsTransparency;
-    containsTransparency = texture->containsTransparency();
-    if (containsTransparency != wasTrans) { rebucket(); }
-}
+void BatchedSprites::refreshTrans() { setContainsTransparency(texture->containsTransparency()); }
 
 void BatchedSprites::updateDrawParams() {
     if (buffer.getIndexBuffer().vertexCount() > 0) {
         refreshTrans();
         drawParams = buffer.getDrawParameters();
-        if (sceneRef.object) { syncDrawParamsToScene(); }
+        if (getSceneRef().object) { syncDrawParamsToScene(); }
     }
 }
 

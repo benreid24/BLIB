@@ -62,6 +62,20 @@ public:
      */
     void commit();
 
+    /**
+     * @brief Returns the default pipeline for regular scenes
+     */
+    virtual std::uint32_t getDefaultScenePipelineId() const override {
+        return rc::Config::PipelineIds::Lit2DGeometry;
+    }
+
+    /**
+     * @brief Returns the default pipeline for overlays
+     */
+    virtual std::uint32_t getDefaultOverlayPipelineId() const override {
+        return rc::Config::PipelineIds::Unlit2DGeometry;
+    }
+
 private:
     rc::buf::VertexBuffer buffer;
 };

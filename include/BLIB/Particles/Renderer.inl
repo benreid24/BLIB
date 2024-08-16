@@ -1,10 +1,8 @@
 #ifndef BLIB_PARTICLES_RENDERER_INL
 #define BLIB_PARTICLES_RENDERER_INL
 
-#include <BLIB/Particles/Renderer.hpp>
-
 #include <BLIB/Engine/Engine.hpp>
-#include <BLIB/Systems/DrawableSystem.hpp>
+#include <BLIB/Particles/Renderer.hpp>
 
 namespace bl
 {
@@ -66,17 +64,7 @@ void Renderer<T>::init(engine::Engine& e) {
         }
     }
 
-    engine = &e;
-    if (!system) {
-        system = engine->systems().getSystemMaybe<TEngineSystem>();
-        if (!system) {
-            system = &engine->systems().registerSystem<TEngineSystem>(
-                bl::engine::FrameStage::RenderEarlyRefresh,
-                bl::engine::StateMask::All,
-                PipelineId,
-                PipelineId);
-        }
-    }
+    engine    = &e;
     component = nullptr;
 }
 
@@ -89,7 +77,8 @@ void Renderer<T>::addToScene(rc::Scene* scene) {
         entity, *engine, ContainsTransparency, PipelineId);
     link          = engine->ecs().emplaceComponent<Link<T>>(entity);
     link->globals = &globals;
-    static_cast<TEngineSystem*>(system)->addToScene(entity, scene, bl::rc::UpdateSpeed::Dynamic);
+    component->addToSceneWithPipeline(
+        engine->ecs(), entity, scene, bl::rc::UpdateSpeed::Dynamic, PipelineId);
 }
 
 template<typename T>
@@ -101,7 +90,7 @@ void Renderer<T>::removeFromScene() {
 template<typename T>
 void Renderer<T>::notifyData(T* particles, std::size_t length) {
     if (component) {
-        component->drawParams.instanceCount = length;
+        component->getDrawParametersForEdit().instanceCount = length;
         component->syncDrawParamsToScene();
         link->base = particles;
         link->len  = length;

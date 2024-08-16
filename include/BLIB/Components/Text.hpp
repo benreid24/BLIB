@@ -23,8 +23,24 @@ struct Text : public rc::rcom::DrawableBase {
 
     /**
      * @brief Updates the draw parameters to render the entire vertex buffer
+     *
+     * @param vertexCount The number of vertices to actually render
      */
-    void updateDrawParams();
+    void updateDrawParams(std::uint32_t vertexCount);
+
+    /**
+     * @brief Returns the default pipeline for regular scenes
+     */
+    virtual std::uint32_t getDefaultScenePipelineId() const override {
+        return rc::Config::PipelineIds::Text;
+    }
+
+    /**
+     * @brief Returns the default pipeline for overlays
+     */
+    virtual std::uint32_t getDefaultOverlayPipelineId() const override {
+        return rc::Config::PipelineIds::Text;
+    }
 };
 
 } // namespace com
