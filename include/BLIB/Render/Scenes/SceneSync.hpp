@@ -45,7 +45,7 @@ private:
     virtual void observe(const rc::event::SceneObjectRemoved& event) override;
     virtual void observe(const rc::event::SceneDestroyed& event) override;
 
-    friend class Renderer;
+    friend class ::bl::rc::Renderer;
 };
 
 } // namespace scene

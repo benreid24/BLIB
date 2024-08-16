@@ -145,6 +145,7 @@ void BatchedScene::doBatchChange(const BatchChange& change, std::uint32_t ogPipe
     const bool isStatic = change.changed->sceneKey.updateFreq == UpdateSpeed::Static;
     auto& transCache    = isStatic ? staticTransCache : dynamicTransCache;
     const bool wasTrans = transCache[change.changed->sceneKey.sceneId];
+    transCache[change.changed->sceneKey.sceneId] = change.newTrans;
 
     vk::Pipeline& newPipeline = renderer.pipelineCache().getPipeline(change.newPipeline);
     vk::Pipeline& oldPipeline = renderer.pipelineCache().getPipeline(ogPipeline);
