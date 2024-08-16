@@ -38,6 +38,7 @@ void SceneSync::observe(const rc::event::SceneDestroyed& event) {
         [this, &event](ecs::Entity ent, com::Rendered& r) {
             if (r.getScene() == event.scene) {
                 r.invalidate();
+                r.getComponent()->sceneRef.scene = nullptr;
                 registry.removeComponent<com::Rendered>(ent);
             }
         });

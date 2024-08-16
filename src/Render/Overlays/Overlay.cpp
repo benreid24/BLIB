@@ -24,7 +24,22 @@ Overlay::Overlay(engine::Engine& e)
     bl::event::Dispatcher::subscribe(this);
 }
 
-Overlay::~Overlay() { objects.unlinkAll(descriptorSets); }
+Overlay::~Overlay() {
+    objects.unlinkAll(descriptorSets);
+
+    // reset viewports to prevent read into invalid memory
+    std::copy(roots.begin(), roots.end(), std::inserter(renderStack, renderStack.begin()));
+    while (!renderStack.empty()) {
+        ovy::OverlayObject& obj = *renderStack.back();
+        renderStack.pop_back();
+
+        obj.overlayViewport = nullptr;
+
+        std::copy(obj.getChildren().rbegin(),
+                  obj.getChildren().rend(),
+                  std::inserter(renderStack, renderStack.end()));
+    }
+}
 
 void Overlay::renderScene(scene::SceneRenderContext& ctx) {
     std::copy(roots.begin(), roots.end(), std::inserter(renderStack, renderStack.begin()));
@@ -112,6 +127,7 @@ scene::SceneObject* Overlay::doAdd(ecs::Entity entity, rcom::DrawableBase& objec
 
 void Overlay::doObjectRemoval(scene::SceneObject* object, std::uint32_t) {
     ovy::OverlayObject* obj = static_cast<ovy::OverlayObject*>(object);
+    obj->overlayViewport    = nullptr;
 
     auto childCopy = obj->getChildren();
     for (ovy::OverlayObject* child : childCopy) {
