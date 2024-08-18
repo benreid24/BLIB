@@ -26,13 +26,12 @@ class GarbageCollector;
  * @brief Base class for resource managers, do not use
  *
  * @ingroup Resources
- *
  */
 class ResourceManagerBase {
 protected:
     ResourceManagerBase();
     void unregister();
-    void getGCPeriod(unsigned int period);
+    void setGCPeriod(unsigned int period);
 
 private:
     virtual void doClean() = 0;
@@ -56,7 +55,6 @@ class ResourceManager
 public:
     /**
      * @brief Exits the garbage collection thread. Resources still held are not freed
-     *
      */
     ~ResourceManager();
 
@@ -79,6 +77,14 @@ public:
     static void setGarbageCollectionPeriod(unsigned int period);
 
     /**
+     * @brief Query whether the resource with the given URI is available in the resource manager
+     *
+     * @param uri The URI to check
+     * @return True if the resource is loaded, false otherwise
+     */
+    static bool available(const std::string& uri);
+
+    /**
      * @brief Returns a pointer to the resource for modification (such as forcing it to stay in
      *        cache). Will load the resource if it is not in cache
      *
@@ -88,9 +94,20 @@ public:
     static Ref<TResourceType> load(const std::string& uri);
 
     /**
+     * @brief Similar to load() but bypasses the filesystem and directly calls the loader with the
+     *        URI. Intended for generated/composite resources where the URI is not a file path and
+     *        the loader creates the resource from other sources. Only use when a compatible loader
+     *        is set as the data pointers passed to it will always be nullptr
+     *
+     * @param uri The resource path to pass to the loader
+     * @return A ref to the requested resource
+     */
+    static Ref<TResourceType> getOrCreateGenerated(const std::string& uri);
+
+    /**
      * @brief Uses the underlying FileSystem and loader to initialize the existing resource. The
      *        resource will not be managed. This is useful when dynamic management is not necessary
-     *         but you still want the resource loading to be bundle and loader aware
+     *        but you still want the resource loading to be bundle and loader aware
      *
      * @param uri The resource path to initialize from
      * @param resource The resource to initialize
@@ -99,9 +116,17 @@ public:
     static bool initializeExisting(const std::string& uri, TResourceType& resource);
 
     /**
+     * @brief Manually insert a resource into the manager. Will be managed as normal
+     *
+     * @param uri The uri of the resource
+     * @param resource The resource to insert
+     * @return A handle to the inserted resource
+     */
+    static Ref<TResourceType> put(const std::string& uri, TResourceType& resource);
+
+    /**
      * @brief Explicitly frees and destroys all resources, regardless of ownership state. Be very
      *        careful with this
-     *
      */
     static void freeAndDestroyAll();
 
@@ -135,7 +160,15 @@ ResourceManager<T>::~ResourceManager() {
 
 template<typename T>
 void ResourceManager<T>::setGarbageCollectionPeriod(unsigned int gc) {
-    get().getGCPeriod(gc);
+    get().setGCPeriod(gc);
+}
+
+template<typename TResourceType>
+bool ResourceManager<TResourceType>::available(const std::string& uri) {
+    ResourceManager& m = get();
+    std::unique_lock lock(m.mapLock);
+    const auto it = m.resources.find(uri);
+    return it != m.resources.end();
 }
 
 template<typename T>
@@ -169,6 +202,24 @@ Ref<T> ResourceManager<T>::load(const std::string& uri) {
     return {&it->second};
 }
 
+template<typename TResourceType>
+Ref<TResourceType> ResourceManager<TResourceType>::getOrCreateGenerated(const std::string& uri) {
+    ResourceManager& m = get();
+    std::unique_lock lock(m.mapLock);
+    auto it = m.resources.find(uri);
+    if (it == m.resources.end()) {
+        it = m.resources.try_emplace(uri).first;
+
+        util::BufferIstreamBuf buf(nullptr, 0);
+        std::istream stream(&buf);
+        if (!m.loader->load(uri, nullptr, 0, stream, it->second.data)) {
+            BL_LOG_ERROR << "Failed to create resource: " << uri;
+        }
+    }
+
+    return {&it->second};
+}
+
 template<typename T>
 bool ResourceManager<T>::initializeExisting(const std::string& uri, T& result) {
     ResourceManager& m = get();
@@ -180,6 +231,19 @@ bool ResourceManager<T>::initializeExisting(const std::string& uri, T& result) {
         return false;
     }
     return m.doInit(uri, buffer, len, result);
+}
+
+template<typename TResourceType>
+Ref<TResourceType> ResourceManager<TResourceType>::put(const std::string& uri,
+                                                       TResourceType& resource) {
+    ResourceManager& m = get();
+    std::unique_lock lock(m.mapLock);
+    auto it = m.resources.find(uri);
+    if (it == m.resources.end()) {
+        it              = m.resources.try_emplace(uri).first;
+        it->second.data = resource;
+    }
+    return {&it->second};
 }
 
 template<typename T>

@@ -8,7 +8,7 @@ namespace rc
 {
 namespace rg
 {
-AssetPool::AssetPool(AssetFactory& factory, Observer* observer)
+AssetPool::AssetPool(AssetFactory& factory, RenderTarget* observer)
 : factory(factory)
 , observer(observer) {}
 
@@ -17,7 +17,7 @@ void AssetPool::cleanup() { assets.clear(); }
 void AssetPool::releaseUnused() {
     for (auto& pair : assets) {
         std::erase_if(pair.second, [this](std::unique_ptr<Asset>& asset) {
-            if (asset->refCount == 0) {
+            if (asset->refCount == 0 && !asset->isExternal()) {
                 unbucketAsset(asset.get());
                 return true;
             }

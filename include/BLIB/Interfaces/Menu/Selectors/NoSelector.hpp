@@ -12,7 +12,6 @@ namespace menu
  *        display the selected item
  *
  * @ingroup Menu
- *
  */
 class NoSelector : public Selector {
 public:
@@ -20,29 +19,33 @@ public:
 
     /**
      * @brief Creates a new empty selector
-     *
      */
     static Ptr create() { return Ptr(new NoSelector()); }
 
     /**
      * @brief Does nothing
      */
-    virtual void doCreate(engine::Engine&, ecs::Entity) override{};
+    virtual void doCreate(engine::Engine&, ecs::Entity) override {}
 
     /**
      * @brief Does nothing
      */
-    virtual void notifySelection(ecs::Entity, sf::FloatRect) override{};
+    virtual void notifySelection(ecs::Entity, sf::FloatRect) override {}
 
     /**
      * @brief Does nothing
      */
-    virtual void doSceneAdd(rc::Overlay*) override{};
+    virtual void doSceneAdd(rc::Scene*) override {}
 
     /**
      * @brief Does nothing
      */
-    virtual void doSceneRemove() override{};
+    virtual void doSceneRemove() override {}
+
+    /**
+     * @brief Does nothing
+     */
+    virtual void draw(rc::scene::CodeScene::RenderContext&) override {}
 
 private:
     NoSelector() = default;

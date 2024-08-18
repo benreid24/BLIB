@@ -5,6 +5,7 @@
 #include <BLIB/Render/Graph/AssetFactory.hpp>
 #include <glm/glm.hpp>
 #include <memory>
+#include <stdexcept>
 #include <type_traits>
 #include <unordered_map>
 #include <vector>
@@ -13,7 +14,7 @@ namespace bl
 {
 namespace rc
 {
-class Observer;
+class RenderTarget;
 
 namespace rgi
 {
@@ -37,7 +38,7 @@ public:
      * @param factory The AssetFactory to use
      * @param observer The observer that the pool belongs to
      */
-    AssetPool(AssetFactory& factory, Observer* observer);
+    AssetPool(AssetFactory& factory, RenderTarget* observer);
 
     /**
      * @brief Destroys all contained assets
@@ -101,12 +102,24 @@ public:
 
         T* asset                             = new T(std::forward<TArgs>(args)...);
         static_cast<Asset*>(asset)->external = true;
-        const auto it                        = assets.try_emplace(asset->getTag()).first;
-        for (auto& a : it->second) { unbucketAsset(a.get()); }
-        it->second.clear();
-        it->second.emplace_back(asset);
-        bucketAsset(asset);
-        return asset;
+
+        const auto addResult = assets.try_emplace(asset->getTag());
+        if (!addResult.second) {
+            auto& pair = *addResult.first;
+            if (pair.second.size() == 1) {
+                // copy in place due to AssetRef's using raw pointers
+                T* existing = static_cast<T*>(pair.second[0].get());
+                *existing   = *asset;
+                delete asset;
+                return existing;
+            }
+            else { throw std::runtime_error("Cannot replace asset with more than one instance"); }
+        }
+        else {
+            addResult.first->second.emplace_back(asset);
+            bucketAsset(asset);
+            return asset;
+        }
     }
 
     /**
@@ -125,7 +138,7 @@ public:
 
 private:
     AssetFactory& factory;
-    Observer* observer;
+    RenderTarget* observer;
     std::unordered_map<std::string_view, std::vector<std::unique_ptr<Asset>>> assets;
     std::vector<rgi::FramebufferAsset*> framebufferAssets;
 

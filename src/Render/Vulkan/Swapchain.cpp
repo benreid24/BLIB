@@ -56,6 +56,9 @@ void Swapchain::Frame::cleanup(VulkanState& vulkanState) {
 Swapchain::Swapchain(VulkanState& state, sf::WindowBase& w)
 : vulkanState(state)
 , window(w)
+, swapchain(VK_NULL_HANDLE)
+, oldSwapchain(VK_NULL_HANDLE)
+, oldSurface(VK_NULL_HANDLE)
 , currentImageIndex(0)
 , outOfDate(true) {}
 
@@ -158,8 +161,20 @@ void Swapchain::cleanup() {
     vkDestroySwapchainKHR(vulkanState.device, swapchain, nullptr);
 }
 
-void Swapchain::create(VkSurfaceKHR s) {
-    surface = s;
+void Swapchain::deferCleanup() {
+    for (StandardAttachmentSet& frame : renderFrames) {
+        vulkanState.cleanupManager.add(
+            [device = vulkanState.device, view = frame.colorImageView()]() {
+                vkDestroyImageView(device, view, nullptr);
+            });
+    }
+    for (AttachmentBuffer& depthBuffer : depthBuffers) { depthBuffer.deferDestroy(); }
+    vulkanState.cleanupManager.add([device = vulkanState.device, chain = swapchain]() {
+        vkDestroySwapchainKHR(device, chain, nullptr);
+    });
+}
+
+void Swapchain::create() {
     frameData.init(vulkanState, [this](Frame& frame) { frame.init(vulkanState); });
     createSwapchain();
     outOfDate = false;
@@ -167,17 +182,28 @@ void Swapchain::create(VkSurfaceKHR s) {
 
 void Swapchain::recreate() {
     outOfDate = false;
-    vkCheck(vkDeviceWaitIdle(vulkanState.device));
-    cleanup();
+    if (vulkanState.surface == oldSurface) {
+        oldSwapchain = swapchain;
+        deferCleanup();
+        vkCheck(vkDeviceWaitIdle(vulkanState.device));
+    }
+    else {
+        vkCheck(vkDeviceWaitIdle(vulkanState.device));
+        cleanup();
+        oldSwapchain = VK_NULL_HANDLE;
+    }
     createSwapchain();
 }
 
 void Swapchain::invalidate() { outOfDate = true; }
 
 void Swapchain::createSwapchain() {
+    // cache the surface that we created with
+    oldSurface = vulkanState.surface;
+
     // get supported swap chain details
     SwapChainSupportDetails swapChainSupport;
-    swapChainSupport.populate(vulkanState.physicalDevice, surface);
+    swapChainSupport.populate(vulkanState.physicalDevice, vulkanState.surface);
     const VkSurfaceFormatKHR& surfaceFormat = swapChainSupport.swapSurfaceFormat();
 
     // image count in swap chain
@@ -190,17 +216,17 @@ void Swapchain::createSwapchain() {
     // swap chain create params
     VkSwapchainCreateInfoKHR createInfo{};
     createInfo.sType            = VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR;
-    createInfo.surface          = surface;
+    createInfo.surface          = vulkanState.surface;
     createInfo.minImageCount    = imageCount;
     createInfo.imageFormat      = surfaceFormat.format;
     createInfo.imageColorSpace  = surfaceFormat.colorSpace;
     createInfo.imageExtent      = swapChainSupport.swapExtent(window.getSize());
     createInfo.imageArrayLayers = 1;
-    createInfo.imageUsage       = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT;
+    createInfo.imageUsage       = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_TRANSFER_SRC_BIT;
 
     // queue chain config
     QueueFamilyLocator indices;
-    indices.populate(vulkanState.physicalDevice, surface);
+    indices.populate(vulkanState.physicalDevice, vulkanState.surface);
     std::uint32_t queueFamilies[] = {indices.graphicsFamily.value(), indices.presentFamily.value()};
 
     if (indices.graphicsFamily != indices.presentFamily) {
@@ -221,7 +247,7 @@ void Swapchain::createSwapchain() {
         swapChainSupport.presentationMode(!engine::Configuration::getOrDefault<bool>(
             engine::Settings::WindowParameters::VSyncKey, true));
     createInfo.clipped      = VK_TRUE;
-    createInfo.oldSwapchain = VK_NULL_HANDLE;
+    createInfo.oldSwapchain = oldSwapchain;
 
     const VkResult result =
         vkCreateSwapchainKHR(vulkanState.device, &createInfo, nullptr, &swapchain);

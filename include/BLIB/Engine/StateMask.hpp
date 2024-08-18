@@ -30,6 +30,9 @@ struct StateMask {
         /// The game is in a full screen menu
         Menu = 0x1 << 2,
 
+        /// Special state to indicate that the editor is running
+        Editor = 0x1 << 3,
+
         /// Special value to use if a system should execute regardless of engine state
         All = 0xFFFFFFFF
     };
@@ -45,8 +48,8 @@ struct StateMask {
  * @param right The right mask
  * @return The mask containing both left and right
  */
-inline bl::engine::StateMask::V operator|(bl::engine::StateMask::V left,
-                                          bl::engine::StateMask::V right) {
+inline constexpr bl::engine::StateMask::V operator|(bl::engine::StateMask::V left,
+                                                    bl::engine::StateMask::V right) {
     using V = bl::engine::StateMask::V;
     using I = std::underlying_type_t<V>;
     return static_cast<V>(static_cast<I>(left) | static_cast<I>(right));

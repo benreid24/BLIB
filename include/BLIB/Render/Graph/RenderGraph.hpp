@@ -15,7 +15,7 @@ namespace bl
 namespace rc
 {
 class Scene;
-class Observer;
+class RenderTarget;
 
 /// Collection of classes that comprise the render graph
 namespace rg
@@ -34,11 +34,11 @@ public:
      *
      * @param engine The engine instance
      * @param renderer The renderer instance
-     * @param assetPool The observer's asset pool
-     * @param observer The observer the graph belongs to
+     * @param assetPool The targets's asset pool
+     * @param target The render target the graph belongs to
      */
     RenderGraph(engine::Engine& engine, Renderer& renderer, AssetPool& assetPool,
-                Observer* observer);
+                RenderTarget* target);
 
     /**
      * @brief Adds a new task to the graph to become a part of the render process
@@ -197,7 +197,7 @@ private:
 
     engine::Engine& engine;
     Renderer& renderer;
-    Observer* observer;
+    RenderTarget* observer;
     GraphAssetPool assets;
     std::vector<std::unique_ptr<Task>> tasks;
     std::vector<TimelineStage> timeline;

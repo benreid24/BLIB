@@ -58,8 +58,8 @@ void GUI::addToOverlay(rc::Overlay* overlay) {
     bl::event::Dispatcher::subscribe(this);
 }
 
-void GUI::removeFromOverlay() {
-    renderer.removeFromOverlay();
+void GUI::removeFromScene() {
+    renderer.removeFromScene();
     bl::event::Dispatcher::unsubscribe(this);
 }
 

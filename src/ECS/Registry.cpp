@@ -7,6 +7,7 @@ namespace ecs
 Registry::Registry()
 : entityAllocator(DefaultCapacity)
 , entityMasks(DefaultCapacity, ComponentMask::EmptyMask)
+, entityFlags(DefaultCapacity, Flags::None)
 , entityVersions(DefaultCapacity, 0)
 , parentGraph(DefaultCapacity)
 , parentDestructionBehaviors(DefaultCapacity, ParentDestructionBehavior::DestroyedWithParent)
@@ -25,12 +26,14 @@ Entity Registry::createEntity(Flags flags) {
         entityVersions.resize(index + 1, 1);
         parentDestructionBehaviors.resize(index + 1,
                                           ParentDestructionBehavior::DestroyedWithParent);
+        entityFlags.resize(index + 1, Flags::None);
     }
     else {
         entityMasks[index]                = ComponentMask::EmptyMask;
         version                           = ++entityVersions[index];
         parentDestructionBehaviors[index] = ParentDestructionBehavior::DestroyedWithParent;
     }
+    entityFlags[index] = flags;
 
     const Entity ent(index, version, flags);
     bl::event::Dispatcher::dispatch<event::EntityCreated>({ent});
@@ -49,7 +52,10 @@ bool Registry::entityExistsLocked(Entity ent) const {
 
 bool Registry::destroyEntity(Entity start) {
     std::lock_guard lock(entityLock);
+    return destroyEntityLocked(start);
+}
 
+bool Registry::destroyEntityLocked(Entity start) {
     if (!entityExistsLocked(start)) { return false; }
 
     // check if we can remove due to dependencies
@@ -61,47 +67,70 @@ bool Registry::destroyEntity(Entity start) {
     // determine list of entities to remove due to parenting and dependencies
     std::vector<Entity> toRemove;
     std::vector<Entity> toVisit;
+    std::vector<Entity> toUnparent;
     toRemove.reserve(16);
-    toVisit.reserve(16);
-    toVisit.emplace_back(start);
 
-    while (!toVisit.empty()) {
-        const Entity ent = toVisit.back();
-        toVisit.pop_back();
-        toRemove.emplace_back(ent);
+    Entity nextToVisit = start;
+    Entity visiting    = InvalidEntity;
+    while (nextToVisit != visiting) {
+        const Entity visiting = nextToVisit;
+        toRemove.emplace_back(visiting);
+
+        // send events before actually modifying anything
+        const std::uint32_t index            = visiting.getIndex();
+        const ComponentMask::SimpleMask mask = entityMasks[index];
+        bl::event::Dispatcher::dispatch<event::EntityDestroyed>({visiting});
+        for (ComponentPoolBase* pool : componentPools) {
+            if (ComponentMask::has(mask, pool->ComponentIndex)) {
+                pool->fireRemoveEventOnly(visiting);
+            }
+        }
+
+        // try to avoid memory allocation by being too clever
+        const auto appendToVisit = [&visiting, &nextToVisit, &toVisit](Entity next) {
+            if (nextToVisit == visiting) { nextToVisit = next; }
+            else {
+                toVisit.reserve(16);
+                toVisit.emplace_back(next);
+            }
+        };
 
         // add marked dependencies
-        for (Entity resource : dependencyGraph.getResources(ent)) {
-            dependencyGraph.removeDependency(resource, ent);
+        for (Entity resource : dependencyGraph.getResources(visiting)) {
+            dependencyGraph.removeDependency(resource, visiting);
             if (!dependencyGraph.hasDependencies(resource)) {
                 const std::uint32_t i = resource.getIndex();
-                if (i < markedForRemoval.size() && markedForRemoval[i]) {
-                    toVisit.emplace_back(resource);
-                }
+                if (i < markedForRemoval.size() && markedForRemoval[i]) { appendToVisit(resource); }
             }
         }
 
         // add children
-        std::vector<Entity> toUnparent;
-        toUnparent.reserve(16);
-        for (Entity child : parentGraph.getChildren(ent)) {
+        for (Entity child : parentGraph.getChildren(visiting)) {
             const std::uint32_t j = child.getIndex();
             switch (parentDestructionBehaviors[j]) {
             case ParentDestructionBehavior::DestroyedWithParent:
-                toVisit.emplace_back(child);
+                appendToVisit(child);
                 break;
             case ParentDestructionBehavior::OrphanedByParent:
+                toUnparent.reserve(16);
                 toUnparent.emplace_back(child);
                 break;
             }
         }
 
-        // unparent outside of loop to avoid modifying child list
-        for (Entity child : toUnparent) { removeEntityParentLocked(child); }
+        if (nextToVisit == visiting) {
+            if (!toVisit.empty()) {
+                nextToVisit = toVisit.back();
+                toVisit.pop_back();
+            }
+            else { break; }
+        }
     }
 
+    // unparent outside of loop to avoid modifying child list
+    for (Entity child : toUnparent) { removeEntityParentLocked(child); }
+
     // unparent top entity if there is a parent
-    const std::uint32_t sindex = start.getIndex();
     removeEntityParentLocked(start);
 
     // remove all discovered entities
@@ -109,20 +138,20 @@ bool Registry::destroyEntity(Entity start) {
         const std::uint32_t index            = ent.getIndex();
         const ComponentMask::SimpleMask mask = entityMasks[index];
 
-        // notify external and remove from views
-        bl::event::Dispatcher::dispatch<event::EntityDestroyed>({ent});
+        // reset metadata
+        entityAllocator.release(index);
+        entityMasks[index] = ComponentMask::EmptyMask;
+        entityFlags[index] = Flags::None;
+
+        // remove from views
         for (auto& view : views) {
             if (view->mask.passes(mask)) { view->removeEntity(ent); }
         }
 
         // destroy components
         for (ComponentPoolBase* pool : componentPools) {
-            if (ComponentMask::has(mask, pool->ComponentIndex)) { pool->remove(ent); }
+            if (ComponentMask::has(mask, pool->ComponentIndex)) { pool->remove(ent, false); }
         }
-
-        // reset metadata
-        entityAllocator.release(index);
-        entityMasks[index] = ComponentMask::EmptyMask;
 
         // remove parenting info
         parentGraph.removeEntity(ent);
@@ -132,6 +161,26 @@ bool Registry::destroyEntity(Entity start) {
     }
 
     return true;
+}
+
+unsigned int Registry::destroyAllEntitiesWithFlags(Flags flags) {
+    std::lock_guard lock(entityLock);
+
+    unsigned int destroyed = 0;
+    for (std::uint32_t i = 0; i < entityFlags.size(); ++i) {
+        if (entityAllocator.isAllocated(i)) {
+            const Flags f = entityFlags[i];
+            if ((f & flags) != 0) {
+                destroyEntityLocked(Entity(i, entityVersions[i], f));
+                ++destroyed;
+            }
+        }
+    }
+    return destroyed;
+}
+
+unsigned int Registry::destroyAllWorldEntities() {
+    return destroyAllEntitiesWithFlags(Flags::WorldObject);
 }
 
 void Registry::destroyAllEntities() {

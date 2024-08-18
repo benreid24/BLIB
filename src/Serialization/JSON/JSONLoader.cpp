@@ -173,6 +173,8 @@ bool Loader::loadNumeric(Value& val) {
 }
 
 bool Loader::loadString(std::string& result) {
+    result.clear();
+
     if (isValid()) {
         util::StreamUtil::skipWhitespace(input);
         if (input.peek() == '"') {
@@ -205,7 +207,7 @@ bool Loader::loadString(std::string& result) {
             skipSymbol(); // closing quote
             return true;
         }
-        BL_LOG_ERROR << error() << "Unxpected symbol '" << static_cast<char>(input.peek())
+        BL_LOG_ERROR << error() << "Unexpected symbol '" << static_cast<char>(input.peek())
                      << "' expecting '\"'";
         valid = false;
     }
@@ -213,6 +215,8 @@ bool Loader::loadString(std::string& result) {
 }
 
 bool Loader::loadList(List& result) {
+    result.clear();
+
     if (!isValid()) return false;
     util::StreamUtil::skipWhitespace(input);
 
@@ -241,6 +245,8 @@ bool Loader::loadList(List& result) {
 }
 
 bool Loader::loadGroup(Group& result) {
+    result.clear();
+
     if (!isValid()) return false;
 
     util::StreamUtil::skipWhitespace(input);

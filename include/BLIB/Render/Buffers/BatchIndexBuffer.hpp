@@ -92,6 +92,12 @@ public:
         bool release();
 
         /**
+         * @brief Invalidates this handle without releasing. Useful if the allocated vertices should
+         *        outlive the handle used to create them
+         */
+        void orphan();
+
+        /**
          * @brief Returns the vertices for writing. Do not store pointers as they may be invalidated
          */
         T* getVertices();
@@ -203,6 +209,11 @@ public:
      */
     const IndexBufferT<T>& getIndexBuffer() const;
 
+    /**
+     * @brief Manually commit the vertices to the GPU
+     */
+    void commit();
+
 private:
     IndexBufferT<T> storage;
     std::uint32_t usedVertices;
@@ -211,7 +222,6 @@ private:
     std::shared_ptr<bool> alive;
 
     void release(typename std::list<AllocInfo>::iterator alloc);
-    void commit();
 };
 
 /**
@@ -353,7 +363,7 @@ void BatchIndexBufferT<T>::release(typename std::list<AllocInfo>::iterator it) {
     }
 
     // update values of affected indices
-    for (auto i : storage.indices()) {
+    for (auto& i : storage.indices()) {
         if (i >= alloc.vertexStart) { i -= alloc.vertexSize; }
     }
 
@@ -454,6 +464,13 @@ bool BatchIndexBufferT<T>::AllocHandle::release() {
         owner = nullptr;
     }
     return r;
+}
+
+template<typename T>
+void BatchIndexBufferT<T>::AllocHandle::orphan() {
+    parentAlive.reset();
+    alloc = owner->allocations.end();
+    owner = nullptr;
 }
 
 template<typename T>

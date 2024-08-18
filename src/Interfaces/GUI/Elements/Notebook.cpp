@@ -177,7 +177,7 @@ rdr::Component* Notebook::doPrepareRender(rdr::Renderer& renderer) {
 void Notebook::makePageActiveDirect(Page* page) {
     if (activePage) {
         activePage->content->setVisible(false, false);
-        if (page != activePage && activePage) activePage->onClose();
+        if (page != activePage) activePage->onClose();
     }
     page->content->setVisible(true, false);
     page->content->moveToTop();
@@ -199,8 +199,8 @@ void Notebook::makePageActiveDirect(Page* page) {
             }
         }
         constrainScroll();
-        updateTabBoxes();
     }
+    updateTabBoxes();
 }
 
 void Notebook::makePageActive(unsigned int i) {

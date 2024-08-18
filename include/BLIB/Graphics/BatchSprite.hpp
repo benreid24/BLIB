@@ -28,6 +28,11 @@ public:
     BatchSprite(engine::Engine& engine, BatchedSprites& batch, const sf::FloatRect& textureSource);
 
     /**
+     * @brief Releases its allocation from its owner and updates draw command
+     */
+    ~BatchSprite();
+
+    /**
      * @brief Creates the sprite in the given batch
      *
      * @param batch The batch of sprites to create within
@@ -67,9 +72,27 @@ public:
     void remove();
 
     /**
+     * @brief Detaches this sprite from the batch, invalidating this object but leaving the
+     *        vertices. Performs a commit before detaching
+     */
+    void orphan();
+
+    /**
      * @brief Returns whether or not the sprite has been created
      */
     bool isCreated() const;
+
+    /**
+     * @brief Disables auto-commit of the geometry when parameters change
+     *
+     * @param disable True to disable, false to auto commit. Default is false
+     */
+    void disableAutoCommit(bool disable);
+
+    /**
+     * @brief Manually commit the geometry to the batch. Only required if auto-commit is off
+     */
+    void commit();
 
 private:
     engine::Engine* engine;
@@ -78,10 +101,10 @@ private:
     com::Transform2D transform;
     rc::buf::BatchIndexBuffer::AllocHandle alloc;
     bool dirty;
+    bool autoCommit;
     engine::Systems::TaskHandle updateHandle;
 
     void markDirty();
-    void commit();
 };
 
 } // namespace gfx

@@ -2,7 +2,7 @@
 #define BLIB_GRAPHICS_DUMMY2D_HPP
 
 #include <BLIB/ECS.hpp>
-#include <BLIB/Graphics/Components/EntityBacked.hpp>
+#include <BLIB/ECS/EntityBacked.hpp>
 #include <BLIB/Graphics/Components/OverlayScalable.hpp>
 
 namespace bl
@@ -20,7 +20,7 @@ namespace gfx
  * @ingroup Graphics
  */
 class Dummy2D
-: public bcom::EntityBacked
+: public ecs::EntityBacked
 , public bcom::OverlayScalable {
 public:
     /**

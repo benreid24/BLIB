@@ -37,7 +37,10 @@ void ConstrainedFollower::update(float) {
 #endif
 
     glm::vec2 center = pos->getGlobalPosition();
-    if (camera().getSize().x >= area.width) { center.x = area.left + area.width * 0.5f; }
+    if (camera().getSize().x >= area.width) {
+        //
+        center.x = area.left + area.width * 0.5f;
+    }
     else {
         if (center.x - camera().getSize().x * 0.5f < area.left) {
             center.x = area.left + camera().getSize().x * 0.5f;

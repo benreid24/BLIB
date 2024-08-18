@@ -11,9 +11,12 @@
 #include <BLIB/Render/Resources/RenderPassCache.hpp>
 #include <BLIB/Render/Resources/ScenePool.hpp>
 #include <BLIB/Render/Resources/TexturePool.hpp>
+#include <BLIB/Render/Scenes/SceneSync.hpp>
+#include <BLIB/Render/Transfers/TextureExporter.hpp>
 #include <BLIB/Render/Vulkan/RenderTexture.hpp>
 #include <BLIB/Render/Vulkan/VulkanState.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
+#include <future>
 
 namespace bl
 {
@@ -91,7 +94,7 @@ public:
      *
      * @return A reference to the common observer
      */
-    constexpr Observer& getCommonObserver();
+    Observer& getCommonObserver();
 
     /**
      * @brief Sets the direction the screen will split if there is more than one observer. Default
@@ -102,44 +105,81 @@ public:
     void setSplitscreenDirection(SplitscreenDirection direction);
 
     /**
+     * @brief Adds a new virtual observer to render to the given region. Virtual observers are
+     *        separate from regular observers and may render to arbitrary screen regions. They
+     *        render on top of the main observers
+     *
+     * @param region The screen scissor to render to. Viewport is set from this
+     * @return A reference to the new observer
+     */
+    Observer& addVirtualObserver(const VkRect2D& region);
+
+    /**
+     * @brief Destroys the given virtual observer
+     *
+     * @param observer The observer to destroy
+     */
+    void destroyVirtualObserver(const Observer& observer);
+
+    /**
+     * @brief Create a render texture from the texture pool that can be rendered to
+     *
+     * @param size The size of the texture to create
+     * @param sampler Optional sampler to use
+     * @return A handle to the render texture
+     */
+    vk::RenderTexture::Handle createRenderTexture(const glm::u32vec2& size,
+                                                  VkSampler sampler = nullptr);
+
+    /**
      * @brief Returns the Vulkan state of the renderer
      */
-    constexpr vk::VulkanState& vulkanState();
+    vk::VulkanState& vulkanState();
+
+    /**
+     * @brief Returns the Vulkan state of the renderer
+     */
+    const vk::VulkanState& vulkanState() const;
 
     /**
      * @brief Returns the texture pool of this renderer
      */
-    constexpr res::TexturePool& texturePool();
+    res::TexturePool& texturePool();
 
     /**
      * @brief Returns the material pool of this renderer
      */
-    constexpr res::MaterialPool& materialPool();
+    res::MaterialPool& materialPool();
 
     /**
      * @brief Returns the render pass cache of this renderer
      */
-    constexpr res::RenderPassCache& renderPassCache();
+    res::RenderPassCache& renderPassCache();
 
     /**
      * @brief Returns the pipeline cache of this renderer
      */
-    constexpr res::PipelineCache& pipelineCache();
+    res::PipelineCache& pipelineCache();
 
     /**
      * @brief Returns the pipeline layout cache of this renderer
      */
-    constexpr res::PipelineLayoutCache& pipelineLayoutCache();
+    res::PipelineLayoutCache& pipelineLayoutCache();
 
     /**
      * @brief Returns the scene pool of the renderer
      */
-    constexpr res::ScenePool& scenePool();
+    res::ScenePool& scenePool();
 
     /**
      * @brief Returns a reference to the descriptor set factory cache used by this renderer
      */
-    constexpr ds::DescriptorSetFactoryCache& descriptorFactoryCache();
+    ds::DescriptorSetFactoryCache& descriptorFactoryCache();
+
+    /**
+     * @brief Returns the texture exporter system
+     */
+    tfr::TextureExporter& textureExporter();
 
     /**
      * @brief Sets the color to clear the window with prior to rendering
@@ -168,14 +208,24 @@ public:
     /**
      * @brief Returns the graph asset factory used by the renderer
      */
-    constexpr rg::AssetFactory& getAssetFactory();
+    rg::AssetFactory& getAssetFactory();
 
     /**
      * @brief Returns the framebuffers for the swap chain frames
      */
-    constexpr vk::PerSwapFrame<vk::Framebuffer>& getSwapframeBuffers();
+    vk::PerSwapFrame<vk::Framebuffer>& getSwapframeBuffers();
 
 private:
+    template<typename T>
+    struct WithFuture {
+        T payload;
+        std::future<void> future;
+
+        template<typename... TArgs>
+        WithFuture(TArgs&&... args)
+        : payload(std::forward<TArgs>(args)...) {}
+    };
+
     engine::Engine& engine;
     engine::EngineWindow& window;
     sf::Rect<std::uint32_t> renderRegion;
@@ -188,22 +238,25 @@ private:
     res::PipelineLayoutCache pipelineLayouts;
     res::PipelineCache pipelines;
     res::ScenePool scenes;
+    tfr::TextureExporter imageExporter;
     SplitscreenDirection splitscreenDirection;
     Observer commonObserver;
     std::vector<std::unique_ptr<Observer>> observers;
+    std::vector<std::unique_ptr<Observer>> virtualObservers;
     VkClearValue clearColors[2];
-    std::vector<vk::RenderTexture*> renderTextures;
+    std::vector<WithFuture<std::unique_ptr<vk::RenderTexture>>> renderTextures;
     std::unique_ptr<rg::Strategy> strategy;
     rg::AssetFactory assetFactory;
+    scene::SceneSync sceneSync;
 
     Renderer(engine::Engine& engine, engine::EngineWindow& window);
     ~Renderer();
     void initialize();
     void cleanup();
     void processResize(const sf::Rect<std::uint32_t>& region);
+    void processWindowRecreate();
 
-    void registerRenderTexture(vk::RenderTexture* rt);
-    void removeRenderTexture(vk::RenderTexture* rt);
+    void destroyRenderTexture(vk::RenderTexture* rt);
 
     // render stages
     void update(float dt);
@@ -215,32 +268,34 @@ private:
     friend class Observer;
     friend class sys::RendererUpdateSystem;
     friend class sys::RenderSystem;
-    friend class vk::RenderTexture;
+    friend class vk::RenderTexture::Handle;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline constexpr vk::VulkanState& Renderer::vulkanState() { return state; }
+inline vk::VulkanState& Renderer::vulkanState() { return state; }
 
-inline constexpr res::TexturePool& Renderer::texturePool() { return textures; }
+inline const vk::VulkanState& Renderer::vulkanState() const { return state; }
 
-inline constexpr res::MaterialPool& Renderer::materialPool() { return materials; }
+inline res::TexturePool& Renderer::texturePool() { return textures; }
 
-inline constexpr res::RenderPassCache& Renderer::renderPassCache() { return renderPasses; }
+inline res::MaterialPool& Renderer::materialPool() { return materials; }
 
-inline constexpr res::PipelineCache& Renderer::pipelineCache() { return pipelines; }
+inline res::RenderPassCache& Renderer::renderPassCache() { return renderPasses; }
 
-inline constexpr res::PipelineLayoutCache& Renderer::pipelineLayoutCache() {
-    return pipelineLayouts;
-}
+inline res::PipelineCache& Renderer::pipelineCache() { return pipelines; }
 
-inline constexpr res::ScenePool& Renderer::scenePool() { return scenes; }
+inline res::PipelineLayoutCache& Renderer::pipelineLayoutCache() { return pipelineLayouts; }
 
-inline constexpr ds::DescriptorSetFactoryCache& Renderer::descriptorFactoryCache() {
+inline res::ScenePool& Renderer::scenePool() { return scenes; }
+
+inline ds::DescriptorSetFactoryCache& Renderer::descriptorFactoryCache() {
     return descriptorSetFactoryCache;
 }
 
-inline constexpr Observer& Renderer::getCommonObserver() { return commonObserver; }
+inline tfr::TextureExporter& Renderer::textureExporter() { return imageExporter; }
+
+inline Observer& Renderer::getCommonObserver() { return commonObserver; }
 
 inline Observer& Renderer::getObserver(unsigned int i) { return *observers[i]; }
 
@@ -252,20 +307,13 @@ SceneRef Renderer::pushSceneToAllObservers(TArgs&&... args) {
 }
 
 template<typename TScene, typename... TArgs>
-SceneRef Observer::pushScene(TArgs&&... args) {
+SceneRef RenderTarget::pushScene(TArgs&&... args) {
     static_assert(std::is_base_of_v<Scene, TScene>, "Scene must derive from Scene");
 
     SceneRef s = renderer.scenePool().allocateScene<TScene, TArgs...>(std::forward<TArgs>(args)...);
     scenes.emplace_back(engine, renderer, this, graphAssets, s);
     onSceneAdd();
     return s;
-}
-
-template<typename TScene, typename... TArgs>
-SceneRef vk::RenderTexture::setScene(TArgs&&... args) {
-    scene = renderer->scenePool().allocateScene<TScene, TArgs...>(std::forward<TArgs>(args)...);
-    onSceneSet();
-    return scene;
 }
 
 template<typename T, typename... TArgs>
@@ -277,11 +325,9 @@ T* Renderer::useRenderStrategy(TArgs&&... args) {
     return s;
 }
 
-inline constexpr rg::AssetFactory& Renderer::getAssetFactory() { return assetFactory; }
+inline rg::AssetFactory& Renderer::getAssetFactory() { return assetFactory; }
 
-inline constexpr vk::PerSwapFrame<vk::Framebuffer>& Renderer::getSwapframeBuffers() {
-    return framebuffers;
-}
+inline vk::PerSwapFrame<vk::Framebuffer>& Renderer::getSwapframeBuffers() { return framebuffers; }
 
 } // namespace rc
 } // namespace bl

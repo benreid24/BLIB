@@ -12,6 +12,7 @@ void Dummy2D::create(engine::Engine& engine) {
     OverlayScalable::create(engine, entity());
     rc::ovy::OverlayObject* obj = engine.ecs().emplaceComponent<rc::ovy::OverlayObject>(entity());
     obj->entity                 = entity();
+    obj->hidden                 = false;
 }
 
 void Dummy2D::setSize(const glm::vec2& size) { OverlayScalable::setLocalSize(size); }

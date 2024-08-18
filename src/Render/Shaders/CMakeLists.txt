@@ -14,6 +14,7 @@ compile_shaders(
     2D/skinned2d.vert
     2D/skinned2d.frag
     2D/skinned2dlit.frag
+    2D/rotatedParticle.frag
 
     2D/2d.vert
     2D/2d.frag

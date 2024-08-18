@@ -20,39 +20,39 @@ Camera2D::Camera2D(const sf::FloatRect& area, float rotation)
 
 void Camera2D::setCenter(const glm::vec2& c) {
     center = c;
-    markViewDirty();
+    markProjDirty();
 }
 
 void Camera2D::move(const glm::vec2& offset) {
     center += offset;
-    markViewDirty();
+    markProjDirty();
 }
 
 void Camera2D::setSize(const glm::vec2& ns) {
     size = ns;
-    markViewDirty();
+    markProjDirty();
 }
 
 void Camera2D::zoom(float factor) {
     size.x *= factor;
     size.y *= factor;
-    markViewDirty();
+    markProjDirty();
 }
 
 void Camera2D::zoom(const glm::vec2& factors) {
     size.x *= factors.x;
     size.y *= factors.y;
-    markViewDirty();
+    markProjDirty();
 }
 
 void Camera2D::changeSize(const glm::vec2& delta) {
     size += delta;
-    markViewDirty();
+    markProjDirty();
 }
 
 void Camera2D::setCorner(const glm::vec2& c) {
     center = c + size * 0.5f;
-    markViewDirty();
+    markProjDirty();
 }
 
 glm::vec2 Camera2D::getCorner() const { return center - size * 0.5f; }
@@ -91,12 +91,13 @@ void Camera2D::refreshProjMatrix(glm::mat4& proj, const VkViewport&) {
     glm::vec2 s = size;
     for (auto& a : affectors) { a->applyOnProj(c, s); }
 
-    proj = glm::ortho(c.x - s.x * 0.5f,
-                      c.x + s.x * 0.5f,
-                      c.y - s.y * 0.5f,
-                      c.y + s.y * 0.5f,
-                      nearPlane(),
-                      farPlane());
+    // if we dont round we get pixel errors from integer pixels after rasterizing
+    const float l = std::roundf(c.x - s.x * 0.5f);
+    const float r = std::roundf(c.x + s.x * 0.5f);
+    const float b = std::roundf(c.y - s.y * 0.5f);
+    const float t = std::roundf(c.y + s.y * 0.5f);
+
+    proj = glm::ortho(l, r, b, t, nearPlane(), farPlane());
 }
 
 void Camera2D::refreshViewMatrix(glm::mat4& view) {
@@ -116,6 +117,8 @@ void Camera2D::update(float dt) {
     if (view) { markViewDirty(); }
     if (proj) { markProjDirty(); }
 }
+
+glm::vec2 Camera2D::getViewerSize() const { return size; }
 
 } // namespace cam
 } // namespace bl

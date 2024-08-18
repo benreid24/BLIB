@@ -19,19 +19,28 @@ Animation2DPlayer::Animation2DPlayer(bool fs)
 void Animation2DPlayer::createNewPlayer(const resource::Ref<gfx::a2d::AnimationData>& animation,
                                         bool play, bool forceLoop) {
     // cleanup prior player. will be marked for removal only if other users still
-    cleanupPlayerDep();
+    const bool isUpdate = cleanupPlayerDep();
 
     // create new player entity and component
     playerEntity = registry->createEntity();
     player       = registry->emplaceComponent<com::Animation2DPlayer>(
         playerEntity, animation, forSlideshow, play, forceLoop);
     addPlayerDep();
+    if (isUpdate) {
+        Textured::setTexture(renderer->texturePool().getOrLoadTexture(
+            player->getAnimation()->resolvedSpritesheet()));
+    }
 }
 
 void Animation2DPlayer::useExistingPlayer(ecs::Entity pent) {
-    playerEntity = pent;
-    player       = registry->getComponent<com::Animation2DPlayer>(pent);
+    const bool isUpdate = cleanupPlayerDep();
+    playerEntity        = pent;
+    player              = registry->getComponent<com::Animation2DPlayer>(pent);
     addPlayerDep();
+    if (isUpdate) {
+        Textured::setTexture(renderer->texturePool().getOrLoadTexture(
+            player->getAnimation()->resolvedSpritesheet()));
+    }
 }
 
 void Animation2DPlayer::create(rc::Renderer& r, ecs::Registry& reg, ecs::Entity entity,
@@ -43,7 +52,7 @@ void Animation2DPlayer::create(rc::Renderer& r, ecs::Registry& reg, ecs::Entity 
     Textured::create(
         reg,
         entity,
-        renderer->texturePool().getOrLoadTexture(player->animation->resolvedSpritesheet()));
+        renderer->texturePool().getOrLoadTexture(player->getAnimation()->resolvedSpritesheet()));
 }
 
 void Animation2DPlayer::create(rc::Renderer& r, ecs::Registry& reg, ecs::Entity entity,
@@ -56,15 +65,17 @@ void Animation2DPlayer::create(rc::Renderer& r, ecs::Registry& reg, ecs::Entity 
     Textured::create(
         reg,
         entity,
-        renderer->texturePool().getOrLoadTexture(player->animation->resolvedSpritesheet()));
+        renderer->texturePool().getOrLoadTexture(player->getAnimation()->resolvedSpritesheet()));
 }
 
 void Animation2DPlayer::addPlayerDep() { registry->addDependency(playerEntity, me); }
 
-void Animation2DPlayer::cleanupPlayerDep() {
+bool Animation2DPlayer::cleanupPlayerDep() {
     if (registry != nullptr && playerEntity != ecs::InvalidEntity && me != ecs::InvalidEntity) {
         registry->removeDependencyAndDestroyIfPossible(playerEntity, me);
+        return true;
     }
+    return false;
 }
 
 } // namespace bcom

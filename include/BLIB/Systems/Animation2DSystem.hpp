@@ -40,7 +40,7 @@ public:
     /**
      * @brief Destroys the animation system
      */
-    virtual ~Animation2DSystem() = default;
+    virtual ~Animation2DSystem();
 
     /**
      * @brief Binds the animation descriptor set for slideshow animations
@@ -58,31 +58,6 @@ private:
         alignas(16) float opacity;
     };
 
-    struct UpdateRange {
-        static constexpr std::uint32_t InvalidStart = std::numeric_limits<std::uint32_t>::max();
-
-        std::uint32_t start;
-        std::uint32_t size;
-
-        UpdateRange()
-        : start(InvalidStart)
-        , size(0) {}
-
-        void reset() {
-            start = InvalidStart;
-            size  = 0;
-        }
-
-        bool needsUpload() const { return size != 0; }
-
-        void addRange(std::uint32_t i, std::uint32_t len) {
-            const std::uint32_t prevEnd = start == InvalidStart ? 0 : start + len;
-            start                       = std::min(start, i);
-            size                        = std::max(prevEnd, i + len);
-            size -= start;
-        }
-    };
-
     struct VertexAnimation {
         struct DrawIndices {
             std::uint32_t vertexStart;
@@ -94,13 +69,14 @@ private:
         std::vector<DrawIndices> frameToIndices;
         unsigned int useCount;
 
-        VertexAnimation(rc::vk::VulkanState& vs, const gfx::a2d::AnimationData& anim);
+        VertexAnimation(rc::Renderer& renderer, const gfx::a2d::AnimationData& anim);
     };
 
     rc::Renderer& renderer;
     VkDescriptorSetLayout descriptorLayout;
     ecs::ComponentPool<com::Animation2DPlayer>* players;
     ecs::ComponentPool<com::Animation2D>* vertexPool;
+    resource::Ref<gfx::a2d::AnimationData> errorAnim;
 
     // slideshow data
     std::unordered_map<const gfx::a2d::AnimationData*, std::uint32_t> slideshowFrameMap;
@@ -109,24 +85,23 @@ private:
     util::RangeAllocatorUnbounded<std::uint32_t> slideshowFrameRangeAllocator;
     rc::buf::StaticSSBO<SlideshowFrame> slideshowFramesSSBO;     // all anim frames
     rc::buf::StaticSSBO<std::uint32_t> slideshowFrameOffsetSSBO; // playerIndex -> frame index
+    rc::buf::StaticSSBO<std::uint32_t> slideshowTextureSSBO;     // playerIndex -> texture id
     rc::buf::DynamicSSBO<std::uint32_t> slideshowPlayerCurrentFrameSSBO; //     -> current frame
     rc::vk::PerFrame<rc::vk::DescriptorSet> slideshowDescriptorSets;
     std::uint8_t slideshowRefreshRequired;
     std::uint8_t slideshowLastFrameUpdated; // renderer frame index to prevent multiple updates
-    UpdateRange slideshowFrameUploadRange;
-    UpdateRange slideshowOffsetUploadRange;
 
     // non-slideshow data
     std::unordered_map<const gfx::a2d::AnimationData*, VertexAnimation> vertexAnimationData;
     std::vector<com::Animation2D*> vertexAnimations;
 
-    void cleanup();
     virtual void init(engine::Engine& engine) override;
     virtual void update(std::mutex& stageMutex, float dt, float, float, float) override;
     virtual void observe(const ecs::event::ComponentAdded<com::Animation2DPlayer>& event) override;
     virtual void observe(
         const ecs::event::ComponentRemoved<com::Animation2DPlayer>& event) override;
     virtual void observe(const ecs::event::ComponentRemoved<com::Animation2D>& event) override;
+    virtual void earlyCleanup() override;
 
     // slideshow methods
     void doSlideshowAdd(com::Animation2DPlayer& player);

@@ -13,10 +13,10 @@ audio::AudioSystem::Handle Menu::defaultMoveSound   = audio::AudioSystem::Invali
 audio::AudioSystem::Handle Menu::defaultFailSound   = audio::AudioSystem::InvalidHandle;
 audio::AudioSystem::Handle Menu::defaultSelectSound = audio::AudioSystem::InvalidHandle;
 
-Menu::Menu()
+Menu::Menu(float depth)
 : engine(nullptr)
 , observer(nullptr)
-, overlay(nullptr)
+, scene(nullptr)
 , maxSize(-1.f, -1.f)
 , offset{}
 , selector()
@@ -27,7 +27,8 @@ Menu::Menu()
 , bgndPadding(padding.x * 2.f, padding.y * 2.f, padding.x * 2.f, padding.y * 2.f)
 , moveSound(defaultMoveSound)
 , failSound(defaultFailSound)
-, selectSound(defaultSelectSound) {}
+, selectSound(defaultSelectSound)
+, depth(depth) {}
 
 void Menu::create(engine::Engine& e, rc::Observer& o, const Selector::Ptr& sel) {
     engine   = &e;
@@ -37,35 +38,44 @@ void Menu::create(engine::Engine& e, rc::Observer& o, const Selector::Ptr& sel) 
     background.setFillColor({1.f, 1.f, 1.f, 0.f});
     background.setOutlineColor({1.f, 1.f, 1.f, 0.f});
     background.getOverlayScaler().setScissorMode(com::OverlayScaler::ScissorSelf);
+    background.getTransform().setDepth(depth);
+    e.ecs().setEntityParentDestructionBehavior(background.entity(),
+                                               ecs::ParentDestructionBehavior::OrphanedByParent);
     selector->doCreate(*engine, background.entity());
     event::Dispatcher::subscribe(this);
 }
 
-void Menu::addToOverlay() {
-    overlay = observer->getOrCreateSceneOverlay();
-    background.addToScene(overlay, rc::UpdateSpeed::Static);
-    selector->doSceneAdd(overlay);
-    for (auto& item : items) { item->doSceneAdd(overlay); }
+void Menu::addToOverlay(ecs::Entity parent) {
+    if (parent != ecs::InvalidEntity) { background.setParent(parent); }
+    addToScene(observer->getOrCreateSceneOverlay());
 }
 
-void Menu::removeFromOverlay() {
-    overlay = nullptr;
+void Menu::addToScene(rc::Scene* s) {
+    scene = s;
+    background.addToScene(scene, rc::UpdateSpeed::Static);
+    selector->doSceneAdd(scene);
+    for (auto& item : items) { item->doSceneAdd(scene); }
+}
+
+void Menu::setHidden(bool h) { background.setHidden(h); }
+
+void Menu::removeFromScene() {
+    scene = nullptr;
     background.removeFromScene();
     selector->doSceneRemove();
     for (auto& item : items) { item->doSceneRemove(); }
 }
 
 void Menu::setSelectedItem(Item* s) {
-    if (s != selectedItem) {
-        if (selectedItem) { selectedItem->getSignal(Item::Deselected)(); }
-        selectedItem = s;
-        selectedItem->getSignal(Item::Selected)();
-        const glm::vec2& pos = selectedItem->transform->getLocalPosition();
-        selector->notifySelection(
-            selectedItem->getEntity(),
-            {pos.x, pos.y, selectedItem->getSize().x, selectedItem->getSize().y});
-        refreshScroll();
-    }
+    if (selectedItem) { selectedItem->getSignal(Item::Deselected)(); }
+    selectedItem = s;
+    selectedItem->getSignal(Item::Selected)();
+    com::Transform2D* tform =
+        engine->ecs().getComponent<com::Transform2D>(selectedItem->getEntity());
+    const glm::vec2& pos = tform->getLocalPosition();
+    selector->notifySelection(selectedItem->getEntity(),
+                              {pos.x, pos.y, selectedItem->getSize().x, selectedItem->getSize().y});
+    refreshScroll();
 }
 
 void Menu::setPosition(const glm::vec2& pos) {
@@ -97,6 +107,19 @@ void Menu::configureBackground(sf::Color fill, sf::Color outline, float t, const
         bgndPadding = p;
         refreshPositions();
     }
+    refreshBackground();
+}
+
+void Menu::setScissorToSelf() {
+    background.getOverlayScaler().setScissorMode(com::OverlayScaler::ScissorSelfConstrained);
+}
+
+void Menu::setScissor(const sf::IntRect& scissor) {
+    background.getOverlayScaler().setFixedScissor(scissor);
+}
+
+void Menu::removeScissor() {
+    background.getOverlayScaler().setScissorMode(com::OverlayScaler::ScissorInherit);
 }
 
 sf::FloatRect Menu::getBounds() const {
@@ -119,6 +142,12 @@ const glm::vec2& Menu::currentOffset() const { return offset; }
 void Menu::setMaximumSize(const glm::vec2& m) {
     maxSize = m;
     refreshScroll();
+    refreshBackground();
+}
+
+void Menu::setDepth(float d) {
+    depth = d;
+    if (background.entity() != ecs::InvalidEntity) { background.getTransform().setDepth(depth); }
 }
 
 void Menu::refreshScroll() {
@@ -151,11 +180,12 @@ void Menu::refreshScroll() {
 }
 
 void Menu::setRootItem(const Item::Ptr& root) {
+    selectedItem = nullptr;
     for (auto& item : items) { item->doSceneRemove(); }
     items.clear();
     items.emplace_back(root);
     root->create(*engine, background.entity());
-    if (overlay) { root->doSceneAdd(overlay); }
+    if (scene) { root->doSceneAdd(scene); }
     setSelectedItem(root.get());
     refreshPositions();
 }
@@ -166,7 +196,7 @@ void Menu::addItem(const Item::Ptr& item, Item* parent, Item::AttachPoint ap, bo
     if (r) { item->attachments[Item::oppositeSide(ap)] = parent; }
     item->parent = ap;
     item->create(*engine, background.entity());
-    if (overlay) { item->doSceneAdd(overlay); }
+    if (scene) { item->doSceneAdd(scene); }
     refreshPositions();
 }
 
@@ -286,23 +316,26 @@ void Menu::refreshPositions() {
     }
 
     totalSize = {bounds.width - bounds.left, bounds.height - bounds.top};
-    for (auto& item : items) {
-        item->notifyPosition(item->position - glm::vec2{bounds.left, bounds.top} +
-                             glm::vec2{bgndPadding.left, bgndPadding.top});
-    }
-
-    const glm::vec2 thick(background.getOutlineThickness(), background.getOutlineThickness());
-    background.setSize(visibleSize() - thick * 2.f);
-    background.getTransform().setPosition(position + thick);
+    const glm::vec2 finalOffset(bounds.left - bgndPadding.left, bounds.top - bgndPadding.top);
+    for (auto& item : items) { item->notifyPosition(item->position - finalOffset); }
 
     if (selectedItem != nullptr) {
-        const glm::vec2& pos = selectedItem->transform->getLocalPosition();
+        com::Transform2D* tform =
+            engine->ecs().getComponent<com::Transform2D>(selectedItem->getEntity());
+        const glm::vec2& pos = tform->getLocalPosition();
         selector->notifySelection(
             selectedItem->getEntity(),
             {pos.x, pos.y, selectedItem->getSize().x, selectedItem->getSize().y});
     }
 
     refreshScroll();
+    refreshBackground();
+}
+
+void Menu::refreshBackground() {
+    const glm::vec2 thick(background.getOutlineThickness(), background.getOutlineThickness());
+    background.setSize(visibleSize() - thick * 2.f);
+    background.getTransform().setPosition(position + thick);
 }
 
 glm::vec2 Menu::move(const glm::vec2& pos, const glm::vec2& psize, const glm::vec2& esize,
@@ -340,7 +373,15 @@ void Menu::setMoveFailSound(audio::AudioSystem::Handle s) { failSound = s; }
 void Menu::setSelectSound(audio::AudioSystem::Handle s) { selectSound = s; }
 
 void Menu::observe(const rc::event::SceneDestroyed& event) {
-    if (event.scene == static_cast<rc::Scene*>(overlay)) { overlay = nullptr; }
+    if (event.scene == static_cast<rc::Scene*>(scene)) { removeFromScene(); }
+}
+
+void Menu::draw(rc::scene::CodeScene::RenderContext& ctx) {
+    if (!background.component().isHidden()) {
+        background.draw(ctx);
+        for (auto& item : items) { item->draw(ctx); }
+        selector->draw(ctx);
+    }
 }
 
 } // namespace menu

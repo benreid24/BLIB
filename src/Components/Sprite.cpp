@@ -32,6 +32,29 @@ void Sprite::create(rc::Renderer* renderer, const rc::res::TextureRef& txtr, sf:
         buffer.indices() = {0, 1, 2, 0, 2, 3};
     }
 
+    auto& vertices = buffer.vertices();
+    setTextureSource(region);
+
+    vertices[0].pos   = {0.f, 0.f, 0.f};
+    vertices[0].color = {1.f, 1.f, 1.f, 1.f};
+
+    vertices[1].pos   = {region.width, 0.f, 0.f};
+    vertices[1].color = {1.f, 1.f, 1.f, 1.f};
+
+    vertices[2].pos   = {region.width, region.height, 0.f};
+    vertices[2].color = {1.f, 1.f, 1.f, 1.f};
+
+    vertices[3].pos   = {0.f, region.height, 0.f};
+    vertices[3].color = {1.f, 1.f, 1.f, 1.f};
+
+    for (auto& v : vertices) { v.texCoord = texture->convertCoord(v.texCoord); }
+
+    refreshTrans();
+    drawParams = buffer.getDrawParameters();
+    buffer.queueTransfer(rc::tfr::Transferable::SyncRequirement::Immediate);
+}
+
+void Sprite::setTextureSource(const sf::FloatRect& region) {
     auto& vertices      = buffer.vertices();
     const float leftX   = region.left / texture->size().x;
     const float topY    = region.top / texture->size().y;
@@ -39,29 +62,38 @@ void Sprite::create(rc::Renderer* renderer, const rc::res::TextureRef& txtr, sf:
     const float bottomY = (region.top + region.height) / texture->size().y;
 
     vertices[0].texCoord = {leftX, topY};
-    vertices[0].pos      = {0.f, 0.f, 0.f};
-    vertices[0].color    = {1.f, 1.f, 1.f, 1.f};
-
     vertices[1].texCoord = {rightX, topY};
-    vertices[1].pos      = {region.width, 0.f, 0.f};
-    vertices[1].color    = {1.f, 1.f, 1.f, 1.f};
-
     vertices[2].texCoord = {rightX, bottomY};
-    vertices[2].pos      = {region.width, region.height, 0.f};
-    vertices[2].color    = {1.f, 1.f, 1.f, 1.f};
-
     vertices[3].texCoord = {leftX, bottomY};
-    vertices[3].pos      = {0.f, region.height, 0.f};
-    vertices[3].color    = {1.f, 1.f, 1.f, 1.f};
 
-    refreshTrans();
-    drawParams = buffer.getDrawParameters();
+    size.x = region.width;
+    size.y = region.height;
+
     buffer.queueTransfer(rc::tfr::Transferable::SyncRequirement::Immediate);
 }
 
-void Sprite::setTexture(const rc::res::TextureRef& txtr) {
+void Sprite::setTexture(const rc::res::TextureRef& txtr, bool reset) {
     texture = txtr;
     refreshTrans();
+
+    if (reset) {
+        const sf::FloatRect region(0.f, 0.f, texture->size().x, texture->size().y);
+        auto& vertices = buffer.vertices();
+
+        vertices[0].pos   = {0.f, 0.f, 0.f};
+        vertices[0].color = {1.f, 1.f, 1.f, 1.f};
+
+        vertices[1].pos   = {region.width, 0.f, 0.f};
+        vertices[1].color = {1.f, 1.f, 1.f, 1.f};
+
+        vertices[2].pos   = {region.width, region.height, 0.f};
+        vertices[2].color = {1.f, 1.f, 1.f, 1.f};
+
+        vertices[3].pos   = {0.f, region.height, 0.f};
+        vertices[3].color = {1.f, 1.f, 1.f, 1.f};
+
+        setTextureSource(region);
+    }
 }
 
 void Sprite::setColor(const glm::vec4& color) {

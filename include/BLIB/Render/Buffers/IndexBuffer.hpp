@@ -1,6 +1,7 @@
 #ifndef BLIB_RENDER_BUFFERS_INDEXBUFFER_HPP
 #define BLIB_RENDER_BUFFERS_INDEXBUFFER_HPP
 
+#include <BLIB/Logging.hpp>
 #include <BLIB/Render/Primitives/DrawParameters.hpp>
 #include <BLIB/Render/Primitives/Vertex.hpp>
 #include <BLIB/Render/Transfers/Transferable.hpp>
@@ -269,45 +270,57 @@ void IndexBufferT<T>::configureWriteRange(std::uint32_t vs, std::uint32_t vc, st
 template<typename T>
 void IndexBufferT<T>::executeTransfer(VkCommandBuffer commandBuffer,
                                       tfr::TransferContext& context) {
-    // vertex buffer
-    const VkDeviceSize vertexOffset = vertexWriteStart * sizeof(T);
-    const VkDeviceSize vertexSize   = vertexWriteCount * sizeof(T);
-
     VkBuffer stagingBuf;
     void* stagingMem;
-    context.createTemporaryStagingBuffer(vertexSize, stagingBuf, &stagingMem);
-    std::memcpy(stagingMem, &cpuVertexBuffer[vertexWriteStart], vertexSize);
-
     VkBufferCopy copyCmd{};
-    copyCmd.srcOffset = 0;
-    copyCmd.dstOffset = vertexOffset;
-    copyCmd.size      = vertexSize;
-    vkCmdCopyBuffer(commandBuffer, stagingBuf, gpuVertexBuffer.getBuffer(), 1, &copyCmd);
-
     VkBufferMemoryBarrier barrier{};
-    barrier.sType         = VK_STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER;
-    barrier.buffer        = gpuVertexBuffer.getBuffer();
-    barrier.offset        = vertexOffset;
-    barrier.size          = vertexSize;
-    barrier.srcAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
-    barrier.dstAccessMask = VK_ACCESS_VERTEX_ATTRIBUTE_READ_BIT;
-    context.registerBufferBarrier(barrier);
+
+    // vertex buffer
+    if (vertexWriteStart + vertexWriteCount <= cpuVertexBuffer.size() && !cpuVertexBuffer.empty()) {
+        const VkDeviceSize vertexOffset = vertexWriteStart * sizeof(T);
+        const VkDeviceSize vertexSize   = vertexWriteCount * sizeof(T);
+
+        if (vertexSize > 0) {
+            context.createTemporaryStagingBuffer(vertexSize, stagingBuf, &stagingMem);
+            std::memcpy(stagingMem, &cpuVertexBuffer[vertexWriteStart], vertexSize);
+
+            copyCmd.srcOffset = 0;
+            copyCmd.dstOffset = vertexOffset;
+            copyCmd.size      = vertexSize;
+            vkCmdCopyBuffer(commandBuffer, stagingBuf, gpuVertexBuffer.getBuffer(), 1, &copyCmd);
+
+            barrier.sType         = VK_STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER;
+            barrier.buffer        = gpuVertexBuffer.getBuffer();
+            barrier.offset        = vertexOffset;
+            barrier.size          = vertexSize;
+            barrier.srcAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
+            barrier.dstAccessMask = VK_ACCESS_VERTEX_ATTRIBUTE_READ_BIT;
+            context.registerBufferBarrier(barrier);
+        }
+    }
+    else { BL_LOG_WARN << "Invalid vertex buffer write, skipping"; }
 
     // index buffer
-    const VkDeviceSize indexOffset = indexWriteStart * sizeof(IndexType);
-    const VkDeviceSize indexSize   = indexWriteCount * sizeof(IndexType);
+    if (indexWriteStart + indexWriteCount <= cpuIndexBuffer.size() && !cpuIndexBuffer.empty()) {
+        const VkDeviceSize indexOffset = indexWriteStart * sizeof(IndexType);
+        const VkDeviceSize indexSize   = indexWriteCount * sizeof(IndexType);
 
-    context.createTemporaryStagingBuffer(indexSize, stagingBuf, &stagingMem);
-    std::memcpy(stagingMem, &cpuIndexBuffer[indexWriteStart], indexSize);
+        if (indexSize > 0) {
+            context.createTemporaryStagingBuffer(indexSize, stagingBuf, &stagingMem);
+            std::memcpy(stagingMem, &cpuIndexBuffer[indexWriteStart], indexSize);
 
-    copyCmd.size      = indexSize;
-    copyCmd.dstOffset = indexOffset;
-    vkCmdCopyBuffer(commandBuffer, stagingBuf, gpuIndexBuffer.getBuffer(), 1, &copyCmd);
+            copyCmd.size      = indexSize;
+            copyCmd.dstOffset = indexOffset;
+            vkCmdCopyBuffer(commandBuffer, stagingBuf, gpuIndexBuffer.getBuffer(), 1, &copyCmd);
 
-    barrier.buffer = gpuIndexBuffer.getBuffer();
-    barrier.size   = indexSize;
-    context.registerBufferBarrier(barrier);
+            barrier.buffer = gpuIndexBuffer.getBuffer();
+            barrier.size   = indexSize;
+            context.registerBufferBarrier(barrier);
+        }
+    }
+    else { BL_LOG_WARN << "Invalid index buffer write, skipping"; }
 }
+
 template<typename T>
 void IndexBufferT<T>::insertBarrierBeforeWrite() {
     gpuVertexBuffer.insertPipelineBarrierBeforeChange();

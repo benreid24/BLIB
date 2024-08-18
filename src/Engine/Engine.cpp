@@ -1,8 +1,11 @@
 #include <BLIB/Engine/Engine.hpp>
 
 #include <BLIB/Audio.hpp>
+#include <BLIB/Cameras/OverlayCamera.hpp>
 #include <BLIB/Logging.hpp>
+#include <BLIB/Particles/ParticleSystem.hpp>
 #include <BLIB/Resources/GarbageCollector.hpp>
+#include <BLIB/Resources/State.hpp>
 #include <BLIB/Systems.hpp>
 #include <SFML/Window.hpp>
 #include <cmath>
@@ -14,22 +17,29 @@ namespace engine
 Engine::Engine(const Settings& settings)
 : engineSettings(settings)
 , timeScale(1.f)
+, windowScale(1.f)
 , ecsSystems(*this)
 , entityRegistry()
 , renderingSystem(*this, renderWindow)
 , input(*this) {
     settings.syncToConfig();
     systems().registerSystem<sys::TogglerSystem>(FrameStage::Update0, StateMask::All);
-    systems().registerSystem<sys::VelocitySystem>(FrameStage::Animate, StateMask::Running);
+    systems().registerSystem<sys::VelocitySystem>(FrameStage::Animate,
+                                                  StateMask::Running | engine::StateMask::Editor);
+    systems().registerSystem<pcl::ParticleSystem>(FrameStage::Update0, StateMask::All);
     bl::event::Dispatcher::subscribe(&input);
 }
 
 Engine::~Engine() {
+    resource::State::appExiting = true;
+
+    backgroundWorkers.shutdown();
     workers.shutdown();
     bl::event::Dispatcher::clearAllListeners();
     if (renderingSystem.vulkanState().device) {
         vkCheck(vkDeviceWaitIdle(renderingSystem.vulkanState().device));
     }
+
     while (!states.empty()) {
         if (states.top().use_count() != 1) {
             BL_LOG_ERROR << "Dangling pointer to state: " << states.top()->name();
@@ -40,13 +50,23 @@ Engine::~Engine() {
         BL_LOG_ERROR << "Dangling pointer to state: " << newState->name();
     }
     newState.reset();
+
+    if (renderWindow.isOpen()) { renderWindow.close(); }
+
+    systems().earlyCleanup();
     entityRegistry.destroyAllEntities();
+
+    audio::AudioSystem::shutdown();
+    resource::GarbageCollector::get().clear();
+    systems().cleanup();
 
     if (renderWindow.isOpen()) {
         renderingSystem.cleanup();
         renderWindow.close();
     }
-    audio::AudioSystem::shutdown();
+
+    // reset resource manager state for other instances
+    resource::State::appExiting = false;
 }
 
 void Engine::pushState(State::Ptr next) {
@@ -70,9 +90,34 @@ void Engine::replaceState(State::Ptr next) {
 void Engine::popState() { flags().set(Flags::PopState); }
 
 bool Engine::run(State::Ptr initialState) {
-    BL_LOG_INFO << "Starting engine with state: " << initialState->name();
-    states.push(initialState);
-    initialState.reset();
+    if (!setup()) { return false; }
+    states.push(std::move(initialState));
+    return loop();
+}
+
+bool Engine::run(StateFactory&& factory) {
+    if (!setup()) { return false; }
+    states.push(factory());
+    return loop();
+}
+
+bool Engine::setup() {
+    if (engineSettings.createWindow()) {
+        if (!reCreateWindow(engineSettings.windowParameters())) { return false; }
+        renderingSystem.initialize();
+        if (engineSettings.windowParameters().letterBox()) {
+            sf::Event::SizeEvent e{};
+            e.width  = renderWindow.getSfWindow().getSize().x;
+            e.height = renderWindow.getSfWindow().getSize().y;
+            handleResize(e, false);
+        }
+    }
+    ecsSystems.init();
+    return true;
+}
+
+bool Engine::loop() {
+    BL_LOG_INFO << "Starting engine with state: " << states.top()->name();
 
     sf::Clock loopTimer;
     sf::Clock updateOuterTimer;
@@ -100,16 +145,11 @@ bool Engine::run(State::Ptr initialState) {
         }
     };
 
-    if (engineSettings.createWindow()) {
-        if (!reCreateWindow(engineSettings.windowParameters())) { return false; }
-        renderingSystem.initialize();
-    }
-    ecsSystems.init();
-
     sf::Clock fpsTimer;
     float frameCount = 0.f;
 
     workers.start();
+    backgroundWorkers.start(2);
     states.top()->activate(*this);
     bl::event::Dispatcher::dispatch<event::Startup>({states.top()});
 
@@ -149,6 +189,8 @@ bool Engine::run(State::Ptr initialState) {
                 }
             }
         }
+
+        ecsSystems.notifyFrameStart();
 
         // Update and render
         lag += updateOuterTimer.getElapsedTime().asSeconds() * timeScale;
@@ -306,6 +348,8 @@ bool Engine::reCreateWindow(const Settings::WindowParameters& params) {
         else { BL_LOG_WARN << "Failed to load icon: " << params.icon(); }
     }
 
+    if (renderingSystem.vulkanState().device) { renderingSystem.processWindowRecreate(); }
+
     // also saves to config
     updateExistingWindow(params);
 
@@ -327,6 +371,10 @@ void Engine::updateExistingWindow(const Settings::WindowParameters& params) {
         e.height = renderWindow.getSfWindow().getSize().y;
         handleResize(e, false);
     }
+    else if (params.syncOverlaySize()) {
+        cam::OverlayCamera::setOverlayCoordinateSpace(renderWindow.getSfWindow().getSize().x,
+                                                      renderWindow.getSfWindow().getSize().y);
+    }
 }
 
 void Engine::handleResize(const sf::Event::SizeEvent& resize, bool ss) {
@@ -345,10 +393,12 @@ void Engine::handleResize(const sf::Event::SizeEvent& resize, bool ss) {
         const float yScale = newHeight / ogSize.y;
 
         if (xScale >= yScale) { // constrained by height, bars on sides
+            windowScale    = yScale;
             viewport.width = ogSize.x * yScale / newWidth;
             viewport.left  = (1.f - viewport.width) * 0.5f;
         }
         else { // constrained by width, bars on top and bottom
+            windowScale     = xScale;
             viewport.height = ogSize.y * xScale / newHeight;
             viewport.top    = (1.f - viewport.height) * 0.5f;
         }
@@ -359,6 +409,10 @@ void Engine::handleResize(const sf::Event::SizeEvent& resize, bool ss) {
                                                               newHeight * viewport.top,
                                                               newWidth * viewport.width,
                                                               newHeight * viewport.height));
+        if (engineSettings.windowParameters().syncOverlaySize() &&
+            !engineSettings.windowParameters().letterBox()) {
+            cam::OverlayCamera::setOverlayCoordinateSpace(newWidth, newHeight);
+        }
     }
 
     if (ss) {
@@ -378,12 +432,16 @@ float Engine::getTimeScale() const { return timeScale; }
 
 void Engine::resetTimeScale() { timeScale = 1.f; }
 
-void Engine::postStateChange(const State::Ptr& prev) {
+void Engine::postStateChange(State::Ptr& prev) {
+    engineFlags.clear();
+    newState.reset();
     states.top()->activate(*this);
     bl::event::Dispatcher::dispatch<event::StateChange>({states.top(), prev});
     if (renderingSystem.vulkanState().device) { renderingSystem.texturePool().releaseUnused(); }
-    engineFlags.clear();
-    newState.reset();
+}
+
+pcl::ParticleSystem& Engine::particleSystem() {
+    return ecsSystems.getSystem<pcl::ParticleSystem>();
 }
 
 } // namespace engine

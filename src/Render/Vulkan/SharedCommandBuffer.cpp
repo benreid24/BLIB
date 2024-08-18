@@ -2,6 +2,7 @@
 
 #include <BLIB/Logging.hpp>
 #include <BLIB/Render/Vulkan/SharedCommandPool.hpp>
+#include <BLIB/Render/Vulkan/VulkanState.hpp>
 
 namespace bl
 {
@@ -16,8 +17,10 @@ SharedCommandBuffer::SharedCommandBuffer(SharedCommandBuffer&& move)
     move.buffer = nullptr;
 }
 
-SharedCommandBuffer::SharedCommandBuffer(SharedCommandPool* owner, VkCommandBuffer buffer)
+SharedCommandBuffer::SharedCommandBuffer(SharedCommandPool* owner, VkFence fence,
+                                         VkCommandBuffer buffer)
 : owner(owner)
+, fence(fence)
 , buffer(buffer) {}
 
 SharedCommandBuffer::~SharedCommandBuffer() {

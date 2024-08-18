@@ -140,7 +140,7 @@ constexpr std::size_t VectorRef<T, TStorage>::index() const {
 
 template<typename T, typename TStorage>
 constexpr bool VectorRef<T, TStorage>::valid() const {
-    return storage != nullptr;
+    return storage != nullptr && i < storage->size();
 }
 
 } // namespace util

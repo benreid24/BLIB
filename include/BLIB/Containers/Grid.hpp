@@ -6,9 +6,9 @@
 #include <BLIB/Util/NonCopyable.hpp>
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/System/Vector2.hpp>
-
 #include <algorithm>
 #include <cmath>
+#include <glm/glm.hpp>
 #include <utility>
 
 namespace bl
@@ -16,7 +16,7 @@ namespace bl
 namespace ctr
 {
 /**
- * @brief Basic spatial partioning grid class for breaking down areas into equal sized boxes. Grid
+ * @brief Basic spatial partitioning grid class for breaking down areas into equal sized boxes. Grid
  *        is meant only to point to objects stored elsewhere, however all trivial types are allowed.
  *        Contained values should be unique, otherwise move() and remove() may behave unexpectedly
  *
@@ -83,7 +83,7 @@ public:
     /**
      * @brief Returns the cell at the given position in spacial units
      *
-     * @param pos The coordinate in spaital units
+     * @param pos The coordinate in spatial units
      * @return Range A range containing elements in the given cell
      */
     const Cell& getCell(const sf::Vector2f& pos);
@@ -110,7 +110,7 @@ public:
      * @brief Iterates over all contained values within the given region. Callback can optionally
      *        return a boolean to end iteration early. Return true to end early
      *
-     * @tparam TCallback Callback signature of the vistor to apply
+     * @tparam TCallback Callback signature of the visitor to apply
      * @param region The region to iterate over contained entities within
      * @param cb The visitor to invoke for each contained element
      */
@@ -121,12 +121,23 @@ public:
      * @brief Iterates over all contained values within the cell and it's neighbors. Callback can
      *        optionally return a boolean to end iteration early. Return true to end early
      *
-     * @tparam TCallback Callback signature of the vistor to apply
+     * @tparam TCallback Callback signature of the visitor to apply
      * @param region The point to get the cell and neighbors for
      * @param cb The visitor to invoke for each contained element
      */
     template<typename TCallback>
     void forAllInCellAndNeighbors(const sf::Vector2f& cellPoint, const TCallback& cb);
+
+    /**
+     * @brief Iterates over all contained values within the cell and it's neighbors. Callback can
+     *        optionally return a boolean to end iteration early. Return true to end early
+     *
+     * @tparam TCallback Callback signature of the visitor to apply
+     * @param region The point to get the cell and neighbors for
+     * @param cb The visitor to invoke for each contained element
+     */
+    template<typename TCallback>
+    void forAllInCellAndNeighbors(const glm::vec2& cellPoint, const TCallback& cb);
 
 private:
     sf::Vector2f origin;
@@ -255,9 +266,9 @@ void Grid<T>::forAllInCellAndNeighbors(const sf::Vector2f& pos, const TCb& cb) {
 
     const sf::Vector2u i  = getIndexAtPosition(pos);
     const unsigned int sx = i.x > 0 ? i.x - 1 : 0;
-    const unsigned int ex = i.x < cells.getWidth() - 2 ? i.x + 1 : cells.getWidth() - 1;
+    const unsigned int ex = std::min(i.x + 1, cells.getWidth() - 1);
     const unsigned int sy = i.y > 0 ? i.y - 1 : 0;
-    const unsigned int ey = i.y < cells.getHeight() - 2 ? i.y + 1 : cells.getHeight() - 1;
+    const unsigned int ey = std::min(i.y + 1, cells.getHeight() - 1);
 
     for (unsigned int x = sx; x <= ex; ++x) {
         for (unsigned int y = sy; y <= ey; ++y) {
@@ -270,6 +281,14 @@ void Grid<T>::forAllInCellAndNeighbors(const sf::Vector2f& pos, const TCb& cb) {
             }
         }
     }
+}
+
+template<typename T>
+template<typename TCb>
+void Grid<T>::forAllInCellAndNeighbors(const glm::vec2& pos, const TCb& cb) {
+    static_assert(std::is_invocable<TCb, T>::value,
+                  "Visitor signature is void(T val) or bool(T val");
+    forAllInCellAndNeighbors(sf::Vector2f(pos.x, pos.y), cb);
 }
 
 } // namespace ctr

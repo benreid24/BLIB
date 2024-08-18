@@ -427,6 +427,22 @@ TEST(ECS, ParentRemove) {
     EXPECT_TRUE(testRegistry.entityExists(child));
 }
 
+TEST(ECS, ChildComponentReAdd) {
+    Registry testRegistry;
+
+    Entity child  = testRegistry.createEntity();
+    Entity parent = testRegistry.createEntity();
+
+    auto* childCom  = testRegistry.addComponent<ParentTestComponent>(child, 10);
+    auto* parentCom = testRegistry.addComponent<ParentTestComponent>(parent, 100);
+    testRegistry.setEntityParent(child, parent);
+
+    ASSERT_EQ(parentCom->getChildren().front(), childCom);
+
+    childCom = testRegistry.addComponent<ParentTestComponent>(child, 10);
+    ASSERT_EQ(parentCom->getChildren().front(), childCom);
+}
+
 TEST(ECS, Dependencies) {
     Registry testRegistry;
 
@@ -518,6 +534,31 @@ TEST(ECS, ParentAwareVersionedTrait) {
     EXPECT_TRUE(childCom.refreshRequired());
     childCom.refresh();
     EXPECT_FALSE(childCom.refreshRequired());
+}
+
+TEST(ECS, DestroyByFlags) {
+    Registry testRegistry;
+
+    Entity toBeDestroyed[]       = {testRegistry.createEntity(Flags::WorldObject),
+                                    testRegistry.createEntity(Flags::WorldObject),
+                                    testRegistry.createEntity(Flags::WorldObject),
+                                    testRegistry.createEntity(Flags::WorldObject | Flags::Dummy),
+                                    testRegistry.createEntity(Flags::WorldObject),
+                                    testRegistry.createEntity(Flags::WorldObject | Flags::Dummy)};
+    const std::size_t nDestroyed = std::size(toBeDestroyed);
+
+    Entity toLive[]         = {testRegistry.createEntity(Flags::None),
+                               testRegistry.createEntity(Flags::Dummy),
+                               testRegistry.createEntity(Flags::Dummy),
+                               testRegistry.createEntity(Flags::Dummy),
+                               testRegistry.createEntity(Flags::None)};
+    const std::size_t nLive = std::size(toLive);
+
+    EXPECT_EQ(testRegistry.destroyAllWorldEntities(), nDestroyed);
+    for (std::size_t i = 0; i < nDestroyed; ++i) {
+        EXPECT_FALSE(testRegistry.entityExists(toBeDestroyed[i]));
+    }
+    for (std::size_t i = 0; i < nLive; ++i) { EXPECT_TRUE(testRegistry.entityExists(toLive[i])); }
 }
 
 } // namespace unittest

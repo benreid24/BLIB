@@ -27,11 +27,11 @@ void ArrowSelector::notifySelection(ecs::Entity, sf::FloatRect itemArea) {
          itemArea.top + itemArea.height * 0.5f - width * HeightRatio * 0.5f});
 }
 
-void ArrowSelector::doSceneAdd(rc::Overlay* overlay) {
-    triangle.addToScene(overlay, rc::UpdateSpeed::Static);
-}
+void ArrowSelector::doSceneAdd(rc::Scene* s) { triangle.addToScene(s, rc::UpdateSpeed::Static); }
 
 void ArrowSelector::doSceneRemove() { triangle.removeFromScene(); }
+
+void ArrowSelector::draw(rc::scene::CodeScene::RenderContext& ctx) { triangle.draw(ctx); }
 
 ArrowSelector::ArrowSelector(float w, const sf::Color& f)
 : width(w)

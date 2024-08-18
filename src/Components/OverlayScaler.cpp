@@ -58,6 +58,12 @@ void OverlayScaler::setScissorMode(ScissorMode m) {
     dirty       = true;
 }
 
+void OverlayScaler::setFixedScissor(const sf::IntRect& scissor) {
+    scissorMode  = ScissorFixed;
+    fixedScissor = scissor;
+    dirty        = true;
+}
+
 void OverlayScaler::positionInParentSpace(const glm::vec2& pos) {
     posType        = ParentSpace;
     parentPosition = pos;

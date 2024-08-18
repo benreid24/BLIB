@@ -24,13 +24,14 @@ sf::Vector2f LinePacker::getRequisition(const std::vector<Element::Ptr>& elems) 
     for (const Element::Ptr& e : elems) {
         if (!e->packable()) continue;
 
+        const auto req = e->getRequisition();
         if (dir == Vertical) {
-            md += e->getRequisition().y;
-            if (e->getRequisition().x > od) od = e->getRequisition().x;
+            md += req.y;
+            if (req.x > od) od = req.x;
         }
         else {
-            md += e->getRequisition().x;
-            if (e->getRequisition().y > od) od = e->getRequisition().y;
+            md += req.x;
+            if (req.y > od) od = req.y;
         }
     }
 
@@ -48,11 +49,12 @@ void LinePacker::pack(const sf::FloatRect& rect, const std::vector<Element::Ptr>
     for (const Element::Ptr& e : elems) {
         if (!e->packable()) continue;
 
-        if (e->getRequisition().x > maxSize.x) maxSize.x = e->getRequisition().x;
-        if (e->getRequisition().y > maxSize.y) maxSize.y = e->getRequisition().y;
+        const auto req = e->getRequisition();
+        if (req.x > maxSize.x) maxSize.x = req.x;
+        if (req.y > maxSize.y) maxSize.y = req.y;
         if (e->expandsHeight() && dir == Vertical) ++expanders;
         if (e->expandsWidth() && dir == Horizontal) ++expanders;
-        totalSize += e->getRequisition() + sf::Vector2f(spacing, spacing);
+        totalSize += req + sf::Vector2f(spacing, spacing);
     }
     const sf::Vector2f freeSpace = sf::Vector2f(rect.width, rect.height) - totalSize;
     const float extraSpace = expanders > 0.f ? ((dir == Horizontal) ? (freeSpace.x / expanders) :
@@ -62,8 +64,9 @@ void LinePacker::pack(const sf::FloatRect& rect, const std::vector<Element::Ptr>
     sf::Vector2f pos(rect.left, rect.top);
     if (mode == Compact) {
         auto compSize = [this, &maxSize, &extraSpace, &rect](Element::Ptr e) -> sf::Vector2f {
-            sf::Vector2f size(e->getRequisition().x, maxSize.y);
-            if (dir == Vertical) size = {maxSize.x, e->getRequisition().y};
+            const auto req = e->getRequisition();
+            sf::Vector2f size(req.x, maxSize.y);
+            if (dir == Vertical) size = {maxSize.x, req.y};
 
             if (dir == Vertical) {
                 if (e->expandsHeight()) size.y += extraSpace;

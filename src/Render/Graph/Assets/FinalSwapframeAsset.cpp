@@ -18,7 +18,7 @@ FinalSwapframeAsset::FinalSwapframeAsset(vk::PerSwapFrame<vk::Framebuffer>& fram
                    viewport, scissor, clearColors, clearColorCount)
 , framebuffers(framebuffers) {}
 
-void FinalSwapframeAsset::doCreate(engine::Engine&, Renderer& renderer, Observer*) {
+void FinalSwapframeAsset::doCreate(engine::Engine&, Renderer& renderer, RenderTarget*) {
     renderPass = &renderer.renderPassCache().getRenderPass(renderPassId);
 }
 

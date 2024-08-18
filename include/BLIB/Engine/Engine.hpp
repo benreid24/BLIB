@@ -11,6 +11,7 @@
 #include <BLIB/Engine/Worker.hpp>
 #include <BLIB/Events/Dispatcher.hpp>
 #include <BLIB/Input.hpp>
+#include <BLIB/Particles/ParticleSystem.hpp>
 #include <BLIB/Render/Renderer.hpp>
 #include <BLIB/Resources.hpp>
 #include <BLIB/Scripts/Manager.hpp>
@@ -31,6 +32,9 @@ namespace engine
  */
 class Engine : private util::NonCopyable {
 public:
+    /// Type signature of factory methods to create engine states
+    using StateFactory = std::function<State::Ptr()>;
+
     /**
      * @brief Creates the game engine from the given settings
      *
@@ -80,6 +84,16 @@ public:
     util::ThreadPool& threadPool();
 
     /**
+     * @brief Returns the threadpool to be used for long running background tasks
+     */
+    util::ThreadPool& longRunningThreadpool();
+
+    /**
+     * @brief Returns the engine particle system
+     */
+    pcl::ParticleSystem& particleSystem();
+
+    /**
      * @brief Returns the settings the engine is using
      *
      */
@@ -123,6 +137,15 @@ public:
      * @return bool True if the engine exited cleanly, false if exiting due to error
      */
     bool run(State::Ptr initialState);
+
+    /**
+     * @brief Same as run but creates the initial state after engine initialization. Useful if the
+     *        state constructor relies on the engine being loaded
+     *
+     * @param stateCreator The factory to create the initial state
+     * @return True if the engine exited cleanly, false if exiting due to error
+     */
+    bool run(StateFactory&& stateCreator);
 
     /**
      * @brief Sets the next state for the following engine update loop. May be called at any
@@ -169,6 +192,11 @@ public:
      */
     void resetTimeScale();
 
+    /**
+     * @brief Returns the scale factor being applied to the window to letterbox
+     */
+    float getWindowScale() const;
+
 private:
     Worker worker;
     Settings engineSettings;
@@ -176,6 +204,7 @@ private:
     std::stack<State::Ptr> states;
     State::Ptr newState;
     float timeScale;
+    float windowScale;
 
     EngineWindow renderWindow;
     Systems ecsSystems;
@@ -184,10 +213,14 @@ private:
     rc::Renderer renderingSystem;
     input::InputSystem input;
     util::ThreadPool workers;
+    util::ThreadPool backgroundWorkers;
 
     bool awaitFocus();
     void handleResize(const sf::Event::SizeEvent& resize, bool saveAndSend);
-    void postStateChange(const State::Ptr& prev);
+    void postStateChange(State::Ptr& prev);
+
+    bool setup();
+    bool loop();
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -209,6 +242,10 @@ inline Flags& Engine::flags() { return engineFlags; }
 inline EngineWindow& Engine::window() { return renderWindow; }
 
 inline util::ThreadPool& Engine::threadPool() { return workers; }
+
+inline util::ThreadPool& Engine::longRunningThreadpool() { return backgroundWorkers; }
+
+inline float Engine::getWindowScale() const { return windowScale; }
 
 } // namespace engine
 } // namespace bl

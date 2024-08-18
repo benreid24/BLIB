@@ -37,7 +37,7 @@ float sin(float degrees);
  *
  * @ingroup Math
  */
-inline float radiansToDegrees(float radians) { return radians * 180.f / Pi; }
+inline constexpr float radiansToDegrees(float radians) { return radians * 180.f / Pi; }
 
 /**
  * @brief Converts an angle in degrees to radians
@@ -47,7 +47,7 @@ inline float radiansToDegrees(float radians) { return radians * 180.f / Pi; }
  *
  * @ingroup Math
  */
-inline float degreesToRadians(float degrees) { return degrees / 180.f * Pi; }
+inline constexpr float degreesToRadians(float degrees) { return degrees / 180.f * Pi; }
 
 } // namespace math
 } // namespace bl

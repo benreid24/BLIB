@@ -6,7 +6,7 @@ namespace gui
 {
 namespace
 {
-constexpr float Padding = 3.f;
+constexpr float Padding = 0.f;
 }
 
 void RenderSettings::merge(const RenderSettings& settings) {

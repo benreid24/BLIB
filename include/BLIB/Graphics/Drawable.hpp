@@ -3,9 +3,11 @@
 
 #include <BLIB/Components/Toggler.hpp>
 #include <BLIB/ECS.hpp>
-#include <BLIB/Graphics/Components/EntityBacked.hpp>
+#include <BLIB/ECS/EntityBacked.hpp>
+#include <BLIB/Engine.hpp>
 #include <BLIB/Render/Components/DrawableBase.hpp>
-#include <BLIB/Systems/DrawableSystem.hpp>
+#include <BLIB/Render/Scenes/CodeScene.hpp>
+#include <BLIB/Resources/State.hpp>
 #include <type_traits>
 
 namespace bl
@@ -18,7 +20,7 @@ class Engine;
 /// Collection of SFML-like classes for drawing
 namespace gfx
 {
-template<typename TCom, typename TSys>
+template<typename TCom>
 class Drawable;
 
 /**
@@ -26,11 +28,10 @@ class Drawable;
  *        drawable component that it wraps
  *
  * @tparam TCom The drawable component type (ie Sprite)
- * @tparam TSys The drawable system. Must implement DrawableSystem interface
  * @ingroup Graphics
  */
-template<typename TCom, typename TSys = sys::DrawableSystem<TCom>>
-class Drawable : public bcom::EntityBacked {
+template<typename TCom>
+class Drawable : public ecs::EntityBacked {
     static_assert(std::is_base_of_v<rc::rcom::DrawableBase, TCom>,
                   "TCom must derive from DrawableBase");
 
@@ -46,6 +47,7 @@ public:
      * @brief Destroys the entity
      */
     virtual ~Drawable();
+
     /**
      * @brief Assumes ownership of the underlying entity from the given drawable
      *
@@ -119,16 +121,19 @@ public:
      */
     virtual void scaleToSize(const glm::vec2& size) = 0;
 
+    /**
+     * @brief Manually issue the required commands to draw this object. Must be called within the
+     *        context of a CodeScene
+     *
+     * @param ctx The CodeScene rendering context
+     */
+    void draw(rc::scene::CodeScene::RenderContext& ctx);
+
 protected:
     /**
      * @brief Initializes the drawable
      */
     Drawable();
-
-    /**
-     * @brief Returns the drawable system. Only call after create()
-     */
-    TSys& system();
 
     /**
      * @brief Creates the ECS entity and drawable component. Will destroy the prior instance if any
@@ -144,10 +149,12 @@ protected:
      * @brief Creates the component for the drawable. Must only be called after entity creation
      *
      * @tparam ...TArgs Argument types to the components constructor
+     * @param engine Game engine instance
+     * @param existingEntity An already existing entity to add components to
      * @param ...args Arguments to the components constructor
      */
     template<typename... TArgs>
-    void createComponentOnly(TArgs&&... args);
+    void createComponentOnly(engine::Engine& engine, ecs::Entity existingEntity, TArgs&&... args);
 
     /**
      * @brief Called after the entity is added to a scene. Allows derived to sync data if required
@@ -164,49 +171,54 @@ protected:
 private:
     TCom* handle;
 
-    template<typename U, typename US>
+    template<typename U>
     friend class Drawable;
+
+    void doFlash(float on, float off);
+    void retryFlash(float on, float off);
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-template<typename TCom, typename TSys>
-Drawable<TCom, TSys>::Drawable()
+template<typename TCom>
+Drawable<TCom>::Drawable()
 : handle(nullptr) {}
 
-template<typename TCom, typename TSys>
-Drawable<TCom, TSys>::~Drawable() {
-    if (entity() != ecs::InvalidEntity) { removeFromScene(); }
+template<typename TCom>
+Drawable<TCom>::~Drawable() {
+    if (exists() && component().getSceneRef().scene && component().getSceneRef().object &&
+        entityIsDeletedOnDestruction() && !resource::State::engineShuttingDown()) {
+        removeFromScene();
+    }
 }
 
-template<typename TCom, typename TSys>
-void Drawable<TCom, TSys>::addToScene(rc::Scene* scene, rc::UpdateSpeed updateFreq) {
+template<typename TCom>
+void Drawable<TCom>::addToScene(rc::Scene* scene, rc::UpdateSpeed updateFreq) {
 #ifdef BLIB_DEBUG
     if (entity() == ecs::InvalidEntity || !handle) {
         throw std::runtime_error("Drawable must be created before adding to scene");
     }
 #endif
 
-    system().addToScene(entity(), scene, updateFreq);
-    onAdd(component().sceneRef);
+    component().addToScene(engine().ecs(), entity(), scene, updateFreq);
+    onAdd(component().getSceneRef());
 }
 
-template<typename TCom, typename TSys>
-void Drawable<TCom, TSys>::addToSceneWithCustomPipeline(rc::Scene* scene,
-                                                        rc::UpdateSpeed updateFreq,
-                                                        std::uint32_t pipeline) {
+template<typename TCom>
+void Drawable<TCom>::addToSceneWithCustomPipeline(rc::Scene* scene, rc::UpdateSpeed updateFreq,
+                                                  std::uint32_t pipeline) {
 #ifdef BLIB_DEBUG
     if (entity() == ecs::InvalidEntity || !handle) {
         throw std::runtime_error("Drawable must be created before adding to scene");
     }
 #endif
 
-    system().addToSceneWithCustomPipeline(entity(), scene, updateFreq, pipeline);
-    onAdd(component().sceneRef);
+    component().addToSceneWithPipeline(engine().ecs(), entity(), scene, updateFreq, pipeline);
+    onAdd(component().getSceneRef());
 }
 
-template<typename TCom, typename TSys>
-void Drawable<TCom, TSys>::setHidden(bool hide) {
+template<typename TCom>
+void Drawable<TCom>::setHidden(bool hide) {
 #ifdef BLIB_DEBUG
     if (!handle) { throw std::runtime_error("Cannot hide un-created entity"); }
 #endif
@@ -214,37 +226,56 @@ void Drawable<TCom, TSys>::setHidden(bool hide) {
     component().setHidden(hide);
 }
 
-template<typename TCom, typename TSys>
-void Drawable<TCom, TSys>::removeFromScene() {
+template<typename TCom>
+void Drawable<TCom>::removeFromScene() {
 #ifdef BLIB_DEBUG
     if (entity() == ecs::InvalidEntity || !handle) {
         throw std::runtime_error("Drawable must be created before removing from scene");
     }
 #endif
 
-    system().removeFromScene(entity());
+    stopFlashing();
+    component().removeFromScene(engine().ecs(), entity());
     onRemove();
 }
 
-template<typename TCom, typename TSys>
-TCom& Drawable<TCom, TSys>::component() {
+template<typename TCom>
+TCom& Drawable<TCom>::component() {
     return *handle;
 }
 
-template<typename TCom, typename TSys>
-const TCom& Drawable<TCom, TSys>::component() const {
+template<typename TCom>
+const TCom& Drawable<TCom>::component() const {
     return *handle;
 }
 
-template<typename TCom, typename TSys>
-void Drawable<TCom, TSys>::flash(float onPeriod, float offPeriod) {
+template<typename TCom>
+void Drawable<TCom>::flash(float onPeriod, float offPeriod) {
+    if (component().getSceneRef().object) { doFlash(onPeriod, offPeriod); }
+    else {
+        engine().renderer().vulkanState().cleanupManager.add(
+            [this, onPeriod, offPeriod]() { retryFlash(onPeriod, offPeriod); });
+    }
+}
+
+template<typename TCom>
+void Drawable<TCom>::retryFlash(float onPeriod, float offPeriod) {
+    if (component().getSceneRef().object) { doFlash(onPeriod, offPeriod); }
+    else {
+        BL_LOG_WARN << "Failed to flash object (" << entity()
+                    << ") Not in scene after delayed retry";
+    }
+}
+
+template<typename TCom>
+void Drawable<TCom>::doFlash(float onPeriod, float offPeriod) {
     // swap off/on period because we have hidden toggle instead of visible toggle
     engine().ecs().template emplaceComponent<com::Toggler>(
-        entity(), offPeriod, onPeriod, &component().sceneRef.object->hidden);
+        entity(), offPeriod, onPeriod, &component().getSceneRef().object->hidden);
 }
 
-template<typename TCom, typename TSys>
-void Drawable<TCom, TSys>::resetFlash() {
+template<typename TCom>
+void Drawable<TCom>::resetFlash() {
     com::Toggler* tog = engine().ecs().template getComponent<com::Toggler>(entity());
     if (tog) {
         tog->time   = 0.f;
@@ -252,35 +283,39 @@ void Drawable<TCom, TSys>::resetFlash() {
     }
 }
 
-template<typename TCom, typename TSys>
-void Drawable<TCom, TSys>::stopFlashing() {
-    engine().ecs().template removeComponent<com::Toggler>(entity());
-    component().sceneRef.object->hidden = false;
+template<typename TCom>
+void Drawable<TCom>::stopFlashing() {
+    if (entity() != ecs::InvalidEntity) {
+        engine().ecs().template removeComponent<com::Toggler>(entity());
+        if (component().getSceneRef().object) { component().getSceneRef().object->hidden = false; }
+    }
 }
 
-template<typename TCom, typename TSys>
-TSys& Drawable<TCom, TSys>::system() {
-    return engine().systems().template getSystem<TSys>();
-}
+template<typename TCom>
+void Drawable<TCom>::onAdd(const rc::rcom::SceneObjectRef&) {}
 
-template<typename TCom, typename TSys>
-void Drawable<TCom, TSys>::onAdd(const rc::rcom::SceneObjectRef&) {}
+template<typename TCom>
+void Drawable<TCom>::onRemove() {}
 
-template<typename TCom, typename TSys>
-void Drawable<TCom, TSys>::onRemove() {}
-
-template<typename TCom, typename TSys>
+template<typename TCom>
 template<typename... TArgs>
-void Drawable<TCom, TSys>::createComponentOnly(TArgs&&... args) {
+void Drawable<TCom>::createComponentOnly(engine::Engine& e, ecs::Entity existing, TArgs&&... args) {
+    if (handle != nullptr) { destroy(); }
+    createFromExistingEntity(e, existing);
     handle = engine().ecs().template emplaceComponent<TCom>(entity(), std::forward<TArgs>(args)...);
 }
 
-template<typename TCom, typename TSys>
+template<typename TCom>
 template<typename... TArgs>
-void Drawable<TCom, TSys>::create(engine::Engine& engine, TArgs&&... args) {
+void Drawable<TCom>::create(engine::Engine& engine, TArgs&&... args) {
     if (handle != nullptr) { destroy(); }
     createEntityOnly(engine);
-    createComponentOnly(std::forward<TArgs>(args)...);
+    handle = engine.ecs().template emplaceComponent<TCom>(entity(), std::forward<TArgs>(args)...);
+}
+
+template<typename TCom>
+void Drawable<TCom>::draw(rc::scene::CodeScene::RenderContext& ctx) {
+    ctx.renderObject(*handle);
 }
 
 } // namespace gfx

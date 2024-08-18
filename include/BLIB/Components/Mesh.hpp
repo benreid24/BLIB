@@ -26,6 +26,20 @@ struct Mesh : public rc::rcom::DrawableBase {
      */
     void create(rc::vk::VulkanState& vulkanState, std::uint32_t vertexCount,
                 std::uint32_t indexCount);
+
+    /**
+     * @brief Returns the default pipeline for regular scenes
+     */
+    virtual std::uint32_t getDefaultScenePipelineId() const override {
+        return rc::Config::PipelineIds::SkinnedMeshes;
+    }
+
+    /**
+     * @brief Returns the default pipeline for overlays
+     */
+    virtual std::uint32_t getDefaultOverlayPipelineId() const override {
+        return rc::Config::PipelineIds::SkinnedMeshes;
+    }
 };
 
 } // namespace com

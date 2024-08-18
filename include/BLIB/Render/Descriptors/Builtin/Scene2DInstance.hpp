@@ -1,6 +1,7 @@
 #ifndef BLIB_RENDER_DESCRIPTORS_SCENE2DINSTANCE_HPP
 #define BLIB_RENDER_DESCRIPTORS_SCENE2DINSTANCE_HPP
 
+#include <BLIB/Render/Buffers/StaticUniformBuffer.hpp>
 #include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp>
 #include <BLIB/Render/Vulkan/DescriptorPool.hpp>
@@ -13,6 +14,12 @@ namespace bl
 {
 namespace rc
 {
+namespace lgt
+{
+class Scene2DLighting;
+class Light2D;
+} // namespace lgt
+
 namespace vk
 {
 struct VulkanState;
@@ -27,6 +34,8 @@ namespace ds
  */
 class Scene2DInstance : public SceneDescriptorSetInstance {
 public:
+    static constexpr std::uint32_t MaxLightCount = 500;
+
     /**
      * @brief Creates a new instance of the descriptor set
      *
@@ -41,8 +50,20 @@ public:
     virtual ~Scene2DInstance();
 
 private:
+    struct alignas(16) Light {
+        glm::vec4 color;
+        glm::vec2 position;
+    };
+
+    struct alignas(16) Lighting {
+        std::uint32_t lightCount;
+        glm::vec3 ambient;
+        alignas(16) Light lights[MaxLightCount];
+    };
+
     vk::VulkanState& vulkanState;
     const VkDescriptorSetLayout setLayout;
+    buf::StaticUniformBuffer<Lighting> lighting;
     vk::PerFrameVector<VkDescriptorSet> descriptorSets;
     vk::DescriptorPool::AllocationHandle allocHandle;
 
@@ -54,6 +75,9 @@ private:
     virtual void init(DescriptorComponentStorageCache& storageCache) override;
     virtual bool allocateObject(ecs::Entity entity, scene::Key key) override;
     virtual void handleFrameStart() override;
+
+    friend class lgt::Scene2DLighting;
+    friend class lgt::Light2D;
 };
 
 } // namespace ds

@@ -24,9 +24,20 @@ Slideshow::Slideshow(engine::Engine& engine, const resource::Ref<a2d::AnimationD
     createWithUniquePlayer(engine, animation, play, forceLoop);
 }
 
+Slideshow::Slideshow(engine::Engine& engine, ecs::Entity existing,
+                     const resource::Ref<a2d::AnimationData>& animation, bool play, bool forceLoop)
+: Slideshow() {
+    createWithUniquePlayer(engine, existing, animation, play, forceLoop);
+}
+
 Slideshow::Slideshow(engine::Engine& engine, const Slideshow& player)
 : Slideshow() {
     createWithSharedPlayer(engine, player);
+}
+
+Slideshow::Slideshow(engine::Engine& engine, ecs::Entity existing, const Slideshow& player)
+: Slideshow() {
+    createWithSharedPlayer(engine, existing, player);
 }
 
 void Slideshow::createWithUniquePlayer(engine::Engine& engine,
@@ -38,7 +49,19 @@ void Slideshow::createWithUniquePlayer(engine::Engine& engine,
     Animation2DPlayer::create(
         engine.renderer(), engine.ecs(), entity(), animation, play, forceLoop);
     component().create(engine.renderer().vulkanState(), Animation2DPlayer::getPlayer());
-    component().containsTransparency = Textured::getTexture()->containsTransparency();
+    component().setContainsTransparency(Textured::getTexture()->containsTransparency());
+}
+
+void Slideshow::createWithUniquePlayer(engine::Engine& engine, ecs::Entity existing,
+                                       const resource::Ref<a2d::AnimationData>& animation,
+                                       bool play, bool forceLoop) {
+    Drawable::createComponentOnly(engine, existing);
+    OverlayScalable::create(engine, entity());
+    OverlayScalable::setLocalSize(getSize(animation));
+    Animation2DPlayer::create(
+        engine.renderer(), engine.ecs(), entity(), animation, play, forceLoop);
+    component().create(engine.renderer().vulkanState(), Animation2DPlayer::getPlayer());
+    component().setContainsTransparency(Textured::getTexture()->containsTransparency());
 }
 
 void Slideshow::createWithSharedPlayer(engine::Engine& engine, const Slideshow& player) {
@@ -47,7 +70,17 @@ void Slideshow::createWithSharedPlayer(engine::Engine& engine, const Slideshow& 
     OverlayScalable::setLocalSize(player.getLocalSize());
     Animation2DPlayer::create(engine.renderer(), engine.ecs(), entity(), player.getPlayerEntity());
     component().create(engine.renderer().vulkanState(), Animation2DPlayer::getPlayer());
-    component().containsTransparency = Textured::getTexture()->containsTransparency();
+    component().setContainsTransparency(Textured::getTexture()->containsTransparency());
+}
+
+void Slideshow::createWithSharedPlayer(engine::Engine& engine, ecs::Entity existing,
+                                       const Slideshow& player) {
+    Drawable::createComponentOnly(engine, existing);
+    OverlayScalable::create(engine, entity());
+    OverlayScalable::setLocalSize(player.getLocalSize());
+    Animation2DPlayer::create(engine.renderer(), engine.ecs(), entity(), player.getPlayerEntity());
+    component().create(engine.renderer().vulkanState(), Animation2DPlayer::getPlayer());
+    component().setContainsTransparency(Textured::getTexture()->containsTransparency());
 }
 
 void Slideshow::scaleToSize(const glm::vec2& size) {

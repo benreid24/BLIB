@@ -9,13 +9,16 @@ namespace gfx
 BatchSprite::BatchSprite()
 : engine(nullptr)
 , owner(nullptr)
-, dirty(false) {}
+, dirty(false)
+, autoCommit(true) {}
 
 BatchSprite::BatchSprite(engine::Engine& engine, BatchedSprites& batch,
                          const sf::FloatRect& textureSource)
 : BatchSprite() {
     create(engine, batch, textureSource);
 }
+
+BatchSprite::~BatchSprite() { remove(); }
 
 void BatchSprite::create(engine::Engine& e, BatchedSprites& batch,
                          const sf::FloatRect& textureSource) {
@@ -48,12 +51,21 @@ void BatchSprite::remove() {
     }
 }
 
+void BatchSprite::orphan() {
+    if (isCreated()) {
+        commit();
+        owner = nullptr;
+        alloc.orphan();
+        updateHandle.cancel();
+    }
+}
+
 bool BatchSprite::isCreated() const { return owner != nullptr; }
 
 void BatchSprite::markDirty() {
     dirty = true;
-    if (owner && !updateHandle.isQueued()) {
-        updateHandle = engine->systems().addFrameTask(engine::FrameStage::RenderObjectInsertion,
+    if (autoCommit && owner && !updateHandle.isQueued()) {
+        updateHandle = engine->systems().addFrameTask(engine::FrameStage::RenderEarlyRefresh,
                                                       std::bind(&BatchSprite::commit, this));
     }
 }
@@ -61,6 +73,7 @@ void BatchSprite::markDirty() {
 void BatchSprite::commit() {
     if (dirty && owner) {
         dirty = false;
+        updateHandle.cancel();
 
         if (!alloc.isValid()) {
             alloc = owner->component().getBuffer().allocate(4, 6);
@@ -79,19 +92,19 @@ void BatchSprite::commit() {
         const float rightX         = (source.left + source.width) / owner->getTexture()->size().x;
         const float bottomY        = (source.top + source.height) / owner->getTexture()->size().y;
 
-        vertices[0].texCoord = {leftX, topY};
+        vertices[0].texCoord = owner->getTexture()->convertCoord({leftX, topY});
         vertices[0].pos      = {0.f, 0.f, 0.f};
         vertices[0].color    = {1.f, 1.f, 1.f, 1.f};
 
-        vertices[1].texCoord = {rightX, topY};
+        vertices[1].texCoord = owner->getTexture()->convertCoord({rightX, topY});
         vertices[1].pos      = {source.width, 0.f, 0.f};
         vertices[1].color    = {1.f, 1.f, 1.f, 1.f};
 
-        vertices[2].texCoord = {rightX, bottomY};
+        vertices[2].texCoord = owner->getTexture()->convertCoord({rightX, bottomY});
         vertices[2].pos      = {source.width, source.height, 0.f};
         vertices[2].color    = {1.f, 1.f, 1.f, 1.f};
 
-        vertices[3].texCoord = {leftX, bottomY};
+        vertices[3].texCoord = owner->getTexture()->convertCoord({leftX, bottomY});
         vertices[3].pos      = {0.f, source.height, 0.f};
         vertices[3].color    = {1.f, 1.f, 1.f, 1.f};
 
@@ -103,6 +116,8 @@ void BatchSprite::commit() {
         owner->component().updateDrawParams();
     }
 }
+
+void BatchSprite::disableAutoCommit(bool d) { autoCommit = !d; }
 
 } // namespace gfx
 } // namespace bl

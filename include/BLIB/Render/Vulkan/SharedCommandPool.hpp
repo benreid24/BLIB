@@ -53,9 +53,16 @@ public:
     SharedCommandBuffer createBuffer(VkCommandBufferUsageFlags usage = 0);
 
 private:
+    struct AllocatedBuffer {
+        VkCommandPool pool;
+        VkCommandBuffer buffer;
+        VkFence fence;
+    };
+
     std::mutex mutex;
     VulkanState* vs;
     PerFrame<VkCommandPool> pool;
+    std::vector<AllocatedBuffer> allocations;
 
     void submit(SharedCommandBuffer& buffer);
 

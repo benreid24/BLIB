@@ -45,6 +45,20 @@ struct BatchedSlideshows : public rc::rcom::DrawableBase {
      * @brief Updates and commits the draw parameters
      */
     void updateDrawParams();
+
+    /**
+     * @brief Returns the default pipeline for regular scenes
+     */
+    virtual std::uint32_t getDefaultScenePipelineId() const override {
+        return rc::Config::PipelineIds::SlideshowLit;
+    }
+
+    /**
+     * @brief Returns the default pipeline for overlays
+     */
+    virtual std::uint32_t getDefaultOverlayPipelineId() const override {
+        return rc::Config::PipelineIds::SlideshowUnlit;
+    }
 };
 
 } // namespace com

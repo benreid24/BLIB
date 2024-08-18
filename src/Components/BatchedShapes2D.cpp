@@ -11,7 +11,7 @@ BatchedShapes2D::BatchedShapes2D(rc::vk::VulkanState& vulkanState, std::uint32_t
 
 void BatchedShapes2D::commit() {
     drawParams = indexBuffer.getDrawParameters();
-    if (sceneRef.object) { syncDrawParamsToScene(); }
+    if (getSceneRef().object) { syncDrawParamsToScene(); }
 }
 
 } // namespace com

@@ -2,7 +2,7 @@
 #define BLIB_GRAPHICS_ANIMATION2D_DISCRETEANIMATION2DPLAYER_HPP
 
 #include <BLIB/Components/Animation2DPlayer.hpp>
-#include <BLIB/Graphics/Components/EntityBacked.hpp>
+#include <BLIB/ECS/EntityBacked.hpp>
 #include <BLIB/Resources/Ref.hpp>
 
 namespace bl
@@ -14,7 +14,7 @@ namespace gfx
  *
  * @ingroup Graphics
  */
-class DiscreteAnimation2DPlayer : public bcom::EntityBacked {
+class DiscreteAnimation2DPlayer : public ecs::EntityBacked {
 public:
     /// The type of animation to create the player for
     enum Mode { Slideshow, VertexAnimation, Auto };

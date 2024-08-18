@@ -152,10 +152,16 @@ public:
      */
     void removeAffector(const CameraAffector3D* affector);
 
+    /**
+     * @brief Returns the size of the viewport
+     */
+    virtual glm::vec2 getViewerSize() const override;
+
 private:
     glm::vec3 position;
     com::Orientation3D orientation;
     float fov;
+    glm::vec2 cachedViewportSize;
 
     std::unique_ptr<CameraController3D> controller;
     std::vector<std::unique_ptr<CameraAffector3D>> affectors;

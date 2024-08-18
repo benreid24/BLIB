@@ -33,9 +33,9 @@ scene::SceneObject* BatchedScene::doAdd(ecs::Entity entity, rcom::DrawableBase& 
         handleAddressChange(updateFreq, alloc.originalBaseAddress);
     }
 
-    transCache[sceneId]    = obj.containsTransparency;
-    auto& batch            = obj.containsTransparency ? transparentObjects : opaqueObjects;
-    vk::Pipeline& pipeline = renderer.pipelineCache().getPipeline(obj.pipeline);
+    transCache[sceneId]    = obj.getContainsTransparency();
+    auto& batch            = obj.getContainsTransparency() ? transparentObjects : opaqueObjects;
+    vk::Pipeline& pipeline = renderer.pipelineCache().getPipeline(obj.getCurrentPipeline());
 
     // find or create layout batch
     LayoutBatch* layoutBatch = nullptr;
@@ -84,78 +84,68 @@ scene::SceneObject* BatchedScene::doAdd(ecs::Entity entity, rcom::DrawableBase& 
     return alloc.newObject;
 }
 
-void BatchedScene::queueObjectRemoval(scene::SceneObject* object, std::uint32_t pipeline) {
+void BatchedScene::doObjectRemoval(scene::SceneObject* object, std::uint32_t pipeline) {
     // lookup object
     const ecs::Entity entity  = objects.getObjectEntity(object->sceneKey);
     com::BatchSceneLink* link = engine.ecs().getComponent<com::BatchSceneLink>(entity);
 
-#ifdef BLIB_DEBUG
-    if (!link) { throw std::runtime_error("Internal error: Scene link missing"); }
-#endif
-
-    // handle multi-remove
-    if (link->removed) { return; }
-    link->removed = true;
-
-    // queue removal
-    removalQueue.emplace_back(object, pipeline);
-
     // remove children
-    for (com::BatchSceneLink* child : link->getChildren()) {
-        removeObject(&objects.getObject(child->key));
+    if (link) {
+        for (com::BatchSceneLink* child : link->getChildren()) {
+            removeObject(&objects.getObject(child->key));
+        }
     }
+    else { BL_LOG_WARN << "Failed to find BatchSceneLink for entity: " << entity; }
+
+    // release object
+    releaseObject(object, pipeline);
 
     // fire event
     bl::event::Dispatcher::dispatch<rc::event::SceneObjectRemoved>({this, entity});
 }
 
-void BatchedScene::removeQueuedObjects() {
-    for (auto& record : removalQueue) {
-        scene::SceneObject* object = record.object;
+void BatchedScene::releaseObject(SceneObject* object, std::uint32_t pipelineId) {
+    // lookup object
+    const ecs::Entity entity = objects.getObjectEntity(object->sceneKey);
+    auto& transCache =
+        object->sceneKey.updateFreq == UpdateSpeed::Static ? staticTransCache : dynamicTransCache;
+    auto& batch = transCache[object->sceneKey.sceneId] ? transparentObjects : opaqueObjects;
 
-        // lookup object
-        const ecs::Entity entity = objects.getObjectEntity(object->sceneKey);
-        auto& transCache = object->sceneKey.updateFreq == UpdateSpeed::Static ? staticTransCache :
-                                                                                dynamicTransCache;
-        auto& batch = transCache[object->sceneKey.sceneId] ? transparentObjects : opaqueObjects;
-
-        // remove from batch
-        vk::Pipeline& pipeline = renderer.pipelineCache().getPipeline(record.pipelineId);
-        for (LayoutBatch& p : batch.batches) {
-            if (p.layout.rawLayout() == pipeline.pipelineLayout().rawLayout()) {
-                auto& pipelineBatches = object->sceneKey.updateFreq == UpdateSpeed::Static ?
-                                            p.staticBatches :
-                                            p.dynamicBatches;
-                for (PipelineBatch& pb : pipelineBatches) {
-                    if (&pb.pipeline == &pipeline) {
-                        for (auto it = pb.objects.begin(); it != pb.objects.end(); ++it) {
-                            if (*it == object) {
-                                pb.objects.erase(it);
-                                goto removeDescriptors;
-                            }
+    // remove from batch
+    vk::Pipeline& pipeline = renderer.pipelineCache().getPipeline(pipelineId);
+    for (LayoutBatch& p : batch.batches) {
+        if (p.layout.rawLayout() == pipeline.pipelineLayout().rawLayout()) {
+            auto& pipelineBatches = object->sceneKey.updateFreq == UpdateSpeed::Static ?
+                                        p.staticBatches :
+                                        p.dynamicBatches;
+            for (PipelineBatch& pb : pipelineBatches) {
+                if (&pb.pipeline == &pipeline) {
+                    for (auto it = pb.objects.begin(); it != pb.objects.end(); ++it) {
+                        if (*it == object) {
+                            pb.objects.erase(it);
+                            goto removeDescriptors;
                         }
-                        break;
                     }
+                    break;
                 }
-            removeDescriptors:
-                for (std::uint8_t i = 0; i < p.descriptorCount; ++i) {
-                    p.descriptors[i]->releaseObject(entity, object->sceneKey);
-                }
-                break;
             }
+        removeDescriptors:
+            for (std::uint8_t i = 0; i < p.descriptorCount; ++i) {
+                p.descriptors[i]->releaseObject(entity, object->sceneKey);
+            }
+            break;
         }
-
-        // cleanup scene link
-        engine.ecs().removeComponent<com::BatchSceneLink>(entity);
     }
 
-    removalQueue.clear();
+    // cleanup scene link
+    engine.ecs().removeComponent<com::BatchSceneLink>(entity);
 }
 
 void BatchedScene::doBatchChange(const BatchChange& change, std::uint32_t ogPipeline) {
     const bool isStatic = change.changed->sceneKey.updateFreq == UpdateSpeed::Static;
     auto& transCache    = isStatic ? staticTransCache : dynamicTransCache;
     const bool wasTrans = transCache[change.changed->sceneKey.sceneId];
+    transCache[change.changed->sceneKey.sceneId] = change.newTrans;
 
     vk::Pipeline& newPipeline = renderer.pipelineCache().getPipeline(change.newPipeline);
     vk::Pipeline& oldPipeline = renderer.pipelineCache().getPipeline(ogPipeline);
@@ -282,7 +272,10 @@ void BatchedScene::handleAddressChange(UpdateSpeed speed, SceneObject* base) {
         for (LayoutBatch& lb : ob->batches) {
             auto& pbs = speed == UpdateSpeed::Static ? lb.staticBatches : lb.dynamicBatches;
             for (PipelineBatch& pb : pbs) {
-                for (SceneObject*& so : pb.objects) { so = objects.rebase(speed, so, base); }
+                for (SceneObject*& so : pb.objects) {
+                    so = objects.rebase(speed, so, base);
+                    so->updateRefToThis();
+                }
             }
         }
     }

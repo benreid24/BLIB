@@ -24,7 +24,22 @@ Overlay::Overlay(engine::Engine& e)
     bl::event::Dispatcher::subscribe(this);
 }
 
-Overlay::~Overlay() { objects.unlinkAll(descriptorSets); }
+Overlay::~Overlay() {
+    objects.unlinkAll(descriptorSets);
+
+    // reset viewports to prevent read into invalid memory
+    std::copy(roots.begin(), roots.end(), std::inserter(renderStack, renderStack.begin()));
+    while (!renderStack.empty()) {
+        ovy::OverlayObject& obj = *renderStack.back();
+        renderStack.pop_back();
+
+        obj.overlayViewport = nullptr;
+
+        std::copy(obj.getChildren().rbegin(),
+                  obj.getChildren().rend(),
+                  std::inserter(renderStack, renderStack.end()));
+    }
+}
 
 void Overlay::renderScene(scene::SceneRenderContext& ctx) {
     std::copy(roots.begin(), roots.end(), std::inserter(renderStack, renderStack.begin()));
@@ -57,6 +72,7 @@ void Overlay::renderScene(scene::SceneRenderContext& ctx) {
             if (vkl != currentPipelineLayout || currentSpeed != obj.sceneKey.updateFreq) {
                 currentSpeed          = obj.sceneKey.updateFreq;
                 currentPipelineLayout = vkl;
+                currentPipeline       = vkp;
                 ctx.bindPipeline(*obj.pipeline);
                 ctx.bindDescriptors(obj.pipeline->pipelineLayout().rawLayout(),
                                     obj.sceneKey.updateFreq,
@@ -83,9 +99,10 @@ void Overlay::renderScene(scene::SceneRenderContext& ctx) {
 scene::SceneObject* Overlay::doAdd(ecs::Entity entity, rcom::DrawableBase& object,
                                    UpdateSpeed updateFreq) {
     ovy::OverlayObject& obj = *objects.allocate(updateFreq, entity);
-    obj.entity              = entity;
-    obj.overlay             = this;
-    obj.pipeline            = &renderer.pipelineCache().getPipeline(object.pipeline);
+
+    obj.entity   = entity;
+    obj.overlay  = this;
+    obj.pipeline = &renderer.pipelineCache().getPipeline(object.getCurrentPipeline());
     obj.descriptorCount =
         obj.pipeline->pipelineLayout().initDescriptorSets(descriptorSets, obj.descriptors.data());
     obj.perObjStart     = obj.descriptorCount;
@@ -102,17 +119,21 @@ scene::SceneObject* Overlay::doAdd(ecs::Entity entity, rcom::DrawableBase& objec
         sortRoots();
     }
 
+    com::OverlayScaler* scaler = engine.ecs().getComponent<com::OverlayScaler>(entity);
+    if (scaler) { scaler->dirty = true; }
+
     return &obj;
 }
 
-void Overlay::queueObjectRemoval(scene::SceneObject* object, std::uint32_t) {
+void Overlay::doObjectRemoval(scene::SceneObject* object, std::uint32_t) {
     ovy::OverlayObject* obj = static_cast<ovy::OverlayObject*>(object);
+    obj->overlayViewport    = nullptr;
 
-    removalQueue.emplace_back(obj->entity, obj->sceneKey, obj->descriptors, obj->descriptorCount);
     auto childCopy = obj->getChildren();
     for (ovy::OverlayObject* child : childCopy) {
         if (engine.ecs().getEntityParentDestructionBehavior(child->entity) !=
-            ecs::ParentDestructionBehavior::OrphanedByParent) {
+                ecs::ParentDestructionBehavior::OrphanedByParent &&
+            child->sceneKey.sceneId != scene::Key::InvalidSceneId) {
             removeObject(child);
         }
     }
@@ -123,18 +144,12 @@ void Overlay::queueObjectRemoval(scene::SceneObject* object, std::uint32_t) {
         sortRoots();
     }
 
+    for (unsigned int i = 0; i < obj->descriptorCount; ++i) {
+        obj->descriptors[i]->releaseObject(obj->entity, object->sceneKey);
+    }
+    objects.release(obj->sceneKey);
     engine.ecs().removeComponent<ovy::OverlayObject>(obj->entity);
     bl::event::Dispatcher::dispatch<rc::event::SceneObjectRemoved>({this, obj->entity});
-}
-
-void Overlay::removeQueuedObjects() {
-    for (auto& obj : removalQueue) {
-        for (unsigned int i = 0; i < obj.descriptorCount; ++i) {
-            obj.descriptors[i]->releaseObject(obj.entity, obj.sceneKey);
-        }
-        objects.release(obj.sceneKey);
-    }
-    removalQueue.clear();
 }
 
 void Overlay::doBatchChange(const BatchChange& change, std::uint32_t ogPipeline) {
@@ -149,6 +164,13 @@ void Overlay::doBatchChange(const BatchChange& change, std::uint32_t ogPipeline)
                                                                    entity,
                                                                    object.sceneKey.sceneId,
                                                                    object.sceneKey.updateFreq);
+        object.perObjStart = object.descriptorCount;
+        for (unsigned int i = 0; i < object.descriptorCount; ++i) {
+            if (!object.descriptors[i]->isBindless()) {
+                object.perObjStart = i;
+                break;
+            }
+        }
     }
 }
 
@@ -178,6 +200,14 @@ void Overlay::observe(const ecs::event::EntityParentRemoved& event) {
     roots.emplace_back(obj);
     sortRoots();
     needRefreshAll = true;
+}
+
+void Overlay::observe(const ecs::event::ComponentRemoved<ovy::OverlayObject>& event) {
+    if (event.component.overlay == this) {
+        ovy::OverlayObject* obj = const_cast<ovy::OverlayObject*>(&event.component);
+        const auto it           = std::find(roots.begin(), roots.end(), obj);
+        if (it != roots.end()) { roots.erase(it); }
+    }
 }
 
 std::unique_ptr<cam::Camera> Overlay::createDefaultCamera() {

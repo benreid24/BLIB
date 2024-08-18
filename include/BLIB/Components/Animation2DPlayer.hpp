@@ -2,12 +2,18 @@
 #define BLIB_COMPONENTS_ANIMATION2DPLAYER_HPP
 
 #include <BLIB/Graphics/Animation2D/AnimationData.hpp>
+#include <BLIB/Render/Resources/TextureRef.hpp>
 #include <BLIB/Render/Vulkan/AlignedBuffer.hpp>
 #include <BLIB/Resources/Ref.hpp>
 #include <BLIB/Util/VectorRef.hpp>
 
 namespace bl
 {
+namespace sys
+{
+class Animation2DSystem;
+}
+
 namespace com
 {
 /**
@@ -45,8 +51,36 @@ struct Animation2DPlayer {
     /**
      * @brief Starts playing the animation from the beginning and loops it, regardless of the
      *        underlying loop setting
+     *
+     * @param loop Whether to force loop or force single play
+     * @param restart True to restart, false to resume
      */
-    void playLooping();
+    void playLooping(bool loop = true, bool restart = false);
+
+    /**
+     * @brief Returns whether this player loops or not
+     */
+    bool isLooping() const;
+
+    /**
+     * @brief Returns whether the player is playing or not
+     */
+    bool playing() const { return isPlaying; }
+
+    /**
+     * @brief Returns the animation being played
+     */
+    const resource::Ref<gfx::a2d::AnimationData>& getAnimation() const { return animation; }
+
+    /**
+     * @brief Returns whether the animation being played is a slideshow or not
+     */
+    bool isForSlideshow() const { return forSlideshow; }
+
+    /**
+     * @brief Returns the index of this player in the Animation2DSystem system
+     */
+    std::uint32_t getPlayerIndex() const { return playerIndex; }
 
     /**
      * @brief Pauses the animation from playing
@@ -73,10 +107,12 @@ struct Animation2DPlayer {
      */
     void update(float dt);
 
+private:
     const bool forSlideshow;
     resource::Ref<gfx::a2d::AnimationData> animation;
     bool isPlaying;
     bool forceLoop;
+    bool loop;
     std::size_t currentState;
     std::size_t currentFrame;
     float frameTime;
@@ -86,6 +122,11 @@ struct Animation2DPlayer {
 
     // in descriptor set
     util::VectorRef<std::uint32_t, rc::vk::AlignedBuffer<std::uint32_t>> framePayload;
+
+    // assigned by Animation2DSystem to keep texture alive
+    rc::res::TextureRef texture;
+
+    friend class sys::Animation2DSystem;
 };
 
 } // namespace com

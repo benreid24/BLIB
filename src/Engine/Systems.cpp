@@ -6,17 +6,30 @@ namespace bl
 {
 namespace engine
 {
+namespace
+{
+constexpr std::size_t MaxTaskCapacity = 64;
+}
+
 Systems::StageSet::StageSet()
 : version(0) {
-    systems.reserve(8);
+    systems.reserve(32);
 };
 
 Systems::Systems(Engine& e)
-: engine(e) {}
+: engine(e)
+, inited(false) {}
 
 void Systems::init() {
+    inited = true;
     for (auto& set : systems) {
         for (auto& system : set.systems) { system.system->init(engine); }
+    }
+}
+
+void Systems::notifyFrameStart() {
+    for (auto& set : systems) {
+        for (auto& system : set.systems) { system.system->notifyFrameStart(); }
     }
 }
 
@@ -49,22 +62,50 @@ void Systems::update(FrameStage::V startStage, FrameStage::V endStage, StateMask
     }
 }
 
+void Systems::earlyCleanup() {
+    for (auto& set : systems) {
+        for (auto& system : set.systems) { system.system->earlyCleanup(); }
+    }
+}
+
+void Systems::cleanup() {
+    for (auto& set : systems) { set.systems.clear(); }
+}
+
 Systems::TaskHandle Systems::addFrameTask(FrameStage::V stage, Task&& task) {
     auto& set = systems[stage];
-    std::unique_lock lock(set.taskMutex);
+    std::unique_lock lock(set.taskListMutex);
     set.tasks.emplace_back(std::forward<Task>(task));
     return TaskHandle(&set, set.tasks.size() - 1, std::move(set.tasks.back().task.get_future()));
 }
 
 void Systems::StageSet::drainTasks() {
-    std::unique_lock lock(taskMutex);
+    std::unique_lock lock(taskListMutex);
     for (auto& task : tasks) { task.execute(); }
     tasks.clear();
+    if (tasks.capacity() > MaxTaskCapacity) {
+        std::vector<TaskEntry> empty;
+        tasks.swap(empty);
+    }
     ++version;
 }
 
 Systems::TaskHandle::TaskHandle()
 : owner(nullptr) {}
+
+Systems::TaskHandle::TaskHandle(const TaskHandle& handle)
+: owner(handle.owner)
+, index(handle.index)
+, version(handle.version)
+, future(std::move(const_cast<TaskHandle&>(handle).future)) {}
+
+Systems::TaskHandle& Systems::TaskHandle::operator=(const TaskHandle& handle) {
+    owner   = handle.owner;
+    index   = handle.index;
+    version = handle.version;
+    future  = std::move(const_cast<TaskHandle&>(handle).future);
+    return *this;
+}
 
 Systems::TaskHandle::TaskHandle(StageSet* owner, std::size_t index, std::future<void>&& future)
 : owner(owner)

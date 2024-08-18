@@ -7,7 +7,9 @@ target_sources(BLIB PUBLIC
 	BatchIcon.hpp
 	BatchRectangle.hpp
 	BatchSlideshow.hpp
+	BatchSlideshowSimple.hpp
 	BatchSprite.hpp
+	BatchSpriteSimple.hpp
 	BatchTriangle.hpp
 	Circle.hpp
 	Drawable.hpp
@@ -18,6 +20,7 @@ target_sources(BLIB PUBLIC
 	Sprite.hpp
 	Text.hpp
 	Triangle.hpp
+	VertexBuffer2D.hpp
 )
 
 add_subdirectory(Animation2D)

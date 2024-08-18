@@ -159,8 +159,14 @@ private:
 
 inline void DescriptorComponentStorageBase::markObjectDirty(scene::Key key) {
     auto& range = key.updateFreq == UpdateSpeed::Dynamic ? dirtyDynamic : dirtyStatic;
-    range.start = key.sceneId < range.start ? key.sceneId : range.start;
-    range.end   = key.sceneId > range.end ? key.sceneId : range.end;
+    if (range.start > range.end) {
+        range.start = key.sceneId;
+        range.end   = key.sceneId;
+    }
+    else {
+        range.start = key.sceneId < range.start ? key.sceneId : range.start;
+        range.end   = key.sceneId > range.end ? key.sceneId : range.end;
+    }
 }
 
 inline constexpr const DescriptorComponentStorageBase::DirtyRange&
@@ -265,12 +271,20 @@ void DescriptorComponentStorage<TCom, TPayload, TDynamicStorage, TStaticStorage>
     scene::Key key(speed, 0);
     const std::uint32_t end =
         speed == UpdateSpeed::Dynamic ? dynamicBuffer.size() : staticBuffer.size();
-    TPayload* payload = speed == UpdateSpeed::Dynamic ? &dynamicBuffer[0] : &staticBuffer[0];
-    for (; key.sceneId < end; ++key.sceneId, ++payload) {
+    for (; key.sceneId < end; ++key.sceneId) {
         const ecs::Entity entity = getEntityFromSceneKey(key);
         if (entity != ecs::InvalidEntity) {
             TCom* component = registry.getComponent<TCom>(entity);
-            if (component) { component->link(this, {speed, scene::Key::InvalidSceneId}, payload); }
+            if (component) {
+                if (speed == UpdateSpeed::Dynamic) {
+                    component->link(
+                        this, {speed, scene::Key::InvalidSceneId}, &dynamicBuffer[key.sceneId]);
+                }
+                else {
+                    component->link(
+                        this, {speed, scene::Key::InvalidSceneId}, &staticBuffer[key.sceneId]);
+                }
+            }
         }
     }
 }

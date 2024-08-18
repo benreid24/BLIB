@@ -7,6 +7,10 @@
 
 namespace bl
 {
+namespace sys
+{
+class Animation2DSystem;
+}
 namespace engine
 {
 class Engine;
@@ -20,7 +24,6 @@ namespace com
  * @ingroup Components
  */
 struct Animation2D : public rc::rcom::DrawableBase {
-    void* systemHandle;
     const Animation2DPlayer* player;
 
     /**
@@ -36,6 +39,28 @@ struct Animation2D : public rc::rcom::DrawableBase {
      * @param anim The animation to use when creating the vertices
      */
     void create(engine::Engine& engine, const Animation2DPlayer& anim);
+
+    /**
+     * @brief Returns the default pipeline for regular scenes
+     */
+    virtual std::uint32_t getDefaultScenePipelineId() const override {
+        return rc::Config::PipelineIds::LitSkinned2DGeometry;
+    }
+
+    /**
+     * @brief Returns the default pipeline for overlays
+     */
+    virtual std::uint32_t getDefaultOverlayPipelineId() const override {
+        return rc::Config::PipelineIds::UnlitSkinned2DGeometry;
+    }
+
+private:
+    void* systemHandle;
+
+    void initDrawParams(const rc::prim::DrawParameters& params);
+    void updateDrawParams(std::uint32_t indexStart, std::uint32_t indexCount);
+
+    friend class sys::Animation2DSystem;
 };
 
 } // namespace com

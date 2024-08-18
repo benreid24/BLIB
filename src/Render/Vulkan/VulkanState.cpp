@@ -26,7 +26,8 @@ const std::unordered_set<std::string> RequestedValidationLayers{"VK_LAYER_KHRONO
                                                                 "VK_LAYER_LUNARG_monitor"};
 #endif
 
-constexpr std::array<const char*, 1> RequiredDeviceExtensions{VK_KHR_SWAPCHAIN_EXTENSION_NAME};
+constexpr std::array<const char*, 2> RequiredDeviceExtensions{VK_KHR_SWAPCHAIN_EXTENSION_NAME,
+                                                              VK_KHR_MAINTENANCE_4_EXTENSION_NAME};
 
 #ifdef BLIB_DEBUG
 VKAPI_ATTR VkBool32 VKAPI_CALL
@@ -115,6 +116,7 @@ int scorePhysicalDevice(VkPhysicalDevice device, const VkPhysicalDevicePropertie
 VulkanState::VulkanState(engine::EngineWindow& window)
 : window(window)
 , device(nullptr)
+, surface(nullptr)
 , swapchain(*this, window.getSfWindow())
 , transferEngine(*this)
 , descriptorPool(*this)
@@ -138,7 +140,7 @@ void VulkanState::init() {
     createLogicalDevice();
     createVmaAllocator();
     sharedCommandPool.create(*this);
-    swapchain.create(surface);
+    swapchain.create();
     transferEngine.init();
     descriptorPool.init();
     samplerCache.init();
@@ -282,6 +284,11 @@ void VulkanState::setupDebugMessenger() {
 #endif
 
 void VulkanState::createSurface() {
+    if (surface) {
+        cleanupManager.add([instance = instance, surface = surface]() {
+            vkDestroySurfaceKHR(instance, surface, nullptr);
+        });
+    }
     if (!window.createVulkanSurface(instance, surface)) {
         throw std::runtime_error("Failed to create Vulkan surface");
     }
@@ -478,7 +485,8 @@ void VulkanState::createBuffer(VkDeviceSize size, VkBufferUsageFlags usage,
 void VulkanState::createImage(std::uint32_t width, std::uint32_t height, VkFormat format,
                               VkImageTiling tiling, VkImageUsageFlags usage,
                               VkMemoryPropertyFlags properties, VkImage* image,
-                              VmaAllocation* vmaAlloc, VmaAllocationInfo* vmaAllocInfo) {
+                              VmaAllocation* vmaAlloc, VmaAllocationInfo* vmaAllocInfo,
+                              VmaAllocationCreateFlags flags) {
     std::unique_lock lock(imageAllocMutex);
 
     VkImageCreateInfo imageInfo{};
@@ -499,6 +507,7 @@ void VulkanState::createImage(std::uint32_t width, std::uint32_t height, VkForma
     VmaAllocationCreateInfo allocInfo{};
     allocInfo.requiredFlags = properties;
     allocInfo.usage         = VMA_MEMORY_USAGE_AUTO;
+    allocInfo.flags         = flags;
 
     vkCheck(vmaCreateImage(vmaAllocator, &imageInfo, &allocInfo, image, vmaAlloc, vmaAllocInfo));
 }
@@ -561,8 +570,7 @@ void VulkanState::transitionImageLayout(VkCommandBuffer commandBuffer, VkImage i
             destinationStage = VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT;
         }
     }
-    else if (oldLayout == VK_IMAGE_LAYOUT_UNDEFINED &&
-             newLayout == VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL) {
+    else if (newLayout == VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL) {
         barrier.srcAccessMask = VK_ACCESS_SHADER_READ_BIT;
         barrier.dstAccessMask = VK_ACCESS_MEMORY_READ_BIT;
 
@@ -621,6 +629,12 @@ VkImageView VulkanState::createImageView(VkImage image, VkFormat format,
 
 VkDeviceSize VulkanState::computeAlignedSize(VkDeviceSize len, VkDeviceSize align) {
     return (len + align - 1) & ~(align - 1);
+}
+
+VkFormatProperties VulkanState::getFormatProperties(VkFormat format) {
+    VkFormatProperties props;
+    vkGetPhysicalDeviceFormatProperties(physicalDevice, format, &props);
+    return props;
 }
 
 } // namespace vk

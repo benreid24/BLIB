@@ -29,6 +29,8 @@ std::unique_ptr<DescriptorSetInstance> Scene3DFactory::createDescriptorSet() con
     return std::make_unique<Scene3DInstance>(*vulkanState, descriptorSetLayout);
 }
 
+std::type_index Scene3DFactory::creates() const { return typeid(Scene3DInstance); }
+
 } // namespace ds
 } // namespace rc
 } // namespace bl

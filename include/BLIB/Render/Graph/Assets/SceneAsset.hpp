@@ -33,7 +33,8 @@ public:
     Scene* scene;
 
 private:
-    virtual void doCreate(engine::Engine& engine, Renderer& renderer, Observer* observer) override;
+    virtual void doCreate(engine::Engine& engine, Renderer& renderer,
+                          RenderTarget* observer) override;
     virtual void doPrepareForInput(const rg::ExecutionContext& context) override;
     virtual void doPrepareForOutput(const rg::ExecutionContext& context) override;
 };

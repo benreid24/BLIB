@@ -15,7 +15,7 @@ class Engine;
 namespace rc
 {
 class Renderer;
-class Observer;
+class RenderTarget;
 
 namespace rg
 {
@@ -43,7 +43,7 @@ public:
      * @param renderer The renderer instance
      * @param observer The observer that the asset belongs to
      */
-    virtual void doCreate(engine::Engine& engine, Renderer& renderer, Observer* observer) = 0;
+    virtual void doCreate(engine::Engine& engine, Renderer& renderer, RenderTarget* observer) = 0;
 
     /**
      * @brief Prepares the asset for being an input. Child classes should insert pipeline barriers
@@ -89,7 +89,7 @@ private:
     InputMode mode;
     bool external;
 
-    void create(engine::Engine& engine, Renderer& renderer, Observer* observer);
+    void create(engine::Engine& engine, Renderer& renderer, RenderTarget* observer);
     void prepareForInput(const ExecutionContext& ctx);
     void prepareForOutput(const ExecutionContext& ctx);
 

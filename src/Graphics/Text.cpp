@@ -80,6 +80,7 @@ void Text::computeBoundsIfNeeded() const {
 }
 
 void Text::commit() {
+    if (commitTask.isQueued()) { commitTask.cancel(); }
     commitTask = {};
 
     // word wrap
@@ -111,9 +112,7 @@ void Text::commit() {
     OverlayScalable::setLocalSize({bounds.width + bounds.left, bounds.height + bounds.top});
 
     // update draw parameters
-    component().drawParams             = component().vertices.getDrawParameters();
-    component().drawParams.vertexCount = vertexCount;
-    component().updateDrawParams();
+    component().updateDrawParams(vertexCount);
 
     // always upload new font atlas if required
     font->syncTexture(engine().renderer());
@@ -298,7 +297,7 @@ Text::CharSearchResult Text::findCharacterAtLocalPosition(const glm::vec2& posit
 void Text::queueCommit() {
     boundsComputedWhileDirty = false;
     if (!commitTask.isQueued()) {
-        commitTask = systems->addFrameTask(engine::FrameStage::RenderIntermediateRefresh,
+        commitTask = systems->addFrameTask(engine::FrameStage::RenderEarlyRefresh,
                                            std::bind(&Text::commit, this));
     }
 }

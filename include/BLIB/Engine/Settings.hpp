@@ -14,7 +14,6 @@ namespace engine
  * @brief Collection of settings to create an Engine with, organized as a builder
  *
  * @ingroup Engine
- *
  */
 class Settings {
 public:
@@ -22,7 +21,6 @@ public:
      * @brief Collection of settings for creating (or re-creating) the game window
      *
      * @ingroup Engine
-     *
      */
     class WindowParameters {
     public:
@@ -30,12 +28,12 @@ public:
         static const sf::VideoMode DefaultVideoMode;
         static const std::string DefaultWindowTitle;
         static constexpr bool DefaultLetterBoxOnResize = true;
+        static constexpr bool DefaultSyncOverlaySize   = false;
         static const sf::Vector2f DefaultViewSize;
         static constexpr bool DefaultVSyncEnabled = true;
 
         /**
          * @brief Construct a new WindowParameters with default settings
-         *
          */
         WindowParameters();
 
@@ -89,6 +87,15 @@ public:
         WindowParameters& withInitialViewSize(const sf::Vector2f& viewSize);
 
         /**
+         * @brief Sets whether to sync Overlay coordinate space with the window size. Only applies
+         *        if letter boxing is disabled. Default is disabled
+         *
+         * @param sync True to sync Overlay coordinate space to window size, false to keep original
+         * @return A reference to this object
+         */
+        WindowParameters& withSyncOverlaySizeToWindow(bool sync);
+
+        /**
          * @brief Sets whether or not to enable vsync
          *
          * @param enabled True to enable, false to disable
@@ -105,49 +112,46 @@ public:
 
         /**
          * @brief Saves the settings to the global engine config
-         *
          */
         void syncToConfig() const;
 
         /**
          * @brief Returns the title to create the window with
-         *
          */
         const std::string& title() const;
 
         /**
          * @brief Returns the video mode the engine window is created with
-         *
          */
         const sf::VideoMode& videoMode() const;
 
         /**
          * @brief Returns the window style the window is created with
-         *
          */
         sf::Uint32 style() const;
 
         /**
          * @brief Returns the window icon to use
-         *
          */
         const std::string& icon() const;
 
         /**
          * @brief Returns whether or not to letterbox on Window resize
-         *
          */
         bool letterBox() const;
 
         /**
          * @brief Returns the view size the window is created with
-         *
          */
         const sf::Vector2f& initialViewSize() const;
 
         /**
+         * @brief Returns whether Overlay coordinate space is synced to window size or not
+         */
+        bool syncOverlaySize() const;
+
+        /**
          * @brief Returns whether or not to enable vsync on the window
-         *
          */
         bool vsyncEnabled() const;
 
@@ -161,6 +165,7 @@ public:
         static constexpr const char* WindowViewWidthKey  = "blib.engine.view_width";
         static constexpr const char* WindowViewHeightKey = "blib.engine.view_height";
         static constexpr const char* VSyncKey            = "blib.engine.window_vsync";
+        static constexpr const char* SyncOverlaySizeKey  = "blib.engine.sync_overlay_size";
 
     private:
         std::string sfWindowTitle;
@@ -169,6 +174,7 @@ public:
         std::string iconPath;
         bool letterBoxVal;
         sf::Vector2f viewSize;
+        bool syncOverlay;
         bool vsync;
     };
 
@@ -186,7 +192,6 @@ public:
 
     /**
      * @brief Creates a new settings object with all default settings
-     *
      */
     Settings();
 
@@ -244,44 +249,37 @@ public:
 
     /**
      * @brief Saves the settings to the global engine config
-     *
      */
     void syncToConfig() const;
 
     /**
      * @brief Returns the fixed physics update interval, in seconds
-     *
      */
     float updateTimestep() const;
 
     /**
      * @brief Returns the maximum rendering framerate, in fps
-     *
      */
     float maximumFramerate() const;
 
     /**
      * @brief Returns whether or not a variable timestep may be used
-     *
      */
     bool allowVariableTimestep() const;
 
     /**
      * @brief Returns whether or not a window should be created
-     *
      */
     bool createWindow() const;
 
     /**
      * @brief Returns the parameters to create the window with. Undefined behavior if createWindow()
      *        returns false
-     *
      */
     const WindowParameters& windowParameters() const;
 
     /**
      * @brief Returns whether or not the engine should log the fps
-     *
      */
     bool logFps() const;
 

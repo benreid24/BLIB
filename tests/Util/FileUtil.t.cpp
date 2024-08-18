@@ -2,6 +2,7 @@
 #include <fstream>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
+#include <unordered_set>
 
 namespace bl
 {
@@ -9,6 +10,14 @@ namespace util
 {
 namespace unittest
 {
+namespace
+{
+void touch(const std::string& filename) {
+    std::ofstream file(filename.c_str());
+    file << "touched";
+}
+} // namespace
+
 TEST(FileUtil, Extension) {
     const std::vector<std::pair<std::string, std::string>> files = {
         {"/some/path/file.png", "png"},
@@ -72,6 +81,31 @@ TEST(FileUtil, ReadFile) {
     std::string read;
     ASSERT_TRUE(FileUtil::readFile("readfile.txt", read));
     EXPECT_EQ(read, content);
+}
+
+TEST(FileUtil, ListDirectory) {
+    ASSERT_TRUE(FileUtil::createDirectory("list_dir"));
+    ASSERT_TRUE(FileUtil::createDirectory("list_dir/subdir"));
+
+    std::unordered_set<std::string> expected(
+        {"list_dir/file1.txt", "list_dir/file3.txt", "list_dir/subdir/file4.txt"});
+    for (const std::string& file : expected) { touch(file); }
+    touch("list_dir/file2.png");
+
+    const std::vector<std::string> actual = FileUtil::listDirectory("list_dir", "txt", true);
+    for (const std::string& file : actual) {
+        const auto it = expected.find(file);
+        EXPECT_NE(it, expected.end()) << file << " not expected";
+        if (it != expected.end()) { expected.erase(it); }
+    }
+
+    EXPECT_TRUE(expected.empty());
+
+    const std::vector<std::string> dirs = FileUtil::listDirectoryFolders("list_dir");
+    ASSERT_EQ(dirs.size(), 1);
+    EXPECT_EQ(dirs[0], "subdir");
+
+    EXPECT_TRUE(FileUtil::deleteDirectory("list_dir"));
 }
 
 } // namespace unittest

@@ -13,6 +13,7 @@
 #include <BLIB/Util/IdAllocator.hpp>
 #include <BLIB/Vulkan.hpp>
 #include <array>
+#include <mutex>
 #include <vector>
 
 namespace bl
@@ -30,6 +31,10 @@ class Renderer;
 namespace vk
 {
 class RenderTexture;
+}
+namespace scene
+{
+class SceneSync;
 }
 
 namespace res
@@ -70,6 +75,16 @@ public:
      * @param graph The graph to populate
      */
     virtual void addGraphTasks(rg::RenderGraph& graph);
+
+    /**
+     * @brief Provides direct access to the descriptor set of the given type. Creates it if not
+     *        already created. May be slow, cache the result
+     *
+     * @tparam T The descriptor set type to fetch or create
+     * @return The descriptor set of the given type
+     */
+    template<typename T>
+    T& getDescriptorSet();
 
     /**
      * @brief Creates a default camera for the scene
@@ -138,29 +153,22 @@ protected:
     virtual void doBatchChange(const BatchChange& change, std::uint32_t ogPipeline) = 0;
 
     /**
-     * @brief Called when an object should be removed from the scene. Derived scenes should maintain
-     *        a queue of objects marked for removal. If necessary, derived scenes should make copies
-     *        of objects to be removed in case it is possible that the underlying memory is freed
-     *        before the queue is drained
+     * @brief Called when an object should be removed from the scene
      *
      * @param object The object to be removed
      * @param pipeline The pipeline used to render the object being removed
      */
-    virtual void queueObjectRemoval(scene::SceneObject* object, std::uint32_t pipeline) = 0;
-
-    /**
-     * @brief Called once per frame. Derived classes should remove all queued objects here
-     */
-    virtual void removeQueuedObjects() = 0;
+    virtual void doObjectRemoval(scene::SceneObject* object, std::uint32_t pipeline) = 0;
 
 private:
-    std::uint32_t nextObserverIndex;
     std::mutex batchMutex;
+    std::recursive_mutex objectMutex;
+    std::uint32_t nextObserverIndex;
     std::vector<BatchChange> batchChanges;
     std::vector<std::uint32_t> staticPipelines;
     std::vector<std::uint32_t> dynamicPipelines;
 
-    // called by sys::DrawableSystem in locked context
+    // called by SceneSync
     void createAndAddObject(ecs::Entity entity, rcom::DrawableBase& object, UpdateSpeed updateFreq);
 
     // called by DrawableBase
@@ -170,15 +178,24 @@ private:
     void handleDescriptorSync();
     std::uint32_t registerObserver();
     void updateObserverCamera(std::uint32_t observerIndex, const glm::mat4& projView);
-    // TODO - virtual hook for updateCam to allow derived scenes to prepare descriptors (ie lights)
 
-    template<typename T>
-    friend class sys::DrawableSystem;
-    friend class Observer;
+    friend class scene::SceneSync;
+    friend class RenderTarget;
     friend class res::ScenePool;
     friend class vk::RenderTexture;
     friend struct rcom::DrawableBase;
 };
+
+template<typename T>
+T& Scene::getDescriptorSet() {
+    T* set = descriptorSets.getDescriptorSet<T>();
+    if (set) { return *set; }
+
+    ds::DescriptorSetFactory* factory = descriptorFactories.getFactoryThatMakes<T>();
+    if (!factory) { throw std::runtime_error("Failed to find descriptor set"); }
+
+    return static_cast<T&>(*descriptorSets.getDescriptorSet(factory));
+}
 
 } // namespace rc
 } // namespace bl

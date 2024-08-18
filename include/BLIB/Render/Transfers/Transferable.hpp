@@ -58,6 +58,16 @@ public:
      */
     void stopTransferringEveryFrame();
 
+    /**
+     * @brief Returns whether or not a transfer is queued, either individually or every frame
+     */
+    bool isQueued() const { return queued || perFrame != NotPerFrame; }
+
+    /**
+     * @brief Cancels the scheduled transfer. Also cancels transfers that occur every frame
+     */
+    void cancelQueuedTransfer();
+
 protected:
     vk::VulkanState* vulkanState;
 

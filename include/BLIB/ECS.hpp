@@ -12,6 +12,7 @@
 #include <BLIB/ECS/ComponentPool.hpp>
 #include <BLIB/ECS/ComponentSet.hpp>
 #include <BLIB/ECS/Entity.hpp>
+#include <BLIB/ECS/EntityBacked.hpp>
 #include <BLIB/ECS/Events.hpp>
 #include <BLIB/ECS/Registry.hpp>
 #include <BLIB/ECS/View.hpp>

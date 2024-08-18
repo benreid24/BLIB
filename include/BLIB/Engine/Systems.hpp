@@ -47,6 +47,36 @@ public:
         TaskHandle();
 
         /**
+         * @brief Copy constructor. Invalidates the future in the copied-from task handle
+         *
+         * @param handle The handle to copy from
+         */
+        TaskHandle(const TaskHandle& handle);
+
+        /**
+         * @brief Move constructor. Invalidates the future in the copied-from task handle
+         *
+         * @param handle The handle to copy from
+         */
+        TaskHandle(TaskHandle&& handle) = default;
+
+        /**
+         * @brief Copy assignment. Invalidates the future in the copied-from task handle
+         *
+         * @param handle The handle to copy from
+         * @return A reference to this handle
+         */
+        TaskHandle& operator=(const TaskHandle& handle);
+
+        /**
+         * @brief Move assignment. Invalidates the future in the copied-from task handle
+         *
+         * @param handle The handle to copy from
+         * @return A reference to this handle
+         */
+        TaskHandle& operator=(TaskHandle&& handle) = default;
+
+        /**
          * @brief Returns whether or not the handle refers to a valid task
          */
         bool isValid() const;
@@ -88,7 +118,7 @@ public:
      * @param ...args Arguments to the system's constructor
      */
     template<typename T, typename... TArgs>
-    void registerSystem(FrameStage::V stage, StateMask::V stateMask, TArgs&&... args);
+    T& registerSystem(FrameStage::V stage, StateMask::V stateMask, TArgs&&... args);
 
     /**
      * @brief Returns a reference to the given system. System must exist
@@ -98,6 +128,15 @@ public:
      */
     template<typename T>
     T& getSystem();
+
+    /**
+     * @brief Returns a pointer to the given system if it exists
+     *
+     * @tparam T The type of system to fetch
+     * @return A pointer to the system with the given type or nullptr
+     */
+    template<typename T>
+    T* getSystemMaybe();
 
     /**
      * @brief Adds a one-off task to be executed in the given frame stage along with the systems in
@@ -136,6 +175,7 @@ private:
     struct StageSet {
         std::mutex mutex;
         std::mutex taskMutex;
+        std::mutex taskListMutex;
         std::vector<SystemInstance> systems;
         std::vector<TaskEntry> tasks;
         std::uint16_t version;
@@ -147,11 +187,15 @@ private:
     Engine& engine;
     std::array<StageSet, FrameStage::COUNT> systems;
     std::unordered_map<std::type_index, System*> typeMap;
+    bool inited;
 
     Systems(Engine& engine);
     void init();
+    void notifyFrameStart();
     void update(FrameStage::V startStage, FrameStage::V endStage, StateMask::V stateMask, float dt,
                 float realDt, float lag, float realLag);
+    void earlyCleanup();
+    void cleanup();
 
     friend class Engine;
 };
@@ -159,7 +203,7 @@ private:
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 template<typename T, typename... TArgs>
-void Systems::registerSystem(FrameStage::V stage, StateMask::V stateMask, TArgs&&... args) {
+T& Systems::registerSystem(FrameStage::V stage, StateMask::V stateMask, TArgs&&... args) {
 #ifdef BLIB_DEBUG
     const auto it = typeMap.find(typeid(T));
     if (it != typeMap.end()) {
@@ -175,7 +219,10 @@ void Systems::registerSystem(FrameStage::V stage, StateMask::V stateMask, TArgs&
 
     systems[stage].systems.emplace_back(
         stateMask, std::move(std::make_unique<T>(std::forward<TArgs>(args)...)));
-    typeMap[typeid(T)] = systems[stage].systems.back().system.get();
+    System* s          = systems[stage].systems.back().system.get();
+    typeMap[typeid(T)] = s;
+    if (inited) { s->init(engine); }
+    return static_cast<T&>(*s);
 }
 
 template<typename T>
@@ -189,6 +236,14 @@ T& Systems::getSystem() {
 #endif
 
     return *static_cast<T*>(it->second);
+}
+
+template<typename T>
+T* Systems::getSystemMaybe() {
+    const auto it = typeMap.find(typeid(T));
+    if (it == typeMap.end()) { return nullptr; }
+
+    return static_cast<T*>(it->second);
 }
 
 } // namespace engine

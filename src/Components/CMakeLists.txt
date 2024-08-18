@@ -13,4 +13,5 @@ target_sources(BLIB PRIVATE
 	Text.cpp
 	Transform2D.cpp
 	Transform3D.cpp
+	VertexBuffer.cpp
 )

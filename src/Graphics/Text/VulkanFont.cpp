@@ -759,7 +759,7 @@ bl::rc::res::TextureRef VulkanFont::syncTexture(bl::rc::Renderer& renderer) cons
     else if (needsUpload) {
         needsUpload = false;
         vulkanTexture->ensureSize({texture.getSize().x, texture.getSize().y});
-        vulkanTexture->update(texture);
+        vulkanTexture.asBindlessTexture()->update(texture);
     }
     return vulkanTexture;
 }

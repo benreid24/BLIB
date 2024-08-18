@@ -47,9 +47,10 @@ public:
 
 private:
     SharedCommandPool* owner;
+    VkFence fence;
     VkCommandBuffer buffer;
 
-    SharedCommandBuffer(SharedCommandPool* owner, VkCommandBuffer buffer);
+    SharedCommandBuffer(SharedCommandPool* owner, VkFence fence, VkCommandBuffer buffer);
 
     SharedCommandBuffer()                                      = delete;
     SharedCommandBuffer(const SharedCommandBuffer&)            = delete;

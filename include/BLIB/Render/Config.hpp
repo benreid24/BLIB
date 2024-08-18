@@ -21,7 +21,15 @@ struct Config {
 
     static constexpr std::size_t MaxDescriptorSets = 4;
 
+    static constexpr std::size_t MaxDescriptorBindings = 8;
+
     static constexpr std::uint32_t MaxRenderPasses = 4;
+
+    static constexpr std::uint32_t MaxTextureCount = 4096;
+
+    static constexpr std::uint32_t MaxRenderTextures = 32;
+
+    static constexpr std::uint32_t ErrorTextureId = MaxTextureCount - Config::MaxRenderTextures - 1;
 
     static constexpr std::uint32_t DefaultSceneObjectCapacity = 128;
 
@@ -43,12 +51,13 @@ struct Config {
         static constexpr char Fragment2DLit[]   = {6};
         static constexpr char Fragment2DUnlit[] = {7};
 
-        static constexpr char Vertex2DSkinned[]        = {8};
-        static constexpr char Fragment2DSkinnedUnlit[] = {9};
-        static constexpr char Fragment2DSkinnedLit[]   = {10};
+        static constexpr char Vertex2DSkinned[]           = {8};
+        static constexpr char Fragment2DSkinnedUnlit[]    = {9};
+        static constexpr char Fragment2DSkinnedLit[]      = {10};
+        static constexpr char Fragment2DRotatedParticle[] = {11};
 
-        static constexpr char TextFragment[]  = {11};
-        static constexpr char SlideshowVert[] = {12};
+        static constexpr char TextFragment[]  = {12};
+        static constexpr char SlideshowVert[] = {13};
 
         static constexpr char FadeEffectFragment[] = {31};
 
@@ -75,6 +84,7 @@ struct Config {
         static constexpr std::uint32_t Text           = 9;
         static constexpr std::uint32_t SlideshowLit   = 10;
         static constexpr std::uint32_t SlideshowUnlit = 11;
+        static constexpr std::uint32_t Lines2D        = 12;
 
         static constexpr std::uint32_t FadeEffect = 100;
     };

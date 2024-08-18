@@ -117,7 +117,6 @@ bool AnimationData::loadFromMemory(const char* buffer, std::size_t len, const st
 
 bool AnimationData::doLoad(serial::binary::InputStream& input, const std::string& ogPath,
                            bool forBundle) {
-    totalLength = 0.f;
     frames.clear();
     stateOffsets.clear();
     slideshow = false;
@@ -141,8 +140,9 @@ bool AnimationData::doLoad(serial::binary::InputStream& input, const std::string
         else { return false; }
 
         if (forBundle) { spritesheetSource = sheet; }
-        actualSpritesheetPath = sheet;
     }
+    actualSpritesheetPath = sheet;
+
     if (!input.read(loop)) return false;
 
     std::uint32_t shardIndex = 0;
@@ -150,8 +150,7 @@ bool AnimationData::doLoad(serial::binary::InputStream& input, const std::string
     if (!input.read(nFrames)) return false;
     frames.reserve(nFrames);
     for (unsigned int i = 0; i < nFrames; ++i) {
-        Frame& frame     = frames.emplace_back();
-        frame.shardIndex = shardIndex;
+        Frame& frame = frames.emplace_back();
 
         std::uint32_t length;
         if (!input.read(length)) return false;
@@ -160,7 +159,6 @@ bool AnimationData::doLoad(serial::binary::InputStream& input, const std::string
         std::uint16_t nShards = 0;
         if (!input.read(nShards)) return false;
         frame.shards.reserve(nShards);
-        shardIndex += nShards;
 
         for (unsigned int j = 0; j < nShards; ++j) {
             frame.shards.emplace_back();
@@ -189,22 +187,34 @@ bool AnimationData::doLoad(serial::binary::InputStream& input, const std::string
             if (!input.read(shard.alpha)) return false;
             frame.shards.push_back(shard);
         }
-        totalLength += frame.length;
-        frame.nextFrame = i + 1;
-        computeFrameSize(frame);
     }
-    if (!frames.empty()) { frames.back().nextFrame = 0; }
 
     // bool value not present in legacy files
     std::uint8_t u8;
     if (!input.read(u8)) { centerShards = false; }
     else { centerShards = u8 == 1; }
 
-    // compute normalized texture coordinates
+    populateDerivedState();
+
+    return true;
+}
+
+void AnimationData::populateDerivedState() {
+    totalLength              = 0.f;
+    std::uint32_t shardIndex = 0;
+
     const sf::Vector2u sheetSize =
         resource::ResourceManager<sf::Image>::load(resolvedSpritesheet())->getSize();
     const sf::Vector2f size(sheetSize);
-    for (auto& frame : frames) {
+
+    for (unsigned int i = 0; i < frames.size(); ++i) {
+        auto& frame      = frames[i];
+        frame.shardIndex = shardIndex;
+        frame.nextFrame  = i + 1;
+        shardIndex += frame.shards.size();
+        computeFrameSize(frame);
+        totalLength += frame.length;
+
         for (auto& shard : frame.shards) {
             const sf::FloatRect source(shard.source);
             shard.normalizedSource.left   = source.left / size.x;
@@ -213,10 +223,9 @@ bool AnimationData::doLoad(serial::binary::InputStream& input, const std::string
             shard.normalizedSource.height = source.height / size.y;
         }
     }
+    if (!frames.empty()) { frames.back().nextFrame = 0; }
 
     slideshow = isValidSlideshow(*this);
-
-    return true;
 }
 
 const std::string& AnimationData::spritesheetFile() const { return spritesheetSource; }
@@ -313,6 +322,18 @@ std::size_t AnimationData::getStateFromFrame(std::size_t i) const {
     }
     BL_LOG_ERROR << "Invalid frame for lookup: " << i << ", frame count = " << frames.size();
     return 0;
+}
+
+void AnimationData::debugInitialize(const std::string& sheet, std::vector<Frame>&& src, bool l,
+                                    bool cs) {
+    loop                  = l;
+    centerShards          = cs;
+    stateOffsets          = {0};
+    spritesheetSource     = sheet;
+    actualSpritesheetPath = sheet;
+    frames                = std::move(src);
+
+    populateDerivedState();
 }
 
 } // namespace a2d

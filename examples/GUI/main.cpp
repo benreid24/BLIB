@@ -32,7 +32,7 @@ public:
 
     virtual void activate(engine::Engine& engine) override {
         engine.renderer().getObserver().pushScene<rc::Overlay>();
-        engine.renderer().getObserver().setClearColor(bl::sfcol({90, 90, 90}));
+        engine.renderer().getObserver().setClearColor(bl::sfcol(sf::Color{90, 90, 90}));
 
         gui = gui::GUI::create(
             engine,
@@ -221,7 +221,7 @@ private:
     gui::FilePicker filePicker;
 
     void openFilePicker() {
-        filePicker.open(gui::FilePicker::PickExisting, "Select an image", gui);
+        filePicker.open(gui::FilePicker::PickExisting, "Select an image", gui.get());
     }
 
     void onFilePick(const std::string& file) {

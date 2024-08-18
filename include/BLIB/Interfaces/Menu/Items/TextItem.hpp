@@ -19,16 +19,18 @@ public:
     typedef std::shared_ptr<TextItem> Ptr;
 
     /**
-     * @brief Create a new TextItem from the sf::Text object
+     * @brief Create a new TextItem
      *
      * @param text The string to display
      * @param font The font to use
      * @param color The color of the text
      * @param fontSize The font size
+     * @param style The style of the text
      * @return Ptr The created text menu item
      */
     static Ptr create(const std::string& text, const sf::VulkanFont& font,
-                      const sf::Color& color = sf::Color::Black, unsigned int fontSize = 30);
+                      const sf::Color& color = sf::Color::Black, unsigned int fontSize = 30,
+                      std::uint32_t style = sf::Text::Regular);
 
     /**
      * @brief Destroy the Text Item object
@@ -47,37 +49,43 @@ public:
 
 protected:
     /**
-     * @brief Create a new TextItem from the sf::Text object
+     * @brief Create a new TextItem
      *
      * @param text The string to display
      * @param font The font to use
      * @param color The color of the text
      * @param fontSize The font size
+     * @param style The style of the text
      */
     TextItem(const std::string& text, const sf::VulkanFont& font, const sf::Color& color,
-             unsigned int fontSize);
+             unsigned int fontSize, std::uint32_t style = 0);
 
     /**
      * @brief Called at least once when the item is added to a menu. Should create required graphics
      *        primitives and return the transform to use
      *
      * @param engine The game engine instance
-     * @param parent The parent entity that should be used
-     * @return The transform component to use
      */
-    virtual com::Transform2D& doCreate(engine::Engine& engine, ecs::Entity parent) override;
+    virtual void doCreate(engine::Engine& engine) override;
 
     /**
-     * @brief Called when the item should be added to the overlay
+     * @brief Called when the item should be added to the scene
      *
-     * @param overlay The overlay to add to
+     * @param scene The scene to add to
      */
-    virtual void doSceneAdd(rc::Overlay* overlay) override;
+    virtual void doSceneAdd(rc::Scene* scene) override;
 
     /**
-     * @brief Called when the item should be removed from the overlay
+     * @brief Called when the item should be removed from the scene
      */
     virtual void doSceneRemove() override;
+
+    /**
+     * @brief Manually draw the item
+     *
+     * @param ctx The render context
+     */
+    virtual void draw(rc::scene::CodeScene::RenderContext& ctx) override;
 
     /**
      * @brief Returns the entity (or top level entity) of the item
@@ -89,6 +97,7 @@ private:
     const sf::VulkanFont& font;
     const sf::Color color;
     const unsigned int fontSize;
+    const std::uint32_t style;
     gfx::Text text;
 };
 

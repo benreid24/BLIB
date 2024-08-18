@@ -25,20 +25,19 @@ ToggleTextItem::ToggleTextItem(const std::string& text, const sf::VulkanFont& fo
     getSignal(Activated).willAlwaysCall([this]() { setChecked(!checked); });
 }
 
-com::Transform2D& ToggleTextItem::doCreate(engine::Engine& engine, ecs::Entity parent) {
-    com::Transform2D& r = TextItem::doCreate(engine, parent);
+void ToggleTextItem::doCreate(engine::Engine& engine) {
+    TextItem::doCreate(engine);
     box.create(engine, {width, width});
     innerBox.create(engine, {width * InnerRatio, width * InnerRatio});
     box.setParent(getTextObject().entity());
     innerBox.setParent(box.entity());
     update();
-    return r;
 }
 
-void ToggleTextItem::doSceneAdd(rc::Overlay* overlay) {
-    TextItem::doSceneAdd(overlay);
-    box.addToScene(overlay, rc::UpdateSpeed::Static);
-    innerBox.addToScene(overlay, rc::UpdateSpeed::Static);
+void ToggleTextItem::doSceneAdd(rc::Scene* s) {
+    TextItem::doSceneAdd(s);
+    box.addToScene(s, rc::UpdateSpeed::Static);
+    innerBox.addToScene(s, rc::UpdateSpeed::Static);
     innerBox.setHidden(!checked);
 }
 
@@ -79,7 +78,7 @@ bool ToggleTextItem::isChecked() const { return checked; }
 
 void ToggleTextItem::setChecked(bool c) {
     checked = c;
-    innerBox.setHidden(!checked);
+    if (innerBox.entity() != ecs::InvalidEntity) { innerBox.setHidden(!checked); }
 }
 
 void ToggleTextItem::setBoxProperties(sf::Color fc, sf::Color bc, float w, float bt, float pad,
@@ -97,6 +96,12 @@ glm::vec2 ToggleTextItem::getSize() const {
     const glm::vec2 ts  = TextItem::getSize();
     const glm::vec2& bs = box.getSize();
     return {ts.x + padding + bs.x, std::max(ts.y, bs.y)};
+}
+
+void ToggleTextItem::draw(rc::scene::CodeScene::RenderContext& ctx) {
+    TextItem::draw(ctx);
+    box.draw(ctx);
+    innerBox.draw(ctx);
 }
 
 } // namespace menu

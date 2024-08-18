@@ -3,8 +3,8 @@
 
 #include <BLIB/Components/Transform2D.hpp>
 #include <BLIB/Render/Overlays/Overlay.hpp>
+#include <BLIB/Render/Scenes/CodeScene.hpp>
 #include <BLIB/Util/Signal.hpp>
-#include <SFML/Graphics.hpp>
 #include <functional>
 #include <glm/glm.hpp>
 #include <list>
@@ -99,31 +99,35 @@ public:
 protected:
     /**
      * @brief Construct a new Item
-     *
      */
     Item();
 
     /**
      * @brief Called at least once when the item is added to a menu. Should create required graphics
-     *        primitives and return the transform to use
+     *        primitives
      *
      * @param engine The game engine instance
-     * @param parent The parent entity that should be used
-     * @return The transform component to use
      */
-    virtual com::Transform2D& doCreate(engine::Engine& engine, ecs::Entity parent) = 0;
+    virtual void doCreate(engine::Engine& engine) = 0;
 
     /**
-     * @brief Called when the item should be added to the overlay
+     * @brief Called when the item should be added to the scene
      *
-     * @param overlay The overlay to add to
+     * @param scene The scene to add to
      */
-    virtual void doSceneAdd(rc::Overlay* overlay) = 0;
+    virtual void doSceneAdd(rc::Scene* scene) = 0;
 
     /**
-     * @brief Called when the item should be removed from the overlay
+     * @brief Called when the item should be removed from the scene
      */
     virtual void doSceneRemove() = 0;
+
+    /**
+     * @brief Manually draw the item
+     *
+     * @param ctx The render context
+     */
+    virtual void draw(rc::scene::CodeScene::RenderContext& ctx) = 0;
 
     /**
      * @brief Returns the entity (or top level entity) of the item
@@ -131,7 +135,7 @@ protected:
     virtual ecs::Entity getEntity() const = 0;
 
 private:
-    com::Transform2D* transform;
+    engine::Engine* enginePtr;
     glm::vec2 position;
     glm::vec2 offset;
     Item* attachments[_NUM_ATTACHPOINTS];
@@ -141,6 +145,7 @@ private:
     bool allowSelectionCross;
     bool positionOverridden;
     glm::vec2 posOverride;
+    bool created;
 
     void create(engine::Engine& engine, ecs::Entity parent);
     void notifyPosition(const glm::vec2& position);

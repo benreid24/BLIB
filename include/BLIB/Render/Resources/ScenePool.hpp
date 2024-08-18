@@ -74,7 +74,6 @@ private:
     std::mutex mutex;
 
     void release(Entry* entry);
-    void performObjectRemovals();
 
     friend class bl::rc::SceneRef;
     friend class sys::SceneObjectRemovalSystem;

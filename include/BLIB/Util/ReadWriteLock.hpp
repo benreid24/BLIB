@@ -2,8 +2,10 @@
 #define BLIB_UTIL_MUTEX_HPP
 
 #include <BLIB/Util/NonCopyable.hpp>
+#include <condition_variable>
 #include <mutex>
-#include <shared_mutex>
+#include <optional>
+#include <thread>
 
 namespace bl
 {
@@ -23,7 +25,7 @@ public:
      * @brief Construct a new Read Write Lock object
      *
      */
-    ReadWriteLock() = default;
+    ReadWriteLock();
 
     /**
      * @brief Acquires a lock for reading a shared resource. Multiple threads may acquire a read
@@ -115,10 +117,17 @@ public:
     };
 
 private:
-    std::shared_mutex mutex;
+    std::mutex mutex;
+    std::condition_variable cv;
+    unsigned int readerCount;
+    unsigned int recursiveWriteLock;
+    std::optional<std::thread::id> writeLocker;
 
-    bool& readLockFlag();
-    bool& writeLockFlag();
+    bool otherThreadHasWriteLock() const {
+        return writeLocker.has_value() && writeLocker.value() != std::this_thread::get_id();
+    }
+
+    bool canLockWrite() const { return readerCount == 0 && !otherThreadHasWriteLock(); }
 };
 
 } // namespace util

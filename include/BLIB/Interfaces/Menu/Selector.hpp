@@ -3,7 +3,7 @@
 
 #include <BLIB/ECS/Entity.hpp>
 #include <BLIB/Render/Overlays/Overlay.hpp>
-#include <SFML/Graphics/RenderTarget.hpp>
+#include <BLIB/Render/Scenes/CodeScene.hpp>
 #include <memory>
 
 namespace bl
@@ -47,16 +47,23 @@ public:
     virtual void notifySelection(ecs::Entity item, sf::FloatRect itemArea) = 0;
 
     /**
-     * @brief Called when the selector should be added to the overlay
+     * @brief Called when the selector should be added to the scene
      *
-     * @param overlay The overlay to add to
+     * @param scene The scene to add to
      */
-    virtual void doSceneAdd(rc::Overlay* overlay) = 0;
+    virtual void doSceneAdd(rc::Scene* scene) = 0;
 
     /**
-     * @brief Called when the selector should be removed from the overlay
+     * @brief Called when the selector should be removed from the scene
      */
     virtual void doSceneRemove() = 0;
+
+    /**
+     * @brief Manually draw the selector
+     *
+     * @param ctx The render context
+     */
+    virtual void draw(rc::scene::CodeScene::RenderContext& ctx) = 0;
 };
 
 } // namespace menu

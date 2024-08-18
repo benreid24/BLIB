@@ -52,6 +52,11 @@ public:
      */
     virtual void update(float dt) override;
 
+    /**
+     * @brief Returns the size of the rendered pane in camera units
+     */
+    virtual glm::vec2 getViewerSize() const override;
+
 private:
     unsigned int settingVersion;
 

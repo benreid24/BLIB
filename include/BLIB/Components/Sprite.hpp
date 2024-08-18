@@ -57,8 +57,16 @@ public:
      *        region texture
      *
      * @param texture The new texture to render
+     * @param resetVertices Whether to reset vertex positions and texture coords
      */
-    void setTexture(const rc::res::TextureRef& texture);
+    void setTexture(const rc::res::TextureRef& texture, bool resetVertices = false);
+
+    /**
+     * @brief Updates the texture coordinates to render with
+     *
+     * @param region The source region from the texture
+     */
+    void setTextureSource(const sf::FloatRect& region);
 
     /**
      * @brief Returns the texture that is rendered by the sprite
@@ -81,6 +89,20 @@ public:
      * @brief Returns the pre-transform size of the Sprite
      */
     constexpr const glm::vec2& getSize() const;
+
+    /**
+     * @brief Returns the default pipeline for regular scenes
+     */
+    virtual std::uint32_t getDefaultScenePipelineId() const override {
+        return rc::Config::PipelineIds::LitSkinned2DGeometry;
+    }
+
+    /**
+     * @brief Returns the default pipeline for overlays
+     */
+    virtual std::uint32_t getDefaultOverlayPipelineId() const override {
+        return rc::Config::PipelineIds::UnlitSkinned2DGeometry;
+    }
 
 private:
     rc::buf::IndexBuffer buffer;

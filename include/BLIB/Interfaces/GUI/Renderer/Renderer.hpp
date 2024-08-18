@@ -86,7 +86,7 @@ public:
     /**
      * @brief Removes all components from the current overlay, if any
      */
-    void removeFromOverlay();
+    void removeFromScene();
 
     /**
      * @brief Displays the tooltip for the given element

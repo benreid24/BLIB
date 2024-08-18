@@ -3,6 +3,7 @@
 
 #include <BLIB/Render/Config.hpp>
 #include <array>
+#include <atomic>
 #include <functional>
 #include <mutex>
 #include <vector>
@@ -40,7 +41,9 @@ public:
 
 private:
     std::mutex mutex;
+    std::atomic_bool isClearing;
     std::array<std::vector<Callback>, Config::MaxConcurrentFrames + 1> buckets;
+    std::vector<Callback> addedDuringClear;
     unsigned int clearIndex;
 
     CleanupManager();

@@ -1,4 +1,5 @@
 target_sources(BLIB PUBLIC
+    CommonBindings.hpp
 	FadeEffectFactory.hpp
 	Object2DFactory.hpp
 	Object2DInstance.hpp

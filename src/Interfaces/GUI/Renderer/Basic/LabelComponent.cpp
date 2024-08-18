@@ -1,6 +1,7 @@
 #include <BLIB/Interfaces/GUI/Renderer/Basic/LabelComponent.hpp>
 
 #include <BLIB/Interfaces/GUI/Elements/Label.hpp>
+#include <BLIB/Interfaces/GUI/GUI.hpp>
 #include <BLIB/Render/Primitives/Color.hpp>
 #include <Interfaces/GUI/Data/Font.hpp>
 
@@ -16,7 +17,22 @@ LabelComponent::LabelComponent()
 void LabelComponent::setVisible(bool v) { text.setHidden(!v); }
 
 void LabelComponent::onElementUpdated() {
-    text.getSection().setString(getOwnerAs<Label>().getText());
+    auto& owner = getOwnerAs<Label>();
+    text.getSection().setString(owner.getText());
+
+    switch (owner.getTextWrapBehavior()) {
+    case Label::WrapFixedWidth:
+        text.wordWrap(owner.getTextWrapWidth());
+        break;
+    case Label::WrapToAcquisition:
+        text.wordWrap(100.f);
+        break;
+    case Label::WrapDisabled:
+    default:
+        text.stopWordWrap();
+        break;
+    }
+
     reposition();
 }
 
@@ -45,22 +61,28 @@ void LabelComponent::doSceneAdd(rc::Overlay* overlay) {
 
 void LabelComponent::doSceneRemove() { text.removeFromScene(); }
 
-void LabelComponent::handleAcquisition() { reposition(); }
+void LabelComponent::handleAcquisition() {
+    auto& owner = getOwnerAs<Label>();
+    if (owner.getTextWrapBehavior() == Label::WrapToAcquisition) {
+        if (text.getWordWrapWidth() != owner.getAcquisition().width) {
+            text.wordWrap(std::max(owner.getAcquisition().width, 1.f));
+        }
+    }
+    reposition();
+}
 
 void LabelComponent::handleMove() { reposition(); }
 
 sf::Vector2f LabelComponent::getRequisition() const {
     const sf::FloatRect bounds = text.getLocalBounds();
-    return {bounds.left + bounds.width, bounds.top + bounds.height};
+    return {bounds.left + bounds.width + 4.f, bounds.top + bounds.height};
 }
 
 void LabelComponent::reposition() {
     Label& owner                     = getOwnerAs<Label>();
     const RenderSettings& settings   = owner.renderSettings();
     const sf::Vector2f& parentOffset = owner.getLocalPosition();
-
-    const sf::FloatRect bounds = text.getLocalBounds();
-    const sf::Vector2f size    = getRequisition();
+    const sf::Vector2f size          = getRequisition();
 
     const sf::Vector2f localPos = RenderSettings::calculatePosition(
         settings.horizontalAlignment.value_or(RenderSettings::Center),

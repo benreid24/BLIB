@@ -1,46 +1,61 @@
 #include <BLIB/Util/ReadWriteLock.hpp>
 
-#include <unordered_map>
-
 namespace bl
 {
 namespace util
 {
-namespace
-{
-thread_local std::unordered_map<ReadWriteLock*, bool>* readLockFlags =
-    new std::unordered_map<ReadWriteLock*, bool>();
-thread_local std::unordered_map<ReadWriteLock*, bool>* writeLockFlags =
-    new std::unordered_map<ReadWriteLock*, bool>();
-} // namespace
+ReadWriteLock::ReadWriteLock()
+: readerCount(0)
+, recursiveWriteLock(0) {}
 
 void ReadWriteLock::lockRead() {
-    if (readLockFlag()) return;
-    readLockFlag() = true;
-    mutex.lock_shared();
+    std::unique_lock lock(mutex);
+
+    if (otherThreadHasWriteLock()) {
+        cv.wait(lock, [this]() { return !otherThreadHasWriteLock(); });
+    }
+
+    ++readerCount;
 }
 
 void ReadWriteLock::unlockRead() {
-    if (!readLockFlag()) return;
-    readLockFlag() = false;
-    mutex.unlock_shared();
+    std::unique_lock lock(mutex);
+#ifdef BLIB_DEBUG
+    if (readerCount == 0) { throw std::runtime_error("Too many calls to unlockRead()"); }
+#endif
+
+    --readerCount;
+
+    lock.unlock();
+    cv.notify_one();
 }
 
 void ReadWriteLock::lockWrite() {
-    if (writeLockFlag()) return;
-    writeLockFlag() = true;
-    mutex.lock();
+    std::unique_lock lock(mutex);
+
+    if (!canLockWrite()) {
+        cv.wait(lock, [this]() { return !canLockWrite(); });
+    }
+
+    writeLocker = std::this_thread::get_id();
+    ++recursiveWriteLock;
 }
 
 void ReadWriteLock::unlockWrite() {
-    if (!writeLockFlag()) return;
-    writeLockFlag() = false;
-    mutex.unlock();
+    std::unique_lock lock(mutex);
+
+#ifdef BLIB_DEBUG
+    if (!writeLocker.has_value() || writeLocker.value() != std::this_thread::get_id() ||
+        recursiveWriteLock == 0) {
+        throw std::runtime_error("Invalid call to unlockWrite()");
+    }
+#endif
+
+    if (--recursiveWriteLock == 0) { writeLocker.reset(); }
+
+    lock.unlock();
+    cv.notify_one();
 }
-
-bool& ReadWriteLock::readLockFlag() { return (*readLockFlags)[this]; }
-
-bool& ReadWriteLock::writeLockFlag() { return (*writeLockFlags)[this]; }
 
 ReadWriteLock::ReadScopeGuard::ReadScopeGuard(ReadWriteLock& lock)
 : lock(lock)

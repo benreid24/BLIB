@@ -88,6 +88,7 @@ Settings::WindowParameters::WindowParameters()
 , iconPath()
 , letterBoxVal(DefaultLetterBoxOnResize)
 , viewSize(DefaultViewSize)
+, syncOverlay(DefaultSyncOverlaySize)
 , vsync(DefaultVSyncEnabled) {}
 
 Settings::WindowParameters& Settings::WindowParameters::withTitle(const std::string& title) {
@@ -107,6 +108,11 @@ Settings::WindowParameters& Settings::WindowParameters::withStyle(sf::Uint32 sty
 
 Settings::WindowParameters& Settings::WindowParameters::withLetterBoxOnResize(bool lb) {
     letterBoxVal = lb;
+    return *this;
+}
+
+Settings::WindowParameters& Settings::WindowParameters::withSyncOverlaySizeToWindow(bool s) {
+    syncOverlay = s;
     return *this;
 }
 
@@ -138,6 +144,7 @@ Settings::WindowParameters& Settings::WindowParameters::fromConfig() {
     viewSize.x    = Configuration::getOrDefault<float>(WindowViewWidthKey, viewSize.x);
     viewSize.y    = Configuration::getOrDefault<float>(WindowViewHeightKey, viewSize.y);
     vsync         = Configuration::getOrDefault<bool>(VSyncKey, vsync);
+    syncOverlay   = Configuration::getOrDefault<bool>(SyncOverlaySizeKey, syncOverlay);
 
     return *this;
 }
@@ -168,6 +175,8 @@ bool Settings::WindowParameters::letterBox() const { return letterBoxVal; }
 const sf::Vector2f& Settings::WindowParameters::initialViewSize() const { return viewSize; }
 
 bool Settings::WindowParameters::vsyncEnabled() const { return vsync; }
+
+bool Settings::WindowParameters::syncOverlaySize() const { return syncOverlay; }
 
 } // namespace engine
 } // namespace bl

@@ -95,7 +95,7 @@ private:
     com::Animation2DPlayer* player;
 
     void addPlayerDep();
-    void cleanupPlayerDep();
+    bool cleanupPlayerDep();
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////

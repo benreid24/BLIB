@@ -9,7 +9,9 @@
 #include <BLIB/Graphics/Drawable.hpp>
 #include <BLIB/Graphics/Text/BasicText.hpp>
 #include <BLIB/Graphics/Text/VulkanFont.hpp>
+#include <BLIB/Render/Primitives/Color.hpp>
 #include <SFML/Graphics/Text.hpp>
+#include <initializer_list>
 #include <vector>
 
 namespace bl
@@ -77,6 +79,40 @@ public:
                 std::uint32_t style = sf::Text::Regular);
 
     /**
+     * @brief Creates the text entity and components in the ECS and creates a section using the
+     *        given settings. This must be called before using any other method on the Text object
+     *
+     * @param engine The game engine instance
+     * @param font The font to use
+     * @param content The string to render
+     * @param fontSize The font size of the text
+     * @param color The color of the text
+     * @param style The style of the text
+     */
+    void create(engine::Engine& engine, const sf::VulkanFont& font, const sf::String& content,
+                unsigned int fontSize, const sf::Color& color,
+                std::uint32_t style = sf::Text::Regular) {
+        create(engine, font, content, fontSize, sfcol(color), style);
+    }
+
+    /**
+     * @brief Creates the text entity and components in the ECS and creates a section using the
+     *        given settings. This must be called before using any other method on the Text object
+     *
+     * @param engine The game engine instance
+     * @param font The font to use
+     * @param content The string to render
+     * @param fontSize The font size of the text
+     * @param color The color of the text
+     * @param style The style of the text
+     */
+    void create(engine::Engine& engine, const sf::VulkanFont& font, const sf::String& content,
+                unsigned int fontSize, std::initializer_list<float> color,
+                std::uint32_t style = sf::Text::Regular) {
+        create(engine, font, content, fontSize, sfcol(color), style);
+    }
+
+    /**
      * @brief Changes the font used to render the text
      *
      * @param font The new font to use
@@ -118,6 +154,39 @@ public:
     txt::BasicText& addSection(const sf::String& content = {}, unsigned int fontSize = 18,
                                const glm::vec4& color = {0.f, 0.f, 0.f, 1.f},
                                std::uint32_t style    = sf::Text::Regular);
+
+    /**
+     * @brief Creates a section using the given settings
+     *
+     * @param engine The game engine instance
+     * @param font The font to use
+     * @param content The string to render
+     * @param fontSize The font size of the text
+     * @param color The color of the text
+     * @param style The style of the text
+     * @return A reference to the new text section
+     */
+    txt::BasicText& addSection(const sf::String& content, unsigned int fontSize,
+                               const sf::Color& color, std::uint32_t style = sf::Text::Regular) {
+        return addSection(content, fontSize, sfcol(color), style);
+    }
+
+    /**
+     * @brief Creates a section using the given settings
+     *
+     * @param engine The game engine instance
+     * @param font The font to use
+     * @param content The string to render
+     * @param fontSize The font size of the text
+     * @param color The color of the text
+     * @param style The style of the text
+     * @return A reference to the new text section
+     */
+    txt::BasicText& addSection(const sf::String& content, unsigned int fontSize,
+                               std::initializer_list<float> color,
+                               std::uint32_t style = sf::Text::Regular) {
+        return addSection(content, fontSize, sfcol(color), style);
+    }
 
     /**
      * @brief Returns the bounding rectangle of the text in pre-transform space
@@ -169,6 +238,11 @@ public:
      * @param width The post-transform max width to take up
      */
     void wordWrap(float width);
+
+    /**
+     * @brief Returns the word wrapping width if explicitly set
+     */
+    float getWordWrapWidth() const { return wordWrapWidth; }
 
     /**
      * @brief Word wraps to a normalized width relative to the parent component

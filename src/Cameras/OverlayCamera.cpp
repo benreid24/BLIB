@@ -56,5 +56,7 @@ void OverlayCamera::setOverlayCoordinateSpace(float width, float height) {
 
 const glm::vec2& OverlayCamera::getOverlayCoordinateSpace() { return overlaySpace; }
 
+glm::vec2 OverlayCamera::getViewerSize() const { return overlaySpace; }
+
 } // namespace cam
 } // namespace bl

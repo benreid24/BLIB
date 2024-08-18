@@ -88,7 +88,7 @@ public:
     /**
      * @brief Removes the GUI and all elements from the current overlay
      */
-    void removeFromOverlay();
+    void removeFromScene();
 
     /**
      * @brief Returns the last known mouse position in overlay space

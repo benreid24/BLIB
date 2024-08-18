@@ -1,6 +1,7 @@
 #include <BLIB/Interfaces/GUI/Elements/Canvas.hpp>
 
 #include <BLIB/Interfaces/GUI/Renderer/Renderer.hpp>
+#include <BLIB/Render.hpp>
 
 namespace bl
 {
@@ -47,13 +48,7 @@ void Canvas::setFillAcquisition(bool fill, bool mar) {
 sf::Vector2f Canvas::minimumRequisition() const { return size.value_or(sf::Vector2f(textureSize)); }
 
 rdr::Component* Canvas::doPrepareRender(rdr::Renderer& renderer) {
-    rdr::Component* com = renderer.createComponent<Canvas>(*this);
-    if (camera) {
-        rdr::CanvasComponentBase* cb = dynamic_cast<rdr::CanvasComponentBase*>(com);
-        if (cb) { cb->getRenderTexture().setCamera(std::move(camera)); }
-        else { BL_LOG_ERROR << "Canvas component must derive from CanvasComponentBase"; }
-    }
-    return com;
+    return renderer.createComponent<Canvas>(*this);
 }
 
 void Canvas::setScale() {
@@ -99,6 +94,8 @@ void Canvas::setClearColor(const sf::Color& cc) {
 }
 
 const sf::Color& Canvas::getClearColor() const { return clearColor; }
+
+std::unique_ptr<cam::Camera>& Canvas::getCamera() { return camera; }
 
 } // namespace gui
 } // namespace bl

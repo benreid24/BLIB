@@ -41,12 +41,34 @@ public:
                 bool play = false, bool forceLoop = false);
 
     /**
+     * @brief Creates the animation with its own player on an existing entity
+     *
+     * @param engine Game engine instance
+     * @param existingEntity The existing entity to add components to
+     * @param animation The animation to use
+     * @param play True to play immediately, false to start paused
+     * @param forceLoop True to always loop, false defer to animation setting
+     */
+    Animation2D(engine::Engine& engine, ecs::Entity existingEntity,
+                const resource::Ref<a2d::AnimationData>& animation, bool play = false,
+                bool forceLoop = false);
+
+    /**
      * @brief Creates the animation sharing player state with the given animation
      *
      * @param engine Game engine instance
      * @param player The other animation to share player state with
      */
     Animation2D(engine::Engine& engine, const Animation2D& player);
+
+    /**
+     * @brief Creates the animation sharing player state with the given animation
+     *
+     * @param engine Game engine instance
+     * @param existingEntity The existing entity to add components to
+     * @param player The other animation to share player state with
+     */
+    Animation2D(engine::Engine& engine, ecs::Entity existingEntity, const Animation2D& player);
 
     /**
      * @brief Creates the animation with its own player
@@ -61,12 +83,45 @@ public:
                                 bool play = false, bool forceLoop = false);
 
     /**
+     * @brief Creates the animation with its own player on an existing entity
+     *
+     * @param engine Game engine instance
+     * @param existingEntity The existing entity to add components to
+     * @param animation The animation to use
+     * @param play True to play immediately, false to start paused
+     * @param forceLoop True to always loop, false defer to animation setting
+     */
+    void createWithUniquePlayer(engine::Engine& engine, ecs::Entity existingEntity,
+                                const resource::Ref<a2d::AnimationData>& animation,
+                                bool play = false, bool forceLoop = false);
+
+    /**
      * @brief Creates the animation sharing player state with the given animation
      *
      * @param engine Game engine instance
      * @param player The other animation to share player state with
      */
     void createWithSharedPlayer(engine::Engine& engine, const Animation2D& player);
+
+    /**
+     * @brief Creates the animation sharing player state with the given animation
+     *
+     * @param engine Game engine instance
+     * @param existingEntity The existing entity to add components to
+     * @param player The other animation to share player state with
+     */
+    void createWithSharedPlayer(engine::Engine& engine, ecs::Entity existingEntity,
+                                const Animation2D& player);
+
+    /**
+     * @brief Sets a new animation source and creates a new dedicated player for it
+     *
+     * @param animation The new animation to render
+     * @param play True to play immediately, false to start paused
+     * @param forceLoop True to always loop, false defer to animation setting
+     */
+    void setAnimationWithUniquePlayer(const resource::Ref<a2d::AnimationData>& animation, bool play,
+                                      bool forceLoop);
 
     /**
      * @brief Helper method to set the scale so that the entity is a certain size

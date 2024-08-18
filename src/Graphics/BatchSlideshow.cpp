@@ -10,14 +10,18 @@ BatchSlideshow::BatchSlideshow()
 : engine(nullptr)
 , owner(nullptr)
 , playerEntity(ecs::InvalidEntity)
-, dirty(false) {}
+, dirty(false)
+, autoCommit(true) {}
 
 BatchSlideshow::BatchSlideshow(engine::Engine& engine, BatchedSlideshows& batch, ecs::Entity player)
 : BatchSlideshow() {
     create(engine, batch, player);
 }
 
-BatchSlideshow::~BatchSlideshow() { removePlayerDep(); }
+BatchSlideshow::~BatchSlideshow() {
+    removePlayerDep();
+    remove();
+}
 
 void BatchSlideshow::create(engine::Engine& e, BatchedSlideshows& batch, ecs::Entity player) {
     engine = &e;
@@ -39,7 +43,7 @@ void BatchSlideshow::scaleToSize(const glm::vec2& size) {
         return;
     }
 
-    const sf::Vector2f srcSize = player->animation->getMaxSize();
+    const sf::Vector2f srcSize = player->getAnimation()->getMaxSize();
     transform.setScale({size.x / srcSize.x, size.y / srcSize.y});
 }
 
@@ -62,8 +66,8 @@ bool BatchSlideshow::isCreated() const { return owner != nullptr; }
 
 void BatchSlideshow::markDirty() {
     dirty = true;
-    if (owner && !updateHandle.isQueued()) {
-        updateHandle = engine->systems().addFrameTask(engine::FrameStage::RenderObjectInsertion,
+    if (autoCommit && owner && !updateHandle.isQueued()) {
+        updateHandle = engine->systems().addFrameTask(engine::FrameStage::RenderEarlyRefresh,
                                                       std::bind(&BatchSlideshow::commit, this));
     }
 }
@@ -75,11 +79,11 @@ void BatchSlideshow::commit() {
             BL_LOG_ERROR << "Animation player invalidated";
             return;
         }
-        if (player->playerIndex == com::Animation2DPlayer::InvalidIndex) {
+        if (player->getPlayerIndex() == com::Animation2DPlayer::InvalidIndex) {
             BL_LOG_ERROR << "Animation player was not initialized by system";
             return;
         }
-        if (!player->animation || player->animation->frameCount() == 0) {
+        if (!player->getAnimation() || player->getAnimation()->frameCount() == 0) {
             BL_LOG_WARN << "Ignoring empty animation";
             return;
         }
@@ -97,14 +101,14 @@ void BatchSlideshow::commit() {
         }
 
         rc::prim::SlideshowVertex* vertices = alloc.getVertices();
-        const sf::FloatRect src(player->animation->getFrame(0).shards.front().source);
+        const sf::FloatRect src(player->getAnimation()->getFrame(0).shards.front().source);
         vertices[0].pos = {0.f, 0.f, 0.f};
         vertices[1].pos = {src.width, 0.f, 0.f};
         vertices[2].pos = {src.width, src.height, 0.f};
         vertices[3].pos = {0.f, src.height, 0.f};
         for (unsigned int i = 0; i < 4; ++i) {
             rc::prim::SlideshowVertex& vertex = vertices[i];
-            vertex.slideshowIndex             = player->playerIndex;
+            vertex.slideshowIndex             = player->getPlayerIndex();
             vertex.color                      = {1.f, 1.f, 1.f, 1.f};
             vertex.pos                        = transform.transformPoint(vertex.pos);
         }
@@ -114,13 +118,15 @@ void BatchSlideshow::commit() {
     }
 }
 
+void BatchSlideshow::disableAutoCommit(bool d) { autoCommit = !d; }
+
 com::Animation2DPlayer* BatchSlideshow::validatePlayer(ecs::Entity ent) {
     com::Animation2DPlayer* player = engine->ecs().getComponent<com::Animation2DPlayer>(ent);
     if (!player) {
         BL_LOG_ERROR << "Given player entity " << ent << " is missing Animation2DPlayer component";
         return nullptr;
     }
-    if (!player->forSlideshow) {
+    if (!player->isForSlideshow()) {
         BL_LOG_ERROR << "Given animation player entity " << ent
                      << " is not configured for Slideshow animations";
         return nullptr;
@@ -135,7 +141,8 @@ void BatchSlideshow::addPlayerDep() {
 }
 
 void BatchSlideshow::removePlayerDep() {
-    if (playerEntity != ecs::InvalidEntity && owner && owner->entity() != ecs::InvalidEntity) {
+    if (playerEntity != ecs::InvalidEntity && owner &&
+        engine->ecs().entityExists(owner->entity())) {
         engine->ecs().removeDependencyAndDestroyIfPossible(playerEntity, owner->entity());
     }
 }

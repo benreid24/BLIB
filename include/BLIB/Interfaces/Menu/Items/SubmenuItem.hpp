@@ -16,7 +16,6 @@ class Menu;
  *        that are added/removed from the parent menu when the submenu is opened and closed.
  *
  * @ingroup Menu
- *
  */
 class SubmenuItem : public Item {
 public:
@@ -38,7 +37,6 @@ public:
 
     /**
      * @brief Destroy the Submenu Item object
-     *
      */
     virtual ~SubmenuItem() = default;
 
@@ -52,14 +50,12 @@ public:
 
     /**
      * @brief Opens the menu if not already open. This is called when the item is interacted with
-     *
      */
     void openMenu();
 
     /**
      * @brief Closes the menu if open. This must be called manually as menus do not have a Back
      *        action as of now.
-     *
      */
     void closeMenu();
 
@@ -93,22 +89,27 @@ protected:
      *        primitives and return the transform to use
      *
      * @param engine The game engine instance
-     * @param parent The parent entity that should be used
-     * @return The transform component to use
      */
-    virtual com::Transform2D& doCreate(engine::Engine& engine, ecs::Entity parent) override;
+    virtual void doCreate(engine::Engine& engine) override;
 
     /**
-     * @brief Called when the item should be added to the overlay
+     * @brief Called when the item should be added to the scene
      *
-     * @param overlay The overlay to add to
+     * @param scene The scene to add to
      */
-    virtual void doSceneAdd(rc::Overlay* overlay) override;
+    virtual void doSceneAdd(rc::Scene* scene) override;
 
     /**
-     * @brief Called when the item should be removed from the overlay
+     * @brief Called when the item should be removed from the scene
      */
     virtual void doSceneRemove() override;
+
+    /**
+     * @brief Manually draw the item
+     *
+     * @param ctx The render context
+     */
+    virtual void draw(rc::scene::CodeScene::RenderContext& ctx) override;
 
     /**
      * @brief Returns the entity (or top level entity) of the item

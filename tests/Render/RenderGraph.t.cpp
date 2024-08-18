@@ -33,7 +33,7 @@ struct TestAsset : public Asset {
     , preparedForInput(false)
     , preparedForOutput(false) {}
 
-    virtual void doCreate(engine::Engine&, Renderer&, Observer*) override { created = true; }
+    virtual void doCreate(engine::Engine&, Renderer&, RenderTarget*) override { created = true; }
 
     virtual void doPrepareForInput(const ExecutionContext&) override {
         EXPECT_TRUE(created);

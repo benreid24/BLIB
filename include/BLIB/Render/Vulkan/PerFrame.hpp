@@ -89,16 +89,54 @@ public:
     /**
      * @brief Returns the active buffered object for the current frame
      *
-     * @return constexpr T& The active buffered object for the current frame
+     * @return  T& The active buffered object for the current frame
      */
-    constexpr T& current();
+    T& current();
 
     /**
      * @brief Returns the active buffered object for the current frame
      *
-     * @return constexpr const T& The active buffered object for the current frame
+     * @return  const T& The active buffered object for the current frame
      */
-    constexpr const T& current() const;
+    const T& current() const;
+
+    /**
+     * @brief Returns the next buffered object for the next frame
+     *
+     * @return  T& The next buffered object for the next frame
+     */
+    T& next();
+
+    /**
+     * @brief Returns the next buffered object for the next frame
+     *
+     * @return  const T& The next buffered object for the next frame
+     */
+    const T& next() const;
+
+    /**
+     * @brief Helper method to return the current index of the current frame
+     */
+    std::uint32_t getCurrentIndex() const;
+
+    /**
+     * @brief Helper method to get the index of a specific member in this PerFrame
+     *
+     * @param member The member to get index of. Undefined behavior if not in this PerFrame
+     * @return The index of the given member
+     */
+    std::uint32_t getIndex(const T& member) const;
+
+    /**
+     * @brief Helper method to get the corresponding member of a different PerFrame object
+     *
+     * @tparam U The type contained in the other PerFrame object
+     * @param member The member in this object to get the corresponding member of
+     * @param other The other PerFrame to get the corresponding member out of
+     * @return The member from the other PerFrame with the same index as this one
+     */
+    template<typename U>
+    U& getOther(const T& member, PerFrame<U>& other) const;
 
     /**
      * @brief Provides direct access to the contained values
@@ -106,7 +144,7 @@ public:
      * @param i Index to access
      * @return Object at that index
      */
-    constexpr T& getRaw(unsigned int i);
+    T& getRaw(unsigned int i);
 
     /**
      * @brief Provides direct access to the contained values
@@ -114,27 +152,27 @@ public:
      * @param i Index to access
      * @return Object at that index
      */
-    constexpr const T& getRaw(unsigned int i) const;
+    const T& getRaw(unsigned int i) const;
 
     /**
      * @brief Returns whether or not the PerFrame has been initialized yet
      */
-    constexpr bool valid() const;
+    bool valid() const;
 
     /**
      * @brief Returns the number of contained objects
      */
-    constexpr std::size_t size() const;
+    std::size_t size() const;
 
     /**
      * @brief Returns a pointer to the underlying data as an array
      */
-    constexpr T* rawData();
+    T* rawData();
 
     /**
      * @brief Returns a pointer to the underlying data as an array
      */
-    constexpr const T* rawData() const;
+    const T* rawData() const;
 
 private:
     VulkanState* vs;

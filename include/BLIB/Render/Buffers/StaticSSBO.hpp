@@ -98,6 +98,15 @@ public:
     void transferRange(std::uint32_t start, std::uint32_t numElements);
 
     /**
+     * @brief Expands the current transfer range to include the new given range. Queues a single
+     *        transfer if not already queued
+     *
+     * @param start The first element to copy
+     * @param numElements The number of elements to copy
+     */
+    void expandTransferRange(std::uint32_t start, std::uint32_t numElements);
+
+    /**
      * @brief Queues the transfer of all elements
      */
     void transferAll();
@@ -107,11 +116,20 @@ public:
      */
     constexpr VkDeviceSize getTotalRange() const;
 
+    /**
+     * @brief Helper method to return the raw buffer handle for the given frame index
+     *
+     * @param frameIndex The frame index to get the buffer handle for
+     * @return The raw buffer handle
+     */
+    VkBuffer getRawBuffer(std::uint32_t frameIndex);
+
 private:
     vk::AlignedBuffer<T> cpuBuffer;
     vk::Buffer gpuBuffer;
     std::uint32_t copyStart;
     std::uint32_t copyCount;
+    bool trackingExpansion;
 
     virtual void executeTransfer(VkCommandBuffer commandBuffer,
                                  tfr::TransferContext& context) override;
@@ -126,9 +144,10 @@ StaticSSBO<T>::StaticSSBO(vk::VulkanState& vulkanState, std::uint32_t size) {
 
 template<typename T>
 void StaticSSBO<T>::create(vk::VulkanState& vs, std::uint32_t size) {
-    vulkanState = &vs;
-    copyStart   = 0;
-    copyCount   = size;
+    vulkanState       = &vs;
+    copyStart         = 0;
+    copyCount         = size;
+    trackingExpansion = false;
 
     cpuBuffer.create(vs, vk::AlignedBuffer<T>::StorageBuffer, size);
     gpuBuffer.create(vs,
@@ -173,6 +192,7 @@ inline constexpr vk::Buffer& StaticSSBO<T>::gpuBufferHandle() {
 template<typename T>
 void StaticSSBO<T>::executeTransfer(VkCommandBuffer commandBuffer, tfr::TransferContext& context) {
     const VkDeviceSize copySize = copyCount * cpuBuffer.elementSize();
+    trackingExpansion           = false;
 
     VkBuffer stagingBuffer;
     void* dest;
@@ -219,6 +239,24 @@ void StaticSSBO<T>::transferRange(std::uint32_t start, std::uint32_t numElements
 }
 
 template<typename T>
+void StaticSSBO<T>::expandTransferRange(std::uint32_t start, std::uint32_t numElements) {
+    if (numElements > 0) {
+        if (!trackingExpansion) {
+            trackingExpansion = true;
+            copyStart         = start;
+            copyCount         = numElements;
+        }
+        else {
+            const auto prevEnd = copyStart + copyCount;
+            const auto newEnd  = std::max(prevEnd, start + numElements);
+            copyStart          = std::min(start, copyStart);
+            copyCount          = newEnd - copyStart;
+        }
+        queueTransfer(SyncRequirement::Immediate);
+    }
+}
+
+template<typename T>
 void StaticSSBO<T>::transferAll() {
     transferRange(0, cpuBuffer.size());
 }
@@ -226,6 +264,11 @@ void StaticSSBO<T>::transferAll() {
 template<typename T>
 constexpr VkDeviceSize StaticSSBO<T>::getTotalRange() const {
     return gpuBuffer.getSize();
+}
+
+template<typename T>
+VkBuffer StaticSSBO<T>::getRawBuffer(std::uint32_t) {
+    return gpuBuffer.getBuffer();
 }
 
 } // namespace buf

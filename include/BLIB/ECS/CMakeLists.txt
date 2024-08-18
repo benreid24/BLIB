@@ -6,6 +6,7 @@ target_sources(BLIB PUBLIC
     ComponentSetImpl.hpp
     DependencyGraph.hpp
     Entity.hpp
+    EntityBacked.hpp
     Events.hpp
     Flags.hpp
     ParentDestructionBehavior.hpp

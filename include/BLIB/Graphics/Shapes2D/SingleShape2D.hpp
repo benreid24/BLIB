@@ -36,6 +36,12 @@ public:
      */
     virtual void scaleToSize(const glm::vec2& size) override;
 
+    /**
+     * @brief Does not need to be called manually, but should be called if this object is being used
+     *        to create ECS components and then being destroyed immediately
+     */
+    void commit();
+
 protected:
     /**
      * @brief Initializes the shapes fields to sane defaults
@@ -48,6 +54,14 @@ protected:
      * @param engine The game engine instance
      */
     void create(engine::Engine& engine);
+
+    /**
+     * @brief Creates the required components on the existing entity
+     *
+     * @param engine The game engine instance
+     * @param existingEntity The entity to add the sprite components to
+     */
+    void create(engine::Engine& engine, ecs::Entity existingEntity);
 
     /**
      * @brief Called when the local size is queried

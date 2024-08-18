@@ -41,6 +41,17 @@ public:
     Sprite(engine::Engine& engine, rc::res::TextureRef texture, const sf::FloatRect& region = {});
 
     /**
+     * @brief Creates the ECS backing for the sprite on an existing entity
+     *
+     * @param engine The game engine instance
+     * @param existingEntity The entity to add the sprite components to
+     * @param texture The texture for the sprite
+     * @param region The region to render from the texture
+     */
+    Sprite(engine::Engine& engine, ecs::Entity existingEntity, rc::res::TextureRef texture,
+           const sf::FloatRect& region = {});
+
+    /**
      * @brief Creates the ECS backing for the sprite
      *
      * @param engine The game engine instance
@@ -51,11 +62,23 @@ public:
                 const sf::FloatRect& region = {});
 
     /**
+     * @brief Creates the ECS backing for the sprite on an existing entity
+     *
+     * @param engine The game engine instance
+     * @param existingEntity The entity to add the sprite components to
+     * @param texture The texture for the sprite
+     * @param region The region to render from the texture
+     */
+    void create(engine::Engine& engine, ecs::Entity existingEntity, rc::res::TextureRef texture,
+                const sf::FloatRect& region = {});
+
+    /**
      * @brief Sets the texture for this sprite. Use on already created sprites
      *
      * @param texture The texture to use
+     * @param resetVertices Whether to reset vertex positions and texture coords
      */
-    void setTexture(rc::res::TextureRef texture);
+    void setTexture(rc::res::TextureRef texture, bool resetVertices = false);
 
     /**
      * @brief Sets the texture for this sprite. Use on already created sprites
@@ -64,6 +87,20 @@ public:
      * @param region The region to render from the texture
      */
     void setTexture(rc::res::TextureRef texture, const sf::FloatRect region);
+
+    /**
+     * @brief Updates the texture coordinates to render with
+     *
+     * @param region The source region from the texture
+     */
+    void setTextureSource(const sf::FloatRect& region);
+
+    /**
+     * @brief Convenience method that calls setColor on the underlying component
+     *
+     * @param color The color to multiply the texture by
+     */
+    void setColor(const sf::Color& color);
 
     /**
      * @brief Helper method to set the scale so that the entity is a certain size

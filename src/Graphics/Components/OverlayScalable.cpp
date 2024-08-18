@@ -27,8 +27,8 @@ glm::vec2 OverlayScalable::getLocalSize() const {
     return {bounds.width, bounds.height};
 }
 
-glm::vec2 OverlayScalable::getOverlaySize() const {
-    const glm::vec2& ls    = getLocalSize();
+glm::vec2 OverlayScalable::getGlobalSize() const {
+    const glm::vec2 ls     = getLocalSize();
     const glm::vec2& scale = Transform2D::getTransform().getScale();
     return {ls.x * scale.x, ls.y * scale.y};
 }

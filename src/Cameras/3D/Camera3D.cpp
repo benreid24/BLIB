@@ -60,6 +60,9 @@ void Camera3D::refreshProjMatrix(glm::mat4& proj, const VkViewport& viewport) {
 
     proj = glm::perspective(glm::radians(f), viewport.width / viewport.height, nearValue, farValue);
     proj[1][1] *= -1.f;
+
+    cachedViewportSize.x = viewport.width;
+    cachedViewportSize.y = viewport.height;
 }
 
 void Camera3D::update(float dt) {
@@ -79,6 +82,8 @@ void Camera3D::removeAffector(const CameraAffector3D* a) {
         }
     }
 }
+
+glm::vec2 Camera3D::getViewerSize() const { return cachedViewportSize; }
 
 } // namespace cam
 } // namespace bl

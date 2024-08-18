@@ -13,7 +13,7 @@ Asset::Asset(std::string_view tag)
 , mode(InputMode::Unset)
 , external(false) {}
 
-void Asset::create(engine::Engine& engine, Renderer& renderer, Observer* observer) {
+void Asset::create(engine::Engine& engine, Renderer& renderer, RenderTarget* observer) {
     if (!created) {
         created = true;
         doCreate(engine, renderer, observer);

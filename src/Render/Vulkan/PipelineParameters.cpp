@@ -11,6 +11,10 @@ namespace rc
 {
 namespace vk
 {
+PipelineParameters::PipelineParameters()
+: PipelineParameters({Config::RenderPassIds::StandardAttachmentDefault,
+                      Config::RenderPassIds::SwapchainDefault}) {}
+
 PipelineParameters::PipelineParameters(const std::initializer_list<std::uint32_t>& rpids)
 : primitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
 , rasterizer{}
@@ -18,7 +22,8 @@ PipelineParameters::PipelineParameters(const std::initializer_list<std::uint32_t
 , colorBlending{}
 , depthStencil(nullptr)
 , renderPassCount(rpids.size())
-, subpass(0) {
+, subpass(0)
+, localDepthStencil{} {
     if (renderPassCount > Config::MaxRenderPasses) {
         throw std::runtime_error("Too many render passes");
     }
@@ -31,7 +36,7 @@ PipelineParameters::PipelineParameters(const std::initializer_list<std::uint32_t
     rasterizer.rasterizerDiscardEnable = VK_FALSE;
     rasterizer.polygonMode             = VK_POLYGON_MODE_FILL;
     rasterizer.lineWidth               = 1.0f;
-    rasterizer.cullMode                = VK_CULL_MODE_BACK_BIT;
+    rasterizer.cullMode                = VK_CULL_MODE_NONE;
     rasterizer.frontFace               = VK_FRONT_FACE_COUNTER_CLOCKWISE;
     rasterizer.depthBiasEnable         = VK_FALSE;
     rasterizer.depthBiasConstantFactor = 0.0f; // Optional
@@ -155,6 +160,24 @@ PipelineParameters& PipelineParameters::withDepthStencilState(
     return *this;
 }
 
+PipelineParameters& PipelineParameters::withSimpleDepthStencil(bool depthTestingEnabled) {
+    const auto enable = depthTestingEnabled ? VK_TRUE : VK_FALSE;
+    depthStencil      = &localDepthStencil;
+
+    localDepthStencil.sType            = VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;
+    localDepthStencil.depthTestEnable  = enable;
+    localDepthStencil.depthWriteEnable = enable;
+    localDepthStencil.depthCompareOp   = VK_COMPARE_OP_LESS_OR_EQUAL;
+    localDepthStencil.depthBoundsTestEnable = VK_FALSE;
+    localDepthStencil.minDepthBounds        = 0.0f; // Optional
+    localDepthStencil.maxDepthBounds        = 1.0f; // Optional
+    localDepthStencil.stencilTestEnable     = VK_FALSE;
+    localDepthStencil.front                 = {}; // Optional (Stencil)
+    localDepthStencil.back                  = {}; // Optional (Stencil)
+
+    return *this;
+}
+
 PipelineParameters&& PipelineParameters::build() {
     if (shaders.empty()) { throw std::runtime_error("Pipeline creation must have shaders"); }
     if (vertexAttributes.empty()) {
@@ -171,8 +194,8 @@ PipelineParameters&& PipelineParameters::build() {
         ca.dstColorBlendFactor = VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA;
         ca.colorBlendOp        = VK_BLEND_OP_ADD;
         ca.srcAlphaBlendFactor = VK_BLEND_FACTOR_ONE;
-        ca.dstAlphaBlendFactor = VK_BLEND_FACTOR_ZERO;
-        ca.alphaBlendOp        = VK_BLEND_OP_ADD;
+        ca.dstAlphaBlendFactor = VK_BLEND_FACTOR_ONE;
+        ca.alphaBlendOp        = VK_BLEND_OP_MAX;
     }
     colorBlending.pAttachments    = colorAttachmentBlendStates.data();
     colorBlending.attachmentCount = colorAttachmentBlendStates.size();
