@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Resources/Bundling/Manifest.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Transfers/TextureExporter.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,88 +66,71 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_70ae3ed4186da77d71126d34066606f0.html">Resources</a></li><li class="navelem"><a class="el" href="dir_8c0830a2e11435882738e77910337c62.html">Bundling</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_1371b99667ed992b8332faf3b4f2dec9.html">Transfers</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Manifest.hpp</div>  </div>
+<div class="title">TextureExporter.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01052.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RESOURCES_BUNDLING_MANIFEST_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RESOURCES_BUNDLING_MANIFEST_HPP</span></div>
+<a href="a01052.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_TRANSFERS_TEXTUREEXPORTER_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_TRANSFERS_TEXTUREEXPORTER_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01160.html">BLIB/Serialization.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02100.html">bl</a></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>resource</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>bundle</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a04013.html">   20</a></span>&#160;<span class="keyword">class </span><a class="code" href="a04013.html">Manifest</a> {</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <a class="code" href="a04013.html#af27678f22aee47b1600fa2b0297301ca">Manifest</a>(<span class="keyword">const</span> std::string&amp; bundleDirectory);</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keyword">const</span> std::string&amp; <a class="code" href="a04013.html#a08c1a66c93a9a3be6dfcfef542a36641">getBundleForFile</a>(<span class="keyword">const</span> std::string&amp; path) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a04013.html#aee7a024f8a9c42b55fff3bb8e698067f">containsFile</a>(<span class="keyword">const</span> std::string&amp; path) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04013.html#aca7902260a13be82a88daf307a696f76">registerFileBundle</a>(<span class="keyword">const</span> std::string&amp; path, <span class="keyword">const</span> std::string&amp; bundleFile);</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01010.html">BLIB/Render/Resources/TextureRef.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01049.html">BLIB/Render/Transfers/TextureExport.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;list&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;mutex&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02284.html">bl</a></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">class </span>Renderer;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span>tfr</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a04180.html">   22</a></span>&#160;<span class="keyword">class </span><a class="code" href="a04180.html">TextureExporter</a> {</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <a class="code" href="a04176.html">TextureExport</a>* <a class="code" href="a04180.html#ac9c08543164c70a29a6515002be1d014">exportSwapImage</a>();</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <a class="code" href="a04176.html">TextureExport</a>* <a class="code" href="a04180.html#a605328d7e7a7f724ca73bd9028353a7d">exportTexture</a>(<span class="keyword">const</span> <a class="code" href="a04084.html">res::TextureRef</a>&amp; texture);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <a class="code" href="a04024.html">Renderer</a>&amp; owner;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    std::mutex mutex;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    std::list&lt;TextureExport&gt; exports;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    std::vector&lt;TextureExport*&gt; queuedExports;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    std::vector&lt;TextureExport*&gt; inProgressExports;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <a class="code" href="a04180.html">TextureExporter</a>(<a class="code" href="a04024.html">Renderer</a>&amp; owner);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordtype">void</span> cleanup();</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordtype">void</span> release(<a class="code" href="a04176.html">TextureExport</a>* te);</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordtype">void</span> onFrameEnd();</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="a04180.html#a30b0c455034f8cfc9f5da2c6355d94a5">   50</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a04176.html">TextureExport</a>;</div>
+<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="a04180.html#aa2cc13185ddec619c41d90af5e836399">   51</a></span>&#160;    <span class="keyword">friend</span> class ::bl::rc::Renderer;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;};</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a04013.html#a994b50ede5fce659271f4f7f69030349">load</a>();</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a04013.html#a47daef9aeca0e9a61462484a92129904">save</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keyword">const</span> std::string manifestFile;</div>
-<div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="a04013.html#ad134bde82677e5e32d6ee33a6e42c518">   70</a></span>&#160;    std::unordered_map&lt;std::string, std::string&gt; manifest;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keyword">friend</span> <span class="keyword">struct </span><a class="code" href="a04429.html">serial::SerializableObject</a>&lt;<a class="code" href="a04013.html">Manifest</a>&gt;;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;};</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;} <span class="comment">// namespace bundle</span></div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;} <span class="comment">// namespace resource</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="keyword">namespace </span>serial</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;{</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="keyword">template</span>&lt;&gt;</div>
-<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="a04017.html">   81</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a04429.html">SerializableObject</a>&lt;resource::bundle::Manifest&gt; : <span class="keyword">public</span> <a class="code" href="a04425.html">SerializableObjectBase</a> {</div>
-<div class="line"><a name="l00082"></a><span class="lineno"><a class="line" href="a04017.html#abae06abe23849bf8d9fdcc6a409b19b2">   82</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a04013.html">T</a> = <a class="code" href="a04013.html">resource::bundle::Manifest</a>;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
-<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="a04017.html#a1297a1006c3f914cb86ef5b3d28b6c7c">   84</a></span>&#160;    <a class="code" href="a04409.html">SerializableField&lt;1, T, std::unordered_map&lt;std::string, std::string&gt;</a>&gt; <a class="code" href="a04017.html#a1297a1006c3f914cb86ef5b3d28b6c7c">manifest</a>;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
-<div class="line"><a name="l00086"></a><span class="lineno"><a class="line" href="a04017.html#a202e72c00cf34df2d0efb295877963f8">   86</a></span>&#160;    <a class="code" href="a04017.html#a202e72c00cf34df2d0efb295877963f8">SerializableObject</a>()</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    : <a class="code" href="a04425.html">SerializableObjectBase</a>(<span class="stringliteral">&quot;BundleManifest&quot;</span>)</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    , manifest(<span class="stringliteral">&quot;manifest&quot;</span>, *this, &amp;<a class="code" href="a04013.html">T</a>::manifest, <a class="code" href="a04397.html">SerializableFieldBase</a>::Required{}) {}</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;};</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;} <span class="comment">// namespace serial</span></div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01160_html"><div class="ttname"><a href="a01160.html">Serialization.hpp</a></div></div>
-<div class="ttc" id="aa02100_html"><div class="ttname"><a href="a02100.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04013_html"><div class="ttname"><a href="a04013.html">bl::resource::bundle::Manifest</a></div><div class="ttdoc">Top level manifest that maps original file paths to the bundle path they are in. Bundle paths in the ...</div><div class="ttdef"><b>Definition:</b> <a href="a01052_source.html#l00020">Manifest.hpp:20</a></div></div>
-<div class="ttc" id="aa04013_html_a08c1a66c93a9a3be6dfcfef542a36641"><div class="ttname"><a href="a04013.html#a08c1a66c93a9a3be6dfcfef542a36641">bl::resource::bundle::Manifest::getBundleForFile</a></div><div class="ttdeci">const std::string &amp; getBundleForFile(const std::string &amp;path) const</div><div class="ttdoc">Returns the fully qualified path to the bundle containing the given path. Returns an empty string if ...</div><div class="ttdef"><b>Definition:</b> <a href="a01946_source.html#l00014">Manifest.cpp:14</a></div></div>
-<div class="ttc" id="aa04013_html_a47daef9aeca0e9a61462484a92129904"><div class="ttname"><a href="a04013.html#a47daef9aeca0e9a61462484a92129904">bl::resource::bundle::Manifest::save</a></div><div class="ttdeci">bool save() const</div><div class="ttdoc">Saves the manifest file to disk.</div><div class="ttdef"><b>Definition:</b> <a href="a01946_source.html#l00035">Manifest.cpp:35</a></div></div>
-<div class="ttc" id="aa04013_html_a994b50ede5fce659271f4f7f69030349"><div class="ttname"><a href="a04013.html#a994b50ede5fce659271f4f7f69030349">bl::resource::bundle::Manifest::load</a></div><div class="ttdeci">bool load()</div><div class="ttdoc">Loads the manifest from disk.</div><div class="ttdef"><b>Definition:</b> <a href="a01946_source.html#l00029">Manifest.cpp:29</a></div></div>
-<div class="ttc" id="aa04013_html_aca7902260a13be82a88daf307a696f76"><div class="ttname"><a href="a04013.html#aca7902260a13be82a88daf307a696f76">bl::resource::bundle::Manifest::registerFileBundle</a></div><div class="ttdeci">void registerFileBundle(const std::string &amp;path, const std::string &amp;bundleFile)</div><div class="ttdoc">Registers the given path as being part of the given bundle.</div><div class="ttdef"><b>Definition:</b> <a href="a01946_source.html#l00025">Manifest.cpp:25</a></div></div>
-<div class="ttc" id="aa04013_html_aee7a024f8a9c42b55fff3bb8e698067f"><div class="ttname"><a href="a04013.html#aee7a024f8a9c42b55fff3bb8e698067f">bl::resource::bundle::Manifest::containsFile</a></div><div class="ttdeci">bool containsFile(const std::string &amp;path) const</div><div class="ttdoc">Returns whether or not the given path is in the manifest.</div><div class="ttdef"><b>Definition:</b> <a href="a01946_source.html#l00020">Manifest.cpp:20</a></div></div>
-<div class="ttc" id="aa04013_html_af27678f22aee47b1600fa2b0297301ca"><div class="ttname"><a href="a04013.html#af27678f22aee47b1600fa2b0297301ca">bl::resource::bundle::Manifest::Manifest</a></div><div class="ttdeci">Manifest(const std::string &amp;bundleDirectory)</div><div class="ttdoc">Creates an empty manifest for the given bundle directory. Call load() to load existing manifests.</div><div class="ttdef"><b>Definition:</b> <a href="a01946_source.html#l00011">Manifest.cpp:11</a></div></div>
-<div class="ttc" id="aa04017_html_a1297a1006c3f914cb86ef5b3d28b6c7c"><div class="ttname"><a href="a04017.html#a1297a1006c3f914cb86ef5b3d28b6c7c">bl::serial::SerializableObject&lt; resource::bundle::Manifest &gt;::manifest</a></div><div class="ttdeci">SerializableField&lt; 1, T, std::unordered_map&lt; std::string, std::string &gt; &gt; manifest</div><div class="ttdef"><b>Definition:</b> <a href="a01052_source.html#l00084">Manifest.hpp:84</a></div></div>
-<div class="ttc" id="aa04017_html_a202e72c00cf34df2d0efb295877963f8"><div class="ttname"><a href="a04017.html#a202e72c00cf34df2d0efb295877963f8">bl::serial::SerializableObject&lt; resource::bundle::Manifest &gt;::SerializableObject</a></div><div class="ttdeci">SerializableObject()</div><div class="ttdef"><b>Definition:</b> <a href="a01052_source.html#l00086">Manifest.hpp:86</a></div></div>
-<div class="ttc" id="aa04397_html"><div class="ttname"><a href="a04397.html">bl::serial::SerializableFieldBase</a></div><div class="ttdoc">Base class for SerializableField objects. Not to be used directly.</div><div class="ttdef"><b>Definition:</b> <a href="a01154_source.html#l00040">SerializableField.hpp:40</a></div></div>
-<div class="ttc" id="aa04409_html"><div class="ttname"><a href="a04409.html">bl::serial::SerializableField</a></div><div class="ttdoc">Represents a field in a class that can be serialized. Serializable objects should inherit from Serial...</div><div class="ttdef"><b>Definition:</b> <a href="a01154_source.html#l00203">SerializableField.hpp:203</a></div></div>
-<div class="ttc" id="aa04425_html"><div class="ttname"><a href="a04425.html">bl::serial::SerializableObjectBase</a></div><div class="ttdoc">Base class for all serializable objects.</div><div class="ttdef"><b>Definition:</b> <a href="a01157_source.html#l00021">SerializableObject.hpp:21</a></div></div>
-<div class="ttc" id="aa04429_html"><div class="ttname"><a href="a04429.html">bl::serial::SerializableObject</a></div><div class="ttdoc">Base class for user defined classes meant to be serialized to and from JSON. Data members of serializ...</div><div class="ttdef"><b>Definition:</b> <a href="a01157_source.html#l00144">SerializableObject.hpp:144</a></div></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;} <span class="comment">// namespace tfr</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01010_html"><div class="ttname"><a href="a01010.html">TextureRef.hpp</a></div></div>
+<div class="ttc" id="aa01049_html"><div class="ttname"><a href="a01049.html">TextureExport.hpp</a></div></div>
+<div class="ttc" id="aa02284_html"><div class="ttname"><a href="a02284.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04024_html"><div class="ttname"><a href="a04024.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition:</b> <a href="a06283_source.html#l00042">Renderer.hpp:42</a></div></div>
+<div class="ttc" id="aa04084_html"><div class="ttname"><a href="a04084.html">bl::rc::res::TextureRef</a></div><div class="ttdoc">Lightweight reference to a texture inside of a TexturePool. Once all references to a texture are dest...</div><div class="ttdef"><b>Definition:</b> <a href="a01010_source.html#l00027">TextureRef.hpp:27</a></div></div>
+<div class="ttc" id="aa04176_html"><div class="ttname"><a href="a04176.html">bl::rc::tfr::TextureExport</a></div><div class="ttdoc">An instance of a texture export command. Use TextureExporter to get this.</div><div class="ttdef"><b>Definition:</b> <a href="a01049_source.html#l00029">TextureExport.hpp:29</a></div></div>
+<div class="ttc" id="aa04180_html"><div class="ttname"><a href="a04180.html">bl::rc::tfr::TextureExporter</a></div><div class="ttdoc">Export manager that handles copying device local images to host visible buffers.</div><div class="ttdef"><b>Definition:</b> <a href="a01052_source.html#l00022">TextureExporter.hpp:22</a></div></div>
+<div class="ttc" id="aa04180_html_a605328d7e7a7f724ca73bd9028353a7d"><div class="ttname"><a href="a04180.html#a605328d7e7a7f724ca73bd9028353a7d">bl::rc::tfr::TextureExporter::exportTexture</a></div><div class="ttdeci">TextureExport * exportTexture(const res::TextureRef &amp;texture)</div><div class="ttdoc">Queues a transfer of a texture for the end of the current frame.</div><div class="ttdef"><b>Definition:</b> <a href="a02009_source.html#l00072">TextureExporter.cpp:72</a></div></div>
+<div class="ttc" id="aa04180_html_ac9c08543164c70a29a6515002be1d014"><div class="ttname"><a href="a04180.html#ac9c08543164c70a29a6515002be1d014">bl::rc::tfr::TextureExporter::exportSwapImage</a></div><div class="ttdeci">TextureExport * exportSwapImage()</div><div class="ttdoc">Queues a transfer of the swap frame output for the end of the current frame.</div><div class="ttdef"><b>Definition:</b> <a href="a02009_source.html#l00057">TextureExporter.cpp:57</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 2 2023 04:00:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 18 2024 18:32:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

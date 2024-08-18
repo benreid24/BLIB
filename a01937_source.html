@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Resources/Bundling/FileHandlers/AnimationHandler.cpp Source File</title>
+<title>BLIB: src/Render/Observer.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,57 +66,158 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_7a475d59e09b1ce69b1dfbc6b0817add.html">Resources</a></li><li class="navelem"><a class="el" href="dir_650c2bb72fa499737589ce0469633186.html">Bundling</a></li><li class="navelem"><a class="el" href="dir_aa9914aaa11d841a9b5a3bf23363db45.html">FileHandlers</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">AnimationHandler.cpp</div>  </div>
+<div class="title">Observer.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01937.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00281.html">BLIB/Graphics/Animation2D/AnimationData.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01043.html">BLIB/Resources/Bundling/FileHandlers/AnimationHandler.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02100.html">bl</a></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;{</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>resource</div>
+<a href="a01937.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00956.html">BLIB/Render/Observer.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00896.html">BLIB/Render/Graph/Assets/FinalSwapframeAsset.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06283.html">BLIB/Render/Renderer.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02284.html">bl</a></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>bundle</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>rc</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="a04001.html#adf22a2d2b974daba7cf8ec92a0bdcf89">   10</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a04001.html#adf22a2d2b974daba7cf8ec92a0bdcf89">AnimationHandler::processFile</a>(<span class="keyword">const</span> std::string&amp; path, std::ostream&amp; output,</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;                                   <a class="code" href="a03997.html">FileHandlerContext</a>&amp; ctx) {</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <a class="code" href="a02733.html">gfx::a2d::AnimationData</a> anim;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keywordflow">if</span> (!anim.<a class="code" href="a02733.html#a649a534c5017ee0df847c56712b43ff4">loadFromFileForBundling</a>(path)) {</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        <a class="code" href="a00635.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Failed to load animation: &quot;</span> &lt;&lt; path;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    }</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordflow">if</span> (!anim.<a class="code" href="a02733.html#a7aef7ec2981c8f70da4ad9dd2686c836">saveToBundle</a>(output)) {</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        <a class="code" href="a00635.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Failed to save animation: &quot;</span> &lt;&lt; path;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    }</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    ctx.<a class="code" href="a03997.html#a117fbcb7e5871373ebb7270b39b20721">addDependencyFile</a>(anim.<a class="code" href="a02733.html#a607d12f4ec60fe3da673878856f380ff">spritesheetFile</a>());</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;}</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;} <span class="comment">// namespace bundle</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;} <span class="comment">// namespace resource</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00281_html"><div class="ttname"><a href="a00281.html">AnimationData.hpp</a></div></div>
-<div class="ttc" id="aa00635_html_a927270d671e83a1c6b5382f30bfbf895"><div class="ttname"><a href="a00635.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a></div><div class="ttdeci">#define BL_LOG_ERROR</div><div class="ttdoc">Helper macro to log at error level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00635_source.html#l00101">Logger.hpp:101</a></div></div>
-<div class="ttc" id="aa01043_html"><div class="ttname"><a href="a01043.html">AnimationHandler.hpp</a></div></div>
-<div class="ttc" id="aa02100_html"><div class="ttname"><a href="a02100.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02733_html"><div class="ttname"><a href="a02733.html">bl::gfx::a2d::AnimationData</a></div><div class="ttdoc">Data class for 2d animations. Provides the backing for slideshows and skeletal animations....</div><div class="ttdef"><b>Definition:</b> <a href="a00281_source.html#l00022">AnimationData.hpp:22</a></div></div>
-<div class="ttc" id="aa02733_html_a607d12f4ec60fe3da673878856f380ff"><div class="ttname"><a href="a02733.html#a607d12f4ec60fe3da673878856f380ff">bl::gfx::a2d::AnimationData::spritesheetFile</a></div><div class="ttdeci">const std::string &amp; spritesheetFile() const</div><div class="ttdoc">Returns the filename of the spritesheet.</div><div class="ttdef"><b>Definition:</b> <a href="a01373_source.html#l00222">AnimationData.cpp:222</a></div></div>
-<div class="ttc" id="aa02733_html_a649a534c5017ee0df847c56712b43ff4"><div class="ttname"><a href="a02733.html#a649a534c5017ee0df847c56712b43ff4">bl::gfx::a2d::AnimationData::loadFromFileForBundling</a></div><div class="ttdeci">bool loadFromFileForBundling(const std::string &amp;filename)</div><div class="ttdoc">Same as loadFromFile, but rewrites the spritesheet source to be the full path to the spritesheet so t...</div><div class="ttdef"><b>Definition:</b> <a href="a01373_source.html#l00079">AnimationData.cpp:79</a></div></div>
-<div class="ttc" id="aa02733_html_a7aef7ec2981c8f70da4ad9dd2686c836"><div class="ttname"><a href="a02733.html#a7aef7ec2981c8f70da4ad9dd2686c836">bl::gfx::a2d::AnimationData::saveToBundle</a></div><div class="ttdeci">bool saveToBundle(std::ostream &amp;output) const</div><div class="ttdoc">Saves the animation data to the bundle.</div><div class="ttdef"><b>Definition:</b> <a href="a01373_source.html#l00084">AnimationData.cpp:84</a></div></div>
-<div class="ttc" id="aa03997_html"><div class="ttname"><a href="a03997.html">bl::resource::bundle::FileHandlerContext</a></div><div class="ttdoc">Context data that is provided to FileHandler objects when processing files.</div><div class="ttdef"><b>Definition:</b> <a href="a01040_source.html#l00023">FileHandlerContext.hpp:23</a></div></div>
-<div class="ttc" id="aa03997_html_a117fbcb7e5871373ebb7270b39b20721"><div class="ttname"><a href="a03997.html#a117fbcb7e5871373ebb7270b39b20721">bl::resource::bundle::FileHandlerContext::addDependencyFile</a></div><div class="ttdeci">void addDependencyFile(const std::string &amp;path)</div><div class="ttdoc">Adds a file to be bundled with the current file being processed. Call this for dependency files (ie s...</div><div class="ttdef"><b>Definition:</b> <a href="a01934_source.html#l00014">FileHandlerContext.cpp:14</a></div></div>
-<div class="ttc" id="aa04001_html_adf22a2d2b974daba7cf8ec92a0bdcf89"><div class="ttname"><a href="a04001.html#adf22a2d2b974daba7cf8ec92a0bdcf89">bl::resource::bundle::AnimationHandler::processFile</a></div><div class="ttdeci">virtual bool processFile(const std::string &amp;path, std::ostream &amp;output, FileHandlerContext &amp;context) override</div><div class="ttdoc">Process the given file and add its data to the bundle.</div><div class="ttdef"><b>Definition:</b> <a href="a01937_source.html#l00010">AnimationHandler.cpp:10</a></div></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;Observer::Observer(engine::Engine&amp; e, Renderer&amp; r, rg::AssetFactory&amp; f, <span class="keywordtype">bool</span> c, <span class="keywordtype">bool</span> v)</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;: RenderTarget(e, r, f, false)</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;, isCommon(c)</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;, isVirtual(v) {</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    graphAssets.putAsset&lt;rgi::FinalSwapframeAsset&gt;(</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        renderer.getSwapframeBuffers(), viewport, scissor, clearColors, std::size(clearColors));</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;}</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keywordtype">void</span> Observer::assignRegion(<span class="keyword">const</span> sf::Vector2u&amp; windowSize,</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;                            <span class="keyword">const</span> sf::Rect&lt;std::uint32_t&gt;&amp; renderRegion, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> count,</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;                            <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i, <span class="keywordtype">bool</span> topBottomFirst) {</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keyword">const</span> std::uint32_t offsetX = (windowSize.x - renderRegion.width) / 2;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keyword">const</span> std::uint32_t offsetY = (windowSize.y - renderRegion.height) / 2;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keyword">const</span> sf::Vector2u uSize(renderRegion.getSize());</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keyword">const</span> sf::Vector2f fSize(uSize);</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keyword">const</span> sf::Vector2f fHalf(fSize * 0.5f);</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">const</span> sf::Vector2u uHalf(fHalf);</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keyword">const</span> sf::Vector2i iHalf(uHalf);</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keyword">const</span> VkExtent2D oldSize = scissor.extent;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordflow">switch</span> (count) {</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordflow">case</span> 1:</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        scissor.offset  = {0, 0};</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        scissor.extent  = {uSize.x, uSize.y};</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        viewport.x      = 0.f;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        viewport.y      = 0.f;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        viewport.width  = fSize.x;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        viewport.height = fSize.y;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordflow">case</span> 2:</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keywordflow">if</span> (topBottomFirst) {</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            scissor.extent  = {uSize.x, uHalf.y};</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            viewport.width  = fSize.x;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;            viewport.height = fHalf.y;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;            viewport.x      = 0.f;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;            <span class="keywordflow">if</span> (i == 0) {</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;                scissor.offset = {0, 0};</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;                viewport.y     = 0.f;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            }</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;                scissor.offset = {0, iHalf.y};</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                viewport.y     = fHalf.y;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            }</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        }</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;            scissor.extent  = {uHalf.x, uSize.y};</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            viewport.width  = fHalf.x;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            viewport.height = fSize.y;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            viewport.y      = 0.f;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            <span class="keywordflow">if</span> (i == 0) {</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;                scissor.offset = {0, 0};</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                viewport.x     = 0.f;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            }</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                scissor.offset = {iHalf.x, 0};</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                viewport.x     = fHalf.x;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;            }</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        }</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordflow">case</span> 3:</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordflow">case</span> 4:</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        scissor.extent  = {uHalf.x, uHalf.y};</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        viewport.width  = fHalf.x;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        viewport.height = fHalf.y;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <span class="comment">// top or bottom row</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <span class="keywordflow">if</span> (i &lt; 2) { <span class="comment">// top row</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;            viewport.y       = 0.f;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;            scissor.offset.y = 0;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        }</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        <span class="keywordflow">else</span> { <span class="comment">// bottom row</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;            viewport.y       = fHalf.y;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;            scissor.offset.y = uHalf.y;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        }</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        <span class="comment">// left or right column</span></div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        <span class="keywordflow">if</span> (i % 2 == 0) { <span class="comment">// left column</span></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;            viewport.x       = 0.f;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;            scissor.offset.x = 0;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        }</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <span class="keywordflow">else</span> { <span class="comment">// right column</span></div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;            viewport.x       = fHalf.x;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;            scissor.offset.x = uHalf.x;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        }</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keywordflow">default</span>:</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        <a class="code" href="a00653.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Invalid observer count: &quot;</span> &lt;&lt; count;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    }</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="comment">// add offsets for letterboxing</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    viewport.x += offsetX;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    viewport.y += offsetY;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    scissor.offset.x += offsetX;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    scissor.offset.y += offsetY;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keywordflow">if</span> (scissor.extent.width != oldSize.width || scissor.extent.height != oldSize.height) {</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        <a class="code" href="a01145.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a>(vkDeviceWaitIdle(renderer.vulkanState().device));</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        graphAssets.notifyResize({scissor.extent.width, scissor.extent.height});</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    }</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;}</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
+<div class="line"><a name="l00115"></a><span class="lineno"><a class="line" href="a03996.html#abbbfc65202bc680194e8c3746fe4a3bc">  115</a></span>&#160;<span class="keywordtype">void</span> Observer::assignRegion(<span class="keyword">const</span> VkRect2D&amp; region) {</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <span class="keywordflow">if</span> (!isVirtual) {</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Only virtual Observers may have manually assigned regions&quot;</span>);</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    }</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    scissor           = region;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    viewport.x        = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(region.offset.x);</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    viewport.y        = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(region.offset.y);</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    viewport.width    = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(region.extent.width);</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    viewport.height   = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(region.extent.height);</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    viewport.minDepth = 0.f;</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    viewport.maxDepth = 1.f;</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <a class="code" href="a01145.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a>(vkDeviceWaitIdle(renderer.vulkanState().device));</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    graphAssets.notifyResize({scissor.extent.width, scissor.extent.height});</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;}</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160; </div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00653_html_a927270d671e83a1c6b5382f30bfbf895"><div class="ttname"><a href="a00653.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a></div><div class="ttdeci">#define BL_LOG_ERROR</div><div class="ttdoc">Helper macro to log at error level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00653_source.html#l00101">Logger.hpp:101</a></div></div>
+<div class="ttc" id="aa00896_html"><div class="ttname"><a href="a00896.html">FinalSwapframeAsset.hpp</a></div></div>
+<div class="ttc" id="aa00956_html"><div class="ttname"><a href="a00956.html">Observer.hpp</a></div></div>
+<div class="ttc" id="aa01145_html_a95c2f7535355f5f3855410ab629f9310"><div class="ttname"><a href="a01145.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a></div><div class="ttdeci">#define vkCheck(expr)</div><div class="ttdef"><b>Definition:</b> <a href="a01145_source.html#l00015">VkCheck.hpp:15</a></div></div>
+<div class="ttc" id="aa02284_html"><div class="ttname"><a href="a02284.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa06283_html"><div class="ttname"><a href="a06283.html">Renderer.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 2 2023 04:00:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 18 2024 18:32:56 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

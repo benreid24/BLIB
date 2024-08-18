@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Interfaces.hpp Source File</title>
+<title>BLIB: include/BLIB/Interfaces/Menu.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,30 +66,52 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4a89db2e42278000e6aac6ace9db278e.html">Interfaces</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Interfaces.hpp</div>  </div>
+<div class="title">Menu.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00629.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_INTERFACES_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_INTERFACES_HPP</span></div>
+<a href="a00629.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_INTERFACES_MENU_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_INTERFACES_MENU_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00464.html">BLIB/Interfaces/GUI.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00611.html">BLIB/Interfaces/Menu.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00626.html">BLIB/Interfaces/Utilities.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00464_html"><div class="ttname"><a href="a00464.html">GUI.hpp</a></div></div>
-<div class="ttc" id="aa00611_html"><div class="ttname"><a href="a00611.html">Menu.hpp</a></div></div>
-<div class="ttc" id="aa00626_html"><div class="ttname"><a href="a00626.html">Utilities.hpp</a></div></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00602.html">BLIB/Interfaces/Menu/Drivers/KeyboardDriver.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00605.html">BLIB/Interfaces/Menu/Drivers/MouseDriver.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00608.html">BLIB/Interfaces/Menu/Drivers/MovementDriver.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00611.html">BLIB/Interfaces/Menu/Drivers/TriggerDriver.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06271.html">BLIB/Interfaces/Menu/Event.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00614.html">BLIB/Interfaces/Menu/Item.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00617.html">BLIB/Interfaces/Menu/Items/ImageItem.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00620.html">BLIB/Interfaces/Menu/Items/SubmenuItem.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00623.html">BLIB/Interfaces/Menu/Items/TextItem.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00626.html">BLIB/Interfaces/Menu/Items/ToggleTextItem.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06292.html">BLIB/Interfaces/Menu/Menu.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00632.html">BLIB/Interfaces/Menu/Selector.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00635.html">BLIB/Interfaces/Menu/Selectors/ArrowSelector.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00638.html">BLIB/Interfaces/Menu/Selectors/NoSelector.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00602_html"><div class="ttname"><a href="a00602.html">KeyboardDriver.hpp</a></div></div>
+<div class="ttc" id="aa00605_html"><div class="ttname"><a href="a00605.html">MouseDriver.hpp</a></div></div>
+<div class="ttc" id="aa00608_html"><div class="ttname"><a href="a00608.html">MovementDriver.hpp</a></div></div>
+<div class="ttc" id="aa00611_html"><div class="ttname"><a href="a00611.html">TriggerDriver.hpp</a></div></div>
+<div class="ttc" id="aa00614_html"><div class="ttname"><a href="a00614.html">Item.hpp</a></div></div>
+<div class="ttc" id="aa00617_html"><div class="ttname"><a href="a00617.html">ImageItem.hpp</a></div></div>
+<div class="ttc" id="aa00620_html"><div class="ttname"><a href="a00620.html">SubmenuItem.hpp</a></div></div>
+<div class="ttc" id="aa00623_html"><div class="ttname"><a href="a00623.html">TextItem.hpp</a></div></div>
+<div class="ttc" id="aa00626_html"><div class="ttname"><a href="a00626.html">ToggleTextItem.hpp</a></div></div>
+<div class="ttc" id="aa00632_html"><div class="ttname"><a href="a00632.html">Selector.hpp</a></div></div>
+<div class="ttc" id="aa00635_html"><div class="ttname"><a href="a00635.html">ArrowSelector.hpp</a></div></div>
+<div class="ttc" id="aa00638_html"><div class="ttname"><a href="a00638.html">NoSelector.hpp</a></div></div>
+<div class="ttc" id="aa06271_html"><div class="ttname"><a href="a06271.html">Event.hpp</a></div></div>
+<div class="ttc" id="aa06292_html"><div class="ttname"><a href="a06292.html">Menu.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 2 2023 04:00:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 18 2024 18:32:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

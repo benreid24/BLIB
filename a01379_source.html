@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Graphics/BatchCircle.cpp Source File</title>
+<title>BLIB: include/BLIB/Util/ThreadPool.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,42 +66,83 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3419e189e460663ec2c964233bf8dcd6.html">Graphics</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4b3af2b25a05b4f12e892fbe45139fe9.html">Util</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">BatchCircle.cpp</div>  </div>
+<div class="title">ThreadPool.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01379.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00287.html">BLIB/Graphics/BatchCircle.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02100.html">bl</a></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>gfx</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="a02753.html#a608a90b671eb76d697a827b98c989926">    7</a></span>&#160;<a class="code" href="a02753.html#a608a90b671eb76d697a827b98c989926">BatchCircle::BatchCircle</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> pointCount)</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;: CircleBase(pointCount) {}</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="a02753.html#afb1bb88aa076118b195162f3fea2b141">   10</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02753.html#afb1bb88aa076118b195162f3fea2b141">BatchCircle::create</a>(<a class="code" href="a02605.html">engine::Engine</a>&amp; engine, <a class="code" href="a02757.html">BatchedShapes2D</a>&amp; owner, <span class="keywordtype">float</span> r) {</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <a class="code" href="a02833.html#ade9c3d7c900c2b150bf0812f79720a1c">setRadius</a>(r);</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    BatchShape2D::create(engine, owner);</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;}</div>
+<a href="a01379.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_UTIL_THREADPOOL_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_UTIL_THREADPOOL_HPP</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01361.html">BLIB/Util/NonCopyable.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;atomic&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;condition_variable&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;functional&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;future&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;list&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;mutex&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;queue&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;shared_mutex&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;thread&gt;</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;} <span class="comment">// namespace gfx</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00287_html"><div class="ttname"><a href="a00287.html">BatchCircle.hpp</a></div></div>
-<div class="ttc" id="aa02100_html"><div class="ttname"><a href="a02100.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02605_html"><div class="ttname"><a href="a02605.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a05713_source.html#l00032">Engine.hpp:32</a></div></div>
-<div class="ttc" id="aa02753_html_a608a90b671eb76d697a827b98c989926"><div class="ttname"><a href="a02753.html#a608a90b671eb76d697a827b98c989926">bl::gfx::BatchCircle::BatchCircle</a></div><div class="ttdeci">BatchCircle(unsigned int pointCount=300)</div><div class="ttdoc">Creates the circle with the given point count.</div><div class="ttdef"><b>Definition:</b> <a href="a01379_source.html#l00007">BatchCircle.cpp:7</a></div></div>
-<div class="ttc" id="aa02753_html_afb1bb88aa076118b195162f3fea2b141"><div class="ttname"><a href="a02753.html#afb1bb88aa076118b195162f3fea2b141">bl::gfx::BatchCircle::create</a></div><div class="ttdeci">void create(engine::Engine &amp;engine, BatchedShapes2D &amp;owner, float radius)</div><div class="ttdoc">Creates the circle entity and components.</div><div class="ttdef"><b>Definition:</b> <a href="a01379_source.html#l00010">BatchCircle.cpp:10</a></div></div>
-<div class="ttc" id="aa02757_html"><div class="ttname"><a href="a02757.html">bl::gfx::BatchedShapes2D</a></div><div class="ttdoc">Drawable for a collection of batched 2d shapes. Create one of these and use with multiple BatchedCirc...</div><div class="ttdef"><b>Definition:</b> <a href="a05650_source.html#l00020">BatchedShapes2D.hpp:22</a></div></div>
-<div class="ttc" id="aa02833_html_ade9c3d7c900c2b150bf0812f79720a1c"><div class="ttname"><a href="a02833.html#ade9c3d7c900c2b150bf0812f79720a1c">bl::gfx::s2d::CircleBase&lt; s2d::BatchShape2D &gt;::setRadius</a></div><div class="ttdeci">void setRadius(float radius)</div><div class="ttdoc">Sets the circles radius.</div><div class="ttdef"><b>Definition:</b> <a href="a00332_source.html#l00038">CircleBase.hpp:90</a></div></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02284.html">bl</a></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">namespace </span>util</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;{</div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a05060.html">   24</a></span>&#160;<span class="keyword">class </span><a class="code" href="a05060.html">ThreadPool</a> : <span class="keyword">private</span> <a class="code" href="a04992.html">NonCopyable</a> {</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="a05060.html#a1da062602c1bbf14d5d17ce12e777697">   27</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a05060.html#a1da062602c1bbf14d5d17ce12e777697">Task</a> = std::function&lt;void()&gt;;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <a class="code" href="a05060.html#a460d8cce09b5e1c14157d395457e3bfd">ThreadPool</a>();</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <a class="code" href="a05060.html#af14005becc6ac6d61be21015e323968c">~ThreadPool</a>();</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a05060.html#a267094fe3aa471ed368b229e7ace11e8">start</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> workerCount = 0);</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a05060.html#ad9a5691b5c3c8a79d4d635a528702cca">running</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a05060.html#a38acd300a96f722e47c9f6214bfa759f">drain</a>();</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a05060.html#a5422d1988e881339da8cecd35049d352">shutdown</a>();</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    std::future&lt;void&gt; <a class="code" href="a05060.html#a2093b8daf49ca46987c69b69c1a10e59">queueTask</a>(<a class="code" href="a05060.html#a1da062602c1bbf14d5d17ce12e777697">Task</a>&amp;&amp; task);</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    std::atomic_bool shuttingDown;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    std::list&lt;std::thread&gt; workers;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    std::queue&lt;std::packaged_task&lt;void()&gt;&gt; tasks;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    std::atomic_uint32_t inFlightCount;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    std::mutex taskMutex;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    std::condition_variable taskQueuedCv;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    std::condition_variable_any taskDoneCv;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordtype">void</span> worker();</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;};</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;} <span class="comment">// namespace util</span></div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01361_html"><div class="ttname"><a href="a01361.html">NonCopyable.hpp</a></div></div>
+<div class="ttc" id="aa02284_html"><div class="ttname"><a href="a02284.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04992_html"><div class="ttname"><a href="a04992.html">bl::util::NonCopyable</a></div><div class="ttdoc">Helper class to make derived classes impossible for user to copy directly.</div><div class="ttdef"><b>Definition:</b> <a href="a01361_source.html#l00013">NonCopyable.hpp:13</a></div></div>
+<div class="ttc" id="aa05060_html"><div class="ttname"><a href="a05060.html">bl::util::ThreadPool</a></div><div class="ttdoc">Provides a thread pool with variable concurrency and support for draining.</div><div class="ttdef"><b>Definition:</b> <a href="a01379_source.html#l00024">ThreadPool.hpp:24</a></div></div>
+<div class="ttc" id="aa05060_html_a1da062602c1bbf14d5d17ce12e777697"><div class="ttname"><a href="a05060.html#a1da062602c1bbf14d5d17ce12e777697">bl::util::ThreadPool::Task</a></div><div class="ttdeci">std::function&lt; void()&gt; Task</div><div class="ttdoc">Callback signature of tasks to be submitted.</div><div class="ttdef"><b>Definition:</b> <a href="a01379_source.html#l00027">ThreadPool.hpp:27</a></div></div>
+<div class="ttc" id="aa05060_html_a2093b8daf49ca46987c69b69c1a10e59"><div class="ttname"><a href="a05060.html#a2093b8daf49ca46987c69b69c1a10e59">bl::util::ThreadPool::queueTask</a></div><div class="ttdeci">std::future&lt; void &gt; queueTask(Task &amp;&amp;task)</div><div class="ttdoc">Queues a task to be executed by a worker. Returns an invalid future if the pool is not accepting task...</div><div class="ttdef"><b>Definition:</b> <a href="a02246_source.html#l00063">ThreadPool.cpp:63</a></div></div>
+<div class="ttc" id="aa05060_html_a267094fe3aa471ed368b229e7ace11e8"><div class="ttname"><a href="a05060.html#a267094fe3aa471ed368b229e7ace11e8">bl::util::ThreadPool::start</a></div><div class="ttdeci">bool start(unsigned int workerCount=0)</div><div class="ttdoc">Starts the thread pool with the given concurrency. If the workerCount is 0 then std::thread::hardware...</div><div class="ttdef"><b>Definition:</b> <a href="a02246_source.html#l00016">ThreadPool.cpp:16</a></div></div>
+<div class="ttc" id="aa05060_html_a38acd300a96f722e47c9f6214bfa759f"><div class="ttname"><a href="a05060.html#a38acd300a96f722e47c9f6214bfa759f">bl::util::ThreadPool::drain</a></div><div class="ttdeci">void drain()</div><div class="ttdoc">Blocks until the task queue is empty and all workers are idle. If more tasks are submitted during thi...</div><div class="ttdef"><b>Definition:</b> <a href="a02246_source.html#l00031">ThreadPool.cpp:31</a></div></div>
+<div class="ttc" id="aa05060_html_a460d8cce09b5e1c14157d395457e3bfd"><div class="ttname"><a href="a05060.html#a460d8cce09b5e1c14157d395457e3bfd">bl::util::ThreadPool::ThreadPool</a></div><div class="ttdeci">ThreadPool()</div><div class="ttdoc">Initializes the thread pool. Does not start it.</div><div class="ttdef"><b>Definition:</b> <a href="a02246_source.html#l00010">ThreadPool.cpp:10</a></div></div>
+<div class="ttc" id="aa05060_html_a5422d1988e881339da8cecd35049d352"><div class="ttname"><a href="a05060.html#a5422d1988e881339da8cecd35049d352">bl::util::ThreadPool::shutdown</a></div><div class="ttdeci">void shutdown()</div><div class="ttdoc">Prevents new tasks from being submitted, drains the queue, and stops all workers.</div><div class="ttdef"><b>Definition:</b> <a href="a02246_source.html#l00037">ThreadPool.cpp:37</a></div></div>
+<div class="ttc" id="aa05060_html_ad9a5691b5c3c8a79d4d635a528702cca"><div class="ttname"><a href="a05060.html#ad9a5691b5c3c8a79d4d635a528702cca">bl::util::ThreadPool::running</a></div><div class="ttdeci">bool running() const</div><div class="ttdoc">Returns whether or not the pool is running.</div><div class="ttdef"><b>Definition:</b> <a href="a02246_source.html#l00029">ThreadPool.cpp:29</a></div></div>
+<div class="ttc" id="aa05060_html_af14005becc6ac6d61be21015e323968c"><div class="ttname"><a href="a05060.html#af14005becc6ac6d61be21015e323968c">bl::util::ThreadPool::~ThreadPool</a></div><div class="ttdeci">~ThreadPool()</div><div class="ttdoc">Terminates the pool.</div><div class="ttdef"><b>Definition:</b> <a href="a02246_source.html#l00014">ThreadPool.cpp:14</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 2 2023 04:00:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 18 2024 18:32:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

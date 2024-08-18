@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Binary</title>
+<title>BLIB: src/Resources/Bundler.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -50,7 +50,6 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
-</div><!-- top -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -65,42 +64,53 @@ $(function() {
 </iframe>
 </div>
 
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_7a475d59e09b1ce69b1dfbc6b0817add.html">Resources</a></li>  </ul>
+</div>
+</div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">Binary<div class="ingroups"><a class="el" href="a02090.html">Serialization</a></div></div>  </div>
+<div class="title">Bundler.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-
-<p>Collection of classes and utilities for serializing data to a binary format.  
-<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;<a class="el" href="a01154_source.html">BLIB/Resources/Bundler.hpp</a>&gt;</code><br />
+<code>#include &quot;<a class="el" href="a02126_source.html">Bundling/Utils.hpp</a>&quot;</code><br />
+<code>#include &lt;<a class="el" href="a00659_source.html">BLIB/Logging.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01163_source.html">BLIB/Resources/Bundling/BundleMetadata.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01187_source.html">BLIB/Resources/Bundling/Manifest.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01340_source.html">BLIB/Util/FileUtil.hpp</a>&gt;</code><br />
+<code>#include &lt;sstream&gt;</code><br />
+</div>
+<p><a href="a02099_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04141.html">bl::serial::binary::InputFile</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience wrapper around ifstream, <a class="el" href="a04277.html" title="Input buffer that operates on C++ streams.">StreamInputBuffer</a>, and BinaryInputStream.  <a href="a04141.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05144.html">bl::resource::bundle::Stats</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04145.html">bl::serial::binary::InputStream</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A readable stream for binary deserialization.  <a href="a04145.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05148.html">bl::resource::bundle::BundleCreator</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04149.html">bl::serial::binary::OutputFile</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper wrapper class that encapsulates a file, a buffer, and a stream.  <a href="a04149.html#details">More...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:a02284"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02284.html">bl</a></td></tr>
+<tr class="memdesc:a02284"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04153.html">bl::serial::binary::OutputStream</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A writable stream for binary serialization.  <a href="a04153.html#details">More...</a><br /></td></tr>
+<tr class="memitem:a02341"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02341.html">bl::resource</a></td></tr>
+<tr class="memdesc:a02341"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes for resource management and flyweight pattern. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04157.html">bl::serial::binary::Serializer&lt; T, bool &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper struct for serializing types into binary streams. Integral types, strings, vector, and SerializableObjects are supported out of the box. Specializations may be provided for user defined types.  <a href="a04157.html#details">More...</a><br /></td></tr>
+<tr class="memitem:a02342"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02342.html">bl::resource::bundle</a></td></tr>
+<tr class="memdesc:a02342"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a04496.html" title="Internal struct used by ResourceManager. Use Ref externally.">Resource</a> bundling utility for combining external files into bundles. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<p>Collection of classes and utilities for serializing data to a binary format. </p>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 2 2023 04:00:56 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 18 2024 18:32:56 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

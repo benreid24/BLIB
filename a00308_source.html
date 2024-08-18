@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Graphics/Components/EntityBacked.hpp Source File</title>
+<title>BLIB: include/BLIB/Graphics/BatchSlideshow.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,91 +66,107 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_8af985930208ac2752e8061e22535a56.html">Graphics</a></li><li class="navelem"><a class="el" href="dir_58ecc6b00f968b16d73d81661642db7f.html">Components</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_8af985930208ac2752e8061e22535a56.html">Graphics</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">EntityBacked.hpp</div>  </div>
+<div class="title">BatchSlideshow.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00308.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_GRAPHICS_COMPONENTS_ENTITYBACKED_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_GRAPHICS_COMPONENTS_ENTITYBACKED_HPP</span></div>
+<a href="a00308.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_GRAPHICS_BATCHSLIDESHOW_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_GRAPHICS_BATCHSLIDESHOW_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00209.html">BLIB/ECS.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02100.html">bl</a></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>gfx</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>bcom</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a02797.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02797.html">EntityBacked</a> {</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <a class="code" href="a02797.html#a9566a1d13535e046a136af6130190c2a">EntityBacked</a>();</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="a02797.html#a6d5048f9b4e285abf8ee3891b71eae49">   27</a></span>&#160;    <a class="code" href="a02797.html#a6d5048f9b4e285abf8ee3891b71eae49">EntityBacked</a>(<span class="keyword">const</span> <a class="code" href="a02797.html">EntityBacked</a>&amp;) = <span class="keyword">delete</span>;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <a class="code" href="a02797.html#a9566a1d13535e046a136af6130190c2a">EntityBacked</a>(<a class="code" href="a02797.html">EntityBacked</a>&amp;&amp; move);</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <a class="code" href="a02797.html#a0df8e64fac4a31d5bf97afbc53def227">~EntityBacked</a>();</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="a02797.html#a7c795c508e4f747ada2fb3039703052a">   44</a></span>&#160;    <a class="code" href="a02797.html">EntityBacked</a>&amp; <a class="code" href="a02797.html#a7c795c508e4f747ada2fb3039703052a">operator=</a>(<span class="keyword">const</span> <a class="code" href="a02797.html">EntityBacked</a>&amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06154.html">BLIB/Components/Animation2DPlayer.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06169.html">BLIB/Graphics/BatchedSlideshows.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02284.html">bl</a></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>gfx</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a02984.html">   16</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02984.html">BatchSlideshow</a> {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <a class="code" href="a02984.html#ad9dce7927f1a788ebc963dc940f916f0">BatchSlideshow</a>();</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <a class="code" href="a02984.html#ad9dce7927f1a788ebc963dc940f916f0">BatchSlideshow</a>(<a class="code" href="a02812.html">engine::Engine</a>&amp; engine, <a class="code" href="a02968.html">BatchedSlideshows</a>&amp; batch, <a class="code" href="a02712.html">ecs::Entity</a> playerEntity);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <a class="code" href="a02984.html#adcb75203d56bbf56cb1c6d134c8cd320">~BatchSlideshow</a>();</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02984.html#ae992c65cfa1958723b3dfd26d8f836c7">create</a>(<a class="code" href="a02812.html">engine::Engine</a>&amp; engine, <a class="code" href="a02968.html">BatchedSlideshows</a>&amp; batch, <a class="code" href="a02712.html">ecs::Entity</a> playerEntity);</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <a class="code" href="a02797.html">EntityBacked</a>&amp; <a class="code" href="a02797.html#a7c795c508e4f747ada2fb3039703052a">operator=</a>(<a class="code" href="a02797.html">EntityBacked</a>&amp;&amp; move);</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <a class="code" href="a02509.html">ecs::Entity</a> <a class="code" href="a02797.html#aa90fee361f18950be56cfd0ac772c4f5">entity</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02797.html#afb024b8d466cfc183930fa86f31193ce">destroy</a>();</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02797.html#a5e99eabbaad7060b102626dd892a06f9">setParent</a>(<span class="keyword">const</span> <a class="code" href="a02797.html">EntityBacked</a>&amp; parent);</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02984.html#a960ce6a418e1f58c84af8bc0fcadb82f">setPlayer</a>(<a class="code" href="a02712.html">ecs::Entity</a> playerEntity);</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <a class="code" href="a02488.html">com::Animation2DPlayer</a>&amp; <a class="code" href="a02984.html#a374b834c28e1f329f4d6d3cf3b00d99b">getPlayer</a>();</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02984.html#a22d3609b35aae6396d278bb17a8ef2c9">scaleToSize</a>(<span class="keyword">const</span> glm::vec2&amp; size);</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="a02984.html#a8c8aa9104c714478166c18d90c217212">   69</a></span>&#160;    <span class="keyword">const</span> <a class="code" href="a02560.html">com::Transform2D</a>&amp; <a class="code" href="a02984.html#a8c8aa9104c714478166c18d90c217212">getLocalTransform</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> transform; }</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02797.html#a5e99eabbaad7060b102626dd892a06f9">setParent</a>(<a class="code" href="a02509.html">ecs::Entity</a> parent);</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02797.html#afc80cad522ec9ce62caea44248aea0d0">removeParent</a>();</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02797.html#ab015519cc2bcb2879cd499a56573d27a">createEntityOnly</a>(<a class="code" href="a02605.html">engine::Engine</a>&amp; <a class="code" href="a02797.html#aa120ac89c9e8e4a405404e5e66245458">engine</a>, <a class="code" href="a02077.html#gad22c7b1807fcff9c01b2082084716652">ecs::Flags</a> flags = <a class="code" href="a02077.html#ggad22c7b1807fcff9c01b2082084716652a6adf97f83acf6453d4a6a4b1070f3754">ecs::Flags::None</a>);</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <a class="code" href="a02605.html">engine::Engine</a>&amp; <a class="code" href="a02797.html#aa120ac89c9e8e4a405404e5e66245458">engine</a>();</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <a class="code" href="a02605.html">engine::Engine</a>* enginePtr;</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <a class="code" href="a02509.html">ecs::Entity</a> ecsId;</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;};</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
-<div class="line"><a name="l00104"></a><span class="lineno"><a class="line" href="a02797.html#aa90fee361f18950be56cfd0ac772c4f5">  104</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="a02509.html">ecs::Entity</a> <a class="code" href="a02797.html#aa90fee361f18950be56cfd0ac772c4f5">EntityBacked::entity</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> ecsId; }</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
-<div class="line"><a name="l00106"></a><span class="lineno"><a class="line" href="a02797.html#aa120ac89c9e8e4a405404e5e66245458">  106</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="a02605.html">engine::Engine</a>&amp; <a class="code" href="a02797.html#aa120ac89c9e8e4a405404e5e66245458">EntityBacked::engine</a>() { <span class="keywordflow">return</span> *enginePtr; }</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;} <span class="comment">// namespace bcom</span></div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;} <span class="comment">// namespace gfx</span></div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00209_html"><div class="ttname"><a href="a00209.html">ECS.hpp</a></div></div>
-<div class="ttc" id="aa02077_html_gad22c7b1807fcff9c01b2082084716652"><div class="ttname"><a href="a02077.html#gad22c7b1807fcff9c01b2082084716652">bl::ecs::Flags</a></div><div class="ttdeci">Flags</div><div class="ttdoc">Collection of flags that may be set on an entity when created.</div><div class="ttdef"><b>Definition:</b> <a href="a05707_source.html#l00015">Flags.hpp:15</a></div></div>
-<div class="ttc" id="aa02077_html_ggad22c7b1807fcff9c01b2082084716652a6adf97f83acf6453d4a6a4b1070f3754"><div class="ttname"><a href="a02077.html#ggad22c7b1807fcff9c01b2082084716652a6adf97f83acf6453d4a6a4b1070f3754">bl::ecs::Flags::None</a></div><div class="ttdeci">@ None</div><div class="ttdoc">The entity has no special flags.</div></div>
-<div class="ttc" id="aa02100_html"><div class="ttname"><a href="a02100.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02509_html"><div class="ttname"><a href="a02509.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition:</b> <a href="a00167_source.html#l00024">Entity.hpp:24</a></div></div>
-<div class="ttc" id="aa02605_html"><div class="ttname"><a href="a02605.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a05713_source.html#l00032">Engine.hpp:32</a></div></div>
-<div class="ttc" id="aa02797_html"><div class="ttname"><a href="a02797.html">bl::gfx::bcom::EntityBacked</a></div><div class="ttdoc">Base class for ECS-backed graphics objects.</div><div class="ttdef"><b>Definition:</b> <a href="a00308_source.html#l00017">EntityBacked.hpp:17</a></div></div>
-<div class="ttc" id="aa02797_html_a0df8e64fac4a31d5bf97afbc53def227"><div class="ttname"><a href="a02797.html#a0df8e64fac4a31d5bf97afbc53def227">bl::gfx::bcom::EntityBacked::~EntityBacked</a></div><div class="ttdeci">~EntityBacked()</div><div class="ttdoc">Destroys the ECS entity.</div><div class="ttdef"><b>Definition:</b> <a href="a01400_source.html#l00022">EntityBacked.cpp:22</a></div></div>
-<div class="ttc" id="aa02797_html_a5e99eabbaad7060b102626dd892a06f9"><div class="ttname"><a href="a02797.html#a5e99eabbaad7060b102626dd892a06f9">bl::gfx::bcom::EntityBacked::setParent</a></div><div class="ttdeci">void setParent(const EntityBacked &amp;parent)</div><div class="ttdoc">Helper method to parent this drawable to another.</div><div class="ttdef"><b>Definition:</b> <a href="a01400_source.html#l00048">EntityBacked.cpp:48</a></div></div>
-<div class="ttc" id="aa02797_html_a6d5048f9b4e285abf8ee3891b71eae49"><div class="ttname"><a href="a02797.html#a6d5048f9b4e285abf8ee3891b71eae49">bl::gfx::bcom::EntityBacked::EntityBacked</a></div><div class="ttdeci">EntityBacked(const EntityBacked &amp;)=delete</div><div class="ttdoc">Deleted.</div></div>
-<div class="ttc" id="aa02797_html_a7c795c508e4f747ada2fb3039703052a"><div class="ttname"><a href="a02797.html#a7c795c508e4f747ada2fb3039703052a">bl::gfx::bcom::EntityBacked::operator=</a></div><div class="ttdeci">EntityBacked &amp; operator=(const EntityBacked &amp;)=delete</div><div class="ttdoc">Deleted.</div></div>
-<div class="ttc" id="aa02797_html_a9566a1d13535e046a136af6130190c2a"><div class="ttname"><a href="a02797.html#a9566a1d13535e046a136af6130190c2a">bl::gfx::bcom::EntityBacked::EntityBacked</a></div><div class="ttdeci">EntityBacked()</div><div class="ttdoc">Does nothing.</div><div class="ttdef"><b>Definition:</b> <a href="a01400_source.html#l00011">EntityBacked.cpp:11</a></div></div>
-<div class="ttc" id="aa02797_html_aa120ac89c9e8e4a405404e5e66245458"><div class="ttname"><a href="a02797.html#aa120ac89c9e8e4a405404e5e66245458">bl::gfx::bcom::EntityBacked::engine</a></div><div class="ttdeci">engine::Engine &amp; engine()</div><div class="ttdoc">Returns the game engine instance. Only call after create()</div><div class="ttdef"><b>Definition:</b> <a href="a00308_source.html#l00106">EntityBacked.hpp:106</a></div></div>
-<div class="ttc" id="aa02797_html_aa90fee361f18950be56cfd0ac772c4f5"><div class="ttname"><a href="a02797.html#aa90fee361f18950be56cfd0ac772c4f5">bl::gfx::bcom::EntityBacked::entity</a></div><div class="ttdeci">ecs::Entity entity() const</div><div class="ttdoc">Returns the ECS entity of this drawable.</div><div class="ttdef"><b>Definition:</b> <a href="a00308_source.html#l00104">EntityBacked.hpp:104</a></div></div>
-<div class="ttc" id="aa02797_html_ab015519cc2bcb2879cd499a56573d27a"><div class="ttname"><a href="a02797.html#ab015519cc2bcb2879cd499a56573d27a">bl::gfx::bcom::EntityBacked::createEntityOnly</a></div><div class="ttdeci">void createEntityOnly(engine::Engine &amp;engine, ecs::Flags flags=ecs::Flags::None)</div><div class="ttdoc">Creates the ECS entity for the drawable.</div><div class="ttdef"><b>Definition:</b> <a href="a01400_source.html#l00043">EntityBacked.cpp:43</a></div></div>
-<div class="ttc" id="aa02797_html_afb024b8d466cfc183930fa86f31193ce"><div class="ttname"><a href="a02797.html#afb024b8d466cfc183930fa86f31193ce">bl::gfx::bcom::EntityBacked::destroy</a></div><div class="ttdeci">void destroy()</div><div class="ttdoc">Destroys the ECS entity and component.</div><div class="ttdef"><b>Definition:</b> <a href="a01400_source.html#l00035">EntityBacked.cpp:35</a></div></div>
-<div class="ttc" id="aa02797_html_afc80cad522ec9ce62caea44248aea0d0"><div class="ttname"><a href="a02797.html#afc80cad522ec9ce62caea44248aea0d0">bl::gfx::bcom::EntityBacked::removeParent</a></div><div class="ttdeci">void removeParent()</div><div class="ttdoc">Helper method to remove the parent of this drawable, if any.</div><div class="ttdef"><b>Definition:</b> <a href="a01400_source.html#l00056">EntityBacked.cpp:56</a></div></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <a class="code" href="a02560.html">com::Transform2D</a>&amp; <a class="code" href="a02984.html#a8c8aa9104c714478166c18d90c217212">getLocalTransform</a>();</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02984.html#ab647834baaf61f85527ab9f5dc734946">remove</a>();</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a02984.html#afb653a23376395e6478a54354a3c5b7e">isCreated</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02984.html#a151ad2048db824dd9492e6bdf4085bf1">disableAutoCommit</a>(<span class="keywordtype">bool</span> disable);</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02984.html#a5c8e1a257a5be950dbfa74f6b8477486">commit</a>();</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <a class="code" href="a02812.html">engine::Engine</a>* engine;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <a class="code" href="a02968.html">BatchedSlideshows</a>* owner;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <a class="code" href="a02712.html">ecs::Entity</a> playerEntity;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <a class="code" href="a02560.html">com::Transform2D</a> transform;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <a class="code" href="a03692.html">rc::buf::BatchIndexBufferT&lt;rc::prim::SlideshowVertex&gt;::AllocHandle</a> alloc;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="keywordtype">bool</span> dirty;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="keywordtype">bool</span> autoCommit;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <a class="code" href="a02872.html">engine::Systems::TaskHandle</a> updateHandle;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <a class="code" href="a02488.html">com::Animation2DPlayer</a>* validatePlayer(<a class="code" href="a02712.html">ecs::Entity</a> ent);</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="keywordtype">void</span> addPlayerDep();</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="keywordtype">void</span> removePlayerDep();</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keywordtype">void</span> markDirty();</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;};</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
+<div class="line"><a name="l00118"></a><span class="lineno"><a class="line" href="a02984.html#a374b834c28e1f329f4d6d3cf3b00d99b">  118</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="a02488.html">com::Animation2DPlayer</a>&amp; <a class="code" href="a02984.html#a374b834c28e1f329f4d6d3cf3b00d99b">BatchSlideshow::getPlayer</a>() {</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <span class="keywordflow">return</span> *engine-&gt;<a class="code" href="a02812.html#a25e3869bfc4a1fefd83bcd5773c7a5ef">ecs</a>().<a class="code" href="a02760.html#a4ee48b76a742d33209c32962b8977c46">getComponent</a>&lt;<a class="code" href="a02488.html">com::Animation2DPlayer</a>&gt;(playerEntity);</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;}</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;} <span class="comment">// namespace gfx</span></div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160; </div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa02284_html"><div class="ttname"><a href="a02284.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02488_html"><div class="ttname"><a href="a02488.html">bl::com::Animation2DPlayer</a></div><div class="ttdoc">Owns play state for 2d animations. Intended to be owned by entities with animations,...</div><div class="ttdef"><b>Definition:</b> <a href="a06154_source.html#l00025">Animation2DPlayer.hpp:25</a></div></div>
+<div class="ttc" id="aa02560_html"><div class="ttname"><a href="a02560.html">bl::com::Transform2D</a></div><div class="ttdoc">Representation of a 2d transform with a depth component to allow the depth buffer to be used when ren...</div><div class="ttdef"><b>Definition:</b> <a href="a06208_source.html#l00018">Transform2D.hpp:20</a></div></div>
+<div class="ttc" id="aa02712_html"><div class="ttname"><a href="a02712.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition:</b> <a href="a00176_source.html#l00024">Entity.hpp:24</a></div></div>
+<div class="ttc" id="aa02760_html_a4ee48b76a742d33209c32962b8977c46"><div class="ttname"><a href="a02760.html#a4ee48b76a742d33209c32962b8977c46">bl::ecs::Registry::getComponent</a></div><div class="ttdeci">T * getComponent(Entity entity)</div><div class="ttdoc">Retrieves the given component belonging to the given entity.</div><div class="ttdef"><b>Definition:</b> <a href="a00194_source.html#l00387">Registry.hpp:387</a></div></div>
+<div class="ttc" id="aa02812_html"><div class="ttname"><a href="a02812.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a06232_source.html#l00033">Engine.hpp:33</a></div></div>
+<div class="ttc" id="aa02812_html_a25e3869bfc4a1fefd83bcd5773c7a5ef"><div class="ttname"><a href="a02812.html#a25e3869bfc4a1fefd83bcd5773c7a5ef">bl::engine::Engine::ecs</a></div><div class="ttdeci">ecs::Registry &amp; ecs()</div><div class="ttdoc">Returns a reference to the engine wide entity registry.</div><div class="ttdef"><b>Definition:</b> <a href="a06232_source.html#l00228">Engine.hpp:228</a></div></div>
+<div class="ttc" id="aa02872_html"><div class="ttname"><a href="a02872.html">bl::engine::Systems::TaskHandle</a></div><div class="ttdoc">Handle to a task submitted to Systems.</div><div class="ttdef"><b>Definition:</b> <a href="a06247_source.html#l00042">Systems.hpp:42</a></div></div>
+<div class="ttc" id="aa02968_html"><div class="ttname"><a href="a02968.html">bl::gfx::BatchedSlideshows</a></div><div class="ttdoc">Collection of batched slideshow animations that are all rendered together.</div><div class="ttdef"><b>Definition:</b> <a href="a06169_source.html#l00017">BatchedSlideshows.hpp:19</a></div></div>
+<div class="ttc" id="aa02984_html"><div class="ttname"><a href="a02984.html">bl::gfx::BatchSlideshow</a></div><div class="ttdoc">A single slideshow that is part of a batch of slideshows.</div><div class="ttdef"><b>Definition:</b> <a href="a00308_source.html#l00016">BatchSlideshow.hpp:16</a></div></div>
+<div class="ttc" id="aa02984_html_a151ad2048db824dd9492e6bdf4085bf1"><div class="ttname"><a href="a02984.html#a151ad2048db824dd9492e6bdf4085bf1">bl::gfx::BatchSlideshow::disableAutoCommit</a></div><div class="ttdeci">void disableAutoCommit(bool disable)</div><div class="ttdoc">Disables auto-commit of the geometry when parameters change.</div><div class="ttdef"><b>Definition:</b> <a href="a01532_source.html#l00121">BatchSlideshow.cpp:121</a></div></div>
+<div class="ttc" id="aa02984_html_a22d3609b35aae6396d278bb17a8ef2c9"><div class="ttname"><a href="a02984.html#a22d3609b35aae6396d278bb17a8ef2c9">bl::gfx::BatchSlideshow::scaleToSize</a></div><div class="ttdeci">void scaleToSize(const glm::vec2 &amp;size)</div><div class="ttdoc">Helper method to scale the sprite to the given size in batch coordinates.</div><div class="ttdef"><b>Definition:</b> <a href="a01532_source.html#l00039">BatchSlideshow.cpp:39</a></div></div>
+<div class="ttc" id="aa02984_html_a374b834c28e1f329f4d6d3cf3b00d99b"><div class="ttname"><a href="a02984.html#a374b834c28e1f329f4d6d3cf3b00d99b">bl::gfx::BatchSlideshow::getPlayer</a></div><div class="ttdeci">com::Animation2DPlayer &amp; getPlayer()</div><div class="ttdoc">Returns the player entity for this animation.</div><div class="ttdef"><b>Definition:</b> <a href="a00308_source.html#l00118">BatchSlideshow.hpp:118</a></div></div>
+<div class="ttc" id="aa02984_html_a5c8e1a257a5be950dbfa74f6b8477486"><div class="ttname"><a href="a02984.html#a5c8e1a257a5be950dbfa74f6b8477486">bl::gfx::BatchSlideshow::commit</a></div><div class="ttdeci">void commit()</div><div class="ttdoc">Manually commit the geometry to the batch. Only required if auto-commit is off.</div><div class="ttdef"><b>Definition:</b> <a href="a01532_source.html#l00075">BatchSlideshow.cpp:75</a></div></div>
+<div class="ttc" id="aa02984_html_a8c8aa9104c714478166c18d90c217212"><div class="ttname"><a href="a02984.html#a8c8aa9104c714478166c18d90c217212">bl::gfx::BatchSlideshow::getLocalTransform</a></div><div class="ttdeci">const com::Transform2D &amp; getLocalTransform() const</div><div class="ttdoc">Returns the local transform of the sprite. Determines the positions of the vertices within the batch.</div><div class="ttdef"><b>Definition:</b> <a href="a00308_source.html#l00069">BatchSlideshow.hpp:69</a></div></div>
+<div class="ttc" id="aa02984_html_a960ce6a418e1f58c84af8bc0fcadb82f"><div class="ttname"><a href="a02984.html#a960ce6a418e1f58c84af8bc0fcadb82f">bl::gfx::BatchSlideshow::setPlayer</a></div><div class="ttdeci">void setPlayer(ecs::Entity playerEntity)</div><div class="ttdoc">Changes the player of an already created batch slideshow.</div><div class="ttdef"><b>Definition:</b> <a href="a01532_source.html#l00033">BatchSlideshow.cpp:33</a></div></div>
+<div class="ttc" id="aa02984_html_ab647834baaf61f85527ab9f5dc734946"><div class="ttname"><a href="a02984.html#ab647834baaf61f85527ab9f5dc734946">bl::gfx::BatchSlideshow::remove</a></div><div class="ttdeci">void remove()</div><div class="ttdoc">Removes the sprite from the batch.</div><div class="ttdef"><b>Definition:</b> <a href="a01532_source.html#l00055">BatchSlideshow.cpp:55</a></div></div>
+<div class="ttc" id="aa02984_html_ad9dce7927f1a788ebc963dc940f916f0"><div class="ttname"><a href="a02984.html#ad9dce7927f1a788ebc963dc940f916f0">bl::gfx::BatchSlideshow::BatchSlideshow</a></div><div class="ttdeci">BatchSlideshow()</div><div class="ttdoc">Does nothing.</div><div class="ttdef"><b>Definition:</b> <a href="a01532_source.html#l00009">BatchSlideshow.cpp:9</a></div></div>
+<div class="ttc" id="aa02984_html_adcb75203d56bbf56cb1c6d134c8cd320"><div class="ttname"><a href="a02984.html#adcb75203d56bbf56cb1c6d134c8cd320">bl::gfx::BatchSlideshow::~BatchSlideshow</a></div><div class="ttdeci">~BatchSlideshow()</div><div class="ttdoc">Cleans up.</div><div class="ttdef"><b>Definition:</b> <a href="a01532_source.html#l00021">BatchSlideshow.cpp:21</a></div></div>
+<div class="ttc" id="aa02984_html_ae992c65cfa1958723b3dfd26d8f836c7"><div class="ttname"><a href="a02984.html#ae992c65cfa1958723b3dfd26d8f836c7">bl::gfx::BatchSlideshow::create</a></div><div class="ttdeci">void create(engine::Engine &amp;engine, BatchedSlideshows &amp;batch, ecs::Entity playerEntity)</div><div class="ttdoc">Creates the batched slideshow.</div><div class="ttdef"><b>Definition:</b> <a href="a01532_source.html#l00026">BatchSlideshow.cpp:26</a></div></div>
+<div class="ttc" id="aa02984_html_afb653a23376395e6478a54354a3c5b7e"><div class="ttname"><a href="a02984.html#afb653a23376395e6478a54354a3c5b7e">bl::gfx::BatchSlideshow::isCreated</a></div><div class="ttdeci">bool isCreated() const</div><div class="ttdoc">Returns whether or not the sprite has been created.</div><div class="ttdef"><b>Definition:</b> <a href="a01532_source.html#l00065">BatchSlideshow.cpp:65</a></div></div>
+<div class="ttc" id="aa03692_html"><div class="ttname"><a href="a03692.html">bl::rc::buf::BatchIndexBufferT::AllocHandle</a></div><div class="ttdoc">Handle to an allocation from the index buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a00761_source.html#l00040">BatchIndexBuffer.hpp:40</a></div></div>
+<div class="ttc" id="aa06154_html"><div class="ttname"><a href="a06154.html">Animation2DPlayer.hpp</a></div></div>
+<div class="ttc" id="aa06169_html"><div class="ttname"><a href="a06169.html">BatchedSlideshows.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 2 2023 04:00:54 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 18 2024 18:32:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

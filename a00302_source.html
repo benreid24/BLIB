@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Graphics/BatchTriangle.hpp Source File</title>
+<title>BLIB: include/BLIB/Graphics/BatchIcon.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,48 +71,47 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">BatchTriangle.hpp</div>  </div>
+<div class="title">BatchIcon.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00302.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_GRAPHICS_BATCHTRIANGLE_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_GRAPHICS_BATCHTRIANGLE_HPP</span></div>
+<a href="a00302.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_GRAPHICS_BATCHICON_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_GRAPHICS_BATCHICON_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00329.html">BLIB/Graphics/Shapes2D/BatchShape2D.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00344.html">BLIB/Graphics/Shapes2D/TriangleBase.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00344.html">BLIB/Graphics/Shapes2D/BatchShape2D.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00350.html">BLIB/Graphics/Shapes2D/IconBase.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02100.html">bl</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02284.html">bl</a></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>gfx</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a02785.html">   16</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02785.html">BatchTriangle</a> : <span class="keyword">public</span> <a class="code" href="a02853.html">s2d::TriangleBase</a>&lt;s2d::BatchShape2D&gt; {</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a02976.html">   16</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02976.html">BatchIcon</a> : <span class="keyword">public</span> <a class="code" href="a03048.html">s2d::IconBase</a>&lt;s2d::BatchShape2D&gt; {</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <a class="code" href="a02785.html#a42cdbcf0f806ff8b9160eef17180f388">BatchTriangle</a>();</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02785.html#aa266c2d89086df0f153eee3f5f21a3a5">create</a>(<a class="code" href="a02605.html">engine::Engine</a>&amp; engine, <a class="code" href="a02757.html">BatchedShapes2D</a>&amp; owner, <span class="keyword">const</span> glm::vec2&amp; p0,</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;                <span class="keyword">const</span> glm::vec2&amp; p1, <span class="keyword">const</span> glm::vec2&amp; p2);</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02785.html#aa266c2d89086df0f153eee3f5f21a3a5">create</a>(<a class="code" href="a02605.html">engine::Engine</a>&amp; engine, <a class="code" href="a02757.html">BatchedShapes2D</a>&amp; owner,</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;                <span class="keyword">const</span> std::array&lt;glm::vec2, 3&gt;&amp; points);</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;};</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;} <span class="comment">// namespace gfx</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00329_html"><div class="ttname"><a href="a00329.html">BatchShape2D.hpp</a></div></div>
-<div class="ttc" id="aa00344_html"><div class="ttname"><a href="a00344.html">TriangleBase.hpp</a></div></div>
-<div class="ttc" id="aa02100_html"><div class="ttname"><a href="a02100.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02605_html"><div class="ttname"><a href="a02605.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a05713_source.html#l00032">Engine.hpp:32</a></div></div>
-<div class="ttc" id="aa02757_html"><div class="ttname"><a href="a02757.html">bl::gfx::BatchedShapes2D</a></div><div class="ttdoc">Drawable for a collection of batched 2d shapes. Create one of these and use with multiple BatchedCirc...</div><div class="ttdef"><b>Definition:</b> <a href="a05650_source.html#l00020">BatchedShapes2D.hpp:22</a></div></div>
-<div class="ttc" id="aa02785_html"><div class="ttname"><a href="a02785.html">bl::gfx::BatchTriangle</a></div><div class="ttdoc">Basic renderable triangle that can be added to scenes as part of shape batches.</div><div class="ttdef"><b>Definition:</b> <a href="a00302_source.html#l00016">BatchTriangle.hpp:16</a></div></div>
-<div class="ttc" id="aa02785_html_a42cdbcf0f806ff8b9160eef17180f388"><div class="ttname"><a href="a02785.html#a42cdbcf0f806ff8b9160eef17180f388">bl::gfx::BatchTriangle::BatchTriangle</a></div><div class="ttdeci">BatchTriangle()</div><div class="ttdoc">Does nothing.</div><div class="ttdef"><b>Definition:</b> <a href="a01394_source.html#l00007">BatchTriangle.cpp:7</a></div></div>
-<div class="ttc" id="aa02785_html_aa266c2d89086df0f153eee3f5f21a3a5"><div class="ttname"><a href="a02785.html#aa266c2d89086df0f153eee3f5f21a3a5">bl::gfx::BatchTriangle::create</a></div><div class="ttdeci">void create(engine::Engine &amp;engine, BatchedShapes2D &amp;owner, const glm::vec2 &amp;p0, const glm::vec2 &amp;p1, const glm::vec2 &amp;p2)</div><div class="ttdoc">Creates the triangle shape from 3 points (should not be co-linear)</div><div class="ttdef"><b>Definition:</b> <a href="a01394_source.html#l00010">BatchTriangle.cpp:10</a></div></div>
-<div class="ttc" id="aa02853_html"><div class="ttname"><a href="a02853.html">bl::gfx::s2d::TriangleBase</a></div><div class="ttdoc">Intermediate base class for triangles. Use gfx::TriangleBase or BatchedTriangle.</div><div class="ttdef"><b>Definition:</b> <a href="a00344_source.html#l00021">TriangleBase.hpp:21</a></div></div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a02976.html#aaf42e3e7c236dd1342a29176cea971a8">   19</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a02976.html#aaf42e3e7c236dd1342a29176cea971a8">Type</a> = IconBase::Type;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <a class="code" href="a02976.html#a562f2363f10cc202144dc388878455b0">BatchIcon</a>(<a class="code" href="a02976.html#aaf42e3e7c236dd1342a29176cea971a8">Type</a> type, <span class="keyword">const</span> glm::vec2&amp; size = {16.f, 16.f});</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02976.html#ad82a1685265e3e041401da14c372def7">create</a>(<a class="code" href="a02812.html">engine::Engine</a>&amp; engine, <a class="code" href="a02964.html">BatchedShapes2D</a>&amp; owner);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;};</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;} <span class="comment">// namespace gfx</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00344_html"><div class="ttname"><a href="a00344.html">BatchShape2D.hpp</a></div></div>
+<div class="ttc" id="aa00350_html"><div class="ttname"><a href="a00350.html">IconBase.hpp</a></div></div>
+<div class="ttc" id="aa02284_html"><div class="ttname"><a href="a02284.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02812_html"><div class="ttname"><a href="a02812.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a06232_source.html#l00033">Engine.hpp:33</a></div></div>
+<div class="ttc" id="aa02964_html"><div class="ttname"><a href="a02964.html">bl::gfx::BatchedShapes2D</a></div><div class="ttdoc">Drawable for a collection of batched 2d shapes. Create one of these and use with multiple BatchedCirc...</div><div class="ttdef"><b>Definition:</b> <a href="a06163_source.html#l00020">BatchedShapes2D.hpp:22</a></div></div>
+<div class="ttc" id="aa02976_html"><div class="ttname"><a href="a02976.html">bl::gfx::BatchIcon</a></div><div class="ttdoc">A renderable icon comprised of vertices. Can be batched with other shapes.</div><div class="ttdef"><b>Definition:</b> <a href="a00302_source.html#l00016">BatchIcon.hpp:16</a></div></div>
+<div class="ttc" id="aa02976_html_a562f2363f10cc202144dc388878455b0"><div class="ttname"><a href="a02976.html#a562f2363f10cc202144dc388878455b0">bl::gfx::BatchIcon::BatchIcon</a></div><div class="ttdeci">BatchIcon(Type type, const glm::vec2 &amp;size={16.f, 16.f})</div><div class="ttdoc">Creates an icon of the given type.</div><div class="ttdef"><b>Definition:</b> <a href="a01526_source.html#l00007">BatchIcon.cpp:7</a></div></div>
+<div class="ttc" id="aa02976_html_aaf42e3e7c236dd1342a29176cea971a8"><div class="ttname"><a href="a02976.html#aaf42e3e7c236dd1342a29176cea971a8">bl::gfx::BatchIcon::Type</a></div><div class="ttdeci">IconBase::Type Type</div><div class="ttdoc">The various types of icons.</div><div class="ttdef"><b>Definition:</b> <a href="a00302_source.html#l00019">BatchIcon.hpp:19</a></div></div>
+<div class="ttc" id="aa02976_html_ad82a1685265e3e041401da14c372def7"><div class="ttname"><a href="a02976.html#ad82a1685265e3e041401da14c372def7">bl::gfx::BatchIcon::create</a></div><div class="ttdeci">void create(engine::Engine &amp;engine, BatchedShapes2D &amp;owner)</div><div class="ttdoc">Creates the icon entity and renderer resources.</div><div class="ttdef"><b>Definition:</b> <a href="a01526_source.html#l00010">BatchIcon.cpp:10</a></div></div>
+<div class="ttc" id="aa03048_html"><div class="ttname"><a href="a03048.html">bl::gfx::s2d::IconBase</a></div><div class="ttdef"><b>Definition:</b> <a href="a00350_source.html#l00014">IconBase.hpp:14</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 2 2023 04:00:54 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 18 2024 18:32:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

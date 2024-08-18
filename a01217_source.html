@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Util/IdAllocatorUnbounded.hpp Source File</title>
+<title>BLIB: include/BLIB/Scripts/Function.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,125 +66,78 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4b3af2b25a05b4f12e892fbe45139fe9.html">Util</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_9fb35b166bb00afcaa31ece623ebed60.html">Scripts</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">IdAllocatorUnbounded.hpp</div>  </div>
+<div class="title">Function.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01217.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_UTIL_IDALLOCATORUNBOUNDED_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_UTIL_IDALLOCATORUNBOUNDED_HPP</span></div>
+<a href="a01217.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_SCRIPTS_FUNCTION_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_SCRIPTS_FUNCTION_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;algorithm&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00686.html">BLIB/Parser/Node.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01214.html">BLIB/Scripts/Error.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02100.html">bl</a></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>util</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a04525.html">   18</a></span>&#160;<span class="keyword">class </span><a class="code" href="a04525.html">IdAllocatorUnbounded</a> {</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a04525.html#a8b2a142e074338a13ffb614ff3565ab9">   23</a></span>&#160;    <a class="code" href="a04525.html#a8b2a142e074338a13ffb614ff3565ab9">IdAllocatorUnbounded</a>();</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a04525.html#a8bdca69c91eeb15834b1894c953c4549">   30</a></span>&#160;    <a class="code" href="a04525.html#a8bdca69c91eeb15834b1894c953c4549">IdAllocatorUnbounded</a>(std::size_t capacityHint);</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="a04525.html#ae7fb1e9e6910be922de1188e21017610">   37</a></span>&#160;    T <a class="code" href="a04525.html#ae7fb1e9e6910be922de1188e21017610">allocate</a>();</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="a04525.html#a999cf670cc7639d0c167ef6b950616b2">   44</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04525.html#a999cf670cc7639d0c167ef6b950616b2">release</a>(T <span class="keywordtype">id</span>);</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="a04525.html#acaa4e830f32672424758a5487b26f4d4">   49</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04525.html#acaa4e830f32672424758a5487b26f4d4">releaseAll</a>();</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="a04525.html#ace0ff463eec7e042c0e53a6c53da58d5">   57</a></span>&#160;    constexpr <span class="keywordtype">bool</span> <a class="code" href="a04525.html#ace0ff463eec7e042c0e53a6c53da58d5">isAllocated</a>(T <span class="keywordtype">id</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="a04525.html#a9c6d5813a146b1402c8a4814422df140">   62</a></span>&#160;    constexpr T <a class="code" href="a04525.html#a9c6d5813a146b1402c8a4814422df140">poolSize</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="a04525.html#a689b826aa77e490dd3db07a18914bd3d">   67</a></span>&#160;    constexpr T <a class="code" href="a04525.html#a689b826aa77e490dd3db07a18914bd3d">endId</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    T nextId;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    std::vector&lt;bool&gt; allocMap;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    std::vector&lt;T&gt; freeStack;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;};</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00078"></a><span class="lineno"><a class="line" href="a04525.html#a8b2a142e074338a13ffb614ff3565ab9">   78</a></span>&#160;<a class="code" href="a04525.html#a8b2a142e074338a13ffb614ff3565ab9">IdAllocatorUnbounded&lt;T&gt;::IdAllocatorUnbounded</a>()</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;: nextId(0) {}</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00082"></a><span class="lineno"><a class="line" href="a04525.html#a8bdca69c91eeb15834b1894c953c4549">   82</a></span>&#160;<a class="code" href="a04525.html#a8b2a142e074338a13ffb614ff3565ab9">IdAllocatorUnbounded&lt;T&gt;::IdAllocatorUnbounded</a>(std::size_t capacityHint)</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;: <a class="code" href="a04525.html">IdAllocatorUnbounded</a>() {</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    allocMap.resize(capacityHint, <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    freeStack.reserve(capacityHint);</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;}</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00089"></a><span class="lineno"><a class="line" href="a04525.html#ae7fb1e9e6910be922de1188e21017610">   89</a></span>&#160;T <a class="code" href="a04525.html#ae7fb1e9e6910be922de1188e21017610">IdAllocatorUnbounded&lt;T&gt;::allocate</a>() {</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    T id;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keywordflow">if</span> (freeStack.empty()) {</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <span class="keywordtype">id</span> = nextId++;</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        allocMap.resize(<span class="keyword">static_cast&lt;</span>std::size_t<span class="keyword">&gt;</span>(<span class="keywordtype">id</span>) + 1, <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    }</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        <span class="keywordtype">id</span> = freeStack.back();</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        freeStack.pop_back();</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    }</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    allocMap[id] = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keywordflow">return</span> id;</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;}</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00104"></a><span class="lineno"><a class="line" href="a04525.html#a999cf670cc7639d0c167ef6b950616b2">  104</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04525.html#a999cf670cc7639d0c167ef6b950616b2">IdAllocatorUnbounded&lt;T&gt;::release</a>(T <span class="keywordtype">id</span>) {</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    allocMap[id] = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> it =</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        std::lower_bound(freeStack.begin(), freeStack.end(), <span class="keywordtype">id</span>, std::cmp_greater&lt;T, T&gt;);</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    freeStack.emplace(it, <span class="keywordtype">id</span>);</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;}</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00112"></a><span class="lineno"><a class="line" href="a04525.html#acaa4e830f32672424758a5487b26f4d4">  112</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04525.html#acaa4e830f32672424758a5487b26f4d4">IdAllocatorUnbounded&lt;T&gt;::releaseAll</a>() {</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    nextId = 0;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    std::fill(allocMap.begin(), allocMap.end(), <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    freeStack.clear();</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;}</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00119"></a><span class="lineno"><a class="line" href="a04525.html#ace0ff463eec7e042c0e53a6c53da58d5">  119</a></span>&#160;constexpr <span class="keywordtype">bool</span> <a class="code" href="a04525.html#ace0ff463eec7e042c0e53a6c53da58d5">IdAllocatorUnbounded&lt;T&gt;::isAllocated</a>(T <span class="keywordtype">id</span>)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="keywordflow">return</span> <span class="keywordtype">id</span> &lt; allocMap.size() &amp;&amp; allocMap[id];</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;}</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00124"></a><span class="lineno"><a class="line" href="a04525.html#a9c6d5813a146b1402c8a4814422df140">  124</a></span>&#160;constexpr T <a class="code" href="a04525.html#a9c6d5813a146b1402c8a4814422df140">IdAllocatorUnbounded&lt;T&gt;::poolSize</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(allocMap.size());</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;}</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00129"></a><span class="lineno"><a class="line" href="a04525.html#a689b826aa77e490dd3db07a18914bd3d">  129</a></span>&#160;constexpr T <a class="code" href="a04525.html#a689b826aa77e490dd3db07a18914bd3d">IdAllocatorUnbounded&lt;T&gt;::endId</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="keywordflow">return</span> nextId;</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;}</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160; </div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;} <span class="comment">// namespace util</span></div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160; </div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa02100_html"><div class="ttname"><a href="a02100.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04525_html"><div class="ttname"><a href="a04525.html">bl::util::IdAllocatorUnbounded</a></div><div class="ttdoc">Similar to IdAllocator, but with no max id restriction.</div><div class="ttdef"><b>Definition:</b> <a href="a01217_source.html#l00018">IdAllocatorUnbounded.hpp:18</a></div></div>
-<div class="ttc" id="aa04525_html_a689b826aa77e490dd3db07a18914bd3d"><div class="ttname"><a href="a04525.html#a689b826aa77e490dd3db07a18914bd3d">bl::util::IdAllocatorUnbounded::endId</a></div><div class="ttdeci">constexpr T endId() const</div><div class="ttdoc">Returns essentially maxId+1 for iteration.</div><div class="ttdef"><b>Definition:</b> <a href="a01217_source.html#l00129">IdAllocatorUnbounded.hpp:129</a></div></div>
-<div class="ttc" id="aa04525_html_a8b2a142e074338a13ffb614ff3565ab9"><div class="ttname"><a href="a04525.html#a8b2a142e074338a13ffb614ff3565ab9">bl::util::IdAllocatorUnbounded::IdAllocatorUnbounded</a></div><div class="ttdeci">IdAllocatorUnbounded()</div><div class="ttdoc">Creates a new id allocator.</div><div class="ttdef"><b>Definition:</b> <a href="a01217_source.html#l00078">IdAllocatorUnbounded.hpp:78</a></div></div>
-<div class="ttc" id="aa04525_html_a8bdca69c91eeb15834b1894c953c4549"><div class="ttname"><a href="a04525.html#a8bdca69c91eeb15834b1894c953c4549">bl::util::IdAllocatorUnbounded::IdAllocatorUnbounded</a></div><div class="ttdeci">IdAllocatorUnbounded(std::size_t capacityHint)</div><div class="ttdoc">Creates a new id allocator and pre-allocates some memory.</div><div class="ttdef"><b>Definition:</b> <a href="a01217_source.html#l00082">IdAllocatorUnbounded.hpp:82</a></div></div>
-<div class="ttc" id="aa04525_html_a999cf670cc7639d0c167ef6b950616b2"><div class="ttname"><a href="a04525.html#a999cf670cc7639d0c167ef6b950616b2">bl::util::IdAllocatorUnbounded::release</a></div><div class="ttdeci">void release(T id)</div><div class="ttdoc">Releases the given id back into the pool. Double-release is an error.</div><div class="ttdef"><b>Definition:</b> <a href="a01217_source.html#l00104">IdAllocatorUnbounded.hpp:104</a></div></div>
-<div class="ttc" id="aa04525_html_a9c6d5813a146b1402c8a4814422df140"><div class="ttname"><a href="a04525.html#a9c6d5813a146b1402c8a4814422df140">bl::util::IdAllocatorUnbounded::poolSize</a></div><div class="ttdeci">constexpr T poolSize() const</div><div class="ttdoc">Returns the capacity of the id pool.</div><div class="ttdef"><b>Definition:</b> <a href="a01217_source.html#l00124">IdAllocatorUnbounded.hpp:124</a></div></div>
-<div class="ttc" id="aa04525_html_acaa4e830f32672424758a5487b26f4d4"><div class="ttname"><a href="a04525.html#acaa4e830f32672424758a5487b26f4d4">bl::util::IdAllocatorUnbounded::releaseAll</a></div><div class="ttdeci">void releaseAll()</div><div class="ttdoc">Releases all ids.</div><div class="ttdef"><b>Definition:</b> <a href="a01217_source.html#l00112">IdAllocatorUnbounded.hpp:112</a></div></div>
-<div class="ttc" id="aa04525_html_ace0ff463eec7e042c0e53a6c53da58d5"><div class="ttname"><a href="a04525.html#ace0ff463eec7e042c0e53a6c53da58d5">bl::util::IdAllocatorUnbounded::isAllocated</a></div><div class="ttdeci">constexpr bool isAllocated(T id) const</div><div class="ttdoc">Returns whether or not the given id is allocated.</div><div class="ttdef"><b>Definition:</b> <a href="a01217_source.html#l00119">IdAllocatorUnbounded.hpp:119</a></div></div>
-<div class="ttc" id="aa04525_html_ae7fb1e9e6910be922de1188e21017610"><div class="ttname"><a href="a04525.html#ae7fb1e9e6910be922de1188e21017610">bl::util::IdAllocatorUnbounded::allocate</a></div><div class="ttdeci">T allocate()</div><div class="ttdoc">Allocates a new id from the allocator.</div><div class="ttdef"><b>Definition:</b> <a href="a01217_source.html#l00089">IdAllocatorUnbounded.hpp:89</a></div></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;functional&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;optional&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;variant&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02284.html">bl</a></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span>script</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">class </span>Value;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">class </span>SymbolTable;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">class </span>PrimitiveValue;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a04524.html">   25</a></span>&#160;<span class="keyword">class </span><a class="code" href="a04524.html">Function</a> {</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="a04524.html#a3ca3f959c516d9a90dd20acddeabe172">   33</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a04524.html#a3ca3f959c516d9a90dd20acddeabe172">CustomCB</a> = std::function&lt;void(<a class="code" href="a04552.html">SymbolTable</a>&amp;, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp;, <a class="code" href="a04556.html">Value</a>&amp;)&gt;;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <a class="code" href="a04524.html#a2e1c840d6e1931a14c9f1b8ba963b1e8">Function</a>();</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="a04524.html#abb0d30e7353c50df35dd12cdc58e90ba">   45</a></span>&#160;    <a class="code" href="a04524.html#abb0d30e7353c50df35dd12cdc58e90ba">Function</a>(<span class="keyword">const</span> <a class="code" href="a04524.html">Function</a>&amp;) = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="a04524.html#add7874f403b37f3b40e8e9efe456d238">   51</a></span>&#160;    <a class="code" href="a04524.html">Function</a>&amp; <a class="code" href="a04524.html#add7874f403b37f3b40e8e9efe456d238">operator=</a>(<span class="keyword">const</span> <a class="code" href="a04524.html">Function</a>&amp;) = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <a class="code" href="a04524.html#a2e1c840d6e1931a14c9f1b8ba963b1e8">Function</a>(<span class="keyword">const</span> <a class="code" href="a03556.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&amp; fdef);</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <a class="code" href="a04524.html#a2e1c840d6e1931a14c9f1b8ba963b1e8">Function</a>(<span class="keyword">const</span> <a class="code" href="a04524.html#a3ca3f959c516d9a90dd20acddeabe172">CustomCB</a>&amp; userFunction);</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a04524.html#aa01f0ed7f508bd64c3cd635be88d4b71">operator==</a>(<span class="keyword">const</span> <a class="code" href="a04524.html">Function</a>&amp; func) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04524.html#a07aec35a2ba40269eebb9550a631165c">operator()</a>(<a class="code" href="a04552.html">SymbolTable</a>&amp; table, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp; args, <a class="code" href="a04556.html">Value</a>&amp; result) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    std::variant&lt;CustomCB, parser::Node::Ptr&gt; data;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    std::optional&lt;std::vector&lt;std::string&gt;&gt; params;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;};</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;} <span class="comment">// namespace script</span></div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00686_html"><div class="ttname"><a href="a00686.html">Node.hpp</a></div></div>
+<div class="ttc" id="aa01214_html"><div class="ttname"><a href="a01214.html">Error.hpp</a></div></div>
+<div class="ttc" id="aa02284_html"><div class="ttname"><a href="a02284.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03556_html_a3f49fe9da8742463aa757f89f67a8827"><div class="ttname"><a href="a03556.html#a3f49fe9da8742463aa757f89f67a8827">bl::parser::Node::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; Node &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00024">Node.hpp:24</a></div></div>
+<div class="ttc" id="aa04524_html"><div class="ttname"><a href="a04524.html">bl::script::Function</a></div><div class="ttdoc">Utility class for functions defined in scripts themselves.</div><div class="ttdef"><b>Definition:</b> <a href="a01217_source.html#l00025">Function.hpp:25</a></div></div>
+<div class="ttc" id="aa04524_html_a07aec35a2ba40269eebb9550a631165c"><div class="ttname"><a href="a04524.html#a07aec35a2ba40269eebb9550a631165c">bl::script::Function::operator()</a></div><div class="ttdeci">void operator()(SymbolTable &amp;table, const std::vector&lt; Value &gt; &amp;args, Value &amp;result) const</div><div class="ttdoc">Calls the function. Error thrown on error.</div><div class="ttdef"><b>Definition:</b> <a href="a02147_source.html#l00058">Function.cpp:58</a></div></div>
+<div class="ttc" id="aa04524_html_a2e1c840d6e1931a14c9f1b8ba963b1e8"><div class="ttname"><a href="a04524.html#a2e1c840d6e1931a14c9f1b8ba963b1e8">bl::script::Function::Function</a></div><div class="ttdeci">Function()</div><div class="ttdoc">Creates an empty, uncallable function.</div><div class="ttdef"><b>Definition:</b> <a href="a02147_source.html#l00024">Function.cpp:24</a></div></div>
+<div class="ttc" id="aa04524_html_a3ca3f959c516d9a90dd20acddeabe172"><div class="ttname"><a href="a04524.html#a3ca3f959c516d9a90dd20acddeabe172">bl::script::Function::CustomCB</a></div><div class="ttdeci">std::function&lt; void(SymbolTable &amp;, const std::vector&lt; Value &gt; &amp;, Value &amp;)&gt; CustomCB</div><div class="ttdoc">Callback type for custom functions. Can be used to provide a built in library Receives the SymbolTabl...</div><div class="ttdef"><b>Definition:</b> <a href="a01217_source.html#l00033">Function.hpp:33</a></div></div>
+<div class="ttc" id="aa04524_html_aa01f0ed7f508bd64c3cd635be88d4b71"><div class="ttname"><a href="a04524.html#aa01f0ed7f508bd64c3cd635be88d4b71">bl::script::Function::operator==</a></div><div class="ttdeci">bool operator==(const Function &amp;func) const</div><div class="ttdoc">Comapres against another function.</div><div class="ttdef"><b>Definition:</b> <a href="a02147_source.html#l00044">Function.cpp:44</a></div></div>
+<div class="ttc" id="aa04524_html_abb0d30e7353c50df35dd12cdc58e90ba"><div class="ttname"><a href="a04524.html#abb0d30e7353c50df35dd12cdc58e90ba">bl::script::Function::Function</a></div><div class="ttdeci">Function(const Function &amp;)=default</div><div class="ttdoc">Copy constructor.</div></div>
+<div class="ttc" id="aa04524_html_add7874f403b37f3b40e8e9efe456d238"><div class="ttname"><a href="a04524.html#add7874f403b37f3b40e8e9efe456d238">bl::script::Function::operator=</a></div><div class="ttdeci">Function &amp; operator=(const Function &amp;)=default</div><div class="ttdoc">Copy operator.</div></div>
+<div class="ttc" id="aa04552_html"><div class="ttname"><a href="a04552.html">bl::script::SymbolTable</a></div><div class="ttdoc">Stack aware symbol table for managing functions and variables Each Script holds a single instance.</div><div class="ttdef"><b>Definition:</b> <a href="a01232_source.html#l00026">SymbolTable.hpp:26</a></div></div>
+<div class="ttc" id="aa04556_html"><div class="ttname"><a href="a04556.html">bl::script::Value</a></div><div class="ttdoc">Main representation of a value in scripts.</div><div class="ttdef"><b>Definition:</b> <a href="a01235_source.html#l00022">Value.hpp:22</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 2 2023 04:00:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 18 2024 18:32:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

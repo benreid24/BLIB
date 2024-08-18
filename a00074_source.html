@@ -77,38 +77,49 @@ $(function() {
 <a href="a00074.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_COMPONENTS_MESH_HPP</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_COMPONENTS_MESH_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00692.html">BLIB/Render/Buffers/IndexBuffer.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00707.html">BLIB/Render/Components/DrawableBase.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00770.html">BLIB/Render/Buffers/IndexBuffer.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00785.html">BLIB/Render/Components/DrawableBase.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02100.html">bl</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02284.html">bl</a></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>com</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a02317.html">   17</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a02317.html">Mesh</a> : <span class="keyword">public</span> <a class="code" href="a03417.html">rc::rcom::DrawableBase</a> {</div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a02317.html#a11a861d64d0ccbf3609b15778808ae30">   18</a></span>&#160;    <a class="code" href="a03397.html">rc::buf::IndexBuffer</a> <a class="code" href="a02317.html#a11a861d64d0ccbf3609b15778808ae30">gpuBuffer</a>;</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a02508.html">   17</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a02508.html">Mesh</a> : <span class="keyword">public</span> <a class="code" href="a03732.html">rc::rcom::DrawableBase</a> {</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a02508.html#a11a861d64d0ccbf3609b15778808ae30">   18</a></span>&#160;    <a class="code" href="a03708.html">rc::buf::IndexBuffer</a> <a class="code" href="a02508.html#a11a861d64d0ccbf3609b15778808ae30">gpuBuffer</a>;</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02317.html#af0c0061167c1dded9dc5c2b8a71aa93d">create</a>(<a class="code" href="a03953.html">rc::vk::VulkanState</a>&amp; vulkanState, std::uint32_t vertexCount,</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02508.html#af0c0061167c1dded9dc5c2b8a71aa93d">create</a>(<a class="code" href="a04368.html">rc::vk::VulkanState</a>&amp; vulkanState, std::uint32_t vertexCount,</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;                std::uint32_t indexCount);</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;};</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;} <span class="comment">// namespace com</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00692_html"><div class="ttname"><a href="a00692.html">IndexBuffer.hpp</a></div></div>
-<div class="ttc" id="aa00707_html"><div class="ttname"><a href="a00707.html">DrawableBase.hpp</a></div></div>
-<div class="ttc" id="aa02100_html"><div class="ttname"><a href="a02100.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02317_html"><div class="ttname"><a href="a02317.html">bl::com::Mesh</a></div><div class="ttdoc">ECS component for a basic mesh from an index buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a00074_source.html#l00017">Mesh.hpp:17</a></div></div>
-<div class="ttc" id="aa02317_html_a11a861d64d0ccbf3609b15778808ae30"><div class="ttname"><a href="a02317.html#a11a861d64d0ccbf3609b15778808ae30">bl::com::Mesh::gpuBuffer</a></div><div class="ttdeci">rc::buf::IndexBuffer gpuBuffer</div><div class="ttdef"><b>Definition:</b> <a href="a00074_source.html#l00018">Mesh.hpp:18</a></div></div>
-<div class="ttc" id="aa02317_html_af0c0061167c1dded9dc5c2b8a71aa93d"><div class="ttname"><a href="a02317.html#af0c0061167c1dded9dc5c2b8a71aa93d">bl::com::Mesh::create</a></div><div class="ttdeci">void create(rc::vk::VulkanState &amp;vulkanState, std::uint32_t vertexCount, std::uint32_t indexCount)</div><div class="ttdoc">Helper method to initialize all the mesh data.</div><div class="ttdef"><b>Definition:</b> <a href="a01316_source.html#l00007">Mesh.cpp:7</a></div></div>
-<div class="ttc" id="aa03397_html"><div class="ttname"><a href="a03397.html">bl::rc::buf::IndexBufferT</a></div><div class="ttdoc">Basic index buffer class built on top of vk::Buffer. Intended for static mesh data.</div><div class="ttdef"><b>Definition:</b> <a href="a00692_source.html#l00025">IndexBuffer.hpp:25</a></div></div>
-<div class="ttc" id="aa03417_html"><div class="ttname"><a href="a03417.html">bl::rc::rcom::DrawableBase</a></div><div class="ttdoc">Base class for drawable scene components for the ECS. Provides common members.</div><div class="ttdef"><b>Definition:</b> <a href="a00707_source.html#l00020">DrawableBase.hpp:20</a></div></div>
-<div class="ttc" id="aa03953_html"><div class="ttname"><a href="a03953.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a01013_source.html#l00039">VulkanState.hpp:39</a></div></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="a02508.html#aef4f7a441bdd3b57ee220325fd756e86">   33</a></span>&#160;    <span class="keyword">virtual</span> std::uint32_t <a class="code" href="a02508.html#aef4f7a441bdd3b57ee220325fd756e86">getDefaultScenePipelineId</a>()<span class="keyword"> const override </span>{</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="a03748.html#ab44ad6fc3152f7fe0891204863dcd78f">rc::Config::PipelineIds::SkinnedMeshes</a>;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    }</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="a02508.html#a09f90f8188f5ad000c8218cc42ab0cab">   40</a></span>&#160;    <span class="keyword">virtual</span> std::uint32_t <a class="code" href="a02508.html#a09f90f8188f5ad000c8218cc42ab0cab">getDefaultOverlayPipelineId</a>()<span class="keyword"> const override </span>{</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="a03748.html#ab44ad6fc3152f7fe0891204863dcd78f">rc::Config::PipelineIds::SkinnedMeshes</a>;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    }</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;};</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;} <span class="comment">// namespace com</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00770_html"><div class="ttname"><a href="a00770.html">IndexBuffer.hpp</a></div></div>
+<div class="ttc" id="aa00785_html"><div class="ttname"><a href="a00785.html">DrawableBase.hpp</a></div></div>
+<div class="ttc" id="aa02284_html"><div class="ttname"><a href="a02284.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02508_html"><div class="ttname"><a href="a02508.html">bl::com::Mesh</a></div><div class="ttdoc">ECS component for a basic mesh from an index buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a00074_source.html#l00017">Mesh.hpp:17</a></div></div>
+<div class="ttc" id="aa02508_html_a09f90f8188f5ad000c8218cc42ab0cab"><div class="ttname"><a href="a02508.html#a09f90f8188f5ad000c8218cc42ab0cab">bl::com::Mesh::getDefaultOverlayPipelineId</a></div><div class="ttdeci">virtual std::uint32_t getDefaultOverlayPipelineId() const override</div><div class="ttdoc">Returns the default pipeline for overlays.</div><div class="ttdef"><b>Definition:</b> <a href="a00074_source.html#l00040">Mesh.hpp:40</a></div></div>
+<div class="ttc" id="aa02508_html_a11a861d64d0ccbf3609b15778808ae30"><div class="ttname"><a href="a02508.html#a11a861d64d0ccbf3609b15778808ae30">bl::com::Mesh::gpuBuffer</a></div><div class="ttdeci">rc::buf::IndexBuffer gpuBuffer</div><div class="ttdef"><b>Definition:</b> <a href="a00074_source.html#l00018">Mesh.hpp:18</a></div></div>
+<div class="ttc" id="aa02508_html_aef4f7a441bdd3b57ee220325fd756e86"><div class="ttname"><a href="a02508.html#aef4f7a441bdd3b57ee220325fd756e86">bl::com::Mesh::getDefaultScenePipelineId</a></div><div class="ttdeci">virtual std::uint32_t getDefaultScenePipelineId() const override</div><div class="ttdoc">Returns the default pipeline for regular scenes.</div><div class="ttdef"><b>Definition:</b> <a href="a00074_source.html#l00033">Mesh.hpp:33</a></div></div>
+<div class="ttc" id="aa02508_html_af0c0061167c1dded9dc5c2b8a71aa93d"><div class="ttname"><a href="a02508.html#af0c0061167c1dded9dc5c2b8a71aa93d">bl::com::Mesh::create</a></div><div class="ttdeci">void create(rc::vk::VulkanState &amp;vulkanState, std::uint32_t vertexCount, std::uint32_t indexCount)</div><div class="ttdoc">Helper method to initialize all the mesh data.</div><div class="ttdef"><b>Definition:</b> <a href="a01454_source.html#l00007">Mesh.cpp:7</a></div></div>
+<div class="ttc" id="aa03708_html"><div class="ttname"><a href="a03708.html">bl::rc::buf::IndexBufferT</a></div><div class="ttdoc">Basic index buffer class built on top of vk::Buffer. Intended for static mesh data.</div><div class="ttdef"><b>Definition:</b> <a href="a00770_source.html#l00026">IndexBuffer.hpp:26</a></div></div>
+<div class="ttc" id="aa03732_html"><div class="ttname"><a href="a03732.html">bl::rc::rcom::DrawableBase</a></div><div class="ttdoc">Base class for drawable scene components for the ECS. Provides common members.</div><div class="ttdef"><b>Definition:</b> <a href="a00785_source.html#l00038">DrawableBase.hpp:38</a></div></div>
+<div class="ttc" id="aa03748_html_ab44ad6fc3152f7fe0891204863dcd78f"><div class="ttname"><a href="a03748.html#ab44ad6fc3152f7fe0891204863dcd78f">bl::rc::Config::PipelineIds::SkinnedMeshes</a></div><div class="ttdeci">static constexpr std::uint32_t SkinnedMeshes</div><div class="ttdef"><b>Definition:</b> <a href="a06298_source.html#l00076">Config.hpp:76</a></div></div>
+<div class="ttc" id="aa04368_html"><div class="ttname"><a href="a04368.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a01148_source.html#l00039">VulkanState.hpp:39</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 2 2023 04:00:54 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 18 2024 18:32:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

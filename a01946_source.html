@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Resources/Bundling/Manifest.cpp Source File</title>
+<title>BLIB: src/Render/Primitives/SlideshowVertex.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,74 +66,97 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_7a475d59e09b1ce69b1dfbc6b0817add.html">Resources</a></li><li class="navelem"><a class="el" href="dir_650c2bb72fa499737589ce0469633186.html">Bundling</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_e8dba1c5a4c510c16da20e13828a9aa1.html">Primitives</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Manifest.cpp</div>  </div>
+<div class="title">SlideshowVertex.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01946.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01052.html">BLIB/Resources/Bundling/Manifest.hpp</a>&gt;</span></div>
+<a href="a01946.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00971.html">BLIB/Render/Primitives/SlideshowVertex.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02100.html">bl</a></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02284.html">bl</a></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>resource</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>rc</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>bundle</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>prim</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">using</span> <a class="code" href="a02154.html#a8a2a9b32bbe1a4a8091826b7556796c1">Serializer</a> = serial::binary::Serializer&lt;Manifest&gt;;</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="a04013.html#af27678f22aee47b1600fa2b0297301ca">   11</a></span>&#160;<a class="code" href="a04013.html#af27678f22aee47b1600fa2b0297301ca">Manifest::Manifest</a>(<span class="keyword">const</span> std::string&amp; bundleDir)</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;: manifestFile(util::FileUtil::joinPath(bundleDir, <span class="stringliteral">&quot;manifest.bm&quot;</span>)) {}</div>
+<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a04016.html#a121498a5fa54786376ff7c0831a9ce09">    9</a></span>&#160;<a class="code" href="a04016.html#a121498a5fa54786376ff7c0831a9ce09">SlideshowVertex::SlideshowVertex</a>()</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;: pos(0.f, 0.f, 0.f)</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;, color(1.f, 1.f, 1.f, 1.f)</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;, slideshowIndex(0) {}</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="a04013.html#a08c1a66c93a9a3be6dfcfef542a36641">   14</a></span>&#160;<span class="keyword">const</span> std::string&amp; <a class="code" href="a04013.html#a08c1a66c93a9a3be6dfcfef542a36641">Manifest::getBundleForFile</a>(<span class="keyword">const</span> std::string&amp; path)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> std::string empty;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> it = manifest.find(path);</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordflow">return</span> it != manifest.end() ? it-&gt;second : empty;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;}</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a04013.html#aee7a024f8a9c42b55fff3bb8e698067f">   20</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a04013.html#aee7a024f8a9c42b55fff3bb8e698067f">Manifest::containsFile</a>(<span class="keyword">const</span> std::string&amp; path)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> it = manifest.find(path);</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keywordflow">return</span> it != manifest.end();</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;}</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a04013.html#aca7902260a13be82a88daf307a696f76">   25</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04013.html#aca7902260a13be82a88daf307a696f76">Manifest::registerFileBundle</a>(<span class="keyword">const</span> std::string&amp; path, <span class="keyword">const</span> std::string&amp; bundlePath) {</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    manifest[path] = bundlePath;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;}</div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="a04016.html#af4508cdf4184ee25e0114c3eb3ce4f4a">   14</a></span>&#160;<a class="code" href="a04016.html#a121498a5fa54786376ff7c0831a9ce09">SlideshowVertex::SlideshowVertex</a>(<span class="keyword">const</span> glm::vec3&amp; pos)</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;: pos(pos)</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;, color(1.f, 1.f, 1.f, 1.f)</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;, slideshowIndex(0) {}</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a04016.html#a9133269ec196901121e1c164e7d76c49">   19</a></span>&#160;<a class="code" href="a04016.html#a121498a5fa54786376ff7c0831a9ce09">SlideshowVertex::SlideshowVertex</a>(<span class="keyword">const</span> glm::vec3&amp; pos, <span class="keyword">const</span> glm::vec4&amp; color)</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;: pos(pos)</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;, color(color)</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;, slideshowIndex(0) {}</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a04016.html#a58af7eb7e2faca1e6c44960a9d48f181">   24</a></span>&#160;<a class="code" href="a04016.html#a121498a5fa54786376ff7c0831a9ce09">SlideshowVertex::SlideshowVertex</a>(<span class="keyword">const</span> glm::vec3&amp; pos, std::uint32_t index)</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;: pos(pos)</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;, color(1.f, 1.f, 1.f, 1.f)</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;, slideshowIndex(index) {}</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a04013.html#a994b50ede5fce659271f4f7f69030349">   29</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a04013.html#a994b50ede5fce659271f4f7f69030349">Manifest::load</a>() {</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    manifest.clear();</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <a class="code" href="a04141.html">serial::binary::InputFile</a> input(manifestFile);</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="a04157.html#ae6050208537dd1364dd2779ffe36d057">Serializer::deserialize</a>(input, *<span class="keyword">this</span>);</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;}</div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a04016.html#ac85a968a5f3d98ace14cee3bc81f81b9">   29</a></span>&#160;<a class="code" href="a04016.html#a121498a5fa54786376ff7c0831a9ce09">SlideshowVertex::SlideshowVertex</a>(<span class="keyword">const</span> glm::vec3&amp; pos, <span class="keyword">const</span> glm::vec4&amp; color,</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;                                 std::uint32_t slideshowIndex)</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;: pos(pos)</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;, color(color)</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;, slideshowIndex(slideshowIndex) {}</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="a04013.html#a47daef9aeca0e9a61462484a92129904">   35</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a04013.html#a47daef9aeca0e9a61462484a92129904">Manifest::save</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <a class="code" href="a04149.html">serial::binary::OutputFile</a> output(manifestFile);</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="a04157.html#a5f0be3d348bae8bf6823f4d2a3a98b9b">Serializer::serialize</a>(output, *<span class="keyword">this</span>);</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;}</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;} <span class="comment">// namespace bundle</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;} <span class="comment">// namespace resource</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa01052_html"><div class="ttname"><a href="a01052.html">Manifest.hpp</a></div></div>
-<div class="ttc" id="aa02100_html"><div class="ttname"><a href="a02100.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02154_html_a8a2a9b32bbe1a4a8091826b7556796c1"><div class="ttname"><a href="a02154.html#a8a2a9b32bbe1a4a8091826b7556796c1">bl::resource::bundle::Serializer</a></div><div class="ttdeci">serial::binary::Serializer&lt; BundleMetadata &gt; Serializer</div><div class="ttdef"><b>Definition:</b> <a href="a01928_source.html#l00009">BundleMetadata.cpp:9</a></div></div>
-<div class="ttc" id="aa04013_html_a08c1a66c93a9a3be6dfcfef542a36641"><div class="ttname"><a href="a04013.html#a08c1a66c93a9a3be6dfcfef542a36641">bl::resource::bundle::Manifest::getBundleForFile</a></div><div class="ttdeci">const std::string &amp; getBundleForFile(const std::string &amp;path) const</div><div class="ttdoc">Returns the fully qualified path to the bundle containing the given path. Returns an empty string if ...</div><div class="ttdef"><b>Definition:</b> <a href="a01946_source.html#l00014">Manifest.cpp:14</a></div></div>
-<div class="ttc" id="aa04013_html_a47daef9aeca0e9a61462484a92129904"><div class="ttname"><a href="a04013.html#a47daef9aeca0e9a61462484a92129904">bl::resource::bundle::Manifest::save</a></div><div class="ttdeci">bool save() const</div><div class="ttdoc">Saves the manifest file to disk.</div><div class="ttdef"><b>Definition:</b> <a href="a01946_source.html#l00035">Manifest.cpp:35</a></div></div>
-<div class="ttc" id="aa04013_html_a994b50ede5fce659271f4f7f69030349"><div class="ttname"><a href="a04013.html#a994b50ede5fce659271f4f7f69030349">bl::resource::bundle::Manifest::load</a></div><div class="ttdeci">bool load()</div><div class="ttdoc">Loads the manifest from disk.</div><div class="ttdef"><b>Definition:</b> <a href="a01946_source.html#l00029">Manifest.cpp:29</a></div></div>
-<div class="ttc" id="aa04013_html_aca7902260a13be82a88daf307a696f76"><div class="ttname"><a href="a04013.html#aca7902260a13be82a88daf307a696f76">bl::resource::bundle::Manifest::registerFileBundle</a></div><div class="ttdeci">void registerFileBundle(const std::string &amp;path, const std::string &amp;bundleFile)</div><div class="ttdoc">Registers the given path as being part of the given bundle.</div><div class="ttdef"><b>Definition:</b> <a href="a01946_source.html#l00025">Manifest.cpp:25</a></div></div>
-<div class="ttc" id="aa04013_html_aee7a024f8a9c42b55fff3bb8e698067f"><div class="ttname"><a href="a04013.html#aee7a024f8a9c42b55fff3bb8e698067f">bl::resource::bundle::Manifest::containsFile</a></div><div class="ttdeci">bool containsFile(const std::string &amp;path) const</div><div class="ttdoc">Returns whether or not the given path is in the manifest.</div><div class="ttdef"><b>Definition:</b> <a href="a01946_source.html#l00020">Manifest.cpp:20</a></div></div>
-<div class="ttc" id="aa04013_html_af27678f22aee47b1600fa2b0297301ca"><div class="ttname"><a href="a04013.html#af27678f22aee47b1600fa2b0297301ca">bl::resource::bundle::Manifest::Manifest</a></div><div class="ttdeci">Manifest(const std::string &amp;bundleDirectory)</div><div class="ttdoc">Creates an empty manifest for the given bundle directory. Call load() to load existing manifests.</div><div class="ttdef"><b>Definition:</b> <a href="a01946_source.html#l00011">Manifest.cpp:11</a></div></div>
-<div class="ttc" id="aa04141_html"><div class="ttname"><a href="a04141.html">bl::serial::binary::InputFile</a></div><div class="ttdoc">Convenience wrapper around ifstream, StreamInputBuffer, and BinaryInputStream.</div><div class="ttdef"><b>Definition:</b> <a href="a01106_source.html#l00020">InputFile.hpp:20</a></div></div>
-<div class="ttc" id="aa04149_html"><div class="ttname"><a href="a04149.html">bl::serial::binary::OutputFile</a></div><div class="ttdoc">Helper wrapper class that encapsulates a file, a buffer, and a stream.</div><div class="ttdef"><b>Definition:</b> <a href="a01112_source.html#l00020">OutputFile.hpp:20</a></div></div>
-<div class="ttc" id="aa04157_html_a5f0be3d348bae8bf6823f4d2a3a98b9b"><div class="ttname"><a href="a04157.html#a5f0be3d348bae8bf6823f4d2a3a98b9b">bl::serial::binary::Serializer::serialize</a></div><div class="ttdeci">static bool serialize(OutputStream &amp;output, const T &amp;value)</div><div class="ttdoc">Serialize the given value to the given file.</div></div>
-<div class="ttc" id="aa04157_html_ae6050208537dd1364dd2779ffe36d057"><div class="ttname"><a href="a04157.html#ae6050208537dd1364dd2779ffe36d057">bl::serial::binary::Serializer::deserialize</a></div><div class="ttdeci">static bool deserialize(InputStream &amp;input, T &amp;result)</div><div class="ttdoc">Reads the value from input into result.</div></div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="a04016.html#a57e7e23524bdecf24684db8a29482df6">   35</a></span>&#160;VkVertexInputBindingDescription <a class="code" href="a04016.html#a57e7e23524bdecf24684db8a29482df6">SlideshowVertex::bindingDescription</a>() {</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    VkVertexInputBindingDescription <a class="code" href="a04016.html#a57e7e23524bdecf24684db8a29482df6">bindingDescription</a>{};</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <a class="code" href="a04016.html#a57e7e23524bdecf24684db8a29482df6">bindingDescription</a>.binding   = 0;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <a class="code" href="a04016.html#a57e7e23524bdecf24684db8a29482df6">bindingDescription</a>.stride    = <span class="keyword">sizeof</span>(<a class="code" href="a04016.html#a121498a5fa54786376ff7c0831a9ce09">SlideshowVertex</a>);</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <a class="code" href="a04016.html#a57e7e23524bdecf24684db8a29482df6">bindingDescription</a>.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="a04016.html#a57e7e23524bdecf24684db8a29482df6">bindingDescription</a>;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;}</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="a04016.html#a39ce870fd005672ebcecb0eaec0de796">   43</a></span>&#160;std::array&lt;VkVertexInputAttributeDescription, 3&gt; <a class="code" href="a04016.html#a39ce870fd005672ebcecb0eaec0de796">SlideshowVertex::attributeDescriptions</a>() {</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    std::array&lt;VkVertexInputAttributeDescription, 3&gt; <a class="code" href="a04016.html#a39ce870fd005672ebcecb0eaec0de796">attributeDescriptions</a>{};</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="comment">// pos attribute</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <a class="code" href="a04016.html#a39ce870fd005672ebcecb0eaec0de796">attributeDescriptions</a>[0].binding  = 0;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <a class="code" href="a04016.html#a39ce870fd005672ebcecb0eaec0de796">attributeDescriptions</a>[0].location = 0;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <a class="code" href="a04016.html#a39ce870fd005672ebcecb0eaec0de796">attributeDescriptions</a>[0].format   = VK_FORMAT_R32G32B32_SFLOAT;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <a class="code" href="a04016.html#a39ce870fd005672ebcecb0eaec0de796">attributeDescriptions</a>[0].offset   = offsetof(<a class="code" href="a04016.html">SlideshowVertex</a>, <a class="code" href="a04016.html#a9fa9607bba2f9074d3dc04c26238fb15">pos</a>);</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="comment">// color attribute</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <a class="code" href="a04016.html#a39ce870fd005672ebcecb0eaec0de796">attributeDescriptions</a>[1].binding  = 0;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <a class="code" href="a04016.html#a39ce870fd005672ebcecb0eaec0de796">attributeDescriptions</a>[1].location = 1;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <a class="code" href="a04016.html#a39ce870fd005672ebcecb0eaec0de796">attributeDescriptions</a>[1].format   = VK_FORMAT_R32G32B32A32_SFLOAT;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <a class="code" href="a04016.html#a39ce870fd005672ebcecb0eaec0de796">attributeDescriptions</a>[1].offset   = offsetof(<a class="code" href="a04016.html">SlideshowVertex</a>, <a class="code" href="a04016.html#adb10a179cc86f188853725a3f37edc1b">color</a>);</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="comment">// player attribute</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <a class="code" href="a04016.html#a39ce870fd005672ebcecb0eaec0de796">attributeDescriptions</a>[2].binding  = 0;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <a class="code" href="a04016.html#a39ce870fd005672ebcecb0eaec0de796">attributeDescriptions</a>[2].location = 2;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <a class="code" href="a04016.html#a39ce870fd005672ebcecb0eaec0de796">attributeDescriptions</a>[2].format   = VK_FORMAT_R32_UINT;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <a class="code" href="a04016.html#a39ce870fd005672ebcecb0eaec0de796">attributeDescriptions</a>[2].offset   = offsetof(<a class="code" href="a04016.html">SlideshowVertex</a>, <a class="code" href="a04016.html#a0e8d1e28479aefac2b4398830a349bc5">slideshowIndex</a>);</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="a04016.html#a39ce870fd005672ebcecb0eaec0de796">attributeDescriptions</a>;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;}</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;} <span class="comment">// namespace prim</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00971_html"><div class="ttname"><a href="a00971.html">SlideshowVertex.hpp</a></div></div>
+<div class="ttc" id="aa02284_html"><div class="ttname"><a href="a02284.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04016_html"><div class="ttname"><a href="a04016.html">bl::rc::prim::SlideshowVertex</a></div><div class="ttdoc">Vertex type used by slideshows.</div><div class="ttdef"><b>Definition:</b> <a href="a00971_source.html#l00019">SlideshowVertex.hpp:19</a></div></div>
+<div class="ttc" id="aa04016_html_a0e8d1e28479aefac2b4398830a349bc5"><div class="ttname"><a href="a04016.html#a0e8d1e28479aefac2b4398830a349bc5">bl::rc::prim::SlideshowVertex::slideshowIndex</a></div><div class="ttdeci">std::uint32_t slideshowIndex</div><div class="ttdef"><b>Definition:</b> <a href="a00971_source.html#l00022">SlideshowVertex.hpp:22</a></div></div>
+<div class="ttc" id="aa04016_html_a121498a5fa54786376ff7c0831a9ce09"><div class="ttname"><a href="a04016.html#a121498a5fa54786376ff7c0831a9ce09">bl::rc::prim::SlideshowVertex::SlideshowVertex</a></div><div class="ttdeci">SlideshowVertex()</div><div class="ttdoc">Creates a 0-initialized vertex.</div><div class="ttdef"><b>Definition:</b> <a href="a01946_source.html#l00009">SlideshowVertex.cpp:9</a></div></div>
+<div class="ttc" id="aa04016_html_a39ce870fd005672ebcecb0eaec0de796"><div class="ttname"><a href="a04016.html#a39ce870fd005672ebcecb0eaec0de796">bl::rc::prim::SlideshowVertex::attributeDescriptions</a></div><div class="ttdeci">static std::array&lt; VkVertexInputAttributeDescription, 3 &gt; attributeDescriptions()</div><div class="ttdoc">Returns the attribute descriptions for each vertex attribute.</div><div class="ttdef"><b>Definition:</b> <a href="a01946_source.html#l00043">SlideshowVertex.cpp:43</a></div></div>
+<div class="ttc" id="aa04016_html_a57e7e23524bdecf24684db8a29482df6"><div class="ttname"><a href="a04016.html#a57e7e23524bdecf24684db8a29482df6">bl::rc::prim::SlideshowVertex::bindingDescription</a></div><div class="ttdeci">static VkVertexInputBindingDescription bindingDescription()</div><div class="ttdoc">Returns the vertex binding description for the renderer.</div><div class="ttdef"><b>Definition:</b> <a href="a01946_source.html#l00035">SlideshowVertex.cpp:35</a></div></div>
+<div class="ttc" id="aa04016_html_a9fa9607bba2f9074d3dc04c26238fb15"><div class="ttname"><a href="a04016.html#a9fa9607bba2f9074d3dc04c26238fb15">bl::rc::prim::SlideshowVertex::pos</a></div><div class="ttdeci">glm::vec3 pos</div><div class="ttdef"><b>Definition:</b> <a href="a00971_source.html#l00020">SlideshowVertex.hpp:20</a></div></div>
+<div class="ttc" id="aa04016_html_adb10a179cc86f188853725a3f37edc1b"><div class="ttname"><a href="a04016.html#adb10a179cc86f188853725a3f37edc1b">bl::rc::prim::SlideshowVertex::color</a></div><div class="ttdeci">glm::vec4 color</div><div class="ttdef"><b>Definition:</b> <a href="a00971_source.html#l00021">SlideshowVertex.hpp:21</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 2 2023 04:00:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 18 2024 18:32:56 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

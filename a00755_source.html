@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Descriptors/DescriptorComponentStorageCache.hpp Source File</title>
+<title>BLIB: include/BLIB/Particles/Sink.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,87 +66,90 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_154b49fde9d17c5da5d7cb000b858c0e.html">Descriptors</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_178847a4158a3437852c70503d67febe.html">Particles</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">DescriptorComponentStorageCache.hpp</div>  </div>
+<div class="title">Sink.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00755.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_DESCRIPTORS_DESCRIPTORCOMPONENTSTORAGECACHE_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_DESCRIPTORS_DESCRIPTORCOMPONENTSTORAGECACHE_HPP</span></div>
+<a href="a00755.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_PARTICLES_SINK_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_PARTICLES_SINK_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00752.html">BLIB/Render/Descriptors/DescriptorComponentStorage.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;typeindex&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02100.html">bl</a></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>rc</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span>ds</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a03505.html">   21</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03505.html">DescriptorComponentStorageCache</a> {</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <a class="code" href="a03505.html#a9fe8f8185bb0cae7af077dba90387385">DescriptorComponentStorageCache</a>(<a class="code" href="a02553.html">ecs::Registry</a>&amp; registry, <a class="code" href="a03953.html">vk::VulkanState</a>&amp; vulkanState,</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;                                    <span class="keyword">const</span> <a class="code" href="a03493.html#a80984df19e4cbb663aa059d56784cf6e">DescriptorComponentStorageBase::EntityCallback</a>&amp; entityCb);</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCom, <span class="keyword">typename</span> TPayload, <span class="keyword">typename</span> TDynamicStorage, <span class="keyword">typename</span> TStaticStorage&gt;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <a class="code" href="a03501.html">DescriptorComponentStorage&lt;TCom, TPayload, TDynamicStorage, TStaticStorage&gt;</a>*</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <a class="code" href="a03505.html#a90c4e2858e0d127cef3bb871a1325256">getComponentStorage</a>();</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03505.html#a8542b8010111186c901cff294f03aba6">syncDescriptors</a>();</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <a class="code" href="a02553.html">ecs::Registry</a>&amp; registry;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <a class="code" href="a03953.html">vk::VulkanState</a>&amp; vulkanState;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keyword">const</span> <a class="code" href="a03493.html#a80984df19e4cbb663aa059d56784cf6e">DescriptorComponentStorageBase::EntityCallback</a> entityCb;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    std::unordered_map&lt;std::type_index, std::unique_ptr&lt;DescriptorComponentStorageBase&gt;&gt; cache;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;};</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCom, <span class="keyword">typename</span> TPayload, <span class="keyword">typename</span> TDynamicStorage, <span class="keyword">typename</span> TStaticStorage&gt;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<a class="code" href="a03501.html">DescriptorComponentStorage&lt;TCom, TPayload, TDynamicStorage, TStaticStorage&gt;</a>*</div>
-<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="a03505.html#a90c4e2858e0d127cef3bb871a1325256">   62</a></span>&#160;<a class="code" href="a03505.html#a90c4e2858e0d127cef3bb871a1325256">DescriptorComponentStorageCache::getComponentStorage</a>() {</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keyword">using</span> Storage = <a class="code" href="a03501.html">DescriptorComponentStorage&lt;TCom, TPayload, TDynamicStorage, TStaticStorage&gt;</a>;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keyword">auto</span> it = cache.find(<span class="keyword">typeid</span>(TCom));</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordflow">if</span> (it == cache.end()) {</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        it = cache.try_emplace(<span class="keyword">typeid</span>(TCom), <span class="keyword">new</span> Storage(registry, vulkanState, entityCb)).first;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    }</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="preprocessor">#ifdef BLIB_DEBUG</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    Storage* result = <span class="keyword">dynamic_cast&lt;</span>Storage*<span class="keyword">&gt;</span>(it-&gt;second.get());</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordflow">if</span> (!result) {</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Mismatch of component storages across descriptor sets&quot;</span>);</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    }</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordflow">return</span> result;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>Storage*<span class="keyword">&gt;</span>(it-&gt;second.get());</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;}</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;} <span class="comment">// namespace ds</span></div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00752_html"><div class="ttname"><a href="a00752.html">DescriptorComponentStorage.hpp</a></div></div>
-<div class="ttc" id="aa02100_html"><div class="ttname"><a href="a02100.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02553_html"><div class="ttname"><a href="a02553.html">bl::ecs::Registry</a></div><div class="ttdoc">This is the main interface of the ECS. This class manages all entities and components and views and s...</div><div class="ttdef"><b>Definition:</b> <a href="a00182_source.html#l00032">Registry.hpp:32</a></div></div>
-<div class="ttc" id="aa03493_html_a80984df19e4cbb663aa059d56784cf6e"><div class="ttname"><a href="a03493.html#a80984df19e4cbb663aa059d56784cf6e">bl::rc::ds::DescriptorComponentStorageBase::EntityCallback</a></div><div class="ttdeci">std::function&lt; ecs::Entity(scene::Key)&gt; EntityCallback</div><div class="ttdoc">Callback signature to fetch entities from scene ids.</div><div class="ttdef"><b>Definition:</b> <a href="a00752_source.html#l00041">DescriptorComponentStorage.hpp:41</a></div></div>
-<div class="ttc" id="aa03501_html"><div class="ttname"><a href="a03501.html">bl::rc::ds::DescriptorComponentStorage</a></div><div class="ttdoc">Generic class to provide per-object storage for descriptor set components.</div><div class="ttdef"><b>Definition:</b> <a href="a00752_source.html#l00086">DescriptorComponentStorage.hpp:86</a></div></div>
-<div class="ttc" id="aa03505_html"><div class="ttname"><a href="a03505.html">bl::rc::ds::DescriptorComponentStorageCache</a></div><div class="ttdoc">Cache for component storage modules for descriptor sets. Storage modules are instantiated once and sh...</div><div class="ttdef"><b>Definition:</b> <a href="a00755_source.html#l00021">DescriptorComponentStorageCache.hpp:21</a></div></div>
-<div class="ttc" id="aa03505_html_a8542b8010111186c901cff294f03aba6"><div class="ttname"><a href="a03505.html#a8542b8010111186c901cff294f03aba6">bl::rc::ds::DescriptorComponentStorageCache::syncDescriptors</a></div><div class="ttdeci">void syncDescriptors()</div><div class="ttdoc">Syncs modified descriptor values in the contained storage modules.</div><div class="ttdef"><b>Definition:</b> <a href="a01724_source.html#l00016">DescriptorComponentStorageCache.cpp:16</a></div></div>
-<div class="ttc" id="aa03505_html_a90c4e2858e0d127cef3bb871a1325256"><div class="ttname"><a href="a03505.html#a90c4e2858e0d127cef3bb871a1325256">bl::rc::ds::DescriptorComponentStorageCache::getComponentStorage</a></div><div class="ttdeci">DescriptorComponentStorage&lt; TCom, TPayload, TDynamicStorage, TStaticStorage &gt; * getComponentStorage()</div><div class="ttdoc">Gets or creates the storage module for the given component type.</div><div class="ttdef"><b>Definition:</b> <a href="a00755_source.html#l00062">DescriptorComponentStorageCache.hpp:62</a></div></div>
-<div class="ttc" id="aa03505_html_a9fe8f8185bb0cae7af077dba90387385"><div class="ttname"><a href="a03505.html#a9fe8f8185bb0cae7af077dba90387385">bl::rc::ds::DescriptorComponentStorageCache::DescriptorComponentStorageCache</a></div><div class="ttdeci">DescriptorComponentStorageCache(ecs::Registry &amp;registry, vk::VulkanState &amp;vulkanState, const DescriptorComponentStorageBase::EntityCallback &amp;entityCb)</div><div class="ttdoc">Creates a new storage cache.</div><div class="ttdef"><b>Definition:</b> <a href="a01724_source.html#l00009">DescriptorComponentStorageCache.cpp:9</a></div></div>
-<div class="ttc" id="aa03953_html"><div class="ttname"><a href="a03953.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a01013_source.html#l00039">VulkanState.hpp:39</a></div></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;mutex&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;span&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02284.html">bl</a></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>pcl</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">class </span>ParticleManager;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a03672.html">   22</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03672.html">Sink</a> {</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="a03676.html">   27</a></span>&#160;    <span class="keyword">class </span><a class="code" href="a03676.html">Proxy</a> {</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="a03676.html#a8f37d9accdac0cddc97503025ce3b6a8">   33</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="a03676.html#a8f37d9accdac0cddc97503025ce3b6a8">destroy</a>(<span class="keyword">const</span> T&amp; particle)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;            <span class="keyword">const</span> std::size_t i = (&amp;particle) - base;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;            std::unique_lock lock(mutex);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            <span class="keywordflow">if</span> (!freed[i]) {</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;                freed[i] = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;                freeList.emplace_back(i);</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;            }</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        }</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="a03676.html#a4cc8842d8efca97b3c7c79cf4abd7635">   46</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="a03676.html#a4cc8842d8efca97b3c7c79cf4abd7635">eraseMe</a>() { erased = <span class="keyword">true</span>; }</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="a03676.html#aee1a9948ab967b48ea663776489bfc51">   51</a></span>&#160;        <span class="keyword">const</span> <a class="code" href="a03588.html">ParticleManager&lt;T&gt;</a>&amp; <a class="code" href="a03676.html#aee1a9948ab967b48ea663776489bfc51">getManager</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> manager; }</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        std::mutex&amp; mutex;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <a class="code" href="a03588.html">ParticleManager&lt;T&gt;</a>&amp; manager;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        T* base;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        std::vector&lt;std::size_t&gt;&amp; freeList;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        std::vector&lt;bool&gt;&amp; freed;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keywordtype">bool</span> erased;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="a03676.html#a2ebd68a709a096e577a8a554b5d28f32">   61</a></span>&#160;        <a class="code" href="a03676.html">Proxy</a>(std::mutex&amp; mutex, <a class="code" href="a03588.html">ParticleManager&lt;T&gt;</a>&amp; manager, T* base,</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;              std::vector&lt;std::size_t&gt;&amp; freeList, std::vector&lt;bool&gt;&amp; freed)</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        : mutex(mutex)</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        , manager(manager)</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        , base(base)</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        , freeList(freeList)</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        , freed(freed)</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        , erased(false) {}</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a03588.html">ParticleManager</a>&lt;T&gt;;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    };</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="a03672.html#ac5ffdda75be828f83d82b57877bc276c">   76</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03672.html#ac5ffdda75be828f83d82b57877bc276c">~Sink</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
+<div class="line"><a name="l00086"></a><span class="lineno"><a class="line" href="a03672.html#af7585d1dbf5f406bc2ab00642ca4f625">   86</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03672.html#af7585d1dbf5f406bc2ab00642ca4f625">update</a>(<a class="code" href="a03676.html">Proxy</a>&amp; proxy, std::span&lt;T&gt; particles, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span> realDt) = 0;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;};</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;} <span class="comment">// namespace pcl</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa02284_html"><div class="ttname"><a href="a02284.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03588_html"><div class="ttname"><a href="a03588.html">bl::pcl::ParticleManager</a></div><div class="ttdoc">Particle manager for a specific type of particle. Instances are owned by the ParticleSystem and shoul...</div><div class="ttdef"><b>Definition:</b> <a href="a00731_source.html#l00029">ParticleManager.hpp:29</a></div></div>
+<div class="ttc" id="aa03672_html"><div class="ttname"><a href="a03672.html">bl::pcl::Sink</a></div><div class="ttdoc">Base class for all particle sinks. Provides the interface used by ParticleManagers.</div><div class="ttdef"><b>Definition:</b> <a href="a00755_source.html#l00022">Sink.hpp:22</a></div></div>
+<div class="ttc" id="aa03672_html_ac5ffdda75be828f83d82b57877bc276c"><div class="ttname"><a href="a03672.html#ac5ffdda75be828f83d82b57877bc276c">bl::pcl::Sink::~Sink</a></div><div class="ttdeci">virtual ~Sink()=default</div><div class="ttdoc">Destroys the Sink.</div></div>
+<div class="ttc" id="aa03672_html_af7585d1dbf5f406bc2ab00642ca4f625"><div class="ttname"><a href="a03672.html#af7585d1dbf5f406bc2ab00642ca4f625">bl::pcl::Sink::update</a></div><div class="ttdeci">virtual void update(Proxy &amp;proxy, std::span&lt; T &gt; particles, float dt, float realDt)=0</div><div class="ttdoc">Called once per frame. Sinks should destroy particles in here.</div></div>
+<div class="ttc" id="aa03676_html"><div class="ttname"><a href="a03676.html">bl::pcl::Sink::Proxy</a></div><div class="ttdoc">Proxy interface for sinks to destroy particles.</div><div class="ttdef"><b>Definition:</b> <a href="a00755_source.html#l00027">Sink.hpp:27</a></div></div>
+<div class="ttc" id="aa03676_html_a4cc8842d8efca97b3c7c79cf4abd7635"><div class="ttname"><a href="a03676.html#a4cc8842d8efca97b3c7c79cf4abd7635">bl::pcl::Sink::Proxy::eraseMe</a></div><div class="ttdeci">void eraseMe()</div><div class="ttdoc">Call to erase this sink.</div><div class="ttdef"><b>Definition:</b> <a href="a00755_source.html#l00046">Sink.hpp:46</a></div></div>
+<div class="ttc" id="aa03676_html_a8f37d9accdac0cddc97503025ce3b6a8"><div class="ttname"><a href="a03676.html#a8f37d9accdac0cddc97503025ce3b6a8">bl::pcl::Sink::Proxy::destroy</a></div><div class="ttdeci">void destroy(const T &amp;particle) const</div><div class="ttdoc">Call to destroy the given particle.</div><div class="ttdef"><b>Definition:</b> <a href="a00755_source.html#l00033">Sink.hpp:33</a></div></div>
+<div class="ttc" id="aa03676_html_aee1a9948ab967b48ea663776489bfc51"><div class="ttname"><a href="a03676.html#aee1a9948ab967b48ea663776489bfc51">bl::pcl::Sink::Proxy::getManager</a></div><div class="ttdeci">const ParticleManager&lt; T &gt; &amp; getManager() const</div><div class="ttdoc">Access the particle manager that owns this sink.</div><div class="ttdef"><b>Definition:</b> <a href="a00755_source.html#l00051">Sink.hpp:51</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 2 2023 04:00:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 18 2024 18:32:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

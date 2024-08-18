@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['value_7614',['value',['../a04597.html#a3b0d6a56089ff494275b5e3884cf8bb0',1,'bl::util::Not&lt; std::true_type &gt;::value()'],['../a04601.html#aafc65489ab544c07cb3d84d14bfdb772',1,'bl::util::Not&lt; std::false_type &gt;::value()']]],
-  ['vertexbuffer_7615',['VertexBuffer',['../a02087.html#ga711b89e5d389c3e62540520ef7f76a25',1,'bl::rc::buf']]]
+  ['wptr_8231',['WPtr',['../a03216.html#a5a203f6b9f513c2adbeb9b8a9082013b',1,'bl::gui::Element']]]
 ];

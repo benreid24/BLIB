@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Vulkan/PerFrameVector.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Primitives/SlideshowVertex.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,87 +66,66 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_49b99cfd015d92f767de1d8dec868906.html">Vulkan</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_b201fd9fa14a04c5ac17d47204a891a8.html">Primitives</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">PerFrameVector.hpp</div>  </div>
+<div class="title">SlideshowVertex.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00971.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_VULKAN_PERFRAMEVECTOR_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_VULKAN_PERFRAMEVECTOR_HPP</span></div>
+<a href="a00971.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_PRIMTIIVES_SLIDESHOWVERTEX_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_PRIMTIIVES_SLIDESHOWVERTEX_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05770.html">BLIB/Render/Config.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;cstdint&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01403.html">BLIB/Vulkan.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;array&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;glm/glm.hpp&gt;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02100.html">bl</a></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02284.html">bl</a></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>rc</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>vk</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>prim</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">struct </span>VulkanState;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a03869.html">   24</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03869.html">PerFrameVector</a> {</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <a class="code" href="a03869.html#a38c3e16c301555203938bfa5a089c0ba">PerFrameVector</a>();</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03869.html#a25a3740608d37edde75e028b1267da27">emptyInit</a>(<a class="code" href="a03953.html">VulkanState</a>&amp; vulkanState, std::uint32_t capacity);</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03869.html#a83eda500d1b6ed88019088ba19ed4c17">init</a>(<a class="code" href="a03953.html">VulkanState</a>&amp; vulkanState, std::uint32_t capacity, <span class="keyword">const</span> U&amp; visitor);</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03869.html#ae58605f178c63cd4a3bca72b5e5a958f">cleanup</a>(<span class="keyword">const</span> U&amp; visitor);</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    T&amp; <a class="code" href="a03869.html#a64716578fccd7829f157ca462a45bda8">current</a>(std::uint32_t i);</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keyword">const</span> T&amp; <a class="code" href="a03869.html#a64716578fccd7829f157ca462a45bda8">current</a>(std::uint32_t i) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    T&amp; <a class="code" href="a03869.html#a420a3c91e76a8f8951a3704be89bdb86">getRaw</a>(std::uint32_t i, std::uint32_t frame);</div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a04016.html">   19</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a04016.html">SlideshowVertex</a> {</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a04016.html#a9fa9607bba2f9074d3dc04c26238fb15">   20</a></span>&#160;    glm::vec3 <a class="code" href="a04016.html#a9fa9607bba2f9074d3dc04c26238fb15">pos</a>;</div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a04016.html#adb10a179cc86f188853725a3f37edc1b">   21</a></span>&#160;    glm::vec4 <a class="code" href="a04016.html#adb10a179cc86f188853725a3f37edc1b">color</a>;</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a04016.html#a0e8d1e28479aefac2b4398830a349bc5">   22</a></span>&#160;    std::uint32_t <a class="code" href="a04016.html#a0e8d1e28479aefac2b4398830a349bc5">slideshowIndex</a>;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <a class="code" href="a04016.html#a121498a5fa54786376ff7c0831a9ce09">SlideshowVertex</a>();</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <a class="code" href="a04016.html#a121498a5fa54786376ff7c0831a9ce09">SlideshowVertex</a>(<span class="keyword">const</span> glm::vec3&amp; <a class="code" href="a04016.html#a9fa9607bba2f9074d3dc04c26238fb15">pos</a>);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <a class="code" href="a04016.html#a121498a5fa54786376ff7c0831a9ce09">SlideshowVertex</a>(<span class="keyword">const</span> glm::vec3&amp; <a class="code" href="a04016.html#a9fa9607bba2f9074d3dc04c26238fb15">pos</a>, <span class="keyword">const</span> glm::vec4&amp; <a class="code" href="a04016.html#adb10a179cc86f188853725a3f37edc1b">color</a>);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <a class="code" href="a04016.html#a121498a5fa54786376ff7c0831a9ce09">SlideshowVertex</a>(<span class="keyword">const</span> glm::vec3&amp; <a class="code" href="a04016.html#a9fa9607bba2f9074d3dc04c26238fb15">pos</a>, std::uint32_t <a class="code" href="a04016.html#a0e8d1e28479aefac2b4398830a349bc5">slideshowIndex</a>);</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <a class="code" href="a04016.html#a121498a5fa54786376ff7c0831a9ce09">SlideshowVertex</a>(<span class="keyword">const</span> glm::vec3&amp; <a class="code" href="a04016.html#a9fa9607bba2f9074d3dc04c26238fb15">pos</a>, <span class="keyword">const</span> glm::vec4&amp; <a class="code" href="a04016.html#adb10a179cc86f188853725a3f37edc1b">color</a>, std::uint32_t <a class="code" href="a04016.html#a0e8d1e28479aefac2b4398830a349bc5">slideshowIndex</a>);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keyword">static</span> VkVertexInputBindingDescription <a class="code" href="a04016.html#a57e7e23524bdecf24684db8a29482df6">bindingDescription</a>();</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keyword">static</span> std::array&lt;VkVertexInputAttributeDescription, 3&gt; <a class="code" href="a04016.html#a39ce870fd005672ebcecb0eaec0de796">attributeDescriptions</a>();</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;};</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;} <span class="comment">// namespace prim</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;} <span class="comment">// namespace bl</span></div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keyword">const</span> T&amp; <a class="code" href="a03869.html#a420a3c91e76a8f8951a3704be89bdb86">getRaw</a>(std::uint32_t i, std::uint32_t frame) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    constexpr std::uint32_t <a class="code" href="a03869.html#a09fef90b3cb81cd453d89c6056ed7319">size</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    constexpr std::uint32_t <a class="code" href="a03869.html#ab1b55763cd34112e2f8d288061fbb467">totalSize</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    constexpr T* <a class="code" href="a03869.html#a2c9e6eab0a28a82873550d914f3685a3">data</a>();</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    constexpr <span class="keyword">const</span> T* <a class="code" href="a03869.html#a2c9e6eab0a28a82873550d914f3685a3">data</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <a class="code" href="a03953.html">VulkanState</a>* vs;</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    std::uint32_t cap;</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    std::vector&lt;T&gt; items;</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;};</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;} <span class="comment">// namespace vk</span></div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa02100_html"><div class="ttname"><a href="a02100.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03869_html"><div class="ttname"><a href="a03869.html">bl::rc::vk::PerFrameVector</a></div><div class="ttdoc">Container version of PerFrame. Intended to replace std::vector&lt;PerFrame&lt;T&gt;&gt; when continuous storage i...</div><div class="ttdef"><b>Definition:</b> <a href="a00971_source.html#l00024">PerFrameVector.hpp:24</a></div></div>
-<div class="ttc" id="aa03869_html_a09fef90b3cb81cd453d89c6056ed7319"><div class="ttname"><a href="a03869.html#a09fef90b3cb81cd453d89c6056ed7319">bl::rc::vk::PerFrameVector::size</a></div><div class="ttdeci">constexpr std::uint32_t size() const</div><div class="ttdoc">Returns the number of elements in the vector.</div><div class="ttdef"><b>Definition:</b> <a href="a01013_source.html#l00373">VulkanState.hpp:373</a></div></div>
-<div class="ttc" id="aa03869_html_a25a3740608d37edde75e028b1267da27"><div class="ttname"><a href="a03869.html#a25a3740608d37edde75e028b1267da27">bl::rc::vk::PerFrameVector::emptyInit</a></div><div class="ttdeci">void emptyInit(VulkanState &amp;vulkanState, std::uint32_t capacity)</div><div class="ttdoc">Initializes the PerFrameVector object without initializing the wrapped values.</div><div class="ttdef"><b>Definition:</b> <a href="a01013_source.html#l00329">VulkanState.hpp:329</a></div></div>
-<div class="ttc" id="aa03869_html_a2c9e6eab0a28a82873550d914f3685a3"><div class="ttname"><a href="a03869.html#a2c9e6eab0a28a82873550d914f3685a3">bl::rc::vk::PerFrameVector::data</a></div><div class="ttdeci">constexpr T * data()</div><div class="ttdoc">Returns a pointer to the first element in the vector.</div><div class="ttdef"><b>Definition:</b> <a href="a01013_source.html#l00383">VulkanState.hpp:383</a></div></div>
-<div class="ttc" id="aa03869_html_a38c3e16c301555203938bfa5a089c0ba"><div class="ttname"><a href="a03869.html#a38c3e16c301555203938bfa5a089c0ba">bl::rc::vk::PerFrameVector::PerFrameVector</a></div><div class="ttdeci">PerFrameVector()</div><div class="ttdef"><b>Definition:</b> <a href="a01013_source.html#l00325">VulkanState.hpp:325</a></div></div>
-<div class="ttc" id="aa03869_html_a420a3c91e76a8f8951a3704be89bdb86"><div class="ttname"><a href="a03869.html#a420a3c91e76a8f8951a3704be89bdb86">bl::rc::vk::PerFrameVector::getRaw</a></div><div class="ttdeci">T &amp; getRaw(std::uint32_t i, std::uint32_t frame)</div><div class="ttdoc">Manually access the item at the given index for the given frame.</div><div class="ttdef"><b>Definition:</b> <a href="a01013_source.html#l00363">VulkanState.hpp:363</a></div></div>
-<div class="ttc" id="aa03869_html_a64716578fccd7829f157ca462a45bda8"><div class="ttname"><a href="a03869.html#a64716578fccd7829f157ca462a45bda8">bl::rc::vk::PerFrameVector::current</a></div><div class="ttdeci">T &amp; current(std::uint32_t i)</div><div class="ttdoc">Returns the active item at the given index.</div><div class="ttdef"><b>Definition:</b> <a href="a01013_source.html#l00353">VulkanState.hpp:353</a></div></div>
-<div class="ttc" id="aa03869_html_a83eda500d1b6ed88019088ba19ed4c17"><div class="ttname"><a href="a03869.html#a83eda500d1b6ed88019088ba19ed4c17">bl::rc::vk::PerFrameVector::init</a></div><div class="ttdeci">void init(VulkanState &amp;vulkanState, std::uint32_t capacity, const U &amp;visitor)</div><div class="ttdoc">Initialize the buffer and each contained object.</div><div class="ttdef"><b>Definition:</b> <a href="a01013_source.html#l00337">VulkanState.hpp:337</a></div></div>
-<div class="ttc" id="aa03869_html_ab1b55763cd34112e2f8d288061fbb467"><div class="ttname"><a href="a03869.html#ab1b55763cd34112e2f8d288061fbb467">bl::rc::vk::PerFrameVector::totalSize</a></div><div class="ttdeci">constexpr std::uint32_t totalSize() const</div><div class="ttdoc">Returns the total number of elements when accounting for PerFrame logic.</div><div class="ttdef"><b>Definition:</b> <a href="a01013_source.html#l00378">VulkanState.hpp:378</a></div></div>
-<div class="ttc" id="aa03869_html_ae58605f178c63cd4a3bca72b5e5a958f"><div class="ttname"><a href="a03869.html#ae58605f178c63cd4a3bca72b5e5a958f">bl::rc::vk::PerFrameVector::cleanup</a></div><div class="ttdeci">void cleanup(const U &amp;visitor)</div><div class="ttdoc">General buffered object visitor intended primarily for cleanup but could be used for anything else re...</div><div class="ttdef"><b>Definition:</b> <a href="a01013_source.html#l00344">VulkanState.hpp:344</a></div></div>
-<div class="ttc" id="aa03953_html"><div class="ttname"><a href="a03953.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a01013_source.html#l00039">VulkanState.hpp:39</a></div></div>
-<div class="ttc" id="aa05770_html"><div class="ttname"><a href="a05770.html">Config.hpp</a></div></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01403_html"><div class="ttname"><a href="a01403.html">Vulkan.hpp</a></div></div>
+<div class="ttc" id="aa02284_html"><div class="ttname"><a href="a02284.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04016_html"><div class="ttname"><a href="a04016.html">bl::rc::prim::SlideshowVertex</a></div><div class="ttdoc">Vertex type used by slideshows.</div><div class="ttdef"><b>Definition:</b> <a href="a00971_source.html#l00019">SlideshowVertex.hpp:19</a></div></div>
+<div class="ttc" id="aa04016_html_a0e8d1e28479aefac2b4398830a349bc5"><div class="ttname"><a href="a04016.html#a0e8d1e28479aefac2b4398830a349bc5">bl::rc::prim::SlideshowVertex::slideshowIndex</a></div><div class="ttdeci">std::uint32_t slideshowIndex</div><div class="ttdef"><b>Definition:</b> <a href="a00971_source.html#l00022">SlideshowVertex.hpp:22</a></div></div>
+<div class="ttc" id="aa04016_html_a121498a5fa54786376ff7c0831a9ce09"><div class="ttname"><a href="a04016.html#a121498a5fa54786376ff7c0831a9ce09">bl::rc::prim::SlideshowVertex::SlideshowVertex</a></div><div class="ttdeci">SlideshowVertex()</div><div class="ttdoc">Creates a 0-initialized vertex.</div><div class="ttdef"><b>Definition:</b> <a href="a01946_source.html#l00009">SlideshowVertex.cpp:9</a></div></div>
+<div class="ttc" id="aa04016_html_a39ce870fd005672ebcecb0eaec0de796"><div class="ttname"><a href="a04016.html#a39ce870fd005672ebcecb0eaec0de796">bl::rc::prim::SlideshowVertex::attributeDescriptions</a></div><div class="ttdeci">static std::array&lt; VkVertexInputAttributeDescription, 3 &gt; attributeDescriptions()</div><div class="ttdoc">Returns the attribute descriptions for each vertex attribute.</div><div class="ttdef"><b>Definition:</b> <a href="a01946_source.html#l00043">SlideshowVertex.cpp:43</a></div></div>
+<div class="ttc" id="aa04016_html_a57e7e23524bdecf24684db8a29482df6"><div class="ttname"><a href="a04016.html#a57e7e23524bdecf24684db8a29482df6">bl::rc::prim::SlideshowVertex::bindingDescription</a></div><div class="ttdeci">static VkVertexInputBindingDescription bindingDescription()</div><div class="ttdoc">Returns the vertex binding description for the renderer.</div><div class="ttdef"><b>Definition:</b> <a href="a01946_source.html#l00035">SlideshowVertex.cpp:35</a></div></div>
+<div class="ttc" id="aa04016_html_a9fa9607bba2f9074d3dc04c26238fb15"><div class="ttname"><a href="a04016.html#a9fa9607bba2f9074d3dc04c26238fb15">bl::rc::prim::SlideshowVertex::pos</a></div><div class="ttdeci">glm::vec3 pos</div><div class="ttdef"><b>Definition:</b> <a href="a00971_source.html#l00020">SlideshowVertex.hpp:20</a></div></div>
+<div class="ttc" id="aa04016_html_adb10a179cc86f188853725a3f37edc1b"><div class="ttname"><a href="a04016.html#adb10a179cc86f188853725a3f37edc1b">bl::rc::prim::SlideshowVertex::color</a></div><div class="ttdeci">glm::vec4 color</div><div class="ttdef"><b>Definition:</b> <a href="a00971_source.html#l00021">SlideshowVertex.hpp:21</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 2 2023 04:00:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 18 2024 18:32:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

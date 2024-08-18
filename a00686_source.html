@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Buffers/BatchIndexBuffer.hpp Source File</title>
+<title>BLIB: include/BLIB/Parser/Node.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,424 +66,91 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_77bce416c82938c0e86eeeeb6fb338bb.html">Buffers</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_68e8475672e907ae2e4c385fdd89fef9.html">Parser</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">BatchIndexBuffer.hpp</div>  </div>
+<div class="title">Node.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00686.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_BUFFERS_BATCHINDEXBUFFER_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_BUFFERS_BATCHINDEXBUFFER_HPP</span></div>
+<a href="a00686.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_PARSER_NODE_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_PARSER_NODE_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00692.html">BLIB/Render/Buffers/IndexBuffer.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;list&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02100.html">bl</a></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02284.html">bl</a></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>parser</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="a02143.html">   12</a></span>&#160;<span class="keyword">namespace </span>buf</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a03377.html">   22</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03377.html">BatchIndexBufferT</a> {</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a03377.html#a095b0a634fc1cbf6d3ddf2e23e5f5dc2">   24</a></span>&#160;    <span class="keyword">static</span> constexpr VkIndexType <a class="code" href="a03377.html#a095b0a634fc1cbf6d3ddf2e23e5f5dc2">IndexType</a> = <a class="code" href="a03397.html">IndexBufferT&lt;T&gt;::IndexType</a>;</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a03556.html">   18</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a03556.html">Node</a> {</div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a03556.html#a7aead111e234327c018e49a75c20f702">   19</a></span>&#160;    <span class="keyword">typedef</span> <span class="keywordtype">int</span> <a class="code" href="a03556.html#a7aead111e234327c018e49a75c20f702">Type</a>;</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a03556.html#a4bbdfc3239a1e6b8781433b8e2f46c6b">   20</a></span>&#160;    <span class="keyword">static</span> constexpr <a class="code" href="a03556.html#a7aead111e234327c018e49a75c20f702">Type</a> <a class="code" href="a03556.html#a4bbdfc3239a1e6b8781433b8e2f46c6b">None</a> = -1;</div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a03556.html#a6bb58cc837da6706b7aa5b4da9a9baa1">   21</a></span>&#160;    <span class="keyword">static</span> constexpr <a class="code" href="a03556.html#a7aead111e234327c018e49a75c20f702">Type</a> <a class="code" href="a03556.html#a6bb58cc837da6706b7aa5b4da9a9baa1">EOI</a>  = -2;</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a03556.html#afa29f085be0b57c51abc6f33d9619af2">   22</a></span>&#160;    <span class="keyword">typedef</span> std::vector&lt;Type&gt; <a class="code" href="a03556.html#afa29f085be0b57c51abc6f33d9619af2">Sequence</a>;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a03556.html#a3f49fe9da8742463aa757f89f67a8827">   24</a></span>&#160;    <span class="keyword">typedef</span> std::shared_ptr&lt;Node&gt; <a class="code" href="a03556.html#a3f49fe9da8742463aa757f89f67a8827">Ptr</a>;</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a03381.html">   29</a></span>&#160;    <span class="keyword">struct </span><a class="code" href="a03381.html">AllocInfo</a> {</div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a03381.html#a1444b939093be1043c63a8b3c8be901e">   30</a></span>&#160;        std::uint32_t <a class="code" href="a03381.html#a1444b939093be1043c63a8b3c8be901e">refCount</a>;</div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="a03381.html#ad5ab741fb3ff6160b5162f1cf49f3b8a">   31</a></span>&#160;        std::uint32_t <a class="code" href="a03381.html#ad5ab741fb3ff6160b5162f1cf49f3b8a">vertexStart</a>;</div>
-<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="a03381.html#a0a349f5b9f304da6bc6e38bb3ec0fc8c">   32</a></span>&#160;        std::uint32_t <a class="code" href="a03381.html#a0a349f5b9f304da6bc6e38bb3ec0fc8c">vertexSize</a>;</div>
-<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="a03381.html#a484cb771728295d4badce6a1f114c48d">   33</a></span>&#160;        std::uint32_t <a class="code" href="a03381.html#a484cb771728295d4badce6a1f114c48d">indexStart</a>;</div>
-<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="a03381.html#a45bd431617b7659fb5ea5d46aa4b1d78">   34</a></span>&#160;        std::uint32_t <a class="code" href="a03381.html#a45bd431617b7659fb5ea5d46aa4b1d78">indexSize</a>;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    };</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="a03385.html">   40</a></span>&#160;    <span class="keyword">class </span><a class="code" href="a03385.html">AllocHandle</a> {</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="a03385.html#ab8c70a4a9b6471fb59b4ca3aeb913d0d">   45</a></span>&#160;        <a class="code" href="a03385.html#ab8c70a4a9b6471fb59b4ca3aeb913d0d">AllocHandle</a>();</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="a03385.html#a322b35dc69b4c07f9333328925043e94">   52</a></span>&#160;        <a class="code" href="a03385.html#ab8c70a4a9b6471fb59b4ca3aeb913d0d">AllocHandle</a>(<span class="keyword">const</span> <a class="code" href="a03385.html#ab8c70a4a9b6471fb59b4ca3aeb913d0d">AllocHandle</a>&amp; copy);</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="a03385.html#a1773bf04c69215d3f14d22aa47d99d70">   59</a></span>&#160;        <a class="code" href="a03385.html#ab8c70a4a9b6471fb59b4ca3aeb913d0d">AllocHandle</a>(<a class="code" href="a03385.html#ab8c70a4a9b6471fb59b4ca3aeb913d0d">AllocHandle</a>&amp;&amp; move);</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="a03385.html#a46fca2bdc6d50a6062628219bfb8273e">   64</a></span>&#160;        <a class="code" href="a03385.html#a46fca2bdc6d50a6062628219bfb8273e">~AllocHandle</a>();</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="a03385.html#aba442f8d9e7896116d7e06a3dc510076">   72</a></span>&#160;        <a class="code" href="a03385.html#ab8c70a4a9b6471fb59b4ca3aeb913d0d">AllocHandle</a>&amp; <a class="code" href="a03385.html#aba442f8d9e7896116d7e06a3dc510076">operator=</a>(<span class="keyword">const</span> <a class="code" href="a03385.html#ab8c70a4a9b6471fb59b4ca3aeb913d0d">AllocHandle</a>&amp; copy);</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="a03385.html#a1a23425b0ec5fa6c3aaa64565d105148">   80</a></span>&#160;        <a class="code" href="a03385.html#ab8c70a4a9b6471fb59b4ca3aeb913d0d">AllocHandle</a>&amp; <a class="code" href="a03385.html#aba442f8d9e7896116d7e06a3dc510076">operator=</a>(<a class="code" href="a03385.html#ab8c70a4a9b6471fb59b4ca3aeb913d0d">AllocHandle</a>&amp;&amp; move);</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
-<div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="a03385.html#a6ead6c237f12f004680db8a185e0fee1">   85</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="a03385.html#a6ead6c237f12f004680db8a185e0fee1">commit</a>();</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
-<div class="line"><a name="l00092"></a><span class="lineno"><a class="line" href="a03385.html#a548eb545f8d7fce73f2540395257fb21">   92</a></span>&#160;        <span class="keywordtype">bool</span> <a class="code" href="a03385.html#a548eb545f8d7fce73f2540395257fb21">release</a>();</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
-<div class="line"><a name="l00097"></a><span class="lineno"><a class="line" href="a03385.html#ab1f42e1e194cc943d9178cc5c4ecf389">   97</a></span>&#160;        T* <a class="code" href="a03385.html#ab1f42e1e194cc943d9178cc5c4ecf389">getVertices</a>();</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
-<div class="line"><a name="l00102"></a><span class="lineno"><a class="line" href="a03385.html#a82504f304ba927962ebf41882948abef">  102</a></span>&#160;        std::uint32_t* <a class="code" href="a03385.html#a82504f304ba927962ebf41882948abef">getIndices</a>();</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
-<div class="line"><a name="l00107"></a><span class="lineno"><a class="line" href="a03385.html#a3fd1c510e14dd4fedfb3f6bc30c2048c">  107</a></span>&#160;        <span class="keyword">const</span> AllocInfo&amp; <a class="code" href="a03385.html#a3fd1c510e14dd4fedfb3f6bc30c2048c">getInfo</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
-<div class="line"><a name="l00112"></a><span class="lineno"><a class="line" href="a03385.html#aa1ac4fb89658f66823a091cd562598f4">  112</a></span>&#160;        <span class="keywordtype">bool</span> <a class="code" href="a03385.html#aa1ac4fb89658f66823a091cd562598f4">isValid</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        <a class="code" href="a03377.html">BatchIndexBufferT</a>* owner;</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        <span class="keyword">typename</span> std::list&lt;AllocInfo&gt;::iterator alloc;</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        std::shared_ptr&lt;bool&gt; parentAlive;</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        <a class="code" href="a03385.html#ab8c70a4a9b6471fb59b4ca3aeb913d0d">AllocHandle</a>(<a class="code" href="a03377.html">BatchIndexBufferT</a>&amp; owner, <span class="keyword">const</span> std::shared_ptr&lt;bool&gt;&amp; pflag,</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;                    <span class="keyword">typename</span> std::list&lt;AllocInfo&gt;::iterator alloc);</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        <span class="keywordtype">void</span> incRef();</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
-<div class="line"><a name="l00123"></a><span class="lineno"><a class="line" href="a03385.html#a81dfd1ada8776cedd0de57c1e22f6530">  123</a></span>&#160;        <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a03377.html">BatchIndexBufferT</a>;</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    };</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
-<div class="line"><a name="l00129"></a><span class="lineno"><a class="line" href="a03377.html#a4066b662c5465daaeb54f639987ce112">  129</a></span>&#160;    <a class="code" href="a03377.html#a4066b662c5465daaeb54f639987ce112">BatchIndexBufferT</a>();</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
-<div class="line"><a name="l00134"></a><span class="lineno"><a class="line" href="a03377.html#a3d8a96d8a59300677dd408a2a8c04688">  134</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03377.html#a3d8a96d8a59300677dd408a2a8c04688">~BatchIndexBufferT</a>();</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160; </div>
-<div class="line"><a name="l00143"></a><span class="lineno"><a class="line" href="a03377.html#a81fe736f95d1de27b535014ade9d4838">  143</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03377.html#a81fe736f95d1de27b535014ade9d4838">create</a>(<a class="code" href="a03953.html">vk::VulkanState</a>&amp; vulkanState, std::uint32_t initialVertexCount,</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;                std::uint32_t initialIndexCount);</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160; </div>
-<div class="line"><a name="l00154"></a><span class="lineno"><a class="line" href="a03377.html#a7252aa3ffddca6ab76d7b822671765af">  154</a></span>&#160;    AllocHandle <a class="code" href="a03377.html#a7252aa3ffddca6ab76d7b822671765af">allocate</a>(std::uint32_t <a class="code" href="a03377.html#a99e27e98a39a3558718a1f5af157e8be">vertexCount</a>, std::uint32_t <a class="code" href="a03377.html#ada5ae2cfbec862bce4caaed2a181d74b">indexCount</a>);</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160; </div>
-<div class="line"><a name="l00159"></a><span class="lineno"><a class="line" href="a03377.html#a67be579dafe325b88519f1ce13e56a86">  159</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03377.html#a67be579dafe325b88519f1ce13e56a86">destroy</a>();</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160; </div>
-<div class="line"><a name="l00164"></a><span class="lineno"><a class="line" href="a03377.html#afa4a028953b2c826f89e7bfcd96ac4c4">  164</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03377.html#afa4a028953b2c826f89e7bfcd96ac4c4">deferDestruction</a>();</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160; </div>
-<div class="line"><a name="l00169"></a><span class="lineno"><a class="line" href="a03377.html#a03dcc69a9a1b04bc07d56e126cc71fab">  169</a></span>&#160;    <a class="code" href="a03657.html">prim::DrawParameters</a> <a class="code" href="a03377.html#a03dcc69a9a1b04bc07d56e126cc71fab">getDrawParameters</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160; </div>
-<div class="line"><a name="l00174"></a><span class="lineno"><a class="line" href="a03377.html#ada5ae2cfbec862bce4caaed2a181d74b">  174</a></span>&#160;    constexpr std::uint32_t <a class="code" href="a03377.html#ada5ae2cfbec862bce4caaed2a181d74b">indexCount</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160; </div>
-<div class="line"><a name="l00179"></a><span class="lineno"><a class="line" href="a03377.html#a99e27e98a39a3558718a1f5af157e8be">  179</a></span>&#160;    constexpr std::uint32_t <a class="code" href="a03377.html#a99e27e98a39a3558718a1f5af157e8be">vertexCount</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160; </div>
-<div class="line"><a name="l00184"></a><span class="lineno"><a class="line" href="a03377.html#afac0e23f002979ace5aba384677adb3e">  184</a></span>&#160;    constexpr std::uint32_t <a class="code" href="a03377.html#afac0e23f002979ace5aba384677adb3e">indexCapacity</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160; </div>
-<div class="line"><a name="l00189"></a><span class="lineno"><a class="line" href="a03377.html#a5f864f6a1c2f5f61e405bd679f2e7cc7">  189</a></span>&#160;    constexpr std::uint32_t <a class="code" href="a03377.html#a5f864f6a1c2f5f61e405bd679f2e7cc7">vertexCapacity</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160; </div>
-<div class="line"><a name="l00194"></a><span class="lineno"><a class="line" href="a03377.html#a1ba4cf1aaab1561a0d8a4f55e198c941">  194</a></span>&#160;    constexpr VkBuffer <a class="code" href="a03377.html#a1ba4cf1aaab1561a0d8a4f55e198c941">vertexBufferHandle</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160; </div>
-<div class="line"><a name="l00199"></a><span class="lineno"><a class="line" href="a03377.html#aa1e0577a3771680a4de1958d20cdea81">  199</a></span>&#160;    constexpr VkBuffer <a class="code" href="a03377.html#aa1e0577a3771680a4de1958d20cdea81">indexBufferHandle</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160; </div>
-<div class="line"><a name="l00204"></a><span class="lineno"><a class="line" href="a03377.html#a814659904ab5e2ddca0ad533e410f913">  204</a></span>&#160;    <span class="keyword">const</span> <a class="code" href="a03397.html">IndexBufferT&lt;T&gt;</a>&amp; <a class="code" href="a03377.html#a814659904ab5e2ddca0ad533e410f913">getIndexBuffer</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160; </div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    <a class="code" href="a03397.html">IndexBufferT&lt;T&gt;</a> storage;</div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;    std::uint32_t usedVertices;</div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;    std::uint32_t usedIndices;</div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    std::list&lt;AllocInfo&gt; allocations;</div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;    std::shared_ptr&lt;bool&gt; alive;</div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160; </div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;    <span class="keywordtype">void</span> release(<span class="keyword">typename</span> std::list&lt;AllocInfo&gt;::iterator alloc);</div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;    <span class="keywordtype">void</span> commit();</div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;};</div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160; </div>
-<div class="line"><a name="l00222"></a><span class="lineno"><a class="line" href="a02087.html#gae7a223975c9369c4bbbd383dfc02dacb">  222</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a03377.html">BatchIndexBuffer</a> = <a class="code" href="a03377.html">BatchIndexBufferT&lt;prim::Vertex&gt;</a>;</div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160; </div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160; </div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00227"></a><span class="lineno"><a class="line" href="a03377.html#a4066b662c5465daaeb54f639987ce112">  227</a></span>&#160;<a class="code" href="a03377.html#a4066b662c5465daaeb54f639987ce112">BatchIndexBufferT&lt;T&gt;::BatchIndexBufferT</a>()</div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;: usedVertices(0)</div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;, usedIndices(0)</div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;, alive(<a class="code" href="a02117.html">std</a>::make_shared&lt;bool&gt;(true)) {}</div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160; </div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00233"></a><span class="lineno"><a class="line" href="a03377.html#a3d8a96d8a59300677dd408a2a8c04688">  233</a></span>&#160;<a class="code" href="a03377.html#a3d8a96d8a59300677dd408a2a8c04688">BatchIndexBufferT&lt;T&gt;::~BatchIndexBufferT</a>() {</div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    *alive = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;    storage.deferDestruction();</div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;}</div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160; </div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00239"></a><span class="lineno"><a class="line" href="a03377.html#a81fe736f95d1de27b535014ade9d4838">  239</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03377.html#a81fe736f95d1de27b535014ade9d4838">BatchIndexBufferT&lt;T&gt;::create</a>(<a class="code" href="a03953.html">vk::VulkanState</a>&amp; vulkanState, std::uint32_t initialVertexCount,</div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;                                  std::uint32_t initialIndexCount) {</div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;    deferDestruction();</div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;    storage.create(vulkanState, initialVertexCount, initialIndexCount);</div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;}</div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160; </div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00246"></a><span class="lineno"><a class="line" href="a03377.html#a7252aa3ffddca6ab76d7b822671765af">  246</a></span>&#160;<span class="keyword">typename</span> <a class="code" href="a03385.html">BatchIndexBufferT&lt;T&gt;::AllocHandle</a> <a class="code" href="a03377.html#a7252aa3ffddca6ab76d7b822671765af">BatchIndexBufferT&lt;T&gt;::allocate</a>(std::uint32_t reqv,</div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;                                                                          std::uint32_t reqi) {</div>
-<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">bool</span> needVertices = usedVertices + reqv &gt; vertexCapacity();</div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">bool</span> needIndices  = usedIndices + reqi &gt; indexCapacity();</div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;    <span class="keywordflow">if</span> (needVertices || needIndices) {</div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;        <span class="keyword">const</span> std::uint32_t vc =</div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;            needVertices ? std::max(vertexCapacity() * 2, usedVertices + reqv) : vertexCapacity();</div>
-<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;        <span class="keyword">const</span> std::uint32_t ic =</div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;            needIndices ? std::max(indexCapacity() * 2, usedIndices + reqi) : indexCapacity();</div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;        storage.ensureSize(vc, ic);</div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;    }</div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160; </div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;    <span class="keyword">auto</span> it           = allocations.emplace(allocations.end(), <a class="code" href="a03381.html">AllocInfo</a>{});</div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;    <a class="code" href="a03381.html">AllocInfo</a>&amp; alloc  = *it;</div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;    alloc.<a class="code" href="a03381.html#a484cb771728295d4badce6a1f114c48d">indexStart</a>  = usedIndices;</div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;    alloc.<a class="code" href="a03381.html#ad5ab741fb3ff6160b5162f1cf49f3b8a">vertexStart</a> = usedVertices;</div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;    alloc.<a class="code" href="a03381.html#a0a349f5b9f304da6bc6e38bb3ec0fc8c">vertexSize</a>  = reqv;</div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;    alloc.<a class="code" href="a03381.html#a45bd431617b7659fb5ea5d46aa4b1d78">indexSize</a>   = reqi;</div>
-<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160; </div>
-<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;    usedVertices += reqv;</div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;    usedIndices += reqi;</div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;    storage.configureWriteRange(0, usedVertices, 0, usedIndices);</div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160; </div>
-<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;    <span class="keywordflow">return</span> {*<span class="keyword">this</span>, alive, it};</div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;}</div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160; </div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00273"></a><span class="lineno"><a class="line" href="a03377.html#a67be579dafe325b88519f1ce13e56a86">  273</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03377.html#a67be579dafe325b88519f1ce13e56a86">BatchIndexBufferT&lt;T&gt;::destroy</a>() {</div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;    *alive       = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;    alive        = std::make_shared&lt;bool&gt;(<span class="keyword">true</span>);</div>
-<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;    usedIndices  = 0;</div>
-<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;    usedVertices = 0;</div>
-<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;    allocations.clear();</div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;    storage.destroy();</div>
-<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;}</div>
-<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160; </div>
-<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00283"></a><span class="lineno"><a class="line" href="a03377.html#afa4a028953b2c826f89e7bfcd96ac4c4">  283</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03377.html#afa4a028953b2c826f89e7bfcd96ac4c4">BatchIndexBufferT&lt;T&gt;::deferDestruction</a>() {</div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;    *alive       = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;    alive        = std::make_shared&lt;bool&gt;(<span class="keyword">true</span>);</div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;    usedIndices  = 0;</div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;    usedVertices = 0;</div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;    allocations.clear();</div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;    storage.deferDestruction();</div>
-<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;}</div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160; </div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00293"></a><span class="lineno"><a class="line" href="a03377.html#a03dcc69a9a1b04bc07d56e126cc71fab">  293</a></span>&#160;<a class="code" href="a03657.html">prim::DrawParameters</a> <a class="code" href="a03377.html#a03dcc69a9a1b04bc07d56e126cc71fab">BatchIndexBufferT&lt;T&gt;::getDrawParameters</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;    <a class="code" href="a03657.html">prim::DrawParameters</a> params = storage.getDrawParameters();</div>
-<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;    params.<a class="code" href="a03657.html#a6c514a24c6c747266eaae2e87582f999">indexCount</a>           = usedIndices;</div>
-<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;    <span class="keywordflow">return</span> params;</div>
-<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;}</div>
-<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160; </div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00300"></a><span class="lineno"><a class="line" href="a03377.html#ada5ae2cfbec862bce4caaed2a181d74b">  300</a></span>&#160;constexpr std::uint32_t <a class="code" href="a03377.html#ada5ae2cfbec862bce4caaed2a181d74b">BatchIndexBufferT&lt;T&gt;::indexCount</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;    <span class="keywordflow">return</span> usedIndices;</div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;}</div>
-<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160; </div>
-<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00305"></a><span class="lineno"><a class="line" href="a03377.html#a99e27e98a39a3558718a1f5af157e8be">  305</a></span>&#160;constexpr std::uint32_t <a class="code" href="a03377.html#a99e27e98a39a3558718a1f5af157e8be">BatchIndexBufferT&lt;T&gt;::vertexCount</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;    <span class="keywordflow">return</span> usedVertices;</div>
-<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;}</div>
-<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160; </div>
-<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00310"></a><span class="lineno"><a class="line" href="a03377.html#afac0e23f002979ace5aba384677adb3e">  310</a></span>&#160;constexpr std::uint32_t <a class="code" href="a03377.html#afac0e23f002979ace5aba384677adb3e">BatchIndexBufferT&lt;T&gt;::indexCapacity</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;    <span class="keywordflow">return</span> storage.indexCount();</div>
-<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;}</div>
-<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160; </div>
-<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00315"></a><span class="lineno"><a class="line" href="a03377.html#a5f864f6a1c2f5f61e405bd679f2e7cc7">  315</a></span>&#160;constexpr std::uint32_t <a class="code" href="a03377.html#a5f864f6a1c2f5f61e405bd679f2e7cc7">BatchIndexBufferT&lt;T&gt;::vertexCapacity</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;    <span class="keywordflow">return</span> storage.vertexCount();</div>
-<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;}</div>
-<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160; </div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00320"></a><span class="lineno"><a class="line" href="a03377.html#a1ba4cf1aaab1561a0d8a4f55e198c941">  320</a></span>&#160;constexpr VkBuffer <a class="code" href="a03377.html#a1ba4cf1aaab1561a0d8a4f55e198c941">BatchIndexBufferT&lt;T&gt;::vertexBufferHandle</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;    <span class="keywordflow">return</span> storage.vertexBufferHandle();</div>
-<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;}</div>
-<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160; </div>
-<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00325"></a><span class="lineno"><a class="line" href="a03377.html#aa1e0577a3771680a4de1958d20cdea81">  325</a></span>&#160;constexpr VkBuffer <a class="code" href="a03377.html#aa1e0577a3771680a4de1958d20cdea81">BatchIndexBufferT&lt;T&gt;::indexBufferHandle</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;    <span class="keywordflow">return</span> storage.indexBufferHandle();</div>
-<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;}</div>
-<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160; </div>
-<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00330"></a><span class="lineno"><a class="line" href="a03377.html#a814659904ab5e2ddca0ad533e410f913">  330</a></span>&#160;<span class="keyword">const</span> <a class="code" href="a03397.html">IndexBufferT&lt;T&gt;</a>&amp; <a class="code" href="a03377.html#a814659904ab5e2ddca0ad533e410f913">BatchIndexBufferT&lt;T&gt;::getIndexBuffer</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;    <span class="keywordflow">return</span> storage;</div>
-<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;}</div>
-<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160; </div>
-<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03377.html">BatchIndexBufferT&lt;T&gt;::release</a>(<span class="keyword">typename</span> std::list&lt;AllocInfo&gt;::iterator it) {</div>
-<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;    <span class="keyword">const</span> AllocInfo alloc = *it;</div>
-<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;    allocations.erase(it);</div>
-<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160; </div>
-<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;    <span class="comment">// copy vertices to the left</span></div>
-<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> vertexStartIt = storage.vertices().begin() + alloc.vertexStart;</div>
-<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> nextVertexIt  = vertexStartIt + alloc.vertexSize;</div>
-<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;    std::copy(nextVertexIt, storage.vertices().end(), vertexStartIt);</div>
-<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160; </div>
-<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;    <span class="comment">// copy indices to the left</span></div>
-<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> indexStartIt = storage.indices().begin() + alloc.indexStart;</div>
-<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> nextIndexIt  = indexStartIt + alloc.indexSize;</div>
-<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;    std::copy(nextIndexIt, storage.indices().end(), indexStartIt);</div>
-<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160; </div>
-<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;    <span class="comment">// update indices of affected allocations</span></div>
-<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;    <span class="keywordflow">for</span> (AllocInfo&amp; a : allocations) {</div>
-<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;        <span class="keywordflow">if</span> (a.vertexStart &gt; alloc.vertexStart) { a.vertexStart -= alloc.vertexSize; }</div>
-<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;        <span class="keywordflow">if</span> (a.indexStart &gt; alloc.indexStart) { a.indexStart -= alloc.indexSize; }</div>
-<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;    }</div>
-<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160; </div>
-<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;    <span class="comment">// update values of affected indices</span></div>
-<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> i : storage.indices()) {</div>
-<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;        <span class="keywordflow">if</span> (i &gt;= alloc.vertexStart) { i -= alloc.vertexSize; }</div>
-<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;    }</div>
-<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160; </div>
-<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;    <span class="comment">// update metadata and commit</span></div>
-<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;    usedVertices -= alloc.vertexSize;</div>
-<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;    usedIndices -= alloc.indexSize;</div>
-<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;    storage.configureWriteRange(0, usedVertices, 0, usedIndices);</div>
-<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;    commit();</div>
-<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;}</div>
-<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160; </div>
-<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;<span class="keywordtype">void</span> BatchIndexBufferT&lt;T&gt;::commit() {</div>
-<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;    <span class="keywordflow">if</span> (storage.queueTransfer(<a class="code" href="a03801.html#a109f9d7acc098649830f276c266b47d0a43f6615bbb2c40a5306ff804094420b1">tfr::Transferable::SyncRequirement::Immediate</a>)) {</div>
-<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;        storage.insertBarrierBeforeWrite();</div>
-<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;    }</div>
-<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;}</div>
-<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160; </div>
-<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;<a class="code" href="a03385.html#ab8c70a4a9b6471fb59b4ca3aeb913d0d">BatchIndexBufferT&lt;T&gt;::AllocHandle::AllocHandle</a>(BatchIndexBufferT&amp; owner,</div>
-<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;                                               <span class="keyword">const</span> std::shared_ptr&lt;bool&gt;&amp; pflag,</div>
-<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;                                               <span class="keyword">typename</span> std::list&lt;AllocInfo&gt;::iterator alloc)</div>
-<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;: owner(&amp;owner)</div>
-<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;, alloc(alloc)</div>
-<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;, parentAlive(pflag) {</div>
-<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;    incRef();</div>
-<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;}</div>
-<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160; </div>
-<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;<span class="keywordtype">void</span> BatchIndexBufferT&lt;T&gt;::AllocHandle::incRef() {</div>
-<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="a03385.html#aa1ac4fb89658f66823a091cd562598f4">isValid</a>()) { alloc-&gt;refCount += 1; }</div>
-<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;}</div>
-<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160; </div>
-<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00390"></a><span class="lineno"><a class="line" href="a03385.html#ab8c70a4a9b6471fb59b4ca3aeb913d0d">  390</a></span>&#160;<a class="code" href="a03385.html#ab8c70a4a9b6471fb59b4ca3aeb913d0d">BatchIndexBufferT&lt;T&gt;::AllocHandle::AllocHandle</a>()</div>
-<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;: owner(nullptr) {}</div>
-<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160; </div>
-<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00394"></a><span class="lineno"><a class="line" href="a03385.html#a322b35dc69b4c07f9333328925043e94">  394</a></span>&#160;<a class="code" href="a03385.html#ab8c70a4a9b6471fb59b4ca3aeb913d0d">BatchIndexBufferT&lt;T&gt;::AllocHandle::AllocHandle</a>(<span class="keyword">const</span> <a class="code" href="a03385.html">AllocHandle</a>&amp; copy)</div>
-<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;: owner(copy.owner)</div>
-<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;, alloc(copy.alloc)</div>
-<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;, parentAlive(copy.parentAlive) {</div>
-<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;    incRef();</div>
-<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;}</div>
-<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160; </div>
-<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00402"></a><span class="lineno"><a class="line" href="a03385.html#a1773bf04c69215d3f14d22aa47d99d70">  402</a></span>&#160;<a class="code" href="a03385.html#ab8c70a4a9b6471fb59b4ca3aeb913d0d">BatchIndexBufferT&lt;T&gt;::AllocHandle::AllocHandle</a>(<a class="code" href="a03385.html">AllocHandle</a>&amp;&amp; move)</div>
-<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;: owner(move.owner)</div>
-<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;, alloc(move.alloc)</div>
-<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;, parentAlive(<a class="code" href="a02117.html">std</a>::move(move.parentAlive)) {</div>
-<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;    move.owner = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;    move.alloc = owner-&gt;allocations.end();</div>
-<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;}</div>
-<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160; </div>
-<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00411"></a><span class="lineno"><a class="line" href="a03385.html#a46fca2bdc6d50a6062628219bfb8273e">  411</a></span>&#160;<a class="code" href="a03385.html#a46fca2bdc6d50a6062628219bfb8273e">BatchIndexBufferT&lt;T&gt;::AllocHandle::~AllocHandle</a>() {</div>
-<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;    release();</div>
-<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;}</div>
-<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160; </div>
-<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00416"></a><span class="lineno"><a class="line" href="a03385.html#aba442f8d9e7896116d7e06a3dc510076">  416</a></span>&#160;<span class="keyword">typename</span> <a class="code" href="a03385.html">BatchIndexBufferT&lt;T&gt;::AllocHandle</a>&amp; <a class="code" href="a03385.html#aba442f8d9e7896116d7e06a3dc510076">BatchIndexBufferT&lt;T&gt;::AllocHandle::operator=</a>(</div>
-<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;    <span class="keyword">const</span> <a class="code" href="a03385.html">AllocHandle</a>&amp; copy) {</div>
-<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;    release();</div>
-<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;    owner       = copy.owner;</div>
-<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;    alloc       = copy.alloc;</div>
-<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;    parentAlive = copy.parentAlive;</div>
-<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;    incRef();</div>
-<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;}</div>
-<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160; </div>
-<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00427"></a><span class="lineno"><a class="line" href="a03385.html#a1a23425b0ec5fa6c3aaa64565d105148">  427</a></span>&#160;<span class="keyword">typename</span> <a class="code" href="a03385.html">BatchIndexBufferT&lt;T&gt;::AllocHandle</a>&amp; <a class="code" href="a03385.html#aba442f8d9e7896116d7e06a3dc510076">BatchIndexBufferT&lt;T&gt;::AllocHandle::operator=</a>(</div>
-<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;    <a class="code" href="a03385.html">AllocHandle</a>&amp;&amp; move) {</div>
-<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;    release();</div>
-<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;    owner       = move.owner;</div>
-<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;    alloc       = move.alloc;</div>
-<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;    parentAlive = std::move(move.parentAlive);</div>
-<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;    move.owner  = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;    move.alloc  = owner-&gt;allocations.end();</div>
-<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;}</div>
-<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160; </div>
-<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00439"></a><span class="lineno"><a class="line" href="a03385.html#a6ead6c237f12f004680db8a185e0fee1">  439</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03385.html#a6ead6c237f12f004680db8a185e0fee1">BatchIndexBufferT&lt;T&gt;::AllocHandle::commit</a>() {</div>
-<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;    <span class="keywordflow">if</span> (isValid()) { owner-&gt;commit(); }</div>
-<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;}</div>
-<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160; </div>
-<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00444"></a><span class="lineno"><a class="line" href="a03385.html#a548eb545f8d7fce73f2540395257fb21">  444</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a03385.html#a548eb545f8d7fce73f2540395257fb21">BatchIndexBufferT&lt;T&gt;::AllocHandle::release</a>() {</div>
-<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;    <span class="keywordtype">bool</span> r = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;    <span class="keywordflow">if</span> (isValid()) {</div>
-<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;        parentAlive.reset();</div>
-<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;        --alloc-&gt;refCount;</div>
-<div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160;        <span class="keywordflow">if</span> (alloc-&gt;refCount == 0) {</div>
-<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;            owner-&gt;release(alloc);</div>
-<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;            r = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;        }</div>
-<div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160;        alloc = owner-&gt;allocations.end();</div>
-<div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;        owner = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160;    }</div>
-<div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160;    <span class="keywordflow">return</span> r;</div>
-<div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160;}</div>
-<div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160; </div>
-<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00460"></a><span class="lineno"><a class="line" href="a03385.html#ab1f42e1e194cc943d9178cc5c4ecf389">  460</a></span>&#160;T* <a class="code" href="a03385.html#ab1f42e1e194cc943d9178cc5c4ecf389">BatchIndexBufferT&lt;T&gt;::AllocHandle::getVertices</a>() {</div>
-<div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160;    <span class="keywordflow">return</span> &amp;owner-&gt;storage.vertices()[alloc-&gt;vertexStart];</div>
-<div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160;}</div>
-<div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160; </div>
-<div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00465"></a><span class="lineno"><a class="line" href="a03385.html#a82504f304ba927962ebf41882948abef">  465</a></span>&#160;std::uint32_t* <a class="code" href="a03385.html#a82504f304ba927962ebf41882948abef">BatchIndexBufferT&lt;T&gt;::AllocHandle::getIndices</a>() {</div>
-<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;    <span class="keywordflow">return</span> &amp;owner-&gt;storage.indices()[alloc-&gt;indexStart];</div>
-<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;}</div>
-<div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160; </div>
-<div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00470"></a><span class="lineno"><a class="line" href="a03385.html#a3fd1c510e14dd4fedfb3f6bc30c2048c">  470</a></span>&#160;<span class="keyword">const</span> <span class="keyword">typename</span> <a class="code" href="a03381.html">BatchIndexBufferT&lt;T&gt;::AllocInfo</a>&amp; <a class="code" href="a03385.html#a3fd1c510e14dd4fedfb3f6bc30c2048c">BatchIndexBufferT&lt;T&gt;::AllocHandle::getInfo</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160;    <span class="keywordflow">return</span> *alloc;</div>
-<div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160;}</div>
-<div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160; </div>
-<div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00475"></a><span class="lineno"><a class="line" href="a03385.html#aa1ac4fb89658f66823a091cd562598f4">  475</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a03385.html#aa1ac4fb89658f66823a091cd562598f4">BatchIndexBufferT&lt;T&gt;::AllocHandle::isValid</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00476"></a><span class="lineno">  476</span>&#160;    <span class="keywordflow">return</span> owner != <span class="keyword">nullptr</span> &amp;&amp; parentAlive &amp;&amp; *parentAlive &amp;&amp; alloc != owner-&gt;allocations.end();</div>
-<div class="line"><a name="l00477"></a><span class="lineno">  477</span>&#160;}</div>
-<div class="line"><a name="l00478"></a><span class="lineno">  478</span>&#160; </div>
-<div class="line"><a name="l00479"></a><span class="lineno">  479</span>&#160;} <span class="comment">// namespace buf</span></div>
-<div class="line"><a name="l00480"></a><span class="lineno">  480</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00481"></a><span class="lineno">  481</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00482"></a><span class="lineno">  482</span>&#160; </div>
-<div class="line"><a name="l00483"></a><span class="lineno">  483</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00692_html"><div class="ttname"><a href="a00692.html">IndexBuffer.hpp</a></div></div>
-<div class="ttc" id="aa02100_html"><div class="ttname"><a href="a02100.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02117_html"><div class="ttname"><a href="a02117.html">std</a></div><div class="ttdef"><b>Definition:</b> <a href="a00167_source.html#l00172">Entity.hpp:173</a></div></div>
-<div class="ttc" id="aa03377_html"><div class="ttname"><a href="a03377.html">bl::rc::buf::BatchIndexBufferT</a></div><div class="ttdoc">Wrapper around IndexBufferT that allows allocations to be made out of it. Intended use is for batchin...</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00022">BatchIndexBuffer.hpp:22</a></div></div>
-<div class="ttc" id="aa03377_html_a03dcc69a9a1b04bc07d56e126cc71fab"><div class="ttname"><a href="a03377.html#a03dcc69a9a1b04bc07d56e126cc71fab">bl::rc::buf::BatchIndexBufferT::getDrawParameters</a></div><div class="ttdeci">prim::DrawParameters getDrawParameters() const</div><div class="ttdoc">Builds and returns the parameters required to render the index buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00293">BatchIndexBuffer.hpp:293</a></div></div>
-<div class="ttc" id="aa03377_html_a095b0a634fc1cbf6d3ddf2e23e5f5dc2"><div class="ttname"><a href="a03377.html#a095b0a634fc1cbf6d3ddf2e23e5f5dc2">bl::rc::buf::BatchIndexBufferT::IndexType</a></div><div class="ttdeci">static constexpr VkIndexType IndexType</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00024">BatchIndexBuffer.hpp:24</a></div></div>
-<div class="ttc" id="aa03377_html_a1ba4cf1aaab1561a0d8a4f55e198c941"><div class="ttname"><a href="a03377.html#a1ba4cf1aaab1561a0d8a4f55e198c941">bl::rc::buf::BatchIndexBufferT::vertexBufferHandle</a></div><div class="ttdeci">constexpr VkBuffer vertexBufferHandle() const</div><div class="ttdoc">Returns the Vulkan handle of the vertex buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00320">BatchIndexBuffer.hpp:320</a></div></div>
-<div class="ttc" id="aa03377_html_a3d8a96d8a59300677dd408a2a8c04688"><div class="ttname"><a href="a03377.html#a3d8a96d8a59300677dd408a2a8c04688">bl::rc::buf::BatchIndexBufferT::~BatchIndexBufferT</a></div><div class="ttdeci">virtual ~BatchIndexBufferT()</div><div class="ttdoc">Destroys the buffer using deferDestroy()</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00233">BatchIndexBuffer.hpp:233</a></div></div>
-<div class="ttc" id="aa03377_html_a4066b662c5465daaeb54f639987ce112"><div class="ttname"><a href="a03377.html#a4066b662c5465daaeb54f639987ce112">bl::rc::buf::BatchIndexBufferT::BatchIndexBufferT</a></div><div class="ttdeci">BatchIndexBufferT()</div><div class="ttdoc">Creates an empty index buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00227">BatchIndexBuffer.hpp:227</a></div></div>
-<div class="ttc" id="aa03377_html_a5f864f6a1c2f5f61e405bd679f2e7cc7"><div class="ttname"><a href="a03377.html#a5f864f6a1c2f5f61e405bd679f2e7cc7">bl::rc::buf::BatchIndexBufferT::vertexCapacity</a></div><div class="ttdeci">constexpr std::uint32_t vertexCapacity() const</div><div class="ttdoc">Returns the total number of vertices in the buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00315">BatchIndexBuffer.hpp:315</a></div></div>
-<div class="ttc" id="aa03377_html_a67be579dafe325b88519f1ce13e56a86"><div class="ttname"><a href="a03377.html#a67be579dafe325b88519f1ce13e56a86">bl::rc::buf::BatchIndexBufferT::destroy</a></div><div class="ttdeci">void destroy()</div><div class="ttdoc">Frees both the vertex buffer and index buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00273">BatchIndexBuffer.hpp:273</a></div></div>
-<div class="ttc" id="aa03377_html_a7252aa3ffddca6ab76d7b822671765af"><div class="ttname"><a href="a03377.html#a7252aa3ffddca6ab76d7b822671765af">bl::rc::buf::BatchIndexBufferT::allocate</a></div><div class="ttdeci">AllocHandle allocate(std::uint32_t vertexCount, std::uint32_t indexCount)</div><div class="ttdoc">Allocates the requested number of vertices and indices from the buffer. Invalidates the draw paramete...</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00246">BatchIndexBuffer.hpp:246</a></div></div>
-<div class="ttc" id="aa03377_html_a814659904ab5e2ddca0ad533e410f913"><div class="ttname"><a href="a03377.html#a814659904ab5e2ddca0ad533e410f913">bl::rc::buf::BatchIndexBufferT::getIndexBuffer</a></div><div class="ttdeci">const IndexBufferT&lt; T &gt; &amp; getIndexBuffer() const</div><div class="ttdoc">Provides const access to the underlying index buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00330">BatchIndexBuffer.hpp:330</a></div></div>
-<div class="ttc" id="aa03377_html_a81fe736f95d1de27b535014ade9d4838"><div class="ttname"><a href="a03377.html#a81fe736f95d1de27b535014ade9d4838">bl::rc::buf::BatchIndexBufferT::create</a></div><div class="ttdeci">void create(vk::VulkanState &amp;vulkanState, std::uint32_t initialVertexCount, std::uint32_t initialIndexCount)</div><div class="ttdoc">Creates the batched index buffer with the given initial capacities.</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00239">BatchIndexBuffer.hpp:239</a></div></div>
-<div class="ttc" id="aa03377_html_a99e27e98a39a3558718a1f5af157e8be"><div class="ttname"><a href="a03377.html#a99e27e98a39a3558718a1f5af157e8be">bl::rc::buf::BatchIndexBufferT::vertexCount</a></div><div class="ttdeci">constexpr std::uint32_t vertexCount() const</div><div class="ttdoc">Returns the number of in-use vertices in the buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00305">BatchIndexBuffer.hpp:305</a></div></div>
-<div class="ttc" id="aa03377_html_aa1e0577a3771680a4de1958d20cdea81"><div class="ttname"><a href="a03377.html#aa1e0577a3771680a4de1958d20cdea81">bl::rc::buf::BatchIndexBufferT::indexBufferHandle</a></div><div class="ttdeci">constexpr VkBuffer indexBufferHandle() const</div><div class="ttdoc">Returns the Vulkan handle of the index buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00325">BatchIndexBuffer.hpp:325</a></div></div>
-<div class="ttc" id="aa03377_html_ada5ae2cfbec862bce4caaed2a181d74b"><div class="ttname"><a href="a03377.html#ada5ae2cfbec862bce4caaed2a181d74b">bl::rc::buf::BatchIndexBufferT::indexCount</a></div><div class="ttdeci">constexpr std::uint32_t indexCount() const</div><div class="ttdoc">Returns the number of in-use indices in the buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00300">BatchIndexBuffer.hpp:300</a></div></div>
-<div class="ttc" id="aa03377_html_afa4a028953b2c826f89e7bfcd96ac4c4"><div class="ttname"><a href="a03377.html#afa4a028953b2c826f89e7bfcd96ac4c4">bl::rc::buf::BatchIndexBufferT::deferDestruction</a></div><div class="ttdeci">void deferDestruction()</div><div class="ttdoc">Queues the buffer to be erased in a deferred manner.</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00283">BatchIndexBuffer.hpp:283</a></div></div>
-<div class="ttc" id="aa03377_html_afac0e23f002979ace5aba384677adb3e"><div class="ttname"><a href="a03377.html#afac0e23f002979ace5aba384677adb3e">bl::rc::buf::BatchIndexBufferT::indexCapacity</a></div><div class="ttdeci">constexpr std::uint32_t indexCapacity() const</div><div class="ttdoc">Returns the total number of indices in the buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00310">BatchIndexBuffer.hpp:310</a></div></div>
-<div class="ttc" id="aa03381_html"><div class="ttname"><a href="a03381.html">bl::rc::buf::BatchIndexBufferT::AllocInfo</a></div><div class="ttdoc">Basic info defining a sub-allocation in the index buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00029">BatchIndexBuffer.hpp:29</a></div></div>
-<div class="ttc" id="aa03381_html_a0a349f5b9f304da6bc6e38bb3ec0fc8c"><div class="ttname"><a href="a03381.html#a0a349f5b9f304da6bc6e38bb3ec0fc8c">bl::rc::buf::BatchIndexBufferT::AllocInfo::vertexSize</a></div><div class="ttdeci">std::uint32_t vertexSize</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00032">BatchIndexBuffer.hpp:32</a></div></div>
-<div class="ttc" id="aa03381_html_a1444b939093be1043c63a8b3c8be901e"><div class="ttname"><a href="a03381.html#a1444b939093be1043c63a8b3c8be901e">bl::rc::buf::BatchIndexBufferT::AllocInfo::refCount</a></div><div class="ttdeci">std::uint32_t refCount</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00030">BatchIndexBuffer.hpp:30</a></div></div>
-<div class="ttc" id="aa03381_html_a45bd431617b7659fb5ea5d46aa4b1d78"><div class="ttname"><a href="a03381.html#a45bd431617b7659fb5ea5d46aa4b1d78">bl::rc::buf::BatchIndexBufferT::AllocInfo::indexSize</a></div><div class="ttdeci">std::uint32_t indexSize</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00034">BatchIndexBuffer.hpp:34</a></div></div>
-<div class="ttc" id="aa03381_html_a484cb771728295d4badce6a1f114c48d"><div class="ttname"><a href="a03381.html#a484cb771728295d4badce6a1f114c48d">bl::rc::buf::BatchIndexBufferT::AllocInfo::indexStart</a></div><div class="ttdeci">std::uint32_t indexStart</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00033">BatchIndexBuffer.hpp:33</a></div></div>
-<div class="ttc" id="aa03381_html_ad5ab741fb3ff6160b5162f1cf49f3b8a"><div class="ttname"><a href="a03381.html#ad5ab741fb3ff6160b5162f1cf49f3b8a">bl::rc::buf::BatchIndexBufferT::AllocInfo::vertexStart</a></div><div class="ttdeci">std::uint32_t vertexStart</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00031">BatchIndexBuffer.hpp:31</a></div></div>
-<div class="ttc" id="aa03385_html"><div class="ttname"><a href="a03385.html">bl::rc::buf::BatchIndexBufferT::AllocHandle</a></div><div class="ttdoc">Handle to an allocation from the index buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00040">BatchIndexBuffer.hpp:40</a></div></div>
-<div class="ttc" id="aa03385_html_a3fd1c510e14dd4fedfb3f6bc30c2048c"><div class="ttname"><a href="a03385.html#a3fd1c510e14dd4fedfb3f6bc30c2048c">bl::rc::buf::BatchIndexBufferT::AllocHandle::getInfo</a></div><div class="ttdeci">const AllocInfo &amp; getInfo() const</div><div class="ttdoc">Returns the allocation parameters.</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00470">BatchIndexBuffer.hpp:470</a></div></div>
-<div class="ttc" id="aa03385_html_a46fca2bdc6d50a6062628219bfb8273e"><div class="ttname"><a href="a03385.html#a46fca2bdc6d50a6062628219bfb8273e">bl::rc::buf::BatchIndexBufferT::AllocHandle::~AllocHandle</a></div><div class="ttdeci">~AllocHandle()</div><div class="ttdoc">Releases the handle if still owned.</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00411">BatchIndexBuffer.hpp:411</a></div></div>
-<div class="ttc" id="aa03385_html_a548eb545f8d7fce73f2540395257fb21"><div class="ttname"><a href="a03385.html#a548eb545f8d7fce73f2540395257fb21">bl::rc::buf::BatchIndexBufferT::AllocHandle::release</a></div><div class="ttdeci">bool release()</div><div class="ttdoc">Releases this handle. Frees the allocation if this is the last handle.</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00444">BatchIndexBuffer.hpp:444</a></div></div>
-<div class="ttc" id="aa03385_html_a6ead6c237f12f004680db8a185e0fee1"><div class="ttname"><a href="a03385.html#a6ead6c237f12f004680db8a185e0fee1">bl::rc::buf::BatchIndexBufferT::AllocHandle::commit</a></div><div class="ttdeci">void commit()</div><div class="ttdoc">Triggers the underlying index buffer to transfer. Call when contents are modified.</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00439">BatchIndexBuffer.hpp:439</a></div></div>
-<div class="ttc" id="aa03385_html_a82504f304ba927962ebf41882948abef"><div class="ttname"><a href="a03385.html#a82504f304ba927962ebf41882948abef">bl::rc::buf::BatchIndexBufferT::AllocHandle::getIndices</a></div><div class="ttdeci">std::uint32_t * getIndices()</div><div class="ttdoc">Returns the indices for writing. Do not store pointers as they may be invalidated.</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00465">BatchIndexBuffer.hpp:465</a></div></div>
-<div class="ttc" id="aa03385_html_aa1ac4fb89658f66823a091cd562598f4"><div class="ttname"><a href="a03385.html#aa1ac4fb89658f66823a091cd562598f4">bl::rc::buf::BatchIndexBufferT::AllocHandle::isValid</a></div><div class="ttdeci">bool isValid() const</div><div class="ttdoc">Returns whether or not this handle points to a valid allocation.</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00475">BatchIndexBuffer.hpp:475</a></div></div>
-<div class="ttc" id="aa03385_html_ab1f42e1e194cc943d9178cc5c4ecf389"><div class="ttname"><a href="a03385.html#ab1f42e1e194cc943d9178cc5c4ecf389">bl::rc::buf::BatchIndexBufferT::AllocHandle::getVertices</a></div><div class="ttdeci">T * getVertices()</div><div class="ttdoc">Returns the vertices for writing. Do not store pointers as they may be invalidated.</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00460">BatchIndexBuffer.hpp:460</a></div></div>
-<div class="ttc" id="aa03385_html_ab8c70a4a9b6471fb59b4ca3aeb913d0d"><div class="ttname"><a href="a03385.html#ab8c70a4a9b6471fb59b4ca3aeb913d0d">bl::rc::buf::BatchIndexBufferT::AllocHandle::AllocHandle</a></div><div class="ttdeci">AllocHandle()</div><div class="ttdoc">Creates an invalid handle.</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00390">BatchIndexBuffer.hpp:390</a></div></div>
-<div class="ttc" id="aa03385_html_aba442f8d9e7896116d7e06a3dc510076"><div class="ttname"><a href="a03385.html#aba442f8d9e7896116d7e06a3dc510076">bl::rc::buf::BatchIndexBufferT::AllocHandle::operator=</a></div><div class="ttdeci">AllocHandle &amp; operator=(const AllocHandle &amp;copy)</div><div class="ttdoc">Copies the allocation handle.</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00416">BatchIndexBuffer.hpp:416</a></div></div>
-<div class="ttc" id="aa03397_html"><div class="ttname"><a href="a03397.html">bl::rc::buf::IndexBufferT</a></div><div class="ttdoc">Basic index buffer class built on top of vk::Buffer. Intended for static mesh data.</div><div class="ttdef"><b>Definition:</b> <a href="a00692_source.html#l00025">IndexBuffer.hpp:25</a></div></div>
-<div class="ttc" id="aa03657_html"><div class="ttname"><a href="a03657.html">bl::rc::prim::DrawParameters</a></div><div class="ttdoc">Collection of the required parameters to issue draw commands per object.</div><div class="ttdef"><b>Definition:</b> <a href="a00860_source.html#l00018">DrawParameters.hpp:18</a></div></div>
-<div class="ttc" id="aa03657_html_a6c514a24c6c747266eaae2e87582f999"><div class="ttname"><a href="a03657.html#a6c514a24c6c747266eaae2e87582f999">bl::rc::prim::DrawParameters::indexCount</a></div><div class="ttdeci">std::uint32_t indexCount</div><div class="ttdef"><b>Definition:</b> <a href="a00860_source.html#l00028">DrawParameters.hpp:28</a></div></div>
-<div class="ttc" id="aa03801_html_a109f9d7acc098649830f276c266b47d0a43f6615bbb2c40a5306ff804094420b1"><div class="ttname"><a href="a03801.html#a109f9d7acc098649830f276c266b47d0a43f6615bbb2c40a5306ff804094420b1">bl::rc::tfr::Transferable::SyncRequirement::Immediate</a></div><div class="ttdeci">@ Immediate</div><div class="ttdoc">Transfers with this requirement may be started immediately.</div></div>
-<div class="ttc" id="aa03953_html"><div class="ttname"><a href="a03953.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a01013_source.html#l00039">VulkanState.hpp:39</a></div></div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a03556.html#aef8e0b4138b7e6a645fea5049565c78a">   26</a></span>&#160;    <a class="code" href="a03556.html#a7aead111e234327c018e49a75c20f702">Type</a> <a class="code" href="a03556.html#aef8e0b4138b7e6a645fea5049565c78a">type</a>;</div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="a03556.html#a1f656c377a68ef48d13abfe7fa7f43b2">   27</a></span>&#160;    <a class="code" href="a03556.html">Node</a>* <a class="code" href="a03556.html#a1f656c377a68ef48d13abfe7fa7f43b2">parent</a>;</div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a03556.html#abc7a3b704270aed00f97302e698cb67e">   28</a></span>&#160;    std::vector&lt;Ptr&gt; <a class="code" href="a03556.html#abc7a3b704270aed00f97302e698cb67e">children</a>;</div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a03556.html#aa80197fd64232776f14ed64176adf1e3">   29</a></span>&#160;    std::string <a class="code" href="a03556.html#aa80197fd64232776f14ed64176adf1e3">data</a>;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="a03556.html#aedefe68f7194aeccd75aad71dfd8ca7d">   31</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="a03556.html#aedefe68f7194aeccd75aad71dfd8ca7d">sourceLine</a>;</div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="a03556.html#a2aefdf0aa8a0c54c4ea10899895b4baa">   32</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="a03556.html#a2aefdf0aa8a0c54c4ea10899895b4baa">sourceColumn</a>;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;};</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;} <span class="comment">// namespace parser</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02301.html">std</a></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;{</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="keyword">template</span>&lt;&gt;</div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="a03560.html">   41</a></span>&#160;<span class="keyword">struct </span>hash&lt;<a class="code" href="a02284.html">bl</a>::parser::Node::Sequence&gt; {</div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="a03560.html#a71cfcafd7c1339469888bb7fe2a24d78">   42</a></span>&#160;    std::size_t <a class="code" href="a03560.html#a71cfcafd7c1339469888bb7fe2a24d78">operator()</a>(<span class="keyword">const</span> <a class="code" href="a03556.html#afa29f085be0b57c51abc6f33d9619af2">bl::parser::Node::Sequence</a>&amp; key)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        std::size_t seed = key.size();</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; i : key) {</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;            seed ^= <span class="keyword">static_cast&lt;</span>std::size_t<span class="keyword">&gt;</span>(i) + 0x9e3779b9 + (seed &lt;&lt; 6) + (seed &gt;&gt; 2);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        }</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="keywordflow">return</span> seed;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    }</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;};</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;} <span class="comment">// namespace std</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="a00686.html#a5e0789b19a9a862930b0d3fbd794925f">   53</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="a00686.html#a5e0789b19a9a862930b0d3fbd794925f">operator==</a>(<span class="keyword">const</span> <a class="code" href="a03556.html#afa29f085be0b57c51abc6f33d9619af2">bl::parser::Node::Sequence</a>&amp; rhs,</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;                       <span class="keyword">const</span> <a class="code" href="a03556.html#afa29f085be0b57c51abc6f33d9619af2">bl::parser::Node::Sequence</a>&amp; lhs) {</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordflow">if</span> (rhs.size() != lhs.size()) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; rhs.size(); ++i) {</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keywordflow">if</span> (rhs[i] != lhs[i]) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    }</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;}</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00686_html_a5e0789b19a9a862930b0d3fbd794925f"><div class="ttname"><a href="a00686.html#a5e0789b19a9a862930b0d3fbd794925f">operator==</a></div><div class="ttdeci">bool operator==(const bl::parser::Node::Sequence &amp;rhs, const bl::parser::Node::Sequence &amp;lhs)</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00053">Node.hpp:53</a></div></div>
+<div class="ttc" id="aa02284_html"><div class="ttname"><a href="a02284.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02301_html"><div class="ttname"><a href="a02301.html">std</a></div><div class="ttdef"><b>Definition:</b> <a href="a00176_source.html#l00172">Entity.hpp:173</a></div></div>
+<div class="ttc" id="aa03556_html"><div class="ttname"><a href="a03556.html">bl::parser::Node</a></div><div class="ttdoc">Represents a basic parse node. Can be both tokens (terminals) or non terminal grammar elements.</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00018">Node.hpp:18</a></div></div>
+<div class="ttc" id="aa03556_html_a1f656c377a68ef48d13abfe7fa7f43b2"><div class="ttname"><a href="a03556.html#a1f656c377a68ef48d13abfe7fa7f43b2">bl::parser::Node::parent</a></div><div class="ttdeci">Node * parent</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00027">Node.hpp:27</a></div></div>
+<div class="ttc" id="aa03556_html_a2aefdf0aa8a0c54c4ea10899895b4baa"><div class="ttname"><a href="a03556.html#a2aefdf0aa8a0c54c4ea10899895b4baa">bl::parser::Node::sourceColumn</a></div><div class="ttdeci">int sourceColumn</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00032">Node.hpp:32</a></div></div>
+<div class="ttc" id="aa03556_html_a3f49fe9da8742463aa757f89f67a8827"><div class="ttname"><a href="a03556.html#a3f49fe9da8742463aa757f89f67a8827">bl::parser::Node::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; Node &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00024">Node.hpp:24</a></div></div>
+<div class="ttc" id="aa03556_html_a4bbdfc3239a1e6b8781433b8e2f46c6b"><div class="ttname"><a href="a03556.html#a4bbdfc3239a1e6b8781433b8e2f46c6b">bl::parser::Node::None</a></div><div class="ttdeci">static constexpr Type None</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00020">Node.hpp:20</a></div></div>
+<div class="ttc" id="aa03556_html_a6bb58cc837da6706b7aa5b4da9a9baa1"><div class="ttname"><a href="a03556.html#a6bb58cc837da6706b7aa5b4da9a9baa1">bl::parser::Node::EOI</a></div><div class="ttdeci">static constexpr Type EOI</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00021">Node.hpp:21</a></div></div>
+<div class="ttc" id="aa03556_html_a7aead111e234327c018e49a75c20f702"><div class="ttname"><a href="a03556.html#a7aead111e234327c018e49a75c20f702">bl::parser::Node::Type</a></div><div class="ttdeci">int Type</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00019">Node.hpp:19</a></div></div>
+<div class="ttc" id="aa03556_html_aa80197fd64232776f14ed64176adf1e3"><div class="ttname"><a href="a03556.html#aa80197fd64232776f14ed64176adf1e3">bl::parser::Node::data</a></div><div class="ttdeci">std::string data</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00029">Node.hpp:29</a></div></div>
+<div class="ttc" id="aa03556_html_abc7a3b704270aed00f97302e698cb67e"><div class="ttname"><a href="a03556.html#abc7a3b704270aed00f97302e698cb67e">bl::parser::Node::children</a></div><div class="ttdeci">std::vector&lt; Ptr &gt; children</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00028">Node.hpp:28</a></div></div>
+<div class="ttc" id="aa03556_html_aedefe68f7194aeccd75aad71dfd8ca7d"><div class="ttname"><a href="a03556.html#aedefe68f7194aeccd75aad71dfd8ca7d">bl::parser::Node::sourceLine</a></div><div class="ttdeci">int sourceLine</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00031">Node.hpp:31</a></div></div>
+<div class="ttc" id="aa03556_html_aef8e0b4138b7e6a645fea5049565c78a"><div class="ttname"><a href="a03556.html#aef8e0b4138b7e6a645fea5049565c78a">bl::parser::Node::type</a></div><div class="ttdeci">Type type</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00026">Node.hpp:26</a></div></div>
+<div class="ttc" id="aa03556_html_afa29f085be0b57c51abc6f33d9619af2"><div class="ttname"><a href="a03556.html#afa29f085be0b57c51abc6f33d9619af2">bl::parser::Node::Sequence</a></div><div class="ttdeci">std::vector&lt; Type &gt; Sequence</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00022">Node.hpp:22</a></div></div>
+<div class="ttc" id="aa03560_html_a71cfcafd7c1339469888bb7fe2a24d78"><div class="ttname"><a href="a03560.html#a71cfcafd7c1339469888bb7fe2a24d78">std::hash&lt; bl::parser::Node::Sequence &gt;::operator()</a></div><div class="ttdeci">std::size_t operator()(const bl::parser::Node::Sequence &amp;key) const</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00042">Node.hpp:42</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 2 2023 04:00:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 18 2024 18:32:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

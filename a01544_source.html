@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Interfaces/GUI/Packers/GridPacker.cpp Source File</title>
+<title>BLIB: src/Graphics/BatchTriangle.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,139 +66,49 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_ce6405ba0afce575b27b3b998c1d24f9.html">Interfaces</a></li><li class="navelem"><a class="el" href="dir_8031c595bb16908e26701cd6b5d8df53.html">GUI</a></li><li class="navelem"><a class="el" href="dir_4ddb0397ff01941c8f7466ec0255d6f8.html">Packers</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3419e189e460663ec2c964233bf8dcd6.html">Graphics</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">GridPacker.cpp</div>  </div>
+<div class="title">BatchTriangle.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01544.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00467.html">BLIB/Interfaces/GUI/Packers/GridPacker.hpp</a>&gt;</span></div>
+<a href="a01544.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00320.html">BLIB/Graphics/BatchTriangle.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02100.html">bl</a></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02284.html">bl</a></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>gui</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>gfx</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="a03073.html#a503b1a3c6143538393e2420278e4d22d">    7</a></span>&#160;<a class="code" href="a03073.html#a5213d33ba71adc25f1f870120b2b2c45">GridPacker::Ptr</a> <a class="code" href="a03073.html#a503b1a3c6143538393e2420278e4d22d">GridPacker::createDynamicGrid</a>(<a class="code" href="a03073.html#a8866a71cf9b5665134713f242cadd94a">Direction</a> dir, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> size, <span class="keywordtype">float</span> padding) {</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="a03073.html#a5213d33ba71adc25f1f870120b2b2c45">Ptr</a>(<span class="keyword">new</span> <a class="code" href="a03073.html">GridPacker</a>(Dynamic, dir, padding, size));</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;}</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="a03073.html#a95ba394a9c7fdc7944db41f62c20aac1">   11</a></span>&#160;<a class="code" href="a03073.html#a5213d33ba71adc25f1f870120b2b2c45">GridPacker::Ptr</a> <a class="code" href="a03073.html#a95ba394a9c7fdc7944db41f62c20aac1">GridPacker::createFixedGrid</a>(<a class="code" href="a03073.html#a8866a71cf9b5665134713f242cadd94a">Direction</a> dir, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> wrap, <span class="keywordtype">float</span> padding) {</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="a03073.html#a5213d33ba71adc25f1f870120b2b2c45">Ptr</a>(<span class="keyword">new</span> <a class="code" href="a03073.html">GridPacker</a>(FixedAmount, dir, padding, wrap));</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;}</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;GridPacker::GridPacker(WrapRule r, Direction d, <span class="keywordtype">float</span> pad, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> s)</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;: rule(r)</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;, dir(d)</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;, padding(pad)</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;, size(s) {}</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a03073.html#a36a922cad484aa072de4bc06fb7940ab">   21</a></span>&#160;sf::Vector2f <a class="code" href="a03073.html#a36a922cad484aa072de4bc06fb7940ab">GridPacker::getRequisition</a>(<span class="keyword">const</span> std::vector&lt;Element::Ptr&gt;&amp; elements) {</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    sf::Vector2f req(0, 0);</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keyword">auto</span> measure = [&amp;req](<a class="code" href="a03001.html#a21b57f73febb9e1c62e8abcef64b1654">Element::Ptr</a>, <span class="keyword">const</span> sf::FloatRect&amp; area) {</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        <span class="keywordflow">if</span> (req.x &lt; area.left + area.width) req.x = area.left + area.width;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <span class="keywordflow">if</span> (req.y &lt; area.top + area.height) req.y = area.top + area.height;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    };</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    doPack({}, elements, measure);</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordflow">return</span> req;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;}</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="a03073.html#a5c5f6901d35cb15627386cdeaa0351e2">   31</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03073.html#a5c5f6901d35cb15627386cdeaa0351e2">GridPacker::pack</a>(<span class="keyword">const</span> sf::FloatRect&amp; area, <span class="keyword">const</span> std::vector&lt;Element::Ptr&gt;&amp; elements) {</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    doPack(area, elements, &amp;<a class="code" href="a03081.html#a2b942eb90604a301008c4b26d6209793">Packer::packElementIntoSpace</a>);</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;}</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keywordtype">void</span> GridPacker::doPack(<span class="keyword">const</span> sf::FloatRect&amp; area, <span class="keyword">const</span> std::vector&lt;Element::Ptr&gt;&amp; elements,</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;                        <span class="keyword">const</span> std::function&lt;<span class="keywordtype">void</span>(<a class="code" href="a03001.html#a21b57f73febb9e1c62e8abcef64b1654">Element::Ptr</a>, <span class="keyword">const</span> sf::FloatRect&amp;)&gt;&amp; packCb) {</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    sf::Vector2f pos(area.left, area.top);</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> pcount = 0;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    sf::Vector2f mreq;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; elements.size(); ++i) {</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <span class="keywordflow">if</span> (!elements[i]-&gt;packable()) <span class="keywordflow">continue</span>;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <span class="comment">// Pack</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keyword">const</span> sf::Vector2f req = elements[i]-&gt;getRequisition();</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        packCb(elements[i], {pos, req});</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        ++pcount;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="comment">// Track size for when we make next row/column</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        mreq.x = std::max(mreq.x, req.x);</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        mreq.y = std::max(mreq.y, req.y);</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="comment">// Do wrap based on rule and dir</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="keywordflow">if</span> (i &lt; elements.size() - 1) {</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            <span class="keywordflow">if</span> (dir == <a class="code" href="a03073.html#a8866a71cf9b5665134713f242cadd94aa0b545ff15987e444af36d13bf53428e7">Rows</a>) {</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                <span class="keywordflow">if</span> (rule == FixedAmount) {</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                    <span class="keywordflow">if</span> (pcount == size) { <span class="comment">// wrap</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                        pos.x = area.left;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;                        pos.y += mreq.y + padding;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;                        mreq   = {0, 0};</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;                        pcount = 0;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                    }</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                    <span class="keywordflow">else</span> { <span class="comment">// coninue in row/column</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                        pos.x += req.x + padding;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                    }</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                }</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;                    <span class="keyword">const</span> sf::Vector2f nreq = elements[i + 1]-&gt;getRequisition();</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;                    <span class="keywordflow">if</span> (pos.x + padding + nreq.x &gt; size) { <span class="comment">// wrap</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;                        pos.x = area.left;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;                        pos.y += mreq.y + padding;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                        mreq = {0, 0};</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                    }</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                    <span class="keywordflow">else</span> { <span class="comment">// continue in row/column</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                        pos.x += req.x + padding;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;                    }</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                }</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;            }</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;            <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                <span class="keywordflow">if</span> (rule == FixedAmount) {</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                    <span class="keywordflow">if</span> (pcount == size) { <span class="comment">// wrap</span></div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;                        pos.y = area.top;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;                        pos.x += mreq.x + padding;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                        mreq   = {0, 0};</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;                        pcount = 0;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;                    }</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;                    <span class="keywordflow">else</span> { <span class="comment">// coninue in row/column</span></div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                        pos.y += req.y + padding;</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;                    }</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;                }</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;                <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;                    <span class="keyword">const</span> sf::Vector2f nreq = elements[i + 1]-&gt;getRequisition();</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;                    <span class="keywordflow">if</span> (pos.y + padding + nreq.y &gt; size) { <span class="comment">// wrap</span></div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;                        pos.y = area.top;</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;                        pos.x += mreq.x + padding;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;                        mreq = {0, 0};</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;                    }</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;                    <span class="keywordflow">else</span> { <span class="comment">// continue in row/column</span></div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;                        pos.y += req.y + padding;</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;                    }</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;                }</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;            }</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        }</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    }</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;}</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;} <span class="comment">// namespace gui</span></div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00467_html"><div class="ttname"><a href="a00467.html">GridPacker.hpp</a></div></div>
-<div class="ttc" id="aa02100_html"><div class="ttname"><a href="a02100.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03001_html_a21b57f73febb9e1c62e8abcef64b1654"><div class="ttname"><a href="a03001.html#a21b57f73febb9e1c62e8abcef64b1654">bl::gui::Element::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; Element &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00425_source.html#l00035">Element.hpp:35</a></div></div>
-<div class="ttc" id="aa03073_html"><div class="ttname"><a href="a03073.html">bl::gui::GridPacker</a></div><div class="ttdoc">Packer that can pack elements into grids.</div><div class="ttdef"><b>Definition:</b> <a href="a00467_source.html#l00016">GridPacker.hpp:16</a></div></div>
-<div class="ttc" id="aa03073_html_a36a922cad484aa072de4bc06fb7940ab"><div class="ttname"><a href="a03073.html#a36a922cad484aa072de4bc06fb7940ab">bl::gui::GridPacker::getRequisition</a></div><div class="ttdeci">virtual sf::Vector2f getRequisition(const std::vector&lt; Element::Ptr &gt; &amp;elements) override</div><div class="ttdoc">Returns the space required to pack the given list of elements.</div><div class="ttdef"><b>Definition:</b> <a href="a01544_source.html#l00021">GridPacker.cpp:21</a></div></div>
-<div class="ttc" id="aa03073_html_a503b1a3c6143538393e2420278e4d22d"><div class="ttname"><a href="a03073.html#a503b1a3c6143538393e2420278e4d22d">bl::gui::GridPacker::createDynamicGrid</a></div><div class="ttdeci">static Ptr createDynamicGrid(Direction dir, unsigned int size, float padding=2)</div><div class="ttdoc">Creates a new GridPacker that has a dynamic number of elements on each row or column.</div><div class="ttdef"><b>Definition:</b> <a href="a01544_source.html#l00007">GridPacker.cpp:7</a></div></div>
-<div class="ttc" id="aa03073_html_a5213d33ba71adc25f1f870120b2b2c45"><div class="ttname"><a href="a03073.html#a5213d33ba71adc25f1f870120b2b2c45">bl::gui::GridPacker::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; GridPacker &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00467_source.html#l00018">GridPacker.hpp:18</a></div></div>
-<div class="ttc" id="aa03073_html_a5c5f6901d35cb15627386cdeaa0351e2"><div class="ttname"><a href="a03073.html#a5c5f6901d35cb15627386cdeaa0351e2">bl::gui::GridPacker::pack</a></div><div class="ttdeci">virtual void pack(const sf::FloatRect &amp;acquisition, const std::vector&lt; Element::Ptr &gt; &amp;elements) override</div><div class="ttdoc">Packs the given list of elements into the given region.</div><div class="ttdef"><b>Definition:</b> <a href="a01544_source.html#l00031">GridPacker.cpp:31</a></div></div>
-<div class="ttc" id="aa03073_html_a8866a71cf9b5665134713f242cadd94a"><div class="ttname"><a href="a03073.html#a8866a71cf9b5665134713f242cadd94a">bl::gui::GridPacker::Direction</a></div><div class="ttdeci">Direction</div><div class="ttdoc">Indicates whether to pack in rows or columns.</div><div class="ttdef"><b>Definition:</b> <a href="a00467_source.html#l00024">GridPacker.hpp:24</a></div></div>
-<div class="ttc" id="aa03073_html_a8866a71cf9b5665134713f242cadd94aa0b545ff15987e444af36d13bf53428e7"><div class="ttname"><a href="a03073.html#a8866a71cf9b5665134713f242cadd94aa0b545ff15987e444af36d13bf53428e7">bl::gui::GridPacker::Rows</a></div><div class="ttdeci">@ Rows</div><div class="ttdoc">Elements are packed horizontally in rows and wrapped into multiple rows.</div><div class="ttdef"><b>Definition:</b> <a href="a00467_source.html#l00026">GridPacker.hpp:26</a></div></div>
-<div class="ttc" id="aa03073_html_a95ba394a9c7fdc7944db41f62c20aac1"><div class="ttname"><a href="a03073.html#a95ba394a9c7fdc7944db41f62c20aac1">bl::gui::GridPacker::createFixedGrid</a></div><div class="ttdeci">static Ptr createFixedGrid(Direction dir, unsigned int wrapCount, float padding=2)</div><div class="ttdoc">Creates a new GridPacker that has a fixed number of elements on each row or column.</div><div class="ttdef"><b>Definition:</b> <a href="a01544_source.html#l00011">GridPacker.cpp:11</a></div></div>
-<div class="ttc" id="aa03081_html_a2b942eb90604a301008c4b26d6209793"><div class="ttname"><a href="a03081.html#a2b942eb90604a301008c4b26d6209793">bl::gui::Packer::packElementIntoSpace</a></div><div class="ttdeci">static void packElementIntoSpace(const Element::Ptr &amp;element, const sf::FloatRect &amp;space)</div><div class="ttdoc">Packs an element into the given space. Obeys Element expand properties.</div><div class="ttdef"><b>Definition:</b> <a href="a01550_source.html#l00007">Packer.cpp:7</a></div></div>
+<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="a03000.html#a42cdbcf0f806ff8b9160eef17180f388">    7</a></span>&#160;<a class="code" href="a03000.html#a42cdbcf0f806ff8b9160eef17180f388">BatchTriangle::BatchTriangle</a>()</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;: TriangleBase() {}</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="a03000.html#aa266c2d89086df0f153eee3f5f21a3a5">   10</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03000.html#aa266c2d89086df0f153eee3f5f21a3a5">BatchTriangle::create</a>(<a class="code" href="a02812.html">engine::Engine</a>&amp; engine, <a class="code" href="a02964.html">BatchedShapes2D</a>&amp; owner, <span class="keyword">const</span> glm::vec2&amp; p0,</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;                           <span class="keyword">const</span> glm::vec2&amp; p1, <span class="keyword">const</span> glm::vec2&amp; p2) {</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <a class="code" href="a03064.html#aec63bf250e507e530e966ad8e2517399">setPoints</a>(p0, p1, p2);</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    BatchShape2D::create(engine, owner);</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;}</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a03000.html#a61c4ec2eae25fe0a018bc1edacfbe17c">   16</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03000.html#aa266c2d89086df0f153eee3f5f21a3a5">BatchTriangle::create</a>(<a class="code" href="a02812.html">engine::Engine</a>&amp; engine, <a class="code" href="a02964.html">BatchedShapes2D</a>&amp; owner,</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;                           <span class="keyword">const</span> std::array&lt;glm::vec2, 3&gt;&amp; p) {</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <a class="code" href="a03064.html#aec63bf250e507e530e966ad8e2517399">setPoints</a>(p);</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    BatchShape2D::create(engine, owner);</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;}</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;} <span class="comment">// namespace gfx</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00320_html"><div class="ttname"><a href="a00320.html">BatchTriangle.hpp</a></div></div>
+<div class="ttc" id="aa02284_html"><div class="ttname"><a href="a02284.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02812_html"><div class="ttname"><a href="a02812.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a06232_source.html#l00033">Engine.hpp:33</a></div></div>
+<div class="ttc" id="aa02964_html"><div class="ttname"><a href="a02964.html">bl::gfx::BatchedShapes2D</a></div><div class="ttdoc">Drawable for a collection of batched 2d shapes. Create one of these and use with multiple BatchedCirc...</div><div class="ttdef"><b>Definition:</b> <a href="a06163_source.html#l00020">BatchedShapes2D.hpp:22</a></div></div>
+<div class="ttc" id="aa03000_html_a42cdbcf0f806ff8b9160eef17180f388"><div class="ttname"><a href="a03000.html#a42cdbcf0f806ff8b9160eef17180f388">bl::gfx::BatchTriangle::BatchTriangle</a></div><div class="ttdeci">BatchTriangle()</div><div class="ttdoc">Does nothing.</div><div class="ttdef"><b>Definition:</b> <a href="a01544_source.html#l00007">BatchTriangle.cpp:7</a></div></div>
+<div class="ttc" id="aa03000_html_aa266c2d89086df0f153eee3f5f21a3a5"><div class="ttname"><a href="a03000.html#aa266c2d89086df0f153eee3f5f21a3a5">bl::gfx::BatchTriangle::create</a></div><div class="ttdeci">void create(engine::Engine &amp;engine, BatchedShapes2D &amp;owner, const glm::vec2 &amp;p0, const glm::vec2 &amp;p1, const glm::vec2 &amp;p2)</div><div class="ttdoc">Creates the triangle shape from 3 points (should not be co-linear)</div><div class="ttdef"><b>Definition:</b> <a href="a01544_source.html#l00010">BatchTriangle.cpp:10</a></div></div>
+<div class="ttc" id="aa03064_html_aec63bf250e507e530e966ad8e2517399"><div class="ttname"><a href="a03064.html#aec63bf250e507e530e966ad8e2517399">bl::gfx::s2d::TriangleBase&lt; s2d::BatchShape2D &gt;::setPoints</a></div><div class="ttdeci">void setPoints(const glm::vec2 &amp;p0, const glm::vec2 &amp;p1, const glm::vec2 &amp;p2)</div><div class="ttdoc">Sets the points to make the triangle with.</div><div class="ttdef"><b>Definition:</b> <a href="a00359_source.html#l00037">TriangleBase.hpp:79</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 2 2023 04:00:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 18 2024 18:32:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

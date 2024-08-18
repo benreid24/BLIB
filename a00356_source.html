@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Graphics.hpp Source File</title>
+<title>BLIB: include/BLIB/Graphics/Shapes2D/SingleShape2D.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,73 +66,91 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_8af985930208ac2752e8061e22535a56.html">Graphics</a></li><li class="navelem"><a class="el" href="dir_886502d98260abb236f1d1310d59e9a0.html">Shapes2D</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Graphics.hpp</div>  </div>
+<div class="title">SingleShape2D.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00356.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_GRAPHICS_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_GRAPHICS_HPP</span></div>
+<a href="a00356.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_GRAPHICS_SHAPES_SINGLESHAPE2D_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_GRAPHICS_SHAPES_SINGLESHAPE2D_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01016.html">BLIB/Render.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06178.html">BLIB/Components/Shape2D.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06247.html">BLIB/Engine/Systems.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00326.html">BLIB/Graphics/Components/OverlayScalable.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06211.html">BLIB/Graphics/Components/Transform2D.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00332.html">BLIB/Graphics/Drawable.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06181.html">BLIB/Graphics/Shapes2D/Shape2D.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05638.html">BLIB/Graphics/Animation2D.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00284.html">BLIB/Graphics/Animation2D/DiscreteAnimation2DPlayer.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00287.html">BLIB/Graphics/BatchCircle.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00293.html">BLIB/Graphics/BatchRectangle.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00296.html">BLIB/Graphics/BatchSlideshow.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00299.html">BLIB/Graphics/BatchSprite.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00302.html">BLIB/Graphics/BatchTriangle.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05650.html">BLIB/Graphics/BatchedShapes2D.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05656.html">BLIB/Graphics/BatchedSlideshows.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05662.html">BLIB/Graphics/BatchedSprites.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00305.html">BLIB/Graphics/Circle.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00311.html">BLIB/Graphics/Components/OverlayScalable.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00314.html">BLIB/Graphics/Components/Textured.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05698.html">BLIB/Graphics/Components/Transform2D.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00317.html">BLIB/Graphics/Drawable.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00320.html">BLIB/Graphics/Dummy2D.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00326.html">BLIB/Graphics/Rectangle.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05674.html">BLIB/Graphics/Slideshow.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05680.html">BLIB/Graphics/Sprite.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05686.html">BLIB/Graphics/Text.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00347.html">BLIB/Graphics/Text/BasicText.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00350.html">BLIB/Graphics/Text/VulkanFont.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00353.html">BLIB/Graphics/Triangle.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00284_html"><div class="ttname"><a href="a00284.html">DiscreteAnimation2DPlayer.hpp</a></div></div>
-<div class="ttc" id="aa00287_html"><div class="ttname"><a href="a00287.html">BatchCircle.hpp</a></div></div>
-<div class="ttc" id="aa00293_html"><div class="ttname"><a href="a00293.html">BatchRectangle.hpp</a></div></div>
-<div class="ttc" id="aa00296_html"><div class="ttname"><a href="a00296.html">BatchSlideshow.hpp</a></div></div>
-<div class="ttc" id="aa00299_html"><div class="ttname"><a href="a00299.html">BatchSprite.hpp</a></div></div>
-<div class="ttc" id="aa00302_html"><div class="ttname"><a href="a00302.html">BatchTriangle.hpp</a></div></div>
-<div class="ttc" id="aa00305_html"><div class="ttname"><a href="a00305.html">Circle.hpp</a></div></div>
-<div class="ttc" id="aa00311_html"><div class="ttname"><a href="a00311.html">OverlayScalable.hpp</a></div></div>
-<div class="ttc" id="aa00314_html"><div class="ttname"><a href="a00314.html">Textured.hpp</a></div></div>
-<div class="ttc" id="aa00317_html"><div class="ttname"><a href="a00317.html">Drawable.hpp</a></div></div>
-<div class="ttc" id="aa00320_html"><div class="ttname"><a href="a00320.html">Dummy2D.hpp</a></div></div>
-<div class="ttc" id="aa00326_html"><div class="ttname"><a href="a00326.html">Rectangle.hpp</a></div></div>
-<div class="ttc" id="aa00347_html"><div class="ttname"><a href="a00347.html">BasicText.hpp</a></div></div>
-<div class="ttc" id="aa00350_html"><div class="ttname"><a href="a00350.html">VulkanFont.hpp</a></div></div>
-<div class="ttc" id="aa00353_html"><div class="ttname"><a href="a00353.html">Triangle.hpp</a></div></div>
-<div class="ttc" id="aa01016_html"><div class="ttname"><a href="a01016.html">Render.hpp</a></div></div>
-<div class="ttc" id="aa05638_html"><div class="ttname"><a href="a05638.html">Animation2D.hpp</a></div></div>
-<div class="ttc" id="aa05650_html"><div class="ttname"><a href="a05650.html">BatchedShapes2D.hpp</a></div></div>
-<div class="ttc" id="aa05656_html"><div class="ttname"><a href="a05656.html">BatchedSlideshows.hpp</a></div></div>
-<div class="ttc" id="aa05662_html"><div class="ttname"><a href="a05662.html">BatchedSprites.hpp</a></div></div>
-<div class="ttc" id="aa05674_html"><div class="ttname"><a href="a05674.html">Slideshow.hpp</a></div></div>
-<div class="ttc" id="aa05680_html"><div class="ttname"><a href="a05680.html">Sprite.hpp</a></div></div>
-<div class="ttc" id="aa05686_html"><div class="ttname"><a href="a05686.html">Text.hpp</a></div></div>
-<div class="ttc" id="aa05698_html"><div class="ttname"><a href="a05698.html">Transform2D.hpp</a></div></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02284.html">bl</a></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span>gfx</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span>s2d</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a03060.html">   22</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03060.html">SingleShape2D</a></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;: <span class="keyword">public</span> <a class="code" href="a03056.html">Shape2D</a></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;, <span class="keyword">public</span> <a class="code" href="a03024.html">Drawable</a>&lt;com::Shape2D&gt;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;, <span class="keyword">public</span> <a class="code" href="a03012.html">bcom::OverlayScalable</a> {</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03060.html#a5b7e4a439a5a65759b2bf5b9e4172f9e">~SingleShape2D</a>();</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03060.html#a3f1e9d7a42c2b23e6569b1699fa48b8a">scaleToSize</a>(<span class="keyword">const</span> glm::vec2&amp; size) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03060.html#a6e317229a58f91dc21a58485d194854e">commit</a>();</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <a class="code" href="a03060.html#ab9bcd9250a7ac1ea1ecc26025bb45b96">SingleShape2D</a>();</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03060.html#a4de1dc61459a69066c34f714b2d4079d">create</a>(<a class="code" href="a02812.html">engine::Engine</a>&amp; <a class="code" href="a02720.html#ad29553a8037da3a396535700891bf39f">engine</a>);</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03060.html#a4de1dc61459a69066c34f714b2d4079d">create</a>(<a class="code" href="a02812.html">engine::Engine</a>&amp; <a class="code" href="a02720.html#ad29553a8037da3a396535700891bf39f">engine</a>, <a class="code" href="a02712.html">ecs::Entity</a> existingEntity);</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03060.html#a6b4cadef02a01385993372fbcd945aa3">ensureLocalSizeUpdated</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03060.html#a9770f1236ddd64957864f605b3065dcb">notifyDirty</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keywordtype">bool</span> dirty;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <a class="code" href="a02872.html">engine::Systems::TaskHandle</a> updateHandle;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> ensureUpdated() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;};</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;} <span class="comment">// namespace s2d</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;} <span class="comment">// namespace gfx</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00326_html"><div class="ttname"><a href="a00326.html">OverlayScalable.hpp</a></div></div>
+<div class="ttc" id="aa00332_html"><div class="ttname"><a href="a00332.html">Drawable.hpp</a></div></div>
+<div class="ttc" id="aa02284_html"><div class="ttname"><a href="a02284.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02712_html"><div class="ttname"><a href="a02712.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition:</b> <a href="a00176_source.html#l00024">Entity.hpp:24</a></div></div>
+<div class="ttc" id="aa02720_html_ad29553a8037da3a396535700891bf39f"><div class="ttname"><a href="a02720.html#ad29553a8037da3a396535700891bf39f">bl::ecs::EntityBacked::engine</a></div><div class="ttdeci">engine::Engine &amp; engine()</div><div class="ttdoc">Returns the game engine instance. Only call after create()</div><div class="ttdef"><b>Definition:</b> <a href="a00179_source.html#l00137">EntityBacked.hpp:137</a></div></div>
+<div class="ttc" id="aa02812_html"><div class="ttname"><a href="a02812.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a06232_source.html#l00033">Engine.hpp:33</a></div></div>
+<div class="ttc" id="aa02872_html"><div class="ttname"><a href="a02872.html">bl::engine::Systems::TaskHandle</a></div><div class="ttdoc">Handle to a task submitted to Systems.</div><div class="ttdef"><b>Definition:</b> <a href="a06247_source.html#l00042">Systems.hpp:42</a></div></div>
+<div class="ttc" id="aa03012_html"><div class="ttname"><a href="a03012.html">bl::gfx::bcom::OverlayScalable</a></div><div class="ttdoc">Base component that manages and provides a Transform2D, OverlayScaler, and Viewport.</div><div class="ttdef"><b>Definition:</b> <a href="a00326_source.html#l00030">OverlayScalable.hpp:30</a></div></div>
+<div class="ttc" id="aa03024_html"><div class="ttname"><a href="a03024.html">bl::gfx::Drawable</a></div><div class="ttdoc">Base class for Drawable objects. A Drawable object should inherit this class for the drawable compone...</div><div class="ttdef"><b>Definition:</b> <a href="a00332_source.html#l00034">Drawable.hpp:34</a></div></div>
+<div class="ttc" id="aa03056_html"><div class="ttname"><a href="a03056.html">bl::gfx::s2d::Shape2D</a></div><div class="ttdoc">Base class for all 2d shapes. Provides part of the interface, as well as index buffer population....</div><div class="ttdef"><b>Definition:</b> <a href="a06181_source.html#l00023">Shape2D.hpp:23</a></div></div>
+<div class="ttc" id="aa03060_html"><div class="ttname"><a href="a03060.html">bl::gfx::s2d::SingleShape2D</a></div><div class="ttdoc">Base class for individual 2d shapes. Provides index buffer creation and management.</div><div class="ttdef"><b>Definition:</b> <a href="a00356_source.html#l00022">SingleShape2D.hpp:25</a></div></div>
+<div class="ttc" id="aa03060_html_a3f1e9d7a42c2b23e6569b1699fa48b8a"><div class="ttname"><a href="a03060.html#a3f1e9d7a42c2b23e6569b1699fa48b8a">bl::gfx::s2d::SingleShape2D::scaleToSize</a></div><div class="ttdeci">virtual void scaleToSize(const glm::vec2 &amp;size) override</div><div class="ttdoc">Helper method to set the scale so that the entity is a certain size.</div><div class="ttdef"><b>Definition:</b> <a href="a01565_source.html#l00078">SingleShape2D.cpp:78</a></div></div>
+<div class="ttc" id="aa03060_html_a4de1dc61459a69066c34f714b2d4079d"><div class="ttname"><a href="a03060.html#a4de1dc61459a69066c34f714b2d4079d">bl::gfx::s2d::SingleShape2D::create</a></div><div class="ttdeci">void create(engine::Engine &amp;engine)</div><div class="ttdoc">Creates the ECS entity and required components.</div><div class="ttdef"><b>Definition:</b> <a href="a01565_source.html#l00027">SingleShape2D.cpp:27</a></div></div>
+<div class="ttc" id="aa03060_html_a5b7e4a439a5a65759b2bf5b9e4172f9e"><div class="ttname"><a href="a03060.html#a5b7e4a439a5a65759b2bf5b9e4172f9e">bl::gfx::s2d::SingleShape2D::~SingleShape2D</a></div><div class="ttdeci">virtual ~SingleShape2D()</div><div class="ttdoc">Destroys the shape.</div><div class="ttdef"><b>Definition:</b> <a href="a01565_source.html#l00015">SingleShape2D.cpp:15</a></div></div>
+<div class="ttc" id="aa03060_html_a6b4cadef02a01385993372fbcd945aa3"><div class="ttname"><a href="a03060.html#a6b4cadef02a01385993372fbcd945aa3">bl::gfx::s2d::SingleShape2D::ensureLocalSizeUpdated</a></div><div class="ttdeci">virtual void ensureLocalSizeUpdated() override</div><div class="ttdoc">Called when the local size is queried.</div><div class="ttdef"><b>Definition:</b> <a href="a01565_source.html#l00039">SingleShape2D.cpp:39</a></div></div>
+<div class="ttc" id="aa03060_html_a6e317229a58f91dc21a58485d194854e"><div class="ttname"><a href="a03060.html#a6e317229a58f91dc21a58485d194854e">bl::gfx::s2d::SingleShape2D::commit</a></div><div class="ttdeci">void commit()</div><div class="ttdoc">Does not need to be called manually, but should be called if this object is being used to create ECS ...</div><div class="ttdef"><b>Definition:</b> <a href="a01565_source.html#l00041">SingleShape2D.cpp:41</a></div></div>
+<div class="ttc" id="aa03060_html_a9770f1236ddd64957864f605b3065dcb"><div class="ttname"><a href="a03060.html#a9770f1236ddd64957864f605b3065dcb">bl::gfx::s2d::SingleShape2D::notifyDirty</a></div><div class="ttdeci">virtual void notifyDirty() override</div><div class="ttdoc">Call whenever the shape geometry needs to be updated.</div><div class="ttdef"><b>Definition:</b> <a href="a01565_source.html#l00019">SingleShape2D.cpp:19</a></div></div>
+<div class="ttc" id="aa03060_html_ab9bcd9250a7ac1ea1ecc26025bb45b96"><div class="ttname"><a href="a03060.html#ab9bcd9250a7ac1ea1ecc26025bb45b96">bl::gfx::s2d::SingleShape2D::SingleShape2D</a></div><div class="ttdeci">SingleShape2D()</div><div class="ttdoc">Initializes the shapes fields to sane defaults.</div><div class="ttdef"><b>Definition:</b> <a href="a01565_source.html#l00010">SingleShape2D.cpp:10</a></div></div>
+<div class="ttc" id="aa06178_html"><div class="ttname"><a href="a06178.html">Shape2D.hpp</a></div></div>
+<div class="ttc" id="aa06181_html"><div class="ttname"><a href="a06181.html">Shape2D.hpp</a></div></div>
+<div class="ttc" id="aa06211_html"><div class="ttname"><a href="a06211.html">Transform2D.hpp</a></div></div>
+<div class="ttc" id="aa06247_html"><div class="ttname"><a href="a06247.html">Systems.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 2 2023 04:00:54 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 18 2024 18:32:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

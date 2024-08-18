@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Scenes/Scene3D.cpp Source File</title>
+<title>BLIB: src/Particles/ParticleSystem.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,61 +66,111 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_90555a6f6bc1bb4149f0b831943ef307.html">Scenes</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_9e72493e858003bd3d74a55a2aedd075.html">Particles</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Scene3D.cpp</div>  </div>
+<div class="title">ParticleSystem.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01835.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00914.html">BLIB/Render/Scenes/Scene3D.hpp</a>&gt;</span></div>
+<a href="a01835.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00740.html">BLIB/Particles/ParticleSystem.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00035.html">BLIB/Cameras/3D/Camera3D.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06232.html">BLIB/Engine/Engine.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02100.html">bl</a></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02284.html">bl</a></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>pcl</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>scene</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;constexpr <span class="keywordtype">float</span> DefaultNear = 0.1f;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;constexpr <span class="keywordtype">float</span> DefaultFar  = 100.f;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;} <span class="comment">// namespace</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a03769.html#ab1b8fcf847d7cbe9493b0ecfbebedad4">   17</a></span>&#160;<a class="code" href="a03769.html#ab1b8fcf847d7cbe9493b0ecfbebedad4">Scene3D::Scene3D</a>(<a class="code" href="a02605.html">engine::Engine</a>&amp; e)</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;: <a class="code" href="a03729.html">BatchedScene</a>(e) {}</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a03769.html#a0dcf3ebaa6fac1ff72e2264fd57ab435">   20</a></span>&#160;std::unique_ptr&lt;cam::Camera&gt; <a class="code" href="a03769.html#a0dcf3ebaa6fac1ff72e2264fd57ab435">Scene3D::createDefaultCamera</a>() {</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keyword">auto</span> cam = std::make_unique&lt;cam::Camera3D&gt;();</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    cam-&gt;setNearAndFarPlanes(DefaultNear, DefaultFar);</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordflow">return</span> cam;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;}</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a03769.html#ad3722c0cc57b7d59306f68fcdddfe15d">   26</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03769.html#ad3722c0cc57b7d59306f68fcdddfe15d">Scene3D::setDefaultNearAndFarPlanes</a>(<a class="code" href="a02285.html">cam::Camera</a>&amp; cam)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    cam.<a class="code" href="a02285.html#a60e436aa6a89793a9e3fd8c3b0378fbf">setNearAndFarPlanes</a>(DefaultNear, -DefaultFar);</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;}</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;} <span class="comment">// namespace scene</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00035_html"><div class="ttname"><a href="a00035.html">Camera3D.hpp</a></div></div>
-<div class="ttc" id="aa00914_html"><div class="ttname"><a href="a00914.html">Scene3D.hpp</a></div></div>
-<div class="ttc" id="aa02100_html"><div class="ttname"><a href="a02100.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02285_html"><div class="ttname"><a href="a02285.html">bl::cam::Camera</a></div><div class="ttdoc">Base class for all cameras.</div><div class="ttdef"><b>Definition:</b> <a href="a00047_source.html#l00017">Camera.hpp:17</a></div></div>
-<div class="ttc" id="aa02285_html_a60e436aa6a89793a9e3fd8c3b0378fbf"><div class="ttname"><a href="a02285.html#a60e436aa6a89793a9e3fd8c3b0378fbf">bl::cam::Camera::setNearAndFarPlanes</a></div><div class="ttdeci">void setNearAndFarPlanes(float nearValue, float farValue)</div><div class="ttdoc">Sets the distance to the near and far planes.</div><div class="ttdef"><b>Definition:</b> <a href="a01295_source.html#l00029">Camera.cpp:29</a></div></div>
-<div class="ttc" id="aa02605_html"><div class="ttname"><a href="a02605.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a05713_source.html#l00032">Engine.hpp:32</a></div></div>
-<div class="ttc" id="aa03729_html"><div class="ttname"><a href="a03729.html">bl::rc::scene::BatchedScene</a></div><div class="ttdoc">Primary scene class for the renderer. Provides batched rendering of objects by pipeline....</div><div class="ttdef"><b>Definition:</b> <a href="a00902_source.html#l00029">BatchedScene.hpp:29</a></div></div>
-<div class="ttc" id="aa03769_html_a0dcf3ebaa6fac1ff72e2264fd57ab435"><div class="ttname"><a href="a03769.html#a0dcf3ebaa6fac1ff72e2264fd57ab435">bl::rc::scene::Scene3D::createDefaultCamera</a></div><div class="ttdeci">virtual std::unique_ptr&lt; cam::Camera &gt; createDefaultCamera() override</div><div class="ttdoc">Creates a 3d camera.</div><div class="ttdef"><b>Definition:</b> <a href="a01835_source.html#l00020">Scene3D.cpp:20</a></div></div>
-<div class="ttc" id="aa03769_html_ab1b8fcf847d7cbe9493b0ecfbebedad4"><div class="ttname"><a href="a03769.html#ab1b8fcf847d7cbe9493b0ecfbebedad4">bl::rc::scene::Scene3D::Scene3D</a></div><div class="ttdeci">Scene3D(engine::Engine &amp;engine)</div><div class="ttdoc">Creates the scene.</div><div class="ttdef"><b>Definition:</b> <a href="a01835_source.html#l00017">Scene3D.cpp:17</a></div></div>
-<div class="ttc" id="aa03769_html_ad3722c0cc57b7d59306f68fcdddfe15d"><div class="ttname"><a href="a03769.html#ad3722c0cc57b7d59306f68fcdddfe15d">bl::rc::scene::Scene3D::setDefaultNearAndFarPlanes</a></div><div class="ttdeci">virtual void setDefaultNearAndFarPlanes(cam::Camera &amp;camera) const override</div><div class="ttdoc">Sets the default near and far planes on the given camera.</div><div class="ttdef"><b>Definition:</b> <a href="a01835_source.html#l00026">Scene3D.cpp:26</a></div></div>
+<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a03644.html#a4c6552f1650e03c7ffad57a595d454d6">    9</a></span>&#160;<a class="code" href="a03644.html#a4c6552f1650e03c7ffad57a595d454d6">ParticleSystem::ParticleSystem</a>()</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;: engine(nullptr)</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;, engineThreadpool(nullptr) {}</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="a03644.html#a8371259338d9ab1b9d2d830f00d70acd">   13</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03644.html#aa33758a7c85e88b2b5357b47c2dfc582">ParticleSystem::removeUniqueSystem</a>(<a class="code" href="a03640.html">ParticleManagerBase</a>* system) {</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    std::unique_lock lock(mutex);</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = singleSystems.begin(); it != singleSystems.end(); ++it) {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        <span class="keywordflow">if</span> (it-&gt;second.get() == system) {</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;            singleSystems.erase(it);</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;            <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        }</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    }</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;}</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a03644.html#aa8f24db3e0920d850a38440b127b71cd">   24</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03644.html#aa8f24db3e0920d850a38440b127b71cd">ParticleSystem::removeUniqueSystems</a>() {</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    std::unique_lock lock(mutex);</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    singleSystems.clear();</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;}</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a03644.html#a8359999b11988088a2313b76d577aa85">   29</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03644.html#a8359999b11988088a2313b76d577aa85">ParticleSystem::removeRepeatedSystem</a>(<a class="code" href="a03640.html">ParticleManagerBase</a>* system) {</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    std::unique_lock lock(mutex);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; p : multiSystems) {</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = p.second.begin(); it != p.second.end(); ++it) {</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;            <span class="keywordflow">if</span> (it-&gt;get() == system) {</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;                p.second.erase(it);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;                <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            }</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        }</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    }</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;}</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="a03644.html#adc6c4968d193150641babd3f10b70f36">   42</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a03644.html#adc6c4968d193150641babd3f10b70f36">ParticleSystem::removeAllSystems</a>() {</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    std::unique_lock lock(mutex);</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    singleSystems.clear();</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    multiSystems.clear();</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;}</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="keywordtype">void</span> ParticleSystem::init(<a class="code" href="a02812.html">engine::Engine</a>&amp; e) {</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    engine           = &amp;e;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    engineThreadpool = &amp;e.<a class="code" href="a02812.html#aedfefce58fb93fbe6208ab381496a6ef">threadPool</a>();</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    particleThreadpool.<a class="code" href="a05060.html#a267094fe3aa471ed368b229e7ace11e8">start</a>(4);</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;}</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="keywordtype">void</span> ParticleSystem::update(std::mutex&amp;, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span> realDt, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>) {</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    std::unique_lock lock(mutex);</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    futures.reserve(singleSystems.size() + multiSystems.size());</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; p : singleSystems) {</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        futures.emplace_back(engineThreadpool-&gt;<a class="code" href="a05060.html#a2093b8daf49ca46987c69b69c1a10e59">queueTask</a>(</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            [<span class="keyword">this</span>, &amp;p, dt, realDt]() { p.second-&gt;update(particleThreadpool, dt, realDt); }));</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    }</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; p : multiSystems) {</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; m : p.second) {</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            futures.emplace_back(engineThreadpool-&gt;<a class="code" href="a05060.html#a2093b8daf49ca46987c69b69c1a10e59">queueTask</a>(</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                [<span class="keyword">this</span>, &amp;m, dt, realDt]() { m-&gt;update(particleThreadpool, dt, realDt); }));</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        }</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    }</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; f : futures) { f.wait(); }</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    futures.clear();</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;}</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="keywordtype">void</span> ParticleSystem::earlyCleanup() {</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    particleThreadpool.<a class="code" href="a05060.html#a5422d1988e881339da8cecd35049d352">shutdown</a>();</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <a class="code" href="a03644.html#adc6c4968d193150641babd3f10b70f36">removeAllSystems</a>();</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;}</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;} <span class="comment">// namespace pcl</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00740_html"><div class="ttname"><a href="a00740.html">ParticleSystem.hpp</a></div></div>
+<div class="ttc" id="aa02284_html"><div class="ttname"><a href="a02284.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02812_html"><div class="ttname"><a href="a02812.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a06232_source.html#l00033">Engine.hpp:33</a></div></div>
+<div class="ttc" id="aa02812_html_aedfefce58fb93fbe6208ab381496a6ef"><div class="ttname"><a href="a02812.html#aedfefce58fb93fbe6208ab381496a6ef">bl::engine::Engine::threadPool</a></div><div class="ttdeci">util::ThreadPool &amp; threadPool()</div><div class="ttdoc">Returns the engine thread pool.</div><div class="ttdef"><b>Definition:</b> <a href="a06232_source.html#l00244">Engine.hpp:244</a></div></div>
+<div class="ttc" id="aa03640_html"><div class="ttname"><a href="a03640.html">bl::pcl::ParticleManagerBase</a></div><div class="ttdoc">Base class for particle managers. Particle managers own and manage specific particle types.</div><div class="ttdef"><b>Definition:</b> <a href="a00737_source.html#l00025">ParticleManagerBase.hpp:25</a></div></div>
+<div class="ttc" id="aa03644_html_a4c6552f1650e03c7ffad57a595d454d6"><div class="ttname"><a href="a03644.html#a4c6552f1650e03c7ffad57a595d454d6">bl::pcl::ParticleSystem::ParticleSystem</a></div><div class="ttdeci">ParticleSystem()</div><div class="ttdoc">Initializes the particle system.</div><div class="ttdef"><b>Definition:</b> <a href="a01835_source.html#l00009">ParticleSystem.cpp:9</a></div></div>
+<div class="ttc" id="aa03644_html_a8359999b11988088a2313b76d577aa85"><div class="ttname"><a href="a03644.html#a8359999b11988088a2313b76d577aa85">bl::pcl::ParticleSystem::removeRepeatedSystem</a></div><div class="ttdeci">void removeRepeatedSystem(ParticleManagerBase *system)</div><div class="ttdoc">Removes the specific entity level particle manager.</div><div class="ttdef"><b>Definition:</b> <a href="a01835_source.html#l00029">ParticleSystem.cpp:29</a></div></div>
+<div class="ttc" id="aa03644_html_aa33758a7c85e88b2b5357b47c2dfc582"><div class="ttname"><a href="a03644.html#aa33758a7c85e88b2b5357b47c2dfc582">bl::pcl::ParticleSystem::removeUniqueSystem</a></div><div class="ttdeci">void removeUniqueSystem()</div><div class="ttdoc">Removes the unique particle manager for the given particle type.</div><div class="ttdef"><b>Definition:</b> <a href="a00740_source.html#l00135">ParticleSystem.hpp:135</a></div></div>
+<div class="ttc" id="aa03644_html_aa8f24db3e0920d850a38440b127b71cd"><div class="ttname"><a href="a03644.html#aa8f24db3e0920d850a38440b127b71cd">bl::pcl::ParticleSystem::removeUniqueSystems</a></div><div class="ttdeci">void removeUniqueSystems()</div><div class="ttdoc">Removes all unique particle managers.</div><div class="ttdef"><b>Definition:</b> <a href="a01835_source.html#l00024">ParticleSystem.cpp:24</a></div></div>
+<div class="ttc" id="aa03644_html_adc6c4968d193150641babd3f10b70f36"><div class="ttname"><a href="a03644.html#adc6c4968d193150641babd3f10b70f36">bl::pcl::ParticleSystem::removeAllSystems</a></div><div class="ttdeci">void removeAllSystems()</div><div class="ttdoc">Removes all particle managers.</div><div class="ttdef"><b>Definition:</b> <a href="a01835_source.html#l00042">ParticleSystem.cpp:42</a></div></div>
+<div class="ttc" id="aa05060_html_a2093b8daf49ca46987c69b69c1a10e59"><div class="ttname"><a href="a05060.html#a2093b8daf49ca46987c69b69c1a10e59">bl::util::ThreadPool::queueTask</a></div><div class="ttdeci">std::future&lt; void &gt; queueTask(Task &amp;&amp;task)</div><div class="ttdoc">Queues a task to be executed by a worker. Returns an invalid future if the pool is not accepting task...</div><div class="ttdef"><b>Definition:</b> <a href="a02246_source.html#l00063">ThreadPool.cpp:63</a></div></div>
+<div class="ttc" id="aa05060_html_a267094fe3aa471ed368b229e7ace11e8"><div class="ttname"><a href="a05060.html#a267094fe3aa471ed368b229e7ace11e8">bl::util::ThreadPool::start</a></div><div class="ttdeci">bool start(unsigned int workerCount=0)</div><div class="ttdoc">Starts the thread pool with the given concurrency. If the workerCount is 0 then std::thread::hardware...</div><div class="ttdef"><b>Definition:</b> <a href="a02246_source.html#l00016">ThreadPool.cpp:16</a></div></div>
+<div class="ttc" id="aa05060_html_a5422d1988e881339da8cecd35049d352"><div class="ttname"><a href="a05060.html#a5422d1988e881339da8cecd35049d352">bl::util::ThreadPool::shutdown</a></div><div class="ttdeci">void shutdown()</div><div class="ttdoc">Prevents new tasks from being submitted, drains the queue, and stops all workers.</div><div class="ttdef"><b>Definition:</b> <a href="a02246_source.html#l00037">ThreadPool.cpp:37</a></div></div>
+<div class="ttc" id="aa06232_html"><div class="ttname"><a href="a06232.html">Engine.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 2 2023 04:00:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 18 2024 18:32:56 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

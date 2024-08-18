@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Scripts/Function.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Vulkan/CommonSamplers.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,78 +66,90 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_9fb35b166bb00afcaa31ece623ebed60.html">Scripts</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_49b99cfd015d92f767de1d8dec868906.html">Vulkan</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Function.hpp</div>  </div>
+<div class="title">CommonSamplers.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01082.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_SCRIPTS_FUNCTION_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_SCRIPTS_FUNCTION_HPP</span></div>
+<a href="a01082.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_VULKAN_COMMONSAMPLERS_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_VULKAN_COMMONSAMPLERS_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00668.html">BLIB/Parser/Node.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01079.html">BLIB/Scripts/Error.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;functional&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;optional&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;variant&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02100.html">bl</a></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span>script</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">class </span>Value;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">class </span>SymbolTable;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">class </span>PrimitiveValue;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a04105.html">   25</a></span>&#160;<span class="keyword">class </span><a class="code" href="a04105.html">Function</a> {</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="a04105.html#a3ca3f959c516d9a90dd20acddeabe172">   33</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a04105.html#a3ca3f959c516d9a90dd20acddeabe172">CustomCB</a> = std::function&lt;void(<a class="code" href="a04133.html">SymbolTable</a>&amp;, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp;, <a class="code" href="a04137.html">Value</a>&amp;)&gt;;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <a class="code" href="a04105.html#a2e1c840d6e1931a14c9f1b8ba963b1e8">Function</a>();</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01403.html">BLIB/Vulkan.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02284.html">bl</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>vk</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">struct </span>VulkanState;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a04220.html">   19</a></span>&#160;<span class="keyword">class </span><a class="code" href="a04220.html">CommonSamplers</a> {</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    VkSampler <a class="code" href="a04220.html#a9256e10e266a15de4a2bc48fdf3967bc">noFilterBorderClamped</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    VkSampler <a class="code" href="a04220.html#a1b4378fdb67d5655e7e4b49b7525bbca">noFilterEdgeClamped</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    VkSampler <a class="code" href="a04220.html#a1bdaab184d537a5bf72cd99829e91c1d">minFilterBorderClamped</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    VkSampler <a class="code" href="a04220.html#a6520659402341467e5d05b5f7bb40270">magFilterBorderClamped</a>() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="a04105.html#abb0d30e7353c50df35dd12cdc58e90ba">   45</a></span>&#160;    <a class="code" href="a04105.html#abb0d30e7353c50df35dd12cdc58e90ba">Function</a>(<span class="keyword">const</span> <a class="code" href="a04105.html">Function</a>&amp;) = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="a04105.html#add7874f403b37f3b40e8e9efe456d238">   51</a></span>&#160;    <a class="code" href="a04105.html">Function</a>&amp; <a class="code" href="a04105.html#add7874f403b37f3b40e8e9efe456d238">operator=</a>(<span class="keyword">const</span> <a class="code" href="a04105.html">Function</a>&amp;) = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <a class="code" href="a04105.html#a2e1c840d6e1931a14c9f1b8ba963b1e8">Function</a>(<span class="keyword">const</span> <a class="code" href="a03341.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&amp; fdef);</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    VkSampler <a class="code" href="a04220.html#af46df63640cc28c6b18b848b6f5f9cae">filteredBorderClamped</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    VkSampler <a class="code" href="a04220.html#a91607ebee3b293302eaeb9dd47483c1d">filteredRepeated</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <a class="code" href="a04368.html">VulkanState</a>&amp; vulkanState;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    VkSampler noFilterClamped;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    VkSampler noFilterEClamped;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    VkSampler minFilterClamped;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    VkSampler magFilterClamped;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    VkSampler filteredClamped;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    VkSampler filteredTiled;</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <a class="code" href="a04105.html#a2e1c840d6e1931a14c9f1b8ba963b1e8">Function</a>(<span class="keyword">const</span> <a class="code" href="a04105.html#a3ca3f959c516d9a90dd20acddeabe172">CustomCB</a>&amp; userFunction);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <a class="code" href="a04220.html">CommonSamplers</a>(<a class="code" href="a04368.html">VulkanState</a>&amp; vs);</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordtype">void</span> init();</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordtype">void</span> cleanup();</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="a04220.html#a88be4fe9fe4217b2dc1f69e6888906f6">   64</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">struct </span><a class="code" href="a04368.html">VulkanState</a>;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;};</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a04105.html#aa01f0ed7f508bd64c3cd635be88d4b71">operator==</a>(<span class="keyword">const</span> <a class="code" href="a04105.html">Function</a>&amp; func) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="a04220.html#a9256e10e266a15de4a2bc48fdf3967bc">   69</a></span>&#160;<span class="keyword">inline</span> VkSampler <a class="code" href="a04220.html#a9256e10e266a15de4a2bc48fdf3967bc">CommonSamplers::noFilterBorderClamped</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> noFilterClamped; }</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="a04220.html#a1b4378fdb67d5655e7e4b49b7525bbca">   71</a></span>&#160;<span class="keyword">inline</span> VkSampler <a class="code" href="a04220.html#a1b4378fdb67d5655e7e4b49b7525bbca">CommonSamplers::noFilterEdgeClamped</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> noFilterEClamped; }</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04105.html#a07aec35a2ba40269eebb9550a631165c">operator()</a>(<a class="code" href="a04133.html">SymbolTable</a>&amp; table, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp; args, <a class="code" href="a04137.html">Value</a>&amp; result) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    std::variant&lt;CustomCB, parser::Node::Ptr&gt; data;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    std::optional&lt;std::vector&lt;std::string&gt;&gt; params;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;};</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;} <span class="comment">// namespace script</span></div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00668_html"><div class="ttname"><a href="a00668.html">Node.hpp</a></div></div>
-<div class="ttc" id="aa01079_html"><div class="ttname"><a href="a01079.html">Error.hpp</a></div></div>
-<div class="ttc" id="aa02100_html"><div class="ttname"><a href="a02100.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03341_html_a3f49fe9da8742463aa757f89f67a8827"><div class="ttname"><a href="a03341.html#a3f49fe9da8742463aa757f89f67a8827">bl::parser::Node::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; Node &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00668_source.html#l00024">Node.hpp:24</a></div></div>
-<div class="ttc" id="aa04105_html"><div class="ttname"><a href="a04105.html">bl::script::Function</a></div><div class="ttdoc">Utility class for functions defined in scripts themselves.</div><div class="ttdef"><b>Definition:</b> <a href="a01082_source.html#l00025">Function.hpp:25</a></div></div>
-<div class="ttc" id="aa04105_html_a07aec35a2ba40269eebb9550a631165c"><div class="ttname"><a href="a04105.html#a07aec35a2ba40269eebb9550a631165c">bl::script::Function::operator()</a></div><div class="ttdeci">void operator()(SymbolTable &amp;table, const std::vector&lt; Value &gt; &amp;args, Value &amp;result) const</div><div class="ttdoc">Calls the function. Error thrown on error.</div><div class="ttdef"><b>Definition:</b> <a href="a01967_source.html#l00058">Function.cpp:58</a></div></div>
-<div class="ttc" id="aa04105_html_a2e1c840d6e1931a14c9f1b8ba963b1e8"><div class="ttname"><a href="a04105.html#a2e1c840d6e1931a14c9f1b8ba963b1e8">bl::script::Function::Function</a></div><div class="ttdeci">Function()</div><div class="ttdoc">Creates an empty, uncallable function.</div><div class="ttdef"><b>Definition:</b> <a href="a01967_source.html#l00024">Function.cpp:24</a></div></div>
-<div class="ttc" id="aa04105_html_a3ca3f959c516d9a90dd20acddeabe172"><div class="ttname"><a href="a04105.html#a3ca3f959c516d9a90dd20acddeabe172">bl::script::Function::CustomCB</a></div><div class="ttdeci">std::function&lt; void(SymbolTable &amp;, const std::vector&lt; Value &gt; &amp;, Value &amp;)&gt; CustomCB</div><div class="ttdoc">Callback type for custom functions. Can be used to provide a built in library Receives the SymbolTabl...</div><div class="ttdef"><b>Definition:</b> <a href="a01082_source.html#l00033">Function.hpp:33</a></div></div>
-<div class="ttc" id="aa04105_html_aa01f0ed7f508bd64c3cd635be88d4b71"><div class="ttname"><a href="a04105.html#aa01f0ed7f508bd64c3cd635be88d4b71">bl::script::Function::operator==</a></div><div class="ttdeci">bool operator==(const Function &amp;func) const</div><div class="ttdoc">Comapres against another function.</div><div class="ttdef"><b>Definition:</b> <a href="a01967_source.html#l00044">Function.cpp:44</a></div></div>
-<div class="ttc" id="aa04105_html_abb0d30e7353c50df35dd12cdc58e90ba"><div class="ttname"><a href="a04105.html#abb0d30e7353c50df35dd12cdc58e90ba">bl::script::Function::Function</a></div><div class="ttdeci">Function(const Function &amp;)=default</div><div class="ttdoc">Copy constructor.</div></div>
-<div class="ttc" id="aa04105_html_add7874f403b37f3b40e8e9efe456d238"><div class="ttname"><a href="a04105.html#add7874f403b37f3b40e8e9efe456d238">bl::script::Function::operator=</a></div><div class="ttdeci">Function &amp; operator=(const Function &amp;)=default</div><div class="ttdoc">Copy operator.</div></div>
-<div class="ttc" id="aa04133_html"><div class="ttname"><a href="a04133.html">bl::script::SymbolTable</a></div><div class="ttdoc">Stack aware symbol table for managing functions and variables Each Script holds a single instance.</div><div class="ttdef"><b>Definition:</b> <a href="a01097_source.html#l00026">SymbolTable.hpp:26</a></div></div>
-<div class="ttc" id="aa04137_html"><div class="ttname"><a href="a04137.html">bl::script::Value</a></div><div class="ttdoc">Main representation of a value in scripts.</div><div class="ttdef"><b>Definition:</b> <a href="a01100_source.html#l00022">Value.hpp:22</a></div></div>
+<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="a04220.html#a1bdaab184d537a5bf72cd99829e91c1d">   73</a></span>&#160;<span class="keyword">inline</span> VkSampler <a class="code" href="a04220.html#a1bdaab184d537a5bf72cd99829e91c1d">CommonSamplers::minFilterBorderClamped</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> minFilterClamped; }</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="a04220.html#a6520659402341467e5d05b5f7bb40270">   75</a></span>&#160;<span class="keyword">inline</span> VkSampler <a class="code" href="a04220.html#a6520659402341467e5d05b5f7bb40270">CommonSamplers::magFilterBorderClamped</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> magFilterClamped; }</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="a04220.html#af46df63640cc28c6b18b848b6f5f9cae">   77</a></span>&#160;<span class="keyword">inline</span> VkSampler <a class="code" href="a04220.html#af46df63640cc28c6b18b848b6f5f9cae">CommonSamplers::filteredBorderClamped</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> filteredClamped; }</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="a04220.html#a91607ebee3b293302eaeb9dd47483c1d">   79</a></span>&#160;<span class="keyword">inline</span> VkSampler <a class="code" href="a04220.html#a91607ebee3b293302eaeb9dd47483c1d">CommonSamplers::filteredRepeated</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> filteredTiled; }</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;} <span class="comment">// namespace vk</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01403_html"><div class="ttname"><a href="a01403.html">Vulkan.hpp</a></div></div>
+<div class="ttc" id="aa02284_html"><div class="ttname"><a href="a02284.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04220_html"><div class="ttname"><a href="a04220.html">bl::rc::vk::CommonSamplers</a></div><div class="ttdoc">Helper class containing some common samplers to save on boilerplate.</div><div class="ttdef"><b>Definition:</b> <a href="a01082_source.html#l00019">CommonSamplers.hpp:19</a></div></div>
+<div class="ttc" id="aa04220_html_a1b4378fdb67d5655e7e4b49b7525bbca"><div class="ttname"><a href="a04220.html#a1b4378fdb67d5655e7e4b49b7525bbca">bl::rc::vk::CommonSamplers::noFilterEdgeClamped</a></div><div class="ttdeci">VkSampler noFilterEdgeClamped() const</div><div class="ttdoc">Returns a sampler with no filtering and clamped to edge. Max anisotropy.</div><div class="ttdef"><b>Definition:</b> <a href="a01082_source.html#l00071">CommonSamplers.hpp:71</a></div></div>
+<div class="ttc" id="aa04220_html_a1bdaab184d537a5bf72cd99829e91c1d"><div class="ttname"><a href="a04220.html#a1bdaab184d537a5bf72cd99829e91c1d">bl::rc::vk::CommonSamplers::minFilterBorderClamped</a></div><div class="ttdeci">VkSampler minFilterBorderClamped() const</div><div class="ttdoc">Returns a sampler with min filtering and clamped to border. Max anisotropy.</div><div class="ttdef"><b>Definition:</b> <a href="a01082_source.html#l00073">CommonSamplers.hpp:73</a></div></div>
+<div class="ttc" id="aa04220_html_a6520659402341467e5d05b5f7bb40270"><div class="ttname"><a href="a04220.html#a6520659402341467e5d05b5f7bb40270">bl::rc::vk::CommonSamplers::magFilterBorderClamped</a></div><div class="ttdeci">VkSampler magFilterBorderClamped() const</div><div class="ttdoc">Returns a sampler with mag filtering and clamped to border. Max anisotropy.</div><div class="ttdef"><b>Definition:</b> <a href="a01082_source.html#l00075">CommonSamplers.hpp:75</a></div></div>
+<div class="ttc" id="aa04220_html_a91607ebee3b293302eaeb9dd47483c1d"><div class="ttname"><a href="a04220.html#a91607ebee3b293302eaeb9dd47483c1d">bl::rc::vk::CommonSamplers::filteredRepeated</a></div><div class="ttdeci">VkSampler filteredRepeated() const</div><div class="ttdoc">Returns a sampler with filtering and repeated addressing.</div><div class="ttdef"><b>Definition:</b> <a href="a01082_source.html#l00079">CommonSamplers.hpp:79</a></div></div>
+<div class="ttc" id="aa04220_html_a9256e10e266a15de4a2bc48fdf3967bc"><div class="ttname"><a href="a04220.html#a9256e10e266a15de4a2bc48fdf3967bc">bl::rc::vk::CommonSamplers::noFilterBorderClamped</a></div><div class="ttdeci">VkSampler noFilterBorderClamped() const</div><div class="ttdoc">Returns a sampler with no filtering and clamped to border. Max anisotropy.</div><div class="ttdef"><b>Definition:</b> <a href="a01082_source.html#l00069">CommonSamplers.hpp:69</a></div></div>
+<div class="ttc" id="aa04220_html_af46df63640cc28c6b18b848b6f5f9cae"><div class="ttname"><a href="a04220.html#af46df63640cc28c6b18b848b6f5f9cae">bl::rc::vk::CommonSamplers::filteredBorderClamped</a></div><div class="ttdeci">VkSampler filteredBorderClamped() const</div><div class="ttdoc">Returns a sampler with filtering and clamped to border. Max anisotropy.</div><div class="ttdef"><b>Definition:</b> <a href="a01082_source.html#l00077">CommonSamplers.hpp:77</a></div></div>
+<div class="ttc" id="aa04368_html"><div class="ttname"><a href="a04368.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a01148_source.html#l00039">VulkanState.hpp:39</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 2 2023 04:00:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 18 2024 18:32:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

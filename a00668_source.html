@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Parser/Node.hpp Source File</title>
+<title>BLIB: include/BLIB/Math/Trig.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,91 +66,47 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_68e8475672e907ae2e4c385fdd89fef9.html">Parser</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_e9abbcd9e0c082db5b09973bee2e6f6b.html">Math</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Node.hpp</div>  </div>
+<div class="title">Trig.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00668.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_PARSER_NODE_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_PARSER_NODE_HPP</span></div>
+<a href="a00668.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_MATH_TRIG_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_MATH_TRIG_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02100.html">bl</a></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00662.html">BLIB/Math/Constants.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02284.html">bl</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>math</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>parser</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a03341.html">   18</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a03341.html">Node</a> {</div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a03341.html#a7aead111e234327c018e49a75c20f702">   19</a></span>&#160;    <span class="keyword">typedef</span> <span class="keywordtype">int</span> <a class="code" href="a03341.html#a7aead111e234327c018e49a75c20f702">Type</a>;</div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a03341.html#a4bbdfc3239a1e6b8781433b8e2f46c6b">   20</a></span>&#160;    <span class="keyword">static</span> constexpr <a class="code" href="a03341.html#a7aead111e234327c018e49a75c20f702">Type</a> <a class="code" href="a03341.html#a4bbdfc3239a1e6b8781433b8e2f46c6b">None</a> = -1;</div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a03341.html#a6bb58cc837da6706b7aa5b4da9a9baa1">   21</a></span>&#160;    <span class="keyword">static</span> constexpr <a class="code" href="a03341.html#a7aead111e234327c018e49a75c20f702">Type</a> <a class="code" href="a03341.html#a6bb58cc837da6706b7aa5b4da9a9baa1">EOI</a>  = -2;</div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a03341.html#afa29f085be0b57c51abc6f33d9619af2">   22</a></span>&#160;    <span class="keyword">typedef</span> std::vector&lt;Type&gt; <a class="code" href="a03341.html#afa29f085be0b57c51abc6f33d9619af2">Sequence</a>;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a03341.html#a3f49fe9da8742463aa757f89f67a8827">   24</a></span>&#160;    <span class="keyword">typedef</span> std::shared_ptr&lt;Node&gt; <a class="code" href="a03341.html#a3f49fe9da8742463aa757f89f67a8827">Ptr</a>;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a03341.html#aef8e0b4138b7e6a645fea5049565c78a">   26</a></span>&#160;    <a class="code" href="a03341.html#a7aead111e234327c018e49a75c20f702">Type</a> <a class="code" href="a03341.html#aef8e0b4138b7e6a645fea5049565c78a">type</a>;</div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="a03341.html#a1f656c377a68ef48d13abfe7fa7f43b2">   27</a></span>&#160;    <a class="code" href="a03341.html">Node</a>* <a class="code" href="a03341.html#a1f656c377a68ef48d13abfe7fa7f43b2">parent</a>;</div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a03341.html#abc7a3b704270aed00f97302e698cb67e">   28</a></span>&#160;    std::vector&lt;Ptr&gt; <a class="code" href="a03341.html#abc7a3b704270aed00f97302e698cb67e">children</a>;</div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a03341.html#aa80197fd64232776f14ed64176adf1e3">   29</a></span>&#160;    std::string <a class="code" href="a03341.html#aa80197fd64232776f14ed64176adf1e3">data</a>;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="a03341.html#aedefe68f7194aeccd75aad71dfd8ca7d">   31</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="a03341.html#aedefe68f7194aeccd75aad71dfd8ca7d">sourceLine</a>;</div>
-<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="a03341.html#a2aefdf0aa8a0c54c4ea10899895b4baa">   32</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="a03341.html#a2aefdf0aa8a0c54c4ea10899895b4baa">sourceColumn</a>;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;};</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;} <span class="comment">// namespace parser</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02117.html">std</a></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;{</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="keyword">template</span>&lt;&gt;</div>
-<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="a03345.html">   41</a></span>&#160;<span class="keyword">struct </span>hash&lt;<a class="code" href="a02100.html">bl</a>::parser::Node::Sequence&gt; {</div>
-<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="a03345.html#a71cfcafd7c1339469888bb7fe2a24d78">   42</a></span>&#160;    std::size_t <a class="code" href="a03345.html#a71cfcafd7c1339469888bb7fe2a24d78">operator()</a>(<span class="keyword">const</span> <a class="code" href="a03341.html#afa29f085be0b57c51abc6f33d9619af2">bl::parser::Node::Sequence</a>&amp; key)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        std::size_t seed = key.size();</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; i : key) {</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;            seed ^= <span class="keyword">static_cast&lt;</span>std::size_t<span class="keyword">&gt;</span>(i) + 0x9e3779b9 + (seed &lt;&lt; 6) + (seed &gt;&gt; 2);</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        }</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="keywordflow">return</span> seed;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    }</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;};</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;} <span class="comment">// namespace std</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="a00668.html#a5e0789b19a9a862930b0d3fbd794925f">   53</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="a00668.html#a5e0789b19a9a862930b0d3fbd794925f">operator==</a>(<span class="keyword">const</span> <a class="code" href="a03341.html#afa29f085be0b57c51abc6f33d9619af2">bl::parser::Node::Sequence</a>&amp; rhs,</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;                       <span class="keyword">const</span> <a class="code" href="a03341.html#afa29f085be0b57c51abc6f33d9619af2">bl::parser::Node::Sequence</a>&amp; lhs) {</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordflow">if</span> (rhs.size() != lhs.size()) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; rhs.size(); ++i) {</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keywordflow">if</span> (rhs[i] != lhs[i]) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    }</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;}</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00668_html_a5e0789b19a9a862930b0d3fbd794925f"><div class="ttname"><a href="a00668.html#a5e0789b19a9a862930b0d3fbd794925f">operator==</a></div><div class="ttdeci">bool operator==(const bl::parser::Node::Sequence &amp;rhs, const bl::parser::Node::Sequence &amp;lhs)</div><div class="ttdef"><b>Definition:</b> <a href="a00668_source.html#l00053">Node.hpp:53</a></div></div>
-<div class="ttc" id="aa02100_html"><div class="ttname"><a href="a02100.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02117_html"><div class="ttname"><a href="a02117.html">std</a></div><div class="ttdef"><b>Definition:</b> <a href="a00167_source.html#l00172">Entity.hpp:173</a></div></div>
-<div class="ttc" id="aa03341_html"><div class="ttname"><a href="a03341.html">bl::parser::Node</a></div><div class="ttdoc">Represents a basic parse node. Can be both tokens (terminals) or non terminal grammar elements.</div><div class="ttdef"><b>Definition:</b> <a href="a00668_source.html#l00018">Node.hpp:18</a></div></div>
-<div class="ttc" id="aa03341_html_a1f656c377a68ef48d13abfe7fa7f43b2"><div class="ttname"><a href="a03341.html#a1f656c377a68ef48d13abfe7fa7f43b2">bl::parser::Node::parent</a></div><div class="ttdeci">Node * parent</div><div class="ttdef"><b>Definition:</b> <a href="a00668_source.html#l00027">Node.hpp:27</a></div></div>
-<div class="ttc" id="aa03341_html_a2aefdf0aa8a0c54c4ea10899895b4baa"><div class="ttname"><a href="a03341.html#a2aefdf0aa8a0c54c4ea10899895b4baa">bl::parser::Node::sourceColumn</a></div><div class="ttdeci">int sourceColumn</div><div class="ttdef"><b>Definition:</b> <a href="a00668_source.html#l00032">Node.hpp:32</a></div></div>
-<div class="ttc" id="aa03341_html_a3f49fe9da8742463aa757f89f67a8827"><div class="ttname"><a href="a03341.html#a3f49fe9da8742463aa757f89f67a8827">bl::parser::Node::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; Node &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00668_source.html#l00024">Node.hpp:24</a></div></div>
-<div class="ttc" id="aa03341_html_a4bbdfc3239a1e6b8781433b8e2f46c6b"><div class="ttname"><a href="a03341.html#a4bbdfc3239a1e6b8781433b8e2f46c6b">bl::parser::Node::None</a></div><div class="ttdeci">static constexpr Type None</div><div class="ttdef"><b>Definition:</b> <a href="a00668_source.html#l00020">Node.hpp:20</a></div></div>
-<div class="ttc" id="aa03341_html_a6bb58cc837da6706b7aa5b4da9a9baa1"><div class="ttname"><a href="a03341.html#a6bb58cc837da6706b7aa5b4da9a9baa1">bl::parser::Node::EOI</a></div><div class="ttdeci">static constexpr Type EOI</div><div class="ttdef"><b>Definition:</b> <a href="a00668_source.html#l00021">Node.hpp:21</a></div></div>
-<div class="ttc" id="aa03341_html_a7aead111e234327c018e49a75c20f702"><div class="ttname"><a href="a03341.html#a7aead111e234327c018e49a75c20f702">bl::parser::Node::Type</a></div><div class="ttdeci">int Type</div><div class="ttdef"><b>Definition:</b> <a href="a00668_source.html#l00019">Node.hpp:19</a></div></div>
-<div class="ttc" id="aa03341_html_aa80197fd64232776f14ed64176adf1e3"><div class="ttname"><a href="a03341.html#aa80197fd64232776f14ed64176adf1e3">bl::parser::Node::data</a></div><div class="ttdeci">std::string data</div><div class="ttdef"><b>Definition:</b> <a href="a00668_source.html#l00029">Node.hpp:29</a></div></div>
-<div class="ttc" id="aa03341_html_abc7a3b704270aed00f97302e698cb67e"><div class="ttname"><a href="a03341.html#abc7a3b704270aed00f97302e698cb67e">bl::parser::Node::children</a></div><div class="ttdeci">std::vector&lt; Ptr &gt; children</div><div class="ttdef"><b>Definition:</b> <a href="a00668_source.html#l00028">Node.hpp:28</a></div></div>
-<div class="ttc" id="aa03341_html_aedefe68f7194aeccd75aad71dfd8ca7d"><div class="ttname"><a href="a03341.html#aedefe68f7194aeccd75aad71dfd8ca7d">bl::parser::Node::sourceLine</a></div><div class="ttdeci">int sourceLine</div><div class="ttdef"><b>Definition:</b> <a href="a00668_source.html#l00031">Node.hpp:31</a></div></div>
-<div class="ttc" id="aa03341_html_aef8e0b4138b7e6a645fea5049565c78a"><div class="ttname"><a href="a03341.html#aef8e0b4138b7e6a645fea5049565c78a">bl::parser::Node::type</a></div><div class="ttdeci">Type type</div><div class="ttdef"><b>Definition:</b> <a href="a00668_source.html#l00026">Node.hpp:26</a></div></div>
-<div class="ttc" id="aa03341_html_afa29f085be0b57c51abc6f33d9619af2"><div class="ttname"><a href="a03341.html#afa29f085be0b57c51abc6f33d9619af2">bl::parser::Node::Sequence</a></div><div class="ttdeci">std::vector&lt; Type &gt; Sequence</div><div class="ttdef"><b>Definition:</b> <a href="a00668_source.html#l00022">Node.hpp:22</a></div></div>
-<div class="ttc" id="aa03345_html_a71cfcafd7c1339469888bb7fe2a24d78"><div class="ttname"><a href="a03345.html#a71cfcafd7c1339469888bb7fe2a24d78">std::hash&lt; bl::parser::Node::Sequence &gt;::operator()</a></div><div class="ttdeci">std::size_t operator()(const bl::parser::Node::Sequence &amp;key) const</div><div class="ttdef"><b>Definition:</b> <a href="a00668_source.html#l00042">Node.hpp:42</a></div></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keywordtype">float</span> <a class="code" href="a02267.html#gae8e482156412ed87dc2d91572ee817ab">cos</a>(<span class="keywordtype">float</span> degrees);</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keywordtype">float</span> <a class="code" href="a02267.html#ga0379b8bbdfc3c74fecd12c93fdf0ca5b">sin</a>(<span class="keywordtype">float</span> degrees);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="a02267.html#ga0b0fbb9303004f139568c5a7554c3637">   40</a></span>&#160;<span class="keyword">inline</span> constexpr <span class="keywordtype">float</span> <a class="code" href="a02267.html#ga0b0fbb9303004f139568c5a7554c3637">radiansToDegrees</a>(<span class="keywordtype">float</span> radians) { <span class="keywordflow">return</span> radians * 180.f / <a class="code" href="a02323.html#a5d956eb5741fd61ccb4d7a18bd6fd431">Pi</a>; }</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="a02267.html#ga798f04ddeba68968d5339859b62b3500">   50</a></span>&#160;<span class="keyword">inline</span> constexpr <span class="keywordtype">float</span> <a class="code" href="a02267.html#ga798f04ddeba68968d5339859b62b3500">degreesToRadians</a>(<span class="keywordtype">float</span> degrees) { <span class="keywordflow">return</span> degrees / 180.f * <a class="code" href="a02323.html#a5d956eb5741fd61ccb4d7a18bd6fd431">Pi</a>; }</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;} <span class="comment">// namespace math</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00662_html"><div class="ttname"><a href="a00662.html">Constants.hpp</a></div></div>
+<div class="ttc" id="aa02267_html_ga0379b8bbdfc3c74fecd12c93fdf0ca5b"><div class="ttname"><a href="a02267.html#ga0379b8bbdfc3c74fecd12c93fdf0ca5b">bl::math::sin</a></div><div class="ttdeci">float sin(float degrees)</div><div class="ttdoc">Computes the sine of the given angle using cached values. Values are cached in quarter degree increme...</div><div class="ttdef"><b>Definition:</b> <a href="a01814_source.html#l00037">Trig.cpp:37</a></div></div>
+<div class="ttc" id="aa02267_html_ga0b0fbb9303004f139568c5a7554c3637"><div class="ttname"><a href="a02267.html#ga0b0fbb9303004f139568c5a7554c3637">bl::math::radiansToDegrees</a></div><div class="ttdeci">constexpr float radiansToDegrees(float radians)</div><div class="ttdoc">Converts an angle in radians to degrees.</div><div class="ttdef"><b>Definition:</b> <a href="a00668_source.html#l00040">Trig.hpp:40</a></div></div>
+<div class="ttc" id="aa02267_html_ga798f04ddeba68968d5339859b62b3500"><div class="ttname"><a href="a02267.html#ga798f04ddeba68968d5339859b62b3500">bl::math::degreesToRadians</a></div><div class="ttdeci">constexpr float degreesToRadians(float degrees)</div><div class="ttdoc">Converts an angle in degrees to radians.</div><div class="ttdef"><b>Definition:</b> <a href="a00668_source.html#l00050">Trig.hpp:50</a></div></div>
+<div class="ttc" id="aa02267_html_gae8e482156412ed87dc2d91572ee817ab"><div class="ttname"><a href="a02267.html#gae8e482156412ed87dc2d91572ee817ab">bl::math::cos</a></div><div class="ttdeci">float cos(float degrees)</div><div class="ttdoc">Computes the cosine of the given angle using cached values. Values are cached in quarter degree incre...</div><div class="ttdef"><b>Definition:</b> <a href="a01814_source.html#l00031">Trig.cpp:31</a></div></div>
+<div class="ttc" id="aa02284_html"><div class="ttname"><a href="a02284.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02323_html_a5d956eb5741fd61ccb4d7a18bd6fd431"><div class="ttname"><a href="a02323.html#a5d956eb5741fd61ccb4d7a18bd6fd431">bl::math::Pi</a></div><div class="ttdeci">constexpr float Pi</div><div class="ttdoc">It's pi.</div><div class="ttdef"><b>Definition:</b> <a href="a00662_source.html#l00010">Constants.hpp:10</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 2 2023 04:00:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 18 2024 18:32:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

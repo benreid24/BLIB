@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Logging/Outputters.hpp Source File</title>
+<title>BLIB: include/BLIB/Interfaces/Menu/Selectors/NoSelector.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,89 +66,68 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_cde0df6af65f4871d5c46345537df011.html">Logging</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4a89db2e42278000e6aac6ace9db278e.html">Interfaces</a></li><li class="navelem"><a class="el" href="dir_e645930b0d1a2310fc6bb1d1038eb64b.html">Menu</a></li><li class="navelem"><a class="el" href="dir_2459c1d931b5c1b1d7800e4956477b41.html">Selectors</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Outputters.hpp</div>  </div>
+<div class="title">NoSelector.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00638.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_LOGGING_OUTPUTTERS_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_LOGGING_OUTPUTTERS_HPP</span></div>
+<a href="a00638.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_INTERFACES_MENU_SELECTORS_NOSELECTOR_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_INTERFACES_MENU_SELECTORS_NOSELECTOR_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;SFML/Graphics/Rect.hpp&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;SFML/System/Vector2.hpp&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;SFML/System/Vector3.hpp&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;glm/glm.hpp&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;ostream&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;type_traits&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> E&gt;</div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="a00638.html#a2adcfa2ba7f397c7f32ad911f7fb23d2">   12</a></span>&#160;<span class="keyword">typename</span> std::enable_if&lt;std::is_enum&lt;E&gt;::value, std::ostream&amp;&gt;::type <a class="code" href="a00638.html#a2adcfa2ba7f397c7f32ad911f7fb23d2">operator&lt;&lt;</a>(std::ostream&amp; os,</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;                                                                                E v) {</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="keyword">using</span> T = std::underlying_type_t&lt;E&gt;;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keywordflow">if</span> constexpr (std::is_same&lt;T, std::uint8_t&gt;::value) { os &lt;&lt; static_cast&lt;unsigned int&gt;(v); }</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> constexpr (std::is_same&lt;T, std::int8_t&gt;::value) { os &lt;&lt; static_cast&lt;int&gt;(v); }</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordflow">else</span> { os &lt;&lt; static_cast&lt;T&gt;(v); }</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keywordflow">return</span> os;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;}</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02129.html">sf</a></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;{</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a02129.html#a7bd0aac136b4741a477aba50870e6d24">   24</a></span>&#160;std::ostream&amp; <a class="code" href="a02129.html#a7bd0aac136b4741a477aba50870e6d24">operator&lt;&lt;</a>(std::ostream&amp; os, <span class="keyword">const</span> sf::Vector2&lt;T&gt;&amp; v) {</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    os &lt;&lt; <span class="stringliteral">&quot;(&quot;</span> &lt;&lt; v.x &lt;&lt; <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; v.y &lt;&lt; <span class="stringliteral">&quot;)&quot;</span>;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordflow">return</span> os;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;}</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a02129.html#abd5593f4ae9c5b851622052d25e2dee7">   30</a></span>&#160;std::ostream&amp; <a class="code" href="a02129.html#a7bd0aac136b4741a477aba50870e6d24">operator&lt;&lt;</a>(std::ostream&amp; os, <span class="keyword">const</span> sf::Vector3&lt;T&gt;&amp; v) {</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    os &lt;&lt; <span class="stringliteral">&quot;(&quot;</span> &lt;&lt; v.x &lt;&lt; <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; v.y &lt;&lt; <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; v.z &lt;&lt; <span class="stringliteral">&quot;)&quot;</span>;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordflow">return</span> os;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;}</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00632.html">BLIB/Interfaces/Menu/Selector.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02284.html">bl</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>menu</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a03516.html">   16</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03516.html">NoSelector</a> : <span class="keyword">public</span> <a class="code" href="a03508.html">Selector</a> {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a03516.html#a248945db790dc290f2a10560a8035de5">   18</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a03508.html#afc2ee695075a4244d7962da15e64fea1">Ptr</a> = std::shared_ptr&lt;NoSelector&gt;;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a03516.html#a709a867e74eff2faff1d9fe4eae0e5df">   23</a></span>&#160;    <span class="keyword">static</span> <a class="code" href="a03508.html#afc2ee695075a4244d7962da15e64fea1">Ptr</a> <a class="code" href="a03516.html#a709a867e74eff2faff1d9fe4eae0e5df">create</a>() { <span class="keywordflow">return</span> <a class="code" href="a03516.html#a248945db790dc290f2a10560a8035de5">Ptr</a>(<span class="keyword">new</span> <a class="code" href="a03516.html">NoSelector</a>()); }</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a03516.html#ab851f885dd4b19526660a6d48becf0eb">   28</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03516.html#ab851f885dd4b19526660a6d48becf0eb">doCreate</a>(<a class="code" href="a02812.html">engine::Engine</a>&amp;, <a class="code" href="a02712.html">ecs::Entity</a>)<span class="keyword"> override </span>{}</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="a03516.html#a149787abcb3a6b2e8f46736cf2279ee8">   33</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03516.html#a149787abcb3a6b2e8f46736cf2279ee8">notifySelection</a>(<a class="code" href="a02712.html">ecs::Entity</a>, sf::FloatRect)<span class="keyword"> override </span>{}</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="a02129.html#a062778ddccb47297e3f5e71c93d9e512">   36</a></span>&#160;std::ostream&amp; <a class="code" href="a02129.html#a7bd0aac136b4741a477aba50870e6d24">operator&lt;&lt;</a>(std::ostream&amp; os, <span class="keyword">const</span> sf::Rect&lt;T&gt;&amp; r) {</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    os &lt;&lt; <span class="stringliteral">&quot;(&quot;</span> &lt;&lt; r.left &lt;&lt; <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; r.top &lt;&lt; <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; r.width &lt;&lt; <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; r.height &lt;&lt; <span class="stringliteral">&quot;)&quot;</span>;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordflow">return</span> os;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;}</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;} <span class="comment">// namespace sf</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, glm::qualifier Q&gt;</div>
-<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="a00638.html#ae2730223bfa88c908a2feb1bbbb58b28">   44</a></span>&#160;std::ostream&amp; <a class="code" href="a00638.html#a2adcfa2ba7f397c7f32ad911f7fb23d2">operator&lt;&lt;</a>(std::ostream&amp; os, <span class="keyword">const</span> glm::vec&lt;1, T, Q&gt;&amp; v) {</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    os &lt;&lt; <span class="stringliteral">&quot;(&quot;</span> &lt;&lt; v.x &lt;&lt; <span class="stringliteral">&quot;)&quot;</span>;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordflow">return</span> os;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;}</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, glm::qualifier Q&gt;</div>
-<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="a00638.html#a8de29a2b9ff0a563d65d31dd9dabfb59">   50</a></span>&#160;std::ostream&amp; <a class="code" href="a00638.html#a2adcfa2ba7f397c7f32ad911f7fb23d2">operator&lt;&lt;</a>(std::ostream&amp; os, <span class="keyword">const</span> glm::vec&lt;2, T, Q&gt;&amp; v) {</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    os &lt;&lt; <span class="stringliteral">&quot;(&quot;</span> &lt;&lt; v.x &lt;&lt; <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; v.y &lt;&lt; <span class="stringliteral">&quot;)&quot;</span>;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordflow">return</span> os;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;}</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, glm::qualifier Q&gt;</div>
-<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="a00638.html#a47a95cf01a40f7cd313aa3643170f95e">   56</a></span>&#160;std::ostream&amp; <a class="code" href="a00638.html#a2adcfa2ba7f397c7f32ad911f7fb23d2">operator&lt;&lt;</a>(std::ostream&amp; os, <span class="keyword">const</span> glm::vec&lt;3, T, Q&gt;&amp; v) {</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    os &lt;&lt; <span class="stringliteral">&quot;(&quot;</span> &lt;&lt; v.x &lt;&lt; <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; v.y &lt;&lt; <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; v.z &lt;&lt; <span class="stringliteral">&quot;)&quot;</span>;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordflow">return</span> os;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;}</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, glm::qualifier Q&gt;</div>
-<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="a00638.html#ac566dd0ea6742307701a502f25c63e56">   62</a></span>&#160;std::ostream&amp; <a class="code" href="a00638.html#a2adcfa2ba7f397c7f32ad911f7fb23d2">operator&lt;&lt;</a>(std::ostream&amp; os, <span class="keyword">const</span> glm::vec&lt;4, T, Q&gt;&amp; v) {</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    os &lt;&lt; <span class="stringliteral">&quot;(&quot;</span> &lt;&lt; v.x &lt;&lt; <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; v.y &lt;&lt; <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; v.z &lt;&lt; <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; v.w &lt;&lt; <span class="stringliteral">&quot;)&quot;</span>;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordflow">return</span> os;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;}</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00638_html_a2adcfa2ba7f397c7f32ad911f7fb23d2"><div class="ttname"><a href="a00638.html#a2adcfa2ba7f397c7f32ad911f7fb23d2">operator&lt;&lt;</a></div><div class="ttdeci">std::enable_if&lt; std::is_enum&lt; E &gt;::value, std::ostream &amp; &gt;::type operator&lt;&lt;(std::ostream &amp;os, E v)</div><div class="ttdef"><b>Definition:</b> <a href="a00638_source.html#l00012">Outputters.hpp:12</a></div></div>
-<div class="ttc" id="aa02129_html"><div class="ttname"><a href="a02129.html">sf</a></div><div class="ttdef"><b>Definition:</b> <a href="a00350_source.html#l00054">VulkanFont.hpp:55</a></div></div>
-<div class="ttc" id="aa02129_html_a7bd0aac136b4741a477aba50870e6d24"><div class="ttname"><a href="a02129.html#a7bd0aac136b4741a477aba50870e6d24">sf::operator&lt;&lt;</a></div><div class="ttdeci">std::ostream &amp; operator&lt;&lt;(std::ostream &amp;os, const sf::Vector2&lt; T &gt; &amp;v)</div><div class="ttdef"><b>Definition:</b> <a href="a00638_source.html#l00024">Outputters.hpp:24</a></div></div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="a03516.html#a38d466de362961a8ba8ec01b4166dc8c">   38</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03516.html#a38d466de362961a8ba8ec01b4166dc8c">doSceneAdd</a>(<a class="code" href="a04128.html">rc::Scene</a>*)<span class="keyword"> override </span>{}</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="a03516.html#a08ea900519c8107b81bd80cdb52419e4">   43</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03516.html#a08ea900519c8107b81bd80cdb52419e4">doSceneRemove</a>()<span class="keyword"> override </span>{}</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="a03516.html#ab74cffada3791345224b9f92de79515b">   48</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03516.html#ab74cffada3791345224b9f92de79515b">draw</a>(<a class="code" href="a04108.html">rc::scene::CodeScene::RenderContext</a>&amp;)<span class="keyword"> override </span>{}</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <a class="code" href="a03516.html">NoSelector</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;};</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;} <span class="comment">// namespace menu</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00632_html"><div class="ttname"><a href="a00632.html">Selector.hpp</a></div></div>
+<div class="ttc" id="aa02284_html"><div class="ttname"><a href="a02284.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02712_html"><div class="ttname"><a href="a02712.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition:</b> <a href="a00176_source.html#l00024">Entity.hpp:24</a></div></div>
+<div class="ttc" id="aa02812_html"><div class="ttname"><a href="a02812.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a06232_source.html#l00033">Engine.hpp:33</a></div></div>
+<div class="ttc" id="aa03508_html"><div class="ttname"><a href="a03508.html">bl::menu::Selector</a></div><div class="ttdoc">Base class for selector items that indicate which Menu item is active.</div><div class="ttdef"><b>Definition:</b> <a href="a00632_source.html#l00024">Selector.hpp:24</a></div></div>
+<div class="ttc" id="aa03508_html_afc2ee695075a4244d7962da15e64fea1"><div class="ttname"><a href="a03508.html#afc2ee695075a4244d7962da15e64fea1">bl::menu::Selector::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; Selector &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00632_source.html#l00026">Selector.hpp:26</a></div></div>
+<div class="ttc" id="aa03516_html"><div class="ttname"><a href="a03516.html">bl::menu::NoSelector</a></div><div class="ttdoc">A selector that does not render anything. Useful for menus using some other mechanism to display the ...</div><div class="ttdef"><b>Definition:</b> <a href="a00638_source.html#l00016">NoSelector.hpp:16</a></div></div>
+<div class="ttc" id="aa03516_html_a08ea900519c8107b81bd80cdb52419e4"><div class="ttname"><a href="a03516.html#a08ea900519c8107b81bd80cdb52419e4">bl::menu::NoSelector::doSceneRemove</a></div><div class="ttdeci">virtual void doSceneRemove() override</div><div class="ttdoc">Does nothing.</div><div class="ttdef"><b>Definition:</b> <a href="a00638_source.html#l00043">NoSelector.hpp:43</a></div></div>
+<div class="ttc" id="aa03516_html_a149787abcb3a6b2e8f46736cf2279ee8"><div class="ttname"><a href="a03516.html#a149787abcb3a6b2e8f46736cf2279ee8">bl::menu::NoSelector::notifySelection</a></div><div class="ttdeci">virtual void notifySelection(ecs::Entity, sf::FloatRect) override</div><div class="ttdoc">Does nothing.</div><div class="ttdef"><b>Definition:</b> <a href="a00638_source.html#l00033">NoSelector.hpp:33</a></div></div>
+<div class="ttc" id="aa03516_html_a248945db790dc290f2a10560a8035de5"><div class="ttname"><a href="a03516.html#a248945db790dc290f2a10560a8035de5">bl::menu::NoSelector::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; NoSelector &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00638_source.html#l00018">NoSelector.hpp:18</a></div></div>
+<div class="ttc" id="aa03516_html_a38d466de362961a8ba8ec01b4166dc8c"><div class="ttname"><a href="a03516.html#a38d466de362961a8ba8ec01b4166dc8c">bl::menu::NoSelector::doSceneAdd</a></div><div class="ttdeci">virtual void doSceneAdd(rc::Scene *) override</div><div class="ttdoc">Does nothing.</div><div class="ttdef"><b>Definition:</b> <a href="a00638_source.html#l00038">NoSelector.hpp:38</a></div></div>
+<div class="ttc" id="aa03516_html_a709a867e74eff2faff1d9fe4eae0e5df"><div class="ttname"><a href="a03516.html#a709a867e74eff2faff1d9fe4eae0e5df">bl::menu::NoSelector::create</a></div><div class="ttdeci">static Ptr create()</div><div class="ttdoc">Creates a new empty selector.</div><div class="ttdef"><b>Definition:</b> <a href="a00638_source.html#l00023">NoSelector.hpp:23</a></div></div>
+<div class="ttc" id="aa03516_html_ab74cffada3791345224b9f92de79515b"><div class="ttname"><a href="a03516.html#ab74cffada3791345224b9f92de79515b">bl::menu::NoSelector::draw</a></div><div class="ttdeci">virtual void draw(rc::scene::CodeScene::RenderContext &amp;) override</div><div class="ttdoc">Does nothing.</div><div class="ttdef"><b>Definition:</b> <a href="a00638_source.html#l00048">NoSelector.hpp:48</a></div></div>
+<div class="ttc" id="aa03516_html_ab851f885dd4b19526660a6d48becf0eb"><div class="ttname"><a href="a03516.html#ab851f885dd4b19526660a6d48becf0eb">bl::menu::NoSelector::doCreate</a></div><div class="ttdeci">virtual void doCreate(engine::Engine &amp;, ecs::Entity) override</div><div class="ttdoc">Does nothing.</div><div class="ttdef"><b>Definition:</b> <a href="a00638_source.html#l00028">NoSelector.hpp:28</a></div></div>
+<div class="ttc" id="aa04108_html"><div class="ttname"><a href="a04108.html">bl::rc::scene::CodeScene::RenderContext</a></div><div class="ttdoc">Context that gets passed to the render callback.</div><div class="ttdef"><b>Definition:</b> <a href="a01016_source.html#l00029">CodeScene.hpp:29</a></div></div>
+<div class="ttc" id="aa04128_html"><div class="ttname"><a href="a04128.html">bl::rc::Scene</a></div><div class="ttdoc">Base class for all scene types and overlays. Provides common scene logic and object management....</div><div class="ttdef"><b>Definition:</b> <a href="a01025_source.html#l00056">Scene.hpp:56</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 2 2023 04:00:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 18 2024 18:32:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

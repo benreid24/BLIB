@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Graph/AssetRef.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Descriptors/Builtin/CommonBindings.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,107 +66,59 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_70f08ea54355502249f886f7ca541c6e.html">Graph</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_154b49fde9d17c5da5d7cb000b858c0e.html">Descriptors</a></li><li class="navelem"><a class="el" href="dir_792f3e8afd589e1154463a1acff3bd49.html">Builtin</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">AssetRef.hpp</div>  </div>
+<div class="title">CommonBindings.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00791.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_GRAPH_ASSETREF_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_GRAPH_ASSETREF_HPP</span></div>
+<a href="a00791.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_DESCRIPTORS_BUILTIN_COMMONBINDINGS_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_DESCRIPTORS_BUILTIN_COMMONBINDINGS_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00779.html">BLIB/Render/Graph/Asset.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02100.html">bl</a></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>rc</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>rg</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a03553.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03553.html">AssetRef</a> {</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a03553.html#a5a81c661cbf6ea266a7fa88547a7acaa">   22</a></span>&#160;    <a class="code" href="a03553.html#a5a81c661cbf6ea266a7fa88547a7acaa">AssetRef</a>()</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    : asset(nullptr) {}</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a03553.html#a118ed65194e08a2947b3fe139cec8cff">   30</a></span>&#160;    <a class="code" href="a03553.html#a118ed65194e08a2947b3fe139cec8cff">AssetRef</a>(<a class="code" href="a03537.html">Asset</a>* asset)</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    : asset(asset) {</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        ++asset-&gt;refCount;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    }</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="a03553.html#aed4703553ade357ce0514c67c6061fea">   40</a></span>&#160;    <a class="code" href="a03553.html#aed4703553ade357ce0514c67c6061fea">AssetRef</a>(<span class="keyword">const</span> <a class="code" href="a03553.html">AssetRef</a>&amp; copy)</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    : asset(copy.asset) {</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="a03553.html#a018eba88559d0db5c313a1aaf3a94e57">valid</a>()) ++asset-&gt;refCount;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    }</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="a03553.html#a2747cde93ed5512f614f888359e7dede">   50</a></span>&#160;    <a class="code" href="a03553.html#a2747cde93ed5512f614f888359e7dede">AssetRef</a>(<a class="code" href="a03553.html">AssetRef</a>&amp;&amp; move) noexcept</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    : asset(move.asset) {</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        move.asset = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    }</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="a03553.html#a068183cd30a4f7d52ba6d164bc54057c">   58</a></span>&#160;    <a class="code" href="a03553.html#a068183cd30a4f7d52ba6d164bc54057c">~AssetRef</a>() {</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="a03553.html#a018eba88559d0db5c313a1aaf3a94e57">valid</a>()) --asset-&gt;refCount;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    }</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="a03553.html#a57ee2190d410ab5aec2ec5c4cbcff890">   68</a></span>&#160;    <a class="code" href="a03553.html">AssetRef</a>&amp; <a class="code" href="a03553.html#a57ee2190d410ab5aec2ec5c4cbcff890">operator=</a>(<span class="keyword">const</span> <a class="code" href="a03553.html">AssetRef</a>&amp; copy) {</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        asset = copy.asset;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="a03553.html#a018eba88559d0db5c313a1aaf3a94e57">valid</a>()) ++asset-&gt;refCount;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    }</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="a03553.html#a2d7218499c1d4ad8f9f925e49c2a4924">   80</a></span>&#160;    <a class="code" href="a03553.html">AssetRef</a>&amp; <a class="code" href="a03553.html#a2d7218499c1d4ad8f9f925e49c2a4924">operator=</a>(<a class="code" href="a03553.html">AssetRef</a>&amp;&amp; move) noexcept {</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        asset      = move.asset;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        move.asset = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    }</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
-<div class="line"><a name="l00089"></a><span class="lineno"><a class="line" href="a03553.html#a0010d2bf1a97f082ed213c406d48b35a">   89</a></span>&#160;    constexpr <a class="code" href="a03537.html">Asset</a>&amp; <a class="code" href="a03553.html#a0010d2bf1a97f082ed213c406d48b35a">operator*</a>() { <span class="keywordflow">return</span> *asset; }</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00094"></a><span class="lineno"><a class="line" href="a03553.html#a56d4383016da0209585891b8a184eabd">   94</a></span>&#160;    constexpr <span class="keyword">const</span> <a class="code" href="a03537.html">Asset</a>&amp; <a class="code" href="a03553.html#a56d4383016da0209585891b8a184eabd">operator*</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> *asset; }</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
-<div class="line"><a name="l00099"></a><span class="lineno"><a class="line" href="a03553.html#a39431b0e67ae91da95e4792b9784674e">   99</a></span>&#160;    constexpr <a class="code" href="a03537.html">Asset</a>* <a class="code" href="a03553.html#a39431b0e67ae91da95e4792b9784674e">operator-&gt;</a>() { <span class="keywordflow">return</span> asset; }</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
-<div class="line"><a name="l00104"></a><span class="lineno"><a class="line" href="a03553.html#a780d84d87a5abfcb7c992129ef278e9b">  104</a></span>&#160;    constexpr <span class="keyword">const</span> <a class="code" href="a03537.html">Asset</a>* <a class="code" href="a03553.html#a780d84d87a5abfcb7c992129ef278e9b">operator-&gt;</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> asset; }</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
-<div class="line"><a name="l00109"></a><span class="lineno"><a class="line" href="a03553.html#a018eba88559d0db5c313a1aaf3a94e57">  109</a></span>&#160;    constexpr <span class="keywordtype">bool</span> <a class="code" href="a03553.html#a018eba88559d0db5c313a1aaf3a94e57">valid</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> asset != <span class="keyword">nullptr</span>; }</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
-<div class="line"><a name="l00114"></a><span class="lineno"><a class="line" href="a03553.html#a6ba809ef24b6d325b1592edebe692361">  114</a></span>&#160;    constexpr <a class="code" href="a03537.html">Asset</a>&amp; <a class="code" href="a03553.html#a6ba809ef24b6d325b1592edebe692361">get</a>() { <span class="keywordflow">return</span> *asset; }</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
-<div class="line"><a name="l00119"></a><span class="lineno"><a class="line" href="a03553.html#ab1a92fc298530980a664dc57461129d8">  119</a></span>&#160;    constexpr <span class="keyword">const</span> <a class="code" href="a03537.html">Asset</a>&amp; <a class="code" href="a03553.html#ab1a92fc298530980a664dc57461129d8">get</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> *asset; }</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    <a class="code" href="a03537.html">Asset</a>* asset;</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;};</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160; </div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;} <span class="comment">// namespace rg</span></div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160; </div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00779_html"><div class="ttname"><a href="a00779.html">Asset.hpp</a></div></div>
-<div class="ttc" id="aa02100_html"><div class="ttname"><a href="a02100.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03537_html"><div class="ttname"><a href="a03537.html">bl::rc::rg::Asset</a></div><div class="ttdoc">Base class for assets in render graphs.</div><div class="ttdef"><b>Definition:</b> <a href="a00779_source.html#l00032">Asset.hpp:32</a></div></div>
-<div class="ttc" id="aa03553_html"><div class="ttname"><a href="a03553.html">bl::rc::rg::AssetRef</a></div><div class="ttdoc">Handle to an asset in an AssetPool.</div><div class="ttdef"><b>Definition:</b> <a href="a00791_source.html#l00017">AssetRef.hpp:17</a></div></div>
-<div class="ttc" id="aa03553_html_a0010d2bf1a97f082ed213c406d48b35a"><div class="ttname"><a href="a03553.html#a0010d2bf1a97f082ed213c406d48b35a">bl::rc::rg::AssetRef::operator*</a></div><div class="ttdeci">constexpr Asset &amp; operator*()</div><div class="ttdoc">Dereferences the handle.</div><div class="ttdef"><b>Definition:</b> <a href="a00791_source.html#l00089">AssetRef.hpp:89</a></div></div>
-<div class="ttc" id="aa03553_html_a018eba88559d0db5c313a1aaf3a94e57"><div class="ttname"><a href="a03553.html#a018eba88559d0db5c313a1aaf3a94e57">bl::rc::rg::AssetRef::valid</a></div><div class="ttdeci">constexpr bool valid() const</div><div class="ttdoc">Returns whether or not the handle is valid. Only valid handles should be dereferenced.</div><div class="ttdef"><b>Definition:</b> <a href="a00791_source.html#l00109">AssetRef.hpp:109</a></div></div>
-<div class="ttc" id="aa03553_html_a068183cd30a4f7d52ba6d164bc54057c"><div class="ttname"><a href="a03553.html#a068183cd30a4f7d52ba6d164bc54057c">bl::rc::rg::AssetRef::~AssetRef</a></div><div class="ttdeci">~AssetRef()</div><div class="ttdoc">Decrements the ref count on the underlying asset if any.</div><div class="ttdef"><b>Definition:</b> <a href="a00791_source.html#l00058">AssetRef.hpp:58</a></div></div>
-<div class="ttc" id="aa03553_html_a118ed65194e08a2947b3fe139cec8cff"><div class="ttname"><a href="a03553.html#a118ed65194e08a2947b3fe139cec8cff">bl::rc::rg::AssetRef::AssetRef</a></div><div class="ttdeci">AssetRef(Asset *asset)</div><div class="ttdoc">Creates a handle to the given asset.</div><div class="ttdef"><b>Definition:</b> <a href="a00791_source.html#l00030">AssetRef.hpp:30</a></div></div>
-<div class="ttc" id="aa03553_html_a2747cde93ed5512f614f888359e7dede"><div class="ttname"><a href="a03553.html#a2747cde93ed5512f614f888359e7dede">bl::rc::rg::AssetRef::AssetRef</a></div><div class="ttdeci">AssetRef(AssetRef &amp;&amp;move) noexcept</div><div class="ttdoc">Assumes ownership from the given handle.</div><div class="ttdef"><b>Definition:</b> <a href="a00791_source.html#l00050">AssetRef.hpp:50</a></div></div>
-<div class="ttc" id="aa03553_html_a2d7218499c1d4ad8f9f925e49c2a4924"><div class="ttname"><a href="a03553.html#a2d7218499c1d4ad8f9f925e49c2a4924">bl::rc::rg::AssetRef::operator=</a></div><div class="ttdeci">AssetRef &amp; operator=(AssetRef &amp;&amp;move) noexcept</div><div class="ttdoc">Assumes ownership from the given handle.</div><div class="ttdef"><b>Definition:</b> <a href="a00791_source.html#l00080">AssetRef.hpp:80</a></div></div>
-<div class="ttc" id="aa03553_html_a39431b0e67ae91da95e4792b9784674e"><div class="ttname"><a href="a03553.html#a39431b0e67ae91da95e4792b9784674e">bl::rc::rg::AssetRef::operator-&gt;</a></div><div class="ttdeci">constexpr Asset * operator-&gt;()</div><div class="ttdoc">Dereferences the handle.</div><div class="ttdef"><b>Definition:</b> <a href="a00791_source.html#l00099">AssetRef.hpp:99</a></div></div>
-<div class="ttc" id="aa03553_html_a56d4383016da0209585891b8a184eabd"><div class="ttname"><a href="a03553.html#a56d4383016da0209585891b8a184eabd">bl::rc::rg::AssetRef::operator*</a></div><div class="ttdeci">constexpr const Asset &amp; operator*() const</div><div class="ttdoc">Dereferences the handle.</div><div class="ttdef"><b>Definition:</b> <a href="a00791_source.html#l00094">AssetRef.hpp:94</a></div></div>
-<div class="ttc" id="aa03553_html_a57ee2190d410ab5aec2ec5c4cbcff890"><div class="ttname"><a href="a03553.html#a57ee2190d410ab5aec2ec5c4cbcff890">bl::rc::rg::AssetRef::operator=</a></div><div class="ttdeci">AssetRef &amp; operator=(const AssetRef &amp;copy)</div><div class="ttdoc">Assigns this handle to the given copy.</div><div class="ttdef"><b>Definition:</b> <a href="a00791_source.html#l00068">AssetRef.hpp:68</a></div></div>
-<div class="ttc" id="aa03553_html_a5a81c661cbf6ea266a7fa88547a7acaa"><div class="ttname"><a href="a03553.html#a5a81c661cbf6ea266a7fa88547a7acaa">bl::rc::rg::AssetRef::AssetRef</a></div><div class="ttdeci">AssetRef()</div><div class="ttdoc">Creates an empty handle.</div><div class="ttdef"><b>Definition:</b> <a href="a00791_source.html#l00022">AssetRef.hpp:22</a></div></div>
-<div class="ttc" id="aa03553_html_a6ba809ef24b6d325b1592edebe692361"><div class="ttname"><a href="a03553.html#a6ba809ef24b6d325b1592edebe692361">bl::rc::rg::AssetRef::get</a></div><div class="ttdeci">constexpr Asset &amp; get()</div><div class="ttdoc">Dereferences the handle.</div><div class="ttdef"><b>Definition:</b> <a href="a00791_source.html#l00114">AssetRef.hpp:114</a></div></div>
-<div class="ttc" id="aa03553_html_a780d84d87a5abfcb7c992129ef278e9b"><div class="ttname"><a href="a03553.html#a780d84d87a5abfcb7c992129ef278e9b">bl::rc::rg::AssetRef::operator-&gt;</a></div><div class="ttdeci">constexpr const Asset * operator-&gt;() const</div><div class="ttdoc">Dereferences the handle.</div><div class="ttdef"><b>Definition:</b> <a href="a00791_source.html#l00104">AssetRef.hpp:104</a></div></div>
-<div class="ttc" id="aa03553_html_ab1a92fc298530980a664dc57461129d8"><div class="ttname"><a href="a03553.html#ab1a92fc298530980a664dc57461129d8">bl::rc::rg::AssetRef::get</a></div><div class="ttdeci">constexpr const Asset &amp; get() const</div><div class="ttdoc">Dereferences the handle.</div><div class="ttdef"><b>Definition:</b> <a href="a00791_source.html#l00119">AssetRef.hpp:119</a></div></div>
-<div class="ttc" id="aa03553_html_aed4703553ade357ce0514c67c6061fea"><div class="ttname"><a href="a03553.html#aed4703553ade357ce0514c67c6061fea">bl::rc::rg::AssetRef::AssetRef</a></div><div class="ttdeci">AssetRef(const AssetRef &amp;copy)</div><div class="ttdoc">Assigns this handle to the given copy.</div><div class="ttdef"><b>Definition:</b> <a href="a00791_source.html#l00040">AssetRef.hpp:40</a></div></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06202.html">BLIB/Components/Texture.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06208.html">BLIB/Components/Transform2D.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00110.html">BLIB/Components/Transform3D.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00857.html">BLIB/Render/Descriptors/Generic/ObjectStorageBuffer.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00863.html">BLIB/Render/Descriptors/GenericDescriptorSetInstance.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;glm/glm.hpp&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02284.html">bl</a></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">class </span>Renderer;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a02332.html">   17</a></span>&#160;<span class="keyword">namespace </span>ds</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;{</div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a02333.html">   19</a></span>&#160;<span class="keyword">namespace </span>priv</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;{</div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a02333.html#ae0a04d3d4d1a5562dbb14376f1a2f33e">   21</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a03848.html">Transform2DBinding</a> = <a class="code" href="a03848.html">ObjectStorageBuffer&lt;glm::mat4, com::Transform2D&gt;</a>;</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a02333.html#a32f3b6227b36ec6b2134c0d3bf915fc3">   22</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a03848.html">Transform3DBinding</a> = <a class="code" href="a03848.html">ObjectStorageBuffer&lt;glm::mat4, com::Transform3D&gt;</a>;</div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a02333.html#a35d2839144b02fa023e1fc36c94932d5">   23</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a03848.html">TextureBinding</a> =</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <a class="code" href="a03848.html">ObjectStorageBuffer&lt;std::uint32_t, com::Texture, true, buf::StaticSSBO&lt;std::uint32_t&gt;</a>,</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;                        <a class="code" href="a03712.html">buf::StaticSSBO&lt;std::uint32_t&gt;</a>&gt;;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;} <span class="comment">// namespace priv</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;} <span class="comment">// namespace ds</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00110_html"><div class="ttname"><a href="a00110.html">Transform3D.hpp</a></div></div>
+<div class="ttc" id="aa00857_html"><div class="ttname"><a href="a00857.html">ObjectStorageBuffer.hpp</a></div></div>
+<div class="ttc" id="aa00863_html"><div class="ttname"><a href="a00863.html">GenericDescriptorSetInstance.hpp</a></div></div>
+<div class="ttc" id="aa02284_html"><div class="ttname"><a href="a02284.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03712_html"><div class="ttname"><a href="a03712.html">bl::rc::buf::StaticSSBO&lt; std::uint32_t &gt;</a></div></div>
+<div class="ttc" id="aa03848_html"><div class="ttname"><a href="a03848.html">bl::rc::ds::ObjectStorageBuffer</a></div><div class="ttdoc">Generic descriptor set binding providing ECS entity components to shaders.</div><div class="ttdef"><b>Definition:</b> <a href="a00857_source.html#l00028">ObjectStorageBuffer.hpp:28</a></div></div>
+<div class="ttc" id="aa06202_html"><div class="ttname"><a href="a06202.html">Texture.hpp</a></div></div>
+<div class="ttc" id="aa06208_html"><div class="ttname"><a href="a06208.html">Transform2D.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 2 2023 04:00:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 18 2024 18:32:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

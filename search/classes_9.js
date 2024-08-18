@@ -1,30 +1,4 @@
 var searchData=
 [
-  ['icon_4079',['Icon',['../a02821.html',1,'bl::gfx::Icon'],['../a03005.html',1,'bl::gui::Icon']]],
-  ['iconbase_4080',['IconBase',['../a02837.html',1,'bl::gfx::s2d']]],
-  ['iconbase_3c_20s2d_3a_3abatchshape2d_20_3e_4081',['IconBase&lt; s2d::BatchShape2D &gt;',['../a02837.html',1,'bl::gfx::s2d']]],
-  ['iconbase_3c_20s2d_3a_3asingleshape2d_20_3e_4082',['IconBase&lt; s2d::SingleShape2D &gt;',['../a02837.html',1,'bl::gfx::s2d']]],
-  ['iconcomponent_4083',['IconComponent',['../a03117.html',1,'bl::gui::defcoms']]],
-  ['idallocator_4084',['IdAllocator',['../a04521.html',1,'bl::util']]],
-  ['idallocator_3c_20std_3a_3asize_5ft_20_3e_4085',['IdAllocator&lt; std::size_t &gt;',['../a04521.html',1,'bl::util']]],
-  ['idallocator_3c_20std_3a_3auint32_5ft_20_3e_4086',['IdAllocator&lt; std::uint32_t &gt;',['../a04521.html',1,'bl::util']]],
-  ['idallocatorunbounded_4087',['IdAllocatorUnbounded',['../a04525.html',1,'bl::util']]],
-  ['idallocatorunbounded_3c_20std_3a_3auint32_5ft_20_3e_4088',['IdAllocatorUnbounded&lt; std::uint32_t &gt;',['../a04525.html',1,'bl::util']]],
-  ['image_4089',['Image',['../a03009.html',1,'bl::gui']]],
-  ['imagecomponent_4090',['ImageComponent',['../a03121.html',1,'bl::gui::defcoms']]],
-  ['imageitem_4091',['ImageItem',['../a03273.html',1,'bl::menu']]],
-  ['indexbuffert_4092',['IndexBufferT',['../a03397.html',1,'bl::rc::buf']]],
-  ['indexbuffert_3c_20bl_3a_3arc_3a_3aprim_3a_3aslideshowvertex_20_3e_4093',['IndexBufferT&lt; bl::rc::prim::SlideshowVertex &gt;',['../a03397.html',1,'bl::rc::buf']]],
-  ['indexmappedlist_4094',['IndexMappedList',['../a02389.html',1,'bl::ctr']]],
-  ['indexmappedlist_3c_20std_3a_3auint32_5ft_2c_20bl_3a_3aecs_3a_3aentity_20_3e_4095',['IndexMappedList&lt; std::uint32_t, bl::ecs::Entity &gt;',['../a02389.html',1,'bl::ctr']]],
-  ['info_4096',['Info',['../a02873.html',1,'sf::VulkanFont']]],
-  ['inputbuffer_4097',['InputBuffer',['../a04261.html',1,'bl::serial']]],
-  ['inputfile_4098',['InputFile',['../a04141.html',1,'bl::serial::binary']]],
-  ['inputstream_4099',['InputStream',['../a04145.html',1,'bl::serial::binary']]],
-  ['inputsystem_4100',['InputSystem',['../a02929.html',1,'bl::input']]],
-  ['iskipper_4101',['ISkipper',['../a03337.html',1,'bl::parser']]],
-  ['item_4102',['Item',['../a03269.html',1,'bl::menu::Item'],['../a03329.html',1,'bl::parser::Grammar::Item']]],
-  ['itemset_4103',['ItemSet',['../a03333.html',1,'bl::parser::Grammar']]],
-  ['iterator_4104',['Iterator',['../a02393.html',1,'bl::ctr::IndexMappedList&lt; TKey, TValue &gt;::Iterator'],['../a02441.html',1,'bl::ctr::QuadTree&lt; TCoord, TPayload &gt;::ResultSet::Iterator']]],
-  ['iteratortype_4105',['IteratorType',['../a02409.html',1,'bl::ctr::ObjectPool']]]
+  ['joystick_4404',['Joystick',['../a03148.html',1,'bl::input']]]
 ];

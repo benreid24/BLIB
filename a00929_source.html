@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Transfers/Transferable.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Graph/Strategy.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,94 +66,47 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_1371b99667ed992b8332faf3b4f2dec9.html">Transfers</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_70f08ea54355502249f886f7ca541c6e.html">Graph</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Transferable.hpp</div>  </div>
+<div class="title">Strategy.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00929.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_VULKAN_TRANSFERABLE_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_VULKAN_TRANSFERABLE_HPP</span></div>
+<a href="a00929.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_GRAPH_STRATEGY_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_GRAPH_STRATEGY_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00932.html">BLIB/Render/Transfers/TransferContext.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01265.html">BLIB/Vulkan.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02100.html">bl</a></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>rc</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>vk</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">struct </span>VulkanState;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;}</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a02152.html">   17</a></span>&#160;<span class="keyword">namespace </span>tfr</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;{</div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a03801.html">   25</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03801.html">Transferable</a> {</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a03801.html#a109f9d7acc098649830f276c266b47d0">   28</a></span>&#160;    <span class="keyword">enum struct</span> <a class="code" href="a03801.html#a109f9d7acc098649830f276c266b47d0">SyncRequirement</a> {</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <a class="code" href="a03801.html#a109f9d7acc098649830f276c266b47d0a43f6615bbb2c40a5306ff804094420b1">Immediate</a>,</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <a class="code" href="a03801.html#a109f9d7acc098649830f276c266b47d0a11fb2e916cb91ad9afad4da5711d81d0">DeviceIdle</a></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    };</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03801.html#a05233a758f0875563aea077dde3096f6">~Transferable</a>();</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a03801.html#af2cddcfa3664702cb39bba2e304e5074">queueTransfer</a>(<a class="code" href="a03801.html#a109f9d7acc098649830f276c266b47d0">SyncRequirement</a> syncReq = <a class="code" href="a03801.html#a109f9d7acc098649830f276c266b47d0a43f6615bbb2c40a5306ff804094420b1">SyncRequirement::Immediate</a>);</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03801.html#affdc9c965d73f5227f2d3e0c8a17064e">transferEveryFrame</a>(<a class="code" href="a03801.html#a109f9d7acc098649830f276c266b47d0">SyncRequirement</a> syncReq = <a class="code" href="a03801.html#a109f9d7acc098649830f276c266b47d0a43f6615bbb2c40a5306ff804094420b1">SyncRequirement::Immediate</a>);</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03801.html#a998a9c05422f6188b474d275866a6b2b">stopTransferringEveryFrame</a>();</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="a03801.html#ae134133a20147f77b4feae59dc9b447d">   62</a></span>&#160;    <a class="code" href="a03953.html">vk::VulkanState</a>* <a class="code" href="a03801.html#ae134133a20147f77b4feae59dc9b447d">vulkanState</a>;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <a class="code" href="a03801.html#a168f2c871b5f008471d22febc6fed7c1">Transferable</a>();</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <a class="code" href="a03801.html#a168f2c871b5f008471d22febc6fed7c1">Transferable</a>(<a class="code" href="a03953.html">vk::VulkanState</a>&amp; vs);</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="a03801.html#a45c235479910a695c7e770d79f3c528d">   83</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03801.html#a45c235479910a695c7e770d79f3c528d">executeTransfer</a>(VkCommandBuffer commandBuffer, <a class="code" href="a03805.html">TransferContext</a>&amp; context) = 0;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keyword">static</span> constexpr <a class="code" href="a03801.html#a109f9d7acc098649830f276c266b47d0">SyncRequirement</a> NotPerFrame =</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        <span class="keyword">static_cast&lt;</span><a class="code" href="a03801.html#a109f9d7acc098649830f276c266b47d0">SyncRequirement</a><span class="keyword">&gt;</span>(<span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(<a class="code" href="a03801.html#a109f9d7acc098649830f276c266b47d0a43f6615bbb2c40a5306ff804094420b1">SyncRequirement::Immediate</a>) +</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                                     <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(<a class="code" href="a03801.html#a109f9d7acc098649830f276c266b47d0a11fb2e916cb91ad9afad4da5711d81d0">SyncRequirement::DeviceIdle</a>) + 1);</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <a class="code" href="a03801.html#a109f9d7acc098649830f276c266b47d0">SyncRequirement</a> perFrame;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keywordtype">bool</span> queued;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
-<div class="line"><a name="l00093"></a><span class="lineno"><a class="line" href="a03801.html#ac07143e1010fb3b1749e621c1bc1931f">   93</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a03809.html">TransferEngine</a>;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;};</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;} <span class="comment">// namespace tfr</span></div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00932_html"><div class="ttname"><a href="a00932.html">TransferContext.hpp</a></div></div>
-<div class="ttc" id="aa01265_html"><div class="ttname"><a href="a01265.html">Vulkan.hpp</a></div></div>
-<div class="ttc" id="aa02100_html"><div class="ttname"><a href="a02100.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03801_html"><div class="ttname"><a href="a03801.html">bl::rc::tfr::Transferable</a></div><div class="ttdoc">Base class for objects that transfer state or data to the GPU. Used in conjunction with the TransferE...</div><div class="ttdef"><b>Definition:</b> <a href="a00929_source.html#l00025">Transferable.hpp:25</a></div></div>
-<div class="ttc" id="aa03801_html_a05233a758f0875563aea077dde3096f6"><div class="ttname"><a href="a03801.html#a05233a758f0875563aea077dde3096f6">bl::rc::tfr::Transferable::~Transferable</a></div><div class="ttdeci">virtual ~Transferable()</div><div class="ttdoc">Destroy the transferable object.</div><div class="ttdef"><b>Definition:</b> <a href="a01844_source.html#l00022">Transferable.cpp:22</a></div></div>
-<div class="ttc" id="aa03801_html_a109f9d7acc098649830f276c266b47d0"><div class="ttname"><a href="a03801.html#a109f9d7acc098649830f276c266b47d0">bl::rc::tfr::Transferable::SyncRequirement</a></div><div class="ttdeci">SyncRequirement</div><div class="ttdoc">Enum containing requirements for when transfers may start.</div><div class="ttdef"><b>Definition:</b> <a href="a00929_source.html#l00028">Transferable.hpp:28</a></div></div>
-<div class="ttc" id="aa03801_html_a109f9d7acc098649830f276c266b47d0a11fb2e916cb91ad9afad4da5711d81d0"><div class="ttname"><a href="a03801.html#a109f9d7acc098649830f276c266b47d0a11fb2e916cb91ad9afad4da5711d81d0">bl::rc::tfr::Transferable::SyncRequirement::DeviceIdle</a></div><div class="ttdeci">@ DeviceIdle</div><div class="ttdoc">Transfers with this requirement cannot start until the device is idle.</div></div>
-<div class="ttc" id="aa03801_html_a109f9d7acc098649830f276c266b47d0a43f6615bbb2c40a5306ff804094420b1"><div class="ttname"><a href="a03801.html#a109f9d7acc098649830f276c266b47d0a43f6615bbb2c40a5306ff804094420b1">bl::rc::tfr::Transferable::SyncRequirement::Immediate</a></div><div class="ttdeci">@ Immediate</div><div class="ttdoc">Transfers with this requirement may be started immediately.</div></div>
-<div class="ttc" id="aa03801_html_a168f2c871b5f008471d22febc6fed7c1"><div class="ttname"><a href="a03801.html#a168f2c871b5f008471d22febc6fed7c1">bl::rc::tfr::Transferable::Transferable</a></div><div class="ttdeci">Transferable()</div><div class="ttdoc">Sets vulkanState to nullptr.</div><div class="ttdef"><b>Definition:</b> <a href="a01844_source.html#l00012">Transferable.cpp:12</a></div></div>
-<div class="ttc" id="aa03801_html_a45c235479910a695c7e770d79f3c528d"><div class="ttname"><a href="a03801.html#a45c235479910a695c7e770d79f3c528d">bl::rc::tfr::Transferable::executeTransfer</a></div><div class="ttdeci">virtual void executeTransfer(VkCommandBuffer commandBuffer, TransferContext &amp;context)=0</div><div class="ttdoc">Derived classes should perform their transfers here. Barriers should be registered with transferEngin...</div></div>
-<div class="ttc" id="aa03801_html_a998a9c05422f6188b474d275866a6b2b"><div class="ttname"><a href="a03801.html#a998a9c05422f6188b474d275866a6b2b">bl::rc::tfr::Transferable::stopTransferringEveryFrame</a></div><div class="ttdeci">void stopTransferringEveryFrame()</div><div class="ttdoc">Removes this Transferable from the queue that gets transferred every frame.</div><div class="ttdef"><b>Definition:</b> <a href="a01844_source.html#l00054">Transferable.cpp:54</a></div></div>
-<div class="ttc" id="aa03801_html_ae134133a20147f77b4feae59dc9b447d"><div class="ttname"><a href="a03801.html#ae134133a20147f77b4feae59dc9b447d">bl::rc::tfr::Transferable::vulkanState</a></div><div class="ttdeci">vk::VulkanState * vulkanState</div><div class="ttdef"><b>Definition:</b> <a href="a00929_source.html#l00062">Transferable.hpp:62</a></div></div>
-<div class="ttc" id="aa03801_html_af2cddcfa3664702cb39bba2e304e5074"><div class="ttname"><a href="a03801.html#af2cddcfa3664702cb39bba2e304e5074">bl::rc::tfr::Transferable::queueTransfer</a></div><div class="ttdeci">bool queueTransfer(SyncRequirement syncReq=SyncRequirement::Immediate)</div><div class="ttdoc">Queues this object with the TransferEngine to be transfered on the next frame.</div><div class="ttdef"><b>Definition:</b> <a href="a01844_source.html#l00027">Transferable.cpp:27</a></div></div>
-<div class="ttc" id="aa03801_html_affdc9c965d73f5227f2d3e0c8a17064e"><div class="ttname"><a href="a03801.html#affdc9c965d73f5227f2d3e0c8a17064e">bl::rc::tfr::Transferable::transferEveryFrame</a></div><div class="ttdeci">void transferEveryFrame(SyncRequirement syncReq=SyncRequirement::Immediate)</div><div class="ttdoc">Configures this Transferable to transfer every frame with the given sync requirement.</div><div class="ttdef"><b>Definition:</b> <a href="a01844_source.html#l00043">Transferable.cpp:43</a></div></div>
-<div class="ttc" id="aa03805_html"><div class="ttname"><a href="a03805.html">bl::rc::tfr::TransferContext</a></div><div class="ttdef"><b>Definition:</b> <a href="a00932_source.html#l00019">TransferContext.hpp:19</a></div></div>
-<div class="ttc" id="aa03809_html"><div class="ttname"><a href="a03809.html">bl::rc::tfr::TransferEngine</a></div><div class="ttdoc">Utility class to manage the synchronized transfer of data to the GPU.</div><div class="ttdef"><b>Definition:</b> <a href="a00935_source.html#l00025">TransferEngine.hpp:25</a></div></div>
-<div class="ttc" id="aa03953_html"><div class="ttname"><a href="a03953.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a01013_source.html#l00039">VulkanState.hpp:39</a></div></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02284.html">bl</a></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;{</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>rg</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">class </span>RenderGraph;</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a03960.html">   18</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03960.html">Strategy</a> {</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a03960.html#a52d8932e923fc4ceac54ded8232d3e0a">   23</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03960.html#a52d8932e923fc4ceac54ded8232d3e0a">~Strategy</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a03960.html#ae55bc09629c3a1a0b3e4026cd3044b36">   30</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03960.html#ae55bc09629c3a1a0b3e4026cd3044b36">populate</a>(<a class="code" href="a03944.html">RenderGraph</a>&amp; graph) = 0;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;};</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;} <span class="comment">// namespace rg</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa02284_html"><div class="ttname"><a href="a02284.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03944_html"><div class="ttname"><a href="a03944.html">bl::rc::rg::RenderGraph</a></div><div class="ttdoc">The core render graph functionality. Drives rendering for each observer.</div><div class="ttdef"><b>Definition:</b> <a href="a00923_source.html#l00030">RenderGraph.hpp:30</a></div></div>
+<div class="ttc" id="aa03960_html"><div class="ttname"><a href="a03960.html">bl::rc::rg::Strategy</a></div><div class="ttdoc">Base class for renderer strategies. Render strategies populate render graphs with tasks when they are...</div><div class="ttdef"><b>Definition:</b> <a href="a00929_source.html#l00018">Strategy.hpp:18</a></div></div>
+<div class="ttc" id="aa03960_html_a52d8932e923fc4ceac54ded8232d3e0a"><div class="ttname"><a href="a03960.html#a52d8932e923fc4ceac54ded8232d3e0a">bl::rc::rg::Strategy::~Strategy</a></div><div class="ttdeci">virtual ~Strategy()=default</div><div class="ttdoc">Destroys the strategy.</div></div>
+<div class="ttc" id="aa03960_html_ae55bc09629c3a1a0b3e4026cd3044b36"><div class="ttname"><a href="a03960.html#ae55bc09629c3a1a0b3e4026cd3044b36">bl::rc::rg::Strategy::populate</a></div><div class="ttdeci">virtual void populate(RenderGraph &amp;graph)=0</div><div class="ttdoc">Populates the given graph with tasks.</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 2 2023 04:00:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 18 2024 18:32:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['xdialogpresent_6932',['xdialogPresent',['../a02133.html#a362dc138b397eea67a6d9345dbc74c17',1,'bl::dialog']]],
-  ['xmessagepresent_6933',['xmessagePresent',['../a02133.html#a190de3e17c25ab4d5fe0f29db0ab3613',1,'bl::dialog']]]
+  ['zoom_7498',['zoom',['../a02440.html#a76dea61f59e7b90095c672add0da3e9b',1,'bl::cam::Camera2D::zoom(float factor)'],['../a02440.html#a1832b287a33e4abca32299dfb13a26f6',1,'bl::cam::Camera2D::zoom(const glm::vec2 &amp;factors)']]]
 ];

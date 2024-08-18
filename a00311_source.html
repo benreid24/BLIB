@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Graphics/Components/OverlayScalable.hpp Source File</title>
+<title>BLIB: include/BLIB/Graphics/BatchSlideshowSimple.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,134 +66,83 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_8af985930208ac2752e8061e22535a56.html">Graphics</a></li><li class="navelem"><a class="el" href="dir_58ecc6b00f968b16d73d81661642db7f.html">Components</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_8af985930208ac2752e8061e22535a56.html">Graphics</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">OverlayScalable.hpp</div>  </div>
+<div class="title">BatchSlideshowSimple.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00311.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_GRAPHICS_COMPONENTS_OVERLAYSCALABLE_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_GRAPHICS_COMPONENTS_OVERLAYSCALABLE_HPP</span></div>
+<a href="a00311.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_GRAPHICS_BATCHSLIDESHOWSIMPLE_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_GRAPHICS_BATCHSLIDESHOWSIMPLE_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00080.html">BLIB/Components/OverlayScaler.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00209.html">BLIB/ECS.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05713.html">BLIB/Engine/Engine.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05698.html">BLIB/Graphics/Components/Transform2D.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00710.html">BLIB/Render/Components/SceneObjectRef.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02100.html">bl</a></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06154.html">BLIB/Components/Animation2DPlayer.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06169.html">BLIB/Graphics/BatchedSlideshows.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;span&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02284.html">bl</a></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>gfx</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>sys</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">class </span>OverlayScalerSystem;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;}</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span>rc</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">class </span>Overlay;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;}</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">namespace </span>gfx</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;{</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">namespace </span>bcom</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;{</div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a02801.html">   30</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02801.html">OverlayScalable</a> : <span class="keyword">public</span> <a class="code" href="a02809.html">Transform2D</a> {</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <a class="code" href="a02801.html#ae7b826fbfaae9417fbe9a6a1c7f5f342">OverlayScalable</a>();</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <a class="code" href="a02325.html">com::OverlayScaler</a>&amp; <a class="code" href="a02801.html#aeec49505849a5429a7616af8fad3933a">getOverlayScaler</a>();</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    glm::vec2 <a class="code" href="a02801.html#aaff14d3d3930d2857327c80177b9cfce">getLocalSize</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    glm::vec2 <a class="code" href="a02801.html#ab0a036298d4e83c443607c15f7e4cd69">getOverlaySize</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keyword">const</span> sf::FloatRect&amp; <a class="code" href="a02801.html#a546ad65b2fbaa4a7d97cfe7f52de7901">getTargetRegion</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02801.html#a74f720c686e620743c57c1e49b1a5d93">setScissorToSelf</a>(<span class="keywordtype">bool</span> setToSelf = <span class="keyword">true</span>);</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TArgs&gt;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02801.html#ab91b8fbcaf4f5f397b7ab5d412befb3a">create</a>(<a class="code" href="a02605.html">engine::Engine</a>&amp; engine, <a class="code" href="a02509.html">ecs::Entity</a> entity, TArgs&amp;&amp;... args);</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02801.html#a4f1e81a4d4e62cbc478b338488fb7202">setLocalSize</a>(<span class="keyword">const</span> glm::vec2&amp; size);</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02801.html#ad338c1830292172ce58b70c5e65cf349">setLocalBounds</a>(<span class="keyword">const</span> sf::FloatRect&amp; bounds);</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a02988.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02988.html">BatchSlideshowSimple</a> {</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <a class="code" href="a02988.html#ab7415d2e248d3b56c412bd85f2e0da8e">BatchSlideshowSimple</a>();</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <a class="code" href="a02988.html#ab7415d2e248d3b56c412bd85f2e0da8e">BatchSlideshowSimple</a>(<a class="code" href="a02812.html">engine::Engine</a>&amp; engine, <a class="code" href="a02968.html">BatchedSlideshows</a>&amp; batch,</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;                         <a class="code" href="a02712.html">ecs::Entity</a> playerEntity);</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <a class="code" href="a02988.html#a469bdded901d1e0d2d95a6e2808b02c3">~BatchSlideshowSimple</a>();</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02988.html#abaa66bfa90cdf1325dc789f97013ac32">create</a>(<a class="code" href="a02812.html">engine::Engine</a>&amp; engine, <a class="code" href="a02968.html">BatchedSlideshows</a>&amp; batch, <a class="code" href="a02712.html">ecs::Entity</a> playerEntity);</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02988.html#a0a3af61c6bbae0a4ae4f9a24d63bef14">remove</a>();</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02988.html#a2042a5c2858f13a459bb37c4c5aedc7d">setPlayer</a>(<a class="code" href="a02812.html">engine::Engine</a>&amp; engine, <a class="code" href="a02712.html">ecs::Entity</a> playerEntity);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="a02988.html#a5bdc3f89f08ffc0e2ff6b24028df96c2">   64</a></span>&#160;    <a class="code" href="a02488.html">com::Animation2DPlayer</a>&amp; <a class="code" href="a02988.html#a5bdc3f89f08ffc0e2ff6b24028df96c2">getPlayer</a>() { <span class="keywordflow">return</span> *player; }</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="a02988.html#a3d2e3125ccd62fdb7f021fb921f5c63c">   69</a></span>&#160;    std::span&lt;rc::prim::SlideshowVertex&gt; <a class="code" href="a02988.html#a3d2e3125ccd62fdb7f021fb921f5c63c">getVertices</a>() { <span class="keywordflow">return</span> {alloc.getVertices(), 4}; }</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="a02988.html#a72e9ed0598cef3dd6aae7201fb19f723">   74</a></span>&#160;    std::span&lt;std::uint32_t&gt; <a class="code" href="a02988.html#a72e9ed0598cef3dd6aae7201fb19f723">getIndices</a>() { <span class="keywordflow">return</span> {alloc.getIndices(), 6}; }</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02988.html#a06f099878683d473e61fd75c84b8d95d">commit</a>();</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <a class="code" href="a02968.html">BatchedSlideshows</a>* owner;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <a class="code" href="a02488.html">com::Animation2DPlayer</a>* player;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <a class="code" href="a03692.html">rc::buf::BatchIndexBufferT&lt;rc::prim::SlideshowVertex&gt;::AllocHandle</a> alloc;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <a class="code" href="a02488.html">com::Animation2DPlayer</a>* validatePlayer(<a class="code" href="a02812.html">engine::Engine</a>&amp; engine, <a class="code" href="a02712.html">ecs::Entity</a> ent);</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;};</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;} <span class="comment">// namespace gfx</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;} <span class="comment">// namespace bl</span></div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
-<div class="line"><a name="l00095"></a><span class="lineno"><a class="line" href="a02801.html#af5faca7d5a139a40733983edb5f5b3ae">   95</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02801.html#af5faca7d5a139a40733983edb5f5b3ae">ensureLocalSizeUpdated</a>() = 0;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <a class="code" href="a04465.html">sys::OverlayScalerSystem</a>* scalerSystem;</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <a class="code" href="a02553.html">ecs::Registry</a>* registry;</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <a class="code" href="a02509.html">ecs::Entity</a> ecsId;</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <a class="code" href="a02325.html">com::OverlayScaler</a>* handle;</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
-<div class="line"><a name="l00103"></a><span class="lineno"><a class="line" href="a02801.html#a4a6a3be2932b640ceb285770c5346ff3">  103</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a04465.html">sys::OverlayScalerSystem</a>;</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;};</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
-<div class="line"><a name="l00108"></a><span class="lineno"><a class="line" href="a02801.html#aeec49505849a5429a7616af8fad3933a">  108</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="a02325.html">com::OverlayScaler</a>&amp; <a class="code" href="a02801.html#aeec49505849a5429a7616af8fad3933a">OverlayScalable::getOverlayScaler</a>() { <span class="keywordflow">return</span> *handle; }</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TArgs&gt;</div>
-<div class="line"><a name="l00111"></a><span class="lineno"><a class="line" href="a02801.html#ab91b8fbcaf4f5f397b7ab5d412befb3a">  111</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02801.html#ab91b8fbcaf4f5f397b7ab5d412befb3a">OverlayScalable::create</a>(<a class="code" href="a02605.html">engine::Engine</a>&amp; engine, <a class="code" href="a02509.html">ecs::Entity</a> entity, TArgs&amp;&amp;... args) {</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    scalerSystem = &amp;engine.<a class="code" href="a02605.html#af6edd720ae9836cefbbd26d99de572ea">systems</a>().<a class="code" href="a02661.html#aafefb6bd9fcc7e73f643e47167f79849">getSystem</a>&lt;<a class="code" href="a04465.html">sys::OverlayScalerSystem</a>&gt;();</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    registry     = &amp;engine.<a class="code" href="a02605.html#a25e3869bfc4a1fefd83bcd5773c7a5ef">ecs</a>();</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    ecsId        = entity;</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <a class="code" href="a02809.html#a5a9b364e0644b04edeb6ecb590886a45">Transform2D::create</a>(*registry, entity, std::forward&lt;TArgs&gt;(args)...);</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    handle = registry-&gt;emplaceComponent&lt;<a class="code" href="a02325.html">com::OverlayScaler</a>&gt;(entity);</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;}</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
-<div class="line"><a name="l00120"></a><span class="lineno"><a class="line" href="a02801.html#a4f1e81a4d4e62cbc478b338488fb7202">  120</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="a02801.html#a4f1e81a4d4e62cbc478b338488fb7202">OverlayScalable::setLocalSize</a>(<span class="keyword">const</span> glm::vec2&amp; size) {</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    handle-&gt;<a class="code" href="a02325.html#a30514be96ed2f37bc00eb2e1798cc7b5">setEntityBounds</a>({0.f, 0.f, size.x, size.y});</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;}</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
-<div class="line"><a name="l00124"></a><span class="lineno"><a class="line" href="a02801.html#ad338c1830292172ce58b70c5e65cf349">  124</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="a02801.html#ad338c1830292172ce58b70c5e65cf349">OverlayScalable::setLocalBounds</a>(<span class="keyword">const</span> sf::FloatRect&amp; bounds) {</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    handle-&gt;<a class="code" href="a02325.html#a30514be96ed2f37bc00eb2e1798cc7b5">setEntityBounds</a>(bounds);</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;}</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
-<div class="line"><a name="l00128"></a><span class="lineno"><a class="line" href="a02801.html#a546ad65b2fbaa4a7d97cfe7f52de7901">  128</a></span>&#160;<span class="keyword">inline</span> <span class="keyword">const</span> sf::FloatRect&amp; <a class="code" href="a02801.html#a546ad65b2fbaa4a7d97cfe7f52de7901">OverlayScalable::getTargetRegion</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <span class="keywordflow">return</span> handle-&gt;cachedTargetRegion;</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;}</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160; </div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;} <span class="comment">// namespace bcom</span></div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;} <span class="comment">// namespace gfx</span></div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160; </div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00080_html"><div class="ttname"><a href="a00080.html">OverlayScaler.hpp</a></div></div>
-<div class="ttc" id="aa00209_html"><div class="ttname"><a href="a00209.html">ECS.hpp</a></div></div>
-<div class="ttc" id="aa00710_html"><div class="ttname"><a href="a00710.html">SceneObjectRef.hpp</a></div></div>
-<div class="ttc" id="aa02100_html"><div class="ttname"><a href="a02100.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02325_html"><div class="ttname"><a href="a02325.html">bl::com::OverlayScaler</a></div><div class="ttdoc">Component used to scale entities in overlays according to fixed rules. sys::Overlay scaler ensures th...</div><div class="ttdef"><b>Definition:</b> <a href="a00080_source.html#l00040">OverlayScaler.hpp:40</a></div></div>
-<div class="ttc" id="aa02325_html_a30514be96ed2f37bc00eb2e1798cc7b5"><div class="ttname"><a href="a02325.html#a30514be96ed2f37bc00eb2e1798cc7b5">bl::com::OverlayScaler::setEntityBounds</a></div><div class="ttdeci">void setEntityBounds(const sf::FloatRect &amp;bounds)</div><div class="ttdoc">Sets the pre-transform bounds of the entity. Used in scaling calculations.</div><div class="ttdef"><b>Definition:</b> <a href="a01322_source.html#l00051">OverlayScaler.cpp:51</a></div></div>
-<div class="ttc" id="aa02509_html"><div class="ttname"><a href="a02509.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition:</b> <a href="a00167_source.html#l00024">Entity.hpp:24</a></div></div>
-<div class="ttc" id="aa02553_html"><div class="ttname"><a href="a02553.html">bl::ecs::Registry</a></div><div class="ttdoc">This is the main interface of the ECS. This class manages all entities and components and views and s...</div><div class="ttdef"><b>Definition:</b> <a href="a00182_source.html#l00032">Registry.hpp:32</a></div></div>
-<div class="ttc" id="aa02605_html"><div class="ttname"><a href="a02605.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a05713_source.html#l00032">Engine.hpp:32</a></div></div>
-<div class="ttc" id="aa02605_html_a25e3869bfc4a1fefd83bcd5773c7a5ef"><div class="ttname"><a href="a02605.html#a25e3869bfc4a1fefd83bcd5773c7a5ef">bl::engine::Engine::ecs</a></div><div class="ttdeci">ecs::Registry &amp; ecs()</div><div class="ttdoc">Returns a reference to the engine wide entity registry.</div><div class="ttdef"><b>Definition:</b> <a href="a05713_source.html#l00195">Engine.hpp:195</a></div></div>
-<div class="ttc" id="aa02605_html_af6edd720ae9836cefbbd26d99de572ea"><div class="ttname"><a href="a02605.html#af6edd720ae9836cefbbd26d99de572ea">bl::engine::Engine::systems</a></div><div class="ttdeci">Systems &amp; systems()</div><div class="ttdoc">Returns the systems registry of the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a05713_source.html#l00197">Engine.hpp:197</a></div></div>
-<div class="ttc" id="aa02661_html_aafefb6bd9fcc7e73f643e47167f79849"><div class="ttname"><a href="a02661.html#aafefb6bd9fcc7e73f643e47167f79849">bl::engine::Systems::getSystem</a></div><div class="ttdeci">T &amp; getSystem()</div><div class="ttdoc">Returns a reference to the given system. System must exist.</div><div class="ttdef"><b>Definition:</b> <a href="a05722_source.html#l00182">Systems.hpp:182</a></div></div>
-<div class="ttc" id="aa02801_html"><div class="ttname"><a href="a02801.html">bl::gfx::bcom::OverlayScalable</a></div><div class="ttdoc">Base component that manages and provides a Transform2D, OverlayScaler, and Viewport.</div><div class="ttdef"><b>Definition:</b> <a href="a00311_source.html#l00030">OverlayScalable.hpp:30</a></div></div>
-<div class="ttc" id="aa02801_html_a4f1e81a4d4e62cbc478b338488fb7202"><div class="ttname"><a href="a02801.html#a4f1e81a4d4e62cbc478b338488fb7202">bl::gfx::bcom::OverlayScalable::setLocalSize</a></div><div class="ttdeci">void setLocalSize(const glm::vec2 &amp;size)</div><div class="ttdoc">Sets the pre-transform size of this entity.</div><div class="ttdef"><b>Definition:</b> <a href="a00311_source.html#l00120">OverlayScalable.hpp:120</a></div></div>
-<div class="ttc" id="aa02801_html_a546ad65b2fbaa4a7d97cfe7f52de7901"><div class="ttname"><a href="a02801.html#a546ad65b2fbaa4a7d97cfe7f52de7901">bl::gfx::bcom::OverlayScalable::getTargetRegion</a></div><div class="ttdeci">const sf::FloatRect &amp; getTargetRegion() const</div><div class="ttdoc">Returns the parent bounds in overlay space.</div><div class="ttdef"><b>Definition:</b> <a href="a00311_source.html#l00128">OverlayScalable.hpp:128</a></div></div>
-<div class="ttc" id="aa02801_html_a74f720c686e620743c57c1e49b1a5d93"><div class="ttname"><a href="a02801.html#a74f720c686e620743c57c1e49b1a5d93">bl::gfx::bcom::OverlayScalable::setScissorToSelf</a></div><div class="ttdeci">void setScissorToSelf(bool setToSelf=true)</div><div class="ttdoc">Helper method to set the viewport to the region the drawable is in.</div><div class="ttdef"><b>Definition:</b> <a href="a01403_source.html#l00019">OverlayScalable.cpp:19</a></div></div>
-<div class="ttc" id="aa02801_html_aaff14d3d3930d2857327c80177b9cfce"><div class="ttname"><a href="a02801.html#aaff14d3d3930d2857327c80177b9cfce">bl::gfx::bcom::OverlayScalable::getLocalSize</a></div><div class="ttdeci">glm::vec2 getLocalSize() const</div><div class="ttdoc">Returns the pre-transform size of this entity.</div><div class="ttdef"><b>Definition:</b> <a href="a01403_source.html#l00024">OverlayScalable.cpp:24</a></div></div>
-<div class="ttc" id="aa02801_html_ab0a036298d4e83c443607c15f7e4cd69"><div class="ttname"><a href="a02801.html#ab0a036298d4e83c443607c15f7e4cd69">bl::gfx::bcom::OverlayScalable::getOverlaySize</a></div><div class="ttdeci">glm::vec2 getOverlaySize() const</div><div class="ttdoc">Returns the post-transform size in Overlay space.</div><div class="ttdef"><b>Definition:</b> <a href="a01403_source.html#l00030">OverlayScalable.cpp:30</a></div></div>
-<div class="ttc" id="aa02801_html_ab91b8fbcaf4f5f397b7ab5d412befb3a"><div class="ttname"><a href="a02801.html#ab91b8fbcaf4f5f397b7ab5d412befb3a">bl::gfx::bcom::OverlayScalable::create</a></div><div class="ttdeci">void create(engine::Engine &amp;engine, ecs::Entity entity, TArgs &amp;&amp;... args)</div><div class="ttdoc">Creates the OverlayScaler and Transform2D in the ECS.</div><div class="ttdef"><b>Definition:</b> <a href="a00311_source.html#l00111">OverlayScalable.hpp:111</a></div></div>
-<div class="ttc" id="aa02801_html_ad338c1830292172ce58b70c5e65cf349"><div class="ttname"><a href="a02801.html#ad338c1830292172ce58b70c5e65cf349">bl::gfx::bcom::OverlayScalable::setLocalBounds</a></div><div class="ttdeci">void setLocalBounds(const sf::FloatRect &amp;bounds)</div><div class="ttdoc">Sets the pre-transform bounds of the entity. Use if bound corner is not (0, 0)</div><div class="ttdef"><b>Definition:</b> <a href="a00311_source.html#l00124">OverlayScalable.hpp:124</a></div></div>
-<div class="ttc" id="aa02801_html_ae7b826fbfaae9417fbe9a6a1c7f5f342"><div class="ttname"><a href="a02801.html#ae7b826fbfaae9417fbe9a6a1c7f5f342">bl::gfx::bcom::OverlayScalable::OverlayScalable</a></div><div class="ttdeci">OverlayScalable()</div><div class="ttdoc">Does nothing.</div><div class="ttdef"><b>Definition:</b> <a href="a01403_source.html#l00014">OverlayScalable.cpp:14</a></div></div>
-<div class="ttc" id="aa02801_html_aeec49505849a5429a7616af8fad3933a"><div class="ttname"><a href="a02801.html#aeec49505849a5429a7616af8fad3933a">bl::gfx::bcom::OverlayScalable::getOverlayScaler</a></div><div class="ttdeci">com::OverlayScaler &amp; getOverlayScaler()</div><div class="ttdoc">Returns the OverlayScaler of this entity.</div><div class="ttdef"><b>Definition:</b> <a href="a00311_source.html#l00108">OverlayScalable.hpp:108</a></div></div>
-<div class="ttc" id="aa02801_html_af5faca7d5a139a40733983edb5f5b3ae"><div class="ttname"><a href="a02801.html#af5faca7d5a139a40733983edb5f5b3ae">bl::gfx::bcom::OverlayScalable::ensureLocalSizeUpdated</a></div><div class="ttdeci">virtual void ensureLocalSizeUpdated()=0</div><div class="ttdoc">Called when the local size is queried.</div></div>
-<div class="ttc" id="aa02809_html"><div class="ttname"><a href="a02809.html">bl::gfx::bcom::Transform2D</a></div><div class="ttdoc">Base component class for Drawables that require a 2d transform.</div><div class="ttdef"><b>Definition:</b> <a href="a05698_source.html#l00019">Transform2D.hpp:19</a></div></div>
-<div class="ttc" id="aa02809_html_a5a9b364e0644b04edeb6ecb590886a45"><div class="ttname"><a href="a02809.html#a5a9b364e0644b04edeb6ecb590886a45">bl::gfx::bcom::Transform2D::create</a></div><div class="ttdeci">void create(ecs::Registry &amp;registry, ecs::Entity entity, TArgs &amp;&amp;... args)</div><div class="ttdoc">Creates the transform in the ECS.</div><div class="ttdef"><b>Definition:</b> <a href="a05698_source.html#l00059">Transform2D.hpp:59</a></div></div>
-<div class="ttc" id="aa04465_html"><div class="ttname"><a href="a04465.html">bl::sys::OverlayScalerSystem</a></div><div class="ttdoc">System that processes entities that are scaled for overlays. Keeps scales up-to-date as overlay size ...</div><div class="ttdef"><b>Definition:</b> <a href="a01178_source.html#l00027">OverlayScalerSystem.hpp:27</a></div></div>
-<div class="ttc" id="aa05698_html"><div class="ttname"><a href="a05698.html">Transform2D.hpp</a></div></div>
-<div class="ttc" id="aa05713_html"><div class="ttname"><a href="a05713.html">Engine.hpp</a></div></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa02284_html"><div class="ttname"><a href="a02284.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02488_html"><div class="ttname"><a href="a02488.html">bl::com::Animation2DPlayer</a></div><div class="ttdoc">Owns play state for 2d animations. Intended to be owned by entities with animations,...</div><div class="ttdef"><b>Definition:</b> <a href="a06154_source.html#l00025">Animation2DPlayer.hpp:25</a></div></div>
+<div class="ttc" id="aa02712_html"><div class="ttname"><a href="a02712.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition:</b> <a href="a00176_source.html#l00024">Entity.hpp:24</a></div></div>
+<div class="ttc" id="aa02812_html"><div class="ttname"><a href="a02812.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a06232_source.html#l00033">Engine.hpp:33</a></div></div>
+<div class="ttc" id="aa02968_html"><div class="ttname"><a href="a02968.html">bl::gfx::BatchedSlideshows</a></div><div class="ttdoc">Collection of batched slideshow animations that are all rendered together.</div><div class="ttdef"><b>Definition:</b> <a href="a06169_source.html#l00017">BatchedSlideshows.hpp:19</a></div></div>
+<div class="ttc" id="aa02988_html"><div class="ttname"><a href="a02988.html">bl::gfx::BatchSlideshowSimple</a></div><div class="ttdoc">Thin wrapper for index buffer allocations in BatchedSlideshows.</div><div class="ttdef"><b>Definition:</b> <a href="a00311_source.html#l00017">BatchSlideshowSimple.hpp:17</a></div></div>
+<div class="ttc" id="aa02988_html_a06f099878683d473e61fd75c84b8d95d"><div class="ttname"><a href="a02988.html#a06f099878683d473e61fd75c84b8d95d">bl::gfx::BatchSlideshowSimple::commit</a></div><div class="ttdeci">void commit()</div><div class="ttdoc">Calls commit on the owning batch.</div><div class="ttdef"><b>Definition:</b> <a href="a01535_source.html#l00065">BatchSlideshowSimple.cpp:65</a></div></div>
+<div class="ttc" id="aa02988_html_a0a3af61c6bbae0a4ae4f9a24d63bef14"><div class="ttname"><a href="a02988.html#a0a3af61c6bbae0a4ae4f9a24d63bef14">bl::gfx::BatchSlideshowSimple::remove</a></div><div class="ttdeci">void remove()</div><div class="ttdoc">Removes the slideshow from the batch.</div><div class="ttdef"><b>Definition:</b> <a href="a01535_source.html#l00070">BatchSlideshowSimple.cpp:70</a></div></div>
+<div class="ttc" id="aa02988_html_a2042a5c2858f13a459bb37c4c5aedc7d"><div class="ttname"><a href="a02988.html#a2042a5c2858f13a459bb37c4c5aedc7d">bl::gfx::BatchSlideshowSimple::setPlayer</a></div><div class="ttdeci">void setPlayer(engine::Engine &amp;engine, ecs::Entity playerEntity)</div><div class="ttdoc">Updates the player component. Does some basic validation.</div><div class="ttdef"><b>Definition:</b> <a href="a01535_source.html#l00050">BatchSlideshowSimple.cpp:50</a></div></div>
+<div class="ttc" id="aa02988_html_a3d2e3125ccd62fdb7f021fb921f5c63c"><div class="ttname"><a href="a02988.html#a3d2e3125ccd62fdb7f021fb921f5c63c">bl::gfx::BatchSlideshowSimple::getVertices</a></div><div class="ttdeci">std::span&lt; rc::prim::SlideshowVertex &gt; getVertices()</div><div class="ttdoc">Access the vertices for this animation.</div><div class="ttdef"><b>Definition:</b> <a href="a00311_source.html#l00069">BatchSlideshowSimple.hpp:69</a></div></div>
+<div class="ttc" id="aa02988_html_a469bdded901d1e0d2d95a6e2808b02c3"><div class="ttname"><a href="a02988.html#a469bdded901d1e0d2d95a6e2808b02c3">bl::gfx::BatchSlideshowSimple::~BatchSlideshowSimple</a></div><div class="ttdeci">~BatchSlideshowSimple()</div><div class="ttdoc">Releases its allocation from its owner and updates draw command.</div><div class="ttdef"><b>Definition:</b> <a href="a01535_source.html#l00017">BatchSlideshowSimple.cpp:17</a></div></div>
+<div class="ttc" id="aa02988_html_a5bdc3f89f08ffc0e2ff6b24028df96c2"><div class="ttname"><a href="a02988.html#a5bdc3f89f08ffc0e2ff6b24028df96c2">bl::gfx::BatchSlideshowSimple::getPlayer</a></div><div class="ttdeci">com::Animation2DPlayer &amp; getPlayer()</div><div class="ttdoc">Access the player for this animation.</div><div class="ttdef"><b>Definition:</b> <a href="a00311_source.html#l00064">BatchSlideshowSimple.hpp:64</a></div></div>
+<div class="ttc" id="aa02988_html_a72e9ed0598cef3dd6aae7201fb19f723"><div class="ttname"><a href="a02988.html#a72e9ed0598cef3dd6aae7201fb19f723">bl::gfx::BatchSlideshowSimple::getIndices</a></div><div class="ttdeci">std::span&lt; std::uint32_t &gt; getIndices()</div><div class="ttdoc">Access the indices for this animation. Manual manipulation should not be required.</div><div class="ttdef"><b>Definition:</b> <a href="a00311_source.html#l00074">BatchSlideshowSimple.hpp:74</a></div></div>
+<div class="ttc" id="aa02988_html_ab7415d2e248d3b56c412bd85f2e0da8e"><div class="ttname"><a href="a02988.html#ab7415d2e248d3b56c412bd85f2e0da8e">bl::gfx::BatchSlideshowSimple::BatchSlideshowSimple</a></div><div class="ttdeci">BatchSlideshowSimple()</div><div class="ttdoc">Does nothing.</div><div class="ttdef"><b>Definition:</b> <a href="a01535_source.html#l00009">BatchSlideshowSimple.cpp:9</a></div></div>
+<div class="ttc" id="aa02988_html_abaa66bfa90cdf1325dc789f97013ac32"><div class="ttname"><a href="a02988.html#abaa66bfa90cdf1325dc789f97013ac32">bl::gfx::BatchSlideshowSimple::create</a></div><div class="ttdeci">void create(engine::Engine &amp;engine, BatchedSlideshows &amp;batch, ecs::Entity playerEntity)</div><div class="ttdoc">Creates the slideshow batch and populates the indices and player fields.</div><div class="ttdef"><b>Definition:</b> <a href="a01535_source.html#l00019">BatchSlideshowSimple.cpp:19</a></div></div>
+<div class="ttc" id="aa03692_html"><div class="ttname"><a href="a03692.html">bl::rc::buf::BatchIndexBufferT::AllocHandle</a></div><div class="ttdoc">Handle to an allocation from the index buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a00761_source.html#l00040">BatchIndexBuffer.hpp:40</a></div></div>
+<div class="ttc" id="aa06154_html"><div class="ttname"><a href="a06154.html">Animation2DPlayer.hpp</a></div></div>
+<div class="ttc" id="aa06169_html"><div class="ttname"><a href="a06169.html">BatchedSlideshows.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 2 2023 04:00:54 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 18 2024 18:32:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

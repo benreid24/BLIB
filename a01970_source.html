@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Scripts/Manager.cpp Source File</title>
+<title>BLIB: src/Render/Resources/ScenePool.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,89 +66,66 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3ac9928fc2e7e2cbc53db7c1a11acda2.html">Scripts</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_9db9147e11516848db92abd3a50398f1.html">Resources</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Manager.cpp</div>  </div>
+<div class="title">ScenePool.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01970.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01085.html">BLIB/Scripts/Manager.hpp</a>&gt;</span></div>
+<a href="a01970.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00998.html">BLIB/Render/Resources/ScenePool.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00641.html">BLIB/Logging.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;chrono&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02100.html">bl</a></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>script</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="a04109.html#a852d6375512d9961149f3132353c6252">   10</a></span>&#160;<a class="code" href="a04109.html#a852d6375512d9961149f3132353c6252">Manager::~Manager</a>() {</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <a class="code" href="a00635.html#a459f7ea96e34815206480bf681ee2a2f">BL_LOG_INFO</a> &lt;&lt; <span class="stringliteral">&quot;ScriptManager (&quot;</span> &lt;&lt; <span class="keyword">this</span> &lt;&lt; <span class="stringliteral">&quot;) terminating with timeout = 2s&quot;</span>;</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <a class="code" href="a04109.html#a77731bb5ef00afb950102d45f9de967d">terminateAll</a>(2.f);</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <a class="code" href="a00635.html#a459f7ea96e34815206480bf681ee2a2f">BL_LOG_INFO</a> &lt;&lt; <span class="stringliteral">&quot;ScriptManager (&quot;</span> &lt;&lt; <span class="keyword">this</span> &lt;&lt; <span class="stringliteral">&quot;) terminated&quot;</span>;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;}</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00227.html">BLIB/Engine.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00182.html">BLIB/Events.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00872.html">BLIB/Render/Events/SceneDestroyed.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02284.html">bl</a></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>res</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="a04064.html#aca923e993cf4122f317b08d3ea35614c">   13</a></span>&#160;<a class="code" href="a04064.html#aca923e993cf4122f317b08d3ea35614c">ScenePool::ScenePool</a>(<a class="code" href="a02812.html">engine::Engine</a>&amp; e)</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;: engine(e) {}</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keywordtype">void</span> Manager::watch(Script::ExecutionContext::WPtr record) {</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    std::lock_guard guard(mutex);</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    clean();</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    scripts.push_back(record);</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;}</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a04109.html#a77731bb5ef00afb950102d45f9de967d">   22</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a04109.html#a77731bb5ef00afb950102d45f9de967d">Manager::terminateAll</a>(<span class="keywordtype">float</span> timeout) {</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    std::lock_guard guard(mutex);</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> i = scripts.begin(); i != scripts.end(); ++i) {</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <span class="keywordflow">if</span> (i-&gt;expired())</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;            i = scripts.erase(i);</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;            <span class="keyword">auto</span> ptr = i-&gt;lock();</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;            <span class="keywordflow">if</span> (ptr)</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;                ptr-&gt;table.kill();</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;            <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;                i = scripts.erase(i);</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        }</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keywordflow">if</span> (i == scripts.end()) <span class="keywordflow">break</span>; <span class="comment">// break before ++i</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    }</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">int</span> ms = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(timeout * 1000.0f);</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> t = 0; t &lt; ms; t += 30) {</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        clean();</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="keywordflow">if</span> (scripts.empty()) <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        std::this_thread::sleep_for(std::chrono::milliseconds(30));</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    }</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordflow">if</span> (!scripts.empty()) {</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <a class="code" href="a00635.html#af954e63cd52a20dcd7087a8c569f373f">BL_LOG_WARN</a> &lt;&lt; scripts.size() &lt;&lt; <span class="stringliteral">&quot;scripts still running after &quot;</span> &lt;&lt; timeout &lt;&lt; <span class="stringliteral">&quot;s  timeout&quot;</span>;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    }</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;}</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="keywordtype">void</span> Manager::clean() {</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> i = scripts.begin(); i != scripts.end(); ++i) {</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keywordflow">if</span> (i-&gt;expired())</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            i = scripts.erase(i);</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            <span class="keyword">auto</span> ptr = i-&gt;lock();</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;            <span class="keywordflow">if</span> (!ptr || !ptr-&gt;running) i = scripts.erase(i);</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        }</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="keywordflow">if</span> (i == scripts.end()) <span class="keywordflow">break</span>; <span class="comment">// break before ++i</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    }</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;}</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;} <span class="comment">// namespace script</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00635_html_a459f7ea96e34815206480bf681ee2a2f"><div class="ttname"><a href="a00635.html#a459f7ea96e34815206480bf681ee2a2f">BL_LOG_INFO</a></div><div class="ttdeci">#define BL_LOG_INFO</div><div class="ttdoc">Helper macro to log at info level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00635_source.html#l00107">Logger.hpp:107</a></div></div>
-<div class="ttc" id="aa00635_html_af954e63cd52a20dcd7087a8c569f373f"><div class="ttname"><a href="a00635.html#af954e63cd52a20dcd7087a8c569f373f">BL_LOG_WARN</a></div><div class="ttdeci">#define BL_LOG_WARN</div><div class="ttdoc">Helper macro to log at warn level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00635_source.html#l00104">Logger.hpp:104</a></div></div>
-<div class="ttc" id="aa00641_html"><div class="ttname"><a href="a00641.html">Logging.hpp</a></div></div>
-<div class="ttc" id="aa01085_html"><div class="ttname"><a href="a01085.html">Manager.hpp</a></div></div>
-<div class="ttc" id="aa02100_html"><div class="ttname"><a href="a02100.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04109_html_a77731bb5ef00afb950102d45f9de967d"><div class="ttname"><a href="a04109.html#a77731bb5ef00afb950102d45f9de967d">bl::script::Manager::terminateAll</a></div><div class="ttdeci">bool terminateAll(float timeout=5.0f)</div><div class="ttdoc">Terminates all running scripts.</div><div class="ttdef"><b>Definition:</b> <a href="a01970_source.html#l00022">Manager.cpp:22</a></div></div>
-<div class="ttc" id="aa04109_html_a852d6375512d9961149f3132353c6252"><div class="ttname"><a href="a04109.html#a852d6375512d9961149f3132353c6252">bl::script::Manager::~Manager</a></div><div class="ttdeci">~Manager()</div><div class="ttdoc">Terminates all running scripts.</div><div class="ttdef"><b>Definition:</b> <a href="a01970_source.html#l00010">Manager.cpp:10</a></div></div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a04064.html#af95a257c30a09327e366c659ced32611">   16</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04064.html#af95a257c30a09327e366c659ced32611">ScenePool::cleanup</a>() {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    std::unique_lock lock(mutex);</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    scenes.clear();</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;}</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keywordtype">void</span> ScenePool::release(Entry* entry) {</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    vkDeviceWaitIdle(engine.<a class="code" href="a02812.html#a04332dee562be55a73c43b5eed176837">renderer</a>().<a class="code" href="a04024.html#afdefecf57155696e1523bb6b256fc8bd">vulkanState</a>().<a class="code" href="a04368.html#a6ad0249d08d9ffb87af35b42f11a1db5">device</a>);</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    std::unique_lock lock(mutex);</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    bl::event::Dispatcher::dispatch&lt;rc::event::SceneDestroyed&gt;({entry-&gt;scene.get()});</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = scenes.begin(); it != scenes.end(); ++it) {</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="keywordflow">if</span> (&amp;(*it) == entry) {</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;            scenes.erase(it);</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;            <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        }</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    }</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;}</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;} <span class="comment">// namespace res</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00182_html"><div class="ttname"><a href="a00182.html">Events.hpp</a></div></div>
+<div class="ttc" id="aa00227_html"><div class="ttname"><a href="a00227.html">Engine.hpp</a></div></div>
+<div class="ttc" id="aa00872_html"><div class="ttname"><a href="a00872.html">SceneDestroyed.hpp</a></div></div>
+<div class="ttc" id="aa00998_html"><div class="ttname"><a href="a00998.html">ScenePool.hpp</a></div></div>
+<div class="ttc" id="aa02284_html"><div class="ttname"><a href="a02284.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02812_html"><div class="ttname"><a href="a02812.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a06232_source.html#l00033">Engine.hpp:33</a></div></div>
+<div class="ttc" id="aa02812_html_a04332dee562be55a73c43b5eed176837"><div class="ttname"><a href="a02812.html#a04332dee562be55a73c43b5eed176837">bl::engine::Engine::renderer</a></div><div class="ttdeci">rc::Renderer &amp; renderer()</div><div class="ttdoc">Returns the rendering system of the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a06232_source.html#l00234">Engine.hpp:234</a></div></div>
+<div class="ttc" id="aa04024_html_afdefecf57155696e1523bb6b256fc8bd"><div class="ttname"><a href="a04024.html#afdefecf57155696e1523bb6b256fc8bd">bl::rc::Renderer::vulkanState</a></div><div class="ttdeci">vk::VulkanState &amp; vulkanState()</div><div class="ttdoc">Returns the Vulkan state of the renderer.</div><div class="ttdef"><b>Definition:</b> <a href="a06283_source.html#l00276">Renderer.hpp:276</a></div></div>
+<div class="ttc" id="aa04064_html_aca923e993cf4122f317b08d3ea35614c"><div class="ttname"><a href="a04064.html#aca923e993cf4122f317b08d3ea35614c">bl::rc::res::ScenePool::ScenePool</a></div><div class="ttdeci">ScenePool(engine::Engine &amp;engine)</div><div class="ttdoc">Creates a new scene pool.</div><div class="ttdef"><b>Definition:</b> <a href="a01970_source.html#l00013">ScenePool.cpp:13</a></div></div>
+<div class="ttc" id="aa04064_html_af95a257c30a09327e366c659ced32611"><div class="ttname"><a href="a04064.html#af95a257c30a09327e366c659ced32611">bl::rc::res::ScenePool::cleanup</a></div><div class="ttdeci">void cleanup()</div><div class="ttdoc">Destroys all scenes.</div><div class="ttdef"><b>Definition:</b> <a href="a01970_source.html#l00016">ScenePool.cpp:16</a></div></div>
+<div class="ttc" id="aa04368_html_a6ad0249d08d9ffb87af35b42f11a1db5"><div class="ttname"><a href="a04368.html#a6ad0249d08d9ffb87af35b42f11a1db5">bl::rc::vk::VulkanState::device</a></div><div class="ttdeci">VkDevice device</div><div class="ttdef"><b>Definition:</b> <a href="a01148_source.html#l00214">VulkanState.hpp:214</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 2 2023 04:00:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 18 2024 18:32:56 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/ECS/ParentGraph.cpp Source File</title>
+<title>BLIB: include/BLIB/Util/Hashes.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,129 +66,70 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b1a122bf62c958266ec5bf64d14fde5a.html">ECS</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4b3af2b25a05b4f12e892fbe45139fe9.html">Util</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">ParentGraph.cpp</div>  </div>
+<div class="title">Hashes.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01346.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00179.html">BLIB/ECS/ParentGraph.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00641.html">BLIB/Logging.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02100.html">bl</a></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>ecs</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a02549.html#ad26ff71314c9640bc163c7e814445c9d">    9</a></span>&#160;<a class="code" href="a02549.html#ad26ff71314c9640bc163c7e814445c9d">ecs::ParentGraph::ParentGraph</a>(std::size_t capacityHint)</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;: parentMap(capacityHint, <a class="code" href="a02115.html#a01655307bcb32baf2884e18213123917">InvalidEntity</a>)</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;, childMap(capacityHint) {}</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="a02549.html#a9121be6b1da7de47f609491e7b84dd1e">   13</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02549.html#a9121be6b1da7de47f609491e7b84dd1e">ParentGraph::setParent</a>(<a class="code" href="a02509.html">Entity</a> child, <a class="code" href="a02509.html">Entity</a> parent) {</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    ensureParentCap(child);</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keyword">const</span> std::size_t i   = child.<a class="code" href="a02509.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>();</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keyword">const</span> <a class="code" href="a02509.html">Entity</a> ogParent = parentMap[i];</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keywordflow">if</span> (ogParent == parent) { <span class="keywordflow">return</span>; }</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (ogParent != <a class="code" href="a02115.html#a01655307bcb32baf2884e18213123917">InvalidEntity</a>) { <a class="code" href="a02549.html#a965b2d787f0e6ccb2beed91b3d70a815">unParent</a>(child); }</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    parentMap[i] = parent;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    childMap.add(parent.<a class="code" href="a02509.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>(), child);</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#ifdef BLIB_DEBUG</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordflow">if</span> (checkForCycles(child)) {</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        <a class="code" href="a00635.html#aab250887595d9e02b1f0b670fe342683">BL_LOG_CRITICAL</a> &lt;&lt; <span class="stringliteral">&quot;Cycle created when assigning parent &quot;</span> &lt;&lt; parent &lt;&lt; <span class="stringliteral">&quot; to entity &quot;</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;                        &lt;&lt; child;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        std::abort();</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    }</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;}</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="a02549.html#a965b2d787f0e6ccb2beed91b3d70a815">   33</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02549.html#a965b2d787f0e6ccb2beed91b3d70a815">ParentGraph::unParent</a>(<a class="code" href="a02509.html">Entity</a> child) {</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keyword">const</span> std::size_t i = child.<a class="code" href="a02509.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>();</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordflow">if</span> (parentMap.size() &lt;= i) { <span class="keywordflow">return</span>; }</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordflow">if</span> (parentMap[i] == <a class="code" href="a02115.html#a01655307bcb32baf2884e18213123917">InvalidEntity</a>) { <span class="keywordflow">return</span>; }</div>
+<a href="a01346.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_UTIL_HASHES_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_UTIL_HASHES_HPP</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01343.html">BLIB/Util/HashCombine.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;SFML/System/Vector2.hpp&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;SFML/System/Vector3.hpp&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;functional&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02284.html">bl</a></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>util</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T1, <span class="keyword">typename</span> T2, <span class="keyword">typename</span> T1Hash = std::hash&lt;T1&gt;, <span class="keyword">typename</span> T2Hash = std::hash&lt;T2&gt;&gt;</div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a04956.html">   24</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a04956.html">PairHash</a> {</div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="a04956.html#ac78b7fecff9c68299acb571e3edc722a">   31</a></span>&#160;    std::size_t <a class="code" href="a04956.html#ac78b7fecff9c68299acb571e3edc722a">operator()</a>(<span class="keyword">const</span> std::pair&lt;T1, T2&gt;&amp; pair)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        std::size_t h1 = T1Hash()(pair.first);</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        std::size_t h2 = T2Hash()(pair.second);</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="a02350.html#a867dbeaa40c3e27ca66b3217256cd351">hashCombine</a>(h1, h2);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    }</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;};</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keyword">const</span> std::uint32_t j = parentMap[i].getIndex();</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    parentMap[i]          = <a class="code" href="a02115.html#a01655307bcb32baf2884e18213123917">InvalidEntity</a>;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    childMap.removeValue(j, child);</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;}</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="a02549.html#ab26869bf08eb3701dc146e226ef887da">   43</a></span>&#160;<a class="code" href="a02509.html">Entity</a> <a class="code" href="a02549.html#ab26869bf08eb3701dc146e226ef887da">ParentGraph::getParent</a>(<a class="code" href="a02509.html">Entity</a> child)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">const</span> std::size_t i = child.<a class="code" href="a02509.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>();</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordflow">return</span> i &lt; parentMap.size() ? parentMap[i] : <a class="code" href="a02115.html#a01655307bcb32baf2884e18213123917">InvalidEntity</a>;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;}</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="a02549.html#ade74b5299fd5c0df5933e636664d07eb">   48</a></span>&#160;<a class="code" href="a02397.html">ctr::IndexMappedList&lt;std::uint32_t, Entity&gt;::Range</a> <a class="code" href="a02549.html#ade74b5299fd5c0df5933e636664d07eb">ParentGraph::getChildren</a>(<a class="code" href="a02509.html">Entity</a> parent) {</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordflow">return</span> childMap.getValues(parent.<a class="code" href="a02509.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>());</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;}</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="a02549.html#acbcc3b794d2c338032bb80fc5bbbfc8f">   52</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02549.html#acbcc3b794d2c338032bb80fc5bbbfc8f">ParentGraph::reset</a>() {</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    std::fill(parentMap.begin(), parentMap.end(), <a class="code" href="a02115.html#a01655307bcb32baf2884e18213123917">InvalidEntity</a>);</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    childMap.clear();</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;}</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="a02549.html#a17db4dda4272bce51c49a7c96b71b03d">   57</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02549.html#a17db4dda4272bce51c49a7c96b71b03d">ParentGraph::removeEntity</a>(<a class="code" href="a02509.html">Entity</a> entity) {</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keyword">const</span> std::size_t i = entity.<a class="code" href="a02509.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>();</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordflow">if</span> (i &gt;= parentMap.size()) { <span class="keywordflow">return</span>; }</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keyword">const</span> <a class="code" href="a02509.html">Entity</a> parent = parentMap[i];</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    parentMap[i]        = <a class="code" href="a02115.html#a01655307bcb32baf2884e18213123917">InvalidEntity</a>;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    childMap.remove(entity);</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordflow">if</span> (parent != <a class="code" href="a02115.html#a01655307bcb32baf2884e18213123917">InvalidEntity</a>) { childMap.removeValue(parent.<a class="code" href="a02509.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>(), entity); }</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;}</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="keywordtype">void</span> ParentGraph::ensureParentCap(<a class="code" href="a02509.html">Entity</a> child) {</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keyword">const</span> std::size_t cap = child.<a class="code" href="a02509.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>() + 1;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordflow">if</span> (cap &gt; parentMap.size()) { parentMap.resize(cap, <a class="code" href="a02115.html#a01655307bcb32baf2884e18213123917">InvalidEntity</a>); }</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;}</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="keywordtype">bool</span> ParentGraph::checkForCycles(Entity start) {</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    std::vector&lt;bool&gt; visited(parentMap.size(), <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    std::vector&lt;Entity&gt; toVisit;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    toVisit.reserve(32);</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    toVisit.emplace_back(start);</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordflow">while</span> (!toVisit.empty()) {</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        <span class="keyword">const</span> Entity ent = toVisit.back();</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        toVisit.pop_back();</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        <span class="keyword">const</span> std::uint32_t i = ent.getIndex();</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <span class="keywordflow">if</span> (i &gt;= visited.size()) { visited.resize(i + 1, <span class="keyword">false</span>); }</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        <span class="keywordflow">if</span> (visited[i]) { <span class="keywordflow">return</span> <span class="keyword">true</span>; }</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        visited[i] = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        <span class="keyword">const</span> Entity parent = <a class="code" href="a02549.html#ab26869bf08eb3701dc146e226ef887da">getParent</a>(ent);</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        <span class="keywordflow">if</span> (parent != <a class="code" href="a02115.html#a01655307bcb32baf2884e18213123917">InvalidEntity</a>) { toVisit.emplace_back(parent); }</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    }</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;}</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;} <span class="comment">// namespace ecs</span></div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00179_html"><div class="ttname"><a href="a00179.html">ParentGraph.hpp</a></div></div>
-<div class="ttc" id="aa00635_html_aab250887595d9e02b1f0b670fe342683"><div class="ttname"><a href="a00635.html#aab250887595d9e02b1f0b670fe342683">BL_LOG_CRITICAL</a></div><div class="ttdeci">#define BL_LOG_CRITICAL</div><div class="ttdoc">Helper macro to log at critical level and include file, function, and line information.</div><div class="ttdef"><b>Definition:</b> <a href="a00635_source.html#l00098">Logger.hpp:98</a></div></div>
-<div class="ttc" id="aa00641_html"><div class="ttname"><a href="a00641.html">Logging.hpp</a></div></div>
-<div class="ttc" id="aa02100_html"><div class="ttname"><a href="a02100.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02115_html_a01655307bcb32baf2884e18213123917"><div class="ttname"><a href="a02115.html#a01655307bcb32baf2884e18213123917">bl::ecs::InvalidEntity</a></div><div class="ttdeci">static constexpr Entity InvalidEntity</div><div class="ttdoc">Special value to indicate that an Entity is not valid.</div><div class="ttdef"><b>Definition:</b> <a href="a00167_source.html#l00167">Entity.hpp:167</a></div></div>
-<div class="ttc" id="aa02397_html"><div class="ttname"><a href="a02397.html">bl::ctr::IndexMappedList::Range</a></div><div class="ttdoc">Helper struct to allow range-based for loops.</div><div class="ttdef"><b>Definition:</b> <a href="a00125_source.html#l00187">IndexMappedList.hpp:187</a></div></div>
-<div class="ttc" id="aa02509_html"><div class="ttname"><a href="a02509.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition:</b> <a href="a00167_source.html#l00024">Entity.hpp:24</a></div></div>
-<div class="ttc" id="aa02509_html_aa3cb71b47f3a72f20913a27233a5dad0"><div class="ttname"><a href="a02509.html#aa3cb71b47f3a72f20913a27233a5dad0">bl::ecs::Entity::getIndex</a></div><div class="ttdeci">std::uint64_t getIndex() const</div><div class="ttdoc">Returns the 0-based index for the entity.</div><div class="ttdef"><b>Definition:</b> <a href="a00167_source.html#l00104">Entity.hpp:104</a></div></div>
-<div class="ttc" id="aa02549_html_a17db4dda4272bce51c49a7c96b71b03d"><div class="ttname"><a href="a02549.html#a17db4dda4272bce51c49a7c96b71b03d">bl::ecs::ParentGraph::removeEntity</a></div><div class="ttdeci">void removeEntity(Entity entity)</div><div class="ttdoc">Removes the given entity from the graph. Does not update children. remove() must be called manually f...</div><div class="ttdef"><b>Definition:</b> <a href="a01346_source.html#l00057">ParentGraph.cpp:57</a></div></div>
-<div class="ttc" id="aa02549_html_a9121be6b1da7de47f609491e7b84dd1e"><div class="ttname"><a href="a02549.html#a9121be6b1da7de47f609491e7b84dd1e">bl::ecs::ParentGraph::setParent</a></div><div class="ttdeci">void setParent(Entity child, Entity parent)</div><div class="ttdoc">Adds a parent &lt;-&gt; child association.</div><div class="ttdef"><b>Definition:</b> <a href="a01346_source.html#l00013">ParentGraph.cpp:13</a></div></div>
-<div class="ttc" id="aa02549_html_a965b2d787f0e6ccb2beed91b3d70a815"><div class="ttname"><a href="a02549.html#a965b2d787f0e6ccb2beed91b3d70a815">bl::ecs::ParentGraph::unParent</a></div><div class="ttdeci">void unParent(Entity child)</div><div class="ttdoc">Removes the parent from the given entity.</div><div class="ttdef"><b>Definition:</b> <a href="a01346_source.html#l00033">ParentGraph.cpp:33</a></div></div>
-<div class="ttc" id="aa02549_html_ab26869bf08eb3701dc146e226ef887da"><div class="ttname"><a href="a02549.html#ab26869bf08eb3701dc146e226ef887da">bl::ecs::ParentGraph::getParent</a></div><div class="ttdeci">Entity getParent(Entity child) const</div><div class="ttdoc">Returns the parent for the given child.</div><div class="ttdef"><b>Definition:</b> <a href="a01346_source.html#l00043">ParentGraph.cpp:43</a></div></div>
-<div class="ttc" id="aa02549_html_acbcc3b794d2c338032bb80fc5bbbfc8f"><div class="ttname"><a href="a02549.html#acbcc3b794d2c338032bb80fc5bbbfc8f">bl::ecs::ParentGraph::reset</a></div><div class="ttdeci">void reset()</div><div class="ttdoc">Resets the entire graph to the empty state.</div><div class="ttdef"><b>Definition:</b> <a href="a01346_source.html#l00052">ParentGraph.cpp:52</a></div></div>
-<div class="ttc" id="aa02549_html_ad26ff71314c9640bc163c7e814445c9d"><div class="ttname"><a href="a02549.html#ad26ff71314c9640bc163c7e814445c9d">bl::ecs::ParentGraph::ParentGraph</a></div><div class="ttdeci">ParentGraph(std::size_t capacityHint)</div><div class="ttdoc">Creates an empty graph.</div><div class="ttdef"><b>Definition:</b> <a href="a01346_source.html#l00009">ParentGraph.cpp:9</a></div></div>
-<div class="ttc" id="aa02549_html_ade74b5299fd5c0df5933e636664d07eb"><div class="ttname"><a href="a02549.html#ade74b5299fd5c0df5933e636664d07eb">bl::ecs::ParentGraph::getChildren</a></div><div class="ttdeci">ctr::IndexMappedList&lt; std::uint32_t, Entity &gt;::Range getChildren(Entity parent)</div><div class="ttdoc">Returns a range of children for the given entity.</div><div class="ttdef"><b>Definition:</b> <a href="a01346_source.html#l00048">ParentGraph.cpp:48</a></div></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="a04960.html">   45</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a04960.html">Vector2Hash</a> {</div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="a04960.html#adb1f1f3f67bf271cb41f13f1c632490c">   52</a></span>&#160;    std::size_t <a class="code" href="a04960.html#adb1f1f3f67bf271cb41f13f1c632490c">operator()</a>(<span class="keyword">const</span> sf::Vector2&lt;T&gt;&amp; value)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        std::hash&lt;T&gt; hasher;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="a02350.html#a867dbeaa40c3e27ca66b3217256cd351">bl::util::hashCombine</a>(hasher(value.x), hasher(value.y));</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    }</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;};</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="a04964.html">   65</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a04964.html">Vector3Hash</a> {</div>
+<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="a04964.html#a685b1dd7655533e88c6c2b54baf8b40c">   72</a></span>&#160;    std::size_t <a class="code" href="a04964.html#a685b1dd7655533e88c6c2b54baf8b40c">operator()</a>(<span class="keyword">const</span> sf::Vector3&lt;T&gt;&amp; value)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        std::hash&lt;T&gt; hasher;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="a02350.html#a867dbeaa40c3e27ca66b3217256cd351">bl::util::hashCombine</a>(<a class="code" href="a02350.html#a867dbeaa40c3e27ca66b3217256cd351">bl::util::hashCombine</a>(hasher(value.x), hasher(value.y)),</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                                     hasher(value.z));</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    }</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;};</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;} <span class="comment">// namespace util</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01343_html"><div class="ttname"><a href="a01343.html">HashCombine.hpp</a></div></div>
+<div class="ttc" id="aa02284_html"><div class="ttname"><a href="a02284.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02350_html_a867dbeaa40c3e27ca66b3217256cd351"><div class="ttname"><a href="a02350.html#a867dbeaa40c3e27ca66b3217256cd351">bl::util::hashCombine</a></div><div class="ttdeci">std::size_t hashCombine(std::size_t right, std::size_t left)</div><div class="ttdef"><b>Definition:</b> <a href="a01343_source.html#l00011">HashCombine.hpp:11</a></div></div>
+<div class="ttc" id="aa04956_html"><div class="ttname"><a href="a04956.html">bl::util::PairHash</a></div><div class="ttdoc">Utility struct to allow hashing of std::pair objects.</div><div class="ttdef"><b>Definition:</b> <a href="a01346_source.html#l00024">Hashes.hpp:24</a></div></div>
+<div class="ttc" id="aa04956_html_ac78b7fecff9c68299acb571e3edc722a"><div class="ttname"><a href="a04956.html#ac78b7fecff9c68299acb571e3edc722a">bl::util::PairHash::operator()</a></div><div class="ttdeci">std::size_t operator()(const std::pair&lt; T1, T2 &gt; &amp;pair) const</div><div class="ttdoc">Hashes the given pair using the hash function for each member of the pair.</div><div class="ttdef"><b>Definition:</b> <a href="a01346_source.html#l00031">Hashes.hpp:31</a></div></div>
+<div class="ttc" id="aa04960_html"><div class="ttname"><a href="a04960.html">bl::util::Vector2Hash</a></div><div class="ttdoc">Specialized hash for sf::Vector2.</div><div class="ttdef"><b>Definition:</b> <a href="a01346_source.html#l00045">Hashes.hpp:45</a></div></div>
+<div class="ttc" id="aa04960_html_adb1f1f3f67bf271cb41f13f1c632490c"><div class="ttname"><a href="a04960.html#adb1f1f3f67bf271cb41f13f1c632490c">bl::util::Vector2Hash::operator()</a></div><div class="ttdeci">std::size_t operator()(const sf::Vector2&lt; T &gt; &amp;value) const</div><div class="ttdoc">Hash the given vector.</div><div class="ttdef"><b>Definition:</b> <a href="a01346_source.html#l00052">Hashes.hpp:52</a></div></div>
+<div class="ttc" id="aa04964_html"><div class="ttname"><a href="a04964.html">bl::util::Vector3Hash</a></div><div class="ttdoc">Specialized hash for sf::Vector3.</div><div class="ttdef"><b>Definition:</b> <a href="a01346_source.html#l00065">Hashes.hpp:65</a></div></div>
+<div class="ttc" id="aa04964_html_a685b1dd7655533e88c6c2b54baf8b40c"><div class="ttname"><a href="a04964.html#a685b1dd7655533e88c6c2b54baf8b40c">bl::util::Vector3Hash::operator()</a></div><div class="ttdeci">std::size_t operator()(const sf::Vector3&lt; T &gt; &amp;value) const</div><div class="ttdoc">Hash the given vector.</div><div class="ttdef"><b>Definition:</b> <a href="a01346_source.html#l00072">Hashes.hpp:72</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 2 2023 04:00:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 18 2024 18:32:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

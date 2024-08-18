@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Input/DispatchType.hpp Source File</title>
+<title>BLIB: include/BLIB/Graphics.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,55 +66,79 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_c720f75c1eb5aaccd40e24fd6b592b41.html">Input</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">DispatchType.hpp</div>  </div>
+<div class="title">Graphics.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00374.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_INPUT_DISPATCHTYPE_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_INPUT_DISPATCHTYPE_HPP</span></div>
+<a href="a00374.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_GRAPHICS_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_GRAPHICS_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02100.html">bl</a></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;{</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>input</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a02081.html#ga9b480cda76caba52b2ab392fea396ce3">   16</a></span>&#160;<span class="keyword">enum struct</span> <a class="code" href="a02081.html#ga9b480cda76caba52b2ab392fea396ce3">DispatchType</a> {</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <a class="code" href="a02081.html#gga9b480cda76caba52b2ab392fea396ce3a4d96fa471faee72faaa4f964a6ba1a59">_INVALID</a>,</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <a class="code" href="a02081.html#gga9b480cda76caba52b2ab392fea396ce3a8fedffe1c43e73f34a3a78a88cef6a2f">TriggerActivated</a>,</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <a class="code" href="a02081.html#gga9b480cda76caba52b2ab392fea396ce3af1e3a99580f4887a08a5ed8f06514ca1">DirectionChanged</a>,</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <a class="code" href="a02081.html#gga9b480cda76caba52b2ab392fea396ce3a5714712617d87312d28599dbe656c610">MovementUp</a>,</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <a class="code" href="a02081.html#gga9b480cda76caba52b2ab392fea396ce3ac0d5d6c93aa5c0e51810fea4bab6e9dd">MovementRight</a>,</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <a class="code" href="a02081.html#gga9b480cda76caba52b2ab392fea396ce3a54b19e0f3ef6c7d6518a228bac33bd19">MovementDown</a>,</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <a class="code" href="a02081.html#gga9b480cda76caba52b2ab392fea396ce3a2167767cdca679d310f54992383aa9dc">MovementLeft</a></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;};</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;} <span class="comment">// namespace input</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa02081_html_ga9b480cda76caba52b2ab392fea396ce3"><div class="ttname"><a href="a02081.html#ga9b480cda76caba52b2ab392fea396ce3">bl::input::DispatchType</a></div><div class="ttdeci">DispatchType</div><div class="ttdoc">Indicates if a control notification is the first activation of that control or if it is a repeated si...</div><div class="ttdef"><b>Definition:</b> <a href="a00374_source.html#l00016">DispatchType.hpp:16</a></div></div>
-<div class="ttc" id="aa02081_html_gga9b480cda76caba52b2ab392fea396ce3a2167767cdca679d310f54992383aa9dc"><div class="ttname"><a href="a02081.html#gga9b480cda76caba52b2ab392fea396ce3a2167767cdca679d310f54992383aa9dc">bl::input::DispatchType::MovementLeft</a></div><div class="ttdeci">@ MovementLeft</div><div class="ttdoc">Movement control was activated in the left direction.</div></div>
-<div class="ttc" id="aa02081_html_gga9b480cda76caba52b2ab392fea396ce3a4d96fa471faee72faaa4f964a6ba1a59"><div class="ttname"><a href="a02081.html#gga9b480cda76caba52b2ab392fea396ce3a4d96fa471faee72faaa4f964a6ba1a59">bl::input::DispatchType::_INVALID</a></div><div class="ttdeci">@ _INVALID</div><div class="ttdoc">Used internally only.</div></div>
-<div class="ttc" id="aa02081_html_gga9b480cda76caba52b2ab392fea396ce3a54b19e0f3ef6c7d6518a228bac33bd19"><div class="ttname"><a href="a02081.html#gga9b480cda76caba52b2ab392fea396ce3a54b19e0f3ef6c7d6518a228bac33bd19">bl::input::DispatchType::MovementDown</a></div><div class="ttdeci">@ MovementDown</div><div class="ttdoc">Movement control was activated in the down/backward direction.</div></div>
-<div class="ttc" id="aa02081_html_gga9b480cda76caba52b2ab392fea396ce3a5714712617d87312d28599dbe656c610"><div class="ttname"><a href="a02081.html#gga9b480cda76caba52b2ab392fea396ce3a5714712617d87312d28599dbe656c610">bl::input::DispatchType::MovementUp</a></div><div class="ttdeci">@ MovementUp</div><div class="ttdoc">Movement control was activated in the up/forward direction.</div></div>
-<div class="ttc" id="aa02081_html_gga9b480cda76caba52b2ab392fea396ce3a8fedffe1c43e73f34a3a78a88cef6a2f"><div class="ttname"><a href="a02081.html#gga9b480cda76caba52b2ab392fea396ce3a8fedffe1c43e73f34a3a78a88cef6a2f">bl::input::DispatchType::TriggerActivated</a></div><div class="ttdeci">@ TriggerActivated</div><div class="ttdoc">The a trigger control was activated by an event.</div></div>
-<div class="ttc" id="aa02081_html_gga9b480cda76caba52b2ab392fea396ce3ac0d5d6c93aa5c0e51810fea4bab6e9dd"><div class="ttname"><a href="a02081.html#gga9b480cda76caba52b2ab392fea396ce3ac0d5d6c93aa5c0e51810fea4bab6e9dd">bl::input::DispatchType::MovementRight</a></div><div class="ttdeci">@ MovementRight</div><div class="ttdoc">Movement control was activated in the right direction.</div></div>
-<div class="ttc" id="aa02081_html_gga9b480cda76caba52b2ab392fea396ce3af1e3a99580f4887a08a5ed8f06514ca1"><div class="ttname"><a href="a02081.html#gga9b480cda76caba52b2ab392fea396ce3af1e3a99580f4887a08a5ed8f06514ca1">bl::input::DispatchType::DirectionChanged</a></div><div class="ttdeci">@ DirectionChanged</div><div class="ttdoc">The directional control changed values.</div></div>
-<div class="ttc" id="aa02100_html"><div class="ttname"><a href="a02100.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01151.html">BLIB/Render.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06151.html">BLIB/Graphics/Animation2D.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00296.html">BLIB/Graphics/Animation2D/DiscreteAnimation2DPlayer.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00299.html">BLIB/Graphics/BatchCircle.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00305.html">BLIB/Graphics/BatchRectangle.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00308.html">BLIB/Graphics/BatchSlideshow.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00311.html">BLIB/Graphics/BatchSlideshowSimple.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00314.html">BLIB/Graphics/BatchSprite.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00317.html">BLIB/Graphics/BatchSpriteSimple.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00320.html">BLIB/Graphics/BatchTriangle.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06163.html">BLIB/Graphics/BatchedShapes2D.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06169.html">BLIB/Graphics/BatchedSlideshows.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06175.html">BLIB/Graphics/BatchedSprites.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00323.html">BLIB/Graphics/Circle.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00326.html">BLIB/Graphics/Components/OverlayScalable.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00329.html">BLIB/Graphics/Components/Textured.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06211.html">BLIB/Graphics/Components/Transform2D.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00332.html">BLIB/Graphics/Drawable.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00335.html">BLIB/Graphics/Dummy2D.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00341.html">BLIB/Graphics/Rectangle.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06187.html">BLIB/Graphics/Slideshow.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06193.html">BLIB/Graphics/Sprite.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06199.html">BLIB/Graphics/Text.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00362.html">BLIB/Graphics/Text/BasicText.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00365.html">BLIB/Graphics/Text/VulkanFont.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00368.html">BLIB/Graphics/Triangle.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00371.html">BLIB/Graphics/VertexBuffer2D.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00296_html"><div class="ttname"><a href="a00296.html">DiscreteAnimation2DPlayer.hpp</a></div></div>
+<div class="ttc" id="aa00299_html"><div class="ttname"><a href="a00299.html">BatchCircle.hpp</a></div></div>
+<div class="ttc" id="aa00305_html"><div class="ttname"><a href="a00305.html">BatchRectangle.hpp</a></div></div>
+<div class="ttc" id="aa00308_html"><div class="ttname"><a href="a00308.html">BatchSlideshow.hpp</a></div></div>
+<div class="ttc" id="aa00311_html"><div class="ttname"><a href="a00311.html">BatchSlideshowSimple.hpp</a></div></div>
+<div class="ttc" id="aa00314_html"><div class="ttname"><a href="a00314.html">BatchSprite.hpp</a></div></div>
+<div class="ttc" id="aa00317_html"><div class="ttname"><a href="a00317.html">BatchSpriteSimple.hpp</a></div></div>
+<div class="ttc" id="aa00320_html"><div class="ttname"><a href="a00320.html">BatchTriangle.hpp</a></div></div>
+<div class="ttc" id="aa00323_html"><div class="ttname"><a href="a00323.html">Circle.hpp</a></div></div>
+<div class="ttc" id="aa00326_html"><div class="ttname"><a href="a00326.html">OverlayScalable.hpp</a></div></div>
+<div class="ttc" id="aa00329_html"><div class="ttname"><a href="a00329.html">Textured.hpp</a></div></div>
+<div class="ttc" id="aa00332_html"><div class="ttname"><a href="a00332.html">Drawable.hpp</a></div></div>
+<div class="ttc" id="aa00335_html"><div class="ttname"><a href="a00335.html">Dummy2D.hpp</a></div></div>
+<div class="ttc" id="aa00341_html"><div class="ttname"><a href="a00341.html">Rectangle.hpp</a></div></div>
+<div class="ttc" id="aa00362_html"><div class="ttname"><a href="a00362.html">BasicText.hpp</a></div></div>
+<div class="ttc" id="aa00365_html"><div class="ttname"><a href="a00365.html">VulkanFont.hpp</a></div></div>
+<div class="ttc" id="aa00368_html"><div class="ttname"><a href="a00368.html">Triangle.hpp</a></div></div>
+<div class="ttc" id="aa00371_html"><div class="ttname"><a href="a00371.html">VertexBuffer2D.hpp</a></div></div>
+<div class="ttc" id="aa01151_html"><div class="ttname"><a href="a01151.html">Render.hpp</a></div></div>
+<div class="ttc" id="aa06151_html"><div class="ttname"><a href="a06151.html">Animation2D.hpp</a></div></div>
+<div class="ttc" id="aa06163_html"><div class="ttname"><a href="a06163.html">BatchedShapes2D.hpp</a></div></div>
+<div class="ttc" id="aa06169_html"><div class="ttname"><a href="a06169.html">BatchedSlideshows.hpp</a></div></div>
+<div class="ttc" id="aa06175_html"><div class="ttname"><a href="a06175.html">BatchedSprites.hpp</a></div></div>
+<div class="ttc" id="aa06187_html"><div class="ttname"><a href="a06187.html">Slideshow.hpp</a></div></div>
+<div class="ttc" id="aa06193_html"><div class="ttname"><a href="a06193.html">Sprite.hpp</a></div></div>
+<div class="ttc" id="aa06199_html"><div class="ttname"><a href="a06199.html">Text.hpp</a></div></div>
+<div class="ttc" id="aa06211_html"><div class="ttname"><a href="a06211.html">Transform2D.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 2 2023 04:00:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 18 2024 18:32:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

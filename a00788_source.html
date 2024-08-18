@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Graph/AssetProvider.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Components/SceneObjectRef.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,47 +66,62 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_70f08ea54355502249f886f7ca541c6e.html">Graph</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_1fe4435017a66f2c0b1af7ce232fd611.html">Components</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">AssetProvider.hpp</div>  </div>
+<div class="title">SceneObjectRef.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00788.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_GRAPH_ASSETPROVIDER_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_GRAPH_ASSETPROVIDER_HPP</span></div>
+<a href="a00788.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_COMPONENTS_SCENEOBJECTREF_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_COMPONENTS_SCENEOBJECTREF_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02100.html">bl</a></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;{</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>rc</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>rg</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00968.html">BLIB/Render/Primitives/DrawParameters.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01034.html">BLIB/Render/Scenes/SceneObject.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;cstdint&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02284.html">bl</a></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">class </span>Asset;</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a03549.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03549.html">AssetProvider</a> {</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a03549.html#a1ee68495079bbccc701efa4c32ba4133">   22</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03549.html#a1ee68495079bbccc701efa4c32ba4133">~AssetProvider</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a03549.html#a29f2513c04da078f0b4f6b3892e12001">   29</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03537.html">Asset</a>* <a class="code" href="a03549.html#a29f2513c04da078f0b4f6b3892e12001">create</a>() = 0;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;};</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;} <span class="comment">// namespace rg</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa02100_html"><div class="ttname"><a href="a02100.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03537_html"><div class="ttname"><a href="a03537.html">bl::rc::rg::Asset</a></div><div class="ttdoc">Base class for assets in render graphs.</div><div class="ttdef"><b>Definition:</b> <a href="a00779_source.html#l00032">Asset.hpp:32</a></div></div>
-<div class="ttc" id="aa03549_html"><div class="ttname"><a href="a03549.html">bl::rc::rg::AssetProvider</a></div><div class="ttdoc">Base class for an asset provider. AssetProviders are used by AssetFactory.</div><div class="ttdef"><b>Definition:</b> <a href="a00788_source.html#l00017">AssetProvider.hpp:17</a></div></div>
-<div class="ttc" id="aa03549_html_a1ee68495079bbccc701efa4c32ba4133"><div class="ttname"><a href="a03549.html#a1ee68495079bbccc701efa4c32ba4133">bl::rc::rg::AssetProvider::~AssetProvider</a></div><div class="ttdeci">virtual ~AssetProvider()=default</div><div class="ttdoc">Destroys the provider.</div></div>
-<div class="ttc" id="aa03549_html_a29f2513c04da078f0b4f6b3892e12001"><div class="ttname"><a href="a03549.html#a29f2513c04da078f0b4f6b3892e12001">bl::rc::rg::AssetProvider::create</a></div><div class="ttdeci">virtual Asset * create()=0</div><div class="ttdoc">Create a new asset instance of the provided type.</div></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">class </span>Scene;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span>scene</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">struct </span>SceneObject;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;}</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">namespace </span>rcom</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;{</div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="a03736.html">   27</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a03736.html">SceneObjectRef</a> {</div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a03736.html#a166737f0613cee8337cf16694c0d4803">   28</a></span>&#160;    <a class="code" href="a04128.html">Scene</a>* <a class="code" href="a03736.html#a166737f0613cee8337cf16694c0d4803">scene</a>;</div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a03736.html#a273ff1de9ff2bba46ea348e0b0237e25">   29</a></span>&#160;    <a class="code" href="a04144.html">scene::SceneObject</a>* <a class="code" href="a03736.html#a273ff1de9ff2bba46ea348e0b0237e25">object</a>;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="a03736.html#a9cbe7a10751994823ae8830b20700aed">   34</a></span>&#160;    <a class="code" href="a03736.html#a9cbe7a10751994823ae8830b20700aed">SceneObjectRef</a>()</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    : <a class="code" href="a03736.html#a166737f0613cee8337cf16694c0d4803">scene</a>(nullptr)</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    , <a class="code" href="a03736.html#a273ff1de9ff2bba46ea348e0b0237e25">object</a>(nullptr) {}</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;};</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;} <span class="comment">// namespace rcom</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00968_html"><div class="ttname"><a href="a00968.html">DrawParameters.hpp</a></div></div>
+<div class="ttc" id="aa01034_html"><div class="ttname"><a href="a01034.html">SceneObject.hpp</a></div></div>
+<div class="ttc" id="aa02284_html"><div class="ttname"><a href="a02284.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03736_html"><div class="ttname"><a href="a03736.html">bl::rc::rcom::SceneObjectRef</a></div><div class="ttdoc">Basic struct representing a link between the ECS and a Scene's object buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a00788_source.html#l00027">SceneObjectRef.hpp:27</a></div></div>
+<div class="ttc" id="aa03736_html_a166737f0613cee8337cf16694c0d4803"><div class="ttname"><a href="a03736.html#a166737f0613cee8337cf16694c0d4803">bl::rc::rcom::SceneObjectRef::scene</a></div><div class="ttdeci">Scene * scene</div><div class="ttdef"><b>Definition:</b> <a href="a00788_source.html#l00028">SceneObjectRef.hpp:28</a></div></div>
+<div class="ttc" id="aa03736_html_a273ff1de9ff2bba46ea348e0b0237e25"><div class="ttname"><a href="a03736.html#a273ff1de9ff2bba46ea348e0b0237e25">bl::rc::rcom::SceneObjectRef::object</a></div><div class="ttdeci">scene::SceneObject * object</div><div class="ttdef"><b>Definition:</b> <a href="a00788_source.html#l00029">SceneObjectRef.hpp:29</a></div></div>
+<div class="ttc" id="aa03736_html_a9cbe7a10751994823ae8830b20700aed"><div class="ttname"><a href="a03736.html#a9cbe7a10751994823ae8830b20700aed">bl::rc::rcom::SceneObjectRef::SceneObjectRef</a></div><div class="ttdeci">SceneObjectRef()</div><div class="ttdoc">Creates an empty ref.</div><div class="ttdef"><b>Definition:</b> <a href="a00788_source.html#l00034">SceneObjectRef.hpp:34</a></div></div>
+<div class="ttc" id="aa04128_html"><div class="ttname"><a href="a04128.html">bl::rc::Scene</a></div><div class="ttdoc">Base class for all scene types and overlays. Provides common scene logic and object management....</div><div class="ttdef"><b>Definition:</b> <a href="a01025_source.html#l00056">Scene.hpp:56</a></div></div>
+<div class="ttc" id="aa04144_html"><div class="ttname"><a href="a04144.html">bl::rc::scene::SceneObject</a></div><div class="ttdoc">Base renderable object. Everything that is rendered will reference an instance of this....</div><div class="ttdef"><b>Definition:</b> <a href="a01034_source.html#l00029">SceneObject.hpp:29</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 2 2023 04:00:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 18 2024 18:32:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

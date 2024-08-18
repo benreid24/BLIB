@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Scripts/Error.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Vulkan/CleanupManager.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,61 +66,74 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_9fb35b166bb00afcaa31ece623ebed60.html">Scripts</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_49b99cfd015d92f767de1d8dec868906.html">Vulkan</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Error.hpp</div>  </div>
+<div class="title">CleanupManager.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01079.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_SCRIPTS_ERROR_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_SCRIPTS_ERROR_HPP</span></div>
+<a href="a01079.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_VULKAN_CLEANUPMANAGER_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_VULKAN_CLEANUPMANAGER_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00668.html">BLIB/Parser/Node.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02100.html">bl</a></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>script</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a04097.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="a04097.html">Error</a> {</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <a class="code" href="a04097.html#aff6398a2a255bf7a3ad554af2761bc98">Error</a>(<span class="keyword">const</span> std::string&amp; error);</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <a class="code" href="a04097.html#aff6398a2a255bf7a3ad554af2761bc98">Error</a>(<span class="keyword">const</span> std::string&amp; error, <span class="keyword">const</span> <a class="code" href="a03341.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&amp; location);</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <a class="code" href="a04097.html#aff6398a2a255bf7a3ad554af2761bc98">Error</a>(<span class="keyword">const</span> std::string&amp; error, <span class="keyword">const</span> <a class="code" href="a03341.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&amp; location, <span class="keyword">const</span> <a class="code" href="a04097.html">Error</a>&amp; stack);</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keyword">const</span> std::string&amp; <a class="code" href="a04097.html#a95abc9d3c1314074a22834fa7e6a2dfd">message</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keyword">const</span> std::string&amp; <a class="code" href="a04097.html#ab1e1a09a7f8dfda9edcac4bd6d1df391">stacktrace</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keyword">const</span> std::string error;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keyword">const</span> std::string stack;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06298.html">BLIB/Render/Config.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;array&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;atomic&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;functional&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;mutex&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02284.html">bl</a></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span>vk</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a04216.html">   23</a></span>&#160;<span class="keyword">class </span><a class="code" href="a04216.html">CleanupManager</a> {</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a04216.html#a7231a9195e01c0dba86bc19ce2f56544">   26</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a04216.html#a7231a9195e01c0dba86bc19ce2f56544">Callback</a> = std::function&lt;void()&gt;;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04216.html#a0be2d519d4e836c5040713fda94e8cee">add</a>(<a class="code" href="a04216.html#a7231a9195e01c0dba86bc19ce2f56544">Callback</a>&amp;&amp; cb);</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a04216.html#a0be2d519d4e836c5040713fda94e8cee">add</a>(<span class="keyword">const</span> <a class="code" href="a04216.html#a7231a9195e01c0dba86bc19ce2f56544">Callback</a>&amp; cb);</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    std::mutex mutex;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    std::atomic_bool isClearing;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    std::array&lt;std::vector&lt;Callback&gt;, <a class="code" href="a03740.html#acf7cd0741bc9e043674ec76ff77461a1">Config::MaxConcurrentFrames</a> + 1&gt; buckets;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    std::vector&lt;Callback&gt; addedDuringClear;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> clearIndex;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <a class="code" href="a04216.html">CleanupManager</a>();</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordtype">void</span> flush();</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">void</span> onFrameStart();</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    constexpr <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> addIndex()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="keywordflow">return</span> (clearIndex + <span class="keyword">static_cast&lt;</span><span class="keywordtype">unsigned</span> <span class="keywordtype">int</span><span class="keyword">&gt;</span>(<a class="code" href="a03740.html#acf7cd0741bc9e043674ec76ff77461a1">Config::MaxConcurrentFrames</a>)) %</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;               buckets.size();</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    }</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="a04216.html#a88be4fe9fe4217b2dc1f69e6888906f6">   58</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">struct </span><a class="code" href="a04368.html">VulkanState</a>;</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;};</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="a04101.html">   66</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a04101.html">Exit</a> {};</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;} <span class="comment">// namespace script</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00668_html"><div class="ttname"><a href="a00668.html">Node.hpp</a></div></div>
-<div class="ttc" id="aa02100_html"><div class="ttname"><a href="a02100.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03341_html_a3f49fe9da8742463aa757f89f67a8827"><div class="ttname"><a href="a03341.html#a3f49fe9da8742463aa757f89f67a8827">bl::parser::Node::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; Node &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00668_source.html#l00024">Node.hpp:24</a></div></div>
-<div class="ttc" id="aa04097_html"><div class="ttname"><a href="a04097.html">bl::script::Error</a></div><div class="ttdoc">Script utility class to represent an error. Can be used to build a call stack for script errors.</div><div class="ttdef"><b>Definition:</b> <a href="a01079_source.html#l00017">Error.hpp:17</a></div></div>
-<div class="ttc" id="aa04097_html_a95abc9d3c1314074a22834fa7e6a2dfd"><div class="ttname"><a href="a04097.html#a95abc9d3c1314074a22834fa7e6a2dfd">bl::script::Error::message</a></div><div class="ttdeci">const std::string &amp; message() const</div><div class="ttdoc">Returns the contained error message.</div><div class="ttdef"><b>Definition:</b> <a href="a01964_source.html#l00029">Error.cpp:29</a></div></div>
-<div class="ttc" id="aa04097_html_ab1e1a09a7f8dfda9edcac4bd6d1df391"><div class="ttname"><a href="a04097.html#ab1e1a09a7f8dfda9edcac4bd6d1df391">bl::script::Error::stacktrace</a></div><div class="ttdeci">const std::string &amp; stacktrace() const</div><div class="ttdoc">Returns the full stack trace, formatted.</div><div class="ttdef"><b>Definition:</b> <a href="a01964_source.html#l00031">Error.cpp:31</a></div></div>
-<div class="ttc" id="aa04097_html_aff6398a2a255bf7a3ad554af2761bc98"><div class="ttname"><a href="a04097.html#aff6398a2a255bf7a3ad554af2761bc98">bl::script::Error::Error</a></div><div class="ttdeci">Error(const std::string &amp;error)</div><div class="ttdoc">Constructs a root Error with an empty call stack.</div><div class="ttdef"><b>Definition:</b> <a href="a01964_source.html#l00017">Error.cpp:17</a></div></div>
-<div class="ttc" id="aa04101_html"><div class="ttname"><a href="a04101.html">bl::script::Exit</a></div><div class="ttdoc">Special Exception for Scripts to exit without an Error.</div><div class="ttdef"><b>Definition:</b> <a href="a01079_source.html#l00066">Error.hpp:66</a></div></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;} <span class="comment">// namespace vk</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa02284_html"><div class="ttname"><a href="a02284.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03740_html_acf7cd0741bc9e043674ec76ff77461a1"><div class="ttname"><a href="a03740.html#acf7cd0741bc9e043674ec76ff77461a1">bl::rc::Config::MaxConcurrentFrames</a></div><div class="ttdeci">static constexpr unsigned int MaxConcurrentFrames</div><div class="ttdef"><b>Definition:</b> <a href="a06298_source.html#l00018">Config.hpp:18</a></div></div>
+<div class="ttc" id="aa04216_html"><div class="ttname"><a href="a04216.html">bl::rc::vk::CleanupManager</a></div><div class="ttdoc">Utility to defer resource destruction for several frames to ensure resources are no longer in use wit...</div><div class="ttdef"><b>Definition:</b> <a href="a01079_source.html#l00023">CleanupManager.hpp:23</a></div></div>
+<div class="ttc" id="aa04216_html_a0be2d519d4e836c5040713fda94e8cee"><div class="ttname"><a href="a04216.html#a0be2d519d4e836c5040713fda94e8cee">bl::rc::vk::CleanupManager::add</a></div><div class="ttdeci">void add(Callback &amp;&amp;cb)</div><div class="ttdoc">Adds the given callback to the queue.</div><div class="ttdef"><b>Definition:</b> <a href="a02027_source.html#l00031">CleanupManager.cpp:31</a></div></div>
+<div class="ttc" id="aa04216_html_a7231a9195e01c0dba86bc19ce2f56544"><div class="ttname"><a href="a04216.html#a7231a9195e01c0dba86bc19ce2f56544">bl::rc::vk::CleanupManager::Callback</a></div><div class="ttdeci">std::function&lt; void()&gt; Callback</div><div class="ttdoc">Signature of cleanup callbacks.</div><div class="ttdef"><b>Definition:</b> <a href="a01079_source.html#l00026">CleanupManager.hpp:26</a></div></div>
+<div class="ttc" id="aa04368_html"><div class="ttname"><a href="a04368.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a01148_source.html#l00039">VulkanState.hpp:39</a></div></div>
+<div class="ttc" id="aa06298_html"><div class="ttname"><a href="a06298.html">Config.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 2 2023 04:00:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 18 2024 18:32:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

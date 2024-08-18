@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Interfaces/Menu/Selector.hpp File Reference</title>
+<title>BLIB: include/BLIB/Interfaces/Menu/Item.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,39 +74,43 @@ $(function() {
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">Selector.hpp File Reference</div>  </div>
+<div class="title">Item.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00167_source.html">BLIB/ECS/Entity.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00851_source.html">BLIB/Render/Overlays/Overlay.hpp</a>&gt;</code><br />
-<code>#include &lt;SFML/Graphics/RenderTarget.hpp&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a06208_source.html">BLIB/Components/Transform2D.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00959_source.html">BLIB/Render/Overlays/Overlay.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01016_source.html">BLIB/Render/Scenes/CodeScene.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a06289_source.html">BLIB/Util/Signal.hpp</a>&gt;</code><br />
+<code>#include &lt;functional&gt;</code><br />
+<code>#include &lt;glm/glm.hpp&gt;</code><br />
+<code>#include &lt;list&gt;</code><br />
 <code>#include &lt;memory&gt;</code><br />
 </div>
 <p><a href="a00614_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03293.html">bl::menu::Selector</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for selector items that indicate which <a class="el" href="a03289.html" title="Primary class for mouseless menus.">Menu</a> item is active.  <a href="a03293.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03484.html">bl::menu::Item</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a03484.html" title="Item for a mouseless menu. Can be &#39;attached&#39; to other items in a Menu, configured to be selectable,...">Item</a> for a mouseless menu. Can be 'attached' to other items in a <a class="el" href="a03504.html" title="Primary class for mouseless menus.">Menu</a>, configured to be selectable, and can trigger a signal if selected. Subclasses of this provide specific behaviors.  <a href="a03484.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a02100"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02100.html">bl</a></td></tr>
-<tr class="memdesc:a02100"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="memitem:a02284"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02284.html">bl</a></td></tr>
+<tr class="memdesc:a02284"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02107"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02107.html">bl::engine</a></td></tr>
-<tr class="memdesc:a02107"><td class="mdescLeft">&#160;</td><td class="mdescRight">The core game engine and related classes. <br /></td></tr>
+<tr class="memitem:a02292"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02292.html">bl::engine</a></td></tr>
+<tr class="memdesc:a02292"><td class="mdescLeft">&#160;</td><td class="mdescRight">The core game engine and related classes. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02136"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02136.html">bl::menu</a></td></tr>
-<tr class="memdesc:a02136"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes to create mouseless menus. <br /></td></tr>
+<tr class="memitem:a02320"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02320.html">bl::menu</a></td></tr>
+<tr class="memdesc:a02320"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes to create mouseless menus. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 2 2023 04:00:56 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 18 2024 18:32:56 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

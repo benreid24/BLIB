@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Engine/Systems.cpp Source File</title>
+<title>BLIB: include/BLIB/Util/Random.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,130 +66,117 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4b3af2b25a05b4f12e892fbe45139fe9.html">Util</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Systems.cpp</div>  </div>
+<div class="title">Random.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01364.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05722.html">BLIB/Engine/Systems.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05713.html">BLIB/Engine/Engine.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02100.html">bl</a></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>engine</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;Systems::StageSet::StageSet()</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;: version(0) {</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    systems.reserve(8);</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;};</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;Systems::Systems(Engine&amp; e)</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;: engine(e) {}</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keywordtype">void</span> Systems::init() {</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; set : systems) {</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; system : set.systems) { system.system-&gt;init(engine); }</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    }</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;}</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keywordtype">void</span> Systems::update(FrameStage::V startStage, FrameStage::V endStage, StateMask::V stateMask,</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;                     <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span> realDt, <span class="keywordtype">float</span> lag, <span class="keywordtype">float</span> realLag) {</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> beg = systems.begin() + startStage;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> end = systems.begin() + endStage;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keyword">auto</span>&amp; tp       = engine.threadPool();</div>
+<a href="a01364.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_UTIL_RANDOM_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_UTIL_RANDOM_HPP</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01361.html">BLIB/Util/NonCopyable.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;algorithm&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;chrono&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;limits&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;random&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;type_traits&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02284.html">bl</a></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span>util</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a04996.html">   23</a></span>&#160;<span class="keyword">class </span><a class="code" href="a04996.html">Random</a> : <span class="keyword">private</span> <a class="code" href="a04992.html">util::NonCopyable</a> {</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keyword">struct </span>CharHelper {</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        <span class="keyword">using</span> T = U;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    };</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = beg; it != end; ++it) {</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="keywordflow">if</span> (!it-&gt;tasks.empty()) {</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;            tp.queueTask([it]() { it-&gt;drainTasks(); });</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        }</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keywordflow">if</span> (it-&gt;systems.size() &gt; 1) {</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;            <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; system : it-&gt;systems) {</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;                <span class="keywordflow">if</span> ((system.mask &amp; stateMask) != 0) {</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;                    tp.queueTask([&amp;system, it, dt, realDt, lag, realLag]() {</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;                        system.system-&gt;update(it-&gt;mutex, dt, realDt, lag, realLag);</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;                    });</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;                }</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;            }</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        }</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (!it-&gt;systems.empty()) {</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            <span class="keyword">auto</span>&amp; system = it-&gt;systems.front();</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;            <span class="keywordflow">if</span> ((system.mask &amp; stateMask) != 0) {</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                system.system-&gt;update(it-&gt;mutex, dt, realDt, lag, realLag);</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;            }</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        }</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        tp.drain();</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    }</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;}</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="a02661.html#a39e6933ef7ed45bc11f58f7b77429137">   52</a></span>&#160;<a class="code" href="a02665.html">Systems::TaskHandle</a> Systems::addFrameTask(<a class="code" href="a02637.html#af6ea181be91b7069f9f52557a1445e1a">FrameStage::V</a> stage, <a class="code" href="a02661.html#a0f4d079b76e506c0a630dfe30c0cbc2f">Task</a>&amp;&amp; task) {</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keyword">auto</span>&amp; set = systems[stage];</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    std::unique_lock lock(set.taskMutex);</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    set.tasks.emplace_back(std::forward&lt;Task&gt;(task));</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="a02665.html">TaskHandle</a>(&amp;set, set.tasks.size() - 1, std::move(set.tasks.back().task.get_future()));</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;}</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="keywordtype">void</span> Systems::StageSet::drainTasks() {</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    std::unique_lock lock(taskMutex);</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; task : tasks) { task.execute(); }</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    tasks.clear();</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    ++version;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;}</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="a02665.html#ac3cce5e1fcc4d801667a2ed93bbe8d47">   66</a></span>&#160;Systems::TaskHandle::TaskHandle()</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;: owner(nullptr) {}</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<a class="code" href="a02665.html#ac3cce5e1fcc4d801667a2ed93bbe8d47">Systems::TaskHandle::TaskHandle</a>(StageSet* owner, std::size_t index, std::future&lt;void&gt;&amp;&amp; future)</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;: owner(owner)</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;, index(index)</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;, version(owner-&gt;version)</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;, future(<a class="code" href="a02117.html">std</a>::forward&lt;<a class="code" href="a02117.html">std</a>::future&lt;void&gt;&gt;(future)) {}</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="a04996.html#a27b767cceb5591cb6e60972235551dec">   39</a></span>&#160;    <span class="keyword">static</span> std::enable_if_t&lt;std::is_integral_v&lt;T&gt;, T&gt; <a class="code" href="a04996.html#a27b767cceb5591cb6e60972235551dec">get</a>(T min, T max) {</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <span class="keywordflow">if</span> (min &gt; max) std::swap(min, max);</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keyword">using</span> U = <span class="keyword">typename</span> CharHelper&lt;T&gt;::T;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        std::uniform_int_distribution&lt;U&gt; rgen(<span class="keyword">static_cast&lt;</span>U<span class="keyword">&gt;</span>(min), <span class="keyword">static_cast&lt;</span>U<span class="keyword">&gt;</span>(max));</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="keywordflow">return</span> rgen(_priv().rng);</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    }</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="a04996.html#a8006ef931bd6d3fdbcf9d75f87a9f9df">   55</a></span>&#160;    <span class="keyword">static</span> std::enable_if_t&lt;std::is_enum_v&lt;T&gt;, T&gt; <a class="code" href="a04996.html#a8006ef931bd6d3fdbcf9d75f87a9f9df">get</a>(T min, T max) {</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="keyword">using</span> U = std::underlying_type_t&lt;T&gt;;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(get&lt;U&gt;(<span class="keyword">static_cast&lt;</span>U<span class="keyword">&gt;</span>(min), <span class="keyword">static_cast&lt;</span>U<span class="keyword">&gt;</span>(max)));</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    }</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="a04996.html#a4c5d5143b97227df1d20d3018fae337c">   69</a></span>&#160;    <span class="keyword">static</span> std::enable_if_t&lt;std::is_floating_point_v&lt;T&gt;, T&gt; <a class="code" href="a04996.html#a4c5d5143b97227df1d20d3018fae337c">get</a>(T min, T max) {</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <span class="keywordflow">if</span> (min &gt; max) std::swap(min, max);</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        std::uniform_real_distribution&lt;T&gt; rgen(min, max);</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <span class="keywordflow">return</span> rgen(_priv().rng);</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    }</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="a02665.html#af2f224c590b17227976d74a2ce21d875">   75</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a02665.html#af2f224c590b17227976d74a2ce21d875">Systems::TaskHandle::isValid</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> future.valid(); }</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="a02665.html#a32c79bfe6d7311798eff40da9e536a9b">   77</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a02665.html#a32c79bfe6d7311798eff40da9e536a9b">Systems::TaskHandle::isQueued</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordflow">if</span> (owner) {</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        std::unique_lock lock(owner-&gt;taskMutex);</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        <span class="keywordflow">return</span> version == owner-&gt;version &amp;&amp; index &lt; owner-&gt;tasks.size();</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    }</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;}</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
-<div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="a02665.html#a02abbd450e13345c326b12e1673a340c">   85</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02665.html#a02abbd450e13345c326b12e1673a340c">Systems::TaskHandle::cancel</a>() {</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keywordflow">if</span> (owner) {</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        std::unique_lock lock(owner-&gt;taskMutex);</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        <span class="keywordflow">if</span> (version == owner-&gt;version &amp;&amp; index &lt; owner-&gt;tasks.size()) {</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;            owner-&gt;tasks[index].cancelled = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        }</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    }</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;}</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
-<div class="line"><a name="l00094"></a><span class="lineno"><a class="line" href="a02665.html#a76f80ed7c566277031d3d815009f0ced">   94</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02665.html#a76f80ed7c566277031d3d815009f0ced">Systems::TaskHandle::wait</a>() {</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="keywordflow">if</span> (future.valid()) { future.wait(); }</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;}</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;} <span class="comment">// namespace engine</span></div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa02100_html"><div class="ttname"><a href="a02100.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02117_html"><div class="ttname"><a href="a02117.html">std</a></div><div class="ttdef"><b>Definition:</b> <a href="a00167_source.html#l00172">Entity.hpp:173</a></div></div>
-<div class="ttc" id="aa02637_html_af6ea181be91b7069f9f52557a1445e1a"><div class="ttname"><a href="a02637.html#af6ea181be91b7069f9f52557a1445e1a">bl::engine::FrameStage::V</a></div><div class="ttdeci">V</div><div class="ttdoc">Value-type for engine stage ids.</div><div class="ttdef"><b>Definition:</b> <a href="a00236_source.html#l00018">FrameStage.hpp:18</a></div></div>
-<div class="ttc" id="aa02661_html_a0f4d079b76e506c0a630dfe30c0cbc2f"><div class="ttname"><a href="a02661.html#a0f4d079b76e506c0a630dfe30c0cbc2f">bl::engine::Systems::Task</a></div><div class="ttdeci">std::function&lt; void()&gt; Task</div><div class="ttdoc">Signature of one-off tasks that can be registered to run.</div><div class="ttdef"><b>Definition:</b> <a href="a05722_source.html#l00035">Systems.hpp:35</a></div></div>
-<div class="ttc" id="aa02665_html"><div class="ttname"><a href="a02665.html">bl::engine::Systems::TaskHandle</a></div><div class="ttdoc">Handle to a task submitted to Systems.</div><div class="ttdef"><b>Definition:</b> <a href="a05722_source.html#l00042">Systems.hpp:42</a></div></div>
-<div class="ttc" id="aa02665_html_a02abbd450e13345c326b12e1673a340c"><div class="ttname"><a href="a02665.html#a02abbd450e13345c326b12e1673a340c">bl::engine::Systems::TaskHandle::cancel</a></div><div class="ttdeci">void cancel()</div><div class="ttdoc">Cancels the task if it has not yet ran. Safe to call on invalid handles.</div><div class="ttdef"><b>Definition:</b> <a href="a01364_source.html#l00085">Systems.cpp:85</a></div></div>
-<div class="ttc" id="aa02665_html_a32c79bfe6d7311798eff40da9e536a9b"><div class="ttname"><a href="a02665.html#a32c79bfe6d7311798eff40da9e536a9b">bl::engine::Systems::TaskHandle::isQueued</a></div><div class="ttdeci">bool isQueued() const</div><div class="ttdoc">Returns whether or not the task is currently queued and waiting to be executed.</div><div class="ttdef"><b>Definition:</b> <a href="a01364_source.html#l00077">Systems.cpp:77</a></div></div>
-<div class="ttc" id="aa02665_html_a76f80ed7c566277031d3d815009f0ced"><div class="ttname"><a href="a02665.html#a76f80ed7c566277031d3d815009f0ced">bl::engine::Systems::TaskHandle::wait</a></div><div class="ttdeci">void wait()</div><div class="ttdoc">Waits for the submitted task to complete. Safe to call on invalid handles.</div><div class="ttdef"><b>Definition:</b> <a href="a01364_source.html#l00094">Systems.cpp:94</a></div></div>
-<div class="ttc" id="aa02665_html_ac3cce5e1fcc4d801667a2ed93bbe8d47"><div class="ttname"><a href="a02665.html#ac3cce5e1fcc4d801667a2ed93bbe8d47">bl::engine::Systems::TaskHandle::TaskHandle</a></div><div class="ttdeci">TaskHandle()</div><div class="ttdoc">Constructs a null handle.</div><div class="ttdef"><b>Definition:</b> <a href="a01364_source.html#l00066">Systems.cpp:66</a></div></div>
-<div class="ttc" id="aa02665_html_af2f224c590b17227976d74a2ce21d875"><div class="ttname"><a href="a02665.html#af2f224c590b17227976d74a2ce21d875">bl::engine::Systems::TaskHandle::isValid</a></div><div class="ttdeci">bool isValid() const</div><div class="ttdoc">Returns whether or not the handle refers to a valid task.</div><div class="ttdef"><b>Definition:</b> <a href="a01364_source.html#l00075">Systems.cpp:75</a></div></div>
-<div class="ttc" id="aa05713_html"><div class="ttname"><a href="a05713.html">Engine.hpp</a></div></div>
-<div class="ttc" id="aa05722_html"><div class="ttname"><a href="a05722.html">Systems.hpp</a></div></div>
+<div class="line"><a name="l00082"></a><span class="lineno"><a class="line" href="a04996.html#a4a12df462be96f9f2999343bfd02ce1e">   82</a></span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="a04996.html#a4a12df462be96f9f2999343bfd02ce1e">chance</a>(<span class="keywordtype">int</span> numerator, <span class="keywordtype">int</span> denominator) {</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <span class="keywordflow">return</span> get&lt;int&gt;(0, denominator) &gt; numerator;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    }</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> RandomIter&gt;</div>
+<div class="line"><a name="l00095"></a><span class="lineno"><a class="line" href="a04996.html#a11ebd1ccd0c3b0e014c521afa3007643">   95</a></span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="a04996.html#a11ebd1ccd0c3b0e014c521afa3007643">shuffle</a>(RandomIter begin, RandomIter end) {</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        std::shuffle(begin, end, Shuffler());</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    }</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <a class="code" href="a04996.html">Random</a>()</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    : rng(rngdev()) {}</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="keyword">static</span> Random&amp; _priv() {</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        <span class="keyword">static</span> Random rng;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        <span class="keywordflow">return</span> rng;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    }</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keyword">struct </span>Shuffler {</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        <span class="keyword">using</span> result_type = std::uint32_t;</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        constexpr <span class="keyword">static</span> result_type min() { <span class="keywordflow">return</span> std::numeric_limits&lt;result_type&gt;::min(); }</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        constexpr <span class="keyword">static</span> result_type max() { <span class="keywordflow">return</span> std::numeric_limits&lt;result_type&gt;::max(); }</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        result_type operator()()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> Random::get&lt;result_type&gt;(min(), max()); }</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    };</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    std::random_device rngdev;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    std::mt19937 rng;</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;};</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="keyword">template</span>&lt;&gt;</div>
+<div class="line"><a name="l00122"></a><span class="lineno"><a class="line" href="a05008.html">  122</a></span>&#160;<span class="keyword">struct </span>Random::CharHelper&lt;char&gt; {</div>
+<div class="line"><a name="l00123"></a><span class="lineno"><a class="line" href="a05008.html#a7641b785399bb91075719694604c6001">  123</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a05008.html#a7641b785399bb91075719694604c6001">T</a> = short;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;};</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="keyword">template</span>&lt;&gt;</div>
+<div class="line"><a name="l00127"></a><span class="lineno"><a class="line" href="a05012.html">  127</a></span>&#160;<span class="keyword">struct </span>Random::CharHelper&lt;unsigned char&gt; {</div>
+<div class="line"><a name="l00128"></a><span class="lineno"><a class="line" href="a05012.html#a37a340b4a7ab8a27351519ab3ed29984">  128</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a05012.html#a37a340b4a7ab8a27351519ab3ed29984">T</a> = <span class="keywordtype">unsigned</span> short;</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;};</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;} <span class="comment">// namespace util</span></div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160; </div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01361_html"><div class="ttname"><a href="a01361.html">NonCopyable.hpp</a></div></div>
+<div class="ttc" id="aa02284_html"><div class="ttname"><a href="a02284.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04992_html"><div class="ttname"><a href="a04992.html">bl::util::NonCopyable</a></div><div class="ttdoc">Helper class to make derived classes impossible for user to copy directly.</div><div class="ttdef"><b>Definition:</b> <a href="a01361_source.html#l00013">NonCopyable.hpp:13</a></div></div>
+<div class="ttc" id="aa04996_html"><div class="ttname"><a href="a04996.html">bl::util::Random</a></div><div class="ttdoc">Random number generator for integral and floating point numbers.</div><div class="ttdef"><b>Definition:</b> <a href="a01364_source.html#l00023">Random.hpp:23</a></div></div>
+<div class="ttc" id="aa04996_html_a11ebd1ccd0c3b0e014c521afa3007643"><div class="ttname"><a href="a04996.html#a11ebd1ccd0c3b0e014c521afa3007643">bl::util::Random::shuffle</a></div><div class="ttdeci">static void shuffle(RandomIter begin, RandomIter end)</div><div class="ttdoc">Helper function that utilizes the random number generation of this module to shuffle a sequence of va...</div><div class="ttdef"><b>Definition:</b> <a href="a01364_source.html#l00095">Random.hpp:95</a></div></div>
+<div class="ttc" id="aa04996_html_a27b767cceb5591cb6e60972235551dec"><div class="ttname"><a href="a04996.html#a27b767cceb5591cb6e60972235551dec">bl::util::Random::get</a></div><div class="ttdeci">static std::enable_if_t&lt; std::is_integral_v&lt; T &gt;, T &gt; get(T min, T max)</div><div class="ttdoc">Returns a random number in the given range of an integral type.</div><div class="ttdef"><b>Definition:</b> <a href="a01364_source.html#l00039">Random.hpp:39</a></div></div>
+<div class="ttc" id="aa04996_html_a4a12df462be96f9f2999343bfd02ce1e"><div class="ttname"><a href="a04996.html#a4a12df462be96f9f2999343bfd02ce1e">bl::util::Random::chance</a></div><div class="ttdeci">static bool chance(int numerator, int denominator)</div><div class="ttdoc">Returns true or false with probability equal to numerator/denominator.</div><div class="ttdef"><b>Definition:</b> <a href="a01364_source.html#l00082">Random.hpp:82</a></div></div>
+<div class="ttc" id="aa04996_html_a4c5d5143b97227df1d20d3018fae337c"><div class="ttname"><a href="a04996.html#a4c5d5143b97227df1d20d3018fae337c">bl::util::Random::get</a></div><div class="ttdeci">static std::enable_if_t&lt; std::is_floating_point_v&lt; T &gt;, T &gt; get(T min, T max)</div><div class="ttdoc">Returns a random number in the given range of a float type.</div><div class="ttdef"><b>Definition:</b> <a href="a01364_source.html#l00069">Random.hpp:69</a></div></div>
+<div class="ttc" id="aa04996_html_a8006ef931bd6d3fdbcf9d75f87a9f9df"><div class="ttname"><a href="a04996.html#a8006ef931bd6d3fdbcf9d75f87a9f9df">bl::util::Random::get</a></div><div class="ttdeci">static std::enable_if_t&lt; std::is_enum_v&lt; T &gt;, T &gt; get(T min, T max)</div><div class="ttdoc">Returns a random number in the given range of an enum type.</div><div class="ttdef"><b>Definition:</b> <a href="a01364_source.html#l00055">Random.hpp:55</a></div></div>
+<div class="ttc" id="aa05008_html_a7641b785399bb91075719694604c6001"><div class="ttname"><a href="a05008.html#a7641b785399bb91075719694604c6001">bl::util::Random::CharHelper&lt; char &gt;::T</a></div><div class="ttdeci">short T</div><div class="ttdef"><b>Definition:</b> <a href="a01364_source.html#l00123">Random.hpp:123</a></div></div>
+<div class="ttc" id="aa05012_html_a37a340b4a7ab8a27351519ab3ed29984"><div class="ttname"><a href="a05012.html#a37a340b4a7ab8a27351519ab3ed29984">bl::util::Random::CharHelper&lt; unsigned char &gt;::T</a></div><div class="ttdeci">unsigned short T</div><div class="ttdef"><b>Definition:</b> <a href="a01364_source.html#l00128">Random.hpp:128</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 2 2023 04:00:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 18 2024 18:32:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

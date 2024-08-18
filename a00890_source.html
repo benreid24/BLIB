@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Resources/SceneRef.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Graph/AssetRef.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,111 +66,107 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_0f0c454ab916ef2487b68a1bc3be1485.html">Resources</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_70f08ea54355502249f886f7ca541c6e.html">Graph</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">SceneRef.hpp</div>  </div>
+<div class="title">AssetRef.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00890.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_RESOURCES_SCENEREF_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_RESOURCES_SCENEREF_HPP</span></div>
+<a href="a00890.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_GRAPH_ASSETREF_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_GRAPH_ASSETREF_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02100.html">bl</a></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;{</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00878.html">BLIB/Render/Graph/Asset.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02284.html">bl</a></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">class </span>Scene;</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>res</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>rg</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">class </span>ScenePool;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;}</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a03709.html">   20</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03709.html">SceneRef</a> {</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a03709.html#aa043297c96db3bc940ea95c68ce960c5">   25</a></span>&#160;    <a class="code" href="a03709.html#aa043297c96db3bc940ea95c68ce960c5">SceneRef</a>()</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    : scene(nullptr)</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    , handle(nullptr) {}</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <a class="code" href="a03709.html#aa043297c96db3bc940ea95c68ce960c5">SceneRef</a>(<span class="keyword">const</span> <a class="code" href="a03709.html">SceneRef</a>&amp; copy);</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="a03709.html#a049f50746715d091bdcf4e9ae46f9a1b">   41</a></span>&#160;    <a class="code" href="a03709.html#a049f50746715d091bdcf4e9ae46f9a1b">SceneRef</a>(<a class="code" href="a03709.html">SceneRef</a>&amp;&amp; move)</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    : scene(move.scene)</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    , handle(move.handle) {</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        move.scene = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    }</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <a class="code" href="a03709.html">SceneRef</a>&amp; <a class="code" href="a03709.html#a6d6b90024ac1ad1b51d8093b4ca17971">operator=</a>(<span class="keyword">const</span> <a class="code" href="a03709.html">SceneRef</a>&amp; copy);</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a03900.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03900.html">AssetRef</a> {</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a03900.html#a5a81c661cbf6ea266a7fa88547a7acaa">   22</a></span>&#160;    <a class="code" href="a03900.html#a5a81c661cbf6ea266a7fa88547a7acaa">AssetRef</a>()</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    : asset(nullptr) {}</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a03900.html#a118ed65194e08a2947b3fe139cec8cff">   30</a></span>&#160;    <a class="code" href="a03900.html#a118ed65194e08a2947b3fe139cec8cff">AssetRef</a>(<a class="code" href="a03884.html">Asset</a>* asset)</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    : asset(asset) {</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        ++asset-&gt;refCount;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    }</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="a03900.html#aed4703553ade357ce0514c67c6061fea">   40</a></span>&#160;    <a class="code" href="a03900.html#aed4703553ade357ce0514c67c6061fea">AssetRef</a>(<span class="keyword">const</span> <a class="code" href="a03900.html">AssetRef</a>&amp; copy)</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    : asset(copy.asset) {</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="a03900.html#a018eba88559d0db5c313a1aaf3a94e57">valid</a>()) ++asset-&gt;refCount;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    }</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="a03900.html#a2747cde93ed5512f614f888359e7dede">   50</a></span>&#160;    <a class="code" href="a03900.html#a2747cde93ed5512f614f888359e7dede">AssetRef</a>(<a class="code" href="a03900.html">AssetRef</a>&amp;&amp; move) noexcept</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    : asset(move.asset) {</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        move.asset = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    }</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="a03709.html#aa09f0eae12327cbf865077d4a20cab08">   61</a></span>&#160;    <a class="code" href="a03709.html">SceneRef</a>&amp; <a class="code" href="a03709.html#aa09f0eae12327cbf865077d4a20cab08">operator=</a>(<a class="code" href="a03709.html">SceneRef</a>&amp;&amp; move) {</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        decrementRefCount();</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        scene      = move.scene;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        handle     = move.handle;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        move.scene = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    }</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="a03709.html#a4576fbc36cf88a099204393ce36900d6">   72</a></span>&#160;    <a class="code" href="a03709.html#a4576fbc36cf88a099204393ce36900d6">~SceneRef</a>() { decrementRefCount(); }</div>
+<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="a03900.html#a068183cd30a4f7d52ba6d164bc54057c">   58</a></span>&#160;    <a class="code" href="a03900.html#a068183cd30a4f7d52ba6d164bc54057c">~AssetRef</a>() {</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="a03900.html#a018eba88559d0db5c313a1aaf3a94e57">valid</a>()) --asset-&gt;refCount;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    }</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="a03900.html#a57ee2190d410ab5aec2ec5c4cbcff890">   68</a></span>&#160;    <a class="code" href="a03900.html">AssetRef</a>&amp; <a class="code" href="a03900.html#a57ee2190d410ab5aec2ec5c4cbcff890">operator=</a>(<span class="keyword">const</span> <a class="code" href="a03900.html">AssetRef</a>&amp; copy) {</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        asset = copy.asset;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="a03900.html#a018eba88559d0db5c313a1aaf3a94e57">valid</a>()) ++asset-&gt;refCount;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    }</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="a03709.html#aebc430cf0e6a262c1dc978f7620ee026">   77</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a03709.html#aebc430cf0e6a262c1dc978f7620ee026">isValid</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> scene != <span class="keyword">nullptr</span>; }</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
-<div class="line"><a name="l00082"></a><span class="lineno"><a class="line" href="a03709.html#acc25726cfd472a87a8dd3d79c4a158d2">   82</a></span>&#160;    <a class="code" href="a03757.html">Scene</a>* <a class="code" href="a03709.html#acc25726cfd472a87a8dd3d79c4a158d2">operator-&gt;</a>() { <span class="keywordflow">return</span> scene; }</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
-<div class="line"><a name="l00087"></a><span class="lineno"><a class="line" href="a03709.html#a164fbc190811cbba1c945ba16ea9d444">   87</a></span>&#160;    <span class="keyword">const</span> <a class="code" href="a03757.html">Scene</a>* <a class="code" href="a03709.html#a164fbc190811cbba1c945ba16ea9d444">operator-&gt;</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> scene; }</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
-<div class="line"><a name="l00092"></a><span class="lineno"><a class="line" href="a03709.html#ab12c06cc2b6c48f415fc4bdb1de78ca7">   92</a></span>&#160;    <a class="code" href="a03757.html">Scene</a>&amp; <a class="code" href="a03709.html#ab12c06cc2b6c48f415fc4bdb1de78ca7">operator*</a>() { <span class="keywordflow">return</span> *scene; }</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
-<div class="line"><a name="l00097"></a><span class="lineno"><a class="line" href="a03709.html#a6d9b0880d34815fcecfcabf08c8cbe5e">   97</a></span>&#160;    <span class="keyword">const</span> <a class="code" href="a03757.html">Scene</a>&amp; <a class="code" href="a03709.html#a6d9b0880d34815fcecfcabf08c8cbe5e">operator*</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> *scene; }</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
-<div class="line"><a name="l00102"></a><span class="lineno"><a class="line" href="a03709.html#a8d9a43ba61747869ce08dc46ebb31a4f">  102</a></span>&#160;    <a class="code" href="a03757.html">Scene</a>* <a class="code" href="a03709.html#a8d9a43ba61747869ce08dc46ebb31a4f">get</a>() { <span class="keywordflow">return</span> scene; }</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
-<div class="line"><a name="l00107"></a><span class="lineno"><a class="line" href="a03709.html#afba1d45ba3ddaefdd7d32d91612b5f6c">  107</a></span>&#160;    <span class="keyword">const</span> <a class="code" href="a03757.html">Scene</a>* <a class="code" href="a03709.html#afba1d45ba3ddaefdd7d32d91612b5f6c">get</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> scene; }</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
-<div class="line"><a name="l00112"></a><span class="lineno"><a class="line" href="a03709.html#a4a6983982fbf4f6abb6bc8032956ea32">  112</a></span>&#160;    <span class="keyword">operator</span> <a class="code" href="a03757.html">Scene</a>*() { <span class="keywordflow">return</span> scene; }</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
-<div class="line"><a name="l00117"></a><span class="lineno"><a class="line" href="a03709.html#a64ff807733abe8c44851f13ac0e0dbb8">  117</a></span>&#160;    <span class="keyword">operator</span> <span class="keyword">const</span> <a class="code" href="a03757.html">Scene</a>*() <span class="keyword">const</span> { <span class="keywordflow">return</span> scene; }</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03709.html#a80cbb9ea0b44d9b92d4a5fedab2143ab">release</a>();</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <a class="code" href="a03757.html">Scene</a>* scene;</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <span class="keywordtype">void</span>* handle;</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <a class="code" href="a03709.html#aa043297c96db3bc940ea95c68ce960c5">SceneRef</a>(<span class="keywordtype">void</span>* handle);</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <span class="keywordtype">void</span> incrementRefCount();</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="keywordtype">void</span> decrementRefCount();</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160; </div>
-<div class="line"><a name="l00132"></a><span class="lineno"><a class="line" href="a03709.html#a5e3e776e6321b85dc4def653bc028051">  132</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a03701.html">res::ScenePool</a>;</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;};</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160; </div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; </div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa02100_html"><div class="ttname"><a href="a02100.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03701_html"><div class="ttname"><a href="a03701.html">bl::rc::res::ScenePool</a></div><div class="ttdoc">Utility class that manages a fixed size pool of scenes that can be allocated from....</div><div class="ttdef"><b>Definition:</b> <a href="a00887_source.html#l00035">ScenePool.hpp:35</a></div></div>
-<div class="ttc" id="aa03709_html"><div class="ttname"><a href="a03709.html">bl::rc::SceneRef</a></div><div class="ttdoc">Handle to a scene allocated from ScenePool. Performs reference counting.</div><div class="ttdef"><b>Definition:</b> <a href="a00890_source.html#l00020">SceneRef.hpp:20</a></div></div>
-<div class="ttc" id="aa03709_html_a049f50746715d091bdcf4e9ae46f9a1b"><div class="ttname"><a href="a03709.html#a049f50746715d091bdcf4e9ae46f9a1b">bl::rc::SceneRef::SceneRef</a></div><div class="ttdeci">SceneRef(SceneRef &amp;&amp;move)</div><div class="ttdoc">Assumes ownership from the given handle.</div><div class="ttdef"><b>Definition:</b> <a href="a00890_source.html#l00041">SceneRef.hpp:41</a></div></div>
-<div class="ttc" id="aa03709_html_a164fbc190811cbba1c945ba16ea9d444"><div class="ttname"><a href="a03709.html#a164fbc190811cbba1c945ba16ea9d444">bl::rc::SceneRef::operator-&gt;</a></div><div class="ttdeci">const Scene * operator-&gt;() const</div><div class="ttdoc">Returns the underlying scene.</div><div class="ttdef"><b>Definition:</b> <a href="a00890_source.html#l00087">SceneRef.hpp:87</a></div></div>
-<div class="ttc" id="aa03709_html_a4576fbc36cf88a099204393ce36900d6"><div class="ttname"><a href="a03709.html#a4576fbc36cf88a099204393ce36900d6">bl::rc::SceneRef::~SceneRef</a></div><div class="ttdeci">~SceneRef()</div><div class="ttdoc">Destroys the handle. If this was the last handle then the scene is also destroyed.</div><div class="ttdef"><b>Definition:</b> <a href="a00890_source.html#l00072">SceneRef.hpp:72</a></div></div>
-<div class="ttc" id="aa03709_html_a6d6b90024ac1ad1b51d8093b4ca17971"><div class="ttname"><a href="a03709.html#a6d6b90024ac1ad1b51d8093b4ca17971">bl::rc::SceneRef::operator=</a></div><div class="ttdeci">SceneRef &amp; operator=(const SceneRef &amp;copy)</div><div class="ttdoc">Copies from the given ref.</div><div class="ttdef"><b>Definition:</b> <a href="a00887_source.html#l00112">ScenePool.hpp:112</a></div></div>
-<div class="ttc" id="aa03709_html_a6d9b0880d34815fcecfcabf08c8cbe5e"><div class="ttname"><a href="a03709.html#a6d9b0880d34815fcecfcabf08c8cbe5e">bl::rc::SceneRef::operator*</a></div><div class="ttdeci">const Scene &amp; operator*() const</div><div class="ttdoc">Returns the underlying scene.</div><div class="ttdef"><b>Definition:</b> <a href="a00890_source.html#l00097">SceneRef.hpp:97</a></div></div>
-<div class="ttc" id="aa03709_html_a80cbb9ea0b44d9b92d4a5fedab2143ab"><div class="ttname"><a href="a03709.html#a80cbb9ea0b44d9b92d4a5fedab2143ab">bl::rc::SceneRef::release</a></div><div class="ttdeci">void release()</div><div class="ttdoc">Releases the handle to the scene.</div><div class="ttdef"><b>Definition:</b> <a href="a00887_source.html#l00131">ScenePool.hpp:131</a></div></div>
-<div class="ttc" id="aa03709_html_a8d9a43ba61747869ce08dc46ebb31a4f"><div class="ttname"><a href="a03709.html#a8d9a43ba61747869ce08dc46ebb31a4f">bl::rc::SceneRef::get</a></div><div class="ttdeci">Scene * get()</div><div class="ttdoc">Returns the underlying scene.</div><div class="ttdef"><b>Definition:</b> <a href="a00890_source.html#l00102">SceneRef.hpp:102</a></div></div>
-<div class="ttc" id="aa03709_html_aa043297c96db3bc940ea95c68ce960c5"><div class="ttname"><a href="a03709.html#aa043297c96db3bc940ea95c68ce960c5">bl::rc::SceneRef::SceneRef</a></div><div class="ttdeci">SceneRef()</div><div class="ttdoc">Creates an empty handle.</div><div class="ttdef"><b>Definition:</b> <a href="a00890_source.html#l00025">SceneRef.hpp:25</a></div></div>
-<div class="ttc" id="aa03709_html_aa09f0eae12327cbf865077d4a20cab08"><div class="ttname"><a href="a03709.html#aa09f0eae12327cbf865077d4a20cab08">bl::rc::SceneRef::operator=</a></div><div class="ttdeci">SceneRef &amp; operator=(SceneRef &amp;&amp;move)</div><div class="ttdoc">Assumes ownership from the given handle.</div><div class="ttdef"><b>Definition:</b> <a href="a00890_source.html#l00061">SceneRef.hpp:61</a></div></div>
-<div class="ttc" id="aa03709_html_ab12c06cc2b6c48f415fc4bdb1de78ca7"><div class="ttname"><a href="a03709.html#ab12c06cc2b6c48f415fc4bdb1de78ca7">bl::rc::SceneRef::operator*</a></div><div class="ttdeci">Scene &amp; operator*()</div><div class="ttdoc">Returns the underlying scene.</div><div class="ttdef"><b>Definition:</b> <a href="a00890_source.html#l00092">SceneRef.hpp:92</a></div></div>
-<div class="ttc" id="aa03709_html_acc25726cfd472a87a8dd3d79c4a158d2"><div class="ttname"><a href="a03709.html#acc25726cfd472a87a8dd3d79c4a158d2">bl::rc::SceneRef::operator-&gt;</a></div><div class="ttdeci">Scene * operator-&gt;()</div><div class="ttdoc">Returns the underlying scene.</div><div class="ttdef"><b>Definition:</b> <a href="a00890_source.html#l00082">SceneRef.hpp:82</a></div></div>
-<div class="ttc" id="aa03709_html_aebc430cf0e6a262c1dc978f7620ee026"><div class="ttname"><a href="a03709.html#aebc430cf0e6a262c1dc978f7620ee026">bl::rc::SceneRef::isValid</a></div><div class="ttdeci">bool isValid() const</div><div class="ttdoc">Returns whether or not the handle refers to a scene.</div><div class="ttdef"><b>Definition:</b> <a href="a00890_source.html#l00077">SceneRef.hpp:77</a></div></div>
-<div class="ttc" id="aa03709_html_afba1d45ba3ddaefdd7d32d91612b5f6c"><div class="ttname"><a href="a03709.html#afba1d45ba3ddaefdd7d32d91612b5f6c">bl::rc::SceneRef::get</a></div><div class="ttdeci">const Scene * get() const</div><div class="ttdoc">Returns the underlying scene.</div><div class="ttdef"><b>Definition:</b> <a href="a00890_source.html#l00107">SceneRef.hpp:107</a></div></div>
-<div class="ttc" id="aa03757_html"><div class="ttname"><a href="a03757.html">bl::rc::Scene</a></div><div class="ttdoc">Base class for all scene types and overlays. Provides common scene logic and object management....</div><div class="ttdef"><b>Definition:</b> <a href="a00908_source.html#l00051">Scene.hpp:51</a></div></div>
+<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="a03900.html#a2d7218499c1d4ad8f9f925e49c2a4924">   80</a></span>&#160;    <a class="code" href="a03900.html">AssetRef</a>&amp; <a class="code" href="a03900.html#a2d7218499c1d4ad8f9f925e49c2a4924">operator=</a>(<a class="code" href="a03900.html">AssetRef</a>&amp;&amp; move) noexcept {</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        asset      = move.asset;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        move.asset = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    }</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
+<div class="line"><a name="l00089"></a><span class="lineno"><a class="line" href="a03900.html#a0010d2bf1a97f082ed213c406d48b35a">   89</a></span>&#160;    constexpr <a class="code" href="a03884.html">Asset</a>&amp; <a class="code" href="a03900.html#a0010d2bf1a97f082ed213c406d48b35a">operator*</a>() { <span class="keywordflow">return</span> *asset; }</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
+<div class="line"><a name="l00094"></a><span class="lineno"><a class="line" href="a03900.html#a56d4383016da0209585891b8a184eabd">   94</a></span>&#160;    constexpr <span class="keyword">const</span> <a class="code" href="a03884.html">Asset</a>&amp; <a class="code" href="a03900.html#a56d4383016da0209585891b8a184eabd">operator*</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> *asset; }</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
+<div class="line"><a name="l00099"></a><span class="lineno"><a class="line" href="a03900.html#a39431b0e67ae91da95e4792b9784674e">   99</a></span>&#160;    constexpr <a class="code" href="a03884.html">Asset</a>* <a class="code" href="a03900.html#a39431b0e67ae91da95e4792b9784674e">operator-&gt;</a>() { <span class="keywordflow">return</span> asset; }</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
+<div class="line"><a name="l00104"></a><span class="lineno"><a class="line" href="a03900.html#a780d84d87a5abfcb7c992129ef278e9b">  104</a></span>&#160;    constexpr <span class="keyword">const</span> <a class="code" href="a03884.html">Asset</a>* <a class="code" href="a03900.html#a780d84d87a5abfcb7c992129ef278e9b">operator-&gt;</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> asset; }</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
+<div class="line"><a name="l00109"></a><span class="lineno"><a class="line" href="a03900.html#a018eba88559d0db5c313a1aaf3a94e57">  109</a></span>&#160;    constexpr <span class="keywordtype">bool</span> <a class="code" href="a03900.html#a018eba88559d0db5c313a1aaf3a94e57">valid</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> asset != <span class="keyword">nullptr</span>; }</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
+<div class="line"><a name="l00114"></a><span class="lineno"><a class="line" href="a03900.html#a6ba809ef24b6d325b1592edebe692361">  114</a></span>&#160;    constexpr <a class="code" href="a03884.html">Asset</a>&amp; <a class="code" href="a03900.html#a6ba809ef24b6d325b1592edebe692361">get</a>() { <span class="keywordflow">return</span> *asset; }</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
+<div class="line"><a name="l00119"></a><span class="lineno"><a class="line" href="a03900.html#ab1a92fc298530980a664dc57461129d8">  119</a></span>&#160;    constexpr <span class="keyword">const</span> <a class="code" href="a03884.html">Asset</a>&amp; <a class="code" href="a03900.html#ab1a92fc298530980a664dc57461129d8">get</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> *asset; }</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    <a class="code" href="a03884.html">Asset</a>* asset;</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;};</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160; </div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;} <span class="comment">// namespace rg</span></div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160; </div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00878_html"><div class="ttname"><a href="a00878.html">Asset.hpp</a></div></div>
+<div class="ttc" id="aa02284_html"><div class="ttname"><a href="a02284.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03884_html"><div class="ttname"><a href="a03884.html">bl::rc::rg::Asset</a></div><div class="ttdoc">Base class for assets in render graphs.</div><div class="ttdef"><b>Definition:</b> <a href="a00878_source.html#l00032">Asset.hpp:32</a></div></div>
+<div class="ttc" id="aa03900_html"><div class="ttname"><a href="a03900.html">bl::rc::rg::AssetRef</a></div><div class="ttdoc">Handle to an asset in an AssetPool.</div><div class="ttdef"><b>Definition:</b> <a href="a00890_source.html#l00017">AssetRef.hpp:17</a></div></div>
+<div class="ttc" id="aa03900_html_a0010d2bf1a97f082ed213c406d48b35a"><div class="ttname"><a href="a03900.html#a0010d2bf1a97f082ed213c406d48b35a">bl::rc::rg::AssetRef::operator*</a></div><div class="ttdeci">constexpr Asset &amp; operator*()</div><div class="ttdoc">Dereferences the handle.</div><div class="ttdef"><b>Definition:</b> <a href="a00890_source.html#l00089">AssetRef.hpp:89</a></div></div>
+<div class="ttc" id="aa03900_html_a018eba88559d0db5c313a1aaf3a94e57"><div class="ttname"><a href="a03900.html#a018eba88559d0db5c313a1aaf3a94e57">bl::rc::rg::AssetRef::valid</a></div><div class="ttdeci">constexpr bool valid() const</div><div class="ttdoc">Returns whether or not the handle is valid. Only valid handles should be dereferenced.</div><div class="ttdef"><b>Definition:</b> <a href="a00890_source.html#l00109">AssetRef.hpp:109</a></div></div>
+<div class="ttc" id="aa03900_html_a068183cd30a4f7d52ba6d164bc54057c"><div class="ttname"><a href="a03900.html#a068183cd30a4f7d52ba6d164bc54057c">bl::rc::rg::AssetRef::~AssetRef</a></div><div class="ttdeci">~AssetRef()</div><div class="ttdoc">Decrements the ref count on the underlying asset if any.</div><div class="ttdef"><b>Definition:</b> <a href="a00890_source.html#l00058">AssetRef.hpp:58</a></div></div>
+<div class="ttc" id="aa03900_html_a118ed65194e08a2947b3fe139cec8cff"><div class="ttname"><a href="a03900.html#a118ed65194e08a2947b3fe139cec8cff">bl::rc::rg::AssetRef::AssetRef</a></div><div class="ttdeci">AssetRef(Asset *asset)</div><div class="ttdoc">Creates a handle to the given asset.</div><div class="ttdef"><b>Definition:</b> <a href="a00890_source.html#l00030">AssetRef.hpp:30</a></div></div>
+<div class="ttc" id="aa03900_html_a2747cde93ed5512f614f888359e7dede"><div class="ttname"><a href="a03900.html#a2747cde93ed5512f614f888359e7dede">bl::rc::rg::AssetRef::AssetRef</a></div><div class="ttdeci">AssetRef(AssetRef &amp;&amp;move) noexcept</div><div class="ttdoc">Assumes ownership from the given handle.</div><div class="ttdef"><b>Definition:</b> <a href="a00890_source.html#l00050">AssetRef.hpp:50</a></div></div>
+<div class="ttc" id="aa03900_html_a2d7218499c1d4ad8f9f925e49c2a4924"><div class="ttname"><a href="a03900.html#a2d7218499c1d4ad8f9f925e49c2a4924">bl::rc::rg::AssetRef::operator=</a></div><div class="ttdeci">AssetRef &amp; operator=(AssetRef &amp;&amp;move) noexcept</div><div class="ttdoc">Assumes ownership from the given handle.</div><div class="ttdef"><b>Definition:</b> <a href="a00890_source.html#l00080">AssetRef.hpp:80</a></div></div>
+<div class="ttc" id="aa03900_html_a39431b0e67ae91da95e4792b9784674e"><div class="ttname"><a href="a03900.html#a39431b0e67ae91da95e4792b9784674e">bl::rc::rg::AssetRef::operator-&gt;</a></div><div class="ttdeci">constexpr Asset * operator-&gt;()</div><div class="ttdoc">Dereferences the handle.</div><div class="ttdef"><b>Definition:</b> <a href="a00890_source.html#l00099">AssetRef.hpp:99</a></div></div>
+<div class="ttc" id="aa03900_html_a56d4383016da0209585891b8a184eabd"><div class="ttname"><a href="a03900.html#a56d4383016da0209585891b8a184eabd">bl::rc::rg::AssetRef::operator*</a></div><div class="ttdeci">constexpr const Asset &amp; operator*() const</div><div class="ttdoc">Dereferences the handle.</div><div class="ttdef"><b>Definition:</b> <a href="a00890_source.html#l00094">AssetRef.hpp:94</a></div></div>
+<div class="ttc" id="aa03900_html_a57ee2190d410ab5aec2ec5c4cbcff890"><div class="ttname"><a href="a03900.html#a57ee2190d410ab5aec2ec5c4cbcff890">bl::rc::rg::AssetRef::operator=</a></div><div class="ttdeci">AssetRef &amp; operator=(const AssetRef &amp;copy)</div><div class="ttdoc">Assigns this handle to the given copy.</div><div class="ttdef"><b>Definition:</b> <a href="a00890_source.html#l00068">AssetRef.hpp:68</a></div></div>
+<div class="ttc" id="aa03900_html_a5a81c661cbf6ea266a7fa88547a7acaa"><div class="ttname"><a href="a03900.html#a5a81c661cbf6ea266a7fa88547a7acaa">bl::rc::rg::AssetRef::AssetRef</a></div><div class="ttdeci">AssetRef()</div><div class="ttdoc">Creates an empty handle.</div><div class="ttdef"><b>Definition:</b> <a href="a00890_source.html#l00022">AssetRef.hpp:22</a></div></div>
+<div class="ttc" id="aa03900_html_a6ba809ef24b6d325b1592edebe692361"><div class="ttname"><a href="a03900.html#a6ba809ef24b6d325b1592edebe692361">bl::rc::rg::AssetRef::get</a></div><div class="ttdeci">constexpr Asset &amp; get()</div><div class="ttdoc">Dereferences the handle.</div><div class="ttdef"><b>Definition:</b> <a href="a00890_source.html#l00114">AssetRef.hpp:114</a></div></div>
+<div class="ttc" id="aa03900_html_a780d84d87a5abfcb7c992129ef278e9b"><div class="ttname"><a href="a03900.html#a780d84d87a5abfcb7c992129ef278e9b">bl::rc::rg::AssetRef::operator-&gt;</a></div><div class="ttdeci">constexpr const Asset * operator-&gt;() const</div><div class="ttdoc">Dereferences the handle.</div><div class="ttdef"><b>Definition:</b> <a href="a00890_source.html#l00104">AssetRef.hpp:104</a></div></div>
+<div class="ttc" id="aa03900_html_ab1a92fc298530980a664dc57461129d8"><div class="ttname"><a href="a03900.html#ab1a92fc298530980a664dc57461129d8">bl::rc::rg::AssetRef::get</a></div><div class="ttdeci">constexpr const Asset &amp; get() const</div><div class="ttdoc">Dereferences the handle.</div><div class="ttdef"><b>Definition:</b> <a href="a00890_source.html#l00119">AssetRef.hpp:119</a></div></div>
+<div class="ttc" id="aa03900_html_aed4703553ade357ce0514c67c6061fea"><div class="ttname"><a href="a03900.html#aed4703553ade357ce0514c67c6061fea">bl::rc::rg::AssetRef::AssetRef</a></div><div class="ttdeci">AssetRef(const AssetRef &amp;copy)</div><div class="ttdoc">Assigns this handle to the given copy.</div><div class="ttdef"><b>Definition:</b> <a href="a00890_source.html#l00040">AssetRef.hpp:40</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 2 2023 04:00:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 18 2024 18:32:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

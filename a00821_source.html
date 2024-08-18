@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Graph/RenderGraph.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Descriptors/Builtin/SlideshowFactory.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,196 +66,54 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_70f08ea54355502249f886f7ca541c6e.html">Graph</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_154b49fde9d17c5da5d7cb000b858c0e.html">Descriptors</a></li><li class="navelem"><a class="el" href="dir_792f3e8afd589e1154463a1acff3bd49.html">Builtin</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">RenderGraph.hpp</div>  </div>
+<div class="title">SlideshowFactory.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00821.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_RENDERGRAPH_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_RENDERGRAPH_HPP</span></div>
+<a href="a00821.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_DESCRIPTORS_BUILTIN_SLIDESHOWFACTORY_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_DESCRIPTORS_BUILTIN_SLIDESHOWFACTORY_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00785.html">BLIB/Render/Graph/AssetPool.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00815.html">BLIB/Render/Graph/GraphAssetPool.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00830.html">BLIB/Render/Graph/Task.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;queue&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;stdexcept&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;unordered_set&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02100.html">bl</a></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span>rc</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">class </span>Scene;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">class </span>Observer;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">namespace </span>rg</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;{</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">class </span>Strategy;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a03593.html">   30</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03593.html">RenderGraph</a> {</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <a class="code" href="a03593.html#a34650583f9824fdc69146828fbce8e1a">RenderGraph</a>(<a class="code" href="a02605.html">engine::Engine</a>&amp; engine, <a class="code" href="a03673.html">Renderer</a>&amp; renderer, <a class="code" href="a03545.html">AssetPool</a>&amp; assetPool,</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;                <a class="code" href="a03637.html">Observer</a>* observer);</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span>... TArgs&gt;</div>
-<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="a03593.html#ae7f758d0ac6a624fa5d0ae1976edb2bb">   52</a></span>&#160;    T* <a class="code" href="a03593.html#ae7f758d0ac6a624fa5d0ae1976edb2bb">putTask</a>(TArgs&amp;&amp;... args) {</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        T* task = <span class="keyword">new</span> T(std::forward&lt;TArgs&gt;(args)...);</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        tasks.emplace_back(task);</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        needsRebuild = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="keyword">static_cast&lt;</span><a class="code" href="a03613.html">Task</a>*<span class="keyword">&gt;</span>(task)-&gt;create(engine, renderer);</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keywordflow">return</span> task;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    }</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span>... TArgs&gt;</div>
-<div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="a03593.html#ae40b968617b1742bfd14ef71f858f544">   70</a></span>&#160;    T* <a class="code" href="a03593.html#ae40b968617b1742bfd14ef71f858f544">putUniqueTask</a>(TArgs&amp;&amp;... args) {</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        T* t = findTask&lt;T&gt;();</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <span class="keywordflow">if</span> (t) <span class="keywordflow">return</span> t;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="a03593.html#ae7f758d0ac6a624fa5d0ae1976edb2bb">putTask</a>&lt;T, TArgs...&gt;(std::forward&lt;TArgs&gt;(args)...);</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    }</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="a03593.html#a9d53b564bb6ef285bcb93c2364055dda">   83</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a03593.html#a9d53b564bb6ef285bcb93c2364055dda">removeTask</a>() {</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = tasks.begin(); it != tasks.end(); ++it) {</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;            <span class="keywordflow">if</span> (<span class="keyword">dynamic_cast&lt;</span>T*<span class="keyword">&gt;</span>(it-&gt;get()) != <span class="keyword">nullptr</span>) {</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;                tasks.erase(it);</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;                needsRebuild = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;            }</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        }</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    }</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00101"></a><span class="lineno"><a class="line" href="a03593.html#a803bce3b7aee146533320091b9f8fb1d">  101</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a03593.html#a803bce3b7aee146533320091b9f8fb1d">removeTasks</a>() {</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        <span class="keywordtype">bool</span> r = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        <span class="keywordflow">while</span> (removeTask&lt;T&gt;()) { r = <span class="keyword">true</span>; }</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        <span class="keywordflow">return</span> r;</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    }</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00114"></a><span class="lineno"><a class="line" href="a03593.html#a0f08d53f37ea6661129886f3f7e820f8">  114</a></span>&#160;    T* <a class="code" href="a03593.html#a0f08d53f37ea6661129886f3f7e820f8">findTask</a>() {</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; task : tasks) {</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;            T* t = <span class="keyword">dynamic_cast&lt;</span>T*<span class="keyword">&gt;</span>(task.get());</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;            <span class="keywordflow">if</span> (t) { <span class="keywordflow">return</span> t; }</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        }</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    }</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00129"></a><span class="lineno"><a class="line" href="a03593.html#aeed8ba2f3b7cd0580bb32b83aa459b3c">  129</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a03593.html#aeed8ba2f3b7cd0580bb32b83aa459b3c">hasTask</a>() {</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;        <span class="keywordflow">return</span> findTask&lt;T&gt;() != <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    }</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160; </div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03593.html#ac8e028a52ea92cc2ed4bff74ffe36d6d">execute</a>(VkCommandBuffer commandBuffer, std::uint32_t observerIndex, <span class="keywordtype">bool</span> renderTexture);</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160; </div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03593.html#ae67ea85f43d545a1248d7954b81994fe">executeFinal</a>(VkCommandBuffer commandBuffer, std::uint32_t observerIndex,</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;                      <span class="keywordtype">bool</span> renderTexture);</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160; </div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03593.html#a23e346a1267da2f5a27f3282f4c489da">build</a>();</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160; </div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03593.html#aaed0558c668067b5011e40a85c1ebf7e">markDirty</a>();</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160; </div>
-<div class="line"><a name="l00166"></a><span class="lineno"><a class="line" href="a03593.html#a45d831bc5022b04eb4e8db41471f971c">  166</a></span>&#160;    constexpr <span class="keywordtype">bool</span> <a class="code" href="a03593.html#a45d831bc5022b04eb4e8db41471f971c">needsRepopulation</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> needsReset; }</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160; </div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03593.html#a9d6948cfb39087160e95d2856a27eaaa">reset</a>();</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160; </div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03593.html#a6dbcc4f8057cdb23329ea7607e6a9a4f">populate</a>(<a class="code" href="a03609.html">Strategy</a>&amp; strategy, <a class="code" href="a03757.html">Scene</a>&amp; scene);</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160; </div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03593.html#a078c29f6ed9badf6828b234d7396861d">update</a>(<span class="keywordtype">float</span> dt);</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160; </div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    <span class="keyword">struct </span>TimelineStage {</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;        std::vector&lt;Task*&gt; tasks;</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    };</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160; </div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    <span class="keyword">struct </span>VisitorStep {</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;        GraphAsset* asset;</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> stepsFromEnd;</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    };</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160; </div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    <a class="code" href="a02605.html">engine::Engine</a>&amp; engine;</div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;    Renderer&amp; renderer;</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    Observer* observer;</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    GraphAssetPool assets;</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    std::vector&lt;std::unique_ptr&lt;Task&gt;&gt; tasks;</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    std::vector&lt;TimelineStage&gt; timeline;</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;    <span class="keywordtype">bool</span> needsRebuild;</div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;    <span class="keywordtype">bool</span> needsReset;</div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160; </div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;    <span class="keywordtype">void</span> traverse(T&amp;&amp; taskVisitor, GraphAsset* start) {</div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;        std::queue&lt;VisitorStep&gt; toVisit;</div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;        std::unordered_set&lt;GraphAsset*&gt; visited;</div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;        toVisit.emplace(VisitorStep{start, 0});</div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160; </div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span> processInputs = [&amp;toVisit, &amp;visited](std::vector&lt;GraphAsset*&gt;&amp; inputs,</div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;                                                        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> newSteps) {</div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;            <span class="keywordflow">for</span> (GraphAsset* asset : inputs) {</div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;                <span class="keywordflow">if</span> (!asset || !asset-&gt;outputtedBy) <span class="keywordflow">continue</span>;</div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160; </div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;                <span class="keywordflow">if</span> (visited.find(asset) != visited.end()) {</div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;                    <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Cycle detected in render graph&quot;</span>);</div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;                }</div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;                visited.emplace(asset);</div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;                toVisit.emplace(VisitorStep{asset, newSteps});</div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;            }</div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;        };</div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160; </div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;        <span class="keywordflow">while</span> (!toVisit.empty()) {</div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;            <span class="keyword">const</span> VisitorStep step = toVisit.front();</div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;            toVisit.pop();</div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160; </div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;            <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> newSteps = step.stepsFromEnd + 1;</div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;            taskVisitor(step.asset-&gt;outputtedBy, step.stepsFromEnd);</div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160; </div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;            processInputs(step.asset-&gt;outputtedBy-&gt;assets.requiredInputs, newSteps);</div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;            processInputs(step.asset-&gt;outputtedBy-&gt;assets.optionalInputs, newSteps);</div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;        }</div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;    }</div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;};</div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160; </div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;} <span class="comment">// namespace rg</span></div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160; </div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00785_html"><div class="ttname"><a href="a00785.html">AssetPool.hpp</a></div></div>
-<div class="ttc" id="aa00815_html"><div class="ttname"><a href="a00815.html">GraphAssetPool.hpp</a></div></div>
-<div class="ttc" id="aa00830_html"><div class="ttname"><a href="a00830.html">Task.hpp</a></div></div>
-<div class="ttc" id="aa02100_html"><div class="ttname"><a href="a02100.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02605_html"><div class="ttname"><a href="a02605.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a05713_source.html#l00032">Engine.hpp:32</a></div></div>
-<div class="ttc" id="aa03545_html"><div class="ttname"><a href="a03545.html">bl::rc::rg::AssetPool</a></div><div class="ttdoc">Observer level asset pool that owns assets directly.</div><div class="ttdef"><b>Definition:</b> <a href="a00785_source.html#l00032">AssetPool.hpp:32</a></div></div>
-<div class="ttc" id="aa03593_html"><div class="ttname"><a href="a03593.html">bl::rc::rg::RenderGraph</a></div><div class="ttdoc">The core render graph functionality. Drives rendering for each observer.</div><div class="ttdef"><b>Definition:</b> <a href="a00821_source.html#l00030">RenderGraph.hpp:30</a></div></div>
-<div class="ttc" id="aa03593_html_a078c29f6ed9badf6828b234d7396861d"><div class="ttname"><a href="a03593.html#a078c29f6ed9badf6828b234d7396861d">bl::rc::rg::RenderGraph::update</a></div><div class="ttdeci">void update(float dt)</div><div class="ttdoc">Calls update on all contained tasks.</div><div class="ttdef"><b>Definition:</b> <a href="a01766_source.html#l00261">RenderGraph.cpp:261</a></div></div>
-<div class="ttc" id="aa03593_html_a0f08d53f37ea6661129886f3f7e820f8"><div class="ttname"><a href="a03593.html#a0f08d53f37ea6661129886f3f7e820f8">bl::rc::rg::RenderGraph::findTask</a></div><div class="ttdeci">T * findTask()</div><div class="ttdoc">Finds and returns a pointer to the first task found of the given type.</div><div class="ttdef"><b>Definition:</b> <a href="a00821_source.html#l00114">RenderGraph.hpp:114</a></div></div>
-<div class="ttc" id="aa03593_html_a23e346a1267da2f5a27f3282f4c489da"><div class="ttname"><a href="a03593.html#a23e346a1267da2f5a27f3282f4c489da">bl::rc::rg::RenderGraph::build</a></div><div class="ttdeci">void build()</div><div class="ttdoc">Builds the graph timeline. Called automatically in execute()</div><div class="ttdef"><b>Definition:</b> <a href="a01766_source.html#l00064">RenderGraph.cpp:64</a></div></div>
-<div class="ttc" id="aa03593_html_a34650583f9824fdc69146828fbce8e1a"><div class="ttname"><a href="a03593.html#a34650583f9824fdc69146828fbce8e1a">bl::rc::rg::RenderGraph::RenderGraph</a></div><div class="ttdeci">RenderGraph(engine::Engine &amp;engine, Renderer &amp;renderer, AssetPool &amp;assetPool, Observer *observer)</div><div class="ttdoc">Creates a new RenderGraph.</div><div class="ttdef"><b>Definition:</b> <a href="a01766_source.html#l00018">RenderGraph.cpp:18</a></div></div>
-<div class="ttc" id="aa03593_html_a45d831bc5022b04eb4e8db41471f971c"><div class="ttname"><a href="a03593.html#a45d831bc5022b04eb4e8db41471f971c">bl::rc::rg::RenderGraph::needsRepopulation</a></div><div class="ttdeci">constexpr bool needsRepopulation() const</div><div class="ttdoc">Returns whether or not the graph needs to be repopulated from scratch.</div><div class="ttdef"><b>Definition:</b> <a href="a00821_source.html#l00166">RenderGraph.hpp:166</a></div></div>
-<div class="ttc" id="aa03593_html_a6dbcc4f8057cdb23329ea7607e6a9a4f"><div class="ttname"><a href="a03593.html#a6dbcc4f8057cdb23329ea7607e6a9a4f">bl::rc::rg::RenderGraph::populate</a></div><div class="ttdeci">void populate(Strategy &amp;strategy, Scene &amp;scene)</div><div class="ttdoc">Clears and re-populates the tasks in the graph. Re-builds the graph.</div><div class="ttdef"><b>Definition:</b> <a href="a01766_source.html#l00253">RenderGraph.cpp:253</a></div></div>
-<div class="ttc" id="aa03593_html_a803bce3b7aee146533320091b9f8fb1d"><div class="ttname"><a href="a03593.html#a803bce3b7aee146533320091b9f8fb1d">bl::rc::rg::RenderGraph::removeTasks</a></div><div class="ttdeci">bool removeTasks()</div><div class="ttdoc">Removes all tasks of the given type from the graph.</div><div class="ttdef"><b>Definition:</b> <a href="a00821_source.html#l00101">RenderGraph.hpp:101</a></div></div>
-<div class="ttc" id="aa03593_html_a9d53b564bb6ef285bcb93c2364055dda"><div class="ttname"><a href="a03593.html#a9d53b564bb6ef285bcb93c2364055dda">bl::rc::rg::RenderGraph::removeTask</a></div><div class="ttdeci">bool removeTask()</div><div class="ttdoc">Removes the task with the given type from the graph.</div><div class="ttdef"><b>Definition:</b> <a href="a00821_source.html#l00083">RenderGraph.hpp:83</a></div></div>
-<div class="ttc" id="aa03593_html_a9d6948cfb39087160e95d2856a27eaaa"><div class="ttname"><a href="a03593.html#a9d6948cfb39087160e95d2856a27eaaa">bl::rc::rg::RenderGraph::reset</a></div><div class="ttdeci">void reset()</div><div class="ttdoc">Clears all tasks from the graph and marks it for re-population.</div><div class="ttdef"><b>Definition:</b> <a href="a01766_source.html#l00251">RenderGraph.cpp:251</a></div></div>
-<div class="ttc" id="aa03593_html_aaed0558c668067b5011e40a85c1ebf7e"><div class="ttname"><a href="a03593.html#aaed0558c668067b5011e40a85c1ebf7e">bl::rc::rg::RenderGraph::markDirty</a></div><div class="ttdeci">void markDirty()</div><div class="ttdoc">Notifies the graph to rebuild on next execution.</div><div class="ttdef"><b>Definition:</b> <a href="a01766_source.html#l00249">RenderGraph.cpp:249</a></div></div>
-<div class="ttc" id="aa03593_html_ac8e028a52ea92cc2ed4bff74ffe36d6d"><div class="ttname"><a href="a03593.html#ac8e028a52ea92cc2ed4bff74ffe36d6d">bl::rc::rg::RenderGraph::execute</a></div><div class="ttdeci">void execute(VkCommandBuffer commandBuffer, std::uint32_t observerIndex, bool renderTexture)</div><div class="ttdoc">Executes the graph to record render commands into the given command buffer. Does not execute the fina...</div><div class="ttdef"><b>Definition:</b> <a href="a01766_source.html#l00030">RenderGraph.cpp:30</a></div></div>
-<div class="ttc" id="aa03593_html_ae40b968617b1742bfd14ef71f858f544"><div class="ttname"><a href="a03593.html#ae40b968617b1742bfd14ef71f858f544">bl::rc::rg::RenderGraph::putUniqueTask</a></div><div class="ttdeci">T * putUniqueTask(TArgs &amp;&amp;... args)</div><div class="ttdoc">Adds a new task to the graph to become a part of the render process. Only adds the task if it would b...</div><div class="ttdef"><b>Definition:</b> <a href="a00821_source.html#l00070">RenderGraph.hpp:70</a></div></div>
-<div class="ttc" id="aa03593_html_ae67ea85f43d545a1248d7954b81994fe"><div class="ttname"><a href="a03593.html#ae67ea85f43d545a1248d7954b81994fe">bl::rc::rg::RenderGraph::executeFinal</a></div><div class="ttdeci">void executeFinal(VkCommandBuffer commandBuffer, std::uint32_t observerIndex, bool renderTexture)</div><div class="ttdoc">Executes the final task of the graph.</div><div class="ttdef"><b>Definition:</b> <a href="a01766_source.html#l00050">RenderGraph.cpp:50</a></div></div>
-<div class="ttc" id="aa03593_html_ae7f758d0ac6a624fa5d0ae1976edb2bb"><div class="ttname"><a href="a03593.html#ae7f758d0ac6a624fa5d0ae1976edb2bb">bl::rc::rg::RenderGraph::putTask</a></div><div class="ttdeci">T * putTask(TArgs &amp;&amp;... args)</div><div class="ttdoc">Adds a new task to the graph to become a part of the render process.</div><div class="ttdef"><b>Definition:</b> <a href="a00821_source.html#l00052">RenderGraph.hpp:52</a></div></div>
-<div class="ttc" id="aa03593_html_aeed8ba2f3b7cd0580bb32b83aa459b3c"><div class="ttname"><a href="a03593.html#aeed8ba2f3b7cd0580bb32b83aa459b3c">bl::rc::rg::RenderGraph::hasTask</a></div><div class="ttdeci">bool hasTask()</div><div class="ttdoc">Returns whether or not the given task is present in the graph.</div><div class="ttdef"><b>Definition:</b> <a href="a00821_source.html#l00129">RenderGraph.hpp:129</a></div></div>
-<div class="ttc" id="aa03609_html"><div class="ttname"><a href="a03609.html">bl::rc::rg::Strategy</a></div><div class="ttdoc">Base class for renderer strategies. Render strategies populate render graphs with tasks when they are...</div><div class="ttdef"><b>Definition:</b> <a href="a00827_source.html#l00018">Strategy.hpp:18</a></div></div>
-<div class="ttc" id="aa03613_html"><div class="ttname"><a href="a03613.html">bl::rc::rg::Task</a></div><div class="ttdoc">Base class for tasks within a RenderGraph.</div><div class="ttdef"><b>Definition:</b> <a href="a00830_source.html#l00025">Task.hpp:25</a></div></div>
-<div class="ttc" id="aa03637_html"><div class="ttname"><a href="a03637.html">bl::rc::Observer</a></div><div class="ttdoc">Top level class for observers in the renderer. Corresponds to Engine Actors. Each observer may have i...</div><div class="ttdef"><b>Definition:</b> <a href="a00848_source.html#l00036">Observer.hpp:36</a></div></div>
-<div class="ttc" id="aa03673_html"><div class="ttname"><a href="a03673.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition:</b> <a href="a05755_source.html#l00039">Renderer.hpp:39</a></div></div>
-<div class="ttc" id="aa03757_html"><div class="ttname"><a href="a03757.html">bl::rc::Scene</a></div><div class="ttdoc">Base class for all scene types and overlays. Provides common scene logic and object management....</div><div class="ttdef"><b>Definition:</b> <a href="a00908_source.html#l00051">Scene.hpp:51</a></div></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a06316.html">BLIB/Render/Descriptors/DescriptorSetFactory.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02284.html">bl</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>ds</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a03784.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03784.html">SlideshowFactory</a> : <span class="keyword">public</span> <a class="code" href="a03816.html">DescriptorSetFactory</a> {</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a03784.html#ab3ec8dd3b52804430ad05d2dafbd73c8">   22</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03784.html#ab3ec8dd3b52804430ad05d2dafbd73c8">~SlideshowFactory</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <a class="code" href="a02812.html">engine::Engine</a>* engine;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> init(<a class="code" href="a02812.html">engine::Engine</a>&amp; engine, <a class="code" href="a04024.html">Renderer</a>&amp; renderer) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keyword">virtual</span> std::unique_ptr&lt;DescriptorSetInstance&gt; createDescriptorSet() <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keyword">virtual</span> std::type_index creates() <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;};</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;} <span class="comment">// namespace ds</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa02284_html"><div class="ttname"><a href="a02284.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02812_html"><div class="ttname"><a href="a02812.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a06232_source.html#l00033">Engine.hpp:33</a></div></div>
+<div class="ttc" id="aa03784_html"><div class="ttname"><a href="a03784.html">bl::rc::ds::SlideshowFactory</a></div><div class="ttdoc">Descriptor set factory for slideshow descriptor sets.</div><div class="ttdef"><b>Definition:</b> <a href="a00821_source.html#l00017">SlideshowFactory.hpp:17</a></div></div>
+<div class="ttc" id="aa03784_html_ab3ec8dd3b52804430ad05d2dafbd73c8"><div class="ttname"><a href="a03784.html#ab3ec8dd3b52804430ad05d2dafbd73c8">bl::rc::ds::SlideshowFactory::~SlideshowFactory</a></div><div class="ttdeci">virtual ~SlideshowFactory()=default</div><div class="ttdoc">Destroys the factory.</div></div>
+<div class="ttc" id="aa03816_html"><div class="ttname"><a href="a03816.html">bl::rc::ds::DescriptorSetFactory</a></div><div class="ttdoc">Base class for descriptor set instances. Descriptor set factories are given to PipelineParameters and...</div><div class="ttdef"><b>Definition:</b> <a href="a06316_source.html#l00031">DescriptorSetFactory.hpp:31</a></div></div>
+<div class="ttc" id="aa04024_html"><div class="ttname"><a href="a04024.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition:</b> <a href="a06283_source.html#l00042">Renderer.hpp:42</a></div></div>
+<div class="ttc" id="aa06316_html"><div class="ttname"><a href="a06316.html">DescriptorSetFactory.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 2 2023 04:00:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 18 2024 18:32:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

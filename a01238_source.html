@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Util/TemplateLogic.hpp Source File</title>
+<title>BLIB: include/BLIB/Scripts.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,54 +66,36 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4b3af2b25a05b4f12e892fbe45139fe9.html">Util</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">TemplateLogic.hpp</div>  </div>
+<div class="title">Scripts.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01238.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_UTIL_TEMPLATELOGIC_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_UTIL_TEMPLATELOGIC_HPP</span></div>
+<a href="a01238.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_SCRIPTS_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_SCRIPTS_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;type_traits&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02100.html">bl</a></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>util</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a04593.html">   16</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a04593.html">Not</a> {};</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">template</span>&lt;&gt;</div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a04597.html">   19</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a04593.html">Not</a>&lt;<a class="code" href="a02117.html">std</a>::true_type&gt; {</div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a04597.html#a3b0d6a56089ff494275b5e3884cf8bb0">   20</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a04597.html#a3b0d6a56089ff494275b5e3884cf8bb0">value</a> = std::false_type;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;};</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">template</span>&lt;&gt;</div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a04601.html">   24</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a04593.html">Not</a>&lt;<a class="code" href="a02117.html">std</a>::false_type&gt; {</div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a04601.html#aafc65489ab544c07cb3d84d14bfdb772">   25</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a04601.html#aafc65489ab544c07cb3d84d14bfdb772">value</a> = std::true_type;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;};</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a02161.html#a70f1d000d3d0b57485b52b096d74d76f">   29</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a02161.html#a70f1d000d3d0b57485b52b096d74d76f">NotV</a> = <a class="code" href="a04593.html">Not&lt;T&gt;::value</a>;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;} <span class="comment">// namespace util</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa02100_html"><div class="ttname"><a href="a02100.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02117_html"><div class="ttname"><a href="a02117.html">std</a></div><div class="ttdef"><b>Definition:</b> <a href="a00167_source.html#l00172">Entity.hpp:173</a></div></div>
-<div class="ttc" id="aa02161_html_a70f1d000d3d0b57485b52b096d74d76f"><div class="ttname"><a href="a02161.html#a70f1d000d3d0b57485b52b096d74d76f">bl::util::NotV</a></div><div class="ttdeci">Not&lt; T &gt;::value NotV</div><div class="ttdef"><b>Definition:</b> <a href="a01238_source.html#l00029">TemplateLogic.hpp:29</a></div></div>
-<div class="ttc" id="aa04593_html"><div class="ttname"><a href="a04593.html">bl::util::Not</a></div><div class="ttdoc">Does the boolean negation of true_type and false_type.</div><div class="ttdef"><b>Definition:</b> <a href="a01238_source.html#l00016">TemplateLogic.hpp:16</a></div></div>
-<div class="ttc" id="aa04597_html_a3b0d6a56089ff494275b5e3884cf8bb0"><div class="ttname"><a href="a04597.html#a3b0d6a56089ff494275b5e3884cf8bb0">bl::util::Not&lt; std::true_type &gt;::value</a></div><div class="ttdeci">std::false_type value</div><div class="ttdef"><b>Definition:</b> <a href="a01238_source.html#l00020">TemplateLogic.hpp:20</a></div></div>
-<div class="ttc" id="aa04601_html_aafc65489ab544c07cb3d84d14bfdb772"><div class="ttname"><a href="a04601.html#aafc65489ab544c07cb3d84d14bfdb772">bl::util::Not&lt; std::false_type &gt;::value</a></div><div class="ttdeci">std::true_type value</div><div class="ttdef"><b>Definition:</b> <a href="a01238_source.html#l00025">TemplateLogic.hpp:25</a></div></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01214.html">BLIB/Scripts/Error.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01217.html">BLIB/Scripts/Function.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01220.html">BLIB/Scripts/Manager.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01229.html">BLIB/Scripts/Script.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01232.html">BLIB/Scripts/SymbolTable.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01235.html">BLIB/Scripts/Value.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01214_html"><div class="ttname"><a href="a01214.html">Error.hpp</a></div></div>
+<div class="ttc" id="aa01217_html"><div class="ttname"><a href="a01217.html">Function.hpp</a></div></div>
+<div class="ttc" id="aa01220_html"><div class="ttname"><a href="a01220.html">Manager.hpp</a></div></div>
+<div class="ttc" id="aa01229_html"><div class="ttname"><a href="a01229.html">Script.hpp</a></div></div>
+<div class="ttc" id="aa01232_html"><div class="ttname"><a href="a01232.html">SymbolTable.hpp</a></div></div>
+<div class="ttc" id="aa01235_html"><div class="ttname"><a href="a01235.html">Value.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 2 2023 04:00:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 18 2024 18:32:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

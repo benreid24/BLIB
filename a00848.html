@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Observer.hpp File Reference</title>
+<title>BLIB: include/BLIB/Render/Descriptors/Generic/Bindings.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,7 +66,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_154b49fde9d17c5da5d7cb000b858c0e.html">Descriptors</a></li><li class="navelem"><a class="el" href="dir_600ddcc7b79895ce322a22c27a3d925e.html">Generic</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -74,49 +74,39 @@ $(function() {
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">Observer.hpp File Reference</div>  </div>
+<div class="title">Bindings.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00047_source.html">BLIB/Cameras/Camera.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00050_source.html">BLIB/Cameras/OverlayCamera.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00785_source.html">BLIB/Render/Graph/AssetPool.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00794_source.html">BLIB/Render/Graph/Assets/FinalSwapframeAsset.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00821_source.html">BLIB/Render/Graph/RenderGraph.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00851_source.html">BLIB/Render/Overlays/Overlay.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00890_source.html">BLIB/Render/Resources/SceneRef.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00908_source.html">BLIB/Render/Scenes/Scene.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00968_source.html">BLIB/Render/Vulkan/PerFrame.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a01001_source.html">BLIB/Render/Vulkan/StandardAttachmentBuffers.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a01265_source.html">BLIB/Vulkan.hpp</a>&gt;</code><br />
-<code>#include &lt;SFML/Window.hpp&gt;</code><br />
-<code>#include &lt;memory&gt;</code><br />
-<code>#include &lt;mutex&gt;</code><br />
-<code>#include &lt;stack&gt;</code><br />
-<code>#include &lt;utility&gt;</code><br />
-<code>#include &lt;vector&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a06322_source.html">BLIB/Render/Descriptors/DescriptorSetInstance.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00845_source.html">BLIB/Render/Descriptors/Generic/Binding.hpp</a>&gt;</code><br />
+<code>#include &lt;tuple&gt;</code><br />
+<code>#include &lt;type_traits&gt;</code><br />
 </div>
 <p><a href="a00848_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03637.html">bl::rc::Observer</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Top level class for observers in the renderer. Corresponds to Engine Actors. Each observer may have it's own scene stack and overlay, but the <a class="el" href="a03673.html" title="Top level rendering system of the game engine.">Renderer</a> may also have a common scene and overlay for all observers. Observers may use the same scene amongst themselves and simply render it from different perspectives.  <a href="a03637.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03832.html">bl::rc::ds::Bindings&lt; TBindings &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper for containing a set of bindings for a generic descriptor set.  <a href="a03832.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a02100"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02100.html">bl</a></td></tr>
-<tr class="memdesc:a02100"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="memitem:a02284"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02284.html">bl</a></td></tr>
+<tr class="memdesc:a02284"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02109"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02109.html">bl::rc</a></td></tr>
-<tr class="memdesc:a02109"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a03673.html" title="Top level rendering system of the game engine.">Renderer</a> core implementation classes and functionality. <br /></td></tr>
+<tr class="memitem:a02294"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02294.html">bl::rc</a></td></tr>
+<tr class="memdesc:a02294"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a04024.html" title="Top level rendering system of the game engine.">Renderer</a> core implementation classes and functionality. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02332"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02332.html">bl::rc::ds</a></td></tr>
+<tr class="memdesc:a02332"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes and utilities for managing descriptor sets. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 2 2023 04:00:56 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 18 2024 18:32:56 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Util/ReadWriteLock.cpp Source File</title>
+<title>BLIB: src/Render/Vulkan/RenderPassParameters.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,108 +66,102 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3e37c3eecdc42aac03248fab5c81cb58.html">Util</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_2a24e9216d188d12785cf0650df1274b.html">Vulkan</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">ReadWriteLock.cpp</div>  </div>
+<div class="title">RenderPassParameters.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a02057.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01232.html">BLIB/Util/ReadWriteLock.hpp</a>&gt;</span></div>
+<a href="a02057.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01118.html">BLIB/Render/Vulkan/RenderPassParameters.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02100.html">bl</a></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>util</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;thread_local std::unordered_map&lt;ReadWriteLock*, bool&gt;* readLockFlags =</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keyword">new</span> std::unordered_map&lt;ReadWriteLock*, bool&gt;();</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;thread_local std::unordered_map&lt;ReadWriteLock*, bool&gt;* writeLockFlags =</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="keyword">new</span> std::unordered_map&lt;ReadWriteLock*, bool&gt;();</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;} <span class="comment">// namespace</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a04573.html#a71234a7cb8b764c834c02fcdc097a728">   17</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04573.html#a71234a7cb8b764c834c02fcdc097a728">ReadWriteLock::lockRead</a>() {</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keywordflow">if</span> (readLockFlag()) <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    readLockFlag() = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    mutex.lock_shared();</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;stdexcept&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;utility&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02284.html">bl</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>vk</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="a04304.html#a16f52c825c72793c10ab1f356bf4c06c">   12</a></span>&#160;<a class="code" href="a04304.html#a16f52c825c72793c10ab1f356bf4c06c">RenderPassParameters::RenderPassParameters</a>() {</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    attachments.reserve(4);</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    subpasses.reserve(4);</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    dependencies.reserve(4);</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;}</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a04304.html#ab4a7ac7704ca1b4b6699088ccd8a5d00">   18</a></span>&#160;<a class="code" href="a04304.html">RenderPassParameters</a>&amp; <a class="code" href="a04304.html#ab4a7ac7704ca1b4b6699088ccd8a5d00">RenderPassParameters::addSubpass</a>(<a class="code" href="a04308.html">SubPass</a>&amp;&amp; subpass) {</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    subpasses.emplace_back(std::forward&lt;SubPass&gt;(subpass));</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;}</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a04573.html#abcce04734931a45bdeeab0241135133b">   23</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04573.html#abcce04734931a45bdeeab0241135133b">ReadWriteLock::unlockRead</a>() {</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordflow">if</span> (!readLockFlag()) <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    readLockFlag() = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    mutex.unlock_shared();</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;}</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a04573.html#ad37b398dbe7861cd2763e20002069263">   29</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04573.html#ad37b398dbe7861cd2763e20002069263">ReadWriteLock::lockWrite</a>() {</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordflow">if</span> (writeLockFlag()) <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    writeLockFlag() = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    mutex.lock();</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;}</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="a04573.html#a751259f66b9b1aece13bbf155cdd50c5">   35</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04573.html#a751259f66b9b1aece13bbf155cdd50c5">ReadWriteLock::unlockWrite</a>() {</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordflow">if</span> (!writeLockFlag()) <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    writeLockFlag() = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    mutex.unlock();</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;}</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keywordtype">bool</span>&amp; ReadWriteLock::readLockFlag() { <span class="keywordflow">return</span> (*readLockFlags)[<span class="keyword">this</span>]; }</div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a04304.html#abd6568d1fa4d137ac4f740c4a8392ae3">   23</a></span>&#160;<a class="code" href="a04304.html">RenderPassParameters</a>&amp; <a class="code" href="a04304.html#abd6568d1fa4d137ac4f740c4a8392ae3">RenderPassParameters::addSubpassDependency</a>(VkSubpassDependency dep) {</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    dependencies.emplace_back(dep);</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;}</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a04304.html#a13dc01b847adb714906ab5a2311d5be4">   28</a></span>&#160;<a class="code" href="a04304.html">RenderPassParameters</a>&amp; <a class="code" href="a04304.html#a13dc01b847adb714906ab5a2311d5be4">RenderPassParameters::addAttachment</a>(VkAttachmentDescription att) {</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    attachments.emplace_back(att);</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;}</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="a04304.html#a3e44e61fc730471f14e699f447f6cf84">   33</a></span>&#160;<a class="code" href="a04304.html">RenderPassParameters</a>&amp;&amp; <a class="code" href="a04304.html#a3e44e61fc730471f14e699f447f6cf84">RenderPassParameters::build</a>() {</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordflow">if</span> (subpasses.empty()) {</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;RenderPass must have at least one subpass&quot;</span>);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    }</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordflow">if</span> (attachments.empty()) {</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;RenderPass must have at least one attachment&quot;</span>);</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    }</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordflow">return</span> std::move(*<span class="keyword">this</span>);</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;}</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="keywordtype">bool</span>&amp; ReadWriteLock::writeLockFlag() { <span class="keywordflow">return</span> (*writeLockFlags)[<span class="keyword">this</span>]; }</div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="a04308.html#af59febea8d9397a3198fc61db360adf8">   43</a></span>&#160;<a class="code" href="a04308.html#af59febea8d9397a3198fc61db360adf8">RenderPassParameters::SubPass::SubPass</a>() { colorAttachments.reserve(4); }</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="a04577.html#ab719cee3c0b58e1166b0cf43cb433005">   45</a></span>&#160;<a class="code" href="a04577.html#ab719cee3c0b58e1166b0cf43cb433005">ReadWriteLock::ReadScopeGuard::ReadScopeGuard</a>(<a class="code" href="a04573.html">ReadWriteLock</a>&amp; lock)</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;: lock(lock)</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;, unlocked(false) {</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    lock.<a class="code" href="a04573.html#a71234a7cb8b764c834c02fcdc097a728">lockRead</a>();</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;}</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="a04577.html#a58ede3553dd29824ecaa84a5df69c922">   51</a></span>&#160;<a class="code" href="a04577.html#a58ede3553dd29824ecaa84a5df69c922">ReadWriteLock::ReadScopeGuard::~ReadScopeGuard</a>() { unlock(); }</div>
+<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="a04308.html#aceae349a2d8eded2ae0db312d12e2454">   45</a></span>&#160;<a class="code" href="a04308.html">RenderPassParameters::SubPass</a>&amp; <a class="code" href="a04308.html#aceae349a2d8eded2ae0db312d12e2454">RenderPassParameters::SubPass::withAttachment</a>(std::uint32_t i,</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;                                                                             VkImageLayout layout) {</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    colorAttachments.emplace_back();</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    colorAttachments.back().attachment = i;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    colorAttachments.back().layout     = layout;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;}</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="a04577.html#a10c313a07d4ea8c2534651fb071feca1">   53</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04577.html#a10c313a07d4ea8c2534651fb071feca1">ReadWriteLock::ReadScopeGuard::unlock</a>() {</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordflow">if</span> (!unlocked) {</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        unlocked = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        lock.unlockRead();</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    }</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;}</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="a04581.html#aa1c42e9d6b77fc0a8acb1e659ea1a01a">   60</a></span>&#160;<a class="code" href="a04581.html#aa1c42e9d6b77fc0a8acb1e659ea1a01a">ReadWriteLock::WriteScopeGuard::WriteScopeGuard</a>(<a class="code" href="a04573.html">ReadWriteLock</a>&amp; lock)</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;: lock(lock)</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;, unlocked(false) {</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    lock.<a class="code" href="a04573.html#ad37b398dbe7861cd2763e20002069263">lockWrite</a>();</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;}</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="a04581.html#a571f6359834209775899f3507a549e40">   66</a></span>&#160;<a class="code" href="a04581.html#a571f6359834209775899f3507a549e40">ReadWriteLock::WriteScopeGuard::~WriteScopeGuard</a>() { unlock(); }</div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="a04308.html#ac686f180eece4c15a8b00e729e608ebb">   53</a></span>&#160;<a class="code" href="a04308.html">RenderPassParameters::SubPass</a>&amp; <a class="code" href="a04308.html#ac686f180eece4c15a8b00e729e608ebb">RenderPassParameters::SubPass::withDepthAttachment</a>(</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    std::uint32_t i, VkImageLayout layout) {</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    depthAttachment.emplace();</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    depthAttachment.value().layout     = layout;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    depthAttachment.value().attachment = i;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;}</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="a04308.html#af9dc875ebea2e5f896af0e08934bbfd2">   61</a></span>&#160;<a class="code" href="a04308.html">RenderPassParameters::SubPass</a>&amp;&amp; <a class="code" href="a04308.html#af9dc875ebea2e5f896af0e08934bbfd2">RenderPassParameters::SubPass::build</a>() {</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordflow">if</span> (colorAttachments.empty()) {</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;SubPass must have at least one color attachment&quot;</span>);</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    }</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordflow">return</span> std::move(*<span class="keyword">this</span>);</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;}</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="a04581.html#a0f80b4382191c0117105c121d0e29b96">   68</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a04581.html#a0f80b4382191c0117105c121d0e29b96">ReadWriteLock::WriteScopeGuard::unlock</a>() {</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordflow">if</span> (!unlocked) {</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        unlocked = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        lock.unlockWrite();</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    }</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;}</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;} <span class="comment">// namespace util</span></div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa01232_html"><div class="ttname"><a href="a01232.html">ReadWriteLock.hpp</a></div></div>
-<div class="ttc" id="aa02100_html"><div class="ttname"><a href="a02100.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04573_html"><div class="ttname"><a href="a04573.html">bl::util::ReadWriteLock</a></div><div class="ttdoc">Reader-writer lock built on top of std::shared_mutex. The primary benefit of this class is that lockR...</div><div class="ttdef"><b>Definition:</b> <a href="a01232_source.html#l00020">ReadWriteLock.hpp:20</a></div></div>
-<div class="ttc" id="aa04573_html_a71234a7cb8b764c834c02fcdc097a728"><div class="ttname"><a href="a04573.html#a71234a7cb8b764c834c02fcdc097a728">bl::util::ReadWriteLock::lockRead</a></div><div class="ttdeci">void lockRead()</div><div class="ttdoc">Acquires a lock for reading a shared resource. Multiple threads may acquire a read lock provided that...</div><div class="ttdef"><b>Definition:</b> <a href="a02057_source.html#l00017">ReadWriteLock.cpp:17</a></div></div>
-<div class="ttc" id="aa04573_html_a751259f66b9b1aece13bbf155cdd50c5"><div class="ttname"><a href="a04573.html#a751259f66b9b1aece13bbf155cdd50c5">bl::util::ReadWriteLock::unlockWrite</a></div><div class="ttdeci">void unlockWrite()</div><div class="ttdoc">Releases the write lock held by this thread.</div><div class="ttdef"><b>Definition:</b> <a href="a02057_source.html#l00035">ReadWriteLock.cpp:35</a></div></div>
-<div class="ttc" id="aa04573_html_abcce04734931a45bdeeab0241135133b"><div class="ttname"><a href="a04573.html#abcce04734931a45bdeeab0241135133b">bl::util::ReadWriteLock::unlockRead</a></div><div class="ttdeci">void unlockRead()</div><div class="ttdoc">Releases the read lock held by this thread.</div><div class="ttdef"><b>Definition:</b> <a href="a02057_source.html#l00023">ReadWriteLock.cpp:23</a></div></div>
-<div class="ttc" id="aa04573_html_ad37b398dbe7861cd2763e20002069263"><div class="ttname"><a href="a04573.html#ad37b398dbe7861cd2763e20002069263">bl::util::ReadWriteLock::lockWrite</a></div><div class="ttdeci">void lockWrite()</div><div class="ttdoc">Acquires a lock for writing a shared resource. Only one thread may hold this lock.</div><div class="ttdef"><b>Definition:</b> <a href="a02057_source.html#l00029">ReadWriteLock.cpp:29</a></div></div>
-<div class="ttc" id="aa04577_html_a10c313a07d4ea8c2534651fb071feca1"><div class="ttname"><a href="a04577.html#a10c313a07d4ea8c2534651fb071feca1">bl::util::ReadWriteLock::ReadScopeGuard::unlock</a></div><div class="ttdeci">void unlock()</div><div class="ttdoc">Prematurely unlocks the underlying lock.</div><div class="ttdef"><b>Definition:</b> <a href="a02057_source.html#l00053">ReadWriteLock.cpp:53</a></div></div>
-<div class="ttc" id="aa04577_html_a58ede3553dd29824ecaa84a5df69c922"><div class="ttname"><a href="a04577.html#a58ede3553dd29824ecaa84a5df69c922">bl::util::ReadWriteLock::ReadScopeGuard::~ReadScopeGuard</a></div><div class="ttdeci">~ReadScopeGuard()</div><div class="ttdoc">Unlocks the underlying lock.</div><div class="ttdef"><b>Definition:</b> <a href="a02057_source.html#l00051">ReadWriteLock.cpp:51</a></div></div>
-<div class="ttc" id="aa04577_html_ab719cee3c0b58e1166b0cf43cb433005"><div class="ttname"><a href="a04577.html#ab719cee3c0b58e1166b0cf43cb433005">bl::util::ReadWriteLock::ReadScopeGuard::ReadScopeGuard</a></div><div class="ttdeci">ReadScopeGuard(ReadWriteLock &amp;lock)</div><div class="ttdoc">Construct a new Read Scope Guard object.</div><div class="ttdef"><b>Definition:</b> <a href="a02057_source.html#l00045">ReadWriteLock.cpp:45</a></div></div>
-<div class="ttc" id="aa04581_html_a0f80b4382191c0117105c121d0e29b96"><div class="ttname"><a href="a04581.html#a0f80b4382191c0117105c121d0e29b96">bl::util::ReadWriteLock::WriteScopeGuard::unlock</a></div><div class="ttdeci">void unlock()</div><div class="ttdoc">Prematurely unlocks the underlying lock.</div><div class="ttdef"><b>Definition:</b> <a href="a02057_source.html#l00068">ReadWriteLock.cpp:68</a></div></div>
-<div class="ttc" id="aa04581_html_a571f6359834209775899f3507a549e40"><div class="ttname"><a href="a04581.html#a571f6359834209775899f3507a549e40">bl::util::ReadWriteLock::WriteScopeGuard::~WriteScopeGuard</a></div><div class="ttdeci">~WriteScopeGuard()</div><div class="ttdoc">Unlocks the underlying lock.</div><div class="ttdef"><b>Definition:</b> <a href="a02057_source.html#l00066">ReadWriteLock.cpp:66</a></div></div>
-<div class="ttc" id="aa04581_html_aa1c42e9d6b77fc0a8acb1e659ea1a01a"><div class="ttname"><a href="a04581.html#aa1c42e9d6b77fc0a8acb1e659ea1a01a">bl::util::ReadWriteLock::WriteScopeGuard::WriteScopeGuard</a></div><div class="ttdeci">WriteScopeGuard(ReadWriteLock &amp;lock)</div><div class="ttdoc">Construct a new Write Scope Guard object.</div><div class="ttdef"><b>Definition:</b> <a href="a02057_source.html#l00060">ReadWriteLock.cpp:60</a></div></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;} <span class="comment">// namespace vk</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa01118_html"><div class="ttname"><a href="a01118.html">RenderPassParameters.hpp</a></div></div>
+<div class="ttc" id="aa02284_html"><div class="ttname"><a href="a02284.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04304_html"><div class="ttname"><a href="a04304.html">bl::rc::vk::RenderPassParameters</a></div><div class="ttdoc">Parameter builder class used to construct RenderPass objects in the renderer.</div><div class="ttdef"><b>Definition:</b> <a href="a01118_source.html#l00022">RenderPassParameters.hpp:22</a></div></div>
+<div class="ttc" id="aa04304_html_a13dc01b847adb714906ab5a2311d5be4"><div class="ttname"><a href="a04304.html#a13dc01b847adb714906ab5a2311d5be4">bl::rc::vk::RenderPassParameters::addAttachment</a></div><div class="ttdeci">RenderPassParameters &amp; addAttachment(VkAttachmentDescription attachment)</div><div class="ttdoc">Adds an image attachment to this render pass.</div><div class="ttdef"><b>Definition:</b> <a href="a02057_source.html#l00028">RenderPassParameters.cpp:28</a></div></div>
+<div class="ttc" id="aa04304_html_a16f52c825c72793c10ab1f356bf4c06c"><div class="ttname"><a href="a04304.html#a16f52c825c72793c10ab1f356bf4c06c">bl::rc::vk::RenderPassParameters::RenderPassParameters</a></div><div class="ttdeci">RenderPassParameters()</div><div class="ttdoc">Construct a new Render Pass Parameters object.</div><div class="ttdef"><b>Definition:</b> <a href="a02057_source.html#l00012">RenderPassParameters.cpp:12</a></div></div>
+<div class="ttc" id="aa04304_html_a3e44e61fc730471f14e699f447f6cf84"><div class="ttname"><a href="a04304.html#a3e44e61fc730471f14e699f447f6cf84">bl::rc::vk::RenderPassParameters::build</a></div><div class="ttdeci">RenderPassParameters &amp;&amp; build()</div><div class="ttdoc">Performs validation and returns a usable rvalue reference to this object.</div><div class="ttdef"><b>Definition:</b> <a href="a02057_source.html#l00033">RenderPassParameters.cpp:33</a></div></div>
+<div class="ttc" id="aa04304_html_ab4a7ac7704ca1b4b6699088ccd8a5d00"><div class="ttname"><a href="a04304.html#ab4a7ac7704ca1b4b6699088ccd8a5d00">bl::rc::vk::RenderPassParameters::addSubpass</a></div><div class="ttdeci">RenderPassParameters &amp; addSubpass(SubPass &amp;&amp;subpass)</div><div class="ttdoc">Adds a subpass to the render pass to be created.</div><div class="ttdef"><b>Definition:</b> <a href="a02057_source.html#l00018">RenderPassParameters.cpp:18</a></div></div>
+<div class="ttc" id="aa04304_html_abd6568d1fa4d137ac4f740c4a8392ae3"><div class="ttname"><a href="a04304.html#abd6568d1fa4d137ac4f740c4a8392ae3">bl::rc::vk::RenderPassParameters::addSubpassDependency</a></div><div class="ttdeci">RenderPassParameters &amp; addSubpassDependency(VkSubpassDependency dependency)</div><div class="ttdoc">Adds a blocking dependency to block the renderer between subpasses.</div><div class="ttdef"><b>Definition:</b> <a href="a02057_source.html#l00023">RenderPassParameters.cpp:23</a></div></div>
+<div class="ttc" id="aa04308_html"><div class="ttname"><a href="a04308.html">bl::rc::vk::RenderPassParameters::SubPass</a></div><div class="ttdoc">Helper parameter class that represents a subpass within a render pass.</div><div class="ttdef"><b>Definition:</b> <a href="a01118_source.html#l00029">RenderPassParameters.hpp:29</a></div></div>
+<div class="ttc" id="aa04308_html_ac686f180eece4c15a8b00e729e608ebb"><div class="ttname"><a href="a04308.html#ac686f180eece4c15a8b00e729e608ebb">bl::rc::vk::RenderPassParameters::SubPass::withDepthAttachment</a></div><div class="ttdeci">SubPass &amp; withDepthAttachment(std::uint32_t index, VkImageLayout layout)</div><div class="ttdoc">Adds a depth attachment to this subpass.</div><div class="ttdef"><b>Definition:</b> <a href="a02057_source.html#l00053">RenderPassParameters.cpp:53</a></div></div>
+<div class="ttc" id="aa04308_html_aceae349a2d8eded2ae0db312d12e2454"><div class="ttname"><a href="a04308.html#aceae349a2d8eded2ae0db312d12e2454">bl::rc::vk::RenderPassParameters::SubPass::withAttachment</a></div><div class="ttdeci">SubPass &amp; withAttachment(std::uint32_t index, VkImageLayout layout)</div><div class="ttdoc">Adds an attachment reference to the subpass.</div><div class="ttdef"><b>Definition:</b> <a href="a02057_source.html#l00045">RenderPassParameters.cpp:45</a></div></div>
+<div class="ttc" id="aa04308_html_af59febea8d9397a3198fc61db360adf8"><div class="ttname"><a href="a04308.html#af59febea8d9397a3198fc61db360adf8">bl::rc::vk::RenderPassParameters::SubPass::SubPass</a></div><div class="ttdeci">SubPass()</div><div class="ttdoc">Construct a new Sub Pass object.</div><div class="ttdef"><b>Definition:</b> <a href="a02057_source.html#l00043">RenderPassParameters.cpp:43</a></div></div>
+<div class="ttc" id="aa04308_html_af9dc875ebea2e5f896af0e08934bbfd2"><div class="ttname"><a href="a04308.html#af9dc875ebea2e5f896af0e08934bbfd2">bl::rc::vk::RenderPassParameters::SubPass::build</a></div><div class="ttdeci">SubPass &amp;&amp; build()</div><div class="ttdoc">Performs validation and returns a usable rvalue reference to this object.</div><div class="ttdef"><b>Definition:</b> <a href="a02057_source.html#l00061">RenderPassParameters.cpp:61</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 2 2023 04:00:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 18 2024 18:32:56 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

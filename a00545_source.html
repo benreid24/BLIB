@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Interfaces/GUI/Renderer/ComponentFactory.hpp Source File</title>
+<title>BLIB: include/BLIB/Interfaces/GUI/Renderer/Basic/SeparatorComponent.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,63 +66,89 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4a89db2e42278000e6aac6ace9db278e.html">Interfaces</a></li><li class="navelem"><a class="el" href="dir_488290d74f9e6b3540591d02cc875229.html">GUI</a></li><li class="navelem"><a class="el" href="dir_d5cd77a65f52f9a63455a724bc15c589.html">Renderer</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4a89db2e42278000e6aac6ace9db278e.html">Interfaces</a></li><li class="navelem"><a class="el" href="dir_488290d74f9e6b3540591d02cc875229.html">GUI</a></li><li class="navelem"><a class="el" href="dir_d5cd77a65f52f9a63455a724bc15c589.html">Renderer</a></li><li class="navelem"><a class="el" href="dir_c6abb0a9a0ffd97b434d53646f50bd53.html">Basic</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">ComponentFactory.hpp</div>  </div>
+<div class="title">SeparatorComponent.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00545.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_GUI_RENDERER_COMPONENTFACTORY_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_GUI_RENDERER_COMPONENTFACTORY_HPP</span></div>
+<a href="a00545.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_GUI_RENDERER_COMPONENTS_SEPARATORCOMPONENT_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_GUI_RENDERER_COMPONENTS_SEPARATORCOMPONENT_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00542.html">BLIB/Interfaces/GUI/Renderer/Component.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;type_traits&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00341.html">BLIB/Graphics/Rectangle.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00560.html">BLIB/Interfaces/GUI/Renderer/Component.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02100.html">bl</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02284.html">bl</a></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>gui</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>rdr</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>defcoms</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a03181.html">   19</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a03181.html">ComponentFactory</a> {</div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a03181.html#a93c04bfc46919ebdb430f1951d3c011c">   20</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a03181.html#a93c04bfc46919ebdb430f1951d3c011c">Ptr</a> = std::unique_ptr&lt;ComponentFactory&gt;;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a03181.html#abeba91c27bdfaa6660e103803d67760d">   25</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03181.html#abeba91c27bdfaa6660e103803d67760d">~ComponentFactory</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a03181.html#af66919470aff11cda1a0853418c3e2b2">   30</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03177.html#a947a8f9a8831f3c495cb9aa7ca89a374">Component::Ptr</a> <a class="code" href="a03181.html#af66919470aff11cda1a0853418c3e2b2">create</a>() = 0;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;};</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="a03185.html">   40</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a03185.html">GenericFactory</a> : <span class="keyword">public</span> <a class="code" href="a03181.html">ComponentFactory</a> {</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    static_assert(std::is_base_of_v&lt;Component, T&gt;, <span class="stringliteral">&quot;T must derive from Component&quot;</span>);</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a03372.html">   18</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03372.html">SeparatorComponent</a> : <span class="keyword">public</span> <a class="code" href="a03392.html">rdr::Component</a> {</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <a class="code" href="a03372.html#aa35c780c3d255724ea6ff4fa4a96e160">SeparatorComponent</a>();</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a03372.html#a7835f79dd11978061e2b29b4710484a2">   28</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03372.html#a7835f79dd11978061e2b29b4710484a2">~SeparatorComponent</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03372.html#a9cfe190ebb6d7abd364088106fdafdde">setVisible</a>(<span class="keywordtype">bool</span> visible) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03372.html#adf33da16a6722447eebc9fcda6076837">onElementUpdated</a>() <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="a03185.html#a66cf47da6365f405770a0ff7fd950a8b">   46</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03185.html#a66cf47da6365f405770a0ff7fd950a8b">~GenericFactory</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03372.html#adb509a3023ee7c8d74901bd4e12e299d">onRenderSettingChange</a>() <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="a03185.html#ae74553d8839fa9e63947dcdc8735fbf4">   51</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a03177.html#a947a8f9a8831f3c495cb9aa7ca89a374">Component::Ptr</a> <a class="code" href="a03185.html#ae74553d8839fa9e63947dcdc8735fbf4">create</a>()<span class="keyword"> override </span>{ <span class="keywordflow">return</span> std::make_unique&lt;T&gt;(); }</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;};</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;} <span class="comment">// namespace rdr</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;} <span class="comment">// namespace gui</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00542_html"><div class="ttname"><a href="a00542.html">Component.hpp</a></div></div>
-<div class="ttc" id="aa02100_html"><div class="ttname"><a href="a02100.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03177_html_a947a8f9a8831f3c495cb9aa7ca89a374"><div class="ttname"><a href="a03177.html#a947a8f9a8831f3c495cb9aa7ca89a374">bl::gui::rdr::Component::Ptr</a></div><div class="ttdeci">std::unique_ptr&lt; Component &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00542_source.html#l00033">Component.hpp:33</a></div></div>
-<div class="ttc" id="aa03181_html"><div class="ttname"><a href="a03181.html">bl::gui::rdr::ComponentFactory</a></div><div class="ttdoc">Base class for component factories. Component factories are owned by FactoryTables,...</div><div class="ttdef"><b>Definition:</b> <a href="a00545_source.html#l00019">ComponentFactory.hpp:19</a></div></div>
-<div class="ttc" id="aa03181_html_a93c04bfc46919ebdb430f1951d3c011c"><div class="ttname"><a href="a03181.html#a93c04bfc46919ebdb430f1951d3c011c">bl::gui::rdr::ComponentFactory::Ptr</a></div><div class="ttdeci">std::unique_ptr&lt; ComponentFactory &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00545_source.html#l00020">ComponentFactory.hpp:20</a></div></div>
-<div class="ttc" id="aa03181_html_abeba91c27bdfaa6660e103803d67760d"><div class="ttname"><a href="a03181.html#abeba91c27bdfaa6660e103803d67760d">bl::gui::rdr::ComponentFactory::~ComponentFactory</a></div><div class="ttdeci">virtual ~ComponentFactory()=default</div><div class="ttdoc">Destroys the factory.</div></div>
-<div class="ttc" id="aa03181_html_af66919470aff11cda1a0853418c3e2b2"><div class="ttname"><a href="a03181.html#af66919470aff11cda1a0853418c3e2b2">bl::gui::rdr::ComponentFactory::create</a></div><div class="ttdeci">virtual Component::Ptr create()=0</div><div class="ttdoc">Called when a Component needs to be created.</div></div>
-<div class="ttc" id="aa03185_html"><div class="ttname"><a href="a03185.html">bl::gui::rdr::GenericFactory</a></div><div class="ttdoc">Generic factory for components with simple constructors. Provided for convenience.</div><div class="ttdef"><b>Definition:</b> <a href="a00545_source.html#l00040">ComponentFactory.hpp:40</a></div></div>
-<div class="ttc" id="aa03185_html_a66cf47da6365f405770a0ff7fd950a8b"><div class="ttname"><a href="a03185.html#a66cf47da6365f405770a0ff7fd950a8b">bl::gui::rdr::GenericFactory::~GenericFactory</a></div><div class="ttdeci">virtual ~GenericFactory()=default</div><div class="ttdoc">Destroys the factory.</div></div>
-<div class="ttc" id="aa03185_html_ae74553d8839fa9e63947dcdc8735fbf4"><div class="ttname"><a href="a03185.html#ae74553d8839fa9e63947dcdc8735fbf4">bl::gui::rdr::GenericFactory::create</a></div><div class="ttdeci">virtual Component::Ptr create() override</div><div class="ttdoc">Creates a Component of type T.</div><div class="ttdef"><b>Definition:</b> <a href="a00545_source.html#l00051">ComponentFactory.hpp:51</a></div></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02712.html">ecs::Entity</a> <a class="code" href="a03372.html#a70a38c8f8d9fee0e15aa752af907332d">getEntity</a>() <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03372.html#a41cac26a1d0a7b42dc4272dae5a2d99a">doCreate</a>(<a class="code" href="a02812.html">engine::Engine</a>&amp; engine, <a class="code" href="a03432.html">rdr::Renderer</a>&amp; renderer) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03372.html#a2f746017be463e4dda4d50e7c1604d25">doSceneAdd</a>(<a class="code" href="a04000.html">rc::Overlay</a>* overlay) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03372.html#acf01c9e31e75154ffd1ebee709cd3579">doSceneRemove</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03372.html#ad27ec262a9b6154e867b0ef4022838bc">handleAcquisition</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a03372.html#af413c0c94221d22548d3f89246f65494">handleMove</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <a class="code" href="a03036.html">gfx::Rectangle</a> sep;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    glm::vec2 computeSize();</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    glm::vec2 computePos();</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;};</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;} <span class="comment">// namespace defcoms</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;} <span class="comment">// namespace gui</span></div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00341_html"><div class="ttname"><a href="a00341.html">Rectangle.hpp</a></div></div>
+<div class="ttc" id="aa00560_html"><div class="ttname"><a href="a00560.html">Component.hpp</a></div></div>
+<div class="ttc" id="aa02284_html"><div class="ttname"><a href="a02284.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02712_html"><div class="ttname"><a href="a02712.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition:</b> <a href="a00176_source.html#l00024">Entity.hpp:24</a></div></div>
+<div class="ttc" id="aa02812_html"><div class="ttname"><a href="a02812.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a06232_source.html#l00033">Engine.hpp:33</a></div></div>
+<div class="ttc" id="aa03036_html"><div class="ttname"><a href="a03036.html">bl::gfx::Rectangle</a></div><div class="ttdoc">Renderable 2d rectangle shape.</div><div class="ttdef"><b>Definition:</b> <a href="a00341_source.html#l00016">Rectangle.hpp:16</a></div></div>
+<div class="ttc" id="aa03372_html"><div class="ttname"><a href="a03372.html">bl::gui::defcoms::SeparatorComponent</a></div><div class="ttdoc">Default component type for Separator elements.</div><div class="ttdef"><b>Definition:</b> <a href="a00545_source.html#l00018">SeparatorComponent.hpp:18</a></div></div>
+<div class="ttc" id="aa03372_html_a2f746017be463e4dda4d50e7c1604d25"><div class="ttname"><a href="a03372.html#a2f746017be463e4dda4d50e7c1604d25">bl::gui::defcoms::SeparatorComponent::doSceneAdd</a></div><div class="ttdeci">virtual void doSceneAdd(rc::Overlay *overlay) override</div><div class="ttdoc">Adds the component to the scene.</div><div class="ttdef"><b>Definition:</b> <a href="a01754_source.html#l00032">SeparatorComponent.cpp:32</a></div></div>
+<div class="ttc" id="aa03372_html_a41cac26a1d0a7b42dc4272dae5a2d99a"><div class="ttname"><a href="a03372.html#a41cac26a1d0a7b42dc4272dae5a2d99a">bl::gui::defcoms::SeparatorComponent::doCreate</a></div><div class="ttdeci">virtual void doCreate(engine::Engine &amp;engine, rdr::Renderer &amp;renderer) override</div><div class="ttdoc">Creates the component.</div><div class="ttdef"><b>Definition:</b> <a href="a01754_source.html#l00028">SeparatorComponent.cpp:28</a></div></div>
+<div class="ttc" id="aa03372_html_a70a38c8f8d9fee0e15aa752af907332d"><div class="ttname"><a href="a03372.html#a70a38c8f8d9fee0e15aa752af907332d">bl::gui::defcoms::SeparatorComponent::getEntity</a></div><div class="ttdeci">virtual ecs::Entity getEntity() const override</div><div class="ttdoc">Derived classes should return the ECS entity that children should parent themselves to.</div><div class="ttdef"><b>Definition:</b> <a href="a01754_source.html#l00026">SeparatorComponent.cpp:26</a></div></div>
+<div class="ttc" id="aa03372_html_a7835f79dd11978061e2b29b4710484a2"><div class="ttname"><a href="a03372.html#a7835f79dd11978061e2b29b4710484a2">bl::gui::defcoms::SeparatorComponent::~SeparatorComponent</a></div><div class="ttdeci">virtual ~SeparatorComponent()=default</div><div class="ttdoc">Destroys the component.</div></div>
+<div class="ttc" id="aa03372_html_a9cfe190ebb6d7abd364088106fdafdde"><div class="ttname"><a href="a03372.html#a9cfe190ebb6d7abd364088106fdafdde">bl::gui::defcoms::SeparatorComponent::setVisible</a></div><div class="ttdeci">virtual void setVisible(bool visible) override</div><div class="ttdoc">Toggle the visibility of the UI component.</div><div class="ttdef"><b>Definition:</b> <a href="a01754_source.html#l00015">SeparatorComponent.cpp:15</a></div></div>
+<div class="ttc" id="aa03372_html_aa35c780c3d255724ea6ff4fa4a96e160"><div class="ttname"><a href="a03372.html#aa35c780c3d255724ea6ff4fa4a96e160">bl::gui::defcoms::SeparatorComponent::SeparatorComponent</a></div><div class="ttdeci">SeparatorComponent()</div><div class="ttdoc">Creates the component.</div><div class="ttdef"><b>Definition:</b> <a href="a01754_source.html#l00012">SeparatorComponent.cpp:12</a></div></div>
+<div class="ttc" id="aa03372_html_acf01c9e31e75154ffd1ebee709cd3579"><div class="ttname"><a href="a03372.html#acf01c9e31e75154ffd1ebee709cd3579">bl::gui::defcoms::SeparatorComponent::doSceneRemove</a></div><div class="ttdeci">virtual void doSceneRemove() override</div><div class="ttdoc">Removes the component from the scene.</div><div class="ttdef"><b>Definition:</b> <a href="a01754_source.html#l00036">SeparatorComponent.cpp:36</a></div></div>
+<div class="ttc" id="aa03372_html_ad27ec262a9b6154e867b0ef4022838bc"><div class="ttname"><a href="a03372.html#ad27ec262a9b6154e867b0ef4022838bc">bl::gui::defcoms::SeparatorComponent::handleAcquisition</a></div><div class="ttdeci">virtual void handleAcquisition() override</div><div class="ttdoc">Configures the component for the new acquisition.</div><div class="ttdef"><b>Definition:</b> <a href="a01754_source.html#l00038">SeparatorComponent.cpp:38</a></div></div>
+<div class="ttc" id="aa03372_html_adb509a3023ee7c8d74901bd4e12e299d"><div class="ttname"><a href="a03372.html#adb509a3023ee7c8d74901bd4e12e299d">bl::gui::defcoms::SeparatorComponent::onRenderSettingChange</a></div><div class="ttdeci">virtual void onRenderSettingChange() override</div><div class="ttdoc">Called when the owning elements render settings are changed.</div><div class="ttdef"><b>Definition:</b> <a href="a01754_source.html#l00021">SeparatorComponent.cpp:21</a></div></div>
+<div class="ttc" id="aa03372_html_adf33da16a6722447eebc9fcda6076837"><div class="ttname"><a href="a03372.html#adf33da16a6722447eebc9fcda6076837">bl::gui::defcoms::SeparatorComponent::onElementUpdated</a></div><div class="ttdeci">virtual void onElementUpdated() override</div><div class="ttdoc">Called when element state changes. This is element specific, but can mean toggle state,...</div><div class="ttdef"><b>Definition:</b> <a href="a01754_source.html#l00017">SeparatorComponent.cpp:17</a></div></div>
+<div class="ttc" id="aa03372_html_af413c0c94221d22548d3f89246f65494"><div class="ttname"><a href="a03372.html#af413c0c94221d22548d3f89246f65494">bl::gui::defcoms::SeparatorComponent::handleMove</a></div><div class="ttdeci">virtual void handleMove() override</div><div class="ttdoc">Positions the component when it should move.</div><div class="ttdef"><b>Definition:</b> <a href="a01754_source.html#l00043">SeparatorComponent.cpp:43</a></div></div>
+<div class="ttc" id="aa03392_html"><div class="ttname"><a href="a03392.html">bl::gui::rdr::Component</a></div><div class="ttdoc">Base class for renderer components. Each GUI element owns a handle to a component owned by the render...</div><div class="ttdef"><b>Definition:</b> <a href="a00560_source.html#l00031">Component.hpp:31</a></div></div>
+<div class="ttc" id="aa03432_html"><div class="ttname"><a href="a03432.html">bl::gui::rdr::Renderer</a></div><div class="ttdoc">Top level GUI renderer. Manages components for elements. Behavior can be controlled by providing a di...</div><div class="ttdef"><b>Definition:</b> <a href="a06277_source.html#l00027">Renderer.hpp:27</a></div></div>
+<div class="ttc" id="aa04000_html"><div class="ttname"><a href="a04000.html">bl::rc::Overlay</a></div><div class="ttdoc">Special type of scene specialized for 2d overlays with fixed cameras. Objects are organized into a tr...</div><div class="ttdef"><b>Definition:</b> <a href="a00959_source.html#l00036">Overlay.hpp:39</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 2 2023 04:00:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 18 2024 18:32:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

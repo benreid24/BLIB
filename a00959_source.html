@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Vulkan/DescriptorPool.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Overlays/Overlay.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,126 +66,141 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_49b99cfd015d92f767de1d8dec868906.html">Vulkan</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_f985e6d9d3c728bc93d2b173ef2ebe49.html">Overlays</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">DescriptorPool.hpp</div>  </div>
+<div class="title">Overlay.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00959.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_VULKAN_DESCRIPTORPOOL_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_VULKAN_DESCRIPTORPOOL_HPP</span></div>
+<a href="a00959.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_RENDER_OVERLAYS_OVERLAY_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_RENDER_OVERLAYS_OVERLAY_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05770.html">BLIB/Render/Config.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01265.html">BLIB/Vulkan.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;array&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;cstdint&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;list&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;mutex&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02100.html">bl</a></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span>rc</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">namespace </span>vk</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;{</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">struct </span>VulkanState;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="a03841.html">   27</a></span>&#160;<span class="keyword">class </span><a class="code" href="a03841.html">DescriptorPool</a> {</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keyword">struct </span>Allocation;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00176.html">BLIB/ECS/Entity.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00182.html">BLIB/Events.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00839.html">BLIB/Render/Descriptors/DescriptorSetFactoryCache.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00842.html">BLIB/Render/Descriptors/DescriptorSetInstanceCache.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00866.html">BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00962.html">BLIB/Render/Overlays/OverlayObject.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01025.html">BLIB/Render/Scenes/Scene.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01037.html">BLIB/Render/Scenes/SceneObjectECSAdaptor.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01307.html">BLIB/Systems/OverlayScalerSystem.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a01349.html">BLIB/Util/IdAllocator.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;limits&gt;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02284.html">bl</a></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;{</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">namespace </span>engine</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;{</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">class </span>Engine;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;}</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">namespace </span>rc</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;{</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">class </span>Renderer;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">class </span>Observer;</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="a03841.html#a4b656e9650a98c63bb60869810236291">   31</a></span>&#160;    <span class="keyword">static</span> constexpr std::size_t <a class="code" href="a03841.html#a4b656e9650a98c63bb60869810236291">BindingTypeCount</a> = VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT + 1;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="a03845.html">   36</a></span>&#160;    <span class="keyword">struct </span><a class="code" href="a03845.html">SetBindingInfo</a> {</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <a class="code" href="a03845.html#a037e4c431ff1ae1591eb12cdf79d1d06">SetBindingInfo</a>();</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="a03845.html#ab972da11e25938a0637ebf832a6b9bd7">   39</a></span>&#160;        std::array&lt;VkDescriptorSetLayoutBinding, Config::MaxDescriptorSets&gt; <a class="code" href="a03845.html#ab972da11e25938a0637ebf832a6b9bd7">bindings</a>;</div>
-<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="a03845.html#ad44b120901116ab5216ddfdc35d30d95">   40</a></span>&#160;        std::uint32_t <a class="code" href="a03845.html#ad44b120901116ab5216ddfdc35d30d95">bindingCount</a>;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    };</div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="a04000.html">   36</a></span>&#160;<span class="keyword">class </span><a class="code" href="a04000.html">Overlay</a></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;: <span class="keyword">public</span> <a class="code" href="a04128.html">Scene</a></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;, <span class="keyword">public</span> <a class="code" href="a02908.html">bl::event::Listener</a>&lt;ecs::event::EntityParentSet, ecs::event::EntityParentRemoved,</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;                             ecs::event::ComponentRemoved&lt;ovy::OverlayObject&gt;&gt; {</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="a04000.html#a9b2c696174039b223dfed6f1f148639d">   41</a></span>&#160;    <span class="keyword">static</span> constexpr std::uint32_t <a class="code" href="a04000.html#a9b2c696174039b223dfed6f1f148639d">NoParent</a> = std::numeric_limits&lt;std::uint32_t&gt;::max();</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="a03841.html#a7bb5a0efe4177857484ecb6ae66c75dd">   44</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a03841.html#a7bb5a0efe4177857484ecb6ae66c75dd">AllocationHandle</a> = std::list&lt;Allocation&gt;::iterator;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    VkDescriptorSetLayout <a class="code" href="a03841.html#a5a206bab1969632a78bca5e79532eb70">createLayout</a>(<span class="keyword">const</span> <a class="code" href="a03845.html">SetBindingInfo</a>&amp; allocInfo);</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <a class="code" href="a03841.html#a7bb5a0efe4177857484ecb6ae66c75dd">AllocationHandle</a> <a class="code" href="a03841.html#aa1e76e7083828e104e5014691e688a28">allocate</a>(VkDescriptorSetLayout layout, VkDescriptorSet* sets,</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                              std::size_t setCount, <span class="keywordtype">bool</span> dedicatedPool = <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a03841.html#ac2810fc740edbfef995ff375e1b5a14e">release</a>(<a class="code" href="a03841.html#a7bb5a0efe4177857484ecb6ae66c75dd">AllocationHandle</a> handle, <span class="keyword">const</span> VkDescriptorSet* sets = <span class="keyword">nullptr</span>);</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <a class="code" href="a04000.html#a7d7dae291dbc5057ff45f35fbcd5c685">Overlay</a>(<a class="code" href="a02812.html">engine::Engine</a>&amp; engine);</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a04000.html#a341424341b9e578bea91b39480787536">~Overlay</a>();</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a04000.html#a71f4df3107e9cbbcd50c1ef315f05ea1">renderScene</a>(<a class="code" href="a04168.html">scene::SceneRenderContext</a>&amp; context) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a04144.html">scene::SceneObject</a>* <a class="code" href="a04000.html#a75c75bc5c48e77bf06960487c490c2ef">doAdd</a>(<a class="code" href="a02712.html">ecs::Entity</a> entity, <a class="code" href="a03732.html">rcom::DrawableBase</a>&amp; <span class="keywordtype">object</span>,</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                                      <a class="code" href="a02270.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a> updateFreq) <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keyword">struct </span>Subpool {</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        Subpool(<a class="code" href="a03953.html">VulkanState</a>&amp; vulkanState);</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        Subpool(<a class="code" href="a03953.html">VulkanState</a>&amp; vulkanState, <span class="keyword">const</span> <a class="code" href="a03845.html">SetBindingInfo</a>&amp; allocInfo, std::size_t setCount);</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        ~Subpool();</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        <span class="keywordtype">bool</span> canAllocate(<span class="keyword">const</span> <a class="code" href="a03845.html">SetBindingInfo</a>&amp; allocInfo, std::size_t setCount) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="a03841.html#aa1e76e7083828e104e5014691e688a28">allocate</a>(<span class="keyword">const</span> <a class="code" href="a03845.html">SetBindingInfo</a>&amp; allocInfo, VkDescriptorSetLayout layout,</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                      VkDescriptorSet* sets, std::size_t setCount);</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="a03841.html#ac2810fc740edbfef995ff375e1b5a14e">release</a>(<span class="keyword">const</span> <a class="code" href="a03845.html">SetBindingInfo</a>&amp; allocInfo, <span class="keyword">const</span> VkDescriptorSet* sets,</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;                     std::size_t setCount);</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        <a class="code" href="a03953.html">VulkanState</a>&amp; vulkanState;</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        VkDescriptorPool pool;</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> freeSets;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        std::array&lt;unsigned int, BindingTypeCount&gt; available;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    };</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keyword">struct </span>Allocation {</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        std::list&lt;Subpool&gt;::iterator pool;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        <span class="keywordtype">bool</span> dedicated;</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        VkDescriptorSetLayout layout;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        std::size_t setCount;</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        <span class="keyword">const</span> VkDescriptorSet* sets;</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        Allocation(<span class="keywordtype">bool</span> ded, VkDescriptorSetLayout ly, std::size_t set, <span class="keyword">const</span> VkDescriptorSet* sets)</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        : dedicated(ded)</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        , layout(ly)</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        , setCount(set)</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        , sets(sets) {}</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    };</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <a class="code" href="a03841.html#a88be4fe9fe4217b2dc1f69e6888906f6">VulkanState</a>&amp; vulkanState;</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    std::mutex mutex;</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    std::unordered_map&lt;VkDescriptorSetLayout, SetBindingInfo&gt; layoutMap;</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    std::list&lt;Subpool&gt; pools;</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    std::list&lt;Allocation&gt; allocations;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a04000.html#a8454f4e84b86c02412dd8f7f7879157f">doObjectRemoval</a>(<a class="code" href="a04144.html">scene::SceneObject</a>* <span class="keywordtype">object</span>, std::uint32_t pipeline) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a04000.html#ac7f49fdba3becc74f5d668ce866cc92f">doBatchChange</a>(<span class="keyword">const</span> <a class="code" href="a04132.html">BatchChange</a>&amp; change, std::uint32_t ogPipeline) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="keyword">virtual</span> std::unique_ptr&lt;cam::Camera&gt; <a class="code" href="a04000.html#a8409763260e9d617ab38a7dafe7d5c3e">createDefaultCamera</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
+<div class="line"><a name="l00100"></a><span class="lineno"><a class="line" href="a04000.html#a54cb8f23d898300520b6d8c7e96f1270">  100</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a04000.html#a54cb8f23d898300520b6d8c7e96f1270">setDefaultNearAndFarPlanes</a>(<a class="code" href="a02476.html">cam::Camera</a>&amp;)<span class="keyword"> const override</span>{};</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <a class="code" href="a02812.html">engine::Engine</a>&amp; engine;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <a class="code" href="a02688.html">ecs::ComponentPool&lt;ovy::OverlayObject&gt;</a>* ecsPool;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <a class="code" href="a04148.html">scene::SceneObjectECSAdaptor&lt;ovy::OverlayObject&gt;</a> objects;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <a class="code" href="a04904.html">sys::OverlayScalerSystem</a>&amp; scaler;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    std::vector&lt;ovy::OverlayObject*&gt; roots;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keywordtype">bool</span> needRefreshAll;</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    std::vector&lt;ovy::OverlayObject*&gt; renderStack;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    VkViewport cachedParentViewport;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    glm::u32vec2 cachedTargetSize;</div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    DescriptorPool(<a class="code" href="a03841.html#a88be4fe9fe4217b2dc1f69e6888906f6">VulkanState</a>&amp; vulkanState);</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <span class="keywordtype">void</span> init();</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <span class="keywordtype">void</span> cleanup();</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
-<div class="line"><a name="l00118"></a><span class="lineno"><a class="line" href="a03841.html#a88be4fe9fe4217b2dc1f69e6888906f6">  118</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">struct </span><a class="code" href="a03953.html">VulkanState</a>;</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;};</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keywordtype">void</span> refreshAll();</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <span class="keywordtype">void</span> sortRoots();</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> observe(<span class="keyword">const</span> <a class="code" href="a02740.html">ecs::event::EntityParentSet</a>&amp; event) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> observe(<span class="keyword">const</span> <a class="code" href="a02744.html">ecs::event::EntityParentRemoved</a>&amp; event) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> observe(<span class="keyword">const</span> <a class="code" href="a02736.html">ecs::event::ComponentRemoved&lt;ovy::OverlayObject&gt;</a>&amp; event) <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;} <span class="comment">// namespace vk</span></div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;} <span class="comment">// namespace rc</span></div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160; </div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01265_html"><div class="ttname"><a href="a01265.html">Vulkan.hpp</a></div></div>
-<div class="ttc" id="aa02100_html"><div class="ttname"><a href="a02100.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03841_html"><div class="ttname"><a href="a03841.html">bl::rc::vk::DescriptorPool</a></div><div class="ttdoc">Utility class to manage descriptor set allocation. Maintains a list of descriptor pools and automatic...</div><div class="ttdef"><b>Definition:</b> <a href="a00959_source.html#l00027">DescriptorPool.hpp:27</a></div></div>
-<div class="ttc" id="aa03841_html_a4b656e9650a98c63bb60869810236291"><div class="ttname"><a href="a03841.html#a4b656e9650a98c63bb60869810236291">bl::rc::vk::DescriptorPool::BindingTypeCount</a></div><div class="ttdeci">static constexpr std::size_t BindingTypeCount</div><div class="ttdef"><b>Definition:</b> <a href="a00959_source.html#l00031">DescriptorPool.hpp:31</a></div></div>
-<div class="ttc" id="aa03841_html_a5a206bab1969632a78bca5e79532eb70"><div class="ttname"><a href="a03841.html#a5a206bab1969632a78bca5e79532eb70">bl::rc::vk::DescriptorPool::createLayout</a></div><div class="ttdeci">VkDescriptorSetLayout createLayout(const SetBindingInfo &amp;allocInfo)</div><div class="ttdoc">Creates a descriptor set layout from the set allocation info.</div><div class="ttdef"><b>Definition:</b> <a href="a01865_source.html#l00045">DescriptorPool.cpp:45</a></div></div>
-<div class="ttc" id="aa03841_html_a7bb5a0efe4177857484ecb6ae66c75dd"><div class="ttname"><a href="a03841.html#a7bb5a0efe4177857484ecb6ae66c75dd">bl::rc::vk::DescriptorPool::AllocationHandle</a></div><div class="ttdeci">std::list&lt; Allocation &gt;::iterator AllocationHandle</div><div class="ttdoc">Handle to an allocation from the pool.</div><div class="ttdef"><b>Definition:</b> <a href="a00959_source.html#l00044">DescriptorPool.hpp:44</a></div></div>
-<div class="ttc" id="aa03841_html_a88be4fe9fe4217b2dc1f69e6888906f6"><div class="ttname"><a href="a03841.html#a88be4fe9fe4217b2dc1f69e6888906f6">bl::rc::vk::DescriptorPool::VulkanState</a></div><div class="ttdeci">friend struct VulkanState</div><div class="ttdef"><b>Definition:</b> <a href="a00959_source.html#l00118">DescriptorPool.hpp:118</a></div></div>
-<div class="ttc" id="aa03841_html_aa1e76e7083828e104e5014691e688a28"><div class="ttname"><a href="a03841.html#aa1e76e7083828e104e5014691e688a28">bl::rc::vk::DescriptorPool::allocate</a></div><div class="ttdeci">AllocationHandle allocate(VkDescriptorSetLayout layout, VkDescriptorSet *sets, std::size_t setCount, bool dedicatedPool=false)</div><div class="ttdoc">Allocates sets from the pool and returns a handle that can be used to release the allocated sets once...</div><div class="ttdef"><b>Definition:</b> <a href="a01865_source.html#l00062">DescriptorPool.cpp:62</a></div></div>
-<div class="ttc" id="aa03841_html_ac2810fc740edbfef995ff375e1b5a14e"><div class="ttname"><a href="a03841.html#ac2810fc740edbfef995ff375e1b5a14e">bl::rc::vk::DescriptorPool::release</a></div><div class="ttdeci">void release(AllocationHandle handle, const VkDescriptorSet *sets=nullptr)</div><div class="ttdoc">Releases descriptor sets allocated from this pool.</div><div class="ttdef"><b>Definition:</b> <a href="a01865_source.html#l00107">DescriptorPool.cpp:107</a></div></div>
-<div class="ttc" id="aa03845_html"><div class="ttname"><a href="a03845.html">bl::rc::vk::DescriptorPool::SetBindingInfo</a></div><div class="ttdoc">Struct containing the data required to create descriptor sets and layouts.</div><div class="ttdef"><b>Definition:</b> <a href="a00959_source.html#l00036">DescriptorPool.hpp:36</a></div></div>
-<div class="ttc" id="aa03845_html_a037e4c431ff1ae1591eb12cdf79d1d06"><div class="ttname"><a href="a03845.html#a037e4c431ff1ae1591eb12cdf79d1d06">bl::rc::vk::DescriptorPool::SetBindingInfo::SetBindingInfo</a></div><div class="ttdeci">SetBindingInfo()</div><div class="ttdef"><b>Definition:</b> <a href="a01865_source.html#l00030">DescriptorPool.cpp:30</a></div></div>
-<div class="ttc" id="aa03845_html_ab972da11e25938a0637ebf832a6b9bd7"><div class="ttname"><a href="a03845.html#ab972da11e25938a0637ebf832a6b9bd7">bl::rc::vk::DescriptorPool::SetBindingInfo::bindings</a></div><div class="ttdeci">std::array&lt; VkDescriptorSetLayoutBinding, Config::MaxDescriptorSets &gt; bindings</div><div class="ttdef"><b>Definition:</b> <a href="a00959_source.html#l00039">DescriptorPool.hpp:39</a></div></div>
-<div class="ttc" id="aa03845_html_ad44b120901116ab5216ddfdc35d30d95"><div class="ttname"><a href="a03845.html#ad44b120901116ab5216ddfdc35d30d95">bl::rc::vk::DescriptorPool::SetBindingInfo::bindingCount</a></div><div class="ttdeci">std::uint32_t bindingCount</div><div class="ttdef"><b>Definition:</b> <a href="a00959_source.html#l00040">DescriptorPool.hpp:40</a></div></div>
-<div class="ttc" id="aa03953_html"><div class="ttname"><a href="a03953.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition:</b> <a href="a01013_source.html#l00039">VulkanState.hpp:39</a></div></div>
-<div class="ttc" id="aa05770_html"><div class="ttname"><a href="a05770.html">Config.hpp</a></div></div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00122"></a><span class="lineno"><a class="line" href="a04000.html#afbb15852c78e1a43aed96b8ccc399c5b">  122</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a04124.html">sys::DrawableSystem</a>;</div>
+<div class="line"><a name="l00123"></a><span class="lineno"><a class="line" href="a04000.html#a4a6a3be2932b640ceb285770c5346ff3">  123</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a04904.html">sys::OverlayScalerSystem</a>;</div>
+<div class="line"><a name="l00124"></a><span class="lineno"><a class="line" href="a04000.html#a1bc1613ca5d6d0e8b2fbce5ef15dd38f">  124</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a03996.html">Observer</a>;</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;};</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160; </div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;} <span class="comment">// namespace rc</span></div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160; </div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00176_html"><div class="ttname"><a href="a00176.html">Entity.hpp</a></div></div>
+<div class="ttc" id="aa00182_html"><div class="ttname"><a href="a00182.html">Events.hpp</a></div></div>
+<div class="ttc" id="aa00839_html"><div class="ttname"><a href="a00839.html">DescriptorSetFactoryCache.hpp</a></div></div>
+<div class="ttc" id="aa00842_html"><div class="ttname"><a href="a00842.html">DescriptorSetInstanceCache.hpp</a></div></div>
+<div class="ttc" id="aa00866_html"><div class="ttname"><a href="a00866.html">SceneDescriptorSetInstance.hpp</a></div></div>
+<div class="ttc" id="aa00962_html"><div class="ttname"><a href="a00962.html">OverlayObject.hpp</a></div></div>
+<div class="ttc" id="aa01025_html"><div class="ttname"><a href="a01025.html">Scene.hpp</a></div></div>
+<div class="ttc" id="aa01037_html"><div class="ttname"><a href="a01037.html">SceneObjectECSAdaptor.hpp</a></div></div>
+<div class="ttc" id="aa01307_html"><div class="ttname"><a href="a01307.html">OverlayScalerSystem.hpp</a></div></div>
+<div class="ttc" id="aa01349_html"><div class="ttname"><a href="a01349.html">IdAllocator.hpp</a></div></div>
+<div class="ttc" id="aa02270_html_ga305dcc5dda3e28bd193ab31444664848"><div class="ttname"><a href="a02270.html#ga305dcc5dda3e28bd193ab31444664848">bl::rc::UpdateSpeed</a></div><div class="ttdeci">UpdateSpeed</div><div class="ttdoc">Enum representing how frequently an object is expected to be updated.</div><div class="ttdef"><b>Definition:</b> <a href="a01064_source.html#l00015">UpdateSpeed.hpp:15</a></div></div>
+<div class="ttc" id="aa02284_html"><div class="ttname"><a href="a02284.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02476_html"><div class="ttname"><a href="a02476.html">bl::cam::Camera</a></div><div class="ttdoc">Base class for all cameras.</div><div class="ttdef"><b>Definition:</b> <a href="a00047_source.html#l00017">Camera.hpp:17</a></div></div>
+<div class="ttc" id="aa02688_html"><div class="ttname"><a href="a02688.html">bl::ecs::ComponentPool</a></div><div class="ttdoc">Provides storage and management for components in the ECS. Used internally in the Registry.</div><div class="ttdef"><b>Definition:</b> <a href="a00164_source.html#l00070">ComponentPool.hpp:70</a></div></div>
+<div class="ttc" id="aa02712_html"><div class="ttname"><a href="a02712.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition:</b> <a href="a00176_source.html#l00024">Entity.hpp:24</a></div></div>
+<div class="ttc" id="aa02736_html"><div class="ttname"><a href="a02736.html">bl::ecs::event::ComponentRemoved</a></div><div class="ttdoc">Fired right before a component is removed from an entity.</div><div class="ttdef"><b>Definition:</b> <a href="a06220_source.html#l00070">Events.hpp:70</a></div></div>
+<div class="ttc" id="aa02740_html"><div class="ttname"><a href="a02740.html">bl::ecs::event::EntityParentSet</a></div><div class="ttdoc">Fired when an entity has a parent set.</div><div class="ttdef"><b>Definition:</b> <a href="a06220_source.html#l00093">Events.hpp:93</a></div></div>
+<div class="ttc" id="aa02744_html"><div class="ttname"><a href="a02744.html">bl::ecs::event::EntityParentRemoved</a></div><div class="ttdoc">Fired when an entity's parent is removed.</div><div class="ttdef"><b>Definition:</b> <a href="a06220_source.html#l00116">Events.hpp:116</a></div></div>
+<div class="ttc" id="aa02812_html"><div class="ttname"><a href="a02812.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a06232_source.html#l00033">Engine.hpp:33</a></div></div>
+<div class="ttc" id="aa02908_html"><div class="ttname"><a href="a02908.html">bl::event::Listener</a></div><div class="ttdoc">Listener of multiple event types. Listeners should inherit this class with the types of events they w...</div><div class="ttdef"><b>Definition:</b> <a href="a06256_source.html#l00049">Listener.hpp:49</a></div></div>
+<div class="ttc" id="aa03732_html"><div class="ttname"><a href="a03732.html">bl::rc::rcom::DrawableBase</a></div><div class="ttdoc">Base class for drawable scene components for the ECS. Provides common members.</div><div class="ttdef"><b>Definition:</b> <a href="a00785_source.html#l00038">DrawableBase.hpp:38</a></div></div>
+<div class="ttc" id="aa03996_html"><div class="ttname"><a href="a03996.html">bl::rc::Observer</a></div><div class="ttdoc">Top level class for observers in the renderer. Corresponds to Engine Actors. Each observer may have i...</div><div class="ttdef"><b>Definition:</b> <a href="a00956_source.html#l00020">Observer.hpp:20</a></div></div>
+<div class="ttc" id="aa04000_html"><div class="ttname"><a href="a04000.html">bl::rc::Overlay</a></div><div class="ttdoc">Special type of scene specialized for 2d overlays with fixed cameras. Objects are organized into a tr...</div><div class="ttdef"><b>Definition:</b> <a href="a00959_source.html#l00036">Overlay.hpp:39</a></div></div>
+<div class="ttc" id="aa04000_html_a341424341b9e578bea91b39480787536"><div class="ttname"><a href="a04000.html#a341424341b9e578bea91b39480787536">bl::rc::Overlay::~Overlay</a></div><div class="ttdeci">virtual ~Overlay()</div><div class="ttdoc">Frees resources.</div><div class="ttdef"><b>Definition:</b> <a href="a01940_source.html#l00027">Overlay.cpp:27</a></div></div>
+<div class="ttc" id="aa04000_html_a54cb8f23d898300520b6d8c7e96f1270"><div class="ttname"><a href="a04000.html#a54cb8f23d898300520b6d8c7e96f1270">bl::rc::Overlay::setDefaultNearAndFarPlanes</a></div><div class="ttdeci">virtual void setDefaultNearAndFarPlanes(cam::Camera &amp;) const override</div><div class="ttdoc">Noop.</div><div class="ttdef"><b>Definition:</b> <a href="a00959_source.html#l00100">Overlay.hpp:100</a></div></div>
+<div class="ttc" id="aa04000_html_a71f4df3107e9cbbcd50c1ef315f05ea1"><div class="ttname"><a href="a04000.html#a71f4df3107e9cbbcd50c1ef315f05ea1">bl::rc::Overlay::renderScene</a></div><div class="ttdeci">virtual void renderScene(scene::SceneRenderContext &amp;context) override</div><div class="ttdoc">Derived classes should record render commands in here.</div><div class="ttdef"><b>Definition:</b> <a href="a01940_source.html#l00044">Overlay.cpp:44</a></div></div>
+<div class="ttc" id="aa04000_html_a75c75bc5c48e77bf06960487c490c2ef"><div class="ttname"><a href="a04000.html#a75c75bc5c48e77bf06960487c490c2ef">bl::rc::Overlay::doAdd</a></div><div class="ttdeci">virtual scene::SceneObject * doAdd(ecs::Entity entity, rcom::DrawableBase &amp;object, UpdateSpeed updateFreq) override</div><div class="ttdoc">Called when an object is added to the scene. Derived should create the SceneObject here and initializ...</div><div class="ttdef"><b>Definition:</b> <a href="a01940_source.html#l00099">Overlay.cpp:99</a></div></div>
+<div class="ttc" id="aa04000_html_a7d7dae291dbc5057ff45f35fbcd5c685"><div class="ttname"><a href="a04000.html#a7d7dae291dbc5057ff45f35fbcd5c685">bl::rc::Overlay::Overlay</a></div><div class="ttdeci">Overlay(engine::Engine &amp;engine)</div><div class="ttdoc">Creates a new overlay scene.</div><div class="ttdef"><b>Definition:</b> <a href="a01940_source.html#l00013">Overlay.cpp:13</a></div></div>
+<div class="ttc" id="aa04000_html_a8409763260e9d617ab38a7dafe7d5c3e"><div class="ttname"><a href="a04000.html#a8409763260e9d617ab38a7dafe7d5c3e">bl::rc::Overlay::createDefaultCamera</a></div><div class="ttdeci">virtual std::unique_ptr&lt; cam::Camera &gt; createDefaultCamera() override</div><div class="ttdoc">Creates an overlay camera.</div><div class="ttdef"><b>Definition:</b> <a href="a01940_source.html#l00213">Overlay.cpp:213</a></div></div>
+<div class="ttc" id="aa04000_html_a8454f4e84b86c02412dd8f7f7879157f"><div class="ttname"><a href="a04000.html#a8454f4e84b86c02412dd8f7f7879157f">bl::rc::Overlay::doObjectRemoval</a></div><div class="ttdeci">virtual void doObjectRemoval(scene::SceneObject *object, std::uint32_t pipeline) override</div><div class="ttdoc">Removes the object from the scene. Also removes all children.</div><div class="ttdef"><b>Definition:</b> <a href="a01940_source.html#l00128">Overlay.cpp:128</a></div></div>
+<div class="ttc" id="aa04000_html_a9b2c696174039b223dfed6f1f148639d"><div class="ttname"><a href="a04000.html#a9b2c696174039b223dfed6f1f148639d">bl::rc::Overlay::NoParent</a></div><div class="ttdeci">static constexpr std::uint32_t NoParent</div><div class="ttdef"><b>Definition:</b> <a href="a00959_source.html#l00041">Overlay.hpp:41</a></div></div>
+<div class="ttc" id="aa04000_html_ac7f49fdba3becc74f5d668ce866cc92f"><div class="ttname"><a href="a04000.html#ac7f49fdba3becc74f5d668ce866cc92f">bl::rc::Overlay::doBatchChange</a></div><div class="ttdeci">virtual void doBatchChange(const BatchChange &amp;change, std::uint32_t ogPipeline) override</div><div class="ttdoc">Called by Scene in handleDescriptorSync for objects that need to be re-batched.</div><div class="ttdef"><b>Definition:</b> <a href="a01940_source.html#l00155">Overlay.cpp:155</a></div></div>
+<div class="ttc" id="aa04124_html"><div class="ttname"><a href="a04124.html">bl::sys::DrawableSystem</a></div><div class="ttdef"><b>Definition:</b> <a href="a01025_source.html#l00024">Scene.hpp:24</a></div></div>
+<div class="ttc" id="aa04128_html"><div class="ttname"><a href="a04128.html">bl::rc::Scene</a></div><div class="ttdoc">Base class for all scene types and overlays. Provides common scene logic and object management....</div><div class="ttdef"><b>Definition:</b> <a href="a01025_source.html#l00056">Scene.hpp:56</a></div></div>
+<div class="ttc" id="aa04132_html"><div class="ttname"><a href="a04132.html">bl::rc::Scene::BatchChange</a></div><div class="ttdoc">POD containing data for when an object needs to be re-batched.</div><div class="ttdef"><b>Definition:</b> <a href="a01025_source.html#l00108">Scene.hpp:108</a></div></div>
+<div class="ttc" id="aa04144_html"><div class="ttname"><a href="a04144.html">bl::rc::scene::SceneObject</a></div><div class="ttdoc">Base renderable object. Everything that is rendered will reference an instance of this....</div><div class="ttdef"><b>Definition:</b> <a href="a01034_source.html#l00029">SceneObject.hpp:29</a></div></div>
+<div class="ttc" id="aa04148_html"><div class="ttname"><a href="a04148.html">bl::rc::scene::SceneObjectECSAdaptor</a></div><div class="ttdoc">Similar to SceneObjectStorage, but uses the ECS as underlying storage.</div><div class="ttdef"><b>Definition:</b> <a href="a01037_source.html#l00028">SceneObjectECSAdaptor.hpp:28</a></div></div>
+<div class="ttc" id="aa04168_html"><div class="ttname"><a href="a04168.html">bl::rc::scene::SceneRenderContext</a></div><div class="ttdoc">Container class that holds the required parameters to render a scene and provides methods for descrip...</div><div class="ttdef"><b>Definition:</b> <a href="a01043_source.html#l00025">SceneRenderContext.hpp:25</a></div></div>
+<div class="ttc" id="aa04904_html"><div class="ttname"><a href="a04904.html">bl::sys::OverlayScalerSystem</a></div><div class="ttdoc">System that processes entities that are scaled for overlays. Keeps scales up-to-date as overlay size ...</div><div class="ttdef"><b>Definition:</b> <a href="a01307_source.html#l00027">OverlayScalerSystem.hpp:27</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 2 2023 04:00:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 18 2024 18:32:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Graphics/BatchSprite.hpp Source File</title>
+<title>BLIB: include/BLIB/Graphics/BatchCircle.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,75 +71,44 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">BatchSprite.hpp</div>  </div>
+<div class="title">BatchCircle.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00299.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_GRAPHICS_BATCHSPRITE_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_GRAPHICS_BATCHSPRITE_HPP</span></div>
+<a href="a00299.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BLIB_GRAPHICS_BATCHCIRCLE_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BLIB_GRAPHICS_BATCHCIRCLE_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a05662.html">BLIB/Graphics/BatchedSprites.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02100.html">bl</a></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>gfx</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="a02781.html">   15</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02781.html">BatchSprite</a> {</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <a class="code" href="a02781.html#aef2e11dea37955f849fd53a4a5f55d76">BatchSprite</a>();</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <a class="code" href="a02781.html#aef2e11dea37955f849fd53a4a5f55d76">BatchSprite</a>(<a class="code" href="a02605.html">engine::Engine</a>&amp; engine, <a class="code" href="a02765.html">BatchedSprites</a>&amp; batch, <span class="keyword">const</span> sf::FloatRect&amp; textureSource);</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02781.html#af38ba97c73b88635bb572ad313054730">create</a>(<a class="code" href="a02605.html">engine::Engine</a>&amp; engine, <a class="code" href="a02765.html">BatchedSprites</a>&amp; batch, <span class="keyword">const</span> sf::FloatRect&amp; textureSource);</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00344.html">BLIB/Graphics/Shapes2D/BatchShape2D.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00347.html">BLIB/Graphics/Shapes2D/CircleBase.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a02284.html">bl</a></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>gfx</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a02960.html">   16</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02960.html">BatchCircle</a> : <span class="keyword">public</span> <a class="code" href="a03044.html">s2d::CircleBase</a>&lt;s2d::BatchShape2D&gt; {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <a class="code" href="a02960.html#a608a90b671eb76d697a827b98c989926">BatchCircle</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> pointCount = 300);</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02960.html#afb1bb88aa076118b195162f3fea2b141">create</a>(<a class="code" href="a02812.html">engine::Engine</a>&amp; engine, <a class="code" href="a02964.html">BatchedShapes2D</a>&amp; owner, <span class="keywordtype">float</span> radius);</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;};</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;} <span class="comment">// namespace gfx</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;} <span class="comment">// namespace bl</span></div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02781.html#a49822bff31a9332eb1490c1588f5cce0">updateSourceRect</a>(<span class="keyword">const</span> sf::FloatRect&amp; textureSource);</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02781.html#a9be66da0ac9ef43ad1f9f3938f2421f1">scaleToSize</a>(<span class="keyword">const</span> glm::vec2&amp; size);</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="a02781.html#ae72a2e66e80b86eb8d46c6400988160b">   56</a></span>&#160;    <span class="keyword">const</span> <a class="code" href="a02361.html">com::Transform2D</a>&amp; <a class="code" href="a02781.html#ae72a2e66e80b86eb8d46c6400988160b">getLocalTransform</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> transform; }</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <a class="code" href="a02361.html">com::Transform2D</a>&amp; <a class="code" href="a02781.html#ae72a2e66e80b86eb8d46c6400988160b">getLocalTransform</a>();</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02781.html#a14ac233511f99fe9d02bdd17604f411d">remove</a>();</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a02781.html#ae70cb7e7d33b9b1505266bab48129e07">isCreated</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <a class="code" href="a02605.html">engine::Engine</a>* engine;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <a class="code" href="a02765.html">BatchedSprites</a>* owner;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    sf::FloatRect source;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <a class="code" href="a02361.html">com::Transform2D</a> transform;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <a class="code" href="a03385.html">rc::buf::BatchIndexBuffer::AllocHandle</a> alloc;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordtype">bool</span> dirty;</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <a class="code" href="a02665.html">engine::Systems::TaskHandle</a> updateHandle;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordtype">void</span> markDirty();</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keywordtype">void</span> commit();</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;};</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;} <span class="comment">// namespace gfx</span></div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa02100_html"><div class="ttname"><a href="a02100.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02361_html"><div class="ttname"><a href="a02361.html">bl::com::Transform2D</a></div><div class="ttdoc">Representation of a 2d transform with a depth component to allow the depth buffer to be used when ren...</div><div class="ttdef"><b>Definition:</b> <a href="a05695_source.html#l00018">Transform2D.hpp:20</a></div></div>
-<div class="ttc" id="aa02605_html"><div class="ttname"><a href="a02605.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a05713_source.html#l00032">Engine.hpp:32</a></div></div>
-<div class="ttc" id="aa02665_html"><div class="ttname"><a href="a02665.html">bl::engine::Systems::TaskHandle</a></div><div class="ttdoc">Handle to a task submitted to Systems.</div><div class="ttdef"><b>Definition:</b> <a href="a05722_source.html#l00042">Systems.hpp:42</a></div></div>
-<div class="ttc" id="aa02765_html"><div class="ttname"><a href="a02765.html">bl::gfx::BatchedSprites</a></div><div class="ttdoc">Set of sprites batched into one entity.</div><div class="ttdef"><b>Definition:</b> <a href="a05662_source.html#l00018">BatchedSprites.hpp:21</a></div></div>
-<div class="ttc" id="aa02781_html"><div class="ttname"><a href="a02781.html">bl::gfx::BatchSprite</a></div><div class="ttdoc">A single sprite in a batch of sprites.</div><div class="ttdef"><b>Definition:</b> <a href="a00299_source.html#l00015">BatchSprite.hpp:15</a></div></div>
-<div class="ttc" id="aa02781_html_a14ac233511f99fe9d02bdd17604f411d"><div class="ttname"><a href="a02781.html#a14ac233511f99fe9d02bdd17604f411d">bl::gfx::BatchSprite::remove</a></div><div class="ttdeci">void remove()</div><div class="ttdoc">Removes the sprite from the batch.</div><div class="ttdef"><b>Definition:</b> <a href="a01391_source.html#l00042">BatchSprite.cpp:42</a></div></div>
-<div class="ttc" id="aa02781_html_a49822bff31a9332eb1490c1588f5cce0"><div class="ttname"><a href="a02781.html#a49822bff31a9332eb1490c1588f5cce0">bl::gfx::BatchSprite::updateSourceRect</a></div><div class="ttdeci">void updateSourceRect(const sf::FloatRect &amp;textureSource)</div><div class="ttdoc">Changes the source texture coordinates. Must already be created.</div><div class="ttdef"><b>Definition:</b> <a href="a01391_source.html#l00028">BatchSprite.cpp:28</a></div></div>
-<div class="ttc" id="aa02781_html_a9be66da0ac9ef43ad1f9f3938f2421f1"><div class="ttname"><a href="a02781.html#a9be66da0ac9ef43ad1f9f3938f2421f1">bl::gfx::BatchSprite::scaleToSize</a></div><div class="ttdeci">void scaleToSize(const glm::vec2 &amp;size)</div><div class="ttdoc">Helper method to scale the sprite to the given size in batch coordinates.</div><div class="ttdef"><b>Definition:</b> <a href="a01391_source.html#l00033">BatchSprite.cpp:33</a></div></div>
-<div class="ttc" id="aa02781_html_ae70cb7e7d33b9b1505266bab48129e07"><div class="ttname"><a href="a02781.html#ae70cb7e7d33b9b1505266bab48129e07">bl::gfx::BatchSprite::isCreated</a></div><div class="ttdeci">bool isCreated() const</div><div class="ttdoc">Returns whether or not the sprite has been created.</div><div class="ttdef"><b>Definition:</b> <a href="a01391_source.html#l00051">BatchSprite.cpp:51</a></div></div>
-<div class="ttc" id="aa02781_html_ae72a2e66e80b86eb8d46c6400988160b"><div class="ttname"><a href="a02781.html#ae72a2e66e80b86eb8d46c6400988160b">bl::gfx::BatchSprite::getLocalTransform</a></div><div class="ttdeci">const com::Transform2D &amp; getLocalTransform() const</div><div class="ttdoc">Returns the local transform of the sprite. Determines the positions of the vertices within the batch.</div><div class="ttdef"><b>Definition:</b> <a href="a00299_source.html#l00056">BatchSprite.hpp:56</a></div></div>
-<div class="ttc" id="aa02781_html_aef2e11dea37955f849fd53a4a5f55d76"><div class="ttname"><a href="a02781.html#aef2e11dea37955f849fd53a4a5f55d76">bl::gfx::BatchSprite::BatchSprite</a></div><div class="ttdeci">BatchSprite()</div><div class="ttdoc">Does nothing.</div><div class="ttdef"><b>Definition:</b> <a href="a01391_source.html#l00009">BatchSprite.cpp:9</a></div></div>
-<div class="ttc" id="aa02781_html_af38ba97c73b88635bb572ad313054730"><div class="ttname"><a href="a02781.html#af38ba97c73b88635bb572ad313054730">bl::gfx::BatchSprite::create</a></div><div class="ttdeci">void create(engine::Engine &amp;engine, BatchedSprites &amp;batch, const sf::FloatRect &amp;textureSource)</div><div class="ttdoc">Creates the sprite in the given batch.</div><div class="ttdef"><b>Definition:</b> <a href="a01391_source.html#l00020">BatchSprite.cpp:20</a></div></div>
-<div class="ttc" id="aa03385_html"><div class="ttname"><a href="a03385.html">bl::rc::buf::BatchIndexBufferT::AllocHandle</a></div><div class="ttdoc">Handle to an allocation from the index buffer.</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00040">BatchIndexBuffer.hpp:40</a></div></div>
-<div class="ttc" id="aa05662_html"><div class="ttname"><a href="a05662.html">BatchedSprites.hpp</a></div></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00344_html"><div class="ttname"><a href="a00344.html">BatchShape2D.hpp</a></div></div>
+<div class="ttc" id="aa00347_html"><div class="ttname"><a href="a00347.html">CircleBase.hpp</a></div></div>
+<div class="ttc" id="aa02284_html"><div class="ttname"><a href="a02284.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition:</b> <a href="a00005_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa02812_html"><div class="ttname"><a href="a02812.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition:</b> <a href="a06232_source.html#l00033">Engine.hpp:33</a></div></div>
+<div class="ttc" id="aa02960_html"><div class="ttname"><a href="a02960.html">bl::gfx::BatchCircle</a></div><div class="ttdoc">Basic circle that can be rendered in scenes as part of shape batches.</div><div class="ttdef"><b>Definition:</b> <a href="a00299_source.html#l00016">BatchCircle.hpp:16</a></div></div>
+<div class="ttc" id="aa02960_html_a608a90b671eb76d697a827b98c989926"><div class="ttname"><a href="a02960.html#a608a90b671eb76d697a827b98c989926">bl::gfx::BatchCircle::BatchCircle</a></div><div class="ttdeci">BatchCircle(unsigned int pointCount=300)</div><div class="ttdoc">Creates the circle with the given point count.</div><div class="ttdef"><b>Definition:</b> <a href="a01523_source.html#l00007">BatchCircle.cpp:7</a></div></div>
+<div class="ttc" id="aa02960_html_afb1bb88aa076118b195162f3fea2b141"><div class="ttname"><a href="a02960.html#afb1bb88aa076118b195162f3fea2b141">bl::gfx::BatchCircle::create</a></div><div class="ttdeci">void create(engine::Engine &amp;engine, BatchedShapes2D &amp;owner, float radius)</div><div class="ttdoc">Creates the circle entity and components.</div><div class="ttdef"><b>Definition:</b> <a href="a01523_source.html#l00010">BatchCircle.cpp:10</a></div></div>
+<div class="ttc" id="aa02964_html"><div class="ttname"><a href="a02964.html">bl::gfx::BatchedShapes2D</a></div><div class="ttdoc">Drawable for a collection of batched 2d shapes. Create one of these and use with multiple BatchedCirc...</div><div class="ttdef"><b>Definition:</b> <a href="a06163_source.html#l00020">BatchedShapes2D.hpp:22</a></div></div>
+<div class="ttc" id="aa03044_html"><div class="ttname"><a href="a03044.html">bl::gfx::s2d::CircleBase</a></div><div class="ttdoc">Intermediate base class for circles. Use gfx::CircleBase or gfx::BatchedCircle.</div><div class="ttdef"><b>Definition:</b> <a href="a00347_source.html#l00022">CircleBase.hpp:22</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 2 2023 04:00:54 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 18 2024 18:32:55 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>
