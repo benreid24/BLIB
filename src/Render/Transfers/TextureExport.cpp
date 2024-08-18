@@ -132,7 +132,9 @@ void TextureExport::performCopy() {
     // blit if supported otherwise copy
     if ((srcFormatProps.optimalTilingFeatures & VK_FORMAT_FEATURE_BLIT_SRC_BIT) != 0 &&
         (convFormatProps.linearTilingFeatures & VK_FORMAT_FEATURE_BLIT_DST_BIT) != 0) {
-        const VkOffset3D blitSize{srcExtent.width, srcExtent.height, 1};
+        const VkOffset3D blitSize{static_cast<std::int32_t>(srcExtent.width),
+                                  static_cast<std::int32_t>(srcExtent.height),
+                                  1};
         VkImageBlit imageBlitRegion{};
         imageBlitRegion.srcSubresource.aspectMask = srcAspect;
         imageBlitRegion.srcSubresource.layerCount = 1;

@@ -145,8 +145,7 @@ bool AnimationData::doLoad(serial::binary::InputStream& input, const std::string
 
     if (!input.read(loop)) return false;
 
-    std::uint32_t shardIndex = 0;
-    std::uint16_t nFrames    = 0;
+    std::uint16_t nFrames = 0;
     if (!input.read(nFrames)) return false;
     frames.reserve(nFrames);
     for (unsigned int i = 0; i < nFrames; ++i) {
