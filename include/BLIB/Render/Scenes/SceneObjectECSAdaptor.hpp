@@ -36,6 +36,11 @@ public:
     SceneObjectECSAdaptor(ecs::Registry& registry);
 
     /**
+     * @brief Destroys all created components
+     */
+    ~SceneObjectECSAdaptor();
+
+    /**
      * @brief Allocates a new scene object
      *
      * @param updateFreq The update speed of the new object
@@ -114,6 +119,18 @@ private:
 template<typename T>
 SceneObjectECSAdaptor<T>::SceneObjectECSAdaptor(ecs::Registry& registry)
 : registry(registry) {}
+
+template<typename T>
+SceneObjectECSAdaptor<T>::~SceneObjectECSAdaptor() {
+    const auto release = [this](Mapping& m) {
+        for (unsigned int i = 0; i < m.entityMap.size(); ++i) {
+            if (m.indexAlloc.isAllocated(i)) { registry.removeComponent<T>(m.entityMap[i]); }
+        }
+    };
+
+    release(mapStatic);
+    release(mapDynamic);
+}
 
 template<typename T>
 T* SceneObjectECSAdaptor<T>::allocate(UpdateSpeed updateFreq, ecs::Entity entity) {

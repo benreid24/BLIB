@@ -14,7 +14,12 @@ namespace rcom
 DrawableBase::DrawableBase()
 : pipeline(PipelineNotSet)
 , containsTransparency(false)
+, renderComponent(nullptr)
 , hidden(false) {}
+
+DrawableBase::~DrawableBase() {
+    if (renderComponent) { renderComponent->component = nullptr; }
+}
 
 void DrawableBase::syncDrawParamsToScene() {
     if (sceneRef.object) {
@@ -64,11 +69,15 @@ void DrawableBase::addToSceneWithPipeline(ecs::Registry& ecs, ecs::Entity entity
     }
 
     pipeline = pid;
-    ecs.emplaceComponent<com::Rendered>(entity, entity, *this, scene, updateSpeed);
+    renderComponent =
+        ecs.emplaceComponent<com::Rendered>(entity, entity, *this, scene, updateSpeed);
 }
 
 void DrawableBase::removeFromScene(ecs::Registry& ecs, ecs::Entity entity) {
     ecs.removeComponent<com::Rendered>(entity);
+    renderComponent = nullptr;
+    sceneRef.object = nullptr;
+    sceneRef.scene  = nullptr;
 }
 
 } // namespace rcom

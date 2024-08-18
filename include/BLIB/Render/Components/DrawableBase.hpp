@@ -11,6 +11,10 @@
 
 namespace bl
 {
+namespace com
+{
+class Rendered;
+}
 namespace ecs
 {
 class Registry;
@@ -38,6 +42,11 @@ struct DrawableBase {
      * @brief Sets reasonable defaults
      */
     DrawableBase();
+
+    /**
+     * @brief Performs some cleanup
+     */
+    ~DrawableBase();
 
     /**
      * @brief Sets the pipeline to render with. Re-buckets if already in a scene
@@ -146,6 +155,7 @@ protected:
     bool containsTransparency;
 
 private:
+    com::Rendered* renderComponent;
     SceneObjectRef sceneRef;
     bool hidden;
 

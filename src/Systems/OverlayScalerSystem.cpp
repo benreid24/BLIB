@@ -99,13 +99,13 @@ void OverlayScalerSystem::refreshEntity(Result& cset) {
     scaler.dirty            = false;
     scaler.transformVersion = transform.getVersion();
 
-    if (!obj.overlayViewport) { return; }
-
     // dummy entities only get scissor, all else is skipped
     if (cset.entity().flagSet(ecs::Flags::Dummy)) {
         updateScissor(cset, 1.f, 1.f);
         return;
     }
+
+    if (!obj.overlayViewport) { return; }
 
     const VkViewport& viewport = *obj.overlayViewport;
     glm::vec2 parentSize       = cam::OverlayCamera::getOverlayCoordinateSpace();
