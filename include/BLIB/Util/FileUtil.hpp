@@ -17,7 +17,6 @@ namespace util
 struct FileUtil {
     /**
      * @brief Basic struct containing some file info
-     *
      */
     struct FileInfo {
         std::time_t creationTime;
@@ -151,7 +150,7 @@ struct FileUtil {
     static std::vector<std::string> listDirectoryFolders(const std::string& path);
 
     /**
-     * @brief Delets the file from the file system
+     * @brief Deletes the file from the file system
      *
      * @param file Path of the file to delete
      * @return bool True if the file could be deleted, false otherwise
@@ -170,7 +169,6 @@ struct FileUtil {
      * @brief Get the directory to save data to. Handles platform specific paths
      *
      * @param appName The name of the application saving data
-     *
      */
     static std::string getDataDirectory(const std::string& appName);
 

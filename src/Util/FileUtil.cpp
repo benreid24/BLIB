@@ -157,7 +157,7 @@ std::string FileUtil::getDataDirectory(const std::string& appName) {
 
     path = joinPath(path, appName);
     std::filesystem::create_directories(path);
-    return path;
+    return directoryExists(path) ? path : "";
 }
 
 bool FileUtil::readFile(const std::string& filename, std::string& out) {
