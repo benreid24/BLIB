@@ -7,6 +7,7 @@ target_sources(BLIB PUBLIC
     ECS.hpp
     Engine.hpp
     Events.hpp
+    Game.hpp
     Graphics.hpp
     Input.hpp
     Interfaces.hpp
