@@ -36,7 +36,7 @@ public:
      *
      * @param defaultValue The initial and default value for the property
      */
-    Property(T&& defaultValue);
+    Property(const T& defaultValue);
 
     /**
      * @brief Destroys the property
@@ -63,7 +63,7 @@ public:
      *
      * @param newValue The new value of the property
      */
-    void set(T&& newValue);
+    void set(const T& newValue);
 
     /**
      * @brief Reads the value of the property from Configuration. Keeps current value if missing
@@ -83,14 +83,13 @@ private:
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 template<typename T, const char* Path>
-inline Property<T, Path>::Property(T&& dv)
-: initialValue(std::forward<T>(dv)) {
-    currentValue = initialValue;
-}
+inline Property<T, Path>::Property(const T& dv)
+: initialValue(dv)
+, currentValue(dv) {}
 
 template<typename T, const char* Path>
-void Property<T, Path>::set(T&& newValue) {
-    currentValue = std::forward<T>(newValue);
+void Property<T, Path>::set(const T& newValue) {
+    currentValue = newValue;
 }
 
 template<typename T, const char* Path>

@@ -11,6 +11,7 @@ endif()
 project(BLIB C CXX)
 
 set(BLIB_PATH ${CMAKE_CURRENT_SOURCE_DIR})
+set(BLIB_PATH ${CMAKE_CURRENT_SOURCE_DIR} PARENT_SCOPE)
 
 # Determine glslc path
 if(APPLE)
