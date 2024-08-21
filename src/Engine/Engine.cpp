@@ -181,7 +181,7 @@ bool Engine::loop() {
                     break;
 
                 case sf::Event::Resized:
-                    handleResize(event.size, false);
+                    handleResize(event.size, true);
                     break;
 
                 default:

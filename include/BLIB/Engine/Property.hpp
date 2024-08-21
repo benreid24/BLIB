@@ -28,15 +28,16 @@ public:
  * @tparam Path The URI of the property in Configuration
  * @ingroup Engine
  */
-template<typename T, const char* Path>
+template<typename T>
 class Property : public priv::PropertyBase {
 public:
     /**
      * @brief Creates the property
      *
      * @param defaultValue The initial and default value for the property
+     * @param path The configuration path for the property
      */
-    Property(const T& defaultValue);
+    Property(const T& defaultValue, std::string_view path);
 
     /**
      * @brief Destroys the property
@@ -51,7 +52,7 @@ public:
     /**
      * @brief Returns the URI of the property in Configuration
      */
-    const char* configPath() const { return Path; }
+    const char* configPath() const { return path.data(); }
 
     /**
      * @brief Returns the current value of the property
@@ -62,8 +63,9 @@ public:
      * @brief Sets the value of the property
      *
      * @param newValue The new value of the property
+     * @param writeThrough Whether to also set the entry in Configuration
      */
-    void set(const T& newValue);
+    void set(const T& newValue, bool writeThrough = true);
 
     /**
      * @brief Reads the value of the property from Configuration. Keeps current value if missing
@@ -76,35 +78,37 @@ public:
     virtual void syncToConfig() override;
 
 private:
+    std::string_view path;
     T initialValue;
     T currentValue;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-template<typename T, const char* Path>
-inline Property<T, Path>::Property(const T& dv)
-: initialValue(dv)
+template<typename T>
+inline Property<T>::Property(const T& dv, std::string_view path)
+: path(path)
+, initialValue(dv)
 , currentValue(dv) {}
 
-template<typename T, const char* Path>
-void Property<T, Path>::set(const T& newValue) {
+template<typename T>
+void Property<T>::set(const T& newValue, bool wt) {
     currentValue = newValue;
+    if (wt) { syncToConfig(); }
 }
 
-template<typename T, const char* Path>
-void Property<T, Path>::syncFromConfig() {
-    currentValue = Configuration::getOrDefault<T>(Path, currentValue);
+template<typename T>
+void Property<T>::syncFromConfig() {
+    currentValue = Configuration::getOrDefault<T>(path.data(), currentValue);
 }
 
-template<typename T, const char* Path>
-void Property<T, Path>::syncToConfig() {
-    Configuration::set<T>(Path, currentValue);
+template<typename T>
+void Property<T>::syncToConfig() {
+    Configuration::set<T>(path.data(), currentValue);
 }
 
 #define BLIB_PROPERTY(Name, Type, Path, DefaultValue) \
-    static constexpr char _##Name[]          = Path;  \
-    bl::engine::Property<Type, _##Name> Name = bl::engine::Property<Type, _##Name>(DefaultValue);
+    bl::engine::Property<Type> Name = bl::engine::Property<Type>(DefaultValue, Path);
 
 } // namespace engine
 } // namespace bl
