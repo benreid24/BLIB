@@ -2,6 +2,7 @@
 #define BLIB_UTIL_IDALLOCATORUNBOUNDED_HPP
 
 #include <algorithm>
+#include <utility>
 #include <vector>
 
 namespace bl
